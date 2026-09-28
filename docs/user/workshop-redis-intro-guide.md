@@ -220,37 +220,34 @@ It does not itself deliver anything; the live proof above is the trial that
 carries a promotion through to a running cluster, and it is a separate,
 already-run trial, not a rerun of this Guide's own steps.
 
-## 5. Gate the promotion behind an approval
+## 5. Historical Trigger gate example
 
-**What it is.** `cub trigger create` attaches a policy check to a Space. The
-catalog's own `catalog-standard` profile defines `platform/require-approval`
-as a `block`-effect trigger, function `vet-approvedby`, requiring one
-recorded approval before a Mutation is allowed to apply. This base's own
-record already names that profile: policy `catalog-standard`, with
-production adding `human-approval`.
+**What it was in the recorded run.** `cub trigger create` attached a policy
+check to a Space. At that time, the catalog's `catalog-standard` profile
+defined `platform/require-approval` as a `block`-effect `vet-approvedby`
+Trigger. The recorded base named that profile with production adding
+`human-approval`. This is retained historical state, not the current policy
+contract.
 
-**Why Redis behaves this way.** Nothing about Redis specifically demands
-this gate; any Space holding production or system configuration gets it
-under the catalog-standard profile. Attaching it here means the staging
-Space you just created cannot be applied again until a named approver signs
-off on the exact revision.
+**Why the recorded Redis run behaved this way.** Nothing about Redis
+specifically demanded that old gate; the historical profile assigned it to
+production or system configuration. The recorded staging Space could not be
+applied again until a named approver signed off on its then-current revision.
 
-**Predict first.** Before you run it, ask your agent what this will print:
-the exit code, and the one fact that answers the question, here whether a
-publish attempted before any approval is refused or allowed.
-
-**Start `cub server` here.**
+**STOP: historical command only.** Do not run the Trigger command below as a
+current workflow setup. It creates the retained `vet-approvedby` Trigger route;
+it does not create a ChangeWorkflow, ChangeOrder, or attestation prerequisite.
 
 ```sh
 cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space bitnami-redis-25-5-3-default-staging
 ```
 
-**Read the result.** Expect exit `0`, and from then on a publish into that
-Space is blocked until one approval is recorded against the exact revision.
-One gotcha travels with cloning a variant: `cub variant create` copies the
-upstream Space's `WhereTrigger`, so a trigger created inside the clone can
-match nothing until the clone's own `WhereTrigger` names its own Space. The
-fix is
+**Recorded result.** The historical command exited `0`. In that recorded
+Trigger model, publication was blocked until one approval was recorded against
+the then-current revision.
+The recorded run also hit a clone issue: `cub variant create` copied the
+upstream Space's `WhereTrigger`, so the new Trigger matched nothing until
+the clone's `WhereTrigger` named its own Space. The recorded fix was
 `cub space update --patch bitnami-redis-25-5-3-default-staging --where-trigger "SpaceID='<the staging Space's own id>'" --refresh-triggers`.
 This exact gate, and this exact gotcha, were both proven live against this
 same chart's `reuse-existing-secret` base in
@@ -261,12 +258,20 @@ units, the next publish was refused while gated, and 13 explicit unit
 approvals cleared it before the release published at digest
 `sha256:2de09898c4d4ff4b92decab661662f2341b6ec19982c1bf127aac9af7dda1678`.
 That proof used the `reuse-existing-secret` base and its own Space names;
-the mechanism is what carries over, not its digest.
+neither its gate mechanism nor its digest establishes current workflow proof.
 
-**Boundary.** Creating and testing a gate on your own Space is real, local
-governed state. Whether the named approver in your own organization is the
-right person to hold that approval is a decision for your team, not
-something this Guide can check.
+**Boundary.** This recorded Trigger test is evidence about the old local gate.
+It does not establish a current workflow approval setup. Whether an approver
+in an organization is appropriate remains a decision for that organization.
+
+**Current setup gap.** This section documents the retained `vet-approvedby`
+Trigger route. It does not contain a ChangeWorkflow definition with an
+attestation prerequisite or a ChangeOrder for this Space, so it cannot provide
+a current workflow setup command. Do not relabel the existing Trigger as a
+workflow prerequisite. For a separately configured workflow, `cub variant
+approve` records Approval attestations for the selected revisions and later
+revisions of the same Unit with identical content; the workflow definition,
+not this legacy Trigger, decides whether they gate progression.
 
 ## 6. Compose Redis into a certified stack
 

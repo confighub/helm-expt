@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-default.yaml",
-      "sha256": "sha256:74760a2a606ee30f3fb81dd41c2df3b5f56d464916e647c8adac0fe2c6b10307",
+      "sha256": "sha256:76130e06b302fc33276758dadc18908cd5ef27e2ab82144a1c761648043fb381",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -305,7 +305,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

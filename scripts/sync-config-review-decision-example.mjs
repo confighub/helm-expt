@@ -16,15 +16,21 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 
+import { observeApprovalAttestations } from "./lib/revision-approval-observation.mjs";
+import { assertApprovalCreateResult } from "./lib/changeorder-attestation.mjs";
+
 const mode = process.argv[2] ?? "--verify";
-const modes = new Set(["--sync", "--capture", "--hub-verify", "--generate", "--verify"]);
+const modes = new Set(["--sync", "--capture", "--hub-verify", "--generate", "--verify", "--verify-current", "--generate-current", "--self-test"]);
 if (!modes.has(mode)) {
   console.error(`Usage:
   node scripts/sync-config-review-decision-example.mjs --sync
   node scripts/sync-config-review-decision-example.mjs --capture
   node scripts/sync-config-review-decision-example.mjs --hub-verify
   node scripts/sync-config-review-decision-example.mjs --generate
-  node scripts/sync-config-review-decision-example.mjs --verify`);
+  node scripts/sync-config-review-decision-example.mjs --verify
+  node scripts/sync-config-review-decision-example.mjs --verify-current
+  node scripts/sync-config-review-decision-example.mjs --generate-current
+  node scripts/sync-config-review-decision-example.mjs --self-test`);
   process.exit(2);
 }
 
@@ -39,8 +45,9 @@ const acceptedScanPath = join(repoRoot, "runs", "config-catalog-policy-functiona
 const promotionReceiptPath = join(repoRoot, "runs", "byo-helm-values-promotion-proof", "receipt.yaml");
 const deliveryReceiptPath = join(repoRoot, "runs", "byo-helm-values-deploy-proof", "receipt.yaml");
 const stagingDeliveryReceiptPath = join(repoRoot, "runs", "byo-helm-values-staging-deploy-proof", "receipt.yaml");
-const liveReceiptPath = join(repoRoot, "runs", "config-review-decision-chain", "receipt.yaml");
-const summaryPath = join(repoRoot, "data", "config-review-decision-chain", "summary.md");
+const currentModel = ["--sync", "--capture", "--hub-verify", "--verify-current", "--generate-current"].includes(mode);
+const liveReceiptPath = join(repoRoot, "runs", "config-review-decision-chain", currentModel ? "receipt-attestation-v1.yaml" : "receipt.yaml");
+const summaryPath = join(repoRoot, "data", "config-review-decision-chain", currentModel ? "summary-attestation-v1.md" : "summary.md");
 
 const expectedContext = "river-bear";
 const expectedOrg = "helm-catalog";
@@ -67,8 +74,9 @@ if (mode === "--sync") {
     "set HELM_EXPT_ALLOW_CONFIG_DECISION_SYNC=1 before changing the live helm-catalog organization",
   );
   verifyContext();
-  upsertAndApproveDecision();
+  const approval = upsertAndApproveDecision();
   const receipt = collectLiveReceipt();
+  check(receipt.spec.decisionUnit.approvalObservation.attestationIDs.includes(approval.attestationID), "created approval is absent from revision observations");
   writeYaml(liveReceiptPath, receipt);
   write(summaryPath, buildSummary(receipt));
   verifyLiveReceipt(receipt);
@@ -92,7 +100,14 @@ if (mode === "--sync") {
   verifyLiveReceipt(receipt);
   verifyLiveAgainstReceipt(receipt);
   console.log(`verified live ${space}/${decisionUnit}`);
-} else if (mode === "--generate") {
+} else if (mode === "--self-test") {
+  const legacy = readYaml(liveReceiptPath);
+  verifyLiveReceipt(legacy, false);
+  let rejected = false;
+  try { verifyLiveReceipt(legacy, true); } catch (error) { rejected = /current receipt requires/.test(error.message); }
+  check(rejected, "historical approval fields must not satisfy current receipt verification");
+  console.log("verified historical decision receipt and current-model downgrade refusal");
+} else if (mode === "--generate" || mode === "--generate-current") {
   const receipt = readYaml(liveReceiptPath);
   verifyLiveReceipt(receipt);
   write(summaryPath, buildSummary(receipt));
@@ -104,7 +119,7 @@ if (mode === "--sync") {
   verifyLiveReceipt(receipt);
   check(
     readFileSync(summaryPath, "utf8") === buildSummary(receipt),
-    `${relativeRepo(summaryPath)} is stale; run npm run config-review-decision:generate`,
+    `${relativeRepo(summaryPath)} is stale; run node scripts/sync-config-review-decision-example.mjs ${currentModel ? "--generate-current" : "--generate"}`,
   );
   console.log("verified the configuration decision record and evidence chain");
 }
@@ -243,17 +258,15 @@ function upsertAndApproveDecision() {
       "--quiet",
     ]);
   }
-  cub([
-    "unit",
-    "approve",
-    "--space",
-    space,
-    decisionUnit,
-    "--revision",
-    "HeadRevisionNum",
-    "--wait",
-    "--quiet",
-  ]);
+  const reviewed = getUnit(true);
+  check(/^[0-9a-f-]{36}$/i.test(reviewed.UnitID), "decision Unit ID is invalid");
+  check(Number.isSafeInteger(reviewed.HeadRevisionNum) && reviewed.HeadRevisionNum > 0, "decision revision is invalid");
+  const revisionRow = JSON.parse(cub(["revision", "get", decisionUnit, String(reviewed.HeadRevisionNum), "--space", space, "-o", "json"]));
+  const revision = revisionRow.Revision ?? revisionRow;
+  check(revision.RevisionID && revision.UnitID === reviewed.UnitID && revision.DataHash === reviewed.DataHash, "reviewed decision revision differs from its head");
+  const result = JSON.parse(cub(["variant", "approve", space, "--all", "--where", `UnitID = '${reviewed.UnitID}'`, "--revision", String(reviewed.HeadRevisionNum), "-o", "json"]));
+  return assertApprovalCreateResult(result, { space, unitID: reviewed.UnitID,
+    revisionID: revision.RevisionID, revisionNum: reviewed.HeadRevisionNum }, check);
 }
 
 function collectLiveReceipt() {
@@ -261,8 +274,8 @@ function collectLiveReceipt() {
   const config = getUnit(true, configurationUnit);
   const stored = readYamlText(storedData(unit));
   check(JSON.stringify(stored) === JSON.stringify(decision), "ConfigHub changed the stored configuration decision");
-  const approvals = approvalCount(unit.ApprovedBy);
-  check(approvals >= 1, "configuration decision Unit has no recorded approval");
+  const approvalObservation = readApprovalObservation(unit);
+  const approvals = approvalObservation.attestationIDs.length;
   check(!unit.TargetID, "configuration decision Unit unexpectedly has a deployment target");
   return {
     apiVersion: "catalog.confighub.com/v1alpha1",
@@ -288,6 +301,8 @@ function collectLiveReceipt() {
         includedInDeploymentRelease: false,
         sourceMatched: true,
         recordedApprovals: approvals,
+        approvalModel: "revision-attestations-v1",
+        approvalObservation,
       },
       configurationUnit: {
         slug: configurationUnit,
@@ -312,6 +327,7 @@ function collectLiveReceipt() {
       claim: "ConfigHub stores the exact configuration decision beside the retained NGINX base, keeps it out of deployment releases, and records approval of its exact revision.",
       limits: [
         "The approval applies to the decision record, not to a production workload revision.",
+        "Attestation counts are records, not distinct people. No ChangeWorkflow prerequisite or release authorization is proven.",
         "The emptyDir finding remains visible in cub check and the exception is limited to the named development and staging demonstrations.",
         "ConfigHub does not currently consume this exception record to suppress or replace a managed control result.",
       ],
@@ -319,7 +335,8 @@ function collectLiveReceipt() {
   };
 }
 
-function verifyLiveReceipt(receipt) {
+function verifyLiveReceipt(receipt, requireCurrent = currentModel) {
+  if (requireCurrent) check(receipt.spec?.decisionUnit?.approvalModel === "revision-attestations-v1", "current receipt requires revision attestations");
   check(receipt.kind === "ConfigurationDecisionLiveReceipt", "configuration decision live receipt kind changed");
   check(receipt.status?.result === "pass", "configuration decision live receipt is not pass");
   check(receipt.spec?.context?.organization === expectedOrg, "configuration decision organization changed");
@@ -328,10 +345,19 @@ function verifyLiveReceipt(receipt) {
   check(receipt.spec?.source?.sha256 === `sha256:${sha256(readFileSync(decisionPath))}`, "configuration decision source hash changed");
   check(receipt.spec?.source?.schema === relativeRepo(schemaPath), "configuration decision schema path changed");
   const record = receipt.spec?.decisionUnit;
+  check(record?.approvalModel === undefined || record.approvalModel === "revision-attestations-v1", "unknown decision approval model");
   check(record?.slug === decisionUnit && record.id, "configuration decision Unit identity is missing");
   check(Number.isInteger(record.headRevision) && record.headRevision > 0, "configuration decision Unit revision is invalid");
   check(record.sourceMatched === true, "configuration decision Unit did not match its source");
   check(record.recordedApprovals >= 1, "configuration decision Unit approval is missing");
+  if (record.approvalModel === "revision-attestations-v1") {
+    const observation = record.approvalObservation;
+    check(observation?.unitID === record.id && observation.revisionNum === record.headRevision
+      && observation.dataHash === record.dataHash && observation.revisionID,
+      "decision attestation observation identity differs");
+    check(Array.isArray(observation.attestationIDs) && observation.attestationIDs.length === record.recordedApprovals
+      && observation.attestationIDs.every((id) => typeof id === "string" && id.length > 0), "decision attestation IDs are missing");
+  }
   check(record.targetAssigned === false && record.includedInDeploymentRelease === false, "configuration decision became deployable");
   check(receipt.spec?.configurationUnit?.slug === configurationUnit, "configuration Unit identity changed");
   check(
@@ -347,7 +373,9 @@ function verifyLiveAgainstReceipt(receipt) {
   check(unit.UnitID === receipt.spec.decisionUnit.id, "live decision Unit ID changed");
   check(unit.HeadRevisionNum === receipt.spec.decisionUnit.headRevision, "live decision Unit revision changed");
   check(unit.DataHash === receipt.spec.decisionUnit.dataHash, "live decision Unit data hash changed");
-  check(approvalCount(unit.ApprovedBy) >= receipt.spec.decisionUnit.recordedApprovals, "live decision approval disappeared");
+  check(receipt.spec.decisionUnit.approvalModel === "revision-attestations-v1", "current live verification requires an attestation-era receipt");
+  const observation = readApprovalObservation(unit);
+  check(receipt.spec.decisionUnit.approvalObservation.attestationIDs.every((id) => observation.attestationIDs.includes(id)), "live decision approval disappeared");
   check(JSON.stringify(readYamlText(storedData(unit))) === JSON.stringify(decision), "live decision data changed");
   check(config.UnitID === receipt.spec.configurationUnit.id, "live configuration Unit ID changed");
   check(config.HeadRevisionNum === receipt.spec.configurationUnit.headRevision, "live configuration Unit revision changed");
@@ -442,11 +470,6 @@ function storedData(unit) {
   }
 }
 
-function approvalCount(value) {
-  if (Array.isArray(value)) return value.length;
-  if (value && typeof value === "object") return Object.keys(value).length;
-  return value ? 1 : 0;
-}
 
 function sameSet(left = [], right = []) {
   return JSON.stringify([...left].sort()) === JSON.stringify([...right].sort());
@@ -470,4 +493,11 @@ function cubTry(args) {
     maxBuffer: 1024 * 1024 * 50,
   });
   return { ok: result.status === 0, output: result.stdout ?? "", error: result.stderr ?? "" };
+}
+
+
+function readApprovalObservation(unit) {
+  const revision = JSON.parse(cub(["revision", "get", decisionUnit, String(unit.HeadRevisionNum), "--space", space, "-o", "json"]));
+  const attestations = JSON.parse(cub(["attestation", "list", "--space", space, "-o", "json"]));
+  return observeApprovalAttestations(unit, revision, attestations);
 }

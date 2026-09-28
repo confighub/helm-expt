@@ -124,8 +124,8 @@ const checks = [
     // variant-create example and the unit-update space-flag example on separate lines, or it
     // reads the two unrelated tokens as one invalid invocation.
     terms: [
-      "Operate", "Where does this fit?", "Come here after you have inspected the Kubernetes objects", "AICR recipe for AI infrastructure", "ConfigHub stores your approved configuration and its history", "The same commands run from a free check to a governed release", "deploy (a planned name, not yet a command)", "Try it now", "1. Release", "2. Promote", "3. Gate and approve", "4. Roll back", "cub variant create demo-dev metrics-server-base", "cub release publish metrics-server-demo-dev", "cub variant promote cart-demo-dev --dry-run", "cub trigger create require-approval", "cub variant approve cart-demo-dev",
-      "cub unit update --space cart-demo-dev retail-deployment-cart --restore 2", "Checks inspect a candidate, and apply gates decide whether ConfigHub may apply it", "docs.html#all-references",
+      "Operate", "Where does this fit?", "Come here after you have inspected the Kubernetes objects", "AICR recipe for AI infrastructure", "ConfigHub stores your approved configuration and its history", "The same commands run from a free check to a governed release", "deploy (a planned name, not yet a command)", "Try it now", "1. Release", "2. Promote", "3. Gate and approve", "4. Roll back", "cub variant create demo-dev metrics-server-base", "cub release publish metrics-server-demo-dev", "cub variant promote cart-demo-dev --dry-run", "cub changeworkflow create --help", "AttestationPrerequisites", "ReleasePrerequisites", "cub variant approve cart-demo-dev",
+      "cub unit update --space cart-demo-dev retail-deployment-cart --restore 2", "merely recording one does not install a gate", "Identical-content later revisions can remain covered", "docs.html#all-references",
     ],
   },
   {
@@ -198,7 +198,7 @@ const checks = [
   },
   {
     file: "site/kubara.html",
-    terms: ["Need GitOps services and the shop app?", "kubara-gitops-shop", "./d/docs/user/workshop-compose-guide.html", "Build an internal developer platform", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "not yet a stack and not yet a platform", "ConfigHub retains and promotes each of them", "Try it now", "cub cluster up --name demo --space demo-cluster", "Give your agent this prompt", "problem-chart.yml", "answered static chart questions at 96.7 percent", "Twelve of eighteen questions about time, live state, and accountability", "1. Choose services for your developers", "Website to command line", "Replace <code>https://github.com/acme/platform.git</code>", "env.example", "runtime-images.yaml", "Kubara does not deploy this record", "Package the reviewed Git revision as OCI", "See two applications added, promoted, released, and checked on the platform", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "refusing a real conflict rather than reporting one", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Generate the platform and push it to Git", "3. Certify the platform as a stack", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "cub stack from-kubara", "cub stack check", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "current deterministic", "live receipt required"],
+    terms: ["Need GitOps services and the shop app?", "kubara-gitops-shop", "./d/docs/user/workshop-compose-guide.html", "Run a Kubara platform with ConfigHub", "Govern your Kubara platform with cub kubara", "This path has no stack step", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "not yet a stack and not yet a platform", "ConfigHub retains and promotes each of them", "Try it now", "cub cluster up --name demo --space demo-cluster", "Give your agent this prompt", "problem-chart.yml", "answered static chart questions at 96.7 percent", "Twelve of eighteen questions about time, live state, and accountability", "1. Choose services for your developers", "Website to command line", "Replace <code>https://github.com/acme/platform.git</code>", "env.example", "runtime-images.yaml", "Kubara does not deploy this record", "Package the reviewed Git revision as OCI", "See two applications added, promoted, released, and checked on the platform", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "refusing a real conflict rather than reporting one", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Generate the platform and push it to Git", "3. Certify the platform as a stack", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "cub stack from-kubara", "cub stack check", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "current deterministic", "live receipt required"],
   },
 ];
 
@@ -262,7 +262,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/kubara.html",
-    headerTerms: ["Build an internal developer platform", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "platform components, developer tools, and applications", "ConfigHub retains and promotes each of them", "You can stop with Kubara's Git output and OCI packages"],
+    headerTerms: ["Run a Kubara platform with ConfigHub", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "platform components, developer tools, and applications", "ConfigHub retains and promotes each of them", "You can stop with Kubara's Git output and OCI packages"],
   },
   {
     file: "site/variants.html",
@@ -909,7 +909,7 @@ const purposePageRules = [
   },
   {
     file: "site/kubara.html",
-    maxH2: 6,
+    maxH2: 7,
     requiredLinks: ["d/docs/demo/kubara/adoption.html", "d/docs/demo/kubara/gui-tour.html", "d/docs/demo/kubara/checkpoints.html", "d/docs/demo/kubara/single-platform.html"],
   },
   {

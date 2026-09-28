@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aws-controllers-k8s-ec2-chart-1-18-4-default.yaml",
-      "sha256": "sha256:44b072e16083a56891faa4a522b630d7eb7547fea02505c2f881910db58ca83c",
+      "sha256": "sha256:1b752c4a738a2031c8d014c29bbf4ae33e0dcc02b685c99feb8326a4e37f89b2",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aws-controllers-k8s-ec2-chart-1-18-4-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -298,7 +298,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

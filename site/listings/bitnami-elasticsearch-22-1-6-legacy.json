@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-elasticsearch-22-1-6-legacy.yaml",
-      "sha256": "sha256:1ebb91c96497a4adc567b8683e4e6b221c3da2839560f60c73d23dee5c86471f",
+      "sha256": "sha256:ab41b78efda7a390df4707e34b88c9c039ae69ebb10b1bb971ce76af326e99fa",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-elasticsearch-22-1-6-legacy.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -284,7 +284,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

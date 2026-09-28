@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-spark-10-0-3-legacy.yaml",
-      "sha256": "sha256:da791f27dd55e0e3f0d52425f90215b3da19d8166a5135b4c3926c9b241cb521",
+      "sha256": "sha256:a3e19f7795bfece462ac721cbc7e80e66735b23a2c012be3c48d6ef07cac296b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-spark-10-0-3-legacy.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -280,7 +280,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

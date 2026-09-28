@@ -4,7 +4,9 @@
 //
 // The contract deliberately treats subprocess commands, authenticated
 // transport requests, state-changing mutations, and controller waits as
-// different things. --receipt-verify performs no network or live-cluster I/O.
+// different things. Receipt verification performs no network or live-cluster
+// I/O. The retained v2 and current attested receipt families are explicit
+// profiles and never fall back to one another.
 
 import { existsSync } from "node:fs";
 import { join, resolve } from "node:path";
@@ -17,13 +19,40 @@ import {
 } from "./lib/proof-common.mjs";
 
 const CONTRACT_PATH = join(repoRoot, "data", "kubara-mini-idp-performance", "contract.yaml");
-const DEFAULT_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
-const DEFAULT_ORPHAN_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "orphan-audit.yaml");
-const DEFAULT_ATTEMPT_LEDGER_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "attempts.yaml");
+const LEGACY_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
+const LEGACY_ORPHAN_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "orphan-audit.yaml");
+const LEGACY_ATTEMPT_LEDGER_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "attempts.yaml");
+const CURRENT_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-changeorder-attestation", "receipt.yaml");
+const CURRENT_ORPHAN_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-changeorder-attestation", "orphan-audit.yaml");
+const CURRENT_ATTEMPT_LEDGER_PATH = join(repoRoot, "runs", "kubara-mini-idp-changeorder-attestation", "attempts.yaml");
 const SHA256_PATTERN = /^sha256:[0-9a-f]{64}$/;
 const CORE_CONFIGHUB_FINGERPRINT_RESOURCES = Object.freeze(["space", "unit", "release", "link", "target"]);
-const FULL_CONFIGHUB_FINGERPRINT_RESOURCES = Object.freeze([...CORE_CONFIGHUB_FINGERPRINT_RESOURCES, "trigger", "filter", "tag"]);
-const MODES = new Set(["--contract", "--receipt-verify", "--self-test"]);
+const LEGACY_FULL_CONFIGHUB_FINGERPRINT_RESOURCES = Object.freeze([...CORE_CONFIGHUB_FINGERPRINT_RESOURCES, "trigger", "filter", "tag"]);
+const CURRENT_FULL_CONFIGHUB_FINGERPRINT_RESOURCES = Object.freeze([...CORE_CONFIGHUB_FINGERPRINT_RESOURCES, "tag"]);
+const RECEIPT_PROFILES = Object.freeze({
+  legacy: Object.freeze({
+    receiptPath: LEGACY_RECEIPT_PATH,
+    orphanReceiptPath: LEGACY_ORPHAN_RECEIPT_PATH,
+    attemptLedgerPath: LEGACY_ATTEMPT_LEDGER_PATH,
+    fullResources: LEGACY_FULL_CONFIGHUB_FINGERPRINT_RESOURCES,
+    fullFingerprint: "fullEightResourceFingerprint",
+    openingFingerprint: "openingFullEightResourceFingerprint",
+    closingFingerprint: "closingFullEightResourceFingerprint",
+    label: "retained v2",
+  }),
+  current: Object.freeze({
+    receiptPath: CURRENT_RECEIPT_PATH,
+    orphanReceiptPath: CURRENT_ORPHAN_RECEIPT_PATH,
+    attemptLedgerPath: CURRENT_ATTEMPT_LEDGER_PATH,
+    fullResources: CURRENT_FULL_CONFIGHUB_FINGERPRINT_RESOURCES,
+    fullFingerprint: "fullSixResourceFingerprint",
+    openingFingerprint: "openingFullSixResourceFingerprint",
+    closingFingerprint: "closingFullSixResourceFingerprint",
+    scenarioVersion: "hx-web-changeorder-attestation-v3",
+    label: "current ChangeOrder-attestation",
+  }),
+});
+const MODES = new Set(["--contract", "--receipt-verify", "--current-receipt-verify", "--self-test"]);
 const requestedModes = process.argv.filter((arg) => MODES.has(arg));
 check(requestedModes.length <= 1, `choose one mode: ${[...MODES].join(", ")}`);
 const mode = requestedModes[0] ?? "--contract";
@@ -34,32 +63,31 @@ verifyContract(contract);
 
 if (mode === "--contract") {
   console.log("Kubara mini-IDP performance acceptance contract verified");
-} else if (mode === "--receipt-verify") {
-  const receiptPath = optionValue("--receipt")
-    ? resolve(optionValue("--receipt"))
-    : DEFAULT_RECEIPT_PATH;
-  const orphanReceiptPath = optionValue("--orphan-receipt")
-    ? resolve(optionValue("--orphan-receipt"))
-    : DEFAULT_ORPHAN_RECEIPT_PATH;
+} else if (mode === "--receipt-verify" || mode === "--current-receipt-verify") {
+  const profile = mode === "--receipt-verify" ? RECEIPT_PROFILES.legacy : RECEIPT_PROFILES.current;
+  const receiptPath = optionValue("--receipt") ? resolve(optionValue("--receipt")) : profile.receiptPath;
+  const orphanReceiptPath = optionValue("--orphan-receipt") ? resolve(optionValue("--orphan-receipt")) : profile.orphanReceiptPath;
+  const attemptLedgerPath = optionValue("--attempt-ledger") ? resolve(optionValue("--attempt-ledger")) : profile.attemptLedgerPath;
   check(existsSync(receiptPath), `${receiptPath} is missing`);
   check(existsSync(orphanReceiptPath), `${orphanReceiptPath} is missing`);
-  check(existsSync(DEFAULT_ATTEMPT_LEDGER_PATH), `${DEFAULT_ATTEMPT_LEDGER_PATH} is missing`);
+  check(existsSync(attemptLedgerPath), `${attemptLedgerPath} is missing`);
   verifyAcceptedPair(
     readYaml(receiptPath),
     readYaml(orphanReceiptPath),
     contract,
     sha256File(orphanReceiptPath),
-    readYaml(DEFAULT_ATTEMPT_LEDGER_PATH),
-    sha256File(DEFAULT_ATTEMPT_LEDGER_PATH),
+    readYaml(attemptLedgerPath),
+    sha256File(attemptLedgerPath),
+    profile,
   );
-  console.log(`Kubara mini-IDP changed/idempotent performance pair verified: ${receiptPath}`);
+  console.log(`Kubara mini-IDP ${profile.label} changed/idempotent performance pair verified: ${receiptPath}`);
 } else {
   selfTest(contract);
   console.log("Kubara mini-IDP performance acceptance self-test passed");
 }
 
 function validateArgs() {
-  const valueOptions = new Set(["--receipt", "--orphan-receipt"]);
+  const valueOptions = new Set(["--receipt", "--orphan-receipt", "--attempt-ledger"]);
   for (let index = 2; index < process.argv.length; index += 1) {
     const arg = process.argv[index];
     if (MODES.has(arg)) continue;
@@ -67,8 +95,8 @@ function validateArgs() {
     check(process.argv[index + 1] && !process.argv[index + 1].startsWith("--"), `${arg} requires a value`);
     index += 1;
   }
-  if (mode !== "--receipt-verify") {
-    check(!process.argv.includes("--receipt") && !process.argv.includes("--orphan-receipt"), "receipt paths require --receipt-verify");
+  if (!["--receipt-verify", "--current-receipt-verify"].includes(mode)) {
+    check(!process.argv.includes("--receipt") && !process.argv.includes("--orphan-receipt") && !process.argv.includes("--attempt-ledger"), "receipt paths require a receipt verification mode");
   }
 }
 
@@ -138,8 +166,13 @@ function verifyContract(value) {
   check((spec.publication?.forbiddenWithoutClientTransportEvidence ?? []).some((item) => item.includes("authenticated HTTP")), "contract must forbid an unmeasured HTTP-round-trip claim");
 }
 
-function verifyAcceptedPair(receipt, orphanReceipt, contractValue, orphanReceiptSha256, attemptLedger, attemptLedgerSha256) {
+function verifyAcceptedPair(receipt, orphanReceipt, contractValue, orphanReceiptSha256, attemptLedger, attemptLedgerSha256, profile = RECEIPT_PROFILES.legacy) {
   check(receipt?.kind === "ConfigHubKubaraMiniIDPReconcileReceipt", "unexpected mini-IDP receipt kind");
+  if (profile.scenarioVersion) {
+    check(receipt.spec?.rolloutScenario?.version === profile.scenarioVersion, `${profile.label} receipt does not carry the required server-attested rollout scenario`);
+  } else {
+    check(receipt.spec?.rolloutScenario?.version !== RECEIPT_PROFILES.current.scenarioVersion, "legacy receipt verification cannot accept a current attested rollout scenario");
+  }
   check(receipt.status?.performanceResult === "performance-pass", "mini-IDP receipt performance status is not performance-pass");
   const runs = receipt.spec?.reconcileRuns ?? [];
   check(runs.length >= 2, "mini-IDP receipt lacks a changed/idempotent performance pair");
@@ -168,7 +201,7 @@ function verifyAcceptedPair(receipt, orphanReceipt, contractValue, orphanReceipt
   const profiles = new Map(contractValue.spec.profiles.map((profile) => [profile.id, profile]));
   verifyRunPerformance(changed, profiles.get("changed-apply"), contractValue);
   verifyRunPerformance(noop, profiles.get("idempotent-apply"), contractValue);
-  verifyOrphanReceipt(orphanReceipt, receipt, noop, orphanReceiptSha256);
+  verifyOrphanReceipt(orphanReceipt, receipt, noop, orphanReceiptSha256, profile);
 }
 
 function verifyAttemptContinuity(receipt, changed, noop, ledger, ledgerSha256) {
@@ -264,7 +297,7 @@ function verifyRunPerformance(run, profile, contractValue) {
   if (budgets.exactArgoSyncRequests !== undefined) check(evidence.argo.syncRequests === budgets.exactArgoSyncRequests, `${profile.id}: Argo sync requests are not exactly ${budgets.exactArgoSyncRequests}`);
 }
 
-function verifyOrphanReceipt(orphanReceipt, reconcileReceipt, noopRun, orphanReceiptSha256) {
+function verifyOrphanReceipt(orphanReceipt, reconcileReceipt, noopRun, orphanReceiptSha256, profile = RECEIPT_PROFILES.legacy) {
   check(orphanReceipt?.kind === "KubaraMiniIDPOrphanAuditReceipt", "unexpected orphan audit receipt kind");
   check(orphanReceipt.status?.result === "pass", "orphan audit did not pass");
   check(orphanReceipt.status?.findingCount === 0, "orphan audit contains findings");
@@ -276,15 +309,15 @@ function verifyOrphanReceipt(orphanReceipt, reconcileReceipt, noopRun, orphanRec
   const brackets = orphanReceipt.spec?.execution?.organizationWideReadBrackets ?? {};
   check(
     JSON.stringify(snapshot.coreResources) === JSON.stringify(CORE_CONFIGHUB_FINGERPRINT_RESOURCES)
-      && JSON.stringify(snapshot.fullResources) === JSON.stringify(FULL_CONFIGHUB_FINGERPRINT_RESOURCES)
+      && JSON.stringify(snapshot.fullResources) === JSON.stringify(profile.fullResources)
       && SHA256_PATTERN.test(snapshot.coreFiveResourceFingerprint ?? "")
-      && SHA256_PATTERN.test(snapshot.fullEightResourceFingerprint ?? "")
+      && SHA256_PATTERN.test(snapshot[profile.fullFingerprint] ?? "")
       && brackets.stable === true
       && brackets.openingCoreFiveResourceFingerprint === snapshot.coreFiveResourceFingerprint
       && brackets.closingCoreFiveResourceFingerprint === snapshot.coreFiveResourceFingerprint
-      && brackets.openingFullEightResourceFingerprint === snapshot.fullEightResourceFingerprint
-      && brackets.closingFullEightResourceFingerprint === snapshot.fullEightResourceFingerprint,
-    "orphan audit five-/eight-resource ConfigHub snapshot evidence is invalid or unstable",
+      && brackets[profile.openingFingerprint] === snapshot[profile.fullFingerprint]
+      && brackets[profile.closingFingerprint] === snapshot[profile.fullFingerprint],
+    `orphan audit five-/${profile.fullResources.length}-resource ConfigHub snapshot evidence is invalid or unstable`,
   );
   check(
     brackets.openingCoreFiveResourceFingerprint === noopRun.finalConfigHubFingerprint,
@@ -366,11 +399,35 @@ function validDate(value) {
 
 function selfTest(contractValue) {
   const receipt = selfTestReceipt(contractValue);
-  const orphan = selfTestOrphanReceipt();
+  const orphan = selfTestOrphanReceipt(RECEIPT_PROFILES.legacy);
   const orphanDigest = "d".repeat(64);
   const ledger = selfTestAttemptLedger(receipt);
   const ledgerDigest = "e".repeat(64);
-  verifyAcceptedPair(receipt, orphan, contractValue, orphanDigest, ledger, ledgerDigest);
+  verifyAcceptedPair(receipt, orphan, contractValue, orphanDigest, ledger, ledgerDigest, RECEIPT_PROFILES.legacy);
+
+  const currentReceipt = structuredClone(receipt);
+  currentReceipt.spec.rolloutScenario = { version: RECEIPT_PROFILES.current.scenarioVersion };
+  const currentOrphan = selfTestOrphanReceipt(RECEIPT_PROFILES.current);
+  verifyAcceptedPair(currentReceipt, currentOrphan, contractValue, orphanDigest, ledger, ledgerDigest, RECEIPT_PROFILES.current);
+  check(
+    RECEIPT_PROFILES.current.receiptPath.endsWith("runs/kubara-mini-idp-changeorder-attestation/receipt.yaml")
+      && RECEIPT_PROFILES.current.orphanReceiptPath.endsWith("runs/kubara-mini-idp-changeorder-attestation/orphan-audit.yaml")
+      && RECEIPT_PROFILES.current.attemptLedgerPath.endsWith("runs/kubara-mini-idp-changeorder-attestation/attempts.yaml"),
+    "current performance profile paths drifted",
+  );
+
+  expectFailure(
+    () => verifyAcceptedPair(receipt, orphan, contractValue, orphanDigest, ledger, ledgerDigest, RECEIPT_PROFILES.current),
+    "required server-attested rollout scenario",
+  );
+  expectFailure(
+    () => verifyAcceptedPair(currentReceipt, currentOrphan, contractValue, orphanDigest, ledger, ledgerDigest, RECEIPT_PROFILES.legacy),
+    "legacy receipt verification cannot accept a current attested rollout scenario",
+  );
+  expectFailure(
+    () => verifyAcceptedPair(currentReceipt, orphan, contractValue, orphanDigest, ledger, ledgerDigest, RECEIPT_PROFILES.current),
+    "five-/6-resource ConfigHub snapshot evidence is invalid or unstable",
+  );
 
   expectFailure(() => {
     const value = structuredClone(receipt);
@@ -554,7 +611,7 @@ function selfTestPerformance(runClass, contractValue) {
   };
 }
 
-function selfTestOrphanReceipt() {
+function selfTestOrphanReceipt(profile) {
   const coreFingerprint = `sha256:${"f".repeat(64)}`;
   const fullFingerprint = `sha256:${"7".repeat(64)}`;
   return {
@@ -570,17 +627,17 @@ function selfTestOrphanReceipt() {
         organizationWideReadBrackets: {
           openingCoreFiveResourceFingerprint: coreFingerprint,
           closingCoreFiveResourceFingerprint: coreFingerprint,
-          openingFullEightResourceFingerprint: fullFingerprint,
-          closingFullEightResourceFingerprint: fullFingerprint,
+          [profile.openingFingerprint]: fullFingerprint,
+          [profile.closingFingerprint]: fullFingerprint,
           stable: true,
         },
       },
       configHubInventory: {
         snapshot: {
           coreResources: [...CORE_CONFIGHUB_FINGERPRINT_RESOURCES],
-          fullResources: [...FULL_CONFIGHUB_FINGERPRINT_RESOURCES],
+          fullResources: [...profile.fullResources],
           coreFiveResourceFingerprint: coreFingerprint,
-          fullEightResourceFingerprint: fullFingerprint,
+          [profile.fullFingerprint]: fullFingerprint,
         },
       },
     },

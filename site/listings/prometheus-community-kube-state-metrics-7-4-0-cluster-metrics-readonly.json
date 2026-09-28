@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly.yaml",
-      "sha256": "sha256:9cc747ff6d498277a16bce4fb60657aff81fe3780257a2bb6be12d3b0a955655",
+      "sha256": "sha256:cee82797924849b3fad6dd5bcd22840c4810909ec67adab6ee10228bc9557b89",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -274,7 +274,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

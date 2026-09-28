@@ -790,12 +790,25 @@ cub function vet vet-format \
 
 Expect `Passed: true` for the 6 selected NGINX Units.
 
-Approve the reviewed current revisions of the selected Units:
+Record Approval attestations for the reviewed current revisions in the named
+Space. `--all` includes the six reviewed NGINX Units whether or not they have
+a Target; this selector narrows the set.
 
 ```sh
-cub variant approve helm-nginx-http-clusterip --all \
+cub variant approve helm-nginx-http-clusterip \
+  --all \
   --where "Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'"
 ```
+
+The approval covers those selected revisions and later revisions of the same
+Unit with identical content. A ChangeWorkflow stage enforces it only when its
+configured attestation prerequisite checks the revisions; recording an
+attestation does not create or migrate that prerequisite.
+
+**Verifier migration gap.** `verify-bulk-ops:nginx` still reads legacy
+`ApprovedBy` state. Its approval count is not proof that this current
+`cub variant approve` command recorded the expected attestations. Do not treat
+the verifier as current approval proof until it has migrated.
 
 Verify the whole bulk-ops result:
 

@@ -183,7 +183,7 @@ spec:
   policy:
     profile: "catalog-standard"
     productionAdds:
-      - "human-approval"
+      - "workflow-approval"
     normalSet: "baseline"
   evidence:
     packagePublication: "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"

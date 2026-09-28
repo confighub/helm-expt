@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/metallb-metallb-0-16-1-default.yaml",
-      "sha256": "sha256:008326cb95f54ee7f21031bda380c9fda9f33eeb525ec6e4cf273deb857c7b8f",
+      "sha256": "sha256:31ba5a1232e772d6e7b2dc710f97dbdc0983150988de8c48f009b127d15221a4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/metallb-metallb-0-16-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -279,7 +279,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

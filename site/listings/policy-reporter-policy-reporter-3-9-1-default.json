@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/policy-reporter-policy-reporter-3-9-1-default.yaml",
-      "sha256": "sha256:8a4ab5f5f54ccd25cde6cc574ed9f3aa1004c7f202a9d1e075be6cc26cc49070",
+      "sha256": "sha256:050839bf1ef3709268b46cc9532aad74f787b9cfd14034adc3bb954c7b1a439d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/policy-reporter-policy-reporter-3-9-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -291,7 +291,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

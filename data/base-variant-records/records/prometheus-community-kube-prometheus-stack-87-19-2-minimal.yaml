@@ -298,7 +298,7 @@ spec:
   policy:
     profile: "catalog-standard"
     productionAdds:
-      - "human-approval"
+      - "workflow-approval"
   evidence:
     confighubScanOps: "todo"
     gitopsOciLive: "todo"

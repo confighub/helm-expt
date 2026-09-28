@@ -128,6 +128,13 @@ cub variant approve <candidate-space> --revision ChangeSet:<upgrade-review>
 cub unit apply --space <candidate-space> --changeset <upgrade-review> --wait
 ```
 
+`cub variant approve` records Approval attestations for the selected revisions,
+which also cover later revisions of the same Unit with identical content. A
+named Space selects Target-bearing Units unless `--all` is supplied, and
+`--where` can narrow that selection. A ChangeWorkflow stage is gated only when
+its configured attestation prerequisite checks those revisions; recording an
+attestation does not create or migrate that prerequisite.
+
 The point is that the reviewer can see the exact object change, the scan result,
 the target prerequisites, and the observation receipts before production is
 declared healthy.

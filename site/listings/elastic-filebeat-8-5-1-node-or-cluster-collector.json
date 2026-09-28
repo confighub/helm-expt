@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/elastic-filebeat-8-5-1-node-or-cluster-collector.yaml",
-      "sha256": "sha256:8045a9383a2ef2e697911d0e0245df44f61915909f18a0a320f1d5c293ade6ee",
+      "sha256": "sha256:da58d3c93efbd92b9beba8f958dfbbbabea6389369b5a10034052fb5ef9949a3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/elastic-filebeat-8-5-1-node-or-cluster-collector.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -300,7 +300,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

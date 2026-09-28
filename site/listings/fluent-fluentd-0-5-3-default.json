@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/fluent-fluentd-0-5-3-default.yaml",
-      "sha256": "sha256:ad515bdd1987b3f7ae828f1d71a0ed12f9382a481bfc71c511e85960d1fa0ee7",
+      "sha256": "sha256:8d249bed37402452e9ea70dcc948b9bbfa33c2fe15572e838540bc7325d9335a",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/fluent-fluentd-0-5-3-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -267,7 +267,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

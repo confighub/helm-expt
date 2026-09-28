@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/jaegertracing-jaeger-operator-2-57-0-no-crds.yaml",
-      "sha256": "sha256:a07b24cb971d6616dccad9792b935d9ee21ef9b283f11c6b8a505b84054f6378",
+      "sha256": "sha256:2eb51fbf188867ffe758eb5fc772ea3867f4f4d6186b9fec477176dbee67d092",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/jaegertracing-jaeger-operator-2-57-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -311,7 +311,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

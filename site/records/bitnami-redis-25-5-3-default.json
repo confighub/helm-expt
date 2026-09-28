@@ -3,13 +3,13 @@
   "kind": "CatalogRecordLookup",
   "catalog": {
     "path": "data/base-variant-records/records.json",
-    "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1"
+    "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1"
   },
   "recordSchema": "schemas/base-variant-record.schema.json",
   "status": "found",
   "name": "bitnami-redis-25-5-3-default",
   "configurationDigestRole": "canonical-object-set",
-  "selectedRecordSha256": "sha256:729b2fb0f054818af26a5d31b0f13d6b476c014ed21f85bb84674c317d9af858",
+  "selectedRecordSha256": "sha256:ca31bd22d370331a82cab34dea1d13197608e8b7a35b990788d5af7a7ef8e224",
   "record": {
     "apiVersion": "catalog.confighub.com/v1alpha1",
     "kind": "BaseVariantRecord",
@@ -227,7 +227,7 @@
       "policy": {
         "profile": "catalog-standard",
         "productionAdds": [
-          "human-approval"
+          "workflow-approval"
         ]
       },
       "evidence": {

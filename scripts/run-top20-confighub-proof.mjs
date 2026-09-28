@@ -32,6 +32,8 @@ const variantPromotionProof = args.includes("--variant-promotion-proof");
 const chartsArg = optionValue("--charts");
 const baseOverride = optionValue("--base");
 const smoke = args.includes("--smoke");
+const verifyLegacy = args.includes("--verify");
+const verifyCurrent = args.includes("--verify-current");
 const proofDate = process.env.PROOF_DATE ?? "2026-05-27";
 const proofDateCompact = proofDate.replaceAll("-", "");
 const cubConfig = process.env.CUB_CONFIG ?? join(homedir(), ".confighub", "config.yaml");
@@ -43,8 +45,22 @@ const commandEnv = {
 
 if (args.includes("--help")) usage();
 
+check(!(verifyLegacy && verifyCurrent), "use either --verify for retained legacy receipts or --verify-current for attestation-v1 receipts");
+
+if (args.includes("--self-test")) {
+  selfTestApprovalAttestation();
+  console.log("verified variant Approval attestation subject checks with fake results only");
+  process.exit(0);
+}
+
 const selected = selectCharts();
 check(selected.length > 0, "no charts selected for ConfigHub proof batch");
+
+if (verifyLegacy || verifyCurrent) {
+  for (const chart of selected) verifyProofReceipts(chart, { current: verifyCurrent });
+  console.log(`verified ${verifyCurrent ? "attestation-v1" : "retained legacy"} receipts for ${selected.length} ConfigHub proof chart lane(s)`);
+  process.exit(0);
+}
 
 for (const chart of selected) {
   console.log(`\n== ${chart.slug}: ${chart.chart}@${chart.chartVersion} ==`);
@@ -63,6 +79,8 @@ function usage() {
   node scripts/run-top20-confighub-proof.mjs --all --force
   node scripts/run-top20-confighub-proof.mjs --latest-candidates --charts nginx --cleanup-spaces
   node scripts/run-top20-confighub-proof.mjs --cleanup-spaces
+  node scripts/run-top20-confighub-proof.mjs --verify --charts ingress-nginx
+  node scripts/run-top20-confighub-proof.mjs --verify-current --charts ingress-nginx
 
 Default: run top-20 charts whose ConfigHub proof receipt is missing.
 --latest-candidates runs against generated latest-version candidate packages
@@ -75,6 +93,8 @@ base-specific proof run without replacing the chart's default proof receipt.
 previews and applies cub variant promote in the downstream Space, and writes a
 VariantPromotionReceipt. It exercises changed upstream Units plus newly added
 upstream Units; deletion handling remains an explicit non-claim.
+--verify reads retained legacy receipts under latest; --verify-current reads
+the current attestation-v1 receipts. Both modes are offline receipt checks.
 --cleanup-spaces deletes the live proof spaces after receipts are written so
 large chart runs can stay inside the demo org quota.
 --smoke selects the first missing chart only.`);
@@ -111,7 +131,7 @@ function selectCharts() {
         check(chart, `unknown ${chartSetName()} chart selector: ${slug}`);
         return chart;
       });
-  } else if (all) {
+  } else if (all || verifyLegacy || verifyCurrent) {
     charts = sourceCharts;
   } else {
     charts = sourceCharts.filter((chart) => force || !existsSync(configHubProofReceiptPath(chart)));
@@ -135,7 +155,7 @@ function withBaseOverride(chart, base) {
   return {
     ...chart,
     defaultBase: base,
-    runRoot: join("runs", `${chart.slug}-${baseSlug}-confighub-proof`, "latest"),
+    runRoot: join("runs", `${chart.slug}-${baseSlug}-confighub-proof`, "attestation-v1"),
     workDir: join(".tmp", "confighub-proof", `${chart.slug}-${baseSlug}`),
     archiveRoot: join(".tmp", "confighub-proof", `${chart.slug}-${baseSlug}-archives`),
     space: `helm-${chart.slug}-${baseSlug}-confighub-proof`,
@@ -165,7 +185,7 @@ function latestCandidateCharts() {
       packagePath: row.candidate_package,
       chartVersion: row.candidate_version,
       defaultBase: undefined,
-      runRoot: join("runs", "latest-top20-refresh", runPathKey, "confighub-proof", "latest"),
+      runRoot: join("runs", "latest-top20-refresh", runPathKey, "confighub-proof", "attestation-v1"),
       workDir: join(".tmp", "latest-top20-refresh", runPathKey, "confighub-proof"),
       archiveRoot: join(".tmp", "latest-top20-refresh", runPathKey, "archives"),
       space: `helm-${candidateSlug}-candidate-proof`,
@@ -194,7 +214,7 @@ function runChart(chart) {
   check(defaultBase, `${chart.packagePath} has no usable default base`);
   check(bases.some((base) => base.name === defaultBase), `${chart.slug} configured base ${defaultBase} is not in package bases`);
 
-  const runRoot = join(repoRoot, chart.runRoot ?? join("runs", `${chart.slug}-confighub-proof`, "latest"));
+  const runRoot = join(repoRoot, chart.runRoot ?? join("runs", `${chart.slug}-confighub-proof`, "attestation-v1"));
   const demoRoot = join(repoRoot, "docs", "demo", chart.slug);
   const workDir = join(repoRoot, chart.workDir ?? join(".tmp", "confighub-proof", `${chart.slug}-${defaultBase}`));
   const archiveRoot = join(repoRoot, chart.archiveRoot ?? join(".tmp", "confighub-proof", `${chart.slug}-archives`));
@@ -521,6 +541,7 @@ function runChart(chart) {
     kind: "ConfigHubSafeOpsReceipt",
     metadata: { name: `${chart.slug}-safe-ops-${proofDateCompact}` },
     spec: {
+      approvalModel: "space-attestation-v1",
       observedAt: proofDate,
       context: {
         organization: "Kubara",
@@ -540,7 +561,7 @@ function runChart(chart) {
       cancel: safeOps.cancel,
       safetyResult: safeOps.safetyResult,
       interpretation:
-        "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary.",
+        "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary. The Space-level Approval attestation records a claim about one Unit revision; no ChangeWorkflow or release prerequisite was configured, so this record does not enforce approval on promotion or publication.",
     },
   };
 
@@ -614,7 +635,7 @@ function runSafeOps({ chart, representative, selector, space, proofLabel, logRoo
       "--space",
       space,
       "--description",
-      `${chart.displayName} safe-ops proof: approve reviewed revisions, dry-run apply only`,
+      `${chart.displayName} safe-ops proof: record approval for the reviewed revision, dry-run apply only`,
       "--label",
       `Proof=${proofLabel}`,
       "--label",
@@ -636,29 +657,43 @@ function runSafeOps({ chart, representative, selector, space, proofLabel, logRoo
       "--space",
       space,
       "--description",
-      `${chart.displayName} safe-ops proof: approve reviewed revisions, dry-run apply only`,
+      `${chart.displayName} safe-ops proof: record approval for the reviewed revision, dry-run apply only`,
       "--annotation",
       "proof.confighub.com/rechecked=true",
     ],
     { logRoot, name: "21-changeset-update" },
   );
+  const reviewedUnit = oneUnit(space, representative.slug, logRoot, "22-unit-before-approval");
+  check(typeof reviewedUnit.id === "string" && reviewedUnit.id.length > 0 && !/[\r\n']/u.test(reviewedUnit.id), `${space}/${representative.slug} has no safe UnitID for exact approval selection`);
+  const reviewedRevision = reviewedUnit.headRevisionNum;
+  check(Number.isSafeInteger(reviewedRevision) && reviewedRevision > 0, `${space}/${representative.slug} has no numeric head revision to approve`);
+  const approvalWhere = `UnitID = '${reviewedUnit.id}'`;
+  const approvalArgs = [
+    "variant", "approve", space,
+    "--all",
+    "--where", approvalWhere,
+    "--revision", String(reviewedRevision),
+    "-o", "json",
+  ];
   const approveRun = run(
     "cub",
-    [
-      "unit",
-      "approve",
-      representative.slug,
-      "--space",
-      space,
-      "--revision",
-      "HeadRevisionNum",
-      "--verbose",
-      "--wait",
-      "--timeout",
-      "2m",
-    ],
-    { logRoot, name: "22-unit-approve" },
+    approvalArgs,
+    { logRoot, name: "22-variant-approve" },
   );
+  check(approveRun.status === 0, `${chart.slug} variant Approval attestation failed: ${shortSummary(approveRun.stderr || approveRun.stdout)}`);
+  let approval;
+  try {
+    approval = assertApprovalAttestation(JSON.parse(approveRun.stdout), {
+      space,
+      unitID: reviewedUnit.id,
+      revisionNum: reviewedRevision,
+    });
+  } catch (error) {
+    throw new Error(`${chart.slug} approval proof gap: ${error.message}`);
+  }
+  const reviewedAfter = oneUnit(space, representative.slug, logRoot, "22-unit-after-approval");
+  check(reviewedAfter.id === reviewedUnit.id, `${chart.slug} Unit identity changed during approval`);
+  check(reviewedAfter.headRevisionNum === reviewedRevision, `${chart.slug} Unit head changed during approval`);
   const applyDryRun = run(
     "cub",
     [
@@ -687,7 +722,7 @@ function runSafeOps({ chart, representative, selector, space, proofLabel, logRoo
       slug: changesetSlug,
       createResult: createRun.status === 0 ? "pass" : "fail",
       updateResult: updateRun.status === 0 ? "pass" : "fail",
-      description: `${chart.displayName} safe-ops proof: approve reviewed revisions, dry-run apply only`,
+      description: `${chart.displayName} safe-ops proof: record approval for the reviewed revision, dry-run apply only`,
       labels: {
         Proof: proofLabel,
         Lane: "safe-ops",
@@ -698,8 +733,13 @@ function runSafeOps({ chart, representative, selector, space, proofLabel, logRoo
       },
     },
     approval: {
-      command: `cub unit approve ${representative.slug} --space ${space} --revision HeadRevisionNum --verbose --wait`,
-      result: approveRun.status === 0 ? "pass" : "fail",
+      command: `cub variant approve ${space} --all --where "${approvalWhere}" --revision ${reviewedRevision} -o json`,
+      result: "pass",
+      attestationID: approval.attestationID,
+      type: approval.type,
+      attestationResult: approval.result,
+      subject: approval.subject,
+      workflowEnforcement: "not-configured",
       representativeUnit: representative.slug,
       output: shortSummary(approveRun.stdout || approveRun.stderr),
     },
@@ -715,8 +755,65 @@ function runSafeOps({ chart, representative, selector, space, proofLabel, logRoo
       message: shortSummary(cancelRun.stdout || cancelRun.stderr),
     },
     safetyResult:
-      createRun.status === 0 && updateRun.status === 0 && approveRun.status === 0 && blockedNoTarget ? "pass" : "fail",
+      createRun.status === 0 && updateRun.status === 0 && blockedNoTarget ? "pass" : "fail",
   };
+}
+
+function assertApprovalAttestation(result, expected) {
+  const spaces = result?.Spaces ?? result?.spaces;
+  check(Array.isArray(spaces) && spaces.length === 1, "variant approve returned no unique Space attestation result");
+  const row = spaces[0];
+  check(row && typeof row === "object", "variant approve returned a malformed Space result");
+  check((row.SpaceSlug ?? row.spaceSlug) === expected.space && !row.Error && !row.error, "variant approve result does not identify the reviewed Space");
+  const attestation = row.Attestation ?? row.attestation;
+  const attestationID = attestation?.AttestationID ?? attestation?.attestationID;
+  check(typeof attestationID === "string" && attestationID.length > 0, "variant approve returned no attestation ID");
+  const type = attestation.Type ?? attestation.type;
+  const attestationResult = attestation.Result ?? attestation.result;
+  check(type === "Approval" && attestationResult === "Pass", "variant approve did not return a passing Approval attestation");
+  const subjects = row.Subjects ?? row.subjects;
+  check(Array.isArray(subjects) && subjects.length === 1, "variant approve did not return exactly one reviewed subject");
+  const subject = subjects[0];
+  const unitID = subject?.UnitID ?? subject?.unitID;
+  const revisionNum = subject?.RevisionNum ?? subject?.revisionNum;
+  check(unitID === expected.unitID && Number.isSafeInteger(revisionNum) && revisionNum === expected.revisionNum, "Approval attestation subject differs from the reviewed Unit and numeric revision");
+  const skippedUnits = row.SkippedUnits ?? row.skippedUnits;
+  check(skippedUnits === undefined || Array.isArray(skippedUnits) && skippedUnits.length === 0, "variant approve skipped a selected Unit or returned malformed skipped-unit data");
+  return {
+    attestationID,
+    type,
+    result: attestationResult,
+    subject: { unitID, revisionNum },
+  };
+}
+
+function selfTestApprovalAttestation() {
+  const expected = { space: "test-space", unitID: "unit-1", revisionNum: 7 };
+  const valid = {
+    Spaces: [{
+      SpaceSlug: expected.space,
+      Attestation: { AttestationID: "attestation-1", Type: "Approval", Result: "Pass" },
+      Subjects: [{ UnitID: expected.unitID, RevisionNum: expected.revisionNum }],
+      SkippedUnits: [],
+    }],
+  };
+  check(assertApprovalAttestation(valid, expected).attestationID === "attestation-1", "self-test: exact Space Approval attestation was not accepted");
+  const invalid = [
+    { ...valid, Spaces: [{ ...valid.Spaces[0], Attestation: null }] },
+    { ...valid, Spaces: [{ ...valid.Spaces[0], SpaceSlug: "other-space" }] },
+    { ...valid, Spaces: [{ ...valid.Spaces[0], Subjects: [{ UnitID: "other-unit", RevisionNum: 7 }] }] },
+    { ...valid, Spaces: [{ ...valid.Spaces[0], Subjects: [{ UnitID: "unit-1", RevisionNum: 8 }] }] },
+    { ...valid, Spaces: [{ ...valid.Spaces[0], SkippedUnits: [{ UnitID: "unit-1" }] }] },
+  ];
+  for (const result of invalid) {
+    let refused = false;
+    try {
+      assertApprovalAttestation(result, expected);
+    } catch {
+      refused = true;
+    }
+    check(refused, "self-test: malformed or mismatched Approval attestation was accepted");
+  }
 }
 
 function runVariantPromotionProof({ chart, defaultBase, representative, proofLabel, space, stagingSpace, namespace, logRoot }) {
@@ -1158,7 +1255,7 @@ function writeDemoDocs({ chart, bases, defaultBase, receipt, functionReceipt, sa
   mkdirSync(demoRoot, { recursive: true });
   const receiptDir = relative(
     demoRoot,
-    join(repoRoot, "runs", `${chart.slug}-confighub-proof`, "latest"),
+    join(repoRoot, chart.runRoot ?? join("runs", `${chart.slug}-confighub-proof`, "attestation-v1")),
   ).replaceAll("\\", "/");
   const baseRows = bases
     .map((base) => `| \`${base.name}\` | ${base.default ? "yes" : "no"} | ${base.description ?? ""} |`)
@@ -1221,9 +1318,9 @@ Run date: ${proofDate}
 Receipts:
 
 \`\`\`text
-runs/${chart.slug}-confighub-proof/latest/confighub-proof-receipt.yaml
-runs/${chart.slug}-confighub-proof/latest/function-scan-receipt.yaml
-runs/${chart.slug}-confighub-proof/latest/safe-ops-receipt.yaml
+${receiptDir}/confighub-proof-receipt.yaml
+${receiptDir}/function-scan-receipt.yaml
+${receiptDir}/safe-ops-receipt.yaml
 \`\`\`
 
 ## Commands
@@ -1258,7 +1355,34 @@ safe ops: ${safeOpsReceipt.spec.safetyResult}
 }
 
 function configHubProofReceiptPath(chart) {
-  return join(repoRoot, chart.runRoot ?? join("runs", `${chart.slug}-confighub-proof`, "latest"), "confighub-proof-receipt.yaml");
+  return join(repoRoot, chart.runRoot ?? join("runs", `${chart.slug}-confighub-proof`, "attestation-v1"), "confighub-proof-receipt.yaml");
+}
+
+function verifyProofReceipts(chart, { current }) {
+  const currentRunRoot = chart.runRoot ?? join("runs", `${chart.slug}-confighub-proof`, "attestation-v1");
+  check(currentRunRoot.endsWith("attestation-v1"), `${chart.slug} has no versioned attestation receipt path`);
+  const runRoot = join(repoRoot, current ? currentRunRoot : currentRunRoot.replace(/attestation-v1$/u, "latest"));
+  const receipt = readYaml(join(runRoot, "confighub-proof-receipt.yaml"));
+  const functionReceipt = readYaml(join(runRoot, "function-scan-receipt.yaml"));
+  const safeOpsReceipt = readYaml(join(runRoot, "safe-ops-receipt.yaml"));
+  check(receipt.kind === "ConfigHubProofReceipt" && receipt.spec?.upload?.result === "pass", `${chart.slug} ConfigHub proof receipt is incomplete`);
+  check(functionReceipt.kind === "ConfigHubFunctionScanReceipt" && functionReceipt.spec?.result === "pass", `${chart.slug} function-scan receipt is incomplete`);
+  check(safeOpsReceipt.kind === "ConfigHubSafeOpsReceipt" && safeOpsReceipt.spec?.safetyResult === "pass", `${chart.slug} safe-ops receipt is incomplete`);
+  const approval = safeOpsReceipt.spec?.approval;
+  check(approval?.result === "pass", `${chart.slug} approval observation is incomplete`);
+  if (current) {
+    const subject = approval.subject;
+    const expectedCommand = `cub variant approve ${safeOpsReceipt.spec.context.space} --all --where "UnitID = '${subject?.unitID}'" --revision ${subject?.revisionNum} -o json`;
+    check(safeOpsReceipt.spec.approvalModel === "space-attestation-v1", `${chart.slug} current safe-ops receipt lacks its versioned approval model`);
+    check(approval.command === expectedCommand, `${chart.slug} current approval command does not match its attested subject`);
+    check(typeof approval.attestationID === "string" && approval.attestationID.length > 0, `${chart.slug} current approval attestation ID is missing`);
+    check(approval.type === "Approval" && approval.attestationResult === "Pass", `${chart.slug} current approval is not a passing Approval attestation`);
+    check(typeof subject?.unitID === "string" && Number.isSafeInteger(subject?.revisionNum) && subject.revisionNum > 0, `${chart.slug} current Approval subject is incomplete`);
+    check(approval.workflowEnforcement === "not-configured", `${chart.slug} current approval workflow scope changed`);
+  } else {
+    check(safeOpsReceipt.spec.approvalModel === undefined, `${chart.slug} legacy verifier refuses a current approval receipt`);
+    check(typeof approval.command === "string" && approval.command.startsWith("cub unit approve "), `${chart.slug} retained legacy approval command is missing`);
+  }
 }
 
 function versionSlug(value) {

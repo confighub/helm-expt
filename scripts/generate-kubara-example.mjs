@@ -27,8 +27,8 @@ import {
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--verify";
-if (!["--generate", "--verify", "--live-record", "--live-verify"].includes(mode)) {
-  console.error("Usage: node scripts/generate-kubara-example.mjs [--generate|--verify|--live-record|--live-verify]");
+if (!["--generate", "--verify", "--live-record", "--live-verify", "--self-test"].includes(mode)) {
+  console.error("Usage: node scripts/generate-kubara-example.mjs [--generate|--verify|--live-record|--live-verify|--self-test]");
   process.exit(1);
 }
 
@@ -88,10 +88,32 @@ const expected = {
   publicOci: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubara-local-platform-config:0.12.0",
 };
 
-if (mode === "--generate") generate();
-if (mode === "--live-record") recordLive();
-verify();
-if (["--live-record", "--live-verify"].includes(mode)) verifyLive();
+// The retained upload receipt predates ChangeWorkflow Approval attestations.
+// Its old apply-time gate evidence is bound to this exact policy observation,
+// independently of today's approvalRequired section.
+const historicalPolicyReceiptSha256 =
+  "601fcbcb5ceb2471bced96b7f7731da3dd0fe800bd21caa82d9ff917701253b8";
+const historicalPolicyChecks = [
+  "platform/aicr-training-images-pinned",
+  "platform/aicr-training-secret-refs",
+  "platform/digest-pinned-images",
+  "platform/lifecycle-route-evidence",
+  "platform/probes-declared",
+  "platform/require-approval",
+  "platform/vet-placeholders",
+  "platform/vet-schemas",
+  "platform/workload-sensitive-env-secret-refs",
+];
+const historicalPolicyFilterWhere =
+  "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas|workload-sensitive-env-secret-refs)$'";
+
+if (mode === "--self-test") selfTest();
+else {
+  if (mode === "--generate") generate();
+  if (mode === "--live-record") recordLive();
+  verify();
+  if (["--live-record", "--live-verify"].includes(mode)) verifyLive();
+}
 
 function generate() {
   const kubaraBin = process.env.KUBARA_BIN;
@@ -379,22 +401,15 @@ function verify() {
     uploadReceipt.spec?.policy?.reason === "system-configuration",
     "Kubara approval reason changed",
   );
-  const expectedPolicyChecks = policy.spec.approvalRequired.checks
-    .map((item) => item.trigger)
-    .sort();
-  const recordedPolicyChecks = [...(uploadReceipt.spec?.policy?.checks ?? [])].sort();
-  check(
-    JSON.stringify(recordedPolicyChecks) === JSON.stringify(expectedPolicyChecks),
-    "Kubara upload policy no longer matches the current approval-required checks",
-  );
+  verifyHistoricalPolicyEvidence(uploadReceipt.spec?.policy, policy);
   check(
     uploadReceipt.spec.policy.checks.includes("platform/require-approval"),
     "Kubara upload policy must require approval",
   );
   check(
-    uploadReceipt.spec.policy.filterWhere === policy.spec.approvalRequired.filterWhere
+    uploadReceipt.spec.policy.filterWhere === historicalPolicyFilterWhere
       && String(uploadReceipt.spec.policy.filterHash ?? "").length > 0
-      && (uploadReceipt.spec.policy.triggerIds ?? []).length === expectedPolicyChecks.length
+      && (uploadReceipt.spec.policy.triggerIds ?? []).length === historicalPolicyChecks.length
       && !Number.isNaN(Date.parse(uploadReceipt.spec.policy.observedAt ?? "")),
     "Kubara upload policy observation is incomplete",
   );
@@ -631,14 +646,7 @@ function verifyLive() {
   const { space, unit, liveObjects } = inspectLive(receipt);
   const policy = readYaml(policyPath);
   const livePolicy = inspectLivePolicy(space, policy);
-  check(
-    livePolicy.filterId === receipt.spec.policy.filterId
-      && livePolicy.filterHash === receipt.spec.policy.filterHash
-      && livePolicy.filterWhere === receipt.spec.policy.filterWhere
-      && JSON.stringify(livePolicy.checks) === JSON.stringify([...receipt.spec.policy.checks].sort())
-      && JSON.stringify(livePolicy.triggerIds) === JSON.stringify([...receipt.spec.policy.triggerIds].sort()),
-    "live Kubara apply-policy record changed",
-  );
+  verifyLivePolicyMatchesHistoricalReceipt(livePolicy, receipt.spec.policy);
   for (const [key, value] of Object.entries(receipt.spec.space.labels)) {
     check(space.Labels?.[key] === value, `live Kubara Space label changed: ${key}`);
   }
@@ -648,7 +656,24 @@ function verifyLive() {
   );
 }
 
+function verifyLivePolicyMatchesHistoricalReceipt(livePolicy, recordedPolicy) {
+  check(
+    livePolicy.filterId === recordedPolicy.filterId
+      && livePolicy.filterHash === recordedPolicy.filterHash
+      && livePolicy.filterWhere === recordedPolicy.filterWhere
+      && JSON.stringify(livePolicy.checks)
+        === JSON.stringify([...(recordedPolicy.checks ?? [])].sort())
+      && JSON.stringify(livePolicy.triggerIds)
+        === JSON.stringify([...(recordedPolicy.triggerIds ?? [])].sort()),
+    "live Kubara policy differs from the retained historical receipt; refresh proof is required",
+  );
+}
+
 function recordLive() {
+  check(
+    false,
+    "Kubara upload receipt is historical; recording current policy would rewrite pre-attestation evidence",
+  );
   const receipt = readYaml(uploadReceiptPath);
   const policy = readYaml(policyPath);
   const context = process.env.CUB_CONTEXT?.trim() ?? "";
@@ -691,6 +716,68 @@ function recordLive() {
   delete receipt.status.baselinePolicyAssigned;
   receipt.status.approvalRequiredPolicyAssigned = "pass";
   writeFileSync(uploadReceiptPath, `${toYaml(receipt)}\n`);
+}
+
+function verifyHistoricalPolicyEvidence(recordedPolicy, policy) {
+  check(
+    policy?.metadata?.name === "catalog-standard",
+    "Kubara current policy identity changed",
+  );
+  check(
+    hash(JSON.stringify(recordedPolicy)) === historicalPolicyReceiptSha256,
+    "Kubara historical policy evidence differs from the retained receipt witness",
+  );
+  check(
+    JSON.stringify([...(recordedPolicy?.checks ?? [])].sort())
+      === JSON.stringify(historicalPolicyChecks),
+    "Kubara historical policy check set changed",
+  );
+  check(
+    recordedPolicy.checks.includes("platform/require-approval"),
+    "Kubara historical policy must record its former apply-time approval trigger",
+  );
+}
+
+function selfTest() {
+  const uploadReceipt = readYaml(uploadReceiptPath);
+  const policy = readYaml(policyPath);
+  verifyHistoricalPolicyEvidence(uploadReceipt.spec.policy, policy);
+  const changedEvidence = structuredClone(uploadReceipt.spec.policy);
+  changedEvidence.checks.pop();
+  expectFailure(
+    () => verifyHistoricalPolicyEvidence(changedEvidence, policy),
+    /historical policy evidence differs from the retained receipt witness/,
+    "historical policy tamper refusal",
+  );
+  const currentPolicy = policy.spec.approvalRequired;
+  const currentChecks = currentPolicy.checks.map((item) => item.trigger).sort();
+  expectFailure(
+    () => verifyLivePolicyMatchesHistoricalReceipt({
+      filterId: uploadReceipt.spec.policy.filterId,
+      filterHash: uploadReceipt.spec.policy.filterHash,
+      filterWhere: currentPolicy.filterWhere,
+      checks: currentChecks,
+      triggerIds: uploadReceipt.spec.policy.triggerIds.slice(0, currentChecks.length).sort(),
+    }, uploadReceipt.spec.policy),
+    /differs from the retained historical receipt/,
+    "current policy mismatch against historical receipt",
+  );
+  expectFailure(
+    () => recordLive(),
+    /historical; recording current policy would rewrite pre-attestation evidence/,
+    "historical policy record refusal",
+  );
+  console.log("Kubara example self-test passed: retained historical policy evidence and record refusal");
+}
+
+function expectFailure(action, pattern, label) {
+  try {
+    action();
+  } catch (error) {
+    check(pattern.test(error.message), `${label} failed for the wrong reason: ${error.message}`);
+    return;
+  }
+  check(false, `${label} unexpectedly passed`);
 }
 
 function inspectLivePolicy(space, policy) {

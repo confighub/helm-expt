@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-25 (commit `a2b11cea8`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-26 (commit `b82eb67c2`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 458 |
-| Fresh (no linked source newer than the doc) | 61 |
+| Authored docs tracked | 460 |
+| Fresh (no linked source newer than the doc) | 62 |
 | **Review-due** | 97 |
-| No linked evidence sources (cannot auto-trigger) | 300 |
+| No linked evidence sources (cannot auto-trigger) | 301 |
 
 ## Review queue
 
@@ -353,6 +353,7 @@ into this freshness model.
 - [docs/planning/serverless-verified-install-plan.md](../../docs/planning/serverless-verified-install-plan.md)
 - [docs/planning/site-ia-phase-2.md](../../docs/planning/site-ia-phase-2.md)
 - [docs/planning/site-ia-phase-3.md](../../docs/planning/site-ia-phase-3.md)
+- [docs/planning/site-ia-phase-4.md](../../docs/planning/site-ia-phase-4.md)
 - [docs/planning/site-information-architecture.md](../../docs/planning/site-information-architecture.md)
 - [docs/planning/stacks-platforms-apps-taxonomy.md](../../docs/planning/stacks-platforms-apps-taxonomy.md)
 - [docs/planning/sveltos-fleet-brief.md](../../docs/planning/sveltos-fleet-brief.md)

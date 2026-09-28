@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/istio-istiod-1-30-0-default.yaml",
-      "sha256": "sha256:c01e321983f38d146572d54b37980cb7a0742040b4960f0041d16aaab3a36b39",
+      "sha256": "sha256:aad094e4d618b1c249cb67d51ac8fb3f74f2913f2d5d8d2ab659ee4064d18104",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/istio-istiod-1-30-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -281,7 +281,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-14-0-base.yaml",
-      "sha256": "sha256:f2ae7cc20d21a0e277037da49679021799fe3622d1feaa90400f5787763f6207",
+      "sha256": "sha256:d9e2349954c9e10c1bd03409c9efa1621d440cb72cee7e5f8fe0052111f10bf3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-14-0-base.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -326,7 +326,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

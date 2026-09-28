@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nats-nack-0-34-0-no-crds.yaml",
-      "sha256": "sha256:3737ba40bceda8572aae1a4551cef32814f496110116d6acb9cd244d4253b07d",
+      "sha256": "sha256:88fdbf6bb72e6519d08605195a091da0ba642b357e69e2b1a74fb7f6c14d40a7",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nats-nack-0-34-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -273,7 +273,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

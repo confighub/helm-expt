@@ -298,7 +298,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ],
           "normalSet": "approvalRequired",
           "approvalReason": "system-configuration"
@@ -645,7 +645,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ],
           "normalSet": "approvalRequired",
           "approvalReason": "system-configuration"
@@ -1104,7 +1104,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ],
           "normalSet": "approvalRequired",
           "approvalReason": "system-configuration"
@@ -1138,7 +1138,7 @@
           "Both OCI artifacts were anonymously pulled at their recorded digests.",
           "ConfigHub recorded the literal OCI digest and its separate Unit data hash 127138237fb994791dfa5e7e6958e8d6083fb779660dc346c879f09b3025560a; the upload receipt binds them by exact-object comparison.",
           "The persistent development and staging variants contain the one reviewed Grafana Secret-reference change.",
-          "The required-approval gate refused to publish an unapproved ConfigHub release.",
+          "Historical Trigger evidence recorded that the required-approval gate refused an unapproved ConfigHub release; it does not prove the current workflow-attestation contract.",
           "After approval, ConfigHub published the staging release OCI; an authenticated pull resolved the exact manifest digest and matched the promoted 17-Application object set.",
           "All 16 nested component sources rendered locally; eight rendered CRDs. Their destination-specific lifecycle handling still requires runtime evidence.",
           "Argo CD reconciliation, EKS, H100 execution, training, model requests, and exact runtime rollback have not run for this version."
@@ -1671,7 +1671,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ],
           "normalSet": "approvalRequired",
           "approvalReason": "system-configuration"
@@ -1705,7 +1705,7 @@
           "Both OCI artifacts were anonymously pulled at their recorded digests.",
           "ConfigHub recorded the literal OCI digest and its separate Unit data hash 99246a3a947ec2b4a0037a395e81c21c4f6efb92198fe08e9a9afb63b2f3ab56; the upload receipt binds them by exact-object comparison.",
           "The persistent development, staging, and production variants contain the one reviewed Grafana Secret-reference change.",
-          "The required-approval gate refused to publish an unapproved ConfigHub release.",
+          "Historical Trigger evidence recorded that the required-approval gate refused an unapproved ConfigHub release; it does not prove the current workflow-attestation contract.",
           "After approval, ConfigHub published the production release OCI; an authenticated pull resolved the exact manifest digest and matched the promoted 17-Application object set.",
           "All 16 nested component sources rendered locally; eight rendered CRDs. Their destination-specific lifecycle handling still requires runtime evidence.",
           "Argo CD reconciliation, EKS, H100 execution, training, model requests, and exact runtime rollback have not run for this version."
@@ -1929,7 +1929,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -2554,7 +2554,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -2846,7 +2846,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -3245,7 +3245,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -3537,7 +3537,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -3936,7 +3936,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -4248,7 +4248,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -4659,7 +4659,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -4951,7 +4951,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -5362,7 +5362,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -5628,7 +5628,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -5874,7 +5874,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -6140,7 +6140,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -6386,7 +6386,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -6974,7 +6974,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -7568,7 +7568,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -7860,7 +7860,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -8126,7 +8126,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -8425,7 +8425,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -8680,7 +8680,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -8980,7 +8980,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -9280,7 +9280,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -9541,7 +9541,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -9867,7 +9867,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -10128,7 +10128,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -10452,7 +10452,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -10713,7 +10713,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -11039,7 +11039,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -11285,7 +11285,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -11540,7 +11540,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -11786,7 +11786,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -12125,7 +12125,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -12507,7 +12507,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -12846,7 +12846,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -13101,7 +13101,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -13347,7 +13347,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -13593,7 +13593,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -13848,7 +13848,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -14132,7 +14132,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -14378,7 +14378,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -14662,7 +14662,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -14908,7 +14908,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -15192,7 +15192,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -15438,7 +15438,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -15724,7 +15724,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -15970,7 +15970,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -16287,7 +16287,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -16540,7 +16540,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ],
           "normalSet": "baseline"
         },
@@ -16880,7 +16880,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -17126,7 +17126,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -17443,7 +17443,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -17689,7 +17689,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -17944,7 +17944,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -18190,7 +18190,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -18436,7 +18436,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -18691,7 +18691,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -18937,7 +18937,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -19219,7 +19219,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -19465,7 +19465,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -19747,7 +19747,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -19993,7 +19993,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -20275,7 +20275,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -20521,7 +20521,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -20832,7 +20832,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -21078,7 +21078,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -21324,7 +21324,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -21606,7 +21606,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -21852,7 +21852,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -22134,7 +22134,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -22389,7 +22389,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -22635,7 +22635,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -22881,7 +22881,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -23136,7 +23136,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -23382,7 +23382,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -23628,7 +23628,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -23874,7 +23874,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -24560,7 +24560,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -24806,7 +24806,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -25052,7 +25052,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -25298,7 +25298,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -25582,7 +25582,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -25828,7 +25828,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -26110,7 +26110,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -26382,7 +26382,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ],
           "normalSet": "baseline"
         },
@@ -26632,7 +26632,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -26887,7 +26887,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -27137,7 +27137,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ],
           "normalSet": "baseline"
         },
@@ -27390,7 +27390,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -27636,7 +27636,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -27882,7 +27882,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -28128,7 +28128,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -28374,7 +28374,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -28738,7 +28738,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -29093,7 +29093,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -29339,7 +29339,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -29594,7 +29594,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -29876,7 +29876,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -30240,7 +30240,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -30501,7 +30501,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -30747,7 +30747,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -30993,7 +30993,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -31300,7 +31300,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -32491,7 +32491,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -32783,7 +32783,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -33917,7 +33917,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -34224,7 +34224,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -35393,7 +35393,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -35639,7 +35639,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -35935,7 +35935,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -36311,7 +36311,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -36557,7 +36557,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -36803,7 +36803,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -37132,7 +37132,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -37378,7 +37378,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -37718,7 +37718,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -38702,7 +38702,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -38957,7 +38957,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -39218,7 +39218,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -39479,7 +39479,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -39725,7 +39725,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -40009,7 +40009,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -40255,7 +40255,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -40501,7 +40501,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -40747,7 +40747,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -40993,7 +40993,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -41248,7 +41248,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -41494,7 +41494,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -41740,7 +41740,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -41986,7 +41986,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -42232,7 +42232,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -42567,7 +42567,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -42813,7 +42813,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -43280,7 +43280,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -43526,7 +43526,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -43772,7 +43772,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -44198,7 +44198,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -44551,7 +44551,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -44955,7 +44955,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -45210,7 +45210,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -45456,7 +45456,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -45728,7 +45728,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -45974,7 +45974,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -46266,7 +46266,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -46512,7 +46512,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -46758,7 +46758,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -47013,7 +47013,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -47311,7 +47311,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -47557,7 +47557,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -47908,7 +47908,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -48304,7 +48304,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -48559,7 +48559,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -48805,7 +48805,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -49253,7 +49253,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -49519,7 +49519,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -50009,7 +50009,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -50424,7 +50424,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -50878,7 +50878,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -51315,7 +51315,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -51631,7 +51631,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -51947,7 +51947,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -52193,7 +52193,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -52745,7 +52745,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -53099,7 +53099,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ],
           "normalSet": "approvalRequired",
           "approvalReason": "system-configuration"
@@ -53364,7 +53364,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ],
           "normalSet": "baseline"
         },
@@ -53773,7 +53773,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -55076,7 +55076,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -55495,7 +55495,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -55789,7 +55789,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -56035,7 +56035,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -56296,7 +56296,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -56542,7 +56542,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -56788,7 +56788,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -57034,7 +57034,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -57280,7 +57280,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -57535,7 +57535,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -57852,7 +57852,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -58107,7 +58107,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -58424,7 +58424,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -58685,7 +58685,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -58979,7 +58979,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -59225,7 +59225,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -59486,7 +59486,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -59732,7 +59732,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -59987,7 +59987,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -60233,7 +60233,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -60488,7 +60488,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -60734,7 +60734,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -60989,7 +60989,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -61244,7 +61244,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -61499,7 +61499,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -61745,7 +61745,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -61991,7 +61991,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -62377,7 +62377,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -62935,7 +62935,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -63190,7 +63190,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -63436,7 +63436,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -64017,7 +64017,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -64263,7 +64263,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -64509,7 +64509,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -64755,7 +64755,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -65001,7 +65001,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -65377,7 +65377,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -65632,7 +65632,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -66111,7 +66111,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -66357,7 +66357,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -66603,7 +66603,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -67619,7 +67619,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -68632,7 +68632,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ],
           "normalSet": "baseline"
         },
@@ -69677,7 +69677,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -70673,7 +70673,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -71689,7 +71689,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -72692,7 +72692,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -73685,7 +73685,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -74698,7 +74698,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -75701,7 +75701,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -76099,7 +76099,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -77092,7 +77092,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -77338,7 +77338,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -77593,7 +77593,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -77848,7 +77848,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -78094,7 +78094,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -78340,7 +78340,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -78586,7 +78586,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -78832,7 +78832,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -79078,7 +79078,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -79333,7 +79333,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -79579,7 +79579,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -79834,7 +79834,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -80089,7 +80089,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -80383,7 +80383,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -80638,7 +80638,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -80899,7 +80899,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -81154,7 +81154,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -81668,7 +81668,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -81934,7 +81934,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -82180,7 +82180,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -82426,7 +82426,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -82672,7 +82672,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -82933,7 +82933,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -83179,7 +83179,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -83425,7 +83425,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -83680,7 +83680,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -83935,7 +83935,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -84196,7 +84196,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -84859,7 +84859,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -85227,7 +85227,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ],
           "normalSet": "approvalRequired",
           "approvalReason": "system-configuration"
@@ -85560,7 +85560,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ],
           "normalSet": "baseline"
         },
@@ -85944,7 +85944,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ],
           "normalSet": "baseline"
         },
@@ -86196,7 +86196,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -86442,7 +86442,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -86703,7 +86703,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -86949,7 +86949,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -87195,7 +87195,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -87441,7 +87441,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -87687,7 +87687,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -87933,7 +87933,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -88188,7 +88188,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {
@@ -88434,7 +88434,7 @@
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
-            "human-approval"
+            "workflow-approval"
           ]
         },
         "evidence": {

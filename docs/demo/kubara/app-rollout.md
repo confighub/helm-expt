@@ -96,7 +96,7 @@ Let's Encrypt ACME, which needs a public-reachable ingress, so a self-signed
 issuer was used for TLS on kind. The app is a minimal nginx service, not a
 production workload.
 
-## Production requires approval
+## Historical production approval gate
 
 The two production clusters carry a require-approval gate. A Trigger in the
 `hx-platform` Space runs `vet-approvedby`, attached to the production Spaces
@@ -105,6 +105,14 @@ is refused with `HTTP 422` until every Unit in the Space is approved. After a
 `cub unit approve`, the release publishes and argobot delivers it. The gate
 covers every Unit in the Space, so a namespace or service Unit must be approved
 alongside the workload.
+
+This is a retained historical Trigger-based observation from the committed
+receipt. It does not show a ChangeWorkflow AttestationPrerequisite, and it does
+not mean the existing `vet-approvedby` Trigger was migrated. In a separately
+configured current workflow, `cub variant approve` records Approval
+attestations for selected revisions and later revisions with identical content;
+the workflow's configured attestation prerequisite determines whether those
+attestations gate a ChangeOrder stage.
 
 ## Check the evidence
 

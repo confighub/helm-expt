@@ -241,7 +241,7 @@ spec:
   policy:
     profile: "catalog-standard"
     productionAdds:
-      - "human-approval"
+      - "workflow-approval"
     normalSet: "baseline"
   evidence:
     sourceLock: "examples/timoni/flux-aio-2-9-4-0/source-lock.yaml"

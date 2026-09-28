@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/linkerd-linkerd-crds-1-8-0-default.yaml",
-      "sha256": "sha256:8b48b68f3eb1b03fa8e949aa260ceac4c7c7739ab0a38fbbcea158f4b4964a0e",
+      "sha256": "sha256:02db85e3f7ddb52de438477a12d0397f580c1e274f20ed346602b6a8b725c41f",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/linkerd-linkerd-crds-1-8-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -286,7 +286,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

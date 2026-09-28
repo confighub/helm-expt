@@ -24,13 +24,15 @@ import {
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--verify";
-const allowedModes = new Set(["--run", "--policy-record", "--generate", "--verify", "--self-test"]);
+const allowedModes = new Set(["--run", "--policy-record", "--generate", "--verify", "--generate-current", "--verify-current", "--self-test"]);
 if (!allowedModes.has(mode)) {
   console.error(`Usage:
   node scripts/run-sveltos-bulk-ops-proof.mjs --run
   node scripts/run-sveltos-bulk-ops-proof.mjs --policy-record
   node scripts/run-sveltos-bulk-ops-proof.mjs --generate
   node scripts/run-sveltos-bulk-ops-proof.mjs --verify
+  node scripts/run-sveltos-bulk-ops-proof.mjs --generate-current
+  node scripts/run-sveltos-bulk-ops-proof.mjs --verify-current
   node scripts/run-sveltos-bulk-ops-proof.mjs --self-test`);
   process.exit(2);
 }
@@ -54,6 +56,7 @@ const policyPath = join(
 const expectedTriggers = readYaml(policyPath).spec.approvalRequired.checks
   .map((item) => item.trigger)
   .sort();
+const nativeCheckWhere = `Space.Slug = 'platform' AND Slug IN (${expectedTriggers.map((ref) => `'${ref.split("/")[1]}'`).join(", ")})`;
 // The gateway answers on the bare host. The reference the probe recorded as
 // working carries no port, so every reference this runner builds carries none.
 const configHubOciHost = "oci.hub.confighub.com";
@@ -68,9 +71,14 @@ const receiptPath = join(
   "receipt.yaml",
 );
 const summaryPath = join(repoRoot, "data", "sveltos-bulk-ops", "summary.md");
+// The retained Trigger-era receipt and summary are immutable recorded evidence.
+// A current native-workflow run writes a different receipt family.
+const workflowReceiptPath = join(repoRoot, "runs", "sveltos-bulk-ops-workflow-proof", "receipt.yaml");
+const workflowSummaryPath = join(repoRoot, "data", "sveltos-bulk-ops-workflow", "summary.md");
 const environments = ["pilot", "staging", "prod"];
 const policyUnit = "clusterprofile";
 const proofLabel = "sveltos-bulk-ops";
+const componentName = "sveltos-kyverno-bulk-ops";
 const gateQueryWhere = `Labels.Proof = '${proofLabel}' AND LEN(ApplyGates) > 0`;
 const gateQueryScope = 'cub unit list --space "*"';
 // Declared with the other constants because the mode dispatch runs before
@@ -96,9 +104,34 @@ let timeSource = () => Date.now();
 if (mode === "--run") {
   run();
 } else if (mode === "--policy-record") {
-  recordCurrentPolicy();
+  throw new Error("--policy-record is retained for the historical Trigger receipt and cannot record current approval evidence; run the native ChangeWorkflow/ChangeOrder proof instead");
 } else if (mode === "--self-test") {
   selfTest();
+} else if (mode === "--generate-current") {
+  check(
+    existsSync(workflowReceiptPath),
+    `${relativeRepo(workflowReceiptPath)} is missing; no current native workflow run has been recorded`,
+  );
+  const receipt = readYaml(workflowReceiptPath);
+  verifyCurrentReceipt(receipt);
+  write(workflowSummaryPath, renderSummary(receipt));
+  console.log(`wrote ${relativeRepo(workflowSummaryPath)}`);
+} else if (mode === "--verify-current") {
+  check(
+    existsSync(workflowReceiptPath),
+    `${relativeRepo(workflowReceiptPath)} is missing; no current native workflow run has been recorded`,
+  );
+  const receipt = readYaml(workflowReceiptPath);
+  verifyCurrentReceipt(receipt);
+  check(
+    existsSync(workflowSummaryPath),
+    `${relativeRepo(workflowSummaryPath)} is missing; run --generate-current`,
+  );
+  check(
+    readFileSync(workflowSummaryPath, "utf8") === renderSummary(receipt),
+    `${relativeRepo(workflowSummaryPath)} is stale`,
+  );
+  console.log(`verified the current ${title}`);
 } else if (mode === "--generate") {
   check(
     existsSync(receiptPath),
@@ -156,7 +189,7 @@ function run() {
   const sveltos = loadSveltosPin();
   const addonControllerImage = resolveAddonControllerImage(sveltos);
 
-  const topology = readApprovalTopology(policyContext);
+  const topology = readNativeCheckTopology(policyContext);
   const catalogTarget = cubJson(policyContext, [
     "target", "get", "--space", ...catalogOciTargetRef.split("/"), "-o", "json",
   ]).Target;
@@ -194,11 +227,11 @@ function run() {
   const policySpacesCreated = new Set();
   let receipt;
 
-  // The approval gate is probed before any cluster work, so a Space whose gate
-  // never attaches costs seconds, not the seven-minute fleet build.
-  assertApprovalGateObservable(policyContext, runId, topology, catalogTarget);
+  // The per-Space ChangeWorkflow is created with the reviewed revision below.
+  // Its authoritative proof is a rejected ChangeOrder release before Approval
+  // and a successful release afterwards, not a Unit ApplyGate observation.
   cleanup.probeSpace = "pass";
-  phase("gate preflight passed; the approval gate is observable");
+  phase("workflow approval is checked at each ChangeOrder release");
 
   try {
     for (const environment of environments) {
@@ -351,7 +384,7 @@ function run() {
     });
     check(
       zeroDriftAudit.result === "pass",
-      `the zero-drift audit did not pass: ${JSON.stringify(zeroDriftAudit.gateQuery.matches)}`,
+      "the zero-drift audit did not pass",
     );
     checkpoints.push({
       id: "zero-drift-audit",
@@ -426,11 +459,11 @@ function run() {
     Object.values(cleanup).every((value) => value === "pass"),
     `Sveltos bulk operations cleanup failed: ${JSON.stringify(cleanup)}`,
   );
-  writeYaml(receiptPath, receipt);
-  write(summaryPath, renderSummary(receipt));
+  writeYaml(workflowReceiptPath, receipt);
+  write(workflowSummaryPath, renderSummary(receipt));
   verifyReceipt(receipt);
   console.log(
-    `wrote ${relativeRepo(receiptPath)} and ${relativeRepo(summaryPath)}`,
+    `wrote ${relativeRepo(workflowReceiptPath)} and ${relativeRepo(workflowSummaryPath)}`,
   );
 }
 
@@ -769,7 +802,7 @@ function reviewHeadRevision({
   revisionId,
   minimumRevision,
 }) {
-  const stored = waitForPolicy(policyContext, space, policyUnit, true);
+  const stored = cubJson(policyContext, ["unit", "get", policyUnit, "--space", space, "-o", "json"]).Unit;
   check(
     canonicalDocs(parseDocs(storedData(policyContext, stored))) === canonicalDocs(expectedDocs),
     `ConfigHub stored a different ${stageName} ClusterProfile`,
@@ -780,39 +813,82 @@ function reviewHeadRevision({
       `the ${stageName} did not create a new revision`,
     );
   }
-  const beforeApproval = blockedDryRun(policyContext, space, policyUnit);
-  approveHeadRevision(
-    policyContext,
-    space,
-    policyUnit,
-    stageName,
-    stored.HeadRevisionNum,
-  );
-  const approved = waitForPolicy(policyContext, space, policyUnit, false);
-  check(
-    approved.DataHash === stored.DataHash,
-    `approval changed the ${stageName} content`,
-  );
-  const recordedApprovals = approvalCount(approved.ApprovedBy);
-  check(recordedApprovals >= 1, `the ${stageName} has no approval`);
-  const afterApproval = allowedDryRun(policyContext, space, policyUnit);
-  // The published release is not read back here. What the gateway served is
-  // proved downstream, where the object that arrived on the management cluster
-  // is compared field by field against the approved revision.
-  const release = publishRelease(policyContext, space);
+  const native = approveAndReleaseChangeOrder(policyContext, space, policyUnit, stored, stageName);
   return {
     revisionId,
     contentHash: stored.DataHash,
-    beforeApproval,
-    approval: {
-      revision: approved.HeadRevisionNum,
-      recordedApprovals,
-      approverIdentityRecordedInReceipt: false,
-      contentHashUnchanged: true,
-    },
-    afterApproval,
-    release,
+    approval: native.approval,
+    beforeApproval: native.beforeApproval,
+    afterApproval: native.afterApproval,
+    release: native.release,
   };
+}
+
+function approveAndReleaseChangeOrder(context, space, unit, stored, stageName) {
+  const source = cubJson(context, ["space", "get", space, "-o", "json"]).Space;
+  check(typeof source.ComponentID === "string" && source.ComponentID.length > 0,
+    `${stageName} source Space has no ComponentID; do not infer ChangeOrder scope from Labels.Component`);
+  const releaseMembers = cubJson(context, ["unit", "list", "--space", space, "-o", "json"])
+    .map((row) => row.Unit ?? row);
+  check(releaseMembers.length === 1 && releaseMembers[0]?.UnitID === stored.UnitID,
+    `${stageName} release would include Units beyond the one reviewed subject`);
+  const workflowSlug = `review-${stored.HeadRevisionNum}`;
+  const changeOrderSlug = `review-${stored.HeadRevisionNum}`;
+  const fixtureRoot = mkdtempSync(join(tmpdir(), "sveltos-workflow-"));
+  const fixture = join(fixtureRoot, "workflow.json");
+  try {
+    writeFileSync(fixture, `${JSON.stringify({
+      Stages: [{ Name: "reviewed", WhereSpace: `SpaceID = '${source.SpaceID}'`, ReleasePrerequisites: ["review"] }],
+      AttestationPrerequisites: [{ Name: "review", Type: "Approval", Count: 1, AllowAuthors: true, IgnoreFail: false }],
+    })}\n`);
+    cub(context, ["changeworkflow", "create", "--space", space, workflowSlug, "--filename", fixture, "--quiet"]);
+    const workflow = cubJson(context, ["changeworkflow", "get", "--space", space, workflowSlug, "-o", "json"]).ChangeWorkflow;
+    const stage = (workflow.Stages ?? []).find((row) => row.Name === "reviewed");
+    check(stage?.WhereSpace === `SpaceID = '${source.SpaceID}'` && (stage.ReleasePrerequisites ?? []).includes("review"), `${stageName} workflow did not bind its release prerequisite to the exact Space`);
+    const requirement = (workflow.AttestationPrerequisites ?? []).find((row) => row.Name === "review");
+    check((requirement?.Type ?? "Approval") === "Approval" && requirement?.Count === 1 && requirement.AllowAuthors === true && (requirement.IgnoreFail ?? false) === false, `${stageName} workflow approval requirement changed`);
+    cub(context, ["changeorder", "create", "--space", space, changeOrderSlug, "--component", source.ComponentID, "--in-scope-space", space, "--change-workflow", `${space}/${workflowSlug}`, "--quiet"]);
+    const changeOrder = cubJson(context, ["changeorder", "get", "--space", space, changeOrderSlug, "-o", "json"]).ChangeOrder;
+    check(changeOrder.ChangeWorkflowID === workflow.ChangeWorkflowID && Array.isArray(changeOrder.InScopeSpaceIDs) && changeOrder.InScopeSpaceIDs.length === 1 && changeOrder.InScopeSpaceIDs[0] === source.SpaceID && changeOrder.EndTagID, `${stageName} ChangeOrder is not exactly bound to its workflow and source Space`);
+    const headRevisionRows = cubJson(context, ["revision", "list", "--space", space, "--by-unit-id", stored.UnitID, "--where", `RevisionNum = ${stored.HeadRevisionNum}`, "-o", "json"])
+      .map((row) => row.Revision ?? row);
+    const storedRevision = headRevisionRows[0];
+    check(
+      headRevisionRows.length === 1
+        && typeof stored.HeadRevisionID === "string" && stored.HeadRevisionID.length > 0
+        && typeof storedRevision?.RevisionID === "string" && storedRevision.RevisionID === stored.HeadRevisionID
+        && storedRevision?.UnitID === stored.UnitID
+        && Number(storedRevision?.RevisionNum) === Number(stored.HeadRevisionNum)
+        && storedRevision?.DataHash === stored.DataHash,
+      `${stageName} could not resolve the Unit head to one immutable RevisionID`,
+    );
+    const revisionRows = cubJson(context, ["revision", "list", "--space", space, "--by-unit-id", stored.UnitID, "--change-order", changeOrder.ChangeOrderID, "-o", "json"])
+      .map((row) => row.Revision ?? row);
+    const selectedRevision = revisionRows[0];
+    check(
+      revisionRows.length === 1
+        && selectedRevision?.UnitID === stored.UnitID
+        && selectedRevision?.RevisionID === storedRevision.RevisionID
+        && Number(selectedRevision?.RevisionNum) === Number(storedRevision.RevisionNum)
+        && selectedRevision?.DataHash === storedRevision.DataHash,
+      `${stageName} ChangeOrder end tag does not select exactly the reviewed Unit revision`,
+    );
+    const revision = `ChangeOrder:${changeOrder.ChangeOrderID}`;
+    const refused = cubTry(context, ["release", "publish", "--revision", revision, space, "-o", "json"]);
+    check(!refused.ok && /requires review: 1 Approval attestation\(s\)/.test(refused.error), `${stageName} release did not return the reviewed ChangeWorkflow prerequisite refusal: ${refused.error}`);
+    const result = cubJson(context, ["variant", "approve", space, "--change-order", `${space}/${changeOrderSlug}`, "--stage", "reviewed", "--revision", revision, "--where", `Slug = '${unit}'`, "-o", "json"]);
+    const row = (result.Spaces ?? [])[0];
+    const attestation = row?.Attestation;
+    const subject = (row?.Subjects ?? [])[0];
+    check((result.Spaces ?? []).length === 1 && row.SpaceSlug === space && !row.Error && Array.isArray(row.Subjects) && row.Subjects.length === 1 && (!Object.hasOwn(row, "SkippedUnits") || Array.isArray(row.SkippedUnits) && row.SkippedUnits.length === 0) && typeof attestation?.AttestationID === "string" && attestation.AttestationID.length > 0 && attestation.Type === "Approval" && attestation.Result === "Pass" && attestation.ChangeOrderID === changeOrder.ChangeOrderID && subject?.UnitID === stored.UnitID && subject?.RevisionID === selectedRevision.RevisionID && Number(subject?.RevisionNum) === Number(selectedRevision.RevisionNum), `${stageName} variant approval did not bind exactly the ChangeOrder end-tag revision`);
+    const release = publishRelease(context, space, revision);
+    return {
+      beforeApproval: { result: "blocked", authority: "ChangeWorkflow.ReleasePrerequisite", changeOrderID: changeOrder.ChangeOrderID },
+      approval: { authority: "server-attested-changeworkflow-changeorder-v1", workflowID: workflow.ChangeWorkflowID, changeOrderID: changeOrder.ChangeOrderID, endTagID: changeOrder.EndTagID, attestationID: attestation.AttestationID, revision: stored.HeadRevisionNum, contentHashUnchanged: true },
+      afterApproval: { result: "allowed", authority: "ChangeWorkflow.ReleasePrerequisite", changeOrderID: changeOrder.ChangeOrderID },
+      release,
+    };
+  } finally { rmSync(fixtureRoot, { recursive: true, force: true }); }
 }
 
 function assertLiveProfileMatches({ managementKubeconfig, environment, expectedDoc }) {
@@ -893,18 +969,9 @@ function auditZeroDrift({
   fleetClusters,
   managementKubeconfig,
 }) {
-  const gateRows = JSON.parse(cub(policyContext, [
-    "unit", "list",
-    "--space", "*",
-    "--where", gateQueryWhere,
-    "--quiet", "-o", "json",
-  ]));
-  const matches = (Array.isArray(gateRows) ? gateRows : [])
-    .map((row) => `${row.Unit?.SpaceSlug ?? ""}/${row.Unit?.Slug ?? ""}`);
-  check(
-    matches.length === 0,
-    `the set-aware gate query found armed gates: ${matches.join(", ")}`,
-  );
+  const approvalEvidence = environments.map((environment) => environmentRecords[environment].changed.approval);
+  check(approvalEvidence.every((approval) => approval?.authority === "server-attested-changeworkflow-changeorder-v1" && approval.workflowID && approval.changeOrderID && approval.endTagID && approval.attestationID),
+    "a changed record lacks bound ChangeWorkflow, ChangeOrder, or Approval attestation evidence");
 
   const records = [];
   const storedValues = [];
@@ -965,11 +1032,7 @@ function auditZeroDrift({
 
   return {
     result: "pass",
-    gateQuery: {
-      scope: gateQueryScope,
-      where: gateQueryWhere,
-      matches,
-    },
+    approvalEvidence,
     records,
     valuesIdenticalAcrossRecords: true,
     clusters,
@@ -1128,7 +1191,7 @@ function buildReceipt({
 }) {
   return {
     apiVersion: "catalog.confighub.com/v1alpha1",
-    kind: "SveltosBulkOpsProofReceipt",
+    kind: "SveltosBulkOpsWorkflowApprovalProofReceipt",
     metadata: { name: "kyverno-bulk-operations" },
     spec: {
       recordedAt,
@@ -1160,8 +1223,8 @@ function buildReceipt({
         organization: expectedPolicyOrg,
         profile: "catalog-standard",
         resourceClass: "system-configuration",
-        filter: topology,
-        approvalGate,
+        checks: topology,
+        workflowApproval: "server-attested-changeworkflow-changeorder-v1",
         target: {
           ref: catalogOciTargetRef,
           id: catalogTarget.TargetID,
@@ -1227,9 +1290,21 @@ function buildReceipt({
   };
 }
 
+function verifyCurrentReceipt(receipt) {
+  verifyReceipt(receipt);
+  check(
+    receipt.kind === "SveltosBulkOpsWorkflowApprovalProofReceipt"
+      && receipt.spec?.policy?.workflowApproval === "server-attested-changeworkflow-changeorder-v1"
+      && !Object.hasOwn(receipt.spec?.policy ?? {}, "approvalGate")
+      && !Object.hasOwn(receipt.spec?.policy ?? {}, "filter")
+      && receipt.spec?.policy?.checks?.attachment === "direct nonapproval Trigger selector",
+    "current receipt does not use the native ChangeWorkflow approval model",
+  );
+}
+
 function verifyReceipt(receipt) {
   check(
-    receipt.kind === "SveltosBulkOpsProofReceipt",
+    ["SveltosBulkOpsProofReceipt", "SveltosBulkOpsWorkflowApprovalProofReceipt"].includes(receipt.kind),
     "Sveltos bulk ops receipt kind changed",
   );
   check(receipt.status?.result === "pass", "Sveltos bulk ops proof is not pass");
@@ -1262,16 +1337,21 @@ function verifyReceipt(receipt) {
     receipt.spec?.source?.continuity?.baselineMatchesChapterFourOutcome === true,
     "Sveltos bulk ops continuity record changed",
   );
-  const recordedTriggers = receipt.spec?.policy?.filter?.triggerRefs ?? [];
+  const legacyApprovalReceipt = receipt.spec?.policy?.approvalGate === approvalGate;
+  const recordedTriggers = (legacyApprovalReceipt
+    ? receipt.spec?.policy?.filter
+    : receipt.spec?.policy?.checks)?.triggerRefs ?? [];
   check(
     receipt.spec?.policy?.organization === expectedPolicyOrg
       && receipt.spec.policy.profile === "catalog-standard"
-      && receipt.spec.policy.approvalGate === approvalGate
-      && sameSet(recordedTriggers, expectedTriggers),
+      && (legacyApprovalReceipt || receipt.spec.policy.workflowApproval === "server-attested-changeworkflow-changeorder-v1")
+      && sameSet(recordedTriggers, legacyApprovalReceipt ? [...expectedTriggers, "platform/require-approval"] : expectedTriggers),
     "Sveltos bulk ops policy record changed",
   );
   check(
-    !Number.isNaN(Date.parse(receipt.spec?.policy?.filter?.observedAt ?? "")),
+    !Number.isNaN(Date.parse((legacyApprovalReceipt
+      ? receipt.spec?.policy?.filter
+      : receipt.spec?.policy?.checks)?.observedAt ?? "")),
     "Sveltos bulk ops current policy observation time is missing",
   );
   const sveltos = loadSveltosPin();
@@ -1328,12 +1408,23 @@ function verifyReceipt(receipt) {
       ["changed", record?.changed],
     ]) {
       check(
-        review?.beforeApproval?.result === "blocked"
-          && review.beforeApproval.gate === approvalGate
-          && review.afterApproval?.result === "allowed"
-          && review.approval?.recordedApprovals >= 1
-          && review.approval.approverIdentityRecordedInReceipt === false
-          && review.approval.contentHashUnchanged === true,
+        legacyApprovalReceipt
+          ? review?.beforeApproval?.result === "blocked"
+            && review.beforeApproval.gate === approvalGate
+            && review.afterApproval?.result === "allowed"
+            && review.approval?.recordedApprovals >= 1
+            && review.approval.approverIdentityRecordedInReceipt === false
+            && review.approval.contentHashUnchanged === true
+          : review?.beforeApproval?.result === "blocked"
+            && review.beforeApproval.authority === "ChangeWorkflow.ReleasePrerequisite"
+            && review.afterApproval?.result === "allowed"
+            && review.afterApproval.authority === "ChangeWorkflow.ReleasePrerequisite"
+            && review.approval?.authority === "server-attested-changeworkflow-changeorder-v1"
+            && typeof review.approval.workflowID === "string" && review.approval.workflowID.length > 0
+            && typeof review.approval.changeOrderID === "string" && review.approval.changeOrderID.length > 0
+            && typeof review.approval.endTagID === "string" && review.approval.endTagID.length > 0
+            && typeof review.approval.attestationID === "string" && review.approval.attestationID.length > 0
+            && review.approval.contentHashUnchanged === true,
         `Sveltos bulk ops ${environment} ${stage} approval record changed`,
       );
       check(
@@ -1416,9 +1507,9 @@ function verifyReceipt(receipt) {
   const audit = receipt.spec?.zeroDriftAudit;
   check(
     audit?.result === "pass"
-      && audit.gateQuery?.where === gateQueryWhere
-      && Array.isArray(audit.gateQuery.matches)
-      && audit.gateQuery.matches.length === 0
+      && (legacyApprovalReceipt
+        ? audit.gateQuery?.where === gateQueryWhere && Array.isArray(audit.gateQuery.matches) && audit.gateQuery.matches.length === 0
+        : Array.isArray(audit.approvalEvidence) && audit.approvalEvidence.length === environments.length && audit.approvalEvidence.every((approval) => approval?.authority === "server-attested-changeworkflow-changeorder-v1" && approval.attestationID && approval.changeOrderID))
       && (audit.records ?? []).length === 3
       && audit.records.every(
         (row) => row.revisionUnchanged === true && row.contentUnchanged === true,
@@ -1523,13 +1614,27 @@ function renderSummary(receipt) {
   });
   const audit = receipt.spec.zeroDriftAudit;
   const delivery = receipt.spec.gatewayDelivery;
+  const legacyReceipt = receipt.kind === "SveltosBulkOpsProofReceipt";
+  const approvalDescription = legacyReceipt
+    ? "still enforces its own approval gate, and each approved revision was"
+    : "uses a configured ChangeWorkflow and ChangeOrder Approval attestation before it is";
+  const auditDescription = legacyReceipt
+    ? "A set-aware query across the Spaces\nfound no armed gates, no record changed out of band after its approval, the"
+    : "Each ChangeOrder has bound workflow, attestation, and selected-revision evidence; no record changed out of band after its approval, and the";
+  const approvalAuditRow = legacyReceipt
+    ? `| Set-aware gate query matches | ${audit.gateQuery.matches.length} |`
+    : `| Native ChangeWorkflow approval evidence | ${audit.approvalEvidence.length}/3 records |`;
+  const matrixLinks = legacyReceipt
+    ? "The per-cluster matrix in [matrix.md](matrix.md) and\n[matrix.html](matrix.html) shows every cluster at every checkpoint."
+    : "The retained historical per-cluster matrix is [matrix.md](../sveltos-bulk-ops/matrix.md) and\n[matrix.html](../sveltos-bulk-ops/matrix.html); it is not evidence for this current workflow receipt.";
+  const committedReceipt = legacyReceipt ? "../../runs/sveltos-bulk-ops-proof/receipt.yaml" : "../../runs/sveltos-bulk-ops-workflow-proof/receipt.yaml";
   const operations = receipt.spec.fanOut.operations;
   return `# ConfigHub changes a fleet once and proves it everywhere
 
 This run starts with four workload clusters in three environment groups. One
 reviewed edit raises \`${change.valuesPath}\` from ${change.before} to
 ${change.after} and fans out to every environment record in one pass. Each
-record still enforces its own approval gate, and each approved revision was
+record ${approvalDescription}
 published as a release the ConfigHub OCI gateway serves.
 
 Sveltos fetched each release itself from
@@ -1540,8 +1645,7 @@ ${operations.approvals} approvals and ${operations.releasePublishes} publishes,
 because each Space publishes its own release and each bootstrap profile reads
 its own Space.
 
-The zero-drift audit closed the run. A set-aware query across the Spaces
-found no armed gates, no record changed out of band after its approval, the
+The zero-drift audit closed the run. ${auditDescription}
 stored change was byte-identical across the records, and drift injected on
 every cluster was repaired.
 
@@ -1553,21 +1657,20 @@ ${rows.join("\n")}
 | --- | --- |
 | Fan-out records | ${receipt.spec.fanOut.records.length}/3 in one pass |
 | Approvals and release publishes | ${operations.approvals} and ${operations.releasePublishes} |
-| Set-aware gate query matches | ${audit.gateQuery.matches.length} |
+${approvalAuditRow}
 | Records unchanged after approval | ${audit.records.filter((row) => row.revisionUnchanged && row.contentUnchanged).length}/3 |
 | Stored change identical across records | ${audit.valuesIdenticalAcrossRecords ? "yes" : "no"} |
 | Drift repaired | ${audit.clusters.filter((row) => row.drift.result === "pass").length}/4 clusters |
 | Addon controller image | \`${delivery.addonControllerImage}\` |
 | Cleanup | ${Object.values(receipt.spec.cleanup).every((value) => value === "pass") ? "Pass" : "Fail"} |
 
-The per-cluster matrix in [matrix.md](matrix.md) and
-[matrix.html](matrix.html) shows every cluster at every checkpoint.
+${matrixLinks}
 
 ## Limits
 
 ${receipt.spec.limits.map((limit) => `- ${limit}`).join("\n")}
 
-- [Committed receipt](../../runs/sveltos-bulk-ops-proof/receipt.yaml)
+- [Committed receipt](${committedReceipt})
 - [Reviewed bulk change candidate](../../examples/sveltos/bulk-ops/bulk-change.yaml)
 `;
 }
@@ -1580,17 +1683,22 @@ function writeDocuments(path, documents) {
   );
 }
 
-function createPolicySpace(context, space) {
+function createPolicySpace(context, space, componentOverride) {
   assertPublishableSpaceName(space);
+  const component = componentOverride ?? componentName;
+  if (!componentOverride) cub(context, ["component", "create", component, "--allow-exists", "--quiet"]);
+  const componentRecord = cubJson(context, ["component", "get", component, "-o", "json"]).Component;
+  check(typeof componentRecord?.ComponentID === "string" && componentRecord.ComponentID.length > 0,
+    `${space} component creation returned no ComponentID`);
   cub(context, [
     "space", "create", space,
+    "--component", componentRecord.ComponentID,
     "--label", "App=sveltos-kyverno-bulk-ops",
     "--label", "ApplyPolicyProfile=catalog-standard",
     "--label", `Proof=${proofLabel}`,
     "--label", "ResourceClass=system-configuration",
     "--label", "SourceType=sveltos",
-    "--trigger-filter", approvalFilterRef,
-    "--where-trigger", "-",
+    "--where-trigger", nativeCheckWhere,
     "--quiet",
   ]);
   cub(context, [
@@ -1598,9 +1706,21 @@ function createPolicySpace(context, space) {
     "--release-target", catalogOciTargetRef,
     "--quiet",
   ]);
-  cub(context, [
-    "space", "update", "--patch", space, "--refresh-triggers", "--quiet",
-  ]);
+  const bound = cubJson(context, ["space", "get", space, "-o", "json"]).Space;
+  check(bound.ComponentID === componentRecord.ComponentID, `${space} is not bound to its created Component`);
+}
+
+function readNativeCheckTopology(context) {
+  const triggers = expectedTriggers.map(
+    (ref) => getByRef(context, "trigger", ref).Trigger,
+  );
+  return {
+    attachment: "direct nonapproval Trigger selector",
+    whereTrigger: nativeCheckWhere,
+    triggerRefs: expectedTriggers,
+    triggerIds: triggers.map((trigger) => trigger.TriggerID).sort(),
+    observedAt: new Date().toISOString(),
+  };
 }
 
 function readApprovalTopology(context) {
@@ -1748,10 +1868,10 @@ function allowedDryRun(context, space, unit) {
   };
 }
 
-function publishRelease(context, space) {
+function publishRelease(context, space, revision) {
   const response = cubJson(
     context,
-    ["release", "publish", space, "-o", "json"],
+    ["release", "publish", ...(revision ? ["--revision", revision] : []), space, "-o", "json"],
     { timeout: 300_000 },
   );
   const release = response.Release ?? response.release ?? response;
@@ -2777,6 +2897,11 @@ function selfTest() {
       /OCI repository names are lowercase/,
       "uppercase Space creation refusal",
     );
+    expectFailure(
+      () => createPolicySpace(policyContext, "self-test-bulk-wrong-component", "missing-component"),
+      /component not found/,
+      "missing Component binding refusal",
+    );
 
     // The registrations the gateway path stands on: each workload cluster by
     // its environment label, and the management cluster by its role.
@@ -2854,27 +2979,11 @@ function selfTest() {
       "the bootstrap profile lost its remote fetch contract",
     );
 
-    const topology = readApprovalTopology(policyContext);
+    const topology = readNativeCheckTopology(policyContext);
     const catalogTarget = { TargetID: hub.catalogTargetId, ProviderType: "OCI" };
 
-    // The gate preflight is the gate preflight: it must pass when the
-    // gate materializes and refuse fast, naming the issue, when it never does.
-    assertApprovalGateObservable(policyContext, "20260807000000", topology, catalogTarget);
-    check(
-      !spacePresent(policyContext, "hx-sveltos-bulk-probe-20260807000000"),
-      "the gate preflight did not delete its probe Space",
-    );
-    hub.state.neverPopulateGates = true;
-    expectFailure(
-      () => assertApprovalGateObservable(policyContext, "20260807000001", topology, catalogTarget),
-      /the approval gate never appeared on the probe Unit .*; check the Space wiring before building the fleet/,
-      "gate preflight refusal",
-    );
-    check(
-      !spacePresent(policyContext, "hx-sveltos-bulk-probe-20260807000001"),
-      "the refused gate preflight did not delete its probe Space",
-    );
-    hub.state.neverPopulateGates = false;
+    // The native bracket below proves enforcement with a refused ChangeOrder
+    // release before approval and a successful one afterwards.
 
     // The baseline of the whole path, record by record: review, approve,
     // publish, and watch the management cluster fetch the release.
@@ -2973,15 +3082,16 @@ function selfTest() {
     cluster.tick();
 
     // The record half of the zero-drift audit runs against the fake hub for
-    // real: the set-aware gate query, the out-of-band re-reads, and the
-    // change-once byte identity across records.
-    const gateRows = JSON.parse(cub(policyContext, [
-      "unit", "list", "--space", "*", "--where", gateQueryWhere,
-      "--quiet", "-o", "json",
-    ]));
+    // real: native attestation evidence, out-of-band re-reads, and the
+    // change-once byte identity across records. Retired Unit approval fields
+    // are deliberately unavailable from this current fake server.
+    const approvalEvidence = environments.map((environment) => environmentRecords[environment].changed.approval);
     check(
-      Array.isArray(gateRows) && gateRows.length === 0,
-      "the set-aware gate query found armed gates after all approvals",
+      approvalEvidence.every((approval) =>
+        approval?.authority === "server-attested-changeworkflow-changeorder-v1"
+          && approval.attestationID
+          && approval.changeOrderID),
+      "the native approval evidence is incomplete in the fake walk",
     );
     const storedValues = environments.map((environment) => {
       const current = cubJson(policyContext, [
@@ -2998,25 +3108,19 @@ function selfTest() {
       storedValues.every((values) => values === storedValues[0]),
       "the stored values are not identical across the fan-out records",
     );
-    // A rogue unapproved unit under the proof label must surface in the query.
-    createPolicySpace(policyContext, "self-test-bulk-rogue");
-    cub(policyContext, [
-      "unit", "create", "--space", "self-test-bulk-rogue", policyUnit,
-      plan.profiles.pilot.path,
-      "--label", `Proof=${proofLabel}`,
-      "--change-desc", "A rogue record that never clears its gate",
-      "--quiet",
-    ]);
-    sleep(1000);
-    const rogueRows = JSON.parse(cub(policyContext, [
-      "unit", "list", "--space", "*", "--where", gateQueryWhere,
-      "--quiet", "-o", "json",
-    ]));
-    check(
-      rogueRows.length === 1
-        && rogueRows[0].Unit?.SpaceSlug === "self-test-bulk-rogue",
-      "the set-aware gate query did not surface the rogue armed gate",
+    hub.state.mismatchedChangeOrderRevision = true;
+    expectFailure(
+      () => reviewHeadRevision({
+        policyContext,
+        space: environmentRecords.pilot.space,
+        stageName: "self-test bulk ChangeOrder coverage mismatch",
+        expectedDocs: [plan.changedDocs.pilot],
+        revisionId: plan.revisions.pilot.changed,
+      }),
+      /ChangeOrder end tag does not select exactly the reviewed Unit revision/,
+      "ChangeOrder revision coverage refusal",
     );
+    hub.state.mismatchedChangeOrderRevision = false;
 
     const receipt = buildReceipt({
       recordedAt: "self-test",
@@ -3051,7 +3155,7 @@ function selfTest() {
         localFiles: "pass",
       },
     });
-    verifyReceipt(receipt);
+    verifyCurrentReceipt(receipt);
     const summary = renderSummary(receipt);
     check(
       summary.includes(
@@ -3059,7 +3163,7 @@ function selfTest() {
       )
         && summary.includes(`oci://${configHubOciHost}/space/`)
         && summary.includes(overrideImage)
-        && summary.includes("Set-aware gate query matches | 0")
+        && summary.includes("Native ChangeWorkflow approval evidence | 3/3")
         && summary.includes("Drift repaired | 4/4"),
       "the rendered summary lost its evidence",
     );
@@ -3071,7 +3175,7 @@ function selfTest() {
       ["revision drift", (c) => { c.spec.revisions.staging.changed = "r2-000000000000"; }, /revisions no longer match the reviewed example files/],
       ["change record", (c) => { c.spec.source.change.after = 9; }, /change record changed/],
       ["continuity", (c) => { c.spec.source.continuity.baselineMatchesChapterFourOutcome = false; }, /continuity record changed/],
-      ["policy triggers", (c) => { c.spec.policy.filter.triggerRefs = ["platform/bogus"]; }, /policy record changed/],
+      ["policy triggers", (c) => { c.spec.policy.checks.triggerRefs = ["platform/bogus"]; }, /policy record changed/],
       ["sveltos pin", (c) => { c.spec.prerequisite.manifestSha256 = "0".repeat(64); }, /prerequisite record changed/],
       ["controller image dropped", (c) => {
         delete c.spec.prerequisite.addonControllerImage;
@@ -3100,7 +3204,7 @@ function selfTest() {
       ["fan-out publish count", (c) => { c.spec.fanOut.operations.releasePublishes = 1; }, /fan-out operation counts changed/],
       ["fan-out one command claim", (c) => { c.spec.fanOut.operations.oneCommandAcrossSpaces = true; }, /fan-out operation counts changed/],
       ["approval bracket", (c) => { c.spec.environments.pilot.changed.beforeApproval.result = "allowed"; }, /pilot changed approval record changed/],
-      ["approval count", (c) => { c.spec.environments.prod.baseline.approval.recordedApprovals = 0; }, /prod baseline approval record changed/],
+      ["approval attestation", (c) => { c.spec.environments.prod.baseline.approval.attestationID = ""; }, /prod baseline approval record changed/],
       ["release reference", (c) => {
         c.spec.environments.staging.changed.release.reference =
           "oci://oci.hub.confighub.com/space/somewhere-else:latest";
@@ -3121,7 +3225,7 @@ function selfTest() {
       ["checkpoint math", (c) => { c.spec.checkpoints[1].observations[0].expectedBackgroundReplicas = 2; }, /observation for .* changed/],
       ["observation result", (c) => { c.spec.checkpoints[2].observations[0].observation.result = "fail"; }, /observation for .* changed/],
       ["drift repair", (c) => { c.spec.checkpoints[2].observations[1].drift.result = "fail"; }, /drift repair for .* changed/],
-      ["armed gate", (c) => { c.spec.zeroDriftAudit.gateQuery.matches = ["rogue-space/clusterprofile"]; }, /zero-drift audit changed/],
+      ["missing native approval evidence", (c) => { c.spec.zeroDriftAudit.approvalEvidence[0].attestationID = ""; }, /zero-drift audit changed/],
       ["out-of-band record", (c) => { c.spec.zeroDriftAudit.records[1].contentUnchanged = false; }, /zero-drift audit changed/],
       ["values identity", (c) => { c.spec.zeroDriftAudit.valuesIdenticalAcrossRecords = false; }, /zero-drift audit changed/],
       ["cleanup", (c) => { c.spec.cleanup.policySpaces = "fail"; }, /cleanup did not pass/],
@@ -3139,7 +3243,7 @@ function selfTest() {
     }
 
     console.log(
-      "sveltos bulk ops runner self-test passed: the Sveltos pin and its refusal, the addon controller image override, the workload and management registrations, the lowercase Space and Secret type refusals the gateway imposes, the gate preflight pass and its refusal, one fan-out pass with six approval brackets delivered through the gateway to a fake management cluster, the gzip fetch refusal, the set-aware gate query with a rogue-gate detection, change-once byte identity across records, and the receipt tamper battery",
+      "sveltos bulk ops runner self-test passed: the Sveltos pin and its refusal, the addon controller image override, the workload and management registrations, the lowercase Space and Secret type refusals the gateway imposes, one fan-out pass with six approval brackets delivered through the gateway to a fake management cluster, the gzip fetch refusal, the native attestation audit with incomplete-evidence and mismatched ChangeOrder-revision detection, change-once byte identity across records, and the receipt tamper battery",
     );
   } finally {
     commandRunner = realRunner;
@@ -3270,6 +3374,7 @@ function synthesizeCheckpoints(plan) {
 function synthesizeAudit(plan) {
   return {
     result: "pass",
+    approvalEvidence: environments.map((environment) => ({ authority: "server-attested-changeworkflow-changeorder-v1", attestationID: `self-test-attestation-${environment}`, changeOrderID: `self-test-changeorder-${environment}` })),
     gateQuery: {
       scope: gateQueryScope,
       where: gateQueryWhere,
@@ -3324,7 +3429,12 @@ function createFakeConfigHub() {
   const catalogTargetId = "self-test-oci-target-0001";
   const triggerIdFor = (ref) => `self-test-trigger-${ref.split("/")[1]}`;
   const spaces = new Map();
+  const components = new Map();
   const units = new Map();
+  const revisionIds = new Map();
+  const workflows = new Map();
+  const changeOrders = new Map();
+  const approvals = new Set();
   const releases = new Map();
   const pending = new Set();
   let releaseSequence = 0;
@@ -3334,18 +3444,11 @@ function createFakeConfigHub() {
     stripReleaseManifestDigest: false,
     triggerIdOverride: null,
     releaseTargetOverride: null,
+    mismatchedChangeOrderRevision: false,
   };
   const unitKey = (space, slug) => `${space}/${slug}`;
-  const approvalsOn = (unit) =>
-    Array.isArray(unit.ApprovedBy) ? unit.ApprovedBy.length : 0;
   const tick = () => {
-    for (const key of pending) {
-      const unit = units.get(key);
-      if (!unit) continue;
-      if (state.neverPopulateGates) unit.ApplyGates = {};
-      else if (approvalsOn(unit) >= 1) unit.ApplyGates = {};
-      else unit.ApplyGates = { [approvalGate]: true };
-    }
+    // Current ConfigHub responses do not expose retired Unit approval fields.
     pending.clear();
   };
   const ok = (output) => ({ ok: true, status: 0, output, error: "" });
@@ -3363,26 +3466,25 @@ function createFakeConfigHub() {
       return ok(`self-test-gateway-token-${"a".repeat(48)}`);
     }
     if (entity === "filter" && verb === "get") {
-      return ok(JSON.stringify({
-        Filter: {
-          FilterID: filterId,
-          Hash: "self-test-filter-hash",
-          Where: readYaml(policyPath).spec.approvalRequired.filterWhere,
-        },
-      }));
+      return refuse("current fake server rejects retired approval filter reads");
     }
     if (entity === "trigger" && verb === "get") {
+      if (rest[0] === "platform/require-approval") return refuse("current fake server rejects retired approval trigger reads");
       return ok(JSON.stringify({ Trigger: { TriggerID: `self-test-trigger-${rest[0]}` } }));
     }
+    if (entity === "component" && verb === "create") { components.set(rest[0], { ComponentID: `self-test-component-${rest[0]}`, Slug: rest[0] }); return ok(""); }
+    if (entity === "component" && verb === "get") { const row = components.get(rest[0]); return row ? ok(JSON.stringify({ Component: row })) : refuse("component not found"); }
     if (entity === "space" && verb === "create") {
       const slug = rest[0];
-      if (flags["trigger-filter"] !== approvalFilterRef) {
-        return refuse(`unexpected trigger filter ${flags["trigger-filter"]}`);
+      if (flags["trigger-filter"] || flags["where-trigger"] !== nativeCheckWhere) {
+        return refuse("current fake server requires the direct nonapproval Trigger selector");
       }
+      if (!components.has([...components.values()].find((row) => row.ComponentID === flags.component)?.Slug)) return refuse("unknown component");
       spaces.set(slug, {
         Slug: slug,
         SpaceID: `self-test-space-${slug}`,
-        TriggerIDs: [],
+        ComponentID: flags.component,
+        TriggerIDs: expectedTriggers.map(triggerIdFor).sort(),
         ReleaseTargetID: null,
         TriggerFilterID: filterId,
       });
@@ -3394,10 +3496,7 @@ function createFakeConfigHub() {
       if (flags["release-target"]) {
         row.ReleaseTargetID = state.releaseTargetOverride ?? catalogTargetId;
       }
-      if (flags["refresh-triggers"]) {
-        row.TriggerIDs = state.triggerIdOverride
-          ?? expectedTriggers.map(triggerIdFor).sort();
-      }
+      if (flags["refresh-triggers"]) return refuse("current fake server rejects retired trigger refresh");
       return ok("");
     }
     if (entity === "space" && verb === "get") {
@@ -3411,7 +3510,7 @@ function createFakeConfigHub() {
       spaces.delete(slug);
       releases.delete(slug);
       for (const key of [...units.keys()]) {
-        if (key.startsWith(`${slug}/`)) units.delete(key);
+        if (key.startsWith(`${slug}/`)) { units.delete(key); revisionIds.delete(key); }
       }
       return ok("");
     }
@@ -3428,13 +3527,14 @@ function createFakeConfigHub() {
         Slug: slug,
         SpaceSlug: flags.space,
         UnitID: `self-test-unit-${flags.space}-${slug}`,
+        HeadRevisionID: `self-test-revision-${flags.space}-${slug}-1`,
+        ValidationErrors: {},
         Labels: unitLabels,
         Data: data,
         DataHash: sha256(data),
         HeadRevisionNum: 1,
-        ApplyGates: { "awaiting/triggers": true },
-        ApprovedBy: [],
       });
+      revisionIds.set(key, units.get(key).HeadRevisionID);
       pending.add(key);
       return ok("");
     }
@@ -3447,21 +3547,17 @@ function createFakeConfigHub() {
       unit.Data = data;
       unit.DataHash = sha256(data);
       unit.HeadRevisionNum += 1;
-      unit.ApprovedBy = [];
-      unit.ApplyGates = { "awaiting/triggers": true };
+      unit.HeadRevisionID = `self-test-revision-${flags.space}-${slug}-${unit.HeadRevisionNum}`;
+      revisionIds.set(key, unit.HeadRevisionID);
       pending.add(key);
       return ok(JSON.stringify({ Unit: publicUnit(unit) }));
     }
     if (entity === "unit" && verb === "list") {
-      if (flags.space !== "*" || !String(flags.where ?? "").includes("LEN(ApplyGates) > 0")) {
-        return refuse(`the self-test fake hub refuses: cub ${args.join(" ")}`);
+      if (/ApprovedBy|ApplyGates/.test(`${flags.where ?? ""} ${flags.select ?? ""}`)) return refuse("current fake server does not expose retired Unit approval fields");
+      if (flags.space !== "*" && !flags.where) {
+        return ok(JSON.stringify([...units.values()].filter((unit) => unit.SpaceSlug === flags.space).map((unit) => ({ Unit: publicUnit(unit) }))));
       }
-      const rows = [...units.values()]
-        .filter((unit) =>
-          unit.Labels?.Proof === proofLabel
-          && Object.keys(unit.ApplyGates ?? {}).length > 0)
-        .map((unit) => ({ Unit: publicUnit(unit) }));
-      return ok(JSON.stringify(rows));
+      return refuse(`the self-test fake hub refuses: cub ${args.join(" ")}`);
     }
     if (entity === "unit" && verb === "data") {
       const key = unitKey(flags.space, rest[0]);
@@ -3482,17 +3578,57 @@ function createFakeConfigHub() {
       }
       return ok(JSON.stringify({ Unit: publicUnit(unit) }));
     }
-    if (entity === "unit" && verb === "approve") {
-      if (state.approveFails) return refuse("self-test simulated approval rejection");
-      const key = unitKey(flags.space, rest[0]);
-      const unit = units.get(key);
-      if (!unit) return refuse(`unit ${key} not found`);
-      unit.ApprovedBy = ["self-test-reviewer"];
-      pending.add(key);
+    if (entity === "changeworkflow" && verb === "create") {
+      const body = JSON.parse(readFileSync(flags.filename, "utf8"));
+      const slug = rest[0];
+      workflows.set(`${flags.space}/${slug}`, { ...body, ChangeWorkflowID: `self-test-workflow-${flags.space}-${slug}` });
       return ok("");
+    }
+    if (entity === "changeworkflow" && verb === "get") {
+      const row = workflows.get(`${flags.space}/${rest[0]}`);
+      return row ? ok(JSON.stringify({ ChangeWorkflow: row })) : refuse("workflow not found");
+    }
+    if (entity === "changeorder" && verb === "create") {
+      const slug = rest[0]; const workflow = workflows.get(flags["change-workflow"]);
+      const space = spaces.get(flags.space);
+      if (!workflow || !space) return refuse("workflow or source space not found");
+      changeOrders.set(`${flags.space}/${slug}`, { ChangeOrderID: `self-test-changeorder-${flags.space}-${slug}`, ChangeWorkflowID: workflow.ChangeWorkflowID, EndTagID: `self-test-endtag-${flags.space}-${slug}`, InScopeSpaceIDs: [space.SpaceID] });
+      return ok("");
+    }
+    if (entity === "changeorder" && verb === "get") {
+      const row = changeOrders.get(`${flags.space}/${rest[0]}`);
+      return row ? ok(JSON.stringify({ ChangeOrder: row })) : refuse("changeorder not found");
+    }
+    if (entity === "revision" && verb === "list") {
+      const unit = [...units.values()].find((row) => row.SpaceSlug === flags.space && row.UnitID === flags["by-unit-id"]);
+      if (!unit) return refuse("unit revision not found");
+      const revisionID = revisionIds.get(unitKey(unit.SpaceSlug, unit.Slug));
+      check(revisionID, "self-test revision ID is missing");
+      if (flags.where) {
+        return ok(JSON.stringify([{ ...publicUnit(unit), RevisionID: revisionID, RevisionNum: unit.HeadRevisionNum }]));
+      }
+      const changeOrder = [...changeOrders.values()].find((row) => row.ChangeOrderID === flags["change-order"]);
+      if (!changeOrder) return refuse("change order revision not found");
+      const revision = state.mismatchedChangeOrderRevision
+        ? { ...publicUnit(unit), RevisionID: `${revisionID}-mismatch`, RevisionNum: unit.HeadRevisionNum + 1, DataHash: `mismatch-${unit.DataHash}` }
+        : { ...publicUnit(unit), RevisionID: revisionID, RevisionNum: unit.HeadRevisionNum };
+      return ok(JSON.stringify([revision]));
+    }
+    if (entity === "variant" && verb === "approve") {
+      if (state.approveFails) return refuse("self-test simulated approval rejection");
+      const changeOrder = changeOrders.get(flags["change-order"]);
+      const unit = units.get(unitKey(rest[0], String(flags.where).match(/'([^']+)'/)?.[1]));
+      if (!changeOrder || !unit || flags.stage !== "reviewed" || flags.revision !== `ChangeOrder:${changeOrder.ChangeOrderID}`) return refuse("invalid scoped approval");
+      const id = `self-test-attestation-${approvals.size + 1}`; approvals.add(changeOrder.ChangeOrderID);
+      return ok(JSON.stringify({ Spaces: [{ SpaceSlug: rest[0], Attestation: { AttestationID: id, Type: "Approval", Result: "Pass", ChangeOrderID: changeOrder.ChangeOrderID }, Subjects: [{ UnitID: unit.UnitID, RevisionID: revisionIds.get(unitKey(unit.SpaceSlug, unit.Slug)), RevisionNum: unit.HeadRevisionNum }] }] }));
     }
     if (entity === "release" && verb === "publish") {
       const spaceSlug = rest[0];
+      if (flags.revision?.startsWith("ChangeOrder:")) {
+        const revisionRef = flags.revision.slice("ChangeOrder:".length);
+        const changeOrder = [...changeOrders.values()].find((row) => row.ChangeOrderID === revisionRef);
+        if (!changeOrder || !approvals.has(changeOrder.ChangeOrderID)) return refuse("requires review: 1 Approval attestation(s)");
+      }
       const rows = [...units.values()]
         .filter((unit) => unit.SpaceSlug === spaceSlug)
         .sort((left, right) => left.Slug.localeCompare(right.Slug));
@@ -3526,7 +3662,7 @@ function createFakeConfigHub() {
 }
 
 function parseCubCommand(args) {
-  const booleans = new Set(["--quiet", "--wait", "--patch", "--refresh-triggers", "--recursive-force"]);
+  const booleans = new Set(["--quiet", "--wait", "--patch", "--refresh-triggers", "--recursive-force", "--allow-exists"]);
   const positionals = [];
   const flags = {};
   const labels = [];

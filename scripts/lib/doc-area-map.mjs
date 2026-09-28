@@ -182,6 +182,7 @@ const DOC_AREA = {
   "docs/reference/direct-cub-helm-model.md": "config",
   "docs/reference/enterprise-parity-contract.md": "catalog",
   "docs/reference/flattening-alignment.md": "config",
+  "docs/reference/flattening-across-plugins.md": "config",
   "docs/reference/fork-vocabulary.md": "config",
   "docs/reference/generated-fact-receipts.md": "config",
   "docs/reference/helm-community-persona-reference.md": "docs",

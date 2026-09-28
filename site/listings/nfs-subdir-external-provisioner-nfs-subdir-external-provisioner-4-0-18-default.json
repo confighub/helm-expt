@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml",
-      "sha256": "sha256:183cdd111dd1b6ac4e705df142d071179188d13d270a93580458d84d99183561",
+      "sha256": "sha256:571f7e6e27d646cc43b08559eb4e904e3c1cd8baa0039805459ed12e0abf9546",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -291,7 +291,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/grafana-loki-7-0-0-single-binary-filesystem.yaml",
-      "sha256": "sha256:aa463a42120924c36040930d1f0d883f1f9e0c9eafaf34be7e58cbfc1b0eec41",
+      "sha256": "sha256:ab2909f673a10ea29f4af5bea878814df4aeab3d53c176d4bed08e9261215d1d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-loki-7-0-0-single-binary-filesystem.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -305,7 +305,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

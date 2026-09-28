@@ -3,6 +3,7 @@
 import { execFileSync, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
+  chmodSync,
   existsSync,
   mkdtempSync,
   readFileSync,
@@ -11,7 +12,7 @@ import {
   statSync,
   writeFileSync,
 } from "node:fs";
-import { homedir, tmpdir } from "node:os";
+import { tmpdir } from "node:os";
 import { basename, join, relative } from "node:path";
 
 import {
@@ -19,9 +20,11 @@ import {
   parseDocs,
   readYaml,
   repoRoot,
+  toYaml,
   writeYaml,
 } from "./lib/proof-common.mjs";
 import { resolveSourceCatalogImports } from "./lib/source-catalog-import.mjs";
+import { observeApprovalAttestations } from "./lib/revision-approval-observation.mjs";
 
 const mode = process.argv[2] ?? "--verify";
 const allowedModes = new Set([
@@ -32,6 +35,12 @@ const allowedModes = new Set([
   "--hub-record",
   "--hub-verify",
   "--hub-policy-check",
+  "--hub-current-policy-check",
+  "--hub-current-policy-verify",
+  "--hub-current-policy-self-test",
+  "--hub-current-promotion-sync",
+  "--hub-current-promotion-verify",
+  "--hub-current-promotion-self-test",
   "--hub-promotion-sync",
   "--hub-promotion-verify",
 ]);
@@ -44,6 +53,12 @@ if (!allowedModes.has(mode)) {
   node scripts/sync-aicr-argocd-example.mjs --hub-record
   node scripts/sync-aicr-argocd-example.mjs --hub-verify
   node scripts/sync-aicr-argocd-example.mjs --hub-policy-check
+  node scripts/sync-aicr-argocd-example.mjs --hub-current-policy-check
+  node scripts/sync-aicr-argocd-example.mjs --hub-current-policy-verify
+  node scripts/sync-aicr-argocd-example.mjs --hub-current-policy-self-test
+  node scripts/sync-aicr-argocd-example.mjs --hub-current-promotion-sync
+  node scripts/sync-aicr-argocd-example.mjs --hub-current-promotion-verify
+  node scripts/sync-aicr-argocd-example.mjs --hub-current-promotion-self-test
   node scripts/sync-aicr-argocd-example.mjs --hub-promotion-sync
   node scripts/sync-aicr-argocd-example.mjs --hub-promotion-verify`);
   process.exit(1);
@@ -72,7 +87,15 @@ const publicReceiptPath = join(root, "public-oci-receipt.yaml");
 const publicationSummaryPath = join(root, "public-oci-summary.md");
 const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
 const policyReceiptPath = join(root, "apply-policy-receipt.yaml");
+const currentPolicyReceiptPath = process.env.AICR_CURRENT_POLICY_RECEIPT_PATH
+  || join(root, "current-approval-receipt.yaml");
 const promotionReceiptPath = join(root, "promotion-readiness-receipt.yaml");
+const currentPromotionReceiptPath = process.env.AICR_CURRENT_PROMOTION_RECEIPT_PATH
+  || join(root, "current-promotion-approval-receipt.yaml");
+// Source-only tests install an argv-level runner. Production always uses cub.
+let commandRunner = null;
+let persistentDocsReader = null;
+let currentPersistentExpectedDocs = null;
 const releaseReceiptPath = join(root, "confighub-release-oci-receipt.yaml");
 const renderedRoot = join(root, "argocd-rendered");
 const sourceLayoutRoot = join(root, "oci-layouts", "argocd-source");
@@ -141,6 +164,9 @@ const readmeSlug = "readme";
 const approvalRequiredFilterRef = "platform/helm-catalog-prod-gates";
 const approvalGate = "platform/require-approval/vet-approvedby";
 const releaseTargetRef = "platform/catalog-release-oci";
+const currentApprovalModel = "server-attested-changeworkflow-changeorder-v1";
+const currentApprovalStage = "publication";
+const currentPromotionModel = "server-attested-changeworkflow-changeorder-promotion-v1";
 const cubContext = process.env.CUB_CONTEXT ?? "";
 const oldGrafanaValue = "  adminPassword: admin";
 const newGrafanaValue = [
@@ -180,6 +206,9 @@ if (mode === "--verify" && v020Entry) {
     const uploadReceipt = verifyCommittedUploadReceipt();
     if (existsSync(policyReceiptPath)) {
       verifyApplyPolicyReceipt(readYaml(policyReceiptPath), uploadReceipt);
+    }
+    if (existsSync(currentPolicyReceiptPath)) {
+      verifyCurrentApprovalReceipt(readYaml(currentPolicyReceiptPath), uploadReceipt);
     }
     if (existsSync(promotionReceiptPath)) {
       verifyPersistentPromotionReceipt(readYaml(promotionReceiptPath), uploadReceipt);
@@ -225,45 +254,74 @@ if (mode === "--hub-verify") {
   );
   process.exit(0);
 }
-if (mode === "--hub-policy-check") {
+if (mode === "--hub-current-policy-check" || mode === "--hub-policy-check") {
+  check(modernEntry, "the current native approval proof requires a release-capable AICR entry");
   assertOrg();
-  const uploadReceipt = verifyCommittedUploadReceipt();
-  verifyLiveAgainstReceipt(uploadReceipt);
-  const receipt = runLiveApplyPolicyCheck(uploadReceipt);
-  writeYaml(policyReceiptPath, receipt);
-  verifyApplyPolicyReceipt(receipt, uploadReceipt);
-  console.log(`recorded the live required-approval check for ${spaceSlug}/${unitSlug}`);
+  const versions = assertCurrentApprovalVersion();
+  const uploadReceipt = readCurrentBaseReceipt();
+  const live = inspectLive();
+  verifyCurrentBaseLiveIdentity(live, uploadReceipt);
+  const receipt = runLiveCurrentApprovalCheck(uploadReceipt, live, versions);
+  writeYaml(currentPolicyReceiptPath, receipt);
+  verifyCurrentApprovalReceipt(receipt, uploadReceipt);
+  console.log(`recorded the current ChangeWorkflow approval proof for ${spaceSlug}`);
   process.exit(0);
 }
-if (mode === "--hub-promotion-sync") {
+if (mode === "--hub-current-policy-verify") {
+  check(modernEntry, "the current native approval proof requires a release-capable AICR entry");
+  assertOrg();
+  assertCurrentApprovalVersion();
+  const uploadReceipt = readCurrentBaseReceipt();
+  const receipt = readYaml(currentPolicyReceiptPath);
+  verifyCurrentApprovalReceipt(receipt, uploadReceipt);
+  verifyLiveCurrentApproval(receipt, uploadReceipt);
+  console.log(`verified the current ChangeWorkflow approval proof for ${spaceSlug}`);
+  process.exit(0);
+}
+if (mode === "--hub-current-policy-self-test") {
+  selfTestCurrentApprovalBoundaries();
+  console.log("AICR current ChangeWorkflow approval self-test passed");
+  process.exit(0);
+}
+if (mode === "--hub-current-promotion-sync" || mode === "--hub-promotion-sync") {
+  check(v020Entry, "the current persistent approval proof is defined for AICR v0.20.0");
   check(
     process.env.HELM_EXPT_ALLOW_AICR_PROMOTION === "1",
-    "set HELM_EXPT_ALLOW_AICR_PROMOTION=1 to update the persistent AICR environment variants",
+    "set HELM_EXPT_ALLOW_AICR_PROMOTION=1 to record the current AICR persistent approval proof",
   );
   assertOrg();
-  verifyPublicReceipt({ fetch: true });
-  const uploadReceipt = verifyCommittedUploadReceipt();
-  verifyLiveAgainstReceipt(uploadReceipt);
-  const receipt = syncPersistentPromotion(uploadReceipt);
-  writeYaml(promotionReceiptPath, receipt);
-  verifyPersistentPromotionReceipt(receipt, uploadReceipt);
-  verifyPersistentPromotionLive(receipt);
-  updateGenerationStatus({ promotion: "pass" });
-  console.log(
-    `synchronized ${spaceSlug} -> ${developmentSpaceSlug} -> ${stagingSpaceSlug}${v020Entry ? ` -> ${productionSpaceSlug}` : ""}`,
-  );
+  const versions = assertCurrentApprovalVersion();
+  const uploadReceipt = readCurrentBaseReceipt();
+  const receipt = syncCurrentV020PersistentPromotion(uploadReceipt, versions);
+  writeYaml(currentPromotionReceiptPath, receipt);
+  verifyCurrentV020PromotionReceipt(receipt, uploadReceipt);
+  console.log("recorded the current native AICR development, staging, and production approval proof");
+  process.exit(0);
+}
+if (mode === "--hub-current-promotion-verify") {
+  check(v020Entry, "the current persistent approval proof is defined for AICR v0.20.0");
+  assertOrg();
+  assertCurrentApprovalVersion();
+  const uploadReceipt = readCurrentBaseReceipt();
+  const receipt = readYaml(currentPromotionReceiptPath);
+  verifyCurrentV020PromotionReceipt(receipt, uploadReceipt);
+  verifyCurrentV020PromotionLive(receipt, uploadReceipt);
+  console.log("verified the current native AICR development, staging, and production approval proof");
+  process.exit(0);
+}
+if (mode === "--hub-current-promotion-self-test") {
+  selfTestCurrentPromotionBoundaries();
+  console.log("AICR current persistent promotion self-test passed");
   process.exit(0);
 }
 if (mode === "--hub-promotion-verify") {
-  assertOrg();
   const uploadReceipt = verifyCommittedUploadReceipt();
   const receipt = readYaml(promotionReceiptPath);
   verifyPersistentPromotionReceipt(receipt, uploadReceipt);
-  verifyPersistentPromotionLive(receipt);
   console.log(
     v020Entry
-      ? "verified the persistent AICR development, staging, and production chain"
-      : "verified the persistent AICR development and staging chain",
+      ? "verified the historical persistent AICR development, staging, and production receipt"
+      : "verified the historical persistent AICR development and staging receipt",
   );
   process.exit(0);
 }
@@ -946,6 +1004,47 @@ function verifyUploadReceipt(receipt) {
   check(receipt.status?.liveGpuReconciliation === "not-run", "AICR upload must not claim GPU health");
 }
 
+function readCurrentBaseReceipt() {
+  check(existsSync(uploadReceiptPath), "AICR ConfigHub upload receipt is missing; run the Hub sync command");
+  const receipt = readYaml(uploadReceiptPath);
+  verifyCurrentBaseReceipt(receipt);
+  return receipt;
+}
+
+function verifyCurrentBaseReceipt(receipt) {
+  check(receipt?.kind === "ConfigHubUploadReceipt"
+    && receipt.spec?.organization === expectedOrg
+    && receipt.spec?.source?.digest === configArtifact.digest
+    && receipt.spec?.source?.reference === configRef
+    && receipt.spec?.space?.slug === spaceSlug
+    && typeof receipt.spec.space.id === "string" && receipt.spec.space.id.length > 0
+    && receipt.spec?.unit?.slug === unitSlug
+    && typeof receipt.spec.unit.id === "string" && receipt.spec.unit.id.length > 0
+    && /^[0-9a-f]{64}$/.test(receipt.spec.unit.dataHash ?? "")
+    && Number.isInteger(receipt.spec.unit.headRevision)
+    && receipt.spec?.readme?.slug === readmeSlug
+    && typeof receipt.spec.readme.id === "string" && receipt.spec.readme.id.length > 0
+    && /^[0-9a-f]{64}$/.test(receipt.spec.readme.dataHash ?? "")
+    && Number.isInteger(receipt.spec.readme.headRevision),
+  "AICR current approval input receipt lacks the exact base configuration and README identities");
+}
+
+function verifyCurrentBaseLiveIdentity(live, receipt) {
+  const externalSource = live.externalSources.find((item) => (
+    item.ref === receipt.spec.source.reference
+      && item.digest === receipt.spec.source.digest
+      && item.granularity === "minimal"
+  ));
+  check(externalSource && live.space.SpaceID === receipt.spec.space.id
+    && live.unit.UnitID === receipt.spec.unit.id
+    && live.unit.DataHash === receipt.spec.unit.dataHash
+    && live.readme.UnitID === receipt.spec.readme.id
+    && live.readme.DataHash === receipt.spec.readme.dataHash,
+  "AICR current approval input no longer matches the recorded base identities");
+  check(typeof live.space.ComponentID === "string" && live.space.ComponentID.length > 0,
+    "AICR current approval input has no Component binding for its ChangeOrder");
+}
+
 function verifyLiveAgainstReceipt(receipt) {
   const live = inspectLive();
   check(live.space.SpaceID === receipt.spec.space.id, "live AICR Space ID changed");
@@ -1155,7 +1254,480 @@ function verifyApplyPolicyReceipt(receipt, uploadReceipt) {
   );
 }
 
+// The retained apply-policy receipt above proves the retired Trigger behavior.
+// This separate proof records the current server-native ChangeWorkflow contract.
+function assertCurrentApprovalVersion(output = cub(["version"])) {
+  const client = output.split("Server Version:")[0]
+    .match(/Client Version:[\s\S]*?\bVersion:\s*v?(\d+\.\d+\.\d+)(?=\s|$)/)?.[1] ?? "";
+  const server = output.match(/Server Version:[\s\S]*?\bVersion:\s*v?(\d+\.\d+\.\d+)(?=\s|$)/)?.[1] ?? "";
+  check(client === "0.6.2" && server === "0.6.2",
+    "the current AICR approval proof requires reviewed cub client and ConfigHub server v0.6.2 before writes");
+  return { client: `v${client}`, server: `v${server}` };
+}
+
+function runLiveCurrentApprovalCheck(uploadReceipt, live = inspectLive(), versions = assertCurrentApprovalVersion()) {
+  const source = live.space;
+  check(typeof source.ComponentID === "string" && source.ComponentID.length > 0,
+    "AICR base Space has no declared ComponentID for a ChangeOrder");
+  const selected = currentApprovalSubjectsFromLive(live, uploadReceipt);
+  const runSuffix = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+  const workflowSlug = `aicr-base-approval-${runSuffix}`;
+  const changeOrderSlug = `aicr-base-approval-${runSuffix}`;
+  const workflowDocument = currentApprovalWorkflowDocument(source.SpaceID);
+  const workflowCommand = ["cub", "changeworkflow", "create", "--space", spaceSlug,
+    workflowSlug, "--from-stdin", "--quiet"];
+  cubText(workflowCommand.slice(1), `${JSON.stringify(workflowDocument)}\n`);
+  const workflow = cubJson([
+    "changeworkflow", "get", "--space", spaceSlug, workflowSlug, "-o", "json",
+  ]).ChangeWorkflow;
+  assertCurrentApprovalWorkflow(workflow, source.SpaceID, workflowSlug);
+
+  const changeOrderCommand = ["cub", "changeorder", "create", "--space", spaceSlug,
+    changeOrderSlug, "--component", source.ComponentID, "--in-scope-space", source.SpaceID,
+    "--change-workflow", `${spaceSlug}/${workflowSlug}`, "--quiet"];
+  cub(changeOrderCommand.slice(1));
+  const changeOrder = cubJson([
+    "changeorder", "get", "--space", spaceSlug, changeOrderSlug, "-o", "json",
+  ]).ChangeOrder;
+  assertCurrentApprovalChangeOrder(changeOrder, workflow, source);
+
+  const revision = `ChangeOrder:${changeOrder.ChangeOrderID}`;
+  const selectedRevisions = readChangeOrderRevisions(changeOrder, selected);
+  const refusedCommand = ["cub", "release", "publish", "--revision", revision, spaceSlug, "-o", "json"];
+  const refused = cubResult(refusedCommand.slice(1), { allowFailure: true });
+  const refusal = `${refused.stdout ?? ""}\n${refused.stderr ?? ""}`;
+  check(refused.status !== 0 && /requires review: 1 Approval attestation\(s\)/.test(refusal),
+    `the ChangeWorkflow did not refuse the unapproved ChangeOrder release: ${refusal}`);
+
+  const approvalBase = ["variant", "approve", spaceSlug, "--change-order", changeOrder.ChangeOrderID,
+    "--stage", currentApprovalStage, "--all"];
+  const previewCommand = ["cub", ...approvalBase, "--dry-run", "-o", "json"];
+  const preview = cubJson(previewCommand.slice(1));
+  const previewSubjects = approvalSubjectsForCurrentProof(preview, source, selectedRevisions);
+  const approvalCommand = ["cub", ...approvalBase, "-o", "json"];
+  const approved = cubJson(approvalCommand.slice(1));
+  const approval = approvalSubjectsForCurrentProof(approved, source, selectedRevisions);
+  check(sameCurrentApprovalSubjects(previewSubjects.subjects, approval.subjects),
+    "the ChangeOrder subjects changed between approval preview and attestation");
+  check(approval.attestation?.AttestationID && approval.attestation.Type === "Approval"
+    && approval.attestation.Result === "Pass"
+    && approval.attestation.ChangeOrderID === changeOrder.ChangeOrderID,
+  "variant approval did not return a passing Approval attestation for this ChangeOrder");
+  const attestation = cubJson([
+    "attestation", "get", approval.attestation.AttestationID, "-o", "json",
+  ]).Attestation;
+  check(attestation?.AttestationID === approval.attestation.AttestationID
+    && attestation.Type === "Approval" && attestation.Result === "Pass"
+    && attestation.ChangeOrderID === changeOrder.ChangeOrderID,
+  "the Approval attestation did not read back for this ChangeOrder");
+
+  const confirmedOrder = cubJson([
+    "changeorder", "get", "--space", spaceSlug, changeOrderSlug, "-o", "json",
+  ]).ChangeOrder;
+  assertCurrentApprovalChangeOrder(confirmedOrder, workflow, source);
+  check(confirmedOrder.EndTagID === changeOrder.EndTagID,
+    "the ChangeOrder end tag changed while recording Approval");
+  const observations = observeCurrentApprovalSubjects(selected, selectedRevisions, attestation.AttestationID);
+
+  const releaseCommand = ["cub", "release", "publish", "--revision", revision,
+    "--label", "SourceType=aicr", "--label", `SourceVersion=${version}`, spaceSlug, "-o", "json"];
+  const published = cubJson(releaseCommand.slice(1));
+  const release = published.Release ?? published;
+  check(/^sha256:[0-9a-f]{64}$/.test(release?.ManifestDigest ?? "")
+    && release.UnitCount === 2,
+  "ConfigHub did not publish the exact two-Unit ChangeOrder boundary");
+
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "ConfigHubCurrentApprovalReceipt",
+    metadata: { name: `${componentSlug}-${versionSlug}-base-changeorder-approval` },
+    spec: {
+      organization: expectedOrg,
+      model: currentApprovalModel,
+      verifiedAt: new Date().toISOString(),
+      execution: { cub: versions },
+      source: { reference: uploadReceipt.spec.source.reference, digest: uploadReceipt.spec.source.digest },
+      space: { slug: spaceSlug, id: source.SpaceID, componentID: source.ComponentID },
+      workflow: {
+        id: workflow.ChangeWorkflowID, slug: workflowSlug, stage: currentApprovalStage,
+        command: workflowCommand,
+      },
+      changeOrder: {
+        id: confirmedOrder.ChangeOrderID, slug: changeOrderSlug, endTagID: confirmedOrder.EndTagID,
+        revision, scopeSpaceIDs: [source.SpaceID], componentID: source.ComponentID,
+        command: changeOrderCommand,
+      },
+      subjects: selectedRevisions,
+      beforeApproval: {
+        result: "blocked", authority: "ChangeWorkflow.ReleasePrerequisite",
+        command: refusedCommand, message: refusal,
+      },
+      approval: {
+        attestationID: attestation.AttestationID, type: attestation.Type, result: attestation.Result,
+        changeOrderID: attestation.ChangeOrderID, subjects: approval.subjects,
+        observations, command: approvalCommand, previewCommand,
+      },
+      release: {
+        id: release.ReleaseID, number: release.ReleaseNum, manifestDigest: release.ManifestDigest,
+        bundleDigest: release.Digest, unitCount: release.UnitCount, revision, command: releaseCommand,
+      },
+    },
+    status: {
+      result: "pass",
+      currentNativeApproval: "pass",
+      releasePublish: "pass",
+      configurationApplied: "not-run",
+      claim: "A ChangeWorkflow refused the exact two-Unit AICR base ChangeOrder release until an active Approval attestation covered both selected revisions, then ConfigHub published that two-Unit boundary.",
+      limits: [
+        "This current receipt is separate from the retained historical Trigger receipt.",
+        "No configuration was sent to Kubernetes, and this does not prove Argo CD reconciliation or GPU workload health.",
+        "The broader persistent multi-Space promotion path remains outside this base-only proof.",
+      ],
+    },
+  };
+}
+
+function currentApprovalWorkflowDocument(spaceID) {
+  return {
+    Stages: [{
+      Name: currentApprovalStage,
+      WhereSpace: `SpaceID = '${spaceID}'`,
+      ReleasePrerequisites: ["review"],
+    }],
+    AttestationPrerequisites: [{
+      Name: "review", Type: "Approval", Count: 1, AllowAuthors: true, IgnoreFail: false,
+    }],
+  };
+}
+
+function assertCurrentApprovalWorkflow(workflow, spaceID, slug) {
+  const stage = workflow?.Stages?.[0];
+  const prerequisite = workflow?.AttestationPrerequisites?.[0];
+  check(typeof workflow?.ChangeWorkflowID === "string" && workflow.ChangeWorkflowID.length > 0
+    && workflow.Slug === slug && workflow.Stages?.length === 1
+    && stage?.Name === currentApprovalStage && stage.WhereSpace === `SpaceID = '${spaceID}'`
+    && sameStringSet(stage.ReleasePrerequisites ?? [], ["review"])
+    && workflow.AttestationPrerequisites?.length === 1 && prerequisite?.Name === "review"
+    && prerequisite.Type === "Approval" && prerequisite.Count === 1
+    && prerequisite.AllowAuthors === true && (prerequisite.IgnoreFail ?? false) === false,
+  "the stored ChangeWorkflow differs from the reviewed native release prerequisite");
+}
+
+function assertCurrentApprovalChangeOrder(changeOrder, workflow, source) {
+  check(typeof changeOrder?.ChangeOrderID === "string" && changeOrder.ChangeOrderID.length > 0
+    && typeof changeOrder.EndTagID === "string" && changeOrder.EndTagID.length > 0
+    && changeOrder.ChangeWorkflowID === workflow.ChangeWorkflowID
+    && changeOrder.ComponentID === source.ComponentID
+    && Array.isArray(changeOrder.InScopeSpaceIDs) && changeOrder.InScopeSpaceIDs.length === 1
+    && changeOrder.InScopeSpaceIDs[0] === source.SpaceID,
+  "the ChangeOrder is not bound to the declared component, workflow, and exact base Space");
+}
+
+function currentApprovalSubjectsFromLive(live, uploadReceipt) {
+  const expected = [
+    { slug: unitSlug, ...uploadReceipt.spec.unit },
+    { slug: readmeSlug, ...uploadReceipt.spec.readme },
+  ];
+  const units = [live.unit, live.readme];
+  check(units.length === 2 && new Set(units.map((unit) => unit.UnitID)).size === 2,
+    "AICR base must expose exactly the configuration and README Units");
+  return expected.map((expectedUnit) => {
+    const unit = units.find((candidate) => candidate.Slug === expectedUnit.slug);
+    check(unit?.UnitID === expectedUnit.id && unit.HeadRevisionNum === expectedUnit.headRevision
+      && typeof unit.HeadRevisionID === "string" && unit.HeadRevisionID.length > 0
+      && unit.DataHash === expectedUnit.dataHash,
+    `${expectedUnit.slug} no longer matches its upload receipt identity, head revision, revision ID, or data hash`);
+    return {
+      slug: unit.Slug, spaceID: live.space.SpaceID, unitID: unit.UnitID,
+      headRevisionID: unit.HeadRevisionID,
+      headRevisionNum: unit.HeadRevisionNum, dataHash: unit.DataHash,
+    };
+  });
+}
+
+function readChangeOrderRevisions(changeOrder, selected) {
+  return selected.map((subject) => {
+    const rows = cubJson([
+      "revision", "list", "--space", spaceSlug, "--by-unit-id", subject.unitID,
+      "--change-order", changeOrder.ChangeOrderID, "-o", "json",
+    ]).map((row) => row.Revision ?? row);
+    check(rows.length === 1, `${subject.slug}: ChangeOrder must select exactly one revision`);
+    const revision = rows[0];
+    check(revision?.UnitID === subject.unitID && typeof revision.RevisionID === "string"
+      && revision.RevisionID === subject.headRevisionID && revision.RevisionNum === subject.headRevisionNum
+      && revision.DataHash === subject.dataHash,
+    `${subject.slug}: ChangeOrder revision differs from the reviewed Unit head identity`);
+    return subject;
+  });
+}
+
+function approvalSubjectsForCurrentProof(result, source, selected) {
+  check(Array.isArray(result?.Spaces) && result.Spaces.length === 1,
+    "variant approval did not select exactly one ChangeOrder Space");
+  const row = result.Spaces[0];
+  check(row.SpaceSlug === spaceSlug && row.SpaceID === source.SpaceID && !row.Error
+    && Array.isArray(row.Subjects) && (!Object.hasOwn(row, "SkippedUnits")
+      || Array.isArray(row.SkippedUnits) && row.SkippedUnits.length === 0),
+  "variant approval returned a different Space, an error, or skipped Units");
+  const subjects = row.Subjects.map((subject) => ({
+    unitID: subject.UnitID, headRevisionID: subject.RevisionID, headRevisionNum: subject.RevisionNum,
+  }));
+  assertExactCurrentApprovalSubjects(subjects, selected);
+  return { subjects, attestation: row.Attestation ?? null };
+}
+
+function assertExactCurrentApprovalSubjects(actual, expected) {
+  check(Array.isArray(actual) && actual.length === 2 && new Set(actual.map((row) => row.unitID)).size === 2,
+    "the ChangeOrder Approval must contain exactly two distinct subjects");
+  const expectedByID = new Map(expected.map((row) => [row.unitID, row]));
+  for (const subject of actual) {
+    const expectedSubject = expectedByID.get(subject.unitID);
+    check(expectedSubject && subject.headRevisionID === expectedSubject.headRevisionID
+      && subject.headRevisionNum === expectedSubject.headRevisionNum,
+    "the ChangeOrder Approval subjects do not match both exact reviewed revisions");
+  }
+}
+
+function sameCurrentApprovalSubjects(left, right) {
+  const normalize = (rows) => rows.map((row) =>
+    `${row.unitID}:${row.headRevisionID}:${row.headRevisionNum}`).sort();
+  return JSON.stringify(normalize(left)) === JSON.stringify(normalize(right));
+}
+
+function observeCurrentApprovalSubjects(selected, subjects, attestationID, now = Date.now()) {
+  const attestations = cubJson(["attestation", "list", "--space", spaceSlug, "-o", "json"]);
+  return subjects.map((subject) => {
+    const unit = selected.find((candidate) => candidate.unitID === subject.unitID);
+    const revision = cubJson([
+      "revision", "get", unit.slug, String(subject.headRevisionNum), "--space", spaceSlug, "-o", "json",
+    ]);
+    const observed = observeApprovalAttestations({
+      UnitID: unit.unitID, SpaceID: unit.spaceID, Slug: unit.slug,
+      DataHash: unit.dataHash, HeadRevisionNum: unit.headRevisionNum,
+    }, revision, attestations, now);
+    check(observed.revisionID === subject.headRevisionID
+      && observed.revisionNum === subject.headRevisionNum
+      && observed.dataHash === unit.dataHash && observed.attestationIDs.includes(attestationID),
+    `${unit.slug}: the current Approval is not active on its exact ChangeOrder revision`);
+    return { ...subject, dataHash: unit.dataHash, attestationIDs: observed.attestationIDs };
+  });
+}
+
+function verifyCurrentApprovalReceipt(receipt, uploadReceipt) {
+  check(receipt?.kind === "ConfigHubCurrentApprovalReceipt"
+    && receipt.spec?.organization === expectedOrg && receipt.spec?.model === currentApprovalModel
+    && receipt.spec?.execution?.cub?.client === "v0.6.2"
+    && receipt.spec.execution.cub.server === "v0.6.2"
+    && receipt.status?.result === "pass"
+    && receipt.status?.currentNativeApproval === "pass" && receipt.status?.releasePublish === "pass",
+  "AICR current approval receipt identity or result changed");
+  check(receipt.spec?.source?.reference === uploadReceipt.spec.source.reference
+    && receipt.spec.source.digest === uploadReceipt.spec.source.digest
+    && receipt.spec.space?.slug === spaceSlug && receipt.spec.space.id === uploadReceipt.spec.space.id
+    && typeof receipt.spec.space.componentID === "string" && receipt.spec.space.componentID.length > 0,
+  "AICR current approval receipt source or Space changed");
+  const expected = [
+    { slug: unitSlug, unitID: uploadReceipt.spec.unit.id, headRevisionNum: uploadReceipt.spec.unit.headRevision,
+      dataHash: uploadReceipt.spec.unit.dataHash },
+    { slug: readmeSlug, unitID: uploadReceipt.spec.readme.id, headRevisionNum: uploadReceipt.spec.readme.headRevision,
+      dataHash: uploadReceipt.spec.readme.dataHash },
+  ];
+  const subjects = receipt.spec?.subjects;
+  check(Array.isArray(subjects) && subjects.length === 2
+    && new Set(subjects.map((row) => row.unitID)).size === 2,
+  "current AICR receipt must name exactly the configuration and README subjects");
+  for (const expectedSubject of expected) {
+    const subject = subjects.find((row) => row.unitID === expectedSubject.unitID);
+    check(subject?.slug === expectedSubject.slug && typeof subject.headRevisionID === "string"
+      && subject.headRevisionID.length > 0 && subject.headRevisionNum === expectedSubject.headRevisionNum
+      && subject.dataHash === expectedSubject.dataHash,
+    `${expectedSubject.slug}: current receipt subject does not match its exact reviewed head`);
+  }
+  const workflow = receipt.spec?.workflow;
+  const changeOrder = receipt.spec?.changeOrder;
+  check(typeof workflow?.id === "string" && workflow.id.length > 0 && workflow.stage === currentApprovalStage
+    && typeof changeOrder?.id === "string" && changeOrder.id.length > 0
+    && changeOrder.revision === `ChangeOrder:${changeOrder.id}`
+    && changeOrder.componentID === receipt.spec.space.componentID
+    && JSON.stringify(changeOrder.scopeSpaceIDs) === JSON.stringify([receipt.spec.space.id]),
+  "current AICR receipt ChangeWorkflow or ChangeOrder binding changed");
+  const approval = receipt.spec?.approval;
+  check(approval?.type === "Approval" && approval.result === "Pass"
+    && approval.changeOrderID === changeOrder.id && typeof approval.attestationID === "string"
+    && approval.attestationID.length > 0 && sameCurrentApprovalSubjects(approval.subjects ?? [], subjects)
+    && Array.isArray(approval.observations) && approval.observations.length === 2,
+  "current AICR receipt Approval does not cover both exact ChangeOrder subjects");
+  check(receipt.spec?.beforeApproval?.result === "blocked"
+    && receipt.spec.beforeApproval.authority === "ChangeWorkflow.ReleasePrerequisite"
+    && /requires review: 1 Approval attestation\(s\)/.test(receipt.spec.beforeApproval.message ?? ""),
+  "current AICR receipt lacks the specific ChangeWorkflow release refusal");
+  check(receipt.spec?.release?.revision === changeOrder.revision
+    && receipt.spec.release.unitCount === 2
+    && /^sha256:[0-9a-f]{64}$/.test(receipt.spec.release.manifestDigest ?? ""),
+  "current AICR receipt did not publish the exact two-Unit ChangeOrder boundary");
+  check(!/ApplyGates|ApprovedBy/.test(JSON.stringify(receipt)),
+    "current AICR receipt contains retired per-Unit approval evidence");
+}
+
+function verifyLiveCurrentApproval(receipt, uploadReceipt) {
+  const live = inspectLive();
+  verifyCurrentBaseLiveIdentity(live, uploadReceipt);
+  check(live.space.ComponentID === receipt.spec.space.componentID,
+    "live AICR base Component binding changed");
+  const workflow = cubJson([
+    "changeworkflow", "get", "--space", spaceSlug, receipt.spec.workflow.slug, "-o", "json",
+  ]).ChangeWorkflow;
+  assertCurrentApprovalWorkflow(workflow, live.space.SpaceID, receipt.spec.workflow.slug);
+  check(workflow.ChangeWorkflowID === receipt.spec.workflow.id,
+    "live AICR ChangeWorkflow ID changed");
+  const changeOrder = cubJson([
+    "changeorder", "get", "--space", spaceSlug, receipt.spec.changeOrder.slug, "-o", "json",
+  ]).ChangeOrder;
+  assertCurrentApprovalChangeOrder(changeOrder, workflow, live.space);
+  check(changeOrder.ChangeOrderID === receipt.spec.changeOrder.id
+    && changeOrder.EndTagID === receipt.spec.changeOrder.endTagID,
+  "live AICR ChangeOrder boundary changed");
+  const selected = currentApprovalSubjectsFromLive(live, uploadReceipt);
+  const revisions = readChangeOrderRevisions(changeOrder, selected);
+  check(sameCurrentApprovalSubjects(revisions, receipt.spec.subjects),
+    "live ChangeOrder-selected revisions differ from the recorded current receipt");
+  const observed = observeCurrentApprovalSubjects(selected, revisions, receipt.spec.approval.attestationID);
+  check(JSON.stringify(observed) === JSON.stringify(receipt.spec.approval.observations),
+    "live active Approval observation differs from the current receipt");
+}
+
+function selfTestCurrentApprovalBoundaries() {
+  const expected = [
+    { unitID: "config", headRevisionID: "config-r2", headRevisionNum: 2, dataHash: "a" },
+    { unitID: "readme", headRevisionID: "readme-r3", headRevisionNum: 3, dataHash: "b" },
+  ];
+  assertExactCurrentApprovalSubjects(structuredClone(expected), expected);
+  const expectFailure = (run, expectedMessage) => {
+    let error;
+    try { run(); } catch (caught) { error = caught; }
+    check(String(error?.message ?? "").includes(expectedMessage),
+      `current approval self-test expected '${expectedMessage}', got '${error?.message ?? "no failure"}'`);
+  };
+  expectFailure(() => assertExactCurrentApprovalSubjects([expected[0]], expected), "exactly two distinct subjects");
+  expectFailure(() => assertExactCurrentApprovalSubjects([...expected, { unitID: "extra", headRevisionID: "extra-r1", headRevisionNum: 1 }], expected), "exactly two distinct subjects");
+  expectFailure(() => assertExactCurrentApprovalSubjects([expected[0], { ...expected[1], headRevisionID: "wrong-r3" }], expected), "do not match both exact reviewed revisions");
+  expectFailure(() => check(/requires review: 1 Approval attestation\(s\)/.test("permission denied"), "the fake unrelated refusal was accepted"), "fake unrelated refusal was accepted");
+  check(assertCurrentApprovalVersion("Client Version:\n  Version: v0.6.2\nServer Version:\n  Version: v0.6.2\n").server === "v0.6.2",
+    "reviewed cub/server version pair was rejected");
+  expectFailure(() => assertCurrentApprovalVersion("Client Version:\n  Version: v0.6.1\nServer Version:\n  Version: v0.6.2\n"), "requires reviewed cub client and ConfigHub server v0.6.2");
+  const unit = { UnitID: "config", SpaceID: "space", Slug: "config", DataHash: "a", HeadRevisionNum: 2 };
+  const revision = { Revision: { UnitID: "config", RevisionID: "config-r2", RevisionNum: 2, DataHash: "a", Attestations: { expired: true } } };
+  const expired = [{ AttestationID: "expired", SpaceID: "space", Type: "Approval", Result: "Pass", ExpiresAt: "2020-01-01T00:00:00.000Z" }];
+  expectFailure(() => observeApprovalAttestations(unit, revision, expired, Date.parse("2026-01-01T00:00:00.000Z")), "no active passing Approval");
+  selfTestCurrentApprovalFakeCallgraph();
+}
+
+function selfTestCurrentApprovalFakeCallgraph() {
+  const temporary = mkdtempSync(join(tmpdir(), "aicr-current-approval-fake-"));
+  const fakeCub = join(temporary, "cub");
+  const receipt = readYaml(uploadReceiptPath);
+  const configPath = join(temporary, "configuration.yaml");
+  const readmePath = join(temporary, "readme.yaml");
+  const receiptPath = join(temporary, "current-approval-receipt.yaml");
+  const statePath = join(temporary, "approval-state");
+  writeFileSync(configPath, `${sourceApplicationDocs().map((doc) => toYaml(doc)).join("\n---\n")}\n`);
+  writeFileSync(readmePath, readFileSync(readmeUnitPath, "utf8"));
+  const fixture = {
+    space: receipt.spec.space,
+    source: receipt.spec.source,
+    configuration: receipt.spec.unit,
+    readme: receipt.spec.readme,
+    configPath,
+    readmePath,
+    statePath,
+  };
+  const fakeProgram = `#!/usr/bin/env node
+const { readFileSync, writeFileSync } = require("node:fs");
+const fixture = ${JSON.stringify(fixture)};
+const args = process.argv.slice(2);
+const scenario = process.env.AICR_FAKE_APPROVAL_SCENARIO || "pass";
+const space = fixture.space;
+const config = fixture.configuration;
+const readme = fixture.readme;
+const configSlug = ${JSON.stringify(unitSlug)};
+const readmeSlug = ${JSON.stringify(readmeSlug)};
+const spaceSlug = ${JSON.stringify(spaceSlug)};
+const workflowSlug = args.find((value) => value.startsWith("aicr-base-approval-")) || "aicr-base-approval-fake";
+const workflowID = "00000000-0000-4000-8000-000000000101";
+const orderID = "00000000-0000-4000-8000-000000000102";
+const endTagID = "00000000-0000-4000-8000-000000000103";
+const attestationID = "00000000-0000-4000-8000-000000000104";
+let approved = readFileSync(fixture.statePath, "utf8") === "approved";
+const emit = (value) => process.stdout.write(JSON.stringify(value));
+const subjectRows = () => {
+  const rows = [
+    { UnitID: config.id, RevisionID: "config-r" + config.headRevision, RevisionNum: config.headRevision },
+    { UnitID: readme.id, RevisionID: "readme-r" + readme.headRevision, RevisionNum: readme.headRevision },
+  ];
+  if (scenario === "missing") return rows.slice(0, 1);
+  if (scenario === "extra") return [...rows, { UnitID: "extra", RevisionID: "extra-r1", RevisionNum: 1 }];
+  if (scenario === "wrong") rows[1].RevisionID = "wrong-r" + readme.headRevision;
+  return rows;
+};
+const unit = (slug) => {
+  const item = slug === configSlug ? config : readme;
+  const prefix = slug === configSlug ? "config" : "readme";
+  return { UnitID: item.id, SpaceID: space.id, SpaceSlug: spaceSlug, Slug: slug,
+    HeadRevisionID: prefix + "-r" + item.headRevision,
+    DataHash: item.dataHash, HeadRevisionNum: item.headRevision, Labels: item.labels || {} };
+};
+if (args[0] === "context" && args[1] === "get") { process.stdout.write("helm-catalog\\n"); process.exit(0); }
+if (args[0] === "version") { process.stdout.write("Client Version:\\n  Version: v0.6.2\\nServer Version:\\n  Version: v0.6.2\\n"); process.exit(0); }
+if (args[0] === "space" && args[1] === "get") {
+  emit({ Space: { SpaceID: space.id, Slug: spaceSlug, ComponentID: "00000000-0000-4000-8000-000000000100", TriggerFilterID: "trigger-filter", Labels: space.labels, Annotations: { "confighub.com/external-source": JSON.stringify([{ ref: fixture.source.reference, digest: fixture.source.digest, granularity: "minimal" }]) } } }); process.exit(0);
+}
+if (args[0] === "unit" && args[1] === "get") { const slug = args[args.indexOf("--space") + 2]; emit({ Unit: unit(slug) }); process.exit(0); }
+if (args[0] === "unit" && args[1] === "data") { const slug = args[args.length - 1]; process.stdout.write(readFileSync(slug === configSlug ? fixture.configPath : fixture.readmePath, "utf8")); process.exit(0); }
+if (args[0] === "changeworkflow" && args[1] === "create") process.exit(0);
+if (args[0] === "changeworkflow" && args[1] === "get") { emit({ ChangeWorkflow: { ChangeWorkflowID: workflowID, Slug: args[4], Stages: [{ Name: "publication", WhereSpace: "SpaceID = '" + space.id + "'", ReleasePrerequisites: ["review"] }], AttestationPrerequisites: [{ Name: "review", Type: "Approval", Count: 1, AllowAuthors: true, IgnoreFail: false }] } }); process.exit(0); }
+if (args[0] === "changeorder" && args[1] === "create") process.exit(0);
+if (args[0] === "changeorder" && args[1] === "get") { emit({ ChangeOrder: { ChangeOrderID: orderID, EndTagID: endTagID, ChangeWorkflowID: workflowID, ComponentID: "00000000-0000-4000-8000-000000000100", InScopeSpaceIDs: [space.id] } }); process.exit(0); }
+if (args[0] === "revision" && args[1] === "list") { const id = args[args.indexOf("--by-unit-id") + 1]; const item = id === config.id ? config : readme; const prefix = id === config.id ? "config" : "readme"; emit([{ Revision: { UnitID: id, RevisionID: (scenario === "co-wrong" ? "wrong-" : "") + prefix + "-r" + item.headRevision, RevisionNum: item.headRevision, DataHash: item.dataHash } }]); process.exit(0); }
+if (args[0] === "revision" && args[1] === "get") { const slug = args[2]; const item = slug === configSlug ? config : readme; const prefix = slug === configSlug ? "config" : "readme"; emit({ Revision: { UnitID: item.id, RevisionID: prefix + "-r" + item.headRevision, RevisionNum: item.headRevision, DataHash: item.dataHash, Attestations: { [attestationID]: true } } }); process.exit(0); }
+if (args[0] === "release" && args[1] === "publish") { if (!approved) { process.stderr.write(scenario === "unrelated" ? "permission denied" : "requires review: 1 Approval attestation(s)"); process.exit(1); } emit({ Release: { ReleaseID: "00000000-0000-4000-8000-000000000105", ReleaseNum: 1, ManifestDigest: "sha256:" + "a".repeat(64), Digest: "sha256:" + "b".repeat(64), UnitCount: 2 } }); process.exit(0); }
+if (args[0] === "variant" && args[1] === "approve") { if (!args.includes("--dry-run")) { approved = true; writeFileSync(fixture.statePath, "approved"); } emit({ Spaces: [{ SpaceSlug: spaceSlug, SpaceID: space.id, Subjects: subjectRows(), Attestation: args.includes("--dry-run") ? undefined : { AttestationID: attestationID, Type: "Approval", Result: "Pass", ChangeOrderID: orderID } }] }); process.exit(0); }
+if (args[0] === "attestation" && args[1] === "get") { emit({ Attestation: { AttestationID: attestationID, Type: "Approval", Result: "Pass", ChangeOrderID: orderID } }); process.exit(0); }
+if (args[0] === "attestation" && args[1] === "list") { emit([{ AttestationID: attestationID, SpaceID: space.id, Type: "Approval", Result: "Pass", ...(scenario === "expired" ? { ExpiresAt: "2020-01-01T00:00:00.000Z" } : {}) }]); process.exit(0); }
+process.stderr.write("unexpected fake cub argv: " + args.join(" ")); process.exit(91);
+`;
+  try {
+    writeFileSync(fakeCub, fakeProgram, "utf8");
+    chmodSync(fakeCub, 0o755);
+    const cases = [
+      ["pass", 0, "recorded the current ChangeWorkflow approval proof"],
+      ["missing", 1, "exactly two distinct subjects"],
+      ["extra", 1, "exactly two distinct subjects"],
+      ["wrong", 1, "do not match both exact reviewed revisions"],
+      ["co-wrong", 1, "differs from the reviewed Unit head identity"],
+      ["unrelated", 1, "did not refuse the unapproved ChangeOrder release"],
+      ["expired", 1, "no active passing Approval"],
+    ];
+    for (const [scenario, expectedStatus, expectedText] of cases) {
+      writeFileSync(statePath, "");
+      const result = spawnSync(process.execPath, [process.argv[1], "--hub-current-policy-check"], {
+        cwd: repoRoot, encoding: "utf8", env: {
+          ...process.env, PATH: `${temporary}:${process.env.PATH ?? ""}`,
+          AICR_ARGOCD_VERSION: "0.20.0", AICR_CURRENT_POLICY_RECEIPT_PATH: receiptPath,
+          AICR_FAKE_APPROVAL_SCENARIO: scenario,
+        },
+      });
+      const diagnostic = `${result.stdout ?? ""}\n${result.stderr ?? ""}`;
+      check(result.status === expectedStatus && diagnostic.includes(expectedText),
+        `current approval fake callgraph ${scenario} expected ${expectedStatus} and '${expectedText}', got ${result.status}: ${diagnostic}`);
+    }
+  } finally {
+    rmSync(temporary, { recursive: true, force: true });
+  }
+}
+
 function syncPersistentPromotion(uploadReceipt) {
+  // Historical receipt path retained byte-compatible for its committed proof.
+  // Native v0.6.2 promotion evidence is written by syncCurrentV020PersistentPromotion.
   return v020Entry
     ? syncV020PersistentPromotion(uploadReceipt)
     : syncLegacyPersistentPromotion(uploadReceipt);
@@ -1737,6 +2309,509 @@ function syncLegacyPersistentPromotion(uploadReceipt) {
   };
 }
 
+// The retained VariantReadinessReceipt above is historical Trigger evidence.
+// This current path assumes that chain already exists, then proves one native
+// ChangeOrder across development, staging, and production without rewriting it.
+function syncCurrentV020PersistentPromotion(uploadReceipt, versions) {
+  const records = currentPersistentRecords();
+  assertCurrentPersistentShape(records);
+  const componentID = records.development.space.ComponentID;
+  const runSuffix = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+  const workflowSlug = `aicr-persistent-review-${runSuffix}`;
+  const orderSlug = `aicr-persistent-review-${runSuffix}`;
+  const workflowDocument = {
+    Stages: [
+      { Name: "staging", WhereSpace: `SpaceID = '${records.staging.space.SpaceID}'` },
+      { Name: "production", WhereSpace: `SpaceID = '${records.production.space.SpaceID}'`, ReleasePrerequisites: ["review"] },
+    ],
+    AttestationPrerequisites: [{
+      Name: "review", Type: "Approval", Count: 1, AllowAuthors: true, IgnoreFail: false,
+    }],
+  };
+  const workflowCommand = ["cub", "changeworkflow", "create", "--space", developmentSpaceSlug,
+    workflowSlug, "--from-stdin", "--quiet"];
+  cubText(workflowCommand.slice(1), `${JSON.stringify(workflowDocument)}\n`);
+  const workflow = cubJson([
+    "changeworkflow", "get", "--space", developmentSpaceSlug, workflowSlug, "-o", "json",
+  ]).ChangeWorkflow;
+  assertCurrentPersistentWorkflow(workflow, records, workflowSlug);
+
+  const componentBefore = cubJson(["component", "get", componentSlug, "-o", "json"]).Component;
+  check(componentBefore?.ComponentID === componentID,
+    "AICR persistent component readback differs from the variant chain");
+  cub([
+    "component", "update", "--patch", componentSlug, "--change-workflow-required",
+    "--allowed-change-workflow", `${developmentSpaceSlug}/${workflowSlug}`, "--quiet",
+  ]);
+  const component = cubJson(["component", "get", componentSlug, "-o", "json"]).Component;
+  check(component?.ComponentID === componentID && component.ChangeWorkflowRequired === true
+    && (component.AllowedChangeWorkflowIDs ?? []).includes(workflow.ChangeWorkflowID),
+  "AICR persistent Component did not retain the native ChangeWorkflow binding");
+
+  const changeOrderCommand = ["cub", "changeorder", "create", "--space", developmentSpaceSlug,
+    orderSlug, "--component", componentID, "--in-scope-space",
+    `${records.staging.space.SpaceID},${records.production.space.SpaceID}`,
+    "--change-workflow", `${developmentSpaceSlug}/${workflowSlug}`,
+    "--description", "Review the AICR Grafana Secret promotion across staging and production", "--quiet"];
+  cub(changeOrderCommand.slice(1));
+  const changeOrder = cubJson([
+    "changeorder", "get", "--space", developmentSpaceSlug, orderSlug, "-o", "json",
+  ]).ChangeOrder;
+  assertCurrentPersistentChangeOrder(changeOrder, workflow, records);
+  const revision = `ChangeOrder:${changeOrder.ChangeOrderID}`;
+  const developmentSubjects = currentChangeOrderSubjects(records.development, changeOrder.ChangeOrderID);
+  const stagingPromotion = promoteCurrentPersistentDestination(records.staging, revision, developmentSpaceSlug, orderSlug);
+  const productionPromotion = promoteCurrentPersistentDestination(records.production, revision, developmentSpaceSlug, orderSlug);
+  const current = currentPersistentRecords();
+  assertCurrentPersistentShape(current);
+  const stagingSubjects = currentChangeOrderSubjects(current.staging, changeOrder.ChangeOrderID);
+  const productionSubjects = currentChangeOrderSubjects(current.production, changeOrder.ChangeOrderID);
+
+  const refusalCommand = ["cub", "release", "publish", "--revision", revision, productionSpaceSlug, "-o", "json"];
+  const refused = cubResult(refusalCommand.slice(1), { allowFailure: true });
+  const refusal = `${refused.stdout ?? ""}\n${refused.stderr ?? ""}`;
+  check(refused.status !== 0 && /requires review: 1 Approval attestation\(s\)/.test(refusal),
+    `the persistent ChangeWorkflow did not refuse the unapproved production release: ${refusal}`);
+  const approvalCommand = ["cub", "variant", "approve", productionSpaceSlug,
+    "--change-order", changeOrder.ChangeOrderID, "--stage", "production", "--all", "-o", "json"];
+  const approved = cubJson(approvalCommand.slice(1));
+  const approval = currentPromotionApprovalSubjects(approved, current.production, productionSubjects);
+  check(approval.attestation?.AttestationID && approval.attestation.Type === "Approval"
+    && approval.attestation.Result === "Pass"
+    && approval.attestation.ChangeOrderID === changeOrder.ChangeOrderID,
+  "persistent variant approval did not return a passing ChangeOrder attestation");
+  const attestation = cubJson(["attestation", "get", approval.attestation.AttestationID, "-o", "json"]).Attestation;
+  check(attestation?.AttestationID === approval.attestation.AttestationID
+    && attestation.ChangeOrderID === changeOrder.ChangeOrderID,
+  "persistent Approval attestation did not read back");
+  const observations = observeCurrentPromotionSubjects(current.production, productionSubjects, attestation.AttestationID);
+  const releaseCommand = ["cub", "release", "publish", "--revision", revision,
+    "--label", "SourceType=aicr", "--label", `SourceVersion=${version}`, productionSpaceSlug, "-o", "json"];
+  const published = cubJson(releaseCommand.slice(1));
+  const release = published.Release ?? published;
+  check(/^sha256:[0-9a-f]{64}$/.test(release?.ManifestDigest ?? "") && release.UnitCount === 2,
+    "persistent ChangeOrder release did not contain exactly configuration and README Units");
+
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "AicrCurrentPersistentPromotionReceipt",
+    metadata: { name: `${componentSlug}-${versionSlug}-current-persistent-approval` },
+    spec: {
+      model: currentPromotionModel, organization: expectedOrg, verifiedAt: new Date().toISOString(),
+      execution: { cub: versions },
+      source: { reference: uploadReceipt.spec.source.reference, digest: uploadReceipt.spec.source.digest },
+      component: { id: componentID, slug: componentSlug, changeWorkflowRequired: true, workflowID: workflow.ChangeWorkflowID },
+      workflow: { id: workflow.ChangeWorkflowID, slug: workflowSlug, space: developmentSpaceSlug,
+        stages: ["staging", "production"], productionReleasePrerequisite: "review", command: workflowCommand },
+      changeOrder: { id: changeOrder.ChangeOrderID, slug: orderSlug, endTagID: changeOrder.EndTagID,
+        revision, sourceSpaceID: current.development.space.SpaceID,
+        scopeSpaceIDs: [current.staging.space.SpaceID, current.production.space.SpaceID].sort(), command: changeOrderCommand },
+      chain: currentPersistentChainRecord(current),
+      subjects: { development: developmentSubjects, staging: stagingSubjects, production: productionSubjects },
+      promotion: { staging: stagingPromotion, production: productionPromotion },
+      beforeApproval: { result: "blocked", authority: "ChangeWorkflow.ReleasePrerequisite", command: refusalCommand, message: refusal },
+      approval: { attestationID: attestation.AttestationID, changeOrderID: attestation.ChangeOrderID,
+        subjects: approval.subjects, observations, command: approvalCommand },
+      release: { id: release.ReleaseID, manifestDigest: release.ManifestDigest, bundleDigest: release.Digest,
+        unitCount: release.UnitCount,
+        revision, command: releaseCommand },
+    },
+    status: {
+      result: "pass", nativeChangeOrder: "pass", stagingPromotion: "pass", productionPromotion: "pass",
+      productionRelease: "pass", configurationApplied: "not-run",
+      claim: "ConfigHub bound the existing AICR development, staging, and production chain to one native ChangeOrder, selected configuration and README revisions in every Space, refused the unapproved production release, then approved and published the exact two-Unit production boundary.",
+      limits: [
+        "This current receipt is separate from the retained historical VariantReadinessReceipt and Trigger receipt.",
+        "The current proof observes the existing persistent chain. It does not recreate the historical development change.",
+        "No configuration was sent to Kubernetes, and it does not prove Argo CD reconciliation or GPU workload health.",
+      ],
+    },
+  };
+}
+
+function currentPersistentRecords() {
+  return {
+    base: inspectPersistentVariant(spaceSlug),
+    development: inspectPersistentVariant(developmentSpaceSlug),
+    staging: inspectPersistentVariant(stagingSpaceSlug),
+    production: inspectPersistentVariant(productionSpaceSlug),
+  };
+}
+
+function assertCurrentPersistentShape(records) {
+  const changedDocs = currentPersistentExpectedDocs ?? withGrafanaSecret(sourceApplicationDocs());
+  const base = records.base;
+  check(base?.space?.Labels?.Variant === baseVariantSlug
+    && !base.space.Annotations?.UpstreamSpaceID,
+  "base AICR variant does not retain its exact Variant and root identity");
+  for (const [name, expected] of [["development", "Development"], ["staging", "Staging"], ["production", "Prod"]]) {
+    const record = records[name];
+    check(record.space.Labels?.Environment === expected
+      && record.configuration.fromLinkIds.length === 1 && record.readme.fromLinkIds.length === 0
+      && canonicalDocs(record.docs) === canonicalDocs(changedDocs)
+      && typeof record.space.ComponentID === "string" && record.space.ComponentID.length > 0
+      && typeof record.configuration.headRevisionId === "string" && typeof record.readme.headRevisionId === "string",
+    `${name} does not retain the current AICR configuration and README identity contract`);
+  }
+  check(records.development.space.ComponentID === records.staging.space.ComponentID
+    && records.staging.space.ComponentID === records.production.space.ComponentID,
+  "persistent AICR Component binding changed");
+  check(records.development.space.Labels?.Variant === "development"
+    && records.development.space.Annotations?.UpstreamSpaceID === base.space.SpaceID
+    && records.staging.space.Labels?.Variant === "staging"
+    && records.staging.space.Annotations?.UpstreamSpaceID === records.development.space.SpaceID
+    && records.production.space.Labels?.Variant === "production"
+    && records.production.space.Annotations?.UpstreamSpaceID === records.staging.space.SpaceID,
+  "persistent AICR Variant and UpstreamSpaceID chain differs from the reviewed base to production identity");
+}
+
+function assertCurrentPersistentWorkflow(workflow, records, slug) {
+  const stages = workflow?.Stages ?? [];
+  const prerequisite = workflow?.AttestationPrerequisites?.[0];
+  const staging = stages.find((stage) => stage.Name === "staging");
+  const production = stages.find((stage) => stage.Name === "production");
+  check(typeof workflow?.ChangeWorkflowID === "string" && workflow.Slug === slug && stages.length === 2
+    && staging?.WhereSpace === `SpaceID = '${records.staging.space.SpaceID}'`
+    && production?.WhereSpace === `SpaceID = '${records.production.space.SpaceID}'`
+    && sameStringSet(production?.ReleasePrerequisites ?? [], ["review"])
+    && workflow.AttestationPrerequisites?.length === 1 && prerequisite?.Name === "review"
+    && prerequisite.Type === "Approval" && prerequisite.Count === 1
+    && prerequisite.AllowAuthors === true && (prerequisite.IgnoreFail ?? false) === false,
+  "persistent ChangeWorkflow differs from its reviewed staging and production contract");
+}
+
+function assertCurrentPersistentChangeOrder(changeOrder, workflow, records) {
+  check(typeof changeOrder?.ChangeOrderID === "string" && typeof changeOrder.EndTagID === "string"
+    && changeOrder.ChangeWorkflowID === workflow.ChangeWorkflowID
+    && changeOrder.ComponentID === records.development.space.ComponentID
+    && sameStringSet(changeOrder.InScopeSpaceIDs ?? [], [records.staging.space.SpaceID, records.production.space.SpaceID]),
+  "persistent ChangeOrder does not bind the native workflow, Component, staging, and production Spaces");
+}
+
+function currentChangeOrderSubjects(record, changeOrderID) {
+  const units = [
+    { slug: unitSlug, ...record.configuration },
+    { slug: readmeSlug, ...record.readme },
+  ];
+  return units.map((unit) => {
+    const rows = cubJson(["revision", "list", "--space", record.slug, "--by-unit-id", unit.id,
+      "--change-order", changeOrderID, "-o", "json"]).map((row) => row.Revision ?? row);
+    check(rows.length === 1, `${record.slug}/${unit.slug}: ChangeOrder must select exactly one revision`);
+    const revision = rows[0];
+    check(revision?.UnitID === unit.id && revision.RevisionID === unit.headRevisionId
+      && Number(revision.RevisionNum) === unit.headRevision && revision.DataHash === unit.dataHash,
+    `${record.slug}/${unit.slug}: ChangeOrder revision differs from the exact Unit head`);
+    return { unitID: unit.id, slug: unit.slug, revisionID: revision.RevisionID,
+      revisionNum: Number(revision.RevisionNum), dataHash: revision.DataHash };
+  });
+}
+
+function promoteCurrentPersistentDestination(record, revision, sourceSpace, orderSlug) {
+  const args = ["variant", "promote", record.slug, "--change-order", `${sourceSpace}/${orderSlug}`];
+  cub([...args, "--dry-run", "-o", "mutations"]);
+  cub(args);
+  return { space: record.slug, command: ["cub", ...args], result: "pass" };
+}
+
+function currentPromotionApprovalSubjects(result, record, expected) {
+  check(Array.isArray(result?.Spaces) && result.Spaces.length === 1,
+    "persistent variant approval did not select exactly one production Space");
+  const row = result.Spaces[0];
+  check(row.SpaceSlug === record.slug && row.SpaceID === record.space.SpaceID && !row.Error
+    && Array.isArray(row.Subjects) && (!Object.hasOwn(row, "SkippedUnits")
+      || Array.isArray(row.SkippedUnits) && row.SkippedUnits.length === 0),
+  "persistent variant approval returned a different Space, an error, or skipped Units");
+  const subjects = row.Subjects.map((subject) => ({ unitID: subject.UnitID, revisionID: subject.RevisionID,
+    revisionNum: Number(subject.RevisionNum) }));
+  const normalize = (rows) => rows.map((subject) => `${subject.unitID}:${subject.revisionID}:${subject.revisionNum}`).sort();
+  check(JSON.stringify(normalize(subjects)) === JSON.stringify(normalize(expected)),
+    "persistent variant approval subjects differ from the exact production ChangeOrder revisions");
+  return { subjects, attestation: row.Attestation ?? null };
+}
+
+function observeCurrentPromotionSubjects(record, subjects, attestationID) {
+  const attestations = cubJson(["attestation", "list", "--space", record.slug, "-o", "json"]);
+  return subjects.map((subject) => {
+    const unit = subject.slug === unitSlug ? record.configuration : record.readme;
+    const revision = cubJson(["revision", "get", subject.slug, String(subject.revisionNum),
+      "--space", record.slug, "-o", "json"]);
+    const observed = observeApprovalAttestations({ UnitID: unit.id, SpaceID: record.space.SpaceID,
+      Slug: subject.slug, DataHash: unit.dataHash, HeadRevisionNum: unit.headRevision }, revision, attestations);
+    check(observed.revisionID === subject.revisionID && observed.attestationIDs.includes(attestationID),
+      `${record.slug}/${subject.slug}: production Approval is not active on the exact ChangeOrder revision`);
+    return { ...subject, dataHash: unit.dataHash, attestationIDs: observed.attestationIDs };
+  });
+}
+
+function currentPersistentChainRecord(records) {
+  return Object.fromEntries(Object.entries(records).map(([name, record]) => [name, {
+    space: record.slug, id: record.space.SpaceID, componentID: record.space.ComponentID,
+    variant: record.space.Labels?.Variant ?? "",
+    upstreamSpaceID: record.space.Annotations?.UpstreamSpaceID ?? "",
+    configuration: record.configuration, readme: record.readme,
+  }]));
+}
+
+function verifyCurrentV020PromotionReceipt(receipt, uploadReceipt) {
+  check(receipt?.kind === "AicrCurrentPersistentPromotionReceipt"
+    && receipt.spec?.model === currentPromotionModel && receipt.spec.organization === expectedOrg
+    && receipt.spec?.execution?.cub?.client === "v0.6.2" && receipt.spec.execution.cub.server === "v0.6.2"
+    && receipt.spec?.source?.reference === uploadReceipt.spec.source.reference
+    && receipt.spec.source.digest === uploadReceipt.spec.source.digest
+    && receipt.status?.result === "pass" && receipt.status?.nativeChangeOrder === "pass"
+    && receipt.status?.productionRelease === "pass",
+  "current persistent AICR receipt identity or result changed");
+  const chain = receipt.spec?.chain;
+  const subjects = receipt.spec?.subjects;
+  check(chain?.base?.space === spaceSlug && chain.base.id && chain.base.variant === baseVariantSlug
+    && chain.base.upstreamSpaceID === "",
+  "current persistent receipt lacks the exact base Variant identity");
+  for (const [name, slug, variant, upstream] of [["development", developmentSpaceSlug, "development", chain.base.id], ["staging", stagingSpaceSlug, "staging", chain.development?.id], ["production", productionSpaceSlug, "production", chain.staging?.id]]) {
+    const record = chain?.[name];
+    const rows = subjects?.[name];
+    check(record?.space === slug && typeof record.id === "string" && typeof record.componentID === "string"
+      && record.variant === variant && record.upstreamSpaceID === upstream
+      && record.configuration?.headRevisionId && record.readme?.headRevisionId
+      && Array.isArray(rows) && rows.length === 2
+      && new Set(rows.map((row) => row.unitID)).size === 2,
+    `${name}: current persistent receipt lacks exact configuration and README subjects`);
+    for (const [unit, label] of [[record.configuration, unitSlug], [record.readme, readmeSlug]]) {
+      const row = rows.find((subject) => subject.unitID === unit.id);
+      check(row?.slug === label && row.revisionID === unit.headRevisionId
+        && row.revisionNum === unit.headRevision && row.dataHash === unit.dataHash,
+      `${name}/${label}: current persistent receipt subject differs from its exact head`);
+    }
+  }
+  const workflow = receipt.spec?.workflow;
+  const order = receipt.spec?.changeOrder;
+  check(receipt.spec?.component?.id === chain.development.componentID
+    && receipt.spec.component.changeWorkflowRequired === true
+    && workflow?.id === receipt.spec.component.workflowID && workflow.stages?.join(",") === "staging,production"
+    && workflow.productionReleasePrerequisite === "review"
+    && order?.revision === `ChangeOrder:${order.id}` && order.sourceSpaceID === chain.development.id
+    && sameStringSet(order.scopeSpaceIDs ?? [], [chain.staging.id, chain.production.id]),
+  "current persistent receipt workflow, Component, or ChangeOrder scope changed");
+  check(receipt.spec?.beforeApproval?.result === "blocked"
+    && receipt.spec.beforeApproval.authority === "ChangeWorkflow.ReleasePrerequisite"
+    && /requires review: 1 Approval attestation\(s\)/.test(receipt.spec.beforeApproval.message ?? ""),
+  "current persistent receipt lacks the specific pre-Approval release refusal");
+  const approval = receipt.spec?.approval;
+  check(approval?.changeOrderID === order.id && typeof approval.attestationID === "string"
+    && Array.isArray(approval.subjects) && approval.subjects.length === 2
+    && Array.isArray(approval.observations) && approval.observations.length === 2
+    && JSON.stringify(approval.subjects) === JSON.stringify(subjects.production.map((row) => ({
+      unitID: row.unitID, revisionID: row.revisionID, revisionNum: row.revisionNum,
+    }))),
+  "current persistent receipt Approval does not cover both exact production subjects");
+  check(receipt.spec?.release?.revision === order.revision && typeof receipt.spec.release.id === "string"
+    && receipt.spec.release.unitCount === 2
+    && /^sha256:[0-9a-f]{64}$/.test(receipt.spec.release.manifestDigest ?? "")
+    && /^sha256:[0-9a-f]{64}$/.test(receipt.spec.release.bundleDigest ?? ""),
+  "current persistent receipt release is not the exact two-Unit ChangeOrder boundary");
+  check(!/ApplyGates|ApprovedBy/.test(JSON.stringify(receipt)),
+    "current persistent receipt contains retired per-Unit approval evidence");
+}
+
+function verifyCurrentV020PromotionLive(receipt, uploadReceipt) {
+  const records = currentPersistentRecords();
+  assertCurrentPersistentShape(records);
+  const chain = currentPersistentChainRecord(records);
+  check(JSON.stringify(chain) === JSON.stringify(receipt.spec.chain),
+    "live persistent AICR chain differs from the current receipt");
+  const workflow = cubJson(["changeworkflow", "get", "--space", developmentSpaceSlug,
+    receipt.spec.workflow.slug, "-o", "json"]).ChangeWorkflow;
+  assertCurrentPersistentWorkflow(workflow, records, receipt.spec.workflow.slug);
+  check(workflow.ChangeWorkflowID === receipt.spec.workflow.id,
+    "live persistent ChangeWorkflow ID differs from the receipt");
+  const component = cubJson(["component", "get", componentSlug, "-o", "json"]).Component;
+  check(component?.ComponentID === receipt.spec.component.id
+    && component.ChangeWorkflowRequired === true
+    && (component.AllowedChangeWorkflowIDs ?? []).includes(workflow.ChangeWorkflowID),
+  "live AICR Component binding does not retain the receipt's required ChangeWorkflow");
+  const order = cubJson(["changeorder", "get", "--space", developmentSpaceSlug,
+    receipt.spec.changeOrder.slug, "-o", "json"]).ChangeOrder;
+  assertCurrentPersistentChangeOrder(order, workflow, records);
+  check(order.ChangeOrderID === receipt.spec.changeOrder.id && order.EndTagID === receipt.spec.changeOrder.endTagID,
+    "live persistent ChangeOrder differs from the receipt");
+  for (const name of ["development", "staging", "production"]) {
+    const subjects = currentChangeOrderSubjects(records[name], order.ChangeOrderID);
+    check(JSON.stringify(subjects) === JSON.stringify(receipt.spec.subjects[name]),
+      `${name}: live ChangeOrder subjects differ from the current receipt`);
+  }
+  const observed = observeCurrentPromotionSubjects(records.production, receipt.spec.subjects.production,
+    receipt.spec.approval.attestationID);
+  check(JSON.stringify(observed) === JSON.stringify(receipt.spec.approval.observations),
+    "live persistent Approval observations differ from the current receipt");
+  const published = cubJson(["release", "get", "--space", productionSpaceSlug,
+    receipt.spec.release.id, "-o", "json"]);
+  const release = published.Release ?? published;
+  check(release?.ReleaseID === receipt.spec.release.id
+    && release.ManifestDigest === receipt.spec.release.manifestDigest
+    && release.Digest === receipt.spec.release.bundleDigest
+    && release.UnitCount === 2,
+  "live persistent Release ID, digest, or two-Unit boundary differs from the current receipt");
+}
+
+function selfTestCurrentPromotionBoundaries() {
+  const expectFailure = (run, pattern) => {
+    let error;
+    try { run(); } catch (caught) { error = caught; }
+    check(pattern.test(error?.message ?? ""), `persistent self-test expected ${pattern}, got ${error?.message ?? "no failure"}`);
+  };
+  const upload = { spec: { source: { reference: configRef, digest: `sha256:${"a".repeat(64)}` } } };
+  const fakeDocs = withGrafanaSecret(sourceApplicationDocs());
+  const run = (scenario = {}) => {
+    const fake = fakeCurrentPromotionCli(scenario);
+    commandRunner = fake.run;
+    persistentDocsReader = () => fakeDocs;
+    currentPersistentExpectedDocs = fakeDocs;
+    try {
+      const receipt = syncCurrentV020PersistentPromotion(upload, { client: "v0.6.2", server: "v0.6.2" });
+      verifyCurrentV020PromotionReceipt(receipt, upload);
+      verifyCurrentV020PromotionLive(receipt, upload);
+      return { receipt, calls: fake.calls, fake };
+    } finally {
+      commandRunner = null;
+      persistentDocsReader = null;
+      currentPersistentExpectedDocs = null;
+    }
+  };
+  const passed = run();
+  check(passed.calls.filter((args) => args[0] === "variant" && args[1] === "promote").length === 4
+    && passed.calls.filter((args) => args[0] === "release" && args[1] === "publish").length === 2
+    && passed.calls.some((args) => args[0] === "component" && args[1] === "update"),
+  "persistent self-test did not exercise staged promotion, required approval, and publication");
+  for (const shape of ["missing", "extra", "wrong"]) {
+    expectFailure(() => run({ approvalShape: shape }), /subjects differ/,);
+  }
+  const unrelatedRefusal = fakeCurrentPromotionCli({ refusal: "network unavailable" });
+  commandRunner = unrelatedRefusal.run;
+  persistentDocsReader = () => fakeDocs;
+  currentPersistentExpectedDocs = fakeDocs;
+  try {
+    expectFailure(() => syncCurrentV020PersistentPromotion(upload, { client: "v0.6.2", server: "v0.6.2" }), /did not refuse/,);
+  } finally {
+    commandRunner = null;
+    persistentDocsReader = null;
+    currentPersistentExpectedDocs = null;
+  }
+  check(unrelatedRefusal.calls.filter((args) => args[0] === "release" && args[1] === "publish").length === 1
+    && !unrelatedRefusal.calls.some((args) => args[0] === "variant" && args[1] === "approve"),
+  "persistent self-test accepted an unrelated refusal or attempted approval after it");
+  expectFailure(() => run({ upstreamMismatch: true }), /Variant and UpstreamSpaceID chain/,);
+  const verifyLiveFailure = (mutate, pattern) => {
+    const passedCase = run();
+    mutate(passedCase.fake.state);
+    commandRunner = passedCase.fake.run;
+    persistentDocsReader = () => fakeDocs;
+    currentPersistentExpectedDocs = fakeDocs;
+    try {
+      expectFailure(() => verifyCurrentV020PromotionLive(passedCase.receipt, upload), pattern);
+    } finally {
+      commandRunner = null;
+      persistentDocsReader = null;
+      currentPersistentExpectedDocs = null;
+    }
+  };
+  verifyLiveFailure((state) => { state.component.ComponentID = "other-component"; }, /Component binding/);
+  verifyLiveFailure((state) => { state.release.Digest = `sha256:${"d".repeat(64)}`; }, /Release ID, digest, or two-Unit boundary/);
+}
+
+function fakeCurrentPromotionCli({ approvalShape = "exact", refusal = null, upstreamMismatch = false } = {}) {
+  const calls = [];
+  const configData = "# source-only fake configuration data\n";
+  const spaces = {
+    [spaceSlug]: { SpaceID: "base", Slug: spaceSlug, Labels: { Variant: baseVariantSlug }, Annotations: {} },
+    [developmentSpaceSlug]: { SpaceID: "development", Slug: developmentSpaceSlug, ComponentID: "component",
+      Labels: { Variant: "development", Environment: "Development" }, Annotations: { UpstreamSpaceID: "base" } },
+    [stagingSpaceSlug]: { SpaceID: "staging", Slug: stagingSpaceSlug, ComponentID: "component",
+      Labels: { Variant: "staging", Environment: "Staging" }, Annotations: { UpstreamSpaceID: upstreamMismatch ? "lookalike-development" : "development" } },
+    [productionSpaceSlug]: { SpaceID: "production", Slug: productionSpaceSlug, ComponentID: "component",
+      Labels: { Variant: "production", Environment: "Prod" }, Annotations: { UpstreamSpaceID: "staging" } },
+  };
+  const unitsFor = (slug) => [
+    { UnitID: `${spaces[slug].SpaceID}-configuration`, Slug: unitSlug, SpaceSlug: slug,
+      DataHash: "config-hash", HeadRevisionID: `${spaces[slug].SpaceID}-configuration-r2`, HeadRevisionNum: 2,
+      FromLinkID: slug === spaceSlug ? [] : ["configuration-link"] },
+    { UnitID: `${spaces[slug].SpaceID}-readme`, Slug: readmeSlug, SpaceSlug: slug,
+      DataHash: "readme-hash", HeadRevisionID: `${spaces[slug].SpaceID}-readme-r3`, HeadRevisionNum: 3, FromLinkID: [] },
+  ];
+  let workflow = null;
+  let order = null;
+  let approved = false;
+  const attestation = { AttestationID: "approval", ChangeOrderID: "order", SpaceID: "production", Type: "Approval", Result: "Pass" };
+  const release = { ReleaseID: "release", ManifestDigest: `sha256:${"b".repeat(64)}`,
+    Digest: `sha256:${"c".repeat(64)}`, UnitCount: 2 };
+  const component = { ComponentID: "component", Slug: componentSlug, ChangeWorkflowRequired: false, AllowedChangeWorkflowIDs: [] };
+  const json = (value) => ({ status: 0, stdout: `${JSON.stringify(value)}\n`, stderr: "" });
+  const text = (value = "") => ({ status: 0, stdout: value, stderr: "" });
+  const failure = (message) => ({ status: 1, stdout: "", stderr: message });
+  const run = (command, rawArgs, { input }) => {
+    check(command === "cub", "persistent fake CLI only accepts cub");
+    const args = [...rawArgs];
+    if (args[0] === "--context") args.splice(0, 2);
+    calls.push(args);
+    const [group, verb] = args;
+    if (group === "space" && verb === "get") return json({ Space: spaces[args[2]], UpgradableUnitCount: 0 });
+    if (group === "trigger" && verb === "list") return json([]);
+    if (group === "unit" && verb === "list") return json(unitsFor(args[args.indexOf("--space") + 1]).map((Unit) => ({ Unit })));
+    if (group === "unit" && verb === "get") {
+      const slug = args[args.indexOf("--space") + 1];
+      return json({ Unit: unitsFor(slug).find((row) => row.Slug === args[args.length - 3]) });
+    }
+    if (group === "unit" && verb === "data") return text(configData);
+    if (group === "revision" && verb === "list") {
+      if (!args.includes("--change-order")) return json([]);
+      const slug = args[args.indexOf("--space") + 1];
+      const id = args[args.indexOf("--by-unit-id") + 1];
+      const unit = unitsFor(slug).find((row) => row.UnitID === id);
+      return json([{ Revision: { UnitID: unit.UnitID, RevisionID: unit.HeadRevisionID,
+        RevisionNum: unit.HeadRevisionNum, DataHash: unit.DataHash } }]);
+    }
+    if (group === "revision" && verb === "get") {
+      const slug = args[args.indexOf("--space") + 1];
+      const unit = unitsFor(slug).find((row) => row.Slug === args[2]);
+      return json({ Revision: { UnitID: unit.UnitID, RevisionID: unit.HeadRevisionID,
+        RevisionNum: unit.HeadRevisionNum, DataHash: unit.DataHash, Attestations: approved ? { approval: {} } : {} } });
+    }
+    if (group === "changeworkflow" && verb === "create") {
+      workflow = { ...JSON.parse(input), ChangeWorkflowID: "workflow", Slug: args[4] };
+      return text();
+    }
+    if (group === "changeworkflow" && verb === "get") return json({ ChangeWorkflow: workflow });
+    if (group === "component" && verb === "get") return json({ Component: component });
+    if (group === "component" && verb === "update") {
+      component.ChangeWorkflowRequired = true;
+      component.AllowedChangeWorkflowIDs = ["workflow"];
+      return text();
+    }
+    if (group === "changeorder" && verb === "create") {
+      order = { ChangeOrderID: "order", EndTagID: "end-tag", ChangeWorkflowID: "workflow", ComponentID: "component",
+        InScopeSpaceIDs: args[args.indexOf("--in-scope-space") + 1].split(",") };
+      return text();
+    }
+    if (group === "changeorder" && verb === "get") return json({ ChangeOrder: order });
+    if (group === "variant" && verb === "promote") return text();
+    if (group === "variant" && verb === "approve") {
+      approved = true;
+      const subjects = unitsFor(productionSpaceSlug).map((unit) => ({ UnitID: unit.UnitID, RevisionID: unit.HeadRevisionID, RevisionNum: unit.HeadRevisionNum }));
+      if (approvalShape === "missing") subjects.pop();
+      if (approvalShape === "extra") subjects.push({ UnitID: "extra", RevisionID: "extra-r1", RevisionNum: 1 });
+      if (approvalShape === "wrong") subjects[1].RevisionID = "wrong-r3";
+      return json({ Spaces: [{ SpaceSlug: productionSpaceSlug, SpaceID: "production", Subjects: subjects, Attestation: attestation }] });
+    }
+    if (group === "attestation" && verb === "get") return json({ Attestation: attestation });
+    if (group === "attestation" && verb === "list") return json([attestation]);
+    if (group === "release" && verb === "publish") {
+      if (!approved) return failure(refusal ?? "requires review: 1 Approval attestation(s)");
+      return json({ Release: release });
+    }
+    if (group === "release" && verb === "get") return json({ Release: release });
+    throw new Error(`persistent fake CLI has no response for cub ${args.join(" ")}`);
+  };
+  return { calls, run, state: { component, release } };
+}
+
 function createEnvironmentVariant({ source, slug, variant, environment }) {
   cub([
     "variant",
@@ -1756,6 +2831,8 @@ function createEnvironmentVariant({ source, slug, variant, environment }) {
 }
 
 function ensureV020ChangeOrder() {
+  // Historical V0.20 ChangeOrder route retained only for VariantReadinessReceipt.
+  // It deliberately has no ChangeWorkflow and is not current approval evidence.
   if (!changeOrderPresent()) {
     cub([
       "changeorder",
@@ -1800,50 +2877,15 @@ function changeOrderPresent() {
 }
 
 function inspectV020ChangeOrder({ allowMissing = false } = {}) {
-  // cub v0.2.34 asks ConfigHub v0.3.0 for a retired include field on
-  // ChangeOrder reads. Query the same read-only endpoint without includes until
-  // that client/server mismatch is removed.
-  const configPath = process.env.CUB_CONFIG
-    ?? join(homedir(), ".confighub", "config.yaml");
-  const config = JSON.parse(execFileSync(
-    "yq",
-    ["-o=json", ".", configPath],
-    { cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
-  ));
-  const contextName = cubContext || config.currentContext;
-  const context = config.contexts?.find((item) => item.name === contextName);
-  check(context, `ConfigHub context ${contextName} is missing`);
-  const tokenPath = String(context.metadata?.tokenFile ?? "")
-    .replace(/^~(?=\/)/, homedir());
-  check(tokenPath && existsSync(tokenPath), `ConfigHub token file is missing for ${contextName}`);
-  const token = JSON.parse(readFileSync(tokenPath, "utf8")).accessToken;
-  check(token, `ConfigHub access token is missing for ${contextName}`);
-  const server = String(context.coordinate?.serverURL ?? "").replace(/\/$/, "");
-  check(server.startsWith("https://"), `ConfigHub server URL is invalid for ${contextName}`);
-  const development = cubJson([
-    "space",
-    "get",
-    developmentSpaceSlug,
-    "-o",
-    "json",
-  ]).Space;
-  const response = execFileSync(
-    "curl",
-    [
-      "-fsS",
-      "-G",
-      "-H",
-      `Authorization: Bearer ${token}`,
-      "--data-urlencode",
-      `where=Slug = '${changeOrderSlug}' AND SpaceID = '${development.SpaceID}'`,
-      `${server}/api/change_order`,
-    ],
-    { cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
-  );
-  const record = JSON.parse(response)
-    .map((item) => item.ChangeOrder ?? item)
-    .find((item) => item.Slug === changeOrderSlug);
-  if (!record && allowMissing) return null;
+  const result = cubResult([
+    "changeorder", "get", "--space", developmentSpaceSlug, changeOrderSlug, "-o", "json",
+  ], { allowFailure: true });
+  if (result.status !== 0) {
+    const diagnostic = `${result.stdout ?? ""}\n${result.stderr ?? ""}`;
+    if (allowMissing && /not found|404/i.test(diagnostic)) return null;
+    check(false, `ConfigHub ChangeOrder read failed: ${diagnostic}`);
+  }
+  const record = JSON.parse(result.stdout).ChangeOrder;
   check(record, `ConfigHub ChangeOrder ${developmentSpaceSlug}/${changeOrderSlug} is missing`);
   return record;
 }
@@ -1933,7 +2975,10 @@ function inspectPersistentVariant(slug) {
   const readme = units.find((item) => item.Slug === readmeSlug);
   check(configuration, `${slug} has no ${unitSlug} Unit`);
   check(readme, `${slug} has no README Unit`);
-  const docs = parseDocs(storedUnitData(configuration));
+  const configurationData = storedUnitData(configuration);
+  const docs = persistentDocsReader
+    ? persistentDocsReader(slug, configurationData)
+    : parseDocs(configurationData);
   const revisions = cubJson([
     "revision",
     "list",
@@ -1951,6 +2996,7 @@ function inspectPersistentVariant(slug) {
     configuration: {
       id: configuration.UnitID,
       dataHash: configuration.DataHash,
+      headRevisionId: configuration.HeadRevisionID,
       headRevision: Number(configuration.HeadRevisionNum ?? 0),
       upstreamRevision: Number(configuration.UpstreamRevisionNum ?? 0),
       fromLinkIds: configuration.FromLinkID ?? [],
@@ -1959,6 +3005,7 @@ function inspectPersistentVariant(slug) {
     readme: {
       id: readme.UnitID,
       dataHash: readme.DataHash,
+      headRevisionId: readme.HeadRevisionID,
       headRevision: Number(readme.HeadRevisionNum ?? 0),
       fromLinkIds: readme.FromLinkID ?? [],
       applyGates: Object.keys(readme.ApplyGates ?? {}).sort(),
@@ -2008,6 +3055,8 @@ function verifyPersistentVariant(record, expected) {
 }
 
 function requiredApprovalCovered(record, allowApprovedRelease = false) {
+  // Historical receipt verifier only. Current promotion verification reads the
+  // separate ChangeWorkflow/ChangeOrder receipt and never consults ApplyGates.
   const release = allowApprovedRelease ? approvedReleaseCoverage(record) : null;
   return (
     record.configuration.applyGates.includes(approvalGate)
@@ -2550,7 +3599,29 @@ function cubJson(args) {
   return JSON.parse(cub(args));
 }
 
+function cubText(args, input) {
+  if (commandRunner) {
+    const result = commandRunner("cub", [...contextArgs(), ...args], { input });
+    check(result.status === 0, result.stderr || result.stdout);
+    return result.stdout;
+  }
+  const result = spawnSync("cub", [...contextArgs(), ...args], {
+    cwd: repoRoot,
+    encoding: "utf8",
+    input,
+    env: { ...process.env, CONFIGHUB_AGENT: "1" },
+    maxBuffer: 1024 * 1024 * 200,
+  });
+  check(result.status === 0, result.stderr || result.stdout);
+  return result.stdout;
+}
+
 function cubResult(args, { allowFailure = false } = {}) {
+  if (commandRunner) {
+    const result = commandRunner("cub", [...contextArgs(), ...args], { input: null });
+    if (!allowFailure) check(result.status === 0, result.stderr || result.stdout);
+    return result;
+  }
   const result = spawnSync("cub", [...contextArgs(), ...args], {
     cwd: repoRoot,
     encoding: "utf8",
@@ -2566,6 +3637,11 @@ function contextArgs() {
 }
 
 function run(command, args, { inherit = false } = {}) {
+  if (commandRunner) {
+    const result = commandRunner(command, args, { input: null });
+    check(result.status === 0, result.stderr || result.stdout);
+    return result.stdout;
+  }
   return execFileSync(command, args, {
     cwd: repoRoot,
     encoding: "utf8",

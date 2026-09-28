@@ -169,7 +169,7 @@ const NON_HELM_FORMAT_INFO = {
     label: "Kubara",
     sentence: "Kubara selects components and generates platform configuration, and the Workshop retains routes for bootstrap, Git handoff, controller ownership, and application ordering.",
     learnHref: "./kubara.html",
-    learnLabel: "Build a platform",
+    learnLabel: "Kubara platforms",
   },
   "configuration-oci": {
     label: "Configuration OCI",
@@ -2405,7 +2405,7 @@ function siteFooterNav(relPath) {
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
     + group("Catalog", [a("charts/index.html", "Find a configuration"), a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("matrix.html", "Evidence index"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
     + group("Config", [a("config.html", "How configuration works"), a("ai.html", "Use with your AI"), a("ask.html", "Check my config"), a("variants.html", "Variants"), a("oci.html", "OCI shapes"), a("quirks.html", "What charts hide"), a("try.html", "Try it: Redis in ten minutes")])
-    + group("Stacks", [a("demo.html", "The ten-minute demo"), a("stack.html", "Stacks and fleets"), a("kubara.html", "Build a platform"), a("try-aicr.html", "Inference platforms"), a("apps.html", "Apps on a platform")])
+    + group("Stacks", [a("demo.html", "The ten-minute demo"), a("stack.html", "Stacks and fleets"), a("kubara.html", "Kubara platforms"), a("try-aicr.html", "Inference platforms"), a("apps.html", "Apps on a platform")])
     + group("Operate", [a("how-it-works.html", "Operate"), a("confighub.html", "ConfigHub Server"), a("promote.html", "Promote my config"), a("operations.html", "Operations"), a("does-cluster-match-approved-config.html", "Does the cluster match?")])
     + group("Docs", [a("docs.html", "Docs"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("offering.html", "Offering")])
     + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Upload a result into ConfigHub")}${a("confighub.html", "ConfigHub Server")}</div>`
@@ -2440,7 +2440,7 @@ function siteSections() {
     ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"], ["testing.html", "Worked examples"],
   ] },
   { label: "Stacks", hub: "stack.html", pages: [
-    ["demo.html", "The ten-minute demo"], ["stack.html", "Stacks and fleets"], ["kubara.html", "Build a platform"], ["try-aicr.html", "Inference platforms"],
+    ["demo.html", "The ten-minute demo"], ["stack.html", "Stacks and fleets"], ["kubara.html", "Kubara platforms"], ["try-aicr.html", "Inference platforms"],
     ["apps.html", "Apps on a platform"],
   ] },
   { label: "Operate", hub: "how-it-works.html", pages: [
@@ -4370,11 +4370,11 @@ function howItWorksHtml() {
 
   <section aria-labelledby="gate">
     <h2 id="gate">3. Gate and approve</h2>
-    <p>Checks inspect a candidate, and apply gates decide whether ConfigHub may apply it. A warning is recorded without stopping delivery, but a blocking gate stops the apply. Production approval is a separate gate from schema and placeholder checks.</p>
+    <p>Checks inspect a candidate. In cub v0.5.7, approval is an attestation about selected revisions in a Space. A ChangeWorkflow can require qualifying attestations before a promotion stage or release; merely recording one does not install a gate. Production approval is separate from schema and placeholder checks.</p>
     ${markdownLikeTable([
       ["Level", "Do this", "Command", "What you get"],
-      ["Advanced", "Gate a release on approval", "<code>cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space cart-demo-dev</code>", "Every Unit in the Space carries an Apply Gate, and a release is refused until it clears."],
-      ["Advanced", "Approve it", "<code>cub variant approve cart-demo-dev</code>", "The approval covers the change that has reached the Space. A later change is gated again, with nobody re-arming anything."],
+      ["Advanced", "Review how to configure the approval gate", "<code>cub changeworkflow create --help</code>", "Declare AttestationPrerequisites in the workflow file and reference them from stage Prerequisites or ReleasePrerequisites. Bind the reviewed workflow to the ChangeOrder before relying on enforcement."],
+      ["Advanced", "Record the reviewed approval", "<code>cub variant approve cart-demo-dev</code>", "Records Approval attestations for the current revisions of Units with Targets in this Space. Review that whole selection first. Identical-content later revisions can remain covered; a changed-content revision needs a qualifying approval. The configured workflow decides whether the gate is satisfied."],
     ], { rawThirdColumn: true, rawFourthColumn: true })}
     <p><a href="./operations.html#ops">See gates and scans among the other operations</a>.</p>
   </section>
@@ -4994,7 +4994,7 @@ cub stack check metrics-double</code></pre>
         { cmd: "cub stack check ./confighub/stack.yaml" },
         { cmd: "cub stack upload  ./confighub/stack.yaml --run" },
       ])}
-      <p><a href="./kubara.html">Build a platform</a> walks the whole Kubara adoption journey.</p>
+      <p><a href="./kubara.html">Kubara platforms</a> walks the whole Kubara adoption journey.</p>
     </section>
 
     <section aria-labelledby="image">
@@ -5282,11 +5282,11 @@ function compareHtml() {
       "No.",
       "Git revert re-renders; the old rendered state is not kept.",
       "ConfigHub can restore a recorded desired object set. The bounded Redis proof does this on two test clusters; it does not reverse database migrations, cloud resources, or other external effects."],
-    ["Require an approval bound to an exact revision",
+    ["Require a configured approval attestation for selected revisions",
       "No.",
       "No.",
       "PR review approves a diff, not a revision a cluster converges to.",
-      "Yes, with ConfigHub: approving yesterday's revision authorizes nothing about today's."],
+      "Yes, with ConfigHub: a ChangeWorkflow can require Approval attestations for the selected revisions. Identical-content later revisions can remain covered; recording an attestation alone does not configure enforcement."],
   ];
   const rowsHtml = rows.map(([job, helm, kdiff, kust, here]) => `<tr><td><strong>${job}</strong></td><td>${helm}</td><td>${kdiff}</td><td>${kust}</td><td>${here}</td></tr>`).join("\n        ");
   return `<!doctype html>
@@ -8238,15 +8238,15 @@ function appsHtml(catalog) {
         { comment: "place it on a cluster's target, in a Space named shop-web-demo-dev", cmd: 'cub variant create demo-dev shop-web-base --target demo-dev/target --space-pattern "template:shop-web-demo-dev"' },
       ])}
       <h3>Inside ConfigHub, operate the app on the platform</h3>
-      <p>From here the app uses the same verbs as any platform component. Release it by digest so your reconciler pulls exactly that. Promote it across environments with a dry run that names any withheld change, gate a release on an approval, and roll back to the bytes that ran. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
+      <p>From here the app uses the same verbs as any platform component. The commands below are separate operation examples, not a sequence that installs an approval gate. For gated delivery, first configure the workflow and bind the ChangeOrder, then record the qualifying approval before attempting the gated operation. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
       ${commandBlock([
         { comment: "release by digest; the reconciler pulls it", cmd: "cub release publish shop-web-demo-dev" },
         { comment: "preview a promotion, then run it without --dry-run", cmd: "cub variant promote shop-web-demo-dev --dry-run" },
-        { comment: "gate every Unit in the Space on approval", cmd: "cub trigger create require-approval Mutation Kubernetes/YAML vet-approvedby 1 --space shop-web-demo-dev" },
-        { comment: "approve the change across the Space; the release is refused until then", cmd: "cub variant approve shop-web-demo-dev" },
+        { comment: "read the attestation prerequisite schema before configuring the ChangeWorkflow", cmd: "cub changeworkflow create --help" },
+        { comment: "Review selected revisions, then approve this Space’s targeted Units", cmd: "cub variant approve shop-web-demo-dev" },
         { comment: "roll back to a revision that already ran", cmd: "cub unit update --space shop-web-demo-dev shop-web-deployment --restore 2" },
       ])}
-      <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. A trigger gates the Space on approval. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>
+      <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. Approval attestations satisfy a configured ChangeWorkflow prerequisite; recording an approval alone does not add a gate. This example assumes the reviewed workflow is already bound to the ChangeOrder when gated delivery is required. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>
       <p>Check the current delivery gaps before you rely on gate order across an app's CRDs. <a href="./known-gaps.html">Read the known gaps</a>.</p>
     </section>
 
@@ -8538,30 +8538,51 @@ function kubaraHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Build an internal developer platform with Kubara &middot; ConfigHub Workshop</title>
+  <title>Run a Kubara platform with ConfigHub &middot; ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
     ${audienceLabel("For platform teams")}
-    <h1>Build an internal developer platform</h1>
+    <h1>Run a Kubara platform with ConfigHub</h1>
     <p class="lead">Choose the services your developers need to build and run AI-assisted tools and applications. The Catalog supplies tested component versions and known requirements. AI can help with the selection and settings. The starter writes native Kubara configuration for you to review before Kubara generates the platform files.</p>
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
     <p>Keep platform components, developer tools, and applications as related but separately versioned configuration. ConfigHub retains and promotes each of them. Test a platform-component revision when shared services change, a tool revision when the developer experience changes, and an app revision when an application changes. <a href="./apps.html">Apps on a platform</a> defines what an app needs from the platform under it. An AICR-generated AI platform composes the same way from Argo CD Applications; <a href="./try-aicr.html">Try AICR</a> inspects one without a GPU.</p>
     <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform or its applications need shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
     <p>If you already run a platform on Flux or Argo, <a href="./deploy-with-flux-or-argo.html">point ConfigHub at the fleet you have</a> and add identity, approvals, and rollback with your reconciler unchanged.</p>
     <p>The implementation lives in <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>.</p>
-    ${humanLinks([["Try it now", "#kubara-run-yourself"], ["Point ConfigHub at an existing fleet", "./deploy-with-flux-or-argo.html"], ["Learn ConfigHub", "./confighub.html"]])}
+    ${humanLinks([["Govern it with cub kubara", "#kubara-govern"], ["Use it as a stack", "#kubara-run-yourself"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
+    <section aria-labelledby="kubara-govern">
+      <h2 id="kubara-govern">Govern your Kubara platform with cub kubara</h2>
+      <p>Three pieces meet here, and each has one job.</p>
+      <p><strong>Kubara generates the platform.</strong> You write a <code>config.yaml</code> that chooses services from Kubara's catalogs. <code>kubara generate</code> writes a wrapper chart for each service and each cluster's values. Kubara's hub Argo CD then delivers to every cluster through ApplicationSets.</p>
+      <p><strong><code>cub kubara</code> is for people who run Kubara.</strong> It governs a Kubara platform in ConfigHub without changing how Kubara works. It keeps a base for each component and a variant for each cluster, with an approval before each release.</p>
+      ${commandBlock([
+        { comment: "Install the plugin, one line and no account", cmd: "cub plugin install confighub/kubara-confighub" },
+        { comment: "Kubara's services, with Workshop evidence for each chart", cmd: "cub kubara services" },
+        { comment: "Write your Kubara config", cmd: "cub kubara init --out ../my-platform --services cert-manager,metrics-server,traefik" },
+        { comment: "Copy the env template, then replace every placeholder in .env", cmd: "cp ../my-platform/.env.example ../my-platform/.env" },
+        { comment: "Let Kubara generate the platform", cmd: "kubara --work-dir ../my-platform --config-file config.yaml --env-file .env generate --helm" },
+        { comment: "What ConfigHub would hold, offline", cmd: "cub kubara plan ../my-platform" },
+        { comment: "The cub steps as one script to read, then run", cmd: "cub kubara apply ../my-platform --out ../my-platform-confighub" },
+        { comment: "Point Kubara's hub at the approved releases instead of Git", cmd: "cub kubara handover ../my-platform --out ../my-platform-confighub" },
+        { comment: "Confirm each cluster runs the release its stage approved", cmd: "cub kubara check ../my-platform --hub-context <hub context>" },
+      ])}
+      <p><code>handover.sh</code> points each of Kubara's ApplicationSets at the cluster's approved release in ConfigHub. The hub, its AppProject and its sync settings stay, and the script stops first if Argo CD would delete anything. After it, a change reaches a cluster only once that cluster's stage has approved and released it, and <code>cub kubara check</code> confirms it. It ran live on a Kubara hub and spoke on kind. The <a href="https://github.com/confighub/kubara-confighub/blob/main/examples/cub-kubara/lab-handover-2026-09-28.log">first live run's log</a> records each command and the faults it found, and the <a href="https://github.com/confighub/kubara-confighub/blob/main/examples/kind-lab/run-2026-09-28.log">kind lab's recorded run</a> shows the whole story from scratch. The <a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kind-lab">kind lab</a> runs it on your laptop.</p>
+      <p>This path has no stack step. <code>cub kubara apply</code> renders each service the way Kubara's hub delivers it, with the same release name, namespace and values, so ConfigHub holds exactly what Kubara's Argo CD runs. The <a href="https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md">cub kubara guide</a> walks every command.</p>
+      <h3>Where cub stack comes in</h3>
+      <p>Workshop stacks serve a different job. They use a Kubara platform as a stack, rather than governing it the way Kubara runs it. Reach for <code>cub stack</code> to check the platform before anything runs, compose apps onto it, publish it as OCI, or produce a platform on demand. The next section shows that path.</p>
+    </section>
     <p class="notice"><strong>Need GitOps services and the shop app?</strong> <a href="./d/docs/user/workshop-compose-guide.html">Save, change and resume a local platform</a> using the retained <code>kubara-gitops-shop</code> selection. The Guide provides direct cub commands and an assistant task, with saved results and a failure case. Static composition does not establish GitOps reconciliation or application health.</p>
     ${generatedStamp(catalog, "Kubara buyer journey")}
     <section aria-labelledby="kubara-run-yourself">
       <h3 id="kubara-run-yourself" style="font-size:1.25rem">Try it now</h3>
       <p>Three steps, smallest first. Each one is a real command or a recorded walkthrough, and every claim behind them links a committed receipt.</p>
       <div class="card">
-        <h3>Generate and check a platform locally</h3>
+        <h3>Use your Kubara platform as a stack</h3>
         <p>Kubara generates the platform you described as files in Git, a Kubara tree that is not yet a stack and not yet a platform. <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines a stack as a set of parts named in one manifest and checked before any of it runs. <code>cub stack from-kubara</code> turns the tree into exactly that. A platform is what the certified stack becomes once it runs under governance with apps on it. A fleet is that stack and its apps placed across many clusters. The workshop plugin carries the same three services as a stack and places it as a fleet.</p>
         ${commandBlock([
           { cmd: "git clone https://github.com/confighub/kubara-confighub.git" },
@@ -8647,18 +8668,19 @@ kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</c
     </section>
     <section aria-labelledby="benefits">
       <h2 id="benefits">Benefits with explicit acceptance evidence</h2>
-      <p>Each status pill reads one of three ways. A <strong>current live</strong> pill means a current live run accepted the benefit, and some name the exact result, such as a passed performance gate or zero audited residue. A <strong>current deterministic</strong> pill means committed deterministic evidence accepts it, without a live run. Any other wording means the deterministic contract still holds while its live acceptance is absent, stale, or not yet accepted.</p>
+      <p>Each status pill reads one of three ways. A <strong>retained live</strong> pill means a retained live run accepted the benefit for its recorded version, and some name the exact result, such as a passed performance gate or zero audited residue. A <strong>current deterministic</strong> pill means committed deterministic evidence accepts it, without a live run. Any other wording means the deterministic contract still holds while its live acceptance is absent, stale, or not yet accepted.</p>
+      <p>These retained live runs used the earlier approval model. They do not prove the current ChangeWorkflow and Approval-attestation paths; those paths need fresh live receipts.</p>
       <p><strong>One gate remains open.</strong> Every benefit below was accepted in the project's own retained four-cluster organization. A clean import into a fresh organization that you choose has not run yet, and it is the gate that stands between these results and a claim about your platform.</p>
       ${markdownLikeTable([
         ["Benefit", "Evidence or acceptance target", "Status"],
         ["No rewrite", `${facts.generatedFiles} path-and-byte-identical generated files from Kubara's official and ConfigHub-aligned catalog lanes; ${facts.renders} deterministic effective renders.`, badge(facts.deterministicParityCurrent, "current deterministic", "check required")],
         ["A stronger component Catalog", `The Kubara catalog 1.1 coverage run closed at ${facts.catalogComponents} components and ${facts.catalogVersions} retained versions, with all ${facts.selections} exact Kubara selections kept under additive-only retention. The Catalog has grown since; the pages above carry its current size of 112 components and 139 retained versions.`, badge(facts.catalogCurrent, "current deterministic", "check required")],
-        ["Recognizable platform shape", `${facts.clusters} clusters, ${facts.roles} platform roles, ${facts.applications.length} applications, faithful and adapted delivery identities, with Argo CD retained.`, badge(facts.faithfulCurrent && facts.miniIdpCurrent, "current live", "faithful or adapted receipt needs refresh")],
-        ["Upgrade-safe retained workloads", `${facts.selectorReplacements || 16} exact journaled immutable-selector replacements, including four PostgreSQL StatefulSets whose bound PVC identities are retained.`, badge(facts.miniIdpCurrent && facts.selectorReplacements === 16 && facts.retainedSelectorMigrationPvcs === 4, "current live", "live migration receipt required")],
-        ["Fleet visibility", `${facts.matrixCells} component/application cells, ${facts.curatedLinks} curated native Link intents, and ${facts.wiringFacts} extracted wiring facts kept as the full engineering view.`, badge(facts.miniIdpCurrent && facts.matrixCurrent && facts.wiringCurrent, "current live", "desired state only")],
-        ["Repeatable delivery", "The retained four-cluster proof includes exact release heads, healthy applications, and an immediate zero-action apply.", badge(facts.miniIdpCurrent, "current live", "live receipt required")],
-        ["Measured reconciliation cost", facts.noOpReadCommands > 0 ? `The current no-op made ${facts.noOpMutationAttempts} ConfigHub mutation attempts and ${facts.noOpArgoSyncRequests} Argo sync requests, while recording ${facts.noOpReadCommands} ConfigHub CLI read commands, ${facts.noOpSubprocessCalls} total subprocess calls, and about ${Math.round(facts.noOpWallMs / 1000)} seconds. The fixture regression target is met; this is not a raw-Kubara comparison, HTTP-round-trip count, or service-level promise.` : "No source-current no-op measurement is available.", badge(facts.performanceCurrent, "performance gate passed", facts.miniIdpCurrent ? "measured; performance gate not accepted" : "live performance receipt required")],
-        ["Clean governed inventory", "A separate audit must prove exact ConfigHub inventory, no Argo-prunable resources, and no unclassified, dangling, or UID-stale audited durable workloads. It does not claim a complete inventory of every Kubernetes type.", badge(facts.orphanCurrent, "current live: audited residue zero", "live receipt required: scoped residue audit")],
+        ["Recognizable platform shape", `${facts.clusters} clusters, ${facts.roles} platform roles, ${facts.applications.length} applications, faithful and adapted delivery identities, with Argo CD retained.`, badge(facts.faithfulCurrent && facts.miniIdpCurrent, "retained live", "faithful or adapted receipt needs refresh")],
+        ["Upgrade-safe retained workloads", `${facts.selectorReplacements || 16} exact journaled immutable-selector replacements, including four PostgreSQL StatefulSets whose bound PVC identities are retained.`, badge(facts.miniIdpCurrent && facts.selectorReplacements === 16 && facts.retainedSelectorMigrationPvcs === 4, "retained live", "live migration receipt required")],
+        ["Fleet visibility", `${facts.matrixCells} component/application cells, ${facts.curatedLinks} curated native Link intents, and ${facts.wiringFacts} extracted wiring facts kept as the full engineering view.`, badge(facts.miniIdpCurrent && facts.matrixCurrent && facts.wiringCurrent, "retained live", "desired state only")],
+        ["Repeatable delivery", "The retained four-cluster proof includes exact release heads, healthy applications, and an immediate zero-action apply.", badge(facts.miniIdpCurrent, "retained live", "live receipt required")],
+        ["Measured reconciliation cost", facts.noOpReadCommands > 0 ? `The retained no-op made ${facts.noOpMutationAttempts} ConfigHub mutation attempts and ${facts.noOpArgoSyncRequests} Argo sync requests, while recording ${facts.noOpReadCommands} ConfigHub CLI read commands, ${facts.noOpSubprocessCalls} total subprocess calls, and about ${Math.round(facts.noOpWallMs / 1000)} seconds. The fixture regression target is met; this is not a raw-Kubara comparison, HTTP-round-trip count, or service-level promise.` : "No source-current no-op measurement is available.", badge(facts.performanceCurrent, "retained performance gate passed", facts.miniIdpCurrent ? "measured; performance gate not accepted" : "live performance receipt required")],
+        ["Clean governed inventory", "A separate audit must prove exact ConfigHub inventory, no Argo-prunable resources, and no unclassified, dangling, or UID-stale audited durable workloads. It does not claim a complete inventory of every Kubernetes type.", badge(facts.orphanCurrent, "retained live: audited residue zero", "live receipt required: scoped residue audit")],
       ], { rawThirdColumn: true })}
       <p data-kubara-live-evidence="${currentLive ? "current" : "gated"}">The status is generated from an exact evidence chain, component by component. ${currentLive ? "The complete faithful, adapted, performance, matrix, wiring, orphan, and six-frame GUI chain is accepted." : "Some current live evidence may already pass, but the complete publishable chain is still gated."} Missing or inconsistent faithful, source-digest mini-IDP, performance, matrix, wiring, orphan, or GUI evidence stays visible instead of becoming a green marketing claim.</p>
     </section>

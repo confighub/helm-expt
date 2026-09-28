@@ -53,6 +53,9 @@ CUB_CONFIG=$HOME/.confighub/config.yaml cub changeset update \
   --annotation proof.confighub.com/live-apply=false
 ```
 
+The committed receipt below is a legacy per-Unit approval observation. It is
+kept as evidence of that historical run, not as the current recommendation.
+
 Approve a representative reviewed Unit:
 
 ```sh
@@ -69,6 +72,25 @@ Result:
 ```text
 Unit statefulset-redis-redis-master (...) has been approved
 Awaiting triggers...
+```
+
+The result above is historical receipt output. A current ChangeWorkflow can
+require qualifying attestations through its configured attestation prerequisite;
+recording an attestation does not configure or migrate that prerequisite.
+
+For a current Space-level approval, use `cub variant approve`. It records
+Approval attestations for the selected revisions and carries them to later
+revisions of the same Unit only when their content is identical. This command
+selects Target-bearing Units unless `--all` is supplied; `--where` narrows the
+selection. This proof Space has no Target, so `--all` is required:
+
+```sh
+CUB_CONFIG=$HOME/.confighub/config.yaml cub variant approve \
+  helm-redis-confighub-proof \
+  --all \
+  --where "Slug = 'statefulset-redis-redis-master'" \
+  --revision HeadRevisionNum \
+  --verbose
 ```
 
 Attempt dry-run apply:

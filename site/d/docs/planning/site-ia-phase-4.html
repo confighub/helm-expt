@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Site IA, phase 4: a flat Catalog for agents and humans · ConfigHub Workshop</title>
+  <meta name="description" content="Site IA, phase 4: a flat Catalog for agents and humans: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/site-ia-phase-4.html">
+  <meta property="og:title" content="Site IA, phase 4: a flat Catalog for agents and humans · ConfigHub Workshop">
+  <meta property="og:description" content="Site IA, phase 4: a flat Catalog for agents and humans: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/site-ia-phase-4.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+        --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+    }
+    :root[data-theme="light"] {
+      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
+      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--heading, Manrope, Inter, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 800; }
+  h2, h3 { font-weight: 700; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.35; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../config.html">Config</a><a href="../../../stack.html">Stacks</a><a href="../../../how-it-works.html">Operate</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Config</summary><ul><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Kubara platforms</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></nav>
+<div class="cw-content">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><details><summary>Catalog</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Config</summary><ul><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../testing.html">Worked examples</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../stack.html">Stacks and fleets</a></li><li><a href="../../../kubara.html">Kubara platforms</a></li><li><a href="../../../try-aicr.html">Inference platforms</a></li><li><a href="../../../apps.html">Apps on a platform</a></li></ul></details>
+<details><summary>Operate</summary><ul><li><a href="../../../how-it-works.html">Operate</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../operations.html">Operations</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>Site IA, phase 4: a flat Catalog for agents and humans</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/site-ia-phase-4.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+    <p class="generated"><b>Generated at:</b> 2026-09-04T11:23:58.207Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Phase 2 settled one page per concept and the five sections Catalog, Config, Stacks, Operate and Docs. Phase 3 set the rules for the words and wayfinding on the pages a reader lands on. Phase 4 changes the structure again, on the maintainer's decisions of 27 September 2026. The site becomes a flat list of what the Catalog holds, section by section, and the explanation moves into Guides and Docs.</p>
+<p>This document is the plan. Nothing in it is built until the maintainer approves it.</p>
+<h2 id="the-decisions">The decisions</h2>
+<p>The maintainer made these decisions on 27 September 2026.</p>
+<ol><li><b>The structure is much flatter.</b> The site is a list of the things in the Catalog, section by section. It includes every ConfigHub plugin, and more will be added, and the example apps. The more complex material goes into Guides or Docs, many of which are two or three layers deep.</li><li><b>Everything serves agents and humans, and agents come first.</b> Every tool and every part of the site is agentic first and agent led. Humans get two things of their own: a small area of marketing pages, and short human docs written in Simplified Technical English (STE).</li><li><b>The Catalog sections are the top navigation.</b> The bar reads Configs, Stacks, Apps, Plugins, Guides and Docs, with the ConfigHub Server button.</li><li><b>The Plugins list shows every public plugin, marked by its state.</b> ConfigHub Enterprise is left out.</li><li><b>This plan comes first.</b> The build starts once it is approved.</li></ol>
+<p>The maintainer settled three more points the same day.</p>
+<ol><li><b>Human docs adopt STE's writing rules only</b>, not its controlled dictionary.</li><li><b>Every plugin is shown openly.</b> Drafts and work in progress appear in the list with their state, and no filter hides them.</li><li><b>The ConfigHub Server button stays separate, at the top right.</b> It balances the ConfigHub Workshop button at the top left.</li><li><b>App rows link to the default branch, and record the commit last checked.</b> A person sees the current example. An agent also sees which commit was checked, and a check flags any row whose branch has moved on since.</li><li><b>The headline is &quot;An agentic data hub for Kubernetes and AI configurations&quot;.</b> It keeps the hub of option A, the agent of option B, and &quot;as data&quot;, and it names AI configuration beside Kubernetes.</li></ol>
+<p>The product these sections describe is summarised in &quot;ConfigHub Workshop: mission, purpose and value&quot; (27 September 2026). In short, the Workshop lets an AI get Kubernetes configuration right on a person's behalf. The Catalog holds checked Configs for standard and custom patterns, worked Example Apps, config Stacks, Plugins for easy setup in ConfigHub, and how-to Guides.</p>
+<h2 id="why-the-site-exists">Why the site exists</h2>
+<p>Every section in this plan answers to this purpose. The maintainer's words are quoted with their dates.</p>
+<p><b>It started with Helm pain.</b> &quot;In May we wanted also to make helm pain go away&quot; (18 September). We did not make it go away. We made it visible and checkable, and we removed some of it by rendering once and shipping the exact objects, so no template reaches the cluster.</p>
+<p><b>It grew beyond Helm.</b> &quot;In last few weeks we expanded potential patterns to think about flux, argo, kubara, stacks&quot; (18 September). The question grew from &quot;what does this chart do?&quot; to &quot;what happens to it when you deliver it your way?&quot; One common core makes that possible: &quot;the OCI+flattening standard core matters so that AICR, Helm, Timoni can get a mostly uniform operational treatment&quot; (18 September).</p>
+<p><b>The user starts small, with an agent.</b> &quot;Almost all users will start with one app, one chart, one bit of AI vibe coding. They will be 'in claude code' or have it nearby&quot; (17 September). Each step must be &quot;compelling at each step and each scale. No 'tiers'.&quot; And: &quot;We can't always force connect to CH server, and should not try.&quot;</p>
+<p><b>The AI does the work.</b> &quot;The ai has to own the pain on behalf of the user&quot; (18 September). Humans read the site for &quot;high level principles and rules, not all the machinery and details.&quot;</p>
+<p><b>The Catalog gives agents what other catalogs do not.</b> &quot;Other catalogs provide ready to use charts, and we do this too, but our main focus is to provide your agents with the correct data and values so that a wide range of charts and stacks can be created and verified automatically&quot; (18 September).</p>
+<p><b>The outcome is a platform on request.</b> &quot;Being able to say I want a heroku style app platform with redis, prometh, loki, ... and it just appears as a kubara stack for the ai&quot; (18 September). &quot;I definitely want users to ask the AI for a platform, and for cub to be able to provide this in various ways&quot; (19 September). &quot;We do not want to be 'in kubara's lane'&quot; (19 September).</p>
+<p><b>Plain configuration is rarely enough.</b> An Argo CD hardening article showed that &quot;vanilla config is not enough&quot;, and that several base variants are needed for different assumptions (25 September). That led to the super-mission, &quot;the hugging face of config&quot;: configs, OCI, stacks, example apps and how-to guides, plus an &quot;Agentic Catalog&quot;, with &quot;as data&quot;, ConfigHub and graph or context in the mission (27 September).</p>
+<p>The backend stream's mission statement of 23 September fits these points. &quot;Help someone get consequential configuration work done… Start with their configuration and their problem. AI investigates and proposes; <code>cub</code> performs repeatable operations; checks establish what is supported; the person makes meaningful decisions.&quot; Its progression runs from &quot;help me with this&quot; to a checked result, then keep and change it, then manage it with ConfigHub, then larger apps, platforms and fleets.</p>
+<h2 id="the-rules-for-agents">The rules for agents</h2>
+<p>The story began as &quot;catch the AI&quot;, with a person checking the assistant. It became &quot;the AI owns the pain&quot;. Four rules follow, and every section and Guide keeps them.</p>
+<ol><li><b>The agent proposes, and a check decides.</b> A check, not the agent, decides whether a result is right. &quot;Refuse with options&quot; is a normal outcome, and <code>cub</code> offers the options. If the user wants the AI to choose, the AI does that on top.</li><li><b>People and agents run the same <code>cub</code>.</b> &quot;humans can use cub or AIs can use cub or both can.&quot; The two prompts and the skill exist so that any agent can find the Workshop.</li><li><b>ConfigHub holds shared state.</b> Once many agents or people act on a configuration, ConfigHub keeps it. Swarm write concurrency &quot;isn't solved by this, but by confighub server&quot; (19 September).</li><li><b>Nothing adds friction for its own sake.</b> Using the Workshop from an agent must be &quot;easy, frictionless, normal&quot; (13 September). No page forces an account, and no gate exists to slow the agent down.</li></ol>
+<h2 id="the-journey-section-by-section">The journey, section by section</h2>
+<p>The sections are not a funnel, but the journey passes through them in order.</p>
+<table><thead><tr><th>Stage</th><th>What happens</th><th>Where the site serves it</th></tr></thead><tbody><tr><td>The initial user</td><td>A developer in Claude Code has a chart that does not do what they want, an app the assistant wrote, or a worrying upgrade.</td><td>The home page, the two prompts and the skill</td></tr>
+<tr><td>The entry</td><td>The agent answers from the Catalog, then runs <code>cub</code> on the user's own files and shows a checked result. No account is needed.</td><td><b>Configs</b>, <b>Guides</b> (Start here, Helm questions, Formats, GitOps)</td></tr>
+<tr><td>Into ConfigHub</td><td>The second change: fixes that must survive the assistant, a teammate who wants the working setup, several agents on one configuration.</td><td><b>Guides</b> (ConfigHub), <b>Plugins</b>, the ConfigHub Server page</td></tr>
+<tr><td>The keystone</td><td>The person asks their AI for a platform, or for GPU inference. <code>cub</code> presents the ways to build it, and ConfigHub runs it across clusters.</td><td><b>Stacks</b>, <b>Plugins</b> (generators such as Kubara and Sveltos), <b>Apps</b></td></tr></tbody></table>
+<h2 id="the-user-problems-and-where-each-is-answered">The user problems, and where each is answered</h2>
+<p>Each problem has one place that answers it, and a Guide that walks it. The evidence column is honest about which problems were observed and which were inferred. For most of the project the problems were inferred, and the first real test cut both ways. An assistant that has Helm does read the chart and gets the values right. The generated password and the image that no longer pulls were real.</p>
+<table><thead><tr><th>The user's problem</th><th>Evidence</th><th>Answered in</th></tr></thead><tbody><tr><td>&quot;I set a value and nothing happened.&quot;</td><td>The most common problem, and the least painful</td><td>Guides, Helm questions (&quot;Why did Helm ignore my values?&quot;), with <code>cub config values</code></td></tr>
+<tr><td>&quot;The chart decided things I never wrote,&quot; such as a password that changes on every render</td><td>Observed: Argo CD and Flux rewrote it on every sync</td><td>Configs (the flattening verdict in the row), Docs (What charts hide), Guides (GitOps)</td></tr>
+<tr><td>&quot;It installed fine and the pods never started.&quot;</td><td>Observed: the image tag had gone from the registry</td><td>Configs (the row's image state), Guides (&quot;Did a chart stop pulling?&quot;)</td></tr>
+<tr><td>&quot;The assistant rewrote my file and my fixes vanished.&quot;</td><td>The &quot;my tweaks survive the AI&quot; demonstration</td><td>Guides (ConfigHub: field restore, promote), the ConfigHub Server page</td></tr>
+<tr><td>&quot;What will this actually install?&quot;</td><td>Every entry keeps its exact objects</td><td>Configs (each entry's page)</td></tr>
+<tr><td>&quot;Customising beyond the values means a fork, and upgrades cause problems.&quot;</td><td>A colleague's three Helm scenarios, 14 September</td><td>Configs (reviewed base variants), Guides (adapt, upgrade)</td></tr>
+<tr><td>&quot;I asked for a platform. Do these parts fit together?&quot;</td><td>Composition checks that refuse with options</td><td>Stacks, Guides (compose, the refusal examples)</td></tr>
+<tr><td>&quot;Plain configuration is not enough for my case.&quot;</td><td>The Argo CD hardening Guide</td><td>Configs (several base variants per entry)</td></tr>
+<tr><td>&quot;I got something working. Now I want to share it, adapt it, keep it, and come back to it.&quot;</td><td>A leadership discussion, 9 September</td><td>Guides (ConfigHub), Plugins</td></tr>
+<tr><td>&quot;Will this model fit the GPUs I have?&quot;</td><td>The match Guide; eks-inference is proven up to the GPU</td><td>Guides (match), Stacks (eks-inference), Configs (AICR)</td></tr></tbody></table>
+<h2 id="the-five-journeys-come-first">The five journeys come first</h2>
+<p>The five demo journeys are the front door of the site, and the unit the site improves by. Each one connects a problem people recognise with an explanation, the commands, and a result. Each follows the same path.</p>
+<blockquote><p>Arrive with a problem → understand why it happens → start with AI or <code>cub</code> → follow the Guide → get a checked result → use it on your own configuration.</p></blockquote>
+<p>The journeys live in <code>monadic/workshop-demo</code>. Each has a <code>run.sh</code> for a person at the command line, a <code>PROMPT.md</code> for an agent, and an <code>expected/</code> folder from a real run. The #1956 acceptance tracker measures them as J1 to J5.</p>
+<table><thead><tr><th>Journey</th><th>What the user should understand</th><th>Demo</th><th>Guide it becomes</th><th>The why, in Docs</th><th>Where it continues</th></tr></thead><tbody><tr><td>My values did nothing</td><td>Valid input can still fail to express my intent.</td><td><code>1-catch-the-ai</code></td><td>Find the values Helm ignored, from the values Guide, &quot;Why did Helm ignore my values?&quot; and the Helm questions</td><td>How configuration works</td><td>Configs, and a CI line with <code>cub config values --exit-code</code></td></tr>
+<tr><td>Preserve my fixes</td><td>Configuration as data lets us inspect changes and keep deliberate adaptations.</td><td><code>2-my-fixes-survive</code></td><td>Keep your fixes through a rewrite, from the field-restore Guide and &quot;Change a config safely&quot;</td><td>Variants</td><td>ConfigHub, which carries the fixes through the next rewrite</td></tr>
+<tr><td>What my app needs</td><td>An application's requirements must match what its platform provides.</td><td><code>3-what-my-app-needs</code></td><td>Put an app on a platform, from Apps on a platform, the match Guide and the compose Guide</td><td>How configuration works, the stack part</td><td>Stacks and Apps</td></tr>
+<tr><td>Before GitOps takes over</td><td>Delivery behaviour matters, and repeatable configuration is the foundation.</td><td><code>4-before-argo-takes-over</code></td><td>Hand a config to Argo CD or Flux, from &quot;Run it with Flux, Argo CD, or kubectl&quot;, the GitOps adopter Guide and the Argo CD hardening Guide</td><td>What charts hide</td><td>Configs, with a reviewed base variant</td></tr>
+<tr><td>It installs but never starts</td><td>A successful render cannot show that runtime dependencies exist.</td><td><code>5-it-installs-and-never-starts</code></td><td>Move off a chart that stopped pulling, from &quot;Did a chart stop pulling?&quot;</td><td>Trust, on what a check cannot see</td><td>Configs, with the image state in each row</td></tr></tbody></table>
+<p>Four rules follow for the journeys.</p>
+<ul><li><b>The home page offers them first</b>, as &quot;start from your problem&quot;, one line each, within the landing page limit.</li><li><b>They are the first group in Guides</b>, above every other group.</li><li><b>Each journey Guide keeps both tracks.</b> A person runs the demo's <code>run.sh</code>, and an agent follows its <code>PROMPT.md</code>. The Guide then shows the same steps on the reader's own configuration.</li><li><b>A change to the site is judged by the journeys.</b> A step counts as done when the journeys it touches still reach a checked result with a fresh agent, as the #1956 acceptance measures.</li></ul>
+<h2 id="the-rules-every-step-follows">The rules every step follows</h2>
+<p>Phase 2's rules still apply. Every page is generated. A topic is explained on one page. Text moves rather than being rewritten, and nothing is deleted. A moved page leaves a redirect behind. Counts come from <code>data/</code>, never from prose. One pull request covers one step, and the maintainer merges it.</p>
+<p>Phase 3's rules still apply too. Every top page passes the trust test and the action test, and its code blocks follow the code-block doctrine.</p>
+<p>Phase 4 adds three rules.</p>
+<ul><li><b>A list is data before it is a page.</b> Each section's rows live in one machine-readable file, and the page is generated from that file. Any source kept by hand lives outside <code>site/</code>, which is generated in full. An agent reads the file and a person reads the page. The two can never disagree.</li><li><b>Each row says what an agent does next.</b> Every row carries a stable ID, a one-line description, its state, and the exact command or address an agent uses.</li><li><b>Pages that explain are written for one reader.</b> A Guide is written for an agent and the person beside it. An agent doc is written for an agent. A human doc is written for a person, in STE.</li><li><b>Pages are taken apart by what each section does.</b> A section that shows how to do something becomes part of a Guide. A section that explains becomes part of a Doc. What a newcomer needs first stays on a landing page, in a few short sentences. Every section gets exactly one new home, so no material is lost. A page that is fully taken apart leaves a redirect to where most of it went.</li><li><b>Landing pages stay simple.</b> The home page, the six section pages and the ConfigHub Server page are the top-level landing pages. Apart from its list, each holds at most about 300 words of plain web content: what the reader can do here, and where to go next.</li></ul>
+<h2 id="the-navigation">The navigation</h2>
+<p>The top bar reads <b>Configs · Stacks · Apps · Plugins · Guides · Docs</b>. The <b>ConfigHub Workshop</b> button sits at the top left and leads home, as today. The <b>ConfigHub Server</b> button sits at the top right, in symmetry with it, as today. The first five items are the Catalog's sections. There is no separate item for agents, because every section already serves them.</p>
+<p>The home page keeps four things only. It states the mission, it offers the five journeys as &quot;start from your problem&quot;, it gives the two agent prompts and the skill, and it shows one line per Catalog section with its count and link.</p>
+<h2 id="the-catalog-sections">The Catalog sections</h2>
+<p>Each section page holds one list. A short paragraph may sit above it, but no other explanation. Each row links to the entry's own page, repository or Guide.</p>
+<h3 id="configs">Configs</h3>
+<p>The Configs list holds every Catalog entry. Today that is 262 listings, which break down as 251 Helm, 4 AICR, 2 Timoni, 1 Kubara, 1 Sveltos, 1 plain YAML, 1 configuration OCI and 1 cub installer package. The generator reads these counts from <code>site/listings/index.json</code>.</p>
+<p>A row shows the entry's name, format, version, object count and flattening verdict. It also shows its reviewed base variants. Several variants matter when one configuration serves different use cases, as Argo CD does. The row links to the entry's page, which already exists.</p>
+<p>The list is today's filterable Catalog table under a new name. Its source is <code>site/listings/index.json</code>, which already exists.</p>
+<h3 id="stacks">Stacks</h3>
+<p>The Stacks list holds the shipped stacks in cub-workshop's <code>stacks/</code> directory. Today these are app-platform, data-services, eks-inference, gitops-secrets, the Kubara stacks, observability-base, redis-platform, shop-platform and web-platform. The stacks that exist to show a refusal, such as conflict-demo and metrics-double, move into Guides.</p>
+<p>A row shows the stack's name, what it builds, its parts and their count, whether it was checked, and the command to try it, such as <code>cub stack sandbox eks-inference</code>.</p>
+<p>The source is a new <code>site/stacks.json</code>, generated from the cub-workshop manifests at a pinned commit.</p>
+<h3 id="apps">Apps</h3>
+<p>The Apps list holds worked example applications, from three places.</p>
+<ul><li><b>cub-workshop <code>apps/</code></b> holds the shop services, such as storefront, cart, checkout and fraud-scoring, and 13 others.</li><li><b>confighub/examples</b> holds the Argo CD examples (app-of-apps, ApplicationSet, git-as-database), the Flux examples (beginner and fleet), Spring with cub-gen, and Score.</li><li><b>monadic/workshop-demo</b> holds the shop app that the five journeys follow.</li></ul>
+<p>A row shows the app's name, what it shows, the delivery it uses (plain, Argo CD, Flux or a generator), and a link to it on its repository's default branch. The source is a new <code>site/apps.json</code>. It also records the commit at which each app was last checked. A verifier compares that commit with the branch, and flags any row whose example has changed since, so an agent can say &quot;checked at this commit, changed since&quot;. Updating the recorded commit is part of the regular refresh, as it is for chart versions.</p>
+<h3 id="plugins">Plugins</h3>
+<p>The Plugins list holds every public cub plugin, each marked by its state.</p>
+<table><thead><tr><th>Plugin</th><th>Command</th><th>What it does</th><th>Repository</th></tr></thead><tbody><tr><td>workshop</td><td><code>cub config</code>, <code>app</code>, <code>stack</code>, <code>fleet</code></td><td>Checks, composes and publishes configuration from the Catalog</td><td>confighub/cub-workshop</td></tr>
+<tr><td>kubara</td><td><code>cub kubara</code></td><td>Runs a Kubara platform through ConfigHub, with Catalog evidence for each chart</td><td>confighub/kubara-confighub</td></tr>
+<tr><td>sveltos</td><td><code>cub sveltos</code></td><td>Brings a Sveltos fleet into ConfigHub, one variant per cluster</td><td>confighub/sveltos-confighub</td></tr>
+<tr><td>eks-inference</td><td><code>cub eksinf</code></td><td>Runs the eks-inference stack on EKS</td><td>confighub/eks-inference</td></tr>
+<tr><td>installer</td><td><code>cub installer</code></td><td>Renders and installs configuration-as-data packages</td><td>confighub/installer</td></tr>
+<tr><td>helm</td><td><code>cub helm</code></td><td>Installs Helm charts as ConfigHub components</td><td>confighub/cub-helm</td></tr>
+<tr><td>scout</td><td><code>cub scout</code></td><td>Explores and maps GitOps in your clusters</td><td>confighub/cub-scout</td></tr>
+<tr><td>scan</td><td><code>cub scan</code>, <code>cub check</code></td><td>Checks Kubernetes and GitOps configuration for known risks</td><td>confighub/homebrew-tap</td></tr>
+<tr><td>server</td><td><code>cub server</code></td><td>Installs a self-hosted ConfigHub server</td><td>confighub/cub-server</td></tr>
+<tr><td>demo</td><td><code>cub demo</code></td><td>Seeds a ConfigHub organisation with a demo dataset</td><td>confighub/cub-demo</td></tr>
+<tr><td>argo</td><td><code>cub argo</code></td><td>Reads an Argo CD estate and plans it into ConfigHub</td><td>In progress, not yet published</td></tr>
+<tr><td>flux</td><td><code>cub flux</code></td><td>Reads a Flux fleet repository and plans it into ConfigHub</td><td>In progress, not yet published</td></tr></tbody></table>
+<p>A row also carries the one-line install command and the state, which is released (with its latest tag), draft, or in progress. Every plugin is shown openly, and no filter hides drafts or work in progress. The registry is kept by hand in <code>data/workshop-plugins/plugins.yaml</code>, outside the generated site, and a verifier checks each row against its repository's latest release. The generator emits <code>site/plugins.json</code> from it.</p>
+<h3 id="guides">Guides</h3>
+<p>The Guides list holds every known path that an agent walks with a person beside it. Guides are grouped by where the reader starts.</p>
+<table><thead><tr><th>Group</th><th>Guides today</th></tr></thead><tbody><tr><td>The five journeys</td><td>My values did nothing, Preserve my fixes, What my app needs, Before GitOps takes over, It installs but never starts, as the section above sets out</td></tr>
+<tr><td>Start here</td><td>The Redis introduction, Try it: Redis in ten minutes, the ten-minute demo, Use with your AI</td></tr>
+<tr><td>Helm questions</td><td>The Helm questions guide, values, &quot;Why did Helm ignore my values?&quot;, &quot;Did a version change?&quot;, &quot;Did a chart stop pulling?&quot;, upgrade, adapt, bring your own charts</td></tr>
+<tr><td>Formats</td><td>AICR, Timoni, plain YAML, Kubara</td></tr>
+<tr><td>GitOps</td><td>The GitOps adopter guide, &quot;Run it with Flux, Argo CD, or kubectl&quot;, the Argo CD hardening guide, the Argo and Flux app review tasks</td></tr>
+<tr><td>Stacks and platforms</td><td>Compose, lifecycle, match, the refusal examples</td></tr>
+<tr><td>ConfigHub</td><td>Promote my config, field restore, &quot;Does the cluster match?&quot;, &quot;Why do dev and prod differ?&quot;</td></tr></tbody></table>
+<p>Each Guide keeps one format. For every step it says what the agent does, what the person sees, and where the person decides, and it gives the same <code>cub</code> commands for a person working without an agent. The source is a new <code>site/guides.json</code>, generated from the Guides' front matter.</p>
+<h2 id="docs">Docs</h2>
+<p>Docs hold explanation, in two kinds.</p>
+<ul><li><b>Agent docs</b> go as deep as the subject needs, two or three layers, and stay complete. They hold the machinery, such as lifecycle routes, flattening verdicts, the listing schema, evidence and receipts. Most already exist under <code>docs/</code>, and they stay where they are.</li><li><b>Human docs</b> are short. They are written in STE, as the next section sets out. Each explains one idea a person needs in order to trust or use the Workshop, and links to the agent doc for depth.</li></ul>
+<p>The Docs page is organised as a tree.</p>
+<table><thead><tr><th>Area</th><th>Pages</th><th>Depth</th></tr></thead><tbody><tr><td>Concepts</td><td>How configuration works, then Variants, OCI shapes and What charts hide</td><td>Human doc on top, agent docs under it</td></tr>
+<tr><td>ConfigHub</td><td>Operate, Operations, ConfigHub Server</td><td>Human doc on top, agent docs under it</td></tr>
+<tr><td>Trust</td><td>Why trust it, then Known gaps and the Evidence index</td><td>Human doc on top, evidence on GitHub</td></tr>
+<tr><td>About</td><td>What ConfigHub Workshop is, Offering</td><td>Marketing</td></tr>
+<tr><td>Reference</td><td>The full docs index by area, as today</td><td>Agent docs</td></tr></tbody></table>
+<h2 id="human-docs-in-simplified-technical-english">Human docs in Simplified Technical English</h2>
+<p>Human docs follow the writing rules of ASD-STE100, the Simplified Technical English standard. They adopt the rules only, not its controlled dictionary.</p>
+<ul><li>A procedure sentence has at most 20 words, and a descriptive sentence has at most 25.</li><li>A procedure gives one instruction per sentence, in the imperative.</li><li>Sentences use the active voice.</li><li>A paragraph has at most six sentences.</li><li>A noun cluster has at most three words.</li><li>One word means one thing, and the same thing always has the same word.</li></ul>
+<p>The UX contract enforces the sentence limits on human-doc pages, in place of today's 32-word cap. The house style still applies on top of STE.</p>
+<h2 id="marketing-pages-for-people">Marketing pages for people</h2>
+<p>Four pages carry the mission and the value story for people. They are the home page, What ConfigHub Workshop is, Offering and the ConfigHub Server page. Phase 3's worked home page specification still applies to the home page. The other pages do not try to sell.</p>
+<h2 id="how-each-current-page-is-refactored">How each current page is refactored</h2>
+<p>Each page is split by section. The table names each page's sections by their headings today, and says where each one goes. &quot;Landing&quot; means the short content that stays on a top-level landing page. Guide and Doc names are working titles, which the build settles.</p>
+<table><thead><tr><th>Page today</th><th>Stays as landing content</th><th>Becomes Guides</th><th>Becomes Docs</th><th>The URL</th></tr></thead><tbody><tr><td><code>index.html</code>, home</td><td>The mission, the prompts and skill, one line per section</td><td>None</td><td>None</td><td>Stays</td></tr>
+<tr><td><code>charts/index.html</code>, the Catalog</td><td>&quot;Search the catalog&quot;, and the list</td><td>&quot;Verify an entry yourself&quot; and &quot;Take an entry into a stack or into ConfigHub&quot; go to Check a claim yourself and Take a config further</td><td>&quot;Check why you can trust an entry&quot;, &quot;What each catalog entry contains&quot;, &quot;Read each result correctly&quot; and &quot;Why the catalog offers several configurations&quot; go to Trust and to How configuration works</td><td>Becomes Configs</td></tr>
+<tr><td><code>proof.html</code>, Why trust it</td><td>None</td><td>&quot;Check one claim yourself&quot; goes to Check a claim yourself</td><td>The counts, the test coverage, the harder charts, security review, the adversarial tests and &quot;what this project does not claim&quot; go to Trust</td><td>Redirects to Docs, Trust</td></tr>
+<tr><td><code>known-gaps.html</code></td><td>None</td><td>None</td><td>Both sections go to Trust, Known gaps</td><td>Redirects to Docs</td></tr>
+<tr><td><code>matrix.html</code>, the Evidence index</td><td>None</td><td>None</td><td>The whole matrix becomes an agent doc under Trust, and its data stays on GitHub</td><td>Redirects to Docs</td></tr>
+<tr><td><code>did-this-chart-version-change.html</code></td><td>None</td><td>The example, the record and the next step go to Did a version change?</td><td>None</td><td>Redirects to the Guide</td></tr>
+<tr><td><code>did-your-bitnami-chart-stop-pulling.html</code></td><td>None</td><td>Every section goes to Move off a chart that stopped pulling</td><td>&quot;Know when ConfigHub helps&quot; goes to the ConfigHub human doc</td><td>Redirects to the Guide</td></tr>
+<tr><td><code>why-did-helm-ignore-my-values.html</code></td><td>None</td><td>Every section goes to Find the values Helm ignored</td><td>&quot;Know when ConfigHub helps&quot; goes to the ConfigHub human doc</td><td>Redirects to the Guide</td></tr>
+<tr><td><code>config.html</code>, How configuration works</td><td>One sentence on configuration as data, on the home page</td><td>&quot;Choose a tool and start&quot; goes to the Guides list</td><td>&quot;Follow one configuration from source to running&quot;, &quot;See what each format becomes&quot; and &quot;See whether a configuration can be flattened&quot; become How configuration works, a human doc with agent docs under it</td><td>Redirects to Docs</td></tr>
+<tr><td><code>ai.html</code>, Use with your AI</td><td>The skill and the two prompts, on the home page</td><td>The install, &quot;Ask for one result&quot;, &quot;Keep the answer tied to records&quot;, the non-Helm source and &quot;Keep your fixes&quot; go to Work with your AI</td><td>&quot;How agents help maintain the Catalog&quot; becomes an agent doc</td><td>Redirects to the Guide</td></tr>
+<tr><td><code>variants.html</code></td><td>None</td><td>&quot;Decide where the change belongs&quot;, &quot;Follow a safe flow&quot;, &quot;Run the commands&quot; and &quot;Open worked examples&quot; go to Change a config safely</td><td>&quot;See the model&quot;, &quot;Tell what set a field&quot;, &quot;Understand a chart preset&quot;, &quot;See what is inside ConfigHub&quot; and &quot;Read the details&quot; become Variants, a human doc with agent docs under it</td><td>Redirects to Docs</td></tr>
+<tr><td><code>oci.html</code>, OCI shapes</td><td>None</td><td>&quot;Check one [signature] yourself&quot; goes to Check a claim yourself</td><td>The shapes and their consumers, bundles and stacks as one artifact, what a signature proves, and other tools' shapes become OCI shapes</td><td>Redirects to Docs</td></tr>
+<tr><td><code>quirks.html</code>, What charts hide</td><td>None</td><td>&quot;Do the six steps&quot;, the worked examples through hooks and CRDs, &quot;Decide who owns each CRD&quot; and &quot;Stage target prerequisites&quot; go to Handle hooks and CRDs</td><td>The phases and dispositions, the short answer, how a bundle carries routes, each tracked requirement, and what remains before deployment become What charts hide</td><td>Redirects to Docs</td></tr>
+<tr><td><code>ask.html</code>, Is my configuration right?</td><td>None</td><td>&quot;Start with a chart and values&quot;, both &quot;Run … on your machine&quot; sections, the completed review, the browser check and &quot;Keep or share&quot; go to Check my own config; &quot;Four common Helm questions&quot; and &quot;Questions people are asking&quot; go to the Helm questions Guide</td><td>&quot;What happens to a public question&quot; becomes an agent doc</td><td>Redirects to the Guide</td></tr>
+<tr><td><code>deploy-with-flux-or-argo.html</code></td><td>None</td><td>Sections 1 to 6 and 8 go to Hand a config to Argo CD or Flux</td><td>&quot;Read the current limits&quot; goes to Trust, Known gaps</td><td>Redirects to the Guide</td></tr>
+<tr><td><code>try.html</code>, Redis in ten minutes</td><td>None</td><td>Every section goes to Start here: see what a chart installs</td><td>None</td><td>Redirects to the Guide</td></tr>
+<tr><td><code>redis-walkthrough.html</code></td><td>None</td><td>Every section goes to Start here, as its longer path: pull, upgrade, the base, OCI for Argo CD or Flux</td><td>&quot;What we checked&quot; goes to Trust</td><td>Redirects to the Guide</td></tr>
+<tr><td><code>testing.html</code>, Worked examples</td><td>None</td><td>&quot;What do you need?&quot; goes to the Guides list</td><td>The example rows go to Apps</td><td>Redirects to Apps</td></tr>
+<tr><td><code>demo.html</code>, the ten-minute demo</td><td>None</td><td>Every section goes to The ten-minute tour, which walks config, app, stack and fleet</td><td>None</td><td>Redirects to the Guide</td></tr>
+<tr><td><code>stack.html</code>, Stacks and fleets</td><td>&quot;What a stack is&quot;, in two sentences, and the list</td><td>&quot;Get a stack&quot;, &quot;Checking your stack&quot;, &quot;Run and govern it&quot; and &quot;Run it&quot; go to Compose and check a stack</td><td>&quot;Receipts and boundaries&quot; goes to Trust</td><td>Becomes Stacks</td></tr>
+<tr><td><code>kubara.html</code>, Build a platform</td><td>None</td><td>&quot;Choose services&quot;, the adoption journey and &quot;What we show in ConfigHub&quot; go to Bring a Kubara platform into ConfigHub, which links the <code>cub kubara</code> guide</td><td>&quot;Benefits with explicit acceptance evidence&quot;, &quot;What stays Kubara, and what ConfigHub adds&quot; and &quot;The honest boundaries&quot; become a Kubara agent doc</td><td>Redirects to Plugins, the kubara row</td></tr>
+<tr><td><code>try-aicr.html</code>, Inference platforms</td><td>None</td><td>Both paths and the ORAS steps go to Compare GPU nodes and pull an AICR config</td><td>&quot;Where the selected configuration came from&quot; and &quot;What the example proves&quot; become an AICR agent doc</td><td>Redirects to the Guide</td></tr>
+<tr><td><code>apps.html</code>, Apps on a platform</td><td>&quot;What an app is&quot;, in two sentences, and the list</td><td>&quot;Try it now&quot;, the demo steps, &quot;Take it into ConfigHub&quot; and &quot;Bring an app that already runs&quot; go to Put an app on a platform</td><td>None</td><td>Becomes Apps</td></tr>
+<tr><td><code>how-it-works.html</code>, Operate</td><td>None</td><td>Release, Promote, Gate and approve, and Roll back go to Release, promote and roll back</td><td>The model behind the four verbs becomes the ConfigHub human doc</td><td>Redirects to Docs</td></tr>
+<tr><td><code>confighub.html</code>, ConfigHub Server</td><td>&quot;What ConfigHub adds&quot; and &quot;See one exact handoff&quot;, made short</td><td>&quot;Continue from the retained answer&quot; goes to Take a config further; the tutorial link stays</td><td>None</td><td>Stays, as marketing</td></tr>
+<tr><td><code>promote.html</code>, Promote my config</td><td>None</td><td>Every section goes to Review a promotion</td><td>None</td><td>Redirects to the Guide</td></tr>
+<tr><td><code>operations.html</code></td><td>None</td><td>&quot;Check the starting point&quot;, &quot;Choose an operation&quot;, &quot;Keep a fleet record&quot; and the App demonstrations go to Operate a fleet; &quot;Build a ConfigHub App&quot; goes to its own Guide</td><td>&quot;Govern with the commercial product&quot; goes to the ConfigHub Server page</td><td>Redirects to Docs</td></tr>
+<tr><td><code>does-cluster-match-approved-config.html</code></td><td>None</td><td>Every section goes to Does the cluster match?</td><td>None</td><td>Redirects to the Guide</td></tr>
+<tr><td><code>why-do-dev-and-prod-differ.html</code></td><td>None</td><td>Every section goes to Why do dev and prod differ?</td><td>None</td><td>Redirects to the Guide</td></tr>
+<tr><td><code>docs.html</code>, Docs</td><td>The Docs tree</td><td>The four task groups go to the Guides list</td><td>&quot;Every doc, by area&quot; stays as Docs, Reference</td><td>Stays, as the Docs tree</td></tr>
+<tr><td>What ConfigHub Workshop is</td><td>A short version on the home page</td><td>None</td><td>Stays as marketing, About, rewritten to the mission summary</td><td>Stays</td></tr>
+<tr><td><code>offering.html</code>, Offering</td><td>&quot;What is free, and what needs the commercial product&quot;, on the ConfigHub Server page</td><td>&quot;Send a missing or broken public chart&quot; goes to its own Guide</td><td>&quot;Check what exists today&quot; and the supporting detail go to About</td><td>Redirects to the ConfigHub Server page</td></tr></tbody></table>
+<p>The Kubara page's title, &quot;Build a platform&quot;, goes. Platform generators build platforms, and the Workshop checks and composes what they produce.</p>
+<h2 id="what-agents-read">What agents read</h2>
+<ul><li><code>llms.txt</code> lists the five section files first, then the listings.</li><li><code>site/configs.json</code>, <code>site/stacks.json</code>, <code>site/apps.json</code>, <code>site/plugins.json</code> and <code>site/guides.json</code> each hold one section's rows. <code>configs.json</code> is a view of <code>site/listings/index.json</code>, which stays the canonical per-entry index.</li><li>The agent skill and the two prompts name the five files.</li><li>The listing schema gains a published schema for each section file.</li></ul>
+<h2 id="the-steps">The steps</h2>
+<p>Each step is one pull request, and the maintainer merges it.</p>
+<ol><li><b>The section files.</b> Generate the five section files and their schemas, and list them in <code>llms.txt</code>. No page changes yet, so agents gain the flat lists first.</li><li><b>The navigation and the home page.</b> Change the top bar to Configs, Stacks, Apps, Plugins, Guides and Docs. Reduce the home page to the mission, the prompts and one line per section. The contract's navigation labels change in the same pull request. The home page leads with the five journeys.</li><li><b>Configs.</b> Rename the Catalog page, cut it to its landing content and the list, and show base variants in each row. Its explanation moves to Docs and its steps to Guides, as the refactor table says.</li><li><b>Stacks.</b> Build the list from <code>stacks.json</code>. Move the refusal stacks to Guides, and fold the inference page into the eks-inference row and a Guide.</li><li><b>Apps.</b> Build the list from <code>apps.json</code>, and fold Worked examples and Apps on a platform into it.</li><li><b>Plugins.</b> Build the list from <code>plugins.json</code>, and replace the Kubara page with the kubara row and a Kubara Guide.</li><li><b>Guides.</b> Assemble each Guide from the sections the refactor table names, in the Guide format, and build the grouped list from <code>guides.json</code>. The five journey Guides come first, and each is rerun with a fresh agent before the step is done.</li><li><b>Docs and the STE pass.</b> Assemble each Doc from the sections the refactor table names. Write each human doc in STE, with the agent docs under it, and move the contract's sentence limits for those pages.</li><li><b>The marketing pages.</b> Put the headline and the approved sentences under it on the home page, then give the four marketing pages one prose pass.</li></ol>
+<p>The gates for every step are the ones AGENTS.md names for the website: site generation with the pinned timestamp, <code>site:ux:verify</code>, <code>site:verify</code>, <code>docs:verify</code>, <code>config-model:verify</code>, <code>verify:no-personal-names</code> and <code>verify:no-temp-paths</code>. Step 1 also adds a verifier that checks each section file against its schema and its page.</p>
+<h2 id="the-text-under-the-headline">The text under the headline</h2>
+<p>The maintainer approved this text on 27 September 2026, for now. The first paragraph names the problem, says what the reader can do, and brings in ConfigHub with the graph. The second says what ConfigHub adds. Each sentence is within the 32-word cap.</p>
+<blockquote><p>Your agent writes configuration faster than anyone can check it, and a chart rarely shows what it will really do. Pull tested configs, stacks, example apps and plugins from here, from a web platform to GPU inference, with guides your agent can follow, and check each one before it runs. When your team needs to keep it, ConfigHub stores it with the graph of how it all connects.  ConfigHub is where people and agents change the same configuration safely. Every change is versioned, approved and released by digest, and the Argo CD or Flux you already run delivers it.</p></blockquote>
+<h2 id="open-questions-for-the-maintainer">Open questions for the maintainer</h2>
+<p>None. Every decision this plan needs is recorded above.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/site-ia-phase-4.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#the-decisions">The decisions</a></li><li><a href="#why-the-site-exists">Why the site exists</a></li><li><a href="#the-rules-for-agents">The rules for agents</a></li><li><a href="#the-journey-section-by-section">The journey, section by section</a></li><li><a href="#the-user-problems-and-where-each-is-answered">The user problems, and where each is answered</a></li><li><a href="#the-five-journeys-come-first">The five journeys come first</a></li><li><a href="#the-rules-every-step-follows">The rules every step follows</a></li><li><a href="#the-navigation">The navigation</a></li><li><a href="#the-catalog-sections">The Catalog sections</a></li><li><a href="#docs">Docs</a></li><li><a href="#human-docs-in-simplified-technical-english">Human docs in Simplified Technical English</a></li><li><a href="#marketing-pages-for-people">Marketing pages for people</a></li><li><a href="#how-each-current-page-is-refactored">How each current page is refactored</a></li><li><a href="#what-agents-read">What agents read</a></li><li><a href="#the-steps">The steps</a></li><li><a href="#the-text-under-the-headline">The text under the headline</a></li><li><a href="#open-questions-for-the-maintainer">Open questions for the maintainer</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+</div>
+</body>
+</html>

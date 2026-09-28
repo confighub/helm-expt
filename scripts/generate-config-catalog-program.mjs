@@ -107,6 +107,18 @@ const policySourceTypeByRecordSource = {
   confighub: "rendered-config",
   "rendered-config": "rendered-config",
 };
+const workflowApprovalAuthority = "server-attested-changeworkflow-changeorder-v1";
+const workflowApprovalEvidence = [
+  "ChangeWorkflowID",
+  "ChangeWorkflowStage",
+  "ReleasePrerequisite",
+  "ApprovalAttestationPrerequisite",
+  "ChangeOrderID",
+  "ChangeOrderEndTagID",
+  "ApprovalAttestationID",
+  "ApprovalSubjectRevisionID",
+];
+const legacyApprovalTriggerRef = "platform/require-approval";
 
 if (mode === "--self-test") {
   runSelfTest();
@@ -419,7 +431,7 @@ function buildHelmRecord(intent) {
       },
       policy: {
         profile: "catalog-standard",
-        productionAdds: ["human-approval"],
+        productionAdds: ["workflow-approval"],
       },
       evidence: intent.spec.evidence,
       operations: {
@@ -547,7 +559,7 @@ function buildAicrRecord() {
       },
       policy: {
         profile: "catalog-standard",
-        productionAdds: ["human-approval"],
+        productionAdds: ["workflow-approval"],
         normalSet: "approvalRequired",
         approvalReason: "system-configuration",
       },
@@ -698,7 +710,7 @@ function buildAicrArgoCdRecord() {
       },
       policy: {
         profile: "catalog-standard",
-        productionAdds: ["human-approval"],
+        productionAdds: ["workflow-approval"],
         normalSet: "approvalRequired",
         approvalReason: "system-configuration",
       },
@@ -920,7 +932,7 @@ function buildAicrModernArgoCdRecord(version) {
             : policyPassed
             ? {
                 policyReceipt: policyReceiptPath,
-                reason: "The required approval was absent, so ConfigHub refused release publication.",
+                reason: "The historical Unit-approval Trigger refused release publication. This receipt does not prove current ChangeWorkflow attestation enforcement.",
               }
             : {}),
         },
@@ -954,7 +966,7 @@ function buildAicrModernArgoCdRecord(version) {
         : {}),
       policy: {
         profile: "catalog-standard",
-        productionAdds: ["human-approval"],
+        productionAdds: ["workflow-approval"],
         normalSet: "approvalRequired",
         approvalReason: "system-configuration",
       },
@@ -998,7 +1010,7 @@ function buildAicrModernArgoCdRecord(version) {
           ? `The persistent ${hasProduction ? "development, staging, and production" : "development and staging"} variants contain the one reviewed Grafana Secret-reference change.`
           : `No ${retainedVersion} derived-variant promotion has run.`,
         policyPassed
-          ? "The required-approval gate refused to publish an unapproved ConfigHub release."
+          ? "Historical Trigger evidence recorded that the required-approval gate refused an unapproved ConfigHub release; it does not prove the current workflow-attestation contract."
           : `The ConfigHub apply policy has not been tested for this ${retainedVersion} base.`,
         releaseOciPassed
           ? `After approval, ConfigHub published the ${hasProduction ? "production" : "staging"} release OCI; an authenticated pull resolved the exact manifest digest and matched the promoted 17-Application object set.`
@@ -1154,7 +1166,7 @@ function buildTimoniRecord() {
       },
       policy: {
         profile: "catalog-standard",
-        productionAdds: ["human-approval"],
+        productionAdds: ["workflow-approval"],
         normalSet: "baseline",
       },
       evidence: {
@@ -1288,7 +1300,7 @@ function buildTimoniFluxAioRecord() {
       },
       policy: {
         profile: "catalog-standard",
-        productionAdds: ["human-approval"],
+        productionAdds: ["workflow-approval"],
         normalSet: "baseline",
       },
       evidence: {
@@ -1409,7 +1421,7 @@ function buildKubaraRecord() {
       },
       policy: {
         profile: "catalog-standard",
-        productionAdds: ["human-approval"],
+        productionAdds: ["workflow-approval"],
         normalSet: "approvalRequired",
         approvalReason: "system-configuration",
       },
@@ -1552,7 +1564,7 @@ function buildSveltosRecord() {
       },
       policy: {
         profile: "catalog-standard",
-        productionAdds: ["human-approval"],
+        productionAdds: ["workflow-approval"],
         normalSet: "approvalRequired",
         approvalReason: "system-configuration",
       },
@@ -1671,7 +1683,7 @@ function buildCubInstallerRecord() {
       },
       policy: {
         profile: "catalog-standard",
-        productionAdds: ["human-approval"],
+        productionAdds: ["workflow-approval"],
         normalSet: "baseline",
       },
       evidence: {
@@ -1804,7 +1816,7 @@ function buildConfigurationOciRecord() {
       },
       policy: {
         profile: "catalog-standard",
-        productionAdds: ["human-approval"],
+        productionAdds: ["workflow-approval"],
         normalSet: "baseline",
       },
       evidence: {
@@ -1905,7 +1917,7 @@ function buildPlainYamlRecord() {
       },
       policy: {
         profile: "catalog-standard",
-        productionAdds: ["human-approval"],
+        productionAdds: ["workflow-approval"],
         normalSet: "baseline",
       },
       evidence: {
@@ -2507,6 +2519,7 @@ function validatePolicy(policy) {
   const definitions = policy.spec?.triggerDefinitions ?? [];
   const baseline = policy.spec?.baseline?.checks ?? [];
   const approvalRequired = policy.spec?.approvalRequired?.checks ?? [];
+  const workflowApproval = policy.spec?.approvalRequired?.workflowApproval;
   const definitionRefs = definitions.map((item) => item.ref);
   const policyTriggerRefs = [...new Set(
     [...baseline, ...approvalRequired].map((item) => item.trigger),
@@ -2550,6 +2563,25 @@ function validatePolicy(policy) {
     policy.spec?.approvalRequired?.displayName,
     "approval-required policy filter has no human display name",
   );
+  check(
+    workflowApproval?.authority === workflowApprovalAuthority,
+    "approval-required policy must name the server-attested ChangeWorkflow and ChangeOrder authority",
+  );
+  check(
+    workflowApproval?.attestationType === "Approval"
+      && workflowApproval?.scope === "ChangeOrder"
+      && workflowApproval?.enforcement === "ChangeWorkflow.ReleasePrerequisite",
+    "approval-required policy must require an Approval attestation through a ChangeWorkflow ReleasePrerequisite",
+  );
+  check(
+    workflowApproval?.evidenceStatus === "not-recorded",
+    "workflow approval cannot claim recorded evidence before a current receipt exists",
+  );
+  check(
+    sameSet(workflowApproval?.requiredEvidence ?? [], workflowApprovalEvidence),
+    "workflow approval must require workflow, ChangeOrder, and selected-revision attestation evidence",
+  );
+  check(workflowApproval?.reason, "workflow approval needs a plain-English reason");
   for (const checkDefinition of [...baseline, ...approvalRequired]) {
     const definition = definitions.find((item) => item.ref === checkDefinition.trigger);
     check(
@@ -2681,12 +2713,9 @@ function validatePolicy(policy) {
     sameSet(baselineIds, requiredBaseline),
     "baseline policy must contain exactly the eight standard checks",
   );
-  check(!baseline.some(isApprovalCheck), "baseline policy must exclude the approval trigger");
   check(
-    approvalRequired.some(
-      (item) => item.id === "human-approval" && item.effect === "block",
-    ),
-    "approval-required policy must require blocking human approval",
+    ![...baseline, ...approvalRequired].some(isLegacyApprovalTriggerCheck),
+    "current policy checks must not use the retired approval Trigger",
   );
   for (const baselineCheck of baseline) {
     const approvalCheck = approvalRequired.find((item) => item.id === baselineCheck.id);
@@ -2704,8 +2733,8 @@ function validatePolicy(policy) {
     );
   }
   check(
-    approvalRequired.length === baseline.length + 1,
-    "approval-required policy must add exactly one check to the baseline",
+    approvalRequired.length === baseline.length,
+    "approval-required policy must keep the common Trigger checks separate from workflow approval",
   );
   check(
     policy.spec.baseline.filterWhere === expectedFilterWhere(policy.spec.baseline),
@@ -2715,6 +2744,10 @@ function validatePolicy(policy) {
     policy.spec.approvalRequired.filterWhere
       === expectedFilterWhere(policy.spec.approvalRequired),
     "approval-required filter must name exactly its eight Triggers",
+  );
+  check(
+    policy.spec.approvalRequired.filterWhere === policy.spec.baseline.filterWhere,
+    "workflow approval must not change the common Trigger filter",
   );
   check(
     policy.spec.baseline.spaceSelector?.labels?.ApplyPolicyProfile
@@ -2768,9 +2801,23 @@ function validatePolicy(policy) {
       String(receipt.spec?.verifiedAt ?? "").startsWith(policy.status.lastRecorded),
       "live policy receipt date does not match policy status",
     );
+    // Validate the original topology exactly. Its retired Trigger is retained
+    // only as a historical receipt expectation, never as current policy.
+    const legacyApprovalChecks = [
+      ...policy.spec.baseline.checks,
+      { trigger: legacyApprovalTriggerRef, effect: "block" },
+    ];
+    const legacyApprovalPolicy = {
+      filter: policy.spec.approvalRequired.filter,
+      checks: legacyApprovalChecks,
+      filterWhere: expectedFilterWhere({
+        filter: policy.spec.approvalRequired.filter,
+        checks: legacyApprovalChecks,
+      }),
+    };
     for (const [name, policySet] of Object.entries({
       baseline: policy.spec.baseline,
-      approvalRequired: policy.spec.approvalRequired,
+      approvalRequired: legacyApprovalPolicy,
     })) {
       const recorded = receipt.spec?.filters?.[name];
       const expectedChecks = policySet.checks
@@ -2779,11 +2826,13 @@ function validatePolicy(policy) {
       const recordedChecks = (recorded?.triggers ?? [])
         .map((item) => `${item.ref}:${item.effect}`)
         .sort();
-      check(recorded?.ref === policySet.filter, `${name} live filter reference drifted`);
-      check(recorded?.where === policySet.filterWhere, `${name} live filter selector drifted`);
-      check(sameSet(recordedChecks, expectedChecks), `${name} live Trigger set drifted`);
-      check((recorded?.triggers ?? []).every((item) => item.validating === true), `${name} live receipt includes a non-validating Trigger`);
+      check(recorded?.ref === policySet.filter, `${name} historical filter reference drifted`);
+      check(recorded?.where === policySet.filterWhere, `${name} historical filter selector drifted`);
+      check(sameSet(recordedChecks, expectedChecks), `${name} historical Trigger set drifted`);
+      check((recorded?.triggers ?? []).every((item) => item.validating === true), `${name} historical receipt includes a non-validating Trigger`);
     }
+    check(workflowApproval.evidenceStatus === "not-recorded",
+      "legacy Trigger receipt cannot satisfy the workflow-attestation contract");
     const baselineSpaces = receipt.spec?.spaces?.baseline ?? [];
     const approvalRequiredSpaces = receipt.spec?.spaces?.approvalRequired ?? [];
     check(baselineSpaces.length > 0, "live policy receipt has no baseline Spaces");
@@ -3372,7 +3421,7 @@ function validateAicrPersistentPromotionReceipt(receipt) {
         && record.applyGates?.includes(
           "platform/require-approval/vet-approvedby",
         ),
-      `${record.space} lost its AICR checks or approval gate`,
+      `${record.space} no longer preserves its recorded AICR checks or legacy approval Trigger evidence`,
     );
   }
 }
@@ -3559,14 +3608,17 @@ function runSelfTest() {
   const program = readYaml(programSourcePath);
   validateProgram(program);
 
-  const approvalLeak = structuredClone(policy);
-  approvalLeak.spec.baseline.checks.push({
+  const retiredApprovalTrigger = structuredClone(policy);
+  retiredApprovalTrigger.spec.baseline.checks.push({
     id: "human-approval",
     trigger: "platform/require-approval",
     effect: "block",
     reason: "bad fixture",
   });
-  expectFailure(() => validatePolicy(approvalLeak), "approval leakage fixture unexpectedly passed");
+  expectFailure(
+    () => validatePolicy(retiredApprovalTrigger),
+    "retired approval Trigger fixture unexpectedly passed",
+  );
 
   const missingBaselineWithApproval = structuredClone(policy);
   missingBaselineWithApproval.spec.approvalRequired.checks
@@ -3583,6 +3635,22 @@ function runSelfTest() {
   expectFailure(
     () => validatePolicy(warningTurnedBlocking),
     "approval-required effect-drift fixture unexpectedly passed",
+  );
+
+  const missingWorkflowEvidence = structuredClone(policy);
+  missingWorkflowEvidence.spec.approvalRequired.workflowApproval.requiredEvidence
+    = missingWorkflowEvidence.spec.approvalRequired.workflowApproval.requiredEvidence
+      .filter((item) => item !== "ApprovalSubjectRevisionID");
+  expectFailure(
+    () => validatePolicy(missingWorkflowEvidence),
+    "missing selected-revision workflow evidence fixture unexpectedly passed",
+  );
+
+  const workflowEvidenceClaimed = structuredClone(policy);
+  workflowEvidenceClaimed.spec.approvalRequired.workflowApproval.evidenceStatus = "recorded";
+  expectFailure(
+    () => validatePolicy(workflowEvidenceClaimed),
+    "unrecorded workflow evidence fixture unexpectedly passed",
   );
 
   const routeEvidenceRemoved = structuredClone(policy);
@@ -5010,11 +5078,13 @@ ${renderChecksTable(baseline.checks)}
 
 Filter: \`${approvalRequired.filter}\`
 
-Production releases and system configuration keep the ${baselineCheckCount} common checks and add one required approval:
+Production releases and system configuration keep the ${baselineCheckCount} common Trigger checks. Their approval requirement is a separate ChangeWorkflow and ChangeOrder contract, not another Apply Trigger:
 
 \`${approvalRequired.filterWhere}\`
 
 ${renderChecksTable(approvalRequired.checks)}
+
+The configured workflow must require a passing \`${approvalRequired.workflowApproval.attestationType}\` attestation at its \`${approvalRequired.workflowApproval.enforcement}\` for the ChangeOrder's selected revision. Required evidence is \`${approvalRequired.workflowApproval.requiredEvidence.join("\`, \`")}\`. Its status is **${approvalRequired.workflowApproval.evidenceStatus}**: the committed live receipt predates this contract and is legacy Trigger evidence only. The runtime policy proof must migrate before this summary can claim the workflow contract passes.
 
 ## Operational resource classes
 
@@ -5029,10 +5099,10 @@ ${policy.spec.operationalClasses.map((item) => `| \`${item.name}\` | ${renderPol
 ${policy.spec.scopeAssertions.map((item) => `- ${item}`).join("\n")}
 
 ${policy.status.liveReverified
-  ? `The live \`helm-catalog\` filters and their assigned Spaces were checked on **${policy.status.lastRecorded}**. Read the [live receipt](./live-helm-catalog.yaml).`
+  ? `The live \`helm-catalog\` Trigger filters and their assigned Spaces were checked on **${policy.status.lastRecorded}**. The approval-required filter in that [live receipt](./live-helm-catalog.yaml) uses the retired Trigger and is retained as historical evidence only; it does not prove the current workflow-attestation contract.`
   : `The last committed live-org result is dated **${policy.status.lastRecorded}**. It has not been rechecked against the current org.`}
 
-The [functional proof](../apply-policy-functional-proof/summary.md) uses temporary Units to show what happens at the delivery boundary. Placeholder values, invalid Kubernetes data, a literal credential, and unapproved system configuration receive blocking ApplyGates. After the test approves the exact head revision, the approval gate clears. An unpinned image and missing probes are reported as warnings without adding an ApplyGate. The separate Hooks and CRDs receipt proves that an unsupported automatic lifecycle route is blocked. No fixture was delivered to Kubernetes.
+The [functional proof](../apply-policy-functional-proof/summary.md) is also legacy Trigger evidence. It proves the recorded temporary Trigger behavior, not a ChangeWorkflow ReleasePrerequisite, ChangeOrder end tag, or selected-revision Approval attestation. An unpinned image and missing probes are reported as warnings without adding an ApplyGate. The separate Hooks and CRDs receipt proves that an unsupported automatic lifecycle route is blocked. No fixture was delivered to Kubernetes.
 
 Run:
 
@@ -5045,7 +5115,7 @@ npm run helm-org:policy:receipt:verify
 npm run helm-org:policy:verify
 \`\`\`
 
-The self-test inserts an approval into the common checks, removes a common check from the approval-required set, and changes a warning into a block. Each broken profile must fail. The receipt verifier checks the committed result without contacting ConfigHub. The live verifier re-reads ConfigHub and fails if the filters, checks, or Space assignments have changed.
+The self-test inserts the retired approval Trigger into the common checks, removes a common check from the approval-required set, changes a warning into a block, and removes selected-revision workflow evidence. Each broken profile must fail. The receipt verifier checks the committed result without contacting ConfigHub. The live verifier can only compare the recorded Trigger topology until the runtime policy proof migrates to the workflow-attestation contract.
 `;
 }
 
@@ -5120,8 +5190,8 @@ Current limit: ${demo.limits.join(" ")}`).join("\n\n");
   const sourceTypeSpaces = liveReceipt?.spec?.spaces?.sourceTypes ?? {};
   const baselineCheckCount = policy.spec.baseline.checks.length;
   const liveCounts = Number.isInteger(baselineCount) && Number.isInteger(approvalCount)
-    ? `On ${policy.status.lastRecorded}, the live \`helm-catalog\` org had ${baselineCount} Spaces on the ${baselineCheckCount} common checks and ${approvalCount} Spaces on those checks plus approval (${productionCount} production and ${systemConfigurationCount} system configuration).`
-    : `The live receipt records which Spaces use the common checks and which also require approval.`;
+    ? `On ${policy.status.lastRecorded}, the live \`helm-catalog\` org had ${baselineCount} Spaces on the ${baselineCheckCount} common checks and ${approvalCount} Spaces on the historical approval-required Trigger filter (${productionCount} production and ${systemConfigurationCount} system configuration). That receipt does not prove the current ChangeWorkflow approval contract.`
+    : `The live receipt records which Spaces use the common checks and historical approval Trigger filter; it does not record current workflow-attestation evidence.`;
   const sourceCoverage = policy.spec.sourceTypes
     .map((sourceType) => `${sourceType} ${(sourceTypeSpaces[sourceType] ?? []).length}`)
     .join(", ");
@@ -5156,11 +5226,11 @@ An arbitrary upload does not gain source history or chart-specific facts that Co
 
 ## The common policy
 
-Every pathway uses [the catalog-standard apply policy](../../config-catalog/policies/catalog-standard.yaml) after upload. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Ordinary Kubernetes workloads and AICR training runtimes have checks for the fields they actually use. Production releases and system configuration keep the ${baselineCheckCount} common checks and add one required approval.
+Every pathway uses [the catalog-standard apply policy](../../config-catalog/policies/catalog-standard.yaml) after upload. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Ordinary Kubernetes workloads and AICR training runtimes have checks for the fields they actually use. Production releases and system configuration keep the ${baselineCheckCount} common checks and require a configured ChangeWorkflow ReleasePrerequisite for an Approval attestation on the ChangeOrder's selected revision.
 
 This choice is based on what the configuration controls, not whether it started as Helm, AICR, \`cub installer\`, Kubara, Sveltos, or YAML. ${liveCounts} The receipt includes every maintained starting format: ${sourceCoverage}.
 
-The [live topology receipt](../../data/apply-policy-profiles/live-helm-catalog.yaml) records which checks are connected to which Spaces. The [functional proof](../../data/apply-policy-functional-proof/summary.md) tests the behavior with temporary records: placeholders, invalid Kubernetes data, literal credential environment values, and missing approval are blocked; a Secret-backed value and the same system configuration after approval are allowed; and an unpinned image and missing probes are reported without blocking a dry run. No fixture configuration was applied to Kubernetes. Rerun \`npm run helm-org:policy:verify\` while logged into the org to compare the current topology with its receipt.
+The [live topology receipt](../../data/apply-policy-profiles/live-helm-catalog.yaml) and [functional proof](../../data/apply-policy-functional-proof/summary.md) retain historical Trigger results. They do not prove the configured ChangeWorkflow ReleasePrerequisite, ChangeOrder end tag, or selected-revision Approval attestation. The runtime policy proof needs migration before a current workflow-attestation result can be claimed. No fixture configuration was applied to Kubernetes.
 `;
 }
 
@@ -5300,10 +5370,11 @@ function existsRepo(path) {
   return existsSync(join(repoRoot, path));
 }
 
-function isApprovalCheck(checkItem) {
-  return checkItem.id === "human-approval"
-    || checkItem.trigger.includes("require-approval")
-    || checkItem.trigger.includes("vet-approvedby");
+function isLegacyApprovalTriggerCheck(checkItem) {
+  const trigger = String(checkItem?.trigger ?? "");
+  return checkItem?.id === "human-approval"
+    || trigger.includes("require-approval")
+    || trigger.includes("vet-approvedby");
 }
 
 function unique(values) {

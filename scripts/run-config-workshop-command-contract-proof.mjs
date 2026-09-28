@@ -14,12 +14,13 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import { observeApprovalAttestations } from "./lib/revision-approval-observation.mjs";
 import { scannerObjectSetIdentity } from "./lib/config-workshop-result.mjs";
 
 const mode = process.argv[2] ?? "--verify";
-const modes = new Set(["--run", "--verify", "--hub-verify", "--self-test"]);
+const modes = new Set(["--run", "--verify", "--legacy-verify", "--hub-verify", "--attestation-verify", "--attestation-hub-verify", "--self-test"]);
 if (!modes.has(mode)) {
-  console.error("Usage: node scripts/run-config-workshop-command-contract-proof.mjs --run|--verify|--hub-verify|--self-test");
+  console.error("Usage: node scripts/run-config-workshop-command-contract-proof.mjs --run|--verify|--legacy-verify|--hub-verify|--attestation-verify|--attestation-hub-verify|--self-test");
   process.exit(2);
 }
 
@@ -35,6 +36,8 @@ const promotedResultPath = join(repoRoot, "data", "config-workshop-command-contr
 const promotionReviewPath = join(repoRoot, "data", "config-workshop-command-contract", "helm", "promotion-review.json");
 const receiptPath = join(repoRoot, "runs", "config-workshop-command-contract", "receipt.yaml");
 const summaryPath = join(repoRoot, "data", "config-workshop-command-contract", "live-promotion.md");
+const attestationReceiptPath = join(repoRoot, "runs", "config-workshop-command-contract", "receipt-attestation-v1.yaml");
+const attestationSummaryPath = join(repoRoot, "data", "config-workshop-command-contract", "live-promotion-attestation-v1.md");
 
 if (mode === "--run") {
   check(
@@ -43,17 +46,30 @@ if (mode === "--run") {
   );
   verifyContext();
   const receipt = runProof();
-  writeYaml(receiptPath, receipt);
-  write(summaryPath, renderSummary(receipt));
-  verifyReceipt(receipt);
+  writeYaml(attestationReceiptPath, receipt);
+  write(attestationSummaryPath, renderSummary(receipt));
+  verifyReceipt(receipt, { requireCurrentApproval: true });
   verifyLive(receipt);
-  console.log(`wrote ${relativeRepo(receiptPath)} and ${relativeRepo(summaryPath)}`);
+  console.log(`wrote ${relativeRepo(attestationReceiptPath)} and ${relativeRepo(attestationSummaryPath)}`);
 } else if (mode === "--hub-verify") {
   verifyContext();
   const receipt = readYaml(receiptPath);
-  verifyReceipt(receipt);
+  verifyLegacyReceipt(receipt);
   verifyLive(receipt);
-  console.log("verified the live Config Workshop command-contract example");
+  console.log("verified the retained legacy Config Workshop command-contract receipt");
+} else if (mode === "--attestation-hub-verify") {
+  verifyContext();
+  const receipt = readYaml(attestationReceiptPath);
+  verifyReceipt(receipt, { requireCurrentApproval: true });
+  verifyLive(receipt);
+  console.log("verified the current Space-attestation Config Workshop command-contract receipt");
+} else if (mode === "--attestation-verify") {
+  check(existsSync(attestationReceiptPath), `${relativeRepo(attestationReceiptPath)} is missing; run the live proof`);
+  check(existsSync(attestationSummaryPath), `${relativeRepo(attestationSummaryPath)} is missing; run the live proof`);
+  const receipt = readYaml(attestationReceiptPath);
+  verifyReceipt(receipt, { requireCurrentApproval: true });
+  check(readFileSync(attestationSummaryPath, "utf8") === renderSummary(receipt), `${relativeRepo(attestationSummaryPath)} is stale`);
+  console.log("verified the current Space-attestation Config Workshop receipt");
 } else if (mode === "--self-test") {
   const receipt = readYaml(receiptPath);
   const fake = structuredClone(receipt);
@@ -65,14 +81,70 @@ if (mode === "--run") {
     rejected = String(error.message).includes("candidate object-set hash");
   }
   check(rejected, "self-test: a promotion bound to the wrong object set must be rejected");
+  const currentReceipt = structuredClone(receipt);
+  currentReceipt.spec.approvalModel = "space-attestation-v1";
+  const currentUnitID = currentReceipt.spec.promotion.destination.unitId;
+  const currentRevision = currentReceipt.spec.promotion.approvedRevision;
+  currentReceipt.spec.promotion.approvalAttestation = {
+    command: `cub variant approve ${stagingSpace} --all --where "UnitID = '${currentUnitID}'" --revision ${currentRevision} -o json`,
+    attestationID: "attestation-1",
+    type: "Approval",
+    result: "Pass",
+    subject: { unitID: currentUnitID, revisionNum: currentRevision },
+    workflowEnforcement: "not-configured",
+  };
+  verifyReceipt(currentReceipt, { requireCurrentApproval: true });
+  const missingCurrentApproval = structuredClone(currentReceipt);
+  delete missingCurrentApproval.spec.promotion.approvalAttestation;
+  let missingCurrentRejected = false;
+  try {
+    verifyReceipt(missingCurrentApproval, { requireCurrentApproval: true });
+  } catch (error) {
+    missingCurrentRejected = String(error.message).includes("approval proof");
+  }
+  check(missingCurrentRejected, "self-test: a current receipt without its Approval attestation was accepted");
+  const mismatchedCurrent = structuredClone(currentReceipt);
+  mismatchedCurrent.spec.promotion.approvalAttestation.subject.revisionNum += 1;
+  let approvalMismatchRejected = false;
+  try {
+    verifyReceipt(mismatchedCurrent);
+  } catch (error) {
+    approvalMismatchRejected = String(error.message).includes("approval command");
+  }
+  check(approvalMismatchRejected, "self-test: a command/subject revision mismatch was accepted");
+  const validApproval = {
+    Spaces: [{
+      SpaceSlug: stagingSpace,
+      Attestation: { AttestationID: "attestation-1", Type: "Approval", Result: "Pass" },
+      Subjects: [{ UnitID: "unit-1", RevisionNum: 7 }],
+      SkippedUnits: [],
+    }],
+  };
+  check(
+    assertApprovalAttestation(validApproval, { space: stagingSpace, unitID: "unit-1", revisionNum: 7 }).attestationID === "attestation-1",
+    "self-test: exact Space Approval attestation was not accepted",
+  );
+  for (const [label, altered] of [
+    ["missing attestation", { Spaces: [{ ...validApproval.Spaces[0], Attestation: null }] }],
+    ["wrong UnitID", { Spaces: [{ ...validApproval.Spaces[0], Subjects: [{ UnitID: "other-unit", RevisionNum: 7 }] }] }],
+    ["wrong revision", { Spaces: [{ ...validApproval.Spaces[0], Subjects: [{ UnitID: "unit-1", RevisionNum: 8 }] }] }],
+  ]) {
+    let refused = false;
+    try {
+      assertApprovalAttestation(altered, { space: stagingSpace, unitID: "unit-1", revisionNum: 7 });
+    } catch {
+      refused = true;
+    }
+    check(refused, `self-test: ${label} was accepted`);
+  }
   console.log("verified command-contract live proof rejects a mismatched promotion identity");
-} else {
+} else if (mode === "--verify" || mode === "--legacy-verify") {
   check(existsSync(receiptPath), `${relativeRepo(receiptPath)} is missing; run the live proof`);
   check(existsSync(summaryPath), `${relativeRepo(summaryPath)} is missing; run the live proof`);
   const receipt = readYaml(receiptPath);
-  verifyReceipt(receipt);
+  verifyLegacyReceipt(receipt);
   check(readFileSync(summaryPath, "utf8") === renderSummary(receipt), `${relativeRepo(summaryPath)} is stale`);
-  console.log("verified the Config Workshop command-contract live receipt");
+  console.log("verified the retained legacy Config Workshop command-contract receipt");
 }
 
 function runProof() {
@@ -171,9 +243,27 @@ function runProof() {
       "--change-desc", "Bind the promoted result to its canonical object-set hash",
       "-o", "json",
     ]);
-    cub(["unit", "approve", unitSlug, "--space", stagingSpace, "--revision", "HeadRevisionNum", "--wait", "--quiet"]);
+    const reviewedUnit = getUnit(stagingSpace);
+    const reviewedRevision = reviewedUnit.HeadRevisionNum;
+    check(Number.isSafeInteger(reviewedRevision) && reviewedRevision > 0, "staging Unit has no numeric head revision to approve");
+    check(typeof reviewedUnit.UnitID === "string" && reviewedUnit.UnitID.length > 0 && !/[\r\n']/u.test(reviewedUnit.UnitID), "staging Unit has no safe UnitID for exact approval selection");
+    const approvalCommand = [
+      "variant", "approve", stagingSpace,
+      "--all",
+      "--where", `UnitID = '${reviewedUnit.UnitID}'`,
+      "--revision", String(reviewedRevision),
+      "-o", "json",
+    ];
+    const approvalResult = JSON.parse(cub(approvalCommand));
+    const approval = assertApprovalAttestation(approvalResult, {
+      space: stagingSpace,
+      unitID: reviewedUnit.UnitID,
+      revisionNum: reviewedRevision,
+    });
 
     const stagingAfter = getUnit(stagingSpace);
+    check(stagingAfter.UnitID === reviewedUnit.UnitID, "staging Unit identity changed during approval");
+    check(stagingAfter.HeadRevisionNum === reviewedRevision, "staging Unit revision changed during approval");
     const changeSet = getChangeSet(stagingSpace, changeSetSlug);
     const storedIdentity = storedObjectIdentity(stagingSpace);
     check(storedIdentity.sha256 === candidateHash, "promoted ConfigHub result does not match the accepted candidate");
@@ -186,6 +276,7 @@ function runProof() {
       metadata: { name: "nginx-reviewed-base-to-staging" },
       spec: {
         capturedAt: new Date().toISOString(),
+        approvalModel: "space-attestation-v1",
         context: { name: "river-bear", organization: "helm-catalog" },
         source: {
           baseWorkshopResult: relativeRepo(baseResultPath),
@@ -213,6 +304,14 @@ function runProof() {
           },
           candidateObjectSetSha256: candidateHash,
           approvedRevision: stagingAfter.HeadRevisionNum,
+          approvalAttestation: {
+            command: `cub variant approve ${stagingSpace} --all --where "UnitID = '${reviewedUnit.UnitID}'" --revision ${reviewedRevision} -o json`,
+            attestationID: approval.attestationID,
+            type: approval.type,
+            result: approval.result,
+            subject: approval.subject,
+            workflowEnforcement: "not-configured",
+          },
         },
         identities: {
           algorithm: "cub-scan-canonical-json-v1",
@@ -236,14 +335,15 @@ function runProof() {
       },
       status: {
         result: "pass",
-        claim: "The exact locally checked candidate was retained in ConfigHub, named on the promotion ChangeSet, promoted to staging, and approved without losing its canonical object-set identity.",
+        claim: "The exact locally checked candidate was retained in ConfigHub, named on the promotion ChangeSet, promoted to staging, and covered by a Space-level Approval attestation without losing its canonical object-set identity.",
         limits: [
           "This receipt stops before release publication, delivery, and live observation.",
           "The required staging Secret was not checked in this run.",
           previewSummary.includesStorageOnlyCommentChange
             ? "The preview also reported a storage-only source-comment change; the canonical Kubernetes object comparison excludes that metadata."
             : "The promotion preview reported only Kubernetes object changes.",
-          "Local cub check evidence and ConfigHub revision approval remain separate records.",
+          "Local cub check evidence and the ConfigHub Approval attestation remain separate records.",
+          "No ChangeWorkflow or release prerequisite was configured here; recording the attestation does not enforce approval on promotion or publication.",
         ],
       },
     };
@@ -252,7 +352,12 @@ function runProof() {
   }
 }
 
-function verifyReceipt(receipt) {
+function verifyLegacyReceipt(receipt) {
+  check(receipt.spec?.approvalModel === undefined && receipt.spec?.promotion?.approvalAttestation === undefined, "legacy verifier refuses a current Space-attestation receipt");
+  verifyReceipt(receipt);
+}
+
+function verifyReceipt(receipt, { requireCurrentApproval = false } = {}) {
   check(receipt.kind === "WorkshopCommandContractLiveReceipt", "command-contract receipt kind changed");
   check(receipt.status?.result === "pass", "command-contract live receipt is not pass");
   const currentHash = receipt.spec?.source?.currentObjectSetSha256;
@@ -265,6 +370,27 @@ function verifyReceipt(receipt) {
   check(receipt.spec?.promotion?.candidateObjectSetSha256 === candidateHash, "promotion candidate object-set hash changed");
   check(receipt.spec?.promotion?.destination?.objectSetSha256 === candidateHash, "promotion destination object-set hash changed");
   check(receipt.spec?.promotion?.changeSet?.candidateObjectSetSha256 === candidateHash, "promotion ChangeSet has the wrong candidate object-set hash");
+  const approvalModel = receipt.spec?.approvalModel;
+  const currentApproval = receipt.spec?.promotion?.approvalAttestation;
+  check(
+    approvalModel === undefined && currentApproval === undefined
+      || approvalModel === "space-attestation-v1" && currentApproval && typeof currentApproval === "object",
+    "approval proof model and attestation fields are incomplete or inconsistent",
+  );
+  if (requireCurrentApproval) {
+    check(approvalModel === "space-attestation-v1" && currentApproval && typeof currentApproval === "object", "current approval proof gap: receipt lacks its versioned Space Approval attestation");
+  }
+  if (currentApproval) {
+    const approval = currentApproval;
+    const subject = approval.subject;
+    const expectedCommand = `cub variant approve ${receipt.spec.promotion.destination.space} --all --where "UnitID = '${subject?.unitID}'" --revision ${subject?.revisionNum} -o json`;
+    check(approval.command === expectedCommand, "approval command does not describe the emitted exact-revision command");
+    check(typeof approval.attestationID === "string" && approval.attestationID.length > 0, "approval attestation ID is missing");
+    check(approval.type === "Approval" && approval.result === "Pass", "approval attestation is not a passing Approval");
+    check(subject?.unitID === receipt.spec.promotion.destination.unitId, "approval subject Unit differs from the promoted Unit");
+    check(Number.isSafeInteger(subject?.revisionNum) && subject.revisionNum === receipt.spec.promotion.approvedRevision, "approval subject revision differs from the approved numeric revision");
+    check(approval.workflowEnforcement === "not-configured", "approval workflow-enforcement claim changed");
+  }
   check(receipt.spec?.preview?.storedDataUnchanged === true, "promotion preview changed stored data");
   check(receipt.spec?.preview?.revisionUnchanged === true, "promotion preview changed revision history");
   for (const lane of ["localCandidate", "retainedObjectSet", "previewNonMutating", "promotedObjectSet", "changeRecordBoundToCandidate", "revisionApproval"]) {
@@ -293,6 +419,13 @@ function verifyLive(receipt) {
   check(base.DataHash === receipt.spec.candidate.dataHash, "live base data changed");
   check(staging.UnitID === receipt.spec.promotion.destination.unitId, "live staging Unit changed");
   check(staging.DataHash === receipt.spec.promotion.destination.dataHash, "live staging data changed");
+  if (receipt.spec.approvalModel === "space-attestation-v1") {
+    check(staging.HeadRevisionNum === receipt.spec.promotion.approvedRevision, "live staging revision changed since approval");
+    const revision = JSON.parse(cub(["revision", "get", unitSlug, String(staging.HeadRevisionNum), "--space", stagingSpace, "-o", "json"]));
+    const attestations = JSON.parse(cub(["attestation", "list", "--space", stagingSpace, "-o", "json"]));
+    const observed = observeApprovalAttestations(staging, revision, attestations);
+    check(observed.attestationIDs.includes(receipt.spec.promotion.approvalAttestation.attestationID), "recorded staging attestation is no longer active on the reviewed revision");
+  }
   check(staging.Annotations?.[annotationKey] === receipt.spec.source.candidateObjectSetSha256, "live staging annotation changed");
   check(changeSet.Annotations?.[annotationKey] === receipt.spec.source.candidateObjectSetSha256, "live ChangeSet annotation changed");
 }
@@ -324,9 +457,9 @@ candidate's canonical object-set hash through ConfigHub.
 | Check the promotion candidate locally | pass | \`${spec.source.candidateObjectSetSha256}\` |
 | Preview the staging promotion | pass; stored data and revision did not change | ${spec.preview.summary.replaceAll("|", "\\|")} |
 | Record the candidate on the ChangeSet | pass | \`${spec.promotion.changeSet.candidateObjectSetSha256}\` |
-| Promote and approve staging | pass | \`${spec.promotion.destination.objectSetSha256}\` |
+| ${spec.promotion.approvalAttestation ? "Promote and record Space Approval attestation" : "Promote and approve staging"} | pass | \`${spec.promotion.destination.objectSetSha256}\` |
 
-The ConfigHub data hash remains a storage identity. The canonical object-set
+${spec.promotion.approvalAttestation ? "The Space-level Approval attestation records a claim about the reviewed Unit revision. No ChangeWorkflow or release prerequisite was configured, so this record does not enforce approval on promotion or publication.\n\n" : ""}The ConfigHub data hash remains a storage identity. The canonical object-set
 hash identifies the accepted Kubernetes objects. The local \`cub check\` result,
 the ConfigHub ChangeSet, and the destination Unit all name the latter.
 
@@ -343,7 +476,7 @@ proof.
 - [WorkshopResult for the base](helm/workshop-result.json)
 - [WorkshopResult for the candidate](helm/promoted-workshop-result.json)
 - [PromotionReview](helm/promotion-review.json)
-- [Live receipt](../../runs/config-workshop-command-contract/receipt.yaml)
+- [Live receipt](../../runs/config-workshop-command-contract/${spec.promotion.approvalAttestation ? "receipt-attestation-v1.yaml" : "receipt.yaml"})
 `;
 }
 
@@ -376,6 +509,29 @@ function getUnit(space) {
   const result = JSON.parse(output).Unit;
   check(result?.UnitID, `${space}/${unitSlug} is missing`);
   return result;
+}
+
+function assertApprovalAttestation(result, expected) {
+  const spaces = result?.Spaces ?? result?.spaces;
+  check(Array.isArray(spaces) && spaces.length === 1, "approval proof gap: variant approve returned no unique Space result");
+  const row = spaces[0];
+  check(row && typeof row === "object", "approval proof gap: variant approve returned a malformed Space result");
+  check((row.SpaceSlug ?? row.spaceSlug) === expected.space && !row.Error && !row.error, "approval proof gap: variant approve result does not identify the reviewed Space");
+  const attestation = row.Attestation ?? row.attestation;
+  const attestationID = attestation?.AttestationID ?? attestation?.attestationID;
+  check(typeof attestationID === "string" && attestationID.length > 0, "approval proof gap: variant approve returned no attestation ID");
+  const type = attestation.Type ?? attestation.type;
+  const resultType = attestation.Result ?? attestation.result;
+  check(type === "Approval" && resultType === "Pass", "approval proof gap: variant approve did not return a passing Approval attestation");
+  const subjects = row.Subjects ?? row.subjects;
+  check(Array.isArray(subjects) && subjects.length === 1, "approval proof gap: variant approve did not return exactly one reviewed subject");
+  const subject = subjects[0];
+  const unitID = subject?.UnitID ?? subject?.unitID;
+  const revisionNum = subject?.RevisionNum ?? subject?.revisionNum;
+  check(unitID === expected.unitID && Number.isSafeInteger(revisionNum) && revisionNum === expected.revisionNum, "approval proof gap: attestation subject differs from the reviewed Unit and numeric revision");
+  const skippedUnits = row.SkippedUnits ?? row.skippedUnits;
+  check(skippedUnits === undefined || Array.isArray(skippedUnits) && skippedUnits.length === 0, "approval proof gap: variant approve skipped a selected Unit or returned malformed skipped-unit data");
+  return { attestationID, type, result: resultType, subject: { unitID, revisionNum } };
 }
 
 function getChangeSet(space, slug) {

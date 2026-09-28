@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/fairwinds-stable-vpa-4-11-0-no-crds.yaml",
-      "sha256": "sha256:3f58e4e4e1bfe2e9f47bdcb6737ed4d71176f0201f87f9f0f7f2df279a0c7949",
+      "sha256": "sha256:2e85509484ad0546f59b83ef866abee7940464ca3b4472b1e5c81840dda888e3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -317,7 +317,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

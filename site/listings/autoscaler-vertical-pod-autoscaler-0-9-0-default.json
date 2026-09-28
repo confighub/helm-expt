@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml",
-      "sha256": "sha256:9f6c41ea52212e0309e08856ff88f4d74050df4d57cac921734051de2d357205",
+      "sha256": "sha256:06e2293ccf98465f4463fd209fd63b6660576a3084449f7b9bae5d244492bd78",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -296,7 +296,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {

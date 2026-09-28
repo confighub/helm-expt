@@ -262,7 +262,7 @@ spec:
   policy:
     profile: "catalog-standard"
     productionAdds:
-      - "human-approval"
+      - "workflow-approval"
     normalSet: "approvalRequired"
     approvalReason: "system-configuration"
   evidence:

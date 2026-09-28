@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bb1c76e593218c16ec4941076a37e5c1aacc859006166575ca30abd0a3c7cfd1",
+      "sha256": "sha256:148048cd10e654af3efb1398965b40b94bdcb1a8a6f8325ace26d37f45a28fc1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/grafana-pyroscope-2-0-2-ha.yaml",
-      "sha256": "sha256:846d353371a469f3ca6bb608dbf84a8dc4b3e31dd52411714c68fdb6d4c01d19",
+      "sha256": "sha256:1dbcbcfcd800ac24296a06655febdb20424faed13d94ef72f4cb8f65e0e3d946",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-pyroscope-2-0-2-ha.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -288,7 +288,7 @@
     "policy": {
       "profile": "catalog-standard",
       "productionAdds": [
-        "human-approval"
+        "workflow-approval"
       ]
     },
     "operations": {
