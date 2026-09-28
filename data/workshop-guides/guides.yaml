@@ -59,8 +59,8 @@ spec:
   - id: redis-intro
     group: start-here
     title: Walk the whole model once, with Redis
-    summary: 'Walk the whole model once, with Redis: a repository document from the helm-expt proof corpus,
-      rendered for the site.'
+    summary: One chart, Redis, walked through the Catalog, flattening, OCI, variants, promotion, policy
+      and stacks in one pass, marking which steps are free and local.
     page: d/docs/user/workshop-redis-intro-guide.html
   - id: try
     group: start-here
@@ -83,14 +83,14 @@ spec:
   - id: helm-questions
     group: helm-questions
     title: Answer the ten questions Helm users ask
-    summary: 'Answer the ten questions Helm users ask: a repository document from the helm-expt proof
-      corpus, rendered for the site.'
+    summary: Walk the ten questions a Helm user asks, with the pain beneath each one and a check you run
+      on your agent's answer.
     page: d/docs/user/workshop-helm-questions-guide.html
   - id: values
     group: helm-questions
     title: Find why a Helm value did not change the output
-    summary: 'Find why a Helm value did not change the output: a repository document from the helm-expt
-      proof corpus, rendered for the site.'
+    summary: Compare a typo with the correct key in controlled renders, including a value the template
+      transforms.
     page: d/docs/user/workshop-values-guide.html
   - id: why-did-helm-ignore-my-values
     group: helm-questions
@@ -113,50 +113,49 @@ spec:
   - id: upgrade
     group: helm-questions
     title: Review a chart upgrade before promoting it
-    summary: 'Review a chart upgrade before promoting it: a repository document from the helm-expt proof
-      corpus, rendered for the site.'
+    summary: Compare retained versions and prepare a review packet that keeps missing promotion evidence
+      visible.
     page: d/docs/user/workshop-upgrade-guide.html
   - id: adapt
     group: helm-questions
     title: Adapt a configuration and inspect the exact edit
-    summary: 'Adapt a configuration and inspect the exact edit: a repository document from the helm-expt
-      proof corpus, rendered for the site.'
+    summary: Change one replica count, inspect the exact diff and spot an unexpected second edit.
     page: d/docs/user/workshop-adapt-guide.html
   - id: byo-charts
     group: helm-questions
     title: Render your own chart to exact objects, adapt them as data, and keep them
-    summary: 'Render your own chart to exact objects, adapt them as data, and keep them: a repository
-      document from the helm-expt proof corpus, rendered for the site.'
+    summary: Render your own chart and values, an AI-written one included, then check, diff, adapt a field,
+      and keep the reviewed objects for your own Argo CD or Flux.
     page: d/docs/user/workshop-byo-charts-guide.html
   - id: aicr
     group: formats
     title: Answer the questions AICR users ask
-    summary: 'Answer the questions AICR users ask: a repository document from the helm-expt proof corpus,
-      rendered for the site.'
+    summary: Compose an H100 training recipe's exact objects, compare three retained versions, and read
+      the recorded accelerator-fit and component-order routes.
     page: d/docs/user/workshop-aicr-guide.html
   - id: timoni
     group: formats
     title: Answer the questions Timoni users ask
-    summary: 'Answer the questions Timoni users ask: a repository document from the helm-expt proof corpus,
-      rendered for the site.'
+    summary: Build a typed module's exact objects, check the typed schema and the CRD ordering, and see
+      which module bytes are digest-bound.
     page: d/docs/user/workshop-timoni-guide.html
   - id: yaml
     group: formats
     title: Answer the questions plain Kubernetes YAML users ask
-    summary: 'Answer the questions plain Kubernetes YAML users ask: a repository document from the helm-expt
-      proof corpus, rendered for the site.'
+    summary: Check what four files will install, compare two versions with one edit, and read why this
+      base's lifecycle-route status is a recorded gap.
     page: d/docs/user/workshop-yaml-guide.html
   - id: kubara
     group: formats
     title: Answer the questions Kubara users ask
-    summary: 'Answer the questions Kubara users ask: a repository document from the helm-expt proof corpus,
-      rendered for the site.'
+    summary: Check what a generated Kubara platform contains, and read its recorded CRD, secret and bootstrap
+      routes. To govern a Kubara platform, use cub kubara.
     page: d/docs/user/workshop-kubara-guide.html
   - id: gitops-adopter
     group: gitops
     title: Use ConfigHub With Argo CD Or Flux
-    summary: 'Use ConfigHub With Argo CD Or Flux: a repository document from the helm-expt proof corpus,
-      rendered for the site.'
+    summary: Keep the Argo CD or Flux you already run. ConfigHub publishes the reviewed Kubernetes objects
+      as an OCI image for that controller to pull.
     page: d/docs/user/gitops-adopter-guide.html
   - id: deploy-with-flux-or-argo
     group: gitops
@@ -167,26 +166,26 @@ spec:
   - id: argocd-hardening
     group: gitops
     title: Harden Argo CD before production, as a variant you can check and keep
-    summary: 'Harden Argo CD before production, as a variant you can check and keep: a repository document
-      from the helm-expt proof corpus, rendered for the site.'
+    summary: Turn security advice into a checked variant of the Catalog's Argo CD base, compare it with
+      the base, and keep it with a staging and production path.
     page: d/docs/user/workshop-argocd-hardening-guide.html
   - id: compose
     group: stacks-and-platforms
     title: Compose and review a local workshop stack
-    summary: 'Compose and review a local workshop stack: a repository document from the helm-expt proof
-      corpus, rendered for the site.'
+    summary: Save a Kubara and Argo CD selection, move it, edit the app and retain a refusal when an API
+      does not fit.
     page: d/docs/user/workshop-compose-guide.html
   - id: lifecycle
     group: stacks-and-platforms
     title: Find the hook and CRD work before delivery
-    summary: 'Find the hook and CRD work before delivery: a repository document from the helm-expt proof
-      corpus, rendered for the site.'
+    summary: Inspect a hook without running it, preserve an API refusal and identify what delivery still
+      requires.
     page: d/docs/user/workshop-lifecycle-guide.html
   - id: match
     group: stacks-and-platforms
     title: Match a GPU workload with supplied facts
-    summary: 'Match a GPU workload with supplied facts: a repository document from the helm-expt proof
-      corpus, rendered for the site.'
+    summary: Keep candidate, mismatch and unknown results separately, with the input hashes behind each
+      answer.
     page: d/docs/user/workshop-match-guide.html
   - id: promote
     group: confighub
@@ -197,8 +196,7 @@ spec:
   - id: field-restore
     group: confighub
     title: Add one field and keep the original configuration
-    summary: 'Add one field and keep the original configuration: a repository document from the helm-expt
-      proof corpus, rendered for the site.'
+    summary: Review one added label, detect an object replacement and restore the exact original file.
     page: d/docs/user/workshop-field-restore-guide.html
   - id: does-cluster-match-approved-config
     group: confighub
