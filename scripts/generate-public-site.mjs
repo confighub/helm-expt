@@ -8561,15 +8561,14 @@ function kubaraHtml(catalog) {
       <p><strong>Kubara generates the platform.</strong> You write a <code>config.yaml</code> that chooses services from Kubara's catalogs. <code>kubara generate</code> writes a wrapper chart for each service and each cluster's values. Kubara's hub Argo CD then delivers to every cluster through ApplicationSets.</p>
       <p><strong><code>cub kubara</code> is for people who run Kubara.</strong> It governs a Kubara platform in ConfigHub without changing how Kubara works. It keeps a base for each component and a variant for each cluster, with an approval before each release.</p>
       ${commandBlock([
-        { comment: "Until its first release, build the plugin from source", cmd: "git clone https://github.com/confighub/kubara-confighub.git" },
-        { cmd: "cd kubara-confighub && go build -o kubara-confighub . && cub plugin install ./kubara-confighub" },
+        { comment: "Install the plugin, one line and no account", cmd: "cub plugin install confighub/kubara-confighub" },
         { comment: "Kubara's services, with Workshop evidence for each chart", cmd: "cub kubara services" },
         { comment: "Write your Kubara config, then let Kubara generate the platform", cmd: "cub kubara init --out ../my-platform --services cert-manager,metrics-server,traefik" },
         { cmd: "kubara --work-dir ../my-platform --config-file config.yaml --env-file .env.example generate --helm" },
         { comment: "What ConfigHub would hold, offline", cmd: "cub kubara plan ../my-platform" },
         { comment: "The cub steps as one script to read, then run", cmd: "cub kubara apply ../my-platform --out ../my-platform-confighub" },
       ])}
-      <p>Then <code>cub kubara handover</code> points Kubara's hub at the approved releases instead of Git. It is still a draft, and it has not yet run against a live hub (<a href="https://github.com/confighub/kubara-confighub/pull/13">kubara-confighub #13</a>). The plugin has no release yet, so the first two commands build it (<a href="https://github.com/confighub/kubara-confighub/issues/15">kubara-confighub #15</a>).</p>
+      <p>Then <code>cub kubara handover</code> points Kubara's hub at the approved releases instead of Git. It is still a draft, and it has not yet run against a live hub (<a href="https://github.com/confighub/kubara-confighub/pull/13">kubara-confighub #13</a>). Everything above it is in the plugin's first release, v0.1.0.</p>
       <p>This path has no stack step. <code>cub kubara apply</code> renders Kubara's charts with the Workshop's <code>cub stack from-kubara</code>, an internal dependency you never run yourself. The <a href="https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md">cub kubara guide</a> walks every command.</p>
       <h3>Where cub stack comes in</h3>
       <p>Workshop stacks serve a different job. They use a Kubara platform as a stack, rather than governing it the way Kubara runs it. Reach for <code>cub stack</code> to check the platform before anything runs, compose apps onto it, publish it as OCI, or produce a platform on demand. The next section shows that path.</p>
