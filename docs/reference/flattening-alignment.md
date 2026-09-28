@@ -127,6 +127,7 @@ explanation cannot turn missing evidence into a pass.
 
 ## Related sources
 
+- [One flattening model for every plugin](./flattening-across-plugins.md): how `cub sveltos`, `cub kubara`, `cub argo`, `cub flux` and `cub helm` apply these verdicts.
 - [Golden Path tools that finally work](https://confighub.com/blog/golden-path-tools-that-finally-work)
 - [The EKS inference flattening contract](https://github.com/confighub/eks-inference/blob/main/docs/flattening.md)
 - [Config catalog doctrine](./config-catalog-doctrine.md)

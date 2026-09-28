@@ -638,10 +638,14 @@
 <span class="term-comment"># Kubara's services, with Workshop evidence for each chart</span>
 <span class="term-prompt">$</span> cub kubara services
 
-<span class="term-comment"># Write your Kubara config, then let Kubara generate the platform</span>
+<span class="term-comment"># Write your Kubara config</span>
 <span class="term-prompt">$</span> cub kubara init --out ../my-platform --services cert-manager,metrics-server,traefik
 
-<span class="term-prompt">$</span> kubara --work-dir ../my-platform --config-file config.yaml --env-file .env.example generate --helm
+<span class="term-comment"># Copy the env template, then replace every placeholder in .env</span>
+<span class="term-prompt">$</span> cp ../my-platform/.env.example ../my-platform/.env
+
+<span class="term-comment"># Let Kubara generate the platform</span>
+<span class="term-prompt">$</span> kubara --work-dir ../my-platform --config-file config.yaml --env-file .env generate --helm
 
 <span class="term-comment"># What ConfigHub would hold, offline</span>
 <span class="term-prompt">$</span> cub kubara plan ../my-platform

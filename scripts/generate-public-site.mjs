@@ -8563,8 +8563,9 @@ function kubaraHtml(catalog) {
       ${commandBlock([
         { comment: "Install the plugin, one line and no account", cmd: "cub plugin install confighub/kubara-confighub" },
         { comment: "Kubara's services, with Workshop evidence for each chart", cmd: "cub kubara services" },
-        { comment: "Write your Kubara config, then let Kubara generate the platform", cmd: "cub kubara init --out ../my-platform --services cert-manager,metrics-server,traefik" },
-        { cmd: "kubara --work-dir ../my-platform --config-file config.yaml --env-file .env.example generate --helm" },
+        { comment: "Write your Kubara config", cmd: "cub kubara init --out ../my-platform --services cert-manager,metrics-server,traefik" },
+        { comment: "Copy the env template, then replace every placeholder in .env", cmd: "cp ../my-platform/.env.example ../my-platform/.env" },
+        { comment: "Let Kubara generate the platform", cmd: "kubara --work-dir ../my-platform --config-file config.yaml --env-file .env generate --helm" },
         { comment: "What ConfigHub would hold, offline", cmd: "cub kubara plan ../my-platform" },
         { comment: "The cub steps as one script to read, then run", cmd: "cub kubara apply ../my-platform --out ../my-platform-confighub" },
       ])}
