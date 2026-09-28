@@ -57,9 +57,10 @@ The committed receipt below is a legacy per-Unit approval observation. It is
 kept as evidence of that historical run, not as the current recommendation.
 
 That run approved one representative reviewed Unit with the command below.
-`cub unit approve` has since been removed from cub. Approvals are now
-attestations on a change order, made with `cub variant approve`. Keep the block
-as a record of what ran, not as a command to run.
+`cub unit approve` has since been removed from cub. An approval is now an
+attestation, made with `cub variant approve`. It is bound to a change order
+only when you name one with `--change-order` and `--stage`. Keep the block as a
+record of what ran, not as a command to run.
 
 ```text
 CUB_CONFIG=$HOME/.confighub/config.yaml cub unit approve \
