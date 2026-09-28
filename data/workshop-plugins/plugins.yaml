@@ -73,7 +73,7 @@ spec:
       repository: confighub/homebrew-tap
       state: released
       release: {tag: cub-scan-v0.7.3, date: "2026-08-24"}
-      install: cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3
+      install: cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan
     - id: server
       name: ConfigHub Server
       commands: [cub server]

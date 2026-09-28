@@ -32,9 +32,9 @@
       "path": "apps/storefront.yaml",
       "branch": "main",
       "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
-      "address": "https://github.com/confighub/cub-workshop/tree/main/apps/storefront.yaml",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/storefront.yaml",
       "next": {
-        "address": "https://github.com/confighub/cub-workshop/tree/main/apps/storefront.yaml"
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/storefront.yaml"
       }
     },
     {
@@ -47,9 +47,9 @@
       "path": "apps/cart.yaml",
       "branch": "main",
       "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
-      "address": "https://github.com/confighub/cub-workshop/tree/main/apps/cart.yaml",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/cart.yaml",
       "next": {
-        "address": "https://github.com/confighub/cub-workshop/tree/main/apps/cart.yaml"
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/cart.yaml"
       }
     },
     {
@@ -62,9 +62,9 @@
       "path": "apps/checkout.yaml",
       "branch": "main",
       "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
-      "address": "https://github.com/confighub/cub-workshop/tree/main/apps/checkout.yaml",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/checkout.yaml",
       "next": {
-        "address": "https://github.com/confighub/cub-workshop/tree/main/apps/checkout.yaml"
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/checkout.yaml"
       }
     },
     {
@@ -77,9 +77,9 @@
       "path": "apps/catalog-api.yaml",
       "branch": "main",
       "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
-      "address": "https://github.com/confighub/cub-workshop/tree/main/apps/catalog-api.yaml",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/catalog-api.yaml",
       "next": {
-        "address": "https://github.com/confighub/cub-workshop/tree/main/apps/catalog-api.yaml"
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/catalog-api.yaml"
       }
     },
     {
@@ -92,9 +92,9 @@
       "path": "apps/search.yaml",
       "branch": "main",
       "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
-      "address": "https://github.com/confighub/cub-workshop/tree/main/apps/search.yaml",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/search.yaml",
       "next": {
-        "address": "https://github.com/confighub/cub-workshop/tree/main/apps/search.yaml"
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/search.yaml"
       }
     },
     {
@@ -107,9 +107,9 @@
       "path": "apps/identity.yaml",
       "branch": "main",
       "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
-      "address": "https://github.com/confighub/cub-workshop/tree/main/apps/identity.yaml",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/identity.yaml",
       "next": {
-        "address": "https://github.com/confighub/cub-workshop/tree/main/apps/identity.yaml"
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/identity.yaml"
       }
     },
     {
@@ -122,9 +122,9 @@
       "path": "apps/fraud-scoring.yaml",
       "branch": "main",
       "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
-      "address": "https://github.com/confighub/cub-workshop/tree/main/apps/fraud-scoring.yaml",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/fraud-scoring.yaml",
       "next": {
-        "address": "https://github.com/confighub/cub-workshop/tree/main/apps/fraud-scoring.yaml"
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/fraud-scoring.yaml"
       }
     },
     {
@@ -137,9 +137,9 @@
       "path": "apps/ledger.yaml",
       "branch": "main",
       "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
-      "address": "https://github.com/confighub/cub-workshop/tree/main/apps/ledger.yaml",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/ledger.yaml",
       "next": {
-        "address": "https://github.com/confighub/cub-workshop/tree/main/apps/ledger.yaml"
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/ledger.yaml"
       }
     },
     {
@@ -152,9 +152,9 @@
       "path": "apps/payment-gateway.yaml",
       "branch": "main",
       "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
-      "address": "https://github.com/confighub/cub-workshop/tree/main/apps/payment-gateway.yaml",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/payment-gateway.yaml",
       "next": {
-        "address": "https://github.com/confighub/cub-workshop/tree/main/apps/payment-gateway.yaml"
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/payment-gateway.yaml"
       }
     },
     {
@@ -167,9 +167,9 @@
       "path": "apps/shipment-tracker.yaml",
       "branch": "main",
       "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
-      "address": "https://github.com/confighub/cub-workshop/tree/main/apps/shipment-tracker.yaml",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/shipment-tracker.yaml",
       "next": {
-        "address": "https://github.com/confighub/cub-workshop/tree/main/apps/shipment-tracker.yaml"
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/shipment-tracker.yaml"
       }
     },
     {
@@ -182,9 +182,9 @@
       "path": "apps/warehouse-api.yaml",
       "branch": "main",
       "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
-      "address": "https://github.com/confighub/cub-workshop/tree/main/apps/warehouse-api.yaml",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/warehouse-api.yaml",
       "next": {
-        "address": "https://github.com/confighub/cub-workshop/tree/main/apps/warehouse-api.yaml"
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/warehouse-api.yaml"
       }
     },
     {
@@ -197,9 +197,9 @@
       "path": "apps/shop-web.yaml",
       "branch": "main",
       "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
-      "address": "https://github.com/confighub/cub-workshop/tree/main/apps/shop-web.yaml",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/shop-web.yaml",
       "next": {
-        "address": "https://github.com/confighub/cub-workshop/tree/main/apps/shop-web.yaml"
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/shop-web.yaml"
       }
     },
     {
@@ -212,9 +212,9 @@
       "path": "apps/shop-web-kubara.yaml",
       "branch": "main",
       "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
-      "address": "https://github.com/confighub/cub-workshop/tree/main/apps/shop-web-kubara.yaml",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/shop-web-kubara.yaml",
       "next": {
-        "address": "https://github.com/confighub/cub-workshop/tree/main/apps/shop-web-kubara.yaml"
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/shop-web-kubara.yaml"
       }
     },
     {
@@ -227,9 +227,9 @@
       "path": "apps/hello-standalone.yaml",
       "branch": "main",
       "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
-      "address": "https://github.com/confighub/cub-workshop/tree/main/apps/hello-standalone.yaml",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/hello-standalone.yaml",
       "next": {
-        "address": "https://github.com/confighub/cub-workshop/tree/main/apps/hello-standalone.yaml"
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/hello-standalone.yaml"
       }
     },
     {

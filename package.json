@@ -957,7 +957,7 @@
     "kind-parity:enterprise-contract:verify": "node scripts/verify-enterprise-parity-contract.mjs",
     "confighub-ready:run": "node scripts/run-confighub-ready-lane.mjs",
     "confighub-ready:verify": "node scripts/run-confighub-ready-lane.mjs --verify",
-    "site:generate": "node scripts/generate-public-site.mjs --generate",
+    "site:generate": "node scripts/generate-workshop-sections.mjs --generate && node scripts/generate-public-site.mjs --generate",
     "site:verify": "node scripts/generate-public-site.mjs --verify",
     "site:ux:verify": "node scripts/verify-site-ux-contract.mjs",
     "site:sections": "node scripts/generate-workshop-sections.mjs --generate",

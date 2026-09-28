@@ -117,7 +117,9 @@ function appRows(registry) {
   const rows = registry.spec.apps.map((app) => {
     check(APP_DELIVERIES.includes(app.delivery), `app ${app.id}: delivery must be one of ${APP_DELIVERIES.join(", ")}`);
     check(/^[0-9a-f]{40}$/.test(app.checkedCommit ?? ""), `app ${app.id}: checkedCommit must be a full commit`);
-    const address = `https://github.com/${app.repository}/tree/${app.branch}${app.path ? `/${app.path}` : ""}`;
+    // A single manifest opens as a file (blob); a directory or a whole repository as a tree.
+    const kind = /\.(ya?ml|json)$/.test(app.path ?? "") ? "blob" : "tree";
+    const address = `https://github.com/${app.repository}/${kind}/${app.branch}${app.path ? `/${app.path}` : ""}`;
     return {
       id: app.id,
       name: app.name,
@@ -361,6 +363,9 @@ function selfTest() {
 
 function syncStacks(from) {
   check(from && existsSync(join(from, "stacks")), "--sync-stacks needs a cub-workshop checkout with a stacks/ directory");
+  // The snapshot records HEAD, so the files it reads must be HEAD's.
+  const dirty = execFileSync("git", ["-C", from, "status", "--porcelain", "--", "stacks"], { encoding: "utf8" }).trim();
+  check(dirty === "", `${from} has uncommitted changes under stacks/, so its HEAD would not describe them:\n${dirty}`);
   const commit = execFileSync("git", ["-C", from, "rev-parse", "HEAD"], { encoding: "utf8" }).trim();
   const stacks = readdirSync(join(from, "stacks"))
     .filter((name) => name.endsWith(".yaml"))

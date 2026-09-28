@@ -151,9 +151,9 @@
         "date": "2026-08-24",
         "tag": "cub-scan-v0.7.3"
       },
-      "install": "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3",
+      "install": "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan",
       "next": {
-        "command": "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3"
+        "command": "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan"
       }
     },
     {
