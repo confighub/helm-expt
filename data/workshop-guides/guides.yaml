@@ -211,6 +211,12 @@ spec:
     summary: Check what an app needs, check it on a platform, take it into ConfigHub, or bring an app
       that already runs.
     page: put-an-app-on-a-platform.html
+  - id: bring-kubara-into-confighub
+    group: stacks-and-platforms
+    title: Bring a Kubara platform into ConfigHub
+    summary: Govern a Kubara platform with cub kubara, from plan to handover and check, without changing
+      how Kubara works, or use it as a Workshop stack.
+    page: bring-kubara-into-confighub.html
   - id: promote
     group: confighub
     title: Can I promote this configuration?

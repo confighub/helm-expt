@@ -66,6 +66,7 @@ const guidesPath = join(siteRoot, "guides.html");
 const pluginsPath = join(siteRoot, "plugins.html");
 const composeStackPath = join(siteRoot, "compose-a-stack.html");
 const appGuidePath = join(siteRoot, "put-an-app-on-a-platform.html");
+const kubaraGuidePath = join(siteRoot, "bring-kubara-into-confighub.html");
 const askPath = join(siteRoot, "ask.html");
 const promotePath = join(siteRoot, "promote.html");
 const ignoredValuesPath = join(siteRoot, "why-did-helm-ignore-my-values.html");
@@ -171,7 +172,7 @@ const NON_HELM_FORMAT_INFO = {
   kubara: {
     label: "Kubara",
     sentence: "Kubara selects components and generates platform configuration, and the Workshop retains routes for bootstrap, Git handoff, controller ownership, and application ordering.",
-    learnHref: "./kubara.html",
+    learnHref: "./bring-kubara-into-confighub.html",
     learnLabel: "Kubara platforms",
   },
   "configuration-oci": {
@@ -517,6 +518,7 @@ const SITE_PAGE_RELPATHS = {
   pluginsHtml: "plugins.html",
   composeStackGuideHtml: "compose-a-stack.html",
   appGuideHtml: "put-an-app-on-a-platform.html",
+  kubaraGuideHtml: "bring-kubara-into-confighub.html",
   askHtml: "ask.html",
   promoteHtml: "promote.html",
   ignoredValuesHtml: "why-did-helm-ignore-my-values.html",
@@ -548,6 +550,7 @@ const SITE_PAGE_RELPATHS = {
 
 // Redirect stubs: canonical points at the target and they stay out of the sitemap.
 const PAGE_REDIRECT_TARGETS = {
+  "kubara.html": "plugins.html",
   "compare.html": "index.html",
   "whats-new.html": "charts/index.html",
   "hooks.html": "quirks.html",
@@ -587,6 +590,7 @@ const PAGE_DESCRIPTIONS = {
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
   "oci.html": "See every OCI shape this catalog produces, who produces and consumes each one, which layout each consumer needs, and which shapes are signed today.",
   "formats.html": "Browse every non-Helm Catalog entry by format: AICR, Timoni, cub installer, Kubara, configuration OCI, Kubernetes YAML, and Sveltos, each linked to its listing record.",
+  "bring-kubara-into-confighub.html": "Govern a Kubara platform with cub kubara, from plan to handover, or use it as a Workshop stack.",
   "put-an-app-on-a-platform.html": "Check what an app needs, check it on a platform, take it into ConfigHub, or bring an app that already runs.",
   "compose-a-stack.html": "Get a stack, check it for conflicts and missing needs before anything runs, then run and govern it in ConfigHub.",
   "plugins.html": "Every public cub plugin, marked by its state, with the one line that installs it.",
@@ -675,6 +679,7 @@ if (mode === "--generate") {
   write(pluginsPath, site.pluginsHtml);
   write(composeStackPath, site.composeStackGuideHtml);
   write(appGuidePath, site.appGuideHtml);
+  write(kubaraGuidePath, site.kubaraGuideHtml);
   write(askPath, site.askHtml);
   write(promotePath, site.promoteHtml);
   write(ignoredValuesPath, site.ignoredValuesHtml);
@@ -824,6 +829,7 @@ if (mode === "--generate") {
   check(readFileSync(pluginsPath, "utf8") === site.pluginsHtml, "site/plugins.html is stale");
   check(readFileSync(composeStackPath, "utf8") === site.composeStackGuideHtml, "site/compose-a-stack.html is stale");
   check(readFileSync(appGuidePath, "utf8") === site.appGuideHtml, "site/put-an-app-on-a-platform.html is stale");
+  check(readFileSync(kubaraGuidePath, "utf8") === site.kubaraGuideHtml, "site/bring-kubara-into-confighub.html is stale");
   check(existsSync(askPath), "site/ask.html is missing; run npm run site:generate");
   check(readFileSync(askPath, "utf8") === site.askHtml, "site/ask.html is stale");
   check(existsSync(promotePath), "site/promote.html is missing; run npm run site:generate");
@@ -1438,7 +1444,8 @@ function buildSite(generatedAt) {
     aiHtml: calmPage(aiHtml(catalog)),
     securityHtml: securityHtml(),
     pillarsHtml: calmPage(examplesHtml(catalog)),
-    kubaraHtml: calmPage(kubaraHtml(catalog)),
+    kubaraHtml: movedPageHtml("Kubara platforms", "./plugins.html#kubara", "Kubara is now a row in Plugins, with its Guide, Bring a Kubara platform into ConfigHub."),
+    kubaraGuideHtml: calmPage(kubaraGuideHtml(catalog)),
     entryPathReferenceHtml: entryPathReferenceHtml(),
     futureHtml: futureHtml(),
     operationsHtml: calmPage(operationsHtml(catalog)),
@@ -2429,7 +2436,7 @@ function siteFooterNav(relPath) {
     + group("Configs", [a("charts/index.html", "Find a configuration"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
     + group("Stacks", [a("stack.html", "Every stack"), a("compose-a-stack.html", "Compose and check a stack"), a("try-aicr.html", "GPU nodes and AICR")])
     + group("Apps", [a("apps.html", "Every app"), a("put-an-app-on-a-platform.html", "Put an app on a platform"), a("testing.html", "Find a starting configuration")])
-    + group("Plugins", [a("plugins.html", "Every cub plugin"), a("kubara.html", "Kubara platforms")])
+    + group("Plugins", [a("plugins.html", "Every cub plugin"), a("bring-kubara-into-confighub.html", "Kubara platforms")])
     + group("Guides", [a("guides.html", "Every Guide"), a("try.html", "Try it: Redis in ten minutes"), a("demo.html", "The ten-minute demo"), a("ai.html", "Use with your AI"), a("ask.html", "Check my config"), a("promote.html", "Promote my config")])
     + group("Docs", [a("docs.html", "Docs"), a("config.html", "How configuration works"), a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("offering.html", "Offering")])
     + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Upload a result into ConfigHub")}${a("confighub.html", "ConfigHub Server")}</div>`
@@ -2464,7 +2471,7 @@ function siteSections() {
     ["apps.html", "Every app"], ["put-an-app-on-a-platform.html", "Put an app on a platform"], ["testing.html", "Find a starting configuration"],
   ] },
   { label: "Plugins", hub: "plugins.html", pages: [
-    ["plugins.html", "Every cub plugin"], ["kubara.html", "Kubara platforms"],
+    ["plugins.html", "Every cub plugin"], ["bring-kubara-into-confighub.html", "Bring a Kubara platform into ConfigHub"],
   ] },
   { label: "Guides", hub: "guides.html", pages: [
     ["guides.html", "Every Guide"], ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"],
@@ -3990,7 +3997,7 @@ oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0<
     <p>Keep the files and OCI locally, or <a href="./confighub.html">upload it into ConfigHub</a> when your team needs shared changes, environment variants, approvals, and promotion from development to production. That account step is the same for every configuration.</p>
     <p>To gate and move a change to this AI-platform configuration through environments, <a href="./promote.html">compare the exact object sets and promote the one that passed</a>.</p>
     <p>For deployment, <a href="./deploy-with-flux-or-argo.html#now-deploy">choose the controller or direct path that will consume the reviewed objects</a>. Do not apply this platform configuration until you have reviewed its component requirements and changed the recorded storage-class residue.</p>
-    <p>Compare this with a native platform built from tested parts. <a href="./kubara.html">Build a Kubara platform</a> composes similar components without Argo CD Applications from AICR. <a href="./put-an-app-on-a-platform.html">Apps on a platform</a> defines how a workload lands on either kind.</p>
+    <p>Compare this with a native platform built from tested parts. <a href="./bring-kubara-into-confighub.html">Build a Kubara platform</a> composes similar components without Argo CD Applications from AICR. <a href="./put-an-app-on-a-platform.html">Apps on a platform</a> defines how a workload lands on either kind.</p>
     <p><a href="./testing.html#inference">Compare the other inference examples</a> · <a href="./try.html">Try the shorter Redis example</a></p>
   </section>
 </main>
@@ -4060,7 +4067,7 @@ function configHtml(catalog) {
       </div>
       <div class="door">
         <h3>Bring any format</h3>
-        <p><strong>Start from what you have:</strong> <a href="./ask.html">Helm</a> · <a href="#formats">OCI</a> · <a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a> · <a href="./kubara.html">Kubara</a> · <a href="./try-aicr.html">AICR</a> · <a href="#formats">plain YAML</a> · <a href="#formats">Timoni and the rest</a>. Each becomes the same reviewed base.</p>
+        <p><strong>Start from what you have:</strong> <a href="./ask.html">Helm</a> · <a href="#formats">OCI</a> · <a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a> · <a href="./bring-kubara-into-confighub.html">Kubara</a> · <a href="./try-aicr.html">AICR</a> · <a href="#formats">plain YAML</a> · <a href="#formats">Timoni and the rest</a>. Each becomes the same reviewed base.</p>
       </div>
       <div class="door">
         <h3>Know which page does what</h3>
@@ -4141,7 +4148,7 @@ function configHtml(catalog) {
       ["Helm chart", "Run Helm with the recorded values and render context.", `<a href="#flatten">safe-to-flatten, flatten-with-routes, or unsafe-to-flatten</a>`, "Render matches Helm's own output; hooks, CRDs, and generated state are inventoried.", `<a href="./charts/bitnami-redis-25-5-3.html">Redis</a>`],
       ["Timoni module or bundle", "Build the pinned OCI module with its typed values.", `<a href="#flatten">Flatten, flatten with routes, or run the workflow late.</a>`, "Typed schema and selected values; ordered apply sets, waits, and target lookups.", `<a href="./charts/index.html">Timoni Redis</a>`],
       ["AICR", "Run its declared composition step, including nested Helm work it declares.", `<a href="#flatten">Flatten the generated layer, flatten with routes, or process part late.</a>`, "Component order, required controllers, GPU or cloud facts, and nested sources.", `<a href="./try-aicr.html">Inference platforms</a>`],
-      ["Kubara or another generator", "Run its declared generation step, including nested sources it declares.", `<a href="#flatten">Flatten the generated layer, keep routes beside it, or process the source late.</a>`, "Platform prerequisites, component ownership, and controller work.", `<a href="./kubara.html">Build a platform</a>`],
+      ["Kubara or another generator", "Run its declared generation step, including nested sources it declares.", `<a href="#flatten">Flatten the generated layer, keep routes beside it, or process the source late.</a>`, "Platform prerequisites, component ownership, and controller work.", `<a href="./bring-kubara-into-confighub.html">Build a platform</a>`],
       ["Installer or source OCI", "Pull by digest, then invoke the processor it declares.", `<a href="#flatten">Decide from the produced objects; a source OCI is not automatically deployable.</a>`, "Package role, processor, selections, and receipts.", `<a href="./try.html">Try Redis</a>`],
       ["Literal configuration OCI", "Pull by digest and read the objects it already contains.", `<a href="#flatten">born-flattened; record whether routes or protected inputs travel beside it.</a>`, "Object inventory, provenance, and any prior transformation.", `<a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a>`],
       ["Sveltos", "Read the literal fleet configuration; materialize each referenced source separately.", `<a href="#flatten">born-flattened for the fleet objects; the referenced Helm stays a later boundary.</a>`, "The literal ClusterProfile objects, plus each nested source on its own.", `<a href="./stack.html">Stacks and fleets</a>`],
@@ -4816,7 +4823,7 @@ function composeStackGuideHtml() {
       <h3 id="compose-your-own">2. Composing your own?</h3>
       <p>Write a manifest that names catalog parts by digest, or let an assistant draft one from images you have already checked. Each part is a bundle pinned by digest with a receipt, or a file of rendered objects the stack owns. Then run <code>cub stack check &lt;file&gt;</code>, read what it names wrong, fix it, and run again until it holds together. Certify is the contract you build against; <a href="./d/docs/planning/stack-manifest-spec.html">read the manifest specification</a>.</p>
       <h3 id="from-kubara-platform">3. Already have a Kubara platform?</h3>
-      <p>Turn a Kubara platform into a stack with <code>cub stack from-kubara .</code>. It renders with the values Kubara generated, so the check reads the platform you actually have. <a href="./kubara.html">Build a platform</a> walks the whole Kubara journey, generate to deploy.</p>
+      <p>Turn a Kubara platform into a stack with <code>cub stack from-kubara .</code>. It renders with the values Kubara generated, so the check reads the platform you actually have. <a href="./bring-kubara-into-confighub.html">Build a platform</a> walks the whole Kubara journey, generate to deploy.</p>
       <h3 id="run-with-a-team">4. Ready to run it with a team?</h3>
       <p>Upload the stack, place it on clusters, then promote and gate it in ConfigHub. That is where a stack becomes a platform, in <a href="#run-and-govern">Run and govern it</a> below.</p>
     </section>
@@ -5012,7 +5019,7 @@ cub stack check metrics-double</code></pre>
         { cmd: "cub stack check ./confighub/stack.yaml" },
         { cmd: "cub stack upload  ./confighub/stack.yaml --run" },
       ])}
-      <p><a href="./kubara.html">Kubara platforms</a> walks the whole Kubara adoption journey.</p>
+      <p><a href="./bring-kubara-into-confighub.html">Kubara platforms</a> walks the whole Kubara adoption journey.</p>
     </section>
 
     <section aria-labelledby="image">
@@ -5071,7 +5078,7 @@ function allReferencesHtml(catalog) {
     ["Check or promote your own config", `<a href="./ask.html">Check my config</a>`, "Compare exact objects in your browser, carry Catalog lifecycle facts into the review, then continue to a source-aware promotion plan."],
     ["Use your AI agent", `<a href="./ai.html">AI agents</a>`, "Install the ConfigHub Workshop skill, choose one task, and keep source records, exact objects, lifecycle work, checks, and limits visible."],
     ["Choose a worked example", `<a href="./testing.html">Examples</a>`, "Start with Helm, AICR, OCI, or YAML. Continue with ConfigHub only when you want saved configuration and managed operations."],
-    ["Start or adopt a Kubara platform", `<a href="./kubara.html">Kubara with ConfigHub</a>`, "Generate one small native Kubara development platform, or bring an existing platform through Git and OCI. Keep Kubara as composer and Argo CD as reconciler."],
+    ["Start or adopt a Kubara platform", `<a href="./bring-kubara-into-confighub.html">Kubara with ConfigHub</a>`, "Generate one small native Kubara development platform, or bring an existing platform through Git and OCI. Keep Kubara as composer and Argo CD as reconciler."],
     ["Follow configuration to deployment", `<a href="./how-it-works.html">Operate</a>`, "Release a reviewed configuration by digest, promote it, gate it on approval, and roll it back."],
     ["See every source and App demonstration", `<a href="../docs/user/config-catalog-demonstrations.md">Demonstration record</a>`, "See the exact example that ran, its result, and the work still needed for broader support."],
     ["Choose a public component", `<a href="./charts/index.html">Component Catalog</a>`, "Pick an exact retained package version, then read its packaged configurations, output, hooks, CRDs, setup work, and evidence."],
@@ -5112,7 +5119,7 @@ function allReferencesHtml(catalog) {
     ["Gated answer: same version, same bytes", "An assistant compares a recipe's locked digest against the digest a publisher later served for the same version, and a gate holds the same-bytes verdict to the upstream-drift record.", "../data/ai-supply-drift/summary.md"],
     ["RBAC review example", "Find unnecessary Secret access, make one exact Role change, require approval, publish the reviewed objects as OCI, and let Argo CD deliver the result.", "../docs/demo/apps/rbac-review.md"],
     ["RBAC permissions report", "Review broad RBAC rules across committed default chart renders without needing a cluster or running Helm again.", "../data/app-readiness/summary.md"],
-    ["Kubara with ConfigHub", "The buyer landing page: what stays Kubara, what ConfigHub adds, the six adoption steps, measured benefits, current proof status, GUI tour, and honest boundaries.", "./kubara.html"],
+    ["Kubara with ConfigHub", "The buyer landing page: what stays Kubara, what ConfigHub adds, the six adoption steps, measured benefits, current proof status, GUI tour, and honest boundaries.", "./bring-kubara-into-confighub.html"],
     ["Kubara six-step adoption tutorial", "Choose components, generate with Kubara, push the complete Git hand-off, create immutable OCI, load the selected ConfigHub organization, and deploy applications through Argo CD.", "../docs/demo/kubara/adoption.md"],
     ["Kubara + ConfigHub technical mini-IDP", "The complete maintainer-grade v0.13.0 runbook: four clusters, seven platform roles, two apps, exact catalog generation, Git/OCI import, matrix, wiring, faithful hub-spoke delivery, and receipt-gated ConfigHub platform surfaces.", "../docs/demo/kubara/single-platform.md"],
     ["Historical Kubara v0.12.0 compatibility proof", "Retained read-only evidence for the one-cluster generation, OCI route, Argo bootstrap, and dated live result. It is not a command path for the current Kubara organization.", "../docs/demo/kubara/local-platform.md"],
@@ -6188,7 +6195,7 @@ flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=
       <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 \\
   --base http-clusterip --output-oci oci://YOUR-REGISTRY/reviewed-nginx:24.0.2</code></pre>
       <p>Argo CD reads the same output through an OCI <code>Application</code>, and kubectl applies the same files. A registry as source of truth records who pushed an artifact and when. It does not record whether the bytes were reviewed, or what objects change at the next version. Those are <a href="./did-this-chart-version-change.html">the digest-drift check</a> and <a href="./ask.html">the render diff</a>.</p>
-      <p>You can <a href="./promote.html">review a change before it reconciles</a>, then <a href="./kubara.html">build or govern a whole platform</a>, with Flux still the reconciler.</p>
+      <p>You can <a href="./promote.html">review a change before it reconciles</a>, then <a href="./bring-kubara-into-confighub.html">build or govern a whole platform</a>, with Flux still the reconciler.</p>
     </section>
 
     <section aria-labelledby="verify">
@@ -6468,9 +6475,10 @@ function sectionCount(section) {
 function pluginsHtml() {
   const rows = sectionRows("plugins");
   const state = (row) => row.state === "released" ? `Released, ${escapeHtml(row.release.tag)}` : row.state === "in-progress" ? "In progress" : "Draft";
+  const pluginGuides = { kubara: ["./bring-kubara-into-confighub.html", "Bring a Kubara platform into ConfigHub"] };
   const tableRows = rows.map((row) => [
-    row.repository ? `<a href="https://github.com/${escapeHtml(row.repository)}">${escapeHtml(row.name)}</a>` : escapeHtml(row.name),
-    `${row.commands.map((command) => `<code>${escapeHtml(command)}</code>`).join(", ")}. ${escapeHtml(row.summary)}`,
+    `<span id="${escapeHtml(row.id)}"></span>` + (row.repository ? `<a href="https://github.com/${escapeHtml(row.repository)}">${escapeHtml(row.name)}</a>` : escapeHtml(row.name)),
+    `${row.commands.map((command) => `<code>${escapeHtml(command)}</code>`).join(", ")}. ${escapeHtml(row.summary)}` + (pluginGuides[row.id] ? ` Guide: <a href="${pluginGuides[row.id][0]}">${escapeHtml(pluginGuides[row.id][1])}</a>.` : ""),
     state(row),
     row.install ? `<code>${escapeHtml(row.install)}</code>` : escapeHtml(row.note ?? "Not yet published."),
   ]);
@@ -6678,7 +6686,7 @@ function docsHtml(catalog) {
       <p>Pull a catalog package, render it locally, and keep the files under your own control with no server, account, or cluster.</p>
       <h3><a href="./ask.html">How do I check my own Helm values or a result I do not understand?</a></h3>
       <p>Build a local prompt for the AI assistant you already use. Private charts and values stay on your machine.</p>
-      <h3><a href="./kubara.html">How do I add ConfigHub to an existing Kubara platform?</a></h3>
+      <h3><a href="./bring-kubara-into-confighub.html">How do I add ConfigHub to an existing Kubara platform?</a></h3>
       <p>Keep Kubara's component selection and generated topology, with Argo reconciliation intact, while following one six-step adoption tutorial with explicit evidence checkpoints.</p>
     </section>
 
@@ -8659,7 +8667,7 @@ function loadKubaraSiteFacts() {
   };
 }
 
-function kubaraHtml(catalog) {
+function kubaraGuideHtml(catalog) {
   const facts = loadKubaraSiteFacts();
   const currentLive = facts.currentLive;
   const badge = (passed, yes, no) => `<strong style="display:inline-block;padding:3px 8px;border:1px solid ${passed ? "var(--good)" : "var(--warn)"};border-radius:999px;background:var(--panel);color:${passed ? "var(--good)" : "var(--warn)"}">${escapeHtml(passed ? yes : no)}</strong>`;
@@ -8676,14 +8684,14 @@ function kubaraHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Run a Kubara platform with ConfigHub &middot; ConfigHub Workshop</title>
+  <title>Bring a Kubara platform into ConfigHub · ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
     ${audienceLabel("For platform teams")}
-    <h1>Run a Kubara platform with ConfigHub</h1>
+    <h1>Bring a Kubara platform into ConfigHub</h1>
     <p class="lead">Choose the services your developers need to build and run AI-assisted tools and applications. The Catalog supplies tested component versions and known requirements. AI can help with the selection and settings. The starter writes native Kubara configuration for you to review before Kubara generates the platform files.</p>
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
     <p>Keep platform components, developer tools, and applications as related but separately versioned configuration. ConfigHub retains and promotes each of them. Test a platform-component revision when shared services change, a tool revision when the developer experience changes, and an app revision when an application changes. <a href="./put-an-app-on-a-platform.html">Apps on a platform</a> defines what an app needs from the platform under it. An AICR-generated AI platform composes the same way from Argo CD Applications; <a href="./try-aicr.html">Try AICR</a> inspects one without a GPU.</p>
@@ -9016,7 +9024,7 @@ function examplesHtml(catalog) {
         ["Cluster monitoring", `<a href="./charts/index.html?q=kube-prometheus-stack"><strong>Find Kube Prometheus Stack.</strong></a> Compare exact versions and delivery evidence, and see the CRD and hook work rendered YAML does not show on <a href="./quirks.html">what charts hide</a>.`],
         ["Ingress and certificates", `<a href="./charts/index.html?q=ingress-nginx"><strong>Start with ingress-nginx</strong></a>, then <a href="./charts/index.html?q=cert-manager">add cert-manager</a>. The Catalog records the setup work that rendered YAML does not explain.`],
         ["AI inference", `<a href="./try-aicr.html"><strong>Start with AICR.</strong></a> Compare existing GPU nodes without a recipe, or inspect the exact CPU-starter Applications and OCI without an account, cluster, or GPU. Then continue to the NIM and EKS examples below.`],
-        ["An internal developer platform", `<a href="./kubara.html"><strong>Build a small platform with Catalog components, Kubara, and AI.</strong></a> Review native Kubara configuration, generate Git and OCI outputs, then retain and promote platform components, developer tools, and applications separately in ConfigHub.`],
+        ["An internal developer platform", `<a href="./bring-kubara-into-confighub.html"><strong>Build a small platform with Catalog components, Kubara, and AI.</strong></a> Review native Kubara configuration, generate Git and OCI outputs, then retain and promote platform components, developer tools, and applications separately in ConfigHub.`],
         ["A chart or configuration I already have", `<a href="./ask.html"><strong>Check my config.</strong></a> Bring the values, YAML, OCI, or work made by AI. Compare it with defaults, Catalog records, or what you run now.`],
       ], { rawSecondColumn: true })}
       <p>Missing the component or use case you need? <a href="${SITE_FEEDBACK_ISSUE_URL}">Tell us what you are trying to run</a>.</p>
@@ -9047,7 +9055,7 @@ function examplesHtml(catalog) {
         ],
         [
           "Can I build a platform from tested parts?",
-          `<a href="./kubara.html"><strong>Build a Kubara platform</strong></a>`,
+          `<a href="./bring-kubara-into-confighub.html"><strong>Build a Kubara platform</strong></a>`,
           `Choose Catalog components, generate native Kubara configuration, and carry the reviewed Git and OCI result into ConfigHub. The page shows which platform and live checks are current.`,
         ],
         [
@@ -9145,18 +9153,18 @@ Rendered 0 secret(s)</code></pre>
 
     <section aria-labelledby="platforms">
       <h2 id="platforms">5. Build or roll out a platform</h2>
-      <p><a href="./kubara.html"><strong>Build a small Kubara platform from tested Catalog components.</strong></a> Choose services, record optional digest-pinned runtime images, and review the native Kubara config before generation. The advanced examples below continue into ConfigHub and a fleet.</p>
+      <p><a href="./bring-kubara-into-confighub.html"><strong>Build a small Kubara platform from tested Catalog components.</strong></a> Choose services, record optional digest-pinned runtime images, and review the native Kubara config before generation. The advanced examples below continue into ConfigHub and a fleet.</p>
       <p>A platform team runs the same components on many clusters. Tools like Kubara and Sveltos build these platforms. Sveltos installs one component across a group of clusters. Kubara describes a whole platform at once and generates its files.</p>
       <p>ConfigHub does the same job for both. It stores the result, checks it, and moves a change from one environment to the next. You cannot run a whole fleet in a web page, so each row links a walkthrough and the recorded evidence.</p>
       ${markdownLikeTable([
         ["Example", "What has run", "Open"],
-        ["Kubara", "Choose components and custom runtime images, generate the platform with Kubara, then keep reviewed versions and fleet operations in ConfigHub.", `<a href="./kubara.html"><strong>Build a platform</strong></a> · <a href="./d/docs/demo/kubara/adoption.html">Six-step adoption tutorial</a> · <a href="./d/docs/demo/kubara/gui-tour.html">GUI tour</a> · <a href="./d/docs/demo/kubara/checkpoints.html">Evidence checkpoints</a> · <a href="./d/docs/demo/kubara/single-platform.html">Technical mini-IDP runbook</a> · <a href="./d/examples/kubara/git-import/README.html">Importer reference</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Matrix and wiring evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/current-platform">Ordinary Kubara output</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/prepared-current-platform">Prepared importer handoff</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/prepared-current-platform/preparation-receipt.yaml">Preparation receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/current-platform/catalog-parity-receipt.yaml">Catalog parity receipt</a> · <a href="./d/docs/demo/kubara/local-platform.html">Historical v0.12 proof</a>`],
+        ["Kubara", "Choose components and custom runtime images, generate the platform with Kubara, then keep reviewed versions and fleet operations in ConfigHub.", `<a href="./bring-kubara-into-confighub.html"><strong>Build a platform</strong></a> · <a href="./d/docs/demo/kubara/adoption.html">Six-step adoption tutorial</a> · <a href="./d/docs/demo/kubara/gui-tour.html">GUI tour</a> · <a href="./d/docs/demo/kubara/checkpoints.html">Evidence checkpoints</a> · <a href="./d/docs/demo/kubara/single-platform.html">Technical mini-IDP runbook</a> · <a href="./d/examples/kubara/git-import/README.html">Importer reference</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Matrix and wiring evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/current-platform">Ordinary Kubara output</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/prepared-current-platform">Prepared importer handoff</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/prepared-current-platform/preparation-receipt.yaml">Preparation receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/current-platform/catalog-parity-receipt.yaml">Catalog parity receipt</a> · <a href="./d/docs/demo/kubara/local-platform.html">Historical v0.12 proof</a>`],
         ["Sveltos", worked(pathways, "sveltos").result, `<a href="./d/docs/demo/sveltos/kyverno-fleet.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/sveltos/kyverno-fleet">GitHub source</a> · <a href="./d/data/sveltos-oci-delivery-proof/summary.html">Proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.html">Space guide</a>`],
       ], { rawSecondColumn: true, rawThirdColumn: true })}
       <h3 id="kubara-app">An internal developer platform with apps on it</h3>
       <p><strong>ConfigHub simplifies Kubara without making it fundamentally different.</strong> Kubara's catalogs, <code>config.yaml</code>, values overlays, generated components, and hub-and-spoke model remain recognizable. ConfigHub adds exact component retention, semantic review, approvals, promotion, rollback, a component-by-cluster matrix with explicit live or unknown state, and visible wiring. Argo CD still reconciles.</p>
-      <p>The current Kubara source selects seven platform roles across one hub and three spokes. The <a href="./kubara.html">Kubara page</a> holds the architecture, the exact observation boundaries, and what the receipts do and do not prove.</p>
-      <p><a href="./kubara.html"><strong>Start with the Kubara buyer journey</strong></a> · <a href="./d/docs/demo/kubara/adoption.html">Follow the six-step tutorial</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Open the matrix and wiring evidence</a>.</p>
+      <p>The current Kubara source selects seven platform roles across one hub and three spokes. The <a href="./bring-kubara-into-confighub.html">Kubara page</a> holds the architecture, the exact observation boundaries, and what the receipts do and do not prove.</p>
+      <p><a href="./bring-kubara-into-confighub.html"><strong>Start with the Kubara buyer journey</strong></a> · <a href="./d/docs/demo/kubara/adoption.html">Follow the six-step tutorial</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Open the matrix and wiring evidence</a>.</p>
     </section>
 
     <section aria-labelledby="apps">
@@ -10092,7 +10100,7 @@ ${nonHelmCatalogRowsHtml}
          <a href="index.html?format=helm-chart">Helm <b>${catalog.catalogComponents.length}</b></a>
          <a href="index.html?format=ai-platform">AICR &amp; NIM <b>${aicrEntryCount}</b></a>
          <a href="index.html?format=timoni">Timoni <b>1</b></a>
-         <a href="../kubara.html">Kubara</a>
+         <a href="../bring-kubara-into-confighub.html">Kubara</a>
          <a href="../config.html#formats">Sveltos fleets</a>
          <a href="index.html?format=configuration-oci">OCI config <b>1</b></a>
          <a href="index.html?format=kubernetes-yaml">Plain YAML <b>1</b></a>
@@ -10228,7 +10236,7 @@ function catalogMovedSections(catalog) {
     takeIt: `    <section aria-labelledby="take-it">
       <h2 id="take-it">5. Take an entry into a stack or into ConfigHub</h2>
       <p>Open the chart page and follow its first command. Inspect the generated objects and required setup before you decide where they should run.</p>
-      <p>Choosing several components for a platform? <a href="./kubara.html"><strong>Build a small Kubara platform</strong></a> from tested Catalog entries, or <a href="./stack.html">compose a stack from certified parts</a>. Upload any entry into <a href="./confighub.html">ConfigHub</a> to release, promote, and govern it, or <a href="./deploy-with-flux-or-argo.html">deploy it directly with the reconciler you already run</a>.</p>
+      <p>Choosing several components for a platform? <a href="./bring-kubara-into-confighub.html"><strong>Build a small Kubara platform</strong></a> from tested Catalog entries, or <a href="./stack.html">compose a stack from certified parts</a>. Upload any entry into <a href="./confighub.html">ConfigHub</a> to release, promote, and govern it, or <a href="./deploy-with-flux-or-argo.html">deploy it directly with the reconciler you already run</a>.</p>
       <p><a href="./ask.html">Is my configuration right?</a> · <a href="./try.html">Try it: Redis in ten minutes</a> · <a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> · <a href="./ai.html">Use with your AI</a> · <a href="./testing.html">Worked examples</a></p>
     </section>
 `,

@@ -6,7 +6,7 @@
   "generatedFrom": [
     "data/workshop-guides/guides.yaml"
   ],
-  "count": 35,
+  "count": 36,
   "rows": [
     {
       "id": "journey-values-did-nothing",
@@ -378,6 +378,18 @@
       "address": "https://confighub.github.io/helm-expt/site/put-an-app-on-a-platform.html",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/put-an-app-on-a-platform.html"
+      }
+    },
+    {
+      "id": "bring-kubara-into-confighub",
+      "group": "stacks-and-platforms",
+      "groupTitle": "Stacks and platforms",
+      "title": "Bring a Kubara platform into ConfigHub",
+      "summary": "Govern a Kubara platform with cub kubara, from plan to handover and check, without changing how Kubara works, or use it as a Workshop stack.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html"
       }
     },
     {
