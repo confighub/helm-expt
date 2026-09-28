@@ -1410,7 +1410,7 @@ function buildSite(generatedAt) {
     offeringHtml: calmPage(offeringHtml(catalog)),
     tryHtml: calmPage(tryHtml(catalog)),
     tryAicrHtml: calmPage(tryAicrHtml()),
-    configHubHtml: calmPage(configHubHtml()),
+    configHubHtml: calmPage(configHubHtml(catalog)),
     redisWalkthroughHtml: calmPage(redisWalkthroughHtml(catalog)),
     serverlessHtml: serverlessHtml(),
     stackHtml: calmPage(stackHtml()),
@@ -3988,7 +3988,8 @@ oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0<
 `;
 }
 
-function configHtml() {
+function configHtml(catalog) {
+  const moved = catalogMovedSections(catalog);
   const flatteningRecords = JSON.parse(readFileSync(baseVariantRecordsJsonSourcePath, "utf8")).records ?? [];
   const laneTally = { "safe-to-flatten": 0, "flatten-with-routes": 0, "unsafe-to-flatten": 0, "born-flattened": 0, "not-assessed": 0 };
   for (const record of flatteningRecords) {
@@ -4252,7 +4253,7 @@ function configHtml() {
       <li><strong>Add it to the tested catalog for everyone.</strong> Send it through the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart template</a>, and a maintainer renders, checks, and publishes it as a base variant.</li>
     </ul>
   </section>
-</main>
+${moved.entryContains}${moved.readResults}${moved.baseVariants}</main>
 <footer><p>Config is the model. The <a href="./charts/index.html">Catalog</a> is the store of tested configurations, <a href="./stack.html">stacks</a> compose them, and <a href="./confighub.html">ConfigHub</a> governs, releases, and promotes a reviewed base.</p></footer>
 </body>
 </html>`;
@@ -4378,7 +4379,8 @@ function howItWorksHtml() {
 `;
 }
 
-function configHubHtml() {
+function configHubHtml(catalog) {
+  const moved = catalogMovedSections(catalog);
   const localReceipt = readYaml(join(repoRoot, "runs/byo-helm-values-proof/receipt.yaml"));
   const publicReceipt = readYaml(join(repoRoot, "runs/byo-helm-values-proof/public-oci-receipt.yaml"));
   const uploadReceipt = readYaml(join(repoRoot, "runs/byo-helm-values-proof/confighub-upload-receipt.yaml"));
@@ -4470,7 +4472,7 @@ function configHubHtml() {
     <p><a href="${confighubOutboundUrl(CONFIGHUB_BLOG_URL, "confighub-page")}">Read the ConfigHub blog</a> for product ideas, technical explanations, and worked stories.</p>
     <p><a href="./how-it-works.html">Review the operate verbs</a> · <a href="./docs.html">Find technical instructions</a></p>
   </section>
-</main>
+${moved.takeIt}</main>
 </body>
 </html>
 `;
@@ -4548,7 +4550,7 @@ cat ./bitnami-redis-25-5-3-reuse-existing-secret/out/manifests/configmap-redis-r
 
   <h2 id="redis-walkthrough">1 · Pull, inspect, and verify Redis</h2>
   <p>Start without a cluster. Pull the public Redis package, select the existing-Secret configuration, write the Kubernetes files, and write the same non-secret objects as a local OCI image layout.</p>
-  <p><code>reuse-existing-secret</code> is a <a href="./charts/index.html#base-variants">base variant</a>: a reviewed way to use the chart with its Helm inputs, rendered output, checks, and required Secret recorded together.</p>
+  <p><code>reuse-existing-secret</code> is a <a href="./config.html#base-variants">base variant</a>: a reviewed way to use the chart with its Helm inputs, rendered output, checks, and required Secret recorded together.</p>
   <pre><code># No ConfigHub account, Google registry login, or Kubernetes cluster.
 cub installer setup --pull ${REDIS_INSTALLER_PINNED_OCI_REF} \\
     --base reuse-existing-secret --work-dir ./redis \\
@@ -6953,6 +6955,7 @@ function quirksHtml(catalog) {
 }
 
 function proofHtml(catalog) {
+  const moved = catalogMovedSections(catalog);
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const proofCounters = [
     ["Helm render match", metricValue(metric("render parity rows")), "Helm and cub installer produced the same objects from the recorded settings."],
@@ -7123,7 +7126,7 @@ function proofHtml(catalog) {
       ])}
       <p><a href="../docs/user/what-we-refuse-to-claim.md">Read the full refusal page</a> or <a href="../data/claims-register/summary.md">open the claims register</a>.</p>
     </section>
-  </main>
+${moved.trust}${moved.verify}  </main>
   <footer>Generated from helm-expt proof data. A passing check means only that its own test passed, and nothing more.</footer>
 </body>
 </html>
@@ -9870,36 +9873,6 @@ function aicrCatalogRows() {
   // The catalog page's context, split into fragments so the three sub-areas of
   // the landing page (config types, what you can do, the store) can each place
   // the pieces that belong to them.
-  const staysAvailableHtml = `<h3 id="catalog-summary">What stays available</h3>
-      <p>The catalog retains ${retention.retained_package_versions} exact package versions across ${retention.retained_components} components. ${retention.published_package_versions} have a dated registry receipt; the oldest current receipt is from ${retention.oldest_publication_receipt_at.slice(0, 10)}. A new review adds a version. It does not silently replace an older package.</p>
-      <p>We have caught ${retention.upstream_republished_version_pairs} cases where an upstream publisher changed the bytes behind an existing version string. The catalog keeps the reviewed bytes and records both digests so you can see the change. <a href="../d/data/upstream-drift/summary.html">Read those cases</a>.</p>
-      <p>A chart is listed only after its license evidence is recorded. Normal refreshes are additive. If a legal or factual correction is required, the change must be named rather than hidden. <a href="../d/docs/reference/how-the-catalog-is-built.html">Read the retention policy</a>.</p>`;
-  const entryContainsHtml = `<h2 id="entry-contains">What each catalog entry contains</h2>
-      <p>Every version has a local detail page for its package, configurations, and receipt. The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>`;
-  const severalConfigsHtml = `<h2 id="base-variants">Why the catalog offers several configurations</h2>
-      <p>A Helm chart can expose hundreds of values. The catalog provides tested starting configurations for common choices, such as existing Secrets, high availability, or separately managed CRDs.</p>
-      <p>We call each starting configuration a base variant. Its page records the Helm values, rendered YAML, required setup, and evidence for that choice.</p>
-      <p>Useful choices differ by chart. Redis, Argo CD, and kube-prometheus-stack do not need the same starting configurations.</p>
-      <h4 id="how-values-chosen">How the values for each configuration are chosen</h4>
-      <p>We do not guess. The <strong>default</strong> configuration is the chart's own defaults, with the image pinned by digest. When a chart's default is unsafe, we keep it visible as an honest example and add a recommended one beside it: Redis <code>default</code> writes a password into a rendered Secret, so the catalog also ships <code>reuse-existing-secret</code>, which names the Secret you supply and puts no credential in the render.</p>
-      <p>Every value in a configuration is recorded with where it came from: a chart default, a catalog policy such as pinning the image, or a generated value like a password. And every configuration's render is compared against Helm's own output, so a base variant is verified, not asserted. New configurations are added when a real choice needs one, gated by that comparison.</p>
-      <p><strong>Here is what this does and does not prove.</strong> The catalog proves these named configurations. It does not prove every possible values file. Your own values still need to be rendered and checked, which is what <a href="../ask.html">Is my configuration right?</a> is for.</p>
-      <p><a href="../variants.html#fields">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
-      <p>Every maintained entry uses the same <a href="../d/docs/user/model-and-vocabulary.html">configuration processing model</a>. The generated <a href="../d/data/base-variant-records/summary.html">alignment report</a> shows which records have complete flattening, ownership, and destination-route evidence and which still have gaps.</p>`;
-  const helmDocLinks = [
-    ["user/chart-hooks-what-happens", "If My Chart Has Hooks, What Happens?"],
-    ["user/hook-lifecycle-strategy", "Hook Lifecycle Strategy"],
-    ["user/helm-presets-and-values", "Helm Chart Presets And Values"],
-    ["user/helm-render-intents", "Helm Render Intents"],
-    ["user/extension-slots", "Extension Slots"],
-    ["user/helm-pain-points", "Helm Pain Points"],
-    ["user/helm-to-cub-migration", "Coming from Helm? How your habits map to cub"],
-    ["reference/seven-stage-helm-lifecycle", "Seven-Stage Helm Lifecycle"],
-    ["user/how-the-harness-works", "How The Harness Works"],
-    ["user/target-prerequisites", "Target Prerequisites"],
-    ["user/prometheus-high-fanout", "Prometheus High-Fanout Example"],
-    ["user/nginx-configuration-files", "NGINX Configuration Files"],
-  ].map(([path, title]) => `<li><a href="../d/docs/${path}.html">${escapeHtml(title)}</a></li>`).join("");
   // The non-Helm catalog entries share the one filterable table with the Helm
   // rows. They carry empty readiness/category so a Helm-specific filter drops
   // them, but they answer the text search and sit under the same headers.
@@ -9949,7 +9922,7 @@ function aicrCatalogRows() {
         <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Check one question about the result</a>, then choose whether to report a public finding for Catalog review.</p>
       </div>
       <div class="card"><table id="chart-table">
-        <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Packaged configurations by version</th></tr></thead>
+        <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Base variants by version</th></tr></thead>
         <tbody>
 ${chartRowsHtml}
 ${nonHelmCatalogRowsHtml}
@@ -10014,7 +9987,7 @@ ${nonHelmCatalogRowsHtml}
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Component Catalog · ConfigHub Workshop</title>
+  <title>Configs · ConfigHub Workshop</title>
   <style>${siteCss()}
     #chart-table { table-layout: fixed; }
     #chart-table th, #chart-table td { width: 16.6667%; white-space: normal; }
@@ -10032,7 +10005,7 @@ ${nonHelmCatalogRowsHtml}
 <body>
   <header>
     ${topNav("..")}
-    <h1>Pick a tested configuration and check it yourself</h1>
+    <h1>Configs</h1>
   <p class="boundary-chip">Runs on your laptop</p>
     <p class="lead">This catalog is the store of tested Kubernetes configurations and the case for trusting them. Every entry is an image of the exact objects, checked, with a receipt.</p>
      ${commandBlock([
@@ -10042,7 +10015,7 @@ ${nonHelmCatalogRowsHtml}
      ], { title: "run it", label: "Run it: check and verify a catalog image" })}
      <p class="caption">The plugin lives at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, and it takes one install with no account.</p>
 
-     <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model. First see <a href="#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
+     <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model. First see <a href="../proof.html#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
      <div class="support-panel" aria-label="Formats and patterns we support">
        <p class="support-lead"><strong>Every format and pattern we support.</strong> Bring any format as certified config-as-data, or compose and deliver it with these patterns.</p>
        <p class="support-group">Bring any format</p>
@@ -10065,16 +10038,6 @@ ${nonHelmCatalogRowsHtml}
      </div>
   </header>
   <main>
-    <section aria-labelledby="trust">
-      <h2 id="trust">Check why you can trust an entry</h2>
-      <p>Every entry is an image of the exact objects, with a receipt of what was checked. Three words say how far each one is proven.</p>
-      <ul>
-        <li><strong>Verified.</strong> The render matches Helm's own output for the recorded inputs, so a base variant is proven rather than asserted.</li>
-        <li><strong>Certified.</strong> A whole composition passes its checks, so every part holds together, before anything renders. <a href="../stack.html">See how a stack is certified</a>.</li>
-        <li><strong>Signed.</strong> A signature records who published the image. <code>cub config verify</code> confirms the image is exactly what its receipt says and refuses one with none. The receipt says what was checked, not that the configuration will run on your cluster.</li>
-      </ul>
-      <p><a href="#verify">Verify a signed image yourself</a>, or <a href="#not-claimed">see what this catalog does not claim</a>.</p>
-    </section>
 
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
@@ -10083,24 +10046,100 @@ ${nonHelmCatalogRowsHtml}
       ${catalogSearchBlock}
     </section>
 
-    <section aria-labelledby="entry-contains">
-      ${entryContainsHtml}
-      <p>Every entry carries the same parts, and each one is explained on <a href="../config.html">Config</a>.</p>
+
+
+
+
+  </main>
+  <footer>Generated from helm-expt catalog data. Do not edit by hand.</footer>
+</body>
+</html>
+`;
+}
+
+// The Catalog page's explanation and how-to sections, moved off the Configs
+// landing page (site IA phase 4, step 3). Trust and verification sit on Why
+// trust it, the entry model on How configuration works, and the next step on
+// the ConfigHub Server page, until steps 7 and 8 assemble the Guides and Docs.
+function catalogMovedSections(catalog) {
+  const retention = buildRetentionSummary(catalog);
+  const staysAvailableHtml = `<h3 id="catalog-summary">What stays available</h3>
+      <p>The catalog retains ${retention.retained_package_versions} exact package versions across ${retention.retained_components} components. ${retention.published_package_versions} have a dated registry receipt; the oldest current receipt is from ${retention.oldest_publication_receipt_at.slice(0, 10)}. A new review adds a version. It does not silently replace an older package.</p>
+      <p>We have caught ${retention.upstream_republished_version_pairs} cases where an upstream publisher changed the bytes behind an existing version string. The catalog keeps the reviewed bytes and records both digests so you can see the change. <a href="./d/data/upstream-drift/summary.html">Read those cases</a>.</p>
+      <p>A chart is listed only after its license evidence is recorded. Normal refreshes are additive. If a legal or factual correction is required, the change must be named rather than hidden. <a href="./d/docs/reference/how-the-catalog-is-built.html">Read the retention policy</a>.</p>`;
+  const entryContainsHtml = `<h2 id="entry-contains">5. What each catalog entry contains</h2>
+      <p>Every version has a local detail page for its package, configurations, and receipt. The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>`;
+  const severalConfigsHtml = `<h2 id="base-variants">7. Why the catalog offers several configurations</h2>
+      <p>A Helm chart can expose hundreds of values. The catalog provides tested starting configurations for common choices, such as existing Secrets, high availability, or separately managed CRDs.</p>
+      <p>We call each starting configuration a base variant. Its page records the Helm values, rendered YAML, required setup, and evidence for that choice.</p>
+      <p>Useful choices differ by chart. Redis, Argo CD, and kube-prometheus-stack do not need the same starting configurations.</p>
+      <h4 id="how-values-chosen">How the values for each configuration are chosen</h4>
+      <p>We do not guess. The <strong>default</strong> configuration is the chart's own defaults, with the image pinned by digest. When a chart's default is unsafe, we keep it visible as an honest example and add a recommended one beside it. Redis <code>default</code> writes a password into a rendered Secret. So the catalog also ships <code>reuse-existing-secret</code>, which names the Secret you supply and puts no credential in the render.</p>
+      <p>Every value in a configuration is recorded with where it came from: a chart default, a catalog policy such as pinning the image, or a generated value like a password. And every configuration's render is compared against Helm's own output, so a base variant is verified, not asserted. New configurations are added when a real choice needs one, gated by that comparison.</p>
+      <p><strong>Here is what this does and does not prove.</strong> The catalog proves these named configurations. It does not prove every possible values file. Your own values still need to be rendered and checked, which is what <a href="./ask.html">Is my configuration right?</a> is for.</p>
+      <p><a href="./variants.html#fields">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
+      <p>Every maintained entry uses the same <a href="./d/docs/user/model-and-vocabulary.html">configuration processing model</a>. The generated <a href="./d/data/base-variant-records/summary.html">alignment report</a> shows which records have complete flattening, ownership, and destination-route evidence and which still have gaps.</p>`;
+  const helmDocLinks = [
+    ["user/chart-hooks-what-happens", "If My Chart Has Hooks, What Happens?"],
+    ["user/hook-lifecycle-strategy", "Hook Lifecycle Strategy"],
+    ["user/helm-presets-and-values", "Helm Chart Presets And Values"],
+    ["user/helm-render-intents", "Helm Render Intents"],
+    ["user/extension-slots", "Extension Slots"],
+    ["user/helm-pain-points", "Helm Pain Points"],
+    ["user/helm-to-cub-migration", "Coming from Helm? How your habits map to cub"],
+    ["reference/seven-stage-helm-lifecycle", "Seven-Stage Helm Lifecycle"],
+    ["user/how-the-harness-works", "How The Harness Works"],
+    ["user/target-prerequisites", "Target Prerequisites"],
+    ["user/prometheus-high-fanout", "Prometheus High-Fanout Example"],
+    ["user/nginx-configuration-files", "NGINX Configuration Files"],
+  ].map(([path, title]) => `<li><a href="./d/docs/${path}.html">${escapeHtml(title)}</a></li>`).join("");
+  return {
+    trust: `    <section aria-labelledby="trust">
+      <h2 id="trust">8. Check why you can trust an entry</h2>
+      <p>Every entry is an image of the exact objects, with a receipt of what was checked. Three words say how far each one is proven.</p>
       <ul>
-        <li><strong>The package.</strong> The pinned source and its inputs. <a href="../config.html#lifecycle">See the recipe step</a>.</li>
-        <li><strong>The bases.</strong> One reviewed starting configuration per tested choice. <a href="../variants.html">See what a base variant is</a>.</li>
-        <li><strong>The bundle</strong>, where the lane permits it. The exact objects kept as a certified OCI image. <a href="../config.html#flatten">See when a configuration can be flattened</a> and <a href="../oci.html">see the bundle's OCI shape</a>.</li>
-        <li><strong>The routes.</strong> The CRDs, hooks, and setup work, in order. <a href="../quirks.html">See what a chart hides</a>.</li>
+        <li><strong>Verified.</strong> The render matches Helm's own output for the recorded inputs, so a base variant is proven rather than asserted.</li>
+        <li><strong>Certified.</strong> A whole composition passes its checks, so every part holds together, before anything renders. <a href="./stack.html">See how a stack is certified</a>.</li>
+        <li><strong>Signed.</strong> A signature records who published the image. <code>cub config verify</code> confirms the image is exactly what its receipt says and refuses one with none. The receipt says what was checked, not that the configuration will run on your cluster.</li>
+      </ul>
+      <p><a href="#verify">Verify a signed image yourself</a>, or <a href="#not-claimed">see what this catalog does not claim</a>.</p>
+    </section>
+`,
+    verify: `    <section aria-labelledby="verify">
+      <h2 id="verify">9. Verify an entry yourself</h2>
+      <p>The catalog reports what a configuration does rather than certifying it as secure for your cluster. It gives you the exact objects, their source, and the checks recorded against them. Verify a signed package yourself with the immutable reference and the two annotations from its catalog record.</p>
+      <pre><code>cosign verify \\
+  --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com \\
+  --certificate-oidc-issuer https://accounts.google.com \\
+  --annotations confighub.com/package-path=packages/bitnami/redis/25.5.3 \\
+  --annotations confighub.com/package-sha256=&lt;package-sha256&gt; \\
+  europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:&lt;manifest-digest&gt;</code></pre>
+      <p>Each chart-version page fills in the recorded digests. Some evidence is partial by design. A digest proves integrity inside a known trust chain and says nothing outside one. A scan finding still needs a human decision. A clean render tells you the objects are well formed, while cloud identity, storage, and runtime policy at the target remain unchecked.</p>
+      <p>Behind every claim is a count you can read and a command you can rerun. <a href="./proof.html#counters">Read the current counts</a>, <a href="./proof.html#lanes">see what each test covers</a>, and <a href="./proof.html#check-one-claim">check one claim yourself</a>.</p>
+      ${staysAvailableHtml}
+      <h3 id="not-claimed">What this catalog does not claim</h3>
+      <p>The catalog proves the named configurations it lists. It does not prove every possible values file, and it does not certify a chart as secure for your cluster. Your own values still need to be rendered and checked, which is what <a href="./ask.html">Is my configuration right?</a> is for.</p>
+      <p>A green result on one test does not mean the next test passes. A signature proves origin and integrity, not safety, so scans, policies, and live evidence carry the safety claims. A row marked watch, blocked, or refused stays that way until a receipt changes it. <a href="./known-gaps.html">Read what is not ready yet</a>, or <a href="./proof.html#refusals">what this project refuses to claim</a>.</p>
+    </section>
+`,
+    entryContains: `    <section aria-labelledby="entry-contains">
+      ${entryContainsHtml}
+      <p>Every entry carries the same parts, and each one is explained on <a href="./config.html">Config</a>.</p>
+      <ul>
+        <li><strong>The package.</strong> The pinned source and its inputs. <a href="./config.html#lifecycle">See the recipe step</a>.</li>
+        <li><strong>The bases.</strong> One reviewed starting configuration per tested choice. <a href="./variants.html">See what a base variant is</a>.</li>
+        <li><strong>The bundle</strong>, where the lane permits it. The exact objects kept as a certified OCI image. <a href="./config.html#flatten">See when a configuration can be flattened</a> and <a href="./oci.html">see the bundle's OCI shape</a>.</li>
+        <li><strong>The routes.</strong> The CRDs, hooks, and setup work, in order. <a href="./quirks.html">See what a chart hides</a>.</li>
         <li><strong>The receipt.</strong> What was checked, and the digests it names. <a href="#trust">Check why you can trust it</a>.</li>
       </ul>
       <h3 id="helm-charts">Helm charts</h3>
       <ul class="doc-links">${helmDocLinks}</ul>
       <h3 id="actions">How the catalog handles required setup</h3>
-      <p>The chart page names any CRDs, hooks, setup jobs, generated Secrets, or other target resource a chart needs, before you choose a configuration. <a href="../quirks.html">See what your chart's hooks, CRDs, and setup work become</a>.</p>
+      <p>The chart page names any CRDs, hooks, setup jobs, generated Secrets, or other target resource a chart needs, before you choose a configuration. <a href="./quirks.html">See what your chart's hooks, CRDs, and setup work become</a>.</p>
     </section>
-
-    <section aria-labelledby="read-results">
-      <h2 id="read-results">Read each result correctly</h2>
+`,
+    readResults: `    <section aria-labelledby="read-results">
+      <h2 id="read-results">6. Read each result correctly</h2>
       <p>The Catalog can give you a source and exact objects without a cluster. Destination and live answers appear only when the required target or deployment evidence exists.</p>
       ${markdownLikeTable([
         ["Question", "What the Catalog shows", "What it needs"],
@@ -10110,41 +10149,21 @@ ${nonHelmCatalogRowsHtml}
         ["Did it work?", "The recorded controller, resource, workload, runtime, drift, and rollback results that were actually checked.", "The exact selected revision must have been deployed."],
       ])}
       <p>A missing prerequisite is reported as blocked or not-run. It is a different result from a configuration that failed, and we keep the two labelled apart.</p>
-      <p>Each row also carries a flattening verdict, in the "Flattens as plain YAML?" column. <a href="../config.html#flatten">See what each verdict means and how many bases fall in each lane</a>. A row's hook or CRD signal links to <a href="../quirks.html">what your chart hides</a>.</p>
+      <p>Each row also carries a flattening verdict, in the "Flattens as plain YAML?" column. <a href="./config.html#flatten">See what each verdict means and how many bases fall in each lane</a>. A row's hook or CRD signal links to <a href="./quirks.html">what your chart hides</a>.</p>
     </section>
-
-    <section aria-labelledby="base-variants">
+`,
+    baseVariants: `    <section aria-labelledby="base-variants">
       ${severalConfigsHtml}
     </section>
-
-    <section aria-labelledby="verify">
-      <h2 id="verify">Verify an entry yourself</h2>
-      <p>The catalog reports what a configuration does rather than certifying it as secure for your cluster. It gives you the exact objects, their source, and the checks recorded against them. Verify a signed package yourself with the immutable reference and the two annotations from its catalog record.</p>
-      <pre><code>cosign verify \\
-  --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com \\
-  --certificate-oidc-issuer https://accounts.google.com \\
-  --annotations confighub.com/package-path=packages/bitnami/redis/25.5.3 \\
-  --annotations confighub.com/package-sha256=&lt;package-sha256&gt; \\
-  europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:&lt;manifest-digest&gt;</code></pre>
-      <p>Each chart-version page fills in the recorded digests. Some evidence is partial by design. A digest proves integrity inside a known trust chain and says nothing outside one. A scan finding still needs a human decision. A clean render tells you the objects are well formed, while cloud identity, storage, and runtime policy at the target remain unchecked.</p>
-      <p>Behind every claim is a count you can read and a command you can rerun. <a href="../proof.html#counters">Read the current counts</a>, <a href="../proof.html#lanes">see what each test covers</a>, and <a href="../proof.html#check-one-claim">check one claim yourself</a>.</p>
-      ${staysAvailableHtml}
-      <h3 id="not-claimed">What this catalog does not claim</h3>
-      <p>The catalog proves the named configurations it lists. It does not prove every possible values file, and it does not certify a chart as secure for your cluster. Your own values still need to be rendered and checked, which is what <a href="../ask.html">Is my configuration right?</a> is for.</p>
-      <p>A green result on one test does not mean the next test passes. A signature proves origin and integrity, not safety, so scans, policies, and live evidence carry the safety claims. A row marked watch, blocked, or refused stays that way until a receipt changes it. <a href="../known-gaps.html">Read what is not ready yet</a>, or <a href="../proof.html#refusals">what this project refuses to claim</a>.</p>
-    </section>
-
-    <section aria-labelledby="take-it">
-      <h2 id="take-it">Take an entry into a stack or into ConfigHub</h2>
+`,
+    takeIt: `    <section aria-labelledby="take-it">
+      <h2 id="take-it">5. Take an entry into a stack or into ConfigHub</h2>
       <p>Open the chart page and follow its first command. Inspect the generated objects and required setup before you decide where they should run.</p>
-      <p>Choosing several components for a platform? <a href="../kubara.html"><strong>Build a small Kubara platform</strong></a> from tested Catalog entries, or <a href="../stack.html">compose a stack from certified parts</a>. Upload any entry into <a href="../confighub.html">ConfigHub</a> to release, promote, and govern it, or <a href="../deploy-with-flux-or-argo.html">deploy it directly with the reconciler you already run</a>.</p>
-      <p><a href="../ask.html">Is my configuration right?</a> · <a href="../try.html">Try it: Redis in ten minutes</a> · <a href="../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> · <a href="../ai.html">Use with your AI</a> · <a href="../testing.html">Worked examples</a></p>
+      <p>Choosing several components for a platform? <a href="./kubara.html"><strong>Build a small Kubara platform</strong></a> from tested Catalog entries, or <a href="./stack.html">compose a stack from certified parts</a>. Upload any entry into <a href="./confighub.html">ConfigHub</a> to release, promote, and govern it, or <a href="./deploy-with-flux-or-argo.html">deploy it directly with the reconciler you already run</a>.</p>
+      <p><a href="./ask.html">Is my configuration right?</a> · <a href="./try.html">Try it: Redis in ten minutes</a> · <a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> · <a href="./ai.html">Use with your AI</a> · <a href="./testing.html">Worked examples</a></p>
     </section>
-  </main>
-  <footer>Generated from helm-expt catalog data. Do not edit by hand.</footer>
-</body>
-</html>
-`;
+`,
+  };
 }
 
 function catalogLayerLabel(entry) {
@@ -13827,7 +13846,7 @@ Open \`site/proof.html\` only as a deep reference for proof lanes, sceptic tests
 and refusal boundaries.
 Open \`site/quirks.html\` for the short guide to chart quirks such as hooks,
 CRDs, webhooks, generated facts, lookups, storage, and RBAC.
-Open \`site/charts/index.html#actions\` for hooks and actions, including hook
+Open \`site/config.html#actions\` for hooks and actions, including hook
 and lifecycle route dispositions. \`site/hooks.html\` only redirects there for
 compatibility.
 Open \`site/offering.html\` for the free, account, and commercial options, private catalogs, and commercial boundaries.

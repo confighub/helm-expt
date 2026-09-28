@@ -764,10 +764,39 @@
       </style>
       <p><a href="d/docs/user/what-we-refuse-to-claim.html">Read the full refusal page</a> or <a href="https://github.com/confighub/helm-expt/blob/main/data/claims-register/summary.md">open the claims register</a>.</p>
     </section>
+    <section aria-labelledby="trust">
+      <h2 id="trust">8. Check why you can trust an entry</h2>
+      <p>Every entry is an image of the exact objects, with a receipt of what was checked. Three words say how far each one is proven.</p>
+      <ul>
+        <li><strong>Verified.</strong> The render matches Helm's own output for the recorded inputs, so a base variant is proven rather than asserted.</li>
+        <li><strong>Certified.</strong> A whole composition passes its checks, so every part holds together, before anything renders. <a href="./stack.html">See how a stack is certified</a>.</li>
+        <li><strong>Signed.</strong> A signature records who published the image. <code>cub config verify</code> confirms the image is exactly what its receipt says and refuses one with none. The receipt says what was checked, not that the configuration will run on your cluster.</li>
+      </ul>
+      <p><a href="#verify">Verify a signed image yourself</a>, or <a href="#not-claimed">see what this catalog does not claim</a>.</p>
+    </section>
+    <section aria-labelledby="verify">
+      <h2 id="verify">9. Verify an entry yourself</h2>
+      <p>The catalog reports what a configuration does rather than certifying it as secure for your cluster. It gives you the exact objects, their source, and the checks recorded against them. Verify a signed package yourself with the immutable reference and the two annotations from its catalog record.</p>
+      <pre><code>cosign verify \
+  --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com \
+  --certificate-oidc-issuer https://accounts.google.com \
+  --annotations confighub.com/package-path=packages/bitnami/redis/25.5.3 \
+  --annotations confighub.com/package-sha256=&lt;package-sha256&gt; \
+  europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:&lt;manifest-digest&gt;</code></pre>
+      <p>Each chart-version page fills in the recorded digests. Some evidence is partial by design. A digest proves integrity inside a known trust chain and says nothing outside one. A scan finding still needs a human decision. A clean render tells you the objects are well formed, while cloud identity, storage, and runtime policy at the target remain unchecked.</p>
+      <p>Behind every claim is a count you can read and a command you can rerun. <a href="./proof.html#counters">Read the current counts</a>, <a href="./proof.html#lanes">see what each test covers</a>, and <a href="./proof.html#check-one-claim">check one claim yourself</a>.</p>
+      <h3 id="catalog-summary">What stays available</h3>
+      <p>The catalog retains 142 exact package versions across 113 components. 142 have a dated registry receipt; the oldest current receipt is from 2026-08-26. A new review adds a version. It does not silently replace an older package.</p>
+      <p>We have caught 2 cases where an upstream publisher changed the bytes behind an existing version string. The catalog keeps the reviewed bytes and records both digests so you can see the change. <a href="https://github.com/confighub/helm-expt/blob/main/data/upstream-drift/summary.md">Read those cases</a>.</p>
+      <p>A chart is listed only after its license evidence is recorded. Normal refreshes are additive. If a legal or factual correction is required, the change must be named rather than hidden. <a href="./d/docs/reference/how-the-catalog-is-built.html">Read the retention policy</a>.</p>
+      <h3 id="not-claimed">What this catalog does not claim</h3>
+      <p>The catalog proves the named configurations it lists. It does not prove every possible values file, and it does not certify a chart as secure for your cluster. Your own values still need to be rendered and checked, which is what <a href="./ask.html">Is my configuration right?</a> is for.</p>
+      <p>A green result on one test does not mean the next test passes. A signature proves origin and integrity, not safety, so scans, policies, and live evidence carry the safety claims. A row marked watch, blocked, or refused stays that way until a receipt changes it. <a href="./known-gaps.html">Read what is not ready yet</a>, or <a href="./proof.html#refusals">what this project refuses to claim</a>.</p>
+    </section>
   </main>
   <footer>Generated from helm-expt proof data. A passing check means only that its own test passed, and nothing more.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#counters">1. Read the current counts</a></li><li><a href="#lanes">2. See what each test covers</a></li><li><a href="#check-one-claim">3. Check one claim yourself</a></li><li><a href="#serious">4. Check the harder charts</a></li><li><a href="#security">5. Review security before release</a></li><li><a href="#sceptic">6. Find tests designed to expose failure</a></li><li><a href="#refusals">7. See what this project does not claim</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./known-gaps.html">Known gaps &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#counters">1. Read the current counts</a></li><li><a href="#lanes">2. See what each test covers</a></li><li><a href="#check-one-claim">3. Check one claim yourself</a></li><li><a href="#serious">4. Check the harder charts</a></li><li><a href="#security">5. Review security before release</a></li><li><a href="#sceptic">6. Find tests designed to expose failure</a></li><li><a href="#refusals">7. See what this project does not claim</a></li><li><a href="#trust">8. Check why you can trust an entry</a></li><li><a href="#verify">9. Verify an entry yourself</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./known-gaps.html">Known gaps &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Stacks and fleets</a><a href="./try-aicr.html">Inference platforms</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Apps on a platform</a><a href="./testing.html">Worked examples</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./kubara.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>

@@ -150,7 +150,22 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Component Catalog", "Pick a tested configuration and check it yourself", "Search the catalog", "entries shown", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Every version has a local detail page", "Packaged configurations by version", "Flattens as plain YAML?", "No entry matches these filters", "Check your chart and values locally", "What each catalog entry contains", "Read each result correctly", "A missing prerequisite is reported as blocked or not-run", "Why the catalog offers several configurations", "Check why you can trust an entry", "What this catalog does not claim", "Take an entry into a stack or into ConfigHub", "provider-curated source variant", "A difference is not automatically a fault", "cosign verify", "The render matches Helm's own output", "A whole composition passes its checks", "A signature records who published the image", "What stays available", "configuration processing model", "alignment report", "How the catalog handles required setup"],
+    terms: ["id=\"chart-filter\"", "Configs · ConfigHub Workshop", "<h1>Configs</h1>", "Search the catalog", "entries shown", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Base variants by version", "Flattens as plain YAML?", "No entry matches these filters", "Check your chart and values locally", "provider-curated source variant", "A difference is not automatically a fault"],
+  },
+  // Site IA phase 4, step 3: the Catalog page's explanation moved to How
+  // configuration works, its trust and verification to Why trust it, and its
+  // next step to the ConfigHub Server page.
+  {
+    file: "site/config.html",
+    terms: ["Every version has a local detail page", "What each catalog entry contains", "Read each result correctly", "A missing prerequisite is reported as blocked or not-run", "Why the catalog offers several configurations", "configuration processing model", "alignment report", "How the catalog handles required setup"],
+  },
+  {
+    file: "site/proof.html",
+    terms: ["Check why you can trust an entry", "What this catalog does not claim", "cosign verify", "The render matches Helm's own output", "A whole composition passes its checks", "A signature records who published the image", "What stays available"],
+  },
+  {
+    file: "site/confighub.html",
+    terms: ["Take an entry into a stack or into ConfigHub"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -937,7 +952,7 @@ const purposePageRules = [
   },
   {
     file: "site/config.html",
-    maxH2: 4,
+    maxH2: 7,
     requiredLinks: ["./charts/index.html", "./confighub.html"],
   },
   {
@@ -958,7 +973,7 @@ const purposePageRules = [
   },
   {
     file: "site/confighub.html",
-    maxH2: 4,
+    maxH2: 5,
     requiredLinks: ["./how-it-works.html", "./docs.html"],
     forbidden: ["Choose one place to start"],
   },
