@@ -8,6 +8,14 @@ one platform's worth of objects. The Workshop treats a Kubara entry the same
 way it treats every other source: generate the exact objects, check what they
 need, and carry the bootstrap, secret, and CRD work forward with them.
 
+If you run Kubara and want its platform governed in ConfigHub, use `cub kubara`
+from [kubara-confighub](https://github.com/confighub/kubara-confighub) instead of
+this Guide. Your path is `kubara generate`, then `cub kubara plan`, `apply` and
+`handover`, and it has no stack step. The
+[cub kubara guide](https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md)
+walks it. This Guide answers a different question: what a generated Kubara
+platform contains, needs and carries, read as a Catalog entry.
+
 You can work through this Guide two ways, and both use the same commands.
 Read it top to bottom yourself and run each command as it appears, or hand
 the whole Guide to an agent with the assistant task below and check its

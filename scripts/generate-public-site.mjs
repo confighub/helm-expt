@@ -169,7 +169,7 @@ const NON_HELM_FORMAT_INFO = {
     label: "Kubara",
     sentence: "Kubara selects components and generates platform configuration, and the Workshop retains routes for bootstrap, Git handoff, controller ownership, and application ordering.",
     learnHref: "./kubara.html",
-    learnLabel: "Build a platform",
+    learnLabel: "Kubara platforms",
   },
   "configuration-oci": {
     label: "Configuration OCI",
@@ -2405,7 +2405,7 @@ function siteFooterNav(relPath) {
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
     + group("Catalog", [a("charts/index.html", "Find a configuration"), a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("matrix.html", "Evidence index"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
     + group("Config", [a("config.html", "How configuration works"), a("ai.html", "Use with your AI"), a("ask.html", "Check my config"), a("variants.html", "Variants"), a("oci.html", "OCI shapes"), a("quirks.html", "What charts hide"), a("try.html", "Try it: Redis in ten minutes")])
-    + group("Stacks", [a("demo.html", "The ten-minute demo"), a("stack.html", "Stacks and fleets"), a("kubara.html", "Build a platform"), a("try-aicr.html", "Inference platforms"), a("apps.html", "Apps on a platform")])
+    + group("Stacks", [a("demo.html", "The ten-minute demo"), a("stack.html", "Stacks and fleets"), a("kubara.html", "Kubara platforms"), a("try-aicr.html", "Inference platforms"), a("apps.html", "Apps on a platform")])
     + group("Operate", [a("how-it-works.html", "Operate"), a("confighub.html", "ConfigHub Server"), a("promote.html", "Promote my config"), a("operations.html", "Operations"), a("does-cluster-match-approved-config.html", "Does the cluster match?")])
     + group("Docs", [a("docs.html", "Docs"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("offering.html", "Offering")])
     + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Upload a result into ConfigHub")}${a("confighub.html", "ConfigHub Server")}</div>`
@@ -2440,7 +2440,7 @@ function siteSections() {
     ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"], ["testing.html", "Worked examples"],
   ] },
   { label: "Stacks", hub: "stack.html", pages: [
-    ["demo.html", "The ten-minute demo"], ["stack.html", "Stacks and fleets"], ["kubara.html", "Build a platform"], ["try-aicr.html", "Inference platforms"],
+    ["demo.html", "The ten-minute demo"], ["stack.html", "Stacks and fleets"], ["kubara.html", "Kubara platforms"], ["try-aicr.html", "Inference platforms"],
     ["apps.html", "Apps on a platform"],
   ] },
   { label: "Operate", hub: "how-it-works.html", pages: [
@@ -4994,7 +4994,7 @@ cub stack check metrics-double</code></pre>
         { cmd: "cub stack check ./confighub/stack.yaml" },
         { cmd: "cub stack upload  ./confighub/stack.yaml --run" },
       ])}
-      <p><a href="./kubara.html">Build a platform</a> walks the whole Kubara adoption journey.</p>
+      <p><a href="./kubara.html">Kubara platforms</a> walks the whole Kubara adoption journey.</p>
     </section>
 
     <section aria-labelledby="image">
@@ -8538,30 +8538,49 @@ function kubaraHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Build an internal developer platform with Kubara &middot; ConfigHub Workshop</title>
+  <title>Run a Kubara platform with ConfigHub &middot; ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
     ${audienceLabel("For platform teams")}
-    <h1>Build an internal developer platform</h1>
+    <h1>Run a Kubara platform with ConfigHub</h1>
     <p class="lead">Choose the services your developers need to build and run AI-assisted tools and applications. The Catalog supplies tested component versions and known requirements. AI can help with the selection and settings. The starter writes native Kubara configuration for you to review before Kubara generates the platform files.</p>
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
     <p>Keep platform components, developer tools, and applications as related but separately versioned configuration. ConfigHub retains and promotes each of them. Test a platform-component revision when shared services change, a tool revision when the developer experience changes, and an app revision when an application changes. <a href="./apps.html">Apps on a platform</a> defines what an app needs from the platform under it. An AICR-generated AI platform composes the same way from Argo CD Applications; <a href="./try-aicr.html">Try AICR</a> inspects one without a GPU.</p>
     <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform or its applications need shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
     <p>If you already run a platform on Flux or Argo, <a href="./deploy-with-flux-or-argo.html">point ConfigHub at the fleet you have</a> and add identity, approvals, and rollback with your reconciler unchanged.</p>
     <p>The implementation lives in <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>.</p>
-    ${humanLinks([["Try it now", "#kubara-run-yourself"], ["Point ConfigHub at an existing fleet", "./deploy-with-flux-or-argo.html"], ["Learn ConfigHub", "./confighub.html"]])}
+    ${humanLinks([["Govern it with cub kubara", "#kubara-govern"], ["Use it as a stack", "#kubara-run-yourself"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
+    <section aria-labelledby="kubara-govern">
+      <h2 id="kubara-govern">Govern your Kubara platform with cub kubara</h2>
+      <p>Three pieces meet here, and each has one job.</p>
+      <p><strong>Kubara generates the platform.</strong> You write a <code>config.yaml</code> that chooses services from Kubara's catalogs. <code>kubara generate</code> writes a wrapper chart for each service and each cluster's values. Kubara's hub Argo CD then delivers to every cluster through ApplicationSets.</p>
+      <p><strong><code>cub kubara</code> is for people who run Kubara.</strong> It governs a Kubara platform in ConfigHub without changing how Kubara works. It keeps a base for each component and a variant for each cluster, with an approval before each release.</p>
+      ${commandBlock([
+        { comment: "Until its first release, build the plugin from source", cmd: "git clone https://github.com/confighub/kubara-confighub.git" },
+        { cmd: "cd kubara-confighub && go build -o kubara-confighub . && cub plugin install ./kubara-confighub" },
+        { comment: "Kubara's services, with Workshop evidence for each chart", cmd: "cub kubara services" },
+        { comment: "Write your Kubara config, then let Kubara generate the platform", cmd: "cub kubara init --out ../my-platform --services cert-manager,metrics-server,traefik" },
+        { cmd: "kubara --work-dir ../my-platform --config-file config.yaml --env-file .env.example generate --helm" },
+        { comment: "What ConfigHub would hold, offline", cmd: "cub kubara plan ../my-platform" },
+        { comment: "The cub steps as one script to read, then run", cmd: "cub kubara apply ../my-platform --out ../my-platform-confighub" },
+      ])}
+      <p>Then <code>cub kubara handover</code> points Kubara's hub at the approved releases instead of Git. It is still a draft, and it has not yet run against a live hub (<a href="https://github.com/confighub/kubara-confighub/pull/13">kubara-confighub #13</a>). The plugin has no release yet, so the first two commands build it (<a href="https://github.com/confighub/kubara-confighub/issues/15">kubara-confighub #15</a>).</p>
+      <p>This path has no stack step. <code>cub kubara apply</code> renders Kubara's charts with the Workshop's <code>cub stack from-kubara</code>, an internal dependency you never run yourself. The <a href="https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md">cub kubara guide</a> walks every command.</p>
+      <h3>Where cub stack comes in</h3>
+      <p>Workshop stacks serve a different job. They use a Kubara platform as a stack, rather than governing it the way Kubara runs it. Reach for <code>cub stack</code> to check the platform before anything runs, compose apps onto it, publish it as OCI, or produce a platform on demand. The next section shows that path.</p>
+    </section>
     <p class="notice"><strong>Need GitOps services and the shop app?</strong> <a href="./d/docs/user/workshop-compose-guide.html">Save, change and resume a local platform</a> using the retained <code>kubara-gitops-shop</code> selection. The Guide provides direct cub commands and an assistant task, with saved results and a failure case. Static composition does not establish GitOps reconciliation or application health.</p>
     ${generatedStamp(catalog, "Kubara buyer journey")}
     <section aria-labelledby="kubara-run-yourself">
       <h3 id="kubara-run-yourself" style="font-size:1.25rem">Try it now</h3>
       <p>Three steps, smallest first. Each one is a real command or a recorded walkthrough, and every claim behind them links a committed receipt.</p>
       <div class="card">
-        <h3>Generate and check a platform locally</h3>
+        <h3>Use your Kubara platform as a stack</h3>
         <p>Kubara generates the platform you described as files in Git, a Kubara tree that is not yet a stack and not yet a platform. <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines a stack as a set of parts named in one manifest and checked before any of it runs. <code>cub stack from-kubara</code> turns the tree into exactly that. A platform is what the certified stack becomes once it runs under governance with apps on it. A fleet is that stack and its apps placed across many clusters. The workshop plugin carries the same three services as a stack and places it as a fleet.</p>
         ${commandBlock([
           { cmd: "git clone https://github.com/confighub/kubara-confighub.git" },
