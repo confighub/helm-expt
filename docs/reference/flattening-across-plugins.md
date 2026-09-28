@@ -12,15 +12,22 @@ charts of Sveltos ClusterProfiles. `cub kubara` flattens a platform Kubara gener
 `cub argo` and `cub flux` flatten what Argo CD and Flux deploy. `cub helm` renders a
 bare chart into a ConfigHub component.
 
-This page says how each of them applies the one model. It adds no new verdict. It
-names the processor for each kind of source, the checks every render passes, where
-the verdict comes from, how generated values split, when to render late, and what
-counts as the same object set.
+[The certified bundle spec](./certified-bundle-spec.md) already defines the shape
+every producer shares, and it names Kubara and Sveltos among them. A source is
+rendered once, packaged as a certified bundle with a receipt, ingested as one Unit
+per file, varied per target, and delivered by any reconciler.
+
+This page says how each plugin applies that model and that shape. It adds no new
+verdict and no new format. It names the processor for each kind of source, the
+checks every render passes, where the verdict comes from, how generated values
+split, when to render late, and what counts as the same object set.
 
 ## The contract
 
-A plugin materializes a source with the processor for that kind of source. It checks
-the render against the same criteria the Catalog uses. It takes the verdict from the
+A plugin materializes a source with the processor for that kind of source. It
+produces the certified bundle shape: one bundle per component, a receipt, and one
+Unit per file when it ingests into ConfigHub. It checks the render against the same
+criteria the Catalog uses, and records them in the receipt. It takes the verdict from the
 Catalog when the Catalog holds that exact source, and decides locally, saying so,
 when it does not. Generated Secret values stay with the target, and any other
 generated value sends the source to render late. Two renders are the same
@@ -47,9 +54,25 @@ default calls the Workshop plugin, so `cub kubara` and the Workshop render a Kub
 platform the same way. The shared thing is the contract, with one processor for each
 kind of source.
 
+## The shape is the certified bundle
+
+A plugin does not choose its own layout. It follows the certified bundle spec.
+
+- **One bundle per component**, keyed by the source version and variant, with a
+  digest-bound index for the composition.
+- **One Unit per file** in ConfigHub, ingested with
+  `cub variant upload --granularity per-file` into a base Space no target deploys.
+  This settles how finely a chart is stored. Today `cub kubara` stores one Unit per
+  component and `cub helm` one Unit per object group, and both move to the bundle's
+  files.
+- **A receipt** that records the render inputs, including the renderer, the pinned
+  kube version and API versions, the values hash and the hook policy, and one
+  disposition row for each quirk class.
+
 ## Every render passes the same checks
 
 These are the criteria the Catalog already uses, stated for a render a plugin makes.
+Each one is a render input or a disposition row in the receipt.
 
 1. **The version is exact.** A floating version, such as `2.4.x`, renders whatever is
    newest that day. The plugin refuses it and names the exact version to pin.
@@ -151,23 +174,27 @@ plugin should compute the same value.
 
 ## What is not settled yet
 
+Each open item has an owner.
+
 - **Overlays have no Catalog verdict.** The Catalog decides verdicts for Helm, AICR,
   Timoni, Kubara and literal YAML. A Kustomize overlay is the main input for Argo CD
-  and Flux, and it has none.
+  and Flux, and it has none. The Catalog owns this (#2001).
 - **`cub helm template` cannot declare capabilities.** Plain `helm template` takes
   `--api-versions`, and `cub helm template` has no equivalent. On 2026-09-28 it
   rendered four of five Kubara charts and failed on traefik for this reason.
-- **Granularity differs.** `cub helm` stores a chart as many Units, one per object
-  group. `cub kubara` stores one Unit per component. A platform that mixes the two
-  needs one rule.
-- **Where the rules live.** The checks above could move into `cub helm` itself as
-  flags, so every caller gets them from one command.
+  ConfigHub owns this ([confighub/cub-helm#2](https://github.com/confighub/cub-helm/issues/2)).
+- **The plugins move to per-file Units.** `cub kubara` and `cub helm` follow the
+  certified bundle spec's ingest contract, as the section above says. Each plugin's
+  repository owns its move.
+- **Where the checks run.** They could move into `cub helm` itself as flags, so every
+  caller gets them from one command. ConfigHub and the Catalog decide this together.
 
 ## Related
 
 - [When to flatten configuration](./flattening-alignment.md)
 - [Deciding a flattening lane](./deciding-a-flattening-lane.md)
 - [Secret Lifecycle](./secret-lifecycle.md)
+- [The certified bundle spec](./certified-bundle-spec.md)
 - Rule 6, "Never silent", and rule 10, "A claim must be openable", in [the doctrine](../../tests/doctrine.md)
 - [sveltos-confighub `chartrender`](https://github.com/confighub/sveltos-confighub/tree/main/chartrender)
 - [kubara-confighub: the `cub kubara` guide](https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md)
