@@ -29,8 +29,8 @@ produces the certified bundle shape: one bundle per component, a receipt, and on
 Unit per file when it ingests into ConfigHub. It checks the render against the same
 criteria the Catalog uses, and records them in the receipt. It takes the verdict from the
 Catalog when the Catalog holds that exact source, and decides locally, saying so,
-when it does not. Generated Secret values stay with the target, and any other
-generated value sends the source to render late. Two renders are the same
+when it does not. A generated value keeps the source unsafe to flatten, rendered late, until a
+receipt establishes a route for it on that target and delivery runtime. Two renders are the same
 configuration exactly when their canonical object sets are equal.
 
 ## Which processor materializes which source
@@ -95,37 +95,46 @@ Each one is a render input or a disposition row in the receipt.
 
 ## Where the verdict comes from
 
-The Catalog decides first. When the Catalog holds the exact chart version and base, its
-`flatteningVerdict` applies, read from `site/listings/index.json`. A plugin shows that
-verdict and links the entry.
+The Catalog decides first, but only for a configuration it assessed. The index,
+`site/listings/index.json`, is for finding an entry. The verdict applies only when
+the plugin's render inputs match the entry's `source.fixedAtBuildTime` in its
+detailed listing, `site/listings/<id>.json`. Those inputs are the chart and version,
+the base, the values, the namespace, the release name and the capability profile.
+The verdict also applies when the plugin's canonical object set equals the entry's,
+computed as the last section says.
 
-When the Catalog does not hold that exact source, the plugin runs the checks above and
-records its result as decided locally. A local decision is useful to the user, but it
-is not a Catalog verdict and is never published as one. A version that differs from a
-Catalog entry by one patch release is a different source.
+When the chart and version match but other inputs differ, the Catalog's verdict is
+evidence about a related configuration, not the verdict for this one. The plugin then
+runs the checks above and records its result as decided locally. A local decision is
+useful to the user, but it is not a Catalog verdict and is never published as one.
+The entry's `flattened.scope` also names when a verdict must be rechecked, such as
+after a destination or delivery runtime change.
 
-## Generated values split in two
+## Generated values keep a source unsafe until a route is proved
 
-A render that does not repeat has generated something. Where it generated the value
-decides the answer. This follows [Secret Lifecycle](./secret-lifecycle.md).
+A render that does not repeat has generated something. The source stays
+`unsafe-to-flatten` and renders late, unless a receipt establishes a route for that
+value on that target and delivery runtime. Prose does not change a lane. This
+follows [Secret Lifecycle](./secret-lifecycle.md) and the Catalog's existing
+verdicts. Bitnami nginx 24.0.2, for example, generates a TLS certificate at render
+time and stays `unsafe-to-flatten`.
 
-**A value generated into a Secret** is credential material, such as a chart's random
-admin password. The source is `flatten-with-routes`. ConfigHub holds the Secret with
-its keys and without its values, and the values are owned by the target: staged as a
-target fact, supplied by a secret store such as External Secrets, or taken from an
-existing Secret. An annotation that hashes those values, such as `checksum/secret`, is
-emptied with them. The delivery path must not overwrite the live values. For Argo CD
-that means `ignoreDifferences` on Secret `data` with `RespectIgnoreDifferences=true`.
-This was measured on Argo CD 3.5.2 on 2026-09-27: automatic syncs, later releases and
-rotations kept the live value, and a manual sync without `RespectIgnoreDifferences`
-emptied it.
+**A value generated into a Secret** can be routed in the ways Secret Lifecycle names:
+an existing-Secret base, a Secret staged as a target fact, or a secret store such as
+External Secrets. One more route has been measured for one runtime. ConfigHub holds
+the Secret with its keys and without its values, and Argo CD ignores Secret `data`
+with `RespectIgnoreDifferences=true`. On Argo CD 3.5.2, on 2026-09-27, automatic
+syncs, later releases and rotations kept the live value, and a manual sync without
+`RespectIgnoreDifferences` emptied it. That is a measurement, not yet a receipt, and
+it does not carry to Flux, Sveltos or direct apply. Where that route applies, an
+annotation that hashes the values, such as `checksum/secret`, travels without them.
 
 **Lifecycle state in a Secret**, such as a webhook serving certificate a controller
-fills, takes a lifecycle lane, as Secret Lifecycle says.
+fills, takes a lifecycle lane, as Secret Lifecycle says. A certificate the chart
+generates itself is not lifecycle state; it is a generated value.
 
-**A value generated anywhere else**, such as a random name or an identifier minted per
-render, cannot be recovered by a companion. The source is `unsafe-to-flatten`, and it
-renders late.
+**A value generated anywhere else**, such as a random name or an identifier minted
+per render, has no companion that can recover it. The source renders late.
 
 ## Render late is a route, not a refusal
 
@@ -144,30 +153,35 @@ that route instead of stopping.
 ## The canonical object set
 
 Two renders hold the same configuration exactly when their canonical object sets are
-equal. The canonical form is computed the same way everywhere.
+equal. Every plugin computes the digest the same way.
 
-1. Parse every YAML document, and drop empty documents.
-2. Identify each object by API group, kind, namespace and name.
-3. Remove comments a generator adds, such as `# Source:`.
-4. Sort the objects by identity.
-5. Serialize each object as JSON with its keys sorted.
-6. Hash the result with SHA-256, and record it as `objectSetSha256`.
+1. Parse every YAML document, and drop empty documents. Parsing drops comments,
+   such as `# Source:`.
+2. In an Argo CD Application, parse the string at `spec.source.helm.values` as YAML,
+   so embedded values compare as data rather than text.
+3. Give each object the identity `apiVersion|kind|namespace|name`, with an empty
+   string for a missing namespace.
+4. Wrap each object as `{"identity": …, "document": …}`, and sort the list by
+   identity.
+5. Serialize the list as JSON with every object's keys sorted and no whitespace.
+6. Hash the result with SHA-256, write it as `sha256:` followed by the hex digest,
+   and record it as `objectSetSha256`.
+
+`objectSetDigest` in `scripts/generate-aicr-platform-variant.mjs` implements exactly
+these steps, with `identityFor` from `scripts/lib/proof-common.mjs`. Other scripts in
+the repository hash rendered text instead. They should converge on this one, and
+each plugin should compute the same value.
 
 This matters when the same chart reaches two clusters by two routes, as a Kustomize
 overlay on one and a HelmRelease on another. The objects agree, and the bytes do not.
 Compared as text, ConfigHub would show a difference that is not there.
-
-The repository computes this in more than one way today. `objectSetDigest` in
-`scripts/generate-aicr-platform-variant.mjs` follows the steps above, and some other
-scripts hash rendered text. They should converge on one implementation, and each
-plugin should compute the same value.
 
 ## What each plugin does today
 
 | Plugin | Verdict | Generated values | Render late | Canonical set |
 | --- | --- | --- | --- | --- |
 | `cub sveltos` | Decided locally by `chartrender` | Refuses any chart that does not repeat | Offered in `chartrender`'s documentation | Compares with what Helm installed (`chartrender` compare) |
-| `cub kubara` | Shows Catalog evidence, not the verdict | Keys-only Secrets, emptied `checksum/secret` | Services without a route stay on Git | Byte comparison of renders |
+| `cub kubara` | Shows Catalog evidence, not the verdict | Keys-only Secrets and emptied `checksum/secret`: the Argo CD route, measured but not yet a receipt | Services without a route stay on Git | Byte comparison of renders |
 | `cub argo` | None yet | Not handled yet | A bare chart source is reported and left as it is | Compares what Argo CD owns with what the release holds, object by object (`CompareInventory`) |
 | `cub flux` | None yet | Not handled yet | HelmReleases are listed and left as they are | Not yet stated |
 | `cub helm` | None | Not checked | The `HelmSource` Unit | Not recorded |
