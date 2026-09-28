@@ -253,6 +253,7 @@ What the catalog promises, and the briefs behind those promises.
 | [Configuration decision contract](./reference/configuration-decisions.md) | Source-neutral contract for deciding every finding as a fix, rejection, or scoped exception while keeping local advice, ConfigHub validation, promotion, and delivery evidence separate. |
 | [../data/catalog-shared-checks/summary.md](../data/catalog-shared-checks/summary.md) | Released `cub check` results for every exact maintained Helm base, with scanner and bundle identity, exact input digests, stable controls, and the deliberately partial mapping to chart-specific Catalog reviews. |
 | [flattening-alignment.md](./reference/flattening-alignment.md) | Source-neutral decision guide for retaining exact objects, retaining them with recorded setup, or processing the source late. |
+| [flattening-across-plugins.md](./reference/flattening-across-plugins.md) | How the cub plugins that materialize live estates (sveltos, kubara, argo, flux, helm) apply one flattening model: the processor for each kind of source, the checks every render passes, where the verdict comes from, how generated values split between Secrets and render late, and one canonical object set. |
 
 ### Working with charts
 
