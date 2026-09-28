@@ -649,7 +649,7 @@
 <span class="term-comment"># The cub steps as one script to read, then run</span>
 <span class="term-prompt">$</span> cub kubara apply ../my-platform --out ../my-platform-confighub</code></pre>
       <p>Then <code>cub kubara handover</code> points Kubara's hub at the approved releases instead of Git. It is still a draft, and it has not yet run against a live hub (<a href="https://github.com/confighub/kubara-confighub/pull/13">kubara-confighub #13</a>). Everything above it is in the plugin's first release, v0.1.0.</p>
-      <p>This path has no stack step. <code>cub kubara apply</code> renders Kubara's charts with the Workshop's <code>cub stack from-kubara</code>, an internal dependency you never run yourself. The <a href="https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md">cub kubara guide</a> walks every command.</p>
+      <p>This path has no stack step. <code>cub kubara apply</code> renders each service the way Kubara's hub delivers it, with the same release name, namespace and values, so ConfigHub holds exactly what Kubara's Argo CD runs. The <a href="https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md">cub kubara guide</a> walks every command.</p>
       <h3>Where cub stack comes in</h3>
       <p>Workshop stacks serve a different job. They use a Kubara platform as a stack, rather than governing it the way Kubara runs it. Reach for <code>cub stack</code> to check the platform before anything runs, compose apps onto it, publish it as OCI, or produce a platform on demand. The next section shows that path.</p>
     </section>
