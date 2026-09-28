@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-09-28 (commit `2088eb57b`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-09-28 (commit `fca30ba16`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,9 +23,9 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 459 |
-| Fresh (no linked source newer than the doc) | 58 |
-| **Review-due** | 100 |
+| Authored docs tracked | 460 |
+| Fresh (no linked source newer than the doc) | 61 |
+| **Review-due** | 98 |
 | No linked evidence sources (cannot auto-trigger) | 301 |
 
 ## Review queue
@@ -101,7 +101,6 @@ most recently changed triggers.
 | [docs/user/verification.md](../../docs/user/verification.md) | user | 2026-08-25 | 23 | `data/outcome-coverage/summary.md (2026-09-17)`<br>`data/status-dashboard/summary.md (2026-09-17)` |
 | [docs/planning/eks-inf-replica-plan.md](../../docs/planning/eks-inf-replica-plan.md) | planning | 2026-09-03 | 22 | `data/certified-bundles/summary.md (2026-09-24)` |
 | [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) | reference | 2026-09-03 | 22 | `data/operational-class-examples/summary.md (2026-09-24)` |
-| [docs/reference/flattening-alignment.md](../../docs/reference/flattening-alignment.md) | reference | 2026-09-03 | 22 | `data/flattening-safety/summary.md (2026-09-24)` |
 | [docs/user/README.md](../../docs/user/README.md) | user | 2026-08-26 | 22 | `data/app-readiness/summary.md (2026-09-17)`<br>`data/chart-use-guide/summary.md (2026-09-17)` |
 | [docs/user/helm-render-intents.md](../../docs/user/helm-render-intents.md) | user | 2026-08-26 | 22 | `data/helm-render-intents/contract-gaps.csv (2026-09-17)`<br>`data/helm-render-intents/contract-gaps.md (2026-09-17)`<br>`data/helm-render-intents/contract.md (2026-09-17)` |
 | [docs/user/installer-oci-packages.md](../../docs/user/installer-oci-packages.md) | user | 2026-08-26 | 22 | `data/installer-oci-packages/packages.csv (2026-09-17)`<br>`data/installer-oci-packages/packages.json (2026-09-17)`<br>`data/installer-oci-packages/summary.md (2026-09-17)` |
@@ -115,7 +114,6 @@ most recently changed triggers.
 | [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-09-03 | 14 | `data/chart-use-guide/summary.md (2026-09-17)`<br>`data/master-catalog-matrix/matrix.html (2026-09-17)`<br>`data/outcome-evidence-contract/summary.md (2026-09-17)` |
 | [docs/reference/installer-package-signing.md](../../docs/reference/installer-package-signing.md) | reference | 2026-09-03 | 14 | `data/installer-package-signatures/summary.md (2026-09-17)` |
 | [docs/user/workshop-aicr-guide.md](../../docs/user/workshop-aicr-guide.md) | user | 2026-09-14 | 13 | `data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.yaml (2026-09-26)`<br>`data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-19-0-argocd.yaml (2026-09-26)`<br>`data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml (2026-09-26)` |
-| [docs/user/workshop-kubara-guide.md](../../docs/user/workshop-kubara-guide.md) | user | 2026-09-14 | 13 | `data/base-variant-records/records/kubara-local-platform-v0-12-0-base.yaml (2026-09-26)` |
 | [docs/user/workshop-timoni-guide.md](../../docs/user/workshop-timoni-guide.md) | user | 2026-09-14 | 13 | `data/base-variant-records/records/timoni-flux-aio-2-9-4-0-default.yaml (2026-09-26)`<br>`data/base-variant-records/records/timoni-redis-8-10-1-default.yaml (2026-09-26)` |
 | [docs/user/workshop-yaml-guide.md](../../docs/user/workshop-yaml-guide.md) | user | 2026-09-15 | 12 | `data/base-variant-records/records/kubernetes-yaml-acme-web-base.yaml (2026-09-26)` |
 | [docs/user/helm-presets-and-values.md](../../docs/user/helm-presets-and-values.md) | user | 2026-09-06 | 11 | `data/confighub-example-guides/summary.md (2026-09-17)` |

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "repository": "confighub/kubara-confighub",
+  "commit": "a5bbe1fd20838d162e53cd8802293420c7ae53b5",
+  "files": [
+    {
+      "path": "examples/kubara/current-platform/catalog-parity-receipt.yaml",
+      "sha256": "1ccc392eff09f7b338828b299613cdf31209eddeb2a939d530ebf3ac1e294a46",
+      "gitBlob": "9fb8630175ea3b9fa763a09528368124f3a33301"
+    },
+    {
+      "path": "examples/kubara/current-platform/generation-receipt.yaml",
+      "sha256": "b1dc565427ca72d39370981cbfd00c2e18b4100f938b87774d9f79e90f45aafe",
+      "gitBlob": "5135f787393842b278f7160f798b16f611b664af"
+    },
+    {
+      "path": "data/kubara-catalog-1.1-full-coverage/receipt.yaml",
+      "sha256": "84da82ded0a4a46e6216f5b381ed899d5ae816614ebd5b2d2b290a371472933e",
+      "gitBlob": "aeccf136f6751fe0e3238efae352fb4c5890201c"
+    },
+    {
+      "path": "data/kubara-release-acceptance/contract.yaml",
+      "sha256": "41f9a9de306d5f4463d478b3e89e74271ac63143b137161881b788d3473ad835",
+      "gitBlob": "738eee369cecec6cf1788027a61fe5b22d4f4817"
+    },
+    {
+      "path": "data/kubara-platform-matrix/matrix.json",
+      "sha256": "d03cd48285f2844c4eae3b550f05f3e0e64a8f0c945b7cdc512aceed426520e6",
+      "gitBlob": "b0cd564c12170ff36028be05f82bd399ea6a310a"
+    },
+    {
+      "path": "data/kubara-wiring/graph.json",
+      "sha256": "fdc8637d5dfc0f139a2b43d9fadcdba0fdc873847225c5a597a5c1ef287609a7",
+      "gitBlob": "93566a1c6d1615f607ae945c3ca3523b401827c9"
+    },
+    {
+      "path": "runs/kubara-mini-idp-reconcile/receipt.yaml",
+      "sha256": "8b26167c50773baad5f144c2d64625de4129d2d82edf5b33c7801dd9056e8238",
+      "gitBlob": "f37a8a6897370d64cdbc75ecc47812d7eb574746"
+    },
+    {
+      "path": "runs/kubara-mini-idp-reconcile/orphan-audit.yaml",
+      "sha256": "c588c4882ed5de66d4dde68cf0f09f94ee9b976bca740e14cec4c6796bebdb23",
+      "gitBlob": "be723546dba99622ca8f3a71ef863eef7be9a84e"
+    },
+    {
+      "path": "runs/kubara-mini-idp-reconcile/attempts.yaml",
+      "sha256": "a7534d676badafd5b68d4ae0a436b5fae38c7b994c893ed54904106fe854d1e4",
+      "gitBlob": "f024dcd3da33ba7e5011ce4ce2f065111e2fba3e"
+    }
+  ]
+}
