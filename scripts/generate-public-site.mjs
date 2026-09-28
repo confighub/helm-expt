@@ -2511,8 +2511,10 @@ function siteChromeCss() {
 function siteSectionFor(relPath) {
   const direct = siteSections().find((section) => section.pages.some(([path]) => path === relPath));
   if (direct) return direct;
-  if (relPath.startsWith("charts/")) return siteSections()[0];
-  if (relPath.startsWith("d/")) return siteSections()[4];
+  // By label, not position, so adding or reordering sections cannot move them.
+  const byLabel = (label) => siteSections().find((section) => section.label === label);
+  if (relPath.startsWith("charts/")) return byLabel("Configs");
+  if (relPath.startsWith("d/")) return byLabel("Docs");
   return null;
 }
 
