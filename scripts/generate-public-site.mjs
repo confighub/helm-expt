@@ -63,6 +63,7 @@ const entryPathReferencePath = join(siteRoot, "entry-path-reference.html");
 const futurePath = join(siteRoot, "future.html");
 const operationsPath = join(siteRoot, "operations.html");
 const guidesPath = join(siteRoot, "guides.html");
+const pluginsPath = join(siteRoot, "plugins.html");
 const askPath = join(siteRoot, "ask.html");
 const promotePath = join(siteRoot, "promote.html");
 const ignoredValuesPath = join(siteRoot, "why-did-helm-ignore-my-values.html");
@@ -511,6 +512,7 @@ const SITE_PAGE_RELPATHS = {
   futureHtml: "future.html",
   operationsHtml: "operations.html",
   guidesHtml: "guides.html",
+  pluginsHtml: "plugins.html",
   askHtml: "ask.html",
   promoteHtml: "promote.html",
   ignoredValuesHtml: "why-did-helm-ignore-my-values.html",
@@ -555,7 +557,6 @@ const PAGE_REDIRECT_TARGETS = {
   "private/index.html": "offering.html",
   "hard-questions.html": "ask.html",
   "journey.html": "operations.html",
-  "guides.html": "docs.html",
   "challenge.html": "ask.html",
   "future.html": "known-gaps.html",
   "demo-org.html": "confighub.html",
@@ -582,6 +583,8 @@ const PAGE_DESCRIPTIONS = {
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
   "oci.html": "See every OCI shape this catalog produces, who produces and consumes each one, which layout each consumer needs, and which shapes are signed today.",
   "formats.html": "Browse every non-Helm Catalog entry by format: AICR, Timoni, cub installer, Kubara, configuration OCI, Kubernetes YAML, and Sveltos, each linked to its listing record.",
+  "plugins.html": "Every public cub plugin, marked by its state, with the one line that installs it.",
+  "guides.html": "Every Guide, a known path an agent walks with a person beside it, grouped by where you start. The five journeys come first.",
   "apps.html": "Record the app you run, check it, put it in a stack next to the platform parts it needs, and decide what ConfigHub keeps.",
   "custom-apps.html": "Combine public charts and services your team owns, then review and release their Kubernetes configuration together.",
   "existing-apps.html": "Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.",
@@ -663,6 +666,7 @@ if (mode === "--generate") {
   write(futurePath, site.futureHtml);
   write(operationsPath, site.operationsHtml);
   write(guidesPath, site.guidesHtml);
+  write(pluginsPath, site.pluginsHtml);
   write(askPath, site.askHtml);
   write(promotePath, site.promoteHtml);
   write(ignoredValuesPath, site.ignoredValuesHtml);
@@ -809,6 +813,7 @@ if (mode === "--generate") {
   check(readFileSync(operationsPath, "utf8") === site.operationsHtml, "site/operations.html is stale");
   check(existsSync(guidesPath), "site/guides.html is missing; run npm run site:generate");
   check(readFileSync(guidesPath, "utf8") === site.guidesHtml, "site/guides.html is stale");
+  check(readFileSync(pluginsPath, "utf8") === site.pluginsHtml, "site/plugins.html is stale");
   check(existsSync(askPath), "site/ask.html is missing; run npm run site:generate");
   check(readFileSync(askPath, "utf8") === site.askHtml, "site/ask.html is stale");
   check(existsSync(promotePath), "site/promote.html is missing; run npm run site:generate");
@@ -1426,7 +1431,8 @@ function buildSite(generatedAt) {
     entryPathReferenceHtml: entryPathReferenceHtml(),
     futureHtml: futureHtml(),
     operationsHtml: calmPage(operationsHtml(catalog)),
-    guidesHtml: guidesHtml(),
+    guidesHtml: calmPage(guidesHtml()),
+    pluginsHtml: calmPage(pluginsHtml()),
     askHtml: calmPage(askHtml(catalog)),
     promoteHtml: calmPage(promoteHtml()),
     ignoredValuesHtml: calmPage(ignoredValuesHtml()),
@@ -2408,11 +2414,12 @@ function siteFooterNav(relPath) {
   const a = (path, label) => `<a href="${base}/${path}">${label}</a>`;
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
-    + group("Catalog", [a("charts/index.html", "Find a configuration"), a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("matrix.html", "Evidence index"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
-    + group("Config", [a("config.html", "How configuration works"), a("ai.html", "Use with your AI"), a("ask.html", "Check my config"), a("variants.html", "Variants"), a("oci.html", "OCI shapes"), a("quirks.html", "What charts hide"), a("try.html", "Try it: Redis in ten minutes")])
-    + group("Stacks", [a("demo.html", "The ten-minute demo"), a("stack.html", "Stacks and fleets"), a("kubara.html", "Kubara platforms"), a("try-aicr.html", "Inference platforms"), a("apps.html", "Apps on a platform")])
-    + group("Operate", [a("how-it-works.html", "Operate"), a("confighub.html", "ConfigHub Server"), a("promote.html", "Promote my config"), a("operations.html", "Operations"), a("does-cluster-match-approved-config.html", "Does the cluster match?")])
-    + group("Docs", [a("docs.html", "Docs"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("offering.html", "Offering")])
+    + group("Configs", [a("charts/index.html", "Find a configuration"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
+    + group("Stacks", [a("stack.html", "Stacks and fleets"), a("try-aicr.html", "Inference platforms")])
+    + group("Apps", [a("apps.html", "Apps on a platform"), a("testing.html", "Worked examples")])
+    + group("Plugins", [a("plugins.html", "Every cub plugin"), a("kubara.html", "Kubara platforms")])
+    + group("Guides", [a("guides.html", "Every Guide"), a("try.html", "Try it: Redis in ten minutes"), a("demo.html", "The ten-minute demo"), a("ai.html", "Use with your AI"), a("ask.html", "Check my config"), a("promote.html", "Promote my config")])
+    + group("Docs", [a("docs.html", "Docs"), a("config.html", "How configuration works"), a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("offering.html", "Offering")])
     + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Upload a result into ConfigHub")}${a("confighub.html", "ConfigHub Server")}</div>`
     + `</div></nav>`;
 }
@@ -2434,27 +2441,30 @@ function injectSiteFooterNav(html, relPath) {
 // and a contents column on long pages. Every page inherits it here.
 function siteSections() {
   return [
-  { label: "Catalog", hub: "charts/index.html", pages: [
-    ["charts/index.html", "Find a configuration"], ["proof.html", "Why trust it"], ["known-gaps.html", "Known gaps"],
-    ["matrix.html", "Evidence index"], ["did-this-chart-version-change.html", "Did a version change?"],
+  { label: "Configs", hub: "charts/index.html", pages: [
+    ["charts/index.html", "Find a configuration"], ["did-this-chart-version-change.html", "Did a version change?"],
     ["did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?"], ["why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
   ] },
-  { label: "Config", hub: "config.html", pages: [
-    ["config.html", "How configuration works"], ["ai.html", "Use with your AI"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"], ["quirks.html", "What charts hide"],
-    ["ask.html", "Is my configuration right?"], ["deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"],
-    ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"], ["testing.html", "Worked examples"],
-  ] },
   { label: "Stacks", hub: "stack.html", pages: [
-    ["demo.html", "The ten-minute demo"], ["stack.html", "Stacks and fleets"], ["kubara.html", "Kubara platforms"], ["try-aicr.html", "Inference platforms"],
-    ["apps.html", "Apps on a platform"],
+    ["stack.html", "Stacks and fleets"], ["try-aicr.html", "Inference platforms"],
   ] },
-  { label: "Operate", hub: "how-it-works.html", pages: [
-    ["how-it-works.html", "Operate"], ["confighub.html", "ConfigHub Server"], ["promote.html", "Promote my config"],
-    ["operations.html", "Operations"], ["does-cluster-match-approved-config.html", "Does the cluster match?"],
-    ["why-do-dev-and-prod-differ.html", "Why do dev and prod differ?"],
+  { label: "Apps", hub: "apps.html", pages: [
+    ["apps.html", "Apps on a platform"], ["testing.html", "Worked examples"],
+  ] },
+  { label: "Plugins", hub: "plugins.html", pages: [
+    ["plugins.html", "Every cub plugin"], ["kubara.html", "Kubara platforms"],
+  ] },
+  { label: "Guides", hub: "guides.html", pages: [
+    ["guides.html", "Every Guide"], ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"],
+    ["demo.html", "The ten-minute demo"], ["ai.html", "Use with your AI"], ["ask.html", "Is my configuration right?"],
+    ["deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"], ["promote.html", "Promote my config"],
+    ["does-cluster-match-approved-config.html", "Does the cluster match?"], ["why-do-dev-and-prod-differ.html", "Why do dev and prod differ?"],
   ] },
   { label: "Docs", hub: "docs.html", pages: [
-    ["docs.html", "Docs"], ["d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"], ["offering.html", "Offering"],
+    ["docs.html", "Docs"], ["config.html", "How configuration works"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"],
+    ["quirks.html", "What charts hide"], ["how-it-works.html", "Operate"], ["operations.html", "Operations"], ["confighub.html", "ConfigHub Server"],
+    ["proof.html", "Why trust it"], ["known-gaps.html", "Known gaps"], ["matrix.html", "Evidence index"],
+    ["d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"], ["offering.html", "Offering"],
   ] },
   ];
 }
@@ -2698,7 +2708,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="${link("charts/index.html")}">Catalog</a><a href="${link("config.html")}">Config</a><a href="${link("stack.html")}">Stacks</a><a href="${link("how-it-works.html")}">Operate</a><a href="${link("docs.html")}">Docs</a><a class="nav-cta" href="${link("confighub.html")}">ConfigHub Server</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="${link("charts/index.html")}">Configs</a><a href="${link("stack.html")}">Stacks</a><a href="${link("apps.html")}">Apps</a><a href="${link("plugins.html")}">Plugins</a><a href="${link("guides.html")}">Guides</a><a href="${link("docs.html")}">Docs</a><a class="nav-cta" href="${link("confighub.html")}">ConfigHub Server</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -2849,6 +2859,10 @@ ${bannerCss()}
   .wrap { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; }
   .page { max-width: 1260px; margin: 0 auto; padding: 0 22px 8px; display: grid; grid-template-columns: 186px minmax(0, 1fr); grid-template-rows: auto auto auto; column-gap: 34px; align-items: start; }
   .page > header, .page > main, .page > footer { grid-column: 2; min-width: 0; }
+  .agent-prompt code { background: none; padding: 0; font-size: inherit; white-space: normal; }
+  .agent-prompt { font-family: var(--mono); font-size: .86rem; line-height: 1.55; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin: 0 0 14px; max-width: 860px; color: var(--ink); }
+  .home-cmd { font-family: var(--mono); font-size: .86rem; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 0 0 14px; max-width: 860px; overflow-x: auto; }
+  .home-sections { padding-left: 1.2em; line-height: 1.8; max-width: 860px; }
   .home-rail { grid-column: 1; grid-row: 1 / -1; position: sticky; top: 18px; align-self: start; padding-top: 40px; }
   .home-rail .rail-h { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin: 18px 0 8px; }
   .home-rail .rail-h:first-child { margin-top: 0; }
@@ -3005,6 +3019,13 @@ ${bannerCss()}
 `;
 }
 
+function homeJourneyLinks() {
+  return sectionRows("guides")
+    .filter((row) => row.group === "journeys")
+    .map((row, i) => `        <a${i === 0 ? ' class="rail-primary"' : ""} href="${escapeHtml(row.address)}">${escapeHtml(row.title)}</a>`)
+    .join("\n");
+}
+
 function configTestCentreHome(catalog) {
   return `<!doctype html>
 <html lang="en">
@@ -3017,17 +3038,12 @@ function configTestCentreHome(catalog) {
 <body>
   <div class="wrap">
     <div class="page">
-      <nav class="home-rail" aria-label="Start from where you are">
-        <p class="rail-h">Start from your tool</p>
-        <a class="rail-primary" href="./ask.html">I use Helm</a>
-        <a href="./deploy-with-flux-or-argo.html">I run Flux or Argo CD</a>
-        <a href="./kubara.html">I want a platform</a>
-        <a href="./stack.html">I need a stack</a>
-        <a href="./try-aicr.html">I run AI on GPUs</a>
+      <nav class="home-rail" aria-label="Start from your problem">
+        <p class="rail-h">Start from your problem</p>
+${homeJourneyLinks()}
         <p class="rail-h">Or see it run</p>
         <a href="./try.html">Try it on your laptop in ten minutes</a>
         <a href="./demo.html">Grow from one chart to a fleet</a>
-        <a href="./charts/index.html">Browse the Catalog</a>
       </nav>
       <header>
         ${topNav(".")}
@@ -3071,70 +3087,30 @@ function configTestCentreHome(catalog) {
         <section class="section" id="what-is-the-workshop">
           <span class="eyebrow">The short version</span>
           <h2>What is the Workshop?</h2>
-          <div class="what-cards">
-            <div class="what-card">
-              <h3>You, your agent, or both</h3>
-              <p>You run cub yourself, an AI agent runs it in a session, or both. The Catalog and the plugin read the same either way.</p>
-            </div>
-            <div class="what-card">
-              <h3>One format, one lifecycle</h3>
-              <p>The Catalog standardises every configuration into one OCI format and one lifecycle model. Helm, AICR, Kubara, Timoni, and plain YAML all flatten to the same exact Kubernetes objects, with a receipt.</p>
-            </div>
-            <div class="what-card">
-              <h3>Config as data</h3>
-              <p>Config as data means you read, diff, and check it before anything runs.</p>
-            </div>
-            <div class="what-card">
-              <h3>A workshop plugin for cub</h3>
-              <p>ConfigHub Workshop adds a workshop plugin to cub that enables stack and platform operations. Pull a tested part, make your own, then keep, place, and govern it.</p>
-            </div>
-          </div>
-          <p class="what-links"><a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>, or <a href="./proof.html#check-one-claim">check one claim yourself</a>. Working with an AI agent? <a href="./ai.html">Give it the prompt or install the skill</a>.</p>
-          <p class="home-support">
-            <span class="home-support-label">Supports</span>
-            <a href="./charts/index.html?format=helm-chart">Helm</a>
-            <a href="./charts/index.html?format=ai-platform">AICR &amp; NIM</a>
-            <a href="./charts/index.html?format=timoni">Timoni</a>
-            <a href="./kubara.html">Kubara</a>
-            <a href="./config.html#formats">Sveltos</a>
-            <a href="./charts/index.html?format=configuration-oci">OCI</a>
-            <a href="./charts/index.html?format=kubernetes-yaml">YAML</a>
-            <a href="./deploy-with-flux-or-argo.html">Flux / Argo CD</a>
-            <a href="./stack.html">Stacks &amp; fleets</a>
-            <a href="./charts/index.html" class="home-support-all">See all in the Catalog &rarr;</a>
-          </p>
+          <p class="intro">The Workshop is a Catalog of tested configuration kept as data, and a plugin for <code>cub</code> that checks, composes and publishes it. The Catalog standardises every configuration into one OCI format and one lifecycle model. You, your agent, or both read and run the same things, with no account. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
         </section>
-        <section class="section">
-          <span class="eyebrow">Start from where you are</span>
-          <h2>What do you need help with?</h2>
-          <p class="intro"><strong>You need a configuration, you have one, or you want a whole platform.</strong> Pick a tool on the left to start. Each path gives you exact files and a result you can keep, and the free ones need no account. Read <a href="./d/docs/user/what-config-workshop-is.html">what this site is</a> for the full picture, or <a href="./demo.html">walk it in ten minutes</a> from one chart to a governed fleet.</p>
-          <div class="routes">
-            <a class="route-card" href="./charts/index.html">
-              <h3>Find a configuration <span class="tag">Free</span></h3>
-              <p>Search the Catalog for a tested chart, package or platform and see exactly what it installs before you run it.</p>
-              <span class="go">Open the Catalog &rarr;</span>
-            </a>
-            <a class="route-card" href="./ask.html">
-              <h3>Check my config <span class="tag">Free</span></h3>
-              <p>Bring your own chart, values or rendered YAML and get the objects, the findings and a result you can keep.</p>
-              <span class="go">Start a check &rarr;</span>
-            </a>
-            <a class="route-card" href="./stack.html">
-              <h3>Build a stack or platform <span class="tag">Free</span></h3>
-              <p>Compose reviewed parts into a stack, check it on your laptop, then place and govern it.</p>
-              <span class="go">Get a stack &rarr;</span>
-            </a>
-            <a class="route-card mid" href="./confighub.html">
-              <h3>Promote my config <span class="tag">Account</span></h3>
-              <p>Upload the reviewed result into ConfigHub, then release, promote and roll it out to a fleet.</p>
-              <span class="go">See what ConfigHub adds &rarr;</span>
-            </a>
-          </div>
-          <p class="notice"><strong>Run a complete local Guide:</strong> <a href="./docs.html#workshop-guides">Inspect a configuration</a> · <a href="./d/docs/user/workshop-compose-guide.html">Compose a platform and app</a> · <a href="./d/docs/user/workshop-adapt-guide.html">Review a change</a> · <a href="./d/docs/user/workshop-match-guide.html">Match GPU facts</a> · <a href="./d/docs/user/workshop-compose-guide.html#preserve-an-incompatible-candidate">Recover from a refusal</a> · <a href="./d/docs/user/workshop-compose-guide.html#save-the-baseline-move-it-and-resume-it">Save and resume</a>. Each keeps files and results you can review, using cub or an assistant.</p>
-          <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
-
+        <section class="section" id="give-it-to-your-agent">
+          <span class="eyebrow">For your agent</span>
+          <h2>Give it to your AI agent</h2>
+          <p class="intro">Paste this into Claude Code, Codex, or any agent that can run a shell.</p>
+          <p class="agent-prompt"><code>${escapeHtml(AGENT_PROMPT_ONE_LINER)}</code></p>
+          <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt.</p>
+          <pre class="home-cmd"><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
         </section>
-
+        <section class="section" id="the-catalog">
+          <span class="eyebrow">The Catalog</span>
+          <h2>What the Catalog holds</h2>
+          <ul class="home-sections">
+            <li><a href="./charts/index.html">Configs</a>: ${sectionCount("configs")} tested configurations, each rendered to the exact objects it installs.</li>
+            <li><a href="./stack.html">Stacks</a>: ${sectionCount("stacks")} stacks, sets of configs checked together before anything runs.</li>
+            <li><a href="./apps.html">Apps</a>: ${sectionCount("apps")} worked example apps, plain or delivered by Argo CD, Flux or a generator.</li>
+            <li><a href="./plugins.html">Plugins</a>: ${sectionCount("plugins")} cub plugins, each marked by its state.</li>
+            <li><a href="./guides.html">Guides</a>: ${sectionCount("guides")} known paths an agent walks with you, the five journeys first.</li>
+            <li><a href="./docs.html">Docs</a>: how it works, why you can trust it, and every reference.</li>
+          </ul>
+          <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:16px 0"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
+          <p class="intro">An agent reads the same lists as data. <a href="./llms.txt">llms.txt</a> names the five section files first.</p>
+        </section>
       </main>
 
       <footer class="foot">
@@ -6439,9 +6415,92 @@ function approvedClusterHtml() {
 function challengeHtml() {
   return movedPageHtml("Helm investigation reference", "./ask.html", "The Helm investigation reference retired. Its check flow, questions, and intake live on Is my configuration right.");
 }
-function guidesHtml() {
-  return movedPageHtml("Guides", "./docs.html#learn-by-doing", "The guides now sit at the top of Docs, under Learn by doing.");
+// The Catalog's section files (scripts/generate-workshop-sections.mjs). A
+// section page is generated from the same rows an agent reads, so the two
+// cannot disagree (site IA phase 4).
+function sectionRows(section) {
+  const path = join(siteRoot, `${section}.json`);
+  check(existsSync(path), `site/${section}.json is missing: run npm run site:sections first`);
+  return JSON.parse(readFileSync(path, "utf8")).rows;
 }
+
+function sectionCount(section) {
+  return sectionRows(section).length;
+}
+
+function pluginsHtml() {
+  const rows = sectionRows("plugins");
+  const state = (row) => row.state === "released" ? `Released, ${escapeHtml(row.release.tag)}` : row.state === "in-progress" ? "In progress" : "Draft";
+  const tableRows = rows.map((row) => [
+    row.repository ? `<a href="https://github.com/${escapeHtml(row.repository)}">${escapeHtml(row.name)}</a>` : escapeHtml(row.name),
+    `${row.commands.map((command) => `<code>${escapeHtml(command)}</code>`).join(", ")}. ${escapeHtml(row.summary)}`,
+    state(row),
+    row.install ? `<code>${escapeHtml(row.install)}</code>` : escapeHtml(row.note ?? "Not yet published."),
+  ]);
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plugins · ConfigHub Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Plugins</h1>
+    <p class="lead">Every public cub plugin, marked by its state. Each one installs with one line and needs no account.</p>
+    <p>An agent reads the same rows at <a href="./plugins.json">plugins.json</a>.</p>
+  </header>
+  <main>
+    <section aria-labelledby="every-plugin">
+      <h2 id="every-plugin">Every plugin</h2>
+      ${markdownLikeTable([["Plugin", "What it does", "State", "Install"], ...tableRows], { rawColumns: [0, 1, 2, 3] })}
+    </section>
+  </main>
+</body>
+</html>
+`;
+}
+
+function guidesHtml() {
+  const rows = sectionRows("guides");
+  const groups = [];
+  for (const row of rows) {
+    let group = groups.find((g) => g.id === row.group);
+    if (!group) groups.push(group = { id: row.group, title: row.groupTitle, rows: [] });
+    group.rows.push(row);
+  }
+  const href = (address) => address.startsWith(SITE_BASE_URL) ? `./${address.slice(SITE_BASE_URL.length)}` : address;
+  const sections = groups.map((group) => `    <section aria-labelledby="guides-${group.id}">
+      <h2 id="guides-${group.id}">${escapeHtml(group.title)}</h2>
+      <ul class="guide-list">
+${group.rows.map((row) => `        <li><a href="${escapeHtml(href(row.address))}">${escapeHtml(row.title)}</a>. ${escapeHtml(row.summary)}</li>`).join("\n")}
+      </ul>
+    </section>`).join("\n");
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guides · ConfigHub Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Guides</h1>
+    <p class="lead">Each Guide is a known path that an agent walks with you beside it. Start from your problem, with the five journeys first.</p>
+    <p>An agent reads the same rows at <a href="./guides.json">guides.json</a>.</p>
+  </header>
+  <main>
+${sections}
+  </main>
+</body>
+</html>
+`;
+}
+
 // A complete, browsable index of every rendered doc under docs/, grouped by
 // the same five areas as the top nav (Catalog, Config, Stacks, Operate,
 // Docs), per scripts/lib/doc-area-map.mjs. Enumerated from the source tree at

@@ -33,8 +33,12 @@ function readCatalogCounts() {
 
 const checks = [
   {
-    file: "site/index.html",
-    terms: ["Run a complete local Guide:", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "workshop-compose-guide.html#preserve-an-incompatible-candidate", "workshop-compose-guide.html#save-the-baseline-move-it-and-resume-it"],
+    file: "site/guides.html",
+    terms: ["The five journeys", "Start here", "Helm questions", "Formats", "GitOps", "Stacks and platforms", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "guides.json"],
+  },
+  {
+    file: "site/plugins.html",
+    terms: ["Every public cub plugin, marked by its state", "cub plugin install confighub/cub-workshop", "cub plugin install confighub/kubara-confighub", "In progress", "plugins.json"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -64,7 +68,7 @@ const checks = [
   })),
   {
     file: "site/index.html",
-    terms: ["Agent Catalog of tested configuration data and stacks", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "Other catalogs give you charts", "One OCI format and one lifecycle model", "standardises every configuration into one OCI format and one lifecycle model", "adds a workshop plugin to cub that enables stack and platform operations", "Find a configuration", "Check my config", "Promote my config", "I use Helm", "I run Flux or Argo CD", "I want a platform", "I need a stack", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Start from where you are", "What do you need help with?", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
+    terms: ["Agent Catalog of tested configuration data and stacks", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "Other catalogs give you charts", "One OCI format and one lifecycle model", "standardises every configuration into one OCI format and one lifecycle model", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Start from your problem", "What is the Workshop?", "Give it to your AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
   },
   {
     file: "site/ask.html",
@@ -290,7 +294,7 @@ const composeAssistantTask = composeGuide.split("## A task for an AI assistant")
 for (const term of ["After the refusal", "recovered/stack.yaml", "recovered/recovery.json", "Preserve incompatible unchanged", "prior successful"] ) {
   if (!composeAssistantTask.includes(term)) failures.push(`Compose assistant task omits separate recovery requirement: ${term}`);
 }
-const expectedNavLabels = ["Catalog", "Config", "Stacks", "Operate", "Docs", "ConfigHub Server"];
+const expectedNavLabels = ["Configs", "Stacks", "Apps", "Plugins", "Guides", "Docs", "ConfigHub Server"];
 
 function decodeBasicHtml(text) {
   return text
@@ -441,7 +445,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT", "Catalog", "Config", "Stacks", "Operate", "Docs", "ConfigHub Server"]) {
+  for (const term of ["ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT", "Configs", "Stacks", "Apps", "Plugins", "Guides", "Docs", "ConfigHub Server"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   let previousNavPosition = -1;
@@ -647,11 +651,19 @@ for (const rule of pageOwnershipRules) {
 const homePath = path.join(root, "site/index.html");
 if (fs.existsSync(homePath)) {
   const home = fs.readFileSync(homePath, "utf8");
-  for (const oldStructure of ["Five simple things", "Four things you can prove before you ship", "One resource, three depths"]) {
+  for (const oldStructure of ["Five simple things", "Four things you can prove before you ship", "One resource, three depths", "What do you need help with?"]) {
     if (home.includes(oldStructure)) failures.push(`site/index.html: contains retired competing structure ${JSON.stringify(oldStructure)}`);
   }
-  for (const href of ["./try.html", "./ask.html", "./promote.html", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./proof.html#check-one-claim", "./known-gaps.html"]) {
-    if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: missing story link ${href}`);
+  // Site IA phase 4: the home page keeps the mission, the five journeys, the
+  // agent prompt and skill, and one line per Catalog section.
+  for (const href of ["./charts/index.html", "./stack.html", "./apps.html", "./plugins.html", "./guides.html", "./docs.html", "./confighub.html", "./ai.html", "./try.html", "./llms.txt"]) {
+    if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: missing section or start link ${href}`);
+  }
+  for (const journey of ["1-catch-the-ai", "2-my-fixes-survive", "3-what-my-app-needs", "4-before-argo-takes-over", "5-it-installs-and-never-starts"]) {
+    if (!home.includes(`monadic/workshop-demo/tree/main/${journey}"`)) failures.push(`site/index.html: missing journey ${journey}`);
+  }
+  if (home.indexOf("Start from your problem") < 0 || home.indexOf("Start from your problem") > home.indexOf("<main>")) {
+    failures.push("site/index.html: the five journeys must come first, before the main content");
   }
   if (!home.includes('href="./docs.html"') || !fs.readFileSync(path.join(root, "site/docs.html"), "utf8").includes('href="./ask.html#faq"')) {
     failures.push("site/index.html: Docs must remain in the main navigation and link to the FAQ");
