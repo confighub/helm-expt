@@ -22,6 +22,13 @@ hand, so use them directly instead of inventing an API.
 
 Nothing in this section needs an account, a plugin, or a cluster.
 
+Start with the Catalog's five section files, which list everything the Catalog
+holds, one row per item: `site/configs.json`, `site/stacks.json`,
+`site/apps.json`, `site/plugins.json` and `site/guides.json`. Each row has a
+stable `id`, a one-line `summary`, a `state`, and `next`, the exact command or
+address to use. Each file has a schema beside it, such as
+`site/configs.schema.json`.
+
 Look for a per-listing record, `site/listings/<listing-id>.json`, before
 opening a bigger file. It is indexed by `site/listings/index.json` and shaped
 by `site/listing.schema.json`, one `CatalogListing` shape for every source

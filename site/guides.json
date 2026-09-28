@@ -1,0 +1,384 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "WorkshopSection",
+  "section": "guides",
+  "schema": "https://confighub.github.io/helm-expt/site/guides.schema.json",
+  "generatedFrom": [
+    "data/workshop-guides/guides.yaml"
+  ],
+  "count": 31,
+  "rows": [
+    {
+      "id": "journey-values-did-nothing",
+      "group": "journeys",
+      "groupTitle": "The five journeys",
+      "title": "My values did nothing",
+      "summary": "The assistant wrote my Helm values. Did they do anything? Three of seven did nothing, and Helm never said so.",
+      "state": "published",
+      "address": "https://github.com/monadic/workshop-demo/tree/main/1-catch-the-ai",
+      "next": {
+        "address": "https://github.com/monadic/workshop-demo/tree/main/1-catch-the-ai"
+      }
+    },
+    {
+      "id": "journey-preserve-my-fixes",
+      "group": "journeys",
+      "groupTitle": "The five journeys",
+      "title": "Preserve my fixes",
+      "summary": "The assistant rewrote my app. Are my fixes still there? Then ConfigHub carries the fixes through the rewrite.",
+      "state": "published",
+      "address": "https://github.com/monadic/workshop-demo/tree/main/2-my-fixes-survive",
+      "next": {
+        "address": "https://github.com/monadic/workshop-demo/tree/main/2-my-fixes-survive"
+      }
+    },
+    {
+      "id": "journey-what-my-app-needs",
+      "group": "journeys",
+      "groupTitle": "The five journeys",
+      "title": "What my app needs",
+      "summary": "Will my app run on the platform I picked? Refused for two real reasons, fixed on both sides, then checked.",
+      "state": "published",
+      "address": "https://github.com/monadic/workshop-demo/tree/main/3-what-my-app-needs",
+      "next": {
+        "address": "https://github.com/monadic/workshop-demo/tree/main/3-what-my-app-needs"
+      }
+    },
+    {
+      "id": "journey-before-gitops",
+      "group": "journeys",
+      "groupTitle": "The five journeys",
+      "title": "Before GitOps takes over",
+      "summary": "My Redis has run fine for a month. Is it safe to hand to GitOps? Three problems, then a reviewed alternative from the Catalog.",
+      "state": "published",
+      "address": "https://github.com/monadic/workshop-demo/tree/main/4-before-argo-takes-over",
+      "next": {
+        "address": "https://github.com/monadic/workshop-demo/tree/main/4-before-argo-takes-over"
+      }
+    },
+    {
+      "id": "journey-installs-never-starts",
+      "group": "journeys",
+      "groupTitle": "The five journeys",
+      "title": "It installs but never starts",
+      "summary": "Every check passes. Should I install it? The image no longer exists, said before the install.",
+      "state": "published",
+      "address": "https://github.com/monadic/workshop-demo/tree/main/5-it-installs-and-never-starts",
+      "next": {
+        "address": "https://github.com/monadic/workshop-demo/tree/main/5-it-installs-and-never-starts"
+      }
+    },
+    {
+      "id": "redis-intro",
+      "group": "start-here",
+      "groupTitle": "Start here",
+      "title": "Walk the whole model once, with Redis",
+      "summary": "Walk the whole model once, with Redis: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-redis-intro-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-redis-intro-guide.html"
+      }
+    },
+    {
+      "id": "try",
+      "group": "start-here",
+      "groupTitle": "Start here",
+      "title": "Try it: Redis in ten minutes",
+      "summary": "Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/try.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/try.html"
+      }
+    },
+    {
+      "id": "demo",
+      "group": "start-here",
+      "groupTitle": "Start here",
+      "title": "From one chart to a governed fleet in ten minutes",
+      "summary": "In ten minutes you go from checking one chart to generating a governed fleet, checking a whole inference platform on the way, most of it free and copy-paste.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/demo.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/demo.html"
+      }
+    },
+    {
+      "id": "ai",
+      "group": "start-here",
+      "groupTitle": "Start here",
+      "title": "Use ConfigHub Workshop with your AI agent",
+      "summary": "Install the ConfigHub Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/ai.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/ai.html"
+      }
+    },
+    {
+      "id": "helm-questions",
+      "group": "helm-questions",
+      "groupTitle": "Helm questions",
+      "title": "Answer the ten questions Helm users ask",
+      "summary": "Answer the ten questions Helm users ask: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-helm-questions-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-helm-questions-guide.html"
+      }
+    },
+    {
+      "id": "values",
+      "group": "helm-questions",
+      "groupTitle": "Helm questions",
+      "title": "Find why a Helm value did not change the output",
+      "summary": "Find why a Helm value did not change the output: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-values-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-values-guide.html"
+      }
+    },
+    {
+      "id": "why-did-helm-ignore-my-values",
+      "group": "helm-questions",
+      "groupTitle": "Helm questions",
+      "title": "Why did Helm ignore my values?",
+      "summary": "Find values that Helm accepts but a chart does not use by comparing the rendered Kubernetes objects with and without each supplied key.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/why-did-helm-ignore-my-values.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/why-did-helm-ignore-my-values.html"
+      }
+    },
+    {
+      "id": "did-this-chart-version-change",
+      "group": "helm-questions",
+      "groupTitle": "Helm questions",
+      "title": "Did this chart version change upstream?",
+      "summary": "Check whether an upstream publisher changed the package bytes behind an existing Helm chart version.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/did-this-chart-version-change.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/did-this-chart-version-change.html"
+      }
+    },
+    {
+      "id": "did-your-bitnami-chart-stop-pulling",
+      "group": "helm-questions",
+      "groupTitle": "Helm questions",
+      "title": "Did your Bitnami chart stop pulling?",
+      "summary": "Find a tested, verified successor for a Bitnami chart that no longer pulls anonymously, with each successor linked to its catalog entry.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/did-your-bitnami-chart-stop-pulling.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/did-your-bitnami-chart-stop-pulling.html"
+      }
+    },
+    {
+      "id": "upgrade",
+      "group": "helm-questions",
+      "groupTitle": "Helm questions",
+      "title": "Review a chart upgrade before promoting it",
+      "summary": "Review a chart upgrade before promoting it: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-upgrade-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-upgrade-guide.html"
+      }
+    },
+    {
+      "id": "adapt",
+      "group": "helm-questions",
+      "groupTitle": "Helm questions",
+      "title": "Adapt a configuration and inspect the exact edit",
+      "summary": "Adapt a configuration and inspect the exact edit: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-adapt-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-adapt-guide.html"
+      }
+    },
+    {
+      "id": "byo-charts",
+      "group": "helm-questions",
+      "groupTitle": "Helm questions",
+      "title": "Render your own chart to exact objects, adapt them as data, and keep them",
+      "summary": "Render your own chart to exact objects, adapt them as data, and keep them: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-byo-charts-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-byo-charts-guide.html"
+      }
+    },
+    {
+      "id": "aicr",
+      "group": "formats",
+      "groupTitle": "Formats",
+      "title": "Answer the questions AICR users ask",
+      "summary": "Answer the questions AICR users ask: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-aicr-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-aicr-guide.html"
+      }
+    },
+    {
+      "id": "timoni",
+      "group": "formats",
+      "groupTitle": "Formats",
+      "title": "Answer the questions Timoni users ask",
+      "summary": "Answer the questions Timoni users ask: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-timoni-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-timoni-guide.html"
+      }
+    },
+    {
+      "id": "yaml",
+      "group": "formats",
+      "groupTitle": "Formats",
+      "title": "Answer the questions plain Kubernetes YAML users ask",
+      "summary": "Answer the questions plain Kubernetes YAML users ask: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-yaml-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-yaml-guide.html"
+      }
+    },
+    {
+      "id": "kubara",
+      "group": "formats",
+      "groupTitle": "Formats",
+      "title": "Answer the questions Kubara users ask",
+      "summary": "Answer the questions Kubara users ask: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-kubara-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-kubara-guide.html"
+      }
+    },
+    {
+      "id": "gitops-adopter",
+      "group": "gitops",
+      "groupTitle": "GitOps",
+      "title": "Use ConfigHub With Argo CD Or Flux",
+      "summary": "Use ConfigHub With Argo CD Or Flux: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/gitops-adopter-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/gitops-adopter-guide.html"
+      }
+    },
+    {
+      "id": "deploy-with-flux-or-argo",
+      "group": "gitops",
+      "groupTitle": "GitOps",
+      "title": "Run it with Flux, Argo CD, or kubectl",
+      "summary": "Reconcile a published component with no account, render any catalog chart to an image your Flux, Argo CD, or kubectl consumes, and verify its receipt first.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/deploy-with-flux-or-argo.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/deploy-with-flux-or-argo.html"
+      }
+    },
+    {
+      "id": "argocd-hardening",
+      "group": "gitops",
+      "groupTitle": "GitOps",
+      "title": "Harden Argo CD before production, as a variant you can check and keep",
+      "summary": "Harden Argo CD before production, as a variant you can check and keep: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-argocd-hardening-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-argocd-hardening-guide.html"
+      }
+    },
+    {
+      "id": "compose",
+      "group": "stacks-and-platforms",
+      "groupTitle": "Stacks and platforms",
+      "title": "Compose and review a local workshop stack",
+      "summary": "Compose and review a local workshop stack: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-compose-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-compose-guide.html"
+      }
+    },
+    {
+      "id": "lifecycle",
+      "group": "stacks-and-platforms",
+      "groupTitle": "Stacks and platforms",
+      "title": "Find the hook and CRD work before delivery",
+      "summary": "Find the hook and CRD work before delivery: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-lifecycle-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-lifecycle-guide.html"
+      }
+    },
+    {
+      "id": "match",
+      "group": "stacks-and-platforms",
+      "groupTitle": "Stacks and platforms",
+      "title": "Match a GPU workload with supplied facts",
+      "summary": "Match a GPU workload with supplied facts: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-match-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-match-guide.html"
+      }
+    },
+    {
+      "id": "promote",
+      "group": "confighub",
+      "groupTitle": "ConfigHub",
+      "title": "Can I promote this configuration?",
+      "summary": "Compare current and proposed Kubernetes objects, see what changes, and choose the tests required before moving the change.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/promote.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/promote.html"
+      }
+    },
+    {
+      "id": "field-restore",
+      "group": "confighub",
+      "groupTitle": "ConfigHub",
+      "title": "Add one field and keep the original configuration",
+      "summary": "Add one field and keep the original configuration: a repository document from the helm-expt proof corpus, rendered for the site.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-field-restore-guide.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-field-restore-guide.html"
+      }
+    },
+    {
+      "id": "does-cluster-match-approved-config",
+      "group": "confighub",
+      "groupTitle": "ConfigHub",
+      "title": "Does the cluster match what we approved?",
+      "summary": "Compare approved configuration with live cluster state while keeping the current field-coverage limits visible.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/does-cluster-match-approved-config.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/does-cluster-match-approved-config.html"
+      }
+    },
+    {
+      "id": "why-do-dev-and-prod-differ",
+      "group": "confighub",
+      "groupTitle": "ConfigHub",
+      "title": "Why do development and production differ?",
+      "summary": "Record development and production as related configurations so their exact differences and promotion history remain visible.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/why-do-dev-and-prod-differ.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/why-do-dev-and-prod-differ.html"
+      }
+    }
+  ]
+}

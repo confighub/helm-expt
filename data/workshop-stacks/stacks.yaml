@@ -1,0 +1,171 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "WorkshopStackSnapshot"
+metadata:
+  name: "workshop-stacks"
+spec:
+  description: "The shipped stacks in cub-workshop's stacks/ directory at a pinned commit, written by scripts/generate-workshop-sections.mjs --sync-stacks. Stacks whose role is refusal or fixture belong to Guides and stay out of site/stacks.json."
+  repository: "confighub/cub-workshop"
+  commit: "8f4c207a134c74e0d94c228c11b2c4b202ffed19"
+  stacks:
+    -
+      id: "app-platform"
+      path: "stacks/app-platform.yaml"
+      role: "platform"
+      description: "A full platform for a web application: database, cache, ingress, certificates, and monitoring. The shape a Spring Boot app lands on."
+      components:
+        - "cert-manager"
+        - "ingress-nginx"
+        - "postgresql"
+        - "redis"
+        - "kube-prometheus-stack"
+      receipts: 5
+    -
+      id: "conflict-demo"
+      path: "stacks/conflict-demo.yaml"
+      role: "refusal"
+      description: "Two components claim the same object with different content. Certify must refuse this composition."
+      components:
+        - "team-a"
+        - "team-b"
+      receipts: 0
+    -
+      id: "data-services"
+      path: "stacks/data-services.yaml"
+      role: "platform"
+      description: "A stateful data tier: cache, relational database, and message queue."
+      components:
+        - "redis"
+        - "postgresql"
+        - "rabbitmq"
+      receipts: 3
+    -
+      id: "eks-inference"
+      path: "stacks/eks-inference.yaml"
+      role: "platform"
+      description: "The EKS inference platform as a stack: eight digest-pinned certified bundles across three planes. The keystone, spoken in the settled vocabulary."
+      components:
+        - "platform-profile"
+        - "ack-controllers"
+        - "aws-network"
+        - "eks-cluster"
+        - "karpenter-aws"
+        - "karpenter"
+        - "gpu-runtime"
+        - "inference-workloads"
+      receipts: 8
+    -
+      id: "gitops-secrets"
+      path: "stacks/gitops-secrets.yaml"
+      role: "platform"
+      description: "A delivery control plane: Argo CD, External Secrets, and cert-manager, three CRD-shipping components composed together."
+      components:
+        - "cert-manager"
+        - "external-secrets"
+        - "argo-cd"
+      receipts: 3
+    -
+      id: "kubara-gitops-shop"
+      path: "stacks/kubara-gitops-shop.yaml"
+      role: "platform"
+      description: "Kubara components plus the retained Argo CD controller and shop app. Static composition only; repository binding, target prerequisites and live delivery remain required."
+      components:
+        - "cert-manager"
+        - "traefik"
+        - "metrics-server"
+        - "external-secrets"
+        - "argo-cd"
+        - "shop-web"
+      receipts: 5
+    -
+      id: "kubara-platform"
+      path: "stacks/kubara-platform.yaml"
+      role: "platform"
+      description: "A small platform of cert-manager, Traefik, and metrics-server, composed from the catalog's published certified bundles."
+      components:
+        - "cert-manager"
+        - "traefik"
+        - "metrics-server"
+      receipts: 3
+    -
+      id: "kubara-shop-first-try"
+      path: "stacks/kubara-shop-first-try.yaml"
+      role: "refusal"
+      description: "The Kubara platform as first picked (cert-manager, Traefik, metrics-server) with the shop app placed on it. Certify refuses it: the app asks for things the platform does not carry."
+      components:
+        - "cert-manager"
+        - "traefik"
+        - "metrics-server"
+        - "shop-web"
+      receipts: 3
+    -
+      id: "kubara-shop-platform"
+      path: "stacks/kubara-shop-platform.yaml"
+      role: "platform"
+      description: "The Kubara platform grown to what the shop app needs: cert-manager, Traefik, metrics-server, and external-secrets, with the app adapted to it: Traefik's ingress class and a secret pulled through external-secrets."
+      components:
+        - "cert-manager"
+        - "traefik"
+        - "metrics-server"
+        - "external-secrets"
+        - "shop-web"
+      receipts: 4
+    -
+      id: "metrics-double"
+      path: "stacks/metrics-double.yaml"
+      role: "refusal"
+      description: "Two copies of metrics-server, composed to show the certify step catching a resource conflict."
+      components:
+        - "metrics-server"
+        - "metrics-server-again"
+      receipts: 2
+    -
+      id: "observability-base"
+      path: "stacks/observability-base.yaml"
+      role: "platform"
+      description: "A base observability platform: certificates, cluster metrics, and the Prometheus stack."
+      components:
+        - "cert-manager"
+        - "metrics-server"
+        - "kube-prometheus-stack"
+      receipts: 3
+    -
+      id: "redis-platform"
+      path: "stacks/redis-platform.yaml"
+      role: "platform"
+      description: "A managed Redis platform: the cache, its secrets, and monitoring. After the redis-platform pattern in confighub/examples."
+      components:
+        - "redis"
+        - "external-secrets"
+        - "kube-prometheus-stack"
+      receipts: 3
+    -
+      id: "shop-platform"
+      path: "stacks/shop-platform.yaml"
+      role: "platform"
+      description: "A web platform with monitoring and a message queue, with the shop app running on it: ingress, certificates, the Prometheus stack, RabbitMQ, and shop-web."
+      components:
+        - "cert-manager"
+        - "ingress-nginx"
+        - "kube-prometheus-stack"
+        - "rabbitmq"
+        - "shop-web"
+      receipts: 4
+    -
+      id: "web-platform"
+      path: "stacks/web-platform.yaml"
+      role: "platform"
+      description: "A platform for web apps: ingress, certificates, and monitoring. Carries exactly what an app like shop-web depends on."
+      components:
+        - "cert-manager"
+        - "ingress-nginx"
+        - "kube-prometheus-stack"
+      receipts: 3
+    -
+      id: "web-tiny"
+      path: "stacks/web-tiny.yaml"
+      role: "fixture"
+      description: "A tiny two-component web stack, used to run cub stack install end to end without burning quota."
+      components:
+        - "frontend"
+        - "backend"
+      receipts: 0

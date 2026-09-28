@@ -1,0 +1,222 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "WorkshopSection",
+  "section": "plugins",
+  "schema": "https://confighub.github.io/helm-expt/site/plugins.schema.json",
+  "generatedFrom": [
+    "data/workshop-plugins/plugins.yaml"
+  ],
+  "count": 12,
+  "rows": [
+    {
+      "id": "workshop",
+      "name": "ConfigHub Workshop",
+      "summary": "Checks, composes and publishes configuration from the Catalog.",
+      "state": "released",
+      "commands": [
+        "cub config",
+        "cub app",
+        "cub stack",
+        "cub fleet"
+      ],
+      "repository": "confighub/cub-workshop",
+      "release": {
+        "date": "2026-09-27",
+        "tag": "v0.6.50"
+      },
+      "install": "cub plugin install confighub/cub-workshop",
+      "next": {
+        "command": "cub plugin install confighub/cub-workshop"
+      }
+    },
+    {
+      "id": "kubara",
+      "name": "Kubara",
+      "summary": "Runs a Kubara platform through ConfigHub, with Catalog evidence for each chart.",
+      "state": "released",
+      "commands": [
+        "cub kubara"
+      ],
+      "repository": "confighub/kubara-confighub",
+      "release": {
+        "date": "2026-09-28",
+        "tag": "v0.2.2"
+      },
+      "install": "cub plugin install confighub/kubara-confighub",
+      "next": {
+        "command": "cub plugin install confighub/kubara-confighub"
+      }
+    },
+    {
+      "id": "sveltos",
+      "name": "Sveltos",
+      "summary": "Brings a Sveltos fleet into ConfigHub, one variant per cluster.",
+      "state": "released",
+      "commands": [
+        "cub sveltos"
+      ],
+      "repository": "confighub/sveltos-confighub",
+      "release": {
+        "date": "2026-09-28",
+        "tag": "v0.8.0"
+      },
+      "install": "cub plugin install confighub/sveltos-confighub",
+      "next": {
+        "command": "cub plugin install confighub/sveltos-confighub"
+      }
+    },
+    {
+      "id": "eks-inference",
+      "name": "EKS inference",
+      "summary": "Runs the eks-inference stack on EKS.",
+      "state": "released",
+      "commands": [
+        "cub eksinf"
+      ],
+      "repository": "confighub/eks-inference",
+      "release": {
+        "date": "2026-08-13",
+        "tag": "v0.12.0"
+      },
+      "install": "cub plugin install confighub/eks-inference",
+      "next": {
+        "command": "cub plugin install confighub/eks-inference"
+      }
+    },
+    {
+      "id": "installer",
+      "name": "Installer",
+      "summary": "Renders and installs configuration-as-data packages.",
+      "state": "released",
+      "commands": [
+        "cub installer"
+      ],
+      "repository": "confighub/installer",
+      "release": {
+        "date": "2026-07-29",
+        "tag": "v0.1.0"
+      },
+      "install": "cub plugin install confighub/installer",
+      "next": {
+        "command": "cub plugin install confighub/installer"
+      }
+    },
+    {
+      "id": "helm",
+      "name": "Helm",
+      "summary": "Installs Helm charts as ConfigHub components.",
+      "state": "released",
+      "commands": [
+        "cub helm"
+      ],
+      "repository": "confighub/cub-helm",
+      "release": {
+        "date": "2026-09-11",
+        "tag": "v0.1.1"
+      },
+      "install": "cub plugin install confighub/cub-helm",
+      "next": {
+        "command": "cub plugin install confighub/cub-helm"
+      }
+    },
+    {
+      "id": "scout",
+      "name": "Scout",
+      "summary": "Explores and maps GitOps in your clusters.",
+      "state": "released",
+      "commands": [
+        "cub scout"
+      ],
+      "repository": "confighub/cub-scout",
+      "release": {
+        "date": "2026-09-26",
+        "tag": "v2.12.3"
+      },
+      "install": "cub plugin install confighub/cub-scout",
+      "next": {
+        "command": "cub plugin install confighub/cub-scout"
+      }
+    },
+    {
+      "id": "scan",
+      "name": "Scan",
+      "summary": "Checks Kubernetes and GitOps configuration for known risks.",
+      "state": "released",
+      "commands": [
+        "cub scan",
+        "cub check"
+      ],
+      "repository": "confighub/homebrew-tap",
+      "release": {
+        "date": "2026-08-24",
+        "tag": "cub-scan-v0.7.3"
+      },
+      "install": "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3",
+      "next": {
+        "command": "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3"
+      }
+    },
+    {
+      "id": "server",
+      "name": "ConfigHub Server",
+      "summary": "Installs a self-hosted ConfigHub server.",
+      "state": "released",
+      "commands": [
+        "cub server"
+      ],
+      "repository": "confighub/cub-server",
+      "release": {
+        "date": "2026-09-26",
+        "tag": "v0.2.2"
+      },
+      "install": "cub plugin install confighub/cub-server",
+      "next": {
+        "command": "cub plugin install confighub/cub-server"
+      }
+    },
+    {
+      "id": "demo",
+      "name": "Demo",
+      "summary": "Seeds a ConfigHub organisation with a demo dataset.",
+      "state": "released",
+      "commands": [
+        "cub demo"
+      ],
+      "repository": "confighub/cub-demo",
+      "release": {
+        "date": "2026-09-16",
+        "tag": "v0.2.2"
+      },
+      "install": "cub plugin install confighub/cub-demo",
+      "next": {
+        "command": "cub plugin install confighub/cub-demo"
+      }
+    },
+    {
+      "id": "argo",
+      "name": "Argo CD",
+      "summary": "Reads an Argo CD estate and plans it into ConfigHub.",
+      "state": "in-progress",
+      "commands": [
+        "cub argo"
+      ],
+      "note": "Not yet published.",
+      "next": {
+        "note": "Not yet published."
+      }
+    },
+    {
+      "id": "flux",
+      "name": "Flux",
+      "summary": "Reads a Flux fleet repository and plans it into ConfigHub.",
+      "state": "in-progress",
+      "commands": [
+        "cub flux"
+      ],
+      "note": "Not yet published.",
+      "next": {
+        "note": "Not yet published."
+      }
+    }
+  ]
+}

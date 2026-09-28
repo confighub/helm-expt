@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.github.io/helm-expt/site/plugins.schema.json",
+  "title": "ConfigHub Workshop plugins section",
+  "description": "One row per plugin in the Catalog's plugins section. Every row carries a stable id, a one-line summary, its state, and next: the exact command or address an agent uses.",
+  "type": "object",
+  "required": [
+    "apiVersion",
+    "kind",
+    "section",
+    "schema",
+    "generatedFrom",
+    "count",
+    "rows"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "catalog.confighub.com/v1alpha1"
+    },
+    "kind": {
+      "const": "WorkshopSection"
+    },
+    "section": {
+      "const": "plugins"
+    },
+    "schema": {
+      "const": "https://confighub.github.io/helm-expt/site/plugins.schema.json"
+    },
+    "generatedFrom": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "summary",
+          "state",
+          "commands",
+          "next"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9.-]*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          },
+          "state": {
+            "type": "string",
+            "minLength": 1
+          },
+          "commands": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "next": {
+            "type": "object",
+            "description": "What an agent does next: run command, open address, or read note.",
+            "minProperties": 1,
+            "properties": {
+              "command": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "repository": {
+            "type": "string",
+            "minLength": 1
+          },
+          "release": {
+            "type": "object",
+            "required": [
+              "tag"
+            ],
+            "properties": {
+              "tag": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              }
+            }
+          },
+          "install": {
+            "type": "string",
+            "minLength": 1
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}
