@@ -80,6 +80,12 @@ spec:
     summary: Install the ConfigHub Workshop agent skill, choose a configuration task, and keep exact objects,
       lifecycle work, checks, and limits visible.
     page: ai.html
+  - id: testing
+    group: start-here
+    title: Find a starting configuration
+    summary: Say what you need, try a simple Redis example, choose how to run a starting example, then
+      continue in ConfigHub or on a platform.
+    page: testing.html
   - id: helm-questions
     group: helm-questions
     title: Answer the ten questions Helm users ask
@@ -199,6 +205,12 @@ spec:
     summary: Compare existing GPU nodes with a recipe, or pull and read a retained AICR configuration
       with ORAS.
     page: try-aicr.html
+  - id: put-an-app-on-a-platform
+    group: stacks-and-platforms
+    title: Put an app on a platform
+    summary: Check what an app needs, check it on a platform, take it into ConfigHub, or bring an app
+      that already runs.
+    page: put-an-app-on-a-platform.html
   - id: promote
     group: confighub
     title: Can I promote this configuration?

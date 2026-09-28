@@ -65,6 +65,7 @@ const operationsPath = join(siteRoot, "operations.html");
 const guidesPath = join(siteRoot, "guides.html");
 const pluginsPath = join(siteRoot, "plugins.html");
 const composeStackPath = join(siteRoot, "compose-a-stack.html");
+const appGuidePath = join(siteRoot, "put-an-app-on-a-platform.html");
 const askPath = join(siteRoot, "ask.html");
 const promotePath = join(siteRoot, "promote.html");
 const ignoredValuesPath = join(siteRoot, "why-did-helm-ignore-my-values.html");
@@ -515,6 +516,7 @@ const SITE_PAGE_RELPATHS = {
   guidesHtml: "guides.html",
   pluginsHtml: "plugins.html",
   composeStackGuideHtml: "compose-a-stack.html",
+  appGuideHtml: "put-an-app-on-a-platform.html",
   askHtml: "ask.html",
   promoteHtml: "promote.html",
   ignoredValuesHtml: "why-did-helm-ignore-my-values.html",
@@ -585,6 +587,7 @@ const PAGE_DESCRIPTIONS = {
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
   "oci.html": "See every OCI shape this catalog produces, who produces and consumes each one, which layout each consumer needs, and which shapes are signed today.",
   "formats.html": "Browse every non-Helm Catalog entry by format: AICR, Timoni, cub installer, Kubara, configuration OCI, Kubernetes YAML, and Sveltos, each linked to its listing record.",
+  "put-an-app-on-a-platform.html": "Check what an app needs, check it on a platform, take it into ConfigHub, or bring an app that already runs.",
   "compose-a-stack.html": "Get a stack, check it for conflicts and missing needs before anything runs, then run and govern it in ConfigHub.",
   "plugins.html": "Every public cub plugin, marked by its state, with the one line that installs it.",
   "guides.html": "Every Guide, a known path an agent walks with a person beside it, grouped by where you start. The five journeys come first.",
@@ -671,6 +674,7 @@ if (mode === "--generate") {
   write(guidesPath, site.guidesHtml);
   write(pluginsPath, site.pluginsHtml);
   write(composeStackPath, site.composeStackGuideHtml);
+  write(appGuidePath, site.appGuideHtml);
   write(askPath, site.askHtml);
   write(promotePath, site.promoteHtml);
   write(ignoredValuesPath, site.ignoredValuesHtml);
@@ -819,6 +823,7 @@ if (mode === "--generate") {
   check(readFileSync(guidesPath, "utf8") === site.guidesHtml, "site/guides.html is stale");
   check(readFileSync(pluginsPath, "utf8") === site.pluginsHtml, "site/plugins.html is stale");
   check(readFileSync(composeStackPath, "utf8") === site.composeStackGuideHtml, "site/compose-a-stack.html is stale");
+  check(readFileSync(appGuidePath, "utf8") === site.appGuideHtml, "site/put-an-app-on-a-platform.html is stale");
   check(existsSync(askPath), "site/ask.html is missing; run npm run site:generate");
   check(readFileSync(askPath, "utf8") === site.askHtml, "site/ask.html is stale");
   check(existsSync(promotePath), "site/promote.html is missing; run npm run site:generate");
@@ -1427,7 +1432,8 @@ function buildSite(generatedAt) {
     ociHtml: calmPage(ociHtml(catalog)),
     formatsHtml: calmPage(formatsHtml()),
     customAppsHtml: customAppsHtml(),
-    appsHtml: calmPage(appsHtml(catalog)),
+    appsHtml: calmPage(appsHtml()),
+    appGuideHtml: calmPage(appGuideHtml(catalog)),
     existingAppsHtml: existingAppsHtml(),
     aiHtml: calmPage(aiHtml(catalog)),
     securityHtml: securityHtml(),
@@ -2422,7 +2428,7 @@ function siteFooterNav(relPath) {
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
     + group("Configs", [a("charts/index.html", "Find a configuration"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
     + group("Stacks", [a("stack.html", "Every stack"), a("compose-a-stack.html", "Compose and check a stack"), a("try-aicr.html", "GPU nodes and AICR")])
-    + group("Apps", [a("apps.html", "Apps on a platform"), a("testing.html", "Worked examples")])
+    + group("Apps", [a("apps.html", "Every app"), a("put-an-app-on-a-platform.html", "Put an app on a platform"), a("testing.html", "Find a starting configuration")])
     + group("Plugins", [a("plugins.html", "Every cub plugin"), a("kubara.html", "Kubara platforms")])
     + group("Guides", [a("guides.html", "Every Guide"), a("try.html", "Try it: Redis in ten minutes"), a("demo.html", "The ten-minute demo"), a("ai.html", "Use with your AI"), a("ask.html", "Check my config"), a("promote.html", "Promote my config")])
     + group("Docs", [a("docs.html", "Docs"), a("config.html", "How configuration works"), a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("offering.html", "Offering")])
@@ -2455,7 +2461,7 @@ function siteSections() {
     ["stack.html", "Every stack"], ["compose-a-stack.html", "Compose and check a stack"], ["try-aicr.html", "Compare GPU nodes and pull an AICR config"],
   ] },
   { label: "Apps", hub: "apps.html", pages: [
-    ["apps.html", "Apps on a platform"], ["testing.html", "Worked examples"],
+    ["apps.html", "Every app"], ["put-an-app-on-a-platform.html", "Put an app on a platform"], ["testing.html", "Find a starting configuration"],
   ] },
   { label: "Plugins", hub: "plugins.html", pages: [
     ["plugins.html", "Every cub plugin"], ["kubara.html", "Kubara platforms"],
@@ -4997,7 +5003,7 @@ cub stack check metrics-double</code></pre>
         { cmd: "cub app check shop-web-kubara", out: "the app adapted: Traefik's class, a secret through external-secrets" },
         { cmd: "cub stack sandbox kubara-shop-platform", out: "=> CHECKED — the platform grew by external-secrets, every need carried" },
       ])}
-      <p>The app told the platform what it had to be, and the platform grew by one service to carry it. <a href="./apps.html#demo">Apps</a> walks the same negotiation step by step.</p>
+      <p>The app told the platform what it had to be, and the platform grew by one service to carry it. <a href="./put-an-app-on-a-platform.html#demo">Apps</a> walks the same negotiation step by step.</p>
       <h3>A Kubara platform becomes a stack</h3>
       <p>When a Kubara platform already exists, its own output becomes a stack, rendered with the values Kubara generated. Certify then judges the platform you actually have rather than the catalog's copy of its parts. A platform, as <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines it, is what a stack becomes once it runs under governance with apps on it.</p>
       ${commandBlock([
@@ -8255,7 +8261,42 @@ function formatsHtml() {
 `;
 }
 
-function appsHtml(catalog) {
+function appsHtml() {
+  const delivery = { plain: "Plain", "argo-cd": "Argo CD", flux: "Flux", generator: "A generator" };
+  const rows = sectionRows("apps").map((row) => [
+    `<a href="${escapeHtml(row.address)}">${escapeHtml(row.name)}</a>`,
+    escapeHtml(row.summary),
+    delivery[row.delivery] ?? escapeHtml(row.delivery),
+    `<code style="white-space:nowrap">${escapeHtml(row.checkedCommit.slice(0, 7))}</code>`,
+  ]);
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apps · ConfigHub Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Apps</h1>
+    <p class="lead">An app is a workload you bring. It declares what it needs from the platform under it, and <code>cub app check</code> reads its own objects to report that.</p>
+    <p><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a> shows how, step by step. An agent reads the same rows at <a href="./apps.json">apps.json</a>.</p>
+  </header>
+  <main>
+    <section aria-labelledby="what-an-app-is">
+      <h2 id="what-an-app-is">Every worked example app</h2>
+      <p>Each app links to its repository's default branch. The last column is the commit at which it was last checked.</p>
+      ${markdownLikeTable([["App", "What it shows", "Delivered by", "Checked at"], ...rows], { rawColumns: [0, 1, 2, 3], firstColumnWidthCh: 24 })}
+    </section>
+  </main>
+</body>
+</html>
+`;
+}
+
+function appGuideHtml(catalog) {
   const tierRows = [
     ["Right now, free", "Check what your app needs, then check it against a platform, with no cluster and no account.", "cub app check &middot; cub stack sandbox"],
     ["Connected to ConfigHub", "Put the app on the stack next to the platform parts, uploaded as a base variant.", "cub app upload &middot; stack placement"],
@@ -8280,27 +8321,19 @@ function appsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apps on a platform · ConfigHub Workshop</title>
+  <title>Put an app on a platform · ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Deploy and promote apps on a platform</h1>
+    <p class="eyebrow">A Guide</p>
+    <h1>Put an app on a platform</h1>
     <p class="lead">Certify checks first that the platform carries what the app needs, then you promote the app across environments in ConfigHub.</p>
-    <p>The app lands on a <a href="./stack.html">stack</a> at the moment the stack check reads it. It runs on a <a href="./kubara.html">platform</a>, the stack once it is live.</p>
-    ${humanLinks([["What an app is", "#what-an-app-is"], ["Try it now", "#try"], ["Follow the demo, step by step", "#demo"], ["Take it into ConfigHub", "#confighub"], ["Bring an app that already runs", "#adopt"]])}
+    <p>The app lands on a <a href="./stack.html">stack</a> at the moment the stack check reads it. The <a href="./apps.html">Apps</a> list holds every worked example.</p>
+    ${humanLinks([["Try it now", "#try"], ["Follow the demo, step by step", "#demo"], ["Take it into ConfigHub", "#confighub"], ["Bring an app that already runs", "#adopt"]])}
   </header>
   <main>
-    <section aria-labelledby="what-an-app-is">
-      <h2 id="what-an-app-is">What an app is</h2>
-      <p>An app is a workload you bring. It declares what it needs from the platform under it, and <code>cub app check</code> reads its own objects to report that.</p>
-      <p>An app on a stack is checked before anything runs. Certify judges the app's need alongside every component in the manifest, and refuses the stack if the need goes unmet.</p>
-      <p>An app on a platform is that same app after the stack is uploaded and running under governance. It deploys, promotes, and rolls back there with ConfigHub's own verbs.</p>
-      <p>A standalone app needs neither. It pulls its own reviewed OCI bundle and reconciles straight onto a cluster through Argo CD or Flux. An app only needs a platform for a dependency a stack carries, such as TLS from cert-manager or an ingress controller.</p>
-      <p><a href="./try-aicr.html">Try AICR</a> inspects a different kind of platform, one composed of Argo CD Applications instead of a stack manifest.</p>
-    </section>
-
     <section aria-labelledby="try">
       <h2 id="try">Try it now</h2>
       <p>Install the workshop plugin, then ask an app what it needs and whether it fits a platform. Nothing here touches a cluster, and no account is needed.</p>
@@ -8316,7 +8349,6 @@ function appsHtml(catalog) {
         ...tierRows,
       ], { rawThirdColumn: true })}
     </section>
-
     <section aria-labelledby="demo">
       <h2 id="demo">Follow the demo, step by step</h2>
       <p>The demo puts an app on a platform whose ingress controller does not match, so the check has something real to catch. Each step is a command you can run yourself.</p>
@@ -8328,7 +8360,6 @@ function appsHtml(catalog) {
       </ol>
       <p>Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/shop-platform.yaml">shop-platform manifest</a>, the <a href="https://github.com/confighub/cub-workshop/tree/main/apps">shipped apps</a>, and the <a href="https://github.com/confighub/cub-workshop/blob/main/proofs/assistant-composition-2026-09-02/journal.md">recorded composition</a>, where an assistant chose the parts and the check read them. <a href="./stack.html">Stacks</a> explains the manifest.</p>
     </section>
-
     <section aria-labelledby="confighub">
       <h2 id="confighub">Take it into ConfigHub</h2>
       <p>The free checks answer whether an app fits. ConfigHub is where the reviewed result becomes a shared record that a team can release, promote, and roll back.</p>
@@ -8350,7 +8381,6 @@ function appsHtml(catalog) {
       <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. Approval attestations satisfy a configured ChangeWorkflow prerequisite; recording an approval alone does not add a gate. This example assumes the reviewed workflow is already bound to the ChangeOrder when gated delivery is required. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>
       <p>Check the current delivery gaps before you rely on gate order across an app's CRDs. <a href="./known-gaps.html">Read the known gaps</a>.</p>
     </section>
-
     <section aria-labelledby="adopt">
       <h2 id="adopt">Bring an app that already runs</h2>
       <p>An app you already run carries history, such as old chart versions, hand-created Secrets, and controller-generated fields. Start read-only: record what runs and compare it, and decide only afterward which configuration ConfigHub should keep and which delivery system stays in control.</p>
@@ -8364,7 +8394,14 @@ function appsHtml(catalog) {
         <div class="card"><h3>Match the current app</h3><p>Capture Helm's status, values and manifest, along with its hooks and history. Then create or select a base that matches the reviewed object set.</p><p><a href="../docs/user/existing-helm-release-diagnostic.md">Check an existing Helm release</a> &middot; <a href="../docs/user/adopting-existing-apps.md">Existing app guide</a></p></div>
       </div>
     </section>
-
+    <section aria-labelledby="app-in-full">
+      <h2 id="app-in-full">What an app is, in full</h2>
+      <p>An app is a workload you bring. It declares what it needs from the platform under it, and <code>cub app check</code> reads its own objects to report that.</p>
+      <p>An app on a stack is checked before anything runs. Certify judges the app's need alongside every component in the manifest, and refuses the stack if the need goes unmet.</p>
+      <p>An app on a platform is that same app after the stack is uploaded and running under governance. It deploys, promotes, and rolls back there with ConfigHub's own verbs.</p>
+      <p>A standalone app needs neither. It pulls its own reviewed OCI bundle and reconciles straight onto a cluster through Argo CD or Flux. An app only needs a platform for a dependency a stack carries, such as TLS from cert-manager or an ingress controller.</p>
+      <p><a href="./try-aicr.html">Try AICR</a> inspects a different kind of platform, one composed of Argo CD Applications instead of a stack manifest.</p>
+    </section>
     <section aria-labelledby="proof">
       <h2 id="proof">Open working examples</h2>
       ${markdownLikeTable([
