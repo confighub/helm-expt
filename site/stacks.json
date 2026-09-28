@@ -1,0 +1,213 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "WorkshopSection",
+  "section": "stacks",
+  "schema": "https://confighub.github.io/helm-expt/site/stacks.schema.json",
+  "generatedFrom": [
+    "data/workshop-stacks/stacks.yaml"
+  ],
+  "count": 11,
+  "rows": [
+    {
+      "id": "app-platform",
+      "name": "app-platform",
+      "summary": "A full platform for a web application: database, cache, ingress, certificates, and monitoring. The shape a Spring Boot app lands on.",
+      "state": "shipped",
+      "parts": [
+        "cert-manager",
+        "ingress-nginx",
+        "postgresql",
+        "redis",
+        "kube-prometheus-stack"
+      ],
+      "partCount": 5,
+      "checked": true,
+      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/app-platform.yaml",
+      "next": {
+        "command": "cub stack check app-platform"
+      }
+    },
+    {
+      "id": "data-services",
+      "name": "data-services",
+      "summary": "A stateful data tier: cache, relational database, and message queue.",
+      "state": "shipped",
+      "parts": [
+        "redis",
+        "postgresql",
+        "rabbitmq"
+      ],
+      "partCount": 3,
+      "checked": true,
+      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/data-services.yaml",
+      "next": {
+        "command": "cub stack check data-services"
+      }
+    },
+    {
+      "id": "eks-inference",
+      "name": "eks-inference",
+      "summary": "The EKS inference platform as a stack: eight digest-pinned certified bundles across three planes. The keystone, spoken in the settled vocabulary.",
+      "state": "shipped",
+      "parts": [
+        "platform-profile",
+        "ack-controllers",
+        "aws-network",
+        "eks-cluster",
+        "karpenter-aws",
+        "karpenter",
+        "gpu-runtime",
+        "inference-workloads"
+      ],
+      "partCount": 8,
+      "checked": true,
+      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/eks-inference.yaml",
+      "next": {
+        "command": "cub stack check eks-inference"
+      }
+    },
+    {
+      "id": "gitops-secrets",
+      "name": "gitops-secrets",
+      "summary": "A delivery control plane: Argo CD, External Secrets, and cert-manager, three CRD-shipping components composed together.",
+      "state": "shipped",
+      "parts": [
+        "cert-manager",
+        "external-secrets",
+        "argo-cd"
+      ],
+      "partCount": 3,
+      "checked": true,
+      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/gitops-secrets.yaml",
+      "next": {
+        "command": "cub stack check gitops-secrets"
+      }
+    },
+    {
+      "id": "kubara-gitops-shop",
+      "name": "kubara-gitops-shop",
+      "summary": "Kubara components plus the retained Argo CD controller and shop app. Static composition only; repository binding, target prerequisites and live delivery remain required.",
+      "state": "shipped",
+      "parts": [
+        "cert-manager",
+        "traefik",
+        "metrics-server",
+        "external-secrets",
+        "argo-cd",
+        "shop-web"
+      ],
+      "partCount": 6,
+      "checked": false,
+      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/kubara-gitops-shop.yaml",
+      "next": {
+        "command": "cub stack check kubara-gitops-shop"
+      }
+    },
+    {
+      "id": "kubara-platform",
+      "name": "kubara-platform",
+      "summary": "A small platform of cert-manager, Traefik, and metrics-server, composed from the catalog's published certified bundles.",
+      "state": "shipped",
+      "parts": [
+        "cert-manager",
+        "traefik",
+        "metrics-server"
+      ],
+      "partCount": 3,
+      "checked": true,
+      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/kubara-platform.yaml",
+      "next": {
+        "command": "cub stack check kubara-platform"
+      }
+    },
+    {
+      "id": "kubara-shop-platform",
+      "name": "kubara-shop-platform",
+      "summary": "The Kubara platform grown to what the shop app needs: cert-manager, Traefik, metrics-server, and external-secrets, with the app adapted to it: Traefik's ingress class and a secret pulled through external-secrets.",
+      "state": "shipped",
+      "parts": [
+        "cert-manager",
+        "traefik",
+        "metrics-server",
+        "external-secrets",
+        "shop-web"
+      ],
+      "partCount": 5,
+      "checked": false,
+      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/kubara-shop-platform.yaml",
+      "next": {
+        "command": "cub stack check kubara-shop-platform"
+      }
+    },
+    {
+      "id": "observability-base",
+      "name": "observability-base",
+      "summary": "A base observability platform: certificates, cluster metrics, and the Prometheus stack.",
+      "state": "shipped",
+      "parts": [
+        "cert-manager",
+        "metrics-server",
+        "kube-prometheus-stack"
+      ],
+      "partCount": 3,
+      "checked": true,
+      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/observability-base.yaml",
+      "next": {
+        "command": "cub stack check observability-base"
+      }
+    },
+    {
+      "id": "redis-platform",
+      "name": "redis-platform",
+      "summary": "A managed Redis platform: the cache, its secrets, and monitoring. After the redis-platform pattern in confighub/examples.",
+      "state": "shipped",
+      "parts": [
+        "redis",
+        "external-secrets",
+        "kube-prometheus-stack"
+      ],
+      "partCount": 3,
+      "checked": true,
+      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/redis-platform.yaml",
+      "next": {
+        "command": "cub stack check redis-platform"
+      }
+    },
+    {
+      "id": "shop-platform",
+      "name": "shop-platform",
+      "summary": "A web platform with monitoring and a message queue, with the shop app running on it: ingress, certificates, the Prometheus stack, RabbitMQ, and shop-web.",
+      "state": "shipped",
+      "parts": [
+        "cert-manager",
+        "ingress-nginx",
+        "kube-prometheus-stack",
+        "rabbitmq",
+        "shop-web"
+      ],
+      "partCount": 5,
+      "checked": false,
+      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/shop-platform.yaml",
+      "next": {
+        "command": "cub stack check shop-platform"
+      }
+    },
+    {
+      "id": "web-platform",
+      "name": "web-platform",
+      "summary": "A platform for web apps: ingress, certificates, and monitoring. Carries exactly what an app like shop-web depends on.",
+      "state": "shipped",
+      "parts": [
+        "cert-manager",
+        "ingress-nginx",
+        "kube-prometheus-stack"
+      ],
+      "partCount": 3,
+      "checked": true,
+      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/web-platform.yaml",
+      "next": {
+        "command": "cub stack check web-platform"
+      }
+    }
+  ]
+}

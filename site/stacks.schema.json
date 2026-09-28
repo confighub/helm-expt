@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.github.io/helm-expt/site/stacks.schema.json",
+  "title": "ConfigHub Workshop stacks section",
+  "description": "One row per stack in the Catalog's stacks section. Every row carries a stable id, a one-line summary, its state, and next: the exact command or address an agent uses.",
+  "type": "object",
+  "required": [
+    "apiVersion",
+    "kind",
+    "section",
+    "schema",
+    "generatedFrom",
+    "count",
+    "rows"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "const": "catalog.confighub.com/v1alpha1"
+    },
+    "kind": {
+      "const": "WorkshopSection"
+    },
+    "section": {
+      "const": "stacks"
+    },
+    "schema": {
+      "const": "https://confighub.github.io/helm-expt/site/stacks.schema.json"
+    },
+    "generatedFrom": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "summary",
+          "state",
+          "parts",
+          "partCount",
+          "checked",
+          "source",
+          "next"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9.-]*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          },
+          "state": {
+            "type": "string",
+            "minLength": 1
+          },
+          "parts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "partCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "checked": {
+            "type": "boolean"
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "next": {
+            "type": "object",
+            "description": "What an agent does next: run command, open address, or read note.",
+            "minProperties": 1,
+            "properties": {
+              "command": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    }
+  }
+}

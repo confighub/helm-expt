@@ -1,0 +1,104 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: WorkshopPluginRegistry
+metadata:
+  name: workshop-plugins
+spec:
+  description: >-
+    Every public cub plugin, each marked by its state. Kept by hand, outside the
+    generated site. The site generator turns it into site/plugins.json.
+    `node scripts/verify-workshop-sections.mjs --verify-upstream` checks each
+    released row against its repository's latest GitHub release.
+  checkedAt: "2026-09-28"
+  plugins:
+    - id: workshop
+      name: ConfigHub Workshop
+      commands: [cub config, cub app, cub stack, cub fleet]
+      summary: Checks, composes and publishes configuration from the Catalog.
+      repository: confighub/cub-workshop
+      state: released
+      release: {tag: v0.6.50, date: "2026-09-27"}
+      install: cub plugin install confighub/cub-workshop
+    - id: kubara
+      name: Kubara
+      commands: [cub kubara]
+      summary: Runs a Kubara platform through ConfigHub, with Catalog evidence for each chart.
+      repository: confighub/kubara-confighub
+      state: released
+      release: {tag: v0.2.2, date: "2026-09-28"}
+      install: cub plugin install confighub/kubara-confighub
+    - id: sveltos
+      name: Sveltos
+      commands: [cub sveltos]
+      summary: Brings a Sveltos fleet into ConfigHub, one variant per cluster.
+      repository: confighub/sveltos-confighub
+      state: released
+      release: {tag: v0.8.0, date: "2026-09-28"}
+      install: cub plugin install confighub/sveltos-confighub
+    - id: eks-inference
+      name: EKS inference
+      commands: [cub eksinf]
+      summary: Runs the eks-inference stack on EKS.
+      repository: confighub/eks-inference
+      state: released
+      release: {tag: v0.12.0, date: "2026-08-13"}
+      install: cub plugin install confighub/eks-inference
+    - id: installer
+      name: Installer
+      commands: [cub installer]
+      summary: Renders and installs configuration-as-data packages.
+      repository: confighub/installer
+      state: released
+      release: {tag: v0.1.0, date: "2026-07-29"}
+      install: cub plugin install confighub/installer
+    - id: helm
+      name: Helm
+      commands: [cub helm]
+      summary: Installs Helm charts as ConfigHub components.
+      repository: confighub/cub-helm
+      state: released
+      release: {tag: v0.1.1, date: "2026-09-11"}
+      install: cub plugin install confighub/cub-helm
+    - id: scout
+      name: Scout
+      commands: [cub scout]
+      summary: Explores and maps GitOps in your clusters.
+      repository: confighub/cub-scout
+      state: released
+      release: {tag: v2.12.3, date: "2026-09-26"}
+      install: cub plugin install confighub/cub-scout
+    - id: scan
+      name: Scan
+      commands: [cub scan, cub check]
+      summary: Checks Kubernetes and GitOps configuration for known risks.
+      repository: confighub/homebrew-tap
+      state: released
+      release: {tag: cub-scan-v0.7.3, date: "2026-08-24"}
+      install: cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan
+    - id: server
+      name: ConfigHub Server
+      commands: [cub server]
+      summary: Installs a self-hosted ConfigHub server.
+      repository: confighub/cub-server
+      state: released
+      release: {tag: v0.2.2, date: "2026-09-26"}
+      install: cub plugin install confighub/cub-server
+    - id: demo
+      name: Demo
+      commands: [cub demo]
+      summary: Seeds a ConfigHub organisation with a demo dataset.
+      repository: confighub/cub-demo
+      state: released
+      release: {tag: v0.2.2, date: "2026-09-16"}
+      install: cub plugin install confighub/cub-demo
+    - id: argo
+      name: Argo CD
+      commands: [cub argo]
+      summary: Reads an Argo CD estate and plans it into ConfigHub.
+      state: in-progress
+      note: Not yet published.
+    - id: flux
+      name: Flux
+      commands: [cub flux]
+      summary: Reads a Flux fleet repository and plans it into ConfigHub.
+      state: in-progress
+      note: Not yet published.

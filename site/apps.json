@@ -1,0 +1,386 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "WorkshopSection",
+  "section": "apps",
+  "schema": "https://confighub.github.io/helm-expt/site/apps.schema.json",
+  "generatedFrom": [
+    "data/workshop-apps/apps.yaml"
+  ],
+  "count": 25,
+  "rows": [
+    {
+      "id": "workshop-demo",
+      "name": "The shop app, five journeys",
+      "summary": "A small shop app built with an AI assistant, followed through the five journeys: values that did nothing, fixes that survive, what the app needs, before GitOps takes over, and an image that no longer exists.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "monadic/workshop-demo",
+      "branch": "main",
+      "checkedCommit": "6e56b6707e13358f50f4257a6030cf5e951778b2",
+      "address": "https://github.com/monadic/workshop-demo/tree/main",
+      "next": {
+        "address": "https://github.com/monadic/workshop-demo/tree/main"
+      }
+    },
+    {
+      "id": "shop-storefront",
+      "name": "storefront",
+      "summary": "A shop service for the storefront: a Deployment and a Service in namespace retail.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/cub-workshop",
+      "path": "apps/storefront.yaml",
+      "branch": "main",
+      "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/storefront.yaml",
+      "next": {
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/storefront.yaml"
+      }
+    },
+    {
+      "id": "shop-cart",
+      "name": "cart",
+      "summary": "A shop service for the cart: a Deployment and a Service in namespace retail.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/cub-workshop",
+      "path": "apps/cart.yaml",
+      "branch": "main",
+      "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/cart.yaml",
+      "next": {
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/cart.yaml"
+      }
+    },
+    {
+      "id": "shop-checkout",
+      "name": "checkout",
+      "summary": "A shop service for checkout: a Deployment and a Service in namespace retail.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/cub-workshop",
+      "path": "apps/checkout.yaml",
+      "branch": "main",
+      "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/checkout.yaml",
+      "next": {
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/checkout.yaml"
+      }
+    },
+    {
+      "id": "shop-catalog-api",
+      "name": "catalog-api",
+      "summary": "A shop service for the product catalog API: a Deployment and a Service in namespace retail.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/cub-workshop",
+      "path": "apps/catalog-api.yaml",
+      "branch": "main",
+      "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/catalog-api.yaml",
+      "next": {
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/catalog-api.yaml"
+      }
+    },
+    {
+      "id": "shop-search",
+      "name": "search",
+      "summary": "A shop service for search: a Deployment and a Service in namespace retail.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/cub-workshop",
+      "path": "apps/search.yaml",
+      "branch": "main",
+      "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/search.yaml",
+      "next": {
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/search.yaml"
+      }
+    },
+    {
+      "id": "shop-identity",
+      "name": "identity",
+      "summary": "A shop service for identity: a Deployment and a Service in namespace auth.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/cub-workshop",
+      "path": "apps/identity.yaml",
+      "branch": "main",
+      "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/identity.yaml",
+      "next": {
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/identity.yaml"
+      }
+    },
+    {
+      "id": "shop-fraud-scoring",
+      "name": "fraud-scoring",
+      "summary": "A shop service for fraud scoring: a Deployment and a Service in namespace payments.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/cub-workshop",
+      "path": "apps/fraud-scoring.yaml",
+      "branch": "main",
+      "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/fraud-scoring.yaml",
+      "next": {
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/fraud-scoring.yaml"
+      }
+    },
+    {
+      "id": "shop-ledger",
+      "name": "ledger",
+      "summary": "A shop service for the ledger: a Deployment and a Service in namespace payments.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/cub-workshop",
+      "path": "apps/ledger.yaml",
+      "branch": "main",
+      "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/ledger.yaml",
+      "next": {
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/ledger.yaml"
+      }
+    },
+    {
+      "id": "shop-payment-gateway",
+      "name": "payment-gateway",
+      "summary": "A shop service for the payment gateway: a Deployment and a Service in namespace payments.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/cub-workshop",
+      "path": "apps/payment-gateway.yaml",
+      "branch": "main",
+      "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/payment-gateway.yaml",
+      "next": {
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/payment-gateway.yaml"
+      }
+    },
+    {
+      "id": "shop-shipment-tracker",
+      "name": "shipment-tracker",
+      "summary": "A shop service for shipment tracking: a Deployment and a Service in namespace logistics.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/cub-workshop",
+      "path": "apps/shipment-tracker.yaml",
+      "branch": "main",
+      "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/shipment-tracker.yaml",
+      "next": {
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/shipment-tracker.yaml"
+      }
+    },
+    {
+      "id": "shop-warehouse-api",
+      "name": "warehouse-api",
+      "summary": "A shop service for the warehouse API: a Deployment and a Service in namespace logistics.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/cub-workshop",
+      "path": "apps/warehouse-api.yaml",
+      "branch": "main",
+      "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/warehouse-api.yaml",
+      "next": {
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/warehouse-api.yaml"
+      }
+    },
+    {
+      "id": "shop-web",
+      "name": "shop-web",
+      "summary": "The shop web front end, with an Ingress, a Certificate and a ServiceMonitor, so it needs ingress, cert-manager and Prometheus from its platform.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/cub-workshop",
+      "path": "apps/shop-web.yaml",
+      "branch": "main",
+      "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/shop-web.yaml",
+      "next": {
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/shop-web.yaml"
+      }
+    },
+    {
+      "id": "shop-web-kubara",
+      "name": "shop-web on Kubara",
+      "summary": "shop-web adapted to the Kubara platform: Traefik's ingress class and a Secret pulled through External Secrets.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/cub-workshop",
+      "path": "apps/shop-web-kubara.yaml",
+      "branch": "main",
+      "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/shop-web-kubara.yaml",
+      "next": {
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/shop-web-kubara.yaml"
+      }
+    },
+    {
+      "id": "hello-standalone",
+      "name": "hello-standalone",
+      "summary": "The smallest app: one Deployment and one Service, with nothing asked of the platform.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/cub-workshop",
+      "path": "apps/hello-standalone.yaml",
+      "branch": "main",
+      "checkedCommit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "address": "https://github.com/confighub/cub-workshop/blob/main/apps/hello-standalone.yaml",
+      "next": {
+        "address": "https://github.com/confighub/cub-workshop/blob/main/apps/hello-standalone.yaml"
+      }
+    },
+    {
+      "id": "argo-beginner-app-of-apps",
+      "name": "Argo CD beginner: app of apps",
+      "summary": "One app in a small, realistic Argo CD repository, delivered through an app of apps.",
+      "state": "maintained",
+      "delivery": "argo-cd",
+      "repository": "confighub/examples",
+      "path": "gitops/argo/beginner-app-of-apps",
+      "branch": "main",
+      "checkedCommit": "148890b4cc77b7a908b748a7beb5ecbf7418a256",
+      "address": "https://github.com/confighub/examples/tree/main/gitops/argo/beginner-app-of-apps",
+      "next": {
+        "address": "https://github.com/confighub/examples/tree/main/gitops/argo/beginner-app-of-apps"
+      }
+    },
+    {
+      "id": "argo-beginner-applicationset",
+      "name": "Argo CD beginner: ApplicationSet",
+      "summary": "One app in a small, realistic Argo CD repository, delivered through an ApplicationSet.",
+      "state": "maintained",
+      "delivery": "argo-cd",
+      "repository": "confighub/examples",
+      "path": "gitops/argo/beginner-applicationset",
+      "branch": "main",
+      "checkedCommit": "148890b4cc77b7a908b748a7beb5ecbf7418a256",
+      "address": "https://github.com/confighub/examples/tree/main/gitops/argo/beginner-applicationset",
+      "next": {
+        "address": "https://github.com/confighub/examples/tree/main/gitops/argo/beginner-applicationset"
+      }
+    },
+    {
+      "id": "argo-intermediate-ci-to-gitops",
+      "name": "Argo CD intermediate: CI to GitOps",
+      "summary": "CI writes image tags, and promotion happens by pull request, across an app repository and a config repository.",
+      "state": "maintained",
+      "delivery": "argo-cd",
+      "repository": "confighub/examples",
+      "path": "gitops/argo/intermediate-ci-to-gitops",
+      "branch": "main",
+      "checkedCommit": "148890b4cc77b7a908b748a7beb5ecbf7418a256",
+      "address": "https://github.com/confighub/examples/tree/main/gitops/argo/intermediate-ci-to-gitops",
+      "next": {
+        "address": "https://github.com/confighub/examples/tree/main/gitops/argo/intermediate-ci-to-gitops"
+      }
+    },
+    {
+      "id": "argo-intermediate-git-as-database",
+      "name": "Argo CD intermediate: Git as a database",
+      "summary": "An Argo CD fleet repository with one planted instance of each of seven ways a config repository becomes a database.",
+      "state": "maintained",
+      "delivery": "argo-cd",
+      "repository": "confighub/examples",
+      "path": "gitops/argo/intermediate-git-as-database",
+      "branch": "main",
+      "checkedCommit": "148890b4cc77b7a908b748a7beb5ecbf7418a256",
+      "address": "https://github.com/confighub/examples/tree/main/gitops/argo/intermediate-git-as-database",
+      "next": {
+        "address": "https://github.com/confighub/examples/tree/main/gitops/argo/intermediate-git-as-database"
+      }
+    },
+    {
+      "id": "argo-expert-app-of-apps",
+      "name": "Argo CD expert: app of apps on three clusters",
+      "summary": "A brownfield Argo CD layout of the kind a platform team runs, across three clusters.",
+      "state": "maintained",
+      "delivery": "argo-cd",
+      "repository": "confighub/examples",
+      "path": "gitops/argo/expert-app-of-apps",
+      "branch": "main",
+      "checkedCommit": "148890b4cc77b7a908b748a7beb5ecbf7418a256",
+      "address": "https://github.com/confighub/examples/tree/main/gitops/argo/expert-app-of-apps",
+      "next": {
+        "address": "https://github.com/confighub/examples/tree/main/gitops/argo/expert-app-of-apps"
+      }
+    },
+    {
+      "id": "flux-beginner",
+      "name": "Flux beginner",
+      "summary": "One app in a small, realistic Flux repository with the standard layout.",
+      "state": "maintained",
+      "delivery": "flux",
+      "repository": "confighub/examples",
+      "path": "gitops/flux/beginner",
+      "branch": "main",
+      "checkedCommit": "148890b4cc77b7a908b748a7beb5ecbf7418a256",
+      "address": "https://github.com/confighub/examples/tree/main/gitops/flux/beginner",
+      "next": {
+        "address": "https://github.com/confighub/examples/tree/main/gitops/flux/beginner"
+      }
+    },
+    {
+      "id": "flux-expert-fleet",
+      "name": "Flux expert: a three-cluster fleet",
+      "summary": "A Flux fleet repository with layered Kustomizations, a tenant, image automation and branch-based promotion.",
+      "state": "maintained",
+      "delivery": "flux",
+      "repository": "confighub/examples",
+      "path": "gitops/flux/expert-fleet",
+      "branch": "main",
+      "checkedCommit": "148890b4cc77b7a908b748a7beb5ecbf7418a256",
+      "address": "https://github.com/confighub/examples/tree/main/gitops/flux/expert-fleet",
+      "next": {
+        "address": "https://github.com/confighub/examples/tree/main/gitops/flux/expert-fleet"
+      }
+    },
+    {
+      "id": "spring-platform",
+      "name": "Spring platform with generators",
+      "summary": "Why platform teams want generators: a Spring app whose configuration cub-gen produces and checks.",
+      "state": "maintained",
+      "delivery": "generator",
+      "repository": "confighub/examples",
+      "path": "spring-platform",
+      "branch": "main",
+      "checkedCommit": "148890b4cc77b7a908b748a7beb5ecbf7418a256",
+      "address": "https://github.com/confighub/examples/tree/main/spring-platform",
+      "next": {
+        "address": "https://github.com/confighub/examples/tree/main/spring-platform"
+      }
+    },
+    {
+      "id": "k8s-to-score",
+      "name": "Kubernetes to Score",
+      "summary": "Converts the Kubernetes resources in a ConfigHub Space into a Score workload.",
+      "state": "maintained",
+      "delivery": "generator",
+      "repository": "confighub/examples",
+      "path": "k8s-to-score",
+      "branch": "main",
+      "checkedCommit": "148890b4cc77b7a908b748a7beb5ecbf7418a256",
+      "address": "https://github.com/confighub/examples/tree/main/k8s-to-score",
+      "next": {
+        "address": "https://github.com/confighub/examples/tree/main/k8s-to-score"
+      }
+    },
+    {
+      "id": "realistic-app",
+      "name": "A realistic three-component app",
+      "summary": "A frontend, a backend and PostgreSQL as one global-app recipe, with optional Ollama.",
+      "state": "maintained",
+      "delivery": "plain",
+      "repository": "confighub/examples",
+      "path": "global-app-layer/realistic-app",
+      "branch": "main",
+      "checkedCommit": "148890b4cc77b7a908b748a7beb5ecbf7418a256",
+      "address": "https://github.com/confighub/examples/tree/main/global-app-layer/realistic-app",
+      "next": {
+        "address": "https://github.com/confighub/examples/tree/main/global-app-layer/realistic-app"
+      }
+    }
+  ]
+}
