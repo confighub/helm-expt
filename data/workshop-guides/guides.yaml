@@ -218,6 +218,11 @@ spec:
     summary: Govern a Kubara platform with cub kubara, from plan to handover and check, without changing
       how Kubara works, or use it as a Workshop stack.
     page: bring-kubara-into-confighub.html
+  - id: handle-hooks-and-crds
+    group: stacks-and-platforms
+    title: Handle hooks and CRDs
+    summary: Find the hooks, CRDs, setup jobs and target facts a chart needs before delivery, decide who runs each, and stage the target first.
+    page: handle-hooks-and-crds.html
   - id: promote
     group: confighub
     title: Can I promote this configuration?
@@ -247,3 +252,8 @@ spec:
     summary: Take a reviewed configuration into a stack, keep it as an image, or save it in ConfigHub to
       move it through environments.
     page: take-a-config-further.html
+  - id: change-a-config-safely
+    group: confighub
+    title: Change a config safely
+    summary: Decide whether a change rebuilds the base or belongs to one environment, then preview it and promote only what was reviewed.
+    page: change-a-config-safely.html

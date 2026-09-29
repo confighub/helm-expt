@@ -74,7 +74,7 @@ If a values file changes what Helm renders, it belongs in a new or updated
 chart preset. If a change only fills or refines already-rendered objects
 after upload, it can belong in a derived ConfigHub variant instead.
 
-[Variants](../../site/variants.html#choose) has the full three-line rule and
+[Change a config safely](../../site/change-a-config-safely.html#choose) has the full three-line rule and
 the detailed routing table, drawn from
 [Choosing Base Variants, Derived Variants, And Delivery Changes](./change-routing-before-oci.md).
 

@@ -5,6 +5,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/apps.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/ask.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/change-a-config-safely.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-1-3.html</loc></url>
@@ -777,6 +778,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/does-cluster-match-approved-config.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/formats.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/guides.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/handle-hooks-and-crds.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/how-it-works.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/journey-before-gitops.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/journey-installs-never-starts.html</loc></url>

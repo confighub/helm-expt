@@ -96,7 +96,12 @@ const checks = [
   },
   {
     file: "site/variants.html",
-    terms: ["Turn a recipe and values into a base, and decide where a change belongs", "1. See the model", "payments-api/prod-us", "Three variant layers", "Four things called base", "Two words worth defining", "2. Decide where the change belongs", "Quick routing table", "Firm answers for four fields", "What protection means", "One worked example: ExternalDNS overlays", "The OCI boundary, and changing one field without ConfigHub", "3. Follow a safe flow", "The whole chain, with the variants labeled", "4. Run the commands", "reuse-existing-secret", "5. Tell what set a field", "Where each setting lives", "6. Understand a chart preset", "The claim", "What a chart preset records", "The short model", "7. See what is inside ConfigHub", "What the package contains", "8. Open worked examples", "9. Read the details", "Deciding whether to flatten"],
+    terms: ["Turn a recipe and values into a base, and decide where a change belongs", "1. See the model", "payments-api/prod-us", "Three variant layers", "Four things called base", "Two words worth defining", "Change a config safely", "2. Tell what set a field", "Where each setting lives", "3. Understand a chart preset", "The claim", "What a chart preset records", "The short model", "4. See what is inside ConfigHub", "What the package contains", "5. Read the details", "Deciding whether to flatten"],
+  },
+  // Site IA phase 4, step 7b: where a change belongs, and how to make it, moved to its Guide.
+  {
+    file: "site/change-a-config-safely.html",
+    terms: ["Change a config safely", "1. Decide where the change belongs", "Quick routing table", "Firm answers for four fields", "What protection means", "One worked example: ExternalDNS overlays", "The OCI boundary, and changing one field without ConfigHub", "2. Follow a safe flow", "The whole chain, with the variants labeled", "3. Run the commands", "reuse-existing-secret", "4. Open worked examples"],
   },
   {
     file: "site/operations.html",
@@ -216,7 +221,12 @@ const checks = [
   },
   {
     file: "site/quirks.html",
-    terms: ["See what happens to your chart's hooks, CRDs, and setup work", "1. Know the phases, the dispositions, and who runs the work", "2. Read the short answer and your practical choices", "3. See what a route tells you, then do the six steps", "4. Follow the worked examples through hooks and CRDs", "5. Decide who owns each CRD", "6. Stage target prerequisites before you apply", "7. See how a bundle carries routes with the objects", "8. Understand each tracked requirement, chart by chart", "9. Check what remains before deployment", "automatic: false", "observe, then execute, then emit a receipt", "per-target", "CRD-guarded object", "target prerequisites", "Helm hooks", "CRDs", "Cluster lookups"],
+    terms: ["See what happens to your chart's hooks, CRDs, and setup work", "1. Know the phases, the dispositions, and who runs the work", "2. Read the short answer and your practical choices", "3. See what a route tells you", "4. See how a bundle carries routes with the objects", "5. Understand each tracked requirement, chart by chart", "6. Check what remains before deployment", "automatic: false", "observe, then execute, then emit a receipt", "per-target", "target prerequisites", "Helm hooks", "CRDs", "Cluster lookups"],
+  },
+  // Site IA phase 4, step 7b: acting on hooks and CRDs moved to its Guide.
+  {
+    file: "site/handle-hooks-and-crds.html",
+    terms: ["Handle hooks and CRDs", "1. Do the six steps", "Choose the chart preset", "2. Follow the worked examples through hooks and CRDs", "3. Decide who owns each CRD", "4. Stage target prerequisites before you apply", "CRD-guarded object"],
   },
   {
     file: "site/apps.html",
