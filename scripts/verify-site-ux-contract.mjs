@@ -44,7 +44,7 @@ const checks = [
     file: "site/charts/bitnami-redis-25-5-3.html",
     terms: ["Keep this exact record", "examples/workshop-catalog-inspection/README.md", 'download="bitnami-redis-25-5-3-default.base-record.yaml"', 'download="bitnami-redis-25-5-3-default.render-intent.yaml"'],
   },
-  ...["docs", "demo", "ai"].map((page) => ({
+  ...["demo", "ai"].map((page) => ({
     file: `site/${page}.html`,
     terms: ["records/bitnami-redis-25-5-3-default.json", "Download record.json", "examples/workshop-catalog-inspection/README.md", "Inspect and keep an exact record", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "workshop-values-guide.html", "workshop-field-restore-guide.html", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html", "workshop-helm-questions-guide.html", "Answer the ten Helm questions", "expected results and a failure case"],
   })),
@@ -157,7 +157,7 @@ const checks = [
     // variant-create example and the unit-update space-flag example on separate lines, or it
     // reads the two unrelated tokens as one invalid invocation.
     terms: [
-      "Operate", "Where does this fit?", "Come here after you have inspected the Kubernetes objects", "AICR recipe for AI infrastructure", "ConfigHub stores your approved configuration and its history", "The same commands run from a free check to a governed release", "deploy (a planned name, not yet a command)", "Try it now", "1. Release", "2. Promote", "3. Gate and approve", "4. Roll back", "cub variant create demo-dev metrics-server-base", "cub release publish metrics-server-demo-dev", "cub variant promote cart-demo-dev --dry-run", "cub changeworkflow create --help", "AttestationPrerequisites", "ReleasePrerequisites", "cub variant approve cart-demo-dev",
+      "Operate", "How ConfigHub works", "Try it now", "1. Release", "2. Promote", "3. Gate and approve", "4. Roll back", "cub variant create demo-dev metrics-server-base", "cub release publish metrics-server-demo-dev", "cub variant promote cart-demo-dev --dry-run", "cub changeworkflow create --help", "AttestationPrerequisites", "ReleasePrerequisites", "cub variant approve cart-demo-dev",
       "cub unit update --space cart-demo-dev retail-deployment-cart --restore 2", "merely recording one does not install a gate", "Identical-content later revisions can remain covered", "docs.html#all-references",
     ],
   },
@@ -228,7 +228,17 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Find instructions for the step you are doing", "Harden Argo CD before production", "All technical references", "Technical Guides", "Verification and evidence", "Learn by doing", "Run the short example", "Follow one package end to end", "Start with a configuration", "Prepare it for deployment", "Change or operate saved configuration", "Check a result or solve a problem", "Every doc, by area", "Try Redis", "Component Catalog", "Worked Examples", "How do I check my own Helm values", "How do I turn reviewed files into a deployable OCI?", "What happens to hooks and CRDs?", "How do I make environment variants?", "How do I roll a change through a fleet?", "How complete is the live drift check?", "How do I check a result?", "What is not working yet?", "Browse all technical references", "Continue with ConfigHub"],
+    terms: ["Docs, by area", "How configuration works", "How ConfigHub works", "Why trust it", "What ConfigHub Workshop is", "records/bitnami-redis-25-5-3-default.json", "Download record.json", "examples/workshop-catalog-inspection/README.md", "Inspect and keep an exact record", "All technical references", "Technical Guides", "Verification and evidence", "Every doc, by area", "Try Redis", "Component Catalog", "Browse all technical references", "Continue with ConfigHub"],
+  },
+  // Site IA phase 4, step 8: the model behind the four verbs became How ConfigHub works.
+  {
+    file: "site/how-confighub-works.html",
+    terms: ["How ConfigHub works", "1. Where ConfigHub fits", "Come here after you have inspected the Kubernetes objects", "AICR recipe for AI infrastructure", "ConfigHub stores your approved configuration and its history", "2. The same commands run from a free check to a governed release", "deploy (a planned name, not yet a command)"],
+  },
+  // Site IA phase 4, step 8: the Docs page's task groups moved to the Guides list.
+  {
+    file: "site/guides.html",
+    terms: ["Find a Guide by the step you are on", "Learn by doing", "Run the short example", "Follow one package end to end", "Start with a configuration", "Prepare it for deployment", "Change or operate saved configuration", "Check a result or solve a problem", "Worked Examples", "How do I check my own Helm values", "How do I turn reviewed files into a deployable OCI?", "What happens to hooks and CRDs?", "How do I make environment variants?", "How do I roll a change through a fleet?", "How complete is the live drift check?", "How do I check a result?", "What is not working yet?"]
   },
   {
     file: "site/proof.html",
@@ -323,7 +333,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/how-it-works.html",
-    headerTerms: ["Operate", "ConfigHub's own operations, the ones you run once a configuration is reviewed", "Try it now", "See the verbs", "What ConfigHub adds"],
+    headerTerms: ["Operate", "ConfigHub's own operations, the ones you run once a configuration is reviewed", "Try it now", "How ConfigHub works", "What ConfigHub adds"],
   },
   {
     file: "site/bring-kubara-into-confighub.html",

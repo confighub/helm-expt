@@ -87,6 +87,13 @@ spec:
     summary: Pick a claim the site makes, run the smallest check that answers it, and read what it proved
       and what it left open.
     page: check-a-claim-yourself.html
+  - id: catalog-inspection
+    group: start-here
+    title: Inspect and keep an exact record
+    summary: Download the full Redis default record with its Catalog and record hashes, then reproduce the
+      lookup and a refusal locally with Node and a checkout.
+    repository: confighub/helm-expt
+    path: examples/workshop-catalog-inspection
   - id: helm-questions
     group: helm-questions
     title: Answer the ten questions Helm users ask

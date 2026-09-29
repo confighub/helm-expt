@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>One digest pins the whole training shape · ConfigHub Workshop</title>
-  <meta name="description" content="One digest pins the whole training shape: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-kind-inference/digest-index/README.html">
-  <meta property="og:title" content="One digest pins the whole training shape · ConfigHub Workshop">
-  <meta property="og:description" content="One digest pins the whole training shape: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>How ConfigHub works · ConfigHub Workshop</title>
+  <meta name="description" content="Where ConfigHub fits after a configuration is checked, and the same commands from a free check to a governed release.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/how-confighub-works.html">
+  <meta property="og:title" content="How ConfigHub works · ConfigHub Workshop">
+  <meta property="og:description" content="Where ConfigHub fits after a configuration is checked, and the same commands from a free check to a governed release.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-kind-inference/digest-index/README.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/how-confighub-works.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -458,12 +458,112 @@
     }
   }
 
-    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
-    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
-    .doc-body th { background: var(--panel); }
-    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
-    .doc-body img { max-width: 100%; }
-    .doc-body h2 { margin-top: 28px; }
+    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .calm-page main section { padding-top: 8px; }
+    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
+      gap: 22px;
+      align-items: start;
+    }
+    .calm-page .card,
+    .calm-page .metric,
+    .calm-page .lane,
+    .calm-page .faq-card,
+    .calm-page .door,
+    .calm-page .tier,
+    .calm-page .matrix-row-card,
+    .calm-page .move-card,
+    .calm-page .node,
+    .calm-page .consumer,
+    .calm-page .app-step,
+    .calm-page .op,
+    .calm-page .route div,
+    .calm-page .callout-section {
+      border: 0;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 14px 0 0;
+    }
+    .calm-page .metric strong { font-size: 1.4rem; }
+    .calm-page .metric strong,
+    .calm-page .kicker,
+    .calm-page .eyebrow,
+    .calm-page .generated,
+    .calm-page .tier .stage,
+    .calm-page .chain a::before,
+    .calm-page .faq-status,
+    .calm-page .row-layer,
+    .calm-page .row-kind,
+    .calm-page .lane-pill b,
+    .calm-page .terminal-title {
+      font-family: inherit;
+    }
+    .calm-page p code,
+    .calm-page li code,
+    .calm-page td code,
+    .calm-page th code,
+    .calm-page dd code,
+    .calm-page .mono-line code {
+      font-family: inherit;
+      font-size: .92em;
+    }
+    .calm-page pre,
+    .calm-page pre code,
+    .calm-page .terminal-body,
+    .calm-page .terminal-body code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .calm-page .metric span,
+    .calm-page .card p,
+    .calm-page .lane p,
+    .calm-page .faq-card p,
+    .calm-page .op p {
+      max-width: none;
+    }
+    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
+    .calm-page .mini-visual,
+    .calm-page .proof-frame {
+      border-radius: 0;
+      background: transparent;
+      border-color: var(--line);
+    }
+    .calm-page .chain a,
+    .calm-page .button.secondary,
+    .calm-page .chips span {
+      border-radius: 6px;
+      background: transparent;
+    }
+    .calm-page .route,
+    .calm-page .app-flow,
+    .calm-page .move-spine {
+      gap: 22px;
+    }
+  
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+    .site-footer { border-top: 1px solid var(--line); margin-top: 56px; background: var(--surface-2); }
+  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 28px 20px 36px; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 22px 30px; }
+  .site-footer .sf-group { display: flex; flex-direction: column; gap: 7px; }
+  .site-footer .sf-h { font-family: var(--mono, ui-monospace, monospace); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin-bottom: 2px; }
+  .site-footer a { text-decoration: none; color: var(--muted); font-size: .86rem; }
+  .site-footer a:hover { color: var(--accent-ink, var(--ink)); }
+  .site-footer .sf-cta a { color: var(--accent-ink, var(--ink)); font-weight: 600; }
+  @media (max-width: 720px) { .site-footer-inner { grid-template-columns: 1fr 1fr; } }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -499,42 +599,74 @@
     .cw-mobile-nav { display: block; }
   }</style>
 </head>
-<body>
-<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="../../../../../charts/index.html">Configs</a><a href="../../../../../stack.html">Stacks</a><a href="../../../../../apps.html">Apps</a><a href="../../../../../plugins.html">Plugins</a><a href="../../../../../guides.html">Guides</a><a href="../../../../../docs.html">Docs</a><a class="nav-cta" href="../../../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<body class="calm-page">
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
 <div class="cw-layout">
-<nav class="cw-sidebar" aria-label="Sections"><details><summary>Configs</summary><ul><li><a href="../../../../../charts/index.html">Find a configuration</a></li><li><a href="../../../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
-<details><summary>Stacks</summary><ul><li><a href="../../../../../stack.html">Every stack</a></li><li><a href="../../../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
-<details><summary>Apps</summary><ul><li><a href="../../../../../apps.html">Every app</a></li><li><a href="../../../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../../../testing.html">Find a starting configuration</a></li></ul></details>
-<details><summary>Plugins</summary><ul><li><a href="../../../../../plugins.html">Every cub plugin</a></li><li><a href="../../../../../bring-kubara-into-confighub.html">Bring a Kubara platform into ConfigHub</a></li></ul></details>
-<details><summary>Guides</summary><ul><li><a href="../../../../../guides.html">Every Guide</a></li><li><a href="../../../../../journey-values-did-nothing.html">My values did nothing</a></li><li><a href="../../../../../journey-preserve-my-fixes.html">Preserve my fixes</a></li><li><a href="../../../../../journey-what-my-app-needs.html">What my app needs</a></li><li><a href="../../../../../journey-before-gitops.html">Before GitOps takes over</a></li><li><a href="../../../../../journey-installs-never-starts.html">It installs but never starts</a></li><li><a href="../../../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../../../demo.html">The ten-minute demo</a></li><li><a href="../../../../../ai.html">Use with your AI</a></li><li><a href="../../../../../ask.html">Is my configuration right?</a></li><li><a href="../../../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../../../promote.html">Promote my config</a></li><li><a href="../../../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../../../send-a-public-chart.html">Send a missing or broken public chart</a></li></ul></details>
-<details open><summary>Docs</summary><ul><li><a href="../../../../../docs.html">Docs</a></li><li><a href="../../../../../config.html">How configuration works</a></li><li><a href="../../../../../variants.html">Variants</a></li><li><a href="../../../../../oci.html">OCI shapes</a></li><li><a href="../../../../../quirks.html">What charts hide</a></li><li><a href="../../../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../../../proof.html">Why trust it</a></li><li><a href="../../../../../known-gaps.html">Known gaps</a></li><li><a href="../../../../../matrix.html">Evidence index</a></li><li><a href="../../../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../../../offering.html">Offering</a></li></ul></details></nav>
+<nav class="cw-sidebar" aria-label="Sections"><details><summary>Configs</summary><ul><li><a href="./charts/index.html">Find a configuration</a></li><li><a href="./did-this-chart-version-change.html">Did a version change?</a></li><li><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="./stack.html">Every stack</a></li><li><a href="./compose-a-stack.html">Compose and check a stack</a></li><li><a href="./try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="./apps.html">Every app</a></li><li><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="./testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="./plugins.html">Every cub plugin</a></li><li><a href="./bring-kubara-into-confighub.html">Bring a Kubara platform into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="./guides.html">Every Guide</a></li><li><a href="./journey-values-did-nothing.html">My values did nothing</a></li><li><a href="./journey-preserve-my-fixes.html">Preserve my fixes</a></li><li><a href="./journey-what-my-app-needs.html">What my app needs</a></li><li><a href="./journey-before-gitops.html">Before GitOps takes over</a></li><li><a href="./journey-installs-never-starts.html">It installs but never starts</a></li><li><a href="./try.html">Try it: Redis in ten minutes</a></li><li><a href="./redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="./demo.html">The ten-minute demo</a></li><li><a href="./ai.html">Use with your AI</a></li><li><a href="./ask.html">Is my configuration right?</a></li><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="./promote.html">Promote my config</a></li><li><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="./why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="./how-it-works.html">Release, promote and roll back</a></li><li><a href="./check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="./take-a-config-further.html">Take a config further</a></li><li><a href="./change-a-config-safely.html">Change a config safely</a></li><li><a href="./handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="./operate-a-fleet.html">Operate a fleet</a></li><li><a href="./build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="./send-a-public-chart.html">Send a missing or broken public chart</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./config.html">How configuration works</a></li><li><a href="./variants.html">Variants</a></li><li><a href="./oci.html">OCI shapes</a></li><li><a href="./quirks.html">What charts hide</a></li><li><a href="./how-confighub-works.html" aria-current="page">How ConfigHub works</a></li><li><a href="./confighub.html">ConfigHub Server</a></li><li><a href="./proof.html">Why trust it</a></li><li><a href="./known-gaps.html">Known gaps</a></li><li><a href="./matrix.html">Evidence index</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="./offering.html">Offering</a></li></ul></details></nav>
 <div class="cw-content">
-<details class="cw-mobile-nav"><summary>Browse Docs</summary><details><summary>Configs</summary><ul><li><a href="../../../../../charts/index.html">Find a configuration</a></li><li><a href="../../../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
-<details><summary>Stacks</summary><ul><li><a href="../../../../../stack.html">Every stack</a></li><li><a href="../../../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
-<details><summary>Apps</summary><ul><li><a href="../../../../../apps.html">Every app</a></li><li><a href="../../../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../../../testing.html">Find a starting configuration</a></li></ul></details>
-<details><summary>Plugins</summary><ul><li><a href="../../../../../plugins.html">Every cub plugin</a></li><li><a href="../../../../../bring-kubara-into-confighub.html">Bring a Kubara platform into ConfigHub</a></li></ul></details>
-<details><summary>Guides</summary><ul><li><a href="../../../../../guides.html">Every Guide</a></li><li><a href="../../../../../journey-values-did-nothing.html">My values did nothing</a></li><li><a href="../../../../../journey-preserve-my-fixes.html">Preserve my fixes</a></li><li><a href="../../../../../journey-what-my-app-needs.html">What my app needs</a></li><li><a href="../../../../../journey-before-gitops.html">Before GitOps takes over</a></li><li><a href="../../../../../journey-installs-never-starts.html">It installs but never starts</a></li><li><a href="../../../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../../../demo.html">The ten-minute demo</a></li><li><a href="../../../../../ai.html">Use with your AI</a></li><li><a href="../../../../../ask.html">Is my configuration right?</a></li><li><a href="../../../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../../../promote.html">Promote my config</a></li><li><a href="../../../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../../../send-a-public-chart.html">Send a missing or broken public chart</a></li></ul></details>
-<details open><summary>Docs</summary><ul><li><a href="../../../../../docs.html">Docs</a></li><li><a href="../../../../../config.html">How configuration works</a></li><li><a href="../../../../../variants.html">Variants</a></li><li><a href="../../../../../oci.html">OCI shapes</a></li><li><a href="../../../../../quirks.html">What charts hide</a></li><li><a href="../../../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../../../proof.html">Why trust it</a></li><li><a href="../../../../../known-gaps.html">Known gaps</a></li><li><a href="../../../../../matrix.html">Evidence index</a></li><li><a href="../../../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../../../offering.html">Offering</a></li></ul></details></details>
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><details><summary>Configs</summary><ul><li><a href="./charts/index.html">Find a configuration</a></li><li><a href="./did-this-chart-version-change.html">Did a version change?</a></li><li><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="./stack.html">Every stack</a></li><li><a href="./compose-a-stack.html">Compose and check a stack</a></li><li><a href="./try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="./apps.html">Every app</a></li><li><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="./testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="./plugins.html">Every cub plugin</a></li><li><a href="./bring-kubara-into-confighub.html">Bring a Kubara platform into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="./guides.html">Every Guide</a></li><li><a href="./journey-values-did-nothing.html">My values did nothing</a></li><li><a href="./journey-preserve-my-fixes.html">Preserve my fixes</a></li><li><a href="./journey-what-my-app-needs.html">What my app needs</a></li><li><a href="./journey-before-gitops.html">Before GitOps takes over</a></li><li><a href="./journey-installs-never-starts.html">It installs but never starts</a></li><li><a href="./try.html">Try it: Redis in ten minutes</a></li><li><a href="./redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="./demo.html">The ten-minute demo</a></li><li><a href="./ai.html">Use with your AI</a></li><li><a href="./ask.html">Is my configuration right?</a></li><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="./promote.html">Promote my config</a></li><li><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="./why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="./how-it-works.html">Release, promote and roll back</a></li><li><a href="./check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="./take-a-config-further.html">Take a config further</a></li><li><a href="./change-a-config-safely.html">Change a config safely</a></li><li><a href="./handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="./operate-a-fleet.html">Operate a fleet</a></li><li><a href="./build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="./send-a-public-chart.html">Send a missing or broken public chart</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./config.html">How configuration works</a></li><li><a href="./variants.html">Variants</a></li><li><a href="./oci.html">OCI shapes</a></li><li><a href="./quirks.html">What charts hide</a></li><li><a href="./how-confighub-works.html" aria-current="page">How ConfigHub works</a></li><li><a href="./confighub.html">ConfigHub Server</a></li><li><a href="./proof.html">Why trust it</a></li><li><a href="./known-gaps.html">Known gaps</a></li><li><a href="./matrix.html">Evidence index</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="./offering.html">Offering</a></li></ul></details></details>
   <header class="hero human-hero">
     
-    <h1>One digest pins the whole training shape</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../../../examples/aicr/h100-kind-inference/digest-index/README.md">View source markdown</a>.</p>
+    <p class="eyebrow">Docs · ConfigHub</p>
+    <h1>How ConfigHub works</h1>
+    <p class="lead">ConfigHub keeps a reviewed configuration and its history. You release it by digest, promote it through environments, gate it on an approval, and roll it back to what ran.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-09-04T11:23:58.207Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
-    <article class="doc-body">
-<p>UNOFFICIAL/EXPERIMENTAL. This directory is compiled by <code>npm run aicr-digest-index:generate</code> and checked byte-for-byte by <code>npm run aicr-digest-index:verify</code>. Do not edit it by hand.</p>
-<p>The platform digest is:</p>
-<pre><code>sha256:d47895a43cc5585462a8ae4cde4f8b8371642682fe082f36165d88e6f0784b39</code></pre>
-<p>That one value pins the exact upstream source (NVIDIA AICR v0.21.0, commit <code>36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe</code>), the recipe criteria, the planned OCI member references, and one immutable payload per rendered Argo CD Application: 16 waved components plus the <code>aicr-stack</code> root. Change any rendered byte anywhere in the shape and the digest changes.</p>
-<p><a href="../../../../../../examples/aicr/h100-kind-inference/digest-index/platform-index.json">platform-index.json</a> holds the full index. Each member row names its payload file under <a href="../../../../../../examples/aicr/h100-kind-inference/digest-index/payloads">payloads/</a> and the OCI reference the payload uses or would use. Nothing in this directory claims a registry push by itself. This retained version has no OCI publication receipt, so every OCI reference remains a plan.</p>
-<p>This follows the pattern the Kubara importer proved: per-component immutable payloads plus one digest-bound index, compiled offline from committed bytes.</p>
-<p>The boundary, stated plainly: this index proves config-plane mechanics only. No GPU workload ran to produce or verify it. Workload-plane claims stay absent rather than implied.</p>
-    </article>
+  <section aria-labelledby="where-this-fits">
+    <h2 id="where-this-fits">1. Where ConfigHub fits</h2>
+    <div class="doors two">
+      <div class="door">
+        <h3>Four verbs, one reviewed configuration</h3>
+        <p>Release it by digest, promote it from development to production, gate a release on an approval, and roll back to exactly what ran.</p>
+      </div>
+      <div class="door">
+        <h3>Come here after the check</h3>
+        <p>Come here after you have inspected the Kubernetes objects, which may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML.</p>
+      </div>
+      <div class="door">
+        <h3>Stop, publish, or upload</h3>
+        <p>You can stop with local files, publish them directly as OCI, or upload them to ConfigHub and publish a reviewed release OCI later.</p>
+      </div>
+      <div class="door">
+        <h3>ConfigHub keeps the history</h3>
+        <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
+      </div>
+    </div>
+  </section>
+    <section aria-labelledby="the-path">
+    <h2 id="the-path">2. The same commands run from a free check to a governed release</h2>
+    <p>Whatever a configuration started as, it takes the same steps. The first steps are free and need no account. The next need a ConfigHub account. The last is the commercial product.</p>
+    <div class="card"><table>
+        <thead><tr><th>Verb</th><th>What it does</th><th>Command or surface</th></tr></thead>
+        <tbody><tr><td>check</td><td>Inspect it: what it installs, whether it is right. No cluster.</td><td>the Check</td></tr><tr><td>deploy (a planned name, not yet a command)</td><td>Run the reviewed OCI on the Argo CD or Flux you already run.</td><td>cub installer, or your own kubectl, Flux, or Argo CD</td></tr><tr><td>upload</td><td>Bring it into ConfigHub as a base. Public config chains into your private org here.</td><td>cub variant upload</td></tr><tr><td>release</td><td>Publish an approved, immutable release with history, so the cluster pulls that instead of a hand-pushed bundle.</td><td>cub release publish</td></tr><tr><td>promote</td><td>Move a reviewed change from development to production.</td><td>cub variant promote</td></tr><tr><td>govern</td><td>Run a stack under governance: approvals, releases, rollback, drift, a fleet view.</td><td>the commercial product</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    <p>A stack adds free commands of its own, check and sandbox, and a fleet places one across many clusters. Those run today as a plugin prototype. <a href="./stack.html">See stacks and fleets</a>.</p>
+    <p>Every source becomes exact Kubernetes objects and any required setup before it reaches this page. <a href="./config.html#formats">See what each format becomes</a>, and <a href="./quirks.html">see what happens to hooks, CRDs, and setup work</a>.</p>
+    </section>
+    <section aria-labelledby="next">
+      <h2 id="next">3. Where to go next</h2>
+      <p><a href="./how-it-works.html">Release, promote and roll back</a> runs the four verbs. <a href="./operate-a-fleet.html">Operate a fleet</a> takes them across many clusters. <a href="./confighub.html">ConfigHub Server</a> says what an account adds.</p>
+    </section>
   </main>
-  <footer><p>Generated from the committed markdown file <code>examples/aicr/h100-kind-inference/digest-index/README.md</code>. The source file is the authoritative version.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#where-this-fits">1. Where ConfigHub fits</a></li><li><a href="#the-path">2. The same commands run from a free check to a governed release</a></li><li><a href="#next">3. Where to go next</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./confighub.html">ConfigHub Server &rarr;</a></li></ul></nav>
 </div>
+<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./try-aicr.html">GPU nodes and AICR</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>
 </html>
