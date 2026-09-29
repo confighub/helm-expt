@@ -135,7 +135,7 @@ const checks = [
   },
   {
     file: "site/stack.html",
-    terms: ["Stacks \u00b7 ConfigHub Workshop", "<h1>Stacks</h1>", "Every shipped stack", "stacks.json", "cub stack check eks-inference", "Compose and check a stack", "Combine components into custom stacks and application platforms", "kubara-shop-platform", "Run it"],
+    terms: ["Stacks \u00b7 ConfigHub Workshop", "<h1>Stacks</h1>", "Every shipped stack", "stacks.json", "cub stack check eks-inference", "Compose and check a stack", "Combine components into custom stacks and application platforms", "kubara-shop-platform", "How do I deploy with Argo CD or Flux?"],
   },
   // Site IA phase 4, step 5: the Apps how-to moved to its Guide.
   {

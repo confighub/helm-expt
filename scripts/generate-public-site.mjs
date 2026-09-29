@@ -2617,9 +2617,71 @@ function siteSectionFor(relPath) {
   return null;
 }
 
+// Hub questions route readers to existing Guides; deeper pages retain the section tree.
+function sectionStartingQuestions(label) {
+  return {
+    Configs: [
+      ["config.html", "How does Helm become configuration as data?"],
+      ["why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
+      ["did-this-chart-version-change.html", "Did a chart version change?"],
+      ["did-your-bitnami-chart-stop-pulling.html", "Did my chart stop pulling?"],
+      ["try-aicr.html", "Which GPU nodes match an AICR recipe?"],
+      ["charts/index.html?format=ai-platform", "Where are the AICR and NVIDIA NIM configs?"],
+      ["proof.html", "What has been tested?"],
+      ["how-it-works.html", "How do I release and promote a config?"],
+    ],
+    Stacks: [
+      ["compose-a-stack.html", "How do I build my own platform?"],
+      ["compose-a-stack.html#stack-checks", "Will these components work together?"],
+      ["put-an-app-on-a-platform.html", "How do I add my app to a platform?"],
+      ["try-aicr.html", "What does my GPU workload need?"],
+      ["bring-kubara-into-confighub.html", "Can I start from Kubara?"],
+      ["deploy-with-flux-or-argo.html", "How do I deploy with Argo CD or Flux?"],
+    ],
+    Apps: [
+      ["testing.html", "What does a complete example app look like?"],
+      ["journey-what-my-app-needs.html", "What does my app need to run?"],
+      ["put-an-app-on-a-platform.html", "How do I put my app on a platform?"],
+      ["journey-installs-never-starts.html", "Why does my app install but never start?"],
+      ["how-it-works.html", "How do I release and promote my app?"],
+      ["build-a-confighub-app.html", "Can I build a tool that operates on configs?"],
+    ],
+    Plugins: [
+      ["choose-a-tool.html", "Which tool do I need?"],
+      ["try.html#install-cub", "How do I install cub?"],
+      ["ai.html", "How do I use Workshop with my AI agent?"],
+      ["plugins.html#flux", "How do I bring in a Flux fleet?"],
+      ["plugins.html#argo", "How do I bring in Argo CD apps?"],
+      ["bring-kubara-into-confighub.html", "How do I bring in a Kubara platform?"],
+    ],
+    Guides: [
+      ["try.html", "What can I try on my laptop?"],
+      ["journey-values-did-nothing.html", "Why does Helm ignore my values?"],
+      ["journey-preserve-my-fixes.html", "How do I stop AI overwriting my fixes?"],
+      ["journey-what-my-app-needs.html", "Will my app fit my platform?"],
+      ["journey-before-gitops.html", "What changes when GitOps takes over?"],
+      ["journey-installs-never-starts.html", "Why will my installed app not start?"],
+      ["promote.html", "How do I check a change before promotion?"],
+    ],
+    Docs: [
+      ["config.html", "What does configuration as data mean?"],
+      ["how-confighub-works.html", "How does ConfigHub work?"],
+      ["variants.html", "How do I keep changes for each environment?"],
+      ["quirks.html", "What happens to Helm hooks and CRDs?"],
+      ["proof.html", "Why should I trust a configuration?"],
+      ["known-gaps.html", "What is not proven yet?"],
+      ["llms.txt", "Where should my agent start reading?"],
+    ],
+  }[label];
+}
+
 function siteSidebarHtml(relPath, section) {
   const base = pageBasePrefix(relPath);
   const list = (pages) => `<ul>${pages.map(([path, label]) => `<li><a href="${base}/${path}"${path === relPath ? ' aria-current="page"' : ""}>${escapeHtml(label)}</a></li>`).join("")}</ul>`;
+  if (section?.hub === relPath) {
+    return `<p class="cw-nav-title"><strong>Starting questions</strong></p>${list(sectionStartingQuestions(section.label))}
+      <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>`;
+  }
   return siteSections().map((item) => `<details${section && item.label === section.label ? " open" : ""}><summary>${escapeHtml(item.label)}</summary>${list(item.pages)}</details>`).join("\n");
 }
 
@@ -3024,6 +3086,10 @@ ${bannerCss()}
   .agent-prompt code { background: none; padding: 0; font-size: inherit; white-space: normal; }
   .agent-prompt { font-family: var(--mono); font-size: .86rem; line-height: 1.55; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin: 0 0 14px; max-width: 860px; color: var(--ink); }
   .home-cmd { font-family: var(--mono); font-size: .86rem; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 0 0 14px; max-width: 860px; overflow-x: auto; }
+  .home-overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+  .home-overview > section { min-width: 0; }
+  .home-overview input { min-width: 0; }
+  @media (max-width: 760px) { .home-overview { grid-template-columns: 1fr; gap: 0; } }
   .home-sections { padding-left: 1.2em; line-height: 1.8; max-width: 860px; }
   .home-rail { grid-column: 1; grid-row: 1 / -1; position: sticky; top: 18px; align-self: start; padding-top: 40px; }
   .home-rail .rail-h { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin: 18px 0 8px; }
@@ -3372,6 +3438,7 @@ function configTestCentreHome(catalog) {
 </head>
 <body>
   <div class="wrap">
+    <div class="cw-header" role="banner">${topNav(".")}</div>
     <div class="page">
       <nav class="home-rail" aria-label="Getting Started Demos">
         <p class="rail-h"><strong>Getting Started Demos</strong></p>
@@ -3388,7 +3455,6 @@ ${homeJourneyLinks()}
         <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>
       </nav>
       <header>
-        ${topNav(".")}
         <div class="hero-head">
           <span class="eyebrow">Config Catalog and Workshop &middot; Helm, AICR, OCI, YAML and More</span>
           <h1>Configuration catalog for Agents and Kubernetes</h1>
@@ -3402,7 +3468,6 @@ ${homeJourneyLinks()}
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my config</a>
               <a class="btn primary" href="./ai.html">Give it to your AI agent</a>
-              <a class="btn ghost" href="#what-is-the-workshop">What is the Workshop?</a>
             </div>
           </div>
           <div class="hero-term">
@@ -3428,13 +3493,6 @@ ${homeJourneyLinks()}
       </header>
 
       <main>
-        <section class="section" id="what-is-the-workshop">
-          <span class="eyebrow">The short version</span>
-          <h2>What is the Workshop?</h2>
-          <p class="intro">The Workshop is a Catalog of tested configuration kept as data, and a plugin for <code>cub</code> that checks, composes and publishes it. The Catalog standardises every configuration into one OCI format and one lifecycle model. You, your agent, or both read and run the same things, with no account. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
-          <p class="intro">Other catalogs give you charts. We give your agents the data that makes charts safe to use.</p>
-          <p class="intro">Every entry is a chart, module or recipe someone else publishes, rendered with reviewed values into the exact objects it installs. Each one is kept with its digest, and with what the source decides for you. One OCI format and one lifecycle model cover Helm, Timoni, AICR, Kubara and plain YAML, so your agent reads them all the same way, with no account.</p>
-        </section>
         <section class="section" id="give-it-to-your-agent">
           <span class="eyebrow">For your agent</span>
           <h2>Give it to your AI agent</h2>
@@ -3442,7 +3500,9 @@ ${homeJourneyLinks()}
           <p class="agent-prompt"><code>${escapeHtml(AGENT_PROMPT_ONE_LINER)}</code></p>
           <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt.</p>
           <pre class="home-cmd"><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
+          <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
         </section>
+        <div class="home-overview">
         <section class="section" id="the-catalog">
           <span class="eyebrow">The Catalog</span>
           <h2>What the Catalog holds</h2>
@@ -3457,6 +3517,14 @@ ${homeJourneyLinks()}
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:16px 0"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
           <p class="intro">An agent reads the same lists as data. <a href="./llms.txt">llms.txt</a> names the five section files first.</p>
         </section>
+        <section class="section" id="what-is-the-workshop">
+          <span class="eyebrow">The short version</span>
+          <h2>What is the Workshop?</h2>
+          <p class="intro">The Workshop is a Catalog of tested configuration kept as data, and a plugin for <code>cub</code> that checks, composes and publishes it. The Catalog standardises every configuration into one OCI format and one lifecycle model. You, your agent, or both read and run the same things, with no account. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
+          <p class="intro">Other catalogs give you charts. We give your agents the data that makes charts safe to use.</p>
+          <p class="intro">Every entry is a chart, module or recipe someone else publishes, rendered with reviewed values into the exact objects it installs. Each one is kept with its digest, and with what the source decides for you. One OCI format and one lifecycle model cover Helm, Timoni, AICR, Kubara and plain YAML, so your agent reads them all the same way, with no account.</p>
+        </section>
+        </div>
       </main>
 
       <footer class="foot">

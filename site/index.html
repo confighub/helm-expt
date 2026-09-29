@@ -108,6 +108,10 @@
   .agent-prompt code { background: none; padding: 0; font-size: inherit; white-space: normal; }
   .agent-prompt { font-family: var(--mono); font-size: .86rem; line-height: 1.55; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin: 0 0 14px; max-width: 860px; color: var(--ink); }
   .home-cmd { font-family: var(--mono); font-size: .86rem; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 0 0 14px; max-width: 860px; overflow-x: auto; }
+  .home-overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+  .home-overview > section { min-width: 0; }
+  .home-overview input { min-width: 0; }
+  @media (max-width: 760px) { .home-overview { grid-template-columns: 1fr; gap: 0; } }
   .home-sections { padding-left: 1.2em; line-height: 1.8; max-width: 860px; }
   .home-rail { grid-column: 1; grid-row: 1 / -1; position: sticky; top: 18px; align-self: start; padding-top: 40px; }
   .home-rail .rail-h { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin: 18px 0 8px; }
@@ -308,6 +312,7 @@
 </head>
 <body>
   <div class="wrap">
+    <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
     <div class="page">
       <nav class="home-rail" aria-label="Getting Started Demos">
         <p class="rail-h"><strong>Getting Started Demos</strong></p>
@@ -328,7 +333,6 @@
         <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>
       </nav>
       <header>
-        <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div>
         <div class="hero-head">
           <span class="eyebrow">Config Catalog and Workshop &middot; Helm, AICR, OCI, YAML and More</span>
           <h1>Configuration catalog for Agents and Kubernetes</h1>
@@ -342,7 +346,6 @@
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my config</a>
               <a class="btn primary" href="./ai.html">Give it to your AI agent</a>
-              <a class="btn ghost" href="#what-is-the-workshop">What is the Workshop?</a>
             </div>
           </div>
           <div class="hero-term">
@@ -368,14 +371,6 @@
       </header>
 
       <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-        <section class="section" id="what-is-the-workshop">
-          <span class="eyebrow">The short version</span>
-          <h2>What is the Workshop?</h2>
-          <p class="intro">The Workshop is a Catalog of tested configuration kept as data, and a plugin for <code>cub</code> that checks, composes and publishes it. The Catalog standardises every configuration into one OCI format and one lifecycle model. You, your agent, or both read and run the same things, with no account. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
-          <p class="intro">Other catalogs give you charts. We give your agents the data that makes charts safe to use.</p>
-          <p class="intro">Every entry is a chart, module or recipe someone else publishes, rendered with reviewed values into the exact objects it installs. Each one is kept with its digest, and with what the source decides for you. One OCI format and one lifecycle model cover Helm, Timoni, AICR, Kubara and plain YAML, so your agent reads them all the same way, with no account.</p>
-        </section>
         <section class="section" id="give-it-to-your-agent">
           <span class="eyebrow">For your agent</span>
           <h2>Give it to your AI agent</h2>
@@ -383,7 +378,9 @@
           <p class="agent-prompt"><code>Use the ConfigHub Workshop catalog for Kubernetes config work. It holds known-good configurations across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, which lists the Catalog's five section files first (configs.json, stacks.json, apps.json, plugins.json and guides.json), read the one listing you need from https://confighub.github.io/helm-expt/site/listings/index.json, and do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack check` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code></p>
           <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt.</p>
           <pre class="home-cmd"><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
+          <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
         </section>
+        <div class="home-overview">
         <section class="section" id="the-catalog">
           <span class="eyebrow">The Catalog</span>
           <h2>What the Catalog holds</h2>
@@ -398,6 +395,14 @@
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:16px 0"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
           <p class="intro">An agent reads the same lists as data. <a href="./llms.txt">llms.txt</a> names the five section files first.</p>
         </section>
+        <section class="section" id="what-is-the-workshop">
+          <span class="eyebrow">The short version</span>
+          <h2>What is the Workshop?</h2>
+          <p class="intro">The Workshop is a Catalog of tested configuration kept as data, and a plugin for <code>cub</code> that checks, composes and publishes it. The Catalog standardises every configuration into one OCI format and one lifecycle model. You, your agent, or both read and run the same things, with no account. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
+          <p class="intro">Other catalogs give you charts. We give your agents the data that makes charts safe to use.</p>
+          <p class="intro">Every entry is a chart, module or recipe someone else publishes, rendered with reviewed values into the exact objects it installs. Each one is kept with its digest, and with what the source decides for you. One OCI format and one lifecycle model cover Helm, Timoni, AICR, Kubara and plain YAML, so your agent reads them all the same way, with no account.</p>
+        </section>
+        </div>
       </main>
 
       <footer class="foot">
