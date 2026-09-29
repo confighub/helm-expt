@@ -553,7 +553,7 @@ const SPLIT_PAGES = [
   { key: "publicQuestionsHtml", file: "public-questions.html", title: "What happens to a public question", description: "How a question sent in public becomes a checked answer, a named refusal, or a documented limit.", build: (catalog) => publicQuestionsHtml(catalog), doc: true, reference: true },
   { key: "chooseToolGuideHtml", file: "choose-a-tool.html", title: "Choose a tool and start", description: "Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.", build: () => chooseToolGuideHtml() },
 ];
-const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
+const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, title: sectionRows("guides").find((row) => row.id === journey.id)?.title ?? journey.title, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
 
 const SITE_PAGE_RELPATHS = {
   ...Object.fromEntries(JOURNEY_PAGES.map((journey) => [journey.key, journey.file])),
@@ -2870,7 +2870,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CONFIG TOOLS EXPERIMENT</span><span class="navlinks"><a href="${link("charts/index.html")}">Configs</a><a href="${link("stack.html")}">Stacks</a><a href="${link("apps.html")}">Apps</a><a href="${link("plugins.html")}">Plugins</a><a href="${link("guides.html")}">Guides</a><a href="${link("docs.html")}">Docs</a><a class="nav-cta" href="${link("confighub.html")}">ConfigHub Server</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="${link("charts/index.html")}">Configs</a><a href="${link("stack.html")}">Stacks</a><a href="${link("apps.html")}">Apps</a><a href="${link("plugins.html")}">Plugins</a><a href="${link("guides.html")}">Guides</a><a href="${link("docs.html")}">Docs</a><a class="nav-cta" href="${link("confighub.html")}">ConfigHub Server</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -3029,6 +3029,7 @@ ${bannerCss()}
   .home-rail .rail-h { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin: 18px 0 8px; }
   .home-rail .rail-h:first-child { margin-top: 0; }
   .home-rail a { display: block; padding: 7px 0 7px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.3; font-size: .92rem; }
+  .home-rail .rail-h a { font: inherit; letter-spacing: inherit; padding: 0; border: 0; color: inherit; }
   .home-rail a:hover { color: var(--ink); border-left-color: var(--accent); }
   .home-rail a.rail-primary { color: var(--ink); font-weight: 640; border-left-color: var(--accent); }
   .eyebrow { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
@@ -3372,18 +3373,26 @@ function configTestCentreHome(catalog) {
 <body>
   <div class="wrap">
     <div class="page">
-      <nav class="home-rail" aria-label="Start from your problem">
-        <p class="rail-h">Start from your problem</p>
+      <nav class="home-rail" aria-label="Getting Started Demos">
+        <p class="rail-h"><strong>Getting Started Demos</strong></p>
 ${homeJourneyLinks()}
-        <p class="rail-h">Or see it run</p>
-        <a href="./try.html">Try it on your laptop in ten minutes</a>
-        <a href="./demo.html">Grow from one chart to a fleet</a>
+        <p class="rail-h"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
+        <p class="rail-h"><strong>Common Questions</strong></p>
+        <a href="./charts/index.html">What’s in the Config Catalog?</a>
+        <a href="./apps.html">What does an example app look like?</a>
+        <a href="./compose-a-stack.html">How do I build my own platform?</a>
+        <a href="./stack.html">How do I run a pre-tested stack?</a>
+        <a href="./guides.html#guides-gitops">How do I use Argo CD or Flux?</a>
+        <a href="./how-it-works.html">How do I deploy and promote my app?</a>
+        <a href="./guides.html">Which Guide solves my problem?</a>
+        <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>
       </nav>
       <header>
         ${topNav(".")}
         <div class="hero-head">
           <span class="eyebrow">Config Catalog and Workshop &middot; Helm, AICR, OCI, YAML and More</span>
           <h1>Configuration catalog for Agents and Kubernetes</h1>
+          <p class="lead">ConfigHub Workshop lets an AI get Kubernetes configuration right on your behalf. It gives agents, and the people working beside them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.</p>
         </div>
         <div class="hero">
           <div>

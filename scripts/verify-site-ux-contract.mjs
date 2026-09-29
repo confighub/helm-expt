@@ -68,7 +68,7 @@ const checks = [
   })),
   {
     file: "site/index.html",
-    terms: ["Configuration catalog for Agents and Kubernetes", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and More", "Other catalogs give you charts", "One OCI format and one lifecycle model", "standardises every configuration into one OCI format and one lifecycle model", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Start from your problem", "What is the Workshop?", "Give it to your AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
+    terms: ["Configuration catalog for Agents and Kubernetes", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and More", "Other catalogs give you charts", "One OCI format and one lifecycle model", "standardises every configuration into one OCI format and one lifecycle model", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "Give it to your AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
   },
   {
     file: "site/ask.html",
@@ -339,7 +339,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Configuration catalog for Agents and Kubernetes", "Your agent writes configuration faster than anyone can check it", "ConfigHub is where people and agents change the same configuration safely", "released by digest"],
+    headerTerms: ["Configuration catalog for Agents and Kubernetes", "ConfigHub Workshop lets an AI get Kubernetes configuration right on your behalf. It gives agents, and the people working beside them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.", "Your agent writes configuration faster than anyone can check it", "ConfigHub is where people and agents change the same configuration safely", "released by digest"],
   },
   {
     file: "site/ask.html",
@@ -538,7 +538,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT", "Configs", "Stacks", "Apps", "Plugins", "Guides", "Docs", "ConfigHub Server"]) {
+  for (const term of ["ConfigHub Workshop", "UNOFFICIAL CATALOG", "Configs", "Stacks", "Apps", "Plugins", "Guides", "Docs", "ConfigHub Server"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   let previousNavPosition = -1;
@@ -797,7 +797,11 @@ if (fs.existsSync(homePath)) {
       if (!text.includes(term)) failures.push(`site/${journey}.html: missing "${term}"`);
     }
   }
-  if (home.indexOf("Start from your problem") < 0 || home.indexOf("Start from your problem") > home.indexOf("<main>")) {
+  for (const heading of ["Getting Started Demos", "Common Questions"]) {
+    if (!home.includes(`<p class="rail-h"><strong>${heading}</strong></p>`)) failures.push(`site/index.html: missing bold rail heading ${heading}`);
+  }
+  if (!home.includes('<p class="rail-h"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>')) failures.push("site/index.html: missing matching AI rail heading link");
+  if (home.indexOf("Getting Started Demos") < 0 || home.indexOf("Getting Started Demos") > home.indexOf("<main>")) {
     failures.push("site/index.html: the five journeys must come first, before the main content");
   }
   if (!home.includes('href="./docs.html"') || !fs.readFileSync(path.join(root, "site/docs.html"), "utf8").includes('href="./ask.html#faq"')) {
