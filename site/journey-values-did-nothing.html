@@ -643,6 +643,8 @@
     <section aria-labelledby="the-steps">
       <h2 id="the-steps">The steps</h2>
       <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/1-catch-the-ai/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/1-catch-the-ai/expected/">expected/</a>.</p>
+      <pre class="terminal-body"><code><span class="term-comment"># the steps write their output here</span>
+<span class="term-prompt">$</span> mkdir -p work</code></pre>
       <h3 id="step-1">1. Read what the assistant wrote</h3>
       <p><code>cat values.yaml</code>. Nothing looks wrong.</p>
       <h3 id="step-2">2. Let Helm render it, and see what it would install</h3>
@@ -666,7 +668,7 @@
     </section>
     <section aria-labelledby="your-own">
       <h2 id="your-own">Use it on your own configuration</h2>
-      <p>The README's section <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/1-catch-the-ai/README.md#continue-with-your-own-chart">Continue with your own chart</a> runs the same check on your own files. It starts with this. Replace each value in angle brackets or quotes with your own.</p>
+      <p>The README's section <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/1-catch-the-ai/README.md#continue-with-your-own-chart">Continue with your own chart</a> runs the same check on your own files. This is its first command, and the section goes on from there. Replace each value in angle brackets with your own.</p>
       <pre class="terminal-body"><code><span class="term-prompt">$</span> mkdir own-chart-review &amp;&amp; cd own-chart-review
 
 <span class="term-prompt">$</span> cp &quot;&lt;absolute-path-to-your-private-values-file&gt;&quot; values.yaml
@@ -674,6 +676,7 @@
 <span class="term-prompt">$</span> cub config values &quot;&lt;your-chart-or-absolute-local-chart-path&gt;&quot; --version &quot;&lt;your-existing-version&gt;&quot; \
   --namespace &quot;&lt;your-existing-namespace&gt;&quot; --release &quot;&lt;your-existing-release&gt;&quot; \
   --values values.yaml --out diagnosis.json --render-out candidate.yaml --exit-code</code></pre>
+      <p>The candidate is the explicit, flattened configuration the chart rendered from those inputs. Exit 1 means some values had no effect; investigate before accepting. Exit 2 means the command could not complete; resolve that error before drawing conclusions about the values. Keep <code>values.yaml</code> and <code>candidate.yaml</code> private: the candidate can contain Secrets. The diagnosis keeps requested inputs and hashes; the candidate is the exact render to inspect next time. If settings need repair, change a copied values file and repeat the command in a new directory such as <code>own-chart-review-fixed</code>; do not leave only a failed candidate.</p>
       <p>These Guides go further: <a href="./d/docs/user/workshop-values-guide.html">Find why a Helm value did not change the output</a> · <a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a> · <a href="./d/docs/user/workshop-helm-questions-guide.html">Answer the ten questions Helm users ask</a>.</p>
     </section>
     <section aria-labelledby="why">

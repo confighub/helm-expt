@@ -643,6 +643,8 @@
     <section aria-labelledby="the-steps">
       <h2 id="the-steps">The steps</h2>
       <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/5-it-installs-and-never-starts/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/5-it-installs-and-never-starts/expected/">expected/</a>.</p>
+      <pre class="terminal-body"><code><span class="term-comment"># the steps write their output here</span>
+<span class="term-prompt">$</span> mkdir -p work</code></pre>
       <h3 id="step-1">1. Read what the assistant wrote</h3>
       <p>An ordinary values file for a well-known chart.</p>
       <h3 id="step-2">2. Render it and run the usual checks</h3>
@@ -672,8 +674,9 @@
     </section>
     <section aria-labelledby="your-own">
       <h2 id="your-own">Use it on your own configuration</h2>
-      <p>The README's section <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/5-it-installs-and-never-starts/README.md#use-the-image-check-in-your-own-ci">Use the image check in your own CI</a> runs the same check on your own files. It starts with this. Replace each value in angle brackets or quotes with your own.</p>
+      <p>The README's section <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/5-it-installs-and-never-starts/README.md#use-the-image-check-in-your-own-ci">Use the image check in your own CI</a> runs the same check on your own files. This is its first command, and the section goes on from there.</p>
       <pre class="terminal-body"><code><span class="term-prompt">$</span> cub config check path/to/rendered.yaml --images --exit-code</code></pre>
+      <p>Exit 0 means every discovered image manifest was checked anonymously. Exit 1 means a registry confirmed that at least one image is missing. Exit 2 means the check was incomplete, such as a network or authentication failure, or the command was invalid. The ordinary <code>cub config check ... --images</code> command in step 3 remains advisory and does not fail the build. This gate checks images found by the static image extractor at the time it runs; it does not prove startup, scheduling, chart compatibility, or application health.</p>
       <p>These Guides go further: <a href="./did-your-bitnami-chart-stop-pulling.html">Did your Bitnami chart stop pulling?</a>.</p>
     </section>
     <section aria-labelledby="why">

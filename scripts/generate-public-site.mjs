@@ -503,7 +503,7 @@ const JOURNEY_LINKS = {
   "journey-preserve-my-fixes": {
     guides: [["./d/docs/user/workshop-field-restore-guide.html", "Add one field and keep the original configuration"], ["./variants.html", "Variants"]],
     own: {
-      text: "Compare the file you run with the one your assistant wrote. The diff names every field that moved, and with the exit code set a change fails the build until someone reviews it.",
+      text: "Compare the file you run with the one your assistant wrote. Put the file you run first, so that each change reads from yours to the rewrite. The diff names every field that moved, and with the exit code set a change fails the build until someone reviews it.",
       rows: [{ comment: "name every field the rewrite changed", cmd: "cub config diff <the-file-you-run>.yaml <the-file-it-wrote>.yaml --exit-code" }],
     },
     why: ["./variants.html", "Variants"],
@@ -517,12 +517,13 @@ const JOURNEY_LINKS = {
   "journey-before-gitops": {
     guides: [["./deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"], ["./d/docs/user/gitops-adopter-guide.html", "Use ConfigHub with Argo CD or Flux"], ["./d/docs/user/workshop-argocd-hardening-guide.html", "Harden Argo CD before production"]],
     own: {
-      text: "Render your own chart twice with your own values, the way Argo CD will, and compare. A field that changes is one Argo CD would change on every sync. Then ask what the chart decides that you did not write.",
+      text: "Render your own chart twice with your own values, the way Argo CD will, and compare. A field that changes is one Argo CD would change on every sync. Give the chart as its registry address, such as oci://registry-1.docker.io/bitnamicharts/redis, and use the release and namespace you run.",
       rows: [
-        { comment: "render your chart twice", cmd: "helm template <release> <chart> --version <version> -f <values>.yaml > first.yaml" },
-        { cmd: "helm template <release> <chart> --version <version> -f <values>.yaml > second.yaml" },
+        { comment: "render your chart twice", cmd: "helm template <release> <chart> --version <version> --namespace <namespace> -f <values>.yaml > first.yaml" },
+        { cmd: "helm template <release> <chart> --version <version> --namespace <namespace> -f <values>.yaml > second.yaml" },
+        { comment: "look for an image tagged latest", cmd: "cub config check first.yaml" },
         { comment: "name every field that differs between the two", cmd: "cub config diff first.yaml second.yaml" },
-        { comment: "ask what the chart does that you did not write", cmd: "cub config values <chart> --version <version> --values <values>.yaml" },
+        { comment: "ask what the chart does that you did not write", cmd: "cub config values <chart> --version <version> --release <release> --namespace <namespace> --values <values>.yaml" },
       ],
     },
     why: ["./quirks.html", "What charts hide"],
@@ -3178,10 +3179,14 @@ function readmeAnchor(heading) {
 // the site records when the README has no such section.
 function journeyOwn(journey, links, blob) {
   if (journey.own) {
+    // The section's first command, and the paragraph after it, which says
+    // what its result means.
     const fence = journey.own.body.match(/^```(?:sh|bash)\n[\s\S]*?\n```$/m);
     check(fence, `journey ${journey.id}: its section "${journey.own.heading}" has no shell block`);
-    return `<p>The README's section <a href="${blob("README.md")}#${readmeAnchor(journey.own.heading)}">${escapeHtml(journey.own.heading)}</a> runs the same check on your own files. It starts with this. Replace each value in angle brackets or quotes with your own.</p>
-      ${journeyMarkdown(fence[0], blob(""))}`;
+    const after = journey.own.body.slice(fence.index + fence[0].length).trim().split(/\n\s*\n/)[0] ?? "";
+    const placeholders = /<[^>]+>/.test(fence[0]) ? " Replace each value in angle brackets with your own." : "";
+    return `<p>The README's section <a href="${blob("README.md")}#${readmeAnchor(journey.own.heading)}">${escapeHtml(journey.own.heading)}</a> runs the same check on your own files. This is its first command, and the section goes on from there.${placeholders}</p>
+      ${journeyMarkdown(`${fence[0]}${after.startsWith("```") ? "" : `\n\n${after}`}`, blob(""))}`;
   }
   check(links.own, `journey ${journey.id}: the README has no section for your own files, so JOURNEY_LINKS must give one`);
   return `<p>${escapeHtml(links.own.text)}</p>
@@ -3230,7 +3235,12 @@ function journeyGuideHtml(journey) {
     </section>
     <section aria-labelledby="the-steps">
       <h2 id="the-steps">The steps</h2>
-      <p>These are the steps in the journey's <a href="${blob("README.md")}">README</a>. Run them from the journey's folder. The output of a real run is in <a href="${blob("expected/")}">expected/</a>.</p>
+      <p>These are the steps in the journey's <a href="${blob("README.md")}">README</a>. Run them from the journey's folder. The output of a real run is in <a href="${blob("expected/")}">expected/</a>.</p>${
+        journey.steps.some((step) => /\bwork\//.test(step.body))
+          ? `
+      ${commandBlock([{ comment: "the steps write their output here", cmd: "mkdir -p work" }])}`
+          : ""
+      }
 ${journey.steps
   .map((step) => `      <h3 id="step-${step.n}">${step.n}. ${escapeHtml(step.title)}</h3>
       ${journeyMarkdown(step.body, blob(""))}`)

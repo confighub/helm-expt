@@ -643,6 +643,8 @@
     <section aria-labelledby="the-steps">
       <h2 id="the-steps">The steps</h2>
       <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/2-my-fixes-survive/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/2-my-fixes-survive/expected/">expected/</a>.</p>
+      <pre class="terminal-body"><code><span class="term-comment"># the steps write their output here</span>
+<span class="term-prompt">$</span> mkdir -p work</code></pre>
       <h3 id="step-1">1. Look at the three fixes you made by hand</h3>
       <p><code>grep</code> shows the three lines in <code>app-committed.yaml</code>.</p>
       <h3 id="step-2">2. Look at the file the assistant wrote today</h3>
@@ -690,7 +692,7 @@
     </section>
     <section aria-labelledby="your-own">
       <h2 id="your-own">Use it on your own configuration</h2>
-      <p>Compare the file you run with the one your assistant wrote. The diff names every field that moved, and with the exit code set a change fails the build until someone reviews it.</p>
+      <p>Compare the file you run with the one your assistant wrote. Put the file you run first, so that each change reads from yours to the rewrite. The diff names every field that moved, and with the exit code set a change fails the build until someone reviews it.</p>
       <pre class="terminal-body"><code><span class="term-comment"># name every field the rewrite changed</span>
 <span class="term-prompt">$</span> cub config diff &lt;the-file-you-run&gt;.yaml &lt;the-file-it-wrote&gt;.yaml --exit-code</code></pre>
       <p>These Guides go further: <a href="./d/docs/user/workshop-field-restore-guide.html">Add one field and keep the original configuration</a> · <a href="./variants.html">Variants</a>.</p>

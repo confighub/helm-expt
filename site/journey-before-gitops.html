@@ -643,6 +643,8 @@
     <section aria-labelledby="the-steps">
       <h2 id="the-steps">The steps</h2>
       <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/4-before-argo-takes-over/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/4-before-argo-takes-over/expected/">expected/</a>.</p>
+      <pre class="terminal-body"><code><span class="term-comment"># the steps write their output here</span>
+<span class="term-prompt">$</span> mkdir -p work</code></pre>
       <h3 id="step-1">1. Read what has been running</h3>
       <p>Three lines, and nothing looks wrong.</p>
       <h3 id="step-2">2. See what it installs</h3>
@@ -692,17 +694,20 @@
     </section>
     <section aria-labelledby="your-own">
       <h2 id="your-own">Use it on your own configuration</h2>
-      <p>Render your own chart twice with your own values, the way Argo CD will, and compare. A field that changes is one Argo CD would change on every sync. Then ask what the chart decides that you did not write.</p>
+      <p>Render your own chart twice with your own values, the way Argo CD will, and compare. A field that changes is one Argo CD would change on every sync. Give the chart as its registry address, such as oci://registry-1.docker.io/bitnamicharts/redis, and use the release and namespace you run.</p>
       <pre class="terminal-body"><code><span class="term-comment"># render your chart twice</span>
-<span class="term-prompt">$</span> helm template &lt;release&gt; &lt;chart&gt; --version &lt;version&gt; -f &lt;values&gt;.yaml &gt; first.yaml
+<span class="term-prompt">$</span> helm template &lt;release&gt; &lt;chart&gt; --version &lt;version&gt; --namespace &lt;namespace&gt; -f &lt;values&gt;.yaml &gt; first.yaml
 
-<span class="term-prompt">$</span> helm template &lt;release&gt; &lt;chart&gt; --version &lt;version&gt; -f &lt;values&gt;.yaml &gt; second.yaml
+<span class="term-prompt">$</span> helm template &lt;release&gt; &lt;chart&gt; --version &lt;version&gt; --namespace &lt;namespace&gt; -f &lt;values&gt;.yaml &gt; second.yaml
+
+<span class="term-comment"># look for an image tagged latest</span>
+<span class="term-prompt">$</span> cub config check first.yaml
 
 <span class="term-comment"># name every field that differs between the two</span>
 <span class="term-prompt">$</span> cub config diff first.yaml second.yaml
 
 <span class="term-comment"># ask what the chart does that you did not write</span>
-<span class="term-prompt">$</span> cub config values &lt;chart&gt; --version &lt;version&gt; --values &lt;values&gt;.yaml</code></pre>
+<span class="term-prompt">$</span> cub config values &lt;chart&gt; --version &lt;version&gt; --release &lt;release&gt; --namespace &lt;namespace&gt; --values &lt;values&gt;.yaml</code></pre>
       <p>These Guides go further: <a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> · <a href="./d/docs/user/gitops-adopter-guide.html">Use ConfigHub with Argo CD or Flux</a> · <a href="./d/docs/user/workshop-argocd-hardening-guide.html">Harden Argo CD before production</a>.</p>
     </section>
     <section aria-labelledby="why">

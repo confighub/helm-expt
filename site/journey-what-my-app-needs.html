@@ -643,6 +643,8 @@
     <section aria-labelledby="the-steps">
       <h2 id="the-steps">The steps</h2>
       <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/3-what-my-app-needs/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/3-what-my-app-needs/expected/">expected/</a>.</p>
+      <pre class="terminal-body"><code><span class="term-comment"># the steps write their output here</span>
+<span class="term-prompt">$</span> mkdir -p work</code></pre>
       <h3 id="step-1">1. Ask what the app needs from a platform</h3>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre class="terminal-body"><code><span class="term-prompt">$</span> cub app check shop-web.yaml</code></pre>
@@ -665,7 +667,7 @@
     </section>
     <section aria-labelledby="your-own">
       <h2 id="your-own">Use it on your own configuration</h2>
-      <p>The README's section <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/3-what-my-app-needs/README.md#continue-with-your-own-rendered-app">Continue with your own rendered app</a> runs the same check on your own files. It starts with this. Replace each value in angle brackets or quotes with your own.</p>
+      <p>The README's section <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/3-what-my-app-needs/README.md#continue-with-your-own-rendered-app">Continue with your own rendered app</a> runs the same check on your own files. This is its first command, and the section goes on from there.</p>
       <pre class="terminal-body"><code><span class="term-prompt">$</span> set -eu
 
 <span class="term-prompt">$</span> umask 077
@@ -683,6 +685,7 @@
 <span class="term-prompt">$</span> cub config list --role certificates
 
 <span class="term-prompt">$</span> cub config list --role metrics</code></pre>
+      <p>For every need the app check reports, inspect the candidate and evidence. Choose an exact listing ID yourself; the command never chooses one for you.</p>
       <p>These Guides go further: <a href="./put-an-app-on-a-platform.html">Put an app on a platform</a> · <a href="./d/docs/user/workshop-compose-guide.html">Compose and review a local workshop stack</a>.</p>
     </section>
     <section aria-labelledby="why">
