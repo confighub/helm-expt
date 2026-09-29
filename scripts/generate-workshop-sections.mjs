@@ -51,7 +51,7 @@ const ROW_FIELDS = {
   configs: { required: ["id", "name", "format", "version", "base", "summary", "state", "objectCount", "flatteningVerdict", "listing", "next"], optional: ["digest", "page"] },
   stacks: { required: ["id", "name", "summary", "state", "parts", "partCount", "checked", "source", "next"], optional: [] },
   apps: { required: ["id", "name", "summary", "state", "delivery", "repository", "branch", "checkedCommit", "address", "next"], optional: ["path", "note"] },
-  plugins: { required: ["id", "name", "summary", "state", "commands", "next"], optional: ["repository", "release", "install", "note"] },
+  plugins: { required: ["id", "name", "summary", "state", "commands", "next"], optional: ["repository", "address", "release", "install", "note"] },
   guides: { required: ["id", "group", "title", "summary", "state", "address", "next"], optional: ["groupTitle"] },
 };
 
@@ -154,10 +154,11 @@ function pluginRows(registry) {
       state: plugin.state,
       commands: plugin.commands,
       ...(plugin.repository ? { repository: plugin.repository } : {}),
+      ...(plugin.address ? { address: plugin.address } : {}),
       ...(plugin.release ? { release: plugin.release } : {}),
       ...(plugin.install ? { install: plugin.install } : {}),
       ...(plugin.note ? { note: plugin.note } : {}),
-      next: plugin.install ? { command: plugin.install } : { note: plugin.note ?? "Not yet published." },
+      next: plugin.install ? { command: plugin.install } : plugin.address ? { address: plugin.address } : { note: plugin.note ?? "Not yet published." },
     };
   });
   unique(rows, "plugins");

@@ -93,12 +93,16 @@ spec:
     - id: argo
       name: Argo CD
       commands: [cub argo]
+      repository: confighub/examples
+      address: https://github.com/confighub/examples/tree/main/cub-argo
       summary: Reads an Argo CD estate and plans it into ConfigHub.
       state: in-progress
-      note: Not yet published.
+      note: Build from source with Go and make. In the examples checkout, run make -C cub-argo install-plugin. No standalone release yet.
     - id: flux
       name: Flux
       commands: [cub flux]
+      repository: confighub/examples
+      address: https://github.com/confighub/examples/tree/main/cub-flux
       summary: Reads a Flux fleet repository and plans it into ConfigHub.
       state: in-progress
-      note: Not yet published.
+      note: Build from source with Go and make. In the examples checkout, run make -C cub-flux install-plugin. No standalone release yet.

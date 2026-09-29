@@ -200,9 +200,11 @@
       "commands": [
         "cub argo"
       ],
-      "note": "Not yet published.",
+      "repository": "confighub/examples",
+      "address": "https://github.com/confighub/examples/tree/main/cub-argo",
+      "note": "Build from source with Go and make. In the examples checkout, run make -C cub-argo install-plugin. No standalone release yet.",
       "next": {
-        "note": "Not yet published."
+        "address": "https://github.com/confighub/examples/tree/main/cub-argo"
       }
     },
     {
@@ -213,9 +215,11 @@
       "commands": [
         "cub flux"
       ],
-      "note": "Not yet published.",
+      "repository": "confighub/examples",
+      "address": "https://github.com/confighub/examples/tree/main/cub-flux",
+      "note": "Build from source with Go and make. In the examples checkout, run make -C cub-flux install-plugin. No standalone release yet.",
       "next": {
-        "note": "Not yet published."
+        "address": "https://github.com/confighub/examples/tree/main/cub-flux"
       }
     }
   ]
