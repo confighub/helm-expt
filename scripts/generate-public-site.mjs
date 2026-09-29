@@ -7153,12 +7153,12 @@ function proofHtml(catalog) {
       ])}
       <p><a href="../docs/user/what-we-refuse-to-claim.md">Read the full refusal page</a> or <a href="../data/claims-register/summary.md">open the claims register</a>.</p>
     </section>
-    <section class="narrow-section callout-section" aria-labelledby="stack-receipts">
+${moved.trust}${moved.verify}    <section class="narrow-section callout-section" aria-labelledby="stack-receipts">
       <h2 id="stack-receipts">10. Stack receipts and boundaries</h2>
       <p><a href="./d/data/eks-inf-replica/stack-sandbox/summary.html">The eks-inference sandbox receipt</a> · <a href="./d/data/eks-inf-replica/composition-verdict.html">The composition verdict</a> · <a href="./d/data/certified-bundles/summary.html">The certified-bundle receipts</a> · <a href="https://github.com/confighub/cub-workshop">The plugin repository and its ten-minute walkthrough</a></p>
       <p>The four nouns are proposed verbs packaged as a prototype; ConfigHub's own verbs underneath are released. The composition verdict runs here as the plugin's stack check and in the repository as a regression gate. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>, and this page does not claim otherwise.</p>
     </section>
-${moved.trust}${moved.verify}  </main>
+  </main>
   <footer>Generated from helm-expt proof data. A passing check means only that its own test passed, and nothing more.</footer>
 </body>
 </html>
