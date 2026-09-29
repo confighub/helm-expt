@@ -139,7 +139,8 @@
   .boundary-chip { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; margin: 4px 0 0; }
   .hero { display: grid; grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr); gap: 30px; align-items: start; padding: 22px 0 30px; }
   .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
-  .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 18px; max-width: 46ch; }
+  .hero > div:first-child > p { color: var(--muted); }
+  .hero .lead { font-size: 1rem; color: var(--muted); margin: 0 0 18px; max-width: 46ch; }
   /* The hero says one thing and offers three verbs. The four explainer
      paragraphs that used to fill the column beside the terminal now live as
      cards under "What is the Workshop?" below, one idea per card, so the top
@@ -373,12 +374,12 @@
       <main>
         <section class="section" id="give-it-to-your-agent">
           <span class="eyebrow">For your agent</span>
-          <h2>Give it to your AI agent</h2>
+          <h2>Prompt Claude or Codex to get started</h2>
           <p class="intro">Paste this into Claude Code, Codex, or any agent that can run a shell.</p>
           <p class="agent-prompt"><code>Use the ConfigHub Workshop catalog for Kubernetes config work. It holds known-good configurations across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, which lists the Catalog's five section files first (configs.json, stacks.json, apps.json, plugins.json and guides.json), read the one listing you need from https://confighub.github.io/helm-expt/site/listings/index.json, and do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack check` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code></p>
           <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt.</p>
           <pre class="home-cmd"><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
-          <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+          <p class="install-cub-note">New to <code>cub</code> and ConfigHub? <a href="./try.html#install-cub">Install the cub CLI</a> first. The public catalog uses OCI and standard config formats. You don’t need to sign up until you want to save changes in ConfigHub</p>
         </section>
         <div class="home-overview">
         <section class="section" id="the-catalog">
@@ -406,7 +407,6 @@
       </main>
 
       <footer class="foot">
-        <p class="flip">We show you the ingredients we can see before you install, and name the ones we cannot.</p>
         <p class="sub">Every result links to the command, receipt, or known gap behind it. <a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">Send feedback</a>.</p>
       </footer>
     </div>
