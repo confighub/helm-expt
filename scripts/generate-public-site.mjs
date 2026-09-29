@@ -3464,7 +3464,7 @@ ${homeJourneyLinks()}
         <div class="hero">
           <div>
             <p class="lead">Your agent writes configuration faster than anyone can check it, and a chart rarely shows what it will really do.</p>
-            <p>Pull tested configs, stacks, example apps and plugins from here, from a web platform to GPU inference, with guides your agent can follow, and check each one before it runs. When your team needs to keep it, ConfigHub stores it with the graph of how it all connects.</p>
+            <p>Pull tested configs, stacks, example apps and plugins from here, from a web platform to GPU inference, with guides your agent can follow. When your team needs to keep it, ConfigHub stores it with the graph of how it all connects.</p>
             <p>ConfigHub is where people and agents change the same configuration safely. Every change is versioned, approved and released by digest, and the Argo CD or Flux you already run delivers it.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my config</a>
@@ -3499,7 +3499,7 @@ ${homeJourneyLinks()}
           <h2>Prompt Claude or Codex to get started</h2>
           <p class="intro">Paste this into Claude Code, Codex, or any agent that can run a shell.</p>
           <p class="agent-prompt"><code>${escapeHtml(AGENT_PROMPT_ONE_LINER)}</code></p>
-          <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt.</p>
+          <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt. An agent reads the same lists as data. <a href="./llms.txt">llms.txt</a> names the five section files first.</p>
           <pre class="home-cmd"><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
           <p class="install-cub-note">New to <code>cub</code> and ConfigHub? <a href="./try.html#install-cub">Install the cub CLI</a> first. The public catalog uses OCI and standard config formats. You don’t need to sign up until you want to save changes in ConfigHub</p>
         </section>
@@ -3516,7 +3516,6 @@ ${homeJourneyLinks()}
             <li><a href="./docs.html">Docs</a>: how it works, why you can trust it, and every reference.</li>
           </ul>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:16px 0"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
-          <p class="intro">An agent reads the same lists as data. <a href="./llms.txt">llms.txt</a> names the five section files first.</p>
         </section>
         <section class="section" id="what-is-the-workshop">
           <span class="eyebrow">The short version</span>
