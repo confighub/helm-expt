@@ -601,7 +601,7 @@ const PAGE_DESCRIPTIONS = {
   "ai.html": "Install the ConfigHub Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.",
   "security.html": "Review the exact Kubernetes objects, their source, security checks, approvals, and delivery record before release.",
   "testing.html": "Find a tested starting configuration for a component, AI-infrastructure stack, or internal developer platform, then inspect the exact result before using it.",
-  "kubara.html": "Build an internal developer platform from tested Catalog components, native Kubara configuration, and reviewed AI-assisted changes, then promote platform components, tools, and applications separately.",
+  "kubara.html": "Kubara moved: see the kubara row in Plugins, and the Guide Bring a Kubara platform into ConfigHub.",
   "entry-path-reference.html": "Detailed entry paths for Helm, AICR AI-infrastructure packages, existing OCI, and Kubernetes YAML, with commands and evidence links.",
   "future.html": "Separate ConfigHub Workshop results that can be used today from ideas that remain planned or only partly tested.",
   "operations.html": "Review a change, approve it, deliver it, check the live result, keep a fleet record, and build an App that repeats one job from saved configuration.",
@@ -1960,7 +1960,7 @@ function buildLlmsTxt() {
 - [All technical references](${SITE_BASE_URL}docs.html#all-references): the complete guide and evidence index, on Docs.
 - [Continue with ConfigHub](${SITE_BASE_URL}confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
 - [Catalog](${SITE_BASE_URL}charts/index.html): every tested component and version, with its image, receipt, and the commands to check and verify it.
-- [Kubara with ConfigHub](${SITE_BASE_URL}kubara.html): decide why to add ConfigHub without rewriting Kubara, then follow the same six-step buyer and implementation journey.
+- [Kubara with ConfigHub](${SITE_BASE_URL}bring-kubara-into-confighub.html): decide why to add ConfigHub without rewriting Kubara, then follow the same six-step buyer and implementation journey.
 - [Kubara six-step tutorial](${SITE_BASE_URL}d/docs/demo/kubara/adoption.html): choose, generate, push to Git, create OCI, load the selected organization, and deploy applications while Argo CD remains the reconciler.
 - [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.
 
@@ -8765,7 +8765,7 @@ My platform components: &lt;list them, for example cert-manager, traefik, metric
 3. For each component with no entry, say so plainly, and with my approval file it at
    https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml
    so it gets a checked entry with receipts.
-4. Then read https://confighub.github.io/helm-expt/site/kubara.html and tell me which
+4. Then read https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html and tell me which
    of my components the recorded platform journey already covers.</code></pre>
         <p>Steps 1 and 2 read public data. Step 3 files a public issue with your approval, and an uncovered component becomes a checked entry with receipts.</p>
       </div>
@@ -13889,7 +13889,7 @@ Open \`site/base-variant-records.json\` for the Catalog source-and-intent index 
 the Check and Promote pages. Open \`site/promotion-review.schema.json\` for the
 browser promotion record.
 Open \`site/testing.html\` for working starting, managed, platform, and App examples.
-Open \`site/kubara.html\` for the Kubara buyer story, six adoption steps, GUI path,
+Open \`site/bring-kubara-into-confighub.html\` for the Kubara buyer story, six adoption steps, GUI path,
 evidence status, and full technical references.
 Open \`site/confighub.html\` to sign up, follow the official tutorial, or read the blog.
 Open \`site/charts/index.html\` for the Catalog and \`site/testing.html\` for the Helm, AICR, OCI, and YAML examples.

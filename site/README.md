@@ -22,7 +22,7 @@ Open `site/base-variant-records.json` for the Catalog source-and-intent index us
 the Check and Promote pages. Open `site/promotion-review.schema.json` for the
 browser promotion record.
 Open `site/testing.html` for working starting, managed, platform, and App examples.
-Open `site/kubara.html` for the Kubara buyer story, six adoption steps, GUI path,
+Open `site/bring-kubara-into-confighub.html` for the Kubara buyer story, six adoption steps, GUI path,
 evidence status, and full technical references.
 Open `site/confighub.html` to sign up, follow the official tutorial, or read the blog.
 Open `site/charts/index.html` for the Catalog and `site/testing.html` for the Helm, AICR, OCI, and YAML examples.
