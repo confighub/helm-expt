@@ -870,10 +870,54 @@
       <li><strong>Add it to the tested catalog for everyone.</strong> Send it through the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart template</a>, and a maintainer renders, checks, and publishes it as a base variant.</li>
     </ul>
   </section>
+    <section aria-labelledby="entry-contains">
+      <h2 id="entry-contains">5. What each catalog entry contains</h2>
+      <p>Every version has a local detail page for its package, configurations, and receipt. The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>
+      <p>Every entry carries the same parts, and each one is explained on <a href="./config.html">Config</a>.</p>
+      <ul>
+        <li><strong>The package.</strong> The pinned source and its inputs. <a href="./config.html#lifecycle">See the recipe step</a>.</li>
+        <li><strong>The bases.</strong> One reviewed starting configuration per tested choice. <a href="./variants.html">See what a base variant is</a>.</li>
+        <li><strong>The bundle</strong>, where the lane permits it. The exact objects kept as a certified OCI image. <a href="./config.html#flatten">See when a configuration can be flattened</a> and <a href="./oci.html">see the bundle's OCI shape</a>.</li>
+        <li><strong>The routes.</strong> The CRDs, hooks, and setup work, in order. <a href="./quirks.html">See what a chart hides</a>.</li>
+        <li><strong>The receipt.</strong> What was checked, and the digests it names. <a href="./proof.html#trust">Check why you can trust it</a>.</li>
+      </ul>
+      <h3 id="helm-charts">Helm charts</h3>
+      <ul class="doc-links"><li><a href="./d/docs/user/chart-hooks-what-happens.html">If My Chart Has Hooks, What Happens?</a></li><li><a href="./d/docs/user/hook-lifecycle-strategy.html">Hook Lifecycle Strategy</a></li><li><a href="./d/docs/user/helm-presets-and-values.html">Helm Chart Presets And Values</a></li><li><a href="./d/docs/user/helm-render-intents.html">Helm Render Intents</a></li><li><a href="./d/docs/user/extension-slots.html">Extension Slots</a></li><li><a href="./d/docs/user/helm-pain-points.html">Helm Pain Points</a></li><li><a href="./d/docs/user/helm-to-cub-migration.html">Coming from Helm? How your habits map to cub</a></li><li><a href="./d/docs/reference/seven-stage-helm-lifecycle.html">Seven-Stage Helm Lifecycle</a></li><li><a href="./d/docs/user/how-the-harness-works.html">How The Harness Works</a></li><li><a href="./d/docs/user/target-prerequisites.html">Target Prerequisites</a></li><li><a href="./d/docs/user/prometheus-high-fanout.html">Prometheus High-Fanout Example</a></li><li><a href="./d/docs/user/nginx-configuration-files.html">NGINX Configuration Files</a></li></ul>
+      <h3 id="actions">How the catalog handles required setup</h3>
+      <p>The chart page names any CRDs, hooks, setup jobs, generated Secrets, or other target resource a chart needs, before you choose a configuration. <a href="./quirks.html">See what your chart's hooks, CRDs, and setup work become</a>.</p>
+    </section>
+    <section aria-labelledby="read-results">
+      <h2 id="read-results">6. Read each result correctly</h2>
+      <p>The Catalog can give you a source and exact objects without a cluster. Destination and live answers appear only when the required target or deployment evidence exists.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>What the Catalog shows</th><th>What it needs</th></tr></thead>
+        <tbody><tr><td>What do I have?</td><td>The exact source, version, choices, package, files, or snapshot.</td><td>No Catalog match, destination, or deployment is required.</td></tr><tr><td>What will it produce?</td><td>The exact materialized Kubernetes objects and their identity.</td><td>The source-native processor, unless the source is already literal configuration.</td></tr><tr><td>Can this destination accept it?</td><td>A check of APIs, CRDs, Secrets, policies, controllers, hardware, and lifecycle work for one named destination.</td><td>Destination access; the candidate does not need to be deployed.</td></tr><tr><td>Did it work?</td><td>The recorded controller, resource, workload, runtime, drift, and rollback results that were actually checked.</td><td>The exact selected revision must have been deployed.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>A missing prerequisite is reported as blocked or not-run. It is a different result from a configuration that failed, and we keep the two labelled apart.</p>
+      <p>Each row also carries a flattening verdict, in the "Flattens as plain YAML?" column. <a href="./config.html#flatten">See what each verdict means and how many bases fall in each lane</a>. A row's hook or CRD signal links to <a href="./quirks.html">what your chart hides</a>.</p>
+    </section>
+    <section aria-labelledby="base-variants">
+      <h2 id="base-variants">7. Why the catalog offers several configurations</h2>
+      <p>A Helm chart can expose hundreds of values. The catalog provides tested starting configurations for common choices, such as existing Secrets, high availability, or separately managed CRDs.</p>
+      <p>We call each starting configuration a base variant. Its page records the Helm values, rendered YAML, required setup, and evidence for that choice.</p>
+      <p>Useful choices differ by chart. Redis, Argo CD, and kube-prometheus-stack do not need the same starting configurations.</p>
+      <h4 id="how-values-chosen">How the values for each configuration are chosen</h4>
+      <p>We do not guess. The <strong>default</strong> configuration is the chart's own defaults, with the image pinned by digest. When a chart's default is unsafe, we keep it visible as an honest example and add a recommended one beside it. Redis <code>default</code> writes a password into a rendered Secret. So the catalog also ships <code>reuse-existing-secret</code>, which names the Secret you supply and puts no credential in the render.</p>
+      <p>Every value in a configuration is recorded with where it came from: a chart default, a catalog policy such as pinning the image, or a generated value like a password. And every configuration's render is compared against Helm's own output, so a base variant is verified, not asserted. New configurations are added when a real choice needs one, gated by that comparison.</p>
+      <p><strong>Here is what this does and does not prove.</strong> The catalog proves these named configurations. It does not prove every possible values file. Your own values still need to be rendered and checked, which is what <a href="./ask.html">Is my configuration right?</a> is for.</p>
+      <p><a href="./variants.html#fields">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
+      <p>Every maintained entry uses the same <a href="./d/docs/user/model-and-vocabulary.html">configuration processing model</a>. The generated <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/summary.md">alignment report</a> shows which records have complete flattening, ownership, and destination-route evidence and which still have gaps.</p>
+    </section>
 </main>
 <footer><p>Config is the model. The <a href="./charts/index.html">Catalog</a> is the store of tested configurations, <a href="./stack.html">stacks</a> compose them, and <a href="./confighub.html">ConfigHub</a> governs, releases, and promotes a reviewed base.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#lifecycle">1. Follow one configuration from source to running</a></li><li><a href="#formats">2. See what each format becomes</a></li><li><a href="#flatten">3. See whether a configuration can be flattened</a></li><li><a href="#tools">4. Choose a tool and start</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./variants.html">Variants &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#lifecycle">1. Follow one configuration from source to running</a></li><li><a href="#formats">2. See what each format becomes</a></li><li><a href="#flatten">3. See whether a configuration can be flattened</a></li><li><a href="#tools">4. Choose a tool and start</a></li><li><a href="#entry-contains">5. What each catalog entry contains</a></li><li><a href="#read-results">6. Read each result correctly</a></li><li><a href="#base-variants">7. Why the catalog offers several configurations</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./variants.html">Variants &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Stacks and fleets</a><a href="./try-aicr.html">Inference platforms</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Apps on a platform</a><a href="./testing.html">Worked examples</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./kubara.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>

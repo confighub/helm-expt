@@ -70,7 +70,6 @@ for (const [label, document] of Object.entries({
 for (const [label, document] of Object.entries({
   doctrine: documents.doctrine,
   vocabulary: documents.vocabulary,
-  catalog: documents.catalog,
   examples: documents.examples,
   ask: documents.ask,
   promote: documents.promote,
@@ -138,8 +137,9 @@ requireText(
   "docs.html#all-references",
   "simple deployment page technical-reference link",
 );
-requireText(documents.catalog, "configuration processing model", "Catalog model link");
-requireText(documents.catalog, "alignment report", "Catalog alignment link");
+// Site IA phase 4, step 3: the Catalog entry model moved to config.html.
+requireText(documents.config, "configuration processing model", "Catalog model link");
+requireText(documents.config, "alignment report", "Catalog alignment link");
 
 for (const path of [
   "schemas/base-variant-record.schema.json",

@@ -677,7 +677,7 @@ cat ./bitnami-redis-25-5-3-reuse-existing-secret/out/manifests/configmap-redis-r
 
   <h2 id="redis-walkthrough">1 · Pull, inspect, and verify Redis</h2>
   <p>Start without a cluster. Pull the public Redis package, select the existing-Secret configuration, write the Kubernetes files, and write the same non-secret objects as a local OCI image layout.</p>
-  <p><code>reuse-existing-secret</code> is a <a href="./charts/index.html#base-variants">base variant</a>: a reviewed way to use the chart with its Helm inputs, rendered output, checks, and required Secret recorded together.</p>
+  <p><code>reuse-existing-secret</code> is a <a href="./config.html#base-variants">base variant</a>: a reviewed way to use the chart with its Helm inputs, rendered output, checks, and required Secret recorded together.</p>
   <pre><code># No ConfigHub account, Google registry login, or Kubernetes cluster.
 cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a \
     --base reuse-existing-secret --work-dir ./redis \
