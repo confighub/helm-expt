@@ -797,6 +797,10 @@ if (fs.existsSync(homePath)) {
       if (!text.includes(term)) failures.push(`site/${journey}.html: missing "${term}"`);
     }
   }
+  for (const heading of ["Getting Started Demos", "Common Questions"]) {
+    if (!home.includes(`<p class="rail-h"><strong>${heading}</strong></p>`)) failures.push(`site/index.html: missing bold rail heading ${heading}`);
+  }
+  if (!home.includes('<p class="rail-h"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>')) failures.push("site/index.html: missing matching AI rail heading link");
   if (home.indexOf("Getting Started Demos") < 0 || home.indexOf("Getting Started Demos") > home.indexOf("<main>")) {
     failures.push("site/index.html: the five journeys must come first, before the main content");
   }

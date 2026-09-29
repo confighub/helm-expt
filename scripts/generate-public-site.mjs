@@ -3029,6 +3029,7 @@ ${bannerCss()}
   .home-rail .rail-h { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin: 18px 0 8px; }
   .home-rail .rail-h:first-child { margin-top: 0; }
   .home-rail a { display: block; padding: 7px 0 7px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.3; font-size: .92rem; }
+  .home-rail .rail-h a { font: inherit; letter-spacing: inherit; padding: 0; border: 0; color: inherit; }
   .home-rail a:hover { color: var(--ink); border-left-color: var(--accent); }
   .home-rail a.rail-primary { color: var(--ink); font-weight: 640; border-left-color: var(--accent); }
   .eyebrow { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
@@ -3375,9 +3376,16 @@ function configTestCentreHome(catalog) {
       <nav class="home-rail" aria-label="Getting Started Demos">
         <p class="rail-h"><strong>Getting Started Demos</strong></p>
 ${homeJourneyLinks()}
-        <p class="rail-h">Or see it run</p>
-        <a href="./try.html">Try it on your laptop in ten minutes</a>
-        <a href="./demo.html">Grow from one chart to a fleet</a>
+        <p class="rail-h"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
+        <p class="rail-h"><strong>Common Questions</strong></p>
+        <a href="./charts/index.html">What’s in the Config Catalog?</a>
+        <a href="./apps.html">What does an example app look like?</a>
+        <a href="./compose-a-stack.html">How do I build my own platform?</a>
+        <a href="./stack.html">How do I run a pre-tested stack?</a>
+        <a href="./guides.html#guides-gitops">How do I use Argo CD or Flux?</a>
+        <a href="./how-it-works.html">How do I deploy and promote my app?</a>
+        <a href="./guides.html">Which Guide solves my problem?</a>
+        <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>
       </nav>
       <header>
         ${topNav(".")}

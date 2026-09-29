@@ -113,6 +113,7 @@
   .home-rail .rail-h { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin: 18px 0 8px; }
   .home-rail .rail-h:first-child { margin-top: 0; }
   .home-rail a { display: block; padding: 7px 0 7px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.3; font-size: .92rem; }
+  .home-rail .rail-h a { font: inherit; letter-spacing: inherit; padding: 0; border: 0; color: inherit; }
   .home-rail a:hover { color: var(--ink); border-left-color: var(--accent); }
   .home-rail a.rail-primary { color: var(--ink); font-weight: 640; border-left-color: var(--accent); }
   .eyebrow { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
@@ -315,9 +316,16 @@
         <a href="./journey-what-my-app-needs.html">My app does not fit my platform</a>
         <a href="./journey-before-gitops.html">My chart behaves differently in GitOps</a>
         <a href="./journey-installs-never-starts.html">My app installs but will not start</a>
-        <p class="rail-h">Or see it run</p>
-        <a href="./try.html">Try it on your laptop in ten minutes</a>
-        <a href="./demo.html">Grow from one chart to a fleet</a>
+        <p class="rail-h"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
+        <p class="rail-h"><strong>Common Questions</strong></p>
+        <a href="./charts/index.html">What’s in the Config Catalog?</a>
+        <a href="./apps.html">What does an example app look like?</a>
+        <a href="./compose-a-stack.html">How do I build my own platform?</a>
+        <a href="./stack.html">How do I run a pre-tested stack?</a>
+        <a href="./guides.html#guides-gitops">How do I use Argo CD or Flux?</a>
+        <a href="./how-it-works.html">How do I deploy and promote my app?</a>
+        <a href="./guides.html">Which Guide solves my problem?</a>
+        <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>
       </nav>
       <header>
         <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div>
