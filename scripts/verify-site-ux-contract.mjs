@@ -68,7 +68,7 @@ const checks = [
   })),
   {
     file: "site/index.html",
-    terms: ["Configuration catalog for Agents and Kubernetes", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and More", "Other catalogs give you charts", "One OCI format and one lifecycle model", "standardises every configuration into one OCI format and one lifecycle model", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Start from your problem", "What is the Workshop?", "Give it to your AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
+    terms: ["Configuration catalog for Agents and Kubernetes", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and More", "Other catalogs give you charts", "One OCI format and one lifecycle model", "standardises every configuration into one OCI format and one lifecycle model", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "Give it to your AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
   },
   {
     file: "site/ask.html",
@@ -797,7 +797,7 @@ if (fs.existsSync(homePath)) {
       if (!text.includes(term)) failures.push(`site/${journey}.html: missing "${term}"`);
     }
   }
-  if (home.indexOf("Start from your problem") < 0 || home.indexOf("Start from your problem") > home.indexOf("<main>")) {
+  if (home.indexOf("Getting Started Demos") < 0 || home.indexOf("Getting Started Demos") > home.indexOf("<main>")) {
     failures.push("site/index.html: the five journeys must come first, before the main content");
   }
   if (!home.includes('href="./docs.html"') || !fs.readFileSync(path.join(root, "site/docs.html"), "utf8").includes('href="./ask.html#faq"')) {

@@ -553,7 +553,7 @@ const SPLIT_PAGES = [
   { key: "publicQuestionsHtml", file: "public-questions.html", title: "What happens to a public question", description: "How a question sent in public becomes a checked answer, a named refusal, or a documented limit.", build: (catalog) => publicQuestionsHtml(catalog), doc: true, reference: true },
   { key: "chooseToolGuideHtml", file: "choose-a-tool.html", title: "Choose a tool and start", description: "Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.", build: () => chooseToolGuideHtml() },
 ];
-const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
+const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, title: sectionRows("guides").find((row) => row.id === journey.id)?.title ?? journey.title, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
 
 const SITE_PAGE_RELPATHS = {
   ...Object.fromEntries(JOURNEY_PAGES.map((journey) => [journey.key, journey.file])),
@@ -3372,8 +3372,8 @@ function configTestCentreHome(catalog) {
 <body>
   <div class="wrap">
     <div class="page">
-      <nav class="home-rail" aria-label="Start from your problem">
-        <p class="rail-h">Start from your problem</p>
+      <nav class="home-rail" aria-label="Getting Started Demos">
+        <p class="rail-h"><strong>Getting Started Demos</strong></p>
 ${homeJourneyLinks()}
         <p class="rail-h">Or see it run</p>
         <a href="./try.html">Try it on your laptop in ten minutes</a>

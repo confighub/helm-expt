@@ -24,31 +24,31 @@ spec:
   guides:
   - id: journey-values-did-nothing
     group: journeys
-    title: My values did nothing
+    title: Helm ignores my values
     summary: The assistant wrote my Helm values. Did they do anything? Three of seven did nothing, and
       Helm never said so.
     page: journey-values-did-nothing.html
   - id: journey-preserve-my-fixes
     group: journeys
-    title: Preserve my fixes
+    title: AI overwrites my fixes
     summary: The assistant rewrote my app. Are my fixes still there? Then ConfigHub carries the fixes
       through the rewrite.
     page: journey-preserve-my-fixes.html
   - id: journey-what-my-app-needs
     group: journeys
-    title: What my app needs
+    title: My app does not fit my platform
     summary: Will my app run on the platform I picked? Refused for two real reasons, fixed on both sides,
       then checked.
     page: journey-what-my-app-needs.html
   - id: journey-before-gitops
     group: journeys
-    title: Before GitOps takes over
+    title: My chart behaves differently in GitOps
     summary: My Redis has run fine for a month. Is it safe to hand to GitOps? Three problems, then a reviewed
       alternative from the Catalog.
     page: journey-before-gitops.html
   - id: journey-installs-never-starts
     group: journeys
-    title: It installs but never starts
+    title: My app installs but will not start
     summary: Every check passes. Should I install it? The image no longer exists, said before the install.
     page: journey-installs-never-starts.html
   - id: redis-intro
