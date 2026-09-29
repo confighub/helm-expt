@@ -131,7 +131,7 @@ const checks = [
   },
   {
     file: "site/deploy-with-flux-or-argo.html",
-    terms: ["Run it with Flux, Argo CD, or kubectl", "Keep the reconciler you have", "An OCI package works with your registry and reconciler", "1. Check a release before Argo CD or Flux takes it over", "change on every render", "A Flux HelmRelease runs Helm in the cluster", "cub config diff render-1.yaml render-2.yaml --exit-code", "lists each <code>lookup</code> in the chart's source", "spec.source.helm.releaseName", "<code>storageNamespace</code> to match the release Helm created", "flux create helmrelease grafana", "--storage-namespace=monitoring", "Give it a new name and create it before the upgrade", "Argo CD hardening Guide", "pass its <code>oci://</code> address in place of the name", "without writing Helm's release record", "For Argo CD, write the Application yourself", "Each chart names that value differently", "releaseName: grafana", "helm.sh/resource-policy: keep", "adopt-existing-argo-app.md", "ConfigHub helps once the handover is done", "2. Reconcile a published component now", "3. Verify before you reconcile", "cub config verify", "4. Render, inspect, then apply with kubectl", "Now deploy it, three ways", "5. Change an image without signing in", "6. Check the record", "source receipt -> object receipt -> delivery receipt -> runtime receipt", "7. Read the current limits", "Plain <code>kubectl apply</code> does not infer CRD order", "reuse-existing-secret", "8. Do this next"],
+    terms: ["Run it with Flux, Argo CD, or kubectl", "Keep the reconciler you have", "An OCI package works with your registry and reconciler", "1. Check a release before Argo CD or Flux takes it over", "change on every render", "A Flux HelmRelease runs Helm in the cluster", "cub config diff render-1.yaml render-2.yaml --exit-code", "lists each <code>lookup</code> in the chart's source", "spec.source.helm.releaseName", "<code>storageNamespace</code> to match the release Helm created", "flux create helmrelease grafana", "--storage-namespace=monitoring", "Give it a new name and create it before the upgrade", "Argo CD hardening Guide", "pass its <code>oci://</code> address in place of the name", "without writing Helm's release record", "For Argo CD, write the Application yourself", "Each chart names that value differently", "releaseName: grafana", "helm.sh/resource-policy: keep", "adopt-existing-argo-app.md", "ConfigHub helps once the handover is done", "2. Reconcile a published component now", "3. Verify before you reconcile", "cub config verify", "4. Render, inspect, then apply with kubectl", "Now deploy it, three ways", "5. Change an image without signing in", "6. Check the record", "source receipt -> object receipt -> delivery receipt -> runtime receipt", "reuse-existing-secret", "7. Do this next"],
   },
   {
     file: "site/stack.html",
@@ -192,6 +192,11 @@ const checks = [
     file: "site/proof.html",
     terms: ["Check why you can trust an entry", "The render matches Helm's own output", "A whole composition passes its checks", "A signature records who published the image"],
   },
+  // Site IA phase 4, step 7b: sending a chart moved from Offering to its Guide.
+  {
+    file: "site/send-a-public-chart.html",
+    terms: ["Send a missing or broken public chart", "1. Look for it in the Catalog", "2. Render it yourself, and note what differs", "3. Send the chart and values", "problem-chart.yml", "4. See what happens to it"],
+  },
   // Site IA phase 4, step 7b: checking a claim moved to its Guide.
   {
     file: "site/check-a-claim-yourself.html",
@@ -219,7 +224,7 @@ const checks = [
   },
   {
     file: "site/known-gaps.html",
-    terms: ["Delivery limitations and known gaps", "Check one delivery result", "1. Read the current delivery limits", "2. Check the exact chart and configuration", "Fixed placeholder credentials", "SSA conflict ergonomics", "Do now:"],
+    terms: ["Delivery limitations and known gaps", "Rendering for Flux, Argo CD, or kubectl", "Plain <code>kubectl apply</code> does not infer CRD order", "Check one delivery result", "1. Read the current delivery limits", "2. Check the exact chart and configuration", "Fixed placeholder credentials", "SSA conflict ergonomics", "Do now:"],
   },
   {
     file: "site/docs.html",
@@ -244,7 +249,7 @@ const checks = [
   },
   {
     file: "site/offering.html",
-    terms: ["Offering", "1. See what is free, and what needs the commercial product", "2. Check what exists today", "3. Send a missing or broken public chart", "4. Read the supporting detail", "Payment starts at the first private or team need", "ConfigHub is free to start", "A hosted path without sign-in is planned"],
+    terms: ["Offering", "1. See what is free, and what needs the commercial product", "2. Check what exists today", "3. Read the supporting detail", "Send a missing or broken public chart", "Payment starts at the first private or team need", "ConfigHub is free to start", "A hosted path without sign-in is planned"],
   },
   {
     file: "site/ai.html",

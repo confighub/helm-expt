@@ -544,6 +544,7 @@ const SPLIT_GUIDES = [
   { key: "hooksGuideHtml", file: "handle-hooks-and-crds.html", title: "Handle hooks and CRDs", description: "Find the hooks, CRDs, setup jobs and target facts a chart needs before delivery, decide who runs each, and stage the target first.", build: (catalog) => hooksGuideHtml(catalog) },
   { key: "operateFleetGuideHtml", file: "operate-a-fleet.html", title: "Operate a fleet", description: "Check the starting point, choose an operation, keep a fleet record, and open the working App demonstrations.", build: (catalog) => operateFleetGuideHtml(catalog) },
   { key: "buildAppGuideHtml", file: "build-a-confighub-app.html", title: "Build a ConfigHub App", description: "Build an App that repeats one operation on configuration saved in ConfigHub.", build: (catalog) => buildAppGuideHtml(catalog) },
+  { key: "sendChartGuideHtml", file: "send-a-public-chart.html", title: "Send a missing or broken public chart", description: "Look for a public chart in the Catalog, render it yourself, and send the chart and values when it is missing or its output differs from Helm.", build: () => sendChartGuideHtml() },
 ];
 const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
 
@@ -3974,7 +3975,7 @@ function offeringHtml(catalog) {
     ["Scan, patch, promote, and observe many applications at once", "No", "No", "Yes"],
     ["Get production support, older-version support, or an SLA", "No", "No", "Yes"],
   ];
-  return `<!doctype html>
+  return renumberSections(`<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -4013,13 +4014,10 @@ function offeringHtml(catalog) {
       <p><a href="./proof.html">See what has been tested</a> · <a href="./check-a-claim-yourself.html#check-one-claim">Check one claim</a> · <a href="./known-gaps.html">See what is not ready yet</a></p>
     </section>
 
-    <section aria-labelledby="missing">
-      <h2 id="missing">3. Send a missing or broken public chart</h2>
-      <p>If the Catalog is missing a public chart or its output differs from Helm, send the chart and values that show the problem through the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart issue template</a>. <a href="./config.html#not-in-catalog">See the other paths for a chart the catalog does not have</a>.</p>
-    </section>
 
     <section aria-labelledby="more">
       <h2 id="more">4. Read the supporting detail</h2>
+      <p>Is a public chart missing, or does its output differ from Helm? <a href="./send-a-public-chart.html">Send a missing or broken public chart</a>.</p>
       <p>These project records explain support, commercial planning, no-server work, and the limits of current claims.</p>
       <div class="grid">
         <div class="card"><h3>Support tiers</h3><p><a href="../docs/user/product-support-tiers.md">Open product support tiers</a>.</p></div>
@@ -4032,7 +4030,7 @@ function offeringHtml(catalog) {
   <footer>Use the public paths first. Add ConfigHub when the configuration needs shared history, controlled change, promotion, or rollout.</footer>
 </body>
 </html>
-`;
+`);
 }
 
 function tryHtml(catalog) {
@@ -6378,7 +6376,7 @@ function upstreamVersionHtml() {
 }
 
 function fluxArgoHtml() {
-  return `<!doctype html>
+  return renumberSections(`<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -6478,7 +6476,6 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
         </div>
       </div>
       <p><strong>Same render, same working result, visible before apply.</strong></p>
-    </section>
       <p>The same render, side by side with plain Helm:</p>
       <div class="terminal-card" aria-label="Redis install comparison">
         <div class="terminal-title">redis → redis</div>
@@ -6518,7 +6515,6 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
       <p>The output contains the complete Kubernetes YAML, the input digest, the exact field change, and the check results. The command pulls the output back and compares it before reporting success. Existing source and change records are kept when the output is changed again.</p>
       <p><a href="./d/docs/user/transform-oci-package.html">Read the command guide</a> · <a href="./d/data/anonymous-oci-transform-proof/summary.html">See the public NGINX proof</a></p>
     </section>
-    </section>
 
     <section aria-labelledby="evidence">
       <h2 id="evidence">6. Check the record</h2>
@@ -6528,28 +6524,18 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
       <p>Each receipt proves one boundary. The runtime receipt reports what happened after delivery; it does not prove that the source or object set was correct.</p>
     </section>
 
-    <section class="narrow-section" aria-labelledby="edges">
-      <h2 id="edges">7. Read the current limits</h2>
-      <p><strong>The chart's normal default carries password material in its rendered Secret.</strong> The catalog recommends <code>reuse-existing-secret</code> instead. That preset names the Secret the target must provide, and the rendered OCI contains no password.</p>
-      <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
-      <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. <a href="./oci.html">See every OCI shape and which consumer needs which layout</a>.</p>
-      <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page says which lifecycle steps apply.</p>
-      <p>Plain <code>kubectl apply</code> does not infer CRD order or wait for CRDs to become established. <a href="./handle-hooks-and-crds.html#crd-menu">See who owns each CRD and how the order is proved</a>, and <a href="./known-gaps.html">read the first-install CRD known gap</a> before using a direct apply path.</p>
-      <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
-      <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
-    </section>
-    </section>
 
     <section aria-labelledby="next-action">
       <h2 id="next-action">8. Do this next</h2>
       <p>Reconcile the published nginx component, or render any other chart and hand the output to the Flux or Argo CD you already run. When the result needs shared variants, approvals, or a fleet rollout, upload it into ConfigHub and release it by digest.</p>
+      <p>Before you apply a chart with hooks, webhooks, or its own CRDs, <a href="./known-gaps.html#edges">read the current limits of rendering for Flux, Argo CD, or kubectl</a>.</p>
       <p><a class="button primary" href="#now-deploy">See the deploy manifests</a></p>
     </section>
   </main>
   <footer><p>Generated from committed helm-expt evidence. These examples need neither ConfigHub Server nor an account. ${signupLink("serverless", "Save the configuration in ConfigHub")} when it needs shared variants, approvals, or a fleet rollout.</p></footer>
 </body>
 </html>
-`;
+`);
 }
 // What the committed fetch receipt observed, in two sentences. The page reads the
 // receipt rather than restating it, so the claim moves when the receipt is re-recorded.
@@ -7583,6 +7569,36 @@ function buildAppGuideHtml(catalog) {
   });
 }
 
+function sendChartGuideHtml() {
+  return splitGuideHtml({
+    title: "Send a missing or broken public chart",
+    lead: "The Catalog grows from the charts people ask for. If a public chart is missing, or its output differs from what Helm renders, send the chart and values that show it.",
+    ask: "“Check whether the Catalog has &lt;chart&gt; at &lt;version&gt;. If it does not, or if its output differs from Helm, draft the problem chart issue with public values only, and show it to me before anything is sent.”",
+    body: `    <section aria-labelledby="look">
+      <h2 id="look">1. Look for it in the Catalog</h2>
+      <p>Search <a href="./charts/index.html#search">Configs</a> for the chart. Each entry lists the versions it was tested at. If the entry is there and its output looks right, you have your answer.</p>
+    </section>
+    <section aria-labelledby="render-yourself">
+      <h2 id="render-yourself">2. Render it yourself, and note what differs</h2>
+      <p>Render the chart as Helm does, with the values that show the problem. Then see what it installs. Use public values only, because the issue you send is public.</p>
+      ${commandBlock([
+        { comment: "render the chart as Helm does", cmd: "helm template <release> <chart> --version <version> --namespace <namespace> -f <values>.yaml > helm.yaml" },
+        { comment: "see what it would install", cmd: "cub config check helm.yaml" },
+        { comment: "compare it with the objects you expected", cmd: "cub config diff expected.yaml helm.yaml" },
+      ])}
+    </section>
+    <section aria-labelledby="missing">
+      <h2 id="missing">3. Send the chart and values</h2>
+      <p>Open the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart issue template</a>. It asks for the public source, the exact version or digest, the values and choices you used, the result you expected, and the result you saw.</p>
+    </section>
+    <section aria-labelledby="what-happens">
+      <h2 id="what-happens">4. See what happens to it</h2>
+      <p>Each case becomes a checked answer, a named refusal, or a documented limit. <a href="./ask.html#public-question-decisions">What happens to a public question</a> explains how that is decided. Until then, <a href="./config.html#not-in-catalog">the other paths for a chart the Catalog does not have</a> still work.</p>
+    </section>
+`,
+  });
+}
+
 function proofHtml(catalog) {
   const moved = catalogMovedSections(catalog);
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
@@ -8184,6 +8200,14 @@ function knownGapsHtml(catalog) {
         ["Problem", "Severity", "What it means, and what to do now", "Fix or boundary", "Evidence"],
         ...gaps.map(([name, severity, body, action, href, disposition]) => [name, severity, `${body}<br><strong>Do now:</strong> ${action}`, disposition, `<a href="${href}">Open evidence</a>`]),
       ], { rawFifthColumn: true, rawThirdColumn: true })}
+      <h3 id="edges">Rendering for Flux, Argo CD, or kubectl</h3>
+      <p><strong>The chart's normal default carries password material in its rendered Secret.</strong> The catalog recommends <code>reuse-existing-secret</code> instead. That preset names the Secret the target must provide, and the rendered OCI contains no password.</p>
+      <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
+      <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. <a href="./oci.html">See every OCI shape and which consumer needs which layout</a>.</p>
+      <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page says which lifecycle steps apply.</p>
+      <p>Plain <code>kubectl apply</code> does not infer CRD order or wait for CRDs to become established. <a href="./handle-hooks-and-crds.html#crd-menu">See who owns each CRD and how the order is proved</a>, and <a href="#gaps">read the first-install CRD known gap</a> before using a direct apply path.</p>
+      <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
+      <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
     </section>
 
     <section aria-labelledby="next">

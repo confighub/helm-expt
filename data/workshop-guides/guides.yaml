@@ -134,6 +134,11 @@ spec:
     summary: Render your own chart and values, an AI-written one included, then check, diff, adapt a field,
       and keep the reviewed objects for your own Argo CD or Flux.
     page: d/docs/user/workshop-byo-charts-guide.html
+  - id: send-a-public-chart
+    group: helm-questions
+    title: Send a missing or broken public chart
+    summary: Look for a public chart in the Catalog, render it yourself, and send the chart and values when it is missing or its output differs from Helm.
+    page: send-a-public-chart.html
   - id: aicr
     group: formats
     title: Answer the questions AICR users ask
