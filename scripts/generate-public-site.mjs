@@ -2031,9 +2031,9 @@ function buildLlmsTxt() {
 - [Is my configuration right?](${SITE_BASE_URL}ask.html): the check flow, the FAQ, and the public question intake.
 - [Detailed Redis walkthrough](${SITE_BASE_URL}redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
 - [Examples](${SITE_BASE_URL}testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
-- [Deployment](${SITE_BASE_URL}how-it-works.html): choose whether reviewed objects stay as files, move through OCI, or become managed ConfigHub configuration.
-- [Docs](${SITE_BASE_URL}docs.html): find instructions for the configuration or deployment step you are doing now.
-- [Docs](${SITE_BASE_URL}docs.html): the map of instructions, with the complete technical reference index under All technical references.
+- [Release, promote and roll back](${SITE_BASE_URL}how-it-works.html): the Guide to ConfigHub's four verbs, release by digest, promote, gate on an approval, and roll back. [How ConfigHub works](${SITE_BASE_URL}how-confighub-works.html) explains where they fit.
+- [The five journeys](${SITE_BASE_URL}guides.html#guides-journeys): each starts from a problem a person brings to their agent, such as values that did nothing or fixes an assistant undid. Their rows lead guides.json.
+- [Docs](${SITE_BASE_URL}docs.html): the Docs tree, five areas each starting with a short doc for people, with the complete technical reference index under All technical references.
 - [All technical references](${SITE_BASE_URL}docs.html#all-references): the complete guide and evidence index, on Docs.
 - [Continue with ConfigHub](${SITE_BASE_URL}confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
 - [Catalog](${SITE_BASE_URL}charts/index.html): every tested component and version, with its image, receipt, and the commands to check and verify it.
@@ -3383,12 +3383,13 @@ ${homeJourneyLinks()}
         ${topNav(".")}
         <div class="hero-head">
           <span class="eyebrow">Config Catalog and Workshop &middot; Helm, AICR, OCI, YAML and Timoni</span>
-          <h1>Agent Catalog of tested configuration data and stacks</h1>
+          <h1>An agentic data hub for Kubernetes and AI configurations</h1>
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Other catalogs give you charts. We give your agents the data that makes charts safe to use.</p>
-            <p>Every entry is a chart, module or recipe someone else publishes, rendered with reviewed values into the exact objects it installs. Each one is kept with its digest, and with what the source decides for you. One OCI format and one lifecycle model cover Helm, Timoni, AICR, Kubara and plain YAML, so your agent reads them all the same way, with no account.</p>
+            <p class="lead">Your agent writes configuration faster than anyone can check it, and a chart rarely shows what it will really do.</p>
+            <p>Pull tested configs, stacks, example apps and plugins from here, from a web platform to GPU inference, with guides your agent can follow, and check each one before it runs. When your team needs to keep it, ConfigHub stores it with the graph of how it all connects.</p>
+            <p>ConfigHub is where people and agents change the same configuration safely. Every change is versioned, approved and released by digest, and the Argo CD or Flux you already run delivers it.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my config</a>
               <a class="btn primary" href="./ai.html">Give it to your AI agent</a>
@@ -3422,6 +3423,8 @@ ${homeJourneyLinks()}
           <span class="eyebrow">The short version</span>
           <h2>What is the Workshop?</h2>
           <p class="intro">The Workshop is a Catalog of tested configuration kept as data, and a plugin for <code>cub</code> that checks, composes and publishes it. The Catalog standardises every configuration into one OCI format and one lifecycle model. You, your agent, or both read and run the same things, with no account. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
+          <p class="intro">Other catalogs give you charts. We give your agents the data that makes charts safe to use.</p>
+          <p class="intro">Every entry is a chart, module or recipe someone else publishes, rendered with reviewed values into the exact objects it installs. Each one is kept with its digest, and with what the source decides for you. One OCI format and one lifecycle model cover Helm, Timoni, AICR, Kubara and plain YAML, so your agent reads them all the same way, with no account.</p>
         </section>
         <section class="section" id="give-it-to-your-agent">
           <span class="eyebrow">For your agent</span>

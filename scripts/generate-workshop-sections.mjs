@@ -230,7 +230,7 @@ function schemaFor(section) {
 
 function fieldSchema(field) {
   if (["objectCount", "partCount"].includes(field)) return { type: "integer", minimum: 0 };
-  if (field === "checked") return { type: "boolean" };
+  if (field === "checked") return { type: "boolean", description: "True when every part of the stack carries a receipt. It says the parts were checked, not that the stack has run; the stack check itself is static and needs the workshop plugin." };
   if (["commands", "parts"].includes(field)) return { type: "array", items: { type: "string" }, minItems: 1 };
   if (field === "release") return { type: "object", required: ["tag"], properties: { tag: { type: "string" }, date: { type: "string" } } };
   if (field === "next") {
