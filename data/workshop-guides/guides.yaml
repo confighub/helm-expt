@@ -272,3 +272,8 @@ spec:
     title: Build a ConfigHub App
     summary: Build an App that repeats one operation on configuration saved in ConfigHub.
     page: build-a-confighub-app.html
+  - id: release-promote-roll-back
+    group: confighub
+    title: Release, promote and roll back
+    summary: Release a reviewed configuration, promote it to the next environment, gate it with approvals, and roll it back.
+    page: how-it-works.html

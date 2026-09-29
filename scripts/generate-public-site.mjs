@@ -648,7 +648,7 @@ const PAGE_DESCRIPTIONS = {
   "serverless.html": "Run a public catalog package with no account and no sign-in, and keep the rendered objects under your control.",
   "stack.html": "Combine components into custom stacks and application platforms: check a composition for free, render it with no infrastructure, upload it under governance, and generate a whole fleet from a placement manifest.",
   "demo.html": "In ten minutes you go from checking one chart to generating a governed fleet, checking a whole inference platform on the way, most of it free and copy-paste.",
-  "how-it-works.html": "Choose whether reviewed Kubernetes objects stay as local files, move through OCI, or become managed configuration in ConfigHub.",
+  "how-it-works.html": "Release a reviewed configuration, promote it to the next environment, gate it with approvals, and roll it back.",
   "config.html": "Follow one configuration from source to running: the lifecycle model, how each format is rendered and flattened, what a flattening verdict decides, and which tool to start with.",
   "deployment-reference.html": "Technical details for source records, base variants, routes, checks, ConfigHub changes, OCI delivery, and deployment limits.",
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
@@ -2548,11 +2548,12 @@ function siteSections() {
     ["demo.html", "The ten-minute demo"], ["ai.html", "Use with your AI"], ["ask.html", "Is my configuration right?"],
     ["deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"], ["promote.html", "Promote my config"],
     ["does-cluster-match-approved-config.html", "Does the cluster match?"], ["why-do-dev-and-prod-differ.html", "Why do dev and prod differ?"],
+    ["how-it-works.html", "Release, promote and roll back"],
     ...SPLIT_GUIDES.map((guide) => [guide.file, guide.title]),
   ] },
   { label: "Docs", hub: "docs.html", pages: [
     ["docs.html", "Docs"], ["config.html", "How configuration works"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"],
-    ["quirks.html", "What charts hide"], ["how-it-works.html", "Operate"], ["confighub.html", "ConfigHub Server"],
+    ["quirks.html", "What charts hide"], ["confighub.html", "ConfigHub Server"],
     ["proof.html", "Why trust it"], ["known-gaps.html", "Known gaps"], ["matrix.html", "Evidence index"],
     ["d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"], ["offering.html", "Offering"],
   ] },
@@ -2698,6 +2699,7 @@ function guideAgentAsks() {
     "compose-a-stack.html": "Compose a stack from &lt;components&gt;, check it, and show me every conflict or missing need before anything runs.",
     "try-aicr.html": "Compare my GPU nodes with the AICR recipe for &lt;workload&gt;, and tell me which configuration fits and why.",
     "put-an-app-on-a-platform.html": "Check what my app needs, check it on &lt;platform&gt;, and tell me what to change on either side.",
+    "how-it-works.html": "Show me how &lt;app&gt; would be released, promoted and rolled back in ConfigHub, and wait for me before each step that changes anything.",
     "bring-kubara-into-confighub.html": "Run cub kubara plan on my Kubara platform, show me what ConfigHub would hold, and change nothing.",
   };
 }
