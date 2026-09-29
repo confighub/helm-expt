@@ -44,9 +44,9 @@
 - [Is my configuration right?](https://confighub.github.io/helm-expt/site/ask.html): the check flow, the FAQ, and the public question intake.
 - [Detailed Redis walkthrough](https://confighub.github.io/helm-expt/site/redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
 - [Examples](https://confighub.github.io/helm-expt/site/testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
-- [Deployment](https://confighub.github.io/helm-expt/site/how-it-works.html): choose whether reviewed objects stay as files, move through OCI, or become managed ConfigHub configuration.
-- [Docs](https://confighub.github.io/helm-expt/site/docs.html): find instructions for the configuration or deployment step you are doing now.
-- [Docs](https://confighub.github.io/helm-expt/site/docs.html): the map of instructions, with the complete technical reference index under All technical references.
+- [Release, promote and roll back](https://confighub.github.io/helm-expt/site/how-it-works.html): the Guide to ConfigHub's four verbs, release by digest, promote, gate on an approval, and roll back. [How ConfigHub works](https://confighub.github.io/helm-expt/site/how-confighub-works.html) explains where they fit.
+- [The five journeys](https://confighub.github.io/helm-expt/site/guides.html#guides-journeys): each starts from a problem a person brings to their agent, such as values that did nothing or fixes an assistant undid. Their rows lead guides.json.
+- [Docs](https://confighub.github.io/helm-expt/site/docs.html): the Docs tree, five areas each starting with a short doc for people, with the complete technical reference index under All technical references.
 - [All technical references](https://confighub.github.io/helm-expt/site/docs.html#all-references): the complete guide and evidence index, on Docs.
 - [Continue with ConfigHub](https://confighub.github.io/helm-expt/site/confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
 - [Catalog](https://confighub.github.io/helm-expt/site/charts/index.html): every tested component and version, with its image, receipt, and the commands to check and verify it.

@@ -83,7 +83,8 @@
             "minimum": 0
           },
           "checked": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "True when every part of the stack carries a receipt. It says the parts were checked, not that the stack has run; the stack check itself is static and needs the workshop plugin."
           },
           "source": {
             "type": "string",

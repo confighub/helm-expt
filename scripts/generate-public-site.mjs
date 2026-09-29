@@ -2031,9 +2031,9 @@ function buildLlmsTxt() {
 - [Is my configuration right?](${SITE_BASE_URL}ask.html): the check flow, the FAQ, and the public question intake.
 - [Detailed Redis walkthrough](${SITE_BASE_URL}redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
 - [Examples](${SITE_BASE_URL}testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
-- [Deployment](${SITE_BASE_URL}how-it-works.html): choose whether reviewed objects stay as files, move through OCI, or become managed ConfigHub configuration.
-- [Docs](${SITE_BASE_URL}docs.html): find instructions for the configuration or deployment step you are doing now.
-- [Docs](${SITE_BASE_URL}docs.html): the map of instructions, with the complete technical reference index under All technical references.
+- [Release, promote and roll back](${SITE_BASE_URL}how-it-works.html): the Guide to ConfigHub's four verbs, release by digest, promote, gate on an approval, and roll back. [How ConfigHub works](${SITE_BASE_URL}how-confighub-works.html) explains where they fit.
+- [The five journeys](${SITE_BASE_URL}guides.html#guides-journeys): each starts from a problem a person brings to their agent, such as values that did nothing or fixes an assistant undid. Their rows lead guides.json.
+- [Docs](${SITE_BASE_URL}docs.html): the Docs tree, five areas each starting with a short doc for people, with the complete technical reference index under All technical references.
 - [All technical references](${SITE_BASE_URL}docs.html#all-references): the complete guide and evidence index, on Docs.
 - [Continue with ConfigHub](${SITE_BASE_URL}confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
 - [Catalog](${SITE_BASE_URL}charts/index.html): every tested component and version, with its image, receipt, and the commands to check and verify it.
