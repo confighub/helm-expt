@@ -10068,8 +10068,9 @@ function chartOptionsHref(catalog, entry) {
 
 function retainedCatalogConfigurationsCell(catalog, entry) {
   const rows = retainedInstallerRows(catalog, entry.chart);
-  const page = chartOptionsHref(catalog, entry);
   return rows.map((row) => {
+    // Each retained version opens its own page's options.
+    const page = chartOptionsHref(catalog, row);
     const configurations = String(row.bases ?? "").split(";").filter(Boolean);
     const label = configurations.length === 1 ? "configuration" : "configurations";
     const identity = `${row.chart}@${row.version}`;
