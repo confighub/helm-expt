@@ -623,6 +623,7 @@
     <h1>Can I promote this configuration?</h1>
     <p id="promotion-context" hidden><strong id="promotion-context-text"></strong></p>
     <p class="lead">Compare what you run now with the exact configuration you want to move. See what the next environment would receive, what still needs testing, and whether any target has a current result.</p>
+    <p class="agent-ask"><strong>Or ask your agent.</strong> “Compare the current and proposed objects for &lt;app&gt;, tell me what changes and which checks it needs, and promote nothing.”</p>
     <p>Comparing here is free and previews the move. Promoting the reviewed change for real is the account step, run with <code>cub variant promote</code>.</p>
     <p>The same process applies to a platform component, a developer tool, or an application. Each can move independently while ConfigHub checks what the destination already uses.</p>
     <p>An upgrade fails when it changes an immutable StatefulSet field, removes an object, or needs setup that has yet to run. Compare the Kubernetes objects before production receives them.</p>

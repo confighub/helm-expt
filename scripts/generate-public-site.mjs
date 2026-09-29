@@ -2678,8 +2678,43 @@ function linkBackendPagesToGithub(html) {
   });
 }
 
+// The sentence each Guide gives a person to hand their agent, so every Guide
+// can be walked with an agent as well as by hand. The split Guides and the
+// journeys carry their own.
+function guideAgentAsks() {
+  return {
+    "try.html": "Render the public Redis package from the Catalog, show me the Kubernetes objects it would install, and change nothing.",
+    "redis-walkthrough.html": "Walk me through Redis from the Catalog. Pull it, inspect it and verify it, then show me the upgrade, and stop before any step that needs an account.",
+    "demo.html": "Run the ten-minute demo with me one step at a time, from one chart to a fleet, and tell me before any step that needs an account.",
+    "ask.html": "Render &lt;chart&gt; with my values, tell me which values did nothing and what it would install, and change nothing.",
+    "deploy-with-flux-or-argo.html": "Check &lt;chart&gt; before Argo CD or Flux takes it over. Render it twice, compare the renders, and show me what would change on every sync.",
+    "promote.html": "Compare the current and proposed objects for &lt;app&gt;, tell me what changes and which checks it needs, and promote nothing.",
+    "does-cluster-match-approved-config.html": "Compare what we approved for &lt;app&gt; with what runs on &lt;cluster&gt;, and tell me which fields you could not check.",
+    "why-do-dev-and-prod-differ.html": "Show me every field that differs between development and production for &lt;app&gt;, and where each difference was set.",
+    "did-this-chart-version-change.html": "Check whether the publisher changed the bytes behind &lt;chart&gt; &lt;version&gt; since the Catalog recorded them.",
+    "did-your-bitnami-chart-stop-pulling.html": "Check whether the images in my Bitnami chart still pull. If they do not, show me the Catalog's successor and how my values move to it.",
+    "why-did-helm-ignore-my-values.html": "Tell me which of my values for &lt;chart&gt; did nothing, and where this chart reads each of those settings.",
+    "testing.html": "Find a starting configuration in the Catalog for what I need, and show me what it installs before anything runs.",
+    "compose-a-stack.html": "Compose a stack from &lt;components&gt;, check it, and show me every conflict or missing need before anything runs.",
+    "try-aicr.html": "Compare my GPU nodes with the AICR recipe for &lt;workload&gt;, and tell me which configuration fits and why.",
+    "put-an-app-on-a-platform.html": "Check what my app needs, check it on &lt;platform&gt;, and tell me what to change on either side.",
+    "bring-kubara-into-confighub.html": "Run cub kubara plan on my Kubara platform, show me what ConfigHub would hold, and change nothing.",
+  };
+}
+
+function injectAgentAsk(html, relPath) {
+  const ask = guideAgentAsks()[relPath];
+  if (!ask) return html;
+  const line = `\n    <p class="agent-ask"><strong>Or ask your agent.</strong> “${ask}”</p>`;
+  const lead = html.match(/<p class="lead">[\s\S]*?<\/p>/);
+  if (lead) return html.slice(0, lead.index + lead[0].length) + line + html.slice(lead.index + lead[0].length);
+  const h1 = html.match(/<h1>[\s\S]*?<\/h1>[\s\S]*?<\/p>/);
+  check(h1, `${relPath}: no lead or first paragraph to carry the agent sentence`);
+  return html.slice(0, h1.index + h1[0].length) + line + html.slice(h1.index + h1[0].length);
+}
+
 function finalizePage(html, relPath, renderedDocs = new Set()) {
-  const withInstallNote = injectInstallCubNote(html, relPath);
+  const withInstallNote = injectInstallCubNote(injectAgentAsk(html, relPath), relPath);
   const withCommandNote = injectInstallerCommandNote(withInstallNote);
   const withMeta = injectHeadMeta(withCommandNote, relPath);
   const withBackendLinks = linkBackendPagesToGithub(rewriteMdHrefs(withMeta, relPath, renderedDocs));
@@ -7181,7 +7216,7 @@ function splitGuideHtml({ title, lead, ask, body, css = "" }) {
     <p class="eyebrow">A Guide</p>
     <h1>${escapeHtml(title)}</h1>
     <p class="lead">${lead}</p>
-    <p><strong>Or ask your agent.</strong> ${ask}</p>
+    <p class="agent-ask"><strong>Or ask your agent.</strong> ${ask}</p>
   </header>
   <main>
 ${renumberSections(body)}  </main>
