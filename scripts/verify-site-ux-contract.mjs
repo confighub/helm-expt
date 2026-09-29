@@ -688,8 +688,15 @@ if (fs.existsSync(homePath)) {
   for (const href of ["./charts/index.html", "./stack.html", "./apps.html", "./plugins.html", "./guides.html", "./docs.html", "./confighub.html", "./ai.html", "./try.html", "./llms.txt"]) {
     if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: missing section or start link ${href}`);
   }
-  for (const journey of ["1-catch-the-ai", "2-my-fixes-survive", "3-what-my-app-needs", "4-before-argo-takes-over", "5-it-installs-and-never-starts"]) {
-    if (!home.includes(`monadic/workshop-demo/tree/main/${journey}"`)) failures.push(`site/index.html: missing journey ${journey}`);
+  for (const journey of ["journey-values-did-nothing", "journey-preserve-my-fixes", "journey-what-my-app-needs", "journey-before-gitops", "journey-installs-never-starts"]) {
+    if (!home.includes(`href="./${journey}.html"`)) failures.push(`site/index.html: missing journey Guide ${journey}`);
+    const page = path.join(root, `site/${journey}.html`);
+    if (!fs.existsSync(page)) { failures.push(`site/${journey}.html: missing journey Guide`); continue; }
+    const text = fs.readFileSync(page, "utf8");
+    // Each journey Guide keeps both tracks, then the same steps on your own configuration.
+    for (const term of ["Run it yourself", "./run.sh", "Or let your agent run it", "PROMPT.md", "The steps", "Use it on your own configuration", "Why it happens", "Where it continues"]) {
+      if (!text.includes(term)) failures.push(`site/${journey}.html: missing "${term}"`);
+    }
   }
   if (home.indexOf("Start from your problem") < 0 || home.indexOf("Start from your problem") > home.indexOf("<main>")) {
     failures.push("site/index.html: the five journeys must come first, before the main content");
