@@ -2701,11 +2701,28 @@ function verifySiteLinks() {
   walk(siteRoot);
   const failures = [];
   let skippedRunLinks = 0;
+  let checkedFragments = 0;
+  // A fragment must name an id on the page it points at. A page script may
+  // also read the fragment to pick an <option>, as the ask page does for its
+  // questions, so an option value counts too.
+  const anchorsByPage = new Map();
+  const anchorsOf = (page) => {
+    if (!anchorsByPage.has(page)) {
+      const html = readFileSync(page, "utf8");
+      anchorsByPage.set(page, new Set([...html.matchAll(/\s(?:id|name)="([^"]+)"|<option value="([^"]+)"/g)].map((m) => m[1] ?? m[2])));
+    }
+    return anchorsByPage.get(page);
+  };
   for (const file of htmlFiles) {
     const pageDir = posix.dirname(file);
     const html = readFileSync(file, "utf8");
-    for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
-      const value = match[1];
+    for (const match of html.matchAll(/(href|src)="([^"]+)"/g)) {
+      const value = match[2];
+      if (match[1] === "href" && value.startsWith("#") && value.length > 1) {
+        checkedFragments += 1;
+        if (!anchorsOf(file).has(decodeURIComponent(value.slice(1)))) failures.push(`${posix.relative(repoRoot, file)} -> ${value}`);
+        continue;
+      }
       const publicSitePath = value.startsWith(SITE_BASE_URL)
         ? value.slice(SITE_BASE_URL.length) || "index.html"
         : null;
@@ -2721,14 +2738,22 @@ function verifySiteLinks() {
         skippedRunLinks += 1;
         continue;
       }
-      if (!existsSync(resolved.target)) failures.push(`${posix.relative(repoRoot, file)} -> ${value}`);
+      if (!existsSync(resolved.target)) {
+        failures.push(`${posix.relative(repoRoot, file)} -> ${value}`);
+        continue;
+      }
+      const fragment = match[1] === "href" ? value.split("#")[1] : "";
+      if (fragment && resolved.target.endsWith(".html") && !posix.relative(siteRoot, resolved.target).startsWith("..")) {
+        checkedFragments += 1;
+        if (!anchorsOf(resolved.target).has(decodeURIComponent(fragment))) failures.push(`${posix.relative(repoRoot, file)} -> ${value}`);
+      }
     }
   }
   check(
     failures.length === 0,
-    `site link check failed: ${failures.length} broken relative link(s), first ${Math.min(failures.length, 20)}:\n${failures.slice(0, 20).map((failure) => `  - ${failure}`).join("\n")}`,
+    `site link check failed: ${failures.length} broken relative link(s) or fragment(s), first ${Math.min(failures.length, 20)}:\n${failures.slice(0, 20).map((failure) => `  - ${failure}`).join("\n")}`,
   );
-  console.log(`verified site relative and public-site links across ${htmlFiles.length} page(s) (${skippedRunLinks} runs/ proof pointer(s) not checked)`);
+  console.log(`verified site relative and public-site links across ${htmlFiles.length} page(s), and ${checkedFragments} fragment(s) against their page's ids (${skippedRunLinks} runs/ proof pointer(s) not checked)`);
 }
 
 function verifyInstallerCommandCopy() {
@@ -8751,7 +8776,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
     <section aria-labelledby="timoni-example">
       <h2 id="timoni-example">5. Compare one non-Helm source</h2>
       <p>The first Timoni entry retains Redis 8.10.1 at an immutable module digest. Its typed options, seven exact objects, master-first apply order, optional test Job, and destination requirements are recorded like any other base. The current record proves a local build and an anonymous OCI pull, not a Kubernetes apply or GitOps delivery. <a href="./config.html#formats">See how Timoni and every other format fits the model</a>.</p>
-      <p><a href="../examples/timoni/redis-8-10-1/README.md">Open the Timoni Redis record</a> · <a href="../data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-base/README.md">Read the ConfigHub base guide</a> · <a href="../data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-dev/README.md">Read the development variant</a> · <a href="../data/timoni-redis-catalog-proof/summary.md">Check the proof and limits</a> · <a href="./charts/index.html?q=redis#charts">Compare it with Helm Redis configurations</a></p>
+      <p><a href="../examples/timoni/redis-8-10-1/README.md">Open the Timoni Redis record</a> · <a href="../data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-base/README.md">Read the ConfigHub base guide</a> · <a href="../data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-dev/README.md">Read the development variant</a> · <a href="../data/timoni-redis-catalog-proof/summary.md">Check the proof and limits</a> · <a href="./charts/index.html?q=redis#search">Compare it with Helm Redis configurations</a></p>
     </section>
 
     <section aria-labelledby="confighub-review">
@@ -8899,7 +8924,7 @@ function kubaraGuideHtml(catalog) {
   const steps = [
     ["1", "Choose components and wiring", "Keep Kubara catalogs, config.yaml, values overlays, and service definitions.", "../docs/demo/kubara/adoption-1-choose.md"],
     ["2", "Generate the platform and push it to Git", `Run <a href="../docs/demo/kubara/adoption-2-generate.md">Kubara</a> to generate the familiar platform, add-ons, ApplicationSets, overrides, and wiring. Then <a href="../docs/demo/kubara/adoption-3-git.md">prepare, scan, commit, and push</a> one exact portable revision.`, null],
-    ["3", "Certify the platform as a stack", "Turn the pushed revision into a stack with <code>cub stack from-kubara</code>, then run <code>cub stack check</code> until the composition holds together.", "./stack.html#creating"],
+    ["3", "Certify the platform as a stack", "Turn the pushed revision into a stack with <code>cub stack from-kubara</code>, then run <code>cub stack check</code> until the composition holds together.", "./compose-a-stack.html#from-kubara-platform"],
     ["4", "Import the Git revision and create OCI", "Publish immutable component/config packages plus a digest-bound platform index.", "../docs/demo/kubara/adoption-4-oci.md"],
     ["5", "Load the selected ConfigHub organization", "Materialize the recognizable topology, apply twice, and prove zero residue in the declared scope.", "../docs/demo/kubara/adoption-5-confighub-org.md"],
     ["6", "Deploy applications", "Promote, approve, release, and roll back; local Argo reconciles only the exact ConfigHub-authorized digest.", "../docs/demo/kubara/adoption-6-apps.md"],
@@ -9859,9 +9884,18 @@ function retainedCatalogVersionCell(catalog, entry) {
 // inert text, so the one link in the cell was the version receipt and the eye
 // landed on words it could not click. Each name now opens the chart page's
 // option cards.
+// A catalog entry's page lists its options under #matrix-options; a version
+// kept only as a retained package has the shorter page, which lists them under
+// #retained-configurations.
+function chartOptionsHref(catalog, entry) {
+  const fileName = chartPageFileName(entry);
+  const full = catalog.catalogEntries.some((candidate) => chartPageFileName(candidate) === fileName);
+  return `./${fileName}#${full ? "matrix-options" : "retained-configurations"}`;
+}
+
 function retainedCatalogConfigurationsCell(catalog, entry) {
   const rows = retainedInstallerRows(catalog, entry.chart);
-  const page = `./${chartPageFileName(entry)}#matrix-options`;
+  const page = chartOptionsHref(catalog, entry);
   return rows.map((row) => {
     const configurations = String(row.bases ?? "").split(";").filter(Boolean);
     const label = configurations.length === 1 ? "configuration" : "configurations";
@@ -9939,9 +9973,9 @@ function installerPackageSignatureHtml({ status, command, receipt, bundle }) {
       </details>`;
 }
 
-function firstPathCell(entry, row) {
+function firstPathCell(catalog, entry, row) {
   const variant = row?.variant && row.variant !== "(source)" ? row.variant : entry.start_variant || "choose base";
-  const page = `./${chartPageFileName(entry)}#matrix-options`;
+  const page = chartOptionsHref(catalog, entry);
   let note = "Open the chart page for the command and option cards.";
   if (row?.row_kind === "candidate") note = "Candidate path; model the base before using it.";
   else if (row?.row_kind === "derived") note = "Derived ConfigHub variant; upload the base first.";
@@ -10116,7 +10150,7 @@ function chartIndexHtml(catalog) {
       return `<tr data-chart-row data-kind="helm-chart" data-evidence-surface="${evidenceSurface}" data-readiness="${escapeHtml(readiness.id)}" data-category="${escapeHtml(category.id)}" data-status="${escapeHtml(status)}" data-hooks="${hasHooks ? "yes" : "no"}" data-crds="${hasCrds ? "yes" : "no"}" data-search="${escapeHtml(featureText)}">
         <td><a href="./${chartPageFileName(entry)}">${escapeHtml(entry.chart)}</a><br><span style="color:var(--muted);font-size:.85rem">${escapeHtml(category.label)}</span>${successionNote}</td>
         <td>${retainedCatalogVersionCell(catalog, entry)}</td>
-        <td>${firstPathCell(entry, firstRow)}</td>
+        <td>${firstPathCell(catalog, entry, firstRow)}</td>
         <td>${catalogUseCell(entry, firstRow)}</td>
         <td>${watchFirstCell(entry, matrixRows, firstRow)}</td>
         <td>${flatteningVerdictCell(catalog, entry)}</td>
