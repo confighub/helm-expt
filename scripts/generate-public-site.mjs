@@ -547,6 +547,10 @@ const SPLIT_PAGES = [
   { key: "buildAppGuideHtml", file: "build-a-confighub-app.html", title: "Build a ConfigHub App", description: "Build an App that repeats one operation on configuration saved in ConfigHub.", build: (catalog) => buildAppGuideHtml(catalog) },
   { key: "sendChartGuideHtml", file: "send-a-public-chart.html", title: "Send a missing or broken public chart", description: "Look for a public chart in the Catalog, render it yourself, and send the chart and values when it is missing or its output differs from Helm.", build: () => sendChartGuideHtml() },
   { key: "howConfigHubWorksHtml", file: "how-confighub-works.html", title: "How ConfigHub works", description: "Where ConfigHub fits after a configuration is checked, and the same commands from a free check to a governed release.", build: () => howConfigHubWorksHtml(), doc: true },
+  { key: "kubaraExplainedHtml", file: "kubara-and-confighub.html", title: "Kubara and ConfigHub, explained", description: "What stays Kubara and what ConfigHub adds, the evidence behind each benefit, and the honest boundaries.", build: (catalog) => kubaraExplainedHtml(catalog), doc: true, reference: true },
+  { key: "aicrConfigurationsHtml", file: "aicr-configurations.html", title: "Where an AICR configuration comes from", description: "The provider, catalog and selected source variant behind a retained AICR configuration, and what the example proves.", build: (catalog) => aicrConfigurationsHtml(catalog), doc: true, reference: true },
+  { key: "agentsMaintainCatalogHtml", file: "agents-maintain-the-catalog.html", title: "How agents help maintain the Catalog", description: "What agents do for the Catalog, and the record each task needs before it appears on the site.", build: (catalog) => agentsMaintainCatalogHtml(catalog), doc: true, reference: true },
+  { key: "publicQuestionsHtml", file: "public-questions.html", title: "What happens to a public question", description: "How a question sent in public becomes a checked answer, a named refusal, or a documented limit.", build: (catalog) => publicQuestionsHtml(catalog), doc: true, reference: true },
 ];
 const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
 
@@ -2557,6 +2561,7 @@ function siteSections() {
     ["docs.html", "Docs"], ["config.html", "How configuration works"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"],
     ["quirks.html", "What charts hide"], ["how-confighub-works.html", "How ConfigHub works"], ["confighub.html", "ConfigHub Server"],
     ["proof.html", "Why trust it"], ["known-gaps.html", "Known gaps"], ["matrix.html", "Evidence index"],
+    ...SPLIT_PAGES.filter((page) => page.reference).map((page) => [page.file, page.title]),
     ["d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"], ["offering.html", "Offering"],
   ] },
   ];
@@ -4169,18 +4174,7 @@ function tryAicrHtml() {
   const rows = aicrCpuStarterRecords()
     .map((record) => `<tr><td><code>${escapeHtml(record.name)}</code></td><td>${record.syncWave}</td></tr>`)
     .join("\n        ");
-  const v020SourceCatalog = readYaml(join(
-    repoRoot,
-    "examples",
-    "aicr",
-    "eks-h100-training-kubeflow-v0-20-0",
-    "source-catalog",
-    "source-catalog-record.yaml",
-  ));
-  const v020Selection = v020SourceCatalog.spec.selection;
-  const v020Dimensions = Object.entries(v020Selection.dimensions)
-    .map(([name, value]) => `${name}=${value}`)
-    .join(", ");
+  const { v020SourceCatalog, v020Selection, v020Dimensions } = aicrV020SourceBits();
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -4242,19 +4236,6 @@ aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code><
     ])}
   </section>
 
-  <section aria-labelledby="aicr-source-catalog">
-    <h2 id="aicr-source-catalog">Where the selected configuration came from</h2>
-    <p>The provider chooses the source variant. ConfigHub Workshop records that choice before it keeps the generated objects as a base. Later ConfigHub variants are changes to that retained base; they do not rewrite the provider's catalog record.</p>
-    ${markdownLikeTable([
-      ["Record", "Exact v0.20.0 value"],
-      ["Provider", `${escapeHtml(v020SourceCatalog.spec.provider.name)} · <a href="${escapeHtml(v020SourceCatalog.spec.provider.identity)}">provider source</a>`],
-      ["Provider catalog", `${escapeHtml(v020SourceCatalog.spec.catalog.name)} ${escapeHtml(v020SourceCatalog.spec.catalog.version)} · <code>${escapeHtml(v020SourceCatalog.spec.catalog.digest)}</code>`],
-      ["Selected source variant", `<code>${escapeHtml(v020Selection.name)}</code> · ${escapeHtml(v020Dimensions)}`],
-      ["Retained base", `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">17 exact Argo CD Applications plus source and lifecycle records</a>`],
-      ["ConfigHub handoff", `<a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml">The upload receipt carries the same provider, catalog digest, selected variant, and dimensions</a>`],
-    ], { rawSecondColumn: true })}
-    <p><a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml">Open the complete source-catalog record</a> · <a href="../data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml">Open the retained BaseVariantRecord</a>. Provider evidence applies to the selected source variant. ConfigHub evidence starts with the exact retained objects and records later changes, promotion, release, and delivery separately.</p>
-  </section>
 
   <section aria-labelledby="install-oras">
     <h2 id="install-oras">1. Install ORAS</h2>
@@ -4286,16 +4267,8 @@ oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0<
     <p>Expected local OCI digest: <code style="overflow-wrap:anywhere;word-break:break-word;">${escapeHtml(AICR_CPU_STARTER_LOCAL_OCI_DIGEST)}</code>.</p>
   </section>
 
-  <section aria-labelledby="aicr-boundary">
-    <h2 id="aicr-boundary">What the retained-configuration example proves</h2>
-    <p>The public AICR configuration can be pulled without signing in. The seven selected Applications match their reviewed hashes, and the local OCI returns the same files.</p>
-    <p>The CPU starter is a ConfigHub Workshop selection from an AICR-generated platform. It is not an upstream NVIDIA AICR recipe. It keeps the source files unchanged, including a <code>gp3</code> storage-class setting that must be changed before use on a cluster without that class.</p>
-    <p>An AI can propose that change, but a checker decides whether to accept it. The recorded example keeps all seven Application identities, changes only <code>kube-prometheus-stack</code>, and changes only its StorageClass field. A second request also moves a namespace, so the checker refuses it and writes no candidate.</p>
-    <p><a href="./d/data/aicr-platform-variant/summary.html">Compare the accepted and refused requests</a>.</p>
-    <p><a href="./d/data/aicr-cpu-starter-public-proof/summary.html">Read the recorded anonymous run</a> · <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a> · <a href="./d/data/vllm-cpu-starter-proof/summary.html">See the separate live CPU inference result</a></p>
-    <p><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">Open the AICR v0.20.0 starting configuration</a> to inspect the newest retained source variant, 17 exact Applications, all 16 nested source renders, and the separate Argo CD and Flux lifecycle plans. The records bind 409 local objects to exact chart, values, and output digests without claiming that a GPU target ran. <a href="./d/data/aicr-v0-20-0-route-resolution/summary.html">Read the nested and destination result</a>. <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">The v0.19.0 entry</a> continues further into ConfigHub variants and release OCI.</p>
-  </section>
 
+  <p><a href="./aicr-configurations.html">Where an AICR configuration comes from</a> records the provider, catalog and selected source variant behind the retained configuration, and what this example proves.</p>
   <section aria-labelledby="aicr-next">
     <h2 id="aicr-next">Choose what to do next</h2>
     <p>Keep the files and OCI locally, or <a href="./confighub.html">upload it into ConfigHub</a> when your team needs shared changes, environment variants, approvals, and promotion from development to production. That account step is the same for every configuration.</p>
@@ -5965,12 +5938,9 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
         ["Recent discussions", "Question", "What the answer should contain"],
         ...questionRows,
       ], { rawSecondColumn: true, firstColumnWidthCh: 10 })}
+      <p><a href="./public-questions.html">What happens to a public question</a> explains how a question sent in public becomes a checked answer, a named refusal, or a documented limit.</p>
     </section>
 
-    <section aria-labelledby="public-question-decisions">
-      <h2 id="public-question-decisions">What happens to a public question</h2>
-      <p>Submit only a public chart after you have a useful local result. Proposing a public case is one of the <a href="./config.html#three-jobs">three public jobs</a>. We aim to acknowledge a complete report within two business days. Within seven days, we aim to post one clear outcome: a Catalog entry, a named warning, a refusal, or a request for more evidence. <a href="./d/data/challenge-intake/summary.html">See current question totals and outcomes</a> · <a href="./d/docs/reference/question-intake-operation.html">Read the response process</a></p>
-    </section>
 
     <section aria-labelledby="faq">
       <h2 id="faq">Find a direct answer</h2>
@@ -6999,7 +6969,7 @@ function docsHtml(catalog) {
         ["ConfigHub", `<a href="./how-confighub-works.html">How ConfigHub works</a>`, `<a href="./confighub.html">ConfigHub Server</a> · <a href="./how-it-works.html">Release, promote and roll back</a> · <a href="./operate-a-fleet.html">Operate a fleet</a>`],
         ["Trust", `<a href="./proof.html">Why trust it</a>`, `<a href="./known-gaps.html">Known gaps</a> · <a href="./matrix.html">Evidence index</a> · <a href="./check-a-claim-yourself.html">Check a claim yourself</a>`],
         ["About", `<a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a>`, `<a href="./offering.html">Offering</a>`],
-        ["Reference", `<a href="#continue">Every doc, by area</a>`, `<a href="#all-references">All technical references</a>`],
+        ["Reference", `<a href="#continue">Every doc, by area</a>`, `<a href="#all-references">All technical references</a> · <a href="./kubara-and-confighub.html">Kubara and ConfigHub, explained</a> · <a href="./aicr-configurations.html">Where an AICR configuration comes from</a> · <a href="./agents-maintain-the-catalog.html">How agents help maintain the Catalog</a> · <a href="./public-questions.html">What happens to a public question</a>`],
       ], { rawSecondColumn: true, rawThirdColumn: true })}
       <p><strong>Inspect and keep an exact record.</strong> <a href="./records/bitnami-redis-25-5-3-default.json" download="record.json">Download record.json</a> with the full Redis default record and its Catalog and record hashes. <a href="${GITHUB_BLOB_BASE_URL}examples/workshop-catalog-inspection/README.md">The inspection exercise</a> reproduces the lookup and a refusal locally.</p>
       <p>Looking for the steps to do something? <a href="./guides.html">Guides</a> hold every path an agent walks with you, and <a href="./guides.html#by-step">find a Guide by the step you are on</a>.</p>
@@ -7188,7 +7158,7 @@ function quirksHtml(catalog) {
 // A Guide assembled from sections of pages that split between a Guide and a
 // Doc (site IA phase 4, step 7b). The sections keep their ids, so links that
 // follow them only change page.
-function splitGuideHtml({ title, lead, ask, body, css = "" }) {
+function splitGuideHtml({ title, lead, ask = "", body, css = "", eyebrow = "A Guide" }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -7200,10 +7170,10 @@ function splitGuideHtml({ title, lead, ask, body, css = "" }) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <p class="eyebrow">A Guide</p>
+    <p class="eyebrow">${escapeHtml(eyebrow)}</p>
     <h1>${escapeHtml(title)}</h1>
     <p class="lead">${lead}</p>
-    <p class="agent-ask"><strong>Or ask your agent.</strong> ${ask}</p>
+${ask ? `    <p class="agent-ask"><strong>Or ask your agent.</strong> ${ask}</p>` : ""}
   </header>
   <main>
 ${renumberSections(body)}  </main>
@@ -7615,7 +7585,7 @@ function sendChartGuideHtml() {
     </section>
     <section aria-labelledby="what-happens">
       <h2 id="what-happens">4. See what happens to it</h2>
-      <p>Each case becomes a checked answer, a named refusal, or a documented limit. <a href="./ask.html#public-question-decisions">What happens to a public question</a> explains how that is decided. Until then, <a href="./config.html#not-in-catalog">the other paths for a chart the Catalog does not have</a> still work.</p>
+      <p>Each case becomes a checked answer, a named refusal, or a documented limit. <a href="./public-questions.html#public-question-decisions">What happens to a public question</a> explains how that is decided. Until then, <a href="./config.html#not-in-catalog">the other paths for a chart the Catalog does not have</a> still work.</p>
     </section>
 `,
   });
@@ -7682,6 +7652,149 @@ function howConfigHubWorksHtml() {
 </body>
 </html>
 `;
+}
+
+function kubaraSiteBits() {
+  const facts = loadKubaraSiteFacts();
+  const currentLive = facts.currentLive;
+  const badge = (passed, yes, no) => `<strong style="display:inline-block;padding:3px 8px;border:1px solid ${passed ? "var(--good)" : "var(--warn)"};border-radius:999px;background:var(--panel);color:${passed ? "var(--good)" : "var(--warn)"}">${escapeHtml(passed ? yes : no)}</strong>`;
+  return { facts, currentLive, badge };
+}
+
+function aicrV020SourceBits() {
+  const v020SourceCatalog = readYaml(join(
+    repoRoot,
+    "examples",
+    "aicr",
+    "eks-h100-training-kubeflow-v0-20-0",
+    "source-catalog",
+    "source-catalog-record.yaml",
+  ));
+  const v020Selection = v020SourceCatalog.spec.selection;
+  const v020Dimensions = Object.entries(v020Selection.dimensions)
+    .map(([name, value]) => `${name}=${value}`)
+    .join(", ");
+  return { v020SourceCatalog, v020Selection, v020Dimensions };
+}
+
+function agentCatalogRows() {
+  return [
+    ["Read source behavior", "Inspect versions, values or typed options, templates, generated objects, hooks, CRDs, tests, waits, prerequisites, and destination assumptions."],
+    ["Propose useful configurations", "Suggest chart-specific or source-specific starting choices. The generator and recorded checks decide what enters the Catalog."],
+    ["Investigate failures", "Separate input errors, missing target setup, lifecycle work, controller results, and workload health."],
+    ["Maintain explanations", "Turn exact records and receipts into short instructions while keeping links to the underlying evidence."],
+  ];
+}
+
+function kubaraExplainedHtml(catalog) {
+  const { facts, currentLive, badge } = kubaraSiteBits();
+  return splitGuideHtml({
+    eyebrow: "Docs",
+    title: "Kubara and ConfigHub, explained",
+    lead: "When ConfigHub governs a Kubara platform, Kubara keeps its catalog, its generated files and its Argo CD. This doc says what ConfigHub adds, the evidence behind each benefit, and the honest boundaries.",
+    body: `    <section aria-labelledby="stays-adds">
+      <h2 id="stays-adds">1. What stays Kubara, and what ConfigHub adds</h2>
+      ${markdownLikeTable([
+        ["Kubara stays", "ConfigHub adds"],
+        ["Ordered catalogs, ServiceDefinitions, config.yaml, values overlays, generated platform files, hub/spoke intent", "A component-first Catalog and retained exact versions; deployable variants and configurations follow each component, while Kubara keeps per-platform selection and wiring"],
+        ["Git as the portable platform hand-off", "One immutable OCI package per reusable/effective configuration plus a digest-bound platform index"],
+        ["Argo CD as the cluster reconciler", "A governance and release plane that selects the exact digest before local Argo receives it"],
+      ])}
+    </section>
+    <section aria-labelledby="benefits">
+      <h2 id="benefits">2. Benefits with explicit acceptance evidence</h2>
+      <p>Each status pill reads one of three ways. A <strong>retained live</strong> pill means a retained live run accepted the benefit for its recorded version, and some name the exact result, such as a passed performance gate or zero audited residue. A <strong>current deterministic</strong> pill means committed deterministic evidence accepts it, without a live run. Any other wording means the deterministic contract still holds while its live acceptance is absent, stale, or not yet accepted.</p>
+      <p>These retained live runs used the earlier approval model. They do not prove the current ChangeWorkflow and Approval-attestation paths; those paths need fresh live receipts.</p>
+      <p><strong>One gate remains open.</strong> Every benefit below was accepted in the project's own retained four-cluster organization. A clean import into a fresh organization that you choose has not run yet, and it is the gate that stands between these results and a claim about your platform.</p>
+      ${markdownLikeTable([
+        ["Benefit", "Evidence or acceptance target", "Status"],
+        ["No rewrite", `${facts.generatedFiles} path-and-byte-identical generated files from Kubara's official and ConfigHub-aligned catalog lanes; ${facts.renders} deterministic effective renders.`, badge(facts.deterministicParityCurrent, "current deterministic", "check required")],
+        ["A stronger component Catalog", `The Kubara catalog 1.1 coverage run closed at ${facts.catalogComponents} components and ${facts.catalogVersions} retained versions, with all ${facts.selections} exact Kubara selections kept under additive-only retention. The Catalog has grown since; the pages above carry its current size of 112 components and 139 retained versions.`, badge(facts.catalogCurrent, "current deterministic", "check required")],
+        ["Recognizable platform shape", `${facts.clusters} clusters, ${facts.roles} platform roles, ${facts.applications.length} applications, faithful and adapted delivery identities, with Argo CD retained.`, badge(facts.faithfulCurrent && facts.miniIdpCurrent, "retained live", "faithful or adapted receipt needs refresh")],
+        ["Upgrade-safe retained workloads", `${facts.selectorReplacements || 16} exact journaled immutable-selector replacements, including four PostgreSQL StatefulSets whose bound PVC identities are retained.`, badge(facts.miniIdpCurrent && facts.selectorReplacements === 16 && facts.retainedSelectorMigrationPvcs === 4, "retained live", "live migration receipt required")],
+        ["Fleet visibility", `${facts.matrixCells} component/application cells, ${facts.curatedLinks} curated native Link intents, and ${facts.wiringFacts} extracted wiring facts kept as the full engineering view.`, badge(facts.miniIdpCurrent && facts.matrixCurrent && facts.wiringCurrent, "retained live", "desired state only")],
+        ["Repeatable delivery", "The retained four-cluster proof includes exact release heads, healthy applications, and an immediate zero-action apply.", badge(facts.miniIdpCurrent, "retained live", "live receipt required")],
+        ["Measured reconciliation cost", facts.noOpReadCommands > 0 ? `The retained no-op made ${facts.noOpMutationAttempts} ConfigHub mutation attempts and ${facts.noOpArgoSyncRequests} Argo sync requests, while recording ${facts.noOpReadCommands} ConfigHub CLI read commands, ${facts.noOpSubprocessCalls} total subprocess calls, and about ${Math.round(facts.noOpWallMs / 1000)} seconds. The fixture regression target is met; this is not a raw-Kubara comparison, HTTP-round-trip count, or service-level promise.` : "No source-current no-op measurement is available.", badge(facts.performanceCurrent, "retained performance gate passed", facts.miniIdpCurrent ? "measured; performance gate not accepted" : "live performance receipt required")],
+        ["Clean governed inventory", "A separate audit must prove exact ConfigHub inventory, no Argo-prunable resources, and no unclassified, dangling, or UID-stale audited durable workloads. It does not claim a complete inventory of every Kubernetes type.", badge(facts.orphanCurrent, "retained live: audited residue zero", "live receipt required: scoped residue audit")],
+      ], { rawThirdColumn: true })}
+      <p data-kubara-live-evidence="${currentLive ? "current" : "gated"}">The status is generated from an exact evidence chain, component by component. ${currentLive ? "The complete faithful, adapted, performance, matrix, wiring, orphan, and six-frame GUI chain is accepted." : "Some current live evidence may already pass, but the complete publishable chain is still gated."} Missing or inconsistent faithful, source-digest mini-IDP, performance, matrix, wiring, orphan, or GUI evidence stays visible instead of becoming a green marketing claim.</p>
+    </section>
+    <section aria-labelledby="boundaries">
+      <h2 id="boundaries">3. The honest boundaries</h2>
+      <ul>
+        <li>This is deterministic adoption, not an AI rewrite. Ordinary catalog and configuration updates may still be required.</li>
+        <li>The user explicitly selects the organization. Targets and the local delivery runtime are current prerequisites; the importer does not silently create or guess them.</li>
+        <li>Secrets and target-owned facts stay outside the portable Git and OCI payloads.</li>
+        <li>Desired state, current live state, historical evidence, OCI publication, and production support remain distinct claims.</li>
+        <li>The exact-digest evidence controls the managed automated path. Blocking privileged human or manual Argo sync additionally requires separate RBAC or admission proof.</li>
+        <li>The current no-op records ${facts.noOpReadCommands} ConfigHub CLI read commands and ${facts.noOpSubprocessCalls} total subprocess calls. It completes in about ${Math.round(facts.noOpWallMs / 1000)} seconds, with ${facts.noOpMutationAttempts === 0 ? "zero" : facts.noOpMutationAttempts} ConfigHub mutation attempts and ${facts.noOpArgoSyncRequests === 0 ? "zero" : facts.noOpArgoSyncRequests} Argo sync requests. The fixture regression target is met. CLI commands are not HTTP round trips; this is not a raw-Kubara comparison or a service-level promise.</li>
+        <li>The retained four-cluster organization is live-proved. A clean import into a fresh user-selected organization is still a separate graduation gate.</li>
+      </ul>
+      <p><strong>live receipt required</strong> means a deterministic contract exists but its current live acceptance chain is absent or stale.</p>
+    </section>
+`,
+  });
+}
+function aicrConfigurationsHtml(catalog) {
+  const { v020SourceCatalog, v020Selection, v020Dimensions } = aicrV020SourceBits();
+  return splitGuideHtml({
+    eyebrow: "Docs",
+    title: "Where an AICR configuration comes from",
+    lead: "The provider chooses an AICR source variant, and the Workshop records that choice before it keeps the generated objects as a base. This doc shows the record, and what the retained example proves.",
+    body: `  <section aria-labelledby="aicr-source-catalog">
+    <h2 id="aicr-source-catalog">1. Where the selected configuration came from</h2>
+    <p>The provider chooses the source variant. ConfigHub Workshop records that choice before it keeps the generated objects as a base. Later ConfigHub variants are changes to that retained base; they do not rewrite the provider's catalog record.</p>
+    ${markdownLikeTable([
+      ["Record", "Exact v0.20.0 value"],
+      ["Provider", `${escapeHtml(v020SourceCatalog.spec.provider.name)} · <a href="${escapeHtml(v020SourceCatalog.spec.provider.identity)}">provider source</a>`],
+      ["Provider catalog", `${escapeHtml(v020SourceCatalog.spec.catalog.name)} ${escapeHtml(v020SourceCatalog.spec.catalog.version)} · <code>${escapeHtml(v020SourceCatalog.spec.catalog.digest)}</code>`],
+      ["Selected source variant", `<code>${escapeHtml(v020Selection.name)}</code> · ${escapeHtml(v020Dimensions)}`],
+      ["Retained base", `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">17 exact Argo CD Applications plus source and lifecycle records</a>`],
+      ["ConfigHub handoff", `<a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml">The upload receipt carries the same provider, catalog digest, selected variant, and dimensions</a>`],
+    ], { rawSecondColumn: true })}
+    <p><a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml">Open the complete source-catalog record</a> · <a href="../data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml">Open the retained BaseVariantRecord</a>. Provider evidence applies to the selected source variant. ConfigHub evidence starts with the exact retained objects and records later changes, promotion, release, and delivery separately.</p>
+  </section>
+  <section aria-labelledby="aicr-boundary">
+    <h2 id="aicr-boundary">2. What the retained-configuration example proves</h2>
+    <p>The public AICR configuration can be pulled without signing in. The seven selected Applications match their reviewed hashes, and the local OCI returns the same files.</p>
+    <p>The CPU starter is a ConfigHub Workshop selection from an AICR-generated platform. It is not an upstream NVIDIA AICR recipe. It keeps the source files unchanged, including a <code>gp3</code> storage-class setting that must be changed before use on a cluster without that class.</p>
+    <p>An AI can propose that change, but a checker decides whether to accept it. The recorded example keeps all seven Application identities, changes only <code>kube-prometheus-stack</code>, and changes only its StorageClass field. A second request also moves a namespace, so the checker refuses it and writes no candidate.</p>
+    <p><a href="./d/data/aicr-platform-variant/summary.html">Compare the accepted and refused requests</a>.</p>
+    <p><a href="./d/data/aicr-cpu-starter-public-proof/summary.html">Read the recorded anonymous run</a> · <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a> · <a href="./d/data/vllm-cpu-starter-proof/summary.html">See the separate live CPU inference result</a></p>
+    <p><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">Open the AICR v0.20.0 starting configuration</a> to inspect the newest retained source variant, 17 exact Applications, all 16 nested source renders, and the separate Argo CD and Flux lifecycle plans. The records bind 409 local objects to exact chart, values, and output digests without claiming that a GPU target ran. <a href="./d/data/aicr-v0-20-0-route-resolution/summary.html">Read the nested and destination result</a>. <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">The v0.19.0 entry</a> continues further into ConfigHub variants and release OCI.</p>
+  </section>
+`,
+  });
+}
+function agentsMaintainCatalogHtml(catalog) {
+  const catalogRows = agentCatalogRows();
+  return splitGuideHtml({
+    eyebrow: "Docs",
+    title: "How agents help maintain the Catalog",
+    lead: "Agents read source behavior, propose starting configurations, and investigate failures. Whatever they write is checked against committed data first.",
+    body: `    <section aria-labelledby="catalog-maintenance">
+      <h2 id="catalog-maintenance">1. How agents help maintain the Catalog</h2>
+      <p>Agents read source behavior, propose starting configurations and generate checks. They also investigate failures and explain receipts. Whatever they write is reviewed against committed data before it appears as a Catalog claim.</p>
+      ${markdownLikeTable([
+        ["Agent task", "Required record"],
+        ...catalogRows,
+      ])}
+      <p><a href="../data/agent-skill-evaluations/summary.md">Read the fresh-agent evaluation</a> · <a href="./check-a-claim-yourself.html#check-one-claim">Run the verification commands</a> · <a href="./guides.html#learn-by-doing">Open technical guides</a></p>
+    </section>
+`,
+  });
+}
+function publicQuestionsHtml(catalog) {
+  return splitGuideHtml({
+    eyebrow: "Docs",
+    title: "What happens to a public question",
+    lead: "A question sent in public becomes a checked answer, a named refusal, or a documented limit.",
+    body: `    <section aria-labelledby="public-question-decisions">
+      <h2 id="public-question-decisions">1. What happens to a public question</h2>
+      <p>Submit only a public chart after you have a useful local result. Proposing a public case is one of the <a href="./config.html#three-jobs">three public jobs</a>. We aim to acknowledge a complete report within two business days. Within seven days, we aim to post one clear outcome: a Catalog entry, a named warning, a refusal, or a request for more evidence. <a href="./d/data/challenge-intake/summary.html">See current question totals and outcomes</a> · <a href="./d/docs/reference/question-intake-operation.html">Read the response process</a></p>
+    </section>
+`,
+  });
 }
 
 function proofHtml(catalog) {
@@ -9005,12 +9118,7 @@ function aiHtml(catalog) {
     ["Review a promotion", "Can I move this staging configuration to production?", "Current and candidate digests, destination differences, lifecycle work, and tests still required."],
     ["Inspect another source", "Build the retained Timoni Redis 8.10.1 source and tell me what plain YAML leaves out.", "The module digest, typed options, seven exact objects, ordered lifecycle, and current limits."],
   ];
-  const catalogRows = [
-    ["Read source behavior", "Inspect versions, values or typed options, templates, generated objects, hooks, CRDs, tests, waits, prerequisites, and destination assumptions."],
-    ["Propose useful configurations", "Suggest chart-specific or source-specific starting choices. The generator and recorded checks decide what enters the Catalog."],
-    ["Investigate failures", "Separate input errors, missing target setup, lifecycle work, controller results, and workload health."],
-    ["Maintain explanations", "Turn exact records and receipts into short instructions while keeping links to the underlying evidence."],
-  ];
+  const catalogRows = agentCatalogRows();
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -9083,6 +9191,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
       ])}
       <p>Missing coverage means the claim is unchecked. A successful render proves the objects are well formed, while cluster admission, controller convergence and workload health remain open, along with upgrade and rollback.</p>
       <p>Every maintained entry also has a machine-readable listing at its own URL, whatever format it came from. An agent that wants one entry reads that one file instead of the whole catalog. Start from the <a href="./listings/index.json">listing index</a> for an entry's id and URL, read <a href="./listing.schema.json">the listing schema</a> for the fields every listing fills, or open <a href="./listings/bitnami-redis-25-5-3-default.json">one example listing</a> to see them filled in.</p>
+      <p><a href="./agents-maintain-the-catalog.html">How agents help maintain the Catalog</a> lists what agents do for the Catalog, and the record each task needs.</p>
     </section>
 
     <section aria-labelledby="sources">
@@ -9116,15 +9225,6 @@ cub unit update --space "$SPACE" app --upgrade</code></pre>
       <p><a href="../data/ai-change-review-live-proof/summary.md">Read the checked result and its limits</a> · <a href="./confighub.html">Continue with ConfigHub</a></p>
     </section>
 
-    <section aria-labelledby="catalog-maintenance">
-      <h2 id="catalog-maintenance">7. How agents help maintain the Catalog</h2>
-      <p>Agents read source behavior, propose starting configurations and generate checks. They also investigate failures and explain receipts. Whatever they write is reviewed against committed data before it appears as a Catalog claim.</p>
-      ${markdownLikeTable([
-        ["Agent task", "Required record"],
-        ...catalogRows,
-      ])}
-      <p><a href="../data/agent-skill-evaluations/summary.md">Read the fresh-agent evaluation</a> · <a href="./check-a-claim-yourself.html#check-one-claim">Run the verification commands</a> · <a href="./guides.html#learn-by-doing">Open technical guides</a></p>
-    </section>
   </main>
   <footer>Use AI to investigate and propose. Keep the reviewed configuration as the release record.</footer>
 </body>
@@ -9235,9 +9335,7 @@ function loadKubaraSiteFacts() {
 }
 
 function kubaraGuideHtml(catalog) {
-  const facts = loadKubaraSiteFacts();
-  const currentLive = facts.currentLive;
-  const badge = (passed, yes, no) => `<strong style="display:inline-block;padding:3px 8px;border:1px solid ${passed ? "var(--good)" : "var(--warn)"};border-radius:999px;background:var(--panel);color:${passed ? "var(--good)" : "var(--warn)"}">${escapeHtml(passed ? yes : no)}</strong>`;
+  const { facts, currentLive, badge } = kubaraSiteBits();
   const steps = [
     ["1", "Choose components and wiring", "Keep Kubara catalogs, config.yaml, values overlays, and service definitions.", "../docs/demo/kubara/adoption-1-choose.md"],
     ["2", "Generate the platform and push it to Git", `Run <a href="../docs/demo/kubara/adoption-2-generate.md">Kubara</a> to generate the familiar platform, add-ons, ApplicationSets, overrides, and wiring. Then <a href="../docs/demo/kubara/adoption-3-git.md">prepare, scan, commit, and push</a> one exact portable revision.`, null],
@@ -9379,36 +9477,9 @@ kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</c
       <p><a href="../docs/demo/kubara/gui-tour.md">See the four-cluster result</a> · <a href="../docs/demo/kubara/checkpoints.md">Check the evidence</a> · <a href="../docs/demo/kubara/single-platform.md">Open the technical runbook</a></p>
       <p><a href="../docs/demo/kubara/adoption-6-apps.md"><strong>See two applications added, promoted, released, and checked on the platform</strong></a>.</p>
     </section>
-    <section aria-labelledby="benefits">
-      <h2 id="benefits">Benefits with explicit acceptance evidence</h2>
-      <p>Each status pill reads one of three ways. A <strong>retained live</strong> pill means a retained live run accepted the benefit for its recorded version, and some name the exact result, such as a passed performance gate or zero audited residue. A <strong>current deterministic</strong> pill means committed deterministic evidence accepts it, without a live run. Any other wording means the deterministic contract still holds while its live acceptance is absent, stale, or not yet accepted.</p>
-      <p>These retained live runs used the earlier approval model. They do not prove the current ChangeWorkflow and Approval-attestation paths; those paths need fresh live receipts.</p>
-      <p><strong>One gate remains open.</strong> Every benefit below was accepted in the project's own retained four-cluster organization. A clean import into a fresh organization that you choose has not run yet, and it is the gate that stands between these results and a claim about your platform.</p>
-      ${markdownLikeTable([
-        ["Benefit", "Evidence or acceptance target", "Status"],
-        ["No rewrite", `${facts.generatedFiles} path-and-byte-identical generated files from Kubara's official and ConfigHub-aligned catalog lanes; ${facts.renders} deterministic effective renders.`, badge(facts.deterministicParityCurrent, "current deterministic", "check required")],
-        ["A stronger component Catalog", `The Kubara catalog 1.1 coverage run closed at ${facts.catalogComponents} components and ${facts.catalogVersions} retained versions, with all ${facts.selections} exact Kubara selections kept under additive-only retention. The Catalog has grown since; the pages above carry its current size of 112 components and 139 retained versions.`, badge(facts.catalogCurrent, "current deterministic", "check required")],
-        ["Recognizable platform shape", `${facts.clusters} clusters, ${facts.roles} platform roles, ${facts.applications.length} applications, faithful and adapted delivery identities, with Argo CD retained.`, badge(facts.faithfulCurrent && facts.miniIdpCurrent, "retained live", "faithful or adapted receipt needs refresh")],
-        ["Upgrade-safe retained workloads", `${facts.selectorReplacements || 16} exact journaled immutable-selector replacements, including four PostgreSQL StatefulSets whose bound PVC identities are retained.`, badge(facts.miniIdpCurrent && facts.selectorReplacements === 16 && facts.retainedSelectorMigrationPvcs === 4, "retained live", "live migration receipt required")],
-        ["Fleet visibility", `${facts.matrixCells} component/application cells, ${facts.curatedLinks} curated native Link intents, and ${facts.wiringFacts} extracted wiring facts kept as the full engineering view.`, badge(facts.miniIdpCurrent && facts.matrixCurrent && facts.wiringCurrent, "retained live", "desired state only")],
-        ["Repeatable delivery", "The retained four-cluster proof includes exact release heads, healthy applications, and an immediate zero-action apply.", badge(facts.miniIdpCurrent, "retained live", "live receipt required")],
-        ["Measured reconciliation cost", facts.noOpReadCommands > 0 ? `The retained no-op made ${facts.noOpMutationAttempts} ConfigHub mutation attempts and ${facts.noOpArgoSyncRequests} Argo sync requests, while recording ${facts.noOpReadCommands} ConfigHub CLI read commands, ${facts.noOpSubprocessCalls} total subprocess calls, and about ${Math.round(facts.noOpWallMs / 1000)} seconds. The fixture regression target is met; this is not a raw-Kubara comparison, HTTP-round-trip count, or service-level promise.` : "No source-current no-op measurement is available.", badge(facts.performanceCurrent, "retained performance gate passed", facts.miniIdpCurrent ? "measured; performance gate not accepted" : "live performance receipt required")],
-        ["Clean governed inventory", "A separate audit must prove exact ConfigHub inventory, no Argo-prunable resources, and no unclassified, dangling, or UID-stale audited durable workloads. It does not claim a complete inventory of every Kubernetes type.", badge(facts.orphanCurrent, "retained live: audited residue zero", "live receipt required: scoped residue audit")],
-      ], { rawThirdColumn: true })}
-      <p data-kubara-live-evidence="${currentLive ? "current" : "gated"}">The status is generated from an exact evidence chain, component by component. ${currentLive ? "The complete faithful, adapted, performance, matrix, wiring, orphan, and six-frame GUI chain is accepted." : "Some current live evidence may already pass, but the complete publishable chain is still gated."} Missing or inconsistent faithful, source-digest mini-IDP, performance, matrix, wiring, orphan, or GUI evidence stays visible instead of becoming a green marketing claim.</p>
-    </section>
     <section aria-labelledby="composition-evidence">
       <h3 id="composition-evidence">The composition, as evidence</h3>
       <p>Each component in a stack carries a <a href="./d/data/certified-bundles/summary.html">certified-bundle receipt</a> that names what it is and how it may be flattened, and the <a href="./d/data/certified-bundles/eks-inference-stack.html">eight-bundle EKS inference platform</a> is one worked example. The single composition verdict over a whole stack is <a href="./d/docs/planning/stack-manifest-spec.html">specified</a> and runs two ways today. This repository arms it as a regression gate over its own receipts. The workshop plugin's <code>cub stack check</code> runs it anywhere, refusing a real conflict rather than reporting one. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>. The wiring facts above are the report those checks read.</p>
-    </section>
-    <section aria-labelledby="stays-adds">
-      <h2 id="stays-adds">What stays Kubara, and what ConfigHub adds</h2>
-      ${markdownLikeTable([
-        ["Kubara stays", "ConfigHub adds"],
-        ["Ordered catalogs, ServiceDefinitions, config.yaml, values overlays, generated platform files, hub/spoke intent", "A component-first Catalog and retained exact versions; deployable variants and configurations follow each component, while Kubara keeps per-platform selection and wiring"],
-        ["Git as the portable platform hand-off", "One immutable OCI package per reusable/effective configuration plus a digest-bound platform index"],
-        ["Argo CD as the cluster reconciler", "A governance and release plane that selects the exact digest before local Argo receives it"],
-      ])}
     </section>
     <section aria-labelledby="delivery-authority">
       <h3 id="delivery-authority">Make latest discoverable, not deployable</h3>
@@ -9422,6 +9493,7 @@ kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</c
         <p>The retained fleet records 16 exact, one-time immutable-selector replacements. Its v1 history honestly retains 12 earlier reviewed-preflight triggers and four resource-failure recovery triggers; completed history is not rewritten. For every new attempt, the v2 policy requires an attempted exact-revision Argo operation to record and digest-bind the matching terminal resource failure before deletion. Every old UID/resourceVersion and reviewed selector transition is journaled; the replacement must be healthy. The four PostgreSQL StatefulSet migrations retain the same bound PVC UID and volume identity. This is an allowlisted migration contract, not broad delete authority.</p>
       </details>
     </section>
+    <p><a href="./kubara-and-confighub.html">Kubara and ConfigHub, explained</a> says what stays Kubara and what ConfigHub adds, the evidence behind each benefit, and the honest boundaries.</p>
     <section aria-labelledby="six-steps">
       <h2 id="six-steps">One adoption journey, in the user's order</h2>
       <p>The preparer, scanner, package verifier, binding lock, and receipt checks are checkpoints inside these steps. Certify is new here: it turns the pushed revision into a stack and checks it before OCI makes it immutable.</p>
@@ -9451,19 +9523,6 @@ kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</c
       <p>${currentLive ? "The exact faithful, mini-IDP, performance, orphan, matrix, wiring, and six-frame GUI evidence set is source-current and mutually consistent." : "The deterministic story is current. Live and GUI claims remain gated. Faithful, mini-IDP, performance, health, orphan, matrix, wiring, and all six published screenshots must match this source."}</p>
       <p><a href="../docs/demo/kubara/gui-tour.md#pre-capture-gate">Run the screenshot-free pre-capture gate</a> before opening the browser. Publish exactly six real, source-current frames. Their atomic GUI receipt must bind the source and organization. It must also bind faithful, mini-IDP, orphan, matrix, wiring, image digests, capture times, visible identities, and claim boundaries. Never substitute placeholders or mocked screenshots.</p>
       <p><a href="../docs/demo/kubara/gui-tour.md">Follow the receipt-bound GUI tour</a>.</p>
-    </section>
-    <section aria-labelledby="boundaries">
-      <h2 id="boundaries">The honest boundaries</h2>
-      <ul>
-        <li>This is deterministic adoption, not an AI rewrite. Ordinary catalog and configuration updates may still be required.</li>
-        <li>The user explicitly selects the organization. Targets and the local delivery runtime are current prerequisites; the importer does not silently create or guess them.</li>
-        <li>Secrets and target-owned facts stay outside the portable Git and OCI payloads.</li>
-        <li>Desired state, current live state, historical evidence, OCI publication, and production support remain distinct claims.</li>
-        <li>The exact-digest evidence controls the managed automated path. Blocking privileged human or manual Argo sync additionally requires separate RBAC or admission proof.</li>
-        <li>The current no-op records ${facts.noOpReadCommands} ConfigHub CLI read commands and ${facts.noOpSubprocessCalls} total subprocess calls. It completes in about ${Math.round(facts.noOpWallMs / 1000)} seconds, with ${facts.noOpMutationAttempts === 0 ? "zero" : facts.noOpMutationAttempts} ConfigHub mutation attempts and ${facts.noOpArgoSyncRequests === 0 ? "zero" : facts.noOpArgoSyncRequests} Argo sync requests. The fixture regression target is met. CLI commands are not HTTP round trips; this is not a raw-Kubara comparison or a service-level promise.</li>
-        <li>The retained four-cluster organization is live-proved. A clean import into a fresh user-selected organization is still a separate graduation gate.</li>
-      </ul>
-      <p><strong>live receipt required</strong> means a deterministic contract exists but its current live acceptance chain is absent or stale.</p>
     </section>
     <section aria-labelledby="detail">
       <h3 id="detail">Keep all the detail</h3>
