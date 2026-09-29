@@ -3224,6 +3224,7 @@ function journeyGuideHtml(journey) {
       <p>The journey is a folder in the public <a href="https://github.com/${repo}">workshop-demo</a> repository. Its script pauses before each command, and Enter runs it.</p>
       ${commandBlock([
         { comment: "get the journeys", cmd: `git clone https://github.com/${repo}` },
+        { comment: "use the version this page describes", cmd: `git -C workshop-demo checkout --quiet ${commit.slice(0, 12)}` },
         { comment: "open this journey", cmd: `cd workshop-demo/${journey.dir}` },
         { comment: "walk the steps, one command at a time", cmd: "./run.sh" },
       ])}
@@ -3235,7 +3236,7 @@ function journeyGuideHtml(journey) {
     </section>
     <section aria-labelledby="the-steps">
       <h2 id="the-steps">The steps</h2>
-      <p>These are the steps in the journey's <a href="${blob("README.md")}">README</a>. Run them from the journey's folder. The output of a real run is in <a href="${blob("expected/")}">expected/</a>.</p>${
+      <p>These are the steps in the journey's <a href="${blob("README.md")}">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/${repo}/tree/${commit}/${journey.dir}/expected">expected/</a>.</p>${
         journey.steps.some((step) => /\bwork\//.test(step.body))
           ? `
       ${commandBlock([{ comment: "the steps write their output here", cmd: "mkdir -p work" }])}`
