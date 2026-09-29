@@ -96,11 +96,26 @@ const checks = [
   },
   {
     file: "site/variants.html",
-    terms: ["Turn a recipe and values into a base, and decide where a change belongs", "1. See the model", "payments-api/prod-us", "Three variant layers", "Four things called base", "Two words worth defining", "2. Decide where the change belongs", "Quick routing table", "Firm answers for four fields", "What protection means", "One worked example: ExternalDNS overlays", "The OCI boundary, and changing one field without ConfigHub", "3. Follow a safe flow", "The whole chain, with the variants labeled", "4. Run the commands", "reuse-existing-secret", "5. Tell what set a field", "Where each setting lives", "6. Understand a chart preset", "The claim", "What a chart preset records", "The short model", "7. See what is inside ConfigHub", "What the package contains", "8. Open worked examples", "9. Read the details", "Deciding whether to flatten"],
+    terms: ["Turn a recipe and values into a base, and decide where a change belongs", "1. See the model", "payments-api/prod-us", "Three variant layers", "Four things called base", "Two words worth defining", "Change a config safely", "2. Tell what set a field", "Where each setting lives", "3. Understand a chart preset", "The claim", "What a chart preset records", "The short model", "4. See what is inside ConfigHub", "What the package contains", "5. Read the details", "Deciding whether to flatten"],
+  },
+  // Site IA phase 4, step 7b: where a change belongs, and how to make it, moved to its Guide.
+  {
+    file: "site/change-a-config-safely.html",
+    terms: ["Change a config safely", "1. Decide where the change belongs", "Quick routing table", "Firm answers for four fields", "What protection means", "One worked example: ExternalDNS overlays", "The OCI boundary, and changing one field without ConfigHub", "2. Follow a safe flow", "The whole chain, with the variants labeled", "3. Run the commands", "reuse-existing-secret", "4. Open worked examples"],
+  },
+  // Site IA phase 4, step 7b: Operations split into two Guides, and its
+  // commercial note went to the ConfigHub Server page.
+  {
+    file: "site/build-a-confighub-app.html",
+    terms: ["Build a ConfigHub App", "1. Build a ConfigHub App", "Redis upgrade and rollback proof"],
   },
   {
-    file: "site/operations.html",
-    terms: ["Operations", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed", "5. Build a ConfigHub App", "6. Open the working App demonstrations", "Redis upgrade and rollback proof", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery", "Argo CD and Flux guide", "What each path can prove"],
+    file: "site/confighub.html",
+    terms: ["When the work carries private inputs, production responsibility"],
+  },
+  {
+    file: "site/operate-a-fleet.html",
+    terms: ["Operate a fleet", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Open the working App demonstrations", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery", "Argo CD and Flux guide", "What each path can prove"],
   },
   {
     file: "site/try.html",
@@ -112,11 +127,11 @@ const checks = [
   },
   {
     file: "site/confighub.html",
-    terms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the step that needs an account", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Upload a reviewed result into ConfigHub", "1. What ConfigHub adds", "This page explains what that adds once you have an account", "The account path has three steps", "Upload also chains public configuration into your private org", "uploaded into a ConfigHub organization as a base variant", "publishes it so Argo CD or Flux pulls it", "During an upgrade, non-conflicting recorded changes remain", "Deployment commands", "The ConfigHub data model", "2. See one exact handoff", "Review locally", "Publish the OCI", "Upload the base to ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
+    terms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the step that needs an account", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Upload a reviewed result into ConfigHub", "1. What ConfigHub adds", "This page explains what that adds once you have an account", "The account path has three steps", "Upload also chains public configuration into your private org", "uploaded into a ConfigHub organization as a base variant", "publishes it so Argo CD or Flux pulls it", "During an upgrade, non-conflicting recorded changes remain", "Deployment commands", "The ConfigHub data model", "2. See one exact handoff", "Review locally", "Publish the OCI", "Upload the base to ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
   },
   {
     file: "site/deploy-with-flux-or-argo.html",
-    terms: ["Run it with Flux, Argo CD, or kubectl", "Keep the reconciler you have", "An OCI package works with your registry and reconciler", "1. Check a release before Argo CD or Flux takes it over", "change on every render", "A Flux HelmRelease runs Helm in the cluster", "cub config diff render-1.yaml render-2.yaml --exit-code", "lists each <code>lookup</code> in the chart's source", "spec.source.helm.releaseName", "<code>storageNamespace</code> to match the release Helm created", "flux create helmrelease grafana", "--storage-namespace=monitoring", "Give it a new name and create it before the upgrade", "Argo CD hardening Guide", "pass its <code>oci://</code> address in place of the name", "without writing Helm's release record", "For Argo CD, write the Application yourself", "Each chart names that value differently", "releaseName: grafana", "helm.sh/resource-policy: keep", "adopt-existing-argo-app.md", "ConfigHub helps once the handover is done", "2. Reconcile a published component now", "3. Verify before you reconcile", "cub config verify", "4. Render, inspect, then apply with kubectl", "Now deploy it, three ways", "5. Change an image without signing in", "6. Check the record", "source receipt -> object receipt -> delivery receipt -> runtime receipt", "7. Read the current limits", "Plain <code>kubectl apply</code> does not infer CRD order", "reuse-existing-secret", "8. Do this next"],
+    terms: ["Run it with Flux, Argo CD, or kubectl", "Keep the reconciler you have", "An OCI package works with your registry and reconciler", "1. Check a release before Argo CD or Flux takes it over", "change on every render", "A Flux HelmRelease runs Helm in the cluster", "cub config diff render-1.yaml render-2.yaml --exit-code", "lists each <code>lookup</code> in the chart's source", "spec.source.helm.releaseName", "<code>storageNamespace</code> to match the release Helm created", "flux create helmrelease grafana", "--storage-namespace=monitoring", "Give it a new name and create it before the upgrade", "Argo CD hardening Guide", "pass its <code>oci://</code> address in place of the name", "without writing Helm's release record", "For Argo CD, write the Application yourself", "Each chart names that value differently", "releaseName: grafana", "helm.sh/resource-policy: keep", "adopt-existing-argo-app.md", "ConfigHub helps once the handover is done", "2. Reconcile a published component now", "3. Verify before you reconcile", "cub config verify", "4. Render, inspect, then apply with kubectl", "Now deploy it, three ways", "5. Change an image without signing in", "6. Check the record", "source receipt -> object receipt -> delivery receipt -> runtime receipt", "reuse-existing-secret", "7. Do this next"],
   },
   {
     file: "site/stack.html",
@@ -160,7 +175,7 @@ const checks = [
   },
   {
     file: "site/oci.html",
-    terms: ["Package and deliver it as OCI, and see what is signed", "1. Tell the OCI shapes apart, and match each to its consumer", "2. See how a certified bundle and a stack become one artifact", "3. See what a signature actually proves, and check one yourself", "4. See how other tools already produce these shapes", "Nine shapes, side by side", "Which consumer needs which layout", "application/vnd.confighub.config.bundle.v1", "application/vnd.confighub.record.v1+json", "Every digest, and what it pins", "Where the receipt lives is still an open question", "The design center attaches it to the same digest as a referrer", "the catalog emits a receipt beside each published bundle", "What is signed today", "Choose the right verify command", "cub config verify", "cosign verify", "cosign verify-blob", "Timoni", "AICR is a manifest emitter rather than a competing format", "Kubara's own adoption step already compiles one OCI package per component"],
+    terms: ["Package and deliver it as OCI, and see what is signed", "1. Tell the OCI shapes apart, and match each to its consumer", "2. See how a certified bundle and a stack become one artifact", "3. See what a signature actually proves", "4. See how other tools already produce these shapes", "Nine shapes, side by side", "Which consumer needs which layout", "application/vnd.confighub.config.bundle.v1", "application/vnd.confighub.record.v1+json", "Every digest, and what it pins", "Where the receipt lives is still an open question", "The design center attaches it to the same digest as a referrer", "the catalog emits a receipt beside each published bundle", "What is signed today", "cub config verify", "cosign verify", "Timoni", "AICR is a manifest emitter rather than a competing format", "Kubara's own adoption step already compiles one OCI package per component"],
   },
   {
     file: "site/charts/index.html",
@@ -175,11 +190,21 @@ const checks = [
   },
   {
     file: "site/proof.html",
-    terms: ["Check why you can trust an entry", "What this catalog does not claim", "cosign verify", "The render matches Helm's own output", "A whole composition passes its checks", "A signature records who published the image", "What stays available"],
+    terms: ["Check why you can trust an entry", "The render matches Helm's own output", "A whole composition passes its checks", "A signature records who published the image"],
+  },
+  // Site IA phase 4, step 7b: sending a chart moved from Offering to its Guide.
+  {
+    file: "site/send-a-public-chart.html",
+    terms: ["Send a missing or broken public chart", "1. Look for it in the Catalog", "2. Render it yourself, and note what differs", "3. Send the chart and values", "problem-chart.yml", "4. See what happens to it"],
+  },
+  // Site IA phase 4, step 7b: checking a claim moved to its Guide.
+  {
+    file: "site/check-a-claim-yourself.html",
+    terms: ["Check a claim yourself", "1. Check one claim yourself", "A claim is checked only when the named command or receipt covers it", "cub check --format json --output cub-check.json", "2. Verify an entry yourself", "What this catalog does not claim", "cosign verify", "What stays available", "3. Choose the right verify command", "cosign verify-blob"],
   },
   {
-    file: "site/confighub.html",
-    terms: ["Take an entry into a stack or into ConfigHub"],
+    file: "site/take-a-config-further.html",
+    terms: ["Take a config further", "1. Take an entry into a stack or into ConfigHub", "2. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -199,7 +224,7 @@ const checks = [
   },
   {
     file: "site/known-gaps.html",
-    terms: ["Delivery limitations and known gaps", "Check one delivery result", "1. Read the current delivery limits", "2. Check the exact chart and configuration", "Fixed placeholder credentials", "SSA conflict ergonomics", "Do now:"],
+    terms: ["Delivery limitations and known gaps", "Rendering for Flux, Argo CD, or kubectl", "Plain <code>kubectl apply</code> does not infer CRD order", "Check one delivery result", "1. Read the current delivery limits", "2. Check the exact chart and configuration", "Fixed placeholder credentials", "SSA conflict ergonomics", "Do now:"],
   },
   {
     file: "site/docs.html",
@@ -207,11 +232,16 @@ const checks = [
   },
   {
     file: "site/proof.html",
-    terms: ["Why trust it", "confirms the image is exactly what its receipt says", "refuses one that has none", "not that the configuration will run on your cluster", "A signature records who published the image", "1. Read the current counts", "2. See what each test covers", "3. Check one claim yourself", "A claim is checked only when the named command or receipt covers it", "cub check --format json --output cub-check.json", "4. Check the harder charts", "5. Review security before release", "Scans and gates", "Claims register", "6. Find tests designed to expose failure", "7. See what this project does not claim", "Helm render match", "Hooks and prerequisites"],
+    terms: ["Why trust it", "confirms the image is exactly what its receipt says", "refuses one that has none", "not that the configuration will run on your cluster", "A signature records who published the image", "1. Read the current counts", "2. See what each test covers", "3. Check the harder charts", "4. Review security before release", "Scans and gates", "Claims register", "5. Find tests designed to expose failure", "6. See what this project does not claim", "Helm render match", "Hooks and prerequisites"],
   },
   {
     file: "site/quirks.html",
-    terms: ["See what happens to your chart's hooks, CRDs, and setup work", "1. Know the phases, the dispositions, and who runs the work", "2. Read the short answer and your practical choices", "3. See what a route tells you, then do the six steps", "4. Follow the worked examples through hooks and CRDs", "5. Decide who owns each CRD", "6. Stage target prerequisites before you apply", "7. See how a bundle carries routes with the objects", "8. Understand each tracked requirement, chart by chart", "9. Check what remains before deployment", "automatic: false", "observe, then execute, then emit a receipt", "per-target", "CRD-guarded object", "target prerequisites", "Helm hooks", "CRDs", "Cluster lookups"],
+    terms: ["See what happens to your chart's hooks, CRDs, and setup work", "1. Know the phases, the dispositions, and who runs the work", "2. Read the short answer and your practical choices", "3. See what a route tells you", "4. See how a bundle carries routes with the objects", "5. Understand each tracked requirement, chart by chart", "6. Check what remains before deployment", "automatic: false", "observe, then execute, then emit a receipt", "per-target", "target prerequisites", "Helm hooks", "CRDs", "Cluster lookups"],
+  },
+  // Site IA phase 4, step 7b: acting on hooks and CRDs moved to its Guide.
+  {
+    file: "site/handle-hooks-and-crds.html",
+    terms: ["Handle hooks and CRDs", "1. Do the six steps", "Choose the chart preset", "2. Follow the worked examples through hooks and CRDs", "3. Decide who owns each CRD", "4. Stage target prerequisites before you apply", "CRD-guarded object"],
   },
   {
     file: "site/apps.html",
@@ -219,7 +249,7 @@ const checks = [
   },
   {
     file: "site/offering.html",
-    terms: ["Offering", "1. See what is free, and what needs the commercial product", "2. Check what exists today", "3. Send a missing or broken public chart", "4. Read the supporting detail", "Payment starts at the first private or team need", "ConfigHub is free to start", "A hosted path without sign-in is planned"],
+    terms: ["Offering", "1. See what is free, and what needs the commercial product", "2. Check what exists today", "3. Read the supporting detail", "Send a missing or broken public chart", "Payment starts at the first private or team need", "ConfigHub is free to start", "A hosted path without sign-in is planned"],
   },
   {
     file: "site/ai.html",
@@ -244,7 +274,8 @@ const menuGuidePages = [
   "site/confighub.html",
   "site/charts/index.html",
   "site/variants.html",
-  "site/operations.html",
+  "site/operate-a-fleet.html",
+  "site/build-a-confighub-app.html",
   "site/docs.html",
   "site/bring-kubara-into-confighub.html",
 ];
@@ -260,7 +291,8 @@ const humanSplitPages = [
   "site/config.html",
   "site/variants.html",
   "site/oci.html",
-  "site/operations.html",
+  "site/operate-a-fleet.html",
+  "site/build-a-confighub-app.html",
   "site/docs.html",
   "site/bring-kubara-into-confighub.html",
   "site/known-gaps.html",
@@ -302,8 +334,8 @@ const guideOpeningChecks = [
     headerTerms: ["Turn a recipe and values into a base, and decide where a change belongs", "Render it with one set of values and you get a base", "Does the change rebuild the base, or does it belong to one environment", "make a derived ConfigHub variant"],
   },
   {
-    file: "site/operations.html",
-    headerTerms: ["Operations", "after an application and its target already exist", "review a change, approve it, deliver it, check the live result", "OCI carries a reviewed release"],
+    file: "site/operate-a-fleet.html",
+    headerTerms: ["Operate a fleet", "after an application and its target already exist", "approve it, deliver it, check the live result"],
   },
   {
     file: "site/deploy-with-flux-or-argo.html",
@@ -654,8 +686,8 @@ if (fs.existsSync(examplesPath)) {
 
 const pageOwnershipRules = [
   {
-    file: "site/operations.html",
-    ordered: ["1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed", "5. Build a ConfigHub App", "6. Open the working App demonstrations"],
+    file: "site/operate-a-fleet.html",
+    ordered: ["1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Open the working App demonstrations"],
   },
 ];
 
@@ -953,7 +985,7 @@ const purposePageRules = [
   {
     file: "site/testing.html",
     maxH2: 5,
-    requiredLinks: ["./try.html", "./operations.html#build-an-app", "./operations.html", "./confighub.html"],
+    requiredLinks: ["./try.html", "./build-a-confighub-app.html#build-an-app", "./operate-a-fleet.html", "./confighub.html"],
   },
   {
     file: "site/bring-kubara-into-confighub.html",

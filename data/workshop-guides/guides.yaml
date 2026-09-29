@@ -81,6 +81,12 @@ spec:
     summary: Say what you need, try a simple Redis example, choose how to run a starting example, then
       continue in ConfigHub or on a platform.
     page: testing.html
+  - id: check-a-claim
+    group: start-here
+    title: Check a claim yourself
+    summary: Pick a claim the site makes, run the smallest check that answers it, and read what it proved
+      and what it left open.
+    page: check-a-claim-yourself.html
   - id: helm-questions
     group: helm-questions
     title: Answer the ten questions Helm users ask
@@ -128,6 +134,11 @@ spec:
     summary: Render your own chart and values, an AI-written one included, then check, diff, adapt a field,
       and keep the reviewed objects for your own Argo CD or Flux.
     page: d/docs/user/workshop-byo-charts-guide.html
+  - id: send-a-public-chart
+    group: helm-questions
+    title: Send a missing or broken public chart
+    summary: Look for a public chart in the Catalog, render it yourself, and send the chart and values when it is missing or its output differs from Helm.
+    page: send-a-public-chart.html
   - id: aicr
     group: formats
     title: Answer the questions AICR users ask
@@ -212,6 +223,11 @@ spec:
     summary: Govern a Kubara platform with cub kubara, from plan to handover and check, without changing
       how Kubara works, or use it as a Workshop stack.
     page: bring-kubara-into-confighub.html
+  - id: handle-hooks-and-crds
+    group: stacks-and-platforms
+    title: Handle hooks and CRDs
+    summary: Find the hooks, CRDs, setup jobs and target facts a chart needs before delivery, decide who runs each, and stage the target first.
+    page: handle-hooks-and-crds.html
   - id: promote
     group: confighub
     title: Can I promote this configuration?
@@ -235,3 +251,29 @@ spec:
     summary: Record development and production as related configurations so their exact differences and
       promotion history remain visible.
     page: why-do-dev-and-prod-differ.html
+  - id: take-a-config-further
+    group: confighub
+    title: Take a config further
+    summary: Take a reviewed configuration into a stack, keep it as an image, or save it in ConfigHub to
+      move it through environments.
+    page: take-a-config-further.html
+  - id: change-a-config-safely
+    group: confighub
+    title: Change a config safely
+    summary: Decide whether a change rebuilds the base or belongs to one environment, then preview it and promote only what was reviewed.
+    page: change-a-config-safely.html
+  - id: operate-a-fleet
+    group: confighub
+    title: Operate a fleet
+    summary: Check the starting point, choose an operation, keep a fleet record, and open the working App demonstrations.
+    page: operate-a-fleet.html
+  - id: build-a-confighub-app
+    group: confighub
+    title: Build a ConfigHub App
+    summary: Build an App that repeats one operation on configuration saved in ConfigHub.
+    page: build-a-confighub-app.html
+  - id: release-promote-roll-back
+    group: confighub
+    title: Release, promote and roll back
+    summary: Release a reviewed configuration, promote it to the next environment, gate it with approvals, and roll it back.
+    page: how-it-works.html

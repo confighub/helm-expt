@@ -5,6 +5,8 @@
   <url><loc>https://confighub.github.io/helm-expt/site/apps.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/ask.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/build-a-confighub-app.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/change-a-config-safely.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-1-3.html</loc></url>
@@ -148,6 +150,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/velero-velero-12-1-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/check-a-claim-yourself.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/compose-a-stack.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/config.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/confighub.html</loc></url>
@@ -776,6 +779,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/does-cluster-match-approved-config.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/formats.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/guides.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/handle-hooks-and-crds.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/how-it-works.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/journey-before-gitops.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/journey-installs-never-starts.html</loc></url>
@@ -786,14 +790,16 @@
   <url><loc>https://confighub.github.io/helm-expt/site/matrix.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/oci.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/offering.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/operations.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/operate-a-fleet.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/plugins.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/promote.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/proof.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/put-an-app-on-a-platform.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/quirks.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/redis-walkthrough.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/send-a-public-chart.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/stack.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/take-a-config-further.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/testing.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/try-aicr.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/try.html</loc></url>

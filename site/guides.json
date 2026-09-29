@@ -6,7 +6,7 @@
   "generatedFrom": [
     "data/workshop-guides/guides.yaml"
   ],
-  "count": 36,
+  "count": 44,
   "rows": [
     {
       "id": "journey-values-did-nothing",
@@ -129,6 +129,18 @@
       }
     },
     {
+      "id": "check-a-claim",
+      "group": "start-here",
+      "groupTitle": "Start here",
+      "title": "Check a claim yourself",
+      "summary": "Pick a claim the site makes, run the smallest check that answers it, and read what it proved and what it left open.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/check-a-claim-yourself.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/check-a-claim-yourself.html"
+      }
+    },
+    {
       "id": "helm-questions",
       "group": "helm-questions",
       "groupTitle": "Helm questions",
@@ -222,6 +234,18 @@
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-byo-charts-guide.html",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-byo-charts-guide.html"
+      }
+    },
+    {
+      "id": "send-a-public-chart",
+      "group": "helm-questions",
+      "groupTitle": "Helm questions",
+      "title": "Send a missing or broken public chart",
+      "summary": "Look for a public chart in the Catalog, render it yourself, and send the chart and values when it is missing or its output differs from Helm.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/send-a-public-chart.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/send-a-public-chart.html"
       }
     },
     {
@@ -393,6 +417,18 @@
       }
     },
     {
+      "id": "handle-hooks-and-crds",
+      "group": "stacks-and-platforms",
+      "groupTitle": "Stacks and platforms",
+      "title": "Handle hooks and CRDs",
+      "summary": "Find the hooks, CRDs, setup jobs and target facts a chart needs before delivery, decide who runs each, and stage the target first.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/handle-hooks-and-crds.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/handle-hooks-and-crds.html"
+      }
+    },
+    {
       "id": "promote",
       "group": "confighub",
       "groupTitle": "ConfigHub",
@@ -438,6 +474,66 @@
       "address": "https://confighub.github.io/helm-expt/site/why-do-dev-and-prod-differ.html",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/why-do-dev-and-prod-differ.html"
+      }
+    },
+    {
+      "id": "take-a-config-further",
+      "group": "confighub",
+      "groupTitle": "ConfigHub",
+      "title": "Take a config further",
+      "summary": "Take a reviewed configuration into a stack, keep it as an image, or save it in ConfigHub to move it through environments.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/take-a-config-further.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/take-a-config-further.html"
+      }
+    },
+    {
+      "id": "change-a-config-safely",
+      "group": "confighub",
+      "groupTitle": "ConfigHub",
+      "title": "Change a config safely",
+      "summary": "Decide whether a change rebuilds the base or belongs to one environment, then preview it and promote only what was reviewed.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/change-a-config-safely.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/change-a-config-safely.html"
+      }
+    },
+    {
+      "id": "operate-a-fleet",
+      "group": "confighub",
+      "groupTitle": "ConfigHub",
+      "title": "Operate a fleet",
+      "summary": "Check the starting point, choose an operation, keep a fleet record, and open the working App demonstrations.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/operate-a-fleet.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/operate-a-fleet.html"
+      }
+    },
+    {
+      "id": "build-a-confighub-app",
+      "group": "confighub",
+      "groupTitle": "ConfigHub",
+      "title": "Build a ConfigHub App",
+      "summary": "Build an App that repeats one operation on configuration saved in ConfigHub.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/build-a-confighub-app.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/build-a-confighub-app.html"
+      }
+    },
+    {
+      "id": "release-promote-roll-back",
+      "group": "confighub",
+      "groupTitle": "ConfigHub",
+      "title": "Release, promote and roll back",
+      "summary": "Release a reviewed configuration, promote it to the next environment, gate it with approvals, and roll it back.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/how-it-works.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/how-it-works.html"
       }
     }
   ]
