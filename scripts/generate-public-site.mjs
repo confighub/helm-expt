@@ -10130,7 +10130,7 @@ function catalogMovedSections(catalog) {
         <li><strong>The bases.</strong> One reviewed starting configuration per tested choice. <a href="./variants.html">See what a base variant is</a>.</li>
         <li><strong>The bundle</strong>, where the lane permits it. The exact objects kept as a certified OCI image. <a href="./config.html#flatten">See when a configuration can be flattened</a> and <a href="./oci.html">see the bundle's OCI shape</a>.</li>
         <li><strong>The routes.</strong> The CRDs, hooks, and setup work, in order. <a href="./quirks.html">See what a chart hides</a>.</li>
-        <li><strong>The receipt.</strong> What was checked, and the digests it names. <a href="#trust">Check why you can trust it</a>.</li>
+        <li><strong>The receipt.</strong> What was checked, and the digests it names. <a href="./proof.html#trust">Check why you can trust it</a>.</li>
       </ul>
       <h3 id="helm-charts">Helm charts</h3>
       <ul class="doc-links">${helmDocLinks}</ul>
@@ -11648,7 +11648,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     ${flatteningSectionHtml(catalog, entry)}
     <section aria-labelledby="render-record-route">
       <h2 id="render-record-route">What The Starting Configuration Records</h2>
-      <p>A base variant is a starting configuration we have already rendered and checked. Pick the one whose trade-off you want; the table below shows what each one changes. <a href="../charts/index.html#how-values-chosen">How the values for each are chosen</a>.</p>
+      <p>A base variant is a starting configuration we have already rendered and checked. Pick the one whose trade-off you want; the table below shows what each one changes. <a href="../config.html#how-values-chosen">How the values for each are chosen</a>.</p>
       <p>The ${firstBaseRecordLink} connects those Helm inputs to the Kubernetes objects, remaining requirements, hooks, CRDs, checks, and OCI status. Open it when you need the complete starting record rather than only the rendered YAML.</p>
       <p>Open the ${firstRenderedObjectsLink} to read the actual manifest output. The render record and setup section explain the inputs, tests, CRDs, hooks, and other work around it.</p>
       <p>If new Helm values create a useful starting configuration, record another base variant with its own inputs and checks. If one environment changes a field after rendering, record that change in a ConfigHub variant.</p>
