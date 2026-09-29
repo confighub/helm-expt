@@ -6656,7 +6656,7 @@ function pluginsHtml() {
   const state = (row) => row.state === "released" ? `Released, ${escapeHtml(row.release.tag)}` : row.state === "in-progress" ? "In progress" : "Draft";
   const pluginGuides = { kubara: ["./bring-kubara-into-confighub.html", "Bring a Kubara platform into ConfigHub"] };
   const tableRows = rows.map((row) => [
-    `<span id="${escapeHtml(row.id)}"></span>` + (row.repository ? `<a href="https://github.com/${escapeHtml(row.repository)}">${escapeHtml(row.name)}</a>` : escapeHtml(row.name)),
+    `<span id="${escapeHtml(row.id)}"></span>` + (row.address || row.repository ? `<a href="${escapeHtml(row.address ?? `https://github.com/${row.repository}`)}">${escapeHtml(row.name)}</a>` : escapeHtml(row.name)),
     `${row.commands.map((command) => `<code>${escapeHtml(command)}</code>`).join(", ")}. ${escapeHtml(row.summary)}` + (pluginGuides[row.id] ? ` Guide: <a href="${pluginGuides[row.id][0]}">${escapeHtml(pluginGuides[row.id][1])}</a>.` : ""),
     state(row),
     row.install ? `<code>${escapeHtml(row.install)}</code>` : escapeHtml(row.note ?? "Not yet published."),
@@ -6673,7 +6673,7 @@ function pluginsHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Plugins</h1>
-    <p class="lead">Every public cub plugin, marked by its state. Each one installs with one line and needs no account.</p>
+    <p class="lead">Every public cub plugin, marked by its state. Released plugins have an install command; source builds link to their instructions.</p>
     <p>An agent reads the same rows at <a href="./plugins.json">plugins.json</a>.</p>
   </header>
   <main>
