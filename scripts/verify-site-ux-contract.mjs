@@ -122,6 +122,11 @@ const checks = [
     file: "site/stack.html",
     terms: ["Stacks \u00b7 ConfigHub Workshop", "<h1>Stacks</h1>", "Every shipped stack", "stacks.json", "cub stack check eks-inference", "Compose and check a stack", "Combine components into custom stacks and application platforms", "kubara-shop-platform", "Run it"],
   },
+  // Site IA phase 4, step 5: the Apps how-to moved to its Guide.
+  {
+    file: "site/put-an-app-on-a-platform.html",
+    terms: ["the platform carries what the app needs", "What an app is", "A standalone app needs neither.", "Try it now", "cub app check shop-web", "cub stack sandbox shop-platform", "Follow the demo, step by step", "Take it into ConfigHub", "Bring an app that already runs", "Open working examples", "Read the known gaps"],
+  },
   // Site IA phase 4, step 4: the Stacks how-to moved to its Guide.
   {
     file: "site/compose-a-stack.html",
@@ -210,7 +215,7 @@ const checks = [
   },
   {
     file: "site/apps.html",
-    terms: ["Apps on a platform", "Deploy and promote apps on a platform", "the platform carries what the app needs", "What an app is", "An app is a workload you bring.", "A standalone app needs neither.", "Try it now", "cub app check shop-web", "cub stack sandbox shop-platform", "Follow the demo, step by step", "Take it into ConfigHub", "Bring an app that already runs", "Open working examples", "Read the known gaps"],
+    terms: ["Apps \u00b7 ConfigHub Workshop", "<h1>Apps</h1>", "Every worked example app", "apps.json", "Put an app on a platform", "An app is a workload you bring."],
   },
   {
     file: "site/offering.html",

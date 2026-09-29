@@ -6,7 +6,7 @@
   "generatedFrom": [
     "data/workshop-guides/guides.yaml"
   ],
-  "count": 33,
+  "count": 35,
   "rows": [
     {
       "id": "journey-values-did-nothing",
@@ -114,6 +114,18 @@
       "address": "https://confighub.github.io/helm-expt/site/ai.html",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/ai.html"
+      }
+    },
+    {
+      "id": "testing",
+      "group": "start-here",
+      "groupTitle": "Start here",
+      "title": "Find a starting configuration",
+      "summary": "Say what you need, try a simple Redis example, choose how to run a starting example, then continue in ConfigHub or on a platform.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/testing.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/testing.html"
       }
     },
     {
@@ -354,6 +366,18 @@
       "address": "https://confighub.github.io/helm-expt/site/try-aicr.html",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/try-aicr.html"
+      }
+    },
+    {
+      "id": "put-an-app-on-a-platform",
+      "group": "stacks-and-platforms",
+      "groupTitle": "Stacks and platforms",
+      "title": "Put an app on a platform",
+      "summary": "Check what an app needs, check it on a platform, take it into ConfigHub, or bring an app that already runs.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/put-an-app-on-a-platform.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/put-an-app-on-a-platform.html"
       }
     },
     {
