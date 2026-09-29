@@ -120,7 +120,16 @@ const checks = [
   },
   {
     file: "site/stack.html",
-    terms: ["Build a stack from reviewed parts", "Check your own app on a shipped platform", "cub stack sandbox web-platform --workspace my-platform", "Combine components into custom stacks and application platforms", "cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo", "cub stack sandbox eks-inference", "=&gt; CHECKED", "=&gt; REFUSED", "Get a stack", "Want a ready-made one?", "What a stack is", "placed across many clusters as data", "An app, in turn, is", "cub stack from-kubara", "Checking your stack", "What each app needs", "The stacks that ship, by altitude", "kubara-shop-platform", "Run and govern it", "What you can do with the workshop plugin", "cub fleet status demo-platform", "Fleet operations live here too", "cub changeorder create traefik-wave", "cub stack publish", "Run it", "remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
+    terms: ["Stacks \u00b7 ConfigHub Workshop", "<h1>Stacks</h1>", "Every shipped stack", "stacks.json", "cub stack check eks-inference", "Compose and check a stack", "Combine components into custom stacks and application platforms", "kubara-shop-platform", "Run it"],
+  },
+  // Site IA phase 4, step 4: the Stacks how-to moved to its Guide.
+  {
+    file: "site/compose-a-stack.html",
+    terms: ["Check your own app on a shipped platform", "cub stack sandbox web-platform --workspace my-platform", "cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo", "cub stack sandbox eks-inference", "=&gt; CHECKED", "=&gt; REFUSED", "Get a stack", "Want a ready-made one?", "What a stack is", "placed across many clusters as data", "An app, in turn, is", "cub stack from-kubara", "Checking your stack", "What each app needs", "The stacks that ship, by altitude", "Run and govern it", "What you can do with the workshop plugin", "cub fleet status demo-platform", "Fleet operations live here too", "cub changeorder create traefik-wave", "cub stack publish"],
+  },
+  {
+    file: "site/proof.html",
+    terms: ["remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
   },
   {
     file: "site/how-it-works.html",
@@ -142,7 +151,7 @@ const checks = [
   },
   {
     file: "site/try-aicr.html",
-    terms: ["Try AICR", "An &ldquo;AICR platform&rdquo; here is the composed set of Argo CD Applications AICR generates for one AI target, whether training or inference", "never becomes the running, governed platform that stack could be"],
+    terms: ["Compare GPU nodes and pull an AICR config", "An &ldquo;AICR platform&rdquo; here is the composed set of Argo CD Applications AICR generates for one AI target, whether training or inference", "never becomes the running, governed platform that stack could be"],
   },
   {
     file: "site/oci.html",

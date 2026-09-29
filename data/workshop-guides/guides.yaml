@@ -187,6 +187,18 @@ spec:
     summary: Keep candidate, mismatch and unknown results separately, with the input hashes behind each
       answer.
     page: d/docs/user/workshop-match-guide.html
+  - id: compose-a-stack
+    group: stacks-and-platforms
+    title: Compose and check a stack
+    summary: Get a stack, check it for conflicts and missing needs before anything runs, then run and
+      govern it in ConfigHub. It includes the stacks made to be refused.
+    page: compose-a-stack.html
+  - id: try-aicr
+    group: stacks-and-platforms
+    title: Compare GPU nodes and pull an AICR config
+    summary: Compare existing GPU nodes with a recipe, or pull and read a retained AICR configuration
+      with ORAS.
+    page: try-aicr.html
   - id: promote
     group: confighub
     title: Can I promote this configuration?

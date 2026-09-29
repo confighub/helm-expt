@@ -64,6 +64,7 @@ const futurePath = join(siteRoot, "future.html");
 const operationsPath = join(siteRoot, "operations.html");
 const guidesPath = join(siteRoot, "guides.html");
 const pluginsPath = join(siteRoot, "plugins.html");
+const composeStackPath = join(siteRoot, "compose-a-stack.html");
 const askPath = join(siteRoot, "ask.html");
 const promotePath = join(siteRoot, "promote.html");
 const ignoredValuesPath = join(siteRoot, "why-did-helm-ignore-my-values.html");
@@ -513,6 +514,7 @@ const SITE_PAGE_RELPATHS = {
   operationsHtml: "operations.html",
   guidesHtml: "guides.html",
   pluginsHtml: "plugins.html",
+  composeStackGuideHtml: "compose-a-stack.html",
   askHtml: "ask.html",
   promoteHtml: "promote.html",
   ignoredValuesHtml: "why-did-helm-ignore-my-values.html",
@@ -583,6 +585,7 @@ const PAGE_DESCRIPTIONS = {
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
   "oci.html": "See every OCI shape this catalog produces, who produces and consumes each one, which layout each consumer needs, and which shapes are signed today.",
   "formats.html": "Browse every non-Helm Catalog entry by format: AICR, Timoni, cub installer, Kubara, configuration OCI, Kubernetes YAML, and Sveltos, each linked to its listing record.",
+  "compose-a-stack.html": "Get a stack, check it for conflicts and missing needs before anything runs, then run and govern it in ConfigHub.",
   "plugins.html": "Every public cub plugin, marked by its state, with the one line that installs it.",
   "guides.html": "Every Guide, a known path an agent walks with a person beside it, grouped by where you start. The five journeys come first.",
   "apps.html": "Record the app you run, check it, put it in a stack next to the platform parts it needs, and decide what ConfigHub keeps.",
@@ -667,6 +670,7 @@ if (mode === "--generate") {
   write(operationsPath, site.operationsHtml);
   write(guidesPath, site.guidesHtml);
   write(pluginsPath, site.pluginsHtml);
+  write(composeStackPath, site.composeStackGuideHtml);
   write(askPath, site.askHtml);
   write(promotePath, site.promoteHtml);
   write(ignoredValuesPath, site.ignoredValuesHtml);
@@ -814,6 +818,7 @@ if (mode === "--generate") {
   check(existsSync(guidesPath), "site/guides.html is missing; run npm run site:generate");
   check(readFileSync(guidesPath, "utf8") === site.guidesHtml, "site/guides.html is stale");
   check(readFileSync(pluginsPath, "utf8") === site.pluginsHtml, "site/plugins.html is stale");
+  check(readFileSync(composeStackPath, "utf8") === site.composeStackGuideHtml, "site/compose-a-stack.html is stale");
   check(existsSync(askPath), "site/ask.html is missing; run npm run site:generate");
   check(readFileSync(askPath, "utf8") === site.askHtml, "site/ask.html is stale");
   check(existsSync(promotePath), "site/promote.html is missing; run npm run site:generate");
@@ -1433,6 +1438,7 @@ function buildSite(generatedAt) {
     operationsHtml: calmPage(operationsHtml(catalog)),
     guidesHtml: calmPage(guidesHtml()),
     pluginsHtml: calmPage(pluginsHtml()),
+    composeStackGuideHtml: calmPage(composeStackGuideHtml()),
     askHtml: calmPage(askHtml(catalog)),
     promoteHtml: calmPage(promoteHtml()),
     ignoredValuesHtml: calmPage(ignoredValuesHtml()),
@@ -2415,7 +2421,7 @@ function siteFooterNav(relPath) {
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
     + group("Configs", [a("charts/index.html", "Find a configuration"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
-    + group("Stacks", [a("stack.html", "Stacks and fleets"), a("try-aicr.html", "Inference platforms")])
+    + group("Stacks", [a("stack.html", "Every stack"), a("compose-a-stack.html", "Compose and check a stack"), a("try-aicr.html", "GPU nodes and AICR")])
     + group("Apps", [a("apps.html", "Apps on a platform"), a("testing.html", "Worked examples")])
     + group("Plugins", [a("plugins.html", "Every cub plugin"), a("kubara.html", "Kubara platforms")])
     + group("Guides", [a("guides.html", "Every Guide"), a("try.html", "Try it: Redis in ten minutes"), a("demo.html", "The ten-minute demo"), a("ai.html", "Use with your AI"), a("ask.html", "Check my config"), a("promote.html", "Promote my config")])
@@ -2446,7 +2452,7 @@ function siteSections() {
     ["did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?"], ["why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
   ] },
   { label: "Stacks", hub: "stack.html", pages: [
-    ["stack.html", "Stacks and fleets"], ["try-aicr.html", "Inference platforms"],
+    ["stack.html", "Every stack"], ["compose-a-stack.html", "Compose and check a stack"], ["try-aicr.html", "Compare GPU nodes and pull an AICR config"],
   ] },
   { label: "Apps", hub: "apps.html", pages: [
     ["apps.html", "Apps on a platform"], ["testing.html", "Worked examples"],
@@ -3863,13 +3869,13 @@ function tryAicrHtml() {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Try AICR · ConfigHub Workshop</title>
+<title>Compare GPU nodes and pull an AICR config · ConfigHub Workshop</title>
 <style>${siteCss()}</style>
 </head>
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
-  <h1>Try AICR</h1>
+  <h1>Compare GPU nodes and pull an AICR config</h1>
   <p class="boundary-chip">Two independent starting paths</p>
   <p class="lead">Compare GPU nodes you already run, or inspect one retained AI-platform configuration without a GPU.</p>
   <p>An &ldquo;AICR platform&rdquo; here is the composed set of Argo CD Applications AICR generates for one AI target, whether training or inference. This page never runs it, so it stays a <a href="./stack.html#what-a-stack-is">stack</a> in this site's sense, and never becomes the running, governed platform that stack could be.</p>
@@ -4696,6 +4702,39 @@ function deepDetailsCss() {
 }
 
 function stackHtml() {
+  const rows = sectionRows("stacks").map((row) => [
+    `<a href="${escapeHtml(row.source)}">${escapeHtml(row.name)}</a><br><code style="white-space:nowrap">${escapeHtml(row.next.command)}</code>`,
+    escapeHtml(row.summary) + (row.id === "eks-inference" ? ` <a href="./try-aicr.html">Compare GPU nodes and pull an AICR config</a>.` : ""),
+    `${row.parts.map((part) => escapeHtml(part)).join(", ")}. ${row.checked ? "Every part has a receipt." : "Not every part has a receipt."}`,
+  ]);
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stacks · ConfigHub Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Stacks</h1>
+    <p class="lead">A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders. A platform is what a stack becomes once it runs under governance with your apps on it.</p>
+    <p><a href="./compose-a-stack.html">Compose and check a stack</a> shows how, step by step. An agent reads the same rows at <a href="./stacks.json">stacks.json</a>.</p>
+  </header>
+  <main>
+    <section aria-labelledby="what-a-stack-is">
+      <h2 id="what-a-stack-is">Every shipped stack</h2>
+      ${markdownLikeTable([["Stack, and the command to try it", "What it builds", "Parts"], ...rows], { rawColumns: [0, 1, 2], firstColumnWidthCh: 30 })}
+      <p>The stacks made to be refused, to show the check, are in <a href="./compose-a-stack.html#stack-checks">the Guide</a>.</p>
+    </section>
+  </main>
+</body>
+</html>
+`;
+}
+
+function composeStackGuideHtml() {
   const bundleFacts = loadCertifiedBundleStackFacts();
   const fullStackRows = [
     ["eks-inference", `${spellSmallNumber(bundleFacts.eksInferenceBundleCount)} digest-pinned bundles with receipts across all three planes: a cloud network, an EKS cluster, node autoscaling, a GPU runtime, and the inference workload`, "CHECKED, 130 objects"],
@@ -4722,7 +4761,7 @@ function stackHtml() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Stacks and fleets · ConfigHub Workshop</title>
+  <title>Compose and check a stack · ConfigHub Workshop</title>
   <style>${siteCss()}${installPageCss()}${deepDetailsCss()}</style>
 </head>
 <body>
@@ -4730,13 +4769,13 @@ function stackHtml() {
     ${topNav(".")}
     <div class="install-hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">Compose, check, place</p>
-        <h1>Build a stack from reviewed parts</h1>
+        <p class="eyebrow">A Guide</p>
+        <h1>Compose and check a stack</h1>
   <p class="boundary-chip">Free until upload</p>
-        <p class="lead">Combine components into custom stacks and application platforms.</p>
+        <p class="lead">Get a stack, check it before anything runs, then run and govern it. The <a href="./stack.html">Stacks</a> list holds every shipped stack.</p>
         <div class="hero-actions">
           <a class="button primary" href="#get-a-stack">Get a stack</a>
-          <a class="button secondary" href="#what-a-stack-is">What is a stack?</a>
+          <a class="button secondary" href="#stack-checks">Checking your stack</a>
           <a class="button secondary" href="#run-and-govern">Run and govern it</a>
         </div>
       </div>
@@ -4775,31 +4814,6 @@ function stackHtml() {
       <h3 id="run-with-a-team">4. Ready to run it with a team?</h3>
       <p>Upload the stack, place it on clusters, then promote and gate it in ConfigHub. That is where a stack becomes a platform, in <a href="#run-and-govern">Run and govern it</a> below.</p>
     </section>
-
-    <section class="narrow-section" aria-labelledby="what-a-stack-is">
-      <h2 id="what-a-stack-is">What a stack is</h2>
-      <div class="doors two">
-        <div class="door">
-          <h3>One manifest, checked first</h3>
-          <p>A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders.</p>
-        </div>
-        <div class="door">
-          <h3>A fleet places it</h3>
-          <p>A fleet says which stacks and apps land on which clusters.</p>
-        </div>
-        <div class="door">
-          <h3>Runs as a cub plugin today</h3>
-          <p>Both run today as a cub plugin.</p>
-        </div>
-        <div class="door">
-          <h3>Free until upload</h3>
-          <p>Check and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
-        </div>
-      </div>
-      <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. A <strong>fleet</strong> is that stack and its apps placed across many clusters as data. So a stack is what you get and check, a platform is the outcome once it runs, and each cluster in a fleet becomes its own platform.</p>
-      <p>An app, in turn, is &ldquo;a workload you bring,&rdquo; as <a href="./apps.html#what-an-app-is">Apps on a platform</a> defines it. Stacks range from a cloud network, cluster, and GPU runtime built from an empty account down to three services on a cluster you already run, and an AICR-generated AI platform is a stack in this same sense. The <a href="./d/docs/planning/stacks-platforms-apps-taxonomy.html">taxonomy note</a> sets these paths out in full.</p>
-    </section>
-
     <section class="narrow-section" aria-labelledby="stack-checks">
       <h2 id="stack-checks">Checking your stack</h2>
       <div class="step-grid">
@@ -4823,7 +4837,6 @@ cub stack check my-platform/stack.yaml</code></pre>
       <p>A passing check says whether the stack carries what your app needs, and lists what must exist first: namespaces, a ClusterIssuer your Certificate names, or CRDs a component does not ship. It checks configuration only. It installs nothing and does not show that the app works on a cluster.</p>
       <p>A refusal is a starting point, not a dead end. Change either side, adapt the app or grow the platform by the service it needs, and run the check again until it passes. The app and the platform negotiate through the check, so the platform ends up shaped by its apps. That is how the <code>kubara-shop-first-try</code> refusal becomes <code>kubara-shop-platform</code>.</p>
     </section>
-
     <section class="narrow-section">
       <details class="deep" id="shipped-stacks">
       <summary>The stacks that ship, by altitude</summary>
@@ -4847,14 +4860,35 @@ cub stack check my-platform/stack.yaml</code></pre>
       </div>
       </details>
     </section>
-
+    <section class="narrow-section" aria-labelledby="stack-in-full">
+      <h2 id="stack-in-full">What a stack is, in full</h2>
+      <div class="doors two">
+        <div class="door">
+          <h3>One manifest, checked first</h3>
+          <p>A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders.</p>
+        </div>
+        <div class="door">
+          <h3>A fleet places it</h3>
+          <p>A fleet says which stacks and apps land on which clusters.</p>
+        </div>
+        <div class="door">
+          <h3>Runs as a cub plugin today</h3>
+          <p>Both run today as a cub plugin.</p>
+        </div>
+        <div class="door">
+          <h3>Free until upload</h3>
+          <p>Check and sandbox need no cluster and no account. Upload and the fleet verbs need a ConfigHub organization you can write to.</p>
+        </div>
+      </div>
+      <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. A <strong>fleet</strong> is that stack and its apps placed across many clusters as data. So a stack is what you get and check, a platform is the outcome once it runs, and each cluster in a fleet becomes its own platform.</p>
+      <p>An app, in turn, is &ldquo;a workload you bring,&rdquo; as <a href="./apps.html#what-an-app-is">Apps on a platform</a> defines it. Stacks range from a cloud network, cluster, and GPU runtime built from an empty account down to three services on a cluster you already run, and an AICR-generated AI platform is a stack in this same sense. The <a href="./d/docs/planning/stacks-platforms-apps-taxonomy.html">taxonomy note</a> sets these paths out in full.</p>
+    </section>
     <section class="narrow-section" aria-labelledby="becoming">
       <h2 id="run-and-govern">Run and govern it</h2>
       <p><code>cub stack upload &lt;name&gt; --run</code> certifies first, then builds one base Space per component in ConfigHub and the links the manifest declares. Without <code>--run</code> it prints the plan and changes nothing. From there ConfigHub's own verbs take over: <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree.</p>
       <p>A fleet places a stack across many clusters as data. <code>cub fleet up meridian</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases their deployments through those same governed verbs. <code>cub fleet status meridian</code> then recomputes four attention tiles, blocking gates, unreleased changes, upgrades available, and outstanding rollouts, from the queries the product runs. <a href="./d/docs/planning/stack-manifest-spec.html">The fleet model is specified alongside the stack manifest</a>.</p>
       <p>A stack can also leave as OCI with no account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened form a reconciler pulls. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>. <a href="./oci.html">See every OCI shape in one table</a>.</p>
     </section>
-
     <section class="narrow-section">
       <details class="deep" id="plugin-verbs">
       <summary>What you can do with the workshop plugin</summary>
@@ -4876,7 +4910,6 @@ cub stack check my-platform/stack.yaml</code></pre>
       </div>
       </details>
     </section>
-
     <section class="narrow-section" aria-labelledby="run-it-stacks">
       <h2 id="run-it-stacks">Run it</h2>
       <p>These four run here. <a href="./demo.html">The ten-minute demo</a> walks all of them end to end, from one chart to a governed fleet.</p>
@@ -4888,12 +4921,6 @@ cub stack check my-platform/stack.yaml</code></pre>
         { comment: "an index of images", cmd: "cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1" },
       ])}
       <p>Every manifest on this page ships in the plugin: <a href="https://github.com/confighub/cub-workshop/tree/main/stacks">the stacks directory</a>, with <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/eks-inference.yaml">eks-inference</a> as the worked example and <a href="https://github.com/confighub/cub-workshop/blob/main/DEMO.md">the ten-minute walkthrough</a>. The site links these files and never copies them, so the file you read is the file the plugin runs.</p>
-    </section>
-
-    <section class="narrow-section callout-section" aria-labelledby="stack-receipts">
-      <h2 id="stack-receipts">Receipts and boundaries</h2>
-      <p><a href="./d/data/eks-inf-replica/stack-sandbox/summary.html">The eks-inference sandbox receipt</a> · <a href="./d/data/eks-inf-replica/composition-verdict.html">The composition verdict</a> · <a href="./d/data/certified-bundles/summary.html">The certified-bundle receipts</a> · <a href="https://github.com/confighub/cub-workshop">The plugin repository and its ten-minute walkthrough</a></p>
-      <p>The four nouns are proposed verbs packaged as a prototype; ConfigHub's own verbs underneath are released. The composition verdict runs here as the plugin's stack check and in the repository as a regression gate. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>, and this page does not claim otherwise.</p>
     </section>
   </main>
   ${siteFooterNav(".")}
@@ -7126,7 +7153,12 @@ function proofHtml(catalog) {
       ])}
       <p><a href="../docs/user/what-we-refuse-to-claim.md">Read the full refusal page</a> or <a href="../data/claims-register/summary.md">open the claims register</a>.</p>
     </section>
-${moved.trust}${moved.verify}  </main>
+${moved.trust}${moved.verify}    <section class="narrow-section callout-section" aria-labelledby="stack-receipts">
+      <h2 id="stack-receipts">10. Stack receipts and boundaries</h2>
+      <p><a href="./d/data/eks-inf-replica/stack-sandbox/summary.html">The eks-inference sandbox receipt</a> · <a href="./d/data/eks-inf-replica/composition-verdict.html">The composition verdict</a> · <a href="./d/data/certified-bundles/summary.html">The certified-bundle receipts</a> · <a href="https://github.com/confighub/cub-workshop">The plugin repository and its ten-minute walkthrough</a></p>
+      <p>The four nouns are proposed verbs packaged as a prototype; ConfigHub's own verbs underneath are released. The composition verdict runs here as the plugin's stack check and in the repository as a regression gate. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>, and this page does not claim otherwise.</p>
+    </section>
+  </main>
   <footer>Generated from helm-expt proof data. A passing check means only that its own test passed, and nothing more.</footer>
 </body>
 </html>
