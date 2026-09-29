@@ -148,6 +148,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/velero-velero-12-1-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/check-a-claim-yourself.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/compose-a-stack.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/config.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/confighub.html</loc></url>
@@ -794,6 +795,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/quirks.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/redis-walkthrough.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/stack.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/take-a-config-further.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/testing.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/try-aicr.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/try.html</loc></url>

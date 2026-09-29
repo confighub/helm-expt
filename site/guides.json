@@ -6,7 +6,7 @@
   "generatedFrom": [
     "data/workshop-guides/guides.yaml"
   ],
-  "count": 36,
+  "count": 38,
   "rows": [
     {
       "id": "journey-values-did-nothing",
@@ -126,6 +126,18 @@
       "address": "https://confighub.github.io/helm-expt/site/testing.html",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/testing.html"
+      }
+    },
+    {
+      "id": "check-a-claim",
+      "group": "start-here",
+      "groupTitle": "Start here",
+      "title": "Check a claim yourself",
+      "summary": "Pick a claim the site makes, run the smallest check that answers it, and read what it proved and what it left open.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/check-a-claim-yourself.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/check-a-claim-yourself.html"
       }
     },
     {
@@ -438,6 +450,18 @@
       "address": "https://confighub.github.io/helm-expt/site/why-do-dev-and-prod-differ.html",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/why-do-dev-and-prod-differ.html"
+      }
+    },
+    {
+      "id": "take-a-config-further",
+      "group": "confighub",
+      "groupTitle": "ConfigHub",
+      "title": "Take a config further",
+      "summary": "Take a reviewed configuration into a stack, keep it as an image, or save it in ConfigHub to move it through environments.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/take-a-config-further.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/take-a-config-further.html"
       }
     }
   ]

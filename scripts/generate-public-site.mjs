@@ -535,10 +535,17 @@ const JOURNEY_LINKS = {
     continues: [["./charts/index.html", "Configs, with the image state in each row"]],
   },
 };
+// Guides assembled in site IA phase 4, step 7b from sections of pages that
+// split between a Guide and a Doc. Each is registered once, here.
+const SPLIT_GUIDES = [
+  { key: "checkClaimGuideHtml", file: "check-a-claim-yourself.html", title: "Check a claim yourself", description: "Pick a claim the site makes, run the smallest check that answers it, and read what it proved and what it left open.", build: (catalog) => checkClaimGuideHtml(catalog) },
+  { key: "takeFurtherGuideHtml", file: "take-a-config-further.html", title: "Take a config further", description: "Take a reviewed configuration into a stack, keep it as an image, or save it in ConfigHub to move it through environments.", build: (catalog) => takeFurtherGuideHtml(catalog) },
+];
 const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
 
 const SITE_PAGE_RELPATHS = {
   ...Object.fromEntries(JOURNEY_PAGES.map((journey) => [journey.key, journey.file])),
+  ...Object.fromEntries(SPLIT_GUIDES.map((guide) => [guide.key, guide.file])),
   indexHtml: "index.html",
   offeringHtml: "offering.html",
   tryHtml: "try.html",
@@ -625,6 +632,7 @@ const PAGE_REDIRECT_TARGETS = {
 // theirs from the page title.
 const PAGE_DESCRIPTIONS = {
   ...Object.fromEntries(JOURNEY_PAGES.map((journey) => [journey.file, journey.point])),
+  ...Object.fromEntries(SPLIT_GUIDES.map((guide) => [guide.file, guide.description])),
   "index.html": "Inspect and test configuration from Helm, AICR AI-infrastructure packages, OCI, or Kubernetes YAML, then keep it local or manage it in ConfigHub.",
   "offering.html": "Free, an account, or the commercial product, plainly: what each adds, what exists today, and where the support and commercial records are.",
   "try.html": "Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.",
@@ -731,6 +739,7 @@ if (mode === "--generate") {
   write(appGuidePath, site.appGuideHtml);
   write(kubaraGuidePath, site.kubaraGuideHtml);
   for (const journey of JOURNEY_PAGES) write(join(siteRoot, journey.file), site[journey.key]);
+  for (const guide of SPLIT_GUIDES) write(join(siteRoot, guide.file), site[guide.key]);
   write(askPath, site.askHtml);
   write(promotePath, site.promoteHtml);
   write(ignoredValuesPath, site.ignoredValuesHtml);
@@ -882,6 +891,7 @@ if (mode === "--generate") {
   check(readFileSync(appGuidePath, "utf8") === site.appGuideHtml, "site/put-an-app-on-a-platform.html is stale");
   check(readFileSync(kubaraGuidePath, "utf8") === site.kubaraGuideHtml, "site/bring-kubara-into-confighub.html is stale");
   for (const journey of JOURNEY_PAGES) check(readFileSync(join(siteRoot, journey.file), "utf8") === site[journey.key], `site/${journey.file} is stale`);
+  for (const guide of SPLIT_GUIDES) check(readFileSync(join(siteRoot, guide.file), "utf8") === site[guide.key], `site/${guide.file} is stale`);
   check(existsSync(askPath), "site/ask.html is missing; run npm run site:generate");
   check(readFileSync(askPath, "utf8") === site.askHtml, "site/ask.html is stale");
   check(existsSync(promotePath), "site/promote.html is missing; run npm run site:generate");
@@ -1499,6 +1509,7 @@ function buildSite(generatedAt) {
     kubaraHtml: movedPageHtml("Kubara platforms", "./plugins.html#kubara", "Kubara is now a row in Plugins, with its Guide, Bring a Kubara platform into ConfigHub."),
     kubaraGuideHtml: calmPage(kubaraGuideHtml(catalog)),
     ...Object.fromEntries(JOURNEY_PAGES.map((journey) => [journey.key, calmPage(journeyGuideHtml(journey))])),
+    ...Object.fromEntries(SPLIT_GUIDES.map((guide) => [guide.key, calmPage(guide.build(catalog))])),
     entryPathReferenceHtml: entryPathReferenceHtml(),
     futureHtml: futureHtml(),
     operationsHtml: calmPage(operationsHtml(catalog)),
@@ -2531,6 +2542,7 @@ function siteSections() {
     ["demo.html", "The ten-minute demo"], ["ai.html", "Use with your AI"], ["ask.html", "Is my configuration right?"],
     ["deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"], ["promote.html", "Promote my config"],
     ["does-cluster-match-approved-config.html", "Does the cluster match?"], ["why-do-dev-and-prod-differ.html", "Why do dev and prod differ?"],
+    ...SPLIT_GUIDES.map((guide) => [guide.file, guide.title]),
   ] },
   { label: "Docs", hub: "docs.html", pages: [
     ["docs.html", "Docs"], ["config.html", "How configuration works"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"],
@@ -3993,7 +4005,7 @@ function offeringHtml(catalog) {
       <div class="grid">
         ${currentCounts.map(([label, value, body]) => `<div class="metric"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)} · ${escapeHtml(body)}</span></div>`).join("\n        ")}
       </div>
-      <p><a href="./proof.html">See what has been tested</a> · <a href="./proof.html#check-one-claim">Check one claim</a> · <a href="./known-gaps.html">See what is not ready yet</a></p>
+      <p><a href="./proof.html">See what has been tested</a> · <a href="./check-a-claim-yourself.html#check-one-claim">Check one claim</a> · <a href="./known-gaps.html">See what is not ready yet</a></p>
     </section>
 
     <section aria-labelledby="missing">
@@ -4667,7 +4679,7 @@ function configHubHtml(catalog) {
   check(decisionReceipt?.status?.result === "pass", "ConfigHub decision example must have a passing live receipt");
   check(decisionReceipt?.spec?.decisionUnit?.includedInDeploymentRelease === false, "decision Unit must stay out of deployment releases");
   check(decisionReceipt?.spec?.decisionUnit?.recordedApprovals >= 1, "decision Unit must record approval of its exact revision");
-  return `<!doctype html>
+  return renumberSections(`<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -4723,28 +4735,17 @@ function configHubHtml(catalog) {
     <p><a href="./ask.html#check-files">Check my config</a> now downloads <code>candidate.yaml</code> and <code>workshop-review.json</code>. Its handoff commands upload the objects with <code>cub variant upload</code> and attach both file hashes. The commands also create a <code>Provider None</code> review Unit in the same Space. Provider None keeps the review beside the configuration without placing it in a deployment release.</p>
     <p>If your own Claude, Codex, or other assistant is already running, the same page builds a prompt for it. The prompt checks the downloaded files, asks before writing to ConfigHub, runs the handoff, and reads the stored result back.</p>
   </section>
-  <section id="promotion" aria-labelledby="continue-work">
-    <h2 id="continue-work">3. Continue from the retained answer</h2>
-    <p>Start with the public <a href="./promote.html">Promote my config</a> comparison. ConfigHub is the next step when the same proposed object hash must move through named environments with approvals, release digests, and target results.</p>
-    ${markdownLikeTable([
-      ["Job", "What ConfigHub keeps", "Start here"],
-      ["Compare development and production", "Both variants, their source relationship, and exact object diff.", `<a href="./why-do-dev-and-prod-differ.html">Compare environments</a>`],
-      ["Promote and publish", "The reviewed change, approval, promotion result, and immutable release OCI.", `<a href="./testing.html#managed">Promotion and OCI examples</a>`],
-      ["Roll back", "The prior object revision or release digest. External effects remain outside the rollback claim.", `<a href="./redis-walkthrough.html">Redis promotion and rollback</a>`],
-      ["Compare desired with live", "The approved desired objects and a separately dated live observation.", `<a href="./does-cluster-match-approved-config.html">Desired and live comparison</a>`],
-      ["Roll out to a fleet", "The selected targets, waves, approvals, and result for every target.", `<a href="./testing.html#platforms">Fleet examples</a>`],
-    ], { rawThirdColumn: true })}
-  </section>
   <section aria-labelledby="review-tutorial">
     <h2 id="review-tutorial">4. Continue with the official tutorial</h2>
+    <p><a href="./take-a-config-further.html">Take a config further</a> lists each job ConfigHub keeps for you, from comparing environments to a fleet rollout, and how to take a Catalog entry into a stack or into ConfigHub.</p>
     <p><a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Create a ConfigHub account</a> when you are ready to save a reviewed configuration. Then continue with the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">official tutorial</a> to create a development deployment, make a change, add production, and promote the reviewed result.</p>
     <p><a href="${confighubOutboundUrl(CONFIGHUB_BLOG_URL, "confighub-page")}">Read the ConfigHub blog</a> for product ideas, technical explanations, and worked stories.</p>
     <p><a href="./how-it-works.html">Review the operate verbs</a> · <a href="./docs.html">Find technical instructions</a></p>
   </section>
-${moved.takeIt}</main>
+</main>
 </body>
 </html>
-`;
+`);
 }
 
 function redisWalkthroughHtml(catalog) {
@@ -4925,7 +4926,7 @@ npm run redis-public-walkthrough:run</code></pre>
 
   ${productDocsPointer("try")}
   <p class="closing-line">Try the public Redis walkthrough first. When you are ready to use your own example, bring a chart and values file that you or an AI produced. The <a href="./testing.html#bring-your-own">bring-your-own path</a> renders it, reports exact object and field findings, keeps the changes you actually wanted, and builds a reviewed OCI.</p>
-  <p class="quiet-line"><a href="./how-it-works.html">Deployment</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis chart page</a> · <a href="./testing.html#bring-your-own">Check my config</a> · <a href="./confighub.html">The demo org</a> · <a href="./proof.html#check-one-claim">Open verification</a></p>
+  <p class="quiet-line"><a href="./how-it-works.html">Deployment</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis chart page</a> · <a href="./testing.html#bring-your-own">Check my config</a> · <a href="./confighub.html">The demo org</a> · <a href="./check-a-claim-yourself.html#check-one-claim">Open verification</a></p>
 </main>
 <footer><p>The public steps need no ConfigHub account. Managed changes, promotion, and rollback use ConfigHub.</p></footer>
 </body>
@@ -5334,7 +5335,7 @@ function allReferencesHtml(catalog) {
     ["Choose a public component", `<a href="./charts/index.html">Component Catalog</a>`, "Pick an exact retained package version, then read its packaged configurations, output, hooks, CRDs, setup work, and evidence."],
     ["Run ConfigHub yourself", `<a href="./confighub.html">ConfigHub</a>`, "The sandbox server runs the same examples locally in about twenty seconds."],
     ["Use an App on ConfigHub", `<a href="./operations.html#build-an-app">Apps</a>`, "Use saved configuration for upgrade review, hooks and CRDs, RBAC review, fleet rollout, or AI change review."],
-    ["Check a claim", `<a href="./proof.html#check-one-claim">Check one claim</a>`, "Choose the command that answers your question and see whether it uses saved evidence or a fresh run."],
+    ["Check a claim", `<a href="./check-a-claim-yourself.html#check-one-claim">Check one claim</a>`, "Choose the command that answers your question and see whether it uses saved evidence or a fresh run."],
     ["Read the limits", `<a href="./ask.html#faq">FAQ</a>`, "Hooks, CRDs, upgrades, generated secrets, AI changes, rollback, and current gaps."],
     ["Know when managed help begins", `<a href="./offering.html#commercial">Upgrade</a>`, "Private sources, production support, teams, policies, fleet operations, and commercial boundaries."],
   ];
@@ -5378,7 +5379,7 @@ function allReferencesHtml(catalog) {
     ["Try Redis", "Render and inspect one reviewed Redis configuration without ConfigHub Server or a ConfigHub account.", "./try.html"],
     ["Try AICR", "Pull and verify one AICR-derived seven-Application configuration without a ConfigHub account, cluster, cloud account, or GPU.", "./try-aicr.html"],
     ["Detailed Redis walkthrough", "Add Helm parity, Kubernetes, OCI, a major upgrade, promotion, two-cluster delivery, and rollback.", "./redis-walkthrough.html"],
-    ["Check one claim", "Choose one project check, see what it proves, and learn whether it needs a cluster.", "./proof.html#check-one-claim"],
+    ["Check one claim", "Choose one project check, see what it proves, and learn whether it needs a cluster.", "./check-a-claim-yourself.html#check-one-claim"],
     ["AI agents", "Install the ConfigHub Workshop skill for known Catalog questions, your own configuration, promotion review, and cross-format source inspection.", "./ai.html"],
     ["Choose a component", "Browse component pages, retained versions, packaged configurations, known risks, and first-use advice.", "./charts/index.html"],
     ["Live ConfigHub example guides", "README pages for live demo Spaces. Each guide says why the Space exists and what to inspect first.", "../data/helm-catalog-readmes/summary.md"],
@@ -5431,7 +5432,7 @@ function allReferencesHtml(catalog) {
     ["Demo org README files", "The README text for each current helm-catalog demo Space, plus the generated upload YAML.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer OCI packages", "One row per package ref, setup command, package path, base list, and publication status.", "../data/installer-oci-packages/summary.md"],
     ["Claims register", "What is backed, partial, planned, or refused.", "../data/claims-register/summary.md"],
-    ["Check one claim", "Choose the right project command for one question.", "./proof.html#check-one-claim"],
+    ["Check one claim", "Choose the right project command for one question.", "./check-a-claim-yourself.html#check-one-claim"],
     ["See what has been tested", "Compare render, ConfigHub, OCI, GitOps, and live Kubernetes test coverage.", "./proof.html"],
   ];
   return `    <section aria-labelledby="processing-model">
@@ -5980,7 +5981,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
         ["The result should remain portable", "Keep the YAML and review record locally, or <a href=\"./deploy-with-flux-or-argo.html#now-deploy\">publish the reviewed files as OCI</a>."],
         ["A team needs history, promotion, or rollout", "<a href=\"./confighub.html\">Save the reviewed result in ConfigHub</a>, then create variants, approve changes, publish releases, and compare desired with live state."],
       ], { rawSecondColumn: true })}
-      <p><strong>Additional references:</strong> <a href="./ask.html">Helm investigation details</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">hooks and CRD setup</a> · <a href="./known-gaps.html">delivery limitations</a> · <a href="./proof.html#check-one-claim">checks and publication receipts</a> · <a href="./testing.html#platforms">promotion and fleet examples</a></p>
+      <p><strong>Additional references:</strong> <a href="./ask.html">Helm investigation details</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">hooks and CRD setup</a> · <a href="./known-gaps.html">delivery limitations</a> · <a href="./check-a-claim-yourself.html#check-one-claim">checks and publication receipts</a> · <a href="./testing.html#platforms">promotion and fleet examples</a></p>
     </section>
   </main>
   <footer>This page runs in your browser. It has no telemetry and sends nothing until you choose a public GitHub issue.</footer>
@@ -6254,7 +6255,7 @@ deploy or contact a target. Explain which checks have not run.</code></pre>
       <p><b>Limits.</b> It compares objects and stops there. Helm stays unrun, Kubernetes is never contacted, and hooks, CRDs, application tests and rollback all remain outside it. Target results count only when you add the result for the same proposed digest. ConfigHub is where the accepted configuration, downstream variants, approvals, release OCI, and live results can remain connected.</p>
       <h3>For a fleet rollout</h3>
       <p>The intended sequence is: choose targets by label, preview the exact target list, publish to a small wave, inspect every result, then continue or stop. The browser records target results, while selecting clusters and pausing or resuming a live wave stay outside it. Use the <a href="./d/docs/demo/sveltos/kyverno-fleet.html">Sveltos fleet example</a> for the current two-wave proof; managed pause and resume controls remain planned.</p>
-      <p><a href="./quirks.html">Check hooks, CRDs, and setup order</a> · <a href="./proof.html#check-one-claim">Check current evidence</a> · <a href="./docs.html#promotion">Promotion instructions</a> · <a href="./known-gaps.html">Known gaps</a></p>
+      <p><a href="./quirks.html">Check hooks, CRDs, and setup order</a> · <a href="./check-a-claim-yourself.html#check-one-claim">Check current evidence</a> · <a href="./docs.html#promotion">Promotion instructions</a> · <a href="./known-gaps.html">Known gaps</a></p>
     </section>
 
     <section aria-labelledby="change-workflow-evidence">
@@ -6976,7 +6977,7 @@ function docsHtml(catalog) {
       <h2 id="check">Check a result or solve a problem</h2>
       <h3><a href="./ask.html#check-command">How do I run the shared checks on rendered files?</a></h3>
       <p>Install the released check plugin, run <code>cub check</code> locally, and keep its JSON result with the exact files and digest. No ConfigHub account or server is required.</p>
-      <h3><a href="./proof.html#check-one-claim">How do I check a result?</a></h3>
+      <h3><a href="./check-a-claim-yourself.html#check-one-claim">How do I check a result?</a></h3>
       <p>Find the command that checks generated Kubernetes files, a saved test record, or a live cluster.</p>
       <h3><a href="./does-cluster-match-approved-config.html">How complete is the live drift check?</a></h3>
       <p>See which fields the current drift check covers and which differences it can still miss.</p>
@@ -7008,7 +7009,7 @@ function docsHtml(catalog) {
 }
 
 function verificationHtml() {
-  return movedPageHtml("Check one claim", "./proof.html#check-one-claim", "Check one claim now lives on the Why trust it page.");
+  return movedPageHtml("Check one claim", "./check-a-claim-yourself.html#check-one-claim", "Check one claim now lives on the Guide Check a claim yourself.");
 }
 function quirksHtml(catalog) {
   const rows = catalog.masterCatalogMatrix.filter((row) => row.row_kind !== "source");
@@ -7245,6 +7246,127 @@ function quirksHtml(catalog) {
 `;
 }
 
+// A Guide assembled from sections of pages that split between a Guide and a
+// Doc (site IA phase 4, step 7b). The sections keep their ids, so links that
+// follow them only change page.
+function splitGuideHtml({ title, lead, ask, body }) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)} · ConfigHub Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <p class="eyebrow">A Guide</p>
+    <h1>${escapeHtml(title)}</h1>
+    <p class="lead">${lead}</p>
+    <p><strong>Or ask your agent.</strong> ${ask}</p>
+  </header>
+  <main>
+${renumberSections(body)}  </main>
+</body>
+</html>
+`;
+}
+
+// Number a page's h2 headings 1, 2, 3 in order, keeping any heading that has
+// no number as it is.
+function renumberSections(html) {
+  let n = 0;
+  return html.replace(/(<h2 id="[^"]+">)\d+\. /g, (_, open) => `${open}${(n += 1)}. `);
+}
+
+function checkClaimGuideHtml(catalog) {
+  const moved = catalogMovedSections(catalog);
+  const commandRows = [
+    ["What known configuration risks appear in these rendered objects?", `<code>${CHECK_PLUGIN_INSTALL_COMMAND}</code><br><code>cub check --format json --output cub-check.json ./rendered</code>`, "No", "A local advisory result with stable finding IDs and the pinned pattern bundle. It is not a cluster or runtime test."],
+    ["Is this cub-scout receipt intact?", "<code>cub-scout receipt validate &lt;receipt.json&gt;</code>", "No", "The receipt's fingerprint and structure validate locally."],
+  ];
+  const topicRows = [
+    [`<a href="../docs/user/verification.md">Verification docs</a>`, "The canonical docs landing page for proof commands and render-record-route."],
+    [`<a href="../docs/user/verify-it-yourself.md">Verify It Yourself</a>`, "The practical command list for offline checks, rendered installs, parity receipts, and cub-scout receipts."],
+    [`<a href="../docs/user/verification-lanes.md">Verification Lanes</a>`, "What each type of test proves and what it does not prove."],
+    [`<a href="../docs/user/choosing-commands.md">Choosing Commands</a>`, "When to use product commands versus repo verifiers."],
+    [`<a href="../docs/user/expected-results-and-clusters.md">Expected Results And Clusters</a>`, "Which steps need a cluster and what output to expect."],
+    [`<a href="../docs/user/outcomes-and-tests.md">Outcomes And Tests</a>`, "Which repo promises map to which test commands and CSVs."],
+    [`<a href="../docs/user/live-parity.md">Live Parity</a>`, "How to read live Helm-vs-ConfigHub parity status."],
+    [`<a href="../docs/user/chain-of-proof.md">Chain Of Proof</a>`, "Which boundary is proven by render, ConfigHub, delivery, and live observations."],
+    [`<a href="../docs/user/what-we-refuse-to-claim.md">What We Refuse To Claim</a>`, "The refusal boundaries that keep proof language honest."],
+    [`<a href="../docs/reference/two-cluster-parity-harness.md">Two-Cluster Harness</a>`, "The stricter Helm-vs-cub kind harness."],
+    [`<a href="../tests/npm-scripts.md">NPM Script Catalog</a>`, "The full script catalog for maintainers."],
+  ];
+  return splitGuideHtml({
+    title: "Check a claim yourself",
+    lead: "Every claim on this site names the command or receipt behind it. Pick the claim, run the smallest check that answers it, and read what it proved and what it left open.",
+    ask: "“Check the claim this page makes about &lt;chart or entry&gt;, run the smallest check that answers it, and tell me what it did not check.”",
+    body: `    <section aria-labelledby="check-one-claim">
+      <h2 id="check-one-claim">3. Check one claim yourself</h2>
+      <p>Choose the result you want to check, then run the matching command. These commands test this project's published results; they do not install your application.</p>
+      <p>A claim is checked only when the named command or receipt covers it. Everything else is <strong>not checked</strong>, even when a nearby test passed. First decide which answer you need. What you have, what it will produce, whether the destination can accept it, and whether it actually worked each need different inputs. Passing one check does not mean the next one passes.</p>
+      ${markdownLikeTable([
+        ["Question", "Minimum input", "Deployment needed?"],
+        ["What do I have?", "The source, package, snapshot, or files to inspect.", "No"],
+        ["What will it produce?", "Source inputs plus its native tool, or literal objects where this step is a no-op.", "No"],
+        ["Can this destination accept it?", "The exact candidate plus current destination facts.", "No"],
+        ["Did it work?", "The exact delivered revision plus the live evidence required by the claim.", "Yes"],
+      ])}
+      <p>Then use the smallest check that answers it. Some checks read evidence already committed to the repository. Others create clusters and produce a new live result. The table tells you which kind you are about to run.</p>
+      ${markdownLikeTable([
+        ["Question", "Command or page", "Needs cluster?", "What it proves"],
+        ...commandRows,
+      ], { rawSecondColumn: true })}
+      <div class="grid">
+        <div class="card"><h3>Product commands</h3><p><code>cub</code>, <code>helm</code>, <code>kubectl</code>, Argo, and Flux render, install, deliver, or manage configuration.</p></div>
+        <div class="card"><h3>Project checks</h3><p>The <code>npm run ...</code> commands that check this repository's generated files, receipts, and live lanes live in <a href="../docs/user/verification.md">Verification</a>, not on this page. <code>npm run verify</code> runs the whole chain.</p></div>
+        <div class="card"><h3>Saved or fresh evidence</h3><p>Saved evidence is already in the repository. Fresh evidence comes from a new run that may create kind clusters, use ConfigHub, publish OCI artifacts, and write receipts. Run live checks one at a time.</p></div>
+      </div>
+      <h3>Open detailed instructions</h3>
+      ${markdownLikeTable([
+        ["Topic", "Use it for"],
+        ...topicRows,
+      ], { rawFirstColumn: true })}
+    </section>
+${moved.verify}    <section aria-labelledby="verify-routing">
+      <h2 id="verify-routing">3. Choose the right verify command</h2>
+      <p>Four commands check different OCI shapes, and none of them substitutes for another.</p>
+      <ol>
+        <li>Have an installer-package ref? Run <code>cub installer inspect &lt;ref&gt; --json</code> first, to confirm the manifest and layer digests the publication receipt recorded.</li>
+        <li>Then run <code>cosign verify</code> with the identity, issuer, and annotations from the chart page, to confirm the named service account signed that exact digest.</li>
+        <li>Have a certified-bundle ref? Run <code>cub config verify oci://…@sha256:…</code>. It pulls the bundle, finds its receipt, and re-hashes every listed file; it checks a signature only where one is attached.</li>
+        <li>Have the downloadable package index? Run <code>cosign verify-blob --bundle packages.sigstore.json …</code> against the committed index signature.</li>
+      </ol>
+      <p>These four commands cover the shapes listed above them. A ConfigHub release bundle, a stack index, a stack release, and a runtime image have no matching command here, because these docs describe no signing for those shapes.</p>
+    </section>
+`,
+  });
+}
+
+function takeFurtherGuideHtml(catalog) {
+  const moved = catalogMovedSections(catalog);
+  return splitGuideHtml({
+    title: "Take a config further",
+    lead: "You have a reviewed configuration. Take it into a stack, keep it as an image, or save it in ConfigHub, where it moves through environments with approvals and history.",
+    ask: "“Take the configuration we reviewed for &lt;chart&gt; into &lt;a stack, an image, or ConfigHub&gt;, and show me each step before you run it.”",
+    body: `${moved.takeIt}  <section id="promotion" aria-labelledby="continue-work">
+    <h2 id="continue-work">3. Continue from the retained answer</h2>
+    <p>Start with the public <a href="./promote.html">Promote my config</a> comparison. ConfigHub is the next step when the same proposed object hash must move through named environments with approvals, release digests, and target results.</p>
+    ${markdownLikeTable([
+      ["Job", "What ConfigHub keeps", "Start here"],
+      ["Compare development and production", "Both variants, their source relationship, and exact object diff.", `<a href="./why-do-dev-and-prod-differ.html">Compare environments</a>`],
+      ["Promote and publish", "The reviewed change, approval, promotion result, and immutable release OCI.", `<a href="./testing.html#managed">Promotion and OCI examples</a>`],
+      ["Roll back", "The prior object revision or release digest. External effects remain outside the rollback claim.", `<a href="./redis-walkthrough.html">Redis promotion and rollback</a>`],
+      ["Compare desired with live", "The approved desired objects and a separately dated live observation.", `<a href="./does-cluster-match-approved-config.html">Desired and live comparison</a>`],
+      ["Roll out to a fleet", "The selected targets, waves, approvals, and result for every target.", `<a href="./testing.html#platforms">Fleet examples</a>`],
+    ], { rawThirdColumn: true })}
+  </section>
+`,
+  });
+}
+
 function proofHtml(catalog) {
   const moved = catalogMovedSections(catalog);
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
@@ -7282,23 +7404,6 @@ function proofHtml(catalog) {
     ["No production claim from render parity", "Production support requires target-scoped decisions and fresh receipts."],
     ["No signature-as-safety shortcut", "Signatures prove origin/integrity. Scans, policies, and live evidence carry safety claims."],
   ];
-  const commandRows = [
-    ["What known configuration risks appear in these rendered objects?", `<code>${CHECK_PLUGIN_INSTALL_COMMAND}</code><br><code>cub check --format json --output cub-check.json ./rendered</code>`, "No", "A local advisory result with stable finding IDs and the pinned pattern bundle. It is not a cluster or runtime test."],
-    ["Is this cub-scout receipt intact?", "<code>cub-scout receipt validate &lt;receipt.json&gt;</code>", "No", "The receipt's fingerprint and structure validate locally."],
-  ];
-  const topicRows = [
-    [`<a href="../docs/user/verification.md">Verification docs</a>`, "The canonical docs landing page for proof commands and render-record-route."],
-    [`<a href="../docs/user/verify-it-yourself.md">Verify It Yourself</a>`, "The practical command list for offline checks, rendered installs, parity receipts, and cub-scout receipts."],
-    [`<a href="../docs/user/verification-lanes.md">Verification Lanes</a>`, "What each type of test proves and what it does not prove."],
-    [`<a href="../docs/user/choosing-commands.md">Choosing Commands</a>`, "When to use product commands versus repo verifiers."],
-    [`<a href="../docs/user/expected-results-and-clusters.md">Expected Results And Clusters</a>`, "Which steps need a cluster and what output to expect."],
-    [`<a href="../docs/user/outcomes-and-tests.md">Outcomes And Tests</a>`, "Which repo promises map to which test commands and CSVs."],
-    [`<a href="../docs/user/live-parity.md">Live Parity</a>`, "How to read live Helm-vs-ConfigHub parity status."],
-    [`<a href="../docs/user/chain-of-proof.md">Chain Of Proof</a>`, "Which boundary is proven by render, ConfigHub, delivery, and live observations."],
-    [`<a href="../docs/user/what-we-refuse-to-claim.md">What We Refuse To Claim</a>`, "The refusal boundaries that keep proof language honest."],
-    [`<a href="../docs/reference/two-cluster-parity-harness.md">Two-Cluster Harness</a>`, "The stricter Helm-vs-cub kind harness."],
-    [`<a href="../tests/npm-scripts.md">NPM Script Catalog</a>`, "The full script catalog for maintainers."],
-  ];
   const securityRows = [
     ["Rendered objects", "Review the actual Kubernetes objects before delivery, not only values files."],
     ["Secrets", "Separate, reference, or require external Secrets where appropriate. Do not hide placeholder credentials."],
@@ -7306,7 +7411,7 @@ function proofHtml(catalog) {
     ["OCI delivery", "Publish a reviewed bundle so the controller pulls the same bytes that were checked."],
     ["Receipts", "Record what was rendered, delivered, observed, accepted, blocked, or refused."],
   ];
-  return `<!doctype html>
+  return renumberSections(`<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -7320,7 +7425,7 @@ function proofHtml(catalog) {
     <h1>Check the evidence yourself</h1>
     <p class="lead">Behind every claim on this site is a command you can run and a receipt you can recheck. Rerun any check yourself, and see exactly what it proved and what it left untested.</p>
     <p>You can verify any catalog image yourself. <code>cub config verify</code> confirms the image is exactly what its receipt says, and refuses one that has none. The receipt says what was checked, not that the configuration will run on your cluster. A signature records who published the image.</p>
-    ${humanLinks([["Read the counts", "#counters"], ["Check one claim", "#check-one-claim"], ["Security before release", "#security"], ["Read known gaps", "./known-gaps.html"]])}
+    ${humanLinks([["Read the counts", "#counters"], ["Check one claim", "./check-a-claim-yourself.html"], ["Security before release", "#security"], ["Read known gaps", "./known-gaps.html"]])}
   </header>
   <main>
     <section aria-labelledby="counters">
@@ -7340,33 +7445,6 @@ function proofHtml(catalog) {
       <p><a href="../docs/user/verification-lanes.md">Verification Lanes</a> explains test meanings. <a href="../docs/user/chain-of-proof.md">Chain Of Proof</a> separates repository, ConfigHub, GitOps, and live evidence.</p>
     </section>
 
-    <section aria-labelledby="check-one-claim">
-      <h2 id="check-one-claim">3. Check one claim yourself</h2>
-      <p>Choose the result you want to check, then run the matching command. These commands test this project's published results; they do not install your application.</p>
-      <p>A claim is checked only when the named command or receipt covers it. Everything else is <strong>not checked</strong>, even when a nearby test passed. First decide which answer you need. What you have, what it will produce, whether the destination can accept it, and whether it actually worked each need different inputs. Passing one check does not mean the next one passes.</p>
-      ${markdownLikeTable([
-        ["Question", "Minimum input", "Deployment needed?"],
-        ["What do I have?", "The source, package, snapshot, or files to inspect.", "No"],
-        ["What will it produce?", "Source inputs plus its native tool, or literal objects where this step is a no-op.", "No"],
-        ["Can this destination accept it?", "The exact candidate plus current destination facts.", "No"],
-        ["Did it work?", "The exact delivered revision plus the live evidence required by the claim.", "Yes"],
-      ])}
-      <p>Then use the smallest check that answers it. Some checks read evidence already committed to the repository. Others create clusters and produce a new live result. The table tells you which kind you are about to run.</p>
-      ${markdownLikeTable([
-        ["Question", "Command or page", "Needs cluster?", "What it proves"],
-        ...commandRows,
-      ], { rawSecondColumn: true })}
-      <div class="grid">
-        <div class="card"><h3>Product commands</h3><p><code>cub</code>, <code>helm</code>, <code>kubectl</code>, Argo, and Flux render, install, deliver, or manage configuration.</p></div>
-        <div class="card"><h3>Project checks</h3><p>The <code>npm run ...</code> commands that check this repository's generated files, receipts, and live lanes live in <a href="../docs/user/verification.md">Verification</a>, not on this page. <code>npm run verify</code> runs the whole chain.</p></div>
-        <div class="card"><h3>Saved or fresh evidence</h3><p>Saved evidence is already in the repository. Fresh evidence comes from a new run that may create kind clusters, use ConfigHub, publish OCI artifacts, and write receipts. Run live checks one at a time.</p></div>
-      </div>
-      <h3>Open detailed instructions</h3>
-      ${markdownLikeTable([
-        ["Topic", "Use it for"],
-        ...topicRows,
-      ], { rawFirstColumn: true })}
-    </section>
 
     <section aria-labelledby="serious">
       <h2 id="serious">4. Check the harder charts</h2>
@@ -7417,7 +7495,7 @@ function proofHtml(catalog) {
       ])}
       <p><a href="../docs/user/what-we-refuse-to-claim.md">Read the full refusal page</a> or <a href="../data/claims-register/summary.md">open the claims register</a>.</p>
     </section>
-${moved.trust}${moved.verify}    <section class="narrow-section callout-section" aria-labelledby="stack-receipts">
+${moved.trust}    <section class="narrow-section callout-section" aria-labelledby="stack-receipts">
       <h2 id="stack-receipts">10. Stack receipts and boundaries</h2>
       <p><a href="./d/data/eks-inf-replica/stack-sandbox/summary.html">The eks-inference sandbox receipt</a> · <a href="./d/data/eks-inf-replica/composition-verdict.html">The composition verdict</a> · <a href="./d/data/certified-bundles/summary.html">The certified-bundle receipts</a> · <a href="https://github.com/confighub/cub-workshop">The plugin repository and its ten-minute walkthrough</a></p>
       <p>The four nouns are proposed verbs packaged as a prototype; ConfigHub's own verbs underneath are released. The composition verdict runs here as the plugin's stack check and in the repository as a regression gate. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>, and this page does not claim otherwise.</p>
@@ -7426,7 +7504,7 @@ ${moved.trust}${moved.verify}    <section class="narrow-section callout-section"
   <footer>Generated from helm-expt proof data. A passing check means only that its own test passed, and nothing more.</footer>
 </body>
 </html>
-`;
+`);
 }
 // The FAQ renders inside the ask page as one section, grouped and collapsed.
 function faqSectionsHtml(catalog) {
@@ -7881,7 +7959,7 @@ function knownGapsHtml(catalog) {
     <h1>Delivery limitations and known gaps</h1>
     <p class="lead">Check this page before choosing a delivery path. Each row names a current limitation, explains how it could affect a deployment, and gives the safest next step.</p>
     <p>A <code>watch</code> result means the path needs a decision or more work. It is not a pass, and it does not mean every use of the chart fails.</p>
-    ${humanLinks([["Check one delivery result", "./proof.html#check-one-claim"], ["See current results", "./proof.html"], ["Read FAQ", "./ask.html#faq"], ["Report a problem chart", "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml"]])}
+    ${humanLinks([["Check one delivery result", "./check-a-claim-yourself.html#check-one-claim"], ["See current results", "./proof.html"], ["Read FAQ", "./ask.html#faq"], ["Report a problem chart", "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml"]])}
   </header>
   <main>
     <section aria-labelledby="gaps">
@@ -8404,7 +8482,7 @@ function ociHtml(catalog) {
   </section>
 
   <section aria-labelledby="signing">
-    <h2 id="signing">3. See what a signature actually proves, and check one yourself</h2>
+    <h2 id="signing">3. See what a signature actually proves</h2>
     <p>Every currently published installer package has a committed publication receipt, and the Google Artifact Registry repository grants <code>roles/artifactregistry.reader</code> to <code>allUsers</code>. <a href="./d/docs/user/installer-oci-packages.html#public-pull-access">Read the full access note</a>.</p>
     <p>A user can run <code>cub installer inspect</code> or <code>cub installer setup --pull</code> against the public catalog refs with no Google Cloud credentials. Write access stays private, so maintainers still need registry credentials to publish or replace a package.</p>
     <p>A successful <code>cosign verify</code> proves four things. The named service account signed the exact OCI manifest digest. The signed payload records the expected package path and package SHA-256. The registry served the signature with no credentials when the receipt was written, and Sigstore recorded the signing event. <a href="./d/docs/reference/installer-package-signing.html#what-a-valid-signature-shows">Read the full list</a>.</p>
@@ -8414,15 +8492,7 @@ function ociHtml(catalog) {
       ["Shape", "Signed today?", "Mechanism"],
       ...signingRows,
     ])}
-    <h3 id="verify-routing">Choose the right verify command</h3>
-    <p>Four commands check different OCI shapes, and none of them substitutes for another.</p>
-    <ol>
-      <li>Have an installer-package ref? Run <code>cub installer inspect &lt;ref&gt; --json</code> first, to confirm the manifest and layer digests the publication receipt recorded.</li>
-      <li>Then run <code>cosign verify</code> with the identity, issuer, and annotations from the chart page, to confirm the named service account signed that exact digest.</li>
-      <li>Have a certified-bundle ref? Run <code>cub config verify oci://…@sha256:…</code>. It pulls the bundle, finds its receipt, and re-hashes every listed file; it checks a signature only where one is attached.</li>
-      <li>Have the downloadable package index? Run <code>cosign verify-blob --bundle packages.sigstore.json …</code> against the committed index signature.</li>
-    </ol>
-    <p>These four commands cover the shapes listed above them. A ConfigHub release bundle, a stack index, a stack release, and a runtime image have no matching command here, because these docs describe no signing for those shapes.</p>
+    <p><a href="./check-a-claim-yourself.html#verify-routing">Check a claim yourself</a> says which verify command fits each shape.</p>
   </section>
 
   <section aria-labelledby="other-tools">
@@ -8806,7 +8876,7 @@ cub unit update --space "$SPACE" app --upgrade</code></pre>
         ["Agent task", "Required record"],
         ...catalogRows,
       ])}
-      <p><a href="../data/agent-skill-evaluations/summary.md">Read the fresh-agent evaluation</a> · <a href="./proof.html#check-one-claim">Run the verification commands</a> · <a href="./docs.html#learn-by-doing">Open technical guides</a></p>
+      <p><a href="../data/agent-skill-evaluations/summary.md">Read the fresh-agent evaluation</a> · <a href="./check-a-claim-yourself.html#check-one-claim">Run the verification commands</a> · <a href="./docs.html#learn-by-doing">Open technical guides</a></p>
     </section>
   </main>
   <footer>Use AI to investigate and propose. Keep the reviewed configuration as the release record.</footer>
@@ -8834,7 +8904,7 @@ function catalogPathfinderHtml(root) {
       <h3 id="catalog-next-jobs">What do you want to do next?</h3>
       ${markdownLikeTable([
         ["Job", "Where to continue"],
-        ["Inspect and verify", `<a href="${href("testing.html")}">Inspect exact objects and inputs</a> · <a href="${href("proof.html#check-one-claim")}">Check the evidence</a>`],
+        ["Inspect and verify", `<a href="${href("testing.html")}">Inspect exact objects and inputs</a> · <a href="${href("check-a-claim-yourself.html#check-one-claim")}">Check the evidence</a>`],
         ["Try a catalog package", `<a href="${href("try.html")}">Render one reviewed Redis configuration</a>`],
         ["Learn ConfigHub", `<a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "pathfinder")}">Follow the official tutorial</a>`],
         ["Upload and save", `<a href="${href("variants.html#flow")}">Record reviewed objects in ConfigHub</a>`],
@@ -10438,7 +10508,7 @@ function catalogMovedSections(catalog) {
         <li><strong>Certified.</strong> A whole composition passes its checks, so every part holds together, before anything renders. <a href="./stack.html">See how a stack is certified</a>.</li>
         <li><strong>Signed.</strong> A signature records who published the image. <code>cub config verify</code> confirms the image is exactly what its receipt says and refuses one with none. The receipt says what was checked, not that the configuration will run on your cluster.</li>
       </ul>
-      <p><a href="#verify">Verify a signed image yourself</a>, or <a href="#not-claimed">see what this catalog does not claim</a>.</p>
+      <p><a href="./check-a-claim-yourself.html#verify">Verify a signed image yourself</a>, or <a href="./check-a-claim-yourself.html#not-claimed">see what this catalog does not claim</a>.</p>
     </section>
 `,
     verify: `    <section aria-labelledby="verify">
@@ -10451,7 +10521,7 @@ function catalogMovedSections(catalog) {
   --annotations confighub.com/package-sha256=&lt;package-sha256&gt; \\
   europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:&lt;manifest-digest&gt;</code></pre>
       <p>Each chart-version page fills in the recorded digests. Some evidence is partial by design. A digest proves integrity inside a known trust chain and says nothing outside one. A scan finding still needs a human decision. A clean render tells you the objects are well formed, while cloud identity, storage, and runtime policy at the target remain unchecked.</p>
-      <p>Behind every claim is a count you can read and a command you can rerun. <a href="./proof.html#counters">Read the current counts</a>, <a href="./proof.html#lanes">see what each test covers</a>, and <a href="./proof.html#check-one-claim">check one claim yourself</a>.</p>
+      <p>Behind every claim is a count you can read and a command you can rerun. <a href="./proof.html#counters">Read the current counts</a>, <a href="./proof.html#lanes">see what each test covers</a>, and <a href="./check-a-claim-yourself.html#check-one-claim">check one claim yourself</a>.</p>
       ${staysAvailableHtml}
       <h3 id="not-claimed">What this catalog does not claim</h3>
       <p>The catalog proves the named configurations it lists. It does not prove every possible values file, and it does not certify a chart as secure for your cluster. Your own values still need to be rendered and checked, which is what <a href="./ask.html">Is my configuration right?</a> is for.</p>

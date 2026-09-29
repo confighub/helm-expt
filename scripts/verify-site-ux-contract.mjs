@@ -112,7 +112,7 @@ const checks = [
   },
   {
     file: "site/confighub.html",
-    terms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the step that needs an account", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Upload a reviewed result into ConfigHub", "1. What ConfigHub adds", "This page explains what that adds once you have an account", "The account path has three steps", "Upload also chains public configuration into your private org", "uploaded into a ConfigHub organization as a base variant", "publishes it so Argo CD or Flux pulls it", "During an upgrade, non-conflicting recorded changes remain", "Deployment commands", "The ConfigHub data model", "2. See one exact handoff", "Review locally", "Publish the OCI", "Upload the base to ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
+    terms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the step that needs an account", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Upload a reviewed result into ConfigHub", "1. What ConfigHub adds", "This page explains what that adds once you have an account", "The account path has three steps", "Upload also chains public configuration into your private org", "uploaded into a ConfigHub organization as a base variant", "publishes it so Argo CD or Flux pulls it", "During an upgrade, non-conflicting recorded changes remain", "Deployment commands", "The ConfigHub data model", "2. See one exact handoff", "Review locally", "Publish the OCI", "Upload the base to ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
   },
   {
     file: "site/deploy-with-flux-or-argo.html",
@@ -160,7 +160,7 @@ const checks = [
   },
   {
     file: "site/oci.html",
-    terms: ["Package and deliver it as OCI, and see what is signed", "1. Tell the OCI shapes apart, and match each to its consumer", "2. See how a certified bundle and a stack become one artifact", "3. See what a signature actually proves, and check one yourself", "4. See how other tools already produce these shapes", "Nine shapes, side by side", "Which consumer needs which layout", "application/vnd.confighub.config.bundle.v1", "application/vnd.confighub.record.v1+json", "Every digest, and what it pins", "Where the receipt lives is still an open question", "The design center attaches it to the same digest as a referrer", "the catalog emits a receipt beside each published bundle", "What is signed today", "Choose the right verify command", "cub config verify", "cosign verify", "cosign verify-blob", "Timoni", "AICR is a manifest emitter rather than a competing format", "Kubara's own adoption step already compiles one OCI package per component"],
+    terms: ["Package and deliver it as OCI, and see what is signed", "1. Tell the OCI shapes apart, and match each to its consumer", "2. See how a certified bundle and a stack become one artifact", "3. See what a signature actually proves", "4. See how other tools already produce these shapes", "Nine shapes, side by side", "Which consumer needs which layout", "application/vnd.confighub.config.bundle.v1", "application/vnd.confighub.record.v1+json", "Every digest, and what it pins", "Where the receipt lives is still an open question", "The design center attaches it to the same digest as a referrer", "the catalog emits a receipt beside each published bundle", "What is signed today", "cub config verify", "cosign verify", "Timoni", "AICR is a manifest emitter rather than a competing format", "Kubara's own adoption step already compiles one OCI package per component"],
   },
   {
     file: "site/charts/index.html",
@@ -175,11 +175,16 @@ const checks = [
   },
   {
     file: "site/proof.html",
-    terms: ["Check why you can trust an entry", "What this catalog does not claim", "cosign verify", "The render matches Helm's own output", "A whole composition passes its checks", "A signature records who published the image", "What stays available"],
+    terms: ["Check why you can trust an entry", "The render matches Helm's own output", "A whole composition passes its checks", "A signature records who published the image"],
+  },
+  // Site IA phase 4, step 7b: checking a claim moved to its Guide.
+  {
+    file: "site/check-a-claim-yourself.html",
+    terms: ["Check a claim yourself", "1. Check one claim yourself", "A claim is checked only when the named command or receipt covers it", "cub check --format json --output cub-check.json", "2. Verify an entry yourself", "What this catalog does not claim", "cosign verify", "What stays available", "3. Choose the right verify command", "cosign verify-blob"],
   },
   {
-    file: "site/confighub.html",
-    terms: ["Take an entry into a stack or into ConfigHub"],
+    file: "site/take-a-config-further.html",
+    terms: ["Take a config further", "1. Take an entry into a stack or into ConfigHub", "2. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -207,7 +212,7 @@ const checks = [
   },
   {
     file: "site/proof.html",
-    terms: ["Why trust it", "confirms the image is exactly what its receipt says", "refuses one that has none", "not that the configuration will run on your cluster", "A signature records who published the image", "1. Read the current counts", "2. See what each test covers", "3. Check one claim yourself", "A claim is checked only when the named command or receipt covers it", "cub check --format json --output cub-check.json", "4. Check the harder charts", "5. Review security before release", "Scans and gates", "Claims register", "6. Find tests designed to expose failure", "7. See what this project does not claim", "Helm render match", "Hooks and prerequisites"],
+    terms: ["Why trust it", "confirms the image is exactly what its receipt says", "refuses one that has none", "not that the configuration will run on your cluster", "A signature records who published the image", "1. Read the current counts", "2. See what each test covers", "3. Check the harder charts", "4. Review security before release", "Scans and gates", "Claims register", "5. Find tests designed to expose failure", "6. See what this project does not claim", "Helm render match", "Hooks and prerequisites"],
   },
   {
     file: "site/quirks.html",

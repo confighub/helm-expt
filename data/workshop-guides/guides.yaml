@@ -81,6 +81,12 @@ spec:
     summary: Say what you need, try a simple Redis example, choose how to run a starting example, then
       continue in ConfigHub or on a platform.
     page: testing.html
+  - id: check-a-claim
+    group: start-here
+    title: Check a claim yourself
+    summary: Pick a claim the site makes, run the smallest check that answers it, and read what it proved
+      and what it left open.
+    page: check-a-claim-yourself.html
   - id: helm-questions
     group: helm-questions
     title: Answer the ten questions Helm users ask
@@ -235,3 +241,9 @@ spec:
     summary: Record development and production as related configurations so their exact differences and
       promotion history remain visible.
     page: why-do-dev-and-prod-differ.html
+  - id: take-a-config-further
+    group: confighub
+    title: Take a config further
+    summary: Take a reviewed configuration into a stack, keep it as an image, or save it in ConfigHub to
+      move it through environments.
+    page: take-a-config-further.html
