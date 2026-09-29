@@ -556,8 +556,8 @@ const PAGE_REDIRECT_TARGETS = {
   "verification.html": "proof.html",
   "security.html": "proof.html",
   "serverless.html": "deploy-with-flux-or-argo.html",
-  "custom-apps.html": "apps.html",
-  "existing-apps.html": "apps.html",
+  "custom-apps.html": "put-an-app-on-a-platform.html",
+  "existing-apps.html": "put-an-app-on-a-platform.html",
   "private/index.html": "offering.html",
   "hard-questions.html": "ask.html",
   "journey.html": "operations.html",
@@ -591,7 +591,7 @@ const PAGE_DESCRIPTIONS = {
   "compose-a-stack.html": "Get a stack, check it for conflicts and missing needs before anything runs, then run and govern it in ConfigHub.",
   "plugins.html": "Every public cub plugin, marked by its state, with the one line that installs it.",
   "guides.html": "Every Guide, a known path an agent walks with a person beside it, grouped by where you start. The five journeys come first.",
-  "apps.html": "Record the app you run, check it, put it in a stack next to the platform parts it needs, and decide what ConfigHub keeps.",
+  "apps.html": "Every worked example app, with its repository, how it is delivered, and the commit at which it was last checked.",
   "custom-apps.html": "Combine public charts and services your team owns, then review and release their Kubernetes configuration together.",
   "existing-apps.html": "Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.",
   "ai.html": "Install the ConfigHub Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.",
@@ -3990,7 +3990,7 @@ oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0<
     <p>Keep the files and OCI locally, or <a href="./confighub.html">upload it into ConfigHub</a> when your team needs shared changes, environment variants, approvals, and promotion from development to production. That account step is the same for every configuration.</p>
     <p>To gate and move a change to this AI-platform configuration through environments, <a href="./promote.html">compare the exact object sets and promote the one that passed</a>.</p>
     <p>For deployment, <a href="./deploy-with-flux-or-argo.html#now-deploy">choose the controller or direct path that will consume the reviewed objects</a>. Do not apply this platform configuration until you have reviewed its component requirements and changed the recorded storage-class residue.</p>
-    <p>Compare this with a native platform built from tested parts. <a href="./kubara.html">Build a Kubara platform</a> composes similar components without Argo CD Applications from AICR. <a href="./apps.html">Apps on a platform</a> defines how a workload lands on either kind.</p>
+    <p>Compare this with a native platform built from tested parts. <a href="./kubara.html">Build a Kubara platform</a> composes similar components without Argo CD Applications from AICR. <a href="./put-an-app-on-a-platform.html">Apps on a platform</a> defines how a workload lands on either kind.</p>
     <p><a href="./testing.html#inference">Compare the other inference examples</a> · <a href="./try.html">Try the shorter Redis example</a></p>
   </section>
 </main>
@@ -4887,7 +4887,7 @@ cub stack check my-platform/stack.yaml</code></pre>
         </div>
       </div>
       <p>A stack is a set of parts named in one manifest and checked before any of it runs. A <strong>platform</strong> is what a stack becomes once it is running under governance with your apps on it. A <strong>fleet</strong> is that stack and its apps placed across many clusters as data. So a stack is what you get and check, a platform is the outcome once it runs, and each cluster in a fleet becomes its own platform.</p>
-      <p>An app, in turn, is &ldquo;a workload you bring,&rdquo; as <a href="./apps.html#what-an-app-is">Apps on a platform</a> defines it. Stacks range from a cloud network, cluster, and GPU runtime built from an empty account down to three services on a cluster you already run, and an AICR-generated AI platform is a stack in this same sense. The <a href="./d/docs/planning/stacks-platforms-apps-taxonomy.html">taxonomy note</a> sets these paths out in full.</p>
+      <p>An app, in turn, is &ldquo;a workload you bring,&rdquo; as <a href="./put-an-app-on-a-platform.html#app-in-full">Apps on a platform</a> defines it. Stacks range from a cloud network, cluster, and GPU runtime built from an empty account down to three services on a cluster you already run, and an AICR-generated AI platform is a stack in this same sense. The <a href="./d/docs/planning/stacks-platforms-apps-taxonomy.html">taxonomy note</a> sets these paths out in full.</p>
     </section>
     <section class="narrow-section" aria-labelledby="becoming">
       <h2 id="run-and-govern">Run and govern it</h2>
@@ -4987,7 +4987,7 @@ cub config check redis</code></pre>
       <pre><code>cub app check hello-standalone
 cub app check shop-web
 cub app score shop-web</code></pre>
-      <p>The first workload is standalone and delivers straight from OCI. The second needs an ingress controller, cert-manager, and a Prometheus operator, which the web-platform stack carries exactly. <code>cub app score</code> exports the workload to <a href="https://score.dev" rel="noopener">Score</a>. <a href="./apps.html">Apps on a platform</a> carries this in full.</p>
+      <p>The first workload is standalone and delivers straight from OCI. The second needs an ingress controller, cert-manager, and a Prometheus operator, which the web-platform stack carries exactly. <code>cub app score</code> exports the workload to <a href="https://score.dev" rel="noopener">Score</a>. <a href="./put-an-app-on-a-platform.html">Apps on a platform</a> carries this in full.</p>
     </section>
 
     <section aria-labelledby="stack">
@@ -5132,7 +5132,7 @@ function allReferencesHtml(catalog) {
     ["Chart setup and lifecycle work", "Find the hooks, CRDs, webhooks, generated values, storage, and RBAC a chart still needs.", "./quirks.html"],
     ["Create variants", "When to make a new Helm-rendered base, and when to make a ConfigHub version after render.", "./variants.html"],
     ["Apps", "Use configuration saved in ConfigHub for upgrade review, hooks and CRDs, RBAC review, fleet rollout, and AI change review.", "./operations.html#build-an-app"],
-    ["Combine charts and your service", "Put public charts and services your team owns into one reviewed application release.", "./apps.html"],
+    ["Combine charts and your service", "Put public charts and services your team owns into one reviewed application release.", "./put-an-app-on-a-platform.html#app-in-full"],
     ["Understand an existing app", "Start read-only from Argo CD, Flux, rendered YAML, live cluster state, or a Helm release.", "./existing-apps.html"],
     ["Ops", "Release, observe, patch, and upgrade after the files are recorded.", "./operations.html"],
     ["Review security before release", "Review exact objects, Secrets, checks, approvals, OCI delivery, and the limits of each result.", "./proof.html#security"],
@@ -6708,7 +6708,7 @@ function docsHtml(catalog) {
       <p>Apps on ConfigHub includes upgrade, RBAC, and fleet examples, among others.</p>
       <h3><a href="./testing.html#platforms">How do I roll a change through a fleet?</a></h3>
       <p>Open the Kubara and Sveltos examples for platform configuration, cluster assignments, and rollout evidence.</p>
-      <h3><a href="./apps.html">How do I start from an existing application?</a></h3>
+      <h3><a href="./put-an-app-on-a-platform.html#adopt">How do I start from an existing application?</a></h3>
       <p>Start read-only from GitOps, Helm, or a live cluster.</p>
       <h3><a href="./d/docs/user/image-registry-migration.html">What if an upstream registry or its terms change?</a></h3>
       <p>Repoint image references across environments with the digest intact, promote the change environment by environment, and prove where it landed.</p>
@@ -8417,10 +8417,10 @@ function appGuideHtml(catalog) {
 }
 
 function customAppsHtml() {
-  return movedPageHtml("Combine charts and your own service", "./apps.html#map", "Combining charts and your own service now lives on Apps on a platform.");
+  return movedPageHtml("Combine charts and your own service", "./put-an-app-on-a-platform.html#app-in-full", "Combining charts and your own service now lives on Apps on a platform.");
 }
 function existingAppsHtml() {
-  return movedPageHtml("Understand an existing app", "./apps.html#start", "Understanding an existing app now lives on Apps on a platform.");
+  return movedPageHtml("Understand an existing app", "./put-an-app-on-a-platform.html#adopt", "Understanding an existing app now lives on Apps on a platform.");
 }
 function aiHtml(catalog) {
   const taskRows = [
@@ -8571,7 +8571,7 @@ function catalogPathfinderHtml(root) {
         ["Helm chart and values", `Choose a checked public configuration, or render your own chart and values without applying them.<br><a href="${href("charts/index.html#charts")}">Browse public charts</a> · <a href="${href("testing.html#bring-your-own")}">Review your own values</a>`],
         ["AICR recipe or bundle", `Inspect the selected components and the exact Argo CD Applications before saving or promoting them.<br><a href="${href("testing.html#aicr-platform")}">Open the AICR example</a>`],
         ["Existing OCI package", `Pull an OCI package, inspect or test its objects, and decide whether to build a checked replacement.<br><a href="${href("d/docs/user/inspect-oci-package.html")}">Inspect an OCI package</a> · <a href="${href("d/docs/user/transform-oci-package.html")}">Change a literal configuration OCI</a>`],
-        ["Kubernetes YAML", `Start read-only, identify the objects that belong together, and decide what ConfigHub should manage.<br><a href="${href("apps.html#start")}">Start from existing YAML</a>`],
+        ["Kubernetes YAML", `Start read-only, identify the objects that belong together, and decide what ConfigHub should manage.<br><a href="${href("put-an-app-on-a-platform.html#adopt")}">Start from existing YAML</a>`],
       ], { rawSecondColumn: true })}
       <h3 id="catalog-next-jobs">What do you want to do next?</h3>
       ${markdownLikeTable([
@@ -8686,7 +8686,7 @@ function kubaraHtml(catalog) {
     <h1>Run a Kubara platform with ConfigHub</h1>
     <p class="lead">Choose the services your developers need to build and run AI-assisted tools and applications. The Catalog supplies tested component versions and known requirements. AI can help with the selection and settings. The starter writes native Kubara configuration for you to review before Kubara generates the platform files.</p>
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
-    <p>Keep platform components, developer tools, and applications as related but separately versioned configuration. ConfigHub retains and promotes each of them. Test a platform-component revision when shared services change, a tool revision when the developer experience changes, and an app revision when an application changes. <a href="./apps.html">Apps on a platform</a> defines what an app needs from the platform under it. An AICR-generated AI platform composes the same way from Argo CD Applications; <a href="./try-aicr.html">Try AICR</a> inspects one without a GPU.</p>
+    <p>Keep platform components, developer tools, and applications as related but separately versioned configuration. ConfigHub retains and promotes each of them. Test a platform-component revision when shared services change, a tool revision when the developer experience changes, and an app revision when an application changes. <a href="./put-an-app-on-a-platform.html">Apps on a platform</a> defines what an app needs from the platform under it. An AICR-generated AI platform composes the same way from Argo CD Applications; <a href="./try-aicr.html">Try AICR</a> inspects one without a GPU.</p>
     <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform or its applications need shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
     <p>If you already run a platform on Flux or Argo, <a href="./deploy-with-flux-or-argo.html">point ConfigHub at the fleet you have</a> and add identity, approvals, and rollback with your reconciler unchanged.</p>
     <p>The implementation lives in <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>.</p>
@@ -9103,7 +9103,7 @@ Rendered 0 secret(s)</code></pre>
         ],
         [
           "Kubernetes YAML or an existing app",
-          `<a href="./ask.html#check-files"><strong>Check or compare the YAML in the browser.</strong></a> Keep the review beside the files, then follow the <a href="./apps.html">existing-app guide</a> to upload four ordinary Kubernetes objects and read them back unchanged.<br><a href="./d/data/literal-config-examples/summary.html">Exact import proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/plain-yaml/acme-web">GitHub fixture</a> · <a href="./d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">ConfigHub example</a>. The official tutorial continues into change, release, production, and promotion.`,
+          `<a href="./ask.html#check-files"><strong>Check or compare the YAML in the browser.</strong></a> Keep the review beside the files, then follow the <a href="./put-an-app-on-a-platform.html#adopt">existing-app guide</a> to upload four ordinary Kubernetes objects and read them back unchanged.<br><a href="./d/data/literal-config-examples/summary.html">Exact import proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/plain-yaml/acme-web">GitHub fixture</a> · <a href="./d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">ConfigHub example</a>. The official tutorial continues into change, release, production, and promotion.`,
         ],
       ], { rawSecondColumn: true })}
 
@@ -9371,7 +9371,7 @@ ${cards}
     <section aria-labelledby="build-an-app">
       <h2 id="build-an-app">5. Build a ConfigHub App</h2>
       <p>An App performs one repeated job, such as reviewing an upgrade, checking RBAC, or rolling a platform change across clusters. It reads the exact Kubernetes objects and proposes a change, runs the checks, waits for approval, then publishes a release and records what happened. AI can help along the way, while the reviewed objects and the policy result decide what ships.</p>
-      <p>Everything here works once the configuration is saved in ConfigHub, which needs a free account. If it is not saved yet, start from an <a href="./testing.html">example</a>, or follow <a href="./apps.html">Apps on a platform</a> to record an application that already runs. The <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "apps")}">official tutorial</a> shows the shortest path from one component to a promoted variant.</p>
+      <p>Everything here works once the configuration is saved in ConfigHub, which needs a free account. If it is not saved yet, start from an <a href="./testing.html">example</a>, or follow <a href="./put-an-app-on-a-platform.html">Apps on a platform</a> to record an application that already runs. The <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "apps")}">official tutorial</a> shows the shortest path from one component to a promoted variant.</p>
       <h3>What the App operates</h3>
       <p>An application is the set of Kubernetes objects your team operates together. That might be one chart, several charts, or your own files, and it can be imported from a system you already run.</p>
       ${markdownLikeTable([
