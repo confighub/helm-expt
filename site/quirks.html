@@ -619,7 +619,7 @@
     
     <h1>See what happens to your chart's hooks, CRDs, and setup work.</h1>
     <p class="lead">Rendered YAML does not explain every requirement. A chart may still need CRDs, a Secret, a webhook certificate, storage, cluster data, or a hook to run at the right time.</p>
-    <p>This page names each hidden requirement, states the contract the catalog holds every chart to, and says how a certified image carries the work as a route. Then open the exact chart page for what has been recorded and tested.</p>
+    <p>This page names each hidden requirement and states the contract the catalog holds every chart to. It also says how a certified image carries the work as a route. Then open the exact chart page for what has been recorded and tested.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="#contract">Read the contract</a> · <a href="./handle-hooks-and-crds.html#crd-menu">Decide who owns a CRD</a> · <a href="./charts/index.html">Browse charts</a> · <a href="./matrix.html">Open matrix</a></p>
   </header>
   <main>
@@ -627,7 +627,7 @@
       <h2 id="contract">1. Know the phases, the dispositions, and who runs the work</h2>
       <p>A certified image renders your chart's ordinary objects without running its Helm hooks. For each hidden requirement it records a route: a lifecycle phase, who runs it, and whether it is automatic.</p>
       <p>The phases are <code>pre-render</code>, <code>preflight</code>, <code>pre-apply</code>, <code>post-apply</code>, <code>observe</code>, and <code>refuse</code>. Each route also carries one of five reader-facing dispositions. <code>observed</code> means a passing receipt exists for that exact chart, version, preset, and target scope, and <code>routed</code> means the method is recorded but not run. <code>per-target</code> means the right method depends on your cluster. <code>blocked</code> means a prerequisite or evidence is missing, and <code>refused</code> means it was deliberately not run. The linked machine-readable sources use a finer vocabulary, including <code>not-run</code> and <code>recipe-needed</code>, so a per-chart view may show states beyond these five.</p>
-      <p>Every lifecycle action packet today is <code>automatic: false</code>. ConfigHub does not yet choose or run a chart-specific hook route for you. The certified-bundle routes in section 7 are a separate model, where a declarative, idempotent route such as CRD ordering can be automatic. The pattern stays observe, then execute, then emit a receipt: read the disposition, supply what it needs, and run only the action that is actually supported. The route becomes <code>observed</code> once a passing receipt covers that scope.</p>
+      <p>Every lifecycle action packet today is <code>automatic: false</code>. ConfigHub does not yet choose or run a chart-specific hook route for you. The certified-bundle routes <a href="#bundle-routes">below</a> are a separate model, where a declarative, idempotent route such as CRD ordering can be automatic. The pattern stays observe, then execute, then emit a receipt. Read the disposition, supply what it needs, and run only the action that is actually supported. The route becomes <code>observed</code> once a passing receipt covers that scope.</p>
       <p>Who runs it today is you, your cluster or controller, or, not yet, the product itself.</p>
       <p>This follows <a href="./d/docs/reference/what-hook-support-means.html">what hook support means</a> and <a href="./d/docs/user/hook-lifecycle-strategy.html">the hook lifecycle strategy</a>. Both name the same evidence with their own vocabulary, so read this page first and those two for the deeper detail.</p>
     </section>
@@ -659,7 +659,7 @@
         <li><strong>What is needed next.</strong> The target facts to supply, and the evidence required before the route can be called supported.</li>
       </ul>
       <p>The machine-readable form is <a href="https://github.com/confighub/helm-expt/blob/main/data/lifecycle-route-actions/summary.md">the lifecycle route actions</a>: an agent reads <code>actions.json</code> and turns a row into a preflight, action, and observe plan. The route contract behind it is <a href="https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/summary.md">lifecycle routes</a>. The per-chart view, each chart's routes, disposition, and whether a skill applies, is <a href="https://github.com/confighub/helm-expt/blob/main/data/per-chart-hooks/summary.md">per-chart hooks</a>, shown as colored cards.</p>
-      <p><a href="./handle-hooks-and-crds.html">Handle hooks and CRDs</a> has the six steps that act on a route, the worked examples, who owns each CRD, and how to stage target prerequisites.</p>
+      <p><a href="./handle-hooks-and-crds.html">Handle hooks and CRDs</a> has the six steps that act on a route, and the worked examples. It also says who owns each CRD, and how to stage target prerequisites.</p>
     </section>
 
 
@@ -667,8 +667,8 @@
 
     <section aria-labelledby="bundle-routes">
       <h2 id="bundle-routes">4. See how a bundle carries routes with the objects</h2>
-      <p>A <code>flatten-with-routes</code> verdict names the companion artifacts a bundle must ship. Those are routes, and they travel inside the bundle, so the knowledge of how to apply the configuration never depends on whoever happened to flatten the chart.</p>
-      <p>A route names the quirk class it discharges and states what breaks without it. It carries a declaration rather than a command: it says what must hold, not how one tool achieves it. The <code>executedBy</code> block lists the runtimes that can execute it and how each expresses it, and it carries <code>automatic</code>, which defaults to false and is earned by observation.</p>
+      <p>A <code>flatten-with-routes</code> verdict names the companion artifacts a bundle must ship. Those are routes, and they travel inside the bundle. How to apply the configuration then never depends on whoever happened to flatten the chart.</p>
+      <p>A route names the quirk class it discharges and states what breaks without it. It carries a declaration rather than a command: it says what must hold, not how one tool achieves it. The <code>executedBy</code> block lists the runtimes that can execute it and how each expresses it. It also carries <code>automatic</code>, which defaults to false and is earned by observation.</p>
       <p>The first route is traefik's CRD ordering. Its verdict requires an ordering declaration for 25 CRDs: definitions first, with a wait for establishment, then everything else. Ordering is declarative and idempotent, so this route is marked automatic; a route that runs a Job is not, and stays manual until observed.</p>
       <p>Schema: <a href="./d/docs/reference/certified-bundle-spec.html#routes-travel-inside-the-bundle"><code>BundleRoute</code></a>. The full spec also covers the Space guide and the boundaries that ship beside every route.</p>
       <h3>Hooks under GitOps</h3>

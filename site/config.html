@@ -667,8 +667,8 @@
     <p>Every source reaches the same shape through the same five stages, even when a stage does nothing. Helm renders, Timoni builds, AICR and Kubara generate or compose, and literal YAML or configuration OCI is already there.</p>
     <p class="stage-flow"><strong>Source &rarr; Base &rarr; Variant &rarr; Deliver &rarr; Run</strong></p>
     <ol>
-      <li><strong>Source.</strong> The input you already use: a Helm chart, a Timoni module, an AICR or Kubara recipe, an installer package, OCI, or plain Kubernetes YAML.</li>
-      <li><strong>Base.</strong> Materialize the exact Kubernetes objects, capture the revision and its digest, note the lifecycle requirements, decide the flattening lane, and retain a reviewed base.</li>
+      <li><strong>Source.</strong> The input you already use. It can be a Helm chart, Timoni module, AICR or Kubara recipe, installer package, OCI, or Kubernetes YAML.</li>
+      <li><strong>Base.</strong> Materialize the exact Kubernetes objects, and capture the revision and its digest. Note the lifecycle requirements, decide the flattening lane, and retain a reviewed base.</li>
       <li><strong>Variant.</strong> Derive or edit a variant, then recheck the source, flattening, lifecycle, and ownership facts it affects.</li>
       <li><strong>Deliver.</strong> Resolve the lifecycle routes for that variant and destination, then compare, test, approve, promote, and publish the release by digest.</li>
       <li><strong>Run.</strong> Reconcile the objects, do the lifecycle work, observe, and record receipts.</li>
@@ -689,13 +689,13 @@
       <summary>What each step means</summary>
       <div class="deep-body">
     <ul>
-      <li><strong>Source package or configuration</strong> is the input you already use: a Helm chart, a typed Timoni module, an AICR recipe, an installer package, Kubara or Sveltos configuration, OCI, or ordinary Kubernetes YAML.</li>
+      <li><strong>Source package or configuration</strong> is the input you already use. It can be a Helm chart, a typed Timoni module, an AICR recipe, an installer package, Kubara or Sveltos configuration, OCI, or Kubernetes YAML.</li>
       <li><strong>Processing intent</strong> records the source identity and the choices needed to produce or select exact objects.</li>
       <li><strong>Materialize</strong> means produce or read those exact objects. Helm renders, Timoni builds, AICR and Kubara generate or compose. Literal YAML and literal configuration OCI are already materialized, so this step is a recorded no-op.</li>
       <li><strong>Exact configuration revision</strong> is the accepted object set, inventory, and digest for one revision.</li>
       <li><strong>Flatten</strong> means retain those exact objects so delivery does not rerun the source processor. The verdict is <code>safe-to-flatten</code>, <code>flatten-with-routes</code>, <code>unsafe-to-flatten</code>, or <code>born-flattened</code>.</li>
       <li><strong>Lifecycle requirement</strong> records work or target state needed around ordinary apply, such as CRDs, hooks, setup Jobs, certificates, cloud resources, controllers, or prerequisite Secrets.</li>
-      <li><strong>Route intent</strong> records portable handling the source or base proposes; a <strong>resolved lifecycle route</strong> binds it to an exact variant, destination, runtime, order, actor, and checks. An explicit <code>no route required</code> decision is different from a missing record.</li>
+      <li><strong>Route intent</strong> records portable handling the source or base proposes. A <strong>resolved lifecycle route</strong> binds it to an exact variant, destination, runtime, order, actor, and checks. An explicit <code>no route required</code> decision is different from a missing record.</li>
       <li><strong>Protected local field</strong> records downstream field ownership, so a source refresh does not silently overwrite an environment's own value.</li>
     </ul>
       </div>
@@ -728,7 +728,7 @@
     <p>A configuration that is <strong>unsafe to flatten</strong> does not fall out of this model. Its source stays authoritative and its processor runs late, at install time. But the result rejoins at the base step. The render-late objects are retained, derived, promoted, and released like any other base, and only where the objects are produced differs.</p>
     <h3 id="confighub-role">Where ConfigHub fits</h3>
     <p>ConfigHub is where a reviewed base becomes shared, governed configuration. <code>cub variant upload</code> creates the base variant: a Space labelled <code>Component=&lt;name&gt;, Variant=base</code> that holds the configuration as one Unit per resource, with no target. A component is the set of Spaces that share a <code>Component</code> label, so the base is the component's first Space. From there ConfigHub's own verbs release, promote, gate, approve, and roll back.</p>
-    <p>So one uploaded configuration is one component's base variant held in one Space: the same thing named from four sides. <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines what comes next: several components compose into a stack, which becomes a platform once it runs under governance with your apps on it. The handoff runs base, then stack, then platform, with an <a href="./apps.html#what-an-app-is">app</a> placed on either.</p>
+    <p>So one uploaded configuration is one component's base variant held in one Space: the same thing named from four sides. <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines what comes next. Several components compose into a stack, which becomes a platform once it runs under governance with your apps on it. The handoff runs base, then stack, then platform, with an <a href="./apps.html#what-an-app-is">app</a> placed on either.</p>
     <p>The full record is in <a href="./d/docs/user/confighub-data-model.html">the ConfigHub data model</a>, and <a href="./d/docs/reference/config-catalog-doctrine.html">the catalog doctrine</a> gives the same lifecycle for every source in more detail.</p>
   </section>
 
@@ -753,13 +753,13 @@
     <ol>
       <li><strong>Helm:</strong> keep the chart and values, record the render context, and capture one exact render variant.</li>
       <li><strong>AICR:</strong> keep the native recipe and selected options, then record each generated boundary and its controller requirements.</li>
-      <li><strong>cub installer source OCI:</strong> pull a public multi-preset package by digest, select one preset, and record the exact objects it produces.</li>
+      <li><strong>cub installer source OCI:</strong> pull a public multi-preset package by digest, pick one preset, and record its exact objects.</li>
       <li><strong>Kubara or another generator:</strong> keep its native source and inputs, then record the generated platform configuration and nested sources.</li>
       <li><strong>Sveltos:</strong> retain the literal fleet configuration while keeping the referenced Helm source as a later boundary.</li>
       <li><strong>Literal configuration OCI:</strong> pull exact objects by digest and import them without rerendering.</li>
       <li><strong>Plain Kubernetes YAML:</strong> read and retain the supplied objects without a render step.</li>
     </ol>
-    <p>A ConfigHub revision or release OCI can also re-enter the model as an exact retained revision. An OCI artifact can carry source material, literal configuration, or a ConfigHub release, so its role and consumer are recorded rather than inferred from the word OCI.</p>
+    <p>A ConfigHub revision or release OCI can also re-enter the model as an exact retained revision. An OCI artifact can carry source material, literal configuration, or a ConfigHub release. Its role and consumer are recorded, not inferred from the word OCI.</p>
       </div>
     </details>
     <details class="deep" id="familiar-terms">
@@ -767,7 +767,7 @@
       <div class="deep-body">
     <p><strong>If you think in plain Helm:</strong> the recipe is your pinned chart and values. A base variant is the output of <code>helm template</code> for one values choice, kept as reviewable files. A derived variant gives one environment its own recorded version and keeps its changes through upgrades.</p>
     <p><strong>If you think in Kustomize:</strong> a base variant plays the role of a base, and a derived variant plays the role of an overlay. The base is already rendered rather than patched at build time. The overlay is a ConfigHub Space with revisions, gates, and an upstream link.</p>
-    <p><strong>If you start with literal YAML or configuration OCI:</strong> the objects are already flat, so record their source and digest, attach any required routes, and retain them as a base. Do not pretend they passed through Helm.</p>
+    <p><strong>If you start with literal YAML or configuration OCI:</strong> the objects are already flat. Record their source and digest, attach any required routes, and retain them as a base. Do not pretend they passed through Helm.</p>
     <p><strong>If you start with AICR:</strong> use <code>snapshot</code> and <code>diff</code> first when the question is about existing GPU-node state. That path needs no recipe and tells you what differs, not what the node should contain. Select the provider-curated leaf variant before judging the difference, then retain the exact objects as a base.</p>
     <p><strong>If you start with Timoni:</strong> pin the module or bundle OCI, keep its typed schema and selected values, and build the exact objects. Record any ordered apply sets, waits, or target lookups that must still run. The built objects are an exact configuration revision, not a Helm render variant.</p>
       </div>
@@ -789,9 +789,9 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-    <p>A verdict is decided per base, not per chart. The same chart with <code>auth.existingSecret</code> set is a different question from the same chart without it, and the recorded scope says which values move the answer.</p>
+    <p>A verdict is decided per base, not per chart. The same chart with <code>auth.existingSecret</code> set is a different question from the same chart without it. The recorded scope says which values move the answer.</p>
     <h3 id="lane-counts">How the audited bases fall today</h3>
-    <p>Of 262 retained bases, 254 have a decided verdict. 99 of those refuse a flattened bundle and stay render-late through their installer package; 79 can be flattened only when named companion routes travel with the bundle.</p>
+    <p>Of 262 retained bases, 254 have a decided verdict. 99 of those refuse a flattened bundle and stay render-late through their installer package. 79 can be flattened only when named companion routes travel with the bundle.</p>
     <ul>
       <li><code>safe-to-flatten</code>: 73 bases.</li>
       <li><code>flatten-with-routes</code>: 79 bases.</li>
@@ -806,7 +806,7 @@
     </ul>
     <p>A base's verdict is one chart at a time. A stack's flattened release is a second judgement on top. It holds only when every part's verdict permits flattening, so one <code>unsafe-to-flatten</code> part keeps that part render-late even inside an otherwise flattened stack.</p>
     <h3 id="pipeline">One shape, from source to a synced digest</h3>
-    <p>A source whose verdict permits flattening — <code>safe-to-flatten</code>, <code>flatten-with-routes</code>, or <code>born-flattened</code> — flows through one shape, whether it is a Helm chart, a Kubara-generated tree, an AICR recipe, or raw YAML.</p>
+    <p>A source whose verdict permits flattening flows through one shape, whether it is a Helm chart, a Kubara-generated tree, an AICR recipe, or raw YAML. The verdicts that permit it are <code>safe-to-flatten</code>, <code>flatten-with-routes</code>, and <code>born-flattened</code>.</p>
     <ol>
       <li>Render or flatten once, with declared inputs, at build time and never in the delivery path.</li>
       <li>Package as a certified bundle: one OCI artifact per component, a digest-bound index pinning the composition, and a receipt.</li>
@@ -835,7 +835,7 @@
       </style>
     <p><code>cub server install</code> runs ConfigHub yourself, locally, in about twenty seconds, when you want the account path on your own machine.</p>
     <h3 id="why-this-helps">Why this is more than a fast render command</h3>
-    <p>A fair skeptic asks if this is just <code>helm template</code> with a wrapper. It turns Helm's output into something reviewed, named, and reusable across a fleet, with variants you can compare, checks you can gate on, and receipts you can cite.</p>
+    <p>A fair skeptic asks if this is just <code>helm template</code> with a wrapper. It turns Helm's output into something reviewed, named, and reusable across a fleet. You get variants you can compare, checks you can gate on, and receipts you can cite.</p>
     <p>A change becomes safer when it is compared, scanned, and kept as a receipt before it is promoted. Staying on the chart author's supported path also helps, because a departure becomes visible before it reaches production.</p>
     <p>Read the fuller argument in <a href="./d/docs/user/why-this-exists.html">why this exists</a> and <a href="./d/docs/user/what-you-get.html">what you get</a>, or see the free, account, and commercial paths on the <a href="./offering.html">Offering page</a>.</p>
     <h3 id="three-jobs">Three public jobs</h3>
@@ -909,7 +909,7 @@
       <p>Useful choices differ by chart. Redis, Argo CD, and kube-prometheus-stack do not need the same starting configurations.</p>
       <h4 id="how-values-chosen">How the values for each configuration are chosen</h4>
       <p>We do not guess. The <strong>default</strong> configuration is the chart's own defaults, with the image pinned by digest. When a chart's default is unsafe, we keep it visible as an honest example and add a recommended one beside it. Redis <code>default</code> writes a password into a rendered Secret. So the catalog also ships <code>reuse-existing-secret</code>, which names the Secret you supply and puts no credential in the render.</p>
-      <p>Every value in a configuration is recorded with where it came from: a chart default, a catalog policy such as pinning the image, or a generated value like a password. And every configuration's render is compared against Helm's own output, so a base variant is verified, not asserted. New configurations are added when a real choice needs one, gated by that comparison.</p>
+      <p>Every value in a configuration is recorded with where it came from. It can be a chart default, a catalog policy such as pinning the image, or a generated value like a password. And every configuration's render is compared against Helm's own output, so a base variant is verified, not asserted. New configurations are added when a real choice needs one, gated by that comparison.</p>
       <p><strong>Here is what this does and does not prove.</strong> The catalog proves these named configurations. It does not prove every possible values file. Your own values still need to be rendered and checked, which is what <a href="./ask.html">Is my configuration right?</a> is for.</p>
       <p><a href="./variants.html#fields">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
       <p>Every maintained entry uses the same <a href="./d/docs/user/model-and-vocabulary.html">configuration processing model</a>. The generated <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/summary.md">alignment report</a> shows which records have complete flattening, ownership, and destination-route evidence and which still have gaps.</p>

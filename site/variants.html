@@ -622,7 +622,7 @@
     <p class="lead">A Helm chart is a recipe. Render it with one set of values and you get a base: the exact Kubernetes objects a team can review, reuse, and promote. This page shows how a recipe becomes a base, then answers one question for every later change.</p>
     <p>Does the change rebuild the base, or does it belong to one environment? If it changes what Helm renders, rebuild the base. If it only changes one environment after render, make a derived ConfigHub variant.</p>
   <p>A chart becomes a shared base when you upload its reviewed render, which needs a free ConfigHub account. The <a href="./testing.html">examples page</a> shows the upload; come back here once it has run.</p>
-    <p>A variant is one named configuration of the same component, such as development, staging or production, and it can equally be a region or a customer.</p>
+    <p>A variant is one named configuration of the same component, such as development, staging or production. It can equally be a region or a customer.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
@@ -677,7 +677,7 @@ Variants:
       </style>
 
       <h3 id="recipe-and-inputs">Two words worth defining</h3>
-      <p>A recipe pins the source and the choices that produce exact objects: a Helm chart and its values, or an AICR recipe in its native format. Literal sources like OCI and plain YAML have no recipe; they are already an exact configuration.</p>
+      <p>A recipe pins the source and the choices that produce exact objects. That is a Helm chart and its values, or an AICR recipe in its native format. Literal sources like OCI and plain YAML have no recipe; they are already an exact configuration.</p>
       <p>Declared inputs are the named settings a package exposes for you to fill, such as a namespace or an existing Secret name. <code>cub installer doc &lt;pkg&gt;</code> lists them; a value outside that list is a hard error, not a silent Helm <code>--set</code>.</p>
     </section>
 

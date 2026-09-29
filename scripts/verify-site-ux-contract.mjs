@@ -627,6 +627,41 @@ for (const file of technicalEnglishPages) {
   }
 }
 
+// Human docs follow the writing rules of ASD-STE100, Simplified Technical
+// English, without its dictionary (site IA phase 4, step 8). A step in a
+// numbered list is a procedure sentence, at most 20 words; any other sentence
+// is descriptive, at most 25; a paragraph holds at most six sentences. These
+// pages are short docs for people, so the tighter register is deliberate
+// here; the 32-word cap above still covers the rest of the site.
+const steHumanDocPages = [
+  "site/config.html",
+  "site/variants.html",
+  "site/oci.html",
+  "site/quirks.html",
+  "site/proof.html",
+  "site/known-gaps.html",
+  "site/how-confighub-works.html",
+];
+for (const file of steHumanDocPages) {
+  const fullPath = path.join(root, file);
+  if (!fs.existsSync(fullPath)) {
+    failures.push(`${file}: missing file`);
+    continue;
+  }
+  const html = fs.readFileSync(fullPath, "utf8").replace(/<(div|section)\b[^>]*\bdata-verbatim\b[^>]*>[\s\S]*?<\/\1>/gi, " ");
+  const procedures = new Set([...html.matchAll(/<ol\b[^>]*>([\s\S]*?)<\/ol>/gi)].flatMap((match) => proseBlocks(match[1])));
+  for (const block of proseBlocks(html)) {
+    const limit = procedures.has(block) ? 20 : 25;
+    const kind = limit === 20 ? "procedure" : "descriptive";
+    const parts = sentences(block);
+    if (parts.length > 6) failures.push(`${file}: a paragraph has ${parts.length} sentences, above STE's six: ${JSON.stringify(block.slice(0, 120))}`);
+    for (const sentence of parts) {
+      const count = wordCount(sentence);
+      if (count > limit) failures.push(`${file}: STE ${kind} sentence has ${count} words, above ${limit}: ${JSON.stringify(sentence.slice(0, 200))}`);
+    }
+  }
+}
+
 // Two AI-speak shapes are banned mechanically; the full pattern list lives in
 // docs/planning/house-voice.md. A paragraph that opens by denying something
 // teaches nothing until sentence two, and a predicate that unloads four
