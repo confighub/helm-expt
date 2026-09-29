@@ -438,7 +438,7 @@ const COVERAGE_QUESTIONS = [
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 
 // The two paste-in prompts for an agent that has not installed the skill. The
-// README's agent lane and the home page's "Give it to your AI agent" button
+// README's agent lane and the home page's "Set up my agent" button
 // both send a reader to ai.html for them. The one-liner is enough for most
 // questions; the fuller one also says what is in the Catalog and when the
 // agent needs ConfigHub server. Defined up here, above the generate flow,
@@ -3467,8 +3467,8 @@ ${homeJourneyLinks()}
             <p>Pull tested configs, stacks, example apps and plugins from here, from a web platform to GPU inference, with guides your agent can follow. When your team needs to keep it, ConfigHub stores it with the graph of how it all connects.</p>
             <p>ConfigHub is where people and agents change the same configuration safely. Every change is versioned, approved and released by digest, and the Argo CD or Flux you already run delivers it.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./ask.html">Check my config</a>
-              <a class="btn primary" href="./ai.html">Give it to your AI agent</a>
+              <a class="btn primary" href="./ask.html">Check my chart and values</a>
+              <a class="btn primary" href="./ai.html">Set up my agent</a>
             </div>
           </div>
           <div class="hero-term">
