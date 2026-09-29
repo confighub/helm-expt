@@ -3382,8 +3382,8 @@ ${homeJourneyLinks()}
       <header>
         ${topNav(".")}
         <div class="hero-head">
-          <span class="eyebrow">Config Catalog and Workshop &middot; Helm, AICR, OCI, YAML and Timoni</span>
-          <h1>An agentic data hub for Kubernetes and AI configurations</h1>
+          <span class="eyebrow">Config Catalog and Workshop &middot; Helm, AICR, OCI, YAML and More</span>
+          <h1>Configuration catalog for Agents and Kubernetes</h1>
         </div>
         <div class="hero">
           <div>

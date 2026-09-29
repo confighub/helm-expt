@@ -68,7 +68,7 @@ const checks = [
   })),
   {
     file: "site/index.html",
-    terms: ["An agentic data hub for Kubernetes and AI configurations", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and Timoni", "Other catalogs give you charts", "One OCI format and one lifecycle model", "standardises every configuration into one OCI format and one lifecycle model", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Start from your problem", "What is the Workshop?", "Give it to your AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
+    terms: ["Configuration catalog for Agents and Kubernetes", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and More", "Other catalogs give you charts", "One OCI format and one lifecycle model", "standardises every configuration into one OCI format and one lifecycle model", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Start from your problem", "What is the Workshop?", "Give it to your AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CONFIG TOOLS EXPERIMENT"],
   },
   {
     file: "site/ask.html",
@@ -339,7 +339,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["An agentic data hub for Kubernetes and AI configurations", "Your agent writes configuration faster than anyone can check it", "ConfigHub is where people and agents change the same configuration safely", "released by digest"],
+    headerTerms: ["Configuration catalog for Agents and Kubernetes", "Your agent writes configuration faster than anyone can check it", "ConfigHub is where people and agents change the same configuration safely", "released by digest"],
   },
   {
     file: "site/ask.html",
