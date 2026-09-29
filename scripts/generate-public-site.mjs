@@ -542,6 +542,8 @@ const SPLIT_GUIDES = [
   { key: "takeFurtherGuideHtml", file: "take-a-config-further.html", title: "Take a config further", description: "Take a reviewed configuration into a stack, keep it as an image, or save it in ConfigHub to move it through environments.", build: (catalog) => takeFurtherGuideHtml(catalog) },
   { key: "changeSafelyGuideHtml", file: "change-a-config-safely.html", title: "Change a config safely", description: "Decide whether a change rebuilds the base or belongs to one environment, then preview it and promote only what was reviewed.", build: (catalog) => changeSafelyGuideHtml(catalog) },
   { key: "hooksGuideHtml", file: "handle-hooks-and-crds.html", title: "Handle hooks and CRDs", description: "Find the hooks, CRDs, setup jobs and target facts a chart needs before delivery, decide who runs each, and stage the target first.", build: (catalog) => hooksGuideHtml(catalog) },
+  { key: "operateFleetGuideHtml", file: "operate-a-fleet.html", title: "Operate a fleet", description: "Check the starting point, choose an operation, keep a fleet record, and open the working App demonstrations.", build: (catalog) => operateFleetGuideHtml(catalog) },
+  { key: "buildAppGuideHtml", file: "build-a-confighub-app.html", title: "Build a ConfigHub App", description: "Build an App that repeats one operation on configuration saved in ConfigHub.", build: (catalog) => buildAppGuideHtml(catalog) },
 ];
 const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
 
@@ -613,7 +615,8 @@ const PAGE_REDIRECT_TARGETS = {
   "whats-new.html": "charts/index.html",
   "hooks.html": "quirks.html",
   "tiers.html": "offering.html",
-  "day1-operations.html": "operations.html",
+  "day1-operations.html": "operate-a-fleet.html",
+  "operations.html": "operate-a-fleet.html",
   "verification.html": "proof.html",
   "security.html": "proof.html",
   "serverless.html": "deploy-with-flux-or-argo.html",
@@ -621,7 +624,7 @@ const PAGE_REDIRECT_TARGETS = {
   "existing-apps.html": "put-an-app-on-a-platform.html",
   "private/index.html": "offering.html",
   "hard-questions.html": "ask.html",
-  "journey.html": "operations.html",
+  "journey.html": "operate-a-fleet.html",
   "challenge.html": "ask.html",
   "future.html": "known-gaps.html",
   "demo-org.html": "confighub.html",
@@ -664,7 +667,7 @@ const PAGE_DESCRIPTIONS = {
   "kubara.html": "Kubara moved: see the kubara row in Plugins, and the Guide Bring a Kubara platform into ConfigHub.",
   "entry-path-reference.html": "Detailed entry paths for Helm, AICR AI-infrastructure packages, existing OCI, and Kubernetes YAML, with commands and evidence links.",
   "future.html": "Separate ConfigHub Workshop results that can be used today from ideas that remain planned or only partly tested.",
-  "operations.html": "Review a change, approve it, deliver it, check the live result, keep a fleet record, and build an App that repeats one job from saved configuration.",
+  "operations.html": "Operations moved: the operations now live on the Guide Operate a fleet, and building an App on Build a ConfigHub App.",
   "ask.html": "Investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment, then retain the reviewed result.",
   "promote.html": "Compare current and proposed Kubernetes objects, see what changes, and choose the tests required before moving the change.",
   "why-did-helm-ignore-my-values.html": "Find values that Helm accepts but a chart does not use by comparing the rendered Kubernetes objects with and without each supplied key.",
@@ -684,7 +687,7 @@ const PAGE_DESCRIPTIONS = {
   "whats-new.html": "The what's-new page retired; the Catalog lists every tested configuration.",
   "hooks.html": "The hooks page moved: hook and setup work now lives on the catalog page action cards.",
   "tiers.html": "The tiers page moved: commercial options now live on the private page.",
-  "day1-operations.html": "The day-1 operations page moved: operations guidance now lives on the Ops page.",
+  "day1-operations.html": "The day-1 operations page moved: operations now live on the Guide Operate a fleet.",
   "private/index.html": "Choose SaaS or enterprise ConfigHub for private configuration, team workflows, policy, fleet operations, and production support.",
   "journey.html": "Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.",
   "charts/index.html": "Choose among 112 public components, all 139 retained package versions, and their packaged configurations without confusing publication proof with live runtime evidence.",
@@ -2548,7 +2551,7 @@ function siteSections() {
   ] },
   { label: "Docs", hub: "docs.html", pages: [
     ["docs.html", "Docs"], ["config.html", "How configuration works"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"],
-    ["quirks.html", "What charts hide"], ["how-it-works.html", "Operate"], ["operations.html", "Operations"], ["confighub.html", "ConfigHub Server"],
+    ["quirks.html", "What charts hide"], ["how-it-works.html", "Operate"], ["confighub.html", "ConfigHub Server"],
     ["proof.html", "Why trust it"], ["known-gaps.html", "Known gaps"], ["matrix.html", "Evidence index"],
     ["d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"], ["offering.html", "Offering"],
   ] },
@@ -4643,7 +4646,7 @@ function howItWorksHtml() {
       ["Advanced", "Review how to configure the approval gate", "<code>cub changeworkflow create --help</code>", "Declare AttestationPrerequisites in the workflow file and reference them from stage Prerequisites or ReleasePrerequisites. Bind the reviewed workflow to the ChangeOrder before relying on enforcement."],
       ["Advanced", "Record the reviewed approval", "<code>cub variant approve cart-demo-dev</code>", "Records Approval attestations for the current revisions of Units with Targets in this Space. Review that whole selection first. Identical-content later revisions can remain covered; a changed-content revision needs a qualifying approval. The configured workflow decides whether the gate is satisfied."],
     ], { rawThirdColumn: true, rawFourthColumn: true })}
-    <p><a href="./operations.html#ops">See gates and scans among the other operations</a>.</p>
+    <p><a href="./operate-a-fleet.html#ops">See gates and scans among the other operations</a>.</p>
   </section>
 
   <section aria-labelledby="rollback">
@@ -4653,7 +4656,7 @@ function howItWorksHtml() {
       ["Level", "Do this", "Command", "What you get"],
       ["Advanced", "Roll back", "<code>cub unit update --space cart-demo-dev retail-deployment-cart --restore 2</code>", "The Unit's head moves to the recorded revision; publish again to release it."],
     ], { rawThirdColumn: true, rawFourthColumn: true })}
-    <p><a href="./operations.html#ops">Rehearse a rollback before you need it</a>, or follow <a href="./redis-walkthrough.html">the Redis rollback example</a>.</p>
+    <p><a href="./operate-a-fleet.html#ops">Rehearse a rollback before you need it</a>, or follow <a href="./redis-walkthrough.html">the Redis rollback example</a>.</p>
   </section>
 </main>
 <footer><p><a href="./docs.html">Find the right technical guide</a> · <a href="./confighub.html">Continue with ConfigHub</a> · <a href="./docs.html#all-references">Open the technical deployment reference</a></p></footer>
@@ -4721,6 +4724,7 @@ function configHubHtml(catalog) {
     ])}
     <p>During an upgrade, non-conflicting recorded changes remain. Review a conflict when the new source render and a ConfigHub revision change the same field.</p>
     <p><a href="./d/docs/user/cub-deployment-path.html">Deployment commands</a> · <a href="./d/docs/user/confighub-data-model.html">The ConfigHub data model</a></p>
+    <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./offering.html#commercial">Upgrade guide</a> describes what the commercial product governs.</p>
   </section>
   <section aria-labelledby="exact-handoff">
     <h2 id="exact-handoff">2. See one exact handoff</h2>
@@ -5336,7 +5340,7 @@ function allReferencesHtml(catalog) {
     ["See every source and App demonstration", `<a href="../docs/user/config-catalog-demonstrations.md">Demonstration record</a>`, "See the exact example that ran, its result, and the work still needed for broader support."],
     ["Choose a public component", `<a href="./charts/index.html">Component Catalog</a>`, "Pick an exact retained package version, then read its packaged configurations, output, hooks, CRDs, setup work, and evidence."],
     ["Run ConfigHub yourself", `<a href="./confighub.html">ConfigHub</a>`, "The sandbox server runs the same examples locally in about twenty seconds."],
-    ["Use an App on ConfigHub", `<a href="./operations.html#build-an-app">Apps</a>`, "Use saved configuration for upgrade review, hooks and CRDs, RBAC review, fleet rollout, or AI change review."],
+    ["Use an App on ConfigHub", `<a href="./build-a-confighub-app.html#build-an-app">Apps</a>`, "Use saved configuration for upgrade review, hooks and CRDs, RBAC review, fleet rollout, or AI change review."],
     ["Check a claim", `<a href="./check-a-claim-yourself.html#check-one-claim">Check one claim</a>`, "Choose the command that answers your question and see whether it uses saved evidence or a fresh run."],
     ["Read the limits", `<a href="./ask.html#faq">FAQ</a>`, "Hooks, CRDs, upgrades, generated secrets, AI changes, rollback, and current gaps."],
     ["Know when managed help begins", `<a href="./offering.html#commercial">Upgrade</a>`, "Private sources, production support, teams, policies, fleet operations, and commercial boundaries."],
@@ -5391,10 +5395,10 @@ function allReferencesHtml(catalog) {
     ["Helm base variants and values", "Why the catalog supports useful chart-specific base variants instead of claiming every values combination.", "../docs/user/helm-presets-and-values.md"],
     ["Chart setup and lifecycle work", "Find the hooks, CRDs, webhooks, generated values, storage, and RBAC a chart still needs.", "./quirks.html"],
     ["Create variants", "When to make a new Helm-rendered base, and when to make a ConfigHub version after render.", "./variants.html"],
-    ["Apps", "Use configuration saved in ConfigHub for upgrade review, hooks and CRDs, RBAC review, fleet rollout, and AI change review.", "./operations.html#build-an-app"],
+    ["Apps", "Use configuration saved in ConfigHub for upgrade review, hooks and CRDs, RBAC review, fleet rollout, and AI change review.", "./build-a-confighub-app.html#build-an-app"],
     ["Combine charts and your service", "Put public charts and services your team owns into one reviewed application release.", "./put-an-app-on-a-platform.html#app-in-full"],
     ["Understand an existing app", "Start read-only from Argo CD, Flux, rendered YAML, live cluster state, or a Helm release.", "./existing-apps.html"],
-    ["Ops", "Release, observe, patch, and upgrade after the files are recorded.", "./operations.html"],
+    ["Ops", "Release, observe, patch, and upgrade after the files are recorded.", "./operate-a-fleet.html"],
     ["Review security before release", "Review exact objects, Secrets, checks, approvals, OCI delivery, and the limits of each result.", "./proof.html#security"],
     ["What is not ready yet", "The honest register of what remains planned or partly tested.", "./known-gaps.html"],
     ["Find a direct answer", "Direct answers about hooks, upgrades, AI changes, free use, and current limits.", "./ask.html#faq"],
@@ -6965,7 +6969,7 @@ function docsHtml(catalog) {
       <p>Compare the exact current result with the candidate for the next stage. The review shows what changed, what blocks the move, and what still needs a staging test.</p>
       <h3><a href="../docs/user/day2-upgrade-story.md">How do I upgrade and roll back?</a></h3>
       <p>The day-2 upgrade story: diff the value model first, check control points and immutable fields, then upgrade rendered bundles by digest. The <a href="./redis-walkthrough.html">Redis walkthrough</a> shows one full upgrade, promotion, and rollback.</p>
-      <h3><a href="./operations.html#build-an-app">What can a ConfigHub App automate?</a></h3>
+      <h3><a href="./build-a-confighub-app.html#build-an-app">What can a ConfigHub App automate?</a></h3>
       <p>Apps on ConfigHub includes upgrade, RBAC, and fleet examples, among others.</p>
       <h3><a href="./testing.html#platforms">How do I roll a change through a fleet?</a></h3>
       <p>Open the Kubara and Sveltos examples for platform configuration, cluster assignments, and rollout evidence.</p>
@@ -7176,14 +7180,14 @@ function quirksHtml(catalog) {
 // A Guide assembled from sections of pages that split between a Guide and a
 // Doc (site IA phase 4, step 7b). The sections keep their ids, so links that
 // follow them only change page.
-function splitGuideHtml({ title, lead, ask, body }) {
+function splitGuideHtml({ title, lead, ask, body, css = "" }) {
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)} · ConfigHub Workshop</title>
-  <style>${siteCss()}</style>
+  <style>${siteCss()}${css}</style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -7479,6 +7483,101 @@ function hooksGuideHtml(catalog) {
         ...targetRoutingRows,
       ])}
       <p><a href="./d/docs/user/target-prerequisites.html">Read the full guide</a>, including the cert-manager, Vertical Pod Autoscaler, and OpenTelemetry Operator examples.</p>
+    </section>
+`,
+  });
+}
+
+function operateFleetGuideHtml(catalog) {
+  const { appDemos, ops, cards } = operationsTables(catalog);
+  return splitGuideHtml({
+    title: "Operate a fleet",
+    lead: "Use this Guide after an application and its target already exist. Review a change, approve it, deliver it, check the live result, and keep a record across the fleet.",
+    ask: "“For &lt;app&gt; on &lt;targets&gt;, show me the starting point, propose one operation, and keep a record of each target’s result. Wait for me before any release.”",
+    css: operationsCss(),
+    body: `    <section aria-labelledby="before-ops">
+      <h2 id="before-ops">1. Check the starting point</h2>
+      <p>The application needs a reviewed configuration, any environment changes, and a target or delivery path. If those choices are still open, start with the <a href="./charts/index.html">Component Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./build-a-confighub-app.html#build-an-app">Apps</a>.</p>
+    </section>
+    <section aria-labelledby="ops">
+      <h2 id="ops">2. Choose an operation</h2>
+      <div class="card">
+        <h3>Status legend</h3>
+        <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work still needs a product, policy, support, or service decision.</p>
+        <p>A green GitOps sync tells you the controller accepted the manifest, which is a smaller claim than a working application. Where the claim depends on live state, use observation receipts.</p>
+      </div>
+${cards}
+    </section>
+    <section aria-labelledby="fleet-record">
+      <h2 id="fleet-record">3. Keep a fleet record</h2>
+      <p>The fleet use case begins when a platform team needs to know what many clusters should run and whether each cluster matches that record.</p>
+      <p><strong>Use one visible sequence:</strong> choose the approved configuration, select targets by label, and preview the exact target list.</p>
+      <p>Publish to a small wave, then inspect every target before continuing. The <a href="./d/docs/demo/sveltos/kyverno-fleet.html">Sveltos example</a> records two waves. Managed pause and resume controls are still planned.</p>
+      <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. Only a small, restricted set of settings remains at install time, so an upgrade does not become another free-form Helm exercise.</p>
+      <table>
+        <thead><tr><th>Fleet area</th><th>Who usually owns it</th><th>What ConfigHub records</th></tr></thead>
+        <tbody>
+          <tr><td>User workloads</td><td>Application teams</td><td>The approved app variant, target, inputs, policy gates, and release history.</td></tr>
+          <tr><td>System services</td><td>Platform operators</td><td>Shared services such as DNS, monitoring, ingress, and storage, with controlled upgrades across clusters.</td></tr>
+          <tr><td>System configuration</td><td>Cluster or fleet systems</td><td>Opt-in platform components such as GPU, network, security, and operator configuration, reconciled from a signed-off package and fleet record.</td></tr>
+        </tbody>
+      </table>
+      <p>Read the <a href="../data/operational-class-examples/summary.md">three checked examples</a> for their owners, targets, checks, rollout order, and current evidence. They cover NGINX, Kube Prometheus Stack, and a Kubara platform configuration.</p>
+      <p>This is why the site keeps package OCI separate from delivery OCI. <a href="./oci.html">See every OCI shape and who consumes each one</a>.</p>
+    </section>
+    <section aria-labelledby="app-program">
+      <h2 id="app-program">6. Open the working App demonstrations</h2>
+      <p>Each row has one checked example with committed evidence. The final column says what is still needed before the same result can be offered more generally.</p>
+      ${markdownLikeTable([
+        ["App", "What ran", "Broader status", "Still to build"],
+        ...appDemos.map((demo) => [
+          demo.name,
+          demo.workedExample.result,
+          demo.status,
+          demo.workedExample.limit,
+        ]),
+      ])}
+      <p><a href="../docs/user/config-catalog-demonstrations.md">Open the demonstration programme</a> for the steps, evidence, and current limit for every App.</p>
+    </section>
+`,
+  });
+}
+
+function buildAppGuideHtml(catalog) {
+  const { appKinds, appFlow } = operationsTables(catalog);
+  return splitGuideHtml({
+    title: "Build a ConfigHub App",
+    lead: "An App repeats one job on configuration saved in ConfigHub, such as an upgrade review or a fleet rollout, and keeps its result with the configuration.",
+    ask: "“Build a ConfigHub App that runs &lt;job&gt; on the configuration in &lt;space&gt;, and show me what it would change before it runs.”",
+    css: operationsCss(),
+    body: `    <section aria-labelledby="build-an-app">
+      <h2 id="build-an-app">5. Build a ConfigHub App</h2>
+      <p>An App performs one repeated job, such as reviewing an upgrade, checking RBAC, or rolling a platform change across clusters. It reads the exact Kubernetes objects and proposes a change, runs the checks, waits for approval, then publishes a release and records what happened. AI can help along the way, while the reviewed objects and the policy result decide what ships.</p>
+      <p>Everything here works once the configuration is saved in ConfigHub, which needs a free account. If it is not saved yet, start from an <a href="./testing.html">example</a>, or follow <a href="./put-an-app-on-a-platform.html">Apps on a platform</a> to record an application that already runs. The <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "apps")}">official tutorial</a> shows the shortest path from one component to a promoted variant.</p>
+      <h3>What the App operates</h3>
+      <p>An application is the set of Kubernetes objects your team operates together. That might be one chart, several charts, or your own files, and it can be imported from a system you already run.</p>
+      ${markdownLikeTable([
+        ["Kind", "Meaning"],
+        ...appKinds,
+      ])}
+      <h3>The normal order</h3>
+      <p>Start from the saved objects and show the proposed change. Run the required checks, publish the approved release, then check what happened on the cluster.</p>
+      <div class="app-flow">
+        ${appFlow.map(([title, body]) => `<div class="app-step"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
+      </div>
+      <h3>Common uses</h3>
+      ${markdownLikeTable([
+        ["Example", "What ConfigHub helps with"],
+        ["Redis app", "One public chart can be rendered from a base variant, checked, changed for each environment, and released again."],
+        ["Prometheus or kube-prometheus-stack", "A chart with CRDs, webhooks, and prerequisites can use base variants that say what the target must provide before release."],
+        ["Platform services", "Ingress, certificates, policy, monitoring, and logging can be grouped with the application that depends on them."],
+        ["Your service plus chart services", "Your own service can sit beside a database, queue, cache, or monitoring chart."],
+        ["Existing app", "An application already in a cluster can be inventoried first, then brought under review when you are ready."],
+        ["AI-suggested change", "AI can propose a values change or file edit. ConfigHub shows the exact diff and checks before it is approved."],
+      ])}
+      <p>The <a href="../data/redis-upgrade-app-proof/summary.md">Redis upgrade and rollback proof</a> follows one complete run from chart 25.5.3 to 27.0.0 and back. A two-replica edit stays in place while the candidate moves through development and staging. Two Argo CD clusters run the candidate and rollback OCI releases.</p>
+      <p>The <a href="../data/rbac-review-live-proof/summary.md">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, publishes the approved objects as OCI, and lets Argo CD deliver them to an isolated cluster. Secret access is gone while ConfigMap access still works.</p>
+      <p>Component and chart evidence still lives in the Component Catalog. This page explains how those components become part of applications your team runs.</p>
     </section>
 `,
   });
@@ -7831,7 +7930,7 @@ function faqSectionsHtml(catalog) {
 	          question: "Can I load my existing app, platform, stack, or live cluster?",
 	          answer:
 	            "Yes. Start with a read-only discovery or import. Review the sources, targets, objects, labels, and owners. Then keep the imported Units, create a recipe, or build a managed application.",
-          links: [["Adopting existing apps", "../docs/user/adopting-existing-apps.md"], ["Apps guide", "./operations.html#build-an-app"]],
+          links: [["Adopting existing apps", "../docs/user/adopting-existing-apps.md"], ["Apps guide", "./build-a-confighub-app.html#build-an-app"]],
         },
         {
           status: "answered",
@@ -7888,7 +7987,7 @@ function faqSectionsHtml(catalog) {
           question: "What is free and what needs ConfigHub?",
           answer:
             "Public catalog browsing, local render checks, and catalog package setup are free or low-friction. Private catalogs, teams, approvals, application variants, promotions, fleet operations, and production responsibility are ConfigHub-managed.",
-          links: [["Apps", "./operations.html#build-an-app"], ["Upgrade", "./offering.html#commercial"]],
+          links: [["Apps", "./build-a-confighub-app.html#build-an-app"], ["Upgrade", "./offering.html#commercial"]],
         },
         {
           status: "answered",
@@ -8181,7 +8280,7 @@ function tiersRedirectHtml() {
   return movedPageHtml("Tiers", "./offering.html#commercial", "The tiers page moved to the Offering page.");
 }
 function journeyHtml() {
-  return movedPageHtml("Build a ConfigHub App", "./operations.html#build-an-app", "Building an App from saved configuration now lives on the Operations page.");
+  return movedPageHtml("Build a ConfigHub App", "./build-a-confighub-app.html#build-an-app", "Building an App from saved configuration now lives on the Operations page.");
 }
 function variantsTables(catalog) {
   const modelRows = [
@@ -8949,9 +9048,9 @@ function catalogPathfinderHtml(root) {
         ["Upload and save", `<a href="${href("change-a-config-safely.html#flow")}">Record reviewed objects in ConfigHub</a>`],
         ["Customize", `<a href="${href("d/docs/user/transform-oci-package.html")}">Change one field in an OCI without signing in</a> · <a href="${href("change-a-config-safely.html#choose")}">Choose a ConfigHub base or derived variant</a>`],
         ["Promote", `<a href="${href("change-a-config-safely.html#journey")}">Move a reviewed change through environments</a>`],
-        ["Deliver", `<a href="${href("operations.html#ops")}">Publish OCI for Argo CD or Flux; test the same artifact locally</a>`],
-        ["Operate", `<a href="${href("operations.html#fleet-record")}">Track changes and live results across a fleet</a>`],
-        ["Build an App", `<a href="${href("operations.html#app-program")}">Use saved configuration for a repeated operational job</a>`],
+        ["Deliver", `<a href="${href("operate-a-fleet.html#ops")}">Publish OCI for Argo CD or Flux; test the same artifact locally</a>`],
+        ["Operate", `<a href="${href("operate-a-fleet.html#fleet-record")}">Track changes and live results across a fleet</a>`],
+        ["Build an App", `<a href="${href("operate-a-fleet.html#app-program")}">Use saved configuration for a repeated operational job</a>`],
       ], { rawSecondColumn: true })}
     </section>`;
 }
@@ -9505,7 +9604,7 @@ Rendered 0 secret(s)</code></pre>
         ["Job", "Working example", "Where to go"],
         ["Save and change", "Upload reviewed objects as a base variant. Make an exact development or customer change without changing the source chart.", `<a href="./variants.html">Variants</a> · <a href="./d/docs/user/variants-after-upload.html">Command walkthrough</a>`],
         ["Promote", worked(pathways, "promotions").result, `<a href="./promote.html"><strong>Compare my next change</strong></a> · <a href="./d/data/byo-helm-values-promotion-proof/summary.html">BYO Helm promotion</a> · <a href="./redis-walkthrough.html">Redis promotion and rollback</a>`],
-        ["Deliver through OCI", worked(pathways, "oci-delivery").result, `<a href="./operations.html">Delivery guide</a> · <a href="./d/data/oci-deploy-stage-rollout-proof/summary.html">Argo CD and Flux proof</a>`],
+        ["Deliver through OCI", worked(pathways, "oci-delivery").result, `<a href="./operate-a-fleet.html">Delivery guide</a> · <a href="./d/data/oci-deploy-stage-rollout-proof/summary.html">Argo CD and Flux proof</a>`],
         ["Apply checks and approvals", "Schema, placeholder, and lifecycle-route checks can block bad configuration. Image and probe checks warn. Selected production and system configuration also requires approval.", `<a href="./d/data/apply-policy-functional-proof/summary.html">Functional proof</a> · <a href="./d/data/apply-policy-profiles/summary.html">Policy assignments</a>`],
       ], { rawSecondColumn: true, rawThirdColumn: true })}
     </section>
@@ -9533,7 +9632,7 @@ Rendered 0 secret(s)</code></pre>
         ["App", "Working example", "Open", "Still to build"],
         ...appRows,
       ], { rawSecondColumn: true, rawThirdColumn: true, rawFourthColumn: true })}
-      <p><a href="./operations.html#build-an-app">Read how Apps use saved configuration</a>.</p>
+      <p><a href="./build-a-confighub-app.html#build-an-app">Read how Apps use saved configuration</a>.</p>
     </section>
   </main>
   <footer>Example status is scoped to the named source, version, configuration, delivery path, and receipt.</footer>
@@ -9548,7 +9647,37 @@ function entryPathReferenceHtml() {
 function futureHtml() {
   return movedPageHtml("Current and planned work", "./known-gaps.html", "Current and planned work retired. What is not ready yet is the register that remains.");
 }
-function operationsHtml(catalog) {
+function operationsCss() {
+  return `
+    .app-flow { counter-reset: appstep; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
+    .app-step { counter-increment: appstep; border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--surface); }
+    .app-step::before { content: counter(appstep); display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 999px; background: var(--good); color: #fff; font-weight: 700; font-size: .78rem; margin-bottom: 8px; }
+    .app-step h3 { margin: 0 0 8px; }
+    .app-step p { margin: 0; font-size: .9rem; }
+    @media (max-width: 980px) { .app-flow { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) {
+      .app-flow { grid-template-columns: 1fr; }
+      main table, main tbody, main tr, main td { display: block; width: 100%; white-space: normal; }
+      main thead { display: none; }
+      main tr { padding: 10px 0; border-bottom: 1px solid var(--line); }
+      main td { padding: 4px 6px; border: 0; font-size: .86rem; }
+      main td:first-child { color: var(--ink); font-weight: 700; }
+    }
+
+    .op { border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin: 14px 0; }
+    .ophead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .ophead h3 { margin: 0; font-size: 1.08rem; }
+    .opmeta { margin: 6px 0 8px; }
+    .badge { display: inline-block; border-radius: 999px; font-size: .72rem; padding: 2px 9px; border: 1px solid var(--line); white-space: nowrap; }
+    .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .badge.watch { color: #2d2300; background: #f9ab00; border-color: #f9ab00; }
+    .badge.planned { color: var(--muted); background: var(--panel); }
+    .muted { color: var(--muted); }
+    @media (max-width: 600px) { .ophead { flex-direction: column; } }
+`;
+}
+
+function operationsTables(catalog) {
   const appDemos = catalog.demoProgram.spec.apps;
   const appKinds = [
     ["One public chart", "A catalog chart such as Redis, Prometheus, ingress-nginx, or cert-manager that you want to install and keep updated."],
@@ -9653,137 +9782,11 @@ function operationsHtml(catalog) {
       </div>`,
     )
     .join("\n");
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Operations · ConfigHub Workshop</title>
-  <style>${siteCss()}
-    .app-flow { counter-reset: appstep; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
-    .app-step { counter-increment: appstep; border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--surface); }
-    .app-step::before { content: counter(appstep); display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 999px; background: var(--good); color: #fff; font-weight: 700; font-size: .78rem; margin-bottom: 8px; }
-    .app-step h3 { margin: 0 0 8px; }
-    .app-step p { margin: 0; font-size: .9rem; }
-    @media (max-width: 980px) { .app-flow { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 640px) {
-      .app-flow { grid-template-columns: 1fr; }
-      main table, main tbody, main tr, main td { display: block; width: 100%; white-space: normal; }
-      main thead { display: none; }
-      main tr { padding: 10px 0; border-bottom: 1px solid var(--line); }
-      main td { padding: 4px 6px; border: 0; font-size: .86rem; }
-      main td:first-child { color: var(--ink); font-weight: 700; }
-    }
+  return { appDemos, appKinds, appFlow, ops, seeLabels, seeLink, cards };
+}
 
-    .op { border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin: 14px 0; }
-    .ophead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-    .ophead h3 { margin: 0; font-size: 1.08rem; }
-    .opmeta { margin: 6px 0 8px; }
-    .badge { display: inline-block; border-radius: 999px; font-size: .72rem; padding: 2px 9px; border: 1px solid var(--line); white-space: nowrap; }
-    .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
-    .badge.watch { color: #2d2300; background: #f9ab00; border-color: #f9ab00; }
-    .badge.planned { color: var(--muted); background: var(--panel); }
-    .muted { color: var(--muted); }
-    @media (max-width: 600px) { .ophead { flex-direction: column; } }
-  </style>
-</head>
-<body>
-  <header class="hero human-hero">
-    ${topNav(".")}
-    <h1>Operations</h1>
-  <p class="boundary-chip">Needs an account and a cluster</p>
-    <p class="lead">Use this page after an application and its target already exist. It shows how to review a change, approve it, deliver it, check the live result, and build an App that repeats one job.</p>
-    <p>ConfigHub keeps the desired configuration and revision history. OCI carries a reviewed release to Argo CD or Flux. Live checks show what reached the cluster.</p>
-    <p>If you have not chosen a configuration yet, start with the Catalog, Variants, or Apps pages.</p>
-  </header>
-  <main>
-    <section aria-labelledby="before-ops">
-      <h2 id="before-ops">1. Check the starting point</h2>
-      <p>The application needs a reviewed configuration, any environment changes, and a target or delivery path. If those choices are still open, start with the <a href="./charts/index.html">Component Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./operations.html#build-an-app">Apps</a>.</p>
-    </section>
-
-    <section aria-labelledby="ops">
-      <h2 id="ops">2. Choose an operation</h2>
-      <div class="card">
-        <h3>Status legend</h3>
-        <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work still needs a product, policy, support, or service decision.</p>
-        <p>A green GitOps sync tells you the controller accepted the manifest, which is a smaller claim than a working application. Where the claim depends on live state, use observation receipts.</p>
-      </div>
-${cards}
-    </section>
-
-    <section aria-labelledby="fleet-record">
-      <h2 id="fleet-record">3. Keep a fleet record</h2>
-      <p>The fleet use case begins when a platform team needs to know what many clusters should run and whether each cluster matches that record.</p>
-      <p><strong>Use one visible sequence:</strong> choose the approved configuration, select targets by label, and preview the exact target list.</p>
-      <p>Publish to a small wave, then inspect every target before continuing. The <a href="./d/docs/demo/sveltos/kyverno-fleet.html">Sveltos example</a> records two waves. Managed pause and resume controls are still planned.</p>
-      <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. Only a small, restricted set of settings remains at install time, so an upgrade does not become another free-form Helm exercise.</p>
-      <table>
-        <thead><tr><th>Fleet area</th><th>Who usually owns it</th><th>What ConfigHub records</th></tr></thead>
-        <tbody>
-          <tr><td>User workloads</td><td>Application teams</td><td>The approved app variant, target, inputs, policy gates, and release history.</td></tr>
-          <tr><td>System services</td><td>Platform operators</td><td>Shared services such as DNS, monitoring, ingress, and storage, with controlled upgrades across clusters.</td></tr>
-          <tr><td>System configuration</td><td>Cluster or fleet systems</td><td>Opt-in platform components such as GPU, network, security, and operator configuration, reconciled from a signed-off package and fleet record.</td></tr>
-        </tbody>
-      </table>
-      <p>Read the <a href="../data/operational-class-examples/summary.md">three checked examples</a> for their owners, targets, checks, rollout order, and current evidence. They cover NGINX, Kube Prometheus Stack, and a Kubara platform configuration.</p>
-      <p>This is why the site keeps package OCI separate from delivery OCI. <a href="./oci.html">See every OCI shape and who consumes each one</a>.</p>
-    </section>
-
-    <section aria-labelledby="next">
-      <h2 id="next">4. Govern with the commercial product when needed</h2>
-      <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./offering.html#commercial">Upgrade guide</a> describes what the commercial product governs.</p>
-    </section>
-
-    <section aria-labelledby="build-an-app">
-      <h2 id="build-an-app">5. Build a ConfigHub App</h2>
-      <p>An App performs one repeated job, such as reviewing an upgrade, checking RBAC, or rolling a platform change across clusters. It reads the exact Kubernetes objects and proposes a change, runs the checks, waits for approval, then publishes a release and records what happened. AI can help along the way, while the reviewed objects and the policy result decide what ships.</p>
-      <p>Everything here works once the configuration is saved in ConfigHub, which needs a free account. If it is not saved yet, start from an <a href="./testing.html">example</a>, or follow <a href="./put-an-app-on-a-platform.html">Apps on a platform</a> to record an application that already runs. The <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "apps")}">official tutorial</a> shows the shortest path from one component to a promoted variant.</p>
-      <h3>What the App operates</h3>
-      <p>An application is the set of Kubernetes objects your team operates together. That might be one chart, several charts, or your own files, and it can be imported from a system you already run.</p>
-      ${markdownLikeTable([
-        ["Kind", "Meaning"],
-        ...appKinds,
-      ])}
-      <h3>The normal order</h3>
-      <p>Start from the saved objects and show the proposed change. Run the required checks, publish the approved release, then check what happened on the cluster.</p>
-      <div class="app-flow">
-        ${appFlow.map(([title, body]) => `<div class="app-step"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
-      </div>
-      <h3>Common uses</h3>
-      ${markdownLikeTable([
-        ["Example", "What ConfigHub helps with"],
-        ["Redis app", "One public chart can be rendered from a base variant, checked, changed for each environment, and released again."],
-        ["Prometheus or kube-prometheus-stack", "A chart with CRDs, webhooks, and prerequisites can use base variants that say what the target must provide before release."],
-        ["Platform services", "Ingress, certificates, policy, monitoring, and logging can be grouped with the application that depends on them."],
-        ["Your service plus chart services", "Your own service can sit beside a database, queue, cache, or monitoring chart."],
-        ["Existing app", "An application already in a cluster can be inventoried first, then brought under review when you are ready."],
-        ["AI-suggested change", "AI can propose a values change or file edit. ConfigHub shows the exact diff and checks before it is approved."],
-      ])}
-      <p>The <a href="../data/redis-upgrade-app-proof/summary.md">Redis upgrade and rollback proof</a> follows one complete run from chart 25.5.3 to 27.0.0 and back. A two-replica edit stays in place while the candidate moves through development and staging. Two Argo CD clusters run the candidate and rollback OCI releases.</p>
-      <p>The <a href="../data/rbac-review-live-proof/summary.md">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, publishes the approved objects as OCI, and lets Argo CD deliver them to an isolated cluster. Secret access is gone while ConfigMap access still works.</p>
-      <p>Component and chart evidence still lives in the Component Catalog. This page explains how those components become part of applications your team runs.</p>
-    </section>
-
-    <section aria-labelledby="app-program">
-      <h2 id="app-program">6. Open the working App demonstrations</h2>
-      <p>Each row has one checked example with committed evidence. The final column says what is still needed before the same result can be offered more generally.</p>
-      ${markdownLikeTable([
-        ["App", "What ran", "Broader status", "Still to build"],
-        ...appDemos.map((demo) => [
-          demo.name,
-          demo.workedExample.result,
-          demo.status,
-          demo.workedExample.limit,
-        ]),
-      ])}
-      <p><a href="../docs/user/config-catalog-demonstrations.md">Open the demonstration programme</a> for the steps, evidence, and current limit for every App.</p>
-    </section>
-  </main>
-  <footer>Generated from helm-expt proof data. Check each operation's status before relying on it.</footer>
-</body>
-</html>
-`;
+function operationsHtml() {
+  return movedPageHtml("Operations", "./operate-a-fleet.html", "Operations now lives on the Guide Operate a fleet, and building an App on the Guide Build a ConfigHub App.");
 }
 
 function legacyOperationsRedirectHtml() {
@@ -9792,11 +9795,11 @@ function legacyOperationsRedirectHtml() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=./operations.html">
+  <meta http-equiv="refresh" content="0; url=./operate-a-fleet.html">
   <title>Ops · ConfigHub Workshop</title>
 </head>
 <body>
-  <p>The day-1 operations page moved to <a href="./operations.html">Operate saved configuration</a>.</p>
+  <p>The day-1 operations page moved to <a href="./operate-a-fleet.html">Operate a fleet</a>.</p>
 </body>
 </html>
 `;
@@ -12150,7 +12153,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         ["Apply the rendered manifests with kubectl, or publish reviewed objects as OCI", `<a href="../deploy-with-flux-or-argo.html#now-deploy">Publish reviewed objects as OCI or apply the manifests with kubectl</a>.`],
         ["Save the reviewed result for a team", `<a href="../confighub.html">Save and upload the reviewed result to ConfigHub</a> for shared history, exact diffs, and approvals.`],
         ["Compare development and production, audit an exact diff, promote, or roll back", `<a href="../promote.html#promotion-inputs">Build a promotion review</a> or <a href="../promote.html#rollback-release">read the bounded rollback example</a>.`],
-        ["Assign the configuration to clusters and operate a small fleet", `<a href="../operations.html#fleet-record">Choose targets, preview a wave, and inspect every result</a>.`],
+        ["Assign the configuration to clusters and operate a small fleet", `<a href="../operate-a-fleet.html#fleet-record">Choose targets, preview a wave, and inspect every result</a>.`],
         ["Check delivery limits", `<a href="../known-gaps.html">Read the current limits before choosing kubectl, Argo CD, or Flux</a>.`],
         ...(chartNeedsCrdHandling ? [["Handle CRDs on the first install", `<a href="../known-gaps.html">Read the CRD ordering risk and first-install guide</a>, then check <a href="#lifecycle">this chart's recorded owner and route</a>.`]] : []),
         ...(chartHasCredentialStartingPoint ? [["Fix placeholder or static credentials", `<a href="../known-gaps.html">Use an existing Secret or another reviewed credential path before production</a>.`]] : []),

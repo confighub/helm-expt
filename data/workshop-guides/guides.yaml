@@ -257,3 +257,13 @@ spec:
     title: Change a config safely
     summary: Decide whether a change rebuilds the base or belongs to one environment, then preview it and promote only what was reviewed.
     page: change-a-config-safely.html
+  - id: operate-a-fleet
+    group: confighub
+    title: Operate a fleet
+    summary: Check the starting point, choose an operation, keep a fleet record, and open the working App demonstrations.
+    page: operate-a-fleet.html
+  - id: build-a-confighub-app
+    group: confighub
+    title: Build a ConfigHub App
+    summary: Build an App that repeats one operation on configuration saved in ConfigHub.
+    page: build-a-confighub-app.html

@@ -6,7 +6,7 @@
   "generatedFrom": [
     "data/workshop-guides/guides.yaml"
   ],
-  "count": 40,
+  "count": 42,
   "rows": [
     {
       "id": "journey-values-did-nothing",
@@ -486,6 +486,30 @@
       "address": "https://confighub.github.io/helm-expt/site/change-a-config-safely.html",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/change-a-config-safely.html"
+      }
+    },
+    {
+      "id": "operate-a-fleet",
+      "group": "confighub",
+      "groupTitle": "ConfigHub",
+      "title": "Operate a fleet",
+      "summary": "Check the starting point, choose an operation, keep a fleet record, and open the working App demonstrations.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/operate-a-fleet.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/operate-a-fleet.html"
+      }
+    },
+    {
+      "id": "build-a-confighub-app",
+      "group": "confighub",
+      "groupTitle": "ConfigHub",
+      "title": "Build a ConfigHub App",
+      "summary": "Build an App that repeats one operation on configuration saved in ConfigHub.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/build-a-confighub-app.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/build-a-confighub-app.html"
       }
     }
   ]

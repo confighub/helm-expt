@@ -103,9 +103,19 @@ const checks = [
     file: "site/change-a-config-safely.html",
     terms: ["Change a config safely", "1. Decide where the change belongs", "Quick routing table", "Firm answers for four fields", "What protection means", "One worked example: ExternalDNS overlays", "The OCI boundary, and changing one field without ConfigHub", "2. Follow a safe flow", "The whole chain, with the variants labeled", "3. Run the commands", "reuse-existing-secret", "4. Open worked examples"],
   },
+  // Site IA phase 4, step 7b: Operations split into two Guides, and its
+  // commercial note went to the ConfigHub Server page.
   {
-    file: "site/operations.html",
-    terms: ["Operations", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed", "5. Build a ConfigHub App", "6. Open the working App demonstrations", "Redis upgrade and rollback proof", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery", "Argo CD and Flux guide", "What each path can prove"],
+    file: "site/build-a-confighub-app.html",
+    terms: ["Build a ConfigHub App", "1. Build a ConfigHub App", "Redis upgrade and rollback proof"],
+  },
+  {
+    file: "site/confighub.html",
+    terms: ["When the work carries private inputs, production responsibility"],
+  },
+  {
+    file: "site/operate-a-fleet.html",
+    terms: ["Operate a fleet", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Open the working App demonstrations", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery", "Argo CD and Flux guide", "What each path can prove"],
   },
   {
     file: "site/try.html",
@@ -259,7 +269,8 @@ const menuGuidePages = [
   "site/confighub.html",
   "site/charts/index.html",
   "site/variants.html",
-  "site/operations.html",
+  "site/operate-a-fleet.html",
+  "site/build-a-confighub-app.html",
   "site/docs.html",
   "site/bring-kubara-into-confighub.html",
 ];
@@ -275,7 +286,8 @@ const humanSplitPages = [
   "site/config.html",
   "site/variants.html",
   "site/oci.html",
-  "site/operations.html",
+  "site/operate-a-fleet.html",
+  "site/build-a-confighub-app.html",
   "site/docs.html",
   "site/bring-kubara-into-confighub.html",
   "site/known-gaps.html",
@@ -317,8 +329,8 @@ const guideOpeningChecks = [
     headerTerms: ["Turn a recipe and values into a base, and decide where a change belongs", "Render it with one set of values and you get a base", "Does the change rebuild the base, or does it belong to one environment", "make a derived ConfigHub variant"],
   },
   {
-    file: "site/operations.html",
-    headerTerms: ["Operations", "after an application and its target already exist", "review a change, approve it, deliver it, check the live result", "OCI carries a reviewed release"],
+    file: "site/operate-a-fleet.html",
+    headerTerms: ["Operate a fleet", "after an application and its target already exist", "approve it, deliver it, check the live result"],
   },
   {
     file: "site/deploy-with-flux-or-argo.html",
@@ -669,8 +681,8 @@ if (fs.existsSync(examplesPath)) {
 
 const pageOwnershipRules = [
   {
-    file: "site/operations.html",
-    ordered: ["1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed", "5. Build a ConfigHub App", "6. Open the working App demonstrations"],
+    file: "site/operate-a-fleet.html",
+    ordered: ["1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Open the working App demonstrations"],
   },
 ];
 
@@ -968,7 +980,7 @@ const purposePageRules = [
   {
     file: "site/testing.html",
     maxH2: 5,
-    requiredLinks: ["./try.html", "./operations.html#build-an-app", "./operations.html", "./confighub.html"],
+    requiredLinks: ["./try.html", "./build-a-confighub-app.html#build-an-app", "./operate-a-fleet.html", "./confighub.html"],
   },
   {
     file: "site/bring-kubara-into-confighub.html",
