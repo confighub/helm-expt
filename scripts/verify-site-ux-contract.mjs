@@ -163,7 +163,7 @@ const checks = [
   },
   {
     file: "site/config.html",
-    terms: ["A simple model for all your config, templates and recipes", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "4. Choose a tool and start", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "The four verdicts", "How the audited bases fall today", "One shape, from source to a synced digest", "Why this is more than a fast render command", "Three public jobs", "A graduation path, not a day-one choice", "When your chart is not in the catalog"],
+    terms: ["A simple model for all your config, templates and recipes", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "The four verdicts", "How the audited bases fall today", "One shape, from source to a synced digest"],
   },
   {
     file: "site/demo.html",
@@ -229,6 +229,11 @@ const checks = [
   {
     file: "site/docs.html",
     terms: ["Docs, by area", "How configuration works", "How ConfigHub works", "Why trust it", "What ConfigHub Workshop is", "records/bitnami-redis-25-5-3-default.json", "Download record.json", "examples/workshop-catalog-inspection/README.md", "Inspect and keep an exact record", "All technical references", "Technical Guides", "Verification and evidence", "Every doc, by area", "Try Redis", "Component Catalog", "Browse all technical references", "Continue with ConfigHub"],
+  },
+  // Site IA phase 4, step 8: "Choose a tool and start" left How configuration works for its Guide.
+  {
+    file: "site/choose-a-tool.html",
+    terms: ["Choose a tool and start", "1. Choose a tool and start", "Why this is more than a fast render command", "Three public jobs", "A graduation path, not a day-one choice", "When your chart is not in the catalog"],
   },
   // Site IA phase 4, step 8: explanation sections became agent docs.
   {

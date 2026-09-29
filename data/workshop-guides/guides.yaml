@@ -94,6 +94,11 @@ spec:
       lookup and a refusal locally with Node and a checkout.
     repository: confighub/helm-expt
     path: examples/workshop-catalog-inspection
+  - id: choose-a-tool
+    group: start-here
+    title: Choose a tool and start
+    summary: Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.
+    page: choose-a-tool.html
   - id: helm-questions
     group: helm-questions
     title: Answer the ten questions Helm users ask

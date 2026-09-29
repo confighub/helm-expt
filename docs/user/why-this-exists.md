@@ -11,7 +11,7 @@ use `cub variant upload`. To bring in an estate you already run, start with disc
 or import. Reach for those.
 
 That pitch now lives on
-[Config's tool table](../../site/config.html#why-this-helps): this repo turns
+[Choose a tool and start](../../site/choose-a-tool.html#why-this-helps): this repo turns
 a popular Helm chart into something reviewed, named, and reusable across a
 fleet, with variants to compare, checks to gate on, and receipts to cite.
 

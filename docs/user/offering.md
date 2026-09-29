@@ -31,7 +31,7 @@ or observe selected rows through live lanes.
 ## Why This Helps
 
 The short version is on
-[Config's tool table](../../site/config.html#why-this-helps): comparing the
+[Choose a tool and start](../../site/choose-a-tool.html#why-this-helps): comparing the
 exact object set before a change is promoted, and staying close to the chart
 author's supported path, both make Helm changes safer.
 

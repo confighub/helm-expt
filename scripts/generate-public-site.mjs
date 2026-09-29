@@ -551,6 +551,7 @@ const SPLIT_PAGES = [
   { key: "aicrConfigurationsHtml", file: "aicr-configurations.html", title: "Where an AICR configuration comes from", description: "The provider, catalog and selected source variant behind a retained AICR configuration, and what the example proves.", build: (catalog) => aicrConfigurationsHtml(catalog), doc: true, reference: true },
   { key: "agentsMaintainCatalogHtml", file: "agents-maintain-the-catalog.html", title: "How agents help maintain the Catalog", description: "What agents do for the Catalog, and the record each task needs before it appears on the site.", build: (catalog) => agentsMaintainCatalogHtml(catalog), doc: true, reference: true },
   { key: "publicQuestionsHtml", file: "public-questions.html", title: "What happens to a public question", description: "How a question sent in public becomes a checked answer, a named refusal, or a documented limit.", build: (catalog) => publicQuestionsHtml(catalog), doc: true, reference: true },
+  { key: "chooseToolGuideHtml", file: "choose-a-tool.html", title: "Choose a tool and start", description: "Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.", build: () => chooseToolGuideHtml() },
 ];
 const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
 
@@ -4296,7 +4297,7 @@ function configHtml(catalog) {
   const auditedBases = totalBases - laneTally["not-assessed"];
   const refuseFlatten = laneTally["unsafe-to-flatten"];
   const withRoutes = laneTally["flatten-with-routes"];
-  return `<!doctype html>
+  return renumberSections(`<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -4504,55 +4505,11 @@ function configHtml(catalog) {
     <p>The rules are in <a href="./d/docs/reference/flattening-alignment.html">when to flatten configuration</a>, <a href="./d/docs/reference/deciding-a-flattening-lane.html">deciding a flattening lane</a>, and <a href="./d/docs/reference/certified-bundle-spec.html">the certified bundle spec</a>. The <a href="./d/data/certified-bundles/summary.html">certified bundles record</a> lists the flattened ones so far.</p>
   </section>
 
-  <section aria-labelledby="tools">
-    <h2 id="tools">4. Choose a tool and start</h2>
-    <p>Five tools cover the whole model. Pick by what you want to do right now, and move between them as the work grows.</p>
-    ${markdownLikeTable([
-      ["Tool", "Use it when", "What you get"],
-      ["<code>cub config</code>, the workshop plugin", "You want the free path on a config, an app, or a stack: check, render, publish, verify, and upload.", "The objects and what a source hides, a CERTIFIED or REJECTED verdict, and a verified image with <code>--out oci://…</code>. No account."],
-      ["<code>cub installer</code>", "You want a maintained catalog package with named bases, receipts, and an upgrade path.", "Render a reviewed preset and deliver it as a controller-native OCI, verified as it is pushed. Free on any catalog package."],
-      ["<code>cub helm</code>", "You have an arbitrary chart and want a fast render or to store it in ConfigHub.", "<code>cub helm template</code> renders locally; <code>cub helm install</code> records the source and rendered base as Units. Preparation, not a catalog entry."],
-      ["The browser check", "You want to inspect rendered YAML without installing anything.", `An object review in your browser and a handoff prompt for your own AI. <a href="./ask.html">Is my configuration right?</a>`],
-      ["Your own AI assistant", "You want an assistant to run the investigation and keep it tied to records.", `It renders, checks, proposes a candidate, or completes the ConfigHub handoff; you still check the files and diffs. <a href="./ai.html">Your assistant</a>`],
-    ], { rawFirstColumn: true, rawThirdColumn: true })}
-    <p><code>cub server install</code> runs ConfigHub yourself, locally, in about twenty seconds, when you want the account path on your own machine.</p>
-    <h3 id="why-this-helps">Why this is more than a fast render command</h3>
-    <p>A fair skeptic asks if this is just <code>helm template</code> with a wrapper. It turns Helm's output into something reviewed, named, and reusable across a fleet. You get variants you can compare, checks you can gate on, and receipts you can cite.</p>
-    <p>A change becomes safer when it is compared, scanned, and kept as a receipt before it is promoted. Staying on the chart author's supported path also helps, because a departure becomes visible before it reaches production.</p>
-    <p>Read the fuller argument in <a href="./d/docs/user/why-this-exists.html">why this exists</a> and <a href="./d/docs/user/what-you-get.html">what you get</a>, or see the free, account, and commercial paths on the <a href="./offering.html">Offering page</a>.</p>
-    <h3 id="three-jobs">Three public jobs</h3>
-    <ul>
-      <li><strong>Catalog</strong> answers questions already investigated for a named source and version: retained packages, useful configurations, setup requirements, checks, and known limits. <a href="./charts/index.html">Find a configuration</a>.</li>
-      <li><strong>Check my config</strong> investigates a new chart, version, values set, OCI bundle, or existing deployment. The browser inspects rendered YAML without sending it to a server, and builds a prompt for your own assistant. <a href="./ask.html">Is my configuration right?</a></li>
-      <li><strong>ConfigHub</strong> retains an accepted answer, then lets a team make variants, review diffs, promote changes, publish releases, and compare desired configuration with live observations. <a href="./confighub.html">What ConfigHub adds</a>.</li>
-    </ul>
-    <details class="deep" id="graduation">
-      <summary>A graduation path, not a day-one choice</summary>
-      <div class="deep-body">
-    <p>You can move through these paths over time. You do not need the full catalog model on day one.</p>
-    ${markdownLikeTable([
-      ["Stage", "Command path", "Result"],
-      ["Inspect", "<code>cub helm template</code>", "Render an arbitrary chart locally and see the Kubernetes objects."],
-      ["Adopt a chart", "<code>cub helm install</code>", "Store a HelmSource Unit and the rendered base Units in two ConfigHub Spaces."],
-      ["Adopt files or OCI", "<code>cub variant upload</code>", "Load rendered files or a literal configuration OCI into ConfigHub Units."],
-      ["Use a maintained entry", "<code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code>", "Start from a reviewed package base with locks, values, receipts, and checks."],
-      ["Operate", "<code>cub variant create</code>, <code>cub variant promote</code>, releases, scans, approvals", "Manage reviewed objects as ConfigHub Units and derived variants."],
-    ], { rawSecondColumn: true })}
-      </div>
-    </details>
-    <h3 id="not-in-catalog">When your chart is not in the catalog</h3>
-    <p>When the exact chart and variant you want is not in the catalog, you render your own and bring it in. ConfigHub never needs one of our images to run a chart. Which path you take depends on what you mean to do.</p>
-    <ul>
-      <li><strong>Just check it.</strong> Render it with <code>cub helm template</code> locally, or use the <a href="./ask.html">browser check</a>. No packaging, no account.</li>
-      <li><strong>Render and deliver it your way.</strong> Your own chart has no catalog package to pull, so render it with <code>cub helm template</code>, then deliver the reviewed objects as OCI. <code>cub installer</code> pulls a catalog package that already ships an image; it cannot pull a chart that has none.</li>
-      <li><strong>Manage it in ConfigHub.</strong> <code>cub helm install</code> records the chart straight into Units, and from there you release, promote, and gate it.</li>
-      <li><strong>Add it to the tested catalog for everyone.</strong> Send it through the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart template</a>, and a maintainer renders, checks, and publishes it as a base variant.</li>
-    </ul>
-  </section>
+  <p><a href="./choose-a-tool.html">Choose a tool and start</a> picks the tool for what you want to do now. It also covers a chart the Catalog does not have.</p>
 ${moved.entryContains}${moved.readResults}${moved.baseVariants}</main>
 <footer><p>Config is the model. The <a href="./charts/index.html">Catalog</a> is the store of tested configurations, <a href="./stack.html">stacks</a> compose them, and <a href="./confighub.html">ConfigHub</a> governs, releases, and promotes a reviewed base.</p></footer>
 </body>
-</html>`;
+</html>`);
 }
 
 function howItWorksHtml() {
@@ -5140,7 +5097,7 @@ cub stack check my-platform/stack.yaml</code></pre>
       <details class="deep" id="plugin-verbs">
       <summary>What you can do with the workshop plugin</summary>
       <div class="deep-body">
-      <p><a href="./config.html#tools">Config's tool table</a> introduces the plugin as one free path. Here is its full command surface, from a first check to a fleet.</p>
+      <p><a href="./choose-a-tool.html#tools">Config's tool table</a> introduces the plugin as one free path. Here is its full command surface, from a first check to a fleet.</p>
       ${markdownLikeTable([
         ["Level", "Do this", "Command", "What you get"],
         ["Basic", "See what a chart installs", "<code>cub config check redis</code>", "The objects, what the chart hides, and what the cluster must already have."],
@@ -7585,7 +7542,7 @@ function sendChartGuideHtml() {
     </section>
     <section aria-labelledby="what-happens">
       <h2 id="what-happens">4. See what happens to it</h2>
-      <p>Each case becomes a checked answer, a named refusal, or a documented limit. <a href="./public-questions.html#public-question-decisions">What happens to a public question</a> explains how that is decided. Until then, <a href="./config.html#not-in-catalog">the other paths for a chart the Catalog does not have</a> still work.</p>
+      <p>Each case becomes a checked answer, a named refusal, or a documented limit. <a href="./public-questions.html#public-question-decisions">What happens to a public question</a> explains how that is decided. Until then, <a href="./choose-a-tool.html#not-in-catalog">the other paths for a chart the Catalog does not have</a> still work.</p>
     </section>
 `,
   });
@@ -7791,8 +7748,62 @@ function publicQuestionsHtml(catalog) {
     lead: "A question sent in public becomes a checked answer, a named refusal, or a documented limit.",
     body: `    <section aria-labelledby="public-question-decisions">
       <h2 id="public-question-decisions">1. What happens to a public question</h2>
-      <p>Submit only a public chart after you have a useful local result. Proposing a public case is one of the <a href="./config.html#three-jobs">three public jobs</a>. We aim to acknowledge a complete report within two business days. Within seven days, we aim to post one clear outcome: a Catalog entry, a named warning, a refusal, or a request for more evidence. <a href="./d/data/challenge-intake/summary.html">See current question totals and outcomes</a> · <a href="./d/docs/reference/question-intake-operation.html">Read the response process</a></p>
+      <p>Submit only a public chart after you have a useful local result. Proposing a public case is one of the <a href="./choose-a-tool.html#three-jobs">three public jobs</a>. We aim to acknowledge a complete report within two business days. Within seven days, we aim to post one clear outcome: a Catalog entry, a named warning, a refusal, or a request for more evidence. <a href="./d/data/challenge-intake/summary.html">See current question totals and outcomes</a> · <a href="./d/docs/reference/question-intake-operation.html">Read the response process</a></p>
     </section>
+`,
+  });
+}
+
+function chooseToolGuideHtml() {
+  return splitGuideHtml({
+    title: "Choose a tool and start",
+    lead: "Five tools cover the whole model. Pick one by what you want to do right now, and move between them as the work grows.",
+    ask: "“I want to &lt;check, render, keep or deliver&gt; &lt;chart or config&gt;. Tell me which tool fits and why, and run nothing yet.”",
+    body: `  <section aria-labelledby="tools">
+    <h2 id="tools">1. Choose a tool and start</h2>
+    <p>Five tools cover the whole model. Pick by what you want to do right now, and move between them as the work grows.</p>
+    ${markdownLikeTable([
+      ["Tool", "Use it when", "What you get"],
+      ["<code>cub config</code>, the workshop plugin", "You want the free path on a config, an app, or a stack: check, render, publish, verify, and upload.", "The objects and what a source hides, a CERTIFIED or REJECTED verdict, and a verified image with <code>--out oci://…</code>. No account."],
+      ["<code>cub installer</code>", "You want a maintained catalog package with named bases, receipts, and an upgrade path.", "Render a reviewed preset and deliver it as a controller-native OCI, verified as it is pushed. Free on any catalog package."],
+      ["<code>cub helm</code>", "You have an arbitrary chart and want a fast render or to store it in ConfigHub.", "<code>cub helm template</code> renders locally; <code>cub helm install</code> records the source and rendered base as Units. Preparation, not a catalog entry."],
+      ["The browser check", "You want to inspect rendered YAML without installing anything.", `An object review in your browser and a handoff prompt for your own AI. <a href="./ask.html">Is my configuration right?</a>`],
+      ["Your own AI assistant", "You want an assistant to run the investigation and keep it tied to records.", `It renders, checks, proposes a candidate, or completes the ConfigHub handoff; you still check the files and diffs. <a href="./ai.html">Your assistant</a>`],
+    ], { rawFirstColumn: true, rawThirdColumn: true })}
+    <p><code>cub server install</code> runs ConfigHub yourself, locally, in about twenty seconds, when you want the account path on your own machine.</p>
+    <h3 id="why-this-helps">Why this is more than a fast render command</h3>
+    <p>A fair skeptic asks if this is just <code>helm template</code> with a wrapper. It turns Helm's output into something reviewed, named, and reusable across a fleet. You get variants you can compare, checks you can gate on, and receipts you can cite.</p>
+    <p>A change becomes safer when it is compared, scanned, and kept as a receipt before it is promoted. Staying on the chart author's supported path also helps, because a departure becomes visible before it reaches production.</p>
+    <p>Read the fuller argument in <a href="./d/docs/user/why-this-exists.html">why this exists</a> and <a href="./d/docs/user/what-you-get.html">what you get</a>, or see the free, account, and commercial paths on the <a href="./offering.html">Offering page</a>.</p>
+    <h3 id="three-jobs">Three public jobs</h3>
+    <ul>
+      <li><strong>Catalog</strong> answers questions already investigated for a named source and version: retained packages, useful configurations, setup requirements, checks, and known limits. <a href="./charts/index.html">Find a configuration</a>.</li>
+      <li><strong>Check my config</strong> investigates a new chart, version, values set, OCI bundle, or existing deployment. The browser inspects rendered YAML without sending it to a server, and builds a prompt for your own assistant. <a href="./ask.html">Is my configuration right?</a></li>
+      <li><strong>ConfigHub</strong> retains an accepted answer, then lets a team make variants, review diffs, promote changes, publish releases, and compare desired configuration with live observations. <a href="./confighub.html">What ConfigHub adds</a>.</li>
+    </ul>
+    <details class="deep" id="graduation">
+      <summary>A graduation path, not a day-one choice</summary>
+      <div class="deep-body">
+    <p>You can move through these paths over time. You do not need the full catalog model on day one.</p>
+    ${markdownLikeTable([
+      ["Stage", "Command path", "Result"],
+      ["Inspect", "<code>cub helm template</code>", "Render an arbitrary chart locally and see the Kubernetes objects."],
+      ["Adopt a chart", "<code>cub helm install</code>", "Store a HelmSource Unit and the rendered base Units in two ConfigHub Spaces."],
+      ["Adopt files or OCI", "<code>cub variant upload</code>", "Load rendered files or a literal configuration OCI into ConfigHub Units."],
+      ["Use a maintained entry", "<code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code>", "Start from a reviewed package base with locks, values, receipts, and checks."],
+      ["Operate", "<code>cub variant create</code>, <code>cub variant promote</code>, releases, scans, approvals", "Manage reviewed objects as ConfigHub Units and derived variants."],
+    ], { rawSecondColumn: true })}
+      </div>
+    </details>
+    <h3 id="not-in-catalog">When your chart is not in the catalog</h3>
+    <p>When the exact chart and variant you want is not in the catalog, you render your own and bring it in. ConfigHub never needs one of our images to run a chart. Which path you take depends on what you mean to do.</p>
+    <ul>
+      <li><strong>Just check it.</strong> Render it with <code>cub helm template</code> locally, or use the <a href="./ask.html">browser check</a>. No packaging, no account.</li>
+      <li><strong>Render and deliver it your way.</strong> Your own chart has no catalog package to pull, so render it with <code>cub helm template</code>, then deliver the reviewed objects as OCI. <code>cub installer</code> pulls a catalog package that already ships an image; it cannot pull a chart that has none.</li>
+      <li><strong>Manage it in ConfigHub.</strong> <code>cub helm install</code> records the chart straight into Units, and from there you release, promote, and gate it.</li>
+      <li><strong>Add it to the tested catalog for everyone.</strong> Send it through the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart template</a>, and a maintainer renders, checks, and publishes it as a base variant.</li>
+    </ul>
+  </section>
 `,
   });
 }
@@ -9751,7 +9762,7 @@ Rendered 0 secret(s)</code></pre>
       <p><a href="./d/docs/demo/c3agent/fleet-config.html"><strong>Read the c3agent walkthrough</strong></a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/c3agent/fleet-config">Open the source files</a> · <a href="./d/data/c3agent-configuration-proof/summary.html">Check the live proof</a></p>
 
       <h3 id="bring-your-own">Bring your own Helm chart and values</h3>
-      <p>Render your own chart with <code>cub helm template</code>, check the exact objects on <a href="./ask.html#ai-values">Check my config</a>, then keep the result as files, as OCI, or in ConfigHub with <code>cub helm install</code>. <a href="./config.html#not-in-catalog">See the four paths for a chart the catalog does not have</a>, and <a href="./config.html#formats">where each setting belongs</a>. The <a href="./d/data/byo-helm-values-review/summary.html">worked NGINX review</a> starts with AI-written values, keeps the requested replica count, and corrects six settings before deployment.</p>
+      <p>Render your own chart with <code>cub helm template</code>, check the exact objects on <a href="./ask.html#ai-values">Check my config</a>, then keep the result as files, as OCI, or in ConfigHub with <code>cub helm install</code>. <a href="./choose-a-tool.html#not-in-catalog">See the four paths for a chart the catalog does not have</a>, and <a href="./config.html#formats">where each setting belongs</a>. The <a href="./d/data/byo-helm-values-review/summary.html">worked NGINX review</a> starts with AI-written values, keeps the requested replica count, and corrects six settings before deployment.</p>
     </section>
 
     <section aria-labelledby="start-modes">

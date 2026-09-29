@@ -3,7 +3,7 @@
 **UNOFFICIAL/EXPERIMENTAL**
 
 The user-facing promise now lives on
-[Config's tool table](../../site/config.html#why-this-helps). It states the
+[Choose a tool and start](../../site/choose-a-tool.html#why-this-helps). It states the
 whole arc: use Helm charts, choose a reviewed base, inspect the exact objects,
 manage derived variants in ConfigHub, and keep receipts for each step.
 
