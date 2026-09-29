@@ -230,8 +230,8 @@ const checks = [
     terms: ["Find a starting configuration", "The ConfigHub Workshop Catalog keeps exact versions", "1. What do you need?", "Six worked examples", "What will this package install?", "What did AI-written values change?", "Can I promote the reviewed change?", "How should hooks and CRDs run?", "Can I build a platform from tested parts?", "Can I inspect AI infrastructure without a GPU?", "2. Try a simple example: Redis", "See what Redis installs, before you install it", "cub installer setup", "reuse-existing-secret", "What you have", "Start with this example", "The advanced examples below continue into promotion, fleet rollout, and repeated operational jobs", "Each example includes the source files and the evidence behind its result", "Bring your own Helm chart and values", "An AICR recipe or inference stack", "A Timoni module", "Inspect the Timoni Redis example", "Base guide", "Development variant", "Proof and limits", "Get inference running", "certified-bundles/eks-inference-stack.md", "confighub/eks-inference", "cub helm template", "cub helm install", "3. Choose how to run a starting example", "4. Continue in ConfigHub", "5. Build or roll out a platform", "Build a small Kubara platform from tested Catalog components", "6. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
   },
   {
-    file: "site/kubara.html",
-    terms: ["Need GitOps services and the shop app?", "kubara-gitops-shop", "./d/docs/user/workshop-compose-guide.html", "Run a Kubara platform with ConfigHub", "Govern your Kubara platform with cub kubara", "This path has no stack step", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "not yet a stack and not yet a platform", "ConfigHub retains and promotes each of them", "Try it now", "cub cluster up --name demo --space demo-cluster", "Give your agent this prompt", "problem-chart.yml", "answered static chart questions at 96.7 percent", "Twelve of eighteen questions about time, live state, and accountability", "1. Choose services for your developers", "Website to command line", "Replace <code>https://github.com/acme/platform.git</code>", "env.example", "runtime-images.yaml", "Kubara does not deploy this record", "Package the reviewed Git revision as OCI", "See two applications added, promoted, released, and checked on the platform", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "refusing a real conflict rather than reporting one", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Generate the platform and push it to Git", "3. Certify the platform as a stack", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "cub stack from-kubara", "cub stack check", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "current deterministic", "live receipt required"],
+    file: "site/bring-kubara-into-confighub.html",
+    terms: ["Need GitOps services and the shop app?", "kubara-gitops-shop", "./d/docs/user/workshop-compose-guide.html", "Bring a Kubara platform into ConfigHub", "Govern your Kubara platform with cub kubara", "This path has no stack step", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "not yet a stack and not yet a platform", "ConfigHub retains and promotes each of them", "Try it now", "cub cluster up --name demo --space demo-cluster", "Give your agent this prompt", "problem-chart.yml", "answered static chart questions at 96.7 percent", "Twelve of eighteen questions about time, live state, and accountability", "1. Choose services for your developers", "Website to command line", "Replace <code>https://github.com/acme/platform.git</code>", "env.example", "runtime-images.yaml", "Kubara does not deploy this record", "Package the reviewed Git revision as OCI", "See two applications added, promoted, released, and checked on the platform", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "refusing a real conflict rather than reporting one", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Generate the platform and push it to Git", "3. Certify the platform as a stack", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "cub stack from-kubara", "cub stack check", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "current deterministic", "live receipt required"],
   },
 ];
 
@@ -246,7 +246,7 @@ const menuGuidePages = [
   "site/variants.html",
   "site/operations.html",
   "site/docs.html",
-  "site/kubara.html",
+  "site/bring-kubara-into-confighub.html",
 ];
 
 const humanSplitPages = [
@@ -262,7 +262,7 @@ const humanSplitPages = [
   "site/oci.html",
   "site/operations.html",
   "site/docs.html",
-  "site/kubara.html",
+  "site/bring-kubara-into-confighub.html",
   "site/known-gaps.html",
   "site/quirks.html",
   "site/apps.html",
@@ -294,8 +294,8 @@ const guideOpeningChecks = [
     headerTerms: ["Operate", "ConfigHub's own operations, the ones you run once a configuration is reviewed", "Try it now", "See the verbs", "What ConfigHub adds"],
   },
   {
-    file: "site/kubara.html",
-    headerTerms: ["Run a Kubara platform with ConfigHub", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "platform components, developer tools, and applications", "ConfigHub retains and promotes each of them", "You can stop with Kubara's Git output and OCI packages"],
+    file: "site/bring-kubara-into-confighub.html",
+    headerTerms: ["Bring a Kubara platform into ConfigHub", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "platform components, developer tools, and applications", "ConfigHub retains and promotes each of them", "You can stop with Kubara's Git output and OCI packages"],
   },
   {
     file: "site/variants.html",
@@ -949,7 +949,7 @@ const purposePageRules = [
     requiredLinks: ["./try.html", "./operations.html#build-an-app", "./operations.html", "./confighub.html"],
   },
   {
-    file: "site/kubara.html",
+    file: "site/bring-kubara-into-confighub.html",
     maxH2: 7,
     requiredLinks: ["d/docs/demo/kubara/adoption.html", "d/docs/demo/kubara/gui-tour.html", "d/docs/demo/kubara/checkpoints.html", "d/docs/demo/kubara/single-platform.html"],
   },
