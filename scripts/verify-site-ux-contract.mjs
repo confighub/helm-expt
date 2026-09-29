@@ -339,7 +339,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Configuration catalog for Agents and Kubernetes", "Your agent writes configuration faster than anyone can check it", "ConfigHub is where people and agents change the same configuration safely", "released by digest"],
+    headerTerms: ["Configuration catalog for Agents and Kubernetes", "ConfigHub Workshop lets an AI get Kubernetes configuration right on your behalf. It gives agents, and the people working beside them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.", "Your agent writes configuration faster than anyone can check it", "ConfigHub is where people and agents change the same configuration safely", "released by digest"],
   },
   {
     file: "site/ask.html",

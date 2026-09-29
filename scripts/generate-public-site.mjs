@@ -3384,6 +3384,7 @@ ${homeJourneyLinks()}
         <div class="hero-head">
           <span class="eyebrow">Config Catalog and Workshop &middot; Helm, AICR, OCI, YAML and More</span>
           <h1>Configuration catalog for Agents and Kubernetes</h1>
+          <p class="lead">ConfigHub Workshop lets an AI get Kubernetes configuration right on your behalf. It gives agents, and the people working beside them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.</p>
         </div>
         <div class="hero">
           <div>
