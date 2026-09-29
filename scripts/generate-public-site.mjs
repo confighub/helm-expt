@@ -3383,12 +3383,13 @@ ${homeJourneyLinks()}
         ${topNav(".")}
         <div class="hero-head">
           <span class="eyebrow">Config Catalog and Workshop &middot; Helm, AICR, OCI, YAML and Timoni</span>
-          <h1>Agent Catalog of tested configuration data and stacks</h1>
+          <h1>An agentic data hub for Kubernetes and AI configurations</h1>
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Other catalogs give you charts. We give your agents the data that makes charts safe to use.</p>
-            <p>Every entry is a chart, module or recipe someone else publishes, rendered with reviewed values into the exact objects it installs. Each one is kept with its digest, and with what the source decides for you. One OCI format and one lifecycle model cover Helm, Timoni, AICR, Kubara and plain YAML, so your agent reads them all the same way, with no account.</p>
+            <p class="lead">Your agent writes configuration faster than anyone can check it, and a chart rarely shows what it will really do.</p>
+            <p>Pull tested configs, stacks, example apps and plugins from here, from a web platform to GPU inference, with guides your agent can follow, and check each one before it runs. When your team needs to keep it, ConfigHub stores it with the graph of how it all connects.</p>
+            <p>ConfigHub is where people and agents change the same configuration safely. Every change is versioned, approved and released by digest, and the Argo CD or Flux you already run delivers it.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my config</a>
               <a class="btn primary" href="./ai.html">Give it to your AI agent</a>
@@ -3422,6 +3423,8 @@ ${homeJourneyLinks()}
           <span class="eyebrow">The short version</span>
           <h2>What is the Workshop?</h2>
           <p class="intro">The Workshop is a Catalog of tested configuration kept as data, and a plugin for <code>cub</code> that checks, composes and publishes it. The Catalog standardises every configuration into one OCI format and one lifecycle model. You, your agent, or both read and run the same things, with no account. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
+          <p class="intro">Other catalogs give you charts. We give your agents the data that makes charts safe to use.</p>
+          <p class="intro">Every entry is a chart, module or recipe someone else publishes, rendered with reviewed values into the exact objects it installs. Each one is kept with its digest, and with what the source decides for you. One OCI format and one lifecycle model cover Helm, Timoni, AICR, Kubara and plain YAML, so your agent reads them all the same way, with no account.</p>
         </section>
         <section class="section" id="give-it-to-your-agent">
           <span class="eyebrow">For your agent</span>
