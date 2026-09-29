@@ -396,6 +396,61 @@ function syncStacks(from) {
   console.log(`pinned ${stacks.length} stacks from confighub/cub-workshop at ${commit.slice(0, 12)}`);
 }
 
+// The five journeys live in monadic/workshop-demo. Each journey Guide on the
+// site is generated from this snapshot, pinned at a commit like the stacks.
+const JOURNEYS = [
+  ["journey-values-did-nothing", "1-catch-the-ai", "My values did nothing"],
+  ["journey-preserve-my-fixes", "2-my-fixes-survive", "Preserve my fixes"],
+  ["journey-what-my-app-needs", "3-what-my-app-needs", "What my app needs"],
+  ["journey-before-gitops", "4-before-argo-takes-over", "Before GitOps takes over"],
+  ["journey-installs-never-starts", "5-it-installs-and-never-starts", "It installs but never starts"],
+];
+
+function syncJourneys(from) {
+  check(from && existsSync(join(from, "README.md")), "--sync-journeys needs a workshop-demo checkout");
+  const dirty = execFileSync("git", ["-C", from, "status", "--porcelain"], { encoding: "utf8" }).trim();
+  check(dirty === "", `${from} has uncommitted changes, so its HEAD would not describe them:\n${dirty}`);
+  const commit = execFileSync("git", ["-C", from, "rev-parse", "HEAD"], { encoding: "utf8" }).trim();
+  const journeys = JOURNEYS.map(([id, dir, title]) => {
+    const readme = readFileSync(join(from, dir, "README.md"), "utf8");
+    const heading = readme.match(/^# (.+)$/m)?.[1] ?? title;
+    const para = (label) => readme.match(new RegExp(`^\\*\\*${label}\\*\\* (.+)$`, "m"))?.[1]?.trim() ?? "";
+    const sections = [...readme.matchAll(/^## (.+)$/gm)].map(([, text]) => text.trim());
+    // The body of a "## " section, up to the next one.
+    const section = (pattern) => {
+      const found = readme.match(new RegExp(`^## (${pattern}.*)$\\n([\\s\\S]*?)(?=^## |(?![\\s\\S]))`, "m"));
+      return found ? { heading: found[1].trim(), body: found[2].trim() } : null;
+    };
+    // Each step is its bold heading and the text up to the next step, so the
+    // Guide can show the step's commands and what to look for.
+    const stepText = section("The steps")?.body ?? "";
+    const steps = [...stepText.matchAll(/^\*\*(\d+)\. ([^*]+?)\*\*[ \t]*([\s\S]*?)(?=^\*\*\d+\. |(?![\s\S]))/gm)].map(([, n, text, body]) => ({
+      n: Number(n),
+      title: text.trim().replace(/\.$/, ""),
+      body: body.trim(),
+    }));
+    check(steps.length >= 4, `journey ${dir}: found only ${steps.length} numbered steps`);
+    check(steps.every((step, i) => step.n === i + 1), `journey ${dir}: steps are not numbered 1 to ${steps.length}`);
+    check(existsSync(join(from, dir, "run.sh")) && existsSync(join(from, dir, "PROMPT.md")), `journey ${dir} needs run.sh and PROMPT.md`);
+    check(existsSync(join(from, dir, "expected")), `journey ${dir} needs an expected/ directory`);
+    const own = section("(?:Continue with your own|Use the image check in your own)");
+    const howItKnows = section("How it knows")?.body ?? "";
+    return { id, dir, title, heading, point: para("The point\\."), needs: para("Time\\."), steps, sections, ...(own ? { own } : {}), ...(howItKnows ? { howItKnows } : {}) };
+  });
+  writeYaml(join(repoRoot, "data", "workshop-journeys", "journeys.yaml"), {
+    apiVersion: API_VERSION,
+    kind: "WorkshopJourneySnapshot",
+    metadata: { name: "workshop-journeys" },
+    spec: {
+      description: "The five journeys in monadic/workshop-demo at a pinned commit, written by scripts/generate-workshop-sections.mjs --sync-journeys. The site generates one journey Guide from each.",
+      repository: "monadic/workshop-demo",
+      commit,
+      journeys,
+    },
+  });
+  console.log(`pinned ${journeys.length} journeys from monadic/workshop-demo at ${commit.slice(0, 12)}`);
+}
+
 function gh(args) {
   return execFileSync("gh", args, { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
 }
@@ -437,7 +492,8 @@ else if (args.includes("--verify")) verify();
 else if (args.includes("--self-test")) selfTest();
 else if (args.includes("--verify-upstream")) verifyUpstream();
 else if (args.includes("--sync-stacks")) syncStacks(args[args.indexOf("--sync-stacks") + 1]);
+else if (args.includes("--sync-journeys")) syncJourneys(args[args.indexOf("--sync-journeys") + 1]);
 else {
-  console.error("usage: generate-workshop-sections.mjs --generate | --verify | --self-test | --sync-stacks <cub-workshop dir> | --verify-upstream");
+  console.error("usage: generate-workshop-sections.mjs --generate | --verify | --self-test | --sync-stacks <cub-workshop dir> | --sync-journeys <workshop-demo dir> | --verify-upstream");
   process.exit(2);
 }

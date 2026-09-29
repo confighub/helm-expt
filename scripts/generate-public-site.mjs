@@ -489,7 +489,55 @@ function productDocsPointer(campaign) {
   return `<p>New to ConfigHub? Follow the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, campaign)}">official ConfigHub tutorial</a>. It covers one component, a release, a change, production, and promotion. This site provides the public catalog and its evidence.</p>`;
 }
 
+// The five journey Guides (site IA phase 4, step 7), generated from the
+// pinned snapshot of monadic/workshop-demo in data/workshop-journeys. Each
+// keeps both tracks, a person running run.sh and an agent following
+// PROMPT.md, then points to the same steps on your own configuration.
+const JOURNEY_SNAPSHOT = readYaml(join(repoRoot, "data", "workshop-journeys", "journeys.yaml")).spec;
+const JOURNEY_LINKS = {
+  "journey-values-did-nothing": {
+    guides: [["./d/docs/user/workshop-values-guide.html", "Find why a Helm value did not change the output"], ["./why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"], ["./d/docs/user/workshop-helm-questions-guide.html", "Answer the ten questions Helm users ask"]],
+    why: ["./config.html", "How configuration works"],
+    continues: [["./charts/index.html", "Configs"]],
+  },
+  "journey-preserve-my-fixes": {
+    guides: [["./d/docs/user/workshop-field-restore-guide.html", "Add one field and keep the original configuration"], ["./variants.html", "Variants"]],
+    own: {
+      text: "Compare the file you run with the one your assistant wrote. The diff names every field that moved, and with the exit code set a change fails the build until someone reviews it.",
+      rows: [{ comment: "name every field the rewrite changed", cmd: "cub config diff <the-file-you-run>.yaml <the-file-it-wrote>.yaml --exit-code" }],
+    },
+    why: ["./variants.html", "Variants"],
+    continues: [["./confighub.html", "ConfigHub Server, which carries your fixes through the next rewrite"]],
+  },
+  "journey-what-my-app-needs": {
+    guides: [["./put-an-app-on-a-platform.html", "Put an app on a platform"], ["./d/docs/user/workshop-compose-guide.html", "Compose and review a local workshop stack"]],
+    why: ["./compose-a-stack.html#stack-checks", "Checking your stack"],
+    continues: [["./stack.html", "Stacks"], ["./apps.html", "Apps"]],
+  },
+  "journey-before-gitops": {
+    guides: [["./deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"], ["./d/docs/user/gitops-adopter-guide.html", "Use ConfigHub with Argo CD or Flux"], ["./d/docs/user/workshop-argocd-hardening-guide.html", "Harden Argo CD before production"]],
+    own: {
+      text: "Render your own chart twice with your own values, the way Argo CD will, and compare. A field that changes is one Argo CD would change on every sync. Then ask what the chart decides that you did not write.",
+      rows: [
+        { comment: "render your chart twice", cmd: "helm template <release> <chart> --version <version> -f <values>.yaml > first.yaml" },
+        { cmd: "helm template <release> <chart> --version <version> -f <values>.yaml > second.yaml" },
+        { comment: "name every field that differs between the two", cmd: "cub config diff first.yaml second.yaml" },
+        { comment: "ask what the chart does that you did not write", cmd: "cub config values <chart> --version <version> --values <values>.yaml" },
+      ],
+    },
+    why: ["./quirks.html", "What charts hide"],
+    continues: [["./charts/index.html", "Configs, with a reviewed base variant"]],
+  },
+  "journey-installs-never-starts": {
+    guides: [["./did-your-bitnami-chart-stop-pulling.html", "Did your Bitnami chart stop pulling?"]],
+    why: ["./proof.html#refusals", "What this project does not claim"],
+    continues: [["./charts/index.html", "Configs, with the image state in each row"]],
+  },
+};
+const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
+
 const SITE_PAGE_RELPATHS = {
+  ...Object.fromEntries(JOURNEY_PAGES.map((journey) => [journey.key, journey.file])),
   indexHtml: "index.html",
   offeringHtml: "offering.html",
   tryHtml: "try.html",
@@ -575,6 +623,7 @@ const PAGE_REDIRECT_TARGETS = {
 // One sentence per page, drawn from the page's lead copy. Chart pages derive
 // theirs from the page title.
 const PAGE_DESCRIPTIONS = {
+  ...Object.fromEntries(JOURNEY_PAGES.map((journey) => [journey.file, journey.point])),
   "index.html": "Inspect and test configuration from Helm, AICR AI-infrastructure packages, OCI, or Kubernetes YAML, then keep it local or manage it in ConfigHub.",
   "offering.html": "Free, an account, or the commercial product, plainly: what each adds, what exists today, and where the support and commercial records are.",
   "try.html": "Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.",
@@ -680,6 +729,7 @@ if (mode === "--generate") {
   write(composeStackPath, site.composeStackGuideHtml);
   write(appGuidePath, site.appGuideHtml);
   write(kubaraGuidePath, site.kubaraGuideHtml);
+  for (const journey of JOURNEY_PAGES) write(join(siteRoot, journey.file), site[journey.key]);
   write(askPath, site.askHtml);
   write(promotePath, site.promoteHtml);
   write(ignoredValuesPath, site.ignoredValuesHtml);
@@ -830,6 +880,7 @@ if (mode === "--generate") {
   check(readFileSync(composeStackPath, "utf8") === site.composeStackGuideHtml, "site/compose-a-stack.html is stale");
   check(readFileSync(appGuidePath, "utf8") === site.appGuideHtml, "site/put-an-app-on-a-platform.html is stale");
   check(readFileSync(kubaraGuidePath, "utf8") === site.kubaraGuideHtml, "site/bring-kubara-into-confighub.html is stale");
+  for (const journey of JOURNEY_PAGES) check(readFileSync(join(siteRoot, journey.file), "utf8") === site[journey.key], `site/${journey.file} is stale`);
   check(existsSync(askPath), "site/ask.html is missing; run npm run site:generate");
   check(readFileSync(askPath, "utf8") === site.askHtml, "site/ask.html is stale");
   check(existsSync(promotePath), "site/promote.html is missing; run npm run site:generate");
@@ -1446,6 +1497,7 @@ function buildSite(generatedAt) {
     pillarsHtml: calmPage(examplesHtml(catalog)),
     kubaraHtml: movedPageHtml("Kubara platforms", "./plugins.html#kubara", "Kubara is now a row in Plugins, with its Guide, Bring a Kubara platform into ConfigHub."),
     kubaraGuideHtml: calmPage(kubaraGuideHtml(catalog)),
+    ...Object.fromEntries(JOURNEY_PAGES.map((journey) => [journey.key, calmPage(journeyGuideHtml(journey))])),
     entryPathReferenceHtml: entryPathReferenceHtml(),
     futureHtml: futureHtml(),
     operationsHtml: calmPage(operationsHtml(catalog)),
@@ -2474,7 +2526,7 @@ function siteSections() {
     ["plugins.html", "Every cub plugin"], ["bring-kubara-into-confighub.html", "Bring a Kubara platform into ConfigHub"],
   ] },
   { label: "Guides", hub: "guides.html", pages: [
-    ["guides.html", "Every Guide"], ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"],
+    ["guides.html", "Every Guide"], ...JOURNEY_PAGES.map((journey) => [journey.file, journey.title]), ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"],
     ["demo.html", "The ten-minute demo"], ["ai.html", "Use with your AI"], ["ask.html", "Is my configuration right?"],
     ["deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"], ["promote.html", "Promote my config"],
     ["does-cluster-match-approved-config.html", "Does the cluster match?"], ["why-do-dev-and-prod-differ.html", "Why do dev and prod differ?"],
@@ -3043,8 +3095,170 @@ ${bannerCss()}
 function homeJourneyLinks() {
   return sectionRows("guides")
     .filter((row) => row.group === "journeys")
-    .map((row, i) => `        <a${i === 0 ? ' class="rail-primary"' : ""} href="${escapeHtml(row.address)}">${escapeHtml(row.title)}</a>`)
+    .map((row, i) => `        <a${i === 0 ? ' class="rail-primary"' : ""} href="${escapeHtml(row.address.startsWith(SITE_BASE_URL) ? `./${row.address.slice(SITE_BASE_URL.length)}` : row.address)}">${escapeHtml(row.title)}</a>`)
     .join("\n");
+}
+
+function inlineMarkdown(text, base = "") {
+  // Code spans are taken as they are; emphasis and links apply between them.
+  return escapeHtml(text)
+    .split(/(`[^`]+`)/)
+    .map((part) =>
+      part.startsWith("`") && part.endsWith("`") && part.length > 1
+        ? `<code>${part.slice(1, -1)}</code>`
+        : part
+            .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+            .replace(/\*([^*\s][^*]*)\*/g, "<em>$1</em>")
+            .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, label, href) => {
+              // A journey README links its own files relatively; on the site
+              // they resolve to the pinned commit on GitHub.
+              const url = /^https?:/.test(href) || !base ? href : new URL(href, base).href.replace(/\/blob\/([^/]+)\/(.*\/)$/, "/tree/$1/$2");
+              return `<a href="${url}">${label}</a>`;
+            }),
+    )
+    .join("");
+}
+
+// A journey README section as HTML: paragraphs, bullet lists, and fenced
+// blocks. A shell fence becomes a command block, one prompt per command, with
+// its comment lines above the command and continued lines kept together.
+function journeyMarkdown(text, base) {
+  const out = [];
+  const lines = text.split("\n");
+  let para = [];
+  const flush = () => {
+    if (!para.length) return;
+    if (para.every((line) => /^- /.test(line))) {
+      out.push(`<ul>${para.map((line) => `<li>${inlineMarkdown(line.slice(2), base)}</li>`).join("")}</ul>`);
+    } else {
+      out.push(`<p>${inlineMarkdown(para.join(" "), base)}</p>`);
+    }
+    para = [];
+  };
+  for (let i = 0; i < lines.length; i += 1) {
+    const fence = lines[i].match(/^```(\w*)\s*$/);
+    if (!fence) {
+      if (lines[i].trim()) para.push(lines[i].trim());
+      else flush();
+      continue;
+    }
+    flush();
+    const code = [];
+    for (i += 1; i < lines.length && !/^```\s*$/.test(lines[i]); i += 1) code.push(lines[i]);
+    if (!["sh", "bash", "shell"].includes(fence[1])) {
+      out.push(`<pre class="terminal-body"><code>${escapeHtml(code.join("\n"))}</code></pre>`);
+      continue;
+    }
+    const rows = [];
+    let comment = [];
+    for (let j = 0; j < code.length; j += 1) {
+      const line = code[j].trim();
+      if (!line) continue;
+      if (line.startsWith("#")) {
+        comment.push(line.replace(/^#\s*/, ""));
+        continue;
+      }
+      let cmd = code[j].trimEnd();
+      while (cmd.endsWith("\\") && j + 1 < code.length) cmd += `\n${code[(j += 1)].trimEnd()}`;
+      rows.push({ comment, cmd: cmd.trim() });
+      comment = [];
+    }
+    if (comment.length) rows.push({ comment, cmd: "" });
+    out.push(commandBlock(rows));
+  }
+  flush();
+  return out.join("\n      ");
+}
+
+function readmeAnchor(heading) {
+  return heading.toLowerCase().replace(/[^a-z0-9 -]/g, "").replace(/ /g, "-");
+}
+
+// The first command a journey's README gives for your own files, or the one
+// the site records when the README has no such section.
+function journeyOwn(journey, links, blob) {
+  if (journey.own) {
+    const fence = journey.own.body.match(/^```(?:sh|bash)\n[\s\S]*?\n```$/m);
+    check(fence, `journey ${journey.id}: its section "${journey.own.heading}" has no shell block`);
+    return `<p>The README's section <a href="${blob("README.md")}#${readmeAnchor(journey.own.heading)}">${escapeHtml(journey.own.heading)}</a> runs the same check on your own files. It starts with this. Replace each value in angle brackets or quotes with your own.</p>
+      ${journeyMarkdown(fence[0], blob(""))}`;
+  }
+  check(links.own, `journey ${journey.id}: the README has no section for your own files, so JOURNEY_LINKS must give one`);
+  return `<p>${escapeHtml(links.own.text)}</p>
+      ${commandBlock(links.own.rows)}`;
+}
+
+function journeyGuideHtml(journey) {
+  const links = JOURNEY_LINKS[journey.id];
+  check(links, `no links recorded for journey ${journey.id}`);
+  const repo = JOURNEY_SNAPSHOT.repository;
+  const commit = JOURNEY_SNAPSHOT.commit;
+  const blob = (file) => `https://github.com/${repo}/blob/${commit}/${journey.dir}/${file}`;
+  const index = JOURNEY_PAGES.findIndex((page) => page.id === journey.id);
+  const next = JOURNEY_PAGES[index + 1];
+  const list = (items) => items.map(([href, label]) => `<a href="${href}">${escapeHtml(label)}</a>`).join(" · ");
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(journey.title)} · ConfigHub Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <p class="eyebrow">Journey ${index + 1} of 5</p>
+    <h1>${escapeHtml(journey.title)}</h1>
+    <p class="lead">${inlineMarkdown(journey.point)}</p>
+    <p><strong>Time.</strong> ${inlineMarkdown(journey.needs)}</p>
+  </header>
+  <main>
+    <section aria-labelledby="run-it-yourself">
+      <h2 id="run-it-yourself">Run it yourself</h2>
+      <p>The journey is a folder in the public <a href="https://github.com/${repo}">workshop-demo</a> repository. Its script pauses before each command, and Enter runs it.</p>
+      ${commandBlock([
+        { comment: "get the journeys", cmd: `git clone https://github.com/${repo}` },
+        { comment: "open this journey", cmd: `cd workshop-demo/${journey.dir}` },
+        { comment: "walk the steps, one command at a time", cmd: "./run.sh" },
+      ])}
+    </section>
+    <section aria-labelledby="with-your-agent">
+      <h2 id="with-your-agent">Or let your agent run it</h2>
+      <p>Give your agent the journey's <a href="${blob("PROMPT.md")}">PROMPT.md</a> and nothing else. It follows the same steps, with the same numbers, and shows you the command after each one. You decide at each step whether to go on.</p>
+      <p>Keep this page and the README from your agent. They say what each step finds, so an agent that reads them knows the answers before it starts.</p>
+    </section>
+    <section aria-labelledby="the-steps">
+      <h2 id="the-steps">The steps</h2>
+      <p>These are the steps in the journey's <a href="${blob("README.md")}">README</a>. Run them from the journey's folder. The output of a real run is in <a href="${blob("expected/")}">expected/</a>.</p>
+${journey.steps
+  .map((step) => `      <h3 id="step-${step.n}">${step.n}. ${escapeHtml(step.title)}</h3>
+      ${journeyMarkdown(step.body, blob(""))}`)
+  .join("\n")}
+    </section>
+    <section aria-labelledby="your-own">
+      <h2 id="your-own">Use it on your own configuration</h2>
+      ${journeyOwn(journey, links, blob)}
+      <p>These Guides go further: ${list(links.guides)}.</p>
+    </section>
+    <section aria-labelledby="why">
+      <h2 id="why">Why it happens</h2>
+      <p><a href="${links.why[0]}">${escapeHtml(links.why[1])}</a> explains it.</p>${
+        journey.howItKnows
+          ? `
+      <h3 id="how-it-knows">How the check knows</h3>
+      ${journeyMarkdown(journey.howItKnows, blob(""))}`
+          : ""
+      }
+    </section>
+    <section aria-labelledby="continues">
+      <h2 id="continues">Where it continues</h2>
+      <p>${list(links.continues)}.${next ? ` The next journey is <a href="./${next.file}">${escapeHtml(next.title)}</a>.` : ""}</p>
+    </section>
+  </main>
+</body>
+</html>
+`;
 }
 
 function configTestCentreHome(catalog) {

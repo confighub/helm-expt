@@ -15,9 +15,9 @@
       "title": "My values did nothing",
       "summary": "The assistant wrote my Helm values. Did they do anything? Three of seven did nothing, and Helm never said so.",
       "state": "published",
-      "address": "https://github.com/monadic/workshop-demo/tree/main/1-catch-the-ai",
+      "address": "https://confighub.github.io/helm-expt/site/journey-values-did-nothing.html",
       "next": {
-        "address": "https://github.com/monadic/workshop-demo/tree/main/1-catch-the-ai"
+        "address": "https://confighub.github.io/helm-expt/site/journey-values-did-nothing.html"
       }
     },
     {
@@ -27,9 +27,9 @@
       "title": "Preserve my fixes",
       "summary": "The assistant rewrote my app. Are my fixes still there? Then ConfigHub carries the fixes through the rewrite.",
       "state": "published",
-      "address": "https://github.com/monadic/workshop-demo/tree/main/2-my-fixes-survive",
+      "address": "https://confighub.github.io/helm-expt/site/journey-preserve-my-fixes.html",
       "next": {
-        "address": "https://github.com/monadic/workshop-demo/tree/main/2-my-fixes-survive"
+        "address": "https://confighub.github.io/helm-expt/site/journey-preserve-my-fixes.html"
       }
     },
     {
@@ -39,9 +39,9 @@
       "title": "What my app needs",
       "summary": "Will my app run on the platform I picked? Refused for two real reasons, fixed on both sides, then checked.",
       "state": "published",
-      "address": "https://github.com/monadic/workshop-demo/tree/main/3-what-my-app-needs",
+      "address": "https://confighub.github.io/helm-expt/site/journey-what-my-app-needs.html",
       "next": {
-        "address": "https://github.com/monadic/workshop-demo/tree/main/3-what-my-app-needs"
+        "address": "https://confighub.github.io/helm-expt/site/journey-what-my-app-needs.html"
       }
     },
     {
@@ -51,9 +51,9 @@
       "title": "Before GitOps takes over",
       "summary": "My Redis has run fine for a month. Is it safe to hand to GitOps? Three problems, then a reviewed alternative from the Catalog.",
       "state": "published",
-      "address": "https://github.com/monadic/workshop-demo/tree/main/4-before-argo-takes-over",
+      "address": "https://confighub.github.io/helm-expt/site/journey-before-gitops.html",
       "next": {
-        "address": "https://github.com/monadic/workshop-demo/tree/main/4-before-argo-takes-over"
+        "address": "https://confighub.github.io/helm-expt/site/journey-before-gitops.html"
       }
     },
     {
@@ -63,9 +63,9 @@
       "title": "It installs but never starts",
       "summary": "Every check passes. Should I install it? The image no longer exists, said before the install.",
       "state": "published",
-      "address": "https://github.com/monadic/workshop-demo/tree/main/5-it-installs-and-never-starts",
+      "address": "https://confighub.github.io/helm-expt/site/journey-installs-never-starts.html",
       "next": {
-        "address": "https://github.com/monadic/workshop-demo/tree/main/5-it-installs-and-never-starts"
+        "address": "https://confighub.github.io/helm-expt/site/journey-installs-never-starts.html"
       }
     },
     {

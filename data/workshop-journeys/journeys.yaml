@@ -1,0 +1,235 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "WorkshopJourneySnapshot"
+metadata:
+  name: "workshop-journeys"
+spec:
+  description: "The five journeys in monadic/workshop-demo at a pinned commit, written by scripts/generate-workshop-sections.mjs --sync-journeys. The site generates one journey Guide from each."
+  repository: "monadic/workshop-demo"
+  commit: "6e56b6707e13358f50f4257a6030cf5e951778b2"
+  journeys:
+    -
+      id: "journey-values-did-nothing"
+      dir: "1-catch-the-ai"
+      title: "My values did nothing"
+      heading: "1. Catch the AI"
+      point: "Helm accepts a values file without checking it against the chart. When an assistant writes values from memory, some of them are for a different chart, and they do nothing. The install still succeeds. One command tells you which values those are."
+      needs: "About five minutes. **Needs.** `cub`, the workshop plugin and `helm`. No server, no account, no cluster."
+      steps:
+        -
+          n: 1
+          title: "Read what the assistant wrote"
+          body: "`cat values.yaml`. Nothing looks wrong."
+        -
+          n: 2
+          title: "Let Helm render it, and see what it would install"
+          body: "```sh\nhelm template shop-redis oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --namespace shop -f values.yaml > work/redis.yaml\ncub config check work/redis.yaml\n```\n\nHelm exits 0 and the objects look healthy. This is the trap."
+        -
+          n: 3
+          title: "Ask which of those values did anything"
+          body: "```sh\ncub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --values values.yaml\n```\n\nLook for `3 of 7 values did nothing.` The disk size, the memory limit and the replica count are all `IGNORED`, because this chart has no `master` or `replica` section. For each one the report says where this chart does read that setting."
+        -
+          n: 4
+          title: "Put each setting where this chart reads it"
+          body: "`diff values.yaml values-fixed.yaml` shows the three settings moved. One of them also changes its number. The assistant wrote `replicaCount: 2` in another chart's meaning, two replicas beside a master. This chart counts every pod, so two replicas is `replicaCount: 3`. The right place is not enough when the same word means something else."
+        -
+          n: 5
+          title: "Ask again"
+          body: "The same command on `values-fixed.yaml` ends with `Every value you set changed the result or matches the default.` The replica count reads `DEFAULT`: three pods is what this chart does anyway."
+        -
+          n: 6
+          title: "See what the fix changes in the objects"
+          body: "```sh\ncub config diff work/redis.yaml work/redis-fixed.yaml\n```\n\nLook at what you were really getting. You asked for a 1Gi disk and had 8Gi. You asked for a memory limit and had none. Your two replicas were there, and only because the chart's default happens to be three pods. Nothing you wrote put them there."
+        -
+          n: 7
+          title: "Make it a gate"
+          body: "With `--exit-code` the check fails a build when a value did nothing."
+      sections:
+        - "The files"
+        - "The steps"
+        - "Continue with your own chart"
+        - "How it knows"
+        - "The assistant track"
+        - "Without a network"
+        - "Reset"
+      own:
+        heading: "Continue with your own chart"
+        body: "After this five-minute example, fix your own chart and retain its exact candidate and diagnosis\nso the next session can continue from that result. This needs unreleased cub-workshop 0.6.38. An ordinary\ninstalled plugin updates with `cub plugin upgrade workshop`; check `cub config values --help`\nfor `--out` and `--render-out`. If they are absent, replace the installed plugin with updated\nsource (`cub plugin uninstall workshop && cub plugin install --source-repo confighub/cub-workshop`)\nor a local checkout (`cub plugin uninstall workshop && cub plugin install /absolute/path/to/cub-workshop`).\n\nStart fresh so no earlier review is overwritten. Replace every quoted `<...>` placeholder below;\nuse only settings you already use, omit optional flags you do not use, and use an absolute path for a local chart or values file after `cd`.\n\n```sh\nmkdir own-chart-review && cd own-chart-review\ncp \"<absolute-path-to-your-private-values-file>\" values.yaml\ncub config values \"<your-chart-or-absolute-local-chart-path>\" --version \"<your-existing-version>\" \\\n  --namespace \"<your-existing-namespace>\" --release \"<your-existing-release>\" \\\n  --values values.yaml --out diagnosis.json --render-out candidate.yaml --exit-code\n```\n\nThe candidate is the explicit, flattened configuration the chart rendered from those inputs.\nExit 1 means some values had no effect; investigate before accepting. Exit 2 means the command\ncould not complete; resolve that error before drawing conclusions about the values. Keep `values.yaml` and `candidate.yaml`\nprivate: the candidate can contain Secrets. The diagnosis keeps requested inputs and hashes;\nthe candidate is the exact render to inspect next time. If settings need repair, change a copied values\nfile and repeat the command in a new directory such as `own-chart-review-fixed`; do not leave only\na failed candidate.\n\nNext session, inspect the saved candidate without rendering, copy it before editing, then compare:\n```sh\ncub config check candidate.yaml\ncp candidate.yaml candidate-edited.yaml\n# edit candidate-edited.yaml\ncub config diff candidate.yaml candidate-edited.yaml --out candidate-diff.json\n```\n\nEditing this saved candidate does not change Helm values, so a later render will not retain that edit\nautomatically. Keep the baseline and diff; for managed preservation, continue with [2. My fixes survive the AI](../2-my-fixes-survive/).\nThese are static checks: they do not prove runtime behavior or make an apply safe. This local continuation does not upload anything."
+      howItKnows: "The chart is rendered with your values, then once more for each value with that one value taken out. If the objects are the same either way, the value did nothing. Charts generate passwords and checksums, so the fields that move between two renders of the same input are found first and left out of every comparison. No value is ever printed."
+    -
+      id: "journey-preserve-my-fixes"
+      dir: "2-my-fixes-survive"
+      title: "Preserve my fixes"
+      heading: "2. My fixes survive the AI"
+      point: "When you ask an assistant for one change, it often writes the whole file again. The change you asked for is there. The fixes you made by hand last week may not be. A diff against the version you are running names every field that moved."
+      needs: "About four minutes, or six with ConfigHub. **Needs.** `cub` and the workshop plugin. Steps 1 to 5 need no server, no account and no cluster. Steps 6 and 7 start only when you name a new Space with `DEMO_SPACE`; a ConfigHub lookup error stops and shows the error."
+      steps:
+        -
+          n: 1
+          title: "Look at the three fixes you made by hand"
+          body: "`grep` shows the three lines in `app-committed.yaml`."
+        -
+          n: 2
+          title: "Look at the file the assistant wrote today"
+          body: "```sh\ncub config check app-regenerated.yaml\n```\n\nTwo objects, nothing to worry about. It would deploy."
+        -
+          n: 3
+          title: "Compare it with what you are running"
+          body: "```sh\ncub config diff app-committed.yaml app-regenerated.yaml\n```\n\nLook for four changed fields in the Deployment. One is the readiness probe you asked for. The other three are your fixes undone: replicas 3 to 1, the database host back to `localhost`, the memory limit from 512Mi to 128Mi. Each is named by its exact path inside the container."
+        -
+          n: 4
+          title: "Put your fixes back, and compare again"
+          body: "```sh\ncub config diff app-committed.yaml app-restored.yaml\n```\n\nLook for one changed field, the probe. That is the change you asked for, and nothing else."
+        -
+          n: 5
+          title: "Keep a record of the review, and make it a gate"
+          body: "With `--exit-code` any change stops for a review, and `--out` writes both file hashes and every changed field to `work/review.json`."
+        -
+          n: 6
+          title: "With ConfigHub, let it remember your fixes"
+          body: "Step 4 was you, putting your fixes back by hand, and it will happen again next week. Log in with `cub auth login` first.\n\nUse these commands as the manual route, or use `DEMO_SPACE=my-workshop-space ./run.sh 6` and the same value with `./run.sh 7` as the script route. Do not mix them: the manual route does not write the local record that lets script step 7 continue, and script step 6 refuses a Space the manual route already created.\n\n```sh\nexport DEMO_SPACE=my-workshop-space\ncub space create \"$DEMO_SPACE\"\ncub unit create --space \"$DEMO_SPACE\" shop-web-generated app-generated.yaml\ncub unit create --space \"$DEMO_SPACE\" shop-web --upstream-unit shop-web-generated --upstream-space \"$DEMO_SPACE\"\ncub unit update --space \"$DEMO_SPACE\" shop-web app-committed.yaml --protect --change-desc \"my three hand fixes\"\ncub revision list --space \"$DEMO_SPACE\" shop-web\n```\n\nThe assistant's output lives in one Unit and your copy is cloned from it. `--protect` records the paths changed by your three fixes as local overrides. A plain update records a revision but does not newly protect those paths from a competing upstream edit."
+        -
+          n: 7
+          title: "Let the assistant rewrite it again"
+          body: "Today's rewrite lands in the assistant's Unit, and one command brings it into yours.\n\n```sh\nexport DEMO_SPACE=my-workshop-space\nmkdir -p work\ncub unit update --space \"$DEMO_SPACE\" shop-web-generated app-regenerated.yaml --change-desc \"add a readiness probe\"\ncub unit update --space \"$DEMO_SPACE\" shop-web --upgrade\ncub unit data --space \"$DEMO_SPACE\" shop-web > work/from-confighub.yaml\ncub config diff app-committed.yaml work/from-confighub.yaml\n```\n\nLook for one changed field, the probe. Your three fixes are still there, and nobody put them back by hand. ConfigHub did step 4 for you. This step 7 comparison proves that it retained your configuration and added only the probe.\n\nThese two steps write to a new Space you choose in the organization your current `cub` context points at. Set a name you own with `DEMO_SPACE=my-workshop-space ./run.sh 6`, then use the same value for step 7. The script creates the Space once and stops if that name already exists; it never deletes or reuses an existing Space. It records the Space ID and server identity locally, and step 7 checks both before changing anything. `DEMO_CONTEXT=name` picks another context. `./run.sh --reset` removes local `work/` only and leaves the Space unchanged."
+      sections:
+        - "The files"
+        - "The steps"
+        - "The assistant track"
+        - "Reset"
+        - "Recorded independent preservation test"
+    -
+      id: "journey-what-my-app-needs"
+      dir: "3-what-my-app-needs"
+      title: "What my app needs"
+      heading: "3. What my app needs"
+      point: "An app assumes things about the cluster it lands on: an ingress controller of a certain class, something that issues certificates, something that scrapes metrics. You can find out whether the platform you picked provides them before anything is applied, and fix whichever side is wrong."
+      needs: "About six minutes. **Needs.** `cub` and the workshop plugin. No server, no account, no cluster."
+      steps:
+        -
+          n: 1
+          title: "Ask what the app needs from a platform"
+          body: "```sh\ncub app check shop-web.yaml\n```\n\nLook for three `NEEDS` lines: an ingress controller, cert-manager, and a Prometheus operator."
+        -
+          n: 2
+          title: "Look at the platform you picked first"
+          body: "Three Catalog parts and the app."
+        -
+          n: 3
+          title: "Certify the app on that platform, and get refused"
+          body: "```sh\ncub stack check platform-first-try.yaml\n```\n\nLook for `=> REFUSED` and the two reasons. The Ingress asks for class `nginx` and this platform's controller is Traefik. The ServiceMonitor needs a Prometheus operator and nothing here provides one. Both would have failed quietly on a real cluster."
+        -
+          n: 4
+          title: "Fix both sides"
+          body: "The app changes one line and moves to the `traefik` ingress class, because the platform already has that controller. The platform gains one part from the Catalog, kube-prometheus-stack, because the app asked for a Prometheus operator and should keep its monitoring. Two diffs show every line."
+        -
+          n: 5
+          title: "Certify again"
+          body: "```sh\ncub stack check platform.yaml\n```\n\nLook for `=> CHECKED`: no conflicts across 215 objects, CRDs ordered before the resources that need them, and `app needs met` naming all three needs from step 1. Look at the warnings too. Certify says what it cannot see from here: five namespaces and a ClusterIssuer that must already exist on the cluster you deliver to."
+        -
+          n: 6
+          title: "Render the platform with the app on it"
+          body: "```sh\ncub stack sandbox platform.yaml --out work/platform.yaml\n```\n\nEvery object, in the order it has to be applied. kubectl, Argo CD and Flux all take that file as it is."
+        -
+          n: 7
+          title: "Save it as a workspace you can edit and check again"
+          body: "The workspace holds the editable parts, the manifest, the render and the verdict."
+      sections:
+        - "The files"
+        - "The steps"
+        - "The assistant track"
+        - "Reset"
+        - "Continue with your own rendered app"
+      own:
+        heading: "Continue with your own rendered app"
+        body: "Start with rendered Kubernetes YAML. Use fresh directories:\n\n```sh\nset -eu\numask 077\nmkdir work/own-app\nAPP_YAML='/absolute/path/to/my-rendered-app.yaml'\ncp \"$APP_YAML\" work/own-app/app.yaml\ncub app check work/own-app/app.yaml\ncub config list --role ingress\ncub config list --role certificates\ncub config list --role metrics\n```\n\nFor every need the app check reports, inspect the candidate and evidence. Choose\nan exact listing ID yourself; the command never chooses one for you.\n\n`born-flat` and `safe-to-flatten` entries compose from their retained objects. A\n`flatten-with-routes` entry may compose only when its listing records a published,\ndigest-pinned literal-config bundle and a hash-verified CertifiedBundleReceipt with\nits declared route companions. `cub stack compose` verifies that binding and saves\nthose companions as `declared-unexecuted` evidence. It does not run a route. Keep an\n`unsafe-to-flatten` or unpublished/mismatched route-bundle refusal: do not substitute\nan unrelated service or delete an app requirement to make a check pass.\n\nSet each exact chosen ID from the list output and compose it explicitly. This flow\nuses [workshop 0.6.44](https://github.com/confighub/cub-workshop/blob/55ce72de74decd2c64261196100935c60be06469/docs/catalog-compose.md);\ncheck that your installed plugin provides the command:\n\n```sh\n: \"${CHOSEN_ID:?set this to an exact ID from cub config list}\"\ncub stack compose --entry \"$CHOSEN_ID\" --name own-app-platform --out work/own-app/platform\ncp work/own-app/app.yaml work/own-app/platform/components/99-my-app.yaml\n```\n\nFor a route-backed selection, this must be a fresh 0.6.44 workspace made by that\ncompose command. Append this entry at the end of `spec.components` in\n`work/own-app/platform/stack.yaml`; do not reorder or edit the existing entries:\n\n```yaml\n    - name: my-app\n      authored: components/99-my-app.yaml\n```\n\n```sh\ncub stack check work/own-app/platform/stack.yaml\ncub stack sandbox work/own-app/platform/stack.yaml --workspace work/own-app/saved\n```\n\nThis is static only: no target, readiness, or application-response check. Keep\n`work/own-app/platform/provenance.json`; the saved workspace omits listing provenance.\nAn app check cannot infer every environment host, service, or authentication dependency.\n\nFor an app that needs a cache, run `cub config list --role cache`.\nThe confirmed one-entry compose example is\n`cloudpirates-redis-0-34-11-reuse-existing-secret`; it needs `redis-existing-secret`\non the target and says nothing about app connectivity. For retained edits, continue\nwith [demo 2](../2-my-fixes-survive/)."
+    -
+      id: "journey-before-gitops"
+      dir: "4-before-argo-takes-over"
+      title: "Before GitOps takes over"
+      heading: "4. Before Argo CD takes over"
+      point: "A chart can decide things you never wrote, and `helm install` hides some of them. This Redis has run for a month from three lines of values. Under Argo CD or Flux its password changes on every sync, its image is tagged `latest`, and a preset you never chose sets its memory. You can see all three before the move, and the Workshop Catalog has a reviewed alternative with none of them."
+      needs: "About six minutes. **Needs.** `cub`, the workshop plugin (0.6.26 or later), `helm`, `oras`, `curl`, and a network. No server, no account, no cluster."
+      steps:
+        -
+          n: 1
+          title: "Read what has been running"
+          body: "Three lines, and nothing looks wrong."
+        -
+          n: 2
+          title: "See what it installs"
+          body: "```sh\nhelm template shop-redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 --namespace shop -f values.yaml > work/bitnami.yaml\ncub config check work/bitnami.yaml\n```\n\nLook for the `NOTE` line. The Redis image is `bitnami/redis:latest`, so the same name can pull a different Redis next week."
+        -
+          n: 3
+          title: "Render it twice, the way Argo CD will"
+          body: "Argo CD renders the chart on every sync, without reading anything back from your cluster.\n\n```sh\nhelm template shop-redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 --namespace shop -f values.yaml > work/bitnami-again.yaml\ncub config diff work/bitnami.yaml work/bitnami-again.yaml\n```\n\nLook for one changed field, `/data/redis-password`. Same chart, same values, a different password. The diff shows a short hash of each value, never the value. Under Argo CD every sync writes a new password while the shop app holds the old one. `helm install` and `helm upgrade` hid this, because this chart reads the Secret back from the cluster."
+        -
+          n: 4
+          title: "Ask what the chart does that you did not write"
+          body: "```sh\ncub config values oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 --release shop-redis --namespace shop --values values.yaml\n```\n\nLook under *What the chart does that you did not write*. `master.resourcesPreset is \"nano\"` sets Redis's CPU and memory, a 192Mi memory limit, and you never chose it. The password field changes on every render."
+        -
+          n: 5
+          title: "Try to pin the image to a version"
+          body: "```sh\noras manifest fetch docker.io/bitnami/redis:7.4.1-debian-12-r2\noras manifest fetch --descriptor docker.io/bitnamilegacy/redis:7.4.1-debian-12-r2\n```\n\nThat tag is the one an older release of this chart, 20.6.0, pinned. The first is refused and the second is found. Versioned Bitnami images now sit behind a paid tier, the `bitnamilegacy` copies get no updates, and the free chart runs `latest`. The Workshop's [Did your Bitnami chart stop pulling?](https://confighub.github.io/helm-expt/site/did-your-bitnami-chart-stop-pulling.html) page records which pinned charts are affected, with its receipt."
+        -
+          n: 6
+          title: "Ask the Workshop Catalog for a reviewed alternative"
+          body: "The Catalog is public data, with no account.\n\n```sh\ncurl -s -o work/index.json https://confighub.github.io/helm-expt/site/listings/index.json\ngrep -o '\"id\": \"cloudpirates-redis[^\"]*\"' work/index.json\ncurl -s -o work/listing.json https://confighub.github.io/helm-expt/site/listings/cloudpirates-redis-0-34-11-reuse-existing-secret.json\ngrep -m 3 -o -E '\"(name|version|base)\": \"[^\"]*\"' work/listing.json\ngrep -m 1 -o '\"sourcePackageRef\": \"[^\"]*\"' work/listing.json\n```\n\nLook for `cloudpirates/redis` 0.34.11 with the base `reuse-existing-secret`, which keeps the password in a Secret you create, and the reviewed package pinned by digest."
+        -
+          n: 7
+          title: "Check the alternative, with your memory limit"
+          body: "```sh\nhelm template shop-redis oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --namespace shop -f values-successor.yaml > work/successor.yaml\ncub config check work/successor.yaml\ncub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --release shop-redis --namespace shop --values values-successor.yaml\n```\n\nLook for `images tagged latest or not tagged: 0`, because the image is pinned by digest. Every value applies, and there is no preset and no field that changes on every render."
+        -
+          n: 8
+          title: "Render the alternative twice"
+          body: "```sh\nhelm template shop-redis oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --namespace shop -f values-successor.yaml > work/successor-again.yaml\ncub config diff work/successor.yaml work/successor-again.yaml\n```\n\nLook for `0 changed`. Argo CD would find nothing to change."
+      sections:
+        - "The files"
+        - "The steps"
+        - "Does it really break?"
+        - "How it knows"
+        - "The assistant track"
+        - "Reset"
+      howItKnows: "`cub config check` reads every container image in the rendered objects. `cub config values` renders the chart twice with the same values and names every field that differs. It then sets each `resourcesPreset` it finds to `none` and renders again, so it reports only a preset that is really in force. Nothing is applied and no value is printed."
+    -
+      id: "journey-installs-never-starts"
+      dir: "5-it-installs-and-never-starts"
+      title: "It installs but never starts"
+      heading: "5. It installs and never starts"
+      point: "A chart can name an image that no longer exists. The chart downloads, the values are right, every local check passes, and `helm install` reports success. The pods then sit in `ImagePullBackOff`. One command asks the registry first."
+      needs: "About five minutes, or eight with the live proof. **Needs.** `cub`, the workshop plugin (0.6.41 or later), `helm`, `curl`, and a network. Steps 1 to 5 need no cluster. Step 6 builds a throwaway one with `kind`, and only if you ask for it."
+      steps:
+        -
+          n: 1
+          title: "Read what the assistant wrote"
+          body: "An ordinary values file for a well-known chart."
+        -
+          n: 2
+          title: "Render it and run the usual checks"
+          body: "```sh\nhelm template shop-db oci://registry-1.docker.io/bitnamicharts/mysql --version 14.0.3 --namespace shop -f values.yaml > work/mysql.yaml\ncub config check work/mysql.yaml\n```\n\nEvery line passes, including the image line: the image is pinned to a version, which is what you want. The chart itself still downloads, because the chart was never withdrawn."
+        -
+          n: 3
+          title: "Ask whether the images can be pulled at all"
+          body: "```sh\ncub config check work/mysql.yaml --images\n```\n\nLook for `NOT FOUND: docker.io/bitnami/mysql:9.4.0-debian-12-r1`. The chart is fine, the values are fine, and the image this chart runs is gone. This is the one part of `check` that uses the network, which is why it is a flag."
+        -
+          n: 4
+          title: "Read the Workshop's own record of that"
+          body: "```sh\ncurl -s -o work/receipt.json https://raw.githubusercontent.com/confighub/helm-expt/main/runs/bitnami-source-fetch/all-originals-receipt.json\ngrep -E '\"(chart|reference|status|legacyStatus)\":' work/receipt.json\n```\n\nFor each pinned Bitnami chart the Workshop keeps, the receipt records the image it runs and whether that image resolves. `mysql` and `rabbitmq` report `not-found`, with the same tag available under `bitnamilegacy`, which receives no updates. The other four run an image tagged `latest`."
+        -
+          n: 5
+          title: "Check what the Catalog offers instead"
+          body: "```sh\nhelm template shop-db mysql-operator --repo https://mysql.github.io/mysql-operator/ --version 2.3.0 --namespace shop --include-crds > work/successor.yaml\ncub config check work/successor.yaml --images\n```\n\nThe Catalog's reviewed successor for MySQL is the operator from Oracle's own MySQL team. Its images pull, and the check names the five CRDs it carries.\n\n`--include-crds` matters: `helm template` leaves a chart's CRDs out unless you ask for them, so without it this render is 8 objects and the check reads `CRDs: 0` for a chart that ships five. Say plainly what the move costs. This is an operator, so it installs a controller and not a database, and the shop then needs a custom resource and a Secret you write. None of the old values carry over."
+        -
+          n: 6
+          title: "Prove it on a real cluster"
+          body: "Optional, and off by default.\n\n```sh\nDEMO_CLUSTER=1 ./run.sh 6\n```\n\nIt builds a throwaway cluster with `kind`, installs the chart that passed every local check, and shows the pods. Look for `ImagePullBackOff` on the same image `--images` called `NOT FOUND`, and for the fact that `helm install` said nothing. `./run.sh --reset` deletes the cluster. It touches no other cluster or kubeconfig you have."
+      sections:
+        - "The files"
+        - "The steps"
+        - "Use the image check in your own CI"
+        - "How it knows"
+        - "The assistant track"
+        - "Reset"
+      own:
+        heading: "Use the image check in your own CI"
+        body: "The same strict check works on any rendered configuration your repository produces. Once your normal render step has written a file, make the image check the gate:\n\n```sh\ncub config check path/to/rendered.yaml --images --exit-code\n```\n\nExit 0 means every discovered image manifest was checked anonymously. Exit 1 means a registry confirmed that at least one image is missing. Exit 2 means the check was incomplete, such as a network or authentication failure, or the command was invalid. The ordinary `cub config check ... --images` command in step 3 remains advisory and does not fail the build. This gate checks images found by the static image extractor at the time it runs; it does not prove startup, scheduling, chart compatibility, or application health."
+      howItKnows: "`cub config check --images` reads every container image in the rendered objects, normalises each name the way a registry expects it, and asks that registry for the image's manifest with no credentials. The answers are `pulls`, `NOT FOUND`, `needs credentials` for a private image your cluster may still be able to pull, and `could not be checked`. Nothing is installed and nothing is downloaded but the manifest."
