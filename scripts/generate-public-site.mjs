@@ -3529,7 +3529,6 @@ ${homeJourneyLinks()}
       </main>
 
       <footer class="foot">
-        <p class="flip">We show you the ingredients we can see before you install, and name the ones we cannot.</p>
         <p class="sub">Every result links to the command, receipt, or known gap behind it. <a href="${SITE_FEEDBACK_ISSUE_URL}">Send feedback</a>.</p>
       </footer>
     </div>
