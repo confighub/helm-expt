@@ -61,7 +61,9 @@ for (const sourceCatalogImport of imports) {
       `${sourceCatalogImport.id}: ConfigHub handoff does not bind the imported selection to exact objects`,
     );
   }
-  const renderedPage = readFileSync(join(repoRoot, "site", "try-aicr.html"), "utf8");
+  // The source-catalog record moved from the AICR Guide to its agent doc in
+  // site IA phase 4, step 8.
+  const renderedPage = readFileSync(join(repoRoot, "site", "aicr-configurations.html"), "utf8");
   for (const value of [
     sourceCatalogImport.selection.provider,
     sourceCatalogImport.selection.catalog.version,
