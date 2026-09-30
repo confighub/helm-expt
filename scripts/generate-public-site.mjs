@@ -3469,9 +3469,8 @@ ${homeJourneyLinks()}
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Your agent writes configuration faster than anyone can check it, and a chart rarely shows what it will really do.</p>
-            <p>Pull tested configs, stacks, example apps and plugins from here, from a web platform to GPU inference, with guides your agent can follow. When your team needs to keep it, ConfigHub stores it with the graph of how it all connects.</p>
-            <p>ConfigHub is where people and agents change the same configuration safely. Every change is versioned, approved and released by digest, and the Argo CD or Flux you already run delivers it.</p>
+            <p class="lead">Start with your own chart or app. Use <code>cub</code> directly or ask your agent to inspect the rendered configuration, compare changes and run checks. Local checks need no account.</p>
+            <p>When your team needs to keep and share the result, ConfigHub adds version history, approvals and releases. Argo CD or Flux still delivers it.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my chart and values</a>
               <a class="btn primary" href="./ai.html">Set up my agent</a>
@@ -3527,9 +3526,9 @@ ${homeJourneyLinks()}
         <section class="section" id="what-is-the-workshop">
           <span class="eyebrow">The short version</span>
           <h2>What is the Workshop?</h2>
-          <p class="intro">The Workshop is a Catalog of tested configuration kept as data, and a plugin for <code>cub</code> that checks, composes and publishes it. OCI is a shared transport for this configuration. You and your agent can inspect public configuration and run local checks without a ConfigHub account. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
+          <p class="intro">The Catalog supplies configurations and evidence. Workshop combines it with Guides and tools. <code>cub</code> is the command-line interface that you and your agent use. ConfigHub Server keeps shared configuration and manages its releases. You can run local checks without a ConfigHub account. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
           <p class="intro">Other catalogs give you charts. We give your agents the rendered objects, digests and recorded checks to assess them before use.</p>
-          <p class="intro">Each entry starts from a chart, module or recipe someone else publishes. Its source-specific processing and checks record what it produces and what the source decides for you; where flattening is supported, the Catalog keeps the exact objects it installs.</p>
+          <p class="intro">Configuration as data starts with flattened, explicit objects you can inspect and compare. OCI is a shared transport for this configuration. Each entry records its source-specific processing and checks, including whether flattening is supported.</p>
         </section>
         </div>
       </main>
@@ -5761,11 +5760,10 @@ function askHtml(catalog) {
     ${topNav(".")}
     <h1>Is my configuration right?</h1>
     <p id="question-context" hidden><strong id="question-context-text"></strong></p>
-    <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, any matching Catalog record I provide, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
-    <p><button class="button primary" id="load-example" type="button">See an illustrative object review</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
+    <p class="lead">Check your own chart and values, or compare rendered Kubernetes YAML. Keep the findings and the exact configuration they describe.</p>
+    <p><a class="button primary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a> <button class="button secondary" id="load-example" type="button">See an illustrative object review</button></p>
     <p>Use this page for your own chart, values, new version, or unexpected result. Use the <a href="./charts/index.html">Catalog</a> when we have already tested the exact chart and version.</p>
-    <p><strong>In the website:</strong> compare rendered Kubernetes YAML in this browser, with no AI needed, or build local instructions for the AI assistant you already use. Render your chart with <code>helm template</code> first, then paste the objects. Download the exact objects, findings, file hashes, and checks that did not run.</p>
-    <p><strong>On the command line:</strong> render or extract the same objects with <code>cub helm</code>, <code>cub installer</code>, or the source tool named by the example. Run <code>cub check</code> on those files for the shared local configuration checks. The page gives you copyable commands for keeping the same files and hashes in ConfigHub.</p>
+    <p>The chart route builds instructions for your local AI assistant. Already have rendered YAML? Check it in this browser with no AI needed. Neither route deploys your configuration.</p>
     <p><strong>Checking private configuration?</strong> Keep the chart, values, and output on your machine. Do not upload private files; this page does not upload them for you. Keep secrets out of the form, AI prompt, and any public issue.</p>
     <p>Keep the result locally, publish the reviewed objects as OCI, or retain the same result in ConfigHub when a team needs history and promotion.</p>
     <p><strong>Already accepted a result?</strong> <a href="./promote.html">Compare the exact current result with the candidate for the next stage</a>. The promotion review shows what changed, what blocks the move, and which destination checks have not run.</p>
@@ -9263,8 +9261,7 @@ function aiHtml(catalog) {
     <div class="agent-start" id="paste-a-prompt">
       <p><strong>Start here.</strong> Paste this into Claude Code, Codex, or any agent that can run a shell. To keep it in a project, add it to <code>CLAUDE.md</code> or <code>AGENTS.md</code>.</p>
       <pre><code>${escapeHtml(AGENT_PROMPT_ONE_LINER)}</code></pre>
-      <p>Or install the skill in the project, which works in Claude Code, Codex, Cursor and other agents.</p>
-      <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
+      <p>Use this prompt for a one-off question, or <a href="#install-skill">install the skill</a> to keep the instructions in your project.</p>
       <p>For a new project, use <a href="#fuller-prompt">the fuller prompt</a>. It also says what is in the Catalog and when you need ConfigHub server.</p>
     </div>
   </header>
@@ -9275,9 +9272,7 @@ function aiHtml(catalog) {
       <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
       <p>You can also <a href="./.well-known/agent-skills/config-workshop/SKILL.md">read the skill first</a>. It holds no credentials and applies nothing. Private files stay on your machine and Secret values are redacted. It pins versions and digests, reports any check it skipped, and previews a change before making it.</p>
       <h3 id="fuller-prompt">Or paste a prompt</h3>
-      <p>Paste one of these into Claude Code, Codex, or any agent that can run a shell, with nothing to install. The one-liner is enough for most questions.</p>
-      <pre><code>${escapeHtml(AGENT_PROMPT_ONE_LINER)}</code></pre>
-      <p>The fuller version also tells the agent what is in the Catalog and when it needs ConfigHub server.</p>
+      <p>The <a href="#paste-a-prompt">short prompt above</a> is enough for most questions. This fuller version adds Catalog context and explains when ConfigHub Server is useful; it needs no skill installation.</p>
       <pre><code>${escapeHtml(AGENT_PROMPT_FULLER)}</code></pre>
     </section>
 
