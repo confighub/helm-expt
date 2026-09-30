@@ -91,7 +91,7 @@ function validate(input) {
 const project = (name, sourceRepos, destinations, spec = {}) => ({ apiVersion: "argoproj.io/v1alpha1", kind: "AppProject", metadata: { name, namespace: "argocd" }, spec: { sourceRepos, destinations, ...spec } });
 export function buildRecipe(input) {
   const data = validate(input);
-  const sourceRepos = data.delivery ? [data.delivery.source] : data.teams.map((team) => team.repository);
+  const sourceRepos = data.delivery ? [data.teams[0].repository, data.delivery.source] : data.teams.map((team) => team.repository);
   const destinations = [{ server: data.target.server, namespace: data.target.namespace }];
   if (data.hub) destinations.push({ server: data.target.remoteServer, namespace: data.target.namespace });
   const projects = [project("default", [], [])];

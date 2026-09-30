@@ -22,6 +22,7 @@ test('all eight topology/posture/delivery choices build from exact facts', () =>
 test('tenant cannot inherit a platform source or cluster privileges', () => {
   const out = buildRecipe(fixture());
   const team = out.projects.find(p => p.metadata.name === 'team-payments');
+  assert.deepEqual(team.spec.sourceRepos, ['https://git.example.invalid/payments.git', 'oci://gateway.example.invalid/space/payments']);
   assert.deepEqual(team.spec.clusterResourceWhitelist, []);
   assert.deepEqual(team.spec.clusterResourceBlacklist, [{group:'*',kind:'*'}]);
   assert.ok(team.spec.namespaceResourceWhitelist.every(r => r.kind !== '*'));
