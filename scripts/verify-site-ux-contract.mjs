@@ -38,7 +38,7 @@ const checks = [
   },
   {
     file: "site/plugins.html",
-    terms: ["Every public cub plugin, marked by its state", "cub plugin install confighub/cub-workshop", "cub plugin install confighub/kubara-confighub", "In progress", "plugins.json"],
+    terms: ["Every public cub plugin, marked by its state", "cub plugin install confighub/cub-workshop", "cub plugin install confighub/kubara-confighub", "Released, ", "plugins.json"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
