@@ -541,7 +541,13 @@ function gh(args) {
 function verifyUpstream() {
   const drift = [];
   for (const plugin of readSource("plugins").spec.plugins.filter((p) => p.state === "released")) {
-    const latest = gh(["release", "view", "--repo", plugin.repository, "--json", "tagName", "--jq", ".tagName"]);
+    // A repository that releases several plugins tags each with its own
+    // prefix (cub-argo-v0.1.0 in confighub/examples), so the release that
+    // matters is the newest one with that prefix, not the repository's latest.
+    const prefix = plugin.release.tag.replace(/v?\d+(\.\d+)*([-+].*)?$/, "");
+    const latest = prefix
+      ? gh(["release", "list", "--repo", plugin.repository, "--limit", "100", "--json", "tagName", "--jq", `[.[] | select(.tagName | startswith("${prefix}"))][0].tagName`])
+      : gh(["release", "view", "--repo", plugin.repository, "--json", "tagName", "--jq", ".tagName"]);
     if (latest !== plugin.release.tag) drift.push(`plugin ${plugin.id}: recorded ${plugin.release.tag}, latest release is ${latest}`);
   }
   for (const app of readSource("apps").spec.apps) {
