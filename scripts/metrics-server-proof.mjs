@@ -22,6 +22,7 @@ const chart = {
 const versionExpectations = {
   "3.13.0": { defaultObjects: 9, externalTlsObjects: 9 },
   "3.13.1": { defaultObjects: 9, externalTlsObjects: 9 },
+  "3.14.0": { defaultObjects: 9, externalTlsObjects: 9 },
 };
 const expected = versionExpectations[chart.version];
 if (!expected) throw new Error(`metrics-server ${chart.version} needs reviewed version-specific assertions`);

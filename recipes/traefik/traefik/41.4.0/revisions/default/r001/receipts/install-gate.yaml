@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "traefik-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "the exact artifact and deterministic installer package are retained for Kubara selection"
+    - "Kubara wrapper behavior and target-specific live readiness require separate review"
+    - "target facts and lifecycle prerequisites remain explicit and target-specific"

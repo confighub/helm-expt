@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "traefik-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b"
+    objectCount: 31
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 32
+    uploadedManifestFiles: 32
+    separatedSecretFiles: 0
+    semanticObjectMatches: "31/31"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||traefik"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run kubara-catalog-3.0-coverage:compare"

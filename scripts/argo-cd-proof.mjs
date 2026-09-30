@@ -24,6 +24,7 @@ const versionExpectations = {
   "9.5.17": { defaultObjects: 49, noCrdsObjects: 46 },
   "10.1.3": { defaultObjects: 55, noCrdsObjects: 52 },
   "10.2.1": { defaultObjects: 55, noCrdsObjects: 52 },
+  "10.7.0": { defaultObjects: 55, noCrdsObjects: 52 },
 };
 const expected = versionExpectations[chart.version];
 if (!expected) throw new Error(`argo-cd ${chart.version} needs reviewed version-specific assertions`);

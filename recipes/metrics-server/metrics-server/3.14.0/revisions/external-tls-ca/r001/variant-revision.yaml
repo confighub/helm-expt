@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "external-tls-ca-r001"
+spec:
+  variant: "../../../variants/external-tls-ca/variant.yaml"
+  revision: "r001"
+  digest: "7e15857d63a859abdbfd2c3fd69efc639eaba28a148d3882d78ff2db2377d530"
+  digestInputs:
+    recipeSHA256: "db52a6c3f34cd8fc0dd7c7f81353cadd02e7851e0aec19e88ebc824a32ff026e"
+    variantSHA256: "eb313cf68f005b69b53e412a34efcfb71c88a76a5933984b454ef533ff1d085a"
+    effectiveValuesSHA256: "df01af4b6bbe51f7a6f4a61505d3f7c4eff7add7da068722d8cf6f11608e96e6"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "3c7569acec1ac9a798aedac416aae5cbed9ac8caa28813a3cf0e373537511052"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 9

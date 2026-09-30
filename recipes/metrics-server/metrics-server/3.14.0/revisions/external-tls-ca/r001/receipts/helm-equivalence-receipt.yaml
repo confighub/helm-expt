@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "metrics-server-external-tls-ca-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "3c7569acec1ac9a798aedac416aae5cbed9ac8caa28813a3cf0e373537511052"
+    objectCount: 9
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 10
+    uploadedManifestFiles: 10
+    separatedSecretFiles: 0
+    semanticObjectMatches: "9/9"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||kube-system"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run metrics-server:compare"

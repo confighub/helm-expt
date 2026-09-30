@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "no-crds-r001"
+spec:
+  variant: "../../../variants/no-crds/variant.yaml"
+  revision: "r001"
+  digest: "4af268a100f378daf3dffa98cf946d4660c1727a4981018962e0c5be4569f906"
+  digestInputs:
+    recipeSHA256: "2953a55d69da443e03afd01e0a9f7fab8406ddb9443797d31d197a9bce030ccb"
+    variantSHA256: "6785697c7fbd137fd7868fa747ab0ac5c03ed374c2efa89eada8a1d12c6c06c5"
+    effectiveValuesSHA256: "3fff22cfdcb1cf4d677abbbc200d62a085dc0416b5104fe810fbb5983930151a"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "3927a5c00b43122e4126947dd428d621a93e6e972c22a78b1033c40f39722959"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 115

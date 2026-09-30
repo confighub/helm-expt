@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "argo-cd-no-crds-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "9e7f272f1f39d5c4911a02de8b72e2901ad25163f5308080b7fabb748c6e2532"
+    objectCount: 52
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 53
+    uploadedManifestFiles: 53
+    separatedSecretFiles: 2
+    semanticObjectMatches: "52/52"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||argocd"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run argo-cd:compare"

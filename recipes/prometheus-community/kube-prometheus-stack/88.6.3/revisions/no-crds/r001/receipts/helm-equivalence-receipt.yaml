@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "kube-prometheus-stack-no-crds-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "3927a5c00b43122e4126947dd428d621a93e6e972c22a78b1033c40f39722959"
+    objectCount: 115
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 116
+    uploadedManifestFiles: 116
+    separatedSecretFiles: 2
+    semanticObjectMatches: "115/115"
+  semanticNormalizations:
+    - "prune-null-fields"
+    - "prune-empty-metadata-maps"
+  classifications:
+    -
+      identity: "v1|Namespace||monitoring"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run kube-prometheus-stack:compare"

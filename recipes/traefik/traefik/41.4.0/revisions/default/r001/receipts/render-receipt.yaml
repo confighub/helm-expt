@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "traefik-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "85cc7695df936f9c46ced072bee7a7146d94f80e02c3224e2384d6f385bb5e32"
+    dependencyLockSHA256: "8dc241dcb9d81394deaf7db27a3ca8cc35cc1a4a2e82ea746310cb206a4ad8ed"
+    effectiveValuesSHA256: "89c4c90e3e9050de84e568f3e3f54da1b6076bd595087adb86c16cb1cd810eed"
+  outputs:
+    renderedObjectSetSHA256: "8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b"
+    renderedObjectInventorySHA256: "495d39d2d780249a7debe2007fbc466ee362e3b6e07f084637dcb78994234a2e"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 31
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

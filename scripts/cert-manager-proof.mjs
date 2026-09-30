@@ -26,6 +26,7 @@ const chart = {
 const versionExpectations = {
   "v1.20.2": { defaultObjects: 42, crdsObjects: 48 },
   "v1.21.0": { defaultObjects: 40, crdsObjects: 46 },
+  "v1.21.1": { defaultObjects: 40, crdsObjects: 46 },
 };
 const expected = versionExpectations[chart.version];
 if (!expected) throw new Error(`cert-manager ${chart.version} needs reviewed version-specific assertions`);
