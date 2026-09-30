@@ -125,6 +125,25 @@
           "stack": {
             "type": "string",
             "description": "The Workshop stack this plugin runs. The stack's row checks its composition without a cluster; this plugin runs it on real infrastructure."
+          },
+          "guide": {
+            "type": "object",
+            "required": [
+              "address",
+              "title"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "address": {
+                "type": "string",
+                "pattern": "^https://",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
           }
         }
       }

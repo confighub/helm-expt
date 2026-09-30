@@ -6738,12 +6738,12 @@ function sectionCount(section) {
 function pluginsHtml() {
   const rows = sectionRows("plugins");
   const state = (row) => row.state === "released" ? `Released, ${escapeHtml(row.release.tag)}` : row.state === "in-progress" ? "In progress" : "Draft";
-  const pluginGuides = { kubara: ["./bring-kubara-into-confighub.html", "Bring a Kubara platform into ConfigHub"] };
+  const pluginGuide = (row) => (row.id === "kubara" ? ' <a href="./bring-kubara-into-confighub.html">Workshop platform Guide</a>.' : "") + (row.guide ? ` Guide: <a href="${escapeHtml(row.guide.address)}">${escapeHtml(row.guide.title)}</a>.` : "");
   const tableRows = rows.map((row) => [
     `<span id="${escapeHtml(row.id)}"></span>` + (row.address || row.repository ? `<a href="${escapeHtml(row.address ?? `https://github.com/${row.repository}`)}">${escapeHtml(row.name)}</a>` : escapeHtml(row.name)),
-    `${row.commands.map((command) => `<code>${escapeHtml(command)}</code>`).join(", ")}. ${escapeHtml(row.summary)}` + (pluginGuides[row.id] ? ` Guide: <a href="${pluginGuides[row.id][0]}">${escapeHtml(pluginGuides[row.id][1])}</a>.` : ""),
+    `${row.commands.map((command) => `<code>${escapeHtml(command)}</code>`).join(", ")}. ${escapeHtml(row.summary)}` + pluginGuide(row),
     state(row),
-    row.install ? `<code>${escapeHtml(row.install)}</code>` : escapeHtml(row.note ?? "Not yet published."),
+    (row.install ? `<code>${escapeHtml(row.install)}</code>` : "") + (row.note ? `<p>${escapeHtml(row.note)}</p>` : row.install ? "" : "Not yet published."),
   ]);
   return `<!doctype html>
 <html lang="en">
@@ -6763,6 +6763,7 @@ function pluginsHtml() {
   <main>
     <section aria-labelledby="every-plugin">
       <h2 id="every-plugin">Every plugin</h2>
+      <p>Already running Argo CD or Flux? Start with its assessment Guide below. Bring your controller version, source revision, release and namespace, Secret ownership, and storage constraints. The first plan changes no cluster; review it before generating or running a handover.</p>
       ${markdownLikeTable([["Plugin", "What it does", "State", "Install"], ...tableRows], { rawColumns: [0, 1, 2, 3] })}
     </section>
   </main>
