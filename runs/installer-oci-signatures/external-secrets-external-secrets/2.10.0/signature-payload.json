@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "c60cd5561d7d915a60c4873371ea71573c101c95ca3b3827ec857c84c8727b34"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/external-secrets/external-secrets/2.10.0",
+        "confighub.com/package-sha256": "c026ff36c6339e6f32fcb583fff9c63775057c9631e9af366bdc4bb7dd984664"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

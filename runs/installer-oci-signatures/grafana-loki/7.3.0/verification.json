@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki@sha256:4f07ad7b36c9d4b8cf3ced158c24d031684279800889766941afbd33c46e799b"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:4f07ad7b36c9d4b8cf3ced158c24d031684279800889766941afbd33c46e799b"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/grafana/loki/7.3.0",
+      "confighub.com/package-sha256": "3f9d88e7bd138835c46fd11de38f59685d32a6d6038ca8ca7b818d0a5847817f"
+    }
+  }
+]

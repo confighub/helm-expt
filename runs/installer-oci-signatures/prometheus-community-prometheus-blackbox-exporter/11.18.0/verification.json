@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter@sha256:0d53ebcff8bbbe1b51c3f26503dff990e89a0bb7f28f34f7edc1b423551ee972"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:0d53ebcff8bbbe1b51c3f26503dff990e89a0bb7f28f34f7edc1b423551ee972"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/prometheus-community/prometheus-blackbox-exporter/11.18.0",
+      "confighub.com/package-sha256": "792f2b005525b2b81738b008a0238957254634679f12b0b2cd77607612ca623f"
+    }
+  }
+]

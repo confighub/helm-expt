@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "88c9a55f464591c7288cf4794ec3473ffc589d81a0851bef5616cb25693640ad"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/longhorn/longhorn/1.12.1",
+        "confighub.com/package-sha256": "0b14a71dc38694400cbb71d82530ce1ed42e4bc13d34b13ee4e8382d99c2d3cd"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "806f198aca52dc7db180a04354dd7895873cad5c1811a45532d7e27077e3a0a3"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/metrics-server/metrics-server/3.14.0",
+        "confighub.com/package-sha256": "fc74c0ba1a4a6223e3ebdf82a64a5b10456de7a40cea69578d66321a5cfc4935"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

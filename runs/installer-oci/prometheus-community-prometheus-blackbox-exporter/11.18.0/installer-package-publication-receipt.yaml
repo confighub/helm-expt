@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: prometheus-community-prometheus-blackbox-exporter-11.18.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.18.0
+  observedAt: "2026-09-30T21:56:17.517Z"
+  package:
+    path: packages/prometheus-community/prometheus-blackbox-exporter/11.18.0
+    sha256: 792f2b005525b2b81738b008a0238957254634679f12b0b2cd77607612ca623f
+    sourceTreeSHA256: c919faf117baa255a7598a15b964516b80fb46f066bff43f9eed3b3310aaef52
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/prometheus-community/prometheus-blackbox-exporter/11.18.0 -o <tmp>/prometheus-community-prometheus-blackbox-exporter-11.18.0.tgz"
+    push: "cub installer push <tmp>/prometheus-community-prometheus-blackbox-exporter-11.18.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.18.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.18.0 --json"
+  outputs:
+    manifestDigest: sha256:0d53ebcff8bbbe1b51c3f26503dff990e89a0bb7f28f34f7edc1b423551ee972
+    layerDigest: sha256:792f2b005525b2b81738b008a0238957254634679f12b0b2cd77607612ca623f
+    package: |
+      Bundled prometheus-community-prometheus-blackbox-exporter@
+        output: <tmp>
+        files:  4
+        size:   1419 bytes
+        digest: sha256:792f2b005525b2b81738b008a0238957254634679f12b0b2cd77607612ca623f
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.18.0
+        manifest: sha256:0d53ebcff8bbbe1b51c3f26503dff990e89a0bb7f28f34f7edc1b423551ee972
+        layer:    sha256:792f2b005525b2b81738b008a0238957254634679f12b0b2cd77607612ca623f (1419 bytes, 4 files)
+    inspectJSONSHA256: 2251d8a2413a89e0959c9467aeeb6eed560a401330c5d9ff577fa10e132a10ef
+    inspectJSONCanonicalSHA256: 574f4fe82806525ac8de0a2a113e2754cc3e44aef4f54a23924344a1e9c6a1b6
