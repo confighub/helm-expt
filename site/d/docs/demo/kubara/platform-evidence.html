@@ -558,17 +558,16 @@ node scripts/generate-kubara-effective-renders.mjs --verify --profile current
 node scripts/generate-kubara-wiring.mjs --generate --profile current
 node scripts/generate-kubara-wiring.mjs --verify --profile current
 node scripts/generate-kubara-wiring.mjs --self-test
-node scripts/generate-kubara-platform-matrix.mjs --generate --profile current
-node scripts/generate-kubara-platform-matrix.mjs --verify --profile current
-node scripts/generate-kubara-platform-matrix.mjs --self-test
 
 # Regenerate or verify both current and historical profiles
 node scripts/generate-kubara-effective-renders.mjs --generate --all
 node scripts/generate-kubara-effective-renders.mjs --verify --all
 node scripts/generate-kubara-wiring.mjs --generate --all
 node scripts/generate-kubara-wiring.mjs --verify --all
-node scripts/generate-kubara-platform-matrix.mjs --generate --all
-node scripts/generate-kubara-platform-matrix.mjs --verify --all</code></pre>
+
+# The platform matrix is pinned from kubara-confighub; check the snapshot
+npm run kubara-upstream-evidence:verify</code></pre>
+<p>The platform matrix is re-derived from the live receipts by the matrix generator in <a href="https://github.com/confighub/kubara-confighub">confighub/kubara-confighub</a>, which is the only home of the Kubara live proof since the <a href="https://github.com/confighub/helm-expt/issues/1956">#1956</a> cutover. Its <code>npm run kubara-platform-matrix:verify</code> runs in that repository's CI. Here, every matrix output is pinned byte for byte to one commit of that repository; see <a href="../../planning/kubara-upstream-evidence.html">Kubara upstream evidence</a>.</p>
 <p>Only effective-render generation uses the network, to download exact Helm dependencies into a temporary working directory. These commands make no ConfigHub, Kubernetes, or Git writes.</p>
     </article>
   </main>
