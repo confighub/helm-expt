@@ -1066,7 +1066,7 @@ const purposePageRules = [
   {
     file: "site/charts/index.html",
     maxH2: 7,
-    requiredLinks: ["../how-it-works.html"],
+    requiredLinks: ["../confighub.html#promote-a-change"],
   },
   {
     file: "site/how-it-works.html",
@@ -1307,6 +1307,26 @@ if (fs.existsSync(chartCardsDir)) {
       failures.push(`site/charts/${name}: missing the Helm values, ConfigHub changes, install work, and live state provenance view`);
     }
   }
+}
+
+// Deployment entry is a first-class route in every desktop and mobile left menu.
+function checkServerEntryMenus(dir) {
+  for (const item of fs.readdirSync(dir, { withFileTypes: true })) {
+    const file = path.join(dir, item.name);
+    if (item.isDirectory()) { checkServerEntryMenus(file); continue; }
+    if (!item.name.endsWith(".html")) continue;
+    const html = fs.readFileSync(file, "utf8");
+    for (const menu of html.matchAll(/<(?:nav|details) class="(?:home-rail|cw-sidebar|cw-mobile-nav)"[^>]*>([\s\S]*?)<\/(?:nav|details)>/g)) {
+      if (!/<strong><a href="[^"]*confighub\.html#start-managing">ConfigHub: Deploy and manage<\/a><\/strong>/.test(menu[1])) {
+        failures.push(`${path.relative(root, file)}: left menu lacks the prominent ConfigHub deployment entry`);
+      }
+    }
+  }
+}
+checkServerEntryMenus(path.join(root, "site"));
+const serverPage = fs.readFileSync(path.join(root, "site/confighub.html"), "utf8");
+for (const id of ["start-managing", "import-and-deploy", "load-a-repo", "live-and-repo", "promote-a-change", "roll-out-a-change", "managed-result", "exact-handoff", "review-tutorial"]) {
+  if (!serverPage.includes(`id="${id}"`)) failures.push(`site/confighub.html: missing action or retained section ${id}`);
 }
 
 if (failures.length) {
