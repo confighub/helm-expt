@@ -258,12 +258,14 @@
       "Values, flags, or symptoms (secrets removed): " + values,
       "Privacy: " + privacy,
       "",
-      "Work locally. Use Helm and ordinary shell tools. Use cub installer only when an exact ConfigHub Workshop package exists. Do not upload my chart, values, or existing configuration.",
+      "Work locally. Use the task-specific cub command below when available, with Helm and ordinary shell tools where needed. Use cub installer only when an exact ConfigHub Workshop package exists. Do not upload my chart, values, or existing configuration.",
       release && namespace
         ? "1. Capture the existing release locally with helm status, helm get values -a, helm get manifest, helm get hooks, helm history, and kubectl get secret -l owner=helm,name=" + release + ". Treat every output file as sensitive."
         : "1. No existing release context was supplied. State that release status, history, stored values, hooks, and live drift are unknown.",
       "2. Resolve the exact chart source and version. Record the chart digest and every render command.",
-      "3. Render the candidate with the release name, namespace, values, capabilities, hooks, and CRD flags stated above. Also render the chart defaults when that comparison applies. If an input is missing, name it instead of guessing.",
+      code === "ignored-values"
+        ? "3. Use step 5 to produce and retain the diagnostic candidate; do not render a separate replacement. Preserve the supplied release name, namespace, values, capabilities, hooks and CRD context. If an input is missing or unsupported by the command, name it instead of guessing."
+        : "3. Render the candidate with the release name, namespace, values, capabilities, hooks, and CRD flags stated above. Also render the chart defaults when that comparison applies. If an input is missing, name it instead of guessing.",
       "4. " + comparisonInstructions[comparisonSource] + (comparisonSource === "none" ? "" : " If the reference is incomplete, name what is missing instead of guessing."),
       "5. " + item.instruction,
       release && namespace
@@ -272,7 +274,9 @@
       "7. Fetch https://confighub.github.io/helm-expt/site/changes.schema.json and https://confighub.github.io/helm-expt/site/changes.json. Resolve the exact chart and version, including aliases. Missing or not_checked coverage means ConfigHub Workshop has not checked that claim.",
       "8. If the Catalog has an exact base, fetch https://confighub.github.io/helm-expt/site/base-variant-records.json and retain the matching BaseVariantRecord. Read its prerequisites and routes; do not call a route executed unless its evidence covers this exact version and delivery path.",
       "9. Cite the chart page and relevant evidence URLs for every retained historical or live claim. Keep your computed findings separate from retained evidence.",
-      "10. Write the exact candidate objects to ./workshop-review/candidate.yaml. If a comparison ran, write its exact objects to ./workshop-review/comparison.yaml. Write the exact BaseVariantRecord to ./workshop-review/source-and-intent.yaml when one exists. Do not add secrets that were not already supplied.",
+      "10. " + (code === "ignored-values"
+        ? "Keep the diagnostic candidate and diagnosis from step 5 together. Copy those exact retained files into a fresh ./workshop-review directory as candidate.yaml and diagnosis.json when available; do not re-render or overwrite an existing review. If no candidate was produced, report that instead of inventing one. "
+        : "Write the exact candidate objects to ./workshop-review/candidate.yaml. ") + "If a comparison ran, write its exact objects to ./workshop-review/comparison.yaml. Write the exact BaseVariantRecord to ./workshop-review/source-and-intent.yaml when one exists. Do not add secrets that were not already supplied.",
       "11. Recommend one next action: correct a value, make a reviewed object change, provide a prerequisite, choose a lifecycle route, compare with a Catalog entry, retain local files or OCI, submit a public Catalog candidate with my approval, or save the reviewed result in ConfigHub.",
       "12. Answer four stages separately. Inspection needs the source or files. Materialization needs the source-native tool unless it is a no-op. Destination acceptance needs the exact candidate and current target facts. A post-deployment result needs the exact delivered revision and live evidence. Missing prerequisites are blocked or not run, not a failed configuration or workload.",
       "",

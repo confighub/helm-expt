@@ -16,7 +16,7 @@
       "summary": "The assistant wrote my Helm values. Did they do anything? Three of seven did nothing, and Helm never said so.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/journey-values-did-nothing.html",
-      "firstCommand": "cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --values values.yaml",
+      "firstCommand": "cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --release shop-redis --namespace shop --values values.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/journey-values-did-nothing.html"
       }
