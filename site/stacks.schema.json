@@ -106,6 +106,10 @@
               }
             },
             "additionalProperties": false
+          },
+          "plugin": {
+            "type": "string",
+            "description": "The cub plugin that runs this stack on real infrastructure. The stack row itself checks the composition without a cluster."
           }
         }
       }

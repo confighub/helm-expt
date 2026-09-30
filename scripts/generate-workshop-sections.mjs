@@ -48,11 +48,11 @@ const APP_DELIVERIES = ["plain", "argo-cd", "flux", "generator"];
 // Each row carries a stable ID, a one-line summary, its state, and the exact
 // command or address an agent uses next.
 const ROW_FIELDS = {
-  configs: { required: ["id", "name", "format", "version", "base", "summary", "state", "objectCount", "flatteningVerdict", "listing", "next"], optional: ["digest", "page"] },
-  stacks: { required: ["id", "name", "summary", "state", "parts", "partCount", "checked", "source", "next"], optional: [] },
+  configs: { required: ["id", "name", "format", "version", "base", "summary", "state", "objectCount", "flatteningVerdict", "checks", "listing", "next"], optional: ["digest", "page"] },
+  stacks: { required: ["id", "name", "summary", "state", "parts", "partCount", "checked", "source", "next"], optional: ["plugin"] },
   apps: { required: ["id", "name", "summary", "state", "delivery", "repository", "branch", "checkedCommit", "address", "next"], optional: ["path", "note"] },
-  plugins: { required: ["id", "name", "summary", "state", "commands", "next"], optional: ["repository", "address", "release", "install", "note"] },
-  guides: { required: ["id", "group", "title", "summary", "state", "address", "next"], optional: ["groupTitle"] },
+  plugins: { required: ["id", "name", "summary", "state", "commands", "next"], optional: ["repository", "address", "release", "install", "note", "stack"] },
+  guides: { required: ["id", "group", "title", "summary", "state", "address", "next"], optional: ["groupTitle", "firstCommand"] },
 };
 
 function readSource(name) {
@@ -74,21 +74,49 @@ function sentence(text, where) {
   return text.trim();
 }
 
-function configRows(index) {
-  const rows = index.listings.map((listing) => ({
+// The four assessment stages every listing records, in order. A row reports
+// each stage's evidence and result, so an agent can see what was checked
+// without opening the listing.
+const ASSESSMENT_STAGES = ["inspection", "materialization", "destination", "post-deployment"];
+
+function listingChecks(listing, readListing) {
+  const stages = readListing(listing)?.assessment?.stages ?? [];
+  const checks = {};
+  for (const id of ASSESSMENT_STAGES) {
+    const stage = stages.find((candidate) => candidate.id === id);
+    check(stage?.evidenceState && stage?.resultState, `config ${listing.id}: its listing records no ${id} stage`);
+    checks[id] = `${stage.evidenceState}/${stage.resultState}`;
+  }
+  return checks;
+}
+
+function readListingFile(listing) {
+  const name = String(listing.url ?? "").split("/").pop();
+  const path = join(siteRoot, "listings", name);
+  check(name.endsWith(".json") && existsSync(path), `config ${listing.id}: site/listings/${name} is missing`);
+  return JSON.parse(readFileSync(path, "utf8"));
+}
+
+function configRows(index, readListing = readListingFile) {
+  const rows = index.listings.map((listing) => {
+    const checks = listingChecks(listing, readListing);
+    const done = ASSESSMENT_STAGES.filter((id) => checks[id].startsWith("completed/"));
+    return {
     id: listing.id,
     name: listing.name,
     format: listing.format,
     version: listing.version,
     base: listing.base,
-    summary: `${listing.name} ${listing.version}, ${listing.format}, base ${listing.base}: ${listing.objectCount} objects, flattening verdict ${listing.flatteningVerdict}.`,
+    summary: `${listing.name} ${listing.version}, ${listing.format}, base ${listing.base}: ${listing.objectCount} objects, flattening verdict ${listing.flatteningVerdict}. Stages with evidence: ${done.join(", ") || "none"}.`,
     state: listing.discovery?.status ?? "not-classified",
     objectCount: listing.objectCount,
     flatteningVerdict: listing.flatteningVerdict,
+    checks,
     ...(listing.digest ? { digest: listing.digest } : {}),
     listing: listing.url,
     next: { address: listing.url },
-  }));
+    };
+  });
   unique(rows, "configs");
   return rows;
 }
@@ -158,11 +186,32 @@ function pluginRows(registry) {
       ...(plugin.release ? { release: plugin.release } : {}),
       ...(plugin.install ? { install: plugin.install } : {}),
       ...(plugin.note ? { note: plugin.note } : {}),
+      ...(plugin.stack ? { stack: plugin.stack } : {}),
       next: plugin.install ? { command: plugin.install } : plugin.address ? { address: plugin.address } : { note: plugin.note ?? "Not yet published." },
     };
   });
   unique(rows, "plugins");
   return rows;
+}
+
+// A page's text as a reader sees it: tags and entities gone, a command
+// continued with a trailing backslash joined onto one line, and runs of
+// whitespace made single.
+function pageText(page) {
+  return readFileSync(join(siteRoot, page), "utf8")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&")
+    .replace(/\\\n\s*/g, " ")
+    .replace(/\s+/g, " ");
+}
+
+// The first command a Guide runs for its own job, recorded by hand in the
+// registry. It must appear on the Guide's page, so the row cannot drift from it.
+function guideCommand(guide) {
+  check(guide.page, `guide ${guide.id}: a first command needs a site page to check it against`);
+  const command = String(guide.command).replace(/\s+/g, " ").trim();
+  check(pageText(guide.page).includes(command), `guide ${guide.id}: its first command does not appear on site/${guide.page}: ${command}`);
+  return command;
 }
 
 function guideRows(registry) {
@@ -183,6 +232,7 @@ function guideRows(registry) {
       summary: sentence(guide.summary, `guide ${guide.id}`),
       state: "published",
       address,
+      ...(guide.command ? { firstCommand: guideCommand(guide) } : {}),
       next: { address },
     };
   });
@@ -205,7 +255,7 @@ function sectionDoc(section, rows, generatedFrom) {
 
 function schemaFor(section) {
   const { required, optional } = ROW_FIELDS[section];
-  const properties = Object.fromEntries([...required, ...optional].map((field) => [field, fieldSchema(field)]));
+  const properties = Object.fromEntries([...required, ...optional].map((field) => [field, fieldSchema(field, section)]));
   return {
     $schema: "https://json-schema.org/draft/2020-12/schema",
     $id: `${SITE_BASE_URL}${section}.schema.json`,
@@ -229,7 +279,12 @@ function schemaFor(section) {
   };
 }
 
-function fieldSchema(field) {
+function fieldSchema(field, section) {
+  if (field === "state" && section === "configs") return { type: "string", minLength: 1, description: "Discovery classification: classified when the listing carries roles that cub config list --role finds, and not-classified otherwise. It is not a review or readiness state; checks says what was checked." };
+  if (field === "checks") return { type: "object", description: "The listing's four assessment stages, each as evidenceState/resultState, for example completed/pass. completed means the stage's evidence exists for this exact configuration; pending, not-run and blocked mean it does not. It checks the configuration, not your values or your cluster.", required: ["inspection", "materialization", "destination", "post-deployment"], additionalProperties: false, properties: Object.fromEntries(["inspection", "materialization", "destination", "post-deployment"].map((stage) => [stage, { type: "string", pattern: "^[a-z-]+/[a-z-]+$" }])) };
+  if (field === "firstCommand") return { type: "string", minLength: 1, description: "The first command the Guide runs for its own job, as the Guide prints it. It is there so an agent can see where the Guide starts; read the Guide for the inputs and what to look for." };
+  if (field === "plugin") return { type: "string", description: "The cub plugin that runs this stack on real infrastructure. The stack row itself checks the composition without a cluster." };
+  if (field === "stack" && section === "plugins") return { type: "string", description: "The Workshop stack this plugin runs. The stack's row checks its composition without a cluster; this plugin runs it on real infrastructure." };
   if (["objectCount", "partCount"].includes(field)) return { type: "integer", minimum: 0 };
   if (field === "checked") return { type: "boolean", description: "True when every part of the stack carries a receipt. It says the parts were checked, not that the stack has run; the stack check itself is static and needs the workshop plugin." };
   if (["commands", "parts"].includes(field)) return { type: "array", items: { type: "string" }, minItems: 1 };
@@ -289,11 +344,21 @@ export function buildSections(input = {}) {
   const apps = input.apps ?? readSource("apps");
   const plugins = input.plugins ?? readSource("plugins");
   const guides = input.guides ?? readSource("guides");
+  const pluginList = pluginRows(plugins);
+  const stackList = stackRows(stacks);
+  // A plugin that runs a Workshop stack names it, and the stack's row names the
+  // plugin back, so an agent reading either one finds the other.
+  for (const plugin of pluginList.filter((row) => row.stack)) {
+    const stack = stackList.find((row) => row.id === plugin.stack);
+    check(stack, `plugin ${plugin.id}: stack ${plugin.stack} is not a shipped platform stack`);
+    check(!stack.plugin, `stack ${stack.id}: two plugins name it`);
+    stack.plugin = plugin.id;
+  }
   const docs = {
-    configs: sectionDoc("configs", configRows(listings), ["site/listings/index.json"]),
-    stacks: sectionDoc("stacks", stackRows(stacks), ["data/workshop-stacks/stacks.yaml"]),
+    configs: sectionDoc("configs", configRows(listings, input.readListing), ["site/listings/index.json", "site/listings/<id>.json"]),
+    stacks: sectionDoc("stacks", stackList, ["data/workshop-stacks/stacks.yaml", "data/workshop-plugins/plugins.yaml"]),
     apps: sectionDoc("apps", appRows(apps), ["data/workshop-apps/apps.yaml"]),
-    plugins: sectionDoc("plugins", pluginRows(plugins), ["data/workshop-plugins/plugins.yaml"]),
+    plugins: sectionDoc("plugins", pluginList, ["data/workshop-plugins/plugins.yaml"]),
     guides: sectionDoc("guides", guideRows(guides), ["data/workshop-guides/guides.yaml"]),
   };
   check(docs.configs.count === listings.listings.length, "configs.json must hold every listing");
@@ -350,6 +415,15 @@ function selfTest() {
     throw new Error(`self-test ${name}: a broken registry was accepted`);
   };
   refuses("duplicate plugin", (i) => i.plugins.spec.plugins.push(clone(i.plugins.spec.plugins[0])), "appears twice");
+  refuses("first command not on the page", (i) => { i.guides.spec.guides.find((g) => g.command).command = "cub no-such-command"; }, "does not appear on");
+  refuses("plugin naming a missing stack", (i) => { i.plugins.spec.plugins.find((p) => p.stack).stack = "no-such-stack"; }, "is not a shipped platform stack");
+  refuses("listing missing an assessment stage", (i) => {
+    i.readListing = (listing) => {
+      const record = readListingFile(listing);
+      record.assessment.stages = record.assessment.stages.filter((stage) => stage.id !== "destination");
+      return record;
+    };
+  }, "records no destination stage");
   refuses("unknown plugin state", (i) => { i.plugins.spec.plugins[0].state = "beta"; }, "state must be one of");
   refuses("released plugin without install", (i) => { delete i.plugins.spec.plugins[0].install; }, "lacks a repository, install command or release tag");
   refuses("short app commit", (i) => { i.apps.spec.apps[0].checkedCommit = "abc123"; }, "full commit");
@@ -359,7 +433,7 @@ function selfTest() {
   refuses("four journeys", (i) => { i.guides.spec.guides.shift(); }, "five journeys");
   refuses("empty summary", (i) => { i.stacks.spec.stacks[0].description = " "; }, "has no summary");
   check(validate({ rows: [] }, schemaFor("plugins")).length > 0, "self-test: the schema accepted a document with no header");
-  console.log("self-test passed: duplicate IDs, unknown states, missing install commands, short commits, unknown deliveries, missing pages, journey order and empty summaries are all refused");
+  console.log("self-test passed: duplicate IDs, unknown states, missing install commands, short commits, unknown deliveries, missing pages, journey order, empty summaries, a Guide command missing from its page, a plugin naming a missing stack and a listing missing an assessment stage are all refused");
 }
 
 function syncStacks(from) {

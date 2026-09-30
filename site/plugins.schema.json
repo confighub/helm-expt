@@ -121,6 +121,10 @@
           "note": {
             "type": "string",
             "minLength": 1
+          },
+          "stack": {
+            "type": "string",
+            "description": "The Workshop stack this plugin runs. The stack's row checks its composition without a cluster; this plugin runs it on real infrastructure."
           }
         }
       }
