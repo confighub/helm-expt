@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "grafana-alloy-1.12.1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "grafana"
+  repositoryURL: "https://grafana.github.io/helm-charts"
+  chart: "alloy"
+  version: "1.12.1"
+  appVersion: "v1.19.2"
+  packageSHA256: "cdd1ec39f99c3c506d5b521156d72236ea143c089f50da6b64398f831734829c"
+  packageBytes: 32237
+  exactArtifact:
+    url: "https://github.com/grafana/helm-charts/releases/download/alloy-1.12.1/alloy-1.12.1.tgz"
+    sha256: "cdd1ec39f99c3c506d5b521156d72236ea143c089f50da6b64398f831734829c"
+    resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

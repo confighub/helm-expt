@@ -1,0 +1,47 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "prometheus-community-prometheus-blackbox-exporter-11.18.0"
+spec:
+  chart:
+    repository: "prometheus-community"
+    name: "prometheus-blackbox-exporter"
+    version: "11.18.0"
+  package:
+    path: "packages/prometheus-community/prometheus-blackbox-exporter/11.18.0"
+    name: "prometheus-community-prometheus-blackbox-exporter"
+    version: "11.18.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "9a9069c513d1760d1ef84fa2e90592546d66232f9cbd024e1114d34dcff3c230"
+        bytes: 419
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "f9a8cddd436d84f31bcb4903756d6a1e149e7f4197d33d18013e33b077195aa2"
+        bytes: 4039
+      -
+        path: "installer.yaml"
+        sha256: "bb9ddb41af7aaa5c81709e5f4b3b44bdb2fba4c13665745bb36a8b835f9f09eb"
+        bytes: 390
+  deterministicBundle:
+    command: "cub installer package packages/prometheus-community/prometheus-blackbox-exporter/11.18.0 -o <tmp>/prometheus-blackbox-exporter-11.18.0.tgz"
+    sha256: "792f2b005525b2b81738b008a0238957254634679f12b0b2cd77607612ca623f"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/prometheus-community/prometheus-blackbox-exporter/11.18.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+      helmReleaseObjectCount: 4
+      cubInstallObjectCountIncludingSupport: 5
+      semanticObjectMatches: "4/4"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"

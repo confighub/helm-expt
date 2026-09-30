@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "prometheus-blackbox-exporter-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "f9a8cddd436d84f31bcb4903756d6a1e149e7f4197d33d18013e33b077195aa2"
+    objectCount: 4
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 5
+    uploadedManifestFiles: 5
+    separatedSecretFiles: 0
+    semanticObjectMatches: "4/4"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||monitoring"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run kubara-catalog-3.0-coverage:compare"

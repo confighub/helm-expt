@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "prometheus-blackbox-exporter-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "afcce20fc7d8550d2b722d791514d1dcdbabc95f82eed436bbb6ccdf2a44749e"
+    dependencyLockSHA256: "fa6fa57e6e7a99bb3a3411b4e33666fc34e9d7d19c24cdcf7cd159a802c7459d"
+    effectiveValuesSHA256: "d3b0439d3416b06227fd9da694b0a38fce1fa37e533ad2cd86995c75a3e22b35"
+  outputs:
+    renderedObjectSetSHA256: "f9a8cddd436d84f31bcb4903756d6a1e149e7f4197d33d18013e33b077195aa2"
+    renderedObjectInventorySHA256: "d98c05bf4ccfe19aead36276fe8c75d8e05bcdaae9860610f0d2fe68ef1512a0"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 4
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

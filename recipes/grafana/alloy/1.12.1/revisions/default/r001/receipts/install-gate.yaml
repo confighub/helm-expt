@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "alloy-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "e3b30c75c9a0bc3241f42a8dde5d4b05371091c319ab5712fe30685234d17549"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "the exact artifact and deterministic installer package are retained for Kubara selection"
+    - "Kubara wrapper behavior and target-specific live readiness require separate review"
+    - "target facts and lifecycle prerequisites remain explicit and target-specific"

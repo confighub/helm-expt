@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "stakater-reloader-2.2.16"
+spec:
+  chart: "stakater/reloader"
+  version: "2.2.16"
+  maintainedNotes:
+    - "This package is the exact reloader@2.2.16 dependency selected by Kubara catalogs 3.0."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging."
+    - "It does not claim Kubara wrapper equivalence, live convergence, or production support."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "target-facts"
+    - "production-readiness-review"
