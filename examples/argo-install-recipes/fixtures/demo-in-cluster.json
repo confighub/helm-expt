@@ -1,0 +1,1 @@
+{"recipe":"demo-in-cluster","target":{"server":"https://kubernetes.default.svc","namespace":"argocd-demo"},"teams":[{"name":"demo","repository":"https://git.example.invalid/demo.git","namespace":"demo-apps"}]}

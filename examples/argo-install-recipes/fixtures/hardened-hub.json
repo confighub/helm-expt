@@ -1,0 +1,37 @@
+{
+  "recipe": "hardened-hub",
+  "target": {
+    "server": "https://hub.example.invalid",
+    "namespace": "argo-tenants",
+    "remoteServer": "https://workload.example.invalid"
+  },
+  "teams": [
+    {
+      "name": "payments",
+      "repository": "https://git.example.invalid/payments.git",
+      "namespace": "payments",
+      "developerGroup": "payments-developers"
+    }
+  ],
+  "oidc": {
+    "issuer": "https://id.example.invalid",
+    "clientId": "argo-cd",
+    "groups": {
+      "platform": "platform-admins",
+      "readonly": "auditors"
+    }
+  },
+  "ingress": {
+    "hostname": "argo.example.invalid",
+    "tlsSecretRef": "argo-tls"
+  },
+  "delivery": {
+    "gateway": "https://gateway.example.invalid",
+    "source": "oci://gateway.example.invalid/space/payments",
+    "enableHelm": true
+  },
+  "syncWindow": {
+    "schedule": "0 22 * * *",
+    "duration": "8h"
+  }
+}
