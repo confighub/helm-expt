@@ -277,7 +277,7 @@ not this legacy Trigger, decides whether they gate progression.
 
 **What it is.** A stack composes several components' certified objects into
 one platform, checked together instead of one at a time. `cub stack
-certify` reads a stack definition and checks whether its components can be
+check` reads a stack definition and checks whether its components can be
 combined without a resource conflict, a namespace surprise, or a CRD
 ordering problem, and says yes or no before anything renders. `cub stack
 sandbox` does the same check and then renders the whole composition to its
@@ -289,26 +289,26 @@ carries a `redis-platform` stack:
 composes `redis`, `external-secrets`, and `kube-prometheus-stack`, three
 digest-pinned OCI bundles, into one managed platform: the cache, its
 secrets, and its monitoring. Redis is already one of the three; this step
-does not add it, it certifies the composition Redis already belongs to.
+does not add it, it checks the composition Redis already belongs to.
 
 **Predict first.** Before you run it, ask your agent whether it expects
-`redis-platform` to certify cleanly or to report a conflict, and to name
+`redis-platform` to check cleanly or to report a conflict, and to name
 which of the three components it thinks might collide, if any.
 
 ```sh
-cub stack certify redis-platform
+cub stack check redis-platform
 cub stack sandbox redis-platform
 ```
 
-**Read the result.** Expect exit `0` from both. `certify` reports
-`CERTIFIED`; this stack's published claim in the Workshop site's own stack
-table names it `CERTIFIED` without a specific object count, unlike some
+**Read the result.** Expect exit `0` from both. `check` reports
+`CHECKED`; this stack's published claim in the Workshop site's own stack
+table names it `CHECKED` without a specific object count, unlike some
 other example stacks that do carry one, so read the exact count yourself
 from `sandbox`'s render rather than expecting one printed here. `sandbox`
-performs the same certify check, then renders the combined objects for all
+performs the same check, then renders the combined objects for all
 three components with no infrastructure involved.
 
-**Boundary.** Free and local. Certifying and sandboxing a stack composition
+**Boundary.** Free and local. Checking and sandboxing a stack composition
 runs entirely against files the plugin ships; delivering that composition
 to a running cluster is `cub stack upload`, a separate step this Guide does
 not run.
@@ -349,7 +349,7 @@ the Timoni, plain-YAML, AICR, and Kubara paths each take one part of this
 walk further than a single pass can.
 
 Two boundaries stay explicit throughout. First, a local check, diff,
-certify, or sandbox result is not a live-cluster proof; steps 4 and 5 name
+stack check, or sandbox result is not a live-cluster proof; steps 4 and 5 name
 the live proofs that exist for this same chart and point at them rather
 than pretending a dry run reached a cluster. Second, this base's own
 flattening verdict is `unsafe-to-flatten`, and that verdict means the chart

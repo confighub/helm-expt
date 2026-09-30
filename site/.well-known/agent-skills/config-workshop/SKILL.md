@@ -103,11 +103,11 @@ signal to move, not a dead end.
 Two plugins do different jobs. Name the one you mean.
 
 The cub-workshop plugin adds `cub config`, `cub app`, `cub stack`, and
-`cub fleet`. Install it at the exact source revision the site's journey pages
-were checked with. The plugin publishes no release yet, so pin the revision:
+`cub fleet`. Install the release the site's journey pages
+were checked with, version 0.6.52:
 
 ```sh
-cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo
+cub plugin install confighub/cub-workshop@v0.6.52
 ```
 
 The teaching exercises inside some Guides pin an older revision in their own
@@ -134,8 +134,8 @@ anything; see
 | I set a value. Why did nothing change? | `cub config values <chart> [--repo <url>] --version <v> --values <file> --out <new-file>.json --render-out <candidate>.yaml --exit-code` | each key's verdict: `APPLIED`, `IGNORED`, `NO EFFECT`, `DEFAULT`, or `INVALID` | 0 every key applied; 1 a key did nothing or an `INVALID` field; 2 the check could not finish |
 | Will this install start, or did its image disappear? | `cub config check <render>.yaml --images --exit-code` | the `images that pull anonymously: N of M` line and any `NOT FOUND` image | 0 every image resolved; 1 a registry confirmed a missing image; 2 an authentication or network failure left the check incomplete |
 | Is this release safe to hand to Argo CD or Flux? | `cub config values ...` for its every-render note, then `cub config diff <render-1>.yaml <render-2>.yaml --exit-code` on two renders of the same input | the fields that change on every render | 0 the render is stable; 1 a field changes between renders |
-| I want to compose a stack, or check hooks and CRDs before delivery | `cub stack check ./<dir>/stack.yaml --json > <new-file>.json` | `certified` (true/false) and the named finding | 0 with `certified: true` (CHECKED); 1 with `certified: false` (REFUSED), a complete refusal, not an execution error |
-| Render the whole composition with no infrastructure | `cub stack sandbox ./<dir>/stack.yaml --out <new-file>.yaml` | the exit code and the object count of the written file | 0 after certification; the render is static, not a live proof |
+| I want to compose a stack, or check hooks and CRDs before delivery | `cub stack check ./<dir>/stack.yaml --json > <new-file>.json` | `checked` (true/false) and the named finding | 0 with `checked: true` (CHECKED); 1 with `checked: false` (REFUSED), a complete refusal, not an execution error |
+| Render the whole composition with no infrastructure | `cub stack sandbox ./<dir>/stack.yaml --out <new-file>.yaml` | the exit code and the object count of the written file | 0 after the composition checks; the render is static, not a live proof |
 | Does this workload fit the target I have? | `cub app match model.yaml --target nodes.yaml --json --out <new-file>.json` | `status`: `candidate`, `mismatch`, or `unknown` | 0 candidate; 1 mismatch; 3 unknown |
 
 Every one of these checks has a blind spot; tell the user what it is. `APPLIED`
@@ -206,7 +206,7 @@ one of those.
 
 Before you run a check, diff, values, sandbox, or match command, tell the
 user the exit code you expect and the one field you will read, whether that
-is the object count, the changed pointers, `certified`, or `status`. Run the
+is the object count, the changed pointers, `checked`, or `status`. Run the
 command, then say whether the result matched your prediction. A mismatch
 means your explanation was a guess. Say so, and read the result again before
 you explain it a second time. workshop-helm-questions-guide.md's "Check your
@@ -229,7 +229,7 @@ agent the same way every time" section is the human half of this same check.
   after assigning a destination or delivery runtime.
 - Do not run `kubectl apply`, a controller sync, a ConfigHub mutation, or a
   production change unless the user explicitly asks. Preview first.
-- Quote a refusal exactly as printed, including `certified: false`,
+- Quote a refusal exactly as printed, including `checked: false`,
   `status: "mismatch"`, `status: "unknown"`, and the exit code. Never soften
   it or report it as success.
 - Keep the refusal JSON and the failed workspace. Recover in a separate copy

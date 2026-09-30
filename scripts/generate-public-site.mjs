@@ -53,9 +53,9 @@ const customAppsPath = join(siteRoot, "custom-apps.html");
 const appsPath = join(siteRoot, "apps.html");
 const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
-// The Workshop plugin revision the journey pages were checked with. The plugin
-// publishes no release yet, so pages pin an exact source revision.
-const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo";
+// The Workshop plugin release the journey pages were checked with. Pages pin an
+// exact release tag, so a reader installs the version the page was checked with.
+const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.52";
 const securityPath = join(siteRoot, "security.html");
 const testingPath = join(siteRoot, "testing.html");
 const kubaraPath = join(siteRoot, "kubara.html");
@@ -5090,7 +5090,7 @@ function composeStackGuideHtml() {
         ] },
       ], { title: "one install, three commands", label: "One install, three commands" })}
     </div>
-    <p class="caption">The check is a hard gate. A real conflict refuses the whole stack and exits non-zero, which is why <code>metrics-double</code> fails: two of its components claim the same nine objects. A warning is not a rejection. <code>eks-inference</code> still certifies with a warning that identical CRDs appear more than once inside one component, because duplication within a single component is harmless, not a clash between components.</p>
+    <p class="caption">The check is a hard gate. A real conflict refuses the whole stack and exits non-zero, which is why <code>metrics-double</code> fails: two of its components claim the same nine objects. A warning is not a rejection. <code>eks-inference</code> still passes the check with a warning that identical CRDs appear more than once inside one component, because duplication within a single component is harmless, not a clash between components.</p>
   </header>
   <main>
     <section class="narrow-section" aria-labelledby="get-a-stack">
@@ -5099,7 +5099,7 @@ function composeStackGuideHtml() {
       <h3 id="ready-made">1. Want a ready-made one?</h3>
       <p>Pick a shipped stack and check it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from ${spellSmallNumber(bundleFacts.eksInferenceBundleCount)} certified bundles, each hash-verified against its receipt. ${spellSmallNumber(shippedStackCount, { capitalize: true })} ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
       <h3 id="compose-your-own">2. Composing your own?</h3>
-      <p>Write a manifest that names catalog parts by digest, or let an assistant draft one from images you have already checked. Each part is a bundle pinned by digest with a receipt, or a file of rendered objects the stack owns. Then run <code>cub stack check &lt;file&gt;</code>, read what it names wrong, fix it, and run again until it holds together. Certify is the contract you build against; <a href="./d/docs/planning/stack-manifest-spec.html">read the manifest specification</a>.</p>
+      <p>Write a manifest that names catalog parts by digest, or let an assistant draft one from images you have already checked. Each part is a bundle pinned by digest with a receipt, or a file of rendered objects the stack owns. Then run <code>cub stack check &lt;file&gt;</code>, read what it names wrong, fix it, and run again until it holds together. The check is the contract you build against; <a href="./d/docs/planning/stack-manifest-spec.html">read the manifest specification</a>.</p>
       <h3 id="from-kubara-platform">3. Already have a Kubara platform?</h3>
       <p>Turn a Kubara platform into a stack with <code>cub stack from-kubara .</code>. It renders with the values Kubara generated, so the check reads the platform you actually have. <a href="./bring-kubara-into-confighub.html">Build a platform</a> walks the whole Kubara journey, generate to deploy.</p>
       <h3 id="run-with-a-team">4. Ready to run it with a team?</h3>
@@ -5176,7 +5176,7 @@ cub stack check my-platform/stack.yaml</code></pre>
     </section>
     <section class="narrow-section" aria-labelledby="becoming">
       <h2 id="run-and-govern">Run and govern it</h2>
-      <p><code>cub stack upload &lt;name&gt; --run</code> certifies first, then builds one base Space per component in ConfigHub and the links the manifest declares. Without <code>--run</code> it prints the plan and changes nothing. From there ConfigHub's own verbs take over: <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree.</p>
+      <p><code>cub stack upload &lt;name&gt; --run</code> checks first, then builds one base Space per component in ConfigHub and the links the manifest declares. Without <code>--run</code> it prints the plan and changes nothing. From there ConfigHub's own verbs take over: <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree.</p>
       <p>A fleet places a stack across many clusters as data. <code>cub fleet up meridian</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases their deployments through those same governed verbs. <code>cub fleet status meridian</code> then recomputes four attention tiles, blocking gates, unreleased changes, upgrades available, and outstanding rollouts, from the queries the product runs. <a href="./d/docs/planning/stack-manifest-spec.html">The fleet model is specified alongside the stack manifest</a>.</p>
       <p>A stack can also leave as OCI with no account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened form a reconciler pulls. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>. <a href="./oci.html">See every OCI shape in one table</a>.</p>
     </section>
@@ -5189,11 +5189,11 @@ cub stack check my-platform/stack.yaml</code></pre>
         ["Level", "Do this", "Command", "What you get"],
         ["Basic", "See what a chart installs", "<code>cub config check redis</code>", "The objects, what the chart hides, and what the cluster must already have."],
         ["Basic", "See what an app needs from its platform", "<code>cub app check shop-web</code>", "The services the app's own objects ask for: an ingress controller, cert-manager, an operator."],
-        ["Basic", "Certify and render a stack", "<code>cub stack sandbox kubara-shop-platform</code>", "CHECKED or REFUSED, with every check named, and the rendered objects. No cluster."],
+        ["Basic", "Check and render a stack", "<code>cub stack sandbox kubara-shop-platform</code>", "CHECKED or REFUSED, with every check named, and the rendered objects. No cluster."],
         ["Basic", "See a refusal", "<code>cub stack check kubara-shop-first-try</code>", "The two reasons the shop app cannot run on the platform as first picked."],
         ["Advanced", "Hand a check on as a verified image", "<code>cub config check redis --out oci://REGISTRY/redis:v1</code><br><code>cub config verify oci://REGISTRY/redis@sha256:…</code>", "An image with its receipt attached, and a verify that refuses an image with no receipt."],
-        ["Advanced", "Publish a stack as an index", "<code>cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1</code><br><code>cub stack check oci://REGISTRY/shop-platform@sha256:…</code>", "One image per part under one index digest, certifiable straight from the registry."],
-        ["Advanced", "Upload a certified stack into ConfigHub", "<code>cub stack upload kubara-shop-platform --run</code>", "A base Space per part, one Unit per file, linked the way the manifest says."],
+        ["Advanced", "Publish a stack as an index", "<code>cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1</code><br><code>cub stack check oci://REGISTRY/shop-platform@sha256:…</code>", "One image per part under one index digest, checkable straight from the registry."],
+        ["Advanced", "Upload a checked stack into ConfigHub", "<code>cub stack upload kubara-shop-platform --run</code>", "A base Space per part, one Unit per file, linked the way the manifest says."],
         ["Advanced", "Build a fleet from a manifest", "<code>cub fleet plan demo-platform</code><br><code>cub fleet up demo-platform</code><br><code>cub fleet status demo-platform</code>", "Clusters, bases, deployments, and releases for every placement, then four tiles: gates, unreleased, upgrades, rollouts."],
       ], { rawThirdColumn: true })}
       <p>Fleet operations live here too. <code>cub changeorder create traefik-wave --space traefik-base --in-scope-space traefik-demo-dev,traefik-demo-staging --description "…"</code> rolls one change across every Space in its scope, and <code>cub fleet status</code> reports the same gates, unreleased changes, upgrades, and rollouts for the whole fleet.</p>
@@ -5208,7 +5208,7 @@ cub stack check my-platform/stack.yaml</code></pre>
         { cmd: WORKSHOP_PLUGIN_INSTALL },
         { comment: "CHECKED, 130 objects, no cluster", cmd: "cub stack sandbox eks-inference" },
         { comment: "REFUSED: nine objects claimed twice", cmd: "cub stack check metrics-double" },
-        { comment: "a real Kubara platform, as a certified stack", cmd: "cub stack from-kubara ./my-kubara-platform" },
+        { comment: "a real Kubara platform, as a stack to check", cmd: "cub stack from-kubara ./my-kubara-platform" },
         { comment: "an index of images", cmd: "cub stack publish shop-platform --out oci://REGISTRY/shop-platform:v1" },
       ])}
       <p>Every manifest on this page ships in the plugin: <a href="https://github.com/confighub/cub-workshop/tree/main/stacks">the stacks directory</a>, with <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/eks-inference.yaml">eks-inference</a> as the worked example and <a href="https://github.com/confighub/cub-workshop/blob/main/DEMO.md">the ten-minute walkthrough</a>. The site links these files and never copies them, so the file you read is the file the plugin runs.</p>
@@ -5281,7 +5281,7 @@ cub app score shop-web</code></pre>
 cub stack check metrics-double</code></pre>
       <p>The first checks a real inference stack, 130 objects across eight bundles, with no cluster and no cloud account. The second fails, because two of its components claim the same objects and the check refuses a stack that cannot hold together. <a href="./stack.html#what-a-stack-is">Stacks</a> defines a stack as &ldquo;a set of parts named in one manifest and checked before any of it runs.&rdquo;</p>
       <h3>An app tells the platform what it needs</h3>
-      <p>Certify reads what each authored app needs from the platform under it, off the app's own objects, and refuses a stack that does not carry it.</p>
+      <p>The check reads what each authored app needs from the platform under it, off the app's own objects, and refuses a stack that does not carry it.</p>
       ${commandBlock([
         { cmd: "cub app check shop-web", out: "needs an ingress controller, cert-manager, a Prometheus operator" },
         { cmd: "cub stack check kubara-shop-first-try", out: "=> REFUSED — the Ingress asks for class nginx, the platform runs Traefik; nothing provides the operator" },
@@ -5290,7 +5290,7 @@ cub stack check metrics-double</code></pre>
       ])}
       <p>The app told the platform what it had to be, and the platform grew by one service to carry it. <a href="./put-an-app-on-a-platform.html#demo">Apps</a> walks the same negotiation step by step.</p>
       <h3>A Kubara platform becomes a stack</h3>
-      <p>When a Kubara platform already exists, its own output becomes a stack, rendered with the values Kubara generated. Certify then judges the platform you actually have rather than the catalog's copy of its parts. A platform, as <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines it, is what a stack becomes once it runs under governance with apps on it.</p>
+      <p>When a Kubara platform already exists, its own output becomes a stack, rendered with the values Kubara generated. The check then judges the platform you actually have rather than the catalog's copy of its parts. A platform, as <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines it, is what a stack becomes once it runs under governance with apps on it.</p>
       ${commandBlock([
         { cmd: "kubara --work-dir . --config-file config.yaml --env-file .env generate --helm" },
         { cmd: "cub stack from-kubara . --app shop-web-kubara", out: "renders each umbrella chart with its values; one owner per object" },
@@ -6356,7 +6356,7 @@ cub config diff candidate.yaml candidate-next.yaml`;
         heading: "Check your own chart",
         html: `<p><a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin. The install script fetches cub from the <a href="https://github.com/confighub/sdk/releases">confighub/sdk releases</a>, and you can download it from there yourself instead.</p>
       <pre><code>${WORKSHOP_PLUGIN_INSTALL}</code></pre>
-      <p>The command installs the plugin at the exact source revision this page was checked with, version 0.6.50, because the plugin publishes no release yet. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
+      <p>The command installs the plugin release this page was checked with, version 0.6.52. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
       <pre><code>${escapeHtml(check)}</code></pre>
       <p>The plugin renders the chart with your values, then once more for each value with that value taken out. A key the chart has no place for comes back IGNORED. A key the chart reads but another setting switches off comes back NO EFFECT. A key that changed the objects comes back APPLIED, with the objects it changed. Exit code 1 means at least one value did nothing, and exit code 2 means the check could not finish. No value is printed.</p>
       <p>APPLIED means the rendered objects changed. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside it still changes the objects. The check names a misspelled container resource field as INVALID, such as <code>resources.limit</code> where Kubernetes expects <code>limits</code>, and exits 1. It checks only container resource fields, so read any other changed field in the candidate yourself. When a key is IGNORED, the check names chart-declared candidates, such as <code>controller.replicaCount</code> for a top-level <code>replicaCount</code>. Review them before you change your values. If none fits, search the chart's defaults for what you meant, for example <code>helm show values &lt;chart&gt; | grep -n -i replica</code>.</p>
@@ -7851,7 +7851,7 @@ function chooseToolGuideHtml() {
     <p>Five tools cover the whole model. Pick by what you want to do right now, and move between them as the work grows.</p>
     ${markdownLikeTable([
       ["Tool", "Use it when", "What you get"],
-      ["<code>cub config</code>, the workshop plugin", "You want the free path on a config, an app, or a stack: check, render, publish, verify, and upload.", "The objects and what a source hides, a CERTIFIED or REJECTED verdict, and a verified image with <code>--out oci://…</code>. No account."],
+      ["<code>cub config</code>, the workshop plugin", "You want the free path on a config, an app, or a stack: check, render, publish, verify, and upload.", "The objects and what a source hides, a CHECKED or REFUSED verdict on a stack, and a verified image with <code>--out oci://…</code>. No account."],
       ["<code>cub installer</code>", "You want a maintained catalog package with named bases, receipts, and an upgrade path.", "Render a reviewed preset and deliver it as a controller-native OCI, verified as it is pushed. Free on any catalog package."],
       ["<code>cub helm</code>", "You have an arbitrary chart and want a fast render or to store it in ConfigHub.", "<code>cub helm template</code> renders locally; <code>cub helm install</code> records the source and rendered base as Units. Preparation, not a catalog entry."],
       ["The browser check", "You want to inspect rendered YAML without installing anything.", `An object review in your browser and a handoff prompt for your own AI. <a href="./ask.html">Is my configuration right?</a>`],
@@ -9116,7 +9116,7 @@ function appGuideHtml(catalog) {
     ${topNav(".")}
     <p class="eyebrow">A Guide</p>
     <h1>Put an app on a platform</h1>
-    <p class="lead">Certify checks first that the platform carries what the app needs, then you promote the app across environments in ConfigHub.</p>
+    <p class="lead">The check confirms first that the platform carries what the app needs, then you promote the app across environments in ConfigHub.</p>
     <p>The app lands on a <a href="./stack.html">stack</a> at the moment the stack check reads it. The <a href="./apps.html">Apps</a> list holds every worked example.</p>
     ${humanLinks([["Try it now", "#try"], ["Follow the demo, step by step", "#demo"], ["Take it into ConfigHub", "#confighub"], ["Bring an app that already runs", "#adopt"]])}
   </header>
@@ -9143,7 +9143,7 @@ function appGuideHtml(catalog) {
         <li><strong>Check the app.</strong> <code>cub app check shop-web</code> reads its objects and reports what it needs from the platform under it, such as an ingress controller, cert-manager, and external-secrets.</li>
         <li><strong>Check it on the platform.</strong> The app's Ingress asks for the nginx class while the platform runs Traefik, and one need has no provider, so the check refuses the composition and names both reasons.</li>
         <li><strong>Adapt both sides.</strong> Change the app's ingress class to match the platform, and grow the platform by the one service the catalog already carries. The app shapes the platform, and the platform shapes the app.</li>
-        <li><strong>Certify again.</strong> <code>cub stack sandbox shop-platform</code> now reports the composition certified. Changing the app's ingress class and adding one service was enough.</li>
+        <li><strong>Check again.</strong> <code>cub stack sandbox shop-platform</code> now reports the composition CHECKED. Changing the app's ingress class and adding one service was enough.</li>
       </ol>
       <p>Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/shop-platform.yaml">shop-platform manifest</a>, the <a href="https://github.com/confighub/cub-workshop/tree/main/apps">shipped apps</a>, and the <a href="https://github.com/confighub/cub-workshop/blob/main/proofs/assistant-composition-2026-09-02/journal.md">recorded composition</a>, where an assistant chose the parts and the check read them. <a href="./stack.html">Stacks</a> explains the manifest.</p>
     </section>
@@ -9184,7 +9184,7 @@ function appGuideHtml(catalog) {
     <section aria-labelledby="app-in-full">
       <h2 id="app-in-full">What an app is, in full</h2>
       <p>An app is a workload you bring. It declares what it needs from the platform under it, and <code>cub app check</code> reads its own objects to report that.</p>
-      <p>An app on a stack is checked before anything runs. Certify judges the app's need alongside every component in the manifest, and refuses the stack if the need goes unmet.</p>
+      <p>An app on a stack is checked before anything runs. The check judges the app's need alongside every component in the manifest, and refuses the stack if the need goes unmet.</p>
       <p>An app on a platform is that same app after the stack is uploaded and running under governance. It deploys, promotes, and rolls back there with ConfigHub's own verbs.</p>
       <p>A standalone app needs neither. It pulls its own reviewed OCI bundle and reconciles straight onto a cluster through Argo CD or Flux. An app only needs a platform for a dependency a stack carries, such as TLS from cert-manager or an ingress controller.</p>
       <p><a href="./try-aicr.html">Try AICR</a> inspects a different kind of platform, one composed of Argo CD Applications instead of a stack manifest.</p>
@@ -9438,7 +9438,7 @@ function kubaraGuideHtml(catalog) {
   const steps = [
     ["1", "Choose components and wiring", "Keep Kubara catalogs, config.yaml, values overlays, and service definitions.", "../docs/demo/kubara/adoption-1-choose.md"],
     ["2", "Generate the platform and push it to Git", `Run <a href="../docs/demo/kubara/adoption-2-generate.md">Kubara</a> to generate the familiar platform, add-ons, ApplicationSets, overrides, and wiring. Then <a href="../docs/demo/kubara/adoption-3-git.md">prepare, scan, commit, and push</a> one exact portable revision.`, null],
-    ["3", "Certify the platform as a stack", "Turn the pushed revision into a stack with <code>cub stack from-kubara</code>, then run <code>cub stack check</code> until the composition holds together.", "./compose-a-stack.html#from-kubara-platform"],
+    ["3", "Check the platform as a stack", "Turn the pushed revision into a stack with <code>cub stack from-kubara</code>, then run <code>cub stack check</code> until the composition holds together.", "./compose-a-stack.html#from-kubara-platform"],
     ["4", "Import the Git revision and create OCI", "Publish immutable component/config packages plus a digest-bound platform index.", "../docs/demo/kubara/adoption-4-oci.md"],
     ["5", "Load the selected ConfigHub organization", "Materialize the recognizable topology, apply twice, and prove zero residue in the declared scope.", "../docs/demo/kubara/adoption-5-confighub-org.md"],
     ["6", "Deploy applications", "Promote, approve, release, and roll back; local Argo reconciles only the exact ConfigHub-authorized digest.", "../docs/demo/kubara/adoption-6-apps.md"],
@@ -9504,7 +9504,7 @@ function kubaraGuideHtml(catalog) {
           { cmd: "cub stack check ../demo-platform/confighub/stack.yaml" },
           { comment: "or the catalog's tested images of the same three charts", cmd: "cub stack sandbox kubara-platform" },
         ])}
-        <p>These commands need Git, Node.js, Python 3 with PyYAML, Kubara, Helm, oras, and cub on your PATH. Replace the example Git repository URL with yours. The starter writes <code>../demo-platform</code>; Kubara generates its files and <code>from-kubara</code> writes <code>confighub/stack.yaml</code> inside that directory. Certification inspects the composition. Sandbox prints Kubernetes YAML; it does not start a cluster. Keep the generated directory for review. If certification refuses, repair the named conflict or missing API and rerun it; a static pass does not establish target readiness. Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/kubara-platform.yaml">stack manifest</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/fleets/demo-platform.yaml">fleet manifest</a>. Nothing pulls those releases until a cluster with delivery wired exists, which is the next step.</p>
+        <p>These commands need Git, Node.js, Python 3 with PyYAML, Kubara, Helm, oras, and cub on your PATH. Replace the example Git repository URL with yours. The starter writes <code>../demo-platform</code>; Kubara generates its files and <code>from-kubara</code> writes <code>confighub/stack.yaml</code> inside that directory. The check inspects the composition. Sandbox prints Kubernetes YAML; it does not start a cluster. Keep the generated directory for review. If the check refuses, repair the named conflict or missing API and rerun it; a static pass does not establish target readiness. Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/kubara-platform.yaml">stack manifest</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/fleets/demo-platform.yaml">fleet manifest</a>. Nothing pulls those releases until a cluster with delivery wired exists, which is the next step.</p>
         <h3>Continue with a managed fleet</h3>
         <p>The following commands create or change ConfigHub records. First sign in to the organization you intend to use, inspect the fleet manifest, and confirm the demo Space names are available. They use the shipped fleet manifest, not the files generated above. A cluster, registry access and delivery wiring are separate prerequisites.</p>
         ${commandBlock([
@@ -9595,7 +9595,7 @@ kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</c
     <p><a href="./kubara-and-confighub.html">Kubara and ConfigHub, explained</a> says what stays Kubara and what ConfigHub adds, the evidence behind each benefit, and the honest boundaries.</p>
     <section aria-labelledby="six-steps">
       <h2 id="six-steps">One adoption journey, in the user's order</h2>
-      <p>The preparer, scanner, package verifier, binding lock, and receipt checks are checkpoints inside these steps. Certify is new here: it turns the pushed revision into a stack and checks it before OCI makes it immutable.</p>
+      <p>The preparer, scanner, package verifier, binding lock, and receipt checks are checkpoints inside these steps. The stack check is new here: it turns the pushed revision into a stack and checks it before OCI makes it immutable.</p>
       <ol>
         ${steps.map(([number, title, detail, href]) => {
           const heading = href

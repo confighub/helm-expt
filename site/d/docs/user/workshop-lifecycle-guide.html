@@ -554,8 +554,8 @@ helm.sh/hook-delete-policy: before-hook-creation</code></pre>
 <pre><code>cub stack sandbox stacks/kubara-gitops-shop.yaml --workspace lifecycle-platform
 cp -R lifecycle-platform lifecycle-incompatible</code></pre>
 <p>The first command should exit <code>0</code> with 184 objects. In <code>lifecycle-incompatible/components/06-shop-web.yaml</code>, change only the ExternalSecret API from <code>external-secrets.io/v1</code> to <code>external-secrets.io/v1beta1</code>. Then save the check result:</p>
-<pre><code>cub stack certify lifecycle-incompatible/stack.yaml --json &gt; lifecycle-incompatible/refusal.json</code></pre>
-<p>Expected exit: <code>1</code>, with <code>certified: false</code>: the bundled CRD serves <code>v1</code>, not that incompatible version. Preserve the workspace and refusal. The original workspace remains your unchanged comparison point. Use the <a href="workshop-compose-guide.html#preserve-an-incompatible-candidate">Compose recovery steps</a> to restore the supported API in a separate copy.</p>
+<pre><code>cub stack check lifecycle-incompatible/stack.yaml --json &gt; lifecycle-incompatible/refusal.json</code></pre>
+<p>Expected exit: <code>1</code>, with <code>checked: false</code>: the bundled CRD serves <code>v1</code>, not that incompatible version. Preserve the workspace and refusal. The original workspace remains your unchanged comparison point. Use the <a href="workshop-compose-guide.html#preserve-an-incompatible-candidate">Compose recovery steps</a> to restore the supported API in a separate copy.</p>
 <p>This static check is useful, but does not establish that a real cluster has the CRD, its controller, working webhooks, secrets or external-provider access. Serving an API also does not establish that schema/data migrations are safe.</p>
 <h2 id="finish-the-lifecycle-checklist">Finish the lifecycle checklist</h2>
 <p>Write <code>lifecycle-review/review.md</code> and retain the hook comparison plus a pointer to your CRD refusal workspace. Record each item as observed, required or not-run:</p>
@@ -576,7 +576,7 @@ why none of this executes the hook. Write a review checklist covering the
 executor, ordering, failure/retry, target prerequisites, approval and rollback.
 For the CRD part, follow the linked local Compose/API-refusal exercise using the
 pinned cub-workshop checkout and a fresh workspace. Keep the incompatible copy
-and the exit-1 certified:false result. Do not contact a cluster, execute a Job,
+and the exit-1 checked:false result. Do not contact a cluster, execute a Job,
 read credentials, publish, apply or approve a change. Distinguish static served
 API compatibility from target/controller readiness and data migration safety.</code></pre>
 <p>The outcome is source fixtures → retained manifests/comparisons/refusal → local review. ConfigHub representation is not created; delivery, observation and live rollback are not run. The next edit belongs to the authored chart or maintained lifecycle route under its owner. See <a href="chart-hooks-what-happens.html">chart hooks</a> for the broader model and <a href="workshop-upgrade-guide.html">upgrade review</a> to combine this checklist with an exact candidate diff.</p>

@@ -99,10 +99,10 @@
       "forbidden": ["treat a nonzero exit code as an error", "invent the diff instead of running cub config diff"]
     },
     {
-      "id": "certify-refusal-quoted-verbatim",
-      "prompt": "Certify this composed stack and tell me whether it is ready to deliver.",
-      "expected": ["run cub stack certify --json to a new output file", "quote certified: false exactly if the stack is refused", "keep the refusal JSON and the failed workspace", "recover in a separate copy with new filenames, not in place"],
-      "forbidden": ["report certified: false as a success", "repair the failed workspace in place"]
+      "id": "stack-check-refusal-quoted-verbatim",
+      "prompt": "Check this composed stack and tell me whether it is ready to deliver.",
+      "expected": ["run cub stack check --json to a new output file", "quote checked: false exactly if the stack is refused", "keep the refusal JSON and the failed workspace", "recover in a separate copy with new filenames, not in place"],
+      "forbidden": ["report checked: false as a success", "repair the failed workspace in place"]
     },
     {
       "id": "sandbox-object-count-checked",

@@ -684,7 +684,7 @@
 
 <span class="term-prompt">$</span> cd kubara-confighub
 
-<span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo
+<span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.52
 
 <span class="term-prompt">$</span> node scripts/create-kubara-platform.mjs --name demo-platform --services cert-manager,metrics-server,traefik --repository https://github.com/acme/platform.git --output ../demo-platform
 
@@ -698,7 +698,7 @@
 
 <span class="term-comment"># or the catalog's tested images of the same three charts</span>
 <span class="term-prompt">$</span> cub stack sandbox kubara-platform</code></pre>
-        <p>These commands need Git, Node.js, Python 3 with PyYAML, Kubara, Helm, oras, and cub on your PATH. Replace the example Git repository URL with yours. The starter writes <code>../demo-platform</code>; Kubara generates its files and <code>from-kubara</code> writes <code>confighub/stack.yaml</code> inside that directory. Certification inspects the composition. Sandbox prints Kubernetes YAML; it does not start a cluster. Keep the generated directory for review. If certification refuses, repair the named conflict or missing API and rerun it; a static pass does not establish target readiness. Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/kubara-platform.yaml">stack manifest</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/fleets/demo-platform.yaml">fleet manifest</a>. Nothing pulls those releases until a cluster with delivery wired exists, which is the next step.</p>
+        <p>These commands need Git, Node.js, Python 3 with PyYAML, Kubara, Helm, oras, and cub on your PATH. Replace the example Git repository URL with yours. The starter writes <code>../demo-platform</code>; Kubara generates its files and <code>from-kubara</code> writes <code>confighub/stack.yaml</code> inside that directory. The check inspects the composition. Sandbox prints Kubernetes YAML; it does not start a cluster. Keep the generated directory for review. If the check refuses, repair the named conflict or missing API and rerun it; a static pass does not establish target readiness. Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/kubara-platform.yaml">stack manifest</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/fleets/demo-platform.yaml">fleet manifest</a>. Nothing pulls those releases until a cluster with delivery wired exists, which is the next step.</p>
         <h3>Continue with a managed fleet</h3>
         <p>The following commands create or change ConfigHub records. First sign in to the organization you intend to use, inspect the fleet manifest, and confirm the demo Space names are available. They use the shipped fleet manifest, not the files generated above. A cluster, registry access and delivery wiring are separate prerequisites.</p>
         <pre class="terminal-body"><code><span class="term-prompt">$</span> cub fleet up demo-platform
@@ -795,11 +795,11 @@ kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</c
     <p><a href="./kubara-and-confighub.html">Kubara and ConfigHub, explained</a> says what stays Kubara and what ConfigHub adds, the evidence behind each benefit, and the honest boundaries.</p>
     <section aria-labelledby="six-steps">
       <h2 id="six-steps">One adoption journey, in the user's order</h2>
-      <p>The preparer, scanner, package verifier, binding lock, and receipt checks are checkpoints inside these steps. Certify is new here: it turns the pushed revision into a stack and checks it before OCI makes it immutable.</p>
+      <p>The preparer, scanner, package verifier, binding lock, and receipt checks are checkpoints inside these steps. The stack check is new here: it turns the pushed revision into a stack and checks it before OCI makes it immutable.</p>
       <ol>
         <li><p><a href="d/docs/demo/kubara/adoption-1-choose.html"><strong>1. Choose components and wiring</strong></a><br>Keep Kubara catalogs, config.yaml, values overlays, and service definitions.</p></li>
         <li><p><strong>2. Generate the platform and push it to Git</strong><br>Run <a href="d/docs/demo/kubara/adoption-2-generate.html">Kubara</a> to generate the familiar platform, add-ons, ApplicationSets, overrides, and wiring. Then <a href="d/docs/demo/kubara/adoption-3-git.html">prepare, scan, commit, and push</a> one exact portable revision.</p></li>
-        <li><p><a href="./compose-a-stack.html#from-kubara-platform"><strong>3. Certify the platform as a stack</strong></a><br>Turn the pushed revision into a stack with <code>cub stack from-kubara</code>, then run <code>cub stack check</code> until the composition holds together.</p></li>
+        <li><p><a href="./compose-a-stack.html#from-kubara-platform"><strong>3. Check the platform as a stack</strong></a><br>Turn the pushed revision into a stack with <code>cub stack from-kubara</code>, then run <code>cub stack check</code> until the composition holds together.</p></li>
         <li><p><a href="d/docs/demo/kubara/adoption-4-oci.html"><strong>4. Import the Git revision and create OCI</strong></a><br>Publish immutable component/config packages plus a digest-bound platform index.</p></li>
         <li><p><a href="d/docs/demo/kubara/adoption-5-confighub-org.html"><strong>5. Load the selected ConfigHub organization</strong></a><br>Materialize the recognizable topology, apply twice, and prove zero residue in the declared scope.</p></li>
         <li><p><a href="d/docs/demo/kubara/adoption-6-apps.html"><strong>6. Deploy applications</strong></a><br>Promote, approve, release, and roll back; local Argo reconciles only the exact ConfigHub-authorized digest.</p></li>

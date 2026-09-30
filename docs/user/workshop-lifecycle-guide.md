@@ -68,10 +68,10 @@ ExternalSecret API from `external-secrets.io/v1` to
 `external-secrets.io/v1beta1`. Then save the check result:
 
 ```sh
-cub stack certify lifecycle-incompatible/stack.yaml --json > lifecycle-incompatible/refusal.json
+cub stack check lifecycle-incompatible/stack.yaml --json > lifecycle-incompatible/refusal.json
 ```
 
-Expected exit: `1`, with `certified: false`: the bundled CRD serves `v1`, not
+Expected exit: `1`, with `checked: false`: the bundled CRD serves `v1`, not
 that incompatible version. Preserve the workspace and refusal. The original
 workspace remains your unchanged comparison point. Use the
 [Compose recovery steps](./workshop-compose-guide.md#preserve-an-incompatible-candidate)
@@ -113,7 +113,7 @@ why none of this executes the hook. Write a review checklist covering the
 executor, ordering, failure/retry, target prerequisites, approval and rollback.
 For the CRD part, follow the linked local Compose/API-refusal exercise using the
 pinned cub-workshop checkout and a fresh workspace. Keep the incompatible copy
-and the exit-1 certified:false result. Do not contact a cluster, execute a Job,
+and the exit-1 checked:false result. Do not contact a cluster, execute a Job,
 read credentials, publish, apply or approve a change. Distinguish static served
 API compatibility from target/controller readiness and data migration safety.
 ```
