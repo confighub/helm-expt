@@ -312,47 +312,11 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "passes",
   },
-  "kubara-mini-idp:orphan-audit:receipt-verify": {
-    proves: "That the retained runs/kubara-mini-idp-reconcile/orphan-audit.yaml preserves its version-bound v2 Trigger/Filter inventory, stable opening/closing eight-resource ConfigHub snapshots, zero findings, and matching retained reconciliation evidence. It is historical evidence, not current server-attested authority.",
-    requires: "offline",
-    disposition: "keep-outside",
-    status: "passes",
-  },
-  "kubara-mini-idp:current-receipt-verify": {
-    proves: "That a current ChangeOrder-attestation reconciler receipt exists at runs/kubara-mini-idp-changeorder-attestation/receipt.yaml and satisfies its exact current receipt contract. It does not fall back to the retained v2 receipt.",
-    requires: "offline",
-    disposition: "keep-outside",
-    status: "pending current attested receipt",
-  },
-  "kubara-mini-idp:orphan-audit:current-receipt-verify": {
-    proves: "That a current scoped residue audit exists at runs/kubara-mini-idp-changeorder-attestation/orphan-audit.yaml and binds to the matching current reconciler receipt and durable attempt ledger with six-resource ConfigHub snapshot evidence. It does not fall back to the retained v2 audit.",
-    requires: "offline",
-    disposition: "keep-outside",
-    status: "pending current attested receipt",
-  },
   "kubara-mini-idp:performance:current-receipt-verify": {
     proves: "That a current ChangeOrder-attestation changed/no-op performance pair is bound to its matching current residue audit and durable attempt ledger, using the six-resource audit fingerprint. It does not fall back to the retained v2 performance pair.",
     requires: "offline",
     disposition: "keep-outside",
     status: "pending current attested receipt",
-  },
-  "kubara-mini-idp:verify": {
-    proves: "That the live Kubara mini-IDP matches its desired plan: it re-reads the whole pinned ConfigHub organization (Spaces, managed Units, NeedsProvides Links, Targets) and then, per fleet cluster, reads the local kind cluster's Argo runtime, argobot authority and ApplicationSets via kubectl, reporting Space/Unit/Link counts.",
-    requires: "confighub",
-    disposition: "keep-outside",
-    status: "not run here, needs confighub",
-  },
-  "kubara-release:verify": {
-    proves: "Runs the whole Kubara release front door: the offline static contract (data/kubara-release-acceptance/contract.yaml plus catalog counts, tree SHAs and required evidence paths), then the final-state gates — current site live-evidence, adoption screenshots, public site pages, the 130-root final catalog and the installer-OCI catalog — and then executes ten downstream acceptance commands in order.",
-    requires: "confighub",
-    disposition: "keep-outside",
-    status: "not run here, needs confighub",
-  },
-  "kubara-release:verify-static": {
-    proves: "That the offline half of the Kubara + ConfigHub release acceptance holds: data/kubara-release-acceptance/contract.yaml and the adoption-screenshot contract re-derive exactly, the named package.json scripts are verbatim, the recorded release scope still contains its immutable 120-root and baseline catalogs unchanged, the current shape / mini-IDP plan / site consumption agree, and twenty-two further offline sub-lanes pass.",
-    requires: "confighub",
-    disposition: "keep-outside",
-    status: "not run here, needs confighub",
   },
   "prometheus-adapter:apiservice-base:verify": {
     proves: "The prometheus-community/prometheus-adapter 5.3.0 `apiservice-v1-capability` base is intact end to end: the recipe and installer package both declare it, the variant records the APIService v1 capability profile and capability-profile-rerender strategy, the package base upstream.yaml byte-equals the rendered release-objects.yaml, the inventory digest and the APIService object identity match, the revision receipts are consistent, and a fresh `cub installer setup --pull` of the package reproduces the Helm object set semantically with the counts recorded in the package receipt.",

@@ -94,7 +94,7 @@ current work packages above determine what runs next, not the old day grouping.
 | B17 | blocked | MySQL operator [#1779](https://github.com/confighub/helm-expt/pull/1779) needs registry reauthentication before publication and derived evidence. |
 | B18 | partial | [Candidate work orders](../../data/latest-top20-refresh/promotion-work-orders.md) do not substitute for successor render/scan/install/package/equivalence receipts. Close each selected successor scope explicitly. |
 | B19 | blocked | Maintainer must select Kubara context, target clusters and authorized organization/access; confirm one serial runner before mutation. |
-| B20 | blocked | Three #1759 lanes remain in [known-red register](../../tests/verify-chain-known-red.yaml); no fresh accepted live run replaces them. |
+| B20 | done | The three #1759 lanes left the [known-red register](../../tests/verify-chain-known-red.yaml) with the #1956 live-evidence cutover: their executors and gates now live in kubara-confighub, and [Kubara upstream evidence](kubara-upstream-evidence.md) records where each guarantee lives. No fresh live run was made. |
 | B21 | partial | Complete each stack receipt gap against [certified bundles](../../data/certified-bundles/summary.md) and the matrix, preserving both reader contracts. Static Workshop evidence is not live stack acceptance. |
 | B22 | blocked | Successor controller/database readiness needs the selected target and prerequisites, independently of operator render success. |
 | B23 | blocked | Bounded successor upgrade/rollback needs those target prerequisites and exact before/after identities. |

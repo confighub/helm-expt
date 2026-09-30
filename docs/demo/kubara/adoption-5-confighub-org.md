@@ -1,5 +1,13 @@
 # Step 5: Materialize the platform in the organization you selected
 
+> **Where to run this step.** Run the commands on this page from a checkout of
+> [confighub/kubara-confighub](https://github.com/confighub/kubara-confighub). The importer, the selected-organization workflow compiler, the
+> application release runner, and the mini-IDP reconciler and orphan auditor
+> are the Kubara live proof. Since the [#1956](https://github.com/confighub/helm-expt/issues/1956) cutover that repository is
+> their only home, under the same script paths and npm lane names. This
+> repository reads the resulting receipts at a pinned commit; see
+> [Kubara upstream evidence](../../../docs/planning/kubara-upstream-evidence.md).
+
 ## Your goal
 
 Load the exact OCI set from Step 4 into an explicitly selected ConfigHub

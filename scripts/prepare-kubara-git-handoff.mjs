@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 // Normalize an already generated Kubara work directory into the exact clean,
-// deterministic Git handoff consumed by import-kubara-git-revision.mjs.
+// deterministic Git handoff consumed by the Git revision importer. The importer
+// is part of the Kubara live proof and lives in confighub/kubara-confighub.
 // Kubara remains the composer. This command does not run Kubara, inspect a
 // cluster, resolve a mutable catalog, attest a secret scan, commit, or push.
 
@@ -1115,7 +1116,7 @@ function runSelfTest() {
   };
   try {
     credentialScannerSelfTest();
-    console.log("self-test 1/6: generate at two absolute roots and compare bytes");
+    console.log("self-test 1/5: generate at two absolute roots and compare bytes");
     const checkouts = ["absolute-a", "another-absolute-root-b"].map((name) => createSelfTestCheckout({ testRoot, name, currentFixture, fakeSha }));
     const results = checkouts.map((checkout) => generatePreparation({ requestPath: join(checkout, "prepare.yaml"), checkoutRoot: checkout, kubaraBin: fakeBinary }, injected));
     check(results.every((row) => row.renderCount === 13), "self-test expected exactly 13 Kubara component instances");
@@ -1133,7 +1134,7 @@ function runSelfTest() {
       ...injected,
       wiringProvider: (root) => copyExact(join(firstOutput, "wiring", "graph.json"), join(root, "wiring", "graph.json")),
     };
-    console.log("self-test 2/6: deterministic rerun, interruption, and input-race refusal");
+    console.log("self-test 2/5: deterministic rerun, interruption, and input-race refusal");
     generatePreparation({ requestPath: join(checkouts[0], "prepare.yaml"), checkoutRoot: checkouts[0], kubaraBin: fakeBinary }, fastInjected);
     check(stableJson(treeRows(firstOutput)) === priorOutput, "deterministic rerun changed prepared bytes");
     expectFailure(
@@ -1177,13 +1178,13 @@ function runSelfTest() {
     }
     check(stableJson(treeRows(firstOutput)) === priorOutput, "source ancestor swap replaced prior output");
 
-    console.log("self-test 3/6: structural credential and secret refusals");
+    console.log("self-test 3/5: structural credential and secret refusals");
     const context = loadContext({ requestPath: join(checkouts[0], "prepare.yaml"), checkoutRoot: checkouts[0], kubaraBin: fakeBinary, requireClean: false, toolProbe });
     runSecurityRefusalTests({ checkout: checkouts[0], fakeBinary, injected: fastInjected, priorOutput, context, testRoot });
     runArtifactContractRefusalTests(checkouts[0]);
     runFilesystemRefusalTests({ checkout: checkouts[0], fakeBinary, injected: fastInjected, priorOutput, testRoot });
 
-    console.log("self-test 4/6: commit and offline zero-write verification");
+    console.log("self-test 4/5: commit and offline zero-write verification");
     for (const checkout of checkouts) commitAll(checkout, "prepared Kubara Git handoff");
     const statusBefore = gitStatus(checkouts[0]);
     verifyPreparation({ requestPath: join(checkouts[0], "prepare.yaml"), checkoutRoot: checkouts[0], kubaraBin: null }, { toolProbe });
@@ -1198,10 +1199,8 @@ function runSelfTest() {
     );
     writeFileSync(configPath, originalConfig);
     check(gitStatus(checkouts[0]) === "", "self-test failed to restore the clean checkout after dirty verify refusal");
-    console.log("self-test 5/6: importer compile and verify the prepared subtree");
-    runImporterContractTest(checkouts[0], testRoot);
-    console.log("self-test 6/6: all checks passed");
-    console.log("Kubara Git handoff preparer self-test passed: path-neutral, atomic, security-refusing, offline-verified, importer-compatible");
+    console.log("self-test 5/5: all checks passed");
+    console.log("Kubara Git handoff preparer self-test passed: path-neutral, atomic, security-refusing, offline-verified");
   } finally {
     rmSync(testRoot, { recursive: true, force: true });
   }
@@ -1437,43 +1436,6 @@ function runPreparedCopyLineageTamperRefusal({ checkout, toolProbe }) {
     for (const [path, bytes] of originals) writeFileSync(path, bytes);
     if (tamperCommitted) commitAll(checkout, "restore exact prepared copy lineage");
   }
-}
-
-function runImporterContractTest(checkout, testRoot) {
-  const commit = git(checkout, ["rev-parse", "HEAD"]);
-  const request = readYaml(join(repoRoot, "examples", "kubara", "git-import", "request.example.yaml"));
-  fillImporterInspectionPlaceholders(request);
-  request.metadata.name = "prepared-self-test";
-  request.spec.source.repository = "https://example.invalid/prepared-self-test.git";
-  request.spec.source.commit = commit;
-  request.spec.source.path = "prepared";
-  request.spec.security.credentialScan.sourceCommit = commit;
-  request.spec.security.credentialScan.scopePath = "prepared";
-  request.spec.security.credentialScan.reportSHA256 = `sha256:${sha256(`external-scan:${commit}:prepared`)}`;
-  const requestPath = join(checkout, "import.yaml");
-  writeFileSync(requestPath, `${toYaml(request)}\n`);
-  const output = join(testRoot, "compiled-import");
-  const importer = join(repoRoot, "scripts", "import-kubara-git-revision.mjs");
-  selfTestCommand(process.execPath, [importer, "--compile", "--request", requestPath, "--checkout", checkout, "--output", output], "prepared handoff importer compile");
-  selfTestCommand(process.execPath, [importer, "--verify", "--request", requestPath, "--checkout", checkout, "--output", output], "prepared handoff importer verify");
-  unlinkSync(requestPath);
-}
-
-function fillImporterInspectionPlaceholders(value) {
-  if (Array.isArray(value)) {
-    for (const item of value) fillImporterInspectionPlaceholders(item);
-    return;
-  }
-  if (!value || typeof value !== "object") return;
-  for (const [key, nested] of Object.entries(value)) {
-    if (["dataHash", "dataSHA256"].includes(key) && (typeof nested !== "string" || !/^[0-9a-f]{64}$/.test(nested))) value[key] = "0".repeat(64);
-    else fillImporterInspectionPlaceholders(nested);
-  }
-}
-
-function selfTestCommand(executable, args, label) {
-  const result = spawnSync(executable, args, { cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], timeout: 1_200_000, maxBuffer: 1024 * 1024 * 300 });
-  check(result.status === 0, `${label} failed:\n${String(result.stderr || result.stdout).trim()}`);
 }
 
 function gitInit(checkout) {

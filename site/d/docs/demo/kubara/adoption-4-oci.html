@@ -528,12 +528,13 @@
   <header class="hero human-hero">
     
     <h1>Step 4: Turn the exact Kubara Git revision into immutable OCI</h1>
-    <p class="lead">Take the exact reviewed Git revision from Step 3, verify that it is the Kubara platform you approved, and publish it as a digest-bound OCI set that ConfigHub can materialize in Step 5. <a href="../../../../../docs/demo/kubara/adoption-4-oci.md">View source markdown</a>.</p>
+    <p class="lead"><b>Where to run this step.</b> Run the commands on this page from a checkout of <a href="https://github.com/confighub/kubara-confighub">confighub/kubara-confighub</a>. The importer, the selected-organization workflow compiler, the application release runner, and the mini-IDP reconciler and orphan auditor are the Kubara live proof. Since the <a href="https://github.com/confighub/helm-expt/issues/1956">#1956</a> cutover that repository is their only home, under the same script paths and npm lane names. This repository reads the resulting receipts at a pinned commit; see <a href="../../planning/kubara-upstream-evidence.html">Kubara upstream evidence</a>. <a href="../../../../../docs/demo/kubara/adoption-4-oci.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
+<blockquote></blockquote>
 <h2 id="your-goal">Your goal</h2>
-
+<p>Take the exact reviewed Git revision from Step 3, verify that it is the Kubara platform you approved, and publish it as a digest-bound OCI set that ConfigHub can materialize in Step 5.</p>
 <p>The result is deliberately not one giant platform artifact. It contains one target-neutral package per reusable component definition, one target-neutral package per effective component/configuration set, and one platform index that references their exact manifest and layer digests. Destination bindings, cluster facts, and secrets are not placed in those portable packages.</p>
 <h2 id="what-stays-kubara">What stays Kubara</h2>
 <ul><li>The input is still Kubara's committed <code>config.yaml</code>, generated component and cluster trees, ordinary overrides, locks, renders, and wiring facts.</li><li>The Git commit remains the portable, independently reviewable hand-off.</li><li>Kubara remains the composer. The importer consumes Kubara's result; it does not regenerate it, reinterpret it with AI, or replace it with a new schema.</li><li>Application source is still separate from the platform hand-off and enters the journey in Step 6.</li></ul>

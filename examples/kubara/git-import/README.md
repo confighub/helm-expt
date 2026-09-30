@@ -1,5 +1,13 @@
 # Import one Kubara Git revision into ConfigHub
 
+> **Where to run these commands.** Run the commands in this guide from a checkout of
+> [confighub/kubara-confighub](https://github.com/confighub/kubara-confighub). The importer, the selected-organization workflow compiler, the
+> application release runner, and the mini-IDP reconciler and orphan auditor
+> are the Kubara live proof. Since the [#1956](https://github.com/confighub/helm-expt/issues/1956) cutover that repository is
+> their only home, under the same script paths and npm lane names. This
+> repository reads the resulting receipts at a pinned commit; see
+> [Kubara upstream evidence](../../../docs/planning/kubara-upstream-evidence.md).
+
 This is the reusable six-step adoption boundary for an existing Kubara user:
 
 1. choose components and wiring in Kubara;

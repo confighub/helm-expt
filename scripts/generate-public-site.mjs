@@ -4,7 +4,7 @@ import { join, posix } from "node:path";
 import { check, listFiles, readYaml, repoRoot, sha256, write } from "./lib/proof-common.mjs";
 import { lookupCatalogRecord } from "./lib/catalog-record-lookup.mjs";
 import { installerOciDigestRef, installerOciRef } from "./lib/installer-oci.mjs";
-import { evaluateKubaraSiteLiveEvidence } from "./lib/kubara-site-live-evidence.mjs";
+import { evaluateKubaraSiteLiveEvidence, kubaraEvidencePill, kubaraEvidenceState, kubaraRecordedMonth, readKubaraProofStatus } from "./lib/kubara-site-live-evidence.mjs";
 import {
   AICR_CPU_STARTER_LOCAL_OCI_DIGEST,
   AICR_CPU_STARTER_SOURCE_DIGEST,
@@ -7708,8 +7708,23 @@ function howConfigHubWorksHtml() {
 function kubaraSiteBits() {
   const facts = loadKubaraSiteFacts();
   const currentLive = facts.currentLive;
-  const badge = (passed, yes, no) => `<strong style="display:inline-block;padding:3px 8px;border:1px solid ${passed ? "var(--good)" : "var(--warn)"};border-radius:999px;background:var(--panel);color:${passed ? "var(--good)" : "var(--warn)"}">${escapeHtml(passed ? yes : no)}</strong>`;
-  return { facts, currentLive, badge };
+  const pill = ({ tone, text }) => {
+    const color = tone === "good" ? "var(--good)" : tone === "historical" ? "var(--muted)" : "var(--warn)";
+    return `<strong style="display:inline-block;padding:3px 8px;border:1px solid ${color};border-radius:999px;background:var(--panel);color:${color}">${escapeHtml(text)}</strong>`;
+  };
+  const badge = (passed, yes, no) => pill({ tone: passed ? "good" : "warn", text: passed ? yes : no });
+  // Live-evidence pills follow the recorded proof state, so an accepted but
+  // frozen proof reads "retained (historical)", never "retained live".
+  const livePill = (accepted, result, missing) => pill(kubaraEvidencePill({ accepted, status: facts.proofStatus, result, missing }));
+  const liveState = kubaraEvidenceState({ accepted: currentLive, status: facts.proofStatus });
+  const historicalProof = kubaraHistoricalProofSentence(facts.proofStatus);
+  return { facts, currentLive, badge, livePill, liveState, historicalProof };
+}
+
+function kubaraHistoricalProofSentence(status) {
+  const reference = status.spec.reference;
+  const live = status.spec.currentLiveProof;
+  return `It is frozen historical evidence: the Kubara ${escapeHtml(reference.kubaraVersion.replace(/\.0$/, ""))} four-cluster hx-app-* reference organization, recorded in ${kubaraRecordedMonth(status)}. That organization is retired and is not rerun, and its receipts predate the ${escapeHtml(reference.predates)}. The current live proof is the <a href="${escapeHtml(live.url)}">kind lab</a> (<code>${escapeHtml(live.path)}</code> in ${escapeHtml(live.repository)}).`;
 }
 
 function aicrV020SourceBits() {
@@ -7738,7 +7753,8 @@ function agentCatalogRows() {
 }
 
 function kubaraExplainedHtml(catalog) {
-  const { facts, currentLive, badge } = kubaraSiteBits();
+  const { facts, badge, livePill, liveState, historicalProof } = kubaraSiteBits();
+  const historical = liveState === "historical";
   return splitGuideHtml({
     eyebrow: "Docs",
     title: "Kubara and ConfigHub, explained",
@@ -7754,21 +7770,21 @@ function kubaraExplainedHtml(catalog) {
     </section>
     <section aria-labelledby="benefits">
       <h2 id="benefits">2. Benefits with explicit acceptance evidence</h2>
-      <p>Each status pill reads one of three ways. A <strong>retained live</strong> pill means a retained live run accepted the benefit for its recorded version, and some name the exact result, such as a passed performance gate or zero audited residue. A <strong>current deterministic</strong> pill means committed deterministic evidence accepts it, without a live run. Any other wording means the deterministic contract still holds while its live acceptance is absent, stale, or not yet accepted.</p>
-      <p>These retained live runs used the earlier approval model. They do not prove the current ChangeWorkflow and Approval-attestation paths; those paths need fresh live receipts.</p>
-      <p><strong>One gate remains open.</strong> Every benefit below was accepted in the project's own retained four-cluster organization. A clean import into a fresh organization that you choose has not run yet, and it is the gate that stands between these results and a claim about your platform.</p>
+      <p>Each status pill reads one of three ways. ${historical ? "A <strong>retained (historical)</strong> pill means the frozen four-cluster reference proof accepted the benefit for its recorded version; it is not current or live evidence" : "A <strong>retained live</strong> pill means a retained live run accepted the benefit for its recorded version"}, and some name the exact result, such as a passed performance gate or zero audited residue. A <strong>current deterministic</strong> pill means committed deterministic evidence accepts it, without a live run. Any other wording means the deterministic contract still holds while its live acceptance is absent, stale, or not yet accepted.</p>
+      <p>These retained runs used the earlier approval model. They do not prove the current ChangeWorkflow and Approval-attestation paths; those paths need fresh live receipts.</p>
+      <p><strong>One gate remains open.</strong> Every benefit below was accepted in the project's own ${historical ? "retired" : "retained"} four-cluster organization. A clean import into a fresh organization that you choose has not run yet, and it is the gate that stands between these results and a claim about your platform.</p>
       ${markdownLikeTable([
         ["Benefit", "Evidence or acceptance target", "Status"],
         ["No rewrite", `${facts.generatedFiles} path-and-byte-identical generated files from Kubara's official and ConfigHub-aligned catalog lanes; ${facts.renders} deterministic effective renders.`, badge(facts.deterministicParityCurrent, "current deterministic", "check required")],
         ["A stronger component Catalog", `The Kubara catalog 1.1 coverage run closed at ${facts.catalogComponents} components and ${facts.catalogVersions} retained versions, with all ${facts.selections} exact Kubara selections kept under additive-only retention. The Catalog has grown since; the pages above carry its current size of 112 components and 139 retained versions.`, badge(facts.catalogCurrent, "current deterministic", "check required")],
-        ["Recognizable platform shape", `${facts.clusters} clusters, ${facts.roles} platform roles, ${facts.applications.length} applications, faithful and adapted delivery identities, with Argo CD retained.`, badge(facts.faithfulCurrent && facts.miniIdpCurrent, "retained live", "faithful or adapted receipt needs refresh")],
-        ["Upgrade-safe retained workloads", `${facts.selectorReplacements || 16} exact journaled immutable-selector replacements, including four PostgreSQL StatefulSets whose bound PVC identities are retained.`, badge(facts.miniIdpCurrent && facts.selectorReplacements === 16 && facts.retainedSelectorMigrationPvcs === 4, "retained live", "live migration receipt required")],
-        ["Fleet visibility", `${facts.matrixCells} component/application cells, ${facts.curatedLinks} curated native Link intents, and ${facts.wiringFacts} extracted wiring facts kept as the full engineering view.`, badge(facts.miniIdpCurrent && facts.matrixCurrent && facts.wiringCurrent, "retained live", "desired state only")],
-        ["Repeatable delivery", "The retained four-cluster proof includes exact release heads, healthy applications, and an immediate zero-action apply.", badge(facts.miniIdpCurrent, "retained live", "live receipt required")],
-        ["Measured reconciliation cost", facts.noOpReadCommands > 0 ? `The retained no-op made ${facts.noOpMutationAttempts} ConfigHub mutation attempts and ${facts.noOpArgoSyncRequests} Argo sync requests, while recording ${facts.noOpReadCommands} ConfigHub CLI read commands, ${facts.noOpSubprocessCalls} total subprocess calls, and about ${Math.round(facts.noOpWallMs / 1000)} seconds. The fixture regression target is met; this is not a raw-Kubara comparison, HTTP-round-trip count, or service-level promise.` : "No source-current no-op measurement is available.", badge(facts.performanceCurrent, "retained performance gate passed", facts.miniIdpCurrent ? "measured; performance gate not accepted" : "live performance receipt required")],
-        ["Clean governed inventory", "A separate audit must prove exact ConfigHub inventory, no Argo-prunable resources, and no unclassified, dangling, or UID-stale audited durable workloads. It does not claim a complete inventory of every Kubernetes type.", badge(facts.orphanCurrent, "retained live: audited residue zero", "live receipt required: scoped residue audit")],
+        ["Recognizable platform shape", `${facts.clusters} clusters, ${facts.roles} platform roles, ${facts.applications.length} applications, faithful and adapted delivery identities, with Argo CD retained.`, livePill(facts.faithfulCurrent && facts.miniIdpCurrent, null, "faithful or adapted receipt needs refresh")],
+        ["Upgrade-safe retained workloads", `${facts.selectorReplacements || 16} exact journaled immutable-selector replacements, including four PostgreSQL StatefulSets whose bound PVC identities are retained.`, livePill(facts.miniIdpCurrent && facts.selectorReplacements === 16 && facts.retainedSelectorMigrationPvcs === 4, null, "live migration receipt required")],
+        ["Fleet visibility", `${facts.matrixCells} component/application cells, ${facts.curatedLinks} curated native Link intents, and ${facts.wiringFacts} extracted wiring facts kept as the full engineering view.`, livePill(facts.miniIdpCurrent && facts.matrixCurrent && facts.wiringCurrent, null, "desired state only")],
+        ["Repeatable delivery", "The retained four-cluster proof includes exact release heads, healthy applications, and an immediate zero-action apply.", livePill(facts.miniIdpCurrent, null, "live receipt required")],
+        ["Measured reconciliation cost", facts.noOpReadCommands > 0 ? `The retained no-op made ${facts.noOpMutationAttempts} ConfigHub mutation attempts and ${facts.noOpArgoSyncRequests} Argo sync requests, while recording ${facts.noOpReadCommands} ConfigHub CLI read commands, ${facts.noOpSubprocessCalls} total subprocess calls, and about ${Math.round(facts.noOpWallMs / 1000)} seconds. The fixture regression target is met; this is not a raw-Kubara comparison, HTTP-round-trip count, or service-level promise.` : "No source-current no-op measurement is available.", livePill(facts.performanceCurrent, "performance gate passed", facts.miniIdpCurrent ? "measured; performance gate not accepted" : "live performance receipt required")],
+        ["Clean governed inventory", "A separate audit must prove exact ConfigHub inventory, no Argo-prunable resources, and no unclassified, dangling, or UID-stale audited durable workloads. It does not claim a complete inventory of every Kubernetes type.", livePill(facts.orphanCurrent, "audited residue zero", "live receipt required: scoped residue audit")],
       ], { rawThirdColumn: true })}
-      <p data-kubara-live-evidence="${currentLive ? "current" : "gated"}">The status is generated from an exact evidence chain, component by component. ${currentLive ? "The complete faithful, adapted, performance, matrix, wiring, orphan, and six-frame GUI chain is accepted." : "Some current live evidence may already pass, but the complete publishable chain is still gated."} Missing or inconsistent faithful, source-digest mini-IDP, performance, matrix, wiring, orphan, or GUI evidence stays visible instead of becoming a green marketing claim.</p>
+      <p data-kubara-live-evidence="${liveState}">The status is generated from an exact evidence chain, component by component. ${liveState === "historical" ? `The complete faithful, adapted, performance, matrix, wiring, orphan, and six-frame GUI chain is complete and consistent. ${historicalProof}` : liveState === "current" ? "The complete faithful, adapted, performance, matrix, wiring, orphan, and six-frame GUI chain is accepted." : "Some current live evidence may already pass, but the complete publishable chain is still gated."} Missing or inconsistent faithful, source-digest mini-IDP, performance, matrix, wiring, orphan, or GUI evidence stays visible instead of becoming a green marketing claim.</p>
     </section>
     <section aria-labelledby="boundaries">
       <h2 id="boundaries">3. The honest boundaries</h2>
@@ -7778,8 +7794,8 @@ function kubaraExplainedHtml(catalog) {
         <li>Secrets and target-owned facts stay outside the portable Git and OCI payloads.</li>
         <li>Desired state, current live state, historical evidence, OCI publication, and production support remain distinct claims.</li>
         <li>The exact-digest evidence controls the managed automated path. Blocking privileged human or manual Argo sync additionally requires separate RBAC or admission proof.</li>
-        <li>The current no-op records ${facts.noOpReadCommands} ConfigHub CLI read commands and ${facts.noOpSubprocessCalls} total subprocess calls. It completes in about ${Math.round(facts.noOpWallMs / 1000)} seconds, with ${facts.noOpMutationAttempts === 0 ? "zero" : facts.noOpMutationAttempts} ConfigHub mutation attempts and ${facts.noOpArgoSyncRequests === 0 ? "zero" : facts.noOpArgoSyncRequests} Argo sync requests. The fixture regression target is met. CLI commands are not HTTP round trips; this is not a raw-Kubara comparison or a service-level promise.</li>
-        <li>The retained four-cluster organization is live-proved. A clean import into a fresh user-selected organization is still a separate graduation gate.</li>
+        <li>The ${historical ? "retained" : "current"} no-op records ${facts.noOpReadCommands} ConfigHub CLI read commands and ${facts.noOpSubprocessCalls} total subprocess calls. It completes in about ${Math.round(facts.noOpWallMs / 1000)} seconds, with ${facts.noOpMutationAttempts === 0 ? "zero" : facts.noOpMutationAttempts} ConfigHub mutation attempts and ${facts.noOpArgoSyncRequests === 0 ? "zero" : facts.noOpArgoSyncRequests} Argo sync requests. The fixture regression target is met. CLI commands are not HTTP round trips; this is not a raw-Kubara comparison or a service-level promise.</li>
+        <li>${historical ? `The four-cluster organization was live-proved in ${kubaraRecordedMonth(facts.proofStatus)} and is now retired; that proof is frozen historical evidence.` : "The retained four-cluster organization is live-proved."} A clean import into a fresh user-selected organization is still a separate graduation gate.</li>
       </ul>
       <p><strong>live receipt required</strong> means a deterministic contract exists but its current live acceptance chain is absent or stale.</p>
     </section>
@@ -9437,11 +9453,12 @@ function loadKubaraSiteFacts() {
     guiRequired: live.gui.required,
     currentLive: live.current,
     liveReasons: live.reasons,
+    proofStatus: readKubaraProofStatus(repoRoot),
   };
 }
 
 function kubaraGuideHtml(catalog) {
-  const { facts, currentLive, badge } = kubaraSiteBits();
+  const { facts, liveState, historicalProof } = kubaraSiteBits();
   const steps = [
     ["1", "Choose components and wiring", "Keep Kubara catalogs, config.yaml, values overlays, and service definitions.", "../docs/demo/kubara/adoption-1-choose.md"],
     ["2", "Generate the platform and push it to Git", `Run <a href="../docs/demo/kubara/adoption-2-generate.md">Kubara</a> to generate the familiar platform, add-ons, ApplicationSets, overrides, and wiring. Then <a href="../docs/demo/kubara/adoption-3-git.md">prepare, scan, commit, and push</a> one exact portable revision.`, null],
@@ -9626,7 +9643,7 @@ kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</c
         <li>The ${facts.matrixCellCount}-cell matrix: desired placement/version/departure, ConfigHub release digest, Argo observed revision/sync/health, and Kubernetes desired/ready counts remain separate; missing runtime evidence is <code>Unknown</code>. Today it observes ${facts.matrixObserved} cells and marks ${facts.matrixDisabled} disabled, across ${facts.matrixComponents} components and ${facts.matrixClusters} clusters. <a href="${GITHUB_BLOB_BASE_URL}data/kubara-platform-matrix/matrix.html">See the full colored matrix</a> and <a href="https://github.com/confighub/helm-expt/tree/main/data/kubara-catalog-adapter/exports">the catalog-adapter snapshots</a> on GitHub.</li>
         <li>The separate exact ConfigHub and scoped Argo/workload residue result.</li>
       </ol>
-      <p>${currentLive ? "The exact faithful, mini-IDP, performance, orphan, matrix, wiring, and six-frame GUI evidence set is source-current and mutually consistent." : "The deterministic story is current. Live and GUI claims remain gated. Faithful, mini-IDP, performance, health, orphan, matrix, wiring, and all six published screenshots must match this source."}</p>
+      <p>${liveState === "historical" ? `The exact faithful, mini-IDP, performance, orphan, matrix, wiring, and six-frame GUI evidence set is complete and mutually consistent. ${historicalProof}` : liveState === "current" ? "The exact faithful, mini-IDP, performance, orphan, matrix, wiring, and six-frame GUI evidence set is source-current and mutually consistent." : "The deterministic story is current. Live and GUI claims remain gated. Faithful, mini-IDP, performance, health, orphan, matrix, wiring, and all six published screenshots must match this source."}</p>
       <p><a href="../docs/demo/kubara/gui-tour.md#pre-capture-gate">Run the screenshot-free pre-capture gate</a> before opening the browser. Publish exactly six real, source-current frames. Their atomic GUI receipt must bind the source and organization. It must also bind faithful, mini-IDP, orphan, matrix, wiring, image digests, capture times, visible identities, and claim boundaries. Never substitute placeholders or mocked screenshots.</p>
       <p><a href="../docs/demo/kubara/gui-tour.md">Follow the receipt-bound GUI tour</a>.</p>
     </section>

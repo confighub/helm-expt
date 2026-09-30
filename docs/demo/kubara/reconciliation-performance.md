@@ -1,7 +1,8 @@
 # Kubara mini-IDP reconciliation performance
 
 This page records the measured cost model and safety boundaries for
-`scripts/reconcile-kubara-mini-idp.mjs`. It is an engineering baseline, not a
+`scripts/reconcile-kubara-mini-idp.mjs` in [confighub/kubara-confighub](https://github.com/confighub/kubara-confighub), the only home of the Kubara
+live proof since the [#1956](https://github.com/confighub/helm-expt/issues/1956) cutover. It is an engineering baseline, not a
 service-level promise. The reconciler emits a sanitized `kubara-performance`
 JSON line on exit. Each retained live reconcile run records schema-v2 evidence
 under `spec.reconcileRuns[].performance`; failed processes retain incomplete

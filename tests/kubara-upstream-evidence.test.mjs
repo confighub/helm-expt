@@ -3,12 +3,12 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, symlinkSync, renameSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
-import { blobID, paths, root, lockPath, validateLock, verifyLocal, verifyTree, writeSnapshot } from '../scripts/sync-kubara-upstream-evidence.mjs';
+import { blobID, paths, root, lockPath, upstreamGates, validateLock, verifyLocal, verifyTree, verifyUpstreamGates, writeSnapshot } from '../scripts/sync-kubara-upstream-evidence.mjs';
 const lock = JSON.parse(readFileSync(join(root, lockPath), 'utf8'));
-const tree = () => ({ truncated: false, tree: lock.files.map(row => ({ path: row.path, type: 'blob', mode: '100644', sha: row.gitBlob })) });
+const tree = () => ({ truncated: false, tree: [...lock.files, ...lock.implementations].map(row => ({ path: row.path, type: 'blob', mode: '100644', sha: row.gitBlob })) });
 test('retained bytes match reviewed lock', () => verifyLocal(lock));
 test('missing or substituted paths and mutable refs fail closed', () => {
-  for (const changed of [{ ...lock, commit: 'main' }, { ...lock, files: lock.files.slice(1) }, { ...lock, files: lock.files.map((row, i) => i ? row : { ...row, path: '../outside' }) }]) {
+  for (const changed of [{ ...lock, commit: 'main' }, { ...lock, schemaVersion: 1 }, { ...lock, files: lock.files.slice(1) }, { ...lock, files: lock.files.map((row, i) => i ? row : { ...row, path: '../outside' }) }, { ...lock, implementations: [] }, { ...lock, implementations: [...lock.implementations].reverse() }, { ...lock, implementations: lock.implementations.map((row, i) => i ? row : { ...row, sha256: 'main' }) }]) {
     assert.throws(() => validateLock(changed));
   }
 });
@@ -23,7 +23,7 @@ test('corrupted snapshot is rejected', () => {
 });
 test('upstream binding rejects missing, symlink, changed and truncated trees', () => {
   verifyTree(lock, tree());
-  for (const change of [t => { t.truncated = true; }, t => { t.tree.shift(); }, t => { t.tree[0].mode = '120000'; }, t => { t.tree[0].sha = blobID(Buffer.from('forged')); }]) {
+  for (const change of [t => { t.truncated = true; }, t => { t.tree.shift(); }, t => { t.tree[0].mode = '120000'; }, t => { t.tree[0].sha = blobID(Buffer.from('forged')); }, t => { t.tree.pop(); }, t => { t.tree.at(-1).sha = blobID(Buffer.from('forged')); }]) {
     const t = tree(); change(t); assert.throws(() => verifyTree(lock, t));
   }
 });
@@ -52,4 +52,20 @@ test('failed replacement restores earlier files', () => {
     }), /injected/);
     for (const path of [...paths, lockPath]) assert.equal(readFileSync(join(dir, path), 'utf8'), 'old');
   } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+test('a pin needs the upstream gates that replaced the retired lanes, and their pass', () => {
+  const manifest = () => ({ scripts: { ...upstreamGates.scripts } });
+  const workflow = () => ['jobs:', `  ${upstreamGates.job}:`, '    steps:', ...Object.keys(upstreamGates.scripts).map(name => `        run: npm run ${name}`)].join('\n');
+  const runs = () => ({ check_runs: [{ name: upstreamGates.job, status: 'completed', conclusion: 'success', app: { slug: 'github-actions' } }] });
+  verifyUpstreamGates(manifest(), workflow(), runs());
+  const [name] = Object.keys(upstreamGates.scripts);
+  for (const [m, w, r] of [
+    [{ scripts: { ...upstreamGates.scripts, [name]: 'node -e 0' } }, workflow(), runs()],
+    [manifest(), workflow().replace(`run: npm run ${name}`, 'run: true'), runs()],
+    [manifest(), workflow().replace(`  ${upstreamGates.job}:`, '  other:'), runs()],
+    [manifest(), workflow(), { check_runs: [] }],
+    [manifest(), workflow(), { check_runs: [{ ...runs().check_runs[0], conclusion: 'failure' }] }],
+    [manifest(), workflow(), { check_runs: [{ ...runs().check_runs[0], status: 'in_progress', conclusion: null }] }],
+    [manifest(), workflow(), { check_runs: [{ ...runs().check_runs[0], app: { slug: 'someone-else' } }] }],
+  ]) assert.throws(() => verifyUpstreamGates(m, w, r));
 });

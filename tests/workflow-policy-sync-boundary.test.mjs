@@ -10,7 +10,7 @@ import {
   rmSync,
   writeFileSync,
 } from "node:fs";
-import { homedir, tmpdir } from "node:os";
+import { tmpdir } from "node:os";
 import { delimiter, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
@@ -119,12 +119,3 @@ test("historical catalog proof still verifies without cub", () => {
   assertNoCubInvocation();
 });
 
-
-test("Mini-IDP unavailable preflight preserves its operation journal", () => {
-  const journal = join(homedir(), ".confighub", "locks", "helm-expt-kubara-operation-journal.json");
-  const before = existsSync(journal) ? readFileSync(journal) : null;
-  const result = run("--apply", join(repoRoot, "scripts", "reconcile-kubara-mini-idp.mjs"));
-  assert.equal(result.status, 1, result.stderr);
-  assertOnlyReadAttempts();
-  assert.deepEqual(existsSync(journal) ? readFileSync(journal) : null, before, "operation journal must stay unchanged");
-});
