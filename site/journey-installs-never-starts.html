@@ -626,7 +626,7 @@
     <p class="eyebrow">Journey 5 of 5</p>
     <h1>My app installs but will not start</h1>
     <p class="lead">A chart can name an image that no longer exists. The chart downloads, the values are right, every local check passes, and <code>helm install</code> reports success. The pods then sit in <code>ImagePullBackOff</code>. One command asks the registry first.</p>
-    <p><strong>Time.</strong> About five minutes, or eight with the live proof. <strong>Needs.</strong> <code>cub</code>, the workshop plugin (0.6.41 or later), <code>helm</code>, <code>curl</code>, and a network. Steps 1 to 5 need no cluster. Step 6 builds a throwaway one with <code>kind</code>, and only if you ask for it.</p>
+    <p><strong>Time.</strong> About five minutes, or eight with the live proof. <strong>Needs.</strong> <code>cub</code>, the workshop plugin 0.6.41 or later, <code>helm</code>, <code>curl</code>, and a network. <code>--images --exit-code</code> first shipped in workshop 0.6.41, and v0.6.50 is the first published release that has it. If <code>cub config check --help</code> does not list <code>--exit-code</code>, run <code>cub plugin upgrade workshop</code>. Steps 1 to 5 need no cluster. Step 6 builds a throwaway one with <code>kind</code>, and only if you ask for it.</p>
   </header>
   <main>
     <section aria-labelledby="run-it-yourself">
@@ -636,7 +636,7 @@
 <span class="term-prompt">$</span> git clone https://github.com/monadic/workshop-demo
 
 <span class="term-comment"># use the version this page describes</span>
-<span class="term-prompt">$</span> git -C workshop-demo checkout --quiet 6e56b6707e13
+<span class="term-prompt">$</span> git -C workshop-demo checkout --quiet e0a525af6b45
 
 <span class="term-comment"># open this journey</span>
 <span class="term-prompt">$</span> cd workshop-demo/5-it-installs-and-never-starts
@@ -646,19 +646,21 @@
     </section>
     <section aria-labelledby="with-your-agent">
       <h2 id="with-your-agent">Or let your agent run it</h2>
-      <p>Give your agent the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/5-it-installs-and-never-starts/PROMPT.md">PROMPT.md</a> and nothing else. It follows the same steps, with the same numbers, and shows you the command after each one. You decide at each step whether to go on.</p>
+      <p>Give your agent the journey's <a href="https://github.com/monadic/workshop-demo/blob/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/5-it-installs-and-never-starts/PROMPT.md">PROMPT.md</a> and nothing else. It follows the same steps, with the same numbers, and shows you the command after each one. You decide at each step whether to go on.</p>
       <p>Keep this page and the README from your agent. They say what each step finds, so an agent that reads them knows the answers before it starts.</p>
     </section>
     <section aria-labelledby="the-steps">
       <h2 id="the-steps">The steps</h2>
-      <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/5-it-installs-and-never-starts/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/tree/6e56b6707e13358f50f4257a6030cf5e951778b2/5-it-installs-and-never-starts/expected">expected/</a>.</p>
+      <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/5-it-installs-and-never-starts/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/tree/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/5-it-installs-and-never-starts/expected">expected/</a>.</p>
       <pre class="terminal-body"><code><span class="term-comment"># the steps write their output here</span>
 <span class="term-prompt">$</span> mkdir -p work</code></pre>
       <h3 id="step-1">1. Read what the assistant wrote</h3>
       <p>An ordinary values file for a well-known chart.</p>
       <h3 id="step-2">2. Render it and run the usual checks</h3>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre class="terminal-body"><code><span class="term-prompt">$</span> helm template shop-db oci://registry-1.docker.io/bitnamicharts/mysql --version 14.0.3 --namespace shop -f values.yaml &gt; work/mysql.yaml
+  <pre class="terminal-body"><code><span class="term-prompt">$</span> mkdir -p work
+
+<span class="term-prompt">$</span> helm template shop-db oci://registry-1.docker.io/bitnamicharts/mysql --version 14.0.3 --namespace shop -f values.yaml &gt; work/mysql.yaml
 
 <span class="term-prompt">$</span> cub config check work/mysql.yaml</code></pre>
       <p>Every line passes, including the image line: the image is pinned to a version, which is what you want. The chart itself still downloads, because the chart was never withdrawn.</p>
@@ -683,7 +685,7 @@
     </section>
     <section aria-labelledby="your-own">
       <h2 id="your-own">Use it on your own configuration</h2>
-      <p>The README's section <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/5-it-installs-and-never-starts/README.md#use-the-image-check-in-your-own-ci">Use the image check in your own CI</a> runs the same check on your own files. This is its first command, and the section goes on from there.</p>
+      <p>The README's section <a href="https://github.com/monadic/workshop-demo/blob/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/5-it-installs-and-never-starts/README.md#use-the-image-check-in-your-own-ci">Use the image check in your own CI</a> runs the same check on your own files. This is its first command, and the section goes on from there.</p>
       <pre class="terminal-body"><code><span class="term-prompt">$</span> cub config check path/to/rendered.yaml --images --exit-code</code></pre>
       <p>Exit 0 means every discovered image manifest was checked anonymously. Exit 1 means a registry confirmed that at least one image is missing. Exit 2 means the check was incomplete, such as a network or authentication failure, or the command was invalid. The ordinary <code>cub config check ... --images</code> command in step 3 remains advisory and does not fail the build. This gate checks images found by the static image extractor at the time it runs; it does not prove startup, scheduling, chart compatibility, or application health.</p>
       <p>These Guides go further: <a href="./did-your-bitnami-chart-stop-pulling.html">Did your Bitnami chart stop pulling?</a>.</p>
