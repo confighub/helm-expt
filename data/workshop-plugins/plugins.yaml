@@ -6,9 +6,9 @@ spec:
   description: >-
     Every public cub plugin, each marked by its state. Kept by hand, outside the
     generated site. The site generator turns it into site/plugins.json.
-    `node scripts/verify-workshop-sections.mjs --verify-upstream` checks each
+    `node scripts/generate-workshop-sections.mjs --verify-upstream` checks each
     released row against its repository's latest GitHub release.
-  checkedAt: "2026-09-28"
+  checkedAt: "2026-09-30"
   plugins:
     - id: workshop
       name: ConfigHub Workshop
@@ -16,7 +16,7 @@ spec:
       summary: Checks, composes and publishes configuration from the Catalog.
       repository: confighub/cub-workshop
       state: released
-      release: {tag: v0.6.50, date: "2026-09-27"}
+      release: {tag: v0.6.51, date: "2026-09-30"}
       install: cub plugin install confighub/cub-workshop
     - id: kubara
       name: Kubara
@@ -32,7 +32,7 @@ spec:
       summary: Brings a Sveltos fleet into ConfigHub, one variant per cluster.
       repository: confighub/sveltos-confighub
       state: released
-      release: {tag: v0.8.0, date: "2026-09-28"}
+      release: {tag: v0.10.0, date: "2026-09-30"}
       install: cub plugin install confighub/sveltos-confighub
     - id: eks-inference
       name: EKS inference

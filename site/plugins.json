@@ -21,8 +21,8 @@
       ],
       "repository": "confighub/cub-workshop",
       "release": {
-        "date": "2026-09-27",
-        "tag": "v0.6.50"
+        "date": "2026-09-30",
+        "tag": "v0.6.51"
       },
       "install": "cub plugin install confighub/cub-workshop",
       "next": {
@@ -57,8 +57,8 @@
       ],
       "repository": "confighub/sveltos-confighub",
       "release": {
-        "date": "2026-09-28",
-        "tag": "v0.8.0"
+        "date": "2026-09-30",
+        "tag": "v0.10.0"
       },
       "install": "cub plugin install confighub/sveltos-confighub",
       "next": {
