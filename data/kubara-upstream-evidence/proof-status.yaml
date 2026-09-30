@@ -20,7 +20,19 @@ spec:
     retired: true
     rerun: false
     predates: cub 0.4 field renames
+  # The kind lab at the commit pinned in lock.json (kubara-confighub v0.2.3).
+  # Its logs were recorded with cub kubara built from the branches that v0.2.3
+  # released, not with the released binary.
   currentLiveProof:
     repository: confighub/kubara-confighub
+    release: v0.2.3
+    commit: 86884faae853b12e552354d0b7cb898bc8df59fa
     path: examples/kind-lab/
-    url: https://github.com/confighub/kubara-confighub/tree/main/examples/kind-lab
+    url: https://github.com/confighub/kubara-confighub/tree/86884faae853b12e552354d0b7cb898bc8df59fa/examples/kind-lab
+    logs:
+      - path: examples/kind-lab/run-2026-09-30.log
+        title: recorded run
+      - path: examples/kind-lab/handback-2026-09-30.log
+        title: recorded hand-back
+      - path: examples/kind-lab/run-v0.16-2026-09-30.log
+        title: recorded run and catalog upgrade on Kubara v0.16

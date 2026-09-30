@@ -4,7 +4,7 @@ import { join, posix } from "node:path";
 import { check, listFiles, readYaml, repoRoot, sha256, write } from "./lib/proof-common.mjs";
 import { lookupCatalogRecord } from "./lib/catalog-record-lookup.mjs";
 import { installerOciDigestRef, installerOciRef } from "./lib/installer-oci.mjs";
-import { evaluateKubaraSiteLiveEvidence, kubaraEvidencePill, kubaraEvidenceState, kubaraRecordedMonth, readKubaraProofStatus } from "./lib/kubara-site-live-evidence.mjs";
+import { evaluateKubaraSiteLiveEvidence, kubaraEvidencePill, kubaraEvidenceState, kubaraLiveProofLogs, kubaraRecordedMonth, readKubaraProofStatus } from "./lib/kubara-site-live-evidence.mjs";
 import {
   AICR_CPU_STARTER_LOCAL_OCI_DIGEST,
   AICR_CPU_STARTER_SOURCE_DIGEST,
@@ -7724,7 +7724,13 @@ function kubaraSiteBits() {
 function kubaraHistoricalProofSentence(status) {
   const reference = status.spec.reference;
   const live = status.spec.currentLiveProof;
-  return `It is frozen historical evidence: the Kubara ${escapeHtml(reference.kubaraVersion.replace(/\.0$/, ""))} four-cluster hx-app-* reference organization, recorded in ${kubaraRecordedMonth(status)}. That organization is retired and is not rerun, and its receipts predate the ${escapeHtml(reference.predates)}. The current live proof is the <a href="${escapeHtml(live.url)}">kind lab</a> (<code>${escapeHtml(live.path)}</code> in ${escapeHtml(live.repository)}).`;
+  return `It is frozen historical evidence: the Kubara ${escapeHtml(reference.kubaraVersion.replace(/\.0$/, ""))} four-cluster hx-app-* reference organization, recorded in ${kubaraRecordedMonth(status)}. That organization is retired and is not rerun, and its receipts predate the ${escapeHtml(reference.predates)}. The Catalog pins those receipts from ${escapeHtml(live.repository)} byte for byte in its <a href="${GITHUB_BLOB_BASE_URL}data/kubara-upstream-evidence/lock.json">evidence lock</a>. The current live proof is the <a href="${escapeHtml(live.url)}">kind lab</a> (<code>${escapeHtml(live.path)}</code> in ${escapeHtml(live.repository)} ${escapeHtml(live.release)}, commit <code>${escapeHtml(live.commit.slice(0, 7))}</code>), with its ${kubaraLiveProofLogLinks(status)}.`;
+}
+
+// "<a>recorded run</a>, <a>recorded hand-back</a> and <a>...</a>"
+function kubaraLiveProofLogLinks(status) {
+  const links = kubaraLiveProofLogs(status).map((row) => `<a href="${escapeHtml(row.url)}">${escapeHtml(row.title)}</a>`);
+  return links.length > 1 ? `${links.slice(0, -1).join(", ")} and ${links.at(-1)}` : links.join("");
 }
 
 function aicrV020SourceBits() {
@@ -9459,6 +9465,8 @@ function loadKubaraSiteFacts() {
 
 function kubaraGuideHtml(catalog) {
   const { facts, liveState, historicalProof } = kubaraSiteBits();
+  const liveProof = facts.proofStatus.spec.currentLiveProof;
+  const liveLogs = kubaraLiveProofLogs(facts.proofStatus);
   const steps = [
     ["1", "Choose components and wiring", "Keep Kubara catalogs, config.yaml, values overlays, and service definitions.", "../docs/demo/kubara/adoption-1-choose.md"],
     ["2", "Generate the platform and push it to Git", `Run <a href="../docs/demo/kubara/adoption-2-generate.md">Kubara</a> to generate the familiar platform, add-ons, ApplicationSets, overrides, and wiring. Then <a href="../docs/demo/kubara/adoption-3-git.md">prepare, scan, commit, and push</a> one exact portable revision.`, null],
@@ -9505,7 +9513,7 @@ function kubaraGuideHtml(catalog) {
         { comment: "Point Kubara's hub at the approved releases instead of Git", cmd: "cub kubara handover ../my-platform --out ../my-platform-confighub" },
         { comment: "Confirm each cluster runs the release its stage approved", cmd: "cub kubara check ../my-platform --hub-context <hub context>" },
       ])}
-      <p><code>handover.sh</code> points each of Kubara's ApplicationSets at the cluster's approved release in ConfigHub. The hub, its AppProject and its sync settings stay, and the script stops first if Argo CD would delete anything. After it, a change reaches a cluster only once that cluster's stage has approved and released it, and <code>cub kubara check</code> confirms it. It ran live on a Kubara hub and spoke on kind. The <a href="https://github.com/confighub/kubara-confighub/blob/main/examples/cub-kubara/lab-handover-2026-09-28.log">first live run's log</a> records each command and the faults it found, and the <a href="https://github.com/confighub/kubara-confighub/blob/main/examples/kind-lab/run-2026-09-28.log">kind lab's recorded run</a> shows the whole story from scratch. The <a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kind-lab">kind lab</a> runs it on your laptop.</p>
+      <p><code>handover.sh</code> points each of Kubara's ApplicationSets at the cluster's approved release in ConfigHub. The hub, its AppProject and its sync settings stay, and the script stops first if Argo CD would delete anything. After it, a change reaches a cluster only once that cluster's stage has approved and released it, and <code>cub kubara check</code> confirms it. It ran live on a Kubara hub and spoke on kind. The <a href="https://github.com/confighub/kubara-confighub/blob/${escapeHtml(liveProof.commit)}/examples/cub-kubara/lab-handover-2026-09-28.log">first live run's log</a> records each command and the faults it found. The kind lab's <a href="${escapeHtml(liveLogs[0].url)}">recorded run</a>, committed in ${escapeHtml(liveProof.repository)} ${escapeHtml(liveProof.release)}, shows the whole story from scratch. In it argobot writes each variant Space's live status, and prod accepts a release only once dev reports it Healthy. The <a href="${escapeHtml(liveLogs[1].url)}">recorded hand-back</a> shows <code>cub kubara handback</code> pointing the hub back at Kubara's Git, with nothing pruned. The <a href="${escapeHtml(liveLogs[2].url)}">run on Kubara v0.16</a> takes newer Kubara catalogs to dev and then prod as reviewed change orders. Those logs were recorded with <code>cub kubara</code> built from the branches that ${escapeHtml(liveProof.release)} released. The <a href="${escapeHtml(liveProof.url)}">kind lab</a> runs it on your laptop.</p>
       <p>This path has no stack step. <code>cub kubara apply</code> renders each service the way Kubara's hub delivers it, with the same release name, namespace and values, so ConfigHub holds exactly what Kubara's Argo CD runs. The <a href="https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md">cub kubara guide</a> walks every command.</p>
       <h3>Where cub stack comes in</h3>
       <p>Workshop stacks serve a different job. They use a Kubara platform as a stack, rather than governing it the way Kubara runs it. Reach for <code>cub stack</code> to check the platform before anything runs, compose apps onto it, publish it as OCI, or produce a platform on demand. The next section shows that path.</p>

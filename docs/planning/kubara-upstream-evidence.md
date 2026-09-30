@@ -57,14 +57,22 @@ the cub 0.4 field renames, and the proof is accepted and labelled historical.
 [`proof-status.yaml`](../../data/kubara-upstream-evidence/proof-status.yaml)
 records that decision, and the site labels every accepted pill from it as
 "retained (historical)". The current live proof is the
-[kind lab](https://github.com/confighub/kubara-confighub/tree/main/examples/kind-lab)
-in kubara-confighub.
+[kind lab](https://github.com/confighub/kubara-confighub/tree/86884faae853b12e552354d0b7cb898bc8df59fa/examples/kind-lab)
+in kubara-confighub v0.2.3, at the pinned commit: its
+[recorded run](https://github.com/confighub/kubara-confighub/blob/86884faae853b12e552354d0b7cb898bc8df59fa/examples/kind-lab/run-2026-09-30.log),
+[recorded hand-back](https://github.com/confighub/kubara-confighub/blob/86884faae853b12e552354d0b7cb898bc8df59fa/examples/kind-lab/handback-2026-09-30.log)
+and [run on Kubara v0.16](https://github.com/confighub/kubara-confighub/blob/86884faae853b12e552354d0b7cb898bc8df59fa/examples/kind-lab/run-v0.16-2026-09-30.log).
+Those logs were recorded with `cub kubara` built from the branches v0.2.3
+released, not with the released binary. `proof-status.yaml` names the commit
+and the logs, and the reader test requires that commit to be the pin.
 
-The pin is `a5bbe1fd20838d162e53cd8802293420c7ae53b5`. All snapshot files were
-byte-identical to the existing Catalog copies when pinned. Integrity means these
-are the upstream files; it does not establish freshness or a new live run.
-Existing receipt and site status rules still apply. No new live receipt was
-created by the pin or by the cutover below.
+The pin is `86884faae853b12e552354d0b7cb898bc8df59fa`, kubara-confighub v0.2.3. It moved there on 2026-09-30 from
+`a5bbe1fd20838d162e53cd8802293420c7ae53b5`; every snapshot file and both
+executor identities are byte-identical at the two commits, so only the commit
+changed. Integrity means these are the upstream files; it does not establish
+freshness or a new live run of the four-cluster proof. Existing receipt and
+site status rules still apply. No new live receipt was created by the pin or by
+the cutover below.
 
 ## Cutover: the live proof leaves helm-expt
 
