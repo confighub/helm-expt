@@ -2629,7 +2629,7 @@ function sectionStartingQuestions(label) {
       ["try-aicr.html", "Which GPU nodes match an AICR recipe?"],
       ["charts/index.html?format=ai-platform", "Where are the AICR and NVIDIA NIM configs?"],
       ["proof.html", "What has been tested?"],
-      ["how-it-works.html", "How do I release and promote a config?"],
+      ["confighub.html#promote-a-change", "How do I release and promote a config?"],
     ],
     Stacks: [
       ["compose-a-stack.html", "How do I build my own platform?"],
@@ -2637,14 +2637,14 @@ function sectionStartingQuestions(label) {
       ["put-an-app-on-a-platform.html", "How do I add my app to a platform?"],
       ["try-aicr.html", "What does my GPU workload need?"],
       ["bring-kubara-into-confighub.html", "Can I start from Kubara?"],
-      ["deploy-with-flux-or-argo.html", "How do I deploy with Argo CD or Flux?"],
+      ["confighub.html#import-and-deploy", "How do I deploy with Argo CD or Flux?"],
     ],
     Apps: [
       ["testing.html", "What does a complete example app look like?"],
       ["journey-what-my-app-needs.html", "What does my app need to run?"],
       ["put-an-app-on-a-platform.html", "How do I put my app on a platform?"],
       ["journey-installs-never-starts.html", "Why does my app install but never start?"],
-      ["how-it-works.html", "How do I release and promote my app?"],
+      ["confighub.html#promote-a-change", "How do I release and promote my app?"],
       ["build-a-confighub-app.html", "Can I build a tool that operates on configs?"],
     ],
     Plugins: [
@@ -2681,9 +2681,11 @@ function siteSidebarHtml(relPath, section) {
   const list = (pages) => `<ul>${pages.map(([path, label]) => `<li><a href="${base}/${path}"${path === relPath ? ' aria-current="page"' : ""}>${escapeHtml(label)}</a></li>`).join("")}</ul>`;
   if (section?.hub === relPath) {
     return `<p class="cw-nav-title"><strong>Starting questions</strong></p>${list(sectionStartingQuestions(section.label))}
-      <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>`;
+      <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>
+      <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>`;
   }
-  return siteSections().map((item) => `<details${section && item.label === section.label ? " open" : ""}><summary>${escapeHtml(item.label)}</summary>${list(item.pages)}</details>`).join("\n");
+  return `<p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>` + siteSections().map((item) => `<details${section && item.label === section.label ? " open" : ""}><summary>${escapeHtml(item.label)}</summary>${list(item.pages)}</details>`).join("\n");
 }
 
 function siteTocHtml(html) {
@@ -3452,13 +3454,14 @@ function configTestCentreHome(catalog) {
         <p class="rail-h"><strong>Getting Started Demos</strong></p>
 ${homeJourneyLinks()}
         <p class="rail-h"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
+        <p class="rail-h"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
         <p class="rail-h"><strong>Common Questions</strong></p>
         <a href="./charts/index.html">What’s in the Config Catalog?</a>
         <a href="./apps.html">What does an example app look like?</a>
         <a href="./compose-a-stack.html">How do I build my own platform?</a>
         <a href="./stack.html">How do I run a pre-tested stack?</a>
         <a href="./guides.html#guides-gitops">How do I use Argo CD or Flux?</a>
-        <a href="./how-it-works.html">How do I deploy and promote my app?</a>
+        <a href="./confighub.html#start-managing">How do I deploy and promote my app?</a>
         <a href="./guides.html">Which Guide solves my problem?</a>
         <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>
       </nav>
@@ -4713,6 +4716,14 @@ function configHubHtml(catalog) {
 <style>${siteCss()}
   .handoff-proof { max-width: 880px; padding-left: 1.3rem; }
   .handoff-proof li { margin: 12px 0; }
+  .server-start-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .server-start-card { border: 1px solid var(--line); border-radius: 10px; padding: 18px; }
+  .server-start-card h3 { margin-top: 0; }
+  #start-managing, .server-start-card h3 { scroll-margin-top: 88px; }
+  .server-start-card:last-child { grid-column: 1 / -1; }
+  .server-start-card ol { padding-left: 1.3rem; }
+  .server-start-card li { margin: 8px 0; }
+  @media (max-width: 760px) { .server-start-grid { grid-template-columns: 1fr; } }
   .handoff-proof code { overflow-wrap: anywhere; word-break: break-all; }
 </style>
 </head>
@@ -4728,6 +4739,39 @@ function configHubHtml(catalog) {
   <p><a class="button primary" href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Upload a reviewed result into ConfigHub</a> <a class="button secondary" href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">Open the tutorial</a></p>
 </header>
 <main>
+  <section aria-labelledby="start-managing">
+    <h2 id="start-managing">Deploy and manage your config, stack or app</h2>
+    <p>Start with what you have. These paths work with <code>cub</code> directly or with an AI agent beside you. ConfigHub keeps the reviewed configuration and its changes; your delivery controller applies it to the cluster.</p>
+    <div class="server-start-grid">
+      <article class="server-start-card" aria-labelledby="import-and-deploy">
+        <h3 id="import-and-deploy">Import a config and deploy it</h3>
+        <ol><li>Render and check the config, stack or app you want to run.</li><li>Sign in, upload the reviewed objects and choose a target environment.</li><li>Publish a release for Argo CD or Flux to apply, then check the live result.</li></ol>
+        <p><a href="./d/docs/user/cub-deployment-path.html">Follow the import and deployment steps</a> · <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">Try the official tutorial</a></p>
+      </article>
+      <article class="server-start-card" aria-labelledby="load-a-repo">
+        <h3 id="load-a-repo">Bring in an Argo CD or Flux repo</h3>
+        <ol><li>Point the onboarding plugin at your repository and inspect its plan.</li><li>Review how your apps and environments will appear in ConfigHub, then import them.</li><li>Approve the handover when ready; your controller continues delivering the reviewed releases.</li></ol>
+        <p><a href="https://github.com/confighub/examples/blob/main/cub-argo/docs/onboard-your-argo-estate.md">Follow the Argo CD Guide</a> · <a href="https://github.com/confighub/examples/blob/main/cub-flux/docs/onboard-your-flux-fleet.md">Follow the Flux Guide</a></p>
+      </article>
+      <article class="server-start-card" aria-labelledby="live-and-repo">
+        <h3 id="live-and-repo">Start from a live cluster and its repo</h3>
+        <ol><li>Discover what is running and which controller owns it.</li><li>Compare it with the repository. Review drift, live fixes and Secret ownership.</li><li>Choose what to retain in ConfigHub, then review the import and handover before changing delivery.</li></ol>
+        <p><a href="./plugins.html#scout">Inspect with cub scout</a> · <a href="https://github.com/confighub/examples/blob/main/cub-argo/docs/onboard-your-argo-estate.md">Argo CD onboarding</a> · <a href="https://github.com/confighub/examples/blob/main/cub-flux/docs/onboard-your-flux-fleet.md">Flux onboarding</a></p>
+        <p>Live discovery needs cluster access. Keep credentials out of imported configuration.</p>
+      </article>
+      <article class="server-start-card" aria-labelledby="promote-a-change">
+        <h3 id="promote-a-change">Promote a change</h3>
+        <ol><li>Compare the proposed change with the next environment.</li><li>Keep that environment’s settings and satisfy its configured checks and approvals.</li><li>Publish the approved revision, then verify what the destination received.</li></ol>
+        <p><a href="./how-it-works.html#promote">Follow release and promotion</a> · <a href="./promote.html">Review a candidate before promotion</a></p>
+      </article>
+      <article class="server-start-card" aria-labelledby="roll-out-a-change">
+        <h3 id="roll-out-a-change">Roll out across environments or clusters</h3>
+        <ol><li>Choose the first target and the checks that let you proceed.</li><li>Release there, inspect the result, and approve the next group only when its gates pass.</li><li>Stop on a failed check. Review the previous revision and any data changes before rolling back.</li></ol>
+        <p><a href="./operate-a-fleet.html#ops">Follow the fleet workflow</a> · <a href="./how-it-works.html">Release, gate and roll back</a></p>
+        <p>Your controller handles application rollout behavior, including canary traffic where configured.</p>
+      </article>
+    </div>
+  </section>
   <section aria-labelledby="managed-result">
     <h2 id="managed-result">1. What ConfigHub adds</h2>
     <p><a href="./config.html#confighub-role">Config</a> defines it: &ldquo;ConfigHub is where a reviewed base becomes shared, governed configuration.&rdquo; This page explains what that adds once you have an account.</p>
