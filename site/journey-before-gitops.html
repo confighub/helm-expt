@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>My chart behaves differently in GitOps · ConfigHub Workshop</title>
-  <meta name="description" content="A chart can decide things you never wrote, and `helm install` hides some of them. This Redis has run for a month from three lines of values. Under Argo CD or Flux its password changes on every sync, its image is tagged `latest`, and a preset you never chose sets its memory. You can see all three before the move, and the Workshop Catalog has a reviewed alternative with none of them.">
+  <meta name="description" content="A chart can decide things you never wrote, and `helm install` hides some of them. This Redis has run for a month from three lines of values. Under Argo CD its password changes on every sync, its image is tagged `latest`, and a preset you never chose sets its memory. A Flux HelmRelease runs Helm against the cluster, where this chart can read its password back, but the image and the preset are the same there. You can see all three before the move. The Workshop Catalog has a reviewed alternative without those three problems, but it is a different chart, `cloudpirates/redis`, so moving to it is a migration and not an upgrade. Your existing data, the PVC and the Service names do not carry over, and it needs a Secret that you create first.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/journey-before-gitops.html">
   <meta property="og:title" content="My chart behaves differently in GitOps · ConfigHub Workshop">
-  <meta property="og:description" content="A chart can decide things you never wrote, and `helm install` hides some of them. This Redis has run for a month from three lines of values. Under Argo CD or Flux its password changes on every sync, its image is tagged `latest`, and a preset you never chose sets its memory. You can see all three before the move, and the Workshop Catalog has a reviewed alternative with none of them.">
+  <meta property="og:description" content="A chart can decide things you never wrote, and `helm install` hides some of them. This Redis has run for a month from three lines of values. Under Argo CD its password changes on every sync, its image is tagged `latest`, and a preset you never chose sets its memory. A Flux HelmRelease runs Helm against the cluster, where this chart can read its password back, but the image and the preset are the same there. You can see all three before the move. The Workshop Catalog has a reviewed alternative without those three problems, but it is a different chart, `cloudpirates/redis`, so moving to it is a migration and not an upgrade. Your existing data, the PVC and the Service names do not carry over, and it needs a Secret that you create first.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/journey-before-gitops.html">
   <style>
@@ -625,7 +625,7 @@
     
     <p class="eyebrow">Journey 4 of 5</p>
     <h1>My chart behaves differently in GitOps</h1>
-    <p class="lead">A chart can decide things you never wrote, and <code>helm install</code> hides some of them. This Redis has run for a month from three lines of values. Under Argo CD or Flux its password changes on every sync, its image is tagged <code>latest</code>, and a preset you never chose sets its memory. You can see all three before the move, and the Workshop Catalog has a reviewed alternative with none of them.</p>
+    <p class="lead">A chart can decide things you never wrote, and <code>helm install</code> hides some of them. This Redis has run for a month from three lines of values. Under Argo CD its password changes on every sync, its image is tagged <code>latest</code>, and a preset you never chose sets its memory. A Flux HelmRelease runs Helm against the cluster, where this chart can read its password back, but the image and the preset are the same there. You can see all three before the move. The Workshop Catalog has a reviewed alternative without those three problems, but it is a different chart, <code>cloudpirates/redis</code>, so moving to it is a migration and not an upgrade. Your existing data, the PVC and the Service names do not carry over, and it needs a Secret that you create first.</p>
     <p><strong>Time.</strong> About six minutes. <strong>Needs.</strong> <code>cub</code>, the workshop plugin (0.6.26 or later), <code>helm</code>, <code>oras</code>, <code>curl</code>, and a network. No server, no account, no cluster.</p>
   </header>
   <main>
@@ -636,7 +636,7 @@
 <span class="term-prompt">$</span> git clone https://github.com/monadic/workshop-demo
 
 <span class="term-comment"># use the version this page describes</span>
-<span class="term-prompt">$</span> git -C workshop-demo checkout --quiet 6e56b6707e13
+<span class="term-prompt">$</span> git -C workshop-demo checkout --quiet e0a525af6b45
 
 <span class="term-comment"># open this journey</span>
 <span class="term-prompt">$</span> cd workshop-demo/4-before-argo-takes-over
@@ -646,19 +646,21 @@
     </section>
     <section aria-labelledby="with-your-agent">
       <h2 id="with-your-agent">Or let your agent run it</h2>
-      <p>Give your agent the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/4-before-argo-takes-over/PROMPT.md">PROMPT.md</a> and nothing else. It follows the same steps, with the same numbers, and shows you the command after each one. You decide at each step whether to go on.</p>
+      <p>Give your agent the journey's <a href="https://github.com/monadic/workshop-demo/blob/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/4-before-argo-takes-over/PROMPT.md">PROMPT.md</a> and nothing else. It follows the same steps, with the same numbers, and shows you the command after each one. You decide at each step whether to go on.</p>
       <p>Keep this page and the README from your agent. They say what each step finds, so an agent that reads them knows the answers before it starts.</p>
     </section>
     <section aria-labelledby="the-steps">
       <h2 id="the-steps">The steps</h2>
-      <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/4-before-argo-takes-over/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/tree/6e56b6707e13358f50f4257a6030cf5e951778b2/4-before-argo-takes-over/expected">expected/</a>.</p>
+      <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/4-before-argo-takes-over/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/tree/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/4-before-argo-takes-over/expected">expected/</a>.</p>
       <pre class="terminal-body"><code><span class="term-comment"># the steps write their output here</span>
 <span class="term-prompt">$</span> mkdir -p work</code></pre>
       <h3 id="step-1">1. Read what has been running</h3>
       <p>Three lines, and nothing looks wrong.</p>
       <h3 id="step-2">2. See what it installs</h3>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre class="terminal-body"><code><span class="term-prompt">$</span> helm template shop-redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 --namespace shop -f values.yaml &gt; work/bitnami.yaml
+  <pre class="terminal-body"><code><span class="term-prompt">$</span> mkdir -p work
+
+<span class="term-prompt">$</span> helm template shop-redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 --namespace shop -f values.yaml &gt; work/bitnami.yaml
 
 <span class="term-prompt">$</span> cub config check work/bitnami.yaml</code></pre>
       <p>Look for the <code>NOTE</code> line. The Redis image is <code>bitnami/redis:latest</code>, so the same name can pull a different Redis next week.</p>
@@ -695,6 +697,11 @@
 
 <span class="term-prompt">$</span> cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --release shop-redis --namespace shop --values values-successor.yaml</code></pre>
       <p>Look for <code>images tagged latest or not tagged: 0</code>, because the image is pinned by digest. Every value applies, and there is no preset and no field that changes on every render.</p>
+      <p>Look also at what the check does not say. The <code>reuse-existing-secret</code> base reads the password from a Secret named <code>redis-existing-secret</code>, key <code>redis-password</code>, and the chart does not create it. <code>cub config check</code> names the <code>shop</code> namespace that must already exist, but it does not warn about the missing Secret, and without it the Redis pod cannot start. The local walkthrough stops at checking the files; it does not create this Secret.</p>
+      <p><strong>Optional, before a real deployment.</strong> Skip this command for the local demo. It writes to your selected Kubernetes cluster and requires <code>kubectl</code>, <code>openssl</code>, permission to create Secrets, and an existing <code>shop</code> namespace. Create the Secret before installing the alternative:</p>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> kubectl create secret generic redis-existing-secret --namespace shop --from-literal=redis-password=&quot;$(openssl rand -base64 24)&quot;</code></pre>
+      <p>Point the shop app at the same Secret, so both read one password that no sync changes.</p>
+      <p>This is a different chart, so the move is a migration. The Bitnami chart's Service is <code>shop-redis-master</code> and its PVC is <code>redis-data-shop-redis-master-0</code>. This chart's Service is <code>shop-redis</code> and its PVC is <code>data-shop-redis-0</code>. The new Redis starts on an empty volume, so copy any data you need to keep, and change the host the shop app connects to.</p>
       <h3 id="step-8">8. Render the alternative twice</h3>
       <pre class="terminal-body"><code><span class="term-prompt">$</span> helm template shop-redis oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --namespace shop -f values-successor.yaml &gt; work/successor-again.yaml
 

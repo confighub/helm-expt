@@ -626,7 +626,7 @@
     <p class="eyebrow">Journey 3 of 5</p>
     <h1>My app does not fit my platform</h1>
     <p class="lead">An app assumes things about the cluster it lands on: an ingress controller of a certain class, something that issues certificates, something that scrapes metrics. You can find out whether the platform you picked provides them before anything is applied, and fix whichever side is wrong.</p>
-    <p><strong>Time.</strong> About six minutes. <strong>Needs.</strong> <code>cub</code> and the workshop plugin. No server, no account, no cluster.</p>
+    <p><strong>Time.</strong> About six minutes. <strong>Needs.</strong> <code>cub</code>, the workshop plugin, <code>oras</code>, and a network that can reach <code>europe-west1-docker.pkg.dev</code>. Steps 3, 5, 6 and 7 use <code>oras</code> to pull each Catalog bundle by digest from that registry, anonymously, and keep a copy under <code>$TMPDIR/cub-stack-bundles</code> for later runs. No server, no account, no cluster.</p>
   </header>
   <main>
     <section aria-labelledby="run-it-yourself">
@@ -636,7 +636,7 @@
 <span class="term-prompt">$</span> git clone https://github.com/monadic/workshop-demo
 
 <span class="term-comment"># use the version this page describes</span>
-<span class="term-prompt">$</span> git -C workshop-demo checkout --quiet 6e56b6707e13
+<span class="term-prompt">$</span> git -C workshop-demo checkout --quiet e0a525af6b45
 
 <span class="term-comment"># open this journey</span>
 <span class="term-prompt">$</span> cd workshop-demo/3-what-my-app-needs
@@ -646,12 +646,12 @@
     </section>
     <section aria-labelledby="with-your-agent">
       <h2 id="with-your-agent">Or let your agent run it</h2>
-      <p>Give your agent the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/3-what-my-app-needs/PROMPT.md">PROMPT.md</a> and nothing else. It follows the same steps, with the same numbers, and shows you the command after each one. You decide at each step whether to go on.</p>
+      <p>Give your agent the journey's <a href="https://github.com/monadic/workshop-demo/blob/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/3-what-my-app-needs/PROMPT.md">PROMPT.md</a> and nothing else. It follows the same steps, with the same numbers, and shows you the command after each one. You decide at each step whether to go on.</p>
       <p>Keep this page and the README from your agent. They say what each step finds, so an agent that reads them knows the answers before it starts.</p>
     </section>
     <section aria-labelledby="the-steps">
       <h2 id="the-steps">The steps</h2>
-      <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/3-what-my-app-needs/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/tree/6e56b6707e13358f50f4257a6030cf5e951778b2/3-what-my-app-needs/expected">expected/</a>.</p>
+      <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/3-what-my-app-needs/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/tree/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/3-what-my-app-needs/expected">expected/</a>.</p>
       <pre class="terminal-body"><code><span class="term-comment"># the steps write their output here</span>
 <span class="term-prompt">$</span> mkdir -p work</code></pre>
       <h3 id="step-1">1. Ask what the app needs from a platform</h3>
@@ -660,26 +660,44 @@
       <p>Look for three <code>NEEDS</code> lines: an ingress controller, cert-manager, and a Prometheus operator.</p>
       <h3 id="step-2">2. Look at the platform you picked first</h3>
       <p>Three Catalog parts and the app.</p>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> grep -E &quot;^  name:|- name:|authored:&quot; platform-first-try.yaml</code></pre>
+      <p>Look for cert-manager, traefik and metrics-server, each a Catalog bundle pinned by digest, then your own <code>shop-web</code> file.</p>
       <h3 id="step-3">3. Certify the app on that platform, and get refused</h3>
       <pre class="terminal-body"><code><span class="term-prompt">$</span> cub stack check platform-first-try.yaml</code></pre>
       <p>Look for <code>=&gt; REFUSED</code> and the two reasons. The Ingress asks for class <code>nginx</code> and this platform's controller is Traefik. The ServiceMonitor needs a Prometheus operator and nothing here provides one. Both would have failed quietly on a real cluster.</p>
       <h3 id="step-4">4. Fix both sides</h3>
       <p>The app changes one line and moves to the <code>traefik</code> ingress class, because the platform already has that controller. The platform gains one part from the Catalog, kube-prometheus-stack, because the app asked for a Prometheus operator and should keep its monitoring. Two diffs show every line.</p>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> diff shop-web.yaml shop-web-adapted.yaml
+
+<span class="term-prompt">$</span> diff platform-first-try.yaml platform.yaml</code></pre>
+      <p>Lines marked <code>&lt;</code> are before and lines marked <code>&gt;</code> are after. Each <code>diff</code> exits 1 because the files differ.</p>
       <h3 id="step-5">5. Certify again</h3>
       <pre class="terminal-body"><code><span class="term-prompt">$</span> cub stack check platform.yaml</code></pre>
       <p>Look for <code>=&gt; CHECKED</code>: no conflicts across 215 objects, CRDs ordered before the resources that need them, and <code>app needs met</code> naming all three needs from step 1. Look at the warnings too. Certify says what it cannot see from here: five namespaces and a ClusterIssuer that must already exist on the cluster you deliver to.</p>
       <h3 id="step-6">6. Render the platform with the app on it</h3>
-      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub stack sandbox platform.yaml --out work/platform.yaml</code></pre>
-      <p>Every object, in the order it has to be applied. kubectl, Argo CD and Flux all take that file as it is.</p>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> mkdir -p work
+
+<span class="term-prompt">$</span> cub stack sandbox platform.yaml --out work/platform.yaml
+
+<span class="term-prompt">$</span> grep -c &quot;^kind:&quot; work/platform.yaml</code></pre>
+      <p>Every object, in the order it has to be applied. kubectl, Argo CD and Flux all take that file as it is. Look for 215, the same count the check read.</p>
       <h3 id="step-7">7. Save it as a workspace you can edit and check again</h3>
       <p>The workspace holds the editable parts, the manifest, the render and the verdict.</p>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> rm -rf work/shop-platform
+
+<span class="term-prompt">$</span> cub stack sandbox platform.yaml --workspace work/shop-platform
+
+<span class="term-prompt">$</span> ls work/shop-platform</code></pre>
+      <p>Look for <code>components</code>, <code>stack.yaml</code>, <code>rendered.yaml</code> and <code>result.json</code>. Edit a component, then run <code>cub stack check work/shop-platform/stack.yaml</code> to check it again.</p>
     </section>
     <section aria-labelledby="your-own">
       <h2 id="your-own">Use it on your own configuration</h2>
-      <p>The README's section <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/3-what-my-app-needs/README.md#continue-with-your-own-rendered-app">Continue with your own rendered app</a> runs the same check on your own files. This is its first command, and the section goes on from there.</p>
+      <p>The README's section <a href="https://github.com/monadic/workshop-demo/blob/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/3-what-my-app-needs/README.md#continue-with-your-own-rendered-app">Continue with your own rendered app</a> runs the same check on your own files. This is its first command, and the section goes on from there.</p>
       <pre class="terminal-body"><code><span class="term-prompt">$</span> set -eu
 
 <span class="term-prompt">$</span> umask 077
+
+<span class="term-prompt">$</span> mkdir -p work
 
 <span class="term-prompt">$</span> mkdir work/own-app
 

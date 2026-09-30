@@ -636,7 +636,7 @@
 <span class="term-prompt">$</span> git clone https://github.com/monadic/workshop-demo
 
 <span class="term-comment"># use the version this page describes</span>
-<span class="term-prompt">$</span> git -C workshop-demo checkout --quiet 6e56b6707e13
+<span class="term-prompt">$</span> git -C workshop-demo checkout --quiet e0a525af6b45
 
 <span class="term-comment"># open this journey</span>
 <span class="term-prompt">$</span> cd workshop-demo/2-my-fixes-survive
@@ -646,16 +646,18 @@
     </section>
     <section aria-labelledby="with-your-agent">
       <h2 id="with-your-agent">Or let your agent run it</h2>
-      <p>Give your agent the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/2-my-fixes-survive/PROMPT.md">PROMPT.md</a> and nothing else. It follows the same steps, with the same numbers, and shows you the command after each one. You decide at each step whether to go on.</p>
+      <p>Give your agent the journey's <a href="https://github.com/monadic/workshop-demo/blob/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/2-my-fixes-survive/PROMPT.md">PROMPT.md</a> and nothing else. It follows the same steps, with the same numbers, and shows you the command after each one. You decide at each step whether to go on.</p>
       <p>Keep this page and the README from your agent. They say what each step finds, so an agent that reads them knows the answers before it starts.</p>
     </section>
     <section aria-labelledby="the-steps">
       <h2 id="the-steps">The steps</h2>
-      <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/2-my-fixes-survive/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/tree/6e56b6707e13358f50f4257a6030cf5e951778b2/2-my-fixes-survive/expected">expected/</a>.</p>
+      <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/2-my-fixes-survive/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/tree/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/2-my-fixes-survive/expected">expected/</a>.</p>
       <pre class="terminal-body"><code><span class="term-comment"># the steps write their output here</span>
 <span class="term-prompt">$</span> mkdir -p work</code></pre>
       <h3 id="step-1">1. Look at the three fixes you made by hand</h3>
       <p><code>grep</code> shows the three lines in <code>app-committed.yaml</code>.</p>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> grep -n -e &quot;replicas:&quot; -e &quot;db.shop.internal&quot; -e &quot;memory: 512Mi&quot; app-committed.yaml</code></pre>
+      <p>Look for three replicas, the real database host, and a 512Mi memory limit.</p>
       <h3 id="step-2">2. Look at the file the assistant wrote today</h3>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre class="terminal-body"><code><span class="term-prompt">$</span> cub config check app-regenerated.yaml</code></pre>
@@ -668,6 +670,12 @@
       <p>Look for one changed field, the probe. That is the change you asked for, and nothing else.</p>
       <h3 id="step-5">5. Keep a record of the review, and make it a gate</h3>
       <p>With <code>--exit-code</code> any change stops for a review, and <code>--out</code> writes both file hashes and every changed field to <code>work/review.json</code>.</p>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> mkdir -p work
+
+<span class="term-prompt">$</span> cub config diff app-committed.yaml app-regenerated.yaml --exit-code --out work/review.json
+
+<span class="term-prompt">$</span> grep -e '&quot;sha256&quot;' -e '&quot;changed&quot;' -e '&quot;path&quot;' work/review.json</code></pre>
+      <p>The diff exits 1 because fields changed, which is what stops a build. Look for two <code>sha256</code> lines, which pin the record to these exact files, and one <code>path</code> line for each field that changed.</p>
       <h3 id="step-6">6. With ConfigHub, let it remember your fixes</h3>
       <p>Step 4 was you, putting your fixes back by hand, and it will happen again next week. Log in with <code>cub auth login</code> first.</p>
       <p>Use these commands as the manual route, or use <code>DEMO_SPACE=my-workshop-space ./run.sh 6</code> and the same value with <code>./run.sh 7</code> as the script route. Do not mix them: the manual route does not write the local record that lets script step 7 continue, and script step 6 refuses a Space the manual route already created.</p>

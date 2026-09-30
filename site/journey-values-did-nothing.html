@@ -636,7 +636,7 @@
 <span class="term-prompt">$</span> git clone https://github.com/monadic/workshop-demo
 
 <span class="term-comment"># use the version this page describes</span>
-<span class="term-prompt">$</span> git -C workshop-demo checkout --quiet 6e56b6707e13
+<span class="term-prompt">$</span> git -C workshop-demo checkout --quiet e0a525af6b45
 
 <span class="term-comment"># open this journey</span>
 <span class="term-prompt">$</span> cd workshop-demo/1-catch-the-ai
@@ -646,38 +646,47 @@
     </section>
     <section aria-labelledby="with-your-agent">
       <h2 id="with-your-agent">Or let your agent run it</h2>
-      <p>Give your agent the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/1-catch-the-ai/PROMPT.md">PROMPT.md</a> and nothing else. It follows the same steps, with the same numbers, and shows you the command after each one. You decide at each step whether to go on.</p>
+      <p>Give your agent the journey's <a href="https://github.com/monadic/workshop-demo/blob/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/1-catch-the-ai/PROMPT.md">PROMPT.md</a> and nothing else. It follows the same steps, with the same numbers, and shows you the command after each one. You decide at each step whether to go on.</p>
       <p>Keep this page and the README from your agent. They say what each step finds, so an agent that reads them knows the answers before it starts.</p>
     </section>
     <section aria-labelledby="the-steps">
       <h2 id="the-steps">The steps</h2>
-      <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/1-catch-the-ai/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/tree/6e56b6707e13358f50f4257a6030cf5e951778b2/1-catch-the-ai/expected">expected/</a>.</p>
+      <p>These are the steps in the journey's <a href="https://github.com/monadic/workshop-demo/blob/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/1-catch-the-ai/README.md">README</a>. Run them from the journey's folder. The output of a real run is in <a href="https://github.com/monadic/workshop-demo/tree/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/1-catch-the-ai/expected">expected/</a>.</p>
       <pre class="terminal-body"><code><span class="term-comment"># the steps write their output here</span>
 <span class="term-prompt">$</span> mkdir -p work</code></pre>
       <h3 id="step-1">1. Read what the assistant wrote</h3>
       <p><code>cat values.yaml</code>. Nothing looks wrong.</p>
       <h3 id="step-2">2. Let Helm render it, and see what it would install</h3>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre class="terminal-body"><code><span class="term-prompt">$</span> helm template shop-redis oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --namespace shop -f values.yaml &gt; work/redis.yaml
+  <pre class="terminal-body"><code><span class="term-prompt">$</span> mkdir -p work
+
+<span class="term-prompt">$</span> helm template shop-redis oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --namespace shop -f values.yaml &gt; work/redis.yaml
 
 <span class="term-prompt">$</span> cub config check work/redis.yaml</code></pre>
       <p>Helm exits 0 and the objects look healthy. This is the trap.</p>
       <h3 id="step-3">3. Ask which of those values did anything</h3>
-      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --values values.yaml</code></pre>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --release shop-redis --namespace shop --values values.yaml</code></pre>
       <p>Look for <code>3 of 7 values did nothing.</code> The disk size, the memory limit and the replica count are all <code>IGNORED</code>, because this chart has no <code>master</code> or <code>replica</code> section. For each one the report says where this chart does read that setting.</p>
+      <p><code>--release shop-redis --namespace shop</code> gives the objects the same names as the step 2 render, such as <code>StatefulSet shop-redis</code>. Without them the report still counts the same values, but it names the objects <code>release-redis</code>.</p>
       <h3 id="step-4">4. Put each setting where this chart reads it</h3>
       <p><code>diff values.yaml values-fixed.yaml</code> shows the three settings moved. One of them also changes its number. The assistant wrote <code>replicaCount: 2</code> in another chart's meaning, two replicas beside a master. This chart counts every pod, so two replicas is <code>replicaCount: 3</code>. The right place is not enough when the same word means something else.</p>
       <h3 id="step-5">5. Ask again</h3>
-      <p>The same command on <code>values-fixed.yaml</code> ends with <code>Every value you set changed the result or matches the default.</code> The replica count reads <code>DEFAULT</code>: three pods is what this chart does anyway.</p>
+      <p>Run the step 3 command on the corrected file.</p>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --release shop-redis --namespace shop --values values-fixed.yaml</code></pre>
+      <p>It ends with <code>Every value you set changed the result or matches the default.</code> The replica count reads <code>DEFAULT</code>, because three pods is what this chart does anyway.</p>
       <h3 id="step-6">6. See what the fix changes in the objects</h3>
-      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub config diff work/redis.yaml work/redis-fixed.yaml</code></pre>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> helm template shop-redis oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --namespace shop -f values-fixed.yaml &gt; work/redis-fixed.yaml
+
+<span class="term-prompt">$</span> cub config diff work/redis.yaml work/redis-fixed.yaml</code></pre>
       <p>Look at what you were really getting. You asked for a 1Gi disk and had 8Gi. You asked for a memory limit and had none. Your two replicas were there, and only because the chart's default happens to be three pods. Nothing you wrote put them there.</p>
       <h3 id="step-7">7. Make it a gate</h3>
-      <p>With <code>--exit-code</code> the check fails a build when a value did nothing.</p>
+      <p>This is the step 3 command with <code>--exit-code</code> added, and it fails a build when a value did nothing.</p>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --release shop-redis --namespace shop --values values.yaml --exit-code</code></pre>
+      <p>It exits 1 here, because three values did nothing. It also exits 1 when a value was <code>NOT CHECKED</code> because the chart needed more renders than <code>--max-renders</code> allows. It exits 0 when every value changed the result or matches the default, as <code>values-fixed.yaml</code> does. It exits 2 when the check could not run, for example because the chart could not be fetched, so a build can tell a real finding from a broken check.</p>
     </section>
     <section aria-labelledby="your-own">
       <h2 id="your-own">Use it on your own configuration</h2>
-      <p>The README's section <a href="https://github.com/monadic/workshop-demo/blob/6e56b6707e13358f50f4257a6030cf5e951778b2/1-catch-the-ai/README.md#continue-with-your-own-chart">Continue with your own chart</a> runs the same check on your own files. This is its first command, and the section goes on from there. Replace each value in angle brackets with your own.</p>
+      <p>The README's section <a href="https://github.com/monadic/workshop-demo/blob/e0a525af6b4556fdfc52d8566e65a5a7151e82cf/1-catch-the-ai/README.md#continue-with-your-own-chart">Continue with your own chart</a> runs the same check on your own files. This is its first command, and the section goes on from there. Replace each value in angle brackets with your own.</p>
       <pre class="terminal-body"><code><span class="term-prompt">$</span> mkdir own-chart-review &amp;&amp; cd own-chart-review
 
 <span class="term-prompt">$</span> cp &quot;&lt;absolute-path-to-your-private-values-file&gt;&quot; values.yaml
@@ -685,7 +694,7 @@
 <span class="term-prompt">$</span> cub config values &quot;&lt;your-chart-or-absolute-local-chart-path&gt;&quot; --version &quot;&lt;your-existing-version&gt;&quot; \
   --namespace &quot;&lt;your-existing-namespace&gt;&quot; --release &quot;&lt;your-existing-release&gt;&quot; \
   --values values.yaml --out diagnosis.json --render-out candidate.yaml --exit-code</code></pre>
-      <p>The candidate is the explicit, flattened configuration the chart rendered from those inputs. Exit 1 means some values had no effect; investigate before accepting. Exit 2 means the command could not complete; resolve that error before drawing conclusions about the values. Keep <code>values.yaml</code> and <code>candidate.yaml</code> private: the candidate can contain Secrets. The diagnosis keeps requested inputs and hashes; the candidate is the exact render to inspect next time. If settings need repair, change a copied values file and repeat the command in a new directory such as <code>own-chart-review-fixed</code>; do not leave only a failed candidate.</p>
+      <p>The candidate is the explicit, flattened configuration the chart rendered from those inputs. Exit 1 means some values had no effect or were not checked; investigate before accepting. Exit 2 means the command could not complete; resolve that error before drawing conclusions about the values. Keep <code>values.yaml</code> and <code>candidate.yaml</code> private: the candidate can contain Secrets. The diagnosis keeps requested inputs and hashes; the candidate is the exact render to inspect next time. If settings need repair, change a copied values file and repeat the command in a new directory such as <code>own-chart-review-fixed</code>; do not leave only a failed candidate.</p>
       <p>These Guides go further: <a href="./d/docs/user/workshop-values-guide.html">Find why a Helm value did not change the output</a> · <a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a> · <a href="./d/docs/user/workshop-helm-questions-guide.html">Answer the ten questions Helm users ask</a>.</p>
     </section>
     <section aria-labelledby="why">
