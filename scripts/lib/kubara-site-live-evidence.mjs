@@ -724,6 +724,10 @@ export function validateKubaraProofStatus(doc) {
     if (reference.retired !== true || reference.rerun !== false) problems.push("historical evidence must be retired and not rerun");
     if (typeof reference.predates !== "string" || !reference.predates) problems.push("historical evidence must say what it predates");
     if (!live.repository || !live.path || !/^https:\/\/github\.com\//.test(String(live.url ?? ""))) problems.push("historical evidence must name the current live proof");
+    // The live proof is named at an exact commit, and each log it links lives
+    // under its path at that commit.
+    if (!/^[0-9a-f]{40}$/.test(String(live.commit ?? "")) || !String(live.url ?? "").includes(`/tree/${live.commit}/`)) problems.push("the current live proof must be named at an exact commit");
+    if (!Array.isArray(live.logs) || !live.logs.length || !live.logs.every((row) => typeof row?.title === "string" && row.title && String(row.path ?? "").startsWith(String(live.path)) && /\.log$/.test(row.path))) problems.push("the current live proof must list its recorded logs under its path");
   }
   if (problems.length) throw new Error(`${KUBARA_PROOF_STATUS_PATH}: ${problems.join("; ")}`);
   return doc;
@@ -731,6 +735,12 @@ export function validateKubaraProofStatus(doc) {
 
 export function readKubaraProofStatus(root = defaultRepoRoot) {
   return validateKubaraProofStatus(readYaml(join(root, KUBARA_PROOF_STATUS_PATH)));
+}
+
+// Each recorded log of the current live proof, linked at its exact commit.
+export function kubaraLiveProofLogs(status) {
+  const live = status.spec.currentLiveProof;
+  return live.logs.map((row) => ({ ...row, url: `https://github.com/${live.repository}/blob/${live.commit}/${row.path}` }));
 }
 
 export function kubaraRecordedMonth(status) {

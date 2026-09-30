@@ -15,6 +15,7 @@ import {
   KUBARA_SITE_EVIDENCE_PATHS,
   kubaraEvidencePill,
   kubaraEvidenceState,
+  kubaraLiveProofLogs,
   kubaraRecordedMonth,
   loadKubaraSiteLiveEvidenceInput,
   readKubaraProofStatus,
@@ -111,10 +112,26 @@ test('a historical proof status must say it is retired, what it predates, and wh
     (s) => { s.spec.reference.rerun = true; },
     (s) => { delete s.spec.reference.predates; },
     (s) => { delete s.spec.currentLiveProof; },
+    (s) => { delete s.spec.currentLiveProof.commit; },
+    (s) => { s.spec.currentLiveProof.url = 'https://github.com/confighub/kubara-confighub/tree/main/examples/kind-lab'; },
+    (s) => { s.spec.currentLiveProof.logs = []; },
+    (s) => { s.spec.currentLiveProof.logs[0].path = 'README.md'; },
     (s) => { s.spec.reference.recorded = 'August'; },
     (s) => { s.spec.reference.clusters = ['hx-app-dev']; },
   ]) {
     const copy = structuredClone(status); change(copy);
     assert.throws(() => validateKubaraProofStatus(copy));
   }
+});
+
+test('the current live proof is the kind lab at the pinned upstream commit, and its logs link there', () => {
+  const status = readKubaraProofStatus(root);
+  const lock = JSON.parse(readFileSync(join(root, lockPath), 'utf8'));
+  const live = status.spec.currentLiveProof;
+  assert.equal(live.repository, lock.repository);
+  assert.equal(live.commit, lock.commit);
+  assert.equal(live.url, `https://github.com/${lock.repository}/tree/${lock.commit}/examples/kind-lab`);
+  const logs = kubaraLiveProofLogs(status);
+  assert.ok(logs.length >= 1);
+  for (const row of logs) assert.equal(row.url, `https://github.com/${lock.repository}/blob/${lock.commit}/${row.path}`);
 });

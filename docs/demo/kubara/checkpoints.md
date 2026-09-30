@@ -25,8 +25,11 @@ reference organization, recorded in August 2026. That organization is retired
 and is not rerun, and its receipts predate the cub 0.4 field renames. By the
 owner's decision of 2026-09-30 the proof is accepted and labelled historical.
 The current live proof is the
-[kind lab](https://github.com/confighub/kubara-confighub/tree/main/examples/kind-lab)
-in confighub/kubara-confighub.
+[kind lab](https://github.com/confighub/kubara-confighub/tree/86884faae853b12e552354d0b7cb898bc8df59fa/examples/kind-lab)
+in confighub/kubara-confighub v0.2.3, with its
+[recorded run](https://github.com/confighub/kubara-confighub/blob/86884faae853b12e552354d0b7cb898bc8df59fa/examples/kind-lab/run-2026-09-30.log),
+[recorded hand-back](https://github.com/confighub/kubara-confighub/blob/86884faae853b12e552354d0b7cb898bc8df59fa/examples/kind-lab/handback-2026-09-30.log)
+and [run on Kubara v0.16](https://github.com/confighub/kubara-confighub/blob/86884faae853b12e552354d0b7cb898bc8df59fa/examples/kind-lab/run-v0.16-2026-09-30.log).
 
 | Claim | Exact evidence | Current status |
 | --- | --- | --- |
