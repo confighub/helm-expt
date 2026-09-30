@@ -458,6 +458,12 @@
     }
   }
 
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -620,7 +626,7 @@
     <p class="eyebrow">A Guide</p>
     <h1>Change a config safely</h1>
     <p class="lead">Decide whether a change rebuilds the base or belongs to one environment, then make it, preview it, and promote only what was reviewed.</p>
-    <p class="agent-ask"><strong>Or ask your agent.</strong> “I want to change &lt;field&gt; in &lt;environment&gt;. Tell me whether it belongs in the base or in that environment's variant, preview it, and wait for me before promoting.”</p>
+    <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“I want to change &lt;field&gt; in &lt;environment&gt;. Tell me whether it belongs in the base or in that environment's variant, preview it, and wait for me before promoting.”</aside>
   </header>
   <main>
     <section aria-labelledby="choose">

@@ -458,6 +458,12 @@
     }
   }
 
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
 .callout{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;background:var(--panel);padding:14px 16px;margin:16px 0;}
 .callout p{margin:0;color:var(--ink);}
 .steps-line{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 0;font-size:.9rem;color:var(--muted);}
@@ -640,7 +646,7 @@ em{font-style:italic;color:var(--ink);}
     <h1>Detailed Redis walkthrough</h1>
   <p class="boundary-chip">Runs on your laptop</p>
     <p class="lead">Use one Redis example from first render to major upgrade. The public steps need no ConfigHub account. Pull Redis 25.5.3 and inspect its 14 Kubernetes objects. Compare them with Helm, write them as OCI, then update the selected configuration to 27.0.0. Sign in when you want to record a change, compare it with an upgrade, promote it, and record a rollback.</p>
-    <p class="agent-ask"><strong>Or ask your agent.</strong> “Walk me through Redis from the Catalog. Pull it, inspect it and verify it, then show me the upgrade, and stop before any step that needs an account.”</p>
+    <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Walk me through Redis from the Catalog. Pull it, inspect it and verify it, then show me the upgrade, and stop before any step that needs an account.”</aside>
     <div class="steps-line">You'll: <span><b>pull Redis</b> &rarr;</span> <span><b>read and verify it</b> &rarr;</span> <span><b>write OCI</b> &rarr;</span> <span><b>upgrade the same selection</b> &rarr;</span> <span><b>review one stored change</b></span></div>
   </div>
 </header>

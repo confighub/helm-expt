@@ -458,6 +458,12 @@
     }
   }
 
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -620,7 +626,7 @@
     <p class="eyebrow">A Guide</p>
     <h1>Put an app on a platform</h1>
     <p class="lead">Certify checks first that the platform carries what the app needs, then you promote the app across environments in ConfigHub.</p>
-    <p class="agent-ask"><strong>Or ask your agent.</strong> “Check what my app needs, check it on &lt;platform&gt;, and tell me what to change on either side.”</p>
+    <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Check what my app needs, check it on &lt;platform&gt;, and tell me what to change on either side.”</aside>
     <p>The app lands on a <a href="./stack.html">stack</a> at the moment the stack check reads it. The <a href="./apps.html">Apps</a> list holds every worked example.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="#try">Try it now</a> · <a href="#demo">Follow the demo, step by step</a> · <a href="#confighub">Take it into ConfigHub</a> · <a href="#adopt">Bring an app that already runs</a></p>
   </header>
