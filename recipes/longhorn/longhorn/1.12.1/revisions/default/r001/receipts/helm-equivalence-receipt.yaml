@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "longhorn-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "1e1c0981fa9e52c72e1e6adac0a981b809532f423a8f095a362501a7bf77e5b8"
+    objectCount: 50
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 51
+    uploadedManifestFiles: 51
+    separatedSecretFiles: 0
+    semanticObjectMatches: "50/50"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||longhorn-system"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run kubara-catalog-3.0-coverage:compare"

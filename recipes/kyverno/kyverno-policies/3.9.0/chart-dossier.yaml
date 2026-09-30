@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "kyverno-kyverno-policies-3.9.0"
+spec:
+  chart: "kyverno/kyverno-policies"
+  version: "3.9.0"
+  maintainedNotes:
+    - "This package is the exact kyverno-policies@3.9.0 dependency selected by Kubara catalogs 3.0."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging."
+    - "It does not claim Kubara wrapper equivalence, live convergence, or production support."
+    - "The installer round trip inserts one blank line into the CEL expression of seven ValidatingPolicy objects; the equivalence check admits only that whitespace difference and compares everything else exactly."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "target-facts"
+    - "production-readiness-review"

@@ -1,0 +1,47 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "longhorn-longhorn-1.12.1"
+spec:
+  chart:
+    repository: "longhorn"
+    name: "longhorn"
+    version: "1.12.1"
+  package:
+    path: "packages/longhorn/longhorn/1.12.1"
+    name: "longhorn-longhorn"
+    version: "1.12.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "ee0e17099cc9c2f32523e6a58685046b22fa115ccbf3b6f1c0ffd4c1c4acafa2"
+        bytes: 366
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "1e1c0981fa9e52c72e1e6adac0a981b809532f423a8f095a362501a7bf77e5b8"
+        bytes: 210322
+      -
+        path: "installer.yaml"
+        sha256: "d51519e904ff0fb05236e1cc4d4dcacb588a860256d41bac7df7f5759851e677"
+        bytes: 304
+  deterministicBundle:
+    command: "cub installer package packages/longhorn/longhorn/1.12.1 -o <tmp>/longhorn-1.12.1.tgz"
+    sha256: "0b14a71dc38694400cbb71d82530ce1ed42e4bc13d34b13ee4e8382d99c2d3cd"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/longhorn/longhorn/1.12.1 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system"
+      helmReleaseObjectCount: 50
+      cubInstallObjectCountIncludingSupport: 51
+      semanticObjectMatches: "50/50"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||longhorn-system"

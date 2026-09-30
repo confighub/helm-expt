@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "kyverno-kyverno-policies-3.9.0-default-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "eae1a47312f3ecdf88eaabd4eff1d17e3259140694e265d3dbb5c71fc6f39278"
+  objectCount: 11
+  objects:
+    -
+      apiVersion: "policies.kyverno.io/v1beta1"
+      identity: "policies.kyverno.io/v1beta1|ValidatingPolicy||disallow-capabilities"
+      kind: "ValidatingPolicy"
+      name: "disallow-capabilities"
+      namespace: ""
+    -
+      apiVersion: "policies.kyverno.io/v1beta1"
+      identity: "policies.kyverno.io/v1beta1|ValidatingPolicy||disallow-host-namespaces"
+      kind: "ValidatingPolicy"
+      name: "disallow-host-namespaces"
+      namespace: ""
+    -
+      apiVersion: "policies.kyverno.io/v1beta1"
+      identity: "policies.kyverno.io/v1beta1|ValidatingPolicy||disallow-host-path"
+      kind: "ValidatingPolicy"
+      name: "disallow-host-path"
+      namespace: ""
+    -
+      apiVersion: "policies.kyverno.io/v1beta1"
+      identity: "policies.kyverno.io/v1beta1|ValidatingPolicy||disallow-host-ports"
+      kind: "ValidatingPolicy"
+      name: "disallow-host-ports"
+      namespace: ""
+    -
+      apiVersion: "policies.kyverno.io/v1beta1"
+      identity: "policies.kyverno.io/v1beta1|ValidatingPolicy||disallow-host-process"
+      kind: "ValidatingPolicy"
+      name: "disallow-host-process"
+      namespace: ""
+    -
+      apiVersion: "policies.kyverno.io/v1beta1"
+      identity: "policies.kyverno.io/v1beta1|ValidatingPolicy||disallow-privileged-containers"
+      kind: "ValidatingPolicy"
+      name: "disallow-privileged-containers"
+      namespace: ""
+    -
+      apiVersion: "policies.kyverno.io/v1beta1"
+      identity: "policies.kyverno.io/v1beta1|ValidatingPolicy||disallow-proc-mount"
+      kind: "ValidatingPolicy"
+      name: "disallow-proc-mount"
+      namespace: ""
+    -
+      apiVersion: "policies.kyverno.io/v1beta1"
+      identity: "policies.kyverno.io/v1beta1|ValidatingPolicy||disallow-selinux"
+      kind: "ValidatingPolicy"
+      name: "disallow-selinux"
+      namespace: ""
+    -
+      apiVersion: "policies.kyverno.io/v1beta1"
+      identity: "policies.kyverno.io/v1beta1|ValidatingPolicy||restrict-apparmor-profiles"
+      kind: "ValidatingPolicy"
+      name: "restrict-apparmor-profiles"
+      namespace: ""
+    -
+      apiVersion: "policies.kyverno.io/v1beta1"
+      identity: "policies.kyverno.io/v1beta1|ValidatingPolicy||restrict-seccomp"
+      kind: "ValidatingPolicy"
+      name: "restrict-seccomp"
+      namespace: ""
+    -
+      apiVersion: "policies.kyverno.io/v1beta1"
+      identity: "policies.kyverno.io/v1beta1|ValidatingPolicy||restrict-sysctls"
+      kind: "ValidatingPolicy"
+      name: "restrict-sysctls"
+      namespace: ""
