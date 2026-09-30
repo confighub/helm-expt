@@ -101,7 +101,7 @@
           "firstCommand": {
             "type": "string",
             "minLength": 1,
-            "description": "The first command the Guide runs for its own job, as the Guide prints it. It is there so an agent can see where the Guide starts; read the Guide for the inputs and what to look for."
+            "description": "The one command a single-task Guide starts with, as the Guide prints it. Only a Guide that begins with one command carries it; a Guide of several questions, paths or decisions does not. Read the Guide for the inputs and what to look for."
           }
         }
       }

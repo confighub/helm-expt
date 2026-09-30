@@ -205,8 +205,9 @@ function pageText(page) {
     .replace(/\s+/g, " ");
 }
 
-// The first command a Guide runs for its own job, recorded by hand in the
-// registry. It must appear on the Guide's page, so the row cannot drift from it.
+// The command a single-task Guide starts with, recorded by hand in the
+// registry. A Guide of several questions, paths or decisions has none. It must
+// appear on the Guide's page, so the row cannot drift from it.
 function guideCommand(guide) {
   check(guide.page, `guide ${guide.id}: a first command needs a site page to check it against`);
   const command = String(guide.command).replace(/\s+/g, " ").trim();
@@ -286,7 +287,7 @@ function schemaFor(section) {
 function fieldSchema(field, section) {
   if (field === "state" && section === "configs") return { type: "string", minLength: 1, description: "Discovery classification: classified when the listing carries roles that cub config list --role finds, and not-classified otherwise. It is not a review or readiness state; checks says what was checked." };
   if (field === "checks") return { type: "object", description: "The listing's four assessment stages, each as evidenceState/resultState, for example completed/pass. completed means the stage's evidence exists for this exact configuration; pending, not-run and blocked mean it does not. It checks the configuration, not your values or your cluster.", required: ["inspection", "materialization", "destination", "post-deployment"], additionalProperties: false, properties: Object.fromEntries(["inspection", "materialization", "destination", "post-deployment"].map((stage) => [stage, { type: "string", pattern: "^[a-z-]+/[a-z-]+$" }])) };
-  if (field === "firstCommand") return { type: "string", minLength: 1, description: "The first command the Guide runs for its own job, as the Guide prints it. It is there so an agent can see where the Guide starts; read the Guide for the inputs and what to look for." };
+  if (field === "firstCommand") return { type: "string", minLength: 1, description: "The one command a single-task Guide starts with, as the Guide prints it. Only a Guide that begins with one command carries it; a Guide of several questions, paths or decisions does not. Read the Guide for the inputs and what to look for." };
   if (field === "plugin") return { type: "string", description: "The cub plugin that runs this stack on real infrastructure. The stack row itself checks the composition without a cluster." };
   if (field === "stack" && section === "plugins") return { type: "string", description: "The Workshop stack this plugin runs. The stack's row checks its composition without a cluster; this plugin runs it on real infrastructure." };
   if (["objectCount", "partCount"].includes(field)) return { type: "integer", minimum: 0 };
