@@ -32,7 +32,7 @@
     {
       "id": "kubara",
       "name": "Kubara",
-      "summary": "Runs a Kubara platform through ConfigHub, with Catalog evidence for each chart.",
+      "summary": "Plans a Kubara platform, renders per-cluster configuration and prepares staged ConfigHub handover.",
       "state": "released",
       "commands": [
         "cub kubara"
@@ -43,6 +43,11 @@
         "tag": "v0.2.2"
       },
       "install": "cub plugin install confighub/kubara-confighub",
+      "note": "The current check can record Pass while an Application is Degraded; continuous post-handover status remains an open upstream gap.",
+      "guide": {
+        "address": "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md",
+        "title": "Plan and hand over a Kubara platform"
+      },
       "next": {
         "command": "cub plugin install confighub/kubara-confighub"
       }
@@ -50,7 +55,7 @@
     {
       "id": "sveltos",
       "name": "Sveltos",
-      "summary": "Brings a Sveltos fleet into ConfigHub, one variant per cluster.",
+      "summary": "Brings a Sveltos fleet into ConfigHub with management-cluster delivery, health reporting and target facts.",
       "state": "released",
       "commands": [
         "cub sveltos"
@@ -61,6 +66,11 @@
         "tag": "v0.10.0"
       },
       "install": "cub plugin install confighub/sveltos-confighub",
+      "note": "Handover rollback and chart-rendered Secret handling remain open upstream work; review those limits before importing a fleet.",
+      "guide": {
+        "address": "https://github.com/confighub/sveltos-confighub/blob/main/docs/user/onboard-your-sveltos-fleet.md",
+        "title": "Onboard a Sveltos fleet"
+      },
       "next": {
         "command": "cub plugin install confighub/sveltos-confighub"
       }
@@ -196,14 +206,18 @@
     {
       "id": "argo",
       "name": "Argo CD",
-      "summary": "Reads an Argo CD estate and plans it into ConfigHub.",
+      "summary": "Plans an Argo CD estate and writes a ConfigHub import and handover workflow.",
       "state": "in-progress",
       "commands": [
         "cub argo"
       ],
       "repository": "confighub/examples",
       "address": "https://github.com/confighub/examples/tree/main/cub-argo",
-      "note": "Build from source with Go and make. In the examples checkout, run make -C cub-argo install-plugin. No standalone release yet.",
+      "note": "No standalone release yet. Follow the source-build Guide and start with plan, which needs no account and changes no cluster; generating handover files does not execute them.",
+      "guide": {
+        "address": "https://github.com/confighub/examples/blob/main/cub-argo/docs/onboard-your-argo-estate.md",
+        "title": "Assess an existing Argo CD estate"
+      },
       "next": {
         "address": "https://github.com/confighub/examples/tree/main/cub-argo"
       }
@@ -211,14 +225,18 @@
     {
       "id": "flux",
       "name": "Flux",
-      "summary": "Reads a Flux fleet repository and plans it into ConfigHub.",
+      "summary": "Plans a Flux fleet, writes a ConfigHub handover workflow and reports release-digest status.",
       "state": "in-progress",
       "commands": [
         "cub flux"
       ],
       "repository": "confighub/examples",
       "address": "https://github.com/confighub/examples/tree/main/cub-flux",
-      "note": "Build from source with Go and make. In the examples checkout, run make -C cub-flux install-plugin. No standalone release yet.",
+      "note": "No standalone release yet. Start with the source-built plan command, which changes no cluster. Health reporting requires configured workload checks; review bootstrap ownership before handover.",
+      "guide": {
+        "address": "https://github.com/confighub/examples/blob/main/cub-flux/docs/onboard-your-flux-fleet.md",
+        "title": "Assess an existing Flux fleet"
+      },
       "next": {
         "address": "https://github.com/confighub/examples/tree/main/cub-flux"
       }

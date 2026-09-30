@@ -51,7 +51,7 @@ const ROW_FIELDS = {
   configs: { required: ["id", "name", "format", "version", "base", "summary", "state", "objectCount", "flatteningVerdict", "checks", "listing", "next"], optional: ["digest", "page"] },
   stacks: { required: ["id", "name", "summary", "state", "parts", "partCount", "checked", "source", "next"], optional: ["plugin"] },
   apps: { required: ["id", "name", "summary", "state", "delivery", "repository", "branch", "checkedCommit", "address", "next"], optional: ["path", "note"] },
-  plugins: { required: ["id", "name", "summary", "state", "commands", "next"], optional: ["repository", "address", "release", "install", "note", "stack"] },
+  plugins: { required: ["id", "name", "summary", "state", "commands", "next"], optional: ["repository", "address", "release", "install", "note", "stack", "guide"] },
   guides: { required: ["id", "group", "title", "summary", "state", "address", "next"], optional: ["groupTitle", "firstCommand"] },
 };
 
@@ -186,6 +186,7 @@ function pluginRows(registry) {
       ...(plugin.release ? { release: plugin.release } : {}),
       ...(plugin.install ? { install: plugin.install } : {}),
       ...(plugin.note ? { note: plugin.note } : {}),
+      ...(plugin.guide ? { guide: plugin.guide } : {}),
       ...(plugin.stack ? { stack: plugin.stack } : {}),
       next: plugin.install ? { command: plugin.install } : plugin.address ? { address: plugin.address } : { note: plugin.note ?? "Not yet published." },
     };
@@ -285,6 +286,7 @@ function schemaFor(section) {
 }
 
 function fieldSchema(field, section) {
+  if (field === "guide") return { type: "object", required: ["address", "title"], additionalProperties: false, properties: { address: { type: "string", pattern: "^https://", minLength: 1 }, title: { type: "string", minLength: 1 } } };
   if (field === "state" && section === "configs") return { type: "string", minLength: 1, description: "Discovery classification: classified when the listing carries roles that cub config list --role finds, and not-classified otherwise. It is not a review or readiness state; checks says what was checked." };
   if (field === "checks") return { type: "object", description: "The listing's four assessment stages, each as evidenceState/resultState, for example completed/pass. completed means the stage's evidence exists for this exact configuration; pending, not-run and blocked mean it does not. It checks the configuration, not your values or your cluster.", required: ["inspection", "materialization", "destination", "post-deployment"], additionalProperties: false, properties: Object.fromEntries(["inspection", "materialization", "destination", "post-deployment"].map((stage) => [stage, { type: "string", pattern: "^[a-z-]+/[a-z-]+$" }])) };
   if (field === "firstCommand") return { type: "string", minLength: 1, description: "The one command a single-task Guide starts with, as the Guide prints it. Only a Guide that begins with one command carries it; a Guide of several questions, paths or decisions does not. Read the Guide for the inputs and what to look for." };
