@@ -22,7 +22,7 @@
       "repository": "confighub/cub-workshop",
       "release": {
         "date": "2026-09-30",
-        "tag": "v0.6.51"
+        "tag": "v0.6.52"
       },
       "install": "cub plugin install confighub/cub-workshop",
       "next": {
