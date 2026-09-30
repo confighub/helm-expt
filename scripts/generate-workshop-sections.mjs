@@ -205,8 +205,9 @@ function pageText(page) {
     .replace(/\s+/g, " ");
 }
 
-// The first command a Guide runs for its own job, recorded by hand in the
-// registry. It must appear on the Guide's page, so the row cannot drift from it.
+// The command a single-task Guide starts with, recorded by hand in the
+// registry. A Guide of several questions, paths or decisions has none. It must
+// appear on the Guide's page, so the row cannot drift from it.
 function guideCommand(guide) {
   check(guide.page, `guide ${guide.id}: a first command needs a site page to check it against`);
   const command = String(guide.command).replace(/\s+/g, " ").trim();
@@ -217,6 +218,10 @@ function guideCommand(guide) {
 function guideRows(registry) {
   const groups = new Map(registry.spec.groups.map((group) => [group.id, group.title]));
   check(registry.spec.groups[0]?.id === "journeys", "the five journeys must be the first group");
+  for (const group of registry.spec.groups) {
+    const extra = Object.keys(group).filter((key) => !["id", "title"].includes(key));
+    check(extra.length === 0, `guide group ${group.id}: ${extra.join(", ")} belongs on a Guide, not a group`);
+  }
   const rows = registry.spec.guides.map((guide) => {
     check(groups.has(guide.group), `guide ${guide.id}: unknown group ${guide.group}`);
     check(Boolean(guide.page) !== Boolean(guide.repository), `guide ${guide.id}: give a site page or a repository path, not both`);
@@ -282,7 +287,7 @@ function schemaFor(section) {
 function fieldSchema(field, section) {
   if (field === "state" && section === "configs") return { type: "string", minLength: 1, description: "Discovery classification: classified when the listing carries roles that cub config list --role finds, and not-classified otherwise. It is not a review or readiness state; checks says what was checked." };
   if (field === "checks") return { type: "object", description: "The listing's four assessment stages, each as evidenceState/resultState, for example completed/pass. completed means the stage's evidence exists for this exact configuration; pending, not-run and blocked mean it does not. It checks the configuration, not your values or your cluster.", required: ["inspection", "materialization", "destination", "post-deployment"], additionalProperties: false, properties: Object.fromEntries(["inspection", "materialization", "destination", "post-deployment"].map((stage) => [stage, { type: "string", pattern: "^[a-z-]+/[a-z-]+$" }])) };
-  if (field === "firstCommand") return { type: "string", minLength: 1, description: "The first command the Guide runs for its own job, as the Guide prints it. It is there so an agent can see where the Guide starts; read the Guide for the inputs and what to look for." };
+  if (field === "firstCommand") return { type: "string", minLength: 1, description: "The one command a single-task Guide starts with, as the Guide prints it. Only a Guide that begins with one command carries it; a Guide of several questions, paths or decisions does not. Read the Guide for the inputs and what to look for." };
   if (field === "plugin") return { type: "string", description: "The cub plugin that runs this stack on real infrastructure. The stack row itself checks the composition without a cluster." };
   if (field === "stack" && section === "plugins") return { type: "string", description: "The Workshop stack this plugin runs. The stack's row checks its composition without a cluster; this plugin runs it on real infrastructure." };
   if (["objectCount", "partCount"].includes(field)) return { type: "integer", minimum: 0 };
@@ -415,6 +420,7 @@ function selfTest() {
     throw new Error(`self-test ${name}: a broken registry was accepted`);
   };
   refuses("duplicate plugin", (i) => i.plugins.spec.plugins.push(clone(i.plugins.spec.plugins[0])), "appears twice");
+  refuses("field on a guide group", (i) => { i.guides.spec.groups[1].command = "cub config check redis"; }, "belongs on a Guide, not a group");
   refuses("first command not on the page", (i) => { i.guides.spec.guides.find((g) => g.command).command = "cub no-such-command"; }, "does not appear on");
   refuses("plugin naming a missing stack", (i) => { i.plugins.spec.plugins.find((p) => p.stack).stack = "no-such-stack"; }, "is not a shipped platform stack");
   refuses("listing missing an assessment stage", (i) => {
@@ -433,7 +439,7 @@ function selfTest() {
   refuses("four journeys", (i) => { i.guides.spec.guides.shift(); }, "five journeys");
   refuses("empty summary", (i) => { i.stacks.spec.stacks[0].description = " "; }, "has no summary");
   check(validate({ rows: [] }, schemaFor("plugins")).length > 0, "self-test: the schema accepted a document with no header");
-  console.log("self-test passed: duplicate IDs, unknown states, missing install commands, short commits, unknown deliveries, missing pages, journey order, empty summaries, a Guide command missing from its page, a plugin naming a missing stack and a listing missing an assessment stage are all refused");
+  console.log("self-test passed: duplicate IDs, unknown states, missing install commands, short commits, unknown deliveries, missing pages, journey order, empty summaries, a field put on a Guide group, a Guide command missing from its page, a plugin naming a missing stack and a listing missing an assessment stage are all refused");
 }
 
 function syncStacks(from) {
