@@ -5790,6 +5790,12 @@ function askHtml(catalog) {
     <section aria-labelledby="build-prompt">
       <h2 id="build-prompt">Start with a chart and values</h2>
       <p>Choose one question. This form does not upload a values file or render Helm in your browser. It builds instructions for the Claude, Codex, or other AI assistant already running on your machine. The assistant runs Helm locally, records the inputs, and compares the exact objects.</p>
+      <ol>
+        <li><strong>Describe the problem.</strong> Add your chart, version, and values or symptoms below; remove secrets first.</li>
+        <li><strong>Run it locally.</strong> Build the instructions and give them to the assistant you already use; it runs Helm on your machine and writes the rendered objects there.</li>
+        <li><strong>Keep the result.</strong> Keep the objects and diagnosis locally, or bring the objects to <a href="#check-files">the browser check</a> to download a complete review or choose the optional ConfigHub handoff.</li>
+      </ol>
+      <p>ConfigHub is useful when a team needs to keep an accepted decision with the configuration, then approve and promote it. <a href="https://github.com/confighub/helm-expt/blob/main/data/config-review-decision-chain/summary.md">See the completed NGINX review carried through ConfigHub and staging</a>; you can finish this local review without signing up.</p>
       <div class="card">
         <p><label for="question-type"><strong>Choose a question</strong></label><br>
           <select id="question-type" style="width:100%;padding:10px;margin-top:6px">${options}</select></p>
