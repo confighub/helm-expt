@@ -2777,7 +2777,7 @@ function guideAgentAsks() {
 function injectAgentAsk(html, relPath) {
   const ask = guideAgentAsks()[relPath];
   if (!ask) return html;
-  const line = `\n    <p class="agent-ask"><strong>Or ask your agent.</strong> “${ask}”</p>`;
+  const line = `\n    ${agentNote(`“${ask}”`, "Give this to your agent")}`;
   const lead = html.match(/<p class="lead">[\s\S]*?<\/p>/);
   if (lead) return html.slice(0, lead.index + lead[0].length) + line + html.slice(lead.index + lead[0].length);
   const h1 = html.match(/<h1>[\s\S]*?<\/h1>[\s\S]*?<\/p>/);
@@ -3246,6 +3246,12 @@ ${bannerCss()}
       scroll-behavior: auto !important;
     }
   }
+
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
 `;
 }
 
@@ -3499,7 +3505,8 @@ ${homeJourneyLinks()}
           <h2>Prompt Claude or Codex to get started</h2>
           <p class="intro">Paste this into Claude Code, Codex, or any agent that can run a shell.</p>
           <p class="agent-prompt"><code>${escapeHtml(AGENT_PROMPT_ONE_LINER)}</code></p>
-          <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt. An agent reads the same lists as data. <a href="./llms.txt">llms.txt</a> names the five section files first.</p>
+          <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt.</p>
+          ${agentNote(`Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.`)}
           <pre class="home-cmd"><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
           <p class="install-cub-note">New to <code>cub</code> and ConfigHub? <a href="./try.html#install-cub">Install the cub CLI</a> first. The public catalog uses OCI and standard config formats. You don’t need to sign up until you want to save changes in ConfigHub</p>
         </section>
@@ -5003,7 +5010,8 @@ function stackHtml() {
     ${topNav(".")}
     <h1>Stacks</h1>
     <p class="lead">A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders. A platform is what a stack becomes once it runs under governance with your apps on it.</p>
-    <p><a href="./compose-a-stack.html">Compose and check a stack</a> shows how, step by step. An agent reads the same rows at <a href="./stacks.json">stacks.json</a>.</p>
+    <p><a href="./compose-a-stack.html">Compose and check a stack</a> shows how, step by step.</p>
+    ${agentNote(`Read the same rows as data at <a href="./stacks.json">stacks.json</a>.`)}
   </header>
   <main>
     <section aria-labelledby="what-a-stack-is">
@@ -6750,7 +6758,7 @@ function pluginsHtml() {
     ${topNav(".")}
     <h1>Plugins</h1>
     <p class="lead">Every public cub plugin, marked by its state. Released plugins have an install command; source builds link to their instructions.</p>
-    <p>An agent reads the same rows at <a href="./plugins.json">plugins.json</a>.</p>
+    ${agentNote(`Read the same rows as data at <a href="./plugins.json">plugins.json</a>.`)}
   </header>
   <main>
     <section aria-labelledby="every-plugin">
@@ -6791,7 +6799,7 @@ ${group.rows.map((row) => `        <li><a href="${escapeHtml(href(row.address))}
     ${topNav(".")}
     <h1>Guides</h1>
     <p class="lead">Each Guide is a known path that an agent walks with you beside it. Start from your problem, with the five journeys first.</p>
-    <p>An agent reads the same rows at <a href="./guides.json">guides.json</a>.</p>
+    ${agentNote(`Read the same rows as data at <a href="./guides.json">guides.json</a>.`)}
   </header>
   <main>
 ${sections}
@@ -7209,7 +7217,7 @@ function splitGuideHtml({ title, lead, ask = "", body, css = "", eyebrow = "A Gu
     <p class="eyebrow">${escapeHtml(eyebrow)}</p>
     <h1>${escapeHtml(title)}</h1>
     <p class="lead">${lead}</p>
-${ask ? `    <p class="agent-ask"><strong>Or ask your agent.</strong> ${ask}</p>` : ""}
+${ask ? `    ${agentNote(ask, "Give this to your agent")}` : ""}
   </header>
   <main>
 ${renumberSections(body)}  </main>
@@ -9060,7 +9068,8 @@ function appsHtml() {
     ${topNav(".")}
     <h1>Apps</h1>
     <p class="lead">An app is a workload you bring. It declares what it needs from the platform under it, and <code>cub app check</code> reads its own objects to report that.</p>
-    <p><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a> shows how, step by step. An agent reads the same rows at <a href="./apps.json">apps.json</a>.</p>
+    <p><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a> shows how, step by step.</p>
+    ${agentNote(`Read the same rows as data at <a href="./apps.json">apps.json</a>.`)}
   </header>
   <main>
     <section aria-labelledby="what-an-app-is">
@@ -13871,6 +13880,12 @@ function bannerCss() {
 `;
 }
 
+// A note written for agents, not people: a prompt to hand an agent, or where
+// an agent reads the same content as data. It renders in its own labelled box.
+function agentNote(html, label = "For agents") {
+  return `<aside class="agent-note" aria-label="${escapeHtml(label)}"><span class="agent-note-label">${escapeHtml(label)}</span>${html}</aside>`;
+}
+
 function siteCss() {
   return `
     :root {
@@ -14281,6 +14296,12 @@ ${bannerCss()}
       scroll-behavior: auto !important;
     }
   }
+
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
 `;
 }
 

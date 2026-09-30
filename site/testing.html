@@ -458,6 +458,12 @@
     }
   }
 
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
     #examples-content table { white-space: normal; }
     #examples-content th, #examples-content td { min-width: 0; }
     @media (max-width: 700px) {
@@ -632,7 +638,7 @@
     
     <h1>Find a starting configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-    <p class="agent-ask"><strong>Or ask your agent.</strong> “Find a starting configuration in the Catalog for what I need, and show me what it installs before anything runs.”</p>
+    <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Find a starting configuration in the Catalog for what I need, and show me what it installs before anything runs.”</aside>
     <p class="tagline">Start with the job you need done. Choose a tested component or platform example, then inspect the exact configuration before you use it.</p>
     <p>The ConfigHub Workshop Catalog keeps exact versions, useful configurations, known requirements, and the evidence behind each result. It exists so you do not have to repeat the same investigation for every chart or package.</p>
     <p>Each example names the question it answers. It may inspect a source, produce objects, check a destination, or report what happened after deployment. Later answers are never inferred from earlier ones.</p>

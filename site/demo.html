@@ -458,6 +458,12 @@
     }
   }
 
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -619,7 +625,7 @@
     
     <h1>From one chart to a governed fleet in ten minutes</h1>
     <p class="lead">You can see what a Helm chart installs before you install it, and check whether a whole platform holds together before any of it runs.</p>
-    <p class="agent-ask"><strong>Or ask your agent.</strong> “Run the ten-minute demo with me one step at a time, from one chart to a fleet, and tell me before any step that needs an account.”</p>
+    <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Run the ten-minute demo with me one step at a time, from one chart to a fleet, and tell me before any step that needs an account.”</aside>
     <p style="margin-top:14px;font-size:.9rem"><a href="#try">Try it now</a> · <a href="#config">1. Check one chart</a> · <a href="#app">2. Check one workload</a> · <a href="#stack">3. Check a stack</a> · <a href="#fleet">4. Govern a fleet</a></p>
   </header>
   <main>
