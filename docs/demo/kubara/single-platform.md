@@ -459,8 +459,9 @@ and the required second zero-action run:
 npm run kubara-git-import:self-test
 ```
 
-This self-test does not contact a live ConfigHub organization, registry, or
-cluster. The canned four-cluster reconciler below remains the separate live
+Run it from a checkout of [confighub/kubara-confighub](https://github.com/confighub/kubara-confighub), where the importer lives since the
+[#1956](https://github.com/confighub/helm-expt/issues/1956) cutover. This self-test does not contact a live ConfigHub
+organization, registry, or cluster. The canned four-cluster reconciler below remains the separate live
 proof and website source of truth.
 
 It is therefore not a live acceptance receipt for a fresh user-selected
@@ -576,10 +577,12 @@ node scripts/generate-kubara-wiring.mjs --generate --profile current
 node scripts/generate-kubara-wiring.mjs --verify --profile current
 node scripts/generate-kubara-wiring.mjs --self-test
 
-node scripts/generate-kubara-platform-matrix.mjs --generate --profile current
-node scripts/generate-kubara-platform-matrix.mjs --verify --profile current
-node scripts/generate-kubara-platform-matrix.mjs --self-test
+npm run kubara-upstream-evidence:verify
 ```
+
+The platform matrix is re-derived from the live receipts in [confighub/kubara-confighub](https://github.com/confighub/kubara-confighub); this
+repository pins every matrix output to one commit of it, and the last command
+checks that snapshot.
 
 Open the
 [colored component × cluster matrix](../../../data/kubara-platform-matrix/matrix.html)
@@ -612,6 +615,13 @@ binds this order to the expected inputs, receipts, catalog additions, published
 artifacts, topology proofs, mini-IDP state, and website. The faithful topology
 proof follows catalog publication; the mini-IDP receipt follows that proof;
 the live matrix and final catalog/site release follow the receipt.
+
+Since the [#1956](https://github.com/confighub/helm-expt/issues/1956) cutover this sequence runs from a checkout of
+[confighub/kubara-confighub](https://github.com/confighub/kubara-confighub), which carries the release verifier, the reconciler, the orphan auditor
+and the matrix generator under the same names. This repository then re-pins its
+receipts to the accepted commit with
+`node scripts/sync-kubara-upstream-evidence.mjs --pin <commit>`; see
+[Kubara upstream evidence](../../../docs/planning/kubara-upstream-evidence.md).
 
 The live steps require Docker, kind, Kubernetes tools, a signed-in `cub` CLI,
 and access to the `Kubara` ConfigHub organization. Qualification runners own

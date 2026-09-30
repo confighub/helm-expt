@@ -25,6 +25,13 @@ npm run kubara-platform-matrix:verify
 npm run kubara-wiring:verify
 ```
 
+Run this gate, and `npm run kubara-release:verify` below, from a checkout of
+[confighub/kubara-confighub](https://github.com/confighub/kubara-confighub): the release verifier, reconciler, orphan auditor and matrix generator
+live only there since the [#1956](https://github.com/confighub/helm-expt/issues/1956) cutover. The capture must bind that
+repository's commit. This repository then re-pins its receipts to it with
+`node scripts/sync-kubara-upstream-evidence.mjs --pin <commit>`; see
+[Kubara upstream evidence](../../../docs/planning/kubara-upstream-evidence.md).
+
 This gate deliberately does not require screenshots, so it cannot be satisfied
 by the images it is meant to authorize. It must bind one source commit and one
 organization to a current faithful receipt, current adapted receipt, the

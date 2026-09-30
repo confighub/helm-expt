@@ -14,8 +14,9 @@
 //   --self-test       verify that both retired live modes fail closed
 //
 // The 53-Space plan and receipt remain immutable historical evidence. The
-// current Kubara organization is owned by reconcile-kubara-mini-idp.mjs; this
-// script must never read or mutate that live state.
+// current Kubara organization is owned by the mini-IDP reconciler in
+// confighub/kubara-confighub; this script must never read or mutate that live
+// state.
 
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
@@ -43,9 +44,9 @@ function assertHistoricalModeIsSafe(selectedMode) {
   if (!RETIRED_LIVE_MODES.has(selectedMode)) return;
   throw new Error(
     `historical Kubara v0.12.0 mode ${selectedMode} is retired and cannot access ConfigHub; `
-      + "this artifact is read-only. Use npm run kubara-mini-idp:plan, "
-      + "npm run kubara-mini-idp:apply, and npm run kubara-mini-idp:verify "
-      + "for the current v0.13.0 organization.",
+      + "this artifact is read-only. The current v0.13.0 organization is "
+      + "reconciled from confighub/kubara-confighub (npm run kubara-mini-idp:plan, "
+      + "kubara-mini-idp:apply, and kubara-mini-idp:verify there).",
   );
 }
 

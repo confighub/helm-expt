@@ -43,9 +43,10 @@ That is the whole chain. CI runs it as six shards plus one shard for commands
 that need a command-line tool (`.github/workflows/full-verify.yml`). Lanes the
 repository already knows are red are declared in
 `tests/verify-chain-known-red.yaml`; a pull request that fixes one of them
-fails until the entry is removed, on purpose. Three Kubara live lanes are red
-on `main` today (shards 3, 4, and 6; see #1759); a pull request that only
-touches other surfaces is not judged on them.
+fails until the entry is removed, on purpose. The register is empty today. The
+Kubara live proof and its gates live in `confighub/kubara-confighub`; this
+repository pins that proof's receipts
+([docs/planning/kubara-upstream-evidence.md](docs/planning/kubara-upstream-evidence.md)).
 
 Narrower gates, run first:
 

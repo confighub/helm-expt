@@ -84,9 +84,9 @@ function chainRole(name, command) {
 }
 
 // A lane can be a compound. helm-render-intents:verify runs two commands that
-// the chain runs separately, and kubara-adoption:self-test delegates to four
-// other lanes with `npm run`. Either is genuinely covered, so expand both
-// shapes before deciding, or the catalog reports a gap that is not there.
+// the chain runs separately, and a lane can delegate to other lanes with
+// `npm run`. Either is genuinely covered, so expand both shapes before
+// deciding, or the catalog reports a gap that is not there.
 function coveredByChain(command, seen = new Set()) {
   const parts = String(command).split(" && ").map((part) => part.trim()).filter(Boolean);
   if (!parts.length) return false;
@@ -113,10 +113,9 @@ function categorize(name) {
   if (name.startsWith("kubara-catalog-release:")) return "catalog-data";
   if (name.startsWith("kubara-catalog-oci:")) return "oci-evidence";
   if (name.startsWith("kubara-catalog-adapter:") || name.startsWith("kubara-catalog-snapshots:") || name.startsWith("kubara-current-example:") || name.startsWith("kubara-effective-renders:")) return "catalog-data";
-  if (name.startsWith("kubara-wiring:") || name.startsWith("kubara-platform-matrix:")) return "evidence-workdown";
+  if (name.startsWith("kubara-wiring:")) return "evidence-workdown";
   if (name.startsWith("kubara-faithful-hub-spoke:") || name.startsWith("kubara-live-qualification:") || name.startsWith("kubara-current-live-qualification:")) return "live-parity-gitops";
   if (name.startsWith("kubara-mini-idp:")) return "confighub-proof";
-  if (name.startsWith("kubara-release:")) return "repo-integrity";
   if (name.startsWith("top20:local-e2e") || name.startsWith("top20:verify-local-e2e")) return "local-live-evidence";
   if (name.startsWith("top20:confighub-proof") || name.startsWith("top20:verify-confighub-proof")) return "confighub-proof";
   if (name.startsWith("top20:base-readiness")) return "catalog-readiness";
@@ -154,7 +153,6 @@ function classifyMode(name, command) {
   if (name === "verify") return "full-corpus-verify";
   if (name === "kubara-catalog-snapshots:refresh") return "generate-or-run";
   if (name === "kubara-catalog-release:generate") return "generate-or-run";
-  if (name === "kubara-release:verify-static") return "verify";
   if (name.endsWith(":receipt-verify") || name.endsWith(":current-receipt-verify")) return "verify";
   if (name.endsWith(":verify") || name.includes(":verify-") || name.startsWith("verify") || command.includes("--verify")) return "verify";
   if (name.endsWith(":self-test") || command.includes("self-test")) return "self-test";
@@ -190,8 +188,6 @@ function classifyExternalState(name, command, mode) {
 
 function classifyWritesFiles(name, command, mode) {
   if (name === "kubara-org-shape:plan") return "no";
-  if (name === "kubara-mini-idp:plan") return "no";
-  if (name === "kubara-mini-idp:apply") return "receipts-or-runs";
   if (name === "kubara-catalog-oci:dry-run") return "no";
   if (name === "kubara-catalog-oci:publish") return "receipts-or-runs";
   if (name === "kubara-catalog-release:generate") return "generated-artifacts";

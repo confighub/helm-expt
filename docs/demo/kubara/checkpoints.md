@@ -51,14 +51,25 @@ npm run kubara-current-example:verify
 npm run kubara-catalog-adapter:verify
 npm run kubara-catalog-full-coverage:verify
 npm run kubara-git-handoff:verify-current
-npm run kubara-git-import:self-test
-npm run kubara-selected-org:self-test
 npm run kubara-app-release:self-test
-npm run kubara-platform-matrix:verify
+npm run kubara-upstream-evidence:verify
 npm run kubara-wiring:verify
 npm run kubara-mini-idp:performance-contract:verify
 npm run kubara-mini-idp:performance:self-test
 ```
+
+The importer and selected-organization self-tests and the matrix
+re-derivation belong to the Kubara live proof, which lives in
+[confighub/kubara-confighub](https://github.com/confighub/kubara-confighub) since the [#1956](https://github.com/confighub/helm-expt/issues/1956) cutover. Run them there:
+
+```sh
+npm run kubara-git-import:self-test
+npm run kubara-selected-org:self-test
+npm run kubara-platform-matrix:verify
+```
+
+Here, `npm run kubara-upstream-evidence:verify` checks that the pinned matrix
+and receipts are exactly that repository's bytes at the pinned commit.
 
 Each check has a narrower claim than the complete live journey. Passing them
 does not synthesize a live receipt.

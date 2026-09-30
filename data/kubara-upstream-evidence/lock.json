@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "repository": "confighub/kubara-confighub",
   "commit": "a5bbe1fd20838d162e53cd8802293420c7ae53b5",
   "files": [
@@ -47,6 +47,58 @@
       "path": "runs/kubara-mini-idp-reconcile/attempts.yaml",
       "sha256": "a7534d676badafd5b68d4ae0a436b5fae38c7b994c893ed54904106fe854d1e4",
       "gitBlob": "f024dcd3da33ba7e5011ce4ce2f065111e2fba3e"
+    },
+    {
+      "path": "data/kubara-platform-matrix/desired-matrix.json",
+      "sha256": "e4e111557d4df457ac327c20baf09e5f2f8080cf698eb1767b12ba96962c0ee8",
+      "gitBlob": "f1b220345dc3b7e7c6b7943e697dc342c0bbc4d5"
+    },
+    {
+      "path": "data/kubara-platform-matrix/matrix.csv",
+      "sha256": "864faf35d3066bc44ef35526ea0adaa2e72bd62f93eb2716a29d91c042220dcc",
+      "gitBlob": "53cb7a0e996f9f30ffad0154fef35909bf0252c1"
+    },
+    {
+      "path": "data/kubara-platform-matrix/matrix.html",
+      "sha256": "2e5179ed21a22fc3021e253347a752a19b20dadfe73b82fce1cc1f63d09ba01f",
+      "gitBlob": "3334fd529a3bfa78f56c76e68619b267e88967b6"
+    },
+    {
+      "path": "data/kubara-platform-matrix/summary.md",
+      "sha256": "d90007ef2e3a67eb4f50044b69e35f8dd4d51d8250057ddfe1700ab01e32ea59",
+      "gitBlob": "a54d338161c42f71fb7033ae3745148d243914c0"
+    },
+    {
+      "path": "data/kubara-platform-matrix/historical-v0.12.0/matrix.json",
+      "sha256": "ba1af69877cb7dc0435b8c79cb2e4c0b9fa717c9caf47a709d840b87c8d833e3",
+      "gitBlob": "b542b92d257ce1410f1ba128d36139f3bbfa2602"
+    },
+    {
+      "path": "data/kubara-platform-matrix/historical-v0.12.0/matrix.csv",
+      "sha256": "f358a76e2efb1456837b64dab76ee69b0be51cba2393d60af24478377aab23ab",
+      "gitBlob": "b917b9d42187841e2d0cbeefc054dd1d39232c43"
+    },
+    {
+      "path": "data/kubara-platform-matrix/historical-v0.12.0/matrix.html",
+      "sha256": "21b42d3af6f91faf11aa6c4f37932f2734f82a03253d5bf299566cc03bb4d3ce",
+      "gitBlob": "d3cb165a3cbee735c0fd1576f69f301c2f135607"
+    },
+    {
+      "path": "data/kubara-platform-matrix/historical-v0.12.0/summary.md",
+      "sha256": "7a3b17d31a40d02813098a6a8d3fc55a2c885cfa6f878ed759dd1c33d51d48b1",
+      "gitBlob": "fd5cad61fd513d78e2b7d1ca98e7cd490b6b70a4"
+    }
+  ],
+  "implementations": [
+    {
+      "path": "scripts/reconcile-kubara-mini-idp.mjs",
+      "sha256": "bf61c8c203c1159f40855819495fa21273f23ef07c7e93b0a45dec9df2927230",
+      "gitBlob": "5cea46f7ae7bce5f8174fa60aa031a75e91bf3e7"
+    },
+    {
+      "path": "scripts/audit-kubara-mini-idp-orphans.mjs",
+      "sha256": "9beedf1f3f101fa2f370f34ed16ef102617abcb327d0d3fe7b052570d21d436b",
+      "gitBlob": "eb7002d44c0516486083e326a78c2a666e177bbe"
     }
   ]
 }

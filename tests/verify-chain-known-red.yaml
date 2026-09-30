@@ -20,21 +20,13 @@ spec:
     here. That is what makes this a ratchet rather than a list of excuses: it can
     only shrink, and the shrinking is noticed.
   note: >-
-    These entries do not change any receipt verdict or relax a verifier.
-    Retirement needs fresh reconciliation and orphan-audit receipts from the
-    pinned Kubara environment, followed by matrix regeneration and verification.
-  # #1759: current live receipts predate their execution/auditor code. Refresh
-  # them serially against the pinned Kubara organization and four hx-app-*
-  # targets; regeneration alone cannot supply fresh live evidence.
-  # The local read-only preflight cannot validate the pinned organization,
-  # and the four target clusters are absent on this machine.
-  steps:
-    - step: node scripts/generate-kubara-platform-matrix.mjs --self-test
-      error: current live matrix failed its publication gate
-      issue: https://github.com/confighub/helm-expt/issues/1759
-    - step: node scripts/generate-kubara-platform-matrix.mjs --verify --all
-      error: orphan receipt is not acceptedAsScopedResidueClean
-      issue: https://github.com/confighub/helm-expt/issues/1759
-    - step: node scripts/reconcile-kubara-mini-idp.mjs --receipt-verify
-      error: receipt reconcile runs do not share the current execution fingerprint
-      issue: https://github.com/confighub/helm-expt/issues/1759
+    Entries never change a receipt verdict or relax a verifier. The last three
+    were retired by moving their executors and gates to kubara-confighub, not
+    by refreshing or reinterpreting any receipt.
+  # Empty. The three #1759 Kubara lanes were retired with the live-evidence
+  # cutover (#1956, Option A): the executors they ran now live only in
+  # confighub/kubara-confighub, whose CI runs the same gates at the pinned
+  # commit. docs/planning/kubara-upstream-evidence.md records where each
+  # guarantee now lives. A new entry may be added when a lane genuinely goes
+  # red, and it fails the run again as soon as that lane passes.
+  steps: []

@@ -140,7 +140,8 @@ The executable sequence is `--compile-portable`, `--verify-portable`, then
 runs `--bind`, which produces the separate destination lock and
 `BindingDigest` without republishing or changing the portable payloads.
 
-Exercise the complete isolated importer contract with:
+Exercise the complete isolated importer contract from a checkout of
+[confighub/kubara-confighub](https://github.com/confighub/kubara-confighub), where the importer lives since the [#1956](https://github.com/confighub/helm-expt/issues/1956) cutover:
 
 ```sh
 npm run kubara-git-import:self-test

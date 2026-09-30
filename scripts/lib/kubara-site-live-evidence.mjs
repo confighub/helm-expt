@@ -4,6 +4,7 @@ import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { listFiles, readYaml, sha256, sha256File } from "./proof-common.mjs";
+import { blobID, lockPath as upstreamLockPath, validateLock } from "../sync-kubara-upstream-evidence.mjs";
 
 const libraryRoot = dirname(fileURLToPath(import.meta.url));
 const defaultRepoRoot = resolve(libraryRoot, "../..");
@@ -20,8 +21,6 @@ export const KUBARA_SITE_EVIDENCE_PATHS = Object.freeze({
   wiring: "data/kubara-wiring/graph.json",
   gui: "data/kubara-gui-evidence/receipt.yaml",
   guiTour: "docs/demo/kubara/gui-tour.md",
-  reconciler: "scripts/reconcile-kubara-mini-idp.mjs",
-  orphanAuditor: "scripts/audit-kubara-mini-idp-orphans.mjs",
   performanceContract: "data/kubara-mini-idp-performance/contract.yaml",
   performanceVerifier: "scripts/verify-kubara-mini-idp-performance.mjs",
 });
@@ -363,7 +362,7 @@ function evaluatePerformance({ miniIdp, orphan, attempts, digests, performanceCo
   return gate(reasons);
 }
 
-function evaluateOrphan({ orphan, miniIdp, digests, planSha256, reconcilerSha256, canonicalValidation, nowMs }) {
+function evaluateOrphan({ orphan, miniIdp, digests, pinnedImplementations, canonicalValidation, nowMs }) {
   const reasons = [];
   if (!orphan) return gate([`${KUBARA_SITE_EVIDENCE_PATHS.orphan} is absent`]);
   const expected = orphan.spec?.expected ?? {};
@@ -385,9 +384,17 @@ function evaluateOrphan({ orphan, miniIdp, digests, planSha256, reconcilerSha256
   requireFact(reasons, validTimestamp(orphan.spec?.observedAt), "orphan receipt observedAt is invalid");
   requireFact(reasons, timestampNotFuture(orphan.spec?.observedAt, nowMs), "orphan receipt observedAt is in the future");
   requireFact(reasons, timestampAtOrAfter(orphan.spec?.observedAt, miniIdp?.status?.observedAt), "orphan audit predates the accepted mini-IDP observation");
-  requireFact(reasons, orphan.spec?.source?.auditor === KUBARA_SITE_EVIDENCE_PATHS.orphanAuditor && orphan.spec?.source?.auditorSha256 === expectedSourceDigest(digests, KUBARA_SITE_EVIDENCE_PATHS.orphanAuditor), "orphan audit implementation digest is stale");
-  requireFact(reasons, SHA256_PREFIXED.test(planSha256 ?? "") && orphan.spec?.source?.reconcilePlanSha256 === planSha256, "orphan audit reconcile plan is stale");
-  requireFact(reasons, SHA256_PREFIXED.test(reconcilerSha256 ?? "") && orphan.spec?.source?.reconcilerSha256 === reconcilerSha256, "orphan audit reconciler is stale");
+  // The auditor and reconciler live in kubara-confighub. The receipts must name
+  // the exact implementations pinned in the upstream evidence lock, whose CI
+  // re-verified these receipts at that commit; nothing here re-runs them.
+  const auditor = pinnedImplementations?.auditor;
+  const reconciler = pinnedImplementations?.reconciler;
+  const acceptance = miniIdp?.status?.performanceAcceptance ?? {};
+  requireFact(reasons, Boolean(auditor) && orphan.spec?.source?.auditor === auditor.path && orphan.spec?.source?.auditorSha256 === auditor.sha256, "orphan audit implementation is not the pinned upstream auditor");
+  requireFact(reasons, Boolean(reconciler) && orphan.spec?.source?.reconciler === reconciler.path && orphan.spec?.source?.reconcilerSha256 === reconciler.sha256, "orphan audit reconciler is not the pinned upstream reconciler");
+  requireFact(reasons, Boolean(reconciler) && acceptance.reconcilerSha256 === reconciler.sha256, "mini-IDP acceptance reconciler is not the pinned upstream reconciler");
+  requireFact(reasons, SHA256_PREFIXED.test(orphan.spec?.source?.reconcilePlanSha256 ?? "") && orphan.spec.source.reconcilePlanSha256 === acceptance.reconcilePlanSha256, "orphan audit reconcile plan differs from the accepted mini-IDP plan");
+  requireFact(reasons, acceptance.orphanReceiptSha256 === expectedSourceDigest(digests, KUBARA_SITE_EVIDENCE_PATHS.orphan), "mini-IDP acceptance does not bind the exact orphan receipt");
   requireFact(reasons, orphan.spec?.source?.applyAttemptLedgerSha256 === expectedSourceDigest(digests, KUBARA_SITE_EVIDENCE_PATHS.attempts), "orphan audit durable attempt ledger is stale");
   requireFact(reasons, orphan.spec?.execution?.readOnly === true && orphan.spec?.execution?.liveMutationCommands === 0 && orphan.spec?.execution?.sharedSerialLiveLock === true && orphan.spec?.execution?.operationJournalRequiredQuiescent === true, "orphan audit was not a quiescent, serial, read-only observation");
   requireFact(reasons, sameStringSet(orphan.spec?.execution?.persistentClustersPreserved, CLUSTERS), "orphan audit persistent-cluster allowlist differs");
@@ -460,6 +467,7 @@ function evaluateMatrix({ matrix, miniIdp }) {
   requireFact(reasons, evidence.miniIdpReceipt?.observedAt === miniIdp?.status?.observedAt, "matrix and mini-IDP observation timestamps differ");
   requireFact(reasons, Number(evidence.miniIdpReceipt?.sourceDigestsVerified) === Object.keys(KUBARA_MINI_IDP_SOURCE_PATHS).length, "matrix did not verify every mini-IDP source digest");
   requireFact(reasons, Number(evidence.miniIdpReceipt?.parsedCells) === EXPECTED.matrixRows && Number(evidence.parsedObservationCells) === EXPECTED.matrixRows, "matrix did not parse every live cell");
+  requireFact(reasons, evidence.orphanReceipt?.status === "accepted-current-scoped-residue-clean" && evidence.orphanReceipt?.acceptedAsScopedResidueClean === true, "matrix does not accept the orphan receipt as scoped-residue clean");
   requireFact(reasons, scope.faithfulKubaraGitDelivery === "source-current-receipt-pass-with-recorded-scope", "matrix does not retain a current faithful delivery proof");
   requireFact(reasons, Number(scope.components) === EXPECTED.components && Number(scope.platformComponents) === EXPECTED.platformComponents && Number(scope.applications) === EXPECTED.applications && Number(scope.clusters) === EXPECTED.clusters && Number(scope.cells) === EXPECTED.matrixRows, "matrix scope differs");
   requireFact(reasons, matrix.spec?.components?.length === EXPECTED.components && matrix.spec?.clusters?.length === EXPECTED.clusters && rows.length === EXPECTED.matrixRows, "matrix inventory is incomplete");
@@ -601,21 +609,37 @@ export function kubaraGuiImagePaths(root = defaultRepoRoot) {
   }))].sort();
 }
 
-function currentPlanDigest(root) {
-  const reconciler = join(root, KUBARA_SITE_EVIDENCE_PATHS.reconciler);
-  if (!existsSync(reconciler)) return null;
+// The mini-IDP and orphan receipts are the kubara-confighub proof. Their
+// canonical verifiers run in that repository's CI at the pinned commit, which
+// `sync-kubara-upstream-evidence.mjs --verify-upstream` checks. Here those
+// receipts count as verified only while they are exactly the pinned bytes.
+function readUpstreamLock(root) {
   try {
-    const plan = JSON.parse(execFileSync(process.execPath, [reconciler, "--plan"], {
-      cwd: root,
-      env: process.env,
-      encoding: "utf8",
-      stdio: ["ignore", "pipe", "pipe"],
-      maxBuffer: 1024 * 1024 * 100,
-    }));
-    return `sha256:${sha256(stableJson(plan))}`;
+    return validateLock(JSON.parse(readFileSync(join(root, upstreamLockPath), "utf8")));
   } catch {
     return null;
   }
+}
+
+function pinnedUpstreamVerifier(root, lock, path, enabled, label) {
+  if (!enabled) return { current: false, reason: `${label} receipt is absent` };
+  if (!lock) return { current: false, reason: `${upstreamLockPath} is absent or invalid, so the ${label} receipt has no pinned upstream verification` };
+  const row = lock.files.find((item) => item.path === path);
+  if (!row) return { current: false, reason: `${label} receipt is not pinned in ${upstreamLockPath}` };
+  const absolute = join(root, path);
+  const bytes = existsSync(absolute) ? readFileSync(absolute) : null;
+  const pinned = bytes !== null && sha256(bytes) === row.sha256 && blobID(bytes) === row.gitBlob;
+  return pinned
+    ? { current: true, reason: null }
+    : { current: false, reason: `${label} receipt differs from the kubara-confighub snapshot pinned in ${upstreamLockPath}` };
+}
+
+function pinnedImplementationsFrom(lock) {
+  const byPath = new Map((lock?.implementations ?? []).map((row) => [row.path, { path: row.path, sha256: `sha256:${row.sha256}` }]));
+  return {
+    reconciler: byPath.get("scripts/reconcile-kubara-mini-idp.mjs") ?? null,
+    auditor: byPath.get("scripts/audit-kubara-mini-idp-orphans.mjs") ?? null,
+  };
 }
 
 function offlineVerifier(root, path, args, enabled, label) {
@@ -636,7 +660,11 @@ function offlineVerifier(root, path, args, enabled, label) {
   }
 }
 
-export function evaluateKubaraSiteLiveEvidence({ root = defaultRepoRoot, requireGui = true } = {}) {
+export function evaluateKubaraSiteLiveEvidence(options = {}) {
+  return evaluateKubaraSiteLiveEvidenceDocuments(loadKubaraSiteLiveEvidenceInput(options));
+}
+
+export function loadKubaraSiteLiveEvidenceInput({ root = defaultRepoRoot, requireGui = true } = {}) {
   const guiImagePaths = kubaraGuiImagePaths(root);
   const digestPaths = new Set([
     ...Object.values(KUBARA_MINI_IDP_SOURCE_PATHS),
@@ -647,12 +675,13 @@ export function evaluateKubaraSiteLiveEvidence({ root = defaultRepoRoot, require
   const miniIdp = optionalYaml(root, KUBARA_SITE_EVIDENCE_PATHS.miniIdp);
   const attempts = optionalYaml(root, KUBARA_SITE_EVIDENCE_PATHS.attempts);
   const orphan = optionalYaml(root, KUBARA_SITE_EVIDENCE_PATHS.orphan);
+  const upstreamLock = readUpstreamLock(root);
   const canonicalValidation = {
-    miniIdp: offlineVerifier(root, KUBARA_SITE_EVIDENCE_PATHS.reconciler, ["--receipt-verify"], Boolean(miniIdp), "mini-IDP"),
-    orphan: offlineVerifier(root, KUBARA_SITE_EVIDENCE_PATHS.orphanAuditor, ["--receipt-verify"], Boolean(orphan), "orphan audit"),
+    miniIdp: pinnedUpstreamVerifier(root, upstreamLock, KUBARA_SITE_EVIDENCE_PATHS.miniIdp, Boolean(miniIdp), "mini-IDP"),
+    orphan: pinnedUpstreamVerifier(root, upstreamLock, KUBARA_SITE_EVIDENCE_PATHS.orphan, Boolean(orphan), "orphan audit"),
     performance: offlineVerifier(root, KUBARA_SITE_EVIDENCE_PATHS.performanceVerifier, ["--receipt-verify"], Boolean(miniIdp && orphan), "performance pair"),
   };
-  return evaluateKubaraSiteLiveEvidenceDocuments({
+  return {
     config: optionalYaml(root, KUBARA_SITE_EVIDENCE_PATHS.config),
     catalogParity: optionalYaml(root, KUBARA_SITE_EVIDENCE_PATHS.catalogParity),
     faithful: optionalYaml(root, KUBARA_SITE_EVIDENCE_PATHS.faithful),
@@ -669,7 +698,6 @@ export function evaluateKubaraSiteLiveEvidence({ root = defaultRepoRoot, require
     generatedEvidence: currentGeneratedEvidence(root),
     nowMs: Date.now(),
     digests,
-    planSha256: orphan ? currentPlanDigest(root) : null,
-    reconcilerSha256: expectedSourceDigest(digests, KUBARA_SITE_EVIDENCE_PATHS.reconciler),
-  });
+    pinnedImplementations: pinnedImplementationsFrom(upstreamLock),
+  };
 }

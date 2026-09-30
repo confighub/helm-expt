@@ -677,7 +677,7 @@ function commandMap() {
     "master-catalog-matrix": { generate: "npm run master-matrix", verify: "npm run master-matrix:verify" },
     "disposition-frontier": { generate: "npm run disposition-frontier", verify: "npm run disposition-frontier:verify" },
     "environment-matrix": { generate: "npm run environment-matrix", verify: "npm run environment-matrix:verify" },
-    "kubara-platform-matrix": { generate: "npm run kubara-platform-matrix:generate", verify: "npm run kubara-platform-matrix:verify" },
+    "kubara-platform-matrix": { generate: "node scripts/sync-kubara-upstream-evidence.mjs --pin <kubara-confighub-commit>", verify: "npm run kubara-upstream-evidence:verify" },
     "kubara-wiring": { generate: "npm run kubara-wiring:generate", verify: "npm run kubara-wiring:verify" },
     "torture-suite": { generate: "npm run torture:suite", verify: "npm run torture:suite:verify" },
     "doc-freshness": { generate: "npm run doc-freshness", verify: "npm run doc-freshness:verify" },

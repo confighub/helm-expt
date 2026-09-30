@@ -7,7 +7,7 @@ on:
       - 'examples/kubara/current-platform/generation-receipt.yaml'
       - 'data/kubara-catalog-1.1-full-coverage/receipt.yaml'
       - 'data/kubara-release-acceptance/contract.yaml'
-      - 'data/kubara-platform-matrix/matrix.json'
+      - 'data/kubara-platform-matrix/**'
       - 'data/kubara-wiring/graph.json'
       - 'runs/kubara-mini-idp-reconcile/**'
       - 'scripts/sync-kubara-upstream-evidence.mjs'
@@ -23,6 +23,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      # Checks the snapshot bytes and the pinned executor identities against
+      # the upstream tree, and that the pinned commit's own CI ran and passed
+      # the gates that replaced helm-expt's retired Kubara lanes.
       - run: node scripts/sync-kubara-upstream-evidence.mjs --verify-upstream
         env:
           GITHUB_TOKEN: ${{ github.token }}
