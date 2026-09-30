@@ -50,6 +50,16 @@ opening a pull request.
 
 ## Proof limits
 
+The pinned proof is the Kubara v0.13 four-cluster `hx-app-*` reference
+organization, recorded in August 2026. By the owner's decision of 2026-09-30
+that organization is retired and frozen: it is not rerun, its receipts predate
+the cub 0.4 field renames, and the proof is accepted and labelled historical.
+[`proof-status.yaml`](../../data/kubara-upstream-evidence/proof-status.yaml)
+records that decision, and the site labels every accepted pill from it as
+"retained (historical)". The current live proof is the
+[kind lab](https://github.com/confighub/kubara-confighub/tree/main/examples/kind-lab)
+in kubara-confighub.
+
 The pin is `a5bbe1fd20838d162e53cd8802293420c7ae53b5`. All snapshot files were
 byte-identical to the existing Catalog copies when pinned. Integrity means these
 are the upstream files; it does not establish freshness or a new live run.
@@ -98,9 +108,15 @@ The orphan and performance receipts keep their other checks here unchanged:
 The reader previously compared the orphan receipt with helm-expt's own copies
 of the auditor and reconciler. Those copies had drifted from the ones that
 produced the receipts, so the page's orphan gate, and therefore its complete
-live chain, reported the receipts as stale. Bound to the pinned kubara-confighub
-executors that produced and verified them, the same receipts are current. The
-pill logic is unchanged; stale or re-pinned evidence still downgrades the pills.
+chain, reported the receipts as stale. Bound to the pinned kubara-confighub
+executors that produced and verified them, the chain is complete and
+consistent. Following the owner's decision, the Kubara pages say exactly that
+and label it frozen historical evidence, not current or live: accepted pills
+read "retained (historical)", the page state is `historical`, and the pages
+point to the kind lab as the current live proof. Unaccepted or inconsistent
+evidence still shows its warning pill. The pill rule and the proof-status
+checks are in `scripts/lib/kubara-site-live-evidence.mjs` and are covered by
+[tests/kubara-site-live-evidence.test.mjs](../../tests/kubara-site-live-evidence.test.mjs).
 
 ### Not transferred
 
@@ -113,6 +129,5 @@ pill logic is unchanged; stale or re-pinned evidence still downgrades the pills.
   release verifier. They remain here unchanged and are identical to the pinned
   commit; the contract's integrity is locked, the screenshot contract's is not.
 - The receipts predate the ChangeWorkflow/ChangeOrder attestation migration and
-  the cub 0.4 field renames. A fresh live run in kubara-confighub
-  (confighub/kubara-confighub#9) followed by a pin bump here is the only way to
-  refresh them.
+  the cub 0.4 field renames. The four-cluster organization is retired, so they
+  are not refreshed; they stay pinned as historical evidence.

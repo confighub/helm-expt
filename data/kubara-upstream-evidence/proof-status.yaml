@@ -1,0 +1,26 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: KubaraProofStatus
+metadata:
+  name: kubara-four-cluster-reference-proof
+spec:
+  # Owner decision of 2026-09-30: the four-cluster proof is accepted and
+  # labelled historical. The site may say its chain is complete and
+  # consistent, never that it is current or live.
+  state: historical
+  decidedAt: "2026-09-30"
+  reference:
+    kubaraVersion: v0.13.0
+    organization: Kubara
+    clusters:
+      - hx-app-dev
+      - hx-app-staging
+      - hx-app-prod-a
+      - hx-app-prod-b
+    recorded: "2026-08"
+    retired: true
+    rerun: false
+    predates: cub 0.4 field renames
+  currentLiveProof:
+    repository: confighub/kubara-confighub
+    path: examples/kind-lab/
+    url: https://github.com/confighub/kubara-confighub/tree/main/examples/kind-lab

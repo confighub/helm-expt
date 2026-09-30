@@ -701,3 +701,55 @@ export function loadKubaraSiteLiveEvidenceInput({ root = defaultRepoRoot, requir
     pinnedImplementations: pinnedImplementationsFrom(upstreamLock),
   };
 }
+
+// The owner's labelling decision for the four-cluster proof (2026-09-30).
+// An accepted chain is still labelled by this state: "historical" evidence is
+// complete and consistent but frozen, and must never read as current or live.
+export const KUBARA_PROOF_STATUS_PATH = "data/kubara-upstream-evidence/proof-status.yaml";
+const PROOF_STATES = new Set(["historical", "live"]);
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+export function validateKubaraProofStatus(doc) {
+  const spec = doc?.spec ?? {};
+  const reference = spec.reference ?? {};
+  const live = spec.currentLiveProof ?? {};
+  const problems = [];
+  if (doc?.kind !== "KubaraProofStatus") problems.push("kind is not KubaraProofStatus");
+  if (!PROOF_STATES.has(spec.state)) problems.push(`state must be one of ${[...PROOF_STATES].join(", ")}`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(spec.decidedAt ?? ""))) problems.push("decidedAt must be a date");
+  if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(String(reference.recorded ?? ""))) problems.push("reference.recorded must be a YYYY-MM month");
+  if (!sameStringSet(reference.clusters, CLUSTERS)) problems.push("reference clusters differ from the four hx-app-* clusters");
+  if (reference.kubaraVersion !== EXPECTED.kubaraVersion) problems.push(`reference Kubara version is not ${EXPECTED.kubaraVersion}`);
+  if (spec.state === "historical") {
+    if (reference.retired !== true || reference.rerun !== false) problems.push("historical evidence must be retired and not rerun");
+    if (typeof reference.predates !== "string" || !reference.predates) problems.push("historical evidence must say what it predates");
+    if (!live.repository || !live.path || !/^https:\/\/github\.com\//.test(String(live.url ?? ""))) problems.push("historical evidence must name the current live proof");
+  }
+  if (problems.length) throw new Error(`${KUBARA_PROOF_STATUS_PATH}: ${problems.join("; ")}`);
+  return doc;
+}
+
+export function readKubaraProofStatus(root = defaultRepoRoot) {
+  return validateKubaraProofStatus(readYaml(join(root, KUBARA_PROOF_STATUS_PATH)));
+}
+
+export function kubaraRecordedMonth(status) {
+  const [year, month] = String(status.spec.reference.recorded).split("-");
+  return `${MONTHS[Number(month) - 1]} ${year}`;
+}
+
+// The pill rule. Unaccepted evidence keeps its warning. Accepted evidence is
+// "retained (historical)" under the historical state and "retained live" only
+// when the proof is still live. `result` names an exact accepted outcome.
+export function kubaraEvidencePill({ accepted, status, result = null, missing }) {
+  if (!accepted) return { tone: "warn", text: missing };
+  const historical = status?.spec?.state !== "live";
+  const prefix = historical ? "retained (historical)" : "retained live";
+  return { tone: historical ? "historical" : "good", text: result ? `${prefix}: ${result}` : prefix };
+}
+
+// The page-level state of the whole accepted chain.
+export function kubaraEvidenceState({ accepted, status }) {
+  if (!accepted) return "gated";
+  return status?.spec?.state === "live" ? "current" : "historical";
+}

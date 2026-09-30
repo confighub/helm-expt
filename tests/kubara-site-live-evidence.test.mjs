@@ -13,7 +13,12 @@ import {
   evaluateKubaraSiteLiveEvidence,
   evaluateKubaraSiteLiveEvidenceDocuments,
   KUBARA_SITE_EVIDENCE_PATHS,
+  kubaraEvidencePill,
+  kubaraEvidenceState,
+  kubaraRecordedMonth,
   loadKubaraSiteLiveEvidenceInput,
+  readKubaraProofStatus,
+  validateKubaraProofStatus,
 } from '../scripts/lib/kubara-site-live-evidence.mjs';
 import { lockPath, root } from '../scripts/sync-kubara-upstream-evidence.mjs';
 
@@ -24,7 +29,7 @@ const evaluate = (change) => {
   return evaluateKubaraSiteLiveEvidenceDocuments(copy);
 };
 
-test('the pinned proof is accepted as the current live chain', () => {
+test('the pinned proof chain is accepted as complete and consistent', () => {
   const result = evaluateKubaraSiteLiveEvidenceDocuments(structuredClone(input));
   for (const gate of ['miniIdp', 'orphan', 'performance', 'matrix', 'wiring']) {
     assert.equal(result[gate].current, true, `${gate}: ${result[gate].reasons.join('; ')}`);
@@ -78,4 +83,38 @@ test('a receipt that is not the pinned snapshot has no upstream verification', (
     result = evaluateKubaraSiteLiveEvidence({ root: dir, requireGui: false });
     assert.ok(result.miniIdp.reasons.some((text) => /no pinned upstream verification/.test(text)), result.miniIdp.reasons.join('; '));
   } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
+test('the four-cluster proof is labelled frozen historical evidence, never live', () => {
+  const status = readKubaraProofStatus(root);
+  assert.equal(status.spec.state, 'historical');
+  // The recorded month is the month the accepted receipts were observed.
+  assert.ok(input.miniIdp.status.observedAt.startsWith(status.spec.reference.recorded));
+  assert.ok(input.orphan.spec.observedAt.startsWith(status.spec.reference.recorded));
+  assert.equal(kubaraRecordedMonth(status), 'August 2026');
+  assert.equal(kubaraEvidenceState({ accepted: true, status }), 'historical');
+  assert.equal(kubaraEvidenceState({ accepted: false, status }), 'gated');
+  assert.deepEqual(kubaraEvidencePill({ accepted: true, status, missing: 'x' }), { tone: 'historical', text: 'retained (historical)' });
+  assert.deepEqual(kubaraEvidencePill({ accepted: true, status, result: 'audited residue zero', missing: 'x' }), { tone: 'historical', text: 'retained (historical): audited residue zero' });
+  assert.deepEqual(kubaraEvidencePill({ accepted: false, status, missing: 'live receipt required' }), { tone: 'warn', text: 'live receipt required' });
+  assert.doesNotMatch(kubaraEvidencePill({ accepted: true, status, result: 'performance gate passed' }).text, /live|current/);
+  const live = structuredClone(status); live.spec.state = 'live';
+  assert.equal(kubaraEvidenceState({ accepted: true, status: live }), 'current');
+  assert.deepEqual(kubaraEvidencePill({ accepted: true, status: live }), { tone: 'good', text: 'retained live' });
+});
+
+test('a historical proof status must say it is retired, what it predates, and where the live proof is', () => {
+  const status = readKubaraProofStatus(root);
+  for (const change of [
+    (s) => { s.spec.state = 'current'; },
+    (s) => { s.spec.reference.retired = false; },
+    (s) => { s.spec.reference.rerun = true; },
+    (s) => { delete s.spec.reference.predates; },
+    (s) => { delete s.spec.currentLiveProof; },
+    (s) => { s.spec.reference.recorded = 'August'; },
+    (s) => { s.spec.reference.clusters = ['hx-app-dev']; },
+  ]) {
+    const copy = structuredClone(status); change(copy);
+    assert.throws(() => validateKubaraProofStatus(copy));
+  }
 });
