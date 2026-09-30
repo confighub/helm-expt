@@ -38,6 +38,7 @@ spec:
       name: EKS inference
       commands: [cub eksinf]
       summary: Runs the eks-inference stack on EKS.
+      stack: eks-inference
       repository: confighub/eks-inference
       state: released
       release: {tag: v0.12.0, date: "2026-08-13"}

@@ -13,6 +13,7 @@ spec:
     title: Start here
   - id: helm-questions
     title: Helm questions
+    command: "cub config check metrics-server"
   - id: formats
     title: Formats
   - id: gitops
@@ -28,59 +29,69 @@ spec:
     summary: The assistant wrote my Helm values. Did they do anything? Three of seven did nothing, and
       Helm never said so.
     page: journey-values-did-nothing.html
+    command: "cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --values values.yaml"
   - id: journey-preserve-my-fixes
     group: journeys
     title: AI overwrites my fixes
     summary: The assistant rewrote my app. Are my fixes still there? Then ConfigHub carries the fixes
       through the rewrite.
     page: journey-preserve-my-fixes.html
+    command: "cub config diff app-committed.yaml app-regenerated.yaml"
   - id: journey-what-my-app-needs
     group: journeys
     title: My app does not fit my platform
     summary: Will my app run on the platform I picked? Refused for two real reasons, fixed on both sides,
       then checked.
     page: journey-what-my-app-needs.html
+    command: "cub app check shop-web.yaml"
   - id: journey-before-gitops
     group: journeys
     title: My chart behaves differently in GitOps
     summary: My Redis has run fine for a month. Is it safe to hand to GitOps? Three problems, then a reviewed
       alternative from the Catalog.
     page: journey-before-gitops.html
+    command: "cub config check work/bitnami.yaml"
   - id: journey-installs-never-starts
     group: journeys
     title: My app installs but will not start
     summary: Every check passes. Should I install it? The image no longer exists, said before the install.
     page: journey-installs-never-starts.html
+    command: "cub config check work/mysql.yaml"
   - id: redis-intro
     group: start-here
     title: Walk the whole model once, with Redis
     summary: One chart, Redis, walked through the Catalog, flattening, OCI, variants, promotion, policy
       and stacks in one pass, marking which steps are free and local.
     page: d/docs/user/workshop-redis-intro-guide.html
+    command: "cub config check recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml"
   - id: try
     group: start-here
     title: 'Try it: Redis in ten minutes'
     summary: Render one public Redis catalog package and inspect its exact Kubernetes objects without
       contacting ConfigHub Server or Kubernetes.
     page: try.html
+    command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./redis --namespace redis --non-interactive --output-oci ./redis-25.oci"
   - id: demo
     group: start-here
     title: From one chart to a governed fleet in ten minutes
     summary: In ten minutes you go from checking one chart to generating a governed fleet, checking a
       whole inference platform on the way, most of it free and copy-paste.
     page: demo.html
+    command: "cub config check redis"
   - id: ai
     group: start-here
     title: Use ConfigHub Workshop with your AI agent
     summary: Install the ConfigHub Workshop agent skill, choose a configuration task, and keep exact objects,
       lifecycle work, checks, and limits visible.
     page: ai.html
+    command: "cub check --format json --output cub-check.json ./rendered"
   - id: testing
     group: start-here
     title: Find a starting configuration
     summary: Say what you need, try a simple Redis example, choose how to run a starting example, then
       continue in ConfigHub or on a platform.
     page: testing.html
+    command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./redis --non-interactive --namespace redis"
   - id: check-a-claim
     group: start-here
     title: Check a claim yourself
@@ -111,12 +122,14 @@ spec:
     summary: Compare a typo with the correct key in controlled renders, including a value the template
       transforms.
     page: d/docs/user/workshop-values-guide.html
+    command: "cub config values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0 --values my-values.yaml --out values-report.json --render-out candidate.yaml --exit-code"
   - id: why-did-helm-ignore-my-values
     group: helm-questions
     title: Why did Helm ignore my values?
     summary: Find values that Helm accepts but a chart does not use by comparing the rendered Kubernetes
       objects with and without each supplied key.
     page: why-did-helm-ignore-my-values.html
+    command: "cub config values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0 --values my-values.yaml --out values-report.json --render-out candidate.yaml --exit-code"
   - id: did-this-chart-version-change
     group: helm-questions
     title: Did this chart version change upstream?
@@ -129,52 +142,61 @@ spec:
     summary: Find a tested, verified successor for a Bitnami chart that no longer pulls anonymously, with
       each successor linked to its catalog entry.
     page: did-your-bitnami-chart-stop-pulling.html
+    command: "cub config check render.yaml --images --exit-code"
   - id: upgrade
     group: helm-questions
     title: Review a chart upgrade before promoting it
     summary: Compare retained versions and prepare a review packet that keeps missing promotion evidence
       visible.
     page: d/docs/user/workshop-upgrade-guide.html
+    command: "cub config diff upgrade-review/current.yaml upgrade-review/candidate.yaml --json --out upgrade-review/comparison.json"
   - id: adapt
     group: helm-questions
     title: Adapt a configuration and inspect the exact edit
     summary: Change one replica count, inspect the exact diff and spot an unexpected second edit.
     page: d/docs/user/workshop-adapt-guide.html
+    command: "cub config diff committed.yaml k8s/deploy.yaml --out review.json"
   - id: byo-charts
     group: helm-questions
     title: Render your own chart to exact objects, adapt them as data, and keep them
     summary: Render your own chart and values, an AI-written one included, then check, diff, adapt a field,
       and keep the reviewed objects for your own Argo CD or Flux.
     page: d/docs/user/workshop-byo-charts-guide.html
+    command: "cub helm template nginx oci://registry-1.docker.io/bitnamicharts/nginx --version 24.0.2 --namespace nginx --values examples/byo-helm-values/reviewed-values.yaml --output-dir ./rendered"
   - id: send-a-public-chart
     group: helm-questions
     title: Send a missing or broken public chart
     summary: Look for a public chart in the Catalog, render it yourself, and send the chart and values when it is missing or its output differs from Helm.
     page: send-a-public-chart.html
+    command: "cub config check helm.yaml"
   - id: aicr
     group: formats
     title: Answer the questions AICR users ask
     summary: Compose an H100 training recipe's exact objects, compare three retained versions, and read
       the recorded accelerator-fit and component-order routes.
     page: d/docs/user/workshop-aicr-guide.html
+    command: "cub config check ./eks-h100-v0-14-0-argocd.yaml"
   - id: timoni
     group: formats
     title: Answer the questions Timoni users ask
     summary: Build a typed module's exact objects, check the typed schema and the CRD ordering, and see
       which module bytes are digest-bound.
     page: d/docs/user/workshop-timoni-guide.html
+    command: "cub config check ./rendered-redis.yaml"
   - id: yaml
     group: formats
     title: Answer the questions plain Kubernetes YAML users ask
     summary: Check what four files will install, compare two versions with one edit, and read why this
       base's lifecycle-route status is a recorded gap.
     page: d/docs/user/workshop-yaml-guide.html
+    command: "cub config check ./acme-web.yaml"
   - id: kubara
     group: formats
     title: Answer the questions Kubara users ask
     summary: Check what a generated Kubara platform contains, and read its recorded CRD, secret and bootstrap
       routes. To govern a Kubara platform, use cub kubara.
     page: d/docs/user/workshop-kubara-guide.html
+    command: "cub config check examples/kubara/local-platform/rendered/release-objects.yaml"
   - id: gitops-adopter
     group: gitops
     title: Use ConfigHub With Argo CD Or Flux
@@ -187,54 +209,63 @@ spec:
     summary: Reconcile a published component with no account, render any catalog chart to an image your
       Flux, Argo CD, or kubectl consumes, and verify its receipt first.
     page: deploy-with-flux-or-argo.html
+    command: "cub config values grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 --values my-values.yaml"
   - id: argocd-hardening
     group: gitops
     title: Harden Argo CD before production, as a variant you can check and keep
     summary: Turn security advice into a checked variant of the Catalog's Argo CD base, compare it with
       the base, and keep it with a staging and production path.
     page: d/docs/user/workshop-argocd-hardening-guide.html
+    command: "cub config values argo-cd --repo https://argoproj.github.io/argo-helm --version 10.2.1 --release argo-cd --namespace argocd --values base-values.yaml --out base-report.json --render-out base-render.yaml"
   - id: compose
     group: stacks-and-platforms
     title: Compose and review a local workshop stack
     summary: Save a Kubara and Argo CD selection, move it, edit the app and retain a refusal when an API
       does not fit.
     page: d/docs/user/workshop-compose-guide.html
+    command: "cub stack sandbox ../stacks/kubara-gitops-shop.yaml --workspace ./platform"
   - id: lifecycle
     group: stacks-and-platforms
     title: Find the hook and CRD work before delivery
     summary: Inspect a hook without running it, preserve an API refusal and identify what delivery still
       requires.
     page: d/docs/user/workshop-lifecycle-guide.html
+    command: "cub config diff lifecycle-review/with-hooks.yaml lifecycle-review/without-hooks.yaml --json --out lifecycle-review/hook-diff.json"
   - id: match
     group: stacks-and-platforms
     title: Match a GPU workload with supplied facts
     summary: Keep candidate, mismatch and unknown results separately, with the input hashes behind each
       answer.
     page: d/docs/user/workshop-match-guide.html
+    command: "cub app match model.yaml --target nodes.yaml --json --out candidate.json"
   - id: compose-a-stack
     group: stacks-and-platforms
     title: Compose and check a stack
     summary: Get a stack, check it for conflicts and missing needs before anything runs, then run and
       govern it in ConfigHub. It includes the stacks made to be refused.
     page: compose-a-stack.html
+    command: "cub stack sandbox eks-inference"
   - id: try-aicr
     group: stacks-and-platforms
     title: Compare GPU nodes and pull an AICR config
     summary: Compare existing GPU nodes with a recipe, or pull and read a retained AICR configuration
       with ORAS.
     page: try-aicr.html
+    command: "aicr snapshot --output baseline.yaml"
   - id: put-an-app-on-a-platform
     group: stacks-and-platforms
     title: Put an app on a platform
     summary: Check what an app needs, check it on a platform, take it into ConfigHub, or bring an app
       that already runs.
     page: put-an-app-on-a-platform.html
+    command: "cub app check shop-web"
   - id: bring-kubara-into-confighub
     group: stacks-and-platforms
     title: Bring a Kubara platform into ConfigHub
     summary: Govern a Kubara platform with cub kubara, from plan to handover and check, without changing
       how Kubara works, or use it as a Workshop stack.
     page: bring-kubara-into-confighub.html
+    command: "cub kubara services"
   - id: handle-hooks-and-crds
     group: stacks-and-platforms
     title: Handle hooks and CRDs
@@ -246,11 +277,13 @@ spec:
     summary: Compare current and proposed Kubernetes objects, see what changes, and choose the tests required
       before moving the change.
     page: promote.html
+    command: "cub config diff adapt-demo/before.yaml adapt-demo/after.yaml --json --out adapt-demo/diff.json"
   - id: field-restore
     group: confighub
     title: Add one field and keep the original configuration
     summary: Review one added label, detect an object replacement and restore the exact original file.
     page: d/docs/user/workshop-field-restore-guide.html
+    command: "cub config diff field-review/source.yaml field-review/candidate.yaml --json --out field-review/addition.json"
   - id: does-cluster-match-approved-config
     group: confighub
     title: Does the cluster match what we approved?
@@ -274,11 +307,13 @@ spec:
     title: Change a config safely
     summary: Decide whether a change rebuilds the base or belongs to one environment, then preview it and promote only what was reviewed.
     page: change-a-config-safely.html
+    command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./redis-reviewed"
   - id: operate-a-fleet
     group: confighub
     title: Operate a fleet
     summary: Check the starting point, choose an operation, keep a fleet record, and open the working App demonstrations.
     page: operate-a-fleet.html
+    command: "cub variant promote <space> --dry-run -o mutations"
   - id: build-a-confighub-app
     group: confighub
     title: Build a ConfigHub App

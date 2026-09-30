@@ -97,6 +97,11 @@
           "groupTitle": {
             "type": "string",
             "minLength": 1
+          },
+          "firstCommand": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The first command the Guide runs for its own job, as the Guide prints it. It is there so an agent can see where the Guide starts; read the Guide for the inputs and what to look for."
           }
         }
       }

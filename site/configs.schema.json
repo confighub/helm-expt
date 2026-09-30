@@ -52,6 +52,7 @@
           "state",
           "objectCount",
           "flatteningVerdict",
+          "checks",
           "listing",
           "next"
         ],
@@ -83,7 +84,8 @@
           },
           "state": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "description": "Discovery classification: classified when the listing carries roles that cub config list --role finds, and not-classified otherwise. It is not a review or readiness state; checks says what was checked."
           },
           "objectCount": {
             "type": "integer",
@@ -92,6 +94,35 @@
           "flatteningVerdict": {
             "type": "string",
             "minLength": 1
+          },
+          "checks": {
+            "type": "object",
+            "description": "The listing's four assessment stages, each as evidenceState/resultState, for example completed/pass. completed means the stage's evidence exists for this exact configuration; pending, not-run and blocked mean it does not. It checks the configuration, not your values or your cluster.",
+            "required": [
+              "inspection",
+              "materialization",
+              "destination",
+              "post-deployment"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "inspection": {
+                "type": "string",
+                "pattern": "^[a-z-]+/[a-z-]+$"
+              },
+              "materialization": {
+                "type": "string",
+                "pattern": "^[a-z-]+/[a-z-]+$"
+              },
+              "destination": {
+                "type": "string",
+                "pattern": "^[a-z-]+/[a-z-]+$"
+              },
+              "post-deployment": {
+                "type": "string",
+                "pattern": "^[a-z-]+/[a-z-]+$"
+              }
+            }
           },
           "listing": {
             "type": "string",

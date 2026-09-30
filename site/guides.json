@@ -16,6 +16,7 @@
       "summary": "The assistant wrote my Helm values. Did they do anything? Three of seven did nothing, and Helm never said so.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/journey-values-did-nothing.html",
+      "firstCommand": "cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --values values.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/journey-values-did-nothing.html"
       }
@@ -28,6 +29,7 @@
       "summary": "The assistant rewrote my app. Are my fixes still there? Then ConfigHub carries the fixes through the rewrite.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/journey-preserve-my-fixes.html",
+      "firstCommand": "cub config diff app-committed.yaml app-regenerated.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/journey-preserve-my-fixes.html"
       }
@@ -40,6 +42,7 @@
       "summary": "Will my app run on the platform I picked? Refused for two real reasons, fixed on both sides, then checked.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/journey-what-my-app-needs.html",
+      "firstCommand": "cub app check shop-web.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/journey-what-my-app-needs.html"
       }
@@ -52,6 +55,7 @@
       "summary": "My Redis has run fine for a month. Is it safe to hand to GitOps? Three problems, then a reviewed alternative from the Catalog.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/journey-before-gitops.html",
+      "firstCommand": "cub config check work/bitnami.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/journey-before-gitops.html"
       }
@@ -64,6 +68,7 @@
       "summary": "Every check passes. Should I install it? The image no longer exists, said before the install.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/journey-installs-never-starts.html",
+      "firstCommand": "cub config check work/mysql.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/journey-installs-never-starts.html"
       }
@@ -76,6 +81,7 @@
       "summary": "One chart, Redis, walked through the Catalog, flattening, OCI, variants, promotion, policy and stacks in one pass, marking which steps are free and local.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-redis-intro-guide.html",
+      "firstCommand": "cub config check recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-redis-intro-guide.html"
       }
@@ -88,6 +94,7 @@
       "summary": "Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/try.html",
+      "firstCommand": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./redis --namespace redis --non-interactive --output-oci ./redis-25.oci",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/try.html"
       }
@@ -100,6 +107,7 @@
       "summary": "In ten minutes you go from checking one chart to generating a governed fleet, checking a whole inference platform on the way, most of it free and copy-paste.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/demo.html",
+      "firstCommand": "cub config check redis",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/demo.html"
       }
@@ -112,6 +120,7 @@
       "summary": "Install the ConfigHub Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/ai.html",
+      "firstCommand": "cub check --format json --output cub-check.json ./rendered",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/ai.html"
       }
@@ -124,6 +133,7 @@
       "summary": "Say what you need, try a simple Redis example, choose how to run a starting example, then continue in ConfigHub or on a platform.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/testing.html",
+      "firstCommand": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./redis --non-interactive --namespace redis",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/testing.html"
       }
@@ -184,6 +194,7 @@
       "summary": "Compare a typo with the correct key in controlled renders, including a value the template transforms.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-values-guide.html",
+      "firstCommand": "cub config values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0 --values my-values.yaml --out values-report.json --render-out candidate.yaml --exit-code",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-values-guide.html"
       }
@@ -196,6 +207,7 @@
       "summary": "Find values that Helm accepts but a chart does not use by comparing the rendered Kubernetes objects with and without each supplied key.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/why-did-helm-ignore-my-values.html",
+      "firstCommand": "cub config values oauth2-proxy --repo https://oauth2-proxy.github.io/manifests --version 10.7.0 --values my-values.yaml --out values-report.json --render-out candidate.yaml --exit-code",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/why-did-helm-ignore-my-values.html"
       }
@@ -220,6 +232,7 @@
       "summary": "Find a tested, verified successor for a Bitnami chart that no longer pulls anonymously, with each successor linked to its catalog entry.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/did-your-bitnami-chart-stop-pulling.html",
+      "firstCommand": "cub config check render.yaml --images --exit-code",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/did-your-bitnami-chart-stop-pulling.html"
       }
@@ -232,6 +245,7 @@
       "summary": "Compare retained versions and prepare a review packet that keeps missing promotion evidence visible.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-upgrade-guide.html",
+      "firstCommand": "cub config diff upgrade-review/current.yaml upgrade-review/candidate.yaml --json --out upgrade-review/comparison.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-upgrade-guide.html"
       }
@@ -244,6 +258,7 @@
       "summary": "Change one replica count, inspect the exact diff and spot an unexpected second edit.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-adapt-guide.html",
+      "firstCommand": "cub config diff committed.yaml k8s/deploy.yaml --out review.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-adapt-guide.html"
       }
@@ -256,6 +271,7 @@
       "summary": "Render your own chart and values, an AI-written one included, then check, diff, adapt a field, and keep the reviewed objects for your own Argo CD or Flux.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-byo-charts-guide.html",
+      "firstCommand": "cub helm template nginx oci://registry-1.docker.io/bitnamicharts/nginx --version 24.0.2 --namespace nginx --values examples/byo-helm-values/reviewed-values.yaml --output-dir ./rendered",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-byo-charts-guide.html"
       }
@@ -268,6 +284,7 @@
       "summary": "Look for a public chart in the Catalog, render it yourself, and send the chart and values when it is missing or its output differs from Helm.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/send-a-public-chart.html",
+      "firstCommand": "cub config check helm.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/send-a-public-chart.html"
       }
@@ -280,6 +297,7 @@
       "summary": "Compose an H100 training recipe's exact objects, compare three retained versions, and read the recorded accelerator-fit and component-order routes.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-aicr-guide.html",
+      "firstCommand": "cub config check ./eks-h100-v0-14-0-argocd.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-aicr-guide.html"
       }
@@ -292,6 +310,7 @@
       "summary": "Build a typed module's exact objects, check the typed schema and the CRD ordering, and see which module bytes are digest-bound.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-timoni-guide.html",
+      "firstCommand": "cub config check ./rendered-redis.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-timoni-guide.html"
       }
@@ -304,6 +323,7 @@
       "summary": "Check what four files will install, compare two versions with one edit, and read why this base's lifecycle-route status is a recorded gap.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-yaml-guide.html",
+      "firstCommand": "cub config check ./acme-web.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-yaml-guide.html"
       }
@@ -316,6 +336,7 @@
       "summary": "Check what a generated Kubara platform contains, and read its recorded CRD, secret and bootstrap routes. To govern a Kubara platform, use cub kubara.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-kubara-guide.html",
+      "firstCommand": "cub config check examples/kubara/local-platform/rendered/release-objects.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-kubara-guide.html"
       }
@@ -340,6 +361,7 @@
       "summary": "Reconcile a published component with no account, render any catalog chart to an image your Flux, Argo CD, or kubectl consumes, and verify its receipt first.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/deploy-with-flux-or-argo.html",
+      "firstCommand": "cub config values grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 --values my-values.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/deploy-with-flux-or-argo.html"
       }
@@ -352,6 +374,7 @@
       "summary": "Turn security advice into a checked variant of the Catalog's Argo CD base, compare it with the base, and keep it with a staging and production path.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-argocd-hardening-guide.html",
+      "firstCommand": "cub config values argo-cd --repo https://argoproj.github.io/argo-helm --version 10.2.1 --release argo-cd --namespace argocd --values base-values.yaml --out base-report.json --render-out base-render.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-argocd-hardening-guide.html"
       }
@@ -364,6 +387,7 @@
       "summary": "Save a Kubara and Argo CD selection, move it, edit the app and retain a refusal when an API does not fit.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-compose-guide.html",
+      "firstCommand": "cub stack sandbox ../stacks/kubara-gitops-shop.yaml --workspace ./platform",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-compose-guide.html"
       }
@@ -376,6 +400,7 @@
       "summary": "Inspect a hook without running it, preserve an API refusal and identify what delivery still requires.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-lifecycle-guide.html",
+      "firstCommand": "cub config diff lifecycle-review/with-hooks.yaml lifecycle-review/without-hooks.yaml --json --out lifecycle-review/hook-diff.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-lifecycle-guide.html"
       }
@@ -388,6 +413,7 @@
       "summary": "Keep candidate, mismatch and unknown results separately, with the input hashes behind each answer.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-match-guide.html",
+      "firstCommand": "cub app match model.yaml --target nodes.yaml --json --out candidate.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-match-guide.html"
       }
@@ -400,6 +426,7 @@
       "summary": "Get a stack, check it for conflicts and missing needs before anything runs, then run and govern it in ConfigHub. It includes the stacks made to be refused.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/compose-a-stack.html",
+      "firstCommand": "cub stack sandbox eks-inference",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/compose-a-stack.html"
       }
@@ -412,6 +439,7 @@
       "summary": "Compare existing GPU nodes with a recipe, or pull and read a retained AICR configuration with ORAS.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/try-aicr.html",
+      "firstCommand": "aicr snapshot --output baseline.yaml",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/try-aicr.html"
       }
@@ -424,6 +452,7 @@
       "summary": "Check what an app needs, check it on a platform, take it into ConfigHub, or bring an app that already runs.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/put-an-app-on-a-platform.html",
+      "firstCommand": "cub app check shop-web",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/put-an-app-on-a-platform.html"
       }
@@ -436,6 +465,7 @@
       "summary": "Govern a Kubara platform with cub kubara, from plan to handover and check, without changing how Kubara works, or use it as a Workshop stack.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html",
+      "firstCommand": "cub kubara services",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html"
       }
@@ -460,6 +490,7 @@
       "summary": "Compare current and proposed Kubernetes objects, see what changes, and choose the tests required before moving the change.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/promote.html",
+      "firstCommand": "cub config diff adapt-demo/before.yaml adapt-demo/after.yaml --json --out adapt-demo/diff.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/promote.html"
       }
@@ -472,6 +503,7 @@
       "summary": "Review one added label, detect an object replacement and restore the exact original file.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-field-restore-guide.html",
+      "firstCommand": "cub config diff field-review/source.yaml field-review/candidate.yaml --json --out field-review/addition.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-field-restore-guide.html"
       }
@@ -520,6 +552,7 @@
       "summary": "Decide whether a change rebuilds the base or belongs to one environment, then preview it and promote only what was reviewed.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/change-a-config-safely.html",
+      "firstCommand": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./redis-reviewed",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/change-a-config-safely.html"
       }
@@ -532,6 +565,7 @@
       "summary": "Check the starting point, choose an operation, keep a fleet record, and open the working App demonstrations.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/operate-a-fleet.html",
+      "firstCommand": "cub variant promote <space> --dry-run -o mutations",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/operate-a-fleet.html"
       }

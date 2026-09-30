@@ -4,7 +4,8 @@
   "section": "stacks",
   "schema": "https://confighub.github.io/helm-expt/site/stacks.schema.json",
   "generatedFrom": [
-    "data/workshop-stacks/stacks.yaml"
+    "data/workshop-stacks/stacks.yaml",
+    "data/workshop-plugins/plugins.yaml"
   ],
   "count": 11,
   "rows": [
@@ -64,7 +65,8 @@
       "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/eks-inference.yaml",
       "next": {
         "command": "cub stack check eks-inference"
-      }
+      },
+      "plugin": "eks-inference"
     },
     {
       "id": "gitops-secrets",

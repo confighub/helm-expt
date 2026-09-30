@@ -79,6 +79,7 @@
         "tag": "v0.12.0"
       },
       "install": "cub plugin install confighub/eks-inference",
+      "stack": "eks-inference",
       "next": {
         "command": "cub plugin install confighub/eks-inference"
       }
