@@ -104,10 +104,10 @@ Two plugins do different jobs. Name the one you mean.
 
 The cub-workshop plugin adds `cub config`, `cub app`, `cub stack`, and
 `cub fleet`. Install the release the site's journey pages
-were checked with, version 0.6.55:
+were checked with, version 0.6.56:
 
 ```sh
-cub plugin install confighub/cub-workshop@v0.6.55
+cub plugin install confighub/cub-workshop@v0.6.56
 ```
 
 The teaching exercises inside some Guides pin an older revision in their own

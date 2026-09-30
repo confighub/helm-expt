@@ -55,7 +55,7 @@ const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
 // The Workshop plugin release the journey pages were checked with. Pages pin an
 // exact release tag, so a reader installs the version the page was checked with.
-const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.55";
+const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.56";
 const KUBARA_GUIDE_URL = "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md";
 const securityPath = join(siteRoot, "security.html");
 const testingPath = join(siteRoot, "testing.html");
@@ -6361,7 +6361,7 @@ cub config diff candidate.yaml candidate-next.yaml`;
         heading: "Check your own chart",
         html: `<p><a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin. The install script fetches cub from the <a href="https://github.com/confighub/sdk/releases">confighub/sdk releases</a>, and you can download it from there yourself instead.</p>
       <pre><code>${WORKSHOP_PLUGIN_INSTALL}</code></pre>
-      <p>The command installs the plugin release this page was checked with, version 0.6.55. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
+      <p>The command installs the plugin release this page was checked with, version 0.6.56. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
       <pre><code>${escapeHtml(check)}</code></pre>
       <p>The plugin renders the chart with your values, then once more for each value with that value taken out. A key the chart has no place for comes back IGNORED. A key the chart reads but another setting switches off comes back NO EFFECT. A key that changed the objects comes back APPLIED, with the objects it changed. Exit code 1 means at least one value did nothing, and exit code 2 means the check could not finish. No value is printed.</p>
       <p>APPLIED means the rendered objects changed. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside it still changes the objects. The check names a misspelled container resource field as INVALID, such as <code>resources.limit</code> where Kubernetes expects <code>limits</code>, and exits 1. It checks only container resource fields, so read any other changed field in the candidate yourself. When a key is IGNORED, the check names chart-declared candidates, such as <code>controller.replicaCount</code> for a top-level <code>replicaCount</code>. Review them before you change your values. If none fits, search the chart's defaults for what you meant, for example <code>helm show values &lt;chart&gt; | grep -n -i replica</code>.</p>
