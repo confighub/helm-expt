@@ -23,7 +23,7 @@
       ],
       "partCount": 5,
       "checked": true,
-      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/app-platform.yaml",
+      "source": "https://github.com/confighub/cub-workshop/blob/e70d630904a31fb2b094ee671b249d28b6944ddc/stacks/app-platform.yaml",
       "next": {
         "command": "cub stack check app-platform"
       }
@@ -40,7 +40,7 @@
       ],
       "partCount": 3,
       "checked": true,
-      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/data-services.yaml",
+      "source": "https://github.com/confighub/cub-workshop/blob/e70d630904a31fb2b094ee671b249d28b6944ddc/stacks/data-services.yaml",
       "next": {
         "command": "cub stack check data-services"
       }
@@ -62,7 +62,7 @@
       ],
       "partCount": 8,
       "checked": true,
-      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/eks-inference.yaml",
+      "source": "https://github.com/confighub/cub-workshop/blob/e70d630904a31fb2b094ee671b249d28b6944ddc/stacks/eks-inference.yaml",
       "next": {
         "command": "cub stack check eks-inference"
       },
@@ -80,7 +80,7 @@
       ],
       "partCount": 3,
       "checked": true,
-      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/gitops-secrets.yaml",
+      "source": "https://github.com/confighub/cub-workshop/blob/e70d630904a31fb2b094ee671b249d28b6944ddc/stacks/gitops-secrets.yaml",
       "next": {
         "command": "cub stack check gitops-secrets"
       }
@@ -100,7 +100,7 @@
       ],
       "partCount": 6,
       "checked": false,
-      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/kubara-gitops-shop.yaml",
+      "source": "https://github.com/confighub/cub-workshop/blob/e70d630904a31fb2b094ee671b249d28b6944ddc/stacks/kubara-gitops-shop.yaml",
       "next": {
         "command": "cub stack check kubara-gitops-shop"
       }
@@ -117,7 +117,7 @@
       ],
       "partCount": 3,
       "checked": true,
-      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/kubara-platform.yaml",
+      "source": "https://github.com/confighub/cub-workshop/blob/e70d630904a31fb2b094ee671b249d28b6944ddc/stacks/kubara-platform.yaml",
       "next": {
         "command": "cub stack check kubara-platform"
       }
@@ -136,7 +136,7 @@
       ],
       "partCount": 5,
       "checked": false,
-      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/kubara-shop-platform.yaml",
+      "source": "https://github.com/confighub/cub-workshop/blob/e70d630904a31fb2b094ee671b249d28b6944ddc/stacks/kubara-shop-platform.yaml",
       "next": {
         "command": "cub stack check kubara-shop-platform"
       }
@@ -153,7 +153,7 @@
       ],
       "partCount": 3,
       "checked": true,
-      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/observability-base.yaml",
+      "source": "https://github.com/confighub/cub-workshop/blob/e70d630904a31fb2b094ee671b249d28b6944ddc/stacks/observability-base.yaml",
       "next": {
         "command": "cub stack check observability-base"
       }
@@ -170,7 +170,7 @@
       ],
       "partCount": 3,
       "checked": true,
-      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/redis-platform.yaml",
+      "source": "https://github.com/confighub/cub-workshop/blob/e70d630904a31fb2b094ee671b249d28b6944ddc/stacks/redis-platform.yaml",
       "next": {
         "command": "cub stack check redis-platform"
       }
@@ -189,7 +189,7 @@
       ],
       "partCount": 5,
       "checked": false,
-      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/shop-platform.yaml",
+      "source": "https://github.com/confighub/cub-workshop/blob/e70d630904a31fb2b094ee671b249d28b6944ddc/stacks/shop-platform.yaml",
       "next": {
         "command": "cub stack check shop-platform"
       }
@@ -206,7 +206,7 @@
       ],
       "partCount": 3,
       "checked": true,
-      "source": "https://github.com/confighub/cub-workshop/blob/8f4c207a134c74e0d94c228c11b2c4b202ffed19/stacks/web-platform.yaml",
+      "source": "https://github.com/confighub/cub-workshop/blob/e70d630904a31fb2b094ee671b249d28b6944ddc/stacks/web-platform.yaml",
       "next": {
         "command": "cub stack check web-platform"
       }

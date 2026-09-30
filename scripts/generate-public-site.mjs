@@ -55,7 +55,9 @@ const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
 // The Workshop plugin release the journey pages were checked with. Pages pin an
 // exact release tag, so a reader installs the version the page was checked with.
-const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.52";
+const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.55";
+const KUBARA_GUIDE_URL = "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md";
+const KUBARA_ISSUES_URL = "https://github.com/confighub/kubara-confighub/issues";
 const securityPath = join(siteRoot, "security.html");
 const testingPath = join(siteRoot, "testing.html");
 const kubaraPath = join(siteRoot, "kubara.html");
@@ -661,7 +663,7 @@ const PAGE_DESCRIPTIONS = {
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
   "oci.html": "See every OCI shape this catalog produces, who produces and consumes each one, which layout each consumer needs, and which shapes are signed today.",
   "formats.html": "Browse every non-Helm Catalog entry by format: AICR, Timoni, cub installer, Kubara, configuration OCI, Kubernetes YAML, and Sveltos, each linked to its listing record.",
-  "bring-kubara-into-confighub.html": "Govern a Kubara platform with cub kubara, from plan to handover, or use it as a Workshop stack.",
+  "bring-kubara-into-confighub.html": "Plan and render a Kubara platform offline with cub kubara, then hand over, check and hand back, or check it as a Workshop stack.",
   "put-an-app-on-a-platform.html": "Check what an app needs, check it on a platform, take it into ConfigHub, or bring an app that already runs.",
   "compose-a-stack.html": "Get a stack, check it for conflicts and missing needs before anything runs, then run and govern it in ConfigHub.",
   "plugins.html": "Every public cub plugin, marked by its state, with the one line that installs it.",
@@ -2037,8 +2039,8 @@ function buildLlmsTxt() {
 - [All technical references](${SITE_BASE_URL}docs.html#all-references): the complete guide and evidence index, on Docs.
 - [Continue with ConfigHub](${SITE_BASE_URL}confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
 - [Catalog](${SITE_BASE_URL}charts/index.html): every tested component and version, with its image, receipt, and the commands to check and verify it.
-- [Kubara with ConfigHub](${SITE_BASE_URL}bring-kubara-into-confighub.html): decide why to add ConfigHub without rewriting Kubara, then follow the same six-step buyer and implementation journey.
-- [Kubara six-step tutorial](${SITE_BASE_URL}d/docs/demo/kubara/adoption.html): choose, generate, push to Git, create OCI, load the selected organization, and deploy applications while Argo CD remains the reconciler.
+- [Kubara with ConfigHub](${SITE_BASE_URL}bring-kubara-into-confighub.html): bring a Kubara platform into ConfigHub with cub kubara. Plan and render offline first, then apply, hand over, check and hand back, with each step's undo, the known limits and the live evidence.
+- [Kubara six-step tutorial](${SITE_BASE_URL}d/docs/demo/kubara/adoption.html): the earlier path, before cub kubara: choose, generate, push to Git, create OCI, load the selected organization, and deploy applications while Argo CD remains the reconciler.
 - [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.
 
 ## Machine contract
@@ -5355,7 +5357,7 @@ function allReferencesHtml(catalog) {
     ["Check or promote your own config", `<a href="./ask.html">Check my config</a>`, "Compare exact objects in your browser, carry Catalog lifecycle facts into the review, then continue to a source-aware promotion plan."],
     ["Use your AI agent", `<a href="./ai.html">AI agents</a>`, "Install the ConfigHub Workshop skill, choose one task, and keep source records, exact objects, lifecycle work, checks, and limits visible."],
     ["Choose a worked example", `<a href="./testing.html">Examples</a>`, "Start with Helm, AICR, OCI, or YAML. Continue with ConfigHub only when you want saved configuration and managed operations."],
-    ["Start or adopt a Kubara platform", `<a href="./bring-kubara-into-confighub.html">Kubara with ConfigHub</a>`, "Generate one small native Kubara development platform, or bring an existing platform through Git and OCI. Keep Kubara as composer and Argo CD as reconciler."],
+    ["Start or adopt a Kubara platform", `<a href="./bring-kubara-into-confighub.html">Kubara with ConfigHub</a>`, "Plan and render your Kubara platform offline in about 15 minutes, then hand its hub to ConfigHub's approved releases. Kubara keeps composing and Argo CD keeps reconciling."],
     ["Follow configuration to deployment", `<a href="./how-it-works.html">Operate</a>`, "Release a reviewed configuration by digest, promote it, gate it on approval, and roll it back."],
     ["See every source and App demonstration", `<a href="../docs/user/config-catalog-demonstrations.md">Demonstration record</a>`, "See the exact example that ran, its result, and the work still needed for broader support."],
     ["Choose a public component", `<a href="./charts/index.html">Component Catalog</a>`, "Pick an exact retained package version, then read its packaged configurations, output, hooks, CRDs, setup work, and evidence."],
@@ -5396,7 +5398,7 @@ function allReferencesHtml(catalog) {
     ["Gated answer: same version, same bytes", "An assistant compares a recipe's locked digest against the digest a publisher later served for the same version, and a gate holds the same-bytes verdict to the upstream-drift record.", "../data/ai-supply-drift/summary.md"],
     ["RBAC review example", "Find unnecessary Secret access, make one exact Role change, require approval, publish the reviewed objects as OCI, and let Argo CD deliver the result.", "../docs/demo/apps/rbac-review.md"],
     ["RBAC permissions report", "Review broad RBAC rules across committed default chart renders without needing a cluster or running Helm again.", "../data/app-readiness/summary.md"],
-    ["Kubara with ConfigHub", "The buyer landing page: what stays Kubara, what ConfigHub adds, the six adoption steps, measured benefits, current proof status, GUI tour, and honest boundaries.", "./bring-kubara-into-confighub.html"],
+    ["Kubara with ConfigHub", "The Kubara Guide: a first result offline in about 15 minutes, the governed path from apply to hand-back, the Workshop stack view, known limits, and the live evidence.", "./bring-kubara-into-confighub.html"],
     ["Kubara six-step adoption tutorial", "Choose components, generate with Kubara, push the complete Git hand-off, create immutable OCI, load the selected ConfigHub organization, and deploy applications through Argo CD.", "../docs/demo/kubara/adoption.md"],
     ["Kubara + ConfigHub technical mini-IDP", "The complete maintainer-grade v0.13.0 runbook: four clusters, seven platform roles, two apps, exact catalog generation, Git/OCI import, matrix, wiring, faithful hub-spoke delivery, and receipt-gated ConfigHub platform surfaces.", "../docs/demo/kubara/single-platform.md"],
     ["Historical Kubara v0.12.0 compatibility proof", "Retained read-only evidence for the one-cluster generation, OCI route, Argo bootstrap, and dated live result. It is not a command path for the current Kubara organization.", "../docs/demo/kubara/local-platform.md"],
@@ -6360,7 +6362,7 @@ cub config diff candidate.yaml candidate-next.yaml`;
         heading: "Check your own chart",
         html: `<p><a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin. The install script fetches cub from the <a href="https://github.com/confighub/sdk/releases">confighub/sdk releases</a>, and you can download it from there yourself instead.</p>
       <pre><code>${WORKSHOP_PLUGIN_INSTALL}</code></pre>
-      <p>The command installs the plugin release this page was checked with, version 0.6.52. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
+      <p>The command installs the plugin release this page was checked with, version 0.6.55. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
       <pre><code>${escapeHtml(check)}</code></pre>
       <p>The plugin renders the chart with your values, then once more for each value with that value taken out. A key the chart has no place for comes back IGNORED. A key the chart reads but another setting switches off comes back NO EFFECT. A key that changed the objects comes back APPLIED, with the objects it changed. Exit code 1 means at least one value did nothing, and exit code 2 means the check could not finish. No value is printed.</p>
       <p>APPLIED means the rendered objects changed. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside it still changes the objects. The check names a misspelled container resource field as INVALID, such as <code>resources.limit</code> where Kubernetes expects <code>limits</code>, and exits 1. It checks only container resource fields, so read any other changed field in the candidate yourself. When a key is IGNORED, the check names chart-declared candidates, such as <code>controller.replicaCount</code> for a top-level <code>replicaCount</code>. Review them before you change your values. If none fits, search the chart's defaults for what you meant, for example <code>helm show values &lt;chart&gt; | grep -n -i replica</code>.</p>
@@ -7767,13 +7769,18 @@ function kubaraExplainedHtml(catalog) {
       <h2 id="stays-adds">1. What stays Kubara, and what ConfigHub adds</h2>
       ${markdownLikeTable([
         ["Kubara stays", "ConfigHub adds"],
-        ["Ordered catalogs, ServiceDefinitions, config.yaml, values overlays, generated platform files, hub/spoke intent", "A component-first Catalog and retained exact versions; deployable variants and configurations follow each component, while Kubara keeps per-platform selection and wiring"],
-        ["Git as the portable platform hand-off", "One immutable OCI package per reusable/effective configuration plus a digest-bound platform index"],
-        ["Argo CD as the cluster reconciler", "A governance and release plane that selects the exact digest before local Argo receives it"],
+        ["Ordered catalogs, ServiceDefinitions, config.yaml, values overlays, generated platform files, hub/spoke intent", "A base for each component and a variant for each cluster, holding each service as Kubara's hub delivers it, with the Workshop Catalog's evidence for each pinned chart version"],
+        ["Git as the portable platform hand-off", "After handover, each cluster's approved release, served as OCI from ConfigHub; hand-back returns delivery to Git"],
+        ["Argo CD as the cluster reconciler", "A rollout workflow for each component: stages in order, an approval before each release, and a Healthy gate that reads argobot's live status"],
       ])}
     </section>
+    <section aria-labelledby="current-path">
+      <h2 id="current-path">2. The current path: cub kubara</h2>
+      <p>Today a Kubara platform comes into ConfigHub through <code>cub kubara</code> ${escapeHtml(kubaraPluginPins().kubara)}. <code>plan</code> and <code>render</code> run offline. <code>apply.sh</code> creates the bases, variants and rollout workflows, and <code>handover.sh</code> points Kubara's hub at each cluster's approved release. <code>check</code> judges each cluster, health included, and <code>handback.sh</code> returns the hub to Git.</p>
+      <p><a href="./bring-kubara-into-confighub.html">Bring a Kubara platform into ConfigHub</a> gives the commands, what each step changes, how to undo it, and the known limits. Its live evidence is the <a href="${escapeHtml(facts.proofStatus.spec.currentLiveProof.url)}">kind lab</a> at commit <code>${escapeHtml(facts.proofStatus.spec.currentLiveProof.commit.slice(0, 7))}</code>, with its ${kubaraLiveProofLogLinks(facts.proofStatus)}. It has run on kind only. The benefits below come from the older, separate proof.</p>
+    </section>
     <section aria-labelledby="benefits">
-      <h2 id="benefits">2. Benefits with explicit acceptance evidence</h2>
+      <h2 id="benefits">3. Benefits with explicit acceptance evidence</h2>
       <p>Each status pill reads one of three ways. ${historical ? "A <strong>retained (historical)</strong> pill means the frozen four-cluster reference proof accepted the benefit for its recorded version; it is not current or live evidence" : "A <strong>retained live</strong> pill means a retained live run accepted the benefit for its recorded version"}, and some name the exact result, such as a passed performance gate or zero audited residue. A <strong>current deterministic</strong> pill means committed deterministic evidence accepts it, without a live run. Any other wording means the deterministic contract still holds while its live acceptance is absent, stale, or not yet accepted.</p>
       <p>These retained runs used the earlier approval model. They do not prove the current ChangeWorkflow and Approval-attestation paths; those paths need fresh live receipts.</p>
       <p><strong>One gate remains open.</strong> Every benefit below was accepted in the project's own ${historical ? "retired" : "retained"} four-cluster organization. A clean import into a fresh organization that you choose has not run yet, and it is the gate that stands between these results and a claim about your platform.</p>
@@ -7791,7 +7798,7 @@ function kubaraExplainedHtml(catalog) {
       <p data-kubara-live-evidence="${liveState}">The status is generated from an exact evidence chain, component by component. ${liveState === "historical" ? `The complete faithful, adapted, performance, matrix, wiring, orphan, and six-frame GUI chain is complete and consistent. ${historicalProof}` : liveState === "current" ? "The complete faithful, adapted, performance, matrix, wiring, orphan, and six-frame GUI chain is accepted." : "Some current live evidence may already pass, but the complete publishable chain is still gated."} Missing or inconsistent faithful, source-digest mini-IDP, performance, matrix, wiring, orphan, or GUI evidence stays visible instead of becoming a green marketing claim.</p>
     </section>
     <section aria-labelledby="boundaries">
-      <h2 id="boundaries">3. The honest boundaries</h2>
+      <h2 id="boundaries">4. The honest boundaries</h2>
       <ul>
         <li>This is deterministic adoption, not an AI rewrite. Ordinary catalog and configuration updates may still be required.</li>
         <li>The user explicitly selects the organization. Targets and the local delivery runtime are current prerequisites; the importer does not silently create or guess them.</li>
@@ -9458,10 +9465,34 @@ function loadKubaraSiteFacts() {
   };
 }
 
+// The Kubara Guide leads with the user's task: a first result offline, then the
+// governed path with what each step changes and how to undo it, the Workshop
+// stack view of the same platform, the known limits, and the evidence. The
+// release pins come from the plugins section rows, so the page follows
+// data/workshop-plugins/plugins.yaml.
+
+function kubaraPluginPins() {
+  const rows = new Map(sectionRows("plugins").map((row) => [row.id, row]));
+  const kubara = rows.get("kubara")?.release?.tag;
+  const workshop = rows.get("workshop")?.release?.tag;
+  check(kubara && workshop, "site/plugins.json needs released kubara and workshop rows for the Kubara Guide");
+  return { kubara, workshop };
+}
+
 function kubaraGuideHtml(catalog) {
   const { facts, liveState, historicalProof } = kubaraSiteBits();
   const liveProof = facts.proofStatus.spec.currentLiveProof;
   const liveLogs = kubaraLiveProofLogs(facts.proofStatus);
+  const logUrl = (path) => liveLogs.find((row) => row.path === path)?.url;
+  const runLog = logUrl("examples/kind-lab/run-2026-09-30.log");
+  const handbackLog = logUrl("examples/kind-lab/handback-2026-09-30.log");
+  const upgradeLog = logUrl("examples/kind-lab/run-v0.16-2026-09-30.log");
+  check(runLog && handbackLog && upgradeLog, "proof-status.yaml must list the kind lab's run, hand-back and Kubara v0.16 logs");
+  const pins = kubaraPluginPins();
+  const guide = (anchor, label) => `<a href="${KUBARA_GUIDE_URL}#${anchor}">${escapeHtml(label)}</a>`;
+  const issue = (number) => `<a href="${KUBARA_ISSUES_URL}/${number}">#${number}</a>`;
+  const shortCommit = escapeHtml(liveProof.commit.slice(0, 7));
+  const workshopProofUrl = `https://github.com/confighub/cub-workshop/tree/${escapeHtml(pins.workshop)}/proofs/from-kubara-live-2026-09-30`;
   const steps = [
     ["1", "Choose components and wiring", "Keep Kubara catalogs, config.yaml, values overlays, and service definitions.", "../docs/demo/kubara/adoption-1-choose.md"],
     ["2", "Generate the platform and push it to Git", `Run <a href="../docs/demo/kubara/adoption-2-generate.md">Kubara</a> to generate the familiar platform, add-ons, ApplicationSets, overrides, and wiring. Then <a href="../docs/demo/kubara/adoption-3-git.md">prepare, scan, commit, and push</a> one exact portable revision.`, null],
@@ -9481,90 +9512,153 @@ function kubaraGuideHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    ${audienceLabel("For platform teams")}
+    ${audienceLabel("For platform teams who run Kubara")}
     <h1>Bring a Kubara platform into ConfigHub</h1>
-    <p class="lead">Choose the services your developers need to build and run AI-assisted tools and applications. The Catalog supplies tested component versions and known requirements. AI can help with the selection and settings. The starter writes native Kubara configuration for you to review before Kubara generates the platform files.</p>
-    <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
-    <p>Keep platform components, developer tools, and applications as related but separately versioned configuration. ConfigHub retains and promotes each of them. Test a platform-component revision when shared services change, a tool revision when the developer experience changes, and an app revision when an application changes. <a href="./put-an-app-on-a-platform.html">Apps on a platform</a> defines what an app needs from the platform under it. An AICR-generated AI platform composes the same way from Argo CD Applications; <a href="./try-aicr.html">Try AICR</a> inspects one without a GPU.</p>
-    <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform or its applications need shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
-    <p>If you already run a platform on Flux or Argo, <a href="./deploy-with-flux-or-argo.html">point ConfigHub at the fleet you have</a> and add identity, approvals, and rollback with your reconciler unchanged.</p>
-    <p>The implementation lives in <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>.</p>
-    ${humanLinks([["Govern it with cub kubara", "#kubara-govern"], ["Use it as a stack", "#kubara-run-yourself"], ["Learn ConfigHub", "./confighub.html"]])}
+    <p class="lead">Keep Kubara as it is, and approve each change to your platform in ConfigHub. Your first result takes about 15 minutes and needs no account and no cluster.</p>
+    <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong> Kubara keeps its catalogs, its generated files and its hub Argo CD. ConfigHub holds a base for each component and a variant for each cluster, with an approval before each release.</p>
+    <p>The plugin is <code>cub kubara</code>, from <a href="https://github.com/confighub/kubara-confighub">confighub/kubara-confighub</a> ${escapeHtml(pins.kubara)}. Its <a href="${KUBARA_GUIDE_URL}">guide</a> walks every command. This page gives the order, what each step changes, how to undo it, and the evidence.</p>
+    ${humanLinks([["First result in 15 minutes", "#first-result"], ["Govern it", "#kubara-govern"], ["Check it as a stack", "#kubara-stack"], ["Known limits", "#kubara-limits"], ["Evidence", "#kubara-evidence"]])}
   </header>
   <main>
-    <section aria-labelledby="kubara-govern">
-      <h2 id="kubara-govern">Govern your Kubara platform with cub kubara</h2>
-      <p>Three pieces meet here, and each has one job.</p>
-      <p><strong>Kubara generates the platform.</strong> You write a <code>config.yaml</code> that chooses services from Kubara's catalogs. <code>kubara generate</code> writes a wrapper chart for each service and each cluster's values. Kubara's hub Argo CD then delivers to every cluster through ApplicationSets.</p>
-      <p><strong><code>cub kubara</code> is for people who run Kubara.</strong> It governs a Kubara platform in ConfigHub without changing how Kubara works. It keeps a base for each component and a variant for each cluster, with an approval before each release.</p>
+    <section aria-labelledby="first-result">
+      <h2 id="first-result">1. See your platform the way ConfigHub would hold it</h2>
+      <p>This takes about 15 minutes. You need the <code>cub</code> CLI, <a href="https://github.com/kubara-io/kubara">Kubara</a> v0.15 or newer, and <code>helm</code>. You need no ConfigHub account and no cluster, and nothing changes outside the directories these commands write.</p>
       ${commandBlock([
-        { comment: "Install the plugin, one line and no account", cmd: "cub plugin install confighub/kubara-confighub" },
-        { comment: "Kubara's services, with Workshop evidence for each chart", cmd: "cub kubara services" },
-        { comment: "Write your Kubara config", cmd: "cub kubara init --out ../my-platform --services cert-manager,metrics-server,traefik" },
-        { comment: "Copy the env template, then replace every placeholder in .env", cmd: "cp ../my-platform/.env.example ../my-platform/.env" },
-        { comment: "Let Kubara generate the platform", cmd: "kubara --work-dir ../my-platform --config-file config.yaml --env-file .env generate --helm" },
-        { comment: "What ConfigHub would hold, offline", cmd: "cub kubara plan ../my-platform" },
-        { comment: "The cub steps as one script to read, then run", cmd: "cub kubara apply ../my-platform --out ../my-platform-confighub" },
-        { comment: "Point Kubara's hub at the approved releases instead of Git", cmd: "cub kubara handover ../my-platform --out ../my-platform-confighub" },
-        { comment: "Confirm each cluster runs the release its stage approved", cmd: "cub kubara check ../my-platform --hub-context <hub context>" },
+        { comment: "Install the plugin release this page was checked with", cmd: `cub plugin install confighub/kubara-confighub@${pins.kubara}` },
+        { cmd: "cub kubara version" },
+        { comment: "Optional: Kubara's services, with the Workshop's evidence for each chart", cmd: "cub kubara services" },
+        { comment: "Write a Kubara config.yaml with a hub in dev and a spoke in prod", cmd: "cub kubara init --out my-platform --services cert-manager,metrics-server,traefik --hub hub-dev:dev --spoke edge-prod:prod" },
+        { comment: "Copy the env template, then fill in the values it asks for", cmd: "cp my-platform/.env.example my-platform/.env" },
+        { comment: "Let Kubara generate the platform, as it always does", cmd: "kubara --work-dir my-platform --config-file config.yaml --env-file .env generate --helm" },
+        { comment: "What ConfigHub would hold: stages, bases, variants and chart evidence", cmd: "cub kubara plan my-platform" },
+        { comment: "Each service for each cluster, as Kubara's ApplicationSets deliver it", cmd: "cub kubara render my-platform --out my-platform-render" },
       ])}
-      <p><code>handover.sh</code> points each of Kubara's ApplicationSets at the cluster's approved release in ConfigHub. The hub, its AppProject and its sync settings stay, and the script stops first if Argo CD would delete anything. After it, a change reaches a cluster only once that cluster's stage has approved and released it, and <code>cub kubara check</code> confirms it. It ran live on a Kubara hub and spoke on kind. The <a href="https://github.com/confighub/kubara-confighub/blob/${escapeHtml(liveProof.commit)}/examples/cub-kubara/lab-handover-2026-09-28.log">first live run's log</a> records each command and the faults it found. The kind lab's <a href="${escapeHtml(liveLogs[0].url)}">recorded run</a>, committed in ${escapeHtml(liveProof.repository)} ${escapeHtml(liveProof.release)}, shows the whole story from scratch. In it argobot writes each variant Space's live status, and prod accepts a release only once dev reports it Healthy. The <a href="${escapeHtml(liveLogs[1].url)}">recorded hand-back</a> shows <code>cub kubara handback</code> pointing the hub back at Kubara's Git, with nothing pruned. The <a href="${escapeHtml(liveLogs[2].url)}">run on Kubara v0.16</a> takes newer Kubara catalogs to dev and then prod as reviewed change orders. Those logs were recorded with <code>cub kubara</code> built from the branches that ${escapeHtml(liveProof.release)} released. The <a href="${escapeHtml(liveProof.url)}">kind lab</a> runs it on your laptop.</p>
-      <p>This path has no stack step. <code>cub kubara apply</code> renders each service the way Kubara's hub delivers it, with the same release name, namespace and values, so ConfigHub holds exactly what Kubara's Argo CD runs. The <a href="https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md">cub kubara guide</a> walks every command.</p>
-      <h3>Where cub stack comes in</h3>
-      <p>Workshop stacks serve a different job. They use a Kubara platform as a stack, rather than governing it the way Kubara runs it. Reach for <code>cub stack</code> to check the platform before anything runs, compose apps onto it, publish it as OCI, or produce a platform on demand. The next section shows that path.</p>
+      <p><strong>What you get.</strong> <code>plan</code> prints the stages in rollout order, a base for each component, and a variant for each cluster that runs it. For each chart it says if the Workshop Catalog checked the exact version Kubara pins. <code>render</code> writes each cluster's services as <code>objects.yaml</code> files, and <code>render.json</code> records each chart, values file and digest.</p>
+      <p><strong>Already run Kubara?</strong> Skip <code>init</code> and <code>kubara generate</code>, and run <code>plan</code> and <code>render</code> on your Kubara work directory.</p>
+      <p><code>init</code>, <code>generate</code> and <code>plan</code> take seconds. The first <code>render</code> takes longer, because Helm fetches each chart's dependencies. In the render, each Secret keeps its keys and loses its values.</p>
+      <p><strong>Before you push the work directory to Git</strong>, add a <code>.gitignore</code> that leaves out <code>.env</code>, <code>**/charts/</code>, <code>**/Chart.lock</code> and <code>**/*.tgz</code>. <code>init</code> does not write one yet (${issue(38)}).</p>
+      <p><strong>To undo</strong>, delete <code>my-platform</code> and <code>my-platform-render</code>. The guide explains each step: ${guide("see-what-a-kubara-catalog-offers", "services")}, ${guide("start-a-new-platform", "init")}, ${guide("see-the-plan", "plan")} and ${guide("render-the-platform-as-kubara-delivers-it", "render")}.</p>
     </section>
-    <p class="notice"><strong>Need GitOps services and the shop app?</strong> <a href="./d/docs/user/workshop-compose-guide.html">Save, change and resume a local platform</a> using the retained <code>kubara-gitops-shop</code> selection. The Guide provides direct cub commands and an assistant task, with saved results and a failure case. Static composition does not establish GitOps reconciliation or application health.</p>
-    ${generatedStamp(catalog, "Kubara buyer journey")}
-    <section aria-labelledby="kubara-run-yourself">
-      <h3 id="kubara-run-yourself" style="font-size:1.25rem">Try it now</h3>
-      <p>Three steps, smallest first. Each one is a real command or a recorded walkthrough, and every claim behind them links a committed receipt.</p>
-      <div class="card">
-        <h3>Use your Kubara platform as a stack</h3>
-        <p>Kubara generates the platform you described as files in Git, a Kubara tree that is not yet a stack and not yet a platform. <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines a stack as a set of parts named in one manifest and checked before any of it runs. <code>cub stack from-kubara</code> turns the tree into exactly that. A platform is what the certified stack becomes once it runs under governance with apps on it. A fleet is that stack and its apps placed across many clusters. The workshop plugin carries the same three services as a stack and places it as a fleet.</p>
-        ${commandBlock([
-          { cmd: "git clone https://github.com/confighub/kubara-confighub.git" },
-          { cmd: "cd kubara-confighub" },
-          { cmd: WORKSHOP_PLUGIN_INSTALL },
-          { cmd: "node scripts/create-kubara-platform.mjs --name demo-platform --services cert-manager,metrics-server,traefik --repository https://github.com/acme/platform.git --output ../demo-platform" },
-          { comment: "Generate local platform files with Kubara", cmd: "kubara --work-dir ../demo-platform --config-file config.yaml --env-file .env.example generate --helm" },
-          { comment: "Kubara's own output as a stack, each chart rendered with its generated values", cmd: "cub stack from-kubara ../demo-platform" },
-          { cmd: "cub stack check ../demo-platform/confighub/stack.yaml" },
-          { comment: "or the catalog's tested images of the same three charts", cmd: "cub stack sandbox kubara-platform" },
-        ])}
-        <p>These commands need Git, Node.js, Python 3 with PyYAML, Kubara, Helm, oras, and cub on your PATH. Replace the example Git repository URL with yours. The starter writes <code>../demo-platform</code>; Kubara generates its files and <code>from-kubara</code> writes <code>confighub/stack.yaml</code> inside that directory. The check inspects the composition. Sandbox prints Kubernetes YAML; it does not start a cluster. Keep the generated directory for review. If the check refuses, repair the named conflict or missing API and rerun it; a static pass does not establish target readiness. Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/kubara-platform.yaml">stack manifest</a> and the <a href="https://github.com/confighub/cub-workshop/blob/main/fleets/demo-platform.yaml">fleet manifest</a>. Nothing pulls those releases until a cluster with delivery wired exists, which is the next step.</p>
-        <h3>Continue with a managed fleet</h3>
-        <p>The following commands create or change ConfigHub records. First sign in to the organization you intend to use, inspect the fleet manifest, and confirm the demo Space names are available. They use the shipped fleet manifest, not the files generated above. A cluster, registry access and delivery wiring are separate prerequisites.</p>
+    <section aria-labelledby="kubara-govern">
+      <h2 id="kubara-govern">2. Govern it: apply, handover, check, handback</h2>
+      <p>These steps bring the platform into a ConfigHub organization and point Kubara's hub at approved releases. <code>apply</code>, <code>handover</code> and <code>handback</code> only write a script. You read the script, then you run it.</p>
+      <p>Try them on the <a href="${escapeHtml(liveProof.url)}">kind lab</a> first. It builds a Kubara hub and spoke on your laptop, and runs every step below against them. On kind, cert-manager is Degraded and Traefik is Progressing, so <code>check</code> exits non-zero there.</p>
+      <p><strong>What you need.</strong> A ConfigHub organization and <code>cub auth login</code>, with rights to create Spaces, workers and Targets. The hub scripts also need <code>jq</code>, and <code>kubectl</code> access that can write in the hub's <code>argocd</code> and <code>argobot</code> namespaces. The hub needs Argo CD 3.1 or newer; Kubara ships 3.5.</p>
+      ${commandBlock([
+        { comment: "Render each cluster as Argo CD will, and write apply.sh", cmd: "cub kubara apply my-platform --out my-platform-confighub --capabilities hub-dev=<hub context> --capabilities edge-prod=<prod context>" },
+        { comment: "Read the script, then run it", cmd: "bash my-platform-confighub/apply.sh" },
+        { comment: "Write handover.sh: Targets, first releases, the hub switch and argobot", cmd: "cub kubara handover my-platform --out my-platform-confighub --capabilities hub-dev=<hub context>" },
+        { comment: "Read the script, then run it against Kubara's hub", cmd: "HUB_CONTEXT=<hub context> bash my-platform-confighub/handover.sh" },
+        { comment: "Each cluster runs the release its stage approved, and is Healthy", cmd: "cub kubara check my-platform --hub-context <hub context>" },
+        { comment: "To undo handover, write handback.sh from the directory Git holds", cmd: "cub kubara handback my-platform --out my-platform-confighub --capabilities hub-dev=<hub context> --capabilities edge-prod=<prod context>" },
+        { cmd: "HUB_CONTEXT=<hub context> bash my-platform-confighub/handback.sh" },
+      ])}
+      ${markdownLikeTable([
+        ["Step", "What it changes", "How to undo it"],
+        ["<code>cub kubara apply</code>", "Files only: <code>apply.sh</code>, <code>plan.txt</code>, and each component's renders and rollout workflow.", "Delete the <code>--out</code> directory."],
+        ["<code>apply.sh</code>", "ConfigHub only. It creates a component, a base Space and a rollout workflow for each Kubara component, a variant Space for each cluster, and <code>&lt;prefix&gt;-kubara-generated</code>. It creates no Targets and releases nothing, so the hub keeps delivering from Git.", "Delete the Spaces, as shown below."],
+        ["<code>handover.sh</code> steps 0 to 4", "ConfigHub only. It creates <code>&lt;prefix&gt;-targets</code>, with a worker and a Target for each cluster. It releases every variant stage by stage, and records an approval in every stage, prod included, as you.", "Delete the Spaces, as shown below."],
+        ["<code>handover.sh</code> steps 5 and 6", "Kubara's hub. It stores one gateway credential, lets the AppProject read the gateway, and points each routed ApplicationSet at ConfigHub. Then it installs argobot. It stops first if Argo CD would delete anything.", "Run <code>handback.sh</code>."],
+        ["<code>cub kubara check</code>", "Nothing. With <code>--record</code>, it writes a <code>LiveCheck</code> attestation for each verdict.", "<code>cub attestation revoke</code> withdraws an attestation."],
+        ["<code>handback.sh</code>", "Kubara's hub only. Each ApplicationSet and the AppProject read Kubara's Git again, and argobot and the gateway credential leave. ConfigHub keeps every Space and release.", "Run <code>handover.sh</code> again."],
+      ], { rawFirstColumn: true, rawSecondColumn: true, rawThirdColumn: true })}
+      <p>Pass the same <code>--prefix</code> and <code>--stages</code> to <code>plan</code>, <code>apply</code>, <code>handover</code>, <code>check</code> and <code>handback</code>. Name every stage in <code>--stages</code>, because a stage it leaves out goes last today (${issue(36)}).</p>
+      <p>On a real platform, pass <code>--capabilities</code> for every cluster. A render that differs from what Argo CD runs makes <code>handover.sh</code> stop on its prune check.</p>
+      <p><strong>Who approves.</strong> <code>handover.sh</code> approves its own first releases in every stage, as the person who runs it. That first release holds what Git already delivers. If someone else must approve prod, read ${issue(40)} before you run it. Once a second person approves changes, run <code>apply</code> with <code>--allow-authors=false</code>, then run <code>apply.sh</code> again.</p>
+      <p><strong>If <code>handover.sh</code> stops halfway</strong>, fix what it names and run it again. In steps 0 to 4 the hub has not changed. In step 5 some ApplicationSets can read ConfigHub and others Git, so run it again or run <code>handback.sh</code>.</p>
+      <p><strong>What check judges.</strong> A variant passes when one Application reads its latest release from ConfigHub and no Git source. It must also be Healthy, prune nothing, and keep live Secret values. Degraded or Missing fails. Progressing is "not yet": <code>check</code> exits non-zero, records nothing, and you run it again later.</p>
+      <p><strong>Before you hand back</strong>, put in Git each change you made in ConfigHub since handover. Git undoes any change it does not hold.</p>
+      <p><strong>To remove the platform from ConfigHub</strong>, run <code>handback.sh</code> first, because the hub must not read Spaces you delete. Then list the Spaces with your prefix, check the list, and delete them:</p>
+      ${commandBlock([
+        { cmd: `cub space list --where "Slug LIKE 'kubara-%'"` },
+        { cmd: `cub space delete --where "Slug LIKE 'kubara-%'" --recursive-force` },
+      ])}
+      <h3 id="after-handover">After handover</h3>
+      <p>Change a base once, then take the change through the stages with <code>cub changeorder create</code>, <code>cub variant promote</code>, <code>cub variant approve</code> and <code>cub release publish</code>. When Kubara generates something new, such as a newer catalog, run <code>apply</code> and <code>apply.sh</code> again. Each base that changed gets one change order to review, and changes made in ConfigHub stay. To undo a released change, release the state before it with <code>--revision Before:ChangeOrder:&lt;change order&gt;</code>.</p>
+      <p>The guide has each step: ${guide("bring-the-platform-into-confighub", "apply")}, ${guide("hand-the-hub-to-confighub", "handover")}, ${guide("change-the-platform-after-handover", "a change after handover")}, ${guide("take-a-new-kubara-catalog-through-the-stages", "a new Kubara catalog")}, ${guide("see-live-status-and-gate-a-stage-on-health", "live status and the Healthy gate")}, ${guide("check-that-each-cluster-runs-what-was-approved", "check")}, ${guide("hand-the-hub-back-to-git", "handback")}, ${guide("what-each-step-changes-and-how-to-undo-it", "what each step changes")} and ${guide("if-something-goes-wrong", "if something goes wrong")}.</p>
+    </section>
+    <section aria-labelledby="kubara-stack">
+      <h2 id="kubara-stack">3. Check the same platform as a Workshop stack</h2>
+      <p>A Workshop stack is the same platform seen as one composition: a component for each service and a variant for each cluster. Use it to check the platform before anything runs, compose apps onto it, or publish it as OCI. Approvals and handover stay with <code>cub kubara</code>.</p>
+      <p><code>cub stack from-kubara</code> runs <code>cub kubara render</code>, so the stack holds the objects Kubara's hub delivers. It needs the Workshop plugin, <code>cub kubara</code> ${escapeHtml(pins.kubara)} or later, <code>helm</code>, <code>node</code> and <code>oras</code>, and no account.</p>
+      ${commandBlock([
+        { comment: "Install the Workshop plugin release this page was checked with", cmd: WORKSHOP_PLUGIN_INSTALL },
+        { comment: "Kubara's own output as one stack", cmd: "cub stack from-kubara my-platform --out my-platform-stack" },
+        { comment: "Check the whole stack, then what one cluster runs", cmd: "cub stack check my-platform-stack/stack.yaml" },
+        { cmd: "cub stack check my-platform-stack/stack.yaml --cluster edge-prod" },
+        { comment: "Publish one OCI index; it checks every cluster before it pushes", cmd: "cub stack publish my-platform-stack/stack.yaml --out oci://<registry>/<repository>:<tag>" },
+      ])}
+      <p><code>check</code> looks for components that conflict, CRD order, served API versions, webhooks that need a certificate, and namespaces. It ends with CHECKED or REFUSED. It is a static check, so it cannot show that a cluster runs the platform. <code>publish</code> refuses before it pushes anything when one cluster does not check out, and attaches each cluster's verdict to the index.</p>
+      <p>Without <code>--out</code>, <code>from-kubara</code> writes <code>confighub/</code> inside the work directory. It can suggest <code>cub stack upload --run</code> next. That creates its own Spaces and Components, apart from the ones <code>apply.sh</code> creates, so give it another <code>--space-prefix</code>. Since Workshop v0.6.55 the prefix names each Component <code>&lt;prefix&gt;-&lt;component&gt;</code> as well as its Spaces, so the upload creates no bare Component such as <code>cert-manager</code>. You do not need an upload to govern the platform.</p>
+      <p>The Workshop README section <a href="https://github.com/confighub/cub-workshop/blob/${escapeHtml(pins.workshop)}/README.md#turn-a-kubara-platform-into-one-stack">Turn a Kubara platform into one stack</a> has the details. For a ready-made example, <code>cub stack sandbox kubara-platform</code> prints the Catalog's tested images of the same three charts as Kubernetes YAML. It does not start a cluster.</p>
+      <p class="notice"><strong>Need GitOps services and the shop app?</strong> <a href="./d/docs/user/workshop-compose-guide.html">Save, change and resume a local platform</a> using the retained <code>kubara-gitops-shop</code> selection. The Guide provides direct cub commands and an assistant task, with saved results and a failure case. Static composition does not establish GitOps reconciliation or application health.</p>
+      <details class="deep">
+        <summary>Continue with a managed fleet, or a cluster in minutes</summary>
+        <div class="deep-body">
+        <p>The following commands create or change ConfigHub records. First sign in to the organization you intend to use, inspect the <a href="https://github.com/confighub/cub-workshop/blob/main/fleets/demo-platform.yaml">fleet manifest</a>, and confirm the demo Space names are available. They use the shipped fleet manifest, not the files generated above.</p>
         ${commandBlock([
           { cmd: "cub fleet up demo-platform" },
           { cmd: "cub fleet age demo-platform && cub fleet status demo-platform" },
           { cmd: "cub variant promote metrics-server-demo-dev --dry-run" },
         ])}
         <p>If a remote step fails, inspect the records already created before retrying. Preserve existing resources; use the linked runbook for scoped cleanup.</p>
-        <h3>A cluster with delivery wired, in minutes</h3>
         <pre><code>cub cluster up --name demo --space demo-cluster</code></pre>
-        <p>One command creates a temporary kind cluster, installs Argo CD, and wires it to a ConfigHub Space. Needs a ConfigHub account and Docker; the cluster runs on your laptop.</p>
-        <h3>The whole platform, with applications flowing through it</h3>
-        <p>The six-step journey below runs Kubara's own output through ConfigHub, from import to approved promotion and recorded rollback. The implementation, commands, and receipts live in <a href="https://github.com/confighub/kubara-confighub">confighub/kubara-confighub</a>, and each step links its walkthrough.</p>
-        <h3>Give your agent this prompt</h3>
-        <pre style="border: 1px solid var(--line); border-radius: 10px; padding: 16px; overflow-x: auto; white-space: pre-wrap;"><code>I am building or operating an internal developer platform on Kubernetes.
-My platform components: &lt;list them, for example cert-manager, traefik, metrics-server, kube-prometheus-stack&gt;.
+        <p>One command creates a temporary kind cluster, installs Argo CD, and wires it to a ConfigHub Space. It needs a ConfigHub account and Docker; the cluster runs on your laptop.</p>
+        </div>
+      </details>
+      <h3 id="composition-evidence">The composition, as evidence</h3>
+      <p>Each component in a stack carries a <a href="./d/data/certified-bundles/summary.html">certified-bundle receipt</a> that names what it is and how it may be flattened, and the <a href="./d/data/certified-bundles/eks-inference-stack.html">eight-bundle EKS inference platform</a> is one worked example. The single composition verdict over a whole stack is <a href="./d/docs/planning/stack-manifest-spec.html">specified</a> and runs two ways today. This repository arms it as a regression gate over its own receipts. The workshop plugin's <code>cub stack check</code> runs it anywhere, refusing a real conflict rather than reporting one. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>.</p>
+    </section>
+    <section aria-labelledby="kubara-limits">
+      <h2 id="kubara-limits">4. Known limits</h2>
+      <p>Read these before you run <code>apply.sh</code> or <code>handover.sh</code> on a real hub. The guide keeps the ${guide("known-limits", "full list")}.</p>
+      <ul>
+        <li><strong>It has run on kind only.</strong> The kind lab ran it with Kubara v0.15.0 and v0.16.0, and Argo CD 3.5.2. It has not run on a production platform.</li>
+        <li><strong>The Healthy gate can read stale health.</strong> argobot writes each Application's sync and health to its variant Space, and the gate reads that status. The status is not yet tied to the Release, so for a few minutes after a release the gate reads the previous release's health. Run <code>cub kubara check</code> on the stage ahead before you promote.</li>
+        <li><strong>The health verdict of <code>check</code> is new in ${escapeHtml(pins.kubara)}.</strong> The kind lab's logs predate it, so a recorded live run of it does not exist yet. Its tests cover Healthy, Degraded, Missing and Progressing.</li>
+        <li><strong>argobot cannot refresh Kubara's Applications</strong> (<a href="https://github.com/confighub/argobot/issues/13">confighub/argobot#13</a>). It looks for an Application named after the Space, and Kubara names them <code>&lt;cluster&gt;-&lt;service&gt;</code>. A release reaches the cluster on Argo CD's next poll, within about three minutes.</li>
+        <li><strong>An Argo CD self-upgrade through ConfigHub is not proven.</strong> On kind, the hub's argocd Application never finishes a sync, because its Ingress gets no address. In the Kubara v0.16 run, the argo-cd release to dev did not land.</li>
+        <li><strong>Open issues in ${escapeHtml(pins.kubara)}.</strong> A second <code>--hub</code> replaces the first (${issue(35)}). <code>--stages</code> must name every stage (${issue(36)}). A Helm failure shows only its last line (${issue(37)}). <code>init</code> writes no <code>.gitignore</code> (${issue(38)}). <code>kubara bootstrap</code> after handover is untested (${issue(39)}). <code>handover.sh</code> approves its own first releases (${issue(40)}).</li>
+        <li><strong>A cluster that joins later gets its Secrets without values.</strong> Your secret store must fill them.</li>
+        <li><strong>The example index checks only the offline steps.</strong> In Workshop ${escapeHtml(pins.workshop)}, <code>cub config examples</code> returns the kind lab first for "bring my Kubara platform into ConfigHub". Its entry ran <code>init</code>, <code>generate</code> and <code>plan</code> with the released plugin. It did not run the connected, controller or runtime steps, and points to the lab's logs for them. Maintainer review of the entry is pending.</li>
+      </ul>
+    </section>
+    <section aria-labelledby="kubara-evidence">
+      <h2 id="kubara-evidence">5. The evidence behind this page</h2>
+      <p>Each record below is committed and pinned. It shows only what it names.</p>
+      ${markdownLikeTable([
+        ["Record", "What it shows", "What it does not show"],
+        [`<a href="${escapeHtml(runLog)}">Kind lab, recorded run</a>`, "From scratch on kind: plan, apply, handover and check. argobot writes each variant Space's live status. prod accepts a release only once dev reports it Healthy. An image that does not exist turns dev Degraded, and ConfigHub refuses the promotion to prod.", "The health verdict of <code>check</code>. The logged <code>check</code> predates it, and records a Pass for Applications that are Degraded on kind. A production platform."],
+        [`<a href="${escapeHtml(handbackLog)}">Kind lab, recorded hand-back</a>`, "handback points each ApplicationSet back at Kubara's Git. Each of the 8 Applications pruned nothing and synced from Git. A replica change made only in ConfigHub went back to the value in Git, and a new Git commit reached the hub.", "A production hub. Handing the hub over again ran on an earlier lab the same day; the log summarizes it."],
+        [`<a href="${escapeHtml(upgradeLog)}">Kind lab on Kubara v0.16</a>`, "Newer Kubara catalogs reach dev and then prod as reviewed change orders. Changes made in ConfigHub, such as the argo-cd routing, stay.", "An Argo CD upgrade: the argo-cd release to dev did not land on kind."],
+        [`<a href="${workshopProofUrl}">Workshop proof, from-kubara</a>`, "Real Kubara v0.16 output as one stack: six components and ten cluster renders, checked whole and per cluster. It was published to a local registry and uploaded twice to a hosted organization; the second upload wrote nothing.", "A cluster. Nothing was applied, reconciled or seen healthy."],
+      ], { rawFirstColumn: true, rawThirdColumn: true })}
+      <p>The kind-lab logs are pinned at commit <code>${shortCommit}</code>, the ${escapeHtml(liveProof.release)} release of ${escapeHtml(liveProof.repository)}. They were recorded with <code>cub kubara</code> built from the branches ${escapeHtml(liveProof.release)} released, not with the released binary. The Workshop proof used a <code>cub kubara</code> build from before that release, which reports <code>0.2.3-dev</code>.</p>
+      <p>The commands in sections 1 and 3 were checked with the released <code>cub kubara</code> ${escapeHtml(pins.kubara)}, Workshop ${escapeHtml(pins.workshop)}, Kubara v0.15.0 and Helm v4.1.4. That check wrote <code>apply.sh</code>, <code>handover.sh</code> and <code>handback.sh</code> without running them.</p>
+      <p>The four-cluster reference proof is older and separate. <a href="#earlier-work">Earlier work</a> and <a href="./kubara-and-confighub.html">Kubara and ConfigHub, explained</a> keep it, labelled as historical.</p>
+    </section>
+    <section aria-labelledby="kubara-agent">
+      <h2 id="kubara-agent">6. Give your agent this prompt</h2>
+      <pre style="border: 1px solid var(--line); border-radius: 10px; padding: 16px; overflow-x: auto; white-space: pre-wrap;"><code>I run a Kubara platform. Its work directory is &lt;path&gt;.
 
-1. Fetch https://confighub.github.io/helm-expt/site/changes.json and check which of my
-   components have a checked entry in this catalog.
-2. For each covered component, open its catalog page and compare my configuration with
-   the recorded objects, prerequisites, hooks, CRDs, and license before I install it.
-3. For each component with no entry, say so plainly, and with my approval file it at
-   https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml
-   so it gets a checked entry with receipts.
-4. Then read https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html and tell me which
-   of my components the recorded platform journey already covers.</code></pre>
-        <p>Steps 1 and 2 read public data. Step 3 files a public issue with your approval, and an uncovered component becomes a checked entry with receipts.</p>
-      </div>
+1. Install cub kubara ${escapeHtml(pins.kubara)} with: cub plugin install confighub/kubara-confighub@${escapeHtml(pins.kubara)}
+   Then read ${KUBARA_GUIDE_URL}
+2. Run cub kubara plan and cub kubara render --out &lt;new directory&gt; on my work directory.
+   Tell me the stages, the bases and variants, and which charts the Workshop Catalog
+   checked at the exact version Kubara pins. Change nothing.
+3. Run cub kubara apply and cub kubara handover with --out &lt;new directory&gt;.
+   Tell me what apply.sh and handover.sh would change. Do not run either script.
+4. List the guide's known limits that apply to my platform.
+5. For each chart the plan marks unchecked, say so, and with my approval file it at
+   https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml</code></pre>
+      <p>Steps 1 to 4 read your files and write new directories only. Step 5 files a public issue with your approval, so an unchecked chart can get a Catalog entry with receipts.</p>
       <p><strong>Why hand any of this to an agent?</strong> Our committed two-round benchmark measured where agents are already strong and where they cannot be. A bare agent with a shell answered static chart questions at 96.7 percent. Twelve of eighteen questions about time, live state, and accountability needed records the agent could not produce. The toolchain carries day one; the records carry every day after. <a href="./ask.html">The benchmark and the full prompt live on the challenge page</a>, and the run data is committed in <a href="https://github.com/confighub/helm-expt/tree/main/data/ai-benchmark">data/ai-benchmark</a>.</p>
     </section>
-    <section aria-labelledby="kubara-starter">
-      <h2 id="kubara-starter">1. Choose services for your developers</h2>
-      <p>This example uses four ordinary platform services and records one optional runtime image. Use the links to check each component, then change the comma-separated service list to suit your platform.</p>
+    <section aria-labelledby="earlier-work">
+      <h2 id="earlier-work">7. Earlier work, before cub kubara</h2>
+      <p>Before <code>cub kubara</code>, this project brought Kubara into ConfigHub with a Node starter, a Git and OCI importer, and a four-cluster reference organization. The material stays for its detail and receipts. For a new platform, start with section 1.</p>
+      <h3 id="kubara-starter">Choose services with the Node starter</h3>
+      <p>The starter uses four ordinary platform services and records one optional runtime image. Use the links to check each component, then change the comma-separated service list to suit your platform.</p>
       ${markdownLikeTable([
         ["Job", "Selected component", "Catalog page"],
         ["Certificates", "cert-manager", '<a href="./charts/jetstack-cert-manager-v1-21-0.html">jetstack/cert-manager 1.21.0</a>'],
@@ -9580,49 +9674,23 @@ npm run kubara-platform:start -- \\
   --services cert-manager,metrics-server,traefik,kube-prometheus-stack \\
   --runtime-image vllm=vllm/vllm-openai-cpu:v0.27.1-arm64@sha256:e6745d7ba6610f637c6f22fc06cd730342e50245b6c46767235600483adfbbde \\
   --output ../my-platform</code></pre>
-      <p>Replace <code>https://github.com/acme/platform.git</code> with the HTTPS Git repository where you will keep the generated platform.</p>
-      <p>The command needs Node.js. It does not contact ConfigHub Server, an OCI registry, or Kubernetes.</p>
+      <p>Replace <code>https://github.com/acme/platform.git</code> with the HTTPS Git repository where you will keep the generated platform. The command needs Node.js. It does not contact ConfigHub Server, an OCI registry, or Kubernetes.</p>
       <p><strong>Website to command line:</strong> choose and inspect components here, then run the command with those exact component names. Give the generated files to your AI assistant when you want help with a change; review its file diff before running Kubara again.</p>
       <p><a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/inference-platform"><strong>Open the exact generated example</strong></a> · <a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/starter-platform">Open the smaller three-service starter</a></p>
-      <h3>2. Review what the starter wrote</h3>
       ${markdownLikeTable([
-        ["File", "Why it exists"],
+        ["File the starter writes", "Why it exists"],
         ["config.yaml", "The native Kubara selection: cluster, catalogs, enabled services, and ordinary settings."],
         ["source-and-intent.yaml", "The Kubara source, exact component versions and packages, Catalog links, intended cluster, and checks still required."],
         ["runtime-images.yaml", "The digest-pinned application or model-server images selected beside the platform. Kubara does not deploy this record, and an image is not a complete application."],
         ["README.md and checksums.txt", "The next commands and hashes for every generated starter file."],
       ])}
-      <h3>3. Generate and inspect the platform</h3>
-      <p>In <code>../my-platform</code>, review the generated <code>.env.example</code>, create a private <code>.env</code>, and replace every placeholder. Do not commit the private file. Then run Kubara:</p>
-      <pre><code>cd ../my-platform
-kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</code></pre>
-      <p>Review the generated Kubernetes files and the required CRDs, hooks, setup Jobs, Secrets, certificate issuers, storage classes, and APIs. The Catalog links explain the known behavior of each selected chart, but the final check must use this platform's generated output and intended cluster.</p>
-      <h3>4. Choose where the reviewed result goes</h3>
-      <p>Keep the generated platform in Git, or compile its exact revision into component OCI packages plus a digest-bound platform index. Neither choice needs a ConfigHub account. Use ConfigHub when you want retained platform versions, environment variants, approvals, promotion, release OCI, rollback, or live fleet comparison.</p>
+      <p>In <code>../my-platform</code>, review the generated <code>.env.example</code>, create a private <code>.env</code>, and replace every placeholder. Do not commit the private file. Then run <code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</code> there.</p>
+      <p>Keep the generated platform in Git, or compile its exact revision into component OCI packages plus a digest-bound platform index. Neither choice needs a ConfigHub account.</p>
       <p><a href="../docs/demo/kubara/adoption-4-oci.md"><strong>Package the reviewed Git revision as OCI</strong></a> · <a href="../docs/demo/kubara/adoption.md">Continue through ConfigHub and Argo CD</a> · <a href="../docs/reference/flattening-alignment.md">See what can be flattened</a></p>
       <p><a href="../docs/demo/kubara/gui-tour.md">See the four-cluster result</a> · <a href="../docs/demo/kubara/checkpoints.md">Check the evidence</a> · <a href="../docs/demo/kubara/single-platform.md">Open the technical runbook</a></p>
       <p><a href="../docs/demo/kubara/adoption-6-apps.md"><strong>See two applications added, promoted, released, and checked on the platform</strong></a>.</p>
-    </section>
-    <section aria-labelledby="composition-evidence">
-      <h3 id="composition-evidence">The composition, as evidence</h3>
-      <p>Each component in a stack carries a <a href="./d/data/certified-bundles/summary.html">certified-bundle receipt</a> that names what it is and how it may be flattened, and the <a href="./d/data/certified-bundles/eks-inference-stack.html">eight-bundle EKS inference platform</a> is one worked example. The single composition verdict over a whole stack is <a href="./d/docs/planning/stack-manifest-spec.html">specified</a> and runs two ways today. This repository arms it as a regression gate over its own receipts. The workshop plugin's <code>cub stack check</code> runs it anywhere, refusing a real conflict rather than reporting one. As a gate inside the ConfigHub product it remains <a href="./d/docs/planning/composition-certification.html">proposed</a>. The wiring facts above are the report those checks read.</p>
-    </section>
-    <section aria-labelledby="delivery-authority">
-      <h3 id="delivery-authority">Make latest discoverable, not deployable</h3>
-      <p>The adapted lane keeps <code>targetRevision: latest</code> as a discovery address but leaves automated sync off. On the automated path, mutable latest cannot race past approval, promotion, or rollback, and ConfigHub selects the exact OCI digest before Argo CD receives it. Blocking a privileged human or a manual Argo sync needs your own RBAC or admission control.</p>
-      <details style="margin:18px 0">
-        <summary><strong>The exact mechanism, step by step</strong></summary>
-        <p>The adapted lane retains <code>targetRevision: latest</code> as the ConfigHub OCI discovery address, but leaves <code>spec.syncPolicy.automated</code> absent from every managed Application. Pinned argobot v0.1.6 runs with <code>ARGO_SYNC_MODE=kubernetes</code>, <code>ARGO_NAMESPACE=argocd</code>, and <code>ARGO_REFRESH_TYPE=hard</code>, so it refreshes but cannot deploy.</p>
-        <p>ConfigHub revalidates the authoritative release and submits <code>operation.sync.revision=&lt;ManifestDigest&gt;</code> with Kubernetes UID/resourceVersion compare-and-set only when no Argo operation is active. This is the governed improvement: mutable latest cannot race past approval, promotion, or rollback, while Argo remains the local reconciler.</p>
-        <p>The authority check inventories Applications across the whole cluster: all managed Applications must live in <code>argocd</code>, and the adapted lane permits zero ApplicationSets. Retained <code>release-N</code> Tags expose contiguous history, but the exact OCI <code>ManifestDigest</code> remains deployment authority. Client opening and closing checks plus the no-auto fence stop a rejected raced Release from deploying through this managed path. Atomic rejection of the Release record requires server-side publish preconditions.</p>
-        <p>Production approval uses the Unit slug and server <code>HeadRevisionNum</code>. Authoritative reads before and after must preserve the Unit ID, observed numeric head, and <code>DataHash</code>, and the gate must clear exactly once. That is bracketed exact-head evidence; it is not a claim that the approval API accepts a numeric compare-and-set token.</p>
-        <p>The retained fleet records 16 exact, one-time immutable-selector replacements. Its v1 history honestly retains 12 earlier reviewed-preflight triggers and four resource-failure recovery triggers; completed history is not rewritten. For every new attempt, the v2 policy requires an attempted exact-revision Argo operation to record and digest-bind the matching terminal resource failure before deletion. Every old UID/resourceVersion and reviewed selector transition is journaled; the replacement must be healthy. The four PostgreSQL StatefulSet migrations retain the same bound PVC UID and volume identity. This is an allowlisted migration contract, not broad delete authority.</p>
-      </details>
-    </section>
-    <p><a href="./kubara-and-confighub.html">Kubara and ConfigHub, explained</a> says what stays Kubara and what ConfigHub adds, the evidence behind each benefit, and the honest boundaries.</p>
-    <section aria-labelledby="six-steps">
-      <h2 id="six-steps">One adoption journey, in the user's order</h2>
-      <p>The preparer, scanner, package verifier, binding lock, and receipt checks are checkpoints inside these steps. The stack check is new here: it turns the pushed revision into a stack and checks it before OCI makes it immutable.</p>
+      <h3 id="six-steps">One adoption journey, in the user's order</h3>
+      <p>The preparer, scanner, package verifier, binding lock, and receipt checks are checkpoints inside these steps. The stack check turns the pushed revision into a stack and checks it before OCI makes it immutable.</p>
       <ol>
         ${steps.map(([number, title, detail, href]) => {
           const heading = href
@@ -9632,9 +9700,7 @@ kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</c
         }).join("\n        ")}
       </ol>
       <p><a href="../docs/demo/kubara/adoption.md"><strong>Open the complete tutorial and its checkpoints</strong></a>.</p>
-    </section>
-    <section aria-labelledby="see-it">
-      <h2 id="see-it">What we show in ConfigHub</h2>
+      <h3 id="see-it">What we show in ConfigHub</h3>
       <ol>
         <li>The source-bound platform contract and familiar hub/spoke identity.</li>
         <li>The component-first Catalog, retained versions, and selected instances.</li>
@@ -9649,14 +9715,21 @@ kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</c
       <p>${liveState === "historical" ? `The exact faithful, mini-IDP, performance, orphan, matrix, wiring, and six-frame GUI evidence set is complete and mutually consistent. ${historicalProof}` : liveState === "current" ? "The exact faithful, mini-IDP, performance, orphan, matrix, wiring, and six-frame GUI evidence set is source-current and mutually consistent." : "The deterministic story is current. Live and GUI claims remain gated. Faithful, mini-IDP, performance, health, orphan, matrix, wiring, and all six published screenshots must match this source."}</p>
       <p><a href="../docs/demo/kubara/gui-tour.md#pre-capture-gate">Run the screenshot-free pre-capture gate</a> before opening the browser. Publish exactly six real, source-current frames. Their atomic GUI receipt must bind the source and organization. It must also bind faithful, mini-IDP, orphan, matrix, wiring, image digests, capture times, visible identities, and claim boundaries. Never substitute placeholders or mocked screenshots.</p>
       <p><a href="../docs/demo/kubara/gui-tour.md">Follow the receipt-bound GUI tour</a>.</p>
-    </section>
-    <section aria-labelledby="detail">
+      <details style="margin:18px 0" id="delivery-authority">
+        <summary><strong>Make latest discoverable, not deployable: the adapted lane's mechanism</strong></summary>
+        <p>The adapted lane keeps <code>targetRevision: latest</code> as a discovery address but leaves automated sync off. On the automated path, mutable latest cannot race past approval, promotion, or rollback, and ConfigHub selects the exact OCI digest before Argo CD receives it. Blocking a privileged human or a manual Argo sync needs your own RBAC or admission control.</p>
+        <p>The adapted lane retains <code>targetRevision: latest</code> as the ConfigHub OCI discovery address, but leaves <code>spec.syncPolicy.automated</code> absent from every managed Application. Pinned argobot v0.1.6 runs with <code>ARGO_SYNC_MODE=kubernetes</code>, <code>ARGO_NAMESPACE=argocd</code>, and <code>ARGO_REFRESH_TYPE=hard</code>, so it refreshes but cannot deploy.</p>
+        <p>ConfigHub revalidates the authoritative release and submits <code>operation.sync.revision=&lt;ManifestDigest&gt;</code> with Kubernetes UID/resourceVersion compare-and-set only when no Argo operation is active. This is the governed improvement: mutable latest cannot race past approval, promotion, or rollback, while Argo remains the local reconciler.</p>
+        <p>The authority check inventories Applications across the whole cluster: all managed Applications must live in <code>argocd</code>, and the adapted lane permits zero ApplicationSets. Retained <code>release-N</code> Tags expose contiguous history, but the exact OCI <code>ManifestDigest</code> remains deployment authority. Client opening and closing checks plus the no-auto fence stop a rejected raced Release from deploying through this managed path. Atomic rejection of the Release record requires server-side publish preconditions.</p>
+        <p>Production approval uses the Unit slug and server <code>HeadRevisionNum</code>. Authoritative reads before and after must preserve the Unit ID, observed numeric head, and <code>DataHash</code>, and the gate must clear exactly once. That is bracketed exact-head evidence; it is not a claim that the approval API accepts a numeric compare-and-set token.</p>
+        <p>The retained fleet records 16 exact, one-time immutable-selector replacements. Its v1 history honestly retains 12 earlier reviewed-preflight triggers and four resource-failure recovery triggers; completed history is not rewritten. For every new attempt, the v2 policy requires an attempted exact-revision Argo operation to record and digest-bind the matching terminal resource failure before deletion. Every old UID/resourceVersion and reviewed selector transition is journaled; the replacement must be healthy. The four PostgreSQL StatefulSet migrations retain the same bound PVC UID and volume identity. This is an allowlisted migration contract, not broad delete authority.</p>
+      </details>
       <h3 id="detail">Keep all the detail</h3>
-      <p>The concise buyer journey does not replace the engineering material. Use the <a href="../docs/demo/kubara/single-platform.md">complete mini-IDP and maintainer runbook</a>, <a href="../examples/kubara/git-import/README.md">importer contract</a>, <a href="../docs/demo/kubara/platform-evidence.md">matrix and wiring evidence</a>, and <a href="../docs/demo/kubara/reconciliation-performance.md">performance analysis</a>.</p>
-      <p>The example is accepted only after a clean-checkout import into a fresh user-selected organization passes twice. The orphan count must be zero, one application must be healthy, and every published screenshot must be receipt-bound.</p>
+      <p>Use the <a href="../docs/demo/kubara/single-platform.md">complete mini-IDP and maintainer runbook</a>, <a href="../examples/kubara/git-import/README.md">importer contract</a>, <a href="../docs/demo/kubara/platform-evidence.md">matrix and wiring evidence</a>, and <a href="../docs/demo/kubara/reconciliation-performance.md">performance analysis</a>. <a href="./kubara-and-confighub.html">Kubara and ConfigHub, explained</a> says what stays Kubara, what ConfigHub adds, and the evidence behind each benefit.</p>
+      <p>That earlier example is accepted only after a clean-checkout import into a fresh user-selected organization passes twice. The orphan count must be zero, one application must be healthy, and every published screenshot must be receipt-bound.</p>
     </section>
   </main>
-  <footer>Every claim is scoped to the named Kubara source, version, catalogs, ConfigHub organization, delivery path, and receipt.</footer>
+  <footer>Every claim is scoped to the named Kubara version, plugin release, delivery path, and record.</footer>
 </body>
 </html>`;
 }
@@ -14567,8 +14640,8 @@ Open \`site/base-variant-records.json\` for the Catalog source-and-intent index 
 the Check and Promote pages. Open \`site/promotion-review.schema.json\` for the
 browser promotion record.
 Open \`site/testing.html\` for working starting, managed, platform, and App examples.
-Open \`site/bring-kubara-into-confighub.html\` for the Kubara buyer story, six adoption steps, GUI path,
-evidence status, and full technical references.
+Open \`site/bring-kubara-into-confighub.html\` for the cub kubara path (offline plan and render, then apply,
+handover, check and handback), its limits and evidence, and the earlier six-step journey.
 Open \`site/confighub.html\` to sign up, follow the official tutorial, or read the blog.
 Open \`site/charts/index.html\` for the Catalog and \`site/testing.html\` for the Helm, AICR, OCI, and YAML examples.
 Open \`site/variants.html\` for base variants, derived variants, and promotion entry points.

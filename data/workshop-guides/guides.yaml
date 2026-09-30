@@ -250,8 +250,8 @@ spec:
   - id: bring-kubara-into-confighub
     group: stacks-and-platforms
     title: Bring a Kubara platform into ConfigHub
-    summary: Govern a Kubara platform with cub kubara, from plan to handover and check, without changing
-      how Kubara works, or use it as a Workshop stack.
+    summary: Plan and render a Kubara platform offline in about 15 minutes, then govern it with cub kubara
+      from apply to hand-back without changing how Kubara works, or check it as a Workshop stack.
     page: bring-kubara-into-confighub.html
     command: "cub kubara services"
   - id: handle-hooks-and-crds

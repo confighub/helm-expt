@@ -50,8 +50,8 @@
 - [All technical references](https://confighub.github.io/helm-expt/site/docs.html#all-references): the complete guide and evidence index, on Docs.
 - [Continue with ConfigHub](https://confighub.github.io/helm-expt/site/confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
 - [Catalog](https://confighub.github.io/helm-expt/site/charts/index.html): every tested component and version, with its image, receipt, and the commands to check and verify it.
-- [Kubara with ConfigHub](https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html): decide why to add ConfigHub without rewriting Kubara, then follow the same six-step buyer and implementation journey.
-- [Kubara six-step tutorial](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption.html): choose, generate, push to Git, create OCI, load the selected organization, and deploy applications while Argo CD remains the reconciler.
+- [Kubara with ConfigHub](https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html): bring a Kubara platform into ConfigHub with cub kubara. Plan and render offline first, then apply, hand over, check and hand back, with each step's undo, the known limits and the live evidence.
+- [Kubara six-step tutorial](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption.html): the earlier path, before cub kubara: choose, generate, push to Git, create OCI, load the selected organization, and deploy applications while Argo CD remains the reconciler.
 - [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.
 
 ## Machine contract
