@@ -28,7 +28,7 @@ spec:
     summary: The assistant wrote my Helm values. Did they do anything? Three of seven did nothing, and
       Helm never said so.
     page: journey-values-did-nothing.html
-    command: "cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --values values.yaml"
+    command: "cub config values oci://registry-1.docker.io/cloudpirates/redis --version 0.34.11 --release shop-redis --namespace shop --values values.yaml"
   - id: journey-preserve-my-fixes
     group: journeys
     title: AI overwrites my fixes
