@@ -182,6 +182,7 @@
       "summary": "Walk the ten questions a Helm user asks, with the pain beneath each one and a check you run on your agent's answer.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-helm-questions-guide.html",
+      "firstCommand": "cub config check metrics-server",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-helm-questions-guide.html"
       }

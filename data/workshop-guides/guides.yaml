@@ -13,7 +13,6 @@ spec:
     title: Start here
   - id: helm-questions
     title: Helm questions
-    command: "cub config check metrics-server"
   - id: formats
     title: Formats
   - id: gitops
@@ -116,6 +115,7 @@ spec:
     summary: Walk the ten questions a Helm user asks, with the pain beneath each one and a check you run
       on your agent's answer.
     page: d/docs/user/workshop-helm-questions-guide.html
+    command: "cub config check metrics-server"
   - id: values
     group: helm-questions
     title: Find why a Helm value did not change the output

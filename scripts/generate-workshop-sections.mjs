@@ -217,6 +217,10 @@ function guideCommand(guide) {
 function guideRows(registry) {
   const groups = new Map(registry.spec.groups.map((group) => [group.id, group.title]));
   check(registry.spec.groups[0]?.id === "journeys", "the five journeys must be the first group");
+  for (const group of registry.spec.groups) {
+    const extra = Object.keys(group).filter((key) => !["id", "title"].includes(key));
+    check(extra.length === 0, `guide group ${group.id}: ${extra.join(", ")} belongs on a Guide, not a group`);
+  }
   const rows = registry.spec.guides.map((guide) => {
     check(groups.has(guide.group), `guide ${guide.id}: unknown group ${guide.group}`);
     check(Boolean(guide.page) !== Boolean(guide.repository), `guide ${guide.id}: give a site page or a repository path, not both`);
@@ -415,6 +419,7 @@ function selfTest() {
     throw new Error(`self-test ${name}: a broken registry was accepted`);
   };
   refuses("duplicate plugin", (i) => i.plugins.spec.plugins.push(clone(i.plugins.spec.plugins[0])), "appears twice");
+  refuses("field on a guide group", (i) => { i.guides.spec.groups[1].command = "cub config check redis"; }, "belongs on a Guide, not a group");
   refuses("first command not on the page", (i) => { i.guides.spec.guides.find((g) => g.command).command = "cub no-such-command"; }, "does not appear on");
   refuses("plugin naming a missing stack", (i) => { i.plugins.spec.plugins.find((p) => p.stack).stack = "no-such-stack"; }, "is not a shipped platform stack");
   refuses("listing missing an assessment stage", (i) => {
@@ -433,7 +438,7 @@ function selfTest() {
   refuses("four journeys", (i) => { i.guides.spec.guides.shift(); }, "five journeys");
   refuses("empty summary", (i) => { i.stacks.spec.stacks[0].description = " "; }, "has no summary");
   check(validate({ rows: [] }, schemaFor("plugins")).length > 0, "self-test: the schema accepted a document with no header");
-  console.log("self-test passed: duplicate IDs, unknown states, missing install commands, short commits, unknown deliveries, missing pages, journey order, empty summaries, a Guide command missing from its page, a plugin naming a missing stack and a listing missing an assessment stage are all refused");
+  console.log("self-test passed: duplicate IDs, unknown states, missing install commands, short commits, unknown deliveries, missing pages, journey order, empty summaries, a field put on a Guide group, a Guide command missing from its page, a plugin naming a missing stack and a listing missing an assessment stage are all refused");
 }
 
 function syncStacks(from) {
