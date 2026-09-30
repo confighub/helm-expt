@@ -22,7 +22,7 @@
       "repository": "confighub/cub-workshop",
       "release": {
         "date": "2026-09-30",
-        "tag": "v0.6.52"
+        "tag": "v0.6.55"
       },
       "install": "cub plugin install confighub/cub-workshop",
       "next": {
@@ -32,21 +32,21 @@
     {
       "id": "kubara",
       "name": "Kubara",
-      "summary": "Plans a Kubara platform, renders per-cluster configuration and prepares staged ConfigHub handover.",
+      "summary": "Plans and renders a Kubara platform offline, then hands its hub to ConfigHub's approved releases, checks each cluster and hands back to Git.",
       "state": "released",
       "commands": [
         "cub kubara"
       ],
       "repository": "confighub/kubara-confighub",
       "release": {
-        "date": "2026-09-28",
-        "tag": "v0.2.2"
+        "date": "2026-09-30",
+        "tag": "v0.2.3"
       },
       "install": "cub plugin install confighub/kubara-confighub",
-      "note": "The current check can record Pass while an Application is Degraded; continuous post-handover status remains an open upstream gap.",
+      "note": "Tested on kind only. For a few minutes after a release, the Healthy gate can read the previous release's status. argobot cannot refresh Kubara's Applications (confighub/argobot#13).",
       "guide": {
         "address": "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md",
-        "title": "Plan and hand over a Kubara platform"
+        "title": "Run a Kubara platform through ConfigHub"
       },
       "next": {
         "command": "cub plugin install confighub/kubara-confighub"
@@ -63,7 +63,7 @@
       "repository": "confighub/sveltos-confighub",
       "release": {
         "date": "2026-09-30",
-        "tag": "v0.10.0"
+        "tag": "v0.11.0"
       },
       "install": "cub plugin install confighub/sveltos-confighub",
       "note": "Handover rollback and chart-rendered Secret handling remain open upstream work; review those limits before importing a fleet.",
@@ -140,8 +140,8 @@
       ],
       "repository": "confighub/cub-scout",
       "release": {
-        "date": "2026-09-26",
-        "tag": "v2.12.3"
+        "date": "2026-09-30",
+        "tag": "v2.12.4"
       },
       "install": "cub plugin install confighub/cub-scout",
       "next": {

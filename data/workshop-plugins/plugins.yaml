@@ -16,17 +16,17 @@ spec:
       summary: Checks, composes and publishes configuration from the Catalog.
       repository: confighub/cub-workshop
       state: released
-      release: {tag: v0.6.52, date: "2026-09-30"}
+      release: {tag: v0.6.55, date: "2026-09-30"}
       install: cub plugin install confighub/cub-workshop
     - id: kubara
       name: Kubara
       commands: [cub kubara]
-      summary: Plans a Kubara platform, renders per-cluster configuration and prepares staged ConfigHub handover.
-      guide: {address: "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md", title: "Plan and hand over a Kubara platform"}
-      note: The current check can record Pass while an Application is Degraded; continuous post-handover status remains an open upstream gap.
+      summary: Plans and renders a Kubara platform offline, then hands its hub to ConfigHub's approved releases, checks each cluster and hands back to Git.
+      guide: {address: "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md", title: "Run a Kubara platform through ConfigHub"}
+      note: Tested on kind only. For a few minutes after a release, the Healthy gate can read the previous release's status. argobot cannot refresh Kubara's Applications (confighub/argobot#13).
       repository: confighub/kubara-confighub
       state: released
-      release: {tag: v0.2.2, date: "2026-09-28"}
+      release: {tag: v0.2.3, date: "2026-09-30"}
       install: cub plugin install confighub/kubara-confighub
     - id: sveltos
       name: Sveltos
@@ -36,7 +36,7 @@ spec:
       note: Handover rollback and chart-rendered Secret handling remain open upstream work; review those limits before importing a fleet.
       repository: confighub/sveltos-confighub
       state: released
-      release: {tag: v0.10.0, date: "2026-09-30"}
+      release: {tag: v0.11.0, date: "2026-09-30"}
       install: cub plugin install confighub/sveltos-confighub
     - id: eks-inference
       name: EKS inference
@@ -69,7 +69,7 @@ spec:
       summary: Explores and maps GitOps in your clusters.
       repository: confighub/cub-scout
       state: released
-      release: {tag: v2.12.3, date: "2026-09-26"}
+      release: {tag: v2.12.4, date: "2026-09-30"}
       install: cub plugin install confighub/cub-scout
     - id: scan
       name: Scan

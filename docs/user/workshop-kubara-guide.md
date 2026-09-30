@@ -10,8 +10,11 @@ need, and carry the bootstrap, secret, and CRD work forward with them.
 
 If you run Kubara and want its platform governed in ConfigHub, use `cub kubara`
 from [kubara-confighub](https://github.com/confighub/kubara-confighub) instead of
-this Guide. Your path is `kubara generate`, then `cub kubara plan`, `apply`,
-`handover` and `check`, and it has no stack step. The
+this Guide. Your path is `kubara generate`, then `cub kubara plan` and
+`render`, which run offline, then `apply`, `handover` and `check`. `handback`
+returns the hub to Git. The path has no stack step.
+[Bring a Kubara platform into ConfigHub](https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html)
+gives the order and what each step changes, and the
 [cub kubara guide](https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md)
 walks it. This Guide answers a different question: what a generated Kubara
 platform contains, needs and carries, read as a Catalog entry.

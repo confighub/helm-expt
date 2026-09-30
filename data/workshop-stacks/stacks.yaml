@@ -5,7 +5,7 @@ metadata:
 spec:
   description: "The shipped stacks in cub-workshop's stacks/ directory at a pinned commit, written by scripts/generate-workshop-sections.mjs --sync-stacks. Stacks whose role is refusal or fixture belong to Guides and stay out of site/stacks.json."
   repository: "confighub/cub-workshop"
-  commit: "8f4c207a134c74e0d94c228c11b2c4b202ffed19"
+  commit: "e70d630904a31fb2b094ee671b249d28b6944ddc"
   stacks:
     -
       id: "app-platform"
@@ -23,7 +23,7 @@ spec:
       id: "conflict-demo"
       path: "stacks/conflict-demo.yaml"
       role: "refusal"
-      description: "Two components claim the same object with different content. Certify must refuse this composition."
+      description: "Two components claim the same object with different content. cub stack check must refuse this composition."
       components:
         - "team-a"
         - "team-b"
@@ -90,7 +90,7 @@ spec:
       id: "kubara-shop-first-try"
       path: "stacks/kubara-shop-first-try.yaml"
       role: "refusal"
-      description: "The Kubara platform as first picked (cert-manager, Traefik, metrics-server) with the shop app placed on it. Certify refuses it: the app asks for things the platform does not carry."
+      description: "The Kubara platform as first picked (cert-manager, Traefik, metrics-server) with the shop app placed on it. cub stack check refuses it: the app asks for things the platform does not carry."
       components:
         - "cert-manager"
         - "traefik"
@@ -113,7 +113,7 @@ spec:
       id: "metrics-double"
       path: "stacks/metrics-double.yaml"
       role: "refusal"
-      description: "Two copies of metrics-server, composed to show the certify step catching a resource conflict."
+      description: "Two copies of metrics-server, composed to show cub stack check catching a resource conflict."
       components:
         - "metrics-server"
         - "metrics-server-again"
@@ -164,7 +164,7 @@ spec:
       id: "web-tiny"
       path: "stacks/web-tiny.yaml"
       role: "fixture"
-      description: "A tiny two-component web stack, used to run cub stack install end to end without burning quota."
+      description: "A tiny two-component web stack, used to run cub stack upload end to end without burning quota."
       components:
         - "frontend"
         - "backend"
