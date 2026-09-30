@@ -656,7 +656,7 @@
       <h2 id="try">Try it now</h2>
       <p>Install the plugin, then check a chart. It costs nothing and touches no cluster.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo
+  <pre><code>cub plugin install confighub/cub-workshop@v0.6.52
 cub config check redis</code></pre>
       <p><code>cub config check redis</code> reports the fourteen objects it installs, the namespaces that must already exist, and the lifecycle work it hides. Nothing is applied.</p>
       <div class="card"><table>
@@ -691,7 +691,7 @@ cub app score shop-web</code></pre>
 cub stack check metrics-double</code></pre>
       <p>The first checks a real inference stack, 130 objects across eight bundles, with no cluster and no cloud account. The second fails, because two of its components claim the same objects and the check refuses a stack that cannot hold together. <a href="./stack.html#what-a-stack-is">Stacks</a> defines a stack as &ldquo;a set of parts named in one manifest and checked before any of it runs.&rdquo;</p>
       <h3>An app tells the platform what it needs</h3>
-      <p>Certify reads what each authored app needs from the platform under it, off the app's own objects, and refuses a stack that does not carry it.</p>
+      <p>The check reads what each authored app needs from the platform under it, off the app's own objects, and refuses a stack that does not carry it.</p>
       <pre class="terminal-body"><code><span class="term-prompt">$</span> cub app check shop-web
 needs an ingress controller, cert-manager, a Prometheus operator
 
@@ -705,7 +705,7 @@ the app adapted: Traefik's class, a secret through external-secrets
 <span class="term-catch">=&gt; CHECKED - the platform grew by external-secrets, every need carried</span></code></pre>
       <p>The app told the platform what it had to be, and the platform grew by one service to carry it. <a href="./put-an-app-on-a-platform.html#demo">Apps</a> walks the same negotiation step by step.</p>
       <h3>A Kubara platform becomes a stack</h3>
-      <p>When a Kubara platform already exists, its own output becomes a stack, rendered with the values Kubara generated. Certify then judges the platform you actually have rather than the catalog's copy of its parts. A platform, as <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines it, is what a stack becomes once it runs under governance with apps on it.</p>
+      <p>When a Kubara platform already exists, its own output becomes a stack, rendered with the values Kubara generated. The check then judges the platform you actually have rather than the catalog's copy of its parts. A platform, as <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines it, is what a stack becomes once it runs under governance with apps on it.</p>
       <pre class="terminal-body"><code><span class="term-prompt">$</span> kubara --work-dir . --config-file config.yaml --env-file .env generate --helm
 
 <span class="term-prompt">$</span> cub stack from-kubara . --app shop-web-kubara

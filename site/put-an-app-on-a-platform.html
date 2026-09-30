@@ -625,7 +625,7 @@
     
     <p class="eyebrow">A Guide</p>
     <h1>Put an app on a platform</h1>
-    <p class="lead">Certify checks first that the platform carries what the app needs, then you promote the app across environments in ConfigHub.</p>
+    <p class="lead">The check confirms first that the platform carries what the app needs, then you promote the app across environments in ConfigHub.</p>
     <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Check what my app needs, check it on &lt;platform&gt;, and tell me what to change on either side.”</aside>
     <p>The app lands on a <a href="./stack.html">stack</a> at the moment the stack check reads it. The <a href="./apps.html">Apps</a> list holds every worked example.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="#try">Try it now</a> · <a href="#demo">Follow the demo, step by step</a> · <a href="#confighub">Take it into ConfigHub</a> · <a href="#adopt">Bring an app that already runs</a></p>
@@ -635,7 +635,7 @@
       <h2 id="try">Try it now</h2>
       <p>Install the workshop plugin, then ask an app what it needs and whether it fits a platform. Nothing here touches a cluster, and no account is needed.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo
+  <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.52
 
 <span class="term-comment"># what does this app need?</span>
 <span class="term-prompt">$</span> cub app check shop-web
@@ -662,7 +662,7 @@
         <li><strong>Check the app.</strong> <code>cub app check shop-web</code> reads its objects and reports what it needs from the platform under it, such as an ingress controller, cert-manager, and external-secrets.</li>
         <li><strong>Check it on the platform.</strong> The app's Ingress asks for the nginx class while the platform runs Traefik, and one need has no provider, so the check refuses the composition and names both reasons.</li>
         <li><strong>Adapt both sides.</strong> Change the app's ingress class to match the platform, and grow the platform by the one service the catalog already carries. The app shapes the platform, and the platform shapes the app.</li>
-        <li><strong>Certify again.</strong> <code>cub stack sandbox shop-platform</code> now reports the composition certified. Changing the app's ingress class and adding one service was enough.</li>
+        <li><strong>Check again.</strong> <code>cub stack sandbox shop-platform</code> now reports the composition CHECKED. Changing the app's ingress class and adding one service was enough.</li>
       </ol>
       <p>Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/shop-platform.yaml">shop-platform manifest</a>, the <a href="https://github.com/confighub/cub-workshop/tree/main/apps">shipped apps</a>, and the <a href="https://github.com/confighub/cub-workshop/blob/main/proofs/assistant-composition-2026-09-02/journal.md">recorded composition</a>, where an assistant chose the parts and the check read them. <a href="./stack.html">Stacks</a> explains the manifest.</p>
     </section>
@@ -717,7 +717,7 @@
     <section aria-labelledby="app-in-full">
       <h2 id="app-in-full">What an app is, in full</h2>
       <p>An app is a workload you bring. It declares what it needs from the platform under it, and <code>cub app check</code> reads its own objects to report that.</p>
-      <p>An app on a stack is checked before anything runs. Certify judges the app's need alongside every component in the manifest, and refuses the stack if the need goes unmet.</p>
+      <p>An app on a stack is checked before anything runs. The check judges the app's need alongside every component in the manifest, and refuses the stack if the need goes unmet.</p>
       <p>An app on a platform is that same app after the stack is uploaded and running under governance. It deploys, promotes, and rolls back there with ConfigHub's own verbs.</p>
       <p>A standalone app needs neither. It pulls its own reviewed OCI bundle and reconciles straight onto a cluster through Argo CD or Flux. An app only needs a platform for a dependency a stack carries, such as TLS from cert-manager or an ingress controller.</p>
       <p><a href="./try-aicr.html">Try AICR</a> inspects a different kind of platform, one composed of Argo CD Applications instead of a stack manifest.</p>

@@ -41,7 +41,7 @@ for (const phrase of [
   "Follow The Matching Guide With The User",
   "Nothing above is gated behind an install or a sign-up",
   "Say What You Expect Before You Run It",
-  "certified: false",
+  "checked: false",
 ]) {
   check(skill.includes(phrase), `skills/config-workshop/SKILL.md must include: ${phrase}`);
 }
@@ -88,7 +88,7 @@ for (const item of evals.cases) {
 for (const requiredId of [
   "predict-before-config-check",
   "diff-exit-code-lists-fields",
-  "certify-refusal-quoted-verbatim",
+  "stack-check-refusal-quoted-verbatim",
   "sandbox-object-count-checked",
   "match-unknown-is-not-zero",
 ]) {

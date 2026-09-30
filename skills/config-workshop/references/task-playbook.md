@@ -133,7 +133,7 @@ generated site page:
 ## Report a refusal exactly as printed
 
 `cub stack check`, `cub config diff --exit-code`, and `cub app match --json`
-can refuse or disagree instead of failing to run. Quote `certified: false`,
+can refuse or disagree instead of failing to run. Quote `checked: false`,
 `status: "mismatch"`, `status: "unknown"`, and the exit code exactly as
 printed. A nonzero mismatch or unknown result is an expected finding, not an
 error; never report it as success.

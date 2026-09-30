@@ -29,11 +29,10 @@ and no cluster. The last step needs an account or a server you run yourself.
 
 Install [the cub CLI](https://confighub.github.io/helm-expt/site/try.html#install-cub)
 and [Helm](https://helm.sh/docs/intro/install/). Then install the Workshop
-plugin at the exact source revision this Guide was checked with (version
-0.6.50), because the plugin publishes no release yet.
+plugin release this Guide was checked with (version 0.6.52).
 
 ```sh
-cub plugin install confighub/cub-workshop@ace677618705d278b5b859fcd508b2c2ba77a864 --source-repo
+cub plugin install confighub/cub-workshop@v0.6.52
 ```
 
 ## 1. Start from the Catalog base

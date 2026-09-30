@@ -549,27 +549,27 @@ cub plugin install &quot;$PWD&quot;</code></pre>
 <pre><code>mkdir compose-demo
 cd compose-demo
 cub stack sandbox ../stacks/kubara-gitops-shop.yaml --workspace ./platform</code></pre>
-<p>Expected exit code: <code>0</code>, with 184 objects. Target prerequisite warnings remain unverified; static certification does not clear them. Keep <code>platform/result.json</code>, <code>platform/rendered.yaml</code>, <code>platform/stack.yaml</code>, and every file under <code>platform/components/</code>. The saved workspace is the materialized configuration and its review receipt; it is not a ConfigHub Space.</p>
-<p>Move the complete directory, then certify the moved manifest to demonstrate a resume:</p>
+<p>Expected exit code: <code>0</code>, with 184 objects. Target prerequisite warnings remain unverified; a static check does not clear them. Keep <code>platform/result.json</code>, <code>platform/rendered.yaml</code>, <code>platform/stack.yaml</code>, and every file under <code>platform/components/</code>. The saved workspace is the materialized configuration and its review receipt; it is not a ConfigHub Space.</p>
+<p>Move the complete directory, then check the moved manifest to demonstrate a resume:</p>
 <pre><code>mv platform platform-moved
-cub stack certify ./platform-moved/stack.yaml --json &gt; ./platform-moved/resume.json</code></pre>
+cub stack check ./platform-moved/stack.yaml --json &gt; ./platform-moved/resume.json</code></pre>
 <p>Expected exit code: <code>0</code>. Moving the whole directory preserves the component files needed for continuation. Do not recreate only <code>stack.yaml</code>.</p>
 <h2 id="review-one-changed-field">Review one changed field</h2>
-<p>In <code>platform-moved/components/06-shop-web.yaml</code>, change only the <code>shop-web</code> Deployment <code>spec.replicas</code> from <code>3</code> to <code>2</code>. Leave <code>platform-moved/rendered.yaml</code> and the original <code>platform-moved/result.json</code> unchanged. Then certify and render the candidate under new filenames:</p>
-<pre><code>cub stack certify ./platform-moved/stack.yaml --json &gt; ./platform-moved/changed-result.json
+<p>In <code>platform-moved/components/06-shop-web.yaml</code>, change only the <code>shop-web</code> Deployment <code>spec.replicas</code> from <code>3</code> to <code>2</code>. Leave <code>platform-moved/rendered.yaml</code> and the original <code>platform-moved/result.json</code> unchanged. Then check and render the candidate under new filenames:</p>
+<pre><code>cub stack check ./platform-moved/stack.yaml --json &gt; ./platform-moved/changed-result.json
 cub stack sandbox ./platform-moved/stack.yaml --out ./platform-moved/changed.yaml
 git diff --no-index ./platform-moved/rendered.yaml ./platform-moved/changed.yaml</code></pre>
-<p>The first two commands should exit <code>0</code>. <code>git diff --no-index</code> should exit <code>1</code> because it found the intended difference. Inspect the diff: the meaningful change is the replica count. A static certification result records the rendered bytes and checks; it does not approve the change or show that the app runs.</p>
+<p>The first two commands should exit <code>0</code>. <code>git diff --no-index</code> should exit <code>1</code> because it found the intended difference. Inspect the diff: the meaningful change is the replica count. A static check result records the rendered bytes and checks; it does not approve the change or show that the app runs.</p>
 <h2 id="preserve-an-incompatible-candidate">Preserve an incompatible candidate</h2>
 <p>First copy the changed workspace:</p>
 <pre><code>cp -R platform-moved incompatible</code></pre>
 <p>In <code>incompatible/components/06-shop-web.yaml</code>, change only the <code>ExternalSecret</code> API version from <code>external-secrets.io/v1</code> to <code>external-secrets.io/v1beta1</code>. Save the file, then run:</p>
-<pre><code>cub stack certify ./incompatible/stack.yaml --json &gt; ./incompatible/refusal.json</code></pre>
-<p>Expected exit code: <code>1</code>, with <code>certified: false</code>. The bundled External Secrets CRD serves <code>v1</code>, so the incompatible version is refused during certification; it does not produce a changed materialized render. Keep <code>incompatible/refusal.json</code> as evidence of the refusal.</p>
+<pre><code>cub stack check ./incompatible/stack.yaml --json &gt; ./incompatible/refusal.json</code></pre>
+<p>Expected exit code: <code>1</code>, with <code>checked: false</code>. The bundled External Secrets CRD serves <code>v1</code>, so the incompatible version is refused by the check; it does not produce a changed materialized render. Keep <code>incompatible/refusal.json</code> as evidence of the refusal.</p>
 <p>To recover without erasing the failed attempt, make a separate copy:</p>
 <pre><code>cp -R incompatible recovered</code></pre>
 <p>In <code>recovered/components/06-shop-web.yaml</code>, restore only the ExternalSecret API version to <code>external-secrets.io/v1</code>, then save a new check result:</p>
-<pre><code>cub stack certify ./recovered/stack.yaml --json &gt; ./recovered/recovery.json</code></pre>
+<pre><code>cub stack check ./recovered/stack.yaml --json &gt; ./recovered/recovery.json</code></pre>
 <p>Expected exit code: <code>0</code>. Keep the original <code>incompatible/refusal.json</code> and workspace alongside the recovered copy. This establishes static compatibility again; it does not roll back or recover a running application.</p>
 <p>If a command refuses, retain its JSON result and inspect the named component, API version, and prerequisite finding before making a new copy. To repeat a successful run, use a fresh workspace and fresh output names; existing saved files are deliberately protected.</p>
 <h2 id="a-task-for-an-ai-assistant">A task for an AI assistant</h2>
@@ -580,17 +580,17 @@ cd compose-ai</code></pre>
 <pre><code>Work in the current compose-ai directory; do not reuse another trial's files. Use the installed cub Workshop plugin and complete this local
 static task. Save kubara-gitops-shop as a new editable workspace named platform,
 retain its result.json and rendered.yaml, move the complete directory to
-platform-moved, and resume by certifying platform-moved/stack.yaml. Change only
+platform-moved, and resume by checking platform-moved/stack.yaml. Change only
 the shop-web Deployment replicas from 3 to 2 in
 platform-moved/components/06-shop-web.yaml. Retain the unchanged baseline,
-certify the candidate to changed-result.json, render changed.yaml, and inspect
+check the candidate to changed-result.json, render changed.yaml, and inspect
 the diff. Before editing the refusal case, copy platform-moved to a fresh
 incompatible directory. In that copy, change only its ExternalSecret apiVersion
-from external-secrets.io/v1 to external-secrets.io/v1beta1, certify it to
+from external-secrets.io/v1 to external-secrets.io/v1beta1, check it to
 refusal.json, and preserve the expected refusal. Report exit codes, changed
 field and refusal reason. After the refusal, copy the complete incompatible
 directory to a new recovered directory, restore only the ExternalSecret API
-version to external-secrets.io/v1 there, and certify recovered/stack.yaml to
+version to external-secrets.io/v1 there, and check recovered/stack.yaml to
 recovered/recovery.json. Preserve incompatible unchanged. A prior successful
 receipt is not this recovery check; report the new recovery command and exit
 code separately. Report result hashes and
