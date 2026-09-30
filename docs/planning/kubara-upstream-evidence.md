@@ -57,19 +57,23 @@ the cub 0.4 field renames, and the proof is accepted and labelled historical.
 [`proof-status.yaml`](../../data/kubara-upstream-evidence/proof-status.yaml)
 records that decision, and the site labels every accepted pill from it as
 "retained (historical)". The current live proof is the
-[kind lab](https://github.com/confighub/kubara-confighub/tree/86884faae853b12e552354d0b7cb898bc8df59fa/examples/kind-lab)
-in kubara-confighub v0.2.3, at the pinned commit: its
-[recorded run](https://github.com/confighub/kubara-confighub/blob/86884faae853b12e552354d0b7cb898bc8df59fa/examples/kind-lab/run-2026-09-30.log),
-[recorded hand-back](https://github.com/confighub/kubara-confighub/blob/86884faae853b12e552354d0b7cb898bc8df59fa/examples/kind-lab/handback-2026-09-30.log)
-and [run on Kubara v0.16](https://github.com/confighub/kubara-confighub/blob/86884faae853b12e552354d0b7cb898bc8df59fa/examples/kind-lab/run-v0.16-2026-09-30.log).
-Those logs were recorded with `cub kubara` built from the branches v0.2.3
-released, not with the released binary. `proof-status.yaml` names the commit
+[kind lab](https://github.com/confighub/kubara-confighub/tree/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab)
+in kubara-confighub v0.2.4, at the pinned commit: its
+[recorded run](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/run-2026-09-30.log),
+[recorded hand-back](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/handback-2026-09-30.log),
+[run on Kubara v0.16](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/run-v0.16-2026-09-30.log),
+[run with a second approver](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/run-approve-2026-09-30.log)
+and [recovery after `kubara bootstrap`](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/rebootstrap-2026-09-30.log).
+Each log was recorded with `cub kubara` built from a branch before its
+release, not with a released binary: the first three from the branches v0.2.3
+released, the last two from 0.2.4-dev. `proof-status.yaml` names the commit
 and the logs, and the reader test requires that commit to be the pin.
 
-The pin is `86884faae853b12e552354d0b7cb898bc8df59fa`, kubara-confighub v0.2.3. It moved there on 2026-09-30 from
-`a5bbe1fd20838d162e53cd8802293420c7ae53b5`; every snapshot file and both
-executor identities are byte-identical at the two commits, so only the commit
-changed. Integrity means these are the upstream files; it does not establish
+The pin is `fdae8a233fec57bf2f4102b8fea43c3bf557e35e`, kubara-confighub v0.2.4. It moved there on 2026-09-30 from
+`86884faae853b12e552354d0b7cb898bc8df59fa` (v0.2.3), which had moved from
+`a5bbe1fd20838d162e53cd8802293420c7ae53b5` the same day. At each move every
+snapshot file and both executor identities were byte-identical, so only the
+commit changed. Integrity means these are the upstream files; it does not establish
 freshness or a new live run of the four-cluster proof. Existing receipt and
 site status rules still apply. No new live receipt was created by the pin or by
 the cutover below.

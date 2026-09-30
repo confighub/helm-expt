@@ -40,7 +40,7 @@
       "repository": "confighub/kubara-confighub",
       "release": {
         "date": "2026-09-30",
-        "tag": "v0.2.3"
+        "tag": "v0.2.4"
       },
       "install": "cub plugin install confighub/kubara-confighub",
       "note": "Tested on kind only. For a few minutes after a release, the Healthy gate can read the previous release's status. argobot cannot refresh Kubara's Applications (confighub/argobot#13).",
