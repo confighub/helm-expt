@@ -625,12 +625,11 @@
     
     <h1>Is my configuration right?</h1>
     <p id="question-context" hidden><strong id="question-context-text"></strong></p>
-    <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, any matching Catalog record I provide, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
+    <p class="lead">Check your own chart and values, or compare rendered Kubernetes YAML. Keep the findings and the exact configuration they describe.</p>
     <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Render &lt;chart&gt; with my values, tell me which values did nothing and what it would install, and change nothing.”</aside>
-    <p><button class="button primary" id="load-example" type="button">See an illustrative object review</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
+    <p><a class="button primary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a> <button class="button secondary" id="load-example" type="button">See an illustrative object review</button></p>
     <p>Use this page for your own chart, values, new version, or unexpected result. Use the <a href="./charts/index.html">Catalog</a> when we have already tested the exact chart and version.</p>
-    <p><strong>In the website:</strong> compare rendered Kubernetes YAML in this browser, with no AI needed, or build local instructions for the AI assistant you already use. Render your chart with <code>helm template</code> first, then paste the objects. Download the exact objects, findings, file hashes, and checks that did not run.</p>
-    <p><strong>On the command line:</strong> render or extract the same objects with <code>cub helm</code>, <code>cub installer</code>, or the source tool named by the example. Run <code>cub check</code> on those files for the shared local configuration checks. The page gives you copyable commands for keeping the same files and hashes in ConfigHub.</p>
+    <p>The chart route builds instructions for your local AI assistant. Already have rendered YAML? Check it in this browser with no AI needed. Neither route deploys your configuration.</p>
     <p><strong>Checking private configuration?</strong> Keep the chart, values, and output on your machine. Do not upload private files; this page does not upload them for you. Keep secrets out of the form, AI prompt, and any public issue.</p>
     <p>Keep the result locally, publish the reviewed objects as OCI, or retain the same result in ConfigHub when a team needs history and promotion.</p>
     <p><strong>Already accepted a result?</strong> <a href="./promote.html">Compare the exact current result with the candidate for the next stage</a>. The promotion review shows what changed, what blocks the move, and which destination checks have not run.</p>

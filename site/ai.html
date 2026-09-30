@@ -634,8 +634,7 @@
     <div class="agent-start" id="paste-a-prompt">
       <p><strong>Start here.</strong> Paste this into Claude Code, Codex, or any agent that can run a shell. To keep it in a project, add it to <code>CLAUDE.md</code> or <code>AGENTS.md</code>.</p>
       <pre><code>Use the ConfigHub Workshop catalog for Kubernetes config work. It holds known-good configurations across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, which lists the Catalog's five section files first (configs.json, stacks.json, apps.json, plugins.json and guides.json), read the one listing you need from https://confighub.github.io/helm-expt/site/listings/index.json, and do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack check` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code></pre>
-      <p>Or install the skill in the project, which works in Claude Code, Codex, Cursor and other agents.</p>
-      <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
+      <p>Use this prompt for a one-off question, or <a href="#install-skill">install the skill</a> to keep the instructions in your project.</p>
       <p>For a new project, use <a href="#fuller-prompt">the fuller prompt</a>. It also says what is in the Catalog and when you need ConfigHub server.</p>
     </div>
   </header>
@@ -646,11 +645,9 @@
       <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
       <p>You can also <a href="./.well-known/agent-skills/config-workshop/SKILL.md">read the skill first</a>. It holds no credentials and applies nothing. Private files stay on your machine and Secret values are redacted. It pins versions and digests, reports any check it skipped, and previews a change before making it.</p>
       <h3 id="fuller-prompt">Or paste a prompt</h3>
-      <p>Paste one of these into Claude Code, Codex, or any agent that can run a shell, with nothing to install. The one-liner is enough for most questions.</p>
+      <p>The <a href="#paste-a-prompt">short prompt above</a> is enough for most questions. This fuller version adds Catalog context and explains when ConfigHub Server is useful; it needs no skill installation.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>Use the ConfigHub Workshop catalog for Kubernetes config work. It holds known-good configurations across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, which lists the Catalog's five section files first (configs.json, stacks.json, apps.json, plugins.json and guides.json), read the one listing you need from https://confighub.github.io/helm-expt/site/listings/index.json, and do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack check` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code></pre>
-      <p>The fuller version also tells the agent what is in the Catalog and when it needs ConfigHub server.</p>
-      <pre><code>Use the ConfigHub Workshop when I ask about Kubernetes configuration. It is a public catalog of known-good configurations you can read as data, with no account, and it works with `cub` and the cub workshop plugin that you run from a shell.
+  <pre><code>Use the ConfigHub Workshop when I ask about Kubernetes configuration. It is a public catalog of known-good configurations you can read as data, with no account, and it works with `cub` and the cub workshop plugin that you run from a shell.
 
 What is in the catalog, so you know what to expect:
 

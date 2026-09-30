@@ -115,9 +115,9 @@ function verify() {
   }
   for (const term of [
     "when we have already tested the exact chart and version",
-    "In the website:",
-    "On the command line:",
-    "copyable commands for keeping the same files and hashes in ConfigHub",
+    "Check it in this browser with no AI needed.",
+    "The chart route builds instructions for your local AI assistant.",
+    "Copy commands to keep this result",
     "See an illustrative object review",
     "Check rendered objects in this browser",
     "Search the Catalog for this chart and version",
