@@ -458,6 +458,12 @@
     }
   }
 
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
     .install-hero-grid {
       display: block;
       max-width: 1080px;
@@ -722,7 +728,7 @@
     
     <h1>Run it with Flux, Argo CD, or kubectl</h1>
     <p class="lead">Keep the reconciler you have. Every result here can leave as an image your controller pulls by digest, with its receipt attached, and nothing on this page needs an account.</p>
-    <p class="agent-ask"><strong>Or ask your agent.</strong> “Check &lt;chart&gt; before Argo CD or Flux takes it over. Render it twice, compare the renders, and show me what would change on every sync.”</p>
+    <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Check &lt;chart&gt; before Argo CD or Flux takes it over. Render it twice, compare the renders, and show me what would change on every sync.”</aside>
     <p><strong>Two reviewed components already reconcile from a public URL with no account. Any other catalog chart renders the same way, into a registry you control.</strong></p>
     <p>An OCI package works with your registry and reconciler. Publish the reviewed files as a rendered OCI, and Argo CD or Flux pulls the same objects you inspected.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="#handover">Check a release before handover</a> · <a href="#reconcile">Reconcile a published component</a> · <a href="#verify">Verify before you reconcile</a> · <a href="#kubectl">Apply with kubectl</a> · <a href="#evidence">Check the record</a></p>

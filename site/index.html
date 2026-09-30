@@ -268,6 +268,12 @@
       scroll-behavior: auto !important;
     }
   }
+
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
   .site-footer { border-top: 1px solid var(--line); margin-top: 56px; background: var(--surface-2); }
   .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 28px 20px 36px; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 22px 30px; }
   .site-footer .sf-group { display: flex; flex-direction: column; gap: 7px; }
@@ -377,7 +383,8 @@
           <h2>Prompt Claude or Codex to get started</h2>
           <p class="intro">Paste this into Claude Code, Codex, or any agent that can run a shell.</p>
           <p class="agent-prompt"><code>Use the ConfigHub Workshop catalog for Kubernetes config work. It holds known-good configurations across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, which lists the Catalog's five section files first (configs.json, stacks.json, apps.json, plugins.json and guides.json), read the one listing you need from https://confighub.github.io/helm-expt/site/listings/index.json, and do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack check` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code></p>
-          <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt. An agent reads the same lists as data. <a href="./llms.txt">llms.txt</a> names the five section files first.</p>
+          <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt.</p>
+          <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.</aside>
           <pre class="home-cmd"><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
           <p class="install-cub-note">New to <code>cub</code> and ConfigHub? <a href="./try.html#install-cub">Install the cub CLI</a> first. The public catalog uses OCI and standard config formats. You don’t need to sign up until you want to save changes in ConfigHub</p>
         </section>

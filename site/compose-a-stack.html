@@ -458,6 +458,12 @@
     }
   }
 
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
     .install-hero-grid {
       display: block;
       max-width: 1080px;
@@ -727,7 +733,7 @@
         <h1>Compose and check a stack</h1>
   <p class="boundary-chip">Free until upload</p>
         <p class="lead">Get a stack, check it before anything runs, then run and govern it. The <a href="./stack.html">Stacks</a> list holds every shipped stack.</p>
-    <p class="agent-ask"><strong>Or ask your agent.</strong> “Compose a stack from &lt;components&gt;, check it, and show me every conflict or missing need before anything runs.”</p>
+    <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Compose a stack from &lt;components&gt;, check it, and show me every conflict or missing need before anything runs.”</aside>
         <div class="hero-actions">
           <a class="button primary" href="#get-a-stack">Get a stack</a>
           <a class="button secondary" href="#stack-checks">Checking your stack</a>

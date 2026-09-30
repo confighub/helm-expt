@@ -458,6 +458,12 @@
     }
   }
 
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
     .app-flow { counter-reset: appstep; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
     .app-step { counter-increment: appstep; border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--surface); }
     .app-step::before { content: counter(appstep); display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 999px; background: var(--good); color: #fff; font-weight: 700; font-size: .78rem; margin-bottom: 8px; }
@@ -646,7 +652,7 @@
     <p class="eyebrow">A Guide</p>
     <h1>Operate a fleet</h1>
     <p class="lead">Use this Guide after an application and its target already exist. Review a change, approve it, deliver it, check the live result, and keep a record across the fleet.</p>
-    <p class="agent-ask"><strong>Or ask your agent.</strong> “For &lt;app&gt; on &lt;targets&gt;, show me the starting point, propose one operation, and keep a record of each target’s result. Wait for me before any release.”</p>
+    <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“For &lt;app&gt; on &lt;targets&gt;, show me the starting point, propose one operation, and keep a record of each target’s result. Wait for me before any release.”</aside>
   </header>
   <main>
     <section aria-labelledby="before-ops">
