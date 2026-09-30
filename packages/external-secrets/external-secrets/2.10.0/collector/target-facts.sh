@@ -76,24 +76,28 @@ case "$base" in
     cat <<YAML
 targetFacts:
   requiredSecrets:
-  -
-    namespace: "external-secrets"
-    name: "external-secrets-webhook"
-    keys:
-      []
-    sourceVariant: "default"
-    purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply"
-    deliveryLanes:
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-    suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml"
+  - deliveryLanes:
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    keys: []
+    name: external-secrets-webhook
+    namespace: external-secrets
+    purpose: Rendered webhook Secret separated by installer and populated by the cert-controller
+      after apply
+    sourceVariant: default
+    suggestedSource: kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml
+
   requiredCRDs: []
+
   requiredValues: []
+
   requiredObjectStores: []
+
   requiredTopology: null
+
 targetFactChecks:
-  base: "$base"
+  base: "default"
   mode: "$check_mode"
   result: "$result"
 YAML
@@ -133,249 +137,228 @@ YAML
     cat <<YAML
 targetFacts:
   requiredSecrets:
-  -
-    namespace: "external-secrets"
-    name: "external-secrets-webhook"
-    keys:
-      []
-    sourceVariant: "default"
-    purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply"
-    deliveryLanes:
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-    suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml"
+  - deliveryLanes:
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    keys: []
+    name: external-secrets-webhook
+    namespace: external-secrets
+    purpose: Rendered webhook Secret separated by installer and populated by the cert-controller
+      after apply
+    sourceVariant: default
+    suggestedSource: kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml
+
   requiredCRDs:
-  -
-    name: "acraccesstokens.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "cloudsmithaccesstokens.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "clusterexternalsecrets.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "clustergenerators.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "clusterpushsecrets.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "clustersecretstores.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "ecrauthorizationtokens.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "externalsecrets.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "fakes.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "gcraccesstokens.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "generatorstates.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "githubaccesstokens.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "gitlabdeploytokens.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "grafanas.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "mfas.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "passwords.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "pushsecrets.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "quayaccesstokens.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "secretstores.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "sshkeys.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "stssessiontokens.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "uuids.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "vaultdynamicsecrets.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
-  -
-    name: "webhooks.generators.external-secrets.io"
-    sourceVariant: "default"
-    purpose: "External Secrets CRD managed outside this no-crds base"
-    deliveryLanes:
-      - "regularHelm"
-      - "cubInstallerApply"
-      - "configHubKubectlApply"
-      - "configHubOciArgo"
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: acraccesstokens.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: cloudsmithaccesstokens.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: clusterexternalsecrets.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: clustergenerators.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: clusterpushsecrets.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: clustersecretstores.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: ecrauthorizationtokens.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: externalsecrets.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: fakes.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: gcraccesstokens.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: generatorstates.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: githubaccesstokens.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: gitlabdeploytokens.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: grafanas.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: mfas.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: passwords.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: pushsecrets.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: quayaccesstokens.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: secretstores.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: sshkeys.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: stssessiontokens.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: uuids.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: vaultdynamicsecrets.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: webhooks.generators.external-secrets.io
+    purpose: External Secrets CRD managed outside this no-crds base
+    sourceVariant: default
+
   requiredValues: []
+
   requiredObjectStores: []
+
   requiredTopology: null
+
 targetFactChecks:
-  base: "$base"
+  base: "no-crds"
   mode: "$check_mode"
   result: "$result"
 YAML
