@@ -452,7 +452,7 @@ const AGENT_PROMPT_FULLER = `Use the ConfigHub Workshop when I ask about Kuberne
 
 What is in the catalog, so you know what to expect:
 
-* About 140 Helm chart versions across 113 components, for example argo-cd, aqua/trivy-operator, cluster-autoscaler, aws-controllers-k8s, and bitnami/redis, each rendered to exact objects.
+* Helm charts and reviewed configurations; read configs.json for current coverage and each entry’s exact version and evidence.
 * AICR entries for AI infrastructure, for example an EKS H100 GPU training recipe with Kubeflow across versions v0.14.0 through v0.20.0.
 * Timoni modules built from CUE (flux-aio and redis).
 * A Kubara platform generated from selected components (kubara-local-platform).
@@ -462,9 +462,9 @@ Start at https://confighub.github.io/helm-expt/site/llms.txt, which indexes ever
 
 Do the work with \`cub\` and the cub workshop plugin from https://github.com/confighub/cub-workshop. Installing them is one line and needs no account. \`cub config\` renders and inspects one configuration, and \`cub config diff\` compares two and reports exactly what changed. \`cub config values\` names every value in a Helm values file that the chart ignored. \`cub stack check\` and \`cub stack sandbox\` check and render a whole composition before anything runs. \`cub app match\` checks whether a workload fits a target you supply, and \`cub app check\` reports what a workload needs. \`cub fleet\` reads and plans placement across many clusters.
 
-What is local and what needs ConfigHub server. Everything that inspects or shapes a config is local and needs no account: reading the catalog, rendering to objects with \`cub config check\`, comparing with \`cub config diff\`, checking and rendering a whole composition with \`cub stack check\` and \`cub stack sandbox\`, matching a workload with \`cub app match\`, editing the rendered objects as data, and delivering the result through your own Argo or Flux or your own OCI registry. You need ConfigHub server only when the config becomes shared, living state that people act on over time: keeping a reviewed config as a stored unit, making tracked variants, promoting it between environments, putting an approval gate on a change, cutting a release, running or observing a fleet, or rolling back to a stored revision. \`cub server\` starts a local ConfigHub in about twenty seconds, so crossing into the server is one command, not a hosted account.
+What is local and what needs ConfigHub server. Common local steps need no ConfigHub account: reading the catalog, rendering to objects with \`cub config check\`, comparing with \`cub config diff\`, checking and rendering a whole composition with \`cub stack check\` and \`cub stack sandbox\`, matching a workload with \`cub app match\`, editing the rendered objects as data, and delivering the result through your own Argo or Flux or your own OCI registry (delivery and registry writes need their own access and authorization). Live inspection needs access to the named target. You need ConfigHub server when the config becomes shared, living state that people act on over time: keeping a reviewed config as a stored unit, making tracked variants, promoting it between environments, putting an approval gate on a change, cutting a release, running or observing a fleet, or rolling back to a stored revision. \`cub server\` starts a local ConfigHub, or use a ConfigHub server you already have. Confirm prerequisites and credentials before setup.
 
-When I ask about a chart, a values file, an upgrade, a rollback, a digest or supply-chain question, hooks and CRDs, composing a platform, or matching a workload to hardware, look in the catalog first, then use \`cub\`, and show me the exact versions, digests, and objects you found. Keep the work local unless I ask to keep, vary, promote, or govern a config, and only then start \`cub server\`.`;
+For existing Argo CD, Flux, Kubara or Sveltos setups, read the matching plugin record from plugins.json and follow its linked Guide. These are separate plugins with different setup, delivery and recovery boundaries. Start with inspection and a plan; do not assume that a setup script only stores data.\n\nWhen I ask about a chart, a values file, an upgrade, a rollback, a digest or supply-chain question, hooks and CRDs, composing a platform, or matching a workload to hardware, look in the catalog first, then use \`cub\`, and show me the exact versions, digests, and objects you found. Keep the work local unless I ask to keep, vary, promote, or govern a config, and only then start \`cub server\`.`;
 const sitemapPath = join(siteRoot, "sitemap.xml");
 const robotsPath = join(siteRoot, "robots.txt");
 const llmsPath = join(siteRoot, "llms.txt");
@@ -9319,21 +9319,44 @@ function customAppsHtml() {
 function existingAppsHtml() {
   return movedPageHtml("Understand an existing app", "./put-an-app-on-a-platform.html#adopt", "Understanding an existing app now lives on Apps on a platform.");
 }
+function aiJourneyStartsHtml() {
+  const prompt = (text) => `<details><summary>Prompt for Claude Code or Codex</summary>${agentNote(escapeHtml(text), "Give this to your agent")}</details>`;
+  return `<section aria-labelledby="ai-starting-points">
+    <h2 id="ai-starting-points">What would you like to get done?</h2>
+    <p>Start small, with your own chart, app or YAML. You do not need an account to read the Catalog or run local checks. A coding agent needs shell access for commands; a chat without tools can explain and plan, but cannot run them.</p>
+    <h3 id="ai-understand">Understand or fix a configuration</h3>
+    <p>Find why a value did nothing, what a chart installs, or what an upgrade changes. Get a specific answer and the rendered objects behind it.</p>
+    ${prompt("Use Workshop to inspect this chart version and my values file. Explain which values affect the rendered objects and which do not. Propose the smallest fix, check it, and show the exact diff. Do not deploy.")}
+    <p><a href="./journey-values-did-nothing.html">Try the Helm values demo</a> · <a href="./d/docs/user/workshop-byo-charts-guide.html">Use your own chart</a></p>
+    <h3 id="ai-change">Make a change without losing your fixes</h3>
+    <p>Review an AI rewrite against the original, keep only the intended changes, then use ConfigHub to preserve your choices through the next update.</p>
+    ${prompt("Add a readiness probe to this app. Compare against the committed version, preserve my other fixes, and show every changed field. Keep the result local; explain how ConfigHub could retain those choices next time.")}
+    <p><a href="./journey-preserve-my-fixes.html">Try the protected-fixes demo</a> · <a href="#confighub-review">See the cub commands and recorded results</a></p>
+    <h3 id="ai-build">Put an app on a platform</h3>
+    <p>Start from an <a href="./apps.html">example app</a> or bring your own. Ask for the platform services it needs, a checked composition and files you can save and resume.</p>
+    ${prompt("Help me run this app on a platform built from the Catalog. Identify its dependencies, choose compatible components, and check the composition. Give me the files and results to resume later. Mark missing target facts and do not call a static check a deployment.")}
+    <p><a href="./journey-what-my-app-needs.html">Try the app-and-platform demo</a> · <a href="./bring-kubara-into-confighub.html">Build with Kubara</a> · <a href="./d/docs/user/workshop-match-guide.html">Match a GPU workload</a></p>
+    <h3 id="ai-connect">Keep your delivery tools and add ConfigHub</h3>
+    <p>Ask the agent to inspect first, explain what stays as it is, and prepare a reviewed handover. Use the Guide for your controller; the setup and recovery steps differ.</p>
+    ${prompt("Inspect my existing deployment setup using its Workshop Guide. Explain what ConfigHub would add, what would change, and how to go back. Run the non-mutating plan first. Ask before saving ConfigHub data or changing controller delivery.")}
+    <p><a href="./bring-argo-into-confighub.html">Argo CD</a> · <a href="./bring-flux-into-confighub.html">Flux</a> · <a href="./bring-sveltos-into-confighub.html">Sveltos fleets</a> · <a href="./confighub.html#start-managing">Deploy, promote and manage</a></p>
+    <h3 id="ai-repeat">Turn a useful result into repeatable work</h3>
+    <p>Once a journey works, keep its inputs, exact commands, checks and expected results in your repository. Ask your agent to prepare a CI check or an operational App from that record. ConfigHub supplies shared configuration, approvals and releases; your runner and controllers do the work.</p>
+    ${prompt("Turn the configuration check we just completed into a repeatable CI job. Pin its inputs and tools, retain the result and exact diff, and report missing checks. Stop for review on an unexpected result. Do not add deployment, new credentials or scheduled execution without my approval.")}
+    <p><a href="./d/docs/user/ci-render-check.html">Keep a review in CI</a> · <a href="./build-a-confighub-app.html">Build an operational App</a> · <a href="./guides.html">Find another journey</a></p>
+    <p>The site does not host an agent or start a background job. In a live chat, your agent needs connected tools and the right authority to call <code>cub</code> or ConfigHub APIs. The same work can be run manually with <code>cub</code>.</p>
+    <p><strong>The model:</strong> configuration as data starts with <em>flattened</em> configuration: the fully rendered Kubernetes objects. Your agent helps shape them; checks expose what changed and what still needs proof. Hooks, CRDs and other lifecycle work still need an owner. <a href="./config.html">Understand the model</a>.</p>
+  </section>`;
+}
+
 function aiHtml(catalog) {
-  const taskRows = [
-    ["Find a known answer", "What will bitnami/redis 25.5.3 install, and what must exist first?", "The exact Catalog version, objects, lifecycle work, checks, and limits."],
-    ["Check my configuration", "Here is the chart and values my AI produced. Compare them with the defaults and tell me what matters.", "A local render, normalized comparison, findings, and a reviewed result you can keep."],
-    ["Review an AI rewrite", "My assistant rewrote deploy.yaml to add a probe. What else changed?", "Every field that moved against the committed file, the ones you did not ask for, and a restored file whose diff shows only your request."],
-    ["Review a promotion", "Can I move this staging configuration to production?", "Current and candidate digests, destination differences, lifecycle work, and tests still required."],
-    ["Inspect another source", "Build the retained Timoni Redis 8.10.1 source and tell me what plain YAML leaves out.", "The module digest, typed options, seven exact objects, ordered lifecycle, and current limits."],
-  ];
   const catalogRows = agentCatalogRows();
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI with review and evidence · ConfigHub Workshop</title>
+  <title>Claude, Codex and Kubernetes · ConfigHub Workshop</title>
   <style>${siteCss()}
     .agent-start { margin-top: 20px; padding: 16px 18px; border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 8px; background: var(--panel); }
     .agent-start p { margin: 0 0 8px; }
@@ -9344,12 +9367,12 @@ function aiHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Use ConfigHub Workshop with your AI agent</h1>
-    <p class="lead">Give Claude, Codex, or another coding agent one configuration question. The ConfigHub Workshop skill finds exact Catalog records and the lifecycle work to check. It returns a result you can review.</p>
-    <p>The agent may propose commands or changes, and you see the source, the Kubernetes objects and the diff before any of it is applied or uploaded. You also see the checks that ran and the limits that still apply.</p>
+    <h1>Use Claude or Codex for Kubernetes configuration</h1>
+    <p class="lead">Work with Claude Code or Codex, from one configuration question to a complete app or platform journey. Workshop gives your agent tested starting points, tools and Guides, so you get a useful result you can inspect and keep.</p>
+    <p>Your agent investigates and proposes. <code>cub</code> renders, compares and checks. You see the source, the Kubernetes objects and the diff. ConfigHub keeps accepted configuration, protected fixes and team decisions when you want to take the next step.</p>
     <div class="agent-start" id="paste-a-prompt">
       <p><strong>Start here.</strong> Paste this into Claude Code, Codex, or any agent that can run a shell. To keep it in a project, add it to <code>CLAUDE.md</code> or <code>AGENTS.md</code>.</p>
-      <pre><code>${escapeHtml(AGENT_PROMPT_ONE_LINER)}</code></pre>
+      <pre><code>${escapeHtml("Help me with [my Kubernetes configuration question or task]. Use https://confighub.github.io/helm-expt/site/llms.txt to find the relevant Workshop tools and Guide. Start from my existing files and tools. Explain the useful result, run the checks this task needs, and show what changed and what remains untested. Keep it local until I ask to save in ConfigHub or change delivery.")}</code></pre>
       <p>Use this prompt for a one-off question, or <a href="#install-skill">install the skill</a> to keep the instructions in your project.</p>
       <p>For a new project, use <a href="#fuller-prompt">the fuller prompt</a>. It also says what is in the Catalog and when you need ConfigHub server.</p>
     </div>
@@ -9359,24 +9382,26 @@ function aiHtml(catalog) {
       <h2 id="install-skill">1. Install the ConfigHub Workshop skill</h2>
       <p>Install it in the project where your agent is working. The open Agent Skills installer supports Codex, Claude Code, Cursor, and other coding agents.</p>
       <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
-      <p>You can also <a href="./.well-known/agent-skills/config-workshop/SKILL.md">read the skill first</a>. It holds no credentials and applies nothing. Private files stay on your machine and Secret values are redacted. It pins versions and digests, reports any check it skipped, and previews a change before making it.</p>
-      <h3 id="fuller-prompt">Or paste a prompt</h3>
+      <p>You can also <a href="./.well-known/agent-skills/config-workshop/SKILL.md">read the skill first</a>. It holds no credentials and applies nothing. Local Workshop checks do not upload configuration to ConfigHub. What your agent sends to its AI provider depends on that tool and its settings. The skill instructs it to redact Secrets, pin versions and digests, report skipped checks and preview changes.</p>
+      <details id="fuller-prompt"><summary>Read the fuller prompt for a new project</summary>
       <p>The <a href="#paste-a-prompt">short prompt above</a> is enough for most questions. This fuller version adds Catalog context and explains when ConfigHub Server is useful; it needs no skill installation.</p>
       <pre><code>${escapeHtml(AGENT_PROMPT_FULLER)}</code></pre>
+      </details>
     </section>
 
+    ${aiJourneyStartsHtml()}
+
+    <details><summary>Browse the detailed local exercises</summary>
     ${workshopGuideLinksHtml()}
+    </details>
 
     <section aria-labelledby="tasks">
       <h2 id="tasks">2. Ask for one result</h2>
       <p>An assistant given only this site and one sentence has already composed a five-component stack and had it certified, in about six minutes. <a href="https://github.com/confighub/cub-workshop/tree/main/proofs/assistant-composition-2026-09-02">The run is recorded verbatim</a>, including what it could not discover. The gate, not the assistant, is where its mistakes would have been caught.</p>
-      <h3 id="four-ai-questions">Keep the four answers separate</h3>
+      <details id="four-ai-questions"><summary>Keep the four answers separate</summary>
       <p>An agent helps at every stage but cannot supply the input a stage needs. Tell it to report missing work as blocked or not run, rather than promoting a nearby result into a pass. For AICR, <code>snapshot</code> and <code>diff</code> inspect existing GPU nodes without a recipe or Catalog match, and a recipe-dependent <code>expected-resources</code> check applies only after those components have been deployed. <a href="./config.html#four-questions">See the four questions and what each needs</a>.</p>
+      </details>
       <p>Start with the job in front of you. Include the exact version or digest when you know it.</p>
-      ${markdownLikeTable([
-        ["Task", "Example request", "What the agent should return"],
-        ...taskRows,
-      ])}
       <p><a href="./ask.html">Check my config</a> builds a local prompt and browser review. <a href="./promote.html">Promote my config</a> compares current and proposed objects. Neither page uploads your files.</p>
       <p>For an upgrade or environment move, open <a href="./promote.html">Promote my config</a>, compare the two object sets, download the promotion review, and copy its AI review prompt. The prompt tells the agent to name any destination checks and tests that have not run yet.</p>
       <p>After the source tool writes Kubernetes YAML, the agent can run the same released local checker a person uses:</p>
@@ -9387,6 +9412,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
 
     <section aria-labelledby="records">
       <h2 id="records">3. Keep the answer tied to records</h2>
+      <details><summary>Read the records behind an answer</summary>
       <p>The skill reads the same public files as the site. Page copy and an agent's explanation are not records.</p>
       ${markdownLikeTable([
         ["Record", "What it answers"],
@@ -9398,17 +9424,22 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
       <p>Missing coverage means the claim is unchecked. A successful render proves the objects are well formed, while cluster admission, controller convergence and workload health remain open, along with upgrade and rollback.</p>
       <p>Every maintained entry also has a machine-readable listing at its own URL, whatever format it came from. An agent that wants one entry reads that one file instead of the whole catalog. Start from the <a href="./listings/index.json">listing index</a> for an entry's id and URL, read <a href="./listing.schema.json">the listing schema</a> for the fields every listing fills, or open <a href="./listings/bitnami-redis-25-5-3-default.json">one example listing</a> to see them filled in.</p>
       <p><a href="./agents-maintain-the-catalog.html">How agents help maintain the Catalog</a> lists what agents do for the Catalog, and the record each task needs.</p>
+      </details>
     </section>
 
     <section aria-labelledby="sources">
       <h2 id="sources">4. Use the same steps across source formats</h2>
+      <details><summary>See how Helm, AICR, Timoni and YAML fit</summary>
       <p>Helm renders, Timoni builds, AICR and Kubara compose or generate, and literal YAML or configuration OCI already contains exact objects. The same source-and-intent, materialize, flatten, lifecycle, and deliver steps apply to each, so an agent records which operation happened instead of calling every source a Helm recipe. <a href="./config.html#formats">See what each format becomes</a> · <a href="./.well-known/agent-skills/config-workshop/references/processing-model.md">Read the agent processing model</a></p>
+      </details>
     </section>
 
     <section aria-labelledby="timoni-example">
       <h2 id="timoni-example">5. Compare one non-Helm source</h2>
+      <details><summary>Open the Timoni worked example</summary>
       <p>The first Timoni entry retains Redis 8.10.1 at an immutable module digest. Its typed options, seven exact objects, master-first apply order, optional test Job, and destination requirements are recorded like any other base. The current record proves a local build and an anonymous OCI pull, not a Kubernetes apply or GitOps delivery. <a href="./config.html#formats">See how Timoni and every other format fits the model</a>.</p>
       <p><a href="../examples/timoni/redis-8-10-1/README.md">Open the Timoni Redis record</a> · <a href="../data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-base/README.md">Read the ConfigHub base guide</a> · <a href="../data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-dev/README.md">Read the development variant</a> · <a href="../data/timoni-redis-catalog-proof/summary.md">Check the proof and limits</a> · <a href="./charts/index.html?q=redis#search">Compare it with Helm Redis configurations</a></p>
+      </details>
     </section>
 
     <section aria-labelledby="confighub-review">

@@ -285,7 +285,7 @@ const checks = [
   },
   {
     file: "site/ai.html",
-    terms: ["Use ConfigHub Workshop with your AI agent", "1. Install the ConfigHub Workshop skill", "2. Ask for one result", "composed a five-component stack and had it certified", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "Check the proof and limits", "6. Keep your fixes and reviewed results in ConfigHub", "Review an AI rewrite", "git show HEAD:k8s/deploy.yaml", "A diff catches the next rewrite; it does not prevent it", "cub unit update --space \"$SPACE\" app --upgrade", "expected/step-7.txt", "invoice-preservation/receipt.json", "kept all six", "app k8s/deploy.yaml --protect --change-desc", "@v0.6.56\ngit show HEAD:k8s/deploy.yaml", "protected local overrides", "invoice-protection/receipt.json", "it is not a general merge", "Missing coverage means the claim is unchecked"],
+    terms: ["Use Claude or Codex for Kubernetes configuration", "1. Install the ConfigHub Workshop skill", "2. Ask for one result", "composed a five-component stack and had it certified", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "Check the proof and limits", "6. Keep your fixes and reviewed results in ConfigHub", "Review an AI rewrite", "git show HEAD:k8s/deploy.yaml", "A diff catches the next rewrite; it does not prevent it", "cub unit update --space \"$SPACE\" app --upgrade", "expected/step-7.txt", "invoice-preservation/receipt.json", "kept all six", "app k8s/deploy.yaml --protect --change-desc", "@v0.6.56\ngit show HEAD:k8s/deploy.yaml", "protected local overrides", "invoice-protection/receipt.json", "it is not a general merge", "Missing coverage means the claim is unchecked"],
   },
   {
     file: "site/testing.html",
@@ -378,7 +378,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/ai.html",
-    headerTerms: ["Use ConfigHub Workshop with your AI agent", "one configuration question", "the source, the Kubernetes objects and the diff"],
+    headerTerms: ["Use Claude or Codex for Kubernetes configuration", "one configuration question", "the source, the Kubernetes objects and the diff"],
   },
 ];
 
@@ -1107,7 +1107,7 @@ const purposePageRules = [
   {
     file: "site/ai.html",
     maxH2: 7,
-    requiredLinks: ["./.well-known/agent-skills/config-workshop/SKILL.md", "./ask.html", "./promote.html", "./confighub.html"],
+    requiredLinks: ["./.well-known/agent-skills/config-workshop/SKILL.md", "./ask.html", "./promote.html", "./confighub.html", "./apps.html", "./guides.html", "./bring-argo-into-confighub.html", "./bring-flux-into-confighub.html", "./bring-sveltos-into-confighub.html", "./bring-kubara-into-confighub.html"],
   },
 ];
 
