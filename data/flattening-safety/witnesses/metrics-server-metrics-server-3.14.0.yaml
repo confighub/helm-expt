@@ -1,0 +1,60 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "metrics-server-metrics-server-3.14.0"
+spec:
+  chart:
+    repository: "metrics-server"
+    name: "metrics-server"
+    version: "3.14.0"
+  package:
+    sha256: "c2ca1185c01e6e7f53dd1b7d131f0c9b3fa50e003ed068b784563a1b5a3422a1"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 26
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 2
+      files:
+        - "templates/apiservice.yaml:6"
+        - "templates/apiservice.yaml:34"
+    capabilities:
+      count: 4
+      files:
+        - "templates/_helpers.tpl:104"
+        - "templates/deployment.yaml:44"
+        - "templates/pdb.yaml:16"
+        - "templates/psp.yaml:1"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 1
+      files:
+        - "templates/apiservice.yaml:12"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

@@ -13,12 +13,18 @@ Each audited chart version gets one receipted answer to one question: what happe
 | cloudpirates/nginx | 0.16.1 | default | safe-to-flatten | recipes/cloudpirates/nginx/0.16.1/publication/flattening-safety-verdict.yaml |
 | cloudpirates/rabbitmq | 0.21.13 | default | unsafe-to-flatten | recipes/cloudpirates/rabbitmq/0.21.13/publication/flattening-safety-verdict.yaml |
 | traefik/traefik | 41.0.2 | default | flatten-with-routes | recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml |
+| traefik/traefik | 41.4.0 | default | flatten-with-routes | recipes/traefik/traefik/41.4.0/publication/flattening-safety-verdict.yaml |
 | jetstack/cert-manager | v1.21.0 | default | flatten-with-routes | recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict.yaml |
+| jetstack/cert-manager | v1.21.1 | default | flatten-with-routes | recipes/jetstack/cert-manager/v1.21.1/publication/flattening-safety-verdict.yaml |
 | jetstack/cert-manager | v1.21.0 | crds-enabled | flatten-with-routes | recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict-crds-enabled.yaml |
+| jetstack/cert-manager | v1.21.1 | crds-enabled | flatten-with-routes | recipes/jetstack/cert-manager/v1.21.1/publication/flattening-safety-verdict-crds-enabled.yaml |
 | external-secrets/external-secrets | 2.8.0 | default | flatten-with-routes | recipes/external-secrets/external-secrets/2.8.0/publication/flattening-safety-verdict.yaml |
+| external-secrets/external-secrets | 2.10.0 | default | flatten-with-routes | recipes/external-secrets/external-secrets/2.10.0/publication/flattening-safety-verdict.yaml |
 | prometheus-community/kube-prometheus-stack | 87.19.2 | minimal | flatten-with-routes | runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict-minimal.yaml |
 | prometheus-community/kube-prometheus-stack | 87.19.2 | default | unsafe-to-flatten | recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict.yaml |
+| prometheus-community/kube-prometheus-stack | 88.6.3 | default | unsafe-to-flatten | recipes/prometheus-community/kube-prometheus-stack/88.6.3/publication/flattening-safety-verdict.yaml |
 | metrics-server/metrics-server | 3.13.1 | default | safe-to-flatten | recipes/metrics-server/metrics-server/3.13.1/publication/flattening-safety-verdict.yaml |
+| metrics-server/metrics-server | 3.14.0 | default | safe-to-flatten | recipes/metrics-server/metrics-server/3.14.0/publication/flattening-safety-verdict.yaml |
 | kyverno/kyverno | 3.8.1 | default | unsafe-to-flatten | recipes/kyverno/kyverno/3.8.1/publication/flattening-safety-verdict.yaml |
 | aws-controllers-k8s/ec2-chart | 1.18.4 | eks-inference | flatten-with-routes | recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/flattening-safety-verdict.yaml |
 | aws-controllers-k8s/iam-chart | 1.7.3 | eks-inference | flatten-with-routes | recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict.yaml |
@@ -56,6 +62,7 @@ Each audited chart version gets one receipted answer to one question: what happe
 | gatekeeper/gatekeeper | 3.22.2 | default | flatten-with-routes | recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict.yaml |
 | fluent/fluent-bit | 0.57.6 | default | safe-to-flatten | recipes/fluent/fluent-bit/0.57.6/publication/flattening-safety-verdict.yaml |
 | prometheus-community/prometheus-blackbox-exporter | 11.15.1 | default | safe-to-flatten | recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/publication/flattening-safety-verdict.yaml |
+| prometheus-community/prometheus-blackbox-exporter | 11.18.0 | default | safe-to-flatten | recipes/prometheus-community/prometheus-blackbox-exporter/11.18.0/publication/flattening-safety-verdict.yaml |
 | projectcalico/tigera-operator | v3.32.0 | default | flatten-with-routes | recipes/projectcalico/tigera-operator/v3.32.0/publication/flattening-safety-verdict.yaml |
 | autoscaler/cluster-autoscaler | 9.57.0 | default | safe-to-flatten | recipes/autoscaler/cluster-autoscaler/9.57.0/publication/flattening-safety-verdict.yaml |
 | coredns/coredns | 1.45.2 | default | safe-to-flatten | recipes/coredns/coredns/1.45.2/publication/flattening-safety-verdict.yaml |
@@ -77,6 +84,7 @@ Each audited chart version gets one receipted answer to one question: what happe
 | prometheus-community/prometheus-pushgateway | 3.6.0 | default | safe-to-flatten | recipes/prometheus-community/prometheus-pushgateway/3.6.0/publication/flattening-safety-verdict.yaml |
 | stakater/reloader | 2.2.12 | default | safe-to-flatten | recipes/stakater/reloader/2.2.12/publication/flattening-safety-verdict.yaml |
 | stakater/reloader | 2.2.14 | default | safe-to-flatten | recipes/stakater/reloader/2.2.14/publication/flattening-safety-verdict.yaml |
+| stakater/reloader | 2.2.16 | default | safe-to-flatten | recipes/stakater/reloader/2.2.16/publication/flattening-safety-verdict.yaml |
 | vm/victoria-metrics-single | 0.39.0 | default | safe-to-flatten | recipes/vm/victoria-metrics-single/0.39.0/publication/flattening-safety-verdict.yaml |
 | rook-release/rook-ceph-cluster | v1.19.5 | default | safe-to-flatten | recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/flattening-safety-verdict.yaml |
 | grafana/promtail | 6.17.1 | default | safe-to-flatten | recipes/grafana/promtail/6.17.1/publication/flattening-safety-verdict.yaml |
@@ -84,6 +92,7 @@ Each audited chart version gets one receipted answer to one question: what happe
 | minio-operator/tenant | 7.1.1 | default | unsafe-to-flatten | recipes/minio-operator/tenant/7.1.1/publication/flattening-safety-verdict.yaml |
 | external-dns/external-dns | 1.21.1 | default | flatten-with-routes | recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict.yaml |
 | grafana/alloy | 1.11.0 | default | flatten-with-routes | recipes/grafana/alloy/1.11.0/publication/flattening-safety-verdict.yaml |
+| grafana/alloy | 1.12.1 | default | flatten-with-routes | recipes/grafana/alloy/1.12.1/publication/flattening-safety-verdict.yaml |
 | grafana/alloy | 1.8.2 | default | flatten-with-routes | recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict.yaml |
 | linkerd/linkerd-crds | 1.8.0 | default | flatten-with-routes | recipes/linkerd/linkerd-crds/1.8.0/publication/flattening-safety-verdict.yaml |
 | minio-operator/operator | 7.1.1 | default | flatten-with-routes | recipes/minio-operator/operator/7.1.1/publication/flattening-safety-verdict.yaml |
@@ -95,6 +104,7 @@ Each audited chart version gets one receipted answer to one question: what happe
 | argo-cd/argocd-image-updater | 1.2.2 | default | flatten-with-routes | recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml |
 | rook-release/rook-ceph | v1.19.5 | default | flatten-with-routes | recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml |
 | policy-reporter/policy-reporter | 3.9.1 | default | safe-to-flatten | recipes/policy-reporter/policy-reporter/3.9.1/publication/flattening-safety-verdict.yaml |
+| policy-reporter/policy-reporter | 3.10.0 | default | safe-to-flatten | recipes/policy-reporter/policy-reporter/3.10.0/publication/flattening-safety-verdict.yaml |
 | bitnami/apache | 11.4.29 | default | safe-to-flatten | recipes/bitnami/apache/11.4.29/publication/flattening-safety-verdict.yaml |
 | bitnami/elasticsearch | 22.1.6 | default | safe-to-flatten | recipes/bitnami/elasticsearch/22.1.6/publication/flattening-safety-verdict.yaml |
 | bitnami/memcached | 8.5.5 | default | safe-to-flatten | recipes/bitnami/memcached/8.5.5/publication/flattening-safety-verdict.yaml |
@@ -108,7 +118,9 @@ Each audited chart version gets one receipted answer to one question: what happe
 | argo-cd/argo-cd | 10.1.3 | default | flatten-with-routes | recipes/argo-cd/argo-cd/10.1.3/publication/flattening-safety-verdict.yaml |
 | argo-cd/argo-cd | 10.1.3 | no-crds | flatten-with-routes | recipes/argo-cd/argo-cd/10.1.3/publication/flattening-safety-verdict-no-crds.yaml |
 | argo-cd/argo-cd | 10.2.1 | default | flatten-with-routes | recipes/argo-cd/argo-cd/10.2.1/publication/flattening-safety-verdict.yaml |
+| argo-cd/argo-cd | 10.7.0 | default | flatten-with-routes | recipes/argo-cd/argo-cd/10.7.0/publication/flattening-safety-verdict.yaml |
 | argo-cd/argo-cd | 10.2.1 | no-crds | flatten-with-routes | recipes/argo-cd/argo-cd/10.2.1/publication/flattening-safety-verdict-no-crds.yaml |
+| argo-cd/argo-cd | 10.7.0 | no-crds | flatten-with-routes | recipes/argo-cd/argo-cd/10.7.0/publication/flattening-safety-verdict-no-crds.yaml |
 | argo-cd/argo-cd | 9.5.15 | no-crds | flatten-with-routes | recipes/argo-cd/argo-cd/9.5.15/publication/flattening-safety-verdict-no-crds.yaml |
 | argo-cd/argo-cd | 9.5.17 | default | flatten-with-routes | recipes/argo-cd/argo-cd/9.5.17/publication/flattening-safety-verdict.yaml |
 | argo-cd/argo-cd | 9.5.17 | no-crds | flatten-with-routes | recipes/argo-cd/argo-cd/9.5.17/publication/flattening-safety-verdict-no-crds.yaml |
@@ -172,6 +184,7 @@ Each audited chart version gets one receipted answer to one question: what happe
 | external-secrets/external-secrets | 2.7.0 | default | flatten-with-routes | recipes/external-secrets/external-secrets/2.7.0/publication/flattening-safety-verdict.yaml |
 | external-secrets/external-secrets | 2.7.0 | no-crds | flatten-with-routes | recipes/external-secrets/external-secrets/2.7.0/publication/flattening-safety-verdict-no-crds.yaml |
 | external-secrets/external-secrets | 2.8.0 | no-crds | flatten-with-routes | recipes/external-secrets/external-secrets/2.8.0/publication/flattening-safety-verdict-no-crds.yaml |
+| external-secrets/external-secrets | 2.10.0 | no-crds | flatten-with-routes | recipes/external-secrets/external-secrets/2.10.0/publication/flattening-safety-verdict-no-crds.yaml |
 | falcosecurity/falco | 9.0.0 | default | unsafe-to-flatten | recipes/falcosecurity/falco/9.0.0/publication/flattening-safety-verdict.yaml |
 | falcosecurity/falcosidekick | 0.13.1 | default | unsafe-to-flatten | recipes/falcosecurity/falcosidekick/0.13.1/publication/flattening-safety-verdict.yaml |
 | fluent/fluentd | 0.5.3 | default | safe-to-flatten | recipes/fluent/fluentd/0.5.3/publication/flattening-safety-verdict.yaml |
@@ -182,6 +195,7 @@ Each audited chart version gets one receipted answer to one question: what happe
 | grafana/loki | 7.0.0 | simple-scalable-minio | unsafe-to-flatten | recipes/grafana/loki/7.0.0/publication/flattening-safety-verdict-simple-scalable-minio.yaml |
 | grafana/loki | 7.0.0 | single-binary-filesystem | unsafe-to-flatten | recipes/grafana/loki/7.0.0/publication/flattening-safety-verdict-single-binary-filesystem.yaml |
 | grafana/loki | 7.1.0 | default | unsafe-to-flatten | recipes/grafana/loki/7.1.0/publication/flattening-safety-verdict.yaml |
+| grafana/loki | 7.3.0 | default | unsafe-to-flatten | recipes/grafana/loki/7.3.0/publication/flattening-safety-verdict.yaml |
 | grafana/pyroscope | 2.0.2 | default | unsafe-to-flatten | recipes/grafana/pyroscope/2.0.2/publication/flattening-safety-verdict.yaml |
 | grafana/pyroscope | 2.0.2 | ha | unsafe-to-flatten | recipes/grafana/pyroscope/2.0.2/publication/flattening-safety-verdict-ha.yaml |
 | grafana/pyroscope | 2.0.2 | no-crds | unsafe-to-flatten | recipes/grafana/pyroscope/2.0.2/publication/flattening-safety-verdict-no-crds.yaml |
@@ -210,13 +224,17 @@ Each audited chart version gets one receipted answer to one question: what happe
 | kedacore/keda | 2.19.0 | no-crds | flatten-with-routes | recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict-no-crds.yaml |
 | kyverno/kyverno-policies | 3.8.0 | default | unsafe-to-flatten | recipes/kyverno/kyverno-policies/3.8.0/publication/flattening-safety-verdict.yaml |
 | kyverno/kyverno-policies | 3.8.2 | default | unsafe-to-flatten | recipes/kyverno/kyverno-policies/3.8.2/publication/flattening-safety-verdict.yaml |
+| kyverno/kyverno-policies | 3.9.0 | default | unsafe-to-flatten | recipes/kyverno/kyverno-policies/3.9.0/publication/flattening-safety-verdict.yaml |
 | kyverno/kyverno | 3.8.1 | no-crds | unsafe-to-flatten | recipes/kyverno/kyverno/3.8.1/publication/flattening-safety-verdict-no-crds.yaml |
 | kyverno/kyverno | 3.8.2 | default | unsafe-to-flatten | recipes/kyverno/kyverno/3.8.2/publication/flattening-safety-verdict.yaml |
+| kyverno/kyverno | 3.9.0 | default | unsafe-to-flatten | recipes/kyverno/kyverno/3.9.0/publication/flattening-safety-verdict.yaml |
 | longhorn/longhorn | 1.11.2 | ui-ingress | unsafe-to-flatten | recipes/longhorn/longhorn/1.11.2/publication/flattening-safety-verdict-ui-ingress.yaml |
 | longhorn/longhorn | 1.12.0 | default | unsafe-to-flatten | recipes/longhorn/longhorn/1.12.0/publication/flattening-safety-verdict.yaml |
+| longhorn/longhorn | 1.12.1 | default | unsafe-to-flatten | recipes/longhorn/longhorn/1.12.1/publication/flattening-safety-verdict.yaml |
 | metallb/metallb | 0.16.1 | default | flatten-with-routes | recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml |
 | metrics-server/metrics-server | 3.13.0 | external-tls-ca | unsafe-to-flatten | recipes/metrics-server/metrics-server/3.13.0/publication/flattening-safety-verdict-external-tls-ca.yaml |
 | metrics-server/metrics-server | 3.13.1 | external-tls-ca | unsafe-to-flatten | recipes/metrics-server/metrics-server/3.13.1/publication/flattening-safety-verdict-external-tls-ca.yaml |
+| metrics-server/metrics-server | 3.14.0 | external-tls-ca | unsafe-to-flatten | recipes/metrics-server/metrics-server/3.14.0/publication/flattening-safety-verdict-external-tls-ca.yaml |
 | nats/nack | 0.34.0 | no-crds | safe-to-flatten | recipes/nats/nack/0.34.0/publication/flattening-safety-verdict-no-crds.yaml |
 | nats/nats | 2.14.0 | ha | unsafe-to-flatten | recipes/nats/nats/2.14.0/publication/flattening-safety-verdict-ha.yaml |
 | nats/surveyor | 0.20.9 | default-reviewed | safe-to-flatten | recipes/nats/surveyor/0.20.9/publication/flattening-safety-verdict-default-reviewed.yaml |
@@ -238,7 +256,9 @@ Each audited chart version gets one receipted answer to one question: what happe
 | prometheus-community/kube-prometheus-stack | 87.15.1 | existing-secret | unsafe-to-flatten | recipes/prometheus-community/kube-prometheus-stack/87.15.1/publication/flattening-safety-verdict-existing-secret.yaml |
 | prometheus-community/kube-prometheus-stack | 87.15.1 | no-crds | unsafe-to-flatten | recipes/prometheus-community/kube-prometheus-stack/87.15.1/publication/flattening-safety-verdict-no-crds.yaml |
 | prometheus-community/kube-prometheus-stack | 87.19.2 | existing-secret | unsafe-to-flatten | recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict-existing-secret.yaml |
+| prometheus-community/kube-prometheus-stack | 88.6.3 | existing-secret | unsafe-to-flatten | recipes/prometheus-community/kube-prometheus-stack/88.6.3/publication/flattening-safety-verdict-existing-secret.yaml |
 | prometheus-community/kube-prometheus-stack | 87.19.2 | no-crds | unsafe-to-flatten | recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict-no-crds.yaml |
+| prometheus-community/kube-prometheus-stack | 88.6.3 | no-crds | unsafe-to-flatten | recipes/prometheus-community/kube-prometheus-stack/88.6.3/publication/flattening-safety-verdict-no-crds.yaml |
 | prometheus-community/kube-state-metrics | 7.4.0 | cluster-metrics-readonly | safe-to-flatten | recipes/prometheus-community/kube-state-metrics/7.4.0/publication/flattening-safety-verdict-cluster-metrics-readonly.yaml |
 | prometheus-community/prometheus-adapter | 5.3.0 | apiservice-v1-capability | safe-to-flatten | recipes/prometheus-community/prometheus-adapter/5.3.0/publication/flattening-safety-verdict-apiservice-v1-capability.yaml |
 | prometheus-community/prometheus-adapter | 5.3.0 | cluster-metrics-readonly | safe-to-flatten | recipes/prometheus-community/prometheus-adapter/5.3.0/publication/flattening-safety-verdict-cluster-metrics-readonly.yaml |
@@ -262,6 +282,6 @@ Each audited chart version gets one receipted answer to one question: what happe
 
 A lane holds for the audited base named in the verdict. The variantScope block records how other values move the finding set; a different base deserves its own verdict, which is why certified bundles key on chart version and recipe variant together.
 
-This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 110 charts here now have that axis answered from source, across 255 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.
+This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 110 charts here now have that axis answered from source, across 275 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.
 
 Witnesses are recorded once per pinned package by scripts/scan-flattening-witness.mjs, which needs the chart tarball and so runs outside the verify chain. Every witness hash is checked against the recipe source-lock here. Regenerate with `npm run flattening-safety`. Verify with `npm run flattening-safety:verify`.

@@ -1,0 +1,65 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "stakater-reloader-2.2.16"
+spec:
+  chart:
+    repository: "stakater"
+    name: "reloader"
+    version: "2.2.16"
+  package:
+    sha256: "5389fb496a120d6aac8f2b33c54ba21ed59014131def14cfc78f9d4a9374d2b7"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 19
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 10
+      files:
+        - "templates/_helpers.tpl:141"
+        - "templates/_helpers.tpl:153"
+        - "templates/clusterrole.yaml:2"
+        - "templates/clusterrole.yaml:44"
+        - "templates/clusterrole.yaml:56"
+        - "templates/clusterrolebinding.yaml:2"
+        - "templates/role.yaml:6"
+        - "templates/rolebinding.yaml:3"
+        - "templates/servicemonitor.yaml:1"
+        - "templates/verticalpodautoscaler.yaml:1"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []
