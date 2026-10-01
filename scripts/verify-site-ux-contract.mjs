@@ -34,7 +34,7 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/guides.html",
-    terms: ["The five journeys", "Start here", "Helm questions", "Formats", "GitOps", "Stacks and platforms", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "guides.json"],
+    terms: ["Five cool demos", "Topic based walkthroughs", "Helm questions", "Formats", "GitOps", "Stacks and platforms", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "guides.json"],
   },
   {
     file: "site/plugins.html",

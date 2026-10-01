@@ -8,9 +8,9 @@ spec:
     Guide front matter; the site generator turns it into site/guides.json. The five journeys come first.
   groups:
   - id: journeys
-    title: The five journeys
+    title: Five cool demos
   - id: start-here
-    title: Start here
+    title: Topic based walkthroughs
   - id: helm-questions
     title: Helm questions
   - id: formats
