@@ -70,7 +70,7 @@ const checks = [
   })),
   {
     file: "site/index.html",
-    terms: ["Configuration catalog for Agents and Kubernetes", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and More", "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "Check my chart and values", "Set up my agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
+    terms: ["Configuration catalog for Agents and Kubernetes", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and More", "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "I have an existing app", "Check my charts and values", "Build a platform or fleet", "Set up my AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
   },
   {
     file: "site/ask.html",

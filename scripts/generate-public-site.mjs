@@ -3535,10 +3535,14 @@ ${homeJourneyLinks()}
         <div class="hero">
           <div>
             <p class="lead">Start with your own chart or app. Use <code>cub</code> directly or ask your agent to inspect the rendered configuration, compare changes and run checks. Local checks need no account.</p>
+            <div class="cta-row">
+              <a class="btn primary" href="./guides.html#guides-existing-apps">I have an existing app</a>
+              <a class="btn primary" href="./ask.html">Check my charts and values</a>
+            </div>
             <p>When your team needs to keep and share the result, ConfigHub adds version history, approvals and releases. Argo CD or Flux still delivers it.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./ask.html">Check my chart and values</a>
-              <a class="btn primary" href="./ai.html">Set up my agent</a>
+              <a class="btn primary" href="./guides.html#guides-platforms-fleets">Build a platform or fleet</a>
+              <a class="btn primary" href="./ai.html">Set up my AI agent</a>
             </div>
           </div>
           <div class="hero-term">
@@ -6870,7 +6874,12 @@ function pluginsHtml() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Plugins · ConfigHub Workshop</title>
-  <style>${siteCss()}</style>
+  <style>${siteCss()}
+    [aria-labelledby="every-plugin"] > .card { overflow-x: auto; }
+    [aria-labelledby="every-plugin"] table { display: table; min-width: 44rem; white-space: normal; }
+    [aria-labelledby="every-plugin"] :is(th, td):nth-child(1),
+    [aria-labelledby="every-plugin"] :is(th, td):nth-child(3) { width: 9.5rem; min-width: 9.5rem; }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -6896,12 +6905,20 @@ function familiarGuideStartsHtml() {
   return `<section aria-labelledby="guides-your-tools">
     <h2 id="guides-your-tools">Start with what you use</h2>
     <p>Keep your tools. First inspect the configuration; choose delivery changes only when you are ready.</p>
+    <h3 id="guides-existing-apps">Bring an existing app</h3>
+    <p>Start from the chart or delivery system you already use.</p>
     <ul class="guide-list">
       <li><a href="./bring-argo-into-confighub.html">I use Argo CD</a>. Preview your apps, import a parallel copy, then review handover and recovery.</li>
       <li><a href="./bring-flux-into-confighub.html">I use Flux</a>. Preview your repository and move delivery one cluster at a time.</li>
-      <li><a href="./bring-sveltos-into-confighub.html">I want a fleet</a>. Use Sveltos to deliver reviewed configuration to your clusters.</li>
-      <li><a href="./bring-kubara-into-confighub.html">I want platform add-ons</a>. Keep Kubara generating your platform and add ConfigHub review.</li>
-      <li><a href="./d/docs/user/workshop-byo-charts-guide.html">I use Helm</a>. Render your own chart, diagnose values and compare a change before installing.</li>
+      <li><a href="./d/docs/user/workshop-byo-charts-guide.html">I use Helm</a>. Render your own chart and values, then check and compare a change before installing.</li>
+      <li><a href="./deploy-with-flux-or-argo.html">Other GitOps delivery paths</a>. Review how rendered configuration reaches your controller.</li>
+    </ul>
+    <h3 id="guides-platforms-fleets">Build a platform or fleet for your apps</h3>
+    <p>Choose the services your apps need, then review the configuration before anything runs.</p>
+    <ul class="guide-list">
+      <li><a href="./bring-kubara-into-confighub.html">Build a platform with Kubara</a>. Generate platform add-ons, inspect them and add ConfigHub review when you are ready.</li>
+      <li><a href="./bring-sveltos-into-confighub.html">Manage a fleet with Sveltos</a>. This Guide starts from an existing Sveltos management cluster and takes delivery into ConfigHub in stages.</li>
+      <li><a href="./compose-a-stack.html">Compose a stack with an app</a>. Choose components and check that they fit together.</li>
       <li>I use NVIDIA: <a href="./try-aicr.html">inspect an AICR platform configuration</a>, or <a href="./d/docs/demo/aicr/kserve-nim-inference.html">prepare NIM model serving</a>. Local inspection is separate from proving a GPU deployment.</li>
     </ul>
     <p><a href="./see-what-is-running.html">Show me what is running</a> · <a href="./view-and-change-config-with-uis.html">Let me browse configuration in a UI</a></p>
