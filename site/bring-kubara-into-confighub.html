@@ -630,7 +630,7 @@
     <p class="lead">Keep Kubara as it is, and approve each change to your platform in ConfigHub. Your first result takes about 15 minutes and needs no account and no cluster.</p>
     <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Run cub kubara plan on my Kubara platform, show me what ConfigHub would hold, and change nothing.”</aside>
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong> Kubara keeps its catalogs, its generated files and its hub Argo CD. ConfigHub holds a base for each component and a variant for each cluster, with an approval before each release.</p>
-    <p>The plugin is <code>cub kubara</code>, from <a href="https://github.com/confighub/kubara-confighub">confighub/kubara-confighub</a> v0.2.4. Its <a href="https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md">guide</a> walks every command. This page gives the order, what each step changes, how to undo it, and the evidence.</p>
+    <p>The plugin is <code>cub kubara</code>, from <a href="https://github.com/confighub/kubara-confighub">confighub/kubara-confighub</a> v0.2.5. Its <a href="https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md">guide</a> walks every command. This page gives the order, what each step changes, how to undo it, and the evidence.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="#first-result">First result in 15 minutes</a> · <a href="#kubara-govern">Govern it</a> · <a href="#kubara-stack">Check it as a stack</a> · <a href="#kubara-limits">Known limits</a> · <a href="#kubara-evidence">Evidence</a></p>
   </header>
   <main>
@@ -639,7 +639,7 @@
       <p>This takes about 15 minutes. You need the <code>cub</code> CLI, <a href="https://github.com/kubara-io/kubara">Kubara</a> v0.15 or newer, and <code>helm</code>. You need no ConfigHub account and no cluster, and nothing changes outside the directories these commands write.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre class="terminal-body"><code><span class="term-comment"># Install the plugin release this page was checked with</span>
-<span class="term-prompt">$</span> cub plugin install confighub/kubara-confighub@v0.2.4
+<span class="term-prompt">$</span> cub plugin install confighub/kubara-confighub@v0.2.5
 
 <span class="term-prompt">$</span> cub kubara version
 
@@ -660,7 +660,7 @@
 
 <span class="term-comment"># Each service for each cluster, as Kubara's ApplicationSets deliver it</span>
 <span class="term-prompt">$</span> cub kubara render my-platform --out my-platform-render</code></pre>
-      <p><strong>What you get.</strong> <code>plan</code> prints the stages in rollout order, a base for each component, and a variant for each cluster that runs it. For each chart it says if the Workshop Catalog checked the exact version Kubara pins. <code>render</code> writes each cluster's services as <code>objects.yaml</code> files, and <code>render.json</code> records each chart, values file and digest.</p>
+      <p><strong>What you get.</strong> <code>plan</code> prints the stages in rollout order, a base for each component, and a variant for each cluster that runs it. For each chart it says if the Workshop Catalog checked the exact version Kubara pins. With Kubara's 3.0 catalogs, the default for Kubara v0.16, the Workshop has checked every upstream chart version they pin (<a href="https://github.com/confighub/helm-expt/pull/2052">#2052</a>), so each one links its Catalog page. <code>render</code> writes each cluster's services as <code>objects.yaml</code> files, and <code>render.json</code> records each chart, values file and digest.</p>
       <p><strong>Already run Kubara?</strong> Skip <code>init</code> and <code>kubara generate</code>, and run <code>plan</code> and <code>render</code> on your Kubara work directory.</p>
       <p><code>init</code>, <code>generate</code> and <code>plan</code> take seconds. The first <code>render</code> takes longer, because Helm fetches each chart's dependencies into a cached copy. Your work directory stays as it was. In the render, each Secret keeps its keys and loses its values.</p>
       <p><code>init</code> also writes a <code>.gitignore</code> that leaves out <code>.env</code>, <code>**/charts/</code>, <code>**/Chart.lock</code> and <code>**/*.tgz</code>. If one exists, <code>init</code> adds only the lines it lacks. Keep <code>.env</code> out of Git, because it holds the Argo CD password and your Git token.</p>
@@ -719,7 +719,7 @@
     <section aria-labelledby="kubara-stack">
       <h2 id="kubara-stack">3. Check the same platform as a Workshop stack</h2>
       <p>A Workshop stack is the same platform seen as one composition: a component for each service and a variant for each cluster. Use it to check the platform before anything runs, compose apps onto it, or publish it as OCI. Approvals and handover stay with <code>cub kubara</code>.</p>
-      <p><code>cub stack from-kubara</code> runs <code>cub kubara render</code>, so the stack holds the objects Kubara's hub delivers. It needs the Workshop plugin, <code>cub kubara</code> v0.2.4 or later, <code>helm</code>, <code>node</code> and <code>oras</code>, and no account.</p>
+      <p><code>cub stack from-kubara</code> runs <code>cub kubara render</code>, so the stack holds the objects Kubara's hub delivers. It needs the Workshop plugin, <code>cub kubara</code> v0.2.5 or later, <code>helm</code>, <code>node</code> and <code>oras</code>, and no account.</p>
       <pre class="terminal-body"><code><span class="term-comment"># Install the Workshop plugin release this page was checked with</span>
 <span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.56
 
@@ -781,14 +781,14 @@
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>The kind-lab logs are pinned at commit <code>fdae8a2</code>, the v0.2.4 release of confighub/kubara-confighub. Each was recorded with <code>cub kubara</code> built from a branch before its release, not with a released binary. The first three came from the branches v0.2.3 released, and the second-approver and re-bootstrap runs from <code>0.2.4-dev</code>. The Workshop proof used a build from before v0.2.3, which reports <code>0.2.3-dev</code>.</p>
-      <p>The commands in sections 1 and 3 were checked with the released <code>cub kubara</code> v0.2.4, Workshop v0.6.56, Kubara v0.15.0 and Helm v4.1.4. That check wrote <code>apply.sh</code>, <code>handover.sh</code> and <code>handback.sh</code> without running them, and left the work directory unchanged.</p>
+      <p>The commands in sections 1 and 3 were checked with the released <code>cub kubara</code> v0.2.5, Workshop v0.6.56, Kubara v0.15.0 and Helm v4.1.4. That check wrote <code>apply.sh</code>, <code>handover.sh</code> and <code>handback.sh</code> without running them, and left the work directory unchanged.</p>
       <p>The four-cluster reference proof is older and separate. <a href="#earlier-work">Earlier work</a> and <a href="./kubara-and-confighub.html">Kubara and ConfigHub, explained</a> keep it, labelled as historical.</p>
     </section>
     <section aria-labelledby="kubara-agent">
       <h2 id="kubara-agent">6. Give your agent this prompt</h2>
       <pre style="border: 1px solid var(--line); border-radius: 10px; padding: 16px; overflow-x: auto; white-space: pre-wrap;"><code>I run a Kubara platform. Its work directory is &lt;path&gt;.
 
-1. Install cub kubara v0.2.4 with: cub plugin install confighub/kubara-confighub@v0.2.4
+1. Install cub kubara v0.2.5 with: cub plugin install confighub/kubara-confighub@v0.2.5
    Then read https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md
 2. Run cub kubara plan and cub kubara render --out &lt;new directory&gt; on my work directory.
    Tell me the stages, the bases and variants, and which charts the Workshop Catalog
