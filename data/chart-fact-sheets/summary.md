@@ -13,7 +13,7 @@ never one without the other. Read-only projection over
 [chart-skills](../chart-skills/skills.csv). The browser board is
 [fact-sheets.html](fact-sheets.html).
 
-Covers **110 charts**. By support status: needs-better-base-variant 36 · works-with-operator-review 32 · ready-to-try 20 · works-with-target-prerequisites 15 · not-ready-yet 7.
+Covers **111 charts**. By support status: needs-better-base-variant 38 · works-with-operator-review 31 · ready-to-try 20 · works-with-target-prerequisites 15 · not-ready-yet 7.
 
 After any apply, the honest check is **cub-scout** — `object-set-matches`,
 `prerequisites-met`, `workloads-converged` — because "created" is not "working".
@@ -462,17 +462,17 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** add at least one user-shaped variant before catalog promotion
 
-## grafana/alloy@1.8.2
+## grafana/alloy@1.12.1
 
-- **Status:** works-with-operator-review (`works-with-operator-review`)
-- **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)
+- **Status:** Needs a better base (`needs-better-base-variant`)
+- **Support (claim):** not-yet-user-ready
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)
 - **Recommended base:** `default`
-- **You must provide/decide:** a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); mandatory chart inputs
-- **Quirks & disposition:** crds;extension-slots;required-values;tpl;capabilities;rbac;storage — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases
-- **Skill:** target-facts-and-lifecycle (docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md)
+- **You must provide/decide:** a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); mandatory chart inputs; your wanted install shape, until a reviewed base exists
+- **Quirks & disposition:** crds;required-values;tpl;capabilities;rbac;storage — exact rendered objects with render parity and receipts; CRD handling split into explicit bases
+- **Skill:** target-facts-and-lifecycle (docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
-- **Next action:** run catalog promotion review
+- **Next action:** add at least one user-shaped variant before catalog promotion
 
 ## nats/nats@2.14.0
 
@@ -759,6 +759,18 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **You must provide/decide:** a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** extension-slots;required-values;tpl;capabilities;rbac;storage — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases
 - **Skill:** target-facts-and-lifecycle (docs/skills/target-facts-and-lifecycle.md)
+- **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
+- **Next action:** add at least one user-shaped variant before catalog promotion
+
+## policy-reporter/policy-reporter@3.10.0
+
+- **Status:** Needs a better base (`needs-better-base-variant`)
+- **Support (claim):** not-yet-user-ready
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)
+- **Recommended base:** `default`
+- **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists
+- **Quirks & disposition:** existing-secret;required-values;generated-facts;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; cluster lookups lifted into declared target facts
+- **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** add at least one user-shaped variant before catalog promotion
 

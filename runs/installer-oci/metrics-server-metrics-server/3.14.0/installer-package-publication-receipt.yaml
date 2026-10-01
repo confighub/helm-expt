@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: metrics-server-metrics-server-3.14.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0
+  observedAt: "2026-09-30T21:56:13.078Z"
+  package:
+    path: packages/metrics-server/metrics-server/3.14.0
+    sha256: fc74c0ba1a4a6223e3ebdf82a64a5b10456de7a40cea69578d66321a5cfc4935
+    sourceTreeSHA256: bcbcffcb3f92c4dbda55ec96c82bc9aced2e66fe7f6675323be1432a39e403cb
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/metrics-server/metrics-server/3.14.0 -o <tmp>/metrics-server-metrics-server-3.14.0.tgz"
+    push: "cub installer push <tmp>/metrics-server-metrics-server-3.14.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0 --json"
+  outputs:
+    manifestDigest: sha256:806f198aca52dc7db180a04354dd7895873cad5c1811a45532d7e27077e3a0a3
+    layerDigest: sha256:fc74c0ba1a4a6223e3ebdf82a64a5b10456de7a40cea69578d66321a5cfc4935
+    package: |
+      Bundled metrics-server-metrics-server@
+        output: <tmp>
+        files:  7
+        size:   3331 bytes
+        digest: sha256:fc74c0ba1a4a6223e3ebdf82a64a5b10456de7a40cea69578d66321a5cfc4935
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0
+        manifest: sha256:806f198aca52dc7db180a04354dd7895873cad5c1811a45532d7e27077e3a0a3
+        layer:    sha256:fc74c0ba1a4a6223e3ebdf82a64a5b10456de7a40cea69578d66321a5cfc4935 (3331 bytes, 7 files)
+    inspectJSONSHA256: 44791798e869eb7af1fc8473d1cf0e5eb06b4e4b3e6bc97b66443af6c228d071
+    inspectJSONCanonicalSHA256: 09862f20fc810b3b0742f2083e0647465cce7057e680407d48d21304f7204629

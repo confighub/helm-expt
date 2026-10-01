@@ -26,8 +26,8 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 
-const rootSupportedVersions = ["85.3.3", "86.1.0"];
-const candidateSupportedVersions = ["87.15.1", "87.19.2"];
+const rootSupportedVersions = ["85.3.3", "86.1.0", "88.6.3"];
+const candidateSupportedVersions = ["87.15.1", "87.19.2", "88.6.3"];
 const proofOutputRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
   ? join(repoRoot, process.env.HELM_EXPT_PROOF_OUTPUT_ROOT)
   : repoRoot;
@@ -122,7 +122,12 @@ const maintainedTemplateRoot = join(
 );
 const createJobName = "kube-prometheus-stack-admission-create";
 const patchJobName = "kube-prometheus-stack-admission-patch";
-const hookImage = version === "87.19.2"
+const hookImage = version === "88.6.3"
+  ? {
+      source: "ghcr.io/jkroepke/kube-webhook-certgen:1.8.8",
+      pinned: "ghcr.io/jkroepke/kube-webhook-certgen@sha256:cd85a621724cd9043a5b46a784578fa159437712f920166389fce830554e1c44",
+    }
+  : version === "87.19.2"
   ? {
       source: "ghcr.io/jkroepke/kube-webhook-certgen:1.8.5",
       pinned: "ghcr.io/jkroepke/kube-webhook-certgen@sha256:d0e80b2f62fe43bb5e1b96adc692132fb4522e802f4cf673c09b1f94722b8cb6",

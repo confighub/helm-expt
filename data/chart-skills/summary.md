@@ -16,16 +16,16 @@ Two forms: [skills.csv](./skills.csv) (spreadsheet) and
 
 ## Coverage
 
-111 of 142 charts have at least one applicable skill. A chart
+118 of 156 charts have at least one applicable skill. A chart
 with none is a plain chart that needs no special playbook.
 
 | Skill | Charts |
 | --- | ---: |
 | [Live Parity](../../docs/skills/live-parity.md) | 97 |
-| [Target Facts And Lifecycle](../../docs/skills/target-facts-and-lifecycle.md) | 56 |
-| [Hook And Secret Lifecycle](../../docs/skills/hook-and-secret-lifecycle.md) | 45 |
-| [Large App Evidence Funnel](../../docs/skills/large-app-evidence-funnel.md) | 29 |
-| [Serious Chart Playbooks](../../docs/skills/serious-chart-playbooks.md) | 20 |
+| [Target Facts And Lifecycle](../../docs/skills/target-facts-and-lifecycle.md) | 57 |
+| [Hook And Secret Lifecycle](../../docs/skills/hook-and-secret-lifecycle.md) | 48 |
+| [Large App Evidence Funnel](../../docs/skills/large-app-evidence-funnel.md) | 33 |
+| [Serious Chart Playbooks](../../docs/skills/serious-chart-playbooks.md) | 24 |
 
 ## How To Read One Row
 
@@ -42,6 +42,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | aqua/trivy-operator@0.32.1 | 1 | live-parity | live |
 | argo-cd/argo-cd@10.1.3 | 0 | none | — |
 | argo-cd/argo-cd@10.2.1 | 0 | none | — |
+| argo-cd/argo-cd@10.7.0 | 0 | none | — |
 | argo-cd/argo-cd@9.5.15 | 1 | live-parity | live |
 | argo-cd/argo-cd@9.5.17 | 1 | live-parity | live |
 | argo-cd/argo-events@2.4.21 | 1 | live-parity | live |
@@ -90,6 +91,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | elastic/logstash@8.5.1 | 2 | target-facts-and-lifecycle | stateful-storage; live |
 | elastic/metricbeat@8.5.1 | 1 | target-facts-and-lifecycle | stateful-storage |
 | external-dns/external-dns@1.21.1 | 3 | target-facts-and-lifecycle | crds; live |
+| external-secrets/external-secrets@2.10.0 | 2 | serious-chart-playbooks | named-serious |
 | external-secrets/external-secrets@2.5.0 | 3 | serious-chart-playbooks | named-serious; live |
 | external-secrets/external-secrets@2.7.0 | 2 | serious-chart-playbooks | named-serious |
 | external-secrets/external-secrets@2.8.0 | 2 | serious-chart-playbooks | named-serious |
@@ -102,10 +104,12 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | gatekeeper/gatekeeper@3.22.2 | 5 | serious-chart-playbooks | crds+webhooks; hooks:4; webhooks; crds; live |
 | gitlab/gitlab-runner@0.89.0 | 2 | hook-and-secret-lifecycle | generated-facts |
 | grafana/alloy@1.11.0 | 0 | none | — |
-| grafana/alloy@1.8.2 | 3 | target-facts-and-lifecycle | crds; stateful-storage; live |
+| grafana/alloy@1.12.1 | 2 | target-facts-and-lifecycle | crds; stateful-storage |
+| grafana/alloy@1.8.2 | 1 | live-parity | live |
 | grafana/grafana@10.5.15 | 1 | live-parity | live |
 | grafana/loki@7.0.0 | 5 | serious-chart-playbooks | named-serious; generated-facts; webhooks; crds; lookup; stateful-storage; live |
 | grafana/loki@7.1.0 | 2 | serious-chart-playbooks | named-serious |
+| grafana/loki@7.3.0 | 2 | serious-chart-playbooks | named-serious |
 | grafana/promtail@6.17.1 | 1 | live-parity | live |
 | grafana/pyroscope@2.0.2 | 4 | hook-and-secret-lifecycle | generated-facts; crds; lookup; stateful-storage; live |
 | grafana/rollout-operator@0.49.0 | 1 | live-parity | live |
@@ -122,19 +126,24 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | jetstack/cert-manager-csi-driver@v0.14.0 | 1 | live-parity | live |
 | jetstack/cert-manager@v1.20.2 | 3 | serious-chart-playbooks | named-serious; live |
 | jetstack/cert-manager@v1.21.0 | 2 | serious-chart-playbooks | named-serious |
+| jetstack/cert-manager@v1.21.1 | 2 | serious-chart-playbooks | named-serious |
 | jetstack/trust-manager@v0.22.1 | 1 | live-parity | live |
 | karpenter/karpenter@1.14.0 | 4 | serious-chart-playbooks | crds+webhooks; webhooks; crds |
 | kedacore/keda@2.19.0 | 5 | serious-chart-playbooks | crds+webhooks; hooks:1; webhooks; crds; live |
 | kyverno/kyverno-policies@3.8.0 | 2 | target-facts-and-lifecycle | lookup; live |
 | kyverno/kyverno-policies@3.8.2 | 0 | none | — |
+| kyverno/kyverno-policies@3.9.0 | 0 | none | — |
 | kyverno/kyverno@3.8.1 | 4 | hook-and-secret-lifecycle | hooks:8; generated-facts; crds; lookup; stateful-storage; live |
 | kyverno/kyverno@3.8.2 | 1 | hook-and-secret-lifecycle | hooks:8 |
+| kyverno/kyverno@3.9.0 | 1 | hook-and-secret-lifecycle | hooks:8 |
 | linkerd/linkerd-crds@1.8.0 | 1 | live-parity | live |
 | longhorn/longhorn@1.11.2 | 3 | hook-and-secret-lifecycle | generated-facts; live |
 | longhorn/longhorn@1.12.0 | 0 | none | — |
+| longhorn/longhorn@1.12.1 | 0 | none | — |
 | metallb/metallb@0.16.1 | 0 | none | — |
 | metrics-server/metrics-server@3.13.0 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; live |
 | metrics-server/metrics-server@3.13.1 | 0 | none | — |
+| metrics-server/metrics-server@3.14.0 | 0 | none | — |
 | minio-operator/operator@7.1.1 | 1 | live-parity | live |
 | minio-operator/tenant@7.1.1 | 1 | live-parity | live |
 | mysql/mysql-operator@2.3.0 | 0 | none | — |
@@ -150,6 +159,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | percona/psmdb-operator@1.22.0 | 1 | live-parity | live |
 | percona/psmdb-operator@1.23.0 | 0 | none | — |
 | percona/pxc-operator@1.19.1 | 3 | target-facts-and-lifecycle | crds; lookup; live |
+| policy-reporter/policy-reporter@3.10.0 | 2 | hook-and-secret-lifecycle | generated-facts |
 | policy-reporter/policy-reporter@3.9.1 | 0 | none | — |
 | projectcalico/tigera-operator@v3.32.0 | 3 | hook-and-secret-lifecycle | hooks:1; lookup; live |
 | prometheus-community/alertmanager@1.37.0 | 2 | target-facts-and-lifecycle | stateful-storage; live |
@@ -157,10 +167,12 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | prometheus-community/kube-prometheus-stack@86.1.0 | 4 | serious-chart-playbooks | named-serious; hooks:2; live |
 | prometheus-community/kube-prometheus-stack@87.15.1 | 3 | serious-chart-playbooks | named-serious; hooks:2 |
 | prometheus-community/kube-prometheus-stack@87.19.2 | 3 | serious-chart-playbooks | named-serious; hooks:2 |
+| prometheus-community/kube-prometheus-stack@88.6.3 | 3 | serious-chart-playbooks | named-serious; hooks:2 |
 | prometheus-community/kube-state-metrics@7.4.0 | 3 | hook-and-secret-lifecycle | generated-facts; stateful-storage; live |
 | prometheus-community/prometheus-adapter@5.3.0 | 1 | live-parity | live |
 | prometheus-community/prometheus-blackbox-exporter@11.10.0 | 1 | live-parity | live |
 | prometheus-community/prometheus-blackbox-exporter@11.15.1 | 0 | none | — |
+| prometheus-community/prometheus-blackbox-exporter@11.18.0 | 0 | none | — |
 | prometheus-community/prometheus-node-exporter@4.55.0 | 3 | hook-and-secret-lifecycle | generated-facts; live |
 | prometheus-community/prometheus-operator-crds@29.0.0 | 4 | hook-and-secret-lifecycle | generated-facts; crds; live |
 | prometheus-community/prometheus-pushgateway@3.6.0 | 2 | target-facts-and-lifecycle | stateful-storage; live |
@@ -173,9 +185,11 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | 1 | live-parity | live |
 | stakater/reloader@2.2.12 | 1 | live-parity | live |
 | stakater/reloader@2.2.14 | 0 | none | — |
+| stakater/reloader@2.2.16 | 0 | none | — |
 | strimzi/strimzi-kafka-operator@1.0.0 | 3 | target-facts-and-lifecycle | crds; live |
 | traefik/traefik@40.2.0 | 5 | serious-chart-playbooks | crds+webhooks; generated-facts; webhooks; crds; lookup; stateful-storage; live |
 | traefik/traefik@41.0.2 | 0 | none | — |
+| traefik/traefik@41.4.0 | 0 | none | — |
 | valkey/valkey@0.11.0 | 1 | target-facts-and-lifecycle | stateful-storage |
 | velero/velero@12.0.1 | 0 | none | — |
 | velero/velero@12.1.0 | 0 | none | — |

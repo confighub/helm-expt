@@ -5,6 +5,8 @@ recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/variant-revision.yaml,argo
 recipes/argo-cd/argo-cd/10.1.3/revisions/no-crds/r001/variant-revision.yaml,argo-cd/argo-cd/10.1.3,no-crds,r001,attached,matches,
 recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/variant-revision.yaml,argo-cd/argo-cd/10.2.1,default,r001,attached,matches,
 recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/variant-revision.yaml,argo-cd/argo-cd/10.2.1,no-crds,r001,attached,matches,
+recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/variant-revision.yaml,argo-cd/argo-cd/10.7.0,default,r001,attached,matches,
+recipes/argo-cd/argo-cd/10.7.0/revisions/no-crds/r001/variant-revision.yaml,argo-cd/argo-cd/10.7.0,no-crds,r001,attached,matches,
 recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/variant-revision.yaml,argo-cd/argo-cd/9.5.15,default,r001,attached,matches,
 recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml,argo-cd/argo-cd/9.5.15,no-crds,r001,attached,matches,
 recipes/argo-cd/argo-cd/9.5.17/revisions/default/r001/variant-revision.yaml,argo-cd/argo-cd/9.5.17,default,r001,attached,matches,
@@ -98,6 +100,8 @@ recipes/elastic/metricbeat/8.5.1/revisions/default/r001/variant-revision.yaml,el
 recipes/external-dns/external-dns/1.21.1/revisions/default/r001/variant-revision.yaml,external-dns/external-dns/1.21.1,default,r001,attached,matches,
 recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/variant-revision.yaml,external-dns/external-dns/1.21.1,dry-run-txt-registry,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml,external-dns/external-dns/1.21.1,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/external-secrets/external-secrets/2.10.0/revisions/default/r001/variant-revision.yaml,external-secrets/external-secrets/2.10.0,default,r001,attached,matches,
+recipes/external-secrets/external-secrets/2.10.0/revisions/no-crds/r001/variant-revision.yaml,external-secrets/external-secrets/2.10.0,no-crds,r001,attached,matches,
 recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/variant-revision.yaml,external-secrets/external-secrets/2.5.0,default,r001,attached,matches,
 recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml,external-secrets/external-secrets/2.5.0,no-crds,r001,attached,matches,
 recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/variant-revision.yaml,external-secrets/external-secrets/2.7.0,default,r001,attached,matches,
@@ -115,6 +119,7 @@ recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yam
 recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml,gatekeeper/gatekeeper/3.22.2,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/variant-revision.yaml,gitlab/gitlab-runner/0.89.0,default,r001,attached,matches,
 recipes/grafana/alloy/1.11.0/revisions/default/r001/variant-revision.yaml,grafana/alloy/1.11.0,default,r001,attached,matches,
+recipes/grafana/alloy/1.12.1/revisions/default/r001/variant-revision.yaml,grafana/alloy/1.12.1,default,r001,attached,matches,
 recipes/grafana/alloy/1.8.2/revisions/default/r001/variant-revision.yaml,grafana/alloy/1.8.2,default,r001,attached,matches,
 recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/variant-revision.yaml,grafana/alloy/1.8.2,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/variant-revision.yaml,grafana/grafana/10.5.15,existing-secret-ingress,r001,attached,matches,
@@ -122,6 +127,7 @@ recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/variant-revision
 recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml,grafana/loki/7.0.0,simple-scalable-minio,r001,attached,matches,
 recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml,grafana/loki/7.0.0,single-binary-filesystem,r001,attached,matches,
 recipes/grafana/loki/7.1.0/revisions/default/r001/variant-revision.yaml,grafana/loki/7.1.0,default,r001,attached,matches,
+recipes/grafana/loki/7.3.0/revisions/default/r001/variant-revision.yaml,grafana/loki/7.3.0,default,r001,attached,matches,
 recipes/grafana/promtail/6.17.1/revisions/default/r001/variant-revision.yaml,grafana/promtail/6.17.1,default,r001,attached,matches,
 recipes/grafana/pyroscope/2.0.2/revisions/default/r001/variant-revision.yaml,grafana/pyroscope/2.0.2,default,r001,attached,matches,
 recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/variant-revision.yaml,grafana/pyroscope/2.0.2,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
@@ -152,6 +158,8 @@ recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/variant-revisi
 recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/variant-revision.yaml,jetstack/cert-manager/v1.20.2,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
 recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/variant-revision.yaml,jetstack/cert-manager/v1.21.0,crds-enabled,r001,attached,matches,
 recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/variant-revision.yaml,jetstack/cert-manager/v1.21.0,default,r001,attached,matches,
+recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/variant-revision.yaml,jetstack/cert-manager/v1.21.1,crds-enabled,r001,attached,matches,
+recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/variant-revision.yaml,jetstack/cert-manager/v1.21.1,default,r001,attached,matches,
 recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml,jetstack/trust-manager/v0.22.1,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
 recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/variant-revision.yaml,jetstack/trust-manager/v0.22.1,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml,karpenter/karpenter/1.14.0,crds-managed,r001,attached,matches,
@@ -161,18 +169,23 @@ recipes/kedacore/keda/2.19.0/revisions/default/r001/variant-revision.yaml,kedaco
 recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml,kedacore/keda/2.19.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/variant-revision.yaml,kyverno/kyverno-policies/3.8.0,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
 recipes/kyverno/kyverno-policies/3.8.2/revisions/default/r001/variant-revision.yaml,kyverno/kyverno-policies/3.8.2,default,r001,attached,matches,
+recipes/kyverno/kyverno-policies/3.9.0/revisions/default/r001/variant-revision.yaml,kyverno/kyverno-policies/3.9.0,default,r001,attached,matches,
 recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml,kyverno/kyverno/3.8.1,default,r001,attached,matches,
 recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/variant-revision.yaml,kyverno/kyverno/3.8.1,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/kyverno/kyverno/3.8.2/revisions/default/r001/variant-revision.yaml,kyverno/kyverno/3.8.2,default,r001,attached,matches,
+recipes/kyverno/kyverno/3.9.0/revisions/default/r001/variant-revision.yaml,kyverno/kyverno/3.9.0,default,r001,attached,matches,
 recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/variant-revision.yaml,linkerd/linkerd-crds/1.8.0,default,r001,attached,matches,
 recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml,longhorn/longhorn/1.11.2,default,r001,attached,matches,
 recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/variant-revision.yaml,longhorn/longhorn/1.11.2,ui-ingress,r001,attached,matches,
 recipes/longhorn/longhorn/1.12.0/revisions/default/r001/variant-revision.yaml,longhorn/longhorn/1.12.0,default,r001,attached,matches,
+recipes/longhorn/longhorn/1.12.1/revisions/default/r001/variant-revision.yaml,longhorn/longhorn/1.12.1,default,r001,attached,matches,
 recipes/metallb/metallb/0.16.1/revisions/default/r001/variant-revision.yaml,metallb/metallb/0.16.1,default,r001,attached,matches,
 recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/variant-revision.yaml,metrics-server/metrics-server/3.13.0,default,r001,attached,matches,
 recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/variant-revision.yaml,metrics-server/metrics-server/3.13.0,external-tls-ca,r001,attached,matches,
 recipes/metrics-server/metrics-server/3.13.1/revisions/default/r001/variant-revision.yaml,metrics-server/metrics-server/3.13.1,default,r001,attached,matches,
 recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/variant-revision.yaml,metrics-server/metrics-server/3.13.1,external-tls-ca,r001,attached,matches,
+recipes/metrics-server/metrics-server/3.14.0/revisions/default/r001/variant-revision.yaml,metrics-server/metrics-server/3.14.0,default,r001,attached,matches,
+recipes/metrics-server/metrics-server/3.14.0/revisions/external-tls-ca/r001/variant-revision.yaml,metrics-server/metrics-server/3.14.0,external-tls-ca,r001,attached,matches,
 recipes/minio-operator/operator/7.1.1/revisions/default/r001/variant-revision.yaml,minio-operator/operator/7.1.1,default,r001,attached,matches,
 recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml,minio-operator/tenant/7.1.1,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
 recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/variant-revision.yaml,mysql/mysql-operator/2.3.0,default,r001,attached,matches,
@@ -197,6 +210,7 @@ recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/variant-revision.ya
 recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/variant-revision.yaml,percona/psmdb-operator/1.23.0,default,r001,attached,matches,
 recipes/percona/pxc-operator/1.19.1/revisions/default/r001/variant-revision.yaml,percona/pxc-operator/1.19.1,default,r001,attached,matches,
 recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml,percona/pxc-operator/1.19.1,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/policy-reporter/policy-reporter/3.10.0/revisions/default/r001/variant-revision.yaml,policy-reporter/policy-reporter/3.10.0,default,r001,attached,matches,
 recipes/policy-reporter/policy-reporter/3.9.1/revisions/default/r001/variant-revision.yaml,policy-reporter/policy-reporter/3.9.1,default,r001,attached,matches,
 recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml,projectcalico/tigera-operator/v3.32.0,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
 recipes/prometheus-community/alertmanager/1.37.0/revisions/default/r001/variant-revision.yaml,prometheus-community/alertmanager/1.37.0,default,r001,attached,matches,
@@ -211,6 +225,9 @@ recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/no-crds/r00
 recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/87.19.2,default,r001,attached,matches,
 recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/existing-secret/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/87.19.2,existing-secret,r001,attached,matches,
 recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/no-crds/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/87.19.2,no-crds,r001,attached,matches,
+recipes/prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/88.6.3,default,r001,attached,matches,
+recipes/prometheus-community/kube-prometheus-stack/88.6.3/revisions/existing-secret/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/88.6.3,existing-secret,r001,attached,matches,
+recipes/prometheus-community/kube-prometheus-stack/88.6.3/revisions/no-crds/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/88.6.3,no-crds,r001,attached,matches,
 recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml,prometheus-community/kube-state-metrics/7.4.0,cluster-metrics-readonly,r001,attached,matches,
 recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/variant-revision.yaml,prometheus-community/kube-state-metrics/7.4.0,default,r001,attached,matches,
 recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/variant-revision.yaml,prometheus-community/prometheus-adapter/5.3.0,apiservice-v1-capability,r001,attached,matches,
@@ -219,6 +236,7 @@ recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/var
 recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml,prometheus-community/prometheus-blackbox-exporter/11.10.0,cluster-metrics-readonly,r001,attached,matches,
 recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-blackbox-exporter/11.10.0,default,r001,attached,matches,
 recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-blackbox-exporter/11.15.1,default,r001,attached,matches,
+recipes/prometheus-community/prometheus-blackbox-exporter/11.18.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-blackbox-exporter/11.18.0,default,r001,attached,matches,
 recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml,prometheus-community/prometheus-node-exporter/4.55.0,cluster-metrics-readonly,r001,attached,matches,
 recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-node-exporter/4.55.0,default,r001,attached,matches,
 recipes/prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-operator-crds/29.0.0,default,r001,attached,matches,
@@ -237,11 +255,13 @@ recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-s
 recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml,stakater/reloader/2.2.12,controller-default-reviewed,r001,attached,matches,
 recipes/stakater/reloader/2.2.12/revisions/default/r001/variant-revision.yaml,stakater/reloader/2.2.12,default,r001,attached,matches,
 recipes/stakater/reloader/2.2.14/revisions/default/r001/variant-revision.yaml,stakater/reloader/2.2.14,default,r001,attached,matches,
+recipes/stakater/reloader/2.2.16/revisions/default/r001/variant-revision.yaml,stakater/reloader/2.2.16,default,r001,attached,matches,
 recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/variant-revision.yaml,strimzi/strimzi-kafka-operator/1.0.0,default,r001,attached,matches,
 recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml,strimzi/strimzi-kafka-operator/1.0.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/traefik/traefik/40.2.0/revisions/default/r001/variant-revision.yaml,traefik/traefik/40.2.0,default,r001,attached,matches,
 recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/variant-revision.yaml,traefik/traefik/40.2.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/traefik/traefik/41.0.2/revisions/default/r001/variant-revision.yaml,traefik/traefik/41.0.2,default,r001,attached,matches,
+recipes/traefik/traefik/41.4.0/revisions/default/r001/variant-revision.yaml,traefik/traefik/41.4.0,default,r001,attached,matches,
 recipes/valkey/valkey/0.11.0/revisions/default/r001/variant-revision.yaml,valkey/valkey/0.11.0,default,r001,attached,matches,
 recipes/velero/velero/12.0.1/revisions/default/r001/variant-revision.yaml,velero/velero/12.0.1,default,r001,attached,matches,
 recipes/velero/velero/12.0.1/revisions/no-crds/r001/variant-revision.yaml,velero/velero/12.0.1,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs

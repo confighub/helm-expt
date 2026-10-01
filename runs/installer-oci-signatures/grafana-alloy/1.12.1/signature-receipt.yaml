@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "grafana-alloy-1.12.1"
+spec:
+  observedAt: "2026-09-30T21:59:23.633Z"
+  subject:
+    packagePath: "packages/grafana/alloy/1.12.1"
+    publicationReceipt: "runs/installer-oci/grafana-alloy/1.12.1/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.12.1"
+    manifestDigest: "sha256:ccce74fea2d96aa240eeb109cc8e4d15d8636c16fea3e3eddc0f1571937505f3"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.12.1@sha256:ccce74fea2d96aa240eeb109cc8e4d15d8636c16fea3e3eddc0f1571937505f3"
+    packageSHA256: "bdc05001ce38eed872f42ff09f04a4a6cff5efe7055dbaa46744962155896ad9"
+    layerDigest: "sha256:bdc05001ce38eed872f42ff09f04a4a6cff5efe7055dbaa46744962155896ad9"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/grafana-alloy/1.12.1/signature.sigstore.json"
+    bundleSHA256: "3d79c87ea4a107a7227ae264ca6ccd85c3390593dfddc0dcac097b9da2113d54"
+    payloadPath: "runs/installer-oci-signatures/grafana-alloy/1.12.1/signature-payload.json"
+    payloadSHA256: "7705ef40205e231bb48216feada47f2e9cc2a6753f98a054bda1b28918390ccf"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/grafana/alloy/1.12.1 --annotations confighub.com/package-sha256=bdc05001ce38eed872f42ff09f04a4a6cff5efe7055dbaa46744962155896ad9 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.12.1@sha256:ccce74fea2d96aa240eeb109cc8e4d15d8636c16fea3e3eddc0f1571937505f3"
+    outputPath: "runs/installer-oci-signatures/grafana-alloy/1.12.1/verification.json"
+    outputSHA256: "d3ac26b99b76776643a18b529e28b42954412f896771929c9a95b2e318b52a5e"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/grafana-alloy/1.12.1/signature.sigstore.json --digest ccce74fea2d96aa240eeb109cc8e4d15d8636c16fea3e3eddc0f1571937505f3 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/grafana-alloy/1.12.1/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/grafana/alloy/1.12.1"
+    confighub.com/package-sha256: "bdc05001ce38eed872f42ff09f04a4a6cff5efe7055dbaa46744962155896ad9"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

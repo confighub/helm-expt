@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "kyverno-kyverno-policies-3.9.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "kyverno"
+  repositoryURL: "https://kyverno.github.io/kyverno"
+  chart: "kyverno-policies"
+  version: "3.9.0"
+  appVersion: "v1.19.0"
+  packageSHA256: "75eece1dd8c5f995c5818ed05a60f7714a2c60cac0a9eec69d331dbba24fc501"
+  packageBytes: 18645
+  exactArtifact:
+    url: "https://kyverno.github.io/kyverno/kyverno-policies-3.9.0.tgz"
+    sha256: "75eece1dd8c5f995c5818ed05a60f7714a2c60cac0a9eec69d331dbba24fc501"
+    resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-09-16T21:21:44.521Z",
+  "observedAt": "2026-09-30T22:39:46.488Z",
   "changesSinceLastSurvey": [],
   "method": "For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.",
   "repositories": 59,
@@ -36,6 +36,18 @@
       "version": "10.2.1",
       "sourceType": "HelmChart",
       "tarball": "https://github.com/argoproj/argo-helm/releases/download/argo-cd-10.2.1/argo-cd-10.2.1.tgz",
+      "provStatus": 200,
+      "provenance": "signed",
+      "reason": "provenance-file-published",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/argo-cd/argo-cd/10.7.0/source-lock.yaml",
+      "repositoryURL": "https://argoproj.github.io/argo-helm",
+      "chart": "argo-cd",
+      "version": "10.7.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/argoproj/argo-helm/releases/download/argo-cd-10.7.0/argo-cd-10.7.0.tgz",
       "provStatus": 200,
       "provenance": "signed",
       "reason": "provenance-file-published",
@@ -585,6 +597,18 @@
       "detail": ""
     },
     {
+      "lock": "recipes/external-secrets/external-secrets/2.10.0/source-lock.yaml",
+      "repositoryURL": "https://charts.external-secrets.io",
+      "chart": "external-secrets",
+      "version": "2.10.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/external-secrets/external-secrets/releases/download/helm-chart-2.10.0/external-secrets-2.10.0.tgz",
+      "provStatus": 200,
+      "provenance": "signed",
+      "reason": "provenance-file-published",
+      "detail": ""
+    },
+    {
       "lock": "recipes/external-secrets/external-secrets/2.5.0/source-lock.yaml",
       "repositoryURL": "https://charts.external-secrets.io",
       "chart": "external-secrets",
@@ -729,6 +753,18 @@
       "detail": ""
     },
     {
+      "lock": "recipes/grafana/alloy/1.12.1/source-lock.yaml",
+      "repositoryURL": "https://grafana.github.io/helm-charts",
+      "chart": "alloy",
+      "version": "1.12.1",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/grafana/helm-charts/releases/download/alloy-1.12.1/alloy-1.12.1.tgz",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
       "lock": "recipes/grafana/alloy/1.8.2/source-lock.yaml",
       "repositoryURL": "https://grafana.github.io/helm-charts",
       "chart": "alloy",
@@ -771,6 +807,18 @@
       "version": "7.1.0",
       "sourceType": "HelmChart",
       "tarball": "https://github.com/grafana/helm-charts/releases/download/helm-loki-7.1.0/loki-7.1.0.tgz",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/grafana/loki/7.3.0/source-lock.yaml",
+      "repositoryURL": "https://grafana.github.io/helm-charts",
+      "chart": "loki",
+      "version": "7.3.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/grafana/helm-charts/releases/download/helm-loki-7.3.0/loki-7.3.0.tgz",
       "provStatus": 404,
       "provenance": "unsigned",
       "reason": "no-provenance-file",
@@ -969,6 +1017,18 @@
       "detail": ""
     },
     {
+      "lock": "recipes/jetstack/cert-manager/v1.21.1/source-lock.yaml",
+      "repositoryURL": "https://charts.jetstack.io",
+      "chart": "cert-manager",
+      "version": "v1.21.1",
+      "sourceType": "HelmChart",
+      "tarball": "https://charts.jetstack.io/charts/cert-manager-v1.21.1.tgz",
+      "provStatus": 200,
+      "provenance": "signed",
+      "reason": "provenance-file-published",
+      "detail": ""
+    },
+    {
       "lock": "recipes/jetstack/trust-manager/v0.22.1/source-lock.yaml",
       "repositoryURL": "https://charts.jetstack.io",
       "chart": "trust-manager",
@@ -1027,6 +1087,18 @@
       "detail": ""
     },
     {
+      "lock": "recipes/kyverno/kyverno-policies/3.9.0/source-lock.yaml",
+      "repositoryURL": "https://kyverno.github.io/kyverno",
+      "chart": "kyverno-policies",
+      "version": "3.9.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://kyverno.github.io/kyverno/kyverno-policies-3.9.0.tgz",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
       "lock": "recipes/kyverno/kyverno/3.8.1/source-lock.yaml",
       "repositoryURL": "https://kyverno.github.io/kyverno",
       "chart": "kyverno",
@@ -1045,6 +1117,18 @@
       "version": "3.8.2",
       "sourceType": "HelmChart",
       "tarball": "https://kyverno.github.io/kyverno/kyverno-3.8.2.tgz",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/kyverno/kyverno/3.9.0/source-lock.yaml",
+      "repositoryURL": "https://kyverno.github.io/kyverno",
+      "chart": "kyverno",
+      "version": "3.9.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://kyverno.github.io/kyverno/kyverno-3.9.0.tgz",
       "provStatus": 404,
       "provenance": "unsigned",
       "reason": "no-provenance-file",
@@ -1087,6 +1171,18 @@
       "detail": ""
     },
     {
+      "lock": "recipes/longhorn/longhorn/1.12.1/source-lock.yaml",
+      "repositoryURL": "https://charts.longhorn.io",
+      "chart": "longhorn",
+      "version": "1.12.1",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/longhorn/charts/releases/download/longhorn-1.12.1/longhorn-1.12.1.tgz",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
       "lock": "recipes/metallb/metallb/0.16.1/source-lock.yaml",
       "repositoryURL": "https://metallb.github.io/metallb",
       "chart": "metallb",
@@ -1117,6 +1213,18 @@
       "version": "3.13.1",
       "sourceType": "HelmChart",
       "tarball": "https://github.com/kubernetes-sigs/metrics-server/releases/download/metrics-server-helm-chart-3.13.1/metrics-server-3.13.1.tgz",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/metrics-server/metrics-server/3.14.0/source-lock.yaml",
+      "repositoryURL": "https://kubernetes-sigs.github.io/metrics-server",
+      "chart": "metrics-server",
+      "version": "3.14.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/kubernetes-sigs/metrics-server/releases/download/metrics-server-helm-chart-3.14.0/metrics-server-3.14.0.tgz",
       "provStatus": 404,
       "provenance": "unsigned",
       "reason": "no-provenance-file",
@@ -1303,6 +1411,18 @@
       "detail": ""
     },
     {
+      "lock": "recipes/policy-reporter/policy-reporter/3.10.0/source-lock.yaml",
+      "repositoryURL": "https://kyverno.github.io/policy-reporter",
+      "chart": "policy-reporter",
+      "version": "3.10.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/kyverno/policy-reporter/releases/download/policy-reporter-3.10.0/policy-reporter-3.10.0.tgz",
+      "provStatus": 200,
+      "provenance": "signed",
+      "reason": "provenance-file-published",
+      "detail": ""
+    },
+    {
       "lock": "recipes/policy-reporter/policy-reporter/3.9.1/source-lock.yaml",
       "repositoryURL": "https://kyverno.github.io/policy-reporter",
       "chart": "policy-reporter",
@@ -1387,6 +1507,18 @@
       "detail": ""
     },
     {
+      "lock": "recipes/prometheus-community/kube-prometheus-stack/88.6.3/source-lock.yaml",
+      "repositoryURL": "https://prometheus-community.github.io/helm-charts",
+      "chart": "kube-prometheus-stack",
+      "version": "88.6.3",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-88.6.3/kube-prometheus-stack-88.6.3.tgz",
+      "provStatus": 200,
+      "provenance": "signed",
+      "reason": "provenance-file-published",
+      "detail": ""
+    },
+    {
       "lock": "recipes/prometheus-community/kube-state-metrics/7.4.0/source-lock.yaml",
       "repositoryURL": "https://prometheus-community.github.io/helm-charts",
       "chart": "kube-state-metrics",
@@ -1429,6 +1561,18 @@
       "version": "11.15.1",
       "sourceType": "HelmChart",
       "tarball": "https://github.com/prometheus-community/helm-charts/releases/download/prometheus-blackbox-exporter-11.15.1/prometheus-blackbox-exporter-11.15.1.tgz",
+      "provStatus": 200,
+      "provenance": "signed",
+      "reason": "provenance-file-published",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/prometheus-community/prometheus-blackbox-exporter/11.18.0/source-lock.yaml",
+      "repositoryURL": "https://prometheus-community.github.io/helm-charts",
+      "chart": "prometheus-blackbox-exporter",
+      "version": "11.18.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/prometheus-community/helm-charts/releases/download/prometheus-blackbox-exporter-11.18.0/prometheus-blackbox-exporter-11.18.0.tgz",
       "provStatus": 200,
       "provenance": "signed",
       "reason": "provenance-file-published",
@@ -1577,6 +1721,18 @@
       "detail": ""
     },
     {
+      "lock": "recipes/stakater/reloader/2.2.16/source-lock.yaml",
+      "repositoryURL": "https://stakater.github.io/stakater-charts",
+      "chart": "reloader",
+      "version": "2.2.16",
+      "sourceType": "HelmChart",
+      "tarball": "https://stakater.github.io/stakater-charts/reloader-2.2.16.tgz",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
       "lock": "recipes/strimzi/strimzi-kafka-operator/1.0.0/source-lock.yaml",
       "repositoryURL": "https://strimzi.io/charts",
       "chart": "strimzi-kafka-operator",
@@ -1605,6 +1761,16 @@
       "repositoryURL": "oci://ghcr.io/traefik/helm",
       "chart": "traefik",
       "version": "41.0.2",
+      "sourceType": "HelmChart",
+      "provenance": "unknown",
+      "reason": "oci",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/traefik/traefik/41.4.0/source-lock.yaml",
+      "repositoryURL": "oci://ghcr.io/traefik/helm",
+      "chart": "traefik",
+      "version": "41.4.0",
       "sourceType": "HelmChart",
       "provenance": "unknown",
       "reason": "oci",

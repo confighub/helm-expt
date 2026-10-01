@@ -21,7 +21,7 @@
     "currentProofsTotal": 113,
     "currentProofsMatched": 97,
     "currentProofsUnmatchedToOldMatrix": 16,
-    "retainedCandidateProofVersions": 29
+    "retainedCandidateProofVersions": 43
   },
   "rows": [
     {
@@ -14088,7 +14088,7 @@
       "rank": 191,
       "chart": "policy-reporter/policy-reporter",
       "source_version": "3.7.4",
-      "current_recipe_version": "3.9.1",
+      "current_recipe_version": "3.10.0",
       "proof_match_basis": "exact-chart-ref",
       "version_match": "different-current-version",
       "source_status": "source-scanned",
@@ -14103,7 +14103,7 @@
       "supported_variants": "",
       "candidate_variants": "default",
       "next_action": "review source/current-version drift and refresh recipe if needed",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
       "current_risk": "proof-grade-needs-variants",
       "source_classification": "P1 compiler policy needed",
       "source_problem_score": 31,
@@ -14136,7 +14136,7 @@
       "proof_variant_count": 1,
       "proof_revision_count": 1,
       "proof_rendered_object_count": 8,
-      "proof_first_rendered_sha256": "95d0f5f27c2ca4df172b45db2a8f60d2c86c43801984c62ee032fca725bf1abf",
+      "proof_first_rendered_sha256": "a7b6293916be3b1e6e7746a1fb2802f6e820ecd9fbb24aa122fc028a6f95de10",
       "proof_semantic_matches": "8/8",
       "proof_scan_results": "warn",
       "proof_gate_results": "warn",
@@ -14151,8 +14151,8 @@
       "proof_has_extension_slots": false,
       "proof_receipts": "helmEquivalence;installGate;render;scan",
       "weirdness_note": "",
-      "recipe_path": "recipes/policy-reporter/policy-reporter/3.9.1/recipe.yaml",
-      "package_path": "packages/policy-reporter/policy-reporter/3.9.1",
+      "recipe_path": "recipes/policy-reporter/policy-reporter/3.10.0/recipe.yaml",
+      "package_path": "packages/policy-reporter/policy-reporter/3.10.0",
       "source_repository_url": "https://kyverno.github.io/policy-reporter",
       "source_archive_sha256": "8ec4771300b2bfdbadfe6964a19b223a976f403e46efb442448ce3b2d7d03622",
       "old_matrix_scan_status": "scanned",

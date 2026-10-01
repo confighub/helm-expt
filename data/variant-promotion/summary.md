@@ -23,7 +23,7 @@ Status values:
 | Status | Rows |
 | --- | ---: |
 | blocked | 2 |
-| missing-confighub-proof | 52 |
+| missing-confighub-proof | 72 |
 | proven | 179 |
 | proven-with-watch | 17 |
 
@@ -32,7 +32,7 @@ Matrix values:
 | Matrix value | Rows |
 | --- | ---: |
 | no | 2 |
-| todo | 52 |
+| todo | 72 |
 | watch | 17 |
 | yes | 179 |
 
@@ -68,6 +68,8 @@ show the changeset-bound path passing.
 | `argo-cd/argo-cd@10.1.3/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `argo-cd/argo-cd@10.2.1/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `argo-cd/argo-cd@10.2.1/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `argo-cd/argo-cd@10.7.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `argo-cd/argo-cd@10.7.0/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `argo-cd/argo-cd@9.5.17/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `aws-controllers-k8s/ec2-chart@1.18.4/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `aws-controllers-k8s/ec2-chart@1.18.4/eks-inference` | missing-confighub-proof | run the ConfigHub proof lane first |
@@ -81,9 +83,7 @@ show the changeset-bound path passing.
 | `cloudpirates/rabbitmq@0.21.13/existing-secret` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `cloudpirates/redis@0.34.11/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `cloudpirates/redis@0.34.11/reuse-existing-secret` | missing-confighub-proof | run the ConfigHub proof lane first |
-| `external-secrets/external-secrets@2.7.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
-| `external-secrets/external-secrets@2.7.0/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
-| `external-secrets/external-secrets@2.8.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `external-secrets/external-secrets@2.10.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 
 ## Regenerate
 

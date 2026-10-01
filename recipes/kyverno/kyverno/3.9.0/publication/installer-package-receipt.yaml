@@ -1,0 +1,47 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "kyverno-kyverno-3.9.0"
+spec:
+  chart:
+    repository: "kyverno"
+    name: "kyverno"
+    version: "3.9.0"
+  package:
+    path: "packages/kyverno/kyverno/3.9.0"
+    name: "kyverno-kyverno"
+    version: "3.9.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "24fe7c9c0064dc293c643975d675b688df1c44a27c5810d41faedd838bf34a77"
+        bytes: 362
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a"
+        bytes: 5854975
+      -
+        path: "installer.yaml"
+        sha256: "c67b41143bb971d23bc907f71e88ea9100acca22ca91685df70050efc528025a"
+        bytes: 297
+  deterministicBundle:
+    command: "cub installer package packages/kyverno/kyverno/3.9.0 -o <tmp>/kyverno-3.9.0.tgz"
+    sha256: "8d4dab1dbdf1764f18a998c88b53139fb6b8aa63fd85762f2ab18cd90bfcd403"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/kyverno/kyverno/3.9.0 --base default --work-dir <tmp> --non-interactive --namespace kyverno"
+      helmReleaseObjectCount: 69
+      cubInstallObjectCountIncludingSupport: 70
+      semanticObjectMatches: "69/69"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kyverno"

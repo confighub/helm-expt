@@ -1,0 +1,138 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "traefik-traefik-41.4.0"
+  chart: "traefik/traefik"
+  version: "41.4.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "traefik/traefik"
+    version: "41.4.0"
+    appVersion: "v3.7.12"
+    sourceLock: "recipes/traefik/traefik/41.4.0/source-lock.yaml"
+    dependencyLock: "recipes/traefik/traefik/41.4.0/dependency-lock.yaml"
+    repository: "oci://ghcr.io/traefik/helm"
+    packageSHA256: "d055ea3cc343e741776bf4d2e97093ab9cc698e1e05329b6a01ad47272aa983c"
+  recipe:
+    path: "recipes/traefik/traefik/41.4.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/traefik/traefik/41.4.0/helm-plan.yaml"
+    chartDossier: "recipes/traefik/traefik/41.4.0/chart-dossier.yaml"
+    controlPoints: "recipes/traefik/traefik/41.4.0/control-points.yaml"
+    valueModel: "recipes/traefik/traefik/41.4.0/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/traefik/traefik/41.4.0/helm-pain-report.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "catalog-coverage"
+      - "crd-lifecycle"
+      - "dependency-lock"
+      - "source-lock"
+  catalogStatus:
+    path: "recipes/traefik/traefik/41.4.0/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: "1/1"
+      inConfigHub: "0/1"
+      localLive: "0/1"
+      gitopsLive: "0/1"
+      liveParity: "0/1"
+    featureSummary: "none-recorded"
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/traefik/traefik/41.4.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.4.0@sha256:90bc2edf8dbea78d770b7917c7bc80c796cfcd603a02e90f3d9969a219377272"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.4.0"
+    manifestDigest: "sha256:90bc2edf8dbea78d770b7917c7bc80c796cfcd603a02e90f3d9969a219377272"
+    layerDigest: "sha256:9827186941fcb1d76fada2af581e770b68e7a41f50b4dac032d64fa51828bd12"
+    publicationReceipt: "runs/installer-oci/traefik-traefik/41.4.0/installer-package-publication-receipt.yaml"
+    installer: "packages/traefik/traefik/41.4.0/installer.yaml"
+    receipt: "recipes/traefik/traefik/41.4.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "9827186941fcb1d76fada2af581e770b68e7a41f50b4dac032d64fa51828bd12"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/traefik/traefik/41.4.0/bases/default"
+        default: true
+        description: "traefik chart defaults variant rendered from traefik/traefik@41.4.0"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/traefik/traefik/41.4.0/variants/default/variant.yaml"
+      namespace: "traefik"
+      releaseName: "traefik"
+      valuesProfile: "recipes/traefik/traefik/41.4.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/traefik/traefik/41.4.0/bases/default"
+        default: true
+        description: "traefik chart defaults variant rendered from traefik/traefik@41.4.0"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.4.0@sha256:90bc2edf8dbea78d770b7917c7bc80c796cfcd603a02e90f3d9969a219377272 --base default --work-dir <tmp> --non-interactive --namespace traefik"
+        helmReleaseObjectCount: 31
+        cubInstallObjectCountIncludingSupport: 32
+        semanticObjectMatches: "31/31"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||traefik"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/traefik/traefik/41.4.0/revisions/default/r001/variant-revision.yaml"
+          digest: "3880689e71edfbcc6f0188fc34e2b3d6004b25a242bbcf0a05c738796b443036"
+          renderedObjectSetSHA256: "8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b"
+          renderedObjects: "recipes/traefik/traefik/41.4.0/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/traefik/traefik/41.4.0/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 31
+          helmObjectCount: 31
+          cubInstallObjectCountIncludingSupport: 32
+          semanticObjectMatches: "31/31"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/traefik/traefik/41.4.0/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/traefik/traefik/41.4.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/traefik/traefik/41.4.0/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/traefik/traefik/41.4.0/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b"

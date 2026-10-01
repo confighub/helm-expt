@@ -7,9 +7,9 @@ required.
 ## Summary
 
 ~~~text
-charts: 110
+charts: 111
 covered: 20
-partial: 90
+partial: 91
 average coverage: 87%
 ~~~
 
@@ -17,22 +17,22 @@ average coverage: 87%
 
 | Item | Requirement | Pass | Todo | N/A |
 | --- | --- | ---: | ---: | ---: |
-| a | pinned chart version | 110 | 0 | 0 |
-| b | reviewed named base variant | 110 | 0 | 0 |
-| c | render parity receipt | 110 | 0 | 0 |
-| d | pain report and quirk axes | 110 | 0 | 0 |
-| e | facts declared | 110 | 0 | 0 |
-| f | scan and production disposition | 20 | 90 | 0 |
-| g | live witness or routed reason | 87 | 23 | 0 |
-| h | catalog and site entry | 110 | 0 | 0 |
+| a | pinned chart version | 111 | 0 | 0 |
+| b | reviewed named base variant | 111 | 0 | 0 |
+| c | render parity receipt | 111 | 0 | 0 |
+| d | pain report and quirk axes | 111 | 0 | 0 |
+| e | facts declared | 111 | 0 | 0 |
+| f | scan and production disposition | 20 | 91 | 0 |
+| g | live witness or routed reason | 86 | 25 | 0 |
+| h | catalog and site entry | 111 | 0 | 0 |
 
 ## Coverage By Bucket
 
 | Bucket | Charts |
 | --- | ---: |
 | `try-from-public-catalog` | 20 |
-| `promote-after-review` | 41 |
-| `needs-useful-variant` | 36 |
+| `promote-after-review` | 40 |
+| `needs-useful-variant` | 38 |
 | `limitation-decision-first` | 7 |
 | `not-ready` | 6 |
 
@@ -52,9 +52,9 @@ average coverage: 87%
 | `elastic/kibana@8.5.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `elastic/metricbeat@8.5.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `gitlab/gitlab-runner@0.89.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `grafana/alloy@1.12.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `hashicorp/terraform@1.1.2` | 75% | `promote-after-review` | run catalog promotion review |
 | `istio/gateway@1.30.0` | 75% | `promote-after-review` | run catalog promotion review |
-| `istio/istiod@1.30.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 
 ## Files
 

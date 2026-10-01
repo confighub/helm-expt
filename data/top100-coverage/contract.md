@@ -37,9 +37,9 @@ target-scoped decision and fresh receipts.
 ## Current Aggregate
 
 ~~~text
-charts: 110
+charts: 111
 covered: 20
-partial: 90
+partial: 91
 average coverage: 87%
 ~~~
 

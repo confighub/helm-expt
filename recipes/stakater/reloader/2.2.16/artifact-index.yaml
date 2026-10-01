@@ -1,0 +1,137 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "stakater-reloader-2.2.16"
+  chart: "stakater/reloader"
+  version: "2.2.16"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "stakater/reloader"
+    version: "2.2.16"
+    appVersion: "v1.4.21"
+    sourceLock: "recipes/stakater/reloader/2.2.16/source-lock.yaml"
+    dependencyLock: "recipes/stakater/reloader/2.2.16/dependency-lock.yaml"
+    repository: "https://stakater.github.io/stakater-charts"
+    packageSHA256: "5389fb496a120d6aac8f2b33c54ba21ed59014131def14cfc78f9d4a9374d2b7"
+  recipe:
+    path: "recipes/stakater/reloader/2.2.16/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/stakater/reloader/2.2.16/helm-plan.yaml"
+    chartDossier: "recipes/stakater/reloader/2.2.16/chart-dossier.yaml"
+    controlPoints: "recipes/stakater/reloader/2.2.16/control-points.yaml"
+    valueModel: "recipes/stakater/reloader/2.2.16/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/stakater/reloader/2.2.16/helm-pain-report.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "catalog-coverage"
+      - "dependency-lock"
+      - "source-lock"
+  catalogStatus:
+    path: "recipes/stakater/reloader/2.2.16/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: "1/1"
+      inConfigHub: "0/1"
+      localLive: "0/1"
+      gitopsLive: "0/1"
+      liveParity: "0/1"
+    featureSummary: "none-recorded"
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/stakater/reloader/2.2.16"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.16@sha256:66bffd7fc23fea77b8ce4682734e6850457bbb16743e324c371cbc1798677052"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.16"
+    manifestDigest: "sha256:66bffd7fc23fea77b8ce4682734e6850457bbb16743e324c371cbc1798677052"
+    layerDigest: "sha256:28712f18c2b91ad1eba75d16f09638d695ffac6cf681ff52b85f28a876d39e27"
+    publicationReceipt: "runs/installer-oci/stakater-reloader/2.2.16/installer-package-publication-receipt.yaml"
+    installer: "packages/stakater/reloader/2.2.16/installer.yaml"
+    receipt: "recipes/stakater/reloader/2.2.16/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "28712f18c2b91ad1eba75d16f09638d695ffac6cf681ff52b85f28a876d39e27"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/stakater/reloader/2.2.16/bases/default"
+        default: true
+        description: "reloader chart defaults variant rendered from stakater/reloader@2.2.16"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/stakater/reloader/2.2.16/variants/default/variant.yaml"
+      namespace: "reloader"
+      releaseName: "reloader"
+      valuesProfile: "recipes/stakater/reloader/2.2.16/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/stakater/reloader/2.2.16/bases/default"
+        default: true
+        description: "reloader chart defaults variant rendered from stakater/reloader@2.2.16"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.16@sha256:66bffd7fc23fea77b8ce4682734e6850457bbb16743e324c371cbc1798677052 --base default --work-dir <tmp> --non-interactive --namespace reloader"
+        helmReleaseObjectCount: 6
+        cubInstallObjectCountIncludingSupport: 7
+        semanticObjectMatches: "6/6"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||reloader"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/stakater/reloader/2.2.16/revisions/default/r001/variant-revision.yaml"
+          digest: "f9c081e11f5fd79b2963845171522bb62c1769638f49fddc419488cdee02db3f"
+          renderedObjectSetSHA256: "64a45378bc0d60bf4cb4fb5094cf8c58aeb5c337934d0f9df3273fcaa04b2a3b"
+          renderedObjects: "recipes/stakater/reloader/2.2.16/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/stakater/reloader/2.2.16/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 6
+          helmObjectCount: 6
+          cubInstallObjectCountIncludingSupport: 7
+          semanticObjectMatches: "6/6"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/stakater/reloader/2.2.16/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "64a45378bc0d60bf4cb4fb5094cf8c58aeb5c337934d0f9df3273fcaa04b2a3b"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/stakater/reloader/2.2.16/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "64a45378bc0d60bf4cb4fb5094cf8c58aeb5c337934d0f9df3273fcaa04b2a3b"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/stakater/reloader/2.2.16/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "64a45378bc0d60bf4cb4fb5094cf8c58aeb5c337934d0f9df3273fcaa04b2a3b"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/stakater/reloader/2.2.16/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "64a45378bc0d60bf4cb4fb5094cf8c58aeb5c337934d0f9df3273fcaa04b2a3b"

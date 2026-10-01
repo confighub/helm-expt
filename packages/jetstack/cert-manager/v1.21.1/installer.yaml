@@ -1,0 +1,52 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "jetstack-cert-manager"
+  version: "v1.21.1"
+spec:
+  bases:
+    -
+      default: true
+      description: "cert-manager default variant rendered from jetstack/cert-manager@v1.21.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD challenges.acme.cert-manager.io"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD orders.acme.cert-manager.io"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD certificaterequests.cert-manager.io"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD certificates.cert-manager.io"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD clusterissuers.cert-manager.io"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD issuers.cert-manager.io"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+      name: "default"
+      path: "bases/default"
+    -
+      description: "cert-manager CRDs enabled variant rendered from jetstack/cert-manager@v1.21.1"
+      name: "crds-enabled"
+      path: "bases/crds-enabled"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

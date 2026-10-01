@@ -14,8 +14,8 @@ the detailed proof lanes, production decisions, or per-chart catalog pages.
 | Answer | Charts | Meaning |
 | --- | ---: | --- |
 | yes-public-catalog | 20 | Public catalog entry exists. Choose a base and check the lane you need. |
-| not-yet-public-catalog-proof-ready | 41 | Proof exists and variants look useful, but catalog promotion review is not done. |
-| not-yet-user-ready | 36 | The current proof is too default-shaped; design a useful base variant first. |
+| not-yet-public-catalog-proof-ready | 40 | Proof exists and variants look useful, but catalog promotion review is not done. |
+| not-yet-user-ready | 38 | The current proof is too default-shaped; design a useful base variant first. |
 | decision-needed-first | 7 | A named gap must be supported, disclosed, deferred, or blocked before promotion. |
 
 ## How To Use This
@@ -72,7 +72,6 @@ before their catalog status changes.
 | `elastic/eck-operator@3.4.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `stakater/reloader@2.2.12` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
-| `grafana/alloy@1.8.2` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `nats/nats@2.14.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `prometheus-community/alertmanager@1.37.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `prometheus-community/prometheus-node-exporter@4.55.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |

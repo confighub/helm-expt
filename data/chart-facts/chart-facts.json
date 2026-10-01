@@ -588,7 +588,7 @@
     "dependency_refresh_survival": "—"
   },
   "grafana/alloy": {
-    "version": "1.8.2",
+    "version": "1.12.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "—",
     "dependency_lock": "locked 1 deps; Chart.lock digest",
@@ -1047,6 +1047,18 @@
     "version": "1.19.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no dependency provenance",
+    "hook_status": "—",
+    "hook_route_evidence": "—",
+    "hook_route_next_action": "—",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
+  },
+  "policy-reporter/policy-reporter": {
+    "version": "3.10.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
     "dependency_lock": "empty closure; no dependency provenance",
     "hook_status": "—",
     "hook_route_evidence": "—",

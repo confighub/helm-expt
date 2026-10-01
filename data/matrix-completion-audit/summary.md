@@ -18,37 +18,37 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-931 non-green cells:
+1033 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 706 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-target-or-prereq-fix` | 805 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 124 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 56 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `needs-run` | 59 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 45 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 472 |
-| `G` | 111 |
-| `P` | 111 |
-| `L` | 102 |
-| `K` | 79 |
-| `lifecycle` | 56 |
+| `promotion` | 506 |
+| `G` | 131 |
+| `P` | 131 |
+| `L` | 122 |
+| `K` | 84 |
+| `lifecycle` | 59 |
 
 | State | Cells |
 | --- | ---: |
+| `missing` | 241 |
 | `proven` | 179 |
-| `missing` | 178 |
-| `blocked` | 154 |
-| `not-applicable-source` | 142 |
+| `blocked` | 176 |
+| `not-applicable-source` | 156 |
 | `watch` | 124 |
 | `not-applicable-candidate` | 67 |
-| `todo` | 56 |
+| `todo` | 59 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (56)
+## needs-run (59)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -68,8 +68,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | external-dns/external-dns@1.21.1 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | fairwinds-stable/goldilocks@10.3.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | gatekeeper/gatekeeper@3.22.2 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
-| grafana/alloy@1.8.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| grafana/alloy@1.8.2 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| grafana/alloy@1.12.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | grafana/loki@7.0.0 | simple-scalable-minio | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | grafana/loki@7.0.0 | single-binary-filesystem | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | grafana/pyroscope@2.0.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -92,6 +91,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | kedacore/keda@2.19.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | kyverno/kyverno@3.8.1 | no-crds | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | kyverno/kyverno@3.8.2 | default | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | decide and record the lifecycle route, then observe it live |
+| kyverno/kyverno@3.9.0 | default | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | minio-operator/operator@7.1.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | percona/pxc-operator@1.19.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | percona/pxc-operator@1.19.1 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -101,6 +101,9 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | prometheus-community/kube-prometheus-stack@87.19.2 | default | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | prometheus-community/kube-prometheus-stack@87.19.2 | existing-secret | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | prometheus-community/kube-prometheus-stack@87.19.2 | no-crds | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
+| prometheus-community/kube-prometheus-stack@88.6.3 | default | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
+| prometheus-community/kube-prometheus-stack@88.6.3 | existing-secret | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
+| prometheus-community/kube-prometheus-stack@88.6.3 | no-crds | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-adapter@5.3.0 | apiservice-v1-capability | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-adapter@5.3.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -111,7 +114,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (706)
+## needs-target-or-prereq-fix (805)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -138,6 +141,15 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | argo-cd/argo-cd@10.2.1 | no-crds | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | argo-cd/argo-cd@10.2.1 | no-crds | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | argo-cd/argo-cd@10.2.1 | no-crds | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| argo-cd/argo-cd@10.7.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| argo-cd/argo-cd@10.7.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argo-cd@10.7.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argo-cd@10.7.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argo-cd@10.7.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| argo-cd/argo-cd@10.7.0 | no-crds | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argo-cd@10.7.0 | no-crds | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argo-cd@10.7.0 | no-crds | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argo-cd@10.7.0 | no-crds | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | argo-cd/argo-cd@9.5.15 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | argo-cd/argo-cd@9.5.15 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | argo-cd/argo-cd@9.5.15 | no-crds | L | blocked | local-live blocked: webhook-cert-lifecycle: deployment/argo-cd-argocd-applicationset-controller: prerequisite-blocked (stuck creating: missing mount/secret/config) (argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b845 | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
@@ -363,6 +375,15 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | external-dns/external-dns@1.21.1 | dry-run-txt-registry | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | external-dns/external-dns@1.21.1 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | external-dns/external-dns@1.21.1 | route53-irsa | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
+| external-secrets/external-secrets@2.10.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| external-secrets/external-secrets@2.10.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| external-secrets/external-secrets@2.10.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| external-secrets/external-secrets@2.10.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| external-secrets/external-secrets@2.10.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| external-secrets/external-secrets@2.10.0 | no-crds | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| external-secrets/external-secrets@2.10.0 | no-crds | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| external-secrets/external-secrets@2.10.0 | no-crds | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| external-secrets/external-secrets@2.10.0 | no-crds | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | external-secrets/external-secrets@2.5.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | external-secrets/external-secrets@2.5.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | external-secrets/external-secrets@2.5.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -416,6 +437,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | grafana/alloy@1.11.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | grafana/alloy@1.11.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | grafana/alloy@1.11.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| grafana/alloy@1.12.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| grafana/alloy@1.12.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| grafana/alloy@1.12.1 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| grafana/alloy@1.12.1 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| grafana/alloy@1.12.1 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | grafana/alloy@1.8.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | grafana/alloy@1.8.2 | default | promotion | blocked | server-side promotion did not prove changed-unit catch-up and added-unit cloning | inspect the promotion receipt and resolve the recorded blocker |
 | grafana/alloy@1.8.2 | no-crds | promotion | blocked | server-side promotion did not prove changed-unit catch-up and added-unit cloning | inspect the promotion receipt and resolve the recorded blocker |
@@ -432,6 +458,12 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | grafana/loki@7.1.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | grafana/loki@7.1.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | grafana/loki@7.1.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| grafana/loki@7.3.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| grafana/loki@7.3.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| grafana/loki@7.3.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| grafana/loki@7.3.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| grafana/loki@7.3.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| grafana/loki@7.3.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | grafana/promtail@6.17.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | grafana/promtail@6.17.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | grafana/pyroscope@2.0.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -519,6 +551,15 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | jetstack/cert-manager@v1.21.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | jetstack/cert-manager@v1.21.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | jetstack/cert-manager@v1.21.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| jetstack/cert-manager@v1.21.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| jetstack/cert-manager@v1.21.1 | crds-enabled | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.1 | crds-enabled | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.1 | crds-enabled | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.1 | crds-enabled | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| jetstack/cert-manager@v1.21.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.1 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.1 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.1 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | jetstack/trust-manager@v0.22.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | jetstack/trust-manager@v0.22.1 | default | L | fail | local-live fail: runtime-readiness: deployment/trust-manager: not-ready (node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-79lfn[Completed ready=false restarts=0;] scan-vulnerabilit) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | jetstack/trust-manager@v0.22.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -550,6 +591,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | kyverno/kyverno-policies@3.8.2 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | kyverno/kyverno-policies@3.8.2 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | kyverno/kyverno-policies@3.8.2 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| kyverno/kyverno-policies@3.9.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| kyverno/kyverno-policies@3.9.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kyverno/kyverno-policies@3.9.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kyverno/kyverno-policies@3.9.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kyverno/kyverno-policies@3.9.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | kyverno/kyverno@3.8.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | kyverno/kyverno@3.8.1 | default-admission | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | kyverno/kyverno@3.8.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -561,6 +607,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | kyverno/kyverno@3.8.2 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | kyverno/kyverno@3.8.2 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | kyverno/kyverno@3.8.2 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| kyverno/kyverno@3.9.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| kyverno/kyverno@3.9.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kyverno/kyverno@3.9.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kyverno/kyverno@3.9.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kyverno/kyverno@3.9.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | linkerd/linkerd-crds@1.8.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | linkerd/linkerd-crds@1.8.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | longhorn/longhorn@1.11.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -571,6 +622,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | longhorn/longhorn@1.12.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | longhorn/longhorn@1.12.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | longhorn/longhorn@1.12.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| longhorn/longhorn@1.12.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| longhorn/longhorn@1.12.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| longhorn/longhorn@1.12.1 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| longhorn/longhorn@1.12.1 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| longhorn/longhorn@1.12.1 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | metallb/metallb@0.16.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | metallb/metallb@0.16.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | metallb/metallb@0.16.1 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
@@ -590,6 +646,15 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | metrics-server/metrics-server@3.13.1 | external-tls-ca | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | metrics-server/metrics-server@3.13.1 | external-tls-ca | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | metrics-server/metrics-server@3.13.1 | external-tls-ca | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| metrics-server/metrics-server@3.14.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| metrics-server/metrics-server@3.14.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| metrics-server/metrics-server@3.14.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| metrics-server/metrics-server@3.14.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| metrics-server/metrics-server@3.14.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| metrics-server/metrics-server@3.14.0 | external-tls-ca | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| metrics-server/metrics-server@3.14.0 | external-tls-ca | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| metrics-server/metrics-server@3.14.0 | external-tls-ca | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| metrics-server/metrics-server@3.14.0 | external-tls-ca | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | minio-operator/operator@7.1.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | minio-operator/operator@7.1.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | minio-operator/operator@7.1.1 | storage-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
@@ -669,6 +734,12 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | percona/pxc-operator@1.19.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | percona/pxc-operator@1.19.1 | no-crds | L | blocked | local-live blocked: runtime-readiness: deployment/pxc-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] pxc-operator-5f59645bd-ctt85[CrashLoopBackOff ready=false restarts=4;] rollout-operator) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | percona/pxc-operator@1.19.1 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| policy-reporter/policy-reporter@3.10.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| policy-reporter/policy-reporter@3.10.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| policy-reporter/policy-reporter@3.10.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| policy-reporter/policy-reporter@3.10.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| policy-reporter/policy-reporter@3.10.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| policy-reporter/policy-reporter@3.10.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | policy-reporter/policy-reporter@3.9.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | policy-reporter/policy-reporter@3.9.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | policy-reporter/policy-reporter@3.9.1 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
@@ -719,6 +790,21 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | prometheus-community/kube-prometheus-stack@87.19.2 | no-crds | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | prometheus-community/kube-prometheus-stack@87.19.2 | no-crds | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | prometheus-community/kube-prometheus-stack@87.19.2 | no-crds | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| prometheus-community/kube-prometheus-stack@88.6.3 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| prometheus-community/kube-prometheus-stack@88.6.3 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@88.6.3 | default | K | blocked | variant-keyed K rig: the chart-variant's only two-cluster kind parity receipt is on 86.1.0 and is blocked (parity: semantic object diff), so no version has a passing K proof — runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml | resolve the variant's K blocker on 86.1.0; the K rig keys receipts by chart-variant, so re-running this version would overwrite that receipt |
+| prometheus-community/kube-prometheus-stack@88.6.3 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@88.6.3 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@88.6.3 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| prometheus-community/kube-prometheus-stack@88.6.3 | existing-secret | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@88.6.3 | existing-secret | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@88.6.3 | existing-secret | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@88.6.3 | existing-secret | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@88.6.3 | existing-secret | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| prometheus-community/kube-prometheus-stack@88.6.3 | no-crds | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@88.6.3 | no-crds | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@88.6.3 | no-crds | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@88.6.3 | no-crds | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | prometheus-community/kube-state-metrics@7.4.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | prometheus-community/kube-state-metrics@7.4.0 | cluster-metrics-readonly | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | prometheus-community/kube-state-metrics@7.4.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -736,6 +822,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | prometheus-community/prometheus-blackbox-exporter@11.15.1 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | prometheus-community/prometheus-blackbox-exporter@11.15.1 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | prometheus-community/prometheus-blackbox-exporter@11.15.1 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| prometheus-community/prometheus-blackbox-exporter@11.18.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| prometheus-community/prometheus-blackbox-exporter@11.18.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/prometheus-blackbox-exporter@11.18.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/prometheus-blackbox-exporter@11.18.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/prometheus-blackbox-exporter@11.18.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | prometheus-community/prometheus-node-exporter@4.55.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | prometheus-community/prometheus-node-exporter@4.55.0 | cluster-metrics-readonly | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | prometheus-community/prometheus-node-exporter@4.55.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -780,6 +871,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | stakater/reloader@2.2.14 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | stakater/reloader@2.2.14 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | stakater/reloader@2.2.14 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| stakater/reloader@2.2.16 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| stakater/reloader@2.2.16 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| stakater/reloader@2.2.16 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| stakater/reloader@2.2.16 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| stakater/reloader@2.2.16 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | strimzi/strimzi-kafka-operator@1.0.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | strimzi/strimzi-kafka-operator@1.0.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | L | blocked | local-live blocked: runtime-readiness: deployment/strimzi-cluster-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] strimzi-cluster-operat | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
@@ -796,6 +892,12 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | traefik/traefik@41.0.2 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | traefik/traefik@41.0.2 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | traefik/traefik@41.0.2 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| traefik/traefik@41.4.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| traefik/traefik@41.4.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| traefik/traefik@41.4.0 | default | K | blocked | variant-keyed K rig: the chart-variant's only two-cluster kind parity receipt is on 40.2.0 and is blocked (parity: semantic object diff), so no version has a passing K proof — runs/live-kind-parity/traefik-traefik-default/receipt.yaml | resolve the variant's K blocker on 40.2.0; the K rig keys receipts by chart-variant, so re-running this version would overwrite that receipt |
+| traefik/traefik@41.4.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| traefik/traefik@41.4.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| traefik/traefik@41.4.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | valkey/valkey@0.11.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | valkey/valkey@0.11.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | valkey/valkey@0.11.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |

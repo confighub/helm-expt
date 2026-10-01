@@ -48,6 +48,8 @@ spec:
       needs: [oras]
     - step: "node scripts/karpenter-proof.mjs --verify-package"
       needs: [cub]
+    - step: "node scripts/kubara-catalog-3-0-coverage.mjs --verify"
+      needs: [cub]
     - step: "node scripts/kube-prometheus-stack-proof.mjs --verify-package"
       needs: [cub]
     - step: "node scripts/loki-proof.mjs --verify-package"

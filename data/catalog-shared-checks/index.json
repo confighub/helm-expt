@@ -1,6 +1,6 @@
 {
   "schemaVersion": "catalog-shared-check-index-v1",
-  "generatedAt": "2026-09-16T22:27:27Z",
+  "generatedAt": "2026-09-30T23:05:25Z",
   "scope": "Exact rendered Kubernetes objects for every maintained Helm base revision under recipes/.",
   "authority": "advisory-local-check",
   "scanner": {
@@ -13,14 +13,14 @@
     "catalogSHA256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
   },
   "summary": {
-    "configurations": 250,
-    "configurationsWithFindings": 240,
-    "configurationsWithoutFindings": 10,
-    "findings": 2360,
+    "configurations": 270,
+    "configurationsWithFindings": 259,
+    "configurationsWithoutFindings": 11,
+    "findings": 2693,
     "severityCounts": {
-      "critical": 606,
-      "warning": 1356,
-      "info": 398
+      "critical": 679,
+      "warning": 1554,
+      "info": 460
     },
     "distinctControls": 45
   },
@@ -29,71 +29,85 @@
       "id": "CCVE-2025-3746",
       "name": "Deployment does not disable automountServiceAccountToken",
       "severity": "warning",
-      "configurationCount": 159,
-      "findingCount": 284
+      "configurationCount": 176,
+      "findingCount": 329
     },
     {
       "id": "CCVE-2025-3740",
       "name": "Deployment explicitly sets replicas to 1",
       "severity": "info",
-      "configurationCount": 161,
-      "findingCount": 266
+      "configurationCount": 178,
+      "findingCount": 307
     },
     {
       "id": "CCVE-2025-3728",
       "name": "Deployment containers omit resource limits",
       "severity": "warning",
-      "configurationCount": 127,
-      "findingCount": 228
+      "configurationCount": 144,
+      "findingCount": 270
     },
     {
       "id": "CCVE-2025-3732",
       "name": "Deployment containers omit resource requests",
       "severity": "warning",
-      "configurationCount": 114,
-      "findingCount": 210
+      "configurationCount": 129,
+      "findingCount": 250
     },
     {
       "id": "CCVE-2025-4078",
       "name": "ClusterRole grants secrets read permissions",
       "severity": "critical",
-      "configurationCount": 102,
-      "findingCount": 193
+      "configurationCount": 116,
+      "findingCount": 229
     },
     {
       "id": "CCVE-2025-3745",
       "name": "emptyDir volume has no sizeLimit",
       "severity": "info",
-      "configurationCount": 88,
-      "findingCount": 118
+      "configurationCount": 100,
+      "findingCount": 137
     },
     {
       "id": "CCVE-2025-3735",
       "name": "Container does not enforce readOnlyRootFilesystem",
       "severity": "warning",
-      "configurationCount": 75,
-      "findingCount": 85
+      "configurationCount": 80,
+      "findingCount": 91
     },
     {
       "id": "CCVE-2025-4005",
       "name": "Volume argocd-repo-server-tls references Secret argocd/argocd-repo-server-tls which is not present in scanned documents",
       "severity": "warning",
-      "configurationCount": 33,
-      "findingCount": 69
+      "configurationCount": 38,
+      "findingCount": 82
     },
     {
       "id": "CCVE-2025-3734",
       "name": "Container does not disable allowPrivilegeEscalation",
       "severity": "critical",
-      "configurationCount": 50,
-      "findingCount": 60
+      "configurationCount": 52,
+      "findingCount": 63
     },
     {
       "id": "CCVE-2025-3736",
       "name": "Container does not drop ALL capabilities",
       "severity": "warning",
-      "configurationCount": 49,
-      "findingCount": 60
+      "configurationCount": 51,
+      "findingCount": 63
+    },
+    {
+      "id": "CCVE-2025-4001",
+      "name": "Service selector matches no Deployment or StatefulSet in namespace default",
+      "severity": "warning",
+      "configurationCount": 28,
+      "findingCount": 63
+    },
+    {
+      "id": "CCVE-2025-3752",
+      "name": "StatefulSet does not disable automountServiceAccountToken",
+      "severity": "warning",
+      "configurationCount": 40,
+      "findingCount": 53
     },
     {
       "id": "CCVE-2025-5013",
@@ -103,123 +117,123 @@
       "findingCount": 51
     },
     {
-      "id": "CCVE-2025-4001",
-      "name": "Service selector matches no Deployment or StatefulSet in namespace default",
-      "severity": "warning",
-      "configurationCount": 23,
-      "findingCount": 50
-    },
-    {
-      "id": "CCVE-2025-3752",
-      "name": "StatefulSet does not disable automountServiceAccountToken",
-      "severity": "warning",
-      "configurationCount": 37,
-      "findingCount": 48
-    },
-    {
       "id": "CCVE-2025-3733",
       "name": "Container does not set runAsNonRoot",
       "severity": "critical",
-      "configurationCount": 41,
-      "findingCount": 46
+      "configurationCount": 42,
+      "findingCount": 48
     },
     {
       "id": "CCVE-2025-4075",
       "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
       "severity": "critical",
-      "configurationCount": 30,
-      "findingCount": 44
+      "configurationCount": 32,
+      "findingCount": 48
     },
     {
       "id": "CCVE-2025-4076",
       "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
       "severity": "critical",
-      "configurationCount": 29,
-      "findingCount": 39
-    },
-    {
-      "id": "CCVE-2025-3749",
-      "name": "StatefulSet containers omit resource limits",
-      "severity": "warning",
-      "configurationCount": 32,
-      "findingCount": 37
+      "configurationCount": 31,
+      "findingCount": 43
     },
     {
       "id": "CCVE-2025-3756",
       "name": "DaemonSet containers omit resource limits",
       "severity": "warning",
-      "configurationCount": 31,
-      "findingCount": 35
+      "configurationCount": 37,
+      "findingCount": 41
+    },
+    {
+      "id": "CCVE-2025-3749",
+      "name": "StatefulSet containers omit resource limits",
+      "severity": "warning",
+      "configurationCount": 35,
+      "findingCount": 40
     },
     {
       "id": "CCVE-2025-4081",
       "name": "ClusterRole uses wildcard resources with broad verbs",
       "severity": "critical",
-      "configurationCount": 21,
-      "findingCount": 35
+      "configurationCount": 23,
+      "findingCount": 39
     },
     {
       "id": "CCVE-2025-4079",
       "name": "ClusterRole grants serviceaccounts/token create",
       "severity": "critical",
-      "configurationCount": 23,
-      "findingCount": 34
-    },
-    {
-      "id": "CCVE-2025-3743",
-      "name": "Deployment uses Recreate strategy",
-      "severity": "warning",
-      "configurationCount": 31,
-      "findingCount": 33
-    },
-    {
-      "id": "CCVE-2025-3750",
-      "name": "StatefulSet containers omit resource requests",
-      "severity": "warning",
-      "configurationCount": 32,
-      "findingCount": 33
-    },
-    {
-      "id": "CCVE-2025-3726",
-      "name": "Deployment omits pod and container securityContext baseline",
-      "severity": "warning",
-      "configurationCount": 32,
-      "findingCount": 32
+      "configurationCount": 27,
+      "findingCount": 38
     },
     {
       "id": "CCVE-2025-3757",
       "name": "DaemonSet containers omit resource requests",
       "severity": "warning",
-      "configurationCount": 28,
-      "findingCount": 32
+      "configurationCount": 33,
+      "findingCount": 37
+    },
+    {
+      "id": "CCVE-2025-3750",
+      "name": "StatefulSet containers omit resource requests",
+      "severity": "warning",
+      "configurationCount": 35,
+      "findingCount": 36
+    },
+    {
+      "id": "CCVE-2025-3743",
+      "name": "Deployment uses Recreate strategy",
+      "severity": "warning",
+      "configurationCount": 33,
+      "findingCount": 35
+    },
+    {
+      "id": "CCVE-2025-3726",
+      "name": "Deployment omits pod and container securityContext baseline",
+      "severity": "warning",
+      "configurationCount": 33,
+      "findingCount": 33
     },
     {
       "id": "CCVE-2025-3758",
       "name": "DaemonSet does not disable automountServiceAccountToken",
       "severity": "warning",
-      "configurationCount": 24,
-      "findingCount": 30
-    },
-    {
-      "id": "CCVE-2025-4077",
-      "name": "ClusterRole grants pods/exec create",
-      "severity": "critical",
-      "configurationCount": 25,
-      "findingCount": 27
+      "configurationCount": 27,
+      "findingCount": 33
     },
     {
       "id": "CCVE-2025-4080",
       "name": "ClusterRole grants CSR approval update permissions",
       "severity": "critical",
-      "configurationCount": 17,
-      "findingCount": 27
+      "configurationCount": 19,
+      "findingCount": 31
+    },
+    {
+      "id": "CCVE-2025-4077",
+      "name": "ClusterRole grants pods/exec create",
+      "severity": "critical",
+      "configurationCount": 27,
+      "findingCount": 29
     },
     {
       "id": "CCVE-2025-3755",
       "name": "DaemonSet container does not set runAsNonRoot",
       "severity": "critical",
-      "configurationCount": 21,
+      "configurationCount": 23,
+      "findingCount": 28
+    },
+    {
+      "id": "CCVE-2025-0043",
+      "name": "Thanos sidecar not uploading blocks",
+      "severity": "critical",
+      "configurationCount": 13,
       "findingCount": 26
+    },
+    {
+      "id": "CCVE-2025-3725",
+      "name": "Deployment omits spec.replicas and relies on implicit single replica",
+      "severity": "warning",
+      "configurationCount": 9,
+      "findingCount": 22
     },
     {
       "id": "CCVE-2025-5019",
@@ -229,32 +243,18 @@
       "findingCount": 21
     },
     {
-      "id": "CCVE-2025-0043",
-      "name": "Thanos sidecar not uploading blocks",
-      "severity": "critical",
-      "configurationCount": 10,
-      "findingCount": 20
-    },
-    {
-      "id": "CCVE-2025-3725",
-      "name": "Deployment omits spec.replicas and relies on implicit single replica",
-      "severity": "warning",
-      "configurationCount": 8,
-      "findingCount": 18
-    },
-    {
       "id": "CCVE-2025-1741",
       "name": "Webhook timeout value too high blocks cluster upgrades",
       "severity": "warning",
-      "configurationCount": 7,
-      "findingCount": 11
+      "configurationCount": 9,
+      "findingCount": 15
     },
     {
       "id": "CCVE-2025-3176",
       "name": "RoleBinding not deleted when Role is removed",
       "severity": "info",
-      "configurationCount": 9,
-      "findingCount": 9
+      "configurationCount": 11,
+      "findingCount": 11
     },
     {
       "id": "CCVE-2025-3748",
@@ -269,6 +269,13 @@
       "severity": "critical",
       "configurationCount": 7,
       "findingCount": 7
+    },
+    {
+      "id": "CCVE-2025-0071",
+      "name": "Metrics server missing or unreachable",
+      "severity": "critical",
+      "configurationCount": 6,
+      "findingCount": 6
     },
     {
       "id": "CCVE-2025-3201",
@@ -290,13 +297,6 @@
       "severity": "critical",
       "configurationCount": 5,
       "findingCount": 5
-    },
-    {
-      "id": "CCVE-2025-0071",
-      "name": "Metrics server missing or unreachable",
-      "severity": "critical",
-      "configurationCount": 4,
-      "findingCount": 4
     },
     {
       "id": "CCVE-2025-3765",
@@ -1172,6 +1172,254 @@
       "renderPath": "recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/argo-cd-argo-cd-10-2-1-no-crds.json"
+    },
+    {
+      "id": "argo-cd-argo-cd-10-7-0-default",
+      "chart": "argo-cd/argo-cd",
+      "version": "10.7.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 50,
+      "severityCounts": {
+        "critical": 13,
+        "warning": 27,
+        "info": 10
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4080",
+          "name": "ClusterRole grants CSR approval update permissions",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4081",
+          "name": "ClusterRole uses wildcard resources with broad verbs",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4077",
+          "name": "ClusterRole grants pods/exec create",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4079",
+          "name": "ClusterRole grants serviceaccounts/token create",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "Volume argocd-repo-server-tls references Secret argocd/argocd-repo-server-tls which is not present in scanned documents",
+          "severity": "warning",
+          "count": 5
+        },
+        {
+          "id": "CCVE-2025-3743",
+          "name": "Deployment uses Recreate strategy",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3749",
+          "name": "StatefulSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3750",
+          "name": "StatefulSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3752",
+          "name": "StatefulSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 4
+        }
+      ],
+      "objectCount": 55,
+      "objectSetSHA256": "sha256:ddf0aad2ce8c09c1559dc2634b93c0ec8d8244a70a322c1866aaf7106854d758",
+      "renderFileSHA256": "sha256:5642d162c6718874a310acebeaaa75dbd1f0825e6188418b36d8b06357fdface",
+      "scanTime": "2026-09-30T23:04:52Z",
+      "renderPath": "recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/argo-cd-argo-cd-10-7-0-default.json"
+    },
+    {
+      "id": "argo-cd-argo-cd-10-7-0-no-crds",
+      "chart": "argo-cd/argo-cd",
+      "version": "10.7.0",
+      "base": "no-crds",
+      "outcome": "findings",
+      "findingCount": 50,
+      "severityCounts": {
+        "critical": 13,
+        "warning": 27,
+        "info": 10
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4080",
+          "name": "ClusterRole grants CSR approval update permissions",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4081",
+          "name": "ClusterRole uses wildcard resources with broad verbs",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4077",
+          "name": "ClusterRole grants pods/exec create",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4079",
+          "name": "ClusterRole grants serviceaccounts/token create",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "Volume argocd-repo-server-tls references Secret argocd/argocd-repo-server-tls which is not present in scanned documents",
+          "severity": "warning",
+          "count": 5
+        },
+        {
+          "id": "CCVE-2025-3743",
+          "name": "Deployment uses Recreate strategy",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3749",
+          "name": "StatefulSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3750",
+          "name": "StatefulSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3752",
+          "name": "StatefulSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 4
+        }
+      ],
+      "objectCount": 52,
+      "objectSetSHA256": "sha256:6fb1f1818b201914ac7a3a2ff096117246b9ac3261759c87a5d0436264410f89",
+      "renderFileSHA256": "sha256:9e7f272f1f39d5c4911a02de8b72e2901ad25163f5308080b7fabb748c6e2532",
+      "scanTime": "2026-09-30T23:04:53Z",
+      "renderPath": "recipes/argo-cd/argo-cd/10.7.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/argo-cd/argo-cd/10.7.0/revisions/no-crds/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/argo-cd-argo-cd-10-7-0-no-crds.json"
     },
     {
       "id": "argo-cd-argo-cd-9-5-15-default",
@@ -5501,6 +5749,122 @@
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/external-dns-external-dns-1-21-1-no-crds.json"
     },
     {
+      "id": "external-secrets-external-secrets-2-10-0-default",
+      "chart": "external-secrets/external-secrets",
+      "version": "2.10.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 15,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 9,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4079",
+          "name": "ClusterRole grants serviceaccounts/token create",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 44,
+      "objectSetSHA256": "sha256:e227f05aefe28e4a95f97101f62f11d184f24338d63bc583f351fa37f134adeb",
+      "renderFileSHA256": "sha256:5836924e6c7df634a86ae7fb6b35de5133778dab0afe1d0a25f9adde2187ee2e",
+      "scanTime": "2026-09-30T23:05:04Z",
+      "renderPath": "recipes/external-secrets/external-secrets/2.10.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/external-secrets/external-secrets/2.10.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/external-secrets-external-secrets-2-10-0-default.json"
+    },
+    {
+      "id": "external-secrets-external-secrets-2-10-0-no-crds",
+      "chart": "external-secrets/external-secrets",
+      "version": "2.10.0",
+      "base": "no-crds",
+      "outcome": "findings",
+      "findingCount": 15,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 9,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4079",
+          "name": "ClusterRole grants serviceaccounts/token create",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 19,
+      "objectSetSHA256": "sha256:8606d64ece1e8fb93d385301d9bd0fb7b832a0fca1ecb5b2fb3accefa851cb15",
+      "renderFileSHA256": "sha256:5bee43e3c91bccbe93e20fc0f9bd47fb08e5564cb0c1f932049039d7998d24f2",
+      "scanTime": "2026-09-30T23:05:04Z",
+      "renderPath": "recipes/external-secrets/external-secrets/2.10.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/external-secrets/external-secrets/2.10.0/revisions/no-crds/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/external-secrets-external-secrets-2-10-0-no-crds.json"
+    },
+    {
       "id": "external-secrets-external-secrets-2-5-0-default",
       "chart": "external-secrets/external-secrets",
       "version": "2.5.0",
@@ -6481,6 +6845,52 @@
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/grafana-alloy-1-11-0-default.json"
     },
     {
+      "id": "grafana-alloy-1-12-1-default",
+      "chart": "grafana/alloy",
+      "version": "1.12.1",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 4,
+      "severityCounts": {
+        "critical": 2,
+        "warning": 2,
+        "info": 0
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        }
+      ],
+      "objectCount": 7,
+      "objectSetSHA256": "sha256:4bd3a0c6e35dd8a33a2c7ca2c15244c9955e689c042e920da0dd19a870333ce4",
+      "renderFileSHA256": "sha256:e3b30c75c9a0bc3241f42a8dde5d4b05371091c319ab5712fe30685234d17549",
+      "scanTime": "2026-09-30T23:05:07Z",
+      "renderPath": "recipes/grafana/alloy/1.12.1/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/grafana/alloy/1.12.1/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/grafana-alloy-1-12-1-default.json"
+    },
+    {
       "id": "grafana-alloy-1-8-2-default",
       "chart": "grafana/alloy",
       "version": "1.8.2",
@@ -7017,6 +7427,106 @@
       "renderPath": "recipes/grafana/loki/7.1.0/revisions/default/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/grafana/loki/7.1.0/revisions/default/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/grafana-loki-7-1-0-default.json"
+    },
+    {
+      "id": "grafana-loki-7-3-0-default",
+      "chart": "grafana/loki",
+      "version": "7.3.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 15,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 12,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3752",
+          "name": "StatefulSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3749",
+          "name": "StatefulSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3750",
+          "name": "StatefulSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3757",
+          "name": "DaemonSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4001",
+          "name": "Service selector matches no Deployment or StatefulSet in namespace loki",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 19,
+      "objectSetSHA256": "sha256:059f04db601cab3c448d8fc0166abcb5d4e0dc591568395f200fcc32cf0818f3",
+      "renderFileSHA256": "sha256:748a9b3329ec784fc8eeba2bc023fd9f42af37816a0e3a40fa02a4e44ae8afaa",
+      "scanTime": "2026-09-30T23:05:08Z",
+      "renderPath": "recipes/grafana/loki/7.3.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/grafana/loki/7.3.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/grafana-loki-7-3-0-default.json"
     },
     {
       "id": "grafana-promtail-6-17-1-default",
@@ -8939,6 +9449,122 @@
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/jetstack-cert-manager-v1-21-0-default.json"
     },
     {
+      "id": "jetstack-cert-manager-v1-21-1-crds-enabled",
+      "chart": "jetstack/cert-manager",
+      "version": "v1.21.1",
+      "base": "crds-enabled",
+      "outcome": "findings",
+      "findingCount": 20,
+      "severityCounts": {
+        "critical": 6,
+        "warning": 11,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-1741",
+          "name": "Webhook timeout value too high blocks cluster upgrades",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 46,
+      "objectSetSHA256": "sha256:19313ab9b0485dc5de2c0f00e899e47ab72d301df0d8801c4be10d708b495be1",
+      "renderFileSHA256": "sha256:b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db",
+      "scanTime": "2026-09-30T23:05:11Z",
+      "renderPath": "recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/jetstack-cert-manager-v1-21-1-crds-enabled.json"
+    },
+    {
+      "id": "jetstack-cert-manager-v1-21-1-default",
+      "chart": "jetstack/cert-manager",
+      "version": "v1.21.1",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 20,
+      "severityCounts": {
+        "critical": 6,
+        "warning": 11,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-1741",
+          "name": "Webhook timeout value too high blocks cluster upgrades",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 40,
+      "objectSetSHA256": "sha256:cfe3a73429573376eee4e491f25e53dfa91e9130a8a6373f9f419bb9bdd1638e",
+      "renderFileSHA256": "sha256:e07b13b5b7f193be263181e405388fc362e7850dc1bac9561cad4bb8f4609ad3",
+      "scanTime": "2026-09-30T23:05:12Z",
+      "renderPath": "recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/jetstack-cert-manager-v1-21-1-default.json"
+    },
+    {
       "id": "jetstack-trust-manager-v0-22-1-default",
       "chart": "jetstack/trust-manager",
       "version": "v0.22.1",
@@ -9399,6 +10025,46 @@
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/kyverno-kyverno-3-8-2-default.json"
     },
     {
+      "id": "kyverno-kyverno-3-9-0-default",
+      "chart": "kyverno/kyverno",
+      "version": "3.9.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 10,
+      "severityCounts": {
+        "critical": 0,
+        "warning": 8,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3725",
+          "name": "Deployment omits spec.replicas and relies on implicit single replica",
+          "severity": "warning",
+          "count": 4
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 4
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 2
+        }
+      ],
+      "objectCount": 69,
+      "objectSetSHA256": "sha256:f254bed233ccb0fc81ba0843bbcb10ae5128febd63dd3abe0d66ab569024193c",
+      "renderFileSHA256": "sha256:ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a",
+      "scanTime": "2026-09-30T23:05:13Z",
+      "renderPath": "recipes/kyverno/kyverno/3.9.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/kyverno/kyverno/3.9.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/kyverno-kyverno-3-9-0-default.json"
+    },
+    {
       "id": "kyverno-kyverno-policies-3-8-0-default",
       "chart": "kyverno/kyverno-policies",
       "version": "3.8.0",
@@ -9439,6 +10105,27 @@
       "renderPath": "recipes/kyverno/kyverno-policies/3.8.2/revisions/default/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/kyverno/kyverno-policies/3.8.2/revisions/default/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/kyverno-kyverno-policies-3-8-2-default.json"
+    },
+    {
+      "id": "kyverno-kyverno-policies-3-9-0-default",
+      "chart": "kyverno/kyverno-policies",
+      "version": "3.9.0",
+      "base": "default",
+      "outcome": "no-findings",
+      "findingCount": 0,
+      "severityCounts": {
+        "critical": 0,
+        "warning": 0,
+        "info": 0
+      },
+      "findings": [],
+      "objectCount": 11,
+      "objectSetSHA256": "sha256:e29153b6bdc0fb4f78da81ad511ffd85b5378e2d78b0baf5281704cc7c5534d2",
+      "renderFileSHA256": "sha256:eae1a47312f3ecdf88eaabd4eff1d17e3259140694e265d3dbb5c71fc6f39278",
+      "scanTime": "2026-09-30T23:05:14Z",
+      "renderPath": "recipes/kyverno/kyverno-policies/3.9.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/kyverno/kyverno-policies/3.9.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/kyverno-kyverno-policies-3-9-0-default.json"
     },
     {
       "id": "linkerd-linkerd-crds-1-8-0-default",
@@ -9828,6 +10515,124 @@
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/longhorn-longhorn-1-12-0-default.json"
     },
     {
+      "id": "longhorn-longhorn-1-12-1-default",
+      "chart": "longhorn/longhorn",
+      "version": "1.12.1",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 25,
+      "severityCounts": {
+        "critical": 6,
+        "warning": 17,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4001",
+          "name": "Service selector matches no Deployment or StatefulSet in namespace longhorn-system",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3757",
+          "name": "DaemonSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 50,
+      "objectSetSHA256": "sha256:96ae3c4637daf44cdccc3b3b7742f1566be9bdc91e43a734c3132f1e0761380d",
+      "renderFileSHA256": "sha256:1e1c0981fa9e52c72e1e6adac0a981b809532f423a8f095a362501a7bf77e5b8",
+      "scanTime": "2026-09-30T23:05:14Z",
+      "renderPath": "recipes/longhorn/longhorn/1.12.1/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/longhorn/longhorn/1.12.1/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/longhorn-longhorn-1-12-1-default.json"
+    },
+    {
       "id": "metallb-metallb-0-16-1-default",
       "chart": "metallb/metallb",
       "version": "0.16.1",
@@ -10140,6 +10945,122 @@
       "renderPath": "recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/metrics-server-metrics-server-3-13-1-external-tls-ca.json"
+    },
+    {
+      "id": "metrics-server-metrics-server-3-14-0-default",
+      "chart": "metrics-server/metrics-server",
+      "version": "3.14.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 6,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 2,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-0071",
+          "name": "Metrics server missing or unreachable",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3176",
+          "name": "RoleBinding not deleted when Role is removed",
+          "severity": "info",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 9,
+      "objectSetSHA256": "sha256:3bf6c3009e06f4e94322d32d1424ffc349cdc12c3eb36a15042257418ec8a6a5",
+      "renderFileSHA256": "sha256:6e0dc279447462b6ad2ca64f6af6e40c5fac2057c1d6498933d720ffd7d810b2",
+      "scanTime": "2026-09-30T23:05:15Z",
+      "renderPath": "recipes/metrics-server/metrics-server/3.14.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/metrics-server/metrics-server/3.14.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/metrics-server-metrics-server-3-14-0-default.json"
+    },
+    {
+      "id": "metrics-server-metrics-server-3-14-0-external-tls-ca",
+      "chart": "metrics-server/metrics-server",
+      "version": "3.14.0",
+      "base": "external-tls-ca",
+      "outcome": "findings",
+      "findingCount": 6,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 2,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-0071",
+          "name": "Metrics server missing or unreachable",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3176",
+          "name": "RoleBinding not deleted when Role is removed",
+          "severity": "info",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 9,
+      "objectSetSHA256": "sha256:1cb695708152f5b2e3168bea666565a525ae88b383a2110dab05c40be3bd865c",
+      "renderFileSHA256": "sha256:3c7569acec1ac9a798aedac416aae5cbed9ac8caa28813a3cf0e373537511052",
+      "scanTime": "2026-09-30T23:05:15Z",
+      "renderPath": "recipes/metrics-server/metrics-server/3.14.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/metrics-server/metrics-server/3.14.0/revisions/external-tls-ca/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/metrics-server-metrics-server-3-14-0-external-tls-ca.json"
     },
     {
       "id": "minio-operator-operator-7-1-1-default",
@@ -11803,6 +12724,58 @@
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/percona-pxc-operator-1-19-1-no-crds.json"
     },
     {
+      "id": "policy-reporter-policy-reporter-3-10-0-default",
+      "chart": "policy-reporter/policy-reporter",
+      "version": "3.10.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 5,
+      "severityCounts": {
+        "critical": 0,
+        "warning": 3,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 8,
+      "objectSetSHA256": "sha256:1334df7a7ebbef200e72ed7c08377a1bd6f42a73944241652133473c7e1d5035",
+      "renderFileSHA256": "sha256:a7b6293916be3b1e6e7746a1fb2802f6e820ecd9fbb24aa122fc028a6f95de10",
+      "scanTime": "2026-09-30T23:05:18Z",
+      "renderPath": "recipes/policy-reporter/policy-reporter/3.10.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/policy-reporter/policy-reporter/3.10.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/policy-reporter-policy-reporter-3-10-0-default.json"
+    },
+    {
       "id": "policy-reporter-policy-reporter-3-9-1-default",
       "chart": "policy-reporter/policy-reporter",
       "version": "3.9.1",
@@ -12981,6 +13954,288 @@
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/prometheus-community-kube-prometheus-stack-87-19-2-no-crds.json"
     },
     {
+      "id": "prometheus-community-kube-prometheus-stack-88-6-3-default",
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "88.6.3",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 25,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 16,
+        "info": 4
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-0043",
+          "name": "Thanos sidecar not uploading blocks",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-4001",
+          "name": "Service selector matches no Deployment or StatefulSet in namespace monitoring",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3757",
+          "name": "DaemonSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "Volume tls-secret references Secret monitoring/kube-prometheus-stack-admission which is not present in scanned documents",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 125,
+      "objectSetSHA256": "sha256:ab8f9bb9c764377d1b916277f5b3e721a881a1c04fb824362acf1c81c0dd4045",
+      "renderFileSHA256": "sha256:7b1bb6bd944ccfff3fa9e42b82a1fe442ddffefccf28f08f670b841c12906f4d",
+      "scanTime": "2026-09-30T23:05:21Z",
+      "renderPath": "recipes/prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/prometheus-community-kube-prometheus-stack-88-6-3-default.json"
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-88-6-3-existing-secret",
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "88.6.3",
+      "base": "existing-secret",
+      "outcome": "findings",
+      "findingCount": 25,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 16,
+        "info": 4
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-0043",
+          "name": "Thanos sidecar not uploading blocks",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-4001",
+          "name": "Service selector matches no Deployment or StatefulSet in namespace monitoring",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3757",
+          "name": "DaemonSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "Volume tls-secret references Secret monitoring/kube-prometheus-stack-admission which is not present in scanned documents",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 124,
+      "objectSetSHA256": "sha256:f086882022dec1d613ee76f43869b08a0e54c7124d50c7e72fd71d6a7d3ec5b2",
+      "renderFileSHA256": "sha256:2aa77c122fb43a9beb0a714f6bc033d9e78f0f2151ff6c3f58193e50162c0284",
+      "scanTime": "2026-09-30T23:05:21Z",
+      "renderPath": "recipes/prometheus-community/kube-prometheus-stack/88.6.3/revisions/existing-secret/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/prometheus-community/kube-prometheus-stack/88.6.3/revisions/existing-secret/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/prometheus-community-kube-prometheus-stack-88-6-3-existing-secret.json"
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-88-6-3-no-crds",
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "88.6.3",
+      "base": "no-crds",
+      "outcome": "findings",
+      "findingCount": 25,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 16,
+        "info": 4
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-0043",
+          "name": "Thanos sidecar not uploading blocks",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-4001",
+          "name": "Service selector matches no Deployment or StatefulSet in namespace monitoring",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3757",
+          "name": "DaemonSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "Volume tls-secret references Secret monitoring/kube-prometheus-stack-admission which is not present in scanned documents",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 115,
+      "objectSetSHA256": "sha256:1c3afcdecee4ca5c334cbd13e9b19af47ef57c78c2fc2a2e98e8a9770478fc60",
+      "renderFileSHA256": "sha256:3927a5c00b43122e4126947dd428d621a93e6e972c22a78b1033c40f39722959",
+      "scanTime": "2026-09-30T23:05:21Z",
+      "renderPath": "recipes/prometheus-community/kube-prometheus-stack/88.6.3/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/prometheus-community/kube-prometheus-stack/88.6.3/revisions/no-crds/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/prometheus-community-kube-prometheus-stack-88-6-3-no-crds.json"
+    },
+    {
       "id": "prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly",
       "chart": "prometheus-community/kube-state-metrics",
       "version": "7.4.0",
@@ -13905,6 +15160,46 @@
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/prometheus-community-prometheus-blackbox-exporter-11-15-1-default.json"
     },
     {
+      "id": "prometheus-community-prometheus-blackbox-exporter-11-18-0-default",
+      "chart": "prometheus-community/prometheus-blackbox-exporter",
+      "version": "11.18.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 3,
+      "severityCounts": {
+        "critical": 0,
+        "warning": 2,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 4,
+      "objectSetSHA256": "sha256:c9e1c77bc5250f367d94671d618b394b1226c550fd0172ab0b768ebace360365",
+      "renderFileSHA256": "sha256:f9a8cddd436d84f31bcb4903756d6a1e149e7f4197d33d18013e33b077195aa2",
+      "scanTime": "2026-09-30T23:05:23Z",
+      "renderPath": "recipes/prometheus-community/prometheus-blackbox-exporter/11.18.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/prometheus-community/prometheus-blackbox-exporter/11.18.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/prometheus-community-prometheus-blackbox-exporter-11-18-0-default.json"
+    },
+    {
       "id": "prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly",
       "chart": "prometheus-community/prometheus-node-exporter",
       "version": "4.55.0",
@@ -14650,6 +15945,76 @@
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/stakater-reloader-2-2-14-default.json"
     },
     {
+      "id": "stakater-reloader-2-2-16-default",
+      "chart": "stakater/reloader",
+      "version": "2.2.16",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 8,
+      "severityCounts": {
+        "critical": 2,
+        "warning": 5,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 6,
+      "objectSetSHA256": "sha256:91a5da5e107fad796e0966e3cf040132afba161a055604f01ce952bd6daf487a",
+      "renderFileSHA256": "sha256:64a45378bc0d60bf4cb4fb5094cf8c58aeb5c337934d0f9df3273fcaa04b2a3b",
+      "scanTime": "2026-09-30T23:05:25Z",
+      "renderPath": "recipes/stakater/reloader/2.2.16/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/stakater/reloader/2.2.16/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/stakater-reloader-2-2-16-default.json"
+    },
+    {
       "id": "strimzi-strimzi-kafka-operator-1-0-0-default",
       "chart": "strimzi/strimzi-kafka-operator",
       "version": "1.0.0",
@@ -14962,6 +16327,64 @@
       "renderPath": "recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/traefik/traefik/41.0.2/revisions/default/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/traefik-traefik-41-0-2-default.json"
+    },
+    {
+      "id": "traefik-traefik-41-4-0-default",
+      "chart": "traefik/traefik",
+      "version": "41.4.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 6,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 3,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 31,
+      "objectSetSHA256": "sha256:b5c42eca7be60cbdd07dc6098ba11bd305e2b20ac1a467b43506cba070a03739",
+      "renderFileSHA256": "sha256:8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b",
+      "scanTime": "2026-09-30T23:05:25Z",
+      "renderPath": "recipes/traefik/traefik/41.4.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/traefik/traefik/41.4.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/traefik-traefik-41-4-0-default.json"
     },
     {
       "id": "valkey-valkey-0-11-0-default",

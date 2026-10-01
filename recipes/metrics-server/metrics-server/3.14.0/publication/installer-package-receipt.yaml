@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "metrics-server-metrics-server-3.14.0"
+spec:
+  chart:
+    repository: "metrics-server"
+    name: "metrics-server"
+    version: "3.14.0"
+  package:
+    path: "packages/metrics-server/metrics-server/3.14.0"
+    name: "metrics-server-metrics-server"
+    version: "3.14.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "d544ff6e6d36db3d24aab7c350a60904654041b72418c1255aac3e01594451ef"
+        bytes: 319
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "6e0dc279447462b6ad2ca64f6af6e40c5fac2057c1d6498933d720ffd7d810b2"
+        bytes: 6923
+      -
+        path: "bases/external-tls-ca/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/external-tls-ca/upstream.yaml"
+        sha256: "3c7569acec1ac9a798aedac416aae5cbed9ac8caa28813a3cf0e373537511052"
+        bytes: 7233
+      -
+        path: "collector/target-facts.sh"
+        sha256: "8c081a96ea3f624aa7f5fa08633cc41166eeb23cb3c437b223e7b985803229eb"
+        bytes: 2670
+      -
+        path: "installer.yaml"
+        sha256: "6e15753bda30c1145103fe13c9f15f6534cdf64354b3845417536be150c33d55"
+        bytes: 2177
+  deterministicBundle:
+    command: "cub installer package packages/metrics-server/metrics-server/3.14.0 -o <tmp>/metrics-server-3.14.0.tgz"
+    sha256: "fc74c0ba1a4a6223e3ebdf82a64a5b10456de7a40cea69578d66321a5cfc4935"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/metrics-server/metrics-server/3.14.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+      helmReleaseObjectCount: 9
+      cubInstallObjectCountIncludingSupport: 10
+      semanticObjectMatches: "9/9"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kube-system"
+    -
+      variant: "external-tls-ca"
+      base: "external-tls-ca"
+      command: "cub installer setup --pull packages/metrics-server/metrics-server/3.14.0 --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system"
+      helmReleaseObjectCount: 9
+      cubInstallObjectCountIncludingSupport: 10
+      semanticObjectMatches: "9/9"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kube-system"

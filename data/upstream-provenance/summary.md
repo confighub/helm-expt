@@ -11,12 +11,12 @@ offline against pinned trust material, bound to bytes this repository holds.
 The obvious next question is how far that can reach, and nobody had asked it.
 This asks once per retained chart.
 
-Surveyed **2026-09-16**. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.
+Surveyed **2026-09-30**. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.
 
 ## The answer
 
-**34 of 142 retained charts** publish a Helm provenance file, which is
-24% of the catalog. 76 publish none, and 32 could not be asked, mostly
+**40 of 156 retained charts** publish a Helm provenance file, which is
+26% of the catalog. 83 publish none, and 33 could not be asked, mostly
 because their charts are hosted in a way this convention does not cover.
 
 That number is the ceiling on any provenance claim the catalog could make by
@@ -31,23 +31,23 @@ never done it.
 | Repository | Retained charts | Signed | Verdict |
 | --- | --- | --- | --- |
 | https://aquasecurity.github.io/helm-charts | 1 | 0 | publishes none |
-| https://argoproj.github.io/argo-helm | 8 | 8 | signs every retained chart |
+| https://argoproj.github.io/argo-helm | 9 | 9 | signs every retained chart |
 | https://bitnami-labs.github.io/sealed-secrets | 1 | 0 | could not be asked |
 | https://charts.bitnami.com/bitnami | 21 | 0 | OCI-hosted, no provenance convention |
 | https://charts.crossplane.io/stable | 1 | 0 | publishes none |
 | https://charts.dexidp.io | 1 | 0 | publishes none |
-| https://charts.external-secrets.io | 3 | 3 | signs every retained chart |
+| https://charts.external-secrets.io | 4 | 4 | signs every retained chart |
 | https://charts.fairwinds.com/stable | 2 | 0 | could not be asked |
 | https://charts.gitlab.io | 1 | 1 | signs every retained chart |
-| https://charts.jetstack.io | 4 | 2 | signs some |
-| https://charts.longhorn.io | 2 | 0 | publishes none |
+| https://charts.jetstack.io | 5 | 3 | signs some |
+| https://charts.longhorn.io | 3 | 0 | publishes none |
 | https://charts.rook.io/release | 2 | 0 | publishes none |
 | https://cloudnative-pg.github.io/charts | 2 | 2 | signs every retained chart |
 | https://coredns.github.io/helm | 1 | 0 | publishes none |
 | https://docs.tigera.io/calico/charts | 1 | 0 | publishes none |
 | https://falcosecurity.github.io/charts | 2 | 0 | publishes none |
 | https://fluent.github.io/helm-charts | 2 | 0 | publishes none |
-| https://grafana.github.io/helm-charts | 9 | 0 | publishes none |
+| https://grafana.github.io/helm-charts | 11 | 0 | publishes none |
 | https://haproxytech.github.io/helm-charts | 1 | 0 | publishes none |
 | https://helm.elastic.co | 5 | 0 | publishes none |
 | https://helm.linkerd.io/stable | 1 | 0 | publishes none |
@@ -59,13 +59,13 @@ never done it.
 | https://kubernetes-sigs.github.io/aws-ebs-csi-driver | 1 | 0 | publishes none |
 | https://kubernetes-sigs.github.io/descheduler | 1 | 0 | publishes none |
 | https://kubernetes-sigs.github.io/external-dns | 1 | 0 | publishes none |
-| https://kubernetes-sigs.github.io/metrics-server | 2 | 0 | publishes none |
+| https://kubernetes-sigs.github.io/metrics-server | 3 | 0 | publishes none |
 | https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner | 1 | 0 | publishes none |
 | https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts | 1 | 0 | publishes none |
 | https://kubernetes.github.io/autoscaler | 2 | 0 | publishes none |
 | https://kubernetes.github.io/ingress-nginx | 1 | 0 | publishes none |
-| https://kyverno.github.io/kyverno | 4 | 0 | publishes none |
-| https://kyverno.github.io/policy-reporter | 1 | 1 | signs every retained chart |
+| https://kyverno.github.io/kyverno | 6 | 0 | publishes none |
+| https://kyverno.github.io/policy-reporter | 2 | 2 | signs every retained chart |
 | https://metallb.github.io/metallb | 1 | 0 | publishes none |
 | https://mysql.github.io/mysql-operator | 1 | 0 | publishes none |
 | https://nats-io.github.io/k8s/helm/charts | 3 | 0 | publishes none |
@@ -76,14 +76,14 @@ never done it.
 | https://opencost.github.io/opencost-helm-chart | 1 | 0 | publishes none |
 | https://operator.min.io | 2 | 0 | publishes none |
 | https://percona.github.io/percona-helm-charts | 4 | 0 | publishes none |
-| https://prometheus-community.github.io/helm-charts | 14 | 13 | signs some |
-| https://stakater.github.io/stakater-charts | 2 | 0 | publishes none |
+| https://prometheus-community.github.io/helm-charts | 16 | 15 | signs some |
+| https://stakater.github.io/stakater-charts | 3 | 0 | publishes none |
 | https://strimzi.io/charts | 1 | 0 | publishes none |
 | https://traefik.github.io/charts | 1 | 1 | signs every retained chart |
 | https://valkey.io/valkey-helm | 1 | 0 | publishes none |
 | https://victoriametrics.github.io/helm-charts | 2 | 0 | publishes none |
 | https://vmware-tanzu.github.io/helm-charts | 2 | 0 | publishes none |
-| oci://ghcr.io/traefik/helm | 1 | 0 | OCI-hosted, no provenance convention |
+| oci://ghcr.io/traefik/helm | 2 | 0 | OCI-hosted, no provenance convention |
 | oci://public.ecr.aws/aws-controllers-k8s | 3 | 0 | OCI-hosted, no provenance convention |
 | oci://public.ecr.aws/karpenter | 1 | 0 | OCI-hosted, no provenance convention |
 | oci://registry-1.docker.io/cloudpirates/nginx | 1 | 0 | OCI-hosted, no provenance convention |
@@ -95,6 +95,7 @@ never done it.
 | `alertmanager` | 1.37.0 | https://prometheus-community.github.io/helm-charts |
 | `argo-cd` | 10.1.3 | https://argoproj.github.io/argo-helm |
 | `argo-cd` | 10.2.1 | https://argoproj.github.io/argo-helm |
+| `argo-cd` | 10.7.0 | https://argoproj.github.io/argo-helm |
 | `argo-cd` | 9.5.15 | https://argoproj.github.io/argo-helm |
 | `argo-cd` | 9.5.17 | https://argoproj.github.io/argo-helm |
 | `argo-events` | 2.4.21 | https://argoproj.github.io/argo-helm |
@@ -103,9 +104,11 @@ never done it.
 | `argocd-image-updater` | 1.2.2 | https://argoproj.github.io/argo-helm |
 | `cert-manager` | v1.20.2 | https://charts.jetstack.io |
 | `cert-manager` | v1.21.0 | https://charts.jetstack.io |
+| `cert-manager` | v1.21.1 | https://charts.jetstack.io |
 | `cloudnative-pg` | 0.28.2 | https://cloudnative-pg.github.io/charts |
 | `cloudnative-pg` | 0.29.0 | https://cloudnative-pg.github.io/charts |
 | `consul` | 2.0.0 | https://helm.releases.hashicorp.com |
+| `external-secrets` | 2.10.0 | https://charts.external-secrets.io |
 | `external-secrets` | 2.5.0 | https://charts.external-secrets.io |
 | `external-secrets` | 2.7.0 | https://charts.external-secrets.io |
 | `external-secrets` | 2.8.0 | https://charts.external-secrets.io |
@@ -114,13 +117,16 @@ never done it.
 | `kube-prometheus-stack` | 86.1.0 | https://prometheus-community.github.io/helm-charts |
 | `kube-prometheus-stack` | 87.15.1 | https://prometheus-community.github.io/helm-charts |
 | `kube-prometheus-stack` | 87.19.2 | https://prometheus-community.github.io/helm-charts |
+| `kube-prometheus-stack` | 88.6.3 | https://prometheus-community.github.io/helm-charts |
 | `kube-state-metrics` | 7.4.0 | https://prometheus-community.github.io/helm-charts |
+| `policy-reporter` | 3.10.0 | https://kyverno.github.io/policy-reporter |
 | `policy-reporter` | 3.9.1 | https://kyverno.github.io/policy-reporter |
 | `prometheus` | 29.8.0 | https://prometheus-community.github.io/helm-charts |
 | `prometheus` | 29.9.0 | https://prometheus-community.github.io/helm-charts |
 | `prometheus-adapter` | 5.3.0 | https://prometheus-community.github.io/helm-charts |
 | `prometheus-blackbox-exporter` | 11.10.0 | https://prometheus-community.github.io/helm-charts |
 | `prometheus-blackbox-exporter` | 11.15.1 | https://prometheus-community.github.io/helm-charts |
+| `prometheus-blackbox-exporter` | 11.18.0 | https://prometheus-community.github.io/helm-charts |
 | `prometheus-node-exporter` | 4.55.0 | https://prometheus-community.github.io/helm-charts |
 | `prometheus-operator-crds` | 29.0.0 | https://prometheus-community.github.io/helm-charts |
 | `terraform` | 1.1.2 | https://helm.releases.hashicorp.com |
@@ -142,7 +148,7 @@ check at the point they pull the chart.
 ## Why the rest could not be asked
 
 - **21** are listed in an HTTP index that points at an OCI reference rather than a tarball, which is the migration that followed one publisher's repricing.
-- **8** sit in an OCI repository, which has no index and no provenance convention.
+- **9** sit in an OCI repository, which has no index and no provenance convention.
 - **2** answered with a refusal rather than an answer.
 - **1** sit in a repository whose index could not be read.
 

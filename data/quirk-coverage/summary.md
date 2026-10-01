@@ -23,7 +23,7 @@ add-on slots.
 
 ~~~text
 explicit extension-slot control points in top-20 catalog: 13/20
-extension slots surfaced in current top-100 chart facts: 92/100
+extension slots surfaced in current top-100 chart facts: 91/100
 matched top-500 proof rows with extension slots: 54
 top-500 source rows using tpl: 362/500
 ~~~
@@ -46,23 +46,23 @@ Do not treat `modeled_or_supported_count` as a source count. Do not treat
 | Axis | Coverage tier | Source top-100 | Modeled or supported | Source top-500 | Remaining gap |
 | --- | --- | ---: | ---: | ---: | --- |
 | `lookup-target-facts` | `tracked-and-surfaced` | 47 | 26 | 244 | Target-fact enforcement is stronger for selected charts than for every top-100 source row. |
-| `generated-facts` | `tracked-and-surfaced` | 60 | 29 | 282 | Not every generated-fact path has field-level reachability yet. |
-| `capability-profile` | `partly-tracked` | 81 | 50 | 370 | 210/250 render receipts declare renderer flags and kubeVersion. |
-| `helm-flag-profile` | `partly-tracked` | n/a | 200 | n/a | 200/250 render receipts include the expected flag profile. |
+| `generated-facts` | `tracked-and-surfaced` | 60 | 30 | 282 | Not every generated-fact path has field-level reachability yet. |
+| `capability-profile` | `partly-tracked` | 81 | 51 | 370 | 230/270 render receipts declare renderer flags and kubeVersion. |
+| `helm-flag-profile` | `partly-tracked` | n/a | 220 | n/a | 220/270 render receipts include the expected flag profile. |
 | `hook-phase` | `partly-tracked` | 11 | 5 | 54 | Hook presence and phase are tracked, but lifecycle receipts are not complete. |
 | `hook-delete-policy` | `source-scanned-not-surfaced` | 10 | 0 | 44 | Delete policy can change cleanup, rerun, and rollback behavior. |
 | `hook-weight-ordering` | `source-scanned-not-surfaced` | 3 | 0 | 21 | Weight ordering affects lifecycle sequencing and may not map cleanly to GitOps. |
 | `crds` | `tracked-and-surfaced` | 24 | 38 | 102 | CRD upgrade safety remains operator-reviewed. |
 | `crd-upgrade-behavior` | `disclosed-not-complete` | 24 | 38 | 102 | Schema conversion and multi-version upgrade behavior are not fully modeled. |
 | `install-vs-upgrade` | `tracked-and-surfaced` | 38 | 18 | 177 | It is not yet tied to upgrade-simulation receipts for every affected chart. |
-| `dependency-lock` | `tracked-and-surfaced` | n/a | 142 | n/a | 142 dependency locks found. |
+| `dependency-lock` | `tracked-and-surfaced` | n/a | 156 | n/a | 156 dependency locks found. |
 | `library-chart` | `tracked-by-lock-not-front-door` | n/a | 2 | n/a | Library chart presence is not yet a chart-facts column. |
 | `dependency-alias` | `tracked-by-lock-not-front-door` | n/a | 6 | n/a | Alias-driven subchart identity can obscure where objects come from. |
 | `import-values` | `not-scanned` | unknown | 0 | unknown | Imported subchart values can create hidden high-density value paths. |
-| `required-or-fail` | `tracked-and-surfaced` | 71 | 34 | 309 | Not every required value has a typed user prompt. |
+| `required-or-fail` | `tracked-and-surfaced` | 71 | 35 | 309 | Not every required value has a typed user prompt. |
 | `values-schema` | `tracked-and-surfaced` | 36 | 15 | 178 | Schemas are not yet centralized in a ConfigHub schema registry. |
-| `tpl-extension-slots` | `tracked-and-surfaced` | 88 | 92 | 362 | Per-field provenance for arbitrary tpl content is not complete. |
-| `explicit-extension-slot-control-points` | `tracked-and-surfaced` | 65 | 92 | 254 | The broader source scan sees more raw/extra manifest values than the current modeled chart-facts surface. |
+| `tpl-extension-slots` | `tracked-and-surfaced` | 88 | 91 | 362 | Per-field provenance for arbitrary tpl content is not complete. |
+| `explicit-extension-slot-control-points` | `tracked-and-surfaced` | 65 | 91 | 254 | The broader source scan sees more raw/extra manifest values than the current modeled chart-facts surface. |
 | `semver-compare` | `source-scanned-not-surfaced` | 71 | 0 | 309 | It is not yet promoted to chart facts or variant-path coverage. |
 | `files-get` | `source-scanned-not-surfaced` | 31 | 0 | 129 | Bundled-file content can affect rendered config without appearing in values. |
 | `time-uuid-functions` | `source-scanned-not-surfaced` | 40 | 0 | 140 | These are distinct from secret generation and should be a separate nondeterminism axis. |

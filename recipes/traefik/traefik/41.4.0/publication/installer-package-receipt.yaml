@@ -1,0 +1,47 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "traefik-traefik-41.4.0"
+spec:
+  chart:
+    repository: "traefik"
+    name: "traefik"
+    version: "41.4.0"
+  package:
+    path: "packages/traefik/traefik/41.4.0"
+    name: "traefik-traefik"
+    version: "41.4.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "86ee2a0925dc7d2f05e0ce3fff6620c7e791ebb98f2a56062d89236a462a39c0"
+        bytes: 363
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b"
+        bytes: 437481
+      -
+        path: "installer.yaml"
+        sha256: "641883e28307c8d84d810006e92ad9e327e13469a8dd259cc4dcde5eefacf270"
+        bytes: 299
+  deterministicBundle:
+    command: "cub installer package packages/traefik/traefik/41.4.0 -o <tmp>/traefik-41.4.0.tgz"
+    sha256: "9827186941fcb1d76fada2af581e770b68e7a41f50b4dac032d64fa51828bd12"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/traefik/traefik/41.4.0 --base default --work-dir <tmp> --non-interactive --namespace traefik"
+      helmReleaseObjectCount: 31
+      cubInstallObjectCountIncludingSupport: 32
+      semanticObjectMatches: "31/31"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||traefik"

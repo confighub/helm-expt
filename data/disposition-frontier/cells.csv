@@ -35,6 +35,18 @@ argo-cd/argo-cd@10.2.1,no-crds,local_live,L,missing,missing,no,no recorded dispo
 argo-cd/argo-cd@10.2.1,no-crds,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 argo-cd/argo-cd@10.2.1,no-crds,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 argo-cd/argo-cd@10.2.1,no-crds,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 9.5.17 (pass) — runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml,"none — the variant is proven on 9.5.17; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+argo-cd/argo-cd@10.7.0,default,render_parity,R,pass,pass,no,,,
+argo-cd/argo-cd@10.7.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@10.7.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+argo-cd/argo-cd@10.7.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+argo-cd/argo-cd@10.7.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+argo-cd/argo-cd@10.7.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+argo-cd/argo-cd@10.7.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 9.5.15 (pass) — runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml,"none — the variant is proven on 9.5.15; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+argo-cd/argo-cd@10.7.0,no-crds,render_parity,R,pass,pass,no,,,
+argo-cd/argo-cd@10.7.0,no-crds,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@10.7.0 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+argo-cd/argo-cd@10.7.0,no-crds,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+argo-cd/argo-cd@10.7.0,no-crds,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+argo-cd/argo-cd@10.7.0,no-crds,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+argo-cd/argo-cd@10.7.0,no-crds,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 9.5.17 (pass) — runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml,"none — the variant is proven on 9.5.17; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 argo-cd/argo-cd@9.5.15,default,render_parity,R,pass,pass,no,,,
 argo-cd/argo-cd@9.5.15,default,in_confighub,C,pass,pass,no,,,
 argo-cd/argo-cd@9.5.15,default,local_live,L,pass,pass,no,,,
@@ -593,6 +605,18 @@ external-dns/external-dns@1.21.1,no-crds,local_live,L,pass,pass,no,,,
 external-dns/external-dns@1.21.1,no-crds,gitops_oci_live,G,pass,pass,no,,,
 external-dns/external-dns@1.21.1,no-crds,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 external-dns/external-dns@1.21.1,no-crds,two_cluster_kind_parity,K,pass,pass,no,live parity passed,,kind-parity
+external-secrets/external-secrets@2.10.0,default,render_parity,R,pass,pass,no,,,
+external-secrets/external-secrets@2.10.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.10.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+external-secrets/external-secrets@2.10.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+external-secrets/external-secrets@2.10.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+external-secrets/external-secrets@2.10.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+external-secrets/external-secrets@2.10.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 2.5.0 (pass) — runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml,"none — the variant is proven on 2.5.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+external-secrets/external-secrets@2.10.0,no-crds,render_parity,R,pass,pass,no,,,
+external-secrets/external-secrets@2.10.0,no-crds,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.10.0 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+external-secrets/external-secrets@2.10.0,no-crds,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+external-secrets/external-secrets@2.10.0,no-crds,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+external-secrets/external-secrets@2.10.0,no-crds,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+external-secrets/external-secrets@2.10.0,no-crds,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 2.5.0 (pass) — runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml,"none — the variant is proven on 2.5.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 external-secrets/external-secrets@2.5.0,default,render_parity,R,pass,pass,no,,,
 external-secrets/external-secrets@2.5.0,default,in_confighub,C,pass,pass,no,,,
 external-secrets/external-secrets@2.5.0,default,local_live,L,pass,pass,no,,,
@@ -695,6 +719,12 @@ grafana/alloy@1.11.0,default,local_live,L,missing,missing,no,no recorded disposi
 grafana/alloy@1.11.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 grafana/alloy@1.11.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 grafana/alloy@1.11.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 1.8.2 (pass) — runs/live-kind-parity/grafana-alloy-default/receipt.yaml,"none — the variant is proven on 1.8.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+grafana/alloy@1.12.1,default,render_parity,R,pass,pass,no,,,
+grafana/alloy@1.12.1,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for grafana/alloy@1.12.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+grafana/alloy@1.12.1,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+grafana/alloy@1.12.1,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+grafana/alloy@1.12.1,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+grafana/alloy@1.12.1,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 1.8.2 (pass) — runs/live-kind-parity/grafana-alloy-default/receipt.yaml,"none — the variant is proven on 1.8.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 grafana/alloy@1.8.2,default,render_parity,R,pass,pass,no,,,
 grafana/alloy@1.8.2,default,in_confighub,C,pass,pass,no,,,
 grafana/alloy@1.8.2,default,local_live,L,pass,pass,no,,,
@@ -737,6 +767,12 @@ grafana/loki@7.1.0,default,local_live,L,missing,missing,no,no recorded dispositi
 grafana/loki@7.1.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 grafana/loki@7.1.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 grafana/loki@7.1.0,default,two_cluster_kind_parity,K,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+grafana/loki@7.3.0,default,render_parity,R,pass,pass,no,,,
+grafana/loki@7.3.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for grafana/loki@7.3.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+grafana/loki@7.3.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+grafana/loki@7.3.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+grafana/loki@7.3.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+grafana/loki@7.3.0,default,two_cluster_kind_parity,K,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 grafana/promtail@6.17.1,default,render_parity,R,pass,pass,no,,,
 grafana/promtail@6.17.1,default,in_confighub,C,pass,pass,no,,,
 grafana/promtail@6.17.1,default,local_live,L,pass,pass,no,,,
@@ -917,6 +953,18 @@ jetstack/cert-manager@v1.21.0,default,local_live,L,missing,missing,no,no recorde
 jetstack/cert-manager@v1.21.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 jetstack/cert-manager@v1.21.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 jetstack/cert-manager@v1.21.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on v1.20.2 (pass) — runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml,"none — the variant is proven on v1.20.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+jetstack/cert-manager@v1.21.1,crds-enabled,render_parity,R,pass,pass,no,,,
+jetstack/cert-manager@v1.21.1,crds-enabled,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for jetstack/cert-manager@v1.21.1 crds-enabled (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+jetstack/cert-manager@v1.21.1,crds-enabled,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.1,crds-enabled,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.1,crds-enabled,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.1,crds-enabled,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on v1.20.2 (pass) — runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml,"none — the variant is proven on v1.20.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+jetstack/cert-manager@v1.21.1,default,render_parity,R,pass,pass,no,,,
+jetstack/cert-manager@v1.21.1,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for jetstack/cert-manager@v1.21.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+jetstack/cert-manager@v1.21.1,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.1,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.1,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.1,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on v1.20.2 (pass) — runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml,"none — the variant is proven on v1.20.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 jetstack/trust-manager@v0.22.1,default,render_parity,R,pass,pass,no,,,
 jetstack/trust-manager@v0.22.1,default,in_confighub,C,pass,pass,no,,,
 jetstack/trust-manager@v0.22.1,default,local_live,L,fail,fail,no,,,
@@ -971,6 +1019,12 @@ kyverno/kyverno-policies@3.8.2,default,local_live,L,missing,missing,no,no record
 kyverno/kyverno-policies@3.8.2,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 kyverno/kyverno-policies@3.8.2,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 kyverno/kyverno-policies@3.8.2,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 3.8.0 (watch) — runs/live-kind-parity/kyverno-kyverno-policies-default/receipt.yaml,"none — the variant is proven on 3.8.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+kyverno/kyverno-policies@3.9.0,default,render_parity,R,pass,pass,no,,,
+kyverno/kyverno-policies@3.9.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for kyverno/kyverno-policies@3.9.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+kyverno/kyverno-policies@3.9.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+kyverno/kyverno-policies@3.9.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+kyverno/kyverno-policies@3.9.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+kyverno/kyverno-policies@3.9.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 3.8.0 (watch) — runs/live-kind-parity/kyverno-kyverno-policies-default/receipt.yaml,"none — the variant is proven on 3.8.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 kyverno/kyverno@3.8.1,default,render_parity,R,pass,pass,no,,,
 kyverno/kyverno@3.8.1,default,in_confighub,C,pass,pass,no,,,
 kyverno/kyverno@3.8.1,default,local_live,L,pass,pass,no,,,
@@ -989,6 +1043,12 @@ kyverno/kyverno@3.8.2,default,local_live,L,missing,missing,no,no recorded dispos
 kyverno/kyverno@3.8.2,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 kyverno/kyverno@3.8.2,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 kyverno/kyverno@3.8.2,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 3.8.1 (pass) — runs/live-kind-parity/kyverno-kyverno-default/receipt.yaml,"none — the variant is proven on 3.8.1; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+kyverno/kyverno@3.9.0,default,render_parity,R,pass,pass,no,,,
+kyverno/kyverno@3.9.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for kyverno/kyverno@3.9.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+kyverno/kyverno@3.9.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+kyverno/kyverno@3.9.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+kyverno/kyverno@3.9.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+kyverno/kyverno@3.9.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 3.8.1 (pass) — runs/live-kind-parity/kyverno-kyverno-default/receipt.yaml,"none — the variant is proven on 3.8.1; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 linkerd/linkerd-crds@1.8.0,default,render_parity,R,pass,pass,no,,,
 linkerd/linkerd-crds@1.8.0,default,in_confighub,C,pass,pass,no,,,
 linkerd/linkerd-crds@1.8.0,default,local_live,L,pass,pass,no,,,
@@ -1013,6 +1073,12 @@ longhorn/longhorn@1.12.0,default,local_live,L,missing,missing,no,no recorded dis
 longhorn/longhorn@1.12.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 longhorn/longhorn@1.12.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 longhorn/longhorn@1.12.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 1.11.2 (pass) — runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml,"none — the variant is proven on 1.11.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+longhorn/longhorn@1.12.1,default,render_parity,R,pass,pass,no,,,
+longhorn/longhorn@1.12.1,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for longhorn/longhorn@1.12.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+longhorn/longhorn@1.12.1,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+longhorn/longhorn@1.12.1,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+longhorn/longhorn@1.12.1,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+longhorn/longhorn@1.12.1,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 1.11.2 (pass) — runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml,"none — the variant is proven on 1.11.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 metallb/metallb@0.16.1,default,render_parity,R,pass,pass,no,,,
 metallb/metallb@0.16.1,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for metallb/metallb@0.16.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
 metallb/metallb@0.16.1,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
@@ -1043,6 +1109,18 @@ metrics-server/metrics-server@3.13.1,external-tls-ca,local_live,L,missing,missin
 metrics-server/metrics-server@3.13.1,external-tls-ca,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 metrics-server/metrics-server@3.13.1,external-tls-ca,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 metrics-server/metrics-server@3.13.1,external-tls-ca,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 3.13.0 (pass) — runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml,"none — the variant is proven on 3.13.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+metrics-server/metrics-server@3.14.0,default,render_parity,R,pass,pass,no,,,
+metrics-server/metrics-server@3.14.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for metrics-server/metrics-server@3.14.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+metrics-server/metrics-server@3.14.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+metrics-server/metrics-server@3.14.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+metrics-server/metrics-server@3.14.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+metrics-server/metrics-server@3.14.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 3.13.0 (pass) — runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml,"none — the variant is proven on 3.13.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+metrics-server/metrics-server@3.14.0,external-tls-ca,render_parity,R,pass,pass,no,,,
+metrics-server/metrics-server@3.14.0,external-tls-ca,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for metrics-server/metrics-server@3.14.0 external-tls-ca (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+metrics-server/metrics-server@3.14.0,external-tls-ca,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+metrics-server/metrics-server@3.14.0,external-tls-ca,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+metrics-server/metrics-server@3.14.0,external-tls-ca,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+metrics-server/metrics-server@3.14.0,external-tls-ca,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 3.13.0 (pass) — runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml,"none — the variant is proven on 3.13.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 minio-operator/operator@7.1.1,default,render_parity,R,pass,pass,no,,,
 minio-operator/operator@7.1.1,default,in_confighub,C,pass,pass,no,,,
 minio-operator/operator@7.1.1,default,local_live,L,pass,pass,no,,,
@@ -1187,6 +1265,12 @@ percona/pxc-operator@1.19.1,no-crds,local_live,L,blocked,blocked,no,,,
 percona/pxc-operator@1.19.1,no-crds,gitops_oci_live,G,pass,pass,no,,,
 percona/pxc-operator@1.19.1,no-crds,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 percona/pxc-operator@1.19.1,no-crds,two_cluster_kind_parity,K,pass,pass,no,live parity passed,,kind-parity
+policy-reporter/policy-reporter@3.10.0,default,render_parity,R,pass,pass,no,,,
+policy-reporter/policy-reporter@3.10.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for policy-reporter/policy-reporter@3.10.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+policy-reporter/policy-reporter@3.10.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+policy-reporter/policy-reporter@3.10.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+policy-reporter/policy-reporter@3.10.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+policy-reporter/policy-reporter@3.10.0,default,two_cluster_kind_parity,K,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 policy-reporter/policy-reporter@3.9.1,default,render_parity,R,pass,pass,no,,,
 policy-reporter/policy-reporter@3.9.1,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for policy-reporter/policy-reporter@3.9.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
 policy-reporter/policy-reporter@3.9.1,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
@@ -1271,6 +1355,24 @@ prometheus-community/kube-prometheus-stack@87.19.2,no-crds,local_live,L,missing,
 prometheus-community/kube-prometheus-stack@87.19.2,no-crds,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 prometheus-community/kube-prometheus-stack@87.19.2,no-crds,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 prometheus-community/kube-prometheus-stack@87.19.2,no-crds,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 86.1.0 (pass) — runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml,"none — the variant is proven on 86.1.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+prometheus-community/kube-prometheus-stack@88.6.3,default,render_parity,R,pass,pass,no,,,
+prometheus-community/kube-prometheus-stack@88.6.3,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for prometheus-community/kube-prometheus-stack@88.6.3 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+prometheus-community/kube-prometheus-stack@88.6.3,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+prometheus-community/kube-prometheus-stack@88.6.3,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+prometheus-community/kube-prometheus-stack@88.6.3,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+prometheus-community/kube-prometheus-stack@88.6.3,default,two_cluster_kind_parity,K,missing,blocked,yes,"variant-keyed K rig: the chart-variant's only two-cluster kind parity receipt is on 86.1.0 and is blocked (parity: semantic object diff), so no version has a passing K proof — runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml","resolve the variant's K blocker on 86.1.0; the K rig keys receipts by chart-variant, so re-running this version would overwrite that receipt",kind-parity
+prometheus-community/kube-prometheus-stack@88.6.3,existing-secret,render_parity,R,pass,pass,no,,,
+prometheus-community/kube-prometheus-stack@88.6.3,existing-secret,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for prometheus-community/kube-prometheus-stack@88.6.3 existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+prometheus-community/kube-prometheus-stack@88.6.3,existing-secret,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+prometheus-community/kube-prometheus-stack@88.6.3,existing-secret,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+prometheus-community/kube-prometheus-stack@88.6.3,existing-secret,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+prometheus-community/kube-prometheus-stack@88.6.3,existing-secret,two_cluster_kind_parity,K,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+prometheus-community/kube-prometheus-stack@88.6.3,no-crds,render_parity,R,pass,pass,no,,,
+prometheus-community/kube-prometheus-stack@88.6.3,no-crds,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for prometheus-community/kube-prometheus-stack@88.6.3 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+prometheus-community/kube-prometheus-stack@88.6.3,no-crds,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+prometheus-community/kube-prometheus-stack@88.6.3,no-crds,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+prometheus-community/kube-prometheus-stack@88.6.3,no-crds,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+prometheus-community/kube-prometheus-stack@88.6.3,no-crds,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 86.1.0 (pass) — runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml,"none — the variant is proven on 86.1.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 prometheus-community/kube-state-metrics@7.4.0,cluster-metrics-readonly,render_parity,R,pass,pass,no,,,
 prometheus-community/kube-state-metrics@7.4.0,cluster-metrics-readonly,in_confighub,C,pass,pass,no,,,
 prometheus-community/kube-state-metrics@7.4.0,cluster-metrics-readonly,local_live,L,pass,pass,no,,,
@@ -1319,6 +1421,12 @@ prometheus-community/prometheus-blackbox-exporter@11.15.1,default,local_live,L,m
 prometheus-community/prometheus-blackbox-exporter@11.15.1,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 prometheus-community/prometheus-blackbox-exporter@11.15.1,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 prometheus-community/prometheus-blackbox-exporter@11.15.1,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 11.10.0 (pass) — runs/live-kind-parity/prometheus-community-prometheus-blackbox-exporter-default/receipt.yaml,"none — the variant is proven on 11.10.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+prometheus-community/prometheus-blackbox-exporter@11.18.0,default,render_parity,R,pass,pass,no,,,
+prometheus-community/prometheus-blackbox-exporter@11.18.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for prometheus-community/prometheus-blackbox-exporter@11.18.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+prometheus-community/prometheus-blackbox-exporter@11.18.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+prometheus-community/prometheus-blackbox-exporter@11.18.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+prometheus-community/prometheus-blackbox-exporter@11.18.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+prometheus-community/prometheus-blackbox-exporter@11.18.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 11.10.0 (pass) — runs/live-kind-parity/prometheus-community-prometheus-blackbox-exporter-default/receipt.yaml,"none — the variant is proven on 11.10.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 prometheus-community/prometheus-node-exporter@4.55.0,cluster-metrics-readonly,render_parity,R,pass,pass,no,,,
 prometheus-community/prometheus-node-exporter@4.55.0,cluster-metrics-readonly,in_confighub,C,pass,pass,no,,,
 prometheus-community/prometheus-node-exporter@4.55.0,cluster-metrics-readonly,local_live,L,pass,pass,no,,,
@@ -1427,6 +1535,12 @@ stakater/reloader@2.2.14,default,local_live,L,missing,missing,no,no recorded dis
 stakater/reloader@2.2.14,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 stakater/reloader@2.2.14,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 stakater/reloader@2.2.14,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 2.2.12 (pass) — runs/live-kind-parity/stakater-reloader-default/receipt.yaml,"none — the variant is proven on 2.2.12; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+stakater/reloader@2.2.16,default,render_parity,R,pass,pass,no,,,
+stakater/reloader@2.2.16,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for stakater/reloader@2.2.16 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+stakater/reloader@2.2.16,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+stakater/reloader@2.2.16,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+stakater/reloader@2.2.16,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+stakater/reloader@2.2.16,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 2.2.12 (pass) — runs/live-kind-parity/stakater-reloader-default/receipt.yaml,"none — the variant is proven on 2.2.12; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 strimzi/strimzi-kafka-operator@1.0.0,default,render_parity,R,pass,pass,no,,,
 strimzi/strimzi-kafka-operator@1.0.0,default,in_confighub,C,pass,pass,no,,,
 strimzi/strimzi-kafka-operator@1.0.0,default,local_live,L,pass,pass,no,,,
@@ -1457,6 +1571,12 @@ traefik/traefik@41.0.2,default,local_live,L,missing,missing,no,no recorded dispo
 traefik/traefik@41.0.2,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 traefik/traefik@41.0.2,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 traefik/traefik@41.0.2,default,two_cluster_kind_parity,K,missing,blocked,yes,"variant-keyed K rig: the chart-variant's only two-cluster kind parity receipt is on 40.2.0 and is blocked (parity: semantic object diff), so no version has a passing K proof — runs/live-kind-parity/traefik-traefik-default/receipt.yaml","resolve the variant's K blocker on 40.2.0; the K rig keys receipts by chart-variant, so re-running this version would overwrite that receipt",kind-parity
+traefik/traefik@41.4.0,default,render_parity,R,pass,pass,no,,,
+traefik/traefik@41.4.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for traefik/traefik@41.4.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+traefik/traefik@41.4.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+traefik/traefik@41.4.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+traefik/traefik@41.4.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+traefik/traefik@41.4.0,default,two_cluster_kind_parity,K,missing,blocked,yes,"variant-keyed K rig: the chart-variant's only two-cluster kind parity receipt is on 40.2.0 and is blocked (parity: semantic object diff), so no version has a passing K proof — runs/live-kind-parity/traefik-traefik-default/receipt.yaml","resolve the variant's K blocker on 40.2.0; the K rig keys receipts by chart-variant, so re-running this version would overwrite that receipt",kind-parity
 valkey/valkey@0.11.0,default,render_parity,R,pass,pass,no,,,
 valkey/valkey@0.11.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for valkey/valkey@0.11.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
 valkey/valkey@0.11.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,

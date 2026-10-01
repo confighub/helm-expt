@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: policy-reporter-policy-reporter-3.10.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.10.0
+  observedAt: "2026-09-30T21:56:23.553Z"
+  package:
+    path: packages/policy-reporter/policy-reporter/3.10.0
+    sha256: 2ec8172dabe43abf71a2047984ead39dece640a2172bd02136e07d8e47c064e7
+    sourceTreeSHA256: 57248119e3a49f891e513a29c3eff5dc39ecaec56aa2058269c8ed9238544805
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/policy-reporter/policy-reporter/3.10.0 -o <tmp>/policy-reporter-policy-reporter-3.10.0.tgz"
+    push: "cub installer push <tmp>/policy-reporter-policy-reporter-3.10.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.10.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.10.0 --json"
+  outputs:
+    manifestDigest: sha256:9e0c8f5e055f2f67bca6a0f8854fb89b0b92f2f7215671e05cf96b0d2a26641e
+    layerDigest: sha256:2ec8172dabe43abf71a2047984ead39dece640a2172bd02136e07d8e47c064e7
+    package: |
+      Bundled policy-reporter-policy-reporter@
+        output: <tmp>
+        files:  4
+        size:   3656 bytes
+        digest: sha256:2ec8172dabe43abf71a2047984ead39dece640a2172bd02136e07d8e47c064e7
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.10.0
+        manifest: sha256:9e0c8f5e055f2f67bca6a0f8854fb89b0b92f2f7215671e05cf96b0d2a26641e
+        layer:    sha256:2ec8172dabe43abf71a2047984ead39dece640a2172bd02136e07d8e47c064e7 (3656 bytes, 4 files)
+    inspectJSONSHA256: 1a96a5e90b73a1101a520a0fb16ddbb05f29daa5540cf8e983c161bba1afc7af
+    inspectJSONCanonicalSHA256: f4ca31fd0457f201b14810c11537b784a25404830a92b181cf1cb5696d8acc7e

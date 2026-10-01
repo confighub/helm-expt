@@ -65,7 +65,7 @@ On the bare `kubectl apply` path a chart's CRs can apply before its CRDs are est
 | kedacore/keda | `default` | 6 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | kyverno/kyverno | `default` | 22 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | linkerd/linkerd-crds | `default` | 8 | apply CRDs first + wait, or use a controller (#1015/#1019) |
-| longhorn/longhorn | `default` | 23 | apply CRDs first + wait, or use a controller (#1015/#1019) |
+| longhorn/longhorn | `default` | 25 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | metallb/metallb | `default` | 13 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | minio-operator/operator | `default` | 2 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | minio-operator/tenant | `default` | 1 | apply CRDs first + wait, or use a controller (#1015/#1019) |

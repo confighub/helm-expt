@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader@sha256:66bffd7fc23fea77b8ce4682734e6850457bbb16743e324c371cbc1798677052"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:66bffd7fc23fea77b8ce4682734e6850457bbb16743e324c371cbc1798677052"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/stakater/reloader/2.2.16",
+      "confighub.com/package-sha256": "28712f18c2b91ad1eba75d16f09638d695ffac6cf681ff52b85f28a876d39e27"
+    }
+  }
+]

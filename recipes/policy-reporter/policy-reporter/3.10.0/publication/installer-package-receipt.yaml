@@ -1,0 +1,47 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "policy-reporter-policy-reporter-3.10.0"
+spec:
+  chart:
+    repository: "policy-reporter"
+    name: "policy-reporter"
+    version: "3.10.0"
+  package:
+    path: "packages/policy-reporter/policy-reporter/3.10.0"
+    name: "policy-reporter-policy-reporter"
+    version: "3.10.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "b870b104467ad472f0f4acdaebdde23af5fecdc36d655246ea0ba87ea31bd826"
+        bytes: 387
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "a7b6293916be3b1e6e7746a1fb2802f6e820ecd9fbb24aa122fc028a6f95de10"
+        bytes: 13708
+      -
+        path: "installer.yaml"
+        sha256: "028c871fa23510407e09f76b6cb4c01dcbfb68730c4fce90b306d59ec96770bd"
+        bytes: 339
+  deterministicBundle:
+    command: "cub installer package packages/policy-reporter/policy-reporter/3.10.0 -o <tmp>/policy-reporter-3.10.0.tgz"
+    sha256: "2ec8172dabe43abf71a2047984ead39dece640a2172bd02136e07d8e47c064e7"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/policy-reporter/policy-reporter/3.10.0 --base default --work-dir <tmp> --non-interactive --namespace policy-reporter"
+      helmReleaseObjectCount: 8
+      cubInstallObjectCountIncludingSupport: 9
+      semanticObjectMatches: "8/8"
+      separatedSecretCount: 1
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||policy-reporter"

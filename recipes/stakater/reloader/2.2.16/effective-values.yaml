@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "stakater-reloader-2.2.16-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "ce14b818b5e48feedd407438050a51e2bbaf3794251501f5325a4ebb34afee53"
+  mergedValuesCaptured: false
+  values:
+    {}

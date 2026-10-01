@@ -4,16 +4,16 @@ This report checks the rendered default configuration for every catalog chart an
 
 Broad permissions are sometimes necessary, especially for operators and platform services. The purpose of this report is to show where those permissions occur so a team can decide whether each one is appropriate for its use.
 
-Scanned **127** default renders; **94** ship RBAC; **72** contain at least one broad/risky rule by these conservative heuristics.
+Scanned **141** default renders; **106** ship RBAC; **83** contain at least one broad/risky rule by these conservative heuristics.
 
 Findings across the catalog:
 
 | Finding | Charts | Meaning |
 | --- | ---: | --- |
-| `full-wildcard` | 12 | a rule grants `*` verbs on `*` resources (admin-like) |
-| `secret-read` | 67 | a rule can read Secrets (`get`/`list`/`watch` or `*`) |
+| `full-wildcard` | 13 | a rule grants `*` verbs on `*` resources (admin-like) |
+| `secret-read` | 78 | a rule can read Secrets (`get`/`list`/`watch` or `*`) |
 | `priv-escalation` | 2 | a rule has `escalate`/`bind`/`impersonate` |
-| `all-resources` | 11 | a rule targets `*` resources (non-wildcard verbs) |
+| `all-resources` | 12 | a rule targets `*` resources (non-wildcard verbs) |
 
 ## Charts to review first
 
@@ -23,16 +23,19 @@ Findings across the catalog:
 | `rook-release/rook-ceph/v1.19.5` | 33 | 14 | 16 | `secret-read` |
 | `argo-cd/argo-cd/10.1.3` | 3 | 6 | 10 | `all-resources`, `full-wildcard`, `secret-read` |
 | `argo-cd/argo-cd/10.2.1` | 3 | 6 | 10 | `all-resources`, `full-wildcard`, `secret-read` |
+| `argo-cd/argo-cd/10.7.0` | 3 | 6 | 10 | `all-resources`, `full-wildcard`, `secret-read` |
 | `argo-cd/argo-cd/9.5.15` | 3 | 6 | 10 | `all-resources`, `full-wildcard`, `secret-read` |
 | `argo-cd/argo-cd/9.5.17` | 3 | 6 | 10 | `all-resources`, `full-wildcard`, `secret-read` |
 | `jetstack/cert-manager/v1.20.2` | 13 | 4 | 8 | `secret-read` |
 | `jetstack/cert-manager/v1.21.0` | 13 | 3 | 8 | `secret-read` |
+| `jetstack/cert-manager/v1.21.1` | 13 | 3 | 8 | `secret-read` |
 | `istio/istiod/1.30.0` | 3 | 1 | 6 | `all-resources`, `secret-read` |
 | `mysql/mysql-operator/2.3.0` | 3 | 0 | 5 | `all-resources`, `full-wildcard`, `secret-read` |
 | `metallb/metallb/0.16.1` | 3 | 4 | 5 | `secret-read` |
 | `gatekeeper/gatekeeper/3.22.2` | 1 | 1 | 4 | `all-resources`, `secret-read` |
 | `kyverno/kyverno/3.8.1` | 16 | 4 | 4 | `secret-read` |
 | `kyverno/kyverno/3.8.2` | 16 | 4 | 4 | `secret-read` |
+| `kyverno/kyverno/3.9.0` | 16 | 4 | 4 | `secret-read` |
 | `haproxytech/kubernetes-ingress/1.52.0` | 1 | 0 | 3 | `all-resources`, `secret-read` |
 | `kedacore/keda/2.19.0` | 4 | 1 | 3 | `all-resources`, `secret-read` |
 | `minio-operator/operator/7.1.1` | 1 | 0 | 3 | `full-wildcard`, `secret-read` |
@@ -40,11 +43,8 @@ Findings across the catalog:
 | `prometheus-community/kube-prometheus-stack/86.1.0` | 4 | 0 | 3 | `secret-read` |
 | `prometheus-community/kube-prometheus-stack/87.15.1` | 4 | 0 | 3 | `secret-read` |
 | `prometheus-community/kube-prometheus-stack/87.19.2` | 4 | 0 | 3 | `secret-read` |
-| `sealed-secrets/sealed-secrets/2.18.6` | 1 | 2 | 3 | `secret-read` |
-| `hashicorp/terraform/1.1.2` | 0 | 1 | 2 | `full-wildcard`, `secret-read` |
-| `projectcalico/tigera-operator/v3.32.0` | 2 | 0 | 2 | `priv-escalation`, `secret-read` |
-| `aqua/trivy-operator/0.32.1` | 4 | 2 | 2 | `secret-read` |
-| _… and 47 more_ | | | | |
+| `prometheus-community/kube-prometheus-stack/88.6.3` | 4 | 0 | 3 | `secret-read` |
+| _… and 58 more_ | | | | |
 
 ## What happens after a finding
 

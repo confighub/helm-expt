@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager@sha256:830d0dfee2531c05cb48f3328abd1858b97bacf050208e583ab2dd2214d2cba5"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:830d0dfee2531c05cb48f3328abd1858b97bacf050208e583ab2dd2214d2cba5"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/jetstack/cert-manager/v1.21.1",
+      "confighub.com/package-sha256": "8fc68b3cafecf7fd55b02e63b88268d1a3b9735c76f809c022ad979e59db8a42"
+    }
+  }
+]

@@ -21,7 +21,6 @@ chart. Each packet is a review input. It is not a catalog support claim.
 | `external-dns/external-dns@1.21.1` | default | `live-helm-vs-confighub-parity` | high=0, medium=3, gates=allow;warn | 7 | [external-dns-external-dns-1-21-1.yaml](./external-dns-external-dns-1-21-1.yaml) |
 | `fairwinds-stable/vpa@4.11.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=21, gates=allow;warn | 8 | [fairwinds-stable-vpa-4-11-0.yaml](./fairwinds-stable-vpa-4-11-0.yaml) |
 | `gatekeeper/gatekeeper@3.22.2` | default | `live-helm-vs-confighub-parity` | high=0, medium=22, gates=allow;warn | 8 | [gatekeeper-gatekeeper-3-22-2.yaml](./gatekeeper-gatekeeper-3-22-2.yaml) |
-| `grafana/alloy@1.8.2` | default | `live-helm-vs-confighub-parity` | high=0, medium=3, gates=allow;warn | 8 | [grafana-alloy-1-8-2.yaml](./grafana-alloy-1-8-2.yaml) |
 | `grafana/rollout-operator@0.49.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=8, gates=allow;warn | 4 | [grafana-rollout-operator-0-49-0.yaml](./grafana-rollout-operator-0-49-0.yaml) |
 | `jaegertracing/jaeger-operator@2.57.0` | no-crds | `live-helm-vs-confighub-parity` | high=0, medium=3, gates=allow;warn | 6 | [jaegertracing-jaeger-operator-2-57-0.yaml](./jaegertracing-jaeger-operator-2-57-0.yaml) |
 | `jetstack/trust-manager@v0.22.1` | default | `live-helm-vs-confighub-parity` | high=0, medium=4, gates=allow;warn | 4 | [jetstack-trust-manager-v0-22-1.yaml](./jetstack-trust-manager-v0-22-1.yaml) |

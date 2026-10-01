@@ -15,8 +15,8 @@ disposition, and a current support boundary for each row.
 ## Summary
 
 ~~~text
-wave rows: 33
-live Helm-vs-ConfigHub parity rows: 33
+wave rows: 32
+live Helm-vs-ConfigHub parity rows: 32
 two-cluster kind parity rows: 0
 missing item: scan and production disposition
 ~~~
@@ -37,7 +37,6 @@ missing item: scan and production disposition
 | `external-dns/external-dns@1.21.1` | default;no-crds;dry-run-txt-registry | high=0, medium=3, gates=allow;warn | tpl;crds;cluster-rbac | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `fairwinds-stable/vpa@4.11.0` | default;no-crds | high=0, medium=21, gates=allow;warn | lookup;tpl;capabilities;crds;cluster-rbac;webhooks | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `gatekeeper/gatekeeper@3.22.2` | default;no-crds | high=0, medium=22, gates=allow;warn | capabilities;hooks;crds;cluster-rbac;webhooks | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
-| `grafana/alloy@1.8.2` | default;no-crds | high=0, medium=3, gates=allow;warn | tpl;capabilities;crds;cluster-rbac;stateful-storage | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `grafana/rollout-operator@0.49.0` | default;no-crds | high=0, medium=8, gates=allow;warn | - | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `jaegertracing/jaeger-operator@2.57.0` | default;no-crds | high=0, medium=3, gates=allow;warn | crds;webhooks | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `jetstack/trust-manager@v0.22.1` | default;no-crds | high=0, medium=4, gates=allow;warn | - | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
@@ -79,7 +78,6 @@ offer.
 | `external-dns/external-dns@1.21.1` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `fairwinds-stable/vpa@4.11.0` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `gatekeeper/gatekeeper@3.22.2` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
-| `grafana/alloy@1.8.2` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `grafana/rollout-operator@0.49.0` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `jaegertracing/jaeger-operator@2.57.0` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `jetstack/trust-manager@v0.22.1` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
@@ -105,12 +103,12 @@ offer.
 
 | Feature | Rows |
 | --- | ---: |
-| `tpl` | 16 |
-| `cluster-rbac` | 14 |
-| `capabilities` | 13 |
-| `crds` | 11 |
-| `stateful-storage` | 7 |
+| `tpl` | 15 |
+| `cluster-rbac` | 13 |
+| `capabilities` | 12 |
+| `crds` | 10 |
 | `webhooks` | 7 |
+| `stateful-storage` | 6 |
 | `generated-facts` | 5 |
 | `lookup` | 4 |
 | `hooks` | 2 |

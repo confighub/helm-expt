@@ -64,10 +64,11 @@ const versionExpectations = {
   "86.1.0": { defaultObjects: 124, noCrdsObjects: 114 },
   "87.15.1": { defaultObjects: 125, noCrdsObjects: 115, existingSecretObjects: 124 },
   "87.19.2": { defaultObjects: 125, noCrdsObjects: 115, existingSecretObjects: 124 },
+  "88.6.3": { defaultObjects: 125, noCrdsObjects: 115, existingSecretObjects: 124 },
 };
 const expected = versionExpectations[chart.version];
 if (!expected) throw new Error(`kube-prometheus-stack ${chart.version} needs reviewed version-specific assertions`);
-const hasExistingSecretBase = ["87.15.1", "87.19.2"].includes(chart.version);
+const hasExistingSecretBase = ["87.15.1", "87.19.2", "88.6.3"].includes(chart.version);
 
 const prometheusOperatorCRDs = [
   "alertmanagerconfigs.monitoring.coreos.com",
@@ -454,7 +455,7 @@ ${minimalCandidate
     ? "- `minimal` is an offline-candidate Prometheus Operator platform base with no bundled sample application.\n"
     : `- \`default\` includes the ten Prometheus Operator CRDs.
 - \`no-crds\` leaves CRD ownership with the platform.
-${["87.15.1", "87.19.2"].includes(ctx.chart.version) ? "- `existing-secret` includes CRDs and references target-owned Grafana admin credentials.\n" : ""}`}
+${["87.15.1", "87.19.2", "88.6.3"].includes(ctx.chart.version) ? "- `existing-secret` includes CRDs and references target-owned Grafana admin credentials.\n" : ""}`}
 
 ${variants.length === 1 ? "The preset carries" : variants.length === 2 ? "Both presets carry" : "All three presets carry"} the chart's real admission-webhook setup work. The package
 includes the CRDs, the certificate creation and webhook patch Jobs, their

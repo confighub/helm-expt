@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "policy-reporter-policy-reporter-3.10.0-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "129baf8fec1b0b7b70c7e2cf71690161068f580188484b77995557336727e01e"
+  mergedValuesCaptured: false
+  values:
+    {}

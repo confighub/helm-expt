@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "alloy-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "2344a60ed05e6cc3e5c53c21a1b8b73cdc163fb6120f5330d9c2ed63f4db8137"
+    dependencyLockSHA256: "6051d37a25f9b291e522b8a3c1a8f2b034aaa5f0ce691d520cbae4b19cdca15d"
+    effectiveValuesSHA256: "a75db3ac362c3cab53b11e119ef137c05fd44448b9e4d94b6128a15ab10f08bd"
+  outputs:
+    renderedObjectSetSHA256: "e3b30c75c9a0bc3241f42a8dde5d4b05371091c319ab5712fe30685234d17549"
+    renderedObjectInventorySHA256: "0f0ea4573fa58de9d90388b6f00e38af0c8e8a16a26945c00d001fa283d0300c"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 7
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

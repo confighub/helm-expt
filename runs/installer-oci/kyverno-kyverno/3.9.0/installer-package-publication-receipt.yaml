@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: kyverno-kyverno-3.9.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.9.0
+  observedAt: "2026-09-30T21:56:21.013Z"
+  package:
+    path: packages/kyverno/kyverno/3.9.0
+    sha256: 8d4dab1dbdf1764f18a998c88b53139fb6b8aa63fd85762f2ab18cd90bfcd403
+    sourceTreeSHA256: 0caed7318f1aa792d7971bff9eb82752bb2b03cc3c35996316fbc7b198ff6f25
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/kyverno/kyverno/3.9.0 -o <tmp>/kyverno-kyverno-3.9.0.tgz"
+    push: "cub installer push <tmp>/kyverno-kyverno-3.9.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.9.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.9.0 --json"
+  outputs:
+    manifestDigest: sha256:d776bb0614033308ed60af0b15af522ba857f255ad92b3247773f8c4cd63874f
+    layerDigest: sha256:8d4dab1dbdf1764f18a998c88b53139fb6b8aa63fd85762f2ab18cd90bfcd403
+    package: |
+      Bundled kyverno-kyverno@
+        output: <tmp>
+        files:  4
+        size:   623573 bytes
+        digest: sha256:8d4dab1dbdf1764f18a998c88b53139fb6b8aa63fd85762f2ab18cd90bfcd403
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.9.0
+        manifest: sha256:d776bb0614033308ed60af0b15af522ba857f255ad92b3247773f8c4cd63874f
+        layer:    sha256:8d4dab1dbdf1764f18a998c88b53139fb6b8aa63fd85762f2ab18cd90bfcd403 (623573 bytes, 4 files)
+    inspectJSONSHA256: 40b2915cb85babe95ac39df1a837f69934672c47d4de8548a5d1d7234d9019af
+    inspectJSONCanonicalSHA256: 845166dec125dc97ccd3ce34bbcdc4e84fcbed3bc44bfd5993c2f4eef01cbad1

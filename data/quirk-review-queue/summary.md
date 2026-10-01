@@ -8,11 +8,11 @@ auto-resolving would be cosmetic).
 ## Headline
 
 ```text
-flagged quirks: 253
-charts affected: 112
-  standard (confirm a catalog-wide home): 85
-  build    (build a variant, then handle):  20
-  sme      (genuine per-chart human call):   148
+flagged quirks: 273
+charts affected: 126
+  standard (confirm a catalog-wide home): 99
+  build    (build a variant, then handle):  21
+  sme      (genuine per-chart human call):   153
 ```
 
 ## Work it down in this order
@@ -24,12 +24,13 @@ _Resolution: confirm the catalog-wide ConfigHub home applies (CRD lifecycle / sc
 | Category | Flags | Charts |
 | --- | ---: | ---: |
 | `crds` | 35 | 35 |
+| `crd-policy` | 15 | 15 |
 | `stateful-storage` | 14 | 14 |
-| `crd-policy` | 11 | 11 |
+| `catalog-coverage` | 9 | 9 |
+| `apiservice` | 4 | 4 |
 | `replicaset-topology` | 3 | 3 |
 | `edge-ingress-policy` | 3 | 3 |
 | `ui-ingress-policy` | 3 | 3 |
-| `apiservice` | 3 | 3 |
 | `storage-retention` | 2 | 2 |
 | `component-selection` | 2 | 2 |
 | `storage-config` | 1 | 1 |
@@ -50,6 +51,7 @@ _Resolution: build the variant that handles it (existing-secret base, rotation v
 | --- | ---: | ---: |
 | `secret-material` | 14 | 14 |
 | `credentials-secrets` | 5 | 5 |
+| `rendered-secret-ownership` | 1 | 1 |
 | `sync-secret-rotation` | 1 | 1 |
 
 ### 3. SME — genuine per-chart judgment (could be benign or a real blocker)
@@ -60,8 +62,8 @@ _Resolution: per-chart human call: confirm safe (lifecycle policy / explicit ext
 | --- | ---: | ---: |
 | `extension-slots` | 70 | 70 |
 | `tpl-extension-slots` | 67 | 67 |
-| `tpl` | 6 | 6 |
-| `gitops-handoff` | 2 | 2 |
+| `tpl` | 10 | 10 |
+| `gitops-handoff` | 3 | 3 |
 | `chart-deprecation` | 2 | 2 |
 | `platform-variant` | 1 | 1 |
 
