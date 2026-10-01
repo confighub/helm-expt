@@ -2690,6 +2690,14 @@ function sectionStartingQuestions(label) {
 function siteSidebarHtml(relPath, section) {
   const base = pageBasePrefix(relPath);
   const list = (pages) => `<ul>${pages.map(([path, label]) => `<li><a href="${base}/${path}"${path === relPath ? ' aria-current="page"' : ""}>${escapeHtml(label)}</a></li>`).join("")}</ul>`;
+  if (relPath === "guides.html" || relPath === "bring-argo-into-confighub.html") {
+    const local = relPath === "guides.html"
+      ? [["guides.html#guides-journeys", "Try a demo"], ["guides.html#guides-your-tools", "Start with your tools"], ["guides.html#guides-start-here", "Browse by topic"]]
+      : [["guides.html", "All Guides"], ["bring-argo-into-confighub.html#preview-setup", "Preview my Argo setup"], ["bring-argo-into-confighub.html#save-confighub", "Continue into ConfigHub"]];
+    return `<p class="cw-nav-title"><strong>${relPath === "guides.html" ? "Find your starting point" : "Your Argo CD Guide"}</strong></p>${list(local)}
+      <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>
+      <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>`;
+  }
   if (section?.hub === relPath) {
     return `<p class="cw-nav-title"><strong>Starting questions</strong></p>${list(sectionStartingQuestions(section.label))}
       <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>
@@ -2747,7 +2755,7 @@ function injectSiteChrome(html, relPath) {
   const section = siteSectionFor(relPath);
   const toc = siteTocHtml(inner);
   const next = siteNextHtml(relPath, section);
-  const tocRail = toc + next;
+  const tocRail = ["guides.html", "bring-argo-into-confighub.html"].includes(relPath) ? "" : toc + next;
   const sidebar = siteSidebarHtml(relPath, section);
   const layout = `\n<div class="cw-header" role="banner">${chrome}</div>\n<div class="cw-layout${tocRail ? "" : " no-toc"}">\n<nav class="cw-sidebar" aria-label="Sections">${sidebar}</nav>\n<div class="cw-content">\n<details class="cw-mobile-nav"><summary>Browse ${escapeHtml(section ? section.label : "the site")}</summary>${sidebar}</details>${inner}</div>\n${tocRail ? `<nav class="cw-toc" aria-label="On this page and where next">${tocRail}</nav>\n` : ""}</div>\n`;
   return out.slice(0, bodyStart) + layout + out.slice(bodyClose);
@@ -6865,8 +6873,8 @@ function guidesHtml() {
   const href = (address) => address.startsWith(SITE_BASE_URL) ? `./${address.slice(SITE_BASE_URL.length)}` : address;
   const sections = groups.map((group) => `    <section aria-labelledby="guides-${group.id}">
       <h2 id="guides-${group.id}">${escapeHtml(group.title)}</h2>
-      <ul class="guide-list">
-${group.rows.map((row) => `        <li><a href="${escapeHtml(href(row.address))}">${escapeHtml(row.title)}</a>. ${escapeHtml(row.summary)}</li>`).join("\n")}
+      <ul class="guide-list${group.id === "journeys" ? " demo-choices" : ""}">
+${group.rows.map((row) => `        <li><a href="${escapeHtml(href(row.address))}">${escapeHtml(row.title)}</a>${group.id === "journeys" ? "" : ". "}${escapeHtml(row.summary)}</li>`).join("\n")}
       </ul>
     </section>${group.id === "journeys" ? familiarGuideStartsHtml() : ""}`).join("\n");
   return `<!doctype html>
@@ -6875,17 +6883,27 @@ ${group.rows.map((row) => `        <li><a href="${escapeHtml(href(row.address))}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Guides · ConfigHub Workshop</title>
-  <style>${siteCss()}</style>
+  <style>${siteCss()}
+    .demo-choices { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; padding:0; list-style:none; }
+    .demo-choices li { margin:0; padding:18px; border:1px solid var(--line); border-radius:8px; background:var(--surface); }
+    .demo-choices a { display:block; font-weight:650; margin-bottom:8px; font-size:1.05rem; }
+    .guide-directory section { padding-top:24px; padding-bottom:24px; }
+    .guide-directory .guide-list:not(.demo-choices) li { margin-bottom:12px; }
+    .guide-directory details.route-help { border-top:1px solid var(--line); margin-top:24px; padding-top:20px; }
+    .route-help > summary { font-size:1.1rem; font-weight:600; cursor:pointer; }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Guides</h1>
-    <p class="lead">Each Guide is a known path that an agent walks with you beside it. Start from your problem, with the five journeys first.</p>
-    ${agentNote(`Read the same rows as data at <a href="./guides.json">guides.json</a>.`)}
+    <p class="lead">Pick a problem or a tool you already use. Follow the steps yourself or with your AI agent, and finish with a result you can inspect.</p>
+
   </header>
-  <main>
+  <main class="guide-directory">
 ${sections}
+    <details class="route-help">
+      <summary>Need help choosing? Follow the configuration lifecycle</summary>
     <section aria-labelledby="by-step">
       <h2 id="by-step">Find a Guide by the step you are on</h2>
     <section aria-labelledby="start">
@@ -6971,6 +6989,8 @@ ${sections}
       <p>The FAQ answers questions about safety, upgrades, and current limits, among others.</p>
     </section>
     </section>
+    </details>
+    <p class="caption">For agents: the same Guide index is available as <a href="./guides.json">guides.json</a>.</p>
   </main>
 </body>
 </html>
@@ -7288,10 +7308,10 @@ function quirksHtml(catalog) {
 function gitopsOnboardingHtml(kind) {
   const plugin = readYaml(join(repoRoot, "data/workshop-plugins/plugins.yaml")).spec.plugins.find((row) => row.id === kind);
   const referenceUrl = `https://github.com/confighub/examples/blob/${plugin.release.tag}/cub-${kind}/docs/onboard-your-${kind === "argo" ? "argo-estate" : "flux-fleet"}.md`;
-  return splitGuideHtml(gitopsOnboardingGuide(kind, { install: plugin.install, referenceUrl }));
+  return splitGuideHtml({ ...gitopsOnboardingGuide(kind, { install: plugin.install, referenceUrl }), compactAgent: kind === "argo" });
 }
 
-function splitGuideHtml({ title, lead, ask = "", body, css = "", eyebrow = "A Guide" }) {
+function splitGuideHtml({ title, lead, ask = "", body, css = "", eyebrow = "A Guide", compactAgent = false }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -7306,7 +7326,7 @@ ${topNav(".")}
     <p class="eyebrow">${escapeHtml(eyebrow)}</p>
     <h1>${escapeHtml(title)}</h1>
     <p class="lead">${lead}</p>
-${ask ? `    ${agentNote(ask, "Give this to your agent")}` : ""}
+${ask ? (compactAgent ? `<details><summary>Prefer to do this with your AI agent?</summary>${agentNote(ask, "Give this to your agent")}</details>` : `    ${agentNote(ask, "Give this to your agent")}`) : ""}
   </header>
   <main>
 ${renumberSections(body)}  </main>

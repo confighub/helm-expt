@@ -658,6 +658,8 @@ Reconcile order (dependsOn): infrastructure -&gt; apps</code></pre>
       <p><a href="https://github.com/confighub/examples/blob/cub-flux-v0.2.0/cub-flux/docs/onboard-your-flux-fleet.md#1-see-the-plan">Read the full Flux planning reference</a> for layouts and limits.</p>
     </section>
 
+
+
     <section aria-labelledby="save-confighub">
       <h2 id="save-confighub">3. Save the reviewed setup in ConfigHub</h2>
       <p>When the plan is clear, generate the setup directory. This writes files and scripts only.</p>
@@ -692,7 +694,8 @@ Reconcile order (dependsOn): infrastructure -&gt; apps</code></pre>
       <p>Live status is also a write. This sends the observed revision and health to ConfigHub.</p>
 <pre><code>cub flux status . --cluster &lt;cluster&gt; --kube-context &lt;kubectl-context&gt; --watch</code></pre>
       <p><a href="https://github.com/confighub/examples/blob/cub-flux-v0.2.0/cub-flux/docs/onboard-your-flux-fleet.md#5-tell-confighub-what-the-cluster-is-running">Read the Flux status details</a>. A release, controller sync, and workload health are separate results; record the exact revision and target for each.</p>
-    </section>  </main>
+    </section>
+  </main>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#migration-shape">1. What changes, and what does not</a></li><li><a href="#preview-setup">2. Preview the setup</a></li><li><a href="#save-confighub">3. Save the reviewed setup in ConfigHub</a></li><li><a href="#connect-deployment">4. Connect deployment</a></li><li><a href="#change-approve-release">5. Change, approve, and release</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./check-a-claim-yourself.html">Check a claim yourself &rarr;</a></li></ul></nav>
 </div>

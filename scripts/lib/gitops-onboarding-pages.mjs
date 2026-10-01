@@ -95,6 +95,11 @@ ${kind === "flux" ? '<p><code>--require Healthy</code> makes later promotions wa
       <p>${link(upstreamPlan, `Read the full ${upper} planning reference`)} for layouts and limits.</p>
     </section>
 
+${kind === "argo" ? `    <p><strong>You can stop here.</strong> The plan is read-only. To generate local scripts, connect delivery, or make a reviewed change, open the advanced steps below.</p>
+    <details id="after-preview">
+      <summary>After the preview: save, connect delivery and make a change</summary>
+` : ""}
+
     <section aria-labelledby="save-confighub">
       <h2 id="save-confighub">3. Save the reviewed setup in ConfigHub</h2>
       <p>When the plan is clear, generate the setup directory. This writes files and scripts only.</p>
@@ -132,7 +137,8 @@ ${commandBlock("cub variant approve --change-order <space>/<order> --stage <stag
       <p>Live status is also a write. This sends the observed revision and health to ConfigHub.${kind === "argo" ? " Argo CD also gets a hard refresh." : ""}</p>
 ${commandBlock(guide.status)}
       <p>${link(upstreamStatus, `Read the ${upper} status details`)}. A release, controller sync, and workload health are separate results; record the exact revision and target for each.</p>
-    </section>`,
+    </section>
+${kind === "argo" ? "    </details>" : ""}`,
   };
 }
 
