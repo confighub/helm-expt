@@ -137,10 +137,11 @@
      notes now, so centring dropped the lead half a screen below the headline
      and left a hole where the reader looks first. */
   .boundary-chip { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; margin: 4px 0 0; }
-  .hero { display: grid; grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr); gap: 30px; align-items: start; padding: 22px 0 30px; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: start; padding: 32px 0 44px; }
   .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
-  .hero > div:first-child > p { color: var(--muted); }
-  .hero .lead { font-size: 1rem; color: var(--muted); margin: 0 0 18px; max-width: 46ch; }
+  .hero-head .lead { font-size: 1rem; line-height: 1.65; margin: 22px 0 0; max-width: 78ch; }
+  .hero > div:first-child > p { color: var(--muted); font-size: .95rem; line-height: 1.65; margin: 0 0 22px; }
+  .hero .lead { font-size: .95rem; color: var(--muted); margin: 0 0 22px; max-width: 48ch; }
   /* The hero says one thing and offers three verbs. The four explainer
      paragraphs that used to fill the column beside the terminal now live as
      cards under "What is the Workshop?" below, one idea per card, so the top
@@ -161,6 +162,9 @@
   .home-support a:hover { color: var(--accent-ink); text-decoration: underline; }
   .home-support a.home-support-all { color: var(--accent-ink); }
   .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+  .hero .cta-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .hero .cta-row:last-child { margin-bottom: 0; }
+  .hero .cta-row .btn { justify-content: center; text-align: center; font-size: .88rem; line-height: 1.4; min-height: 44px; padding: 10px 12px; box-sizing: border-box; }
   .qtable { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: .95rem; }
   .qtable th, .qtable td { text-align: left; vertical-align: top; padding: 10px 12px; border-top: 1px solid var(--line); }
   .qtable th { color: var(--muted); font-weight: 600; font-size: .82rem; letter-spacing: .02em; text-transform: uppercase; }
@@ -200,9 +204,9 @@
   .term-body .k { color: #8fd0e6; }
   .term-body .verdict { color: #e6b45a; font-weight: 600; }
 
-  .section { padding: 34px 0; border-top: 1px solid var(--line); }
+  .section { padding: 44px 0; border-top: 1px solid var(--line); }
   .section > .eyebrow { display: block; margin-bottom: 6px; }
-  .section h2 { font-size: clamp(1.4rem, 2.6vw, 1.85rem); font-weight: 740; letter-spacing: -.02em; margin: 0 0 6px; }
+  .section h2 { font-size: clamp(1.4rem, 2.6vw, 1.85rem); font-weight: 740; letter-spacing: -.02em; margin: 0 0 14px; }
   .section .intro { color: var(--muted); font-size: 1rem; margin: 0 0 22px; max-width: 60ch; }
 
   .verbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
