@@ -11,7 +11,7 @@
     {
       "id": "journey-values-did-nothing",
       "group": "journeys",
-      "groupTitle": "The five journeys",
+      "groupTitle": "Five cool demos",
       "title": "Helm ignores my values",
       "summary": "The assistant wrote my Helm values. Did they do anything? Three of seven did nothing, and Helm never said so.",
       "state": "published",
@@ -24,7 +24,7 @@
     {
       "id": "journey-preserve-my-fixes",
       "group": "journeys",
-      "groupTitle": "The five journeys",
+      "groupTitle": "Five cool demos",
       "title": "AI overwrites my fixes",
       "summary": "The assistant rewrote my app. Are my fixes still there? Then ConfigHub carries the fixes through the rewrite.",
       "state": "published",
@@ -37,7 +37,7 @@
     {
       "id": "journey-what-my-app-needs",
       "group": "journeys",
-      "groupTitle": "The five journeys",
+      "groupTitle": "Five cool demos",
       "title": "My app does not fit my platform",
       "summary": "Will my app run on the platform I picked? Refused for two real reasons, fixed on both sides, then checked.",
       "state": "published",
@@ -50,7 +50,7 @@
     {
       "id": "journey-before-gitops",
       "group": "journeys",
-      "groupTitle": "The five journeys",
+      "groupTitle": "Five cool demos",
       "title": "My chart behaves differently in GitOps",
       "summary": "My Redis has run fine for a month. Is it safe to hand to GitOps? Three problems, then a reviewed alternative from the Catalog.",
       "state": "published",
@@ -63,7 +63,7 @@
     {
       "id": "journey-installs-never-starts",
       "group": "journeys",
-      "groupTitle": "The five journeys",
+      "groupTitle": "Five cool demos",
       "title": "My app installs but will not start",
       "summary": "Every check passes. Should I install it? The image no longer exists, said before the install.",
       "state": "published",
@@ -76,7 +76,7 @@
     {
       "id": "redis-intro",
       "group": "start-here",
-      "groupTitle": "Start here",
+      "groupTitle": "Topic based walkthroughs",
       "title": "Walk the whole model once, with Redis",
       "summary": "One chart, Redis, walked through the Catalog, flattening, OCI, variants, promotion, policy and stacks in one pass, marking which steps are free and local.",
       "state": "published",
@@ -88,7 +88,7 @@
     {
       "id": "try",
       "group": "start-here",
-      "groupTitle": "Start here",
+      "groupTitle": "Topic based walkthroughs",
       "title": "Try it: Redis in ten minutes",
       "summary": "Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.",
       "state": "published",
@@ -101,7 +101,7 @@
     {
       "id": "demo",
       "group": "start-here",
-      "groupTitle": "Start here",
+      "groupTitle": "Topic based walkthroughs",
       "title": "From one chart to a governed fleet in ten minutes",
       "summary": "In ten minutes you go from checking one chart to generating a governed fleet, checking a whole inference platform on the way, most of it free and copy-paste.",
       "state": "published",
@@ -113,7 +113,7 @@
     {
       "id": "ai",
       "group": "start-here",
-      "groupTitle": "Start here",
+      "groupTitle": "Topic based walkthroughs",
       "title": "Use ConfigHub Workshop with your AI agent",
       "summary": "Install the ConfigHub Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.",
       "state": "published",
@@ -125,7 +125,7 @@
     {
       "id": "testing",
       "group": "start-here",
-      "groupTitle": "Start here",
+      "groupTitle": "Topic based walkthroughs",
       "title": "Find a starting configuration",
       "summary": "Say what you need, try a simple Redis example, choose how to run a starting example, then continue in ConfigHub or on a platform.",
       "state": "published",
@@ -137,7 +137,7 @@
     {
       "id": "check-a-claim",
       "group": "start-here",
-      "groupTitle": "Start here",
+      "groupTitle": "Topic based walkthroughs",
       "title": "Check a claim yourself",
       "summary": "Pick a claim the site makes, run the smallest check that answers it, and read what it proved and what it left open.",
       "state": "published",
@@ -149,7 +149,7 @@
     {
       "id": "catalog-inspection",
       "group": "start-here",
-      "groupTitle": "Start here",
+      "groupTitle": "Topic based walkthroughs",
       "title": "Inspect and keep an exact record",
       "summary": "Download the full Redis default record with its Catalog and record hashes, then reproduce the lookup and a refusal locally with Node and a checkout.",
       "state": "published",
@@ -161,7 +161,7 @@
     {
       "id": "choose-a-tool",
       "group": "start-here",
-      "groupTitle": "Start here",
+      "groupTitle": "Topic based walkthroughs",
       "title": "Choose a tool and start",
       "summary": "Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.",
       "state": "published",
