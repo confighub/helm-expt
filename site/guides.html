@@ -198,6 +198,7 @@
     /* Two across for the one-idea cards under a page's hero: four across was
        tight in the three-column layout and wrapped the titles. */
     .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .app-learning-cards { display: grid; gap: 20px; margin: 26px 0; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
       padding: 16px; display: flex; flex-direction: column; gap: 8px;
@@ -545,7 +546,7 @@
     .calm-page .move-spine {
       gap: 22px;
     }
-  
+
   /* --- quality floor: keyboard focus and reduced motion --- */
   a:focus-visible, button:focus-visible, input:focus-visible,
   select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
@@ -632,7 +633,19 @@
         <li><a href="./journey-before-gitops.html">My chart behaves differently in GitOps</a>. My Redis has run fine for a month. Is it safe to hand to GitOps? Three problems, then a reviewed alternative from the Catalog.</li>
         <li><a href="./journey-installs-never-starts.html">My app installs but will not start</a>. Every check passes. Should I install it? The image no longer exists, said before the install.</li>
       </ul>
-    </section>
+    </section><section aria-labelledby="guides-your-tools">
+    <h2 id="guides-your-tools">Start with what you use</h2>
+    <p>Keep your tools. First inspect the configuration; choose delivery changes only when you are ready.</p>
+    <ul class="guide-list">
+      <li><a href="./bring-argo-into-confighub.html">I use Argo CD</a>. Preview your apps, import a parallel copy, then review handover and recovery.</li>
+      <li><a href="./bring-flux-into-confighub.html">I use Flux</a>. Preview your repository and move delivery one cluster at a time.</li>
+      <li><a href="./bring-sveltos-into-confighub.html">I want a fleet</a>. Use Sveltos to deliver reviewed configuration to your clusters.</li>
+      <li><a href="./bring-kubara-into-confighub.html">I want platform add-ons</a>. Keep Kubara generating your platform and add ConfigHub review.</li>
+      <li><a href="./d/docs/user/workshop-byo-charts-guide.html">I use Helm</a>. Render your own chart, diagnose values and compare a change before installing.</li>
+      <li>I use NVIDIA: <a href="./try-aicr.html">inspect an AICR platform configuration</a>, or <a href="./d/docs/demo/aicr/kserve-nim-inference.html">prepare NIM model serving</a>. Local inspection is separate from proving a GPU deployment.</li>
+    </ul>
+    <p><a href="./apps.html">Show me an example app</a> to see what changes in everyday work.</p>
+  </section>
     <section aria-labelledby="guides-start-here">
       <h2 id="guides-start-here">Start here</h2>
       <ul class="guide-list">
@@ -675,6 +688,9 @@
         <li><a href="./d/docs/user/gitops-adopter-guide.html">Use ConfigHub With Argo CD Or Flux</a>. Keep the Argo CD or Flux you already run. ConfigHub publishes the reviewed Kubernetes objects as an OCI image for that controller to pull.</li>
         <li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a>. Reconcile a published component with no account, render any catalog chart to an image your Flux, Argo CD, or kubectl consumes, and verify its receipt first.</li>
         <li><a href="./d/docs/user/workshop-argocd-hardening-guide.html">Harden Argo CD before production, as a variant you can check and keep</a>. Turn security advice into a checked variant of the Catalog's Argo CD base, compare it with the base, and keep it with a staging and production path.</li>
+        <li><a href="./bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a>. Preview exported fleet configuration, review ownership and connect live profiles in stages.</li>
+        <li><a href="./bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a>. Preview your existing setup without an account, then save, connect and review a change while Argo CD keeps deploying.</li>
+        <li><a href="./bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a>. Preview your existing setup without an account, then save, connect and review a change while Flux keeps deploying.</li>
       </ul>
     </section>
     <section aria-labelledby="guides-stacks-and-platforms">
@@ -794,7 +810,7 @@
     </section>
   </main>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#guides-journeys">The five journeys</a></li><li><a href="#guides-start-here">Start here</a></li><li><a href="#guides-helm-questions">Helm questions</a></li><li><a href="#guides-formats">Formats</a></li><li><a href="#guides-gitops">GitOps</a></li><li><a href="#guides-stacks-and-platforms">Stacks and platforms</a></li><li><a href="#guides-confighub">ConfigHub</a></li><li><a href="#by-step">Find a Guide by the step you are on</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./journey-values-did-nothing.html">Helm ignores my values &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#guides-journeys">The five journeys</a></li><li><a href="#guides-your-tools">Start with what you use</a></li><li><a href="#guides-start-here">Start here</a></li><li><a href="#guides-helm-questions">Helm questions</a></li><li><a href="#guides-formats">Formats</a></li><li><a href="#guides-gitops">GitOps</a></li><li><a href="#guides-stacks-and-platforms">Stacks and platforms</a></li><li><a href="#guides-confighub">ConfigHub</a></li><li><a href="#by-step">Find a Guide by the step you are on</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./journey-values-did-nothing.html">Helm ignores my values &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./try-aicr.html">GPU nodes and AICR</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>

@@ -198,6 +198,7 @@
     /* Two across for the one-idea cards under a page's hero: four across was
        tight in the three-column layout and wrapped the titles. */
     .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .app-learning-cards { display: grid; gap: 20px; margin: 26px 0; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
       padding: 16px; display: flex; flex-direction: column; gap: 8px;
@@ -559,7 +560,7 @@
     .calm-page .move-spine {
       gap: 22px;
     }
-  
+
   /* --- quality floor: keyboard focus and reduced motion --- */
   a:focus-visible, button:focus-visible, input:focus-visible,
   select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
