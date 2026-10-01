@@ -84,16 +84,21 @@ ${guide.plan}`);
       <h2 id="preview-setup">2. Preview the setup</h2>
       <p>Install ${link("./try.html#install-cub", "the cub CLI")} and this released plugin:</p>
       <pre><code>${installCommand}</code></pre>
-      <p>Use a clean checkout of the repository ${upper} reads. Replace the directory placeholder. Planning needs no ConfigHub account or cluster.</p>
+      <p><strong>What you need:</strong> a local checkout of the Git repository this ${upper} installation reads, the <code>cub</code> CLI, and this plugin. Start in that repository's root; replace the directory placeholder below with its path. Planning reads the repository and needs no ConfigHub account or cluster.</p>
 ${plan}
 ${kind === "flux" ? '<p><code>--require Healthy</code> makes later promotions wait for live health. Layers with workloads need <code>wait</code> or <code>healthChecks</code>; otherwise the reporter records health as Unknown. Planning itself does not prove health.</p>' : ""}
-      <p>A <strong>base</strong> is shared configuration. A <strong>variant</strong> is that base plus one cluster’s differences, such as namespace or replica count. Read the bases, variants, stages, and warnings; this is not a destination check.</p>
-      <details><summary>Illustrative plan output</summary>
+      <p><strong>Read the result.</strong> The summary gives the estate or fleet size and the component and variant counts. The following lines map shared configuration to bases and cluster differences to variants. Check the stage order and warnings before continuing. This plan does not validate the destination.</p>
+      <details open><summary>Illustrative plan output</summary>
         <p>This is actual output from the ${link(fixture.url, "public beginner fixture")}, not from your repository.</p>
         <pre><code>${escapeHtml(fixture.output)}</code></pre>
       </details>
       <p>${link(upstreamPlan, `Read the full ${upper} planning reference`)} for layouts and limits.</p>
     </section>
+
+${kind === "argo" ? `    <p><strong>You can stop here.</strong> The plan is read-only. To generate local scripts, connect delivery, or make a reviewed change, open the advanced steps below.</p>
+    <details id="after-preview">
+      <summary>After the preview: save, connect delivery and make a change</summary>
+` : ""}
 
     <section aria-labelledby="save-confighub">
       <h2 id="save-confighub">3. Save the reviewed setup in ConfigHub</h2>
@@ -132,7 +137,8 @@ ${commandBlock("cub variant approve --change-order <space>/<order> --stage <stag
       <p>Live status is also a write. This sends the observed revision and health to ConfigHub.${kind === "argo" ? " Argo CD also gets a hard refresh." : ""}</p>
 ${commandBlock(guide.status)}
       <p>${link(upstreamStatus, `Read the ${upper} status details`)}. A release, controller sync, and workload health are separate results; record the exact revision and target for each.</p>
-    </section>`,
+    </section>
+${kind === "argo" ? "    </details>" : ""}`,
   };
 }
 
@@ -150,9 +156,13 @@ export function sveltosOnboardingGuide({ install, referenceUrl } = {}) {
       <h2 id="sveltos-preview">1. Preview the setup</h2>
       <p>Install ${link("./try.html#install-cub", "the cub CLI")} and the released plugin:</p>
       <pre><code>${escapeHtml(install)}</code></pre>
-      <p>Exporting ClusterProfiles and SveltosClusters reads the management cluster. It must run Sveltos v1.14.0 or newer. Once you have those YAML files, planning is offline: it needs no ConfigHub account or cluster mutation.</p>
+      <p><strong>Prepare the inputs.</strong> On the Sveltos management cluster, export the profiles and clusters the first input file should describe:</p>
+${commandBlock("kubectl get clusterprofiles,sveltosclusters -A -o yaml > my-fleet.yaml")}
+      <p>This reads the management cluster; it requires access to a cluster running Sveltos v1.14.0 or newer. For each ConfigMap named by a profile's <code>policyRefs</code>, export that ConfigMap as a separate YAML input and pass it after <code>my-fleet.yaml</code>. For example, if a profile refers to the <code>kyverno-policies</code> ConfigMap in the <code>default</code> namespace:</p>
+${commandBlock("kubectl get configmap -n default kyverno-policies -o yaml > kyverno-policies.yaml")}
+      <p>Keep Secrets and credentials out of review files. Once these YAML files are ready, planning is offline and needs no ConfigHub account or cluster mutation:</p>
 ${commandBlock("cub sveltos plan my-fleet.yaml kyverno-policies.yaml --stage-label env --stages staging,prod")}
-      <p>A base is shared configuration; a variant is that base with one cluster’s differences. The plan names hooks, unsupported ownership, and anything that must stay outside ConfigHub. A hooks refusal is a prompt to review the lifecycle, not a reason to add <code>--include-hooks</code> blindly.</p>
+      <p>The plan shows the shared base, a variant for each selected cluster, the rollout stages, and the objects rendered from charts and policy ConfigMaps. Review its exclusions and warnings too: hooks and unsupported ownership may need a deliberate decision. A hooks refusal is a prompt to review the lifecycle, not a reason to add <code>--include-hooks</code> blindly.</p>
       <p>${link(`${referenceUrl}#1-export-what-sveltos-knows`, "Prepare the example inputs")} · ${link(`${referenceUrl}#2-see-the-plan`, "read the planning reference")}.</p>
     </section>
 

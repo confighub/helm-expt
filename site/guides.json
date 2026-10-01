@@ -6,7 +6,7 @@
   "generatedFrom": [
     "data/workshop-guides/guides.yaml"
   ],
-  "count": 49,
+  "count": 51,
   "rows": [
     {
       "id": "journey-values-did-nothing",
@@ -617,6 +617,30 @@
       "address": "https://confighub.github.io/helm-expt/site/how-it-works.html",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/how-it-works.html"
+      }
+    },
+    {
+      "id": "scout-ui",
+      "group": "start-here",
+      "groupTitle": "Topic based walkthroughs",
+      "title": "See what is running with cub scout",
+      "summary": "Inspect one workload and its owner in a read-only cluster map, without a ConfigHub account.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/see-what-is-running.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/see-what-is-running.html"
+      }
+    },
+    {
+      "id": "config-ui",
+      "group": "confighub",
+      "groupTitle": "ConfigHub",
+      "title": "View and change configuration with ConfigHub UIs",
+      "summary": "Browse stored configuration in the browser or cub commander, compare environments and separate editing from release.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/view-and-change-config-with-uis.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/view-and-change-config-with-uis.html"
       }
     }
   ]

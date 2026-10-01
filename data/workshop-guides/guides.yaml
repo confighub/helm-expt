@@ -327,3 +327,13 @@ spec:
     title: Release, promote and roll back
     summary: Release a reviewed configuration, promote it to the next environment, gate it with approvals, and roll it back.
     page: how-it-works.html
+  - id: scout-ui
+    group: start-here
+    title: See what is running with cub scout
+    summary: Inspect one workload and its owner in a read-only cluster map, without a ConfigHub account.
+    page: see-what-is-running.html
+  - id: config-ui
+    group: confighub
+    title: View and change configuration with ConfigHub UIs
+    summary: Browse stored configuration in the browser or cub commander, compare environments and separate editing from release.
+    page: view-and-change-config-with-uis.html

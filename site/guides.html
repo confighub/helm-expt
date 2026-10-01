@@ -465,6 +465,14 @@
     .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
     .agent-note a { color: inherit; }
 
+    .demo-choices { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; padding:0; list-style:none; }
+    .demo-choices li { margin:0; padding:18px; border:1px solid var(--line); border-radius:8px; background:var(--surface); }
+    .demo-choices a { display:block; font-weight:650; margin-bottom:8px; font-size:1.05rem; }
+    .guide-directory section { padding-top:24px; padding-bottom:24px; }
+    .guide-directory .guide-list:not(.demo-choices) li { margin-bottom:12px; }
+    .guide-directory details.route-help { border-top:1px solid var(--line); margin-top:24px; padding-top:20px; }
+    .route-help > summary { font-size:1.1rem; font-weight:600; cursor:pointer; }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -608,30 +616,30 @@
 </head>
 <body class="calm-page">
 <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
-<div class="cw-layout">
-<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>Starting questions</strong></p><ul><li><a href="./try.html">What can I try on my laptop?</a></li><li><a href="./journey-values-did-nothing.html">Why does Helm ignore my values?</a></li><li><a href="./journey-preserve-my-fixes.html">How do I stop AI overwriting my fixes?</a></li><li><a href="./journey-what-my-app-needs.html">Will my app fit my platform?</a></li><li><a href="./journey-before-gitops.html">What changes when GitOps takes over?</a></li><li><a href="./journey-installs-never-starts.html">Why will my installed app not start?</a></li><li><a href="./promote.html">How do I check a change before promotion?</a></li></ul>
+<div class="cw-layout no-toc">
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>Find your starting point</strong></p><ul><li><a href="./guides.html#guides-journeys">Try a demo</a></li><li><a href="./guides.html#guides-your-tools">Start with your tools</a></li><li><a href="./guides.html#guides-start-here">Browse by topic</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p></nav>
 <div class="cw-content">
-<details class="cw-mobile-nav"><summary>Browse Guides</summary><p class="cw-nav-title"><strong>Starting questions</strong></p><ul><li><a href="./try.html">What can I try on my laptop?</a></li><li><a href="./journey-values-did-nothing.html">Why does Helm ignore my values?</a></li><li><a href="./journey-preserve-my-fixes.html">How do I stop AI overwriting my fixes?</a></li><li><a href="./journey-what-my-app-needs.html">Will my app fit my platform?</a></li><li><a href="./journey-before-gitops.html">What changes when GitOps takes over?</a></li><li><a href="./journey-installs-never-starts.html">Why will my installed app not start?</a></li><li><a href="./promote.html">How do I check a change before promotion?</a></li></ul>
+<details class="cw-mobile-nav"><summary>Browse Guides</summary><p class="cw-nav-title"><strong>Find your starting point</strong></p><ul><li><a href="./guides.html#guides-journeys">Try a demo</a></li><li><a href="./guides.html#guides-your-tools">Start with your tools</a></li><li><a href="./guides.html#guides-start-here">Browse by topic</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p></details>
   <header class="hero human-hero">
     
     <h1>Guides</h1>
-    <p class="lead">Each Guide is a known path that an agent walks with you beside it. Start from your problem, with the five journeys first.</p>
-    <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Read the same rows as data at <a href="./guides.json">guides.json</a>.</aside>
+    <p class="lead">Pick a problem or a tool you already use. Follow the steps yourself or with your AI agent, and finish with a result you can inspect.</p>
+
   </header>
-  <main>
+  <main class="guide-directory">
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <section aria-labelledby="guides-journeys">
       <h2 id="guides-journeys">Five cool demos</h2>
-      <ul class="guide-list">
-        <li><a href="./journey-values-did-nothing.html">Helm ignores my values</a>. The assistant wrote my Helm values. Did they do anything? Three of seven did nothing, and Helm never said so.</li>
-        <li><a href="./journey-preserve-my-fixes.html">AI overwrites my fixes</a>. The assistant rewrote my app. Are my fixes still there? Then ConfigHub carries the fixes through the rewrite.</li>
-        <li><a href="./journey-what-my-app-needs.html">My app does not fit my platform</a>. Will my app run on the platform I picked? Refused for two real reasons, fixed on both sides, then checked.</li>
-        <li><a href="./journey-before-gitops.html">My chart behaves differently in GitOps</a>. My Redis has run fine for a month. Is it safe to hand to GitOps? Three problems, then a reviewed alternative from the Catalog.</li>
-        <li><a href="./journey-installs-never-starts.html">My app installs but will not start</a>. Every check passes. Should I install it? The image no longer exists, said before the install.</li>
+      <ul class="guide-list demo-choices">
+        <li><a href="./journey-values-did-nothing.html">Helm ignores my values</a>The assistant wrote my Helm values. Did they do anything? Three of seven did nothing, and Helm never said so.</li>
+        <li><a href="./journey-preserve-my-fixes.html">AI overwrites my fixes</a>The assistant rewrote my app. Are my fixes still there? Then ConfigHub carries the fixes through the rewrite.</li>
+        <li><a href="./journey-what-my-app-needs.html">My app does not fit my platform</a>Will my app run on the platform I picked? Refused for two real reasons, fixed on both sides, then checked.</li>
+        <li><a href="./journey-before-gitops.html">My chart behaves differently in GitOps</a>My Redis has run fine for a month. Is it safe to hand to GitOps? Three problems, then a reviewed alternative from the Catalog.</li>
+        <li><a href="./journey-installs-never-starts.html">My app installs but will not start</a>Every check passes. Should I install it? The image no longer exists, said before the install.</li>
       </ul>
     </section><section aria-labelledby="guides-your-tools">
     <h2 id="guides-your-tools">Start with what you use</h2>
@@ -644,6 +652,7 @@
       <li><a href="./d/docs/user/workshop-byo-charts-guide.html">I use Helm</a>. Render your own chart, diagnose values and compare a change before installing.</li>
       <li>I use NVIDIA: <a href="./try-aicr.html">inspect an AICR platform configuration</a>, or <a href="./d/docs/demo/aicr/kserve-nim-inference.html">prepare NIM model serving</a>. Local inspection is separate from proving a GPU deployment.</li>
     </ul>
+    <p><a href="./see-what-is-running.html">Show me what is running</a> · <a href="./view-and-change-config-with-uis.html">Let me browse configuration in a UI</a></p>
     <p><a href="./apps.html">Show me an example app</a> to see what changes in everyday work.</p>
   </section>
     <section aria-labelledby="guides-start-here">
@@ -657,6 +666,7 @@
         <li><a href="./check-a-claim-yourself.html">Check a claim yourself</a>. Pick a claim the site makes, run the smallest check that answers it, and read what it proved and what it left open.</li>
         <li><a href="https://github.com/confighub/helm-expt/tree/main/examples/workshop-catalog-inspection">Inspect and keep an exact record</a>. Download the full Redis default record with its Catalog and record hashes, then reproduce the lookup and a refusal locally with Node and a checkout.</li>
         <li><a href="./choose-a-tool.html">Choose a tool and start</a>. Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.</li>
+        <li><a href="./see-what-is-running.html">See what is running with cub scout</a>. Inspect one workload and its owner in a read-only cluster map, without a ConfigHub account.</li>
       </ul>
     </section>
     <section aria-labelledby="guides-helm-questions">
@@ -718,8 +728,11 @@
         <li><a href="./operate-a-fleet.html">Operate a fleet</a>. Check the starting point, choose an operation, keep a fleet record, and open the working App demonstrations.</li>
         <li><a href="./build-a-confighub-app.html">Build a ConfigHub App</a>. Build an App that repeats one operation on configuration saved in ConfigHub.</li>
         <li><a href="./how-it-works.html">Release, promote and roll back</a>. Release a reviewed configuration, promote it to the next environment, gate it with approvals, and roll it back.</li>
+        <li><a href="./view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a>. Browse stored configuration in the browser or cub commander, compare environments and separate editing from release.</li>
       </ul>
     </section>
+    <details class="route-help">
+      <summary>Need help choosing? Follow the configuration lifecycle</summary>
     <section aria-labelledby="by-step">
       <h2 id="by-step">Find a Guide by the step you are on</h2>
     <section aria-labelledby="start">
@@ -808,9 +821,10 @@
       <p>The FAQ answers questions about safety, upgrades, and current limits, among others.</p>
     </section>
     </section>
+    </details>
+    <p class="caption">For agents: the same Guide index is available as <a href="./guides.json">guides.json</a>.</p>
   </main>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#guides-journeys">Five cool demos</a></li><li><a href="#guides-your-tools">Start with what you use</a></li><li><a href="#guides-start-here">Topic based walkthroughs</a></li><li><a href="#guides-helm-questions">Helm questions</a></li><li><a href="#guides-formats">Formats</a></li><li><a href="#guides-gitops">GitOps</a></li><li><a href="#guides-stacks-and-platforms">Stacks and platforms</a></li><li><a href="#guides-confighub">ConfigHub</a></li><li><a href="#by-step">Find a Guide by the step you are on</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./journey-values-did-nothing.html">Helm ignores my values &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./try-aicr.html">GPU nodes and AICR</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>
