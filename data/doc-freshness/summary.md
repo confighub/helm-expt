@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-01 (commit `ba76a123cc`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-01 (commit `9023a2955c`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 461 |
-| Fresh (no linked source newer than the doc) | 62 |
-| **Review-due** | 98 |
-| No linked evidence sources (cannot auto-trigger) | 301 |
+| Authored docs tracked | 462 |
+| Fresh (no linked source newer than the doc) | 63 |
+| **Review-due** | 97 |
+| No linked evidence sources (cannot auto-trigger) | 302 |
 
 ## Review queue
 
@@ -132,7 +132,6 @@ most recently changed triggers.
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
 | [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-08-26 | 1 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
-| [docs/user/workshop-byo-charts-guide.md](../../docs/user/workshop-byo-charts-guide.md) | user | 2026-09-23 | 1 | `data/ai-custom-field/summary.md (2026-09-24)` |
 
 ## Docs with no linked evidence sources
 
@@ -367,6 +366,7 @@ into this freshness model.
 - [docs/planning/workshop-ai-api-plan.md](../../docs/planning/workshop-ai-api-plan.md)
 - [docs/planning/workshop-context-and-handoff.md](../../docs/planning/workshop-context-and-handoff.md)
 - [docs/planning/workshop-frictionless-entry-plan.md](../../docs/planning/workshop-frictionless-entry-plan.md)
+- [docs/planning/workshop-guide-design-review.md](../../docs/planning/workshop-guide-design-review.md)
 - [docs/planning/workshop-journey-acceptance.md](../../docs/planning/workshop-journey-acceptance.md)
 - [docs/planning/workshop-stories-entry-mid-keystone.md](../../docs/planning/workshop-stories-entry-mid-keystone.md)
 - [docs/planning/workshop-ux-readiness.md](../../docs/planning/workshop-ux-readiness.md)
