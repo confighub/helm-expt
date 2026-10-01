@@ -5,21 +5,21 @@ metadata:
 spec:
   description: Worked example applications, kept by hand outside the generated site. The site generator
     turns this into site/apps.json. Each row links to its repository's default branch and records the
-    commit at which it was last checked. `node scripts/verify-workshop-sections.mjs --verify-upstream`
+    commit at which it was last checked. `node scripts/generate-workshop-sections.mjs --verify-upstream`
     flags any row whose example has changed on its branch since. The cub-workshop fixtures conflict-a
     and conflict-b exist to show a refusal, so they belong to Guides, not this list.
   checkedAt: '2026-09-28'
   apps:
   - id: workshop-demo
     name: The shop app, five journeys
-    summary: 'A small shop app built with an AI assistant, followed through the five journeys: values
-      that did nothing, fixes that survive, what the app needs, before GitOps takes over, and an image
-      that no longer exists.'
+    summary: 'A small shop app built with an AI assistant, followed through five journeys: ineffective
+      Helm values, fixes that survive regeneration, platform requirements, a Redis migration before
+      Argo CD takes over, and an image that no longer exists.'
     delivery: plain
     repository: monadic/workshop-demo
     path: ''
     branch: main
-    checkedCommit: 6e56b6707e13358f50f4257a6030cf5e951778b2
+    checkedCommit: e0a525af6b4556fdfc52d8566e65a5a7151e82cf
   - id: shop-storefront
     name: storefront
     summary: 'A shop service for the storefront: a Deployment and a Service in namespace retail.'
@@ -161,13 +161,13 @@ spec:
     checkedCommit: 148890b4cc77b7a908b748a7beb5ecbf7418a256
   - id: argo-intermediate-git-as-database
     name: 'Argo CD intermediate: Git as a database'
-    summary: An Argo CD fleet repository with one planted instance of each of seven ways a config repository
-      becomes a database.
+    summary: An Argo CD fleet repository that demonstrates seven habits which make a config repository
+      act like a database, including layered values, registered clusters and an in-repo chart.
     delivery: argo-cd
     repository: confighub/examples
     path: gitops/argo/intermediate-git-as-database
     branch: main
-    checkedCommit: 148890b4cc77b7a908b748a7beb5ecbf7418a256
+    checkedCommit: 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
   - id: argo-expert-app-of-apps
     name: 'Argo CD expert: app of apps on three clusters'
     summary: A brownfield Argo CD layout of the kind a platform team runs, across three clusters.
