@@ -8,8 +8,11 @@
 //                       every row to satisfy its section's schema, and every link to resolve
 //   --self-test         show that --verify refuses a broken registry
 //   --sync-stacks DIR   pin data/workshop-stacks/stacks.yaml from a cub-workshop checkout
-//   --verify-upstream   network: each released plugin's latest GitHub release, each app's
-//                       default branch and the stacks' pinned commit, against what is recorded
+//   --verify-upstream   network: fail if a released plugin, app path or stacks snapshot drifted
+//   --upstream-report PATH
+//                       network: write JSON drift findings and exit zero when discovery succeeds
+//   --sync-plugins      network: refresh released plugin tags, dates and pinned install commands
+//   --sync-apps         network: print app drift URLs and paths without changing checked commits
 //
 // Sources kept by hand live outside site/: data/workshop-plugins/plugins.yaml,
 // data/workshop-apps/apps.yaml and data/workshop-guides/guides.yaml. The stacks
@@ -441,7 +444,77 @@ function selfTest() {
   refuses("four journeys", (i) => { i.guides.spec.guides.shift(); }, "five journeys");
   refuses("empty summary", (i) => { i.stacks.spec.stacks[0].description = " "; }, "has no summary");
   check(validate({ rows: [] }, schemaFor("plugins")).length > 0, "self-test: the schema accepted a document with no header");
-  console.log("self-test passed: duplicate IDs, unknown states, missing install commands, short commits, unknown deliveries, missing pages, journey order, empty summaries, a field put on a Guide group, a Guide command missing from its page, a plugin naming a missing stack and a listing missing an assessment stage are all refused");
+  selfTestUpstreamReport();
+  // Keep the issue tracker’s pure offline contract in this existing self-test
+  // entry point, so the verify chain covers the report consumer as well.
+  execFileSync(process.execPath, ["--test", "tests/workshop-drift-report.test.mjs"], { cwd: repoRoot, stdio: "inherit" });
+  console.log("self-test passed: registry schema refusals, bounded upstream drift discovery, and the upstream issue tracker are all covered");
+}
+
+function selfTestUpstreamReport() {
+  const sha = (letter) => letter.repeat(40);
+  const releases = [
+    { tag_name: "tool-v1.2.0-rc.1", published_at: "2026-10-03T00:00:00Z", prerelease: true, draft: false },
+    { tag_name: "tool-v1.1.0", published_at: "2026-10-02T00:00:00Z", prerelease: false, draft: false },
+    { tag_name: "tool-v1.0.0", published_at: "2026-10-01T00:00:00Z", prerelease: false, draft: false },
+    { tag_name: "other-v9.0.0", published_at: "2026-10-04T00:00:00Z", prerelease: false, draft: false },
+  ];
+  const responses = new Map([
+    ["repos/acme/tools/releases?per_page=100&page=1", releases],
+    ["repos/acme/repo/commits/main", { sha: sha("b") }],
+    ["repos/acme/repo/git/trees/" + sha("a") + "?recursive=1", { tree: [{ path: "apps/old.yaml", type: "blob", sha: "one" }, { path: "unchanged.yaml", type: "blob", sha: "same" }] }],
+    ["repos/acme/repo/git/trees/" + sha("b") + "?recursive=1", { tree: [{ path: "apps/new.yaml", type: "blob", sha: "two" }, { path: "unchanged.yaml", type: "blob", sha: "same" }] }],
+    ["repos/acme/stacks/commits/main", { sha: sha("d") }],
+    ["repos/acme/stacks/git/trees/" + sha("c") + "?recursive=1", { tree: [{ path: "stacks/old.yaml", type: "blob", sha: "old" }] }],
+    ["repos/acme/stacks/git/trees/" + sha("d") + "?recursive=1", { tree: [{ path: "stacks/new.yaml", type: "blob", sha: "new" }] }],
+  ]);
+  const calls = [];
+  const client = githubClient((path) => {
+    calls.push(path);
+    check(responses.has(path), `self-test upstream: unexpected API path ${path}`);
+    return responses.get(path);
+  });
+  const report = upstreamReport({
+    plugins: [{ id: "tool", state: "released", repository: "acme/tools", release: { tag: "tool-v1.0.0" }, install: "cub plugin install acme/tools@tool-v1.0.0" }],
+    apps: [
+      { id: "renamed", repository: "acme/repo", path: "apps/old.yaml", branch: "main", checkedCommit: sha("a") },
+      { id: "unchanged-path", repository: "acme/repo", path: "unchanged.yaml", branch: "main", checkedCommit: sha("a") },
+    ],
+    stacks: { repository: "acme/stacks", commit: sha("c") }, client,
+  });
+  check(report.plugins.length === 1 && report.plugins[0].latestTag === "tool-v1.1.0", "self-test upstream: stable prefixed release selection failed");
+  check(report.apps.length === 1 && report.apps[0].files[0] === "apps/old.yaml", "self-test upstream: renamed app path was not reported");
+  check(report.stacks.length === 1 && report.stacks[0].files[0] === "stacks/new.yaml", "self-test upstream: changed stack tree was not reported");
+  check(calls.filter((path) => path === `repos/acme/repo/commits/main`).length === 1, "self-test upstream: repeated repository head was not cached");
+  const missingStable = githubClient((path) => path === "repos/acme/tools/releases?per_page=100&page=1" ? [{ tag_name: "tool-v2.0.0-rc.1", prerelease: true, draft: false }] : { sha: sha("e") });
+  let refusedMissingStable = false;
+  try {
+    upstreamReport({ plugins: [{ id: "tool", state: "released", repository: "acme/tools", release: { tag: "tool-v1.0.0" } }], apps: [], stacks: { repository: "acme/stacks", commit: sha("e") }, client: missingStable });
+  } catch (error) {
+    check(error.message.includes("no stable GitHub release"), `self-test upstream: missing stable release failed unclearly: ${error.message}`);
+    refusedMissingStable = true;
+  }
+  check(refusedMissingStable, "self-test upstream: a missing stable release was accepted");
+  const truncated = githubClient((path) => {
+    if (path === "repos/acme/repo/commits/main") return { sha: sha("b") };
+    if (path.includes("/git/trees/")) return { truncated: true, tree: [] };
+    throw new Error(`self-test API error for ${path}`);
+  });
+  let refusedTruncated = false;
+  try {
+    upstreamReport({ plugins: [], apps: [{ id: "app", repository: "acme/repo", path: "apps", branch: "main", checkedCommit: sha("a") }], stacks: false, client: truncated });
+  } catch (error) {
+    check(error.message.includes("tree was truncated"), `self-test upstream: truncation failed unclearly: ${error.message}`);
+    refusedTruncated = true;
+  }
+  check(refusedTruncated, "self-test upstream: truncated tree was accepted");
+  try {
+    upstreamReport({ plugins: [], apps: [{ id: "app", repository: "acme/error", path: "apps", branch: "main", checkedCommit: sha("a") }], stacks: false, client: githubClient(() => { throw new Error("GitHub API 503"); }) });
+  } catch (error) {
+    check(error.message.includes("GitHub API 503"), `self-test upstream: API error was hidden: ${error.message}`);
+    return;
+  }
+  throw new Error("self-test upstream: an API error was accepted");
 }
 
 function syncStacks(from) {
@@ -534,45 +607,179 @@ function syncJourneys(from) {
   console.log(`pinned ${journeys.length} journeys from monadic/workshop-demo at ${commit.slice(0, 12)}`);
 }
 
-function gh(args) {
-  return execFileSync("gh", args, { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
+function ghJson(path) {
+  const text = execFileSync("gh", ["api", path], {
+    encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], maxBuffer: 20 * 1024 * 1024,
+  });
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    throw new Error(`GitHub API returned invalid JSON for ${path}: ${error.message}`);
+  }
+}
+
+// The command-line client keeps this script usable with either GH_TOKEN or an
+// existing gh login. Its path cache is also important here: many app rows share
+// the same repository, head and checked commit.
+function githubClient(get = ghJson) {
+  const cache = new Map();
+  return {
+    get(path) {
+      if (!cache.has(path)) cache.set(path, get(path));
+      return cache.get(path);
+    },
+  };
+}
+
+function tagPrefix(tag) {
+  const match = String(tag).match(/^(.*?)(?:v?\d+(?:\.\d+)*(?:[-+][0-9A-Za-z.-]+)?)$/);
+  check(match, `release tag ${tag} does not end in a version`);
+  return match[1];
+}
+
+function releaseFor(plugin, client) {
+  const releases = [];
+  for (let page = 1; ; page += 1) {
+    const batch = client.get(`repos/${plugin.repository}/releases?per_page=100&page=${page}`);
+    check(Array.isArray(batch), `${plugin.id}: GitHub releases response is not an array`);
+    releases.push(...batch);
+    if (batch.length < 100) break;
+  }
+  const prefix = tagPrefix(plugin.release.tag);
+  const candidates = releases
+    .filter((release) => !release.draft && !release.prerelease && typeof release.tag_name === "string")
+    .filter((release) => {
+      try { return tagPrefix(release.tag_name) === prefix; } catch { return false; }
+    })
+    .sort((left, right) => String(right.published_at ?? "").localeCompare(String(left.published_at ?? "")));
+  check(candidates.length > 0, `${plugin.id}: no stable GitHub release matches ${prefix || "the unprefixed tag series"} in ${plugin.repository}`);
+  const latest = candidates[0];
+  check(latest.published_at, `${plugin.id}: latest stable release ${latest.tag_name} has no published_at`);
+  return { tag: latest.tag_name, publishedAt: latest.published_at };
+}
+
+function commitSha(repository, ref, client) {
+  const commit = client.get(`repos/${repository}/commits/${ref}`);
+  check(/^[0-9a-f]{40}$/.test(commit?.sha ?? ""), `${repository}@${ref}: GitHub returned no full commit SHA`);
+  return commit.sha;
+}
+
+function tree(repository, commit, client) {
+  const result = client.get(`repos/${repository}/git/trees/${commit}?recursive=1`);
+  check(result && result.truncated !== true, `${repository}@${commit}: recursive Git tree was truncated; refusing to hide possible path drift`);
+  check(Array.isArray(result?.tree), `${repository}@${commit}: GitHub returned no recursive Git tree`);
+  return new Map(result.tree.filter((entry) => ["blob", "commit"].includes(entry.type)).map((entry) => [entry.path, entry.sha]));
+}
+
+function changedPaths(repository, checkedCommit, head, path, client) {
+  const before = tree(repository, checkedCommit, client);
+  const after = tree(repository, head, client);
+  const within = (name) => !path || name === path || name.startsWith(`${path}/`);
+  return [...new Set([...before.keys(), ...after.keys()])]
+    .filter(within)
+    .filter((name) => before.get(name) !== after.get(name))
+    .sort();
+}
+
+function compareUrl(repository, checkedCommit, head) {
+  return `https://github.com/${repository}/compare/${checkedCommit}...${head}`;
+}
+
+export function upstreamReport(input = {}) {
+  const plugins = input.plugins ?? readSource("plugins").spec.plugins;
+  const apps = input.apps ?? readSource("apps").spec.apps;
+  const stacks = input.stacks === false ? false : input.stacks ?? readSource("stacks").spec;
+  const client = input.client ?? githubClient();
+  const report = { plugins: [], apps: [], stacks: [] };
+  for (const plugin of plugins.filter((row) => row.state === "released")) {
+    const latest = releaseFor(plugin, client);
+    if (latest.tag !== plugin.release.tag) report.plugins.push({
+      id: plugin.id, repository: plugin.repository, currentTag: plugin.release.tag, latestTag: latest.tag, publishedAt: latest.publishedAt,
+    });
+  }
+  for (const app of apps) {
+    const head = commitSha(app.repository, app.branch, client);
+    if (head === app.checkedCommit) continue;
+    const files = changedPaths(app.repository, app.checkedCommit, head, app.path ?? "", client);
+    if (!app.path || files.length) report.apps.push({
+      id: app.id, repository: app.repository, path: app.path ?? "", checkedCommit: app.checkedCommit, head,
+      compareUrl: compareUrl(app.repository, app.checkedCommit, head), files,
+    });
+  }
+  if (stacks) {
+    const head = commitSha(stacks.repository, "main", client);
+    if (head !== stacks.commit) {
+      const files = changedPaths(stacks.repository, stacks.commit, head, "stacks", client);
+      if (files.length) report.stacks.push({
+        repository: stacks.repository, checkedCommit: stacks.commit, head,
+        compareUrl: compareUrl(stacks.repository, stacks.commit, head), files,
+      });
+    }
+  }
+  return report;
+}
+
+function hasDrift(report) {
+  return report.plugins.length + report.apps.length + report.stacks.length > 0;
+}
+
+function formatDrift(report) {
+  return JSON.stringify(report, null, 2);
 }
 
 function verifyUpstream() {
-  const drift = [];
-  for (const plugin of readSource("plugins").spec.plugins.filter((p) => p.state === "released")) {
-    // A repository that releases several plugins tags each with its own
-    // prefix (cub-argo-v0.1.0 in confighub/examples), so the release that
-    // matters is the newest one with that prefix, not the repository's latest.
-    const prefix = plugin.release.tag.replace(/v?\d+(\.\d+)*([-+].*)?$/, "");
-    const latest = prefix
-      ? gh(["release", "list", "--repo", plugin.repository, "--limit", "100", "--json", "tagName", "--jq", `[.[] | select(.tagName | startswith("${prefix}"))][0].tagName`])
-      : gh(["release", "view", "--repo", plugin.repository, "--json", "tagName", "--jq", ".tagName"]);
-    if (latest !== plugin.release.tag) drift.push(`plugin ${plugin.id}: recorded ${plugin.release.tag}, latest release is ${latest}`);
-  }
-  for (const app of readSource("apps").spec.apps) {
-    const head = gh(["api", `repos/${app.repository}/commits/${app.branch}`, "--jq", ".sha"]);
-    if (head === app.checkedCommit) continue;
-    if (!app.path) {
-      drift.push(`app ${app.id}: checked at ${app.checkedCommit.slice(0, 12)}, ${app.branch} is now ${head.slice(0, 12)}`);
-      continue;
+  const report = upstreamReport();
+  if (hasDrift(report)) throw new Error(`the section registries have drifted from upstream:\n${formatDrift(report)}`);
+  console.log("verified upstream: every released plugin is at its latest stable release, every app path and the stacks are unchanged since they were checked");
+}
+
+function writeUpstreamReport(path) {
+  check(path, "--upstream-report needs an output path");
+  const report = upstreamReport();
+  write(path, `${formatDrift(report)}\n`);
+  console.log(`wrote upstream drift report to ${path}: ${report.plugins.length} plugin(s), ${report.apps.length} app(s), ${report.stacks.length} stack snapshot(s)`);
+}
+
+function updatedPinnedInstall(plugin, latestTag) {
+  const install = plugin.install;
+  check(install.startsWith(`cub plugin install ${plugin.repository}`), `${plugin.id}: install command does not start with its repository`);
+  const escaped = plugin.repository.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const pattern = new RegExp(`^(cub plugin install ${escaped})@([^\\s]+)(.*)$`);
+  const match = install.match(pattern);
+  if (!match) return install;
+  return `${match[1]}@${latestTag}${match[2]}`;
+}
+
+function syncPlugins() {
+  const registry = readSource("plugins");
+  const report = upstreamReport({ plugins: registry.spec.plugins, apps: [], stacks: false });
+  const byId = new Map(report.plugins.map((plugin) => [plugin.id, plugin]));
+  let text = readFileSync(sources.plugins, "utf8");
+  for (const plugin of registry.spec.plugins) {
+    const update = byId.get(plugin.id);
+    if (!update) continue;
+    const start = text.indexOf(`    - id: ${plugin.id}\n`);
+    check(start >= 0, `${plugin.id}: registry source has no matching row`);
+    const next = text.indexOf("    - id: ", start + 1);
+    const row = text.slice(start, next < 0 ? text.length : next);
+    const release = `release: {tag: ${plugin.release.tag}, date: "${plugin.release.date}"}`;
+    check(row.includes(release), `${plugin.id}: registry source release differs from parsed record`);
+    let replacement = row.replace(release, `release: {tag: ${update.latestTag}, date: "${update.publishedAt.slice(0, 10)}"}`);
+    const install = updatedPinnedInstall(plugin, update.latestTag);
+    if (install !== plugin.install) {
+      check(replacement.includes(`install: ${plugin.install}`), `${plugin.id}: registry source install differs from parsed record`);
+      replacement = replacement.replace(`install: ${plugin.install}`, `install: ${install}`);
     }
-    const compare = gh(["api", `repos/${app.repository}/compare/${app.checkedCommit}...${head}`, "--jq", "[.files[].filename]|join(\"\\n\")"]);
-    if (compare.split("\n").some((file) => file === app.path || file.startsWith(`${app.path}/`))) {
-      drift.push(`app ${app.id}: ${app.path} changed on ${app.branch} since ${app.checkedCommit.slice(0, 12)}`);
-    }
+    text = `${text.slice(0, start)}${replacement}${text.slice(next < 0 ? text.length : next)}`;
   }
-  const stacks = readSource("stacks").spec;
-  const stacksHead = gh(["api", `repos/${stacks.repository}/commits/main`, "--jq", ".sha"]);
-  if (stacksHead !== stacks.commit) {
-    const changed = gh(["api", `repos/${stacks.repository}/compare/${stacks.commit}...${stacksHead}`, "--jq", "[.files[].filename|select(startswith(\"stacks/\"))]|length"]);
-    if (changed !== "0") drift.push(`stacks: ${changed} file(s) under stacks/ changed since ${stacks.commit.slice(0, 12)}; run --sync-stacks`);
-  }
-  if (drift.length) {
-    console.error(`the section registries have drifted from upstream:\n  ${drift.join("\n  ")}`);
-    process.exit(1);
-  }
-  console.log("verified upstream: every released plugin is at its latest release, every app and the stacks are unchanged since they were checked");
+  if (byId.size) write(sources.plugins, text);
+  console.log(byId.size ? `updated ${byId.size} released plugin release pin(s); only already-pinned install commands changed and notes were left unchanged` : "released plugin pins already match latest stable releases");
+}
+
+function syncApps() {
+  const report = upstreamReport({ plugins: [], stacks: false });
+  if (!report.apps.length) console.log("no app paths changed; checked commits were left unchanged");
+  else for (const app of report.apps) console.log(`${app.id}: ${app.files.join(", ") || "repository changed"}\n  ${app.compareUrl}`);
 }
 
 const args = process.argv.slice(2);
@@ -580,9 +787,12 @@ if (args.includes("--generate")) generate();
 else if (args.includes("--verify")) verify();
 else if (args.includes("--self-test")) selfTest();
 else if (args.includes("--verify-upstream")) verifyUpstream();
+else if (args.includes("--upstream-report")) writeUpstreamReport(args[args.indexOf("--upstream-report") + 1]);
+else if (args.includes("--sync-plugins")) syncPlugins();
+else if (args.includes("--sync-apps")) syncApps();
 else if (args.includes("--sync-stacks")) syncStacks(args[args.indexOf("--sync-stacks") + 1]);
 else if (args.includes("--sync-journeys")) syncJourneys(args[args.indexOf("--sync-journeys") + 1]);
 else {
-  console.error("usage: generate-workshop-sections.mjs --generate | --verify | --self-test | --sync-stacks <cub-workshop dir> | --sync-journeys <workshop-demo dir> | --verify-upstream");
+  console.error("usage: generate-workshop-sections.mjs --generate | --verify | --self-test | --verify-upstream | --upstream-report <path> | --sync-plugins | --sync-apps | --sync-stacks <cub-workshop dir> | --sync-journeys <workshop-demo dir>");
   process.exit(2);
 }

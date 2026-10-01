@@ -1,0 +1,66 @@
+name: Workshop upstream freshness
+on:
+  schedule:
+    - cron: '23 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: workshop-upstream-freshness
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Install YAML reader
+        run: sudo apt-get update && sudo apt-get install -y python3-yaml
+      - name: Compare upstream without changing evidence
+        run: node scripts/generate-workshop-sections.mjs --upstream-report "$RUNNER_TEMP/workshop-upstream.json"
+      - name: Maintain one drift tracking issue
+        run: node scripts/report-workshop-drift.mjs "$RUNNER_TEMP/workshop-upstream.json"
+      - name: Propose released plugin pins
+        run: |
+          node scripts/generate-workshop-sections.mjs --sync-plugins
+          HELM_EXPT_SITE_GENERATED_AT="$(cat site/generated-at.txt)" npm run site:generate
+          npm run site:ux:verify
+          npm run site:verify
+          npm run verify:no-personal-names
+          npm run verify:no-temp-paths
+      - uses: peter-evans/create-pull-request@v7
+        id: proposal
+        with:
+          branch: codex/registry-plugin-refresh
+          title: 'plugins: refresh released version pins'
+          commit-message: 'plugins: refresh released version pins'
+          author: 'Catalog automation <catalog-automation@users.noreply.github.com>'
+          committer: 'Catalog automation <catalog-automation@users.noreply.github.com>'
+          draft: true
+          add-paths: |
+            data/workshop-plugins/plugins.yaml
+            site/
+          body: |
+            Refresh released plugin tags, release dates and pinned install commands. Generated pages use the committed timestamp. This does not change app checked commits or certify new plugin behavior.
+
+            Before merging, review each release's notes against the summary and limitations. A release may change commands or guarantees. Related: #2051 and the upstream drift tracking issue.
+
+            Focused site and text gates ran before this proposal. The full verification, site and signature workflows are dispatched on this branch because a workflow-token PR does not trigger pull_request workflows. Review their results and the release notes before marking ready. A person must merge.
+      - name: Run PR gates explicitly for workflow-token commits
+        if: steps.proposal.outputs.pull-request-operation == 'created' || steps.proposal.outputs.pull-request-operation == 'updated'
+        run: |
+          gh workflow run full-verify.yml --ref codex/registry-plugin-refresh
+          gh workflow run site-verify.yml --ref codex/registry-plugin-refresh
+          gh workflow run installer-package-signatures.yml --ref codex/registry-plugin-refresh
