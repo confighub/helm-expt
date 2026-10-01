@@ -1,0 +1,90 @@
+{
+  "scope": "eight offline Helm renders; selected configuration assertions only",
+  "chartSHA256": "27e930e366d22c999002008ad5ec7961bda00410a84287210d0fffbee8150885",
+  "builderSHA256": "3b57920845a03a35d63cf105b9fc45bb32810fe2c408079c6dd3e75c30bc3042",
+  "fixtureSHA256": "60fdccefa39ca242c5abf4d8712a2cdb41c3d9c1e67b8f226b1848e946cc8bf9",
+  "helmVersion": "v4.1.4+g05fa379",
+  "behavioralEvidence": "not-run",
+  "cases": [
+    {
+      "id": "demo-in-cluster-git",
+      "inputSHA256": "6553f8d034082837f3c3ac41f97406a2701ff7b74e2a3ffc928256bd601d5227",
+      "valuesSHA256": "a7ef1772b9612cc9d972e36a8e85c6bf09ffc6124e8d9f446f71015ab102aeb1",
+      "projectsSHA256": "6a6231b903b569a8e63ffd7d25c402f14a65b938916ef84976da07e3ce40196b",
+      "renderSHA256": "51fc24f8e3eaa524487f08b9bcb6b88ccb801629676ba960cb48487e8fae212e",
+      "objects": 55,
+      "projectCount": 2,
+      "assertions": "passed"
+    },
+    {
+      "id": "demo-in-cluster-confighub",
+      "inputSHA256": "d6c95ea559a4603927a2be03fe5117c125675251320aad4b9c4632721e619936",
+      "valuesSHA256": "602bf1513fe079a24acf4c741f9c0ec21483fae8878a25cf0936f7d6e408ba39",
+      "projectsSHA256": "46c3afad59df9da6f8ddd20a50c61b6b2e121654717031f44d7d72225b0d2fb1",
+      "renderSHA256": "5da1c4b589c90593a172723e2ad5b7e0a44819713b6b3b4bbc1872e949f0c9cc",
+      "objects": 55,
+      "projectCount": 2,
+      "assertions": "passed"
+    },
+    {
+      "id": "demo-hub-git",
+      "inputSHA256": "e5cb04e76216fa29a4e23ebdd13df05810266296c5c63a08485499747eadf162",
+      "valuesSHA256": "a7ef1772b9612cc9d972e36a8e85c6bf09ffc6124e8d9f446f71015ab102aeb1",
+      "projectsSHA256": "fe53bd3b29225a259e77626c43bc739689a077984762839ca382c178e82ad4d7",
+      "renderSHA256": "51fc24f8e3eaa524487f08b9bcb6b88ccb801629676ba960cb48487e8fae212e",
+      "objects": 55,
+      "projectCount": 2,
+      "assertions": "passed"
+    },
+    {
+      "id": "demo-hub-confighub",
+      "inputSHA256": "92c0ae9bdfbba766507e6c0d6e73c4b4cadc6cf8e26b1efe62ec671fce0cf306",
+      "valuesSHA256": "602bf1513fe079a24acf4c741f9c0ec21483fae8878a25cf0936f7d6e408ba39",
+      "projectsSHA256": "5906d8f394dee8372e47f339ab38801e0d9aa6e39fab352f7f939c8e8b84db05",
+      "renderSHA256": "5da1c4b589c90593a172723e2ad5b7e0a44819713b6b3b4bbc1872e949f0c9cc",
+      "objects": 55,
+      "projectCount": 2,
+      "assertions": "passed"
+    },
+    {
+      "id": "hardened-in-cluster-git",
+      "inputSHA256": "7eee770644ebc4bf5842ea581be562915d38a91f31e160a745b2c07dfe53e52c",
+      "valuesSHA256": "685aa3ee99cb2853149e03ebc5a9e576564367e0c29fc2b2620ac8475907dd56",
+      "projectsSHA256": "ed533c5fa51a3c7da57c061f7f801778edbb07c338ae2b35a1dd030e1ea60b1e",
+      "renderSHA256": "87a5717e4e6bbfd7682ef332cefddcffcaec26ed7297f5162875738f88a2e6c5",
+      "objects": 56,
+      "projectCount": 3,
+      "assertions": "passed"
+    },
+    {
+      "id": "hardened-in-cluster-confighub",
+      "inputSHA256": "8e2a0a0955d18d943760e251cc95033a1a56ad06575622ec896149166de13dd3",
+      "valuesSHA256": "512fe342fa221f34f2b985fbf69db4f54b2e6e62a42b99e7f2ab5ef5fecc79f3",
+      "projectsSHA256": "a0123d86aba1a1c92567ce4daf0fb6ba4b7f8011852c68079ba8ec6913980cc4",
+      "renderSHA256": "cf5249eef950ca06143cdb7fe4e7e5745641c581ffb4e47b9e0db566ebee034c",
+      "objects": 56,
+      "projectCount": 3,
+      "assertions": "passed"
+    },
+    {
+      "id": "hardened-hub-git",
+      "inputSHA256": "29f16fcf99166166f4f859f2b03a6e2bc6c4fa179549dc8e8cd2c0e988c6bb21",
+      "valuesSHA256": "685aa3ee99cb2853149e03ebc5a9e576564367e0c29fc2b2620ac8475907dd56",
+      "projectsSHA256": "70c99f9d79106bded836b62473bf0ddf50fee876a7d921c6dc34b95b69a62578",
+      "renderSHA256": "87a5717e4e6bbfd7682ef332cefddcffcaec26ed7297f5162875738f88a2e6c5",
+      "objects": 56,
+      "projectCount": 3,
+      "assertions": "passed"
+    },
+    {
+      "id": "hardened-hub-confighub",
+      "inputSHA256": "b57d9b578b871a5dd6350f2ee9361fe1dd7bb19e47514221b77bbfa62252aba3",
+      "valuesSHA256": "512fe342fa221f34f2b985fbf69db4f54b2e6e62a42b99e7f2ab5ef5fecc79f3",
+      "projectsSHA256": "578a68d04b2ed7deb2152e9babf6a8268c789c299cea94bb3b29dd1d2d8deb6c",
+      "renderSHA256": "cf5249eef950ca06143cdb7fe4e7e5745641c581ffb4e47b9e0db566ebee034c",
+      "objects": 56,
+      "projectCount": 3,
+      "assertions": "passed"
+    }
+  ]
+}
