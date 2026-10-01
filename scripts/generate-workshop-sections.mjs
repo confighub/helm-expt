@@ -486,6 +486,8 @@ function selfTestUpstreamReport() {
   check(report.apps.length === 1 && report.apps[0].files[0] === "apps/old.yaml", "self-test upstream: renamed app path was not reported");
   check(report.stacks.length === 1 && report.stacks[0].files[0] === "stacks/new.yaml", "self-test upstream: changed stack tree was not reported");
   check(calls.filter((path) => path === `repos/acme/repo/commits/main`).length === 1, "self-test upstream: repeated repository head was not cached");
+  const modeClient = githubClient((path) => ({ tree: [{ path: "run.sh", type: "blob", sha: "same", mode: path.includes(sha("a")) ? "100644" : "100755" }] }));
+  check(changedPaths("acme/repo", sha("a"), sha("b"), "run.sh", modeClient)[0] === "run.sh", "self-test upstream: executable mode change was missed");
   const missingStable = githubClient((path) => path === "repos/acme/tools/releases?per_page=100&page=1" ? [{ tag_name: "tool-v2.0.0-rc.1", prerelease: true, draft: false }] : { sha: sha("e") });
   let refusedMissingStable = false;
   try {
@@ -668,7 +670,7 @@ function tree(repository, commit, client) {
   const result = client.get(`repos/${repository}/git/trees/${commit}?recursive=1`);
   check(result && result.truncated !== true, `${repository}@${commit}: recursive Git tree was truncated; refusing to hide possible path drift`);
   check(Array.isArray(result?.tree), `${repository}@${commit}: GitHub returned no recursive Git tree`);
-  return new Map(result.tree.filter((entry) => ["blob", "commit"].includes(entry.type)).map((entry) => [entry.path, entry.sha]));
+  return new Map(result.tree.filter((entry) => ["blob", "commit"].includes(entry.type)).map((entry) => [entry.path, `${entry.type}:${entry.mode ?? ""}:${entry.sha}`]));
 }
 
 function changedPaths(repository, checkedCommit, head, path, client) {
