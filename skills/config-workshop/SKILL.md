@@ -1,10 +1,10 @@
 ---
 name: config-workshop
-description: Use when investigating, comparing, checking, packaging, or retaining Kubernetes configuration from Helm, cub installer, Timoni, AICR, Kubara, OCI, YAML, or ConfigHub. Start from the Catalog and its known questions, escalate to `cub` and the cub workshop plugin only when the question needs the user's own files, and follow the matching Guide for a known path. Resolve exact versions and digests, state which checks ran, and produce a reviewed result without applying to a cluster unless the user explicitly asks.
+description: Use when planning Argo CD, Flux, Kubara or Sveltos adoption, or investigating, comparing, checking, packaging, or retaining Kubernetes configuration from Helm, cub installer, Timoni, AICR, Kubara, OCI, YAML, or ConfigHub. Start from the Catalog and its known questions, escalate to `cub` and the cub workshop plugin only when the question needs the user's own files, and follow the matching Guide for a known path. Resolve exact versions and digests, state which checks ran, and produce a reviewed result without applying to a cluster unless the user explicitly asks.
 license: Apache-2.0
 metadata:
   author: ConfigHub
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # ConfigHub Workshop
@@ -171,10 +171,17 @@ show the user.
 
 ## Follow The Matching Guide With The User
 
-Fourteen Guides under `docs/user` turn a known path into exact commands, a
+The local Guides below turn a known path into exact commands, a
 ready assistant task, and a finish check. Match the user's question to one,
 open it, and run it with the user watching the result, not silently on your
 own.
+
+For an existing estate, route Argo CD, Flux, Kubara, or Sveltos requests using
+the corresponding row in `site/plugins.json`; resolve its current released
+version, install command, linked guide, and limitations there. Follow the
+guide's exercise-specific pin when present. Plans, imports, status reports,
+and handovers have different effects, so follow that guide's prerequisites
+and proof limits rather than treating a plan or import as live health.
 
 | The user's question | Guide | File |
 | --- | --- | --- |
@@ -229,6 +236,15 @@ agent the same way every time" section is the human half of this same check.
   after assigning a destination or delivery runtime.
 - Do not run `kubectl apply`, a controller sync, a ConfigHub mutation, or a
   production change unless the user explicitly asks. Preview first.
+- Do not repeatedly ask for authorization already given, but do not infer
+  permission for a new mutation or later handover from permission to plan or
+  import.
+- For recurring work explicitly requested by the user, record the repository
+  and input revision, target/context, plugin release resolved from the
+  registry, exact commands, approved action scope, checks, and result for each
+  run. Recheck registry and input versions, report drift, and stop at a
+  read-only plan unless the recurring mutation itself was authorized. Do not
+  imply a hosted agent or API integration that has not been configured.
 - Quote a refusal exactly as printed, including `checked: false`,
   `status: "mismatch"`, `status: "unknown"`, and the exit code. Never soften
   it or report it as success.
@@ -311,6 +327,11 @@ When the user wants a pull-request check, create or accept one
 # turn a recorded WorkshopResult into a bounded CI comment
 npm run workshop:ci-report -- --input workshop-result.json --output comment.md
 ```
+
+A controller plugin plan is not a `WorkshopResult`. Do not rename its output
+or invent missing evidence to fit that schema. For a simple plugin-plan CI
+check, retain the command, input revision, output and exit status directly;
+use the bounded report only when a valid `WorkshopResult` actually exists.
 
 Use `--format json` for another agent or tool. Use `--fail-on needs-review` only
 when the repository policy says unresolved findings or omitted checks must stop
