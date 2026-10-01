@@ -17,6 +17,7 @@ import {
   CONFIGURATION_QUESTIONS,
   CONFIGURATION_QUESTION_RESEARCH,
 } from "./lib/configuration-questions.mjs";
+import { scoutUiGuide, configUiGuide } from "./lib/config-ui-guides.mjs";
 import { appLearningPathsHtml } from "./lib/app-learning-paths.mjs";
 import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
@@ -542,6 +543,8 @@ const JOURNEY_LINKS = {
 // that split between a Guide and a Doc. Each is registered once, here; a Doc
 // is marked doc: true and sits in the Docs sidebar.
 const SPLIT_PAGES = [
+  { key: "scoutUiHtml", file: "see-what-is-running.html", title: "See what is running with cub scout", description: "Inspect one workload, its owner and the limits of live observations without changing delivery.", build: () => splitGuideHtml(scoutUiGuide()) },
+  { key: "configUiHtml", file: "view-and-change-config-with-uis.html", title: "View and change configuration with ConfigHub UIs", description: "Find saved configuration with the browser UI or cub commander, compare environments and choose a reviewed next change.", build: () => splitGuideHtml(configUiGuide()) },
   { key: "sveltosOnboardingHtml", file: "bring-sveltos-into-confighub.html", title: "Bring your Sveltos fleet into ConfigHub", description: "Preview a Sveltos fleet, review what changes and connect delivery in stages.", build: () => {
     const plugin = readYaml(join(repoRoot, "data/workshop-plugins/plugins.yaml")).spec.plugins.find(row => row.id === "sveltos");
     return splitGuideHtml(sveltosOnboardingGuide({ install: `cub plugin install ${plugin.repository}@${plugin.release.tag}`, referenceUrl: `https://github.com/${plugin.repository}/blob/${plugin.release.tag}/docs/user/onboard-your-sveltos-fleet.md` }));
@@ -3394,7 +3397,7 @@ function journeyGuideHtml(journey) {
   <main>
     <section aria-labelledby="run-it-yourself">
       <h2 id="run-it-yourself">Run it yourself</h2>
-      <p>The journey is a folder in the public <a href="https://github.com/${repo}">workshop-demo</a> repository. Its script pauses before each command, and Enter runs it.</p>
+      <p>The journey is a folder in the public <a href="https://github.com/${repo}">workshop-demo</a> repository. Its script pauses before each command, and Enter runs it. Read each command before continuing; stop with Ctrl+C whenever you have the result you need. ConfigHub sign-in, upload and protected-update steps are optional later work, not prerequisites for the local check.</p>
       ${commandBlock([
         { comment: "get the journeys", cmd: `git clone https://github.com/${repo}` },
         { comment: "use the version this page describes", cmd: `git -C workshop-demo checkout --quiet ${commit.slice(0, 12)}` },
@@ -4296,6 +4299,8 @@ function tryAicrHtml() {
     <p class="notice"><a href="./d/docs/user/workshop-match-guide.html">Compare a GPU workload with supplied Node facts</a> with direct cub commands or an assistant, including saved results and a failure case.</p>
   <section aria-labelledby="aicr-questions">
     <h2 id="aicr-questions">Choose the question first</h2>
+    <p><strong>New to AICR, with no GPU or cluster?</strong> <a href="#retained-config-path">Start with the local configuration exercise</a>. You will inspect retained files and their identity; you will not deploy them.</p>
+    <p><strong>Already operate GPU nodes?</strong> <a href="#aicr-node-state">Compare node snapshots</a>. This needs cluster access and permission to create the temporary collector resources described above.</p>
     ${markdownLikeTable([
       ["Question", "AICR path"],
       ["What do I have?", "Use snapshot and diff to report differences between existing GPU nodes. No recipe, bundle, or Catalog match is required."],
@@ -5150,6 +5155,7 @@ function composeStackGuideHtml() {
       <h2 id="get-a-stack">Get a stack</h2>
       <p><strong>You want a stack &mdash; a set of configs checked for conflicts before they render. Here is how you get one.</strong></p>
       <h3 id="ready-made">1. Want a ready-made one?</h3>
+      <p><strong>First time here?</strong> Install the <a href="./plugins.html#workshop">Workshop plugin</a>, then run <code>cub stack sandbox eks-inference</code> in a scratch directory. Despite the name, this renders and checks local configuration; it does not create an EKS cluster or request a GPU. Read the check result and missing prerequisites before considering delivery.</p>
       <p>Pick a shipped stack and check it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from ${spellSmallNumber(bundleFacts.eksInferenceBundleCount)} certified bundles, each hash-verified against its receipt. ${spellSmallNumber(shippedStackCount, { capitalize: true })} ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
       <h3 id="compose-your-own">2. Composing your own?</h3>
       <p>Write a manifest that names catalog parts by digest, or let an assistant draft one from images you have already checked. Each part is a bundle pinned by digest with a receipt, or a file of rendered objects the stack owns. Then run <code>cub stack check &lt;file&gt;</code>, read what it names wrong, fix it, and run again until it holds together. The check is the contract you build against; <a href="./d/docs/planning/stack-manifest-spec.html">read the manifest specification</a>.</p>
@@ -6821,6 +6827,7 @@ function pluginsHtml() {
   <main>
     <section aria-labelledby="every-plugin">
       <h2 id="every-plugin">Every plugin</h2>
+      <p>Prefer a visual starting point? <a href="./see-what-is-running.html">Explore your cluster with Scout</a> or <a href="./view-and-change-config-with-uis.html">browse saved configuration with ConfigHub UIs</a>.</p>
       <p>Already running Argo CD or Flux? Start with its assessment Guide below. Bring your controller version, source revision, release and namespace, Secret ownership, and storage constraints. The first plan changes no cluster; review it before generating or running a handover.</p>
       ${markdownLikeTable([["Plugin", "What it does", "State", "Install"], ...tableRows], { rawColumns: [0, 1, 2, 3] })}
     </section>
@@ -6842,6 +6849,7 @@ function familiarGuideStartsHtml() {
       <li><a href="./d/docs/user/workshop-byo-charts-guide.html">I use Helm</a>. Render your own chart, diagnose values and compare a change before installing.</li>
       <li>I use NVIDIA: <a href="./try-aicr.html">inspect an AICR platform configuration</a>, or <a href="./d/docs/demo/aicr/kserve-nim-inference.html">prepare NIM model serving</a>. Local inspection is separate from proving a GPU deployment.</li>
     </ul>
+    <p><a href="./see-what-is-running.html">Show me what is running</a> · <a href="./view-and-change-config-with-uis.html">Let me browse configuration in a UI</a></p>
     <p><a href="./apps.html">Show me an example app</a> to see what changes in everyday work.</p>
   </section>`;
 }
@@ -9339,6 +9347,7 @@ function aiJourneyStartsHtml() {
     <h3 id="ai-connect">Keep your delivery tools and add ConfigHub</h3>
     <p>Ask the agent to inspect first, explain what stays as it is, and prepare a reviewed handover. Use the Guide for your controller; the setup and recovery steps differ.</p>
     ${prompt("Inspect my existing deployment setup using its Workshop Guide. Explain what ConfigHub would add, what would change, and how to go back. Run the non-mutating plan first. Ask before saving ConfigHub data or changing controller delivery.")}
+    <p>Want to see the configuration yourself? <a href="./see-what-is-running.html">Explore the cluster with Scout</a> or <a href="./view-and-change-config-with-uis.html">browse saved configuration in a UI</a>.</p>
     <p><a href="./bring-argo-into-confighub.html">Argo CD</a> · <a href="./bring-flux-into-confighub.html">Flux</a> · <a href="./bring-sveltos-into-confighub.html">Sveltos fleets</a> · <a href="./confighub.html#start-managing">Deploy, promote and manage</a></p>
     <h3 id="ai-repeat">Turn a useful result into repeatable work</h3>
     <p>Once a journey works, keep its inputs, exact commands, checks and expected results in your repository. Ask your agent to prepare a CI check or an operational App from that record. ConfigHub supplies shared configuration, approvals and releases; your runner and controllers do the work.</p>
@@ -9642,6 +9651,7 @@ function kubaraGuideHtml(catalog) {
         { comment: "Each service for each cluster, as Kubara's ApplicationSets deliver it", cmd: "cub kubara render my-platform --out my-platform-render" },
       ])}
       <p><strong>What you get.</strong> <code>plan</code> prints the stages in rollout order, a base for each component, and a variant for each cluster that runs it. For each chart it says if the Workshop Catalog checked the exact version Kubara pins. With Kubara's 3.0 catalogs, the default for Kubara v0.16, the Workshop has checked every upstream chart version they pin (<a href="https://github.com/confighub/helm-expt/pull/2052">#2052</a>), so each one links its Catalog page. <code>render</code> writes each cluster's services as <code>objects.yaml</code> files, and <code>render.json</code> records each chart, values file and digest.</p>
+      <p><strong>You can stop here.</strong> Open one generated <code>objects.yaml</code> and find its chart and values in <code>render.json</code>. You now have inspectable configuration; no service has been deployed. Continue to governance only when you want to store and deliver it.</p>
       <p><strong>Already run Kubara?</strong> Skip <code>init</code> and <code>kubara generate</code>, and run <code>plan</code> and <code>render</code> on your Kubara work directory.</p>
       <p><code>init</code>, <code>generate</code> and <code>plan</code> take seconds. The first <code>render</code> takes longer, because Helm fetches each chart's dependencies into a cached copy. Your work directory stays as it was. In the render, each Secret keeps its keys and loses its values.</p>
       <p><code>init</code> also writes a <code>.gitignore</code> that leaves out <code>.env</code>, <code>**/charts/</code>, <code>**/Chart.lock</code> and <code>**/*.tgz</code>. If one exists, <code>init</code> adds only the lines it lacks. Keep <code>.env</code> out of Git, because it holds the Argo CD password and your Git token.</p>

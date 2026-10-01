@@ -32,6 +32,8 @@ function readCatalogCounts() {
 }
 
 const checks = [
+  { file: "site/see-what-is-running.html", terms: ["cub scout map", "kubectl config current-context", "You can stop here", "view-and-change-config-with-uis.html"] },
+  { file: "site/view-and-change-config-with-uis.html", terms: ["cub commander", "read-only", "separate", "scout-binding", "see-what-is-running.html"] },
   {
     file: "site/guides.html",
     terms: ["Five cool demos", "Topic based walkthroughs", "Helm questions", "Formats", "GitOps", "Stacks and platforms", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "guides.json"],
