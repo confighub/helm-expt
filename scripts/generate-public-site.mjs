@@ -544,7 +544,7 @@ const JOURNEY_LINKS = {
 // is marked doc: true and sits in the Docs sidebar.
 const SPLIT_PAGES = [
   { key: "scoutUiHtml", file: "see-what-is-running.html", title: "See what is running with cub scout", description: "Inspect one workload, its owner and the limits of live observations without changing delivery.", build: () => splitGuideHtml(scoutUiGuide()) },
-  { key: "configUiHtml", file: "view-and-change-config-with-uis.html", title: "View and change configuration with ConfigHub UIs", description: "Find saved configuration with the browser UI or cub commander, compare environments and choose a reviewed next change.", build: () => splitGuideHtml(configUiGuide()) },
+  { key: "configUiHtml", file: "view-and-change-config-with-uis.html", title: "View and change configuration with ConfigHub UIs", description: "Start with the official ConfigHub GUI for Enterprise Server and SaaS; learn where the UI SDK and experimental terminal UI fit.", build: () => splitGuideHtml(configUiGuide()) },
   { key: "sveltosOnboardingHtml", file: "bring-sveltos-into-confighub.html", title: "Bring your Sveltos fleet into ConfigHub", description: "Preview a Sveltos fleet, review what changes and connect delivery in stages.", build: () => {
     const plugin = readYaml(join(repoRoot, "data/workshop-plugins/plugins.yaml")).spec.plugins.find(row => row.id === "sveltos");
     return splitGuideHtml(sveltosOnboardingGuide({ install: `cub plugin install ${plugin.repository}@${plugin.release.tag}`, referenceUrl: `https://github.com/${plugin.repository}/blob/${plugin.release.tag}/docs/user/onboard-your-sveltos-fleet.md` }));
@@ -611,6 +611,7 @@ const SITE_PAGE_RELPATHS = {
   compareHtml: "compare.html",
   whatsNewHtml: "whats-new.html",
   docsHtml: "docs.html",
+  catalogDocsHtml: "catalog-docs.html",
   docsReferenceHtml: "docs-reference.html",
   verificationHtml: "verification.html",
   proofHtml: "proof.html",
@@ -696,7 +697,8 @@ const PAGE_DESCRIPTIONS = {
   "deploy-with-flux-or-argo.html": "Reconcile a published component with no account, render any catalog chart to an image your Flux, Argo CD, or kubectl consumes, and verify its receipt first.",
   "why-do-dev-and-prod-differ.html": "Record development and production as related configurations so their exact differences and promotion history remain visible.",
   "does-cluster-match-approved-config.html": "Compare approved configuration with live cluster state while keeping the current field-coverage limits visible.",
-  "docs.html": "Find the technical instructions for the configuration or deployment step you are working on now.",
+  "docs.html": "Find documentation on AI, GitOps, deployment, configuration, apps, GPUs and ConfigHub.",
+  "catalog-docs.html": "Browse the complete entry documentation and retained demonstration index, with source notes and evidence limits.",
   "docs-reference.html": "Browse the complete technical guide and evidence index for ConfigHub Workshop and helm-expt.",
   "verification.html": "Choose one ConfigHub Workshop claim, run the matching check, and understand whether it uses committed evidence or creates a fresh live result.",
   "proof.html": "See how far each claim was tested, rerun one check yourself, and review security before release: verified, certified, signed.",
@@ -724,6 +726,7 @@ const PAGE_DESCRIPTIONS = {
   "d/docs/demo/kubara/checkpoints.html": "Inspect the status, scope, receipt, command, and limitation behind every Kubara plus ConfigHub benefit claim.",
   "d/docs/demo/kubara/gui-tour.html": "Follow a receipt-bound GUI walkthrough of the Kubara topology, component Catalog, applications, wiring, approvals, releases, matrix, and orphan audit.",
 };
+let guidePagePaths;
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -777,6 +780,7 @@ if (mode === "--generate") {
   write(comparePath, site.compareHtml);
   write(whatsNewPath, site.whatsNewHtml);
   write(docsPath, site.docsHtml);
+  write(join(siteRoot, "catalog-docs.html"), site.catalogDocsHtml);
   write(docsReferencePath, site.docsReferenceHtml);
   write(verificationPath, site.verificationHtml);
   write(proofPath, site.proofHtml);
@@ -936,6 +940,7 @@ if (mode === "--generate") {
   check(existsSync(challengePath), "site/challenge.html is missing; run npm run site:generate");
   check(readFileSync(challengePath, "utf8") === site.challengeHtml, "site/challenge.html is stale");
   check(readFileSync(docsPath, "utf8") === site.docsHtml, "site/docs.html is stale");
+  check(readFileSync(join(siteRoot, "catalog-docs.html"), "utf8") === site.catalogDocsHtml, "site/catalog-docs.html is stale");
   check(readFileSync(docsReferencePath, "utf8") === site.docsReferenceHtml, "site/docs-reference.html is stale");
   check(readFileSync(verificationPath, "utf8") === site.verificationHtml, "site/verification.html is stale");
   check(readFileSync(proofPath, "utf8") === site.proofHtml, "site/proof.html is stale");
@@ -1553,6 +1558,7 @@ function buildSite(generatedAt) {
     compareHtml: movedPageHtml("Versus what you already use", "./index.html", "The comparison page retired; the home page says what ConfigHub Workshop is and does."),
     whatsNewHtml: movedPageHtml("What changed", "./charts/index.html", "The what's-new page retired; the Catalog lists every tested configuration."),
     docsHtml: calmPage(docsHtml(catalog)),
+    catalogDocsHtml: calmPage(catalogDocsHtml()),
     docsReferenceHtml: docsReferenceHtml(),
     verificationHtml: verificationHtml(),
     proofHtml: calmPage(proofHtml(catalog)),
@@ -2045,7 +2051,8 @@ function buildLlmsTxt() {
 - [Examples](${SITE_BASE_URL}testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
 - [Release, promote and roll back](${SITE_BASE_URL}how-it-works.html): the Guide to ConfigHub's four verbs, release by digest, promote, gate on an approval, and roll back. [How ConfigHub works](${SITE_BASE_URL}how-confighub-works.html) explains where they fit.
 - [The five journeys](${SITE_BASE_URL}guides.html#guides-journeys): each starts from a problem a person brings to their agent, such as values that did nothing or fixes an assistant undid. Their rows lead guides.json.
-- [Docs](${SITE_BASE_URL}docs.html): the Docs tree, five areas each starting with a short doc for people, with the complete technical reference index under All technical references.
+- [Docs](${SITE_BASE_URL}docs.html): explanations by topic, including AI, GitOps and deployment, with general references under All technical references.
+- [Catalog docs](${SITE_BASE_URL}catalog-docs.html): the complete per-entry demonstration and corpus documentation index.
 - [All technical references](${SITE_BASE_URL}docs.html#all-references): the complete guide and evidence index, on Docs.
 - [Continue with ConfigHub](${SITE_BASE_URL}confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
 - [Catalog](${SITE_BASE_URL}charts/index.html): every tested component and version, with its image, receipt, and the commands to check and verify it.
@@ -2571,7 +2578,7 @@ function siteSections() {
     ...SPLIT_PAGES.filter((page) => !page.doc).map((guide) => [guide.file, guide.title]),
   ] },
   { label: "Docs", hub: "docs.html", pages: [
-    ["docs.html", "Docs"], ["config.html", "How configuration works"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"],
+    ["docs.html", "Docs"], ["catalog-docs.html", "Catalog docs"], ["config.html", "How configuration works"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"],
     ["quirks.html", "What charts hide"], ["how-confighub-works.html", "How ConfigHub works"], ["confighub.html", "ConfigHub Server"],
     ["proof.html", "Why trust it"], ["known-gaps.html", "Known gaps"], ["matrix.html", "Evidence index"],
     ...SPLIT_PAGES.filter((page) => page.reference).map((page) => [page.file, page.title]),
@@ -2597,7 +2604,21 @@ function siteChromeCss() {
   .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
   .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
   .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
-  .cw-content { min-width: 0; }
+  .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  .cw-guide .cw-content { max-width: 880px; }
+  .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
+  .cw-guide h1 { font-size: clamp(2rem, 3vw, 2.7rem); line-height: 1.15; }
+  .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
+  .cw-content pre { max-width: 100%; overflow-x: auto; }
+  .cw-content summary { cursor: pointer; padding: 10px 0; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cw-skip { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 6px; }
+  .cw-skip:focus { top: 12px; }
+  @media (max-width: 600px) {
+    .cw-layout { padding: 0 16px; }
+    .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 200px; }
+    .cw-guide .cw-content h1 { overflow-wrap: anywhere; }
+  }
   .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
   .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
   .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
@@ -2676,6 +2697,8 @@ function sectionStartingQuestions(label) {
       ["promote.html", "How do I check a change before promotion?"],
     ],
     Docs: [
+      ["docs.html#areas", "Which topic do I need?"],
+      ["catalog-docs.html", "Where are the docs for this Catalog entry?"],
       ["config.html", "What does configuration as data mean?"],
       ["how-confighub-works.html", "How does ConfigHub work?"],
       ["variants.html", "How do I keep changes for each environment?"],
@@ -2687,16 +2710,33 @@ function sectionStartingQuestions(label) {
   }[label];
 }
 
-function siteSidebarHtml(relPath, section) {
+function isGuidePage(relPath) {
+  guidePagePaths ??= new Set(sectionRows("guides").map((row) => row.address.startsWith(SITE_BASE_URL) ? row.address.slice(SITE_BASE_URL.length) : ""));
+  return guidePagePaths.has(relPath) || ["kubara.html", "d/docs/demo/aicr/kserve-nim-inference.html"].includes(relPath);
+}
+
+function guideHeadings(html) {
+  const start = html.indexOf("<main");
+  const end = html.indexOf("</main>");
+  if (start < 0 || end < 0) return [];
+  return [...html.slice(start, end).matchAll(/<h2\b[^>]*\bid="([^"]+)"[^>]*>([\s\S]*?)<\/h2>/g)]
+    .map(([, id, inner]) => [id, inner.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim()])
+    .filter(([, title]) => title);
+}
+
+function siteSidebarHtml(relPath, section, html = "") {
   const base = pageBasePrefix(relPath);
   const list = (pages) => `<ul>${pages.map(([path, label]) => `<li><a href="${base}/${path}"${path === relPath ? ' aria-current="page"' : ""}>${escapeHtml(label)}</a></li>`).join("")}</ul>`;
-  if (relPath === "guides.html" || relPath === "bring-argo-into-confighub.html") {
+  if (relPath === "guides.html" || isGuidePage(relPath)) {
     const local = relPath === "guides.html"
       ? [["guides.html#guides-journeys", "Try a demo"], ["guides.html#guides-your-tools", "Start with your tools"], ["guides.html#guides-start-here", "Browse by topic"]]
-      : [["guides.html", "All Guides"], ["bring-argo-into-confighub.html#preview-setup", "Preview my Argo setup"], ["bring-argo-into-confighub.html#save-confighub", "Continue into ConfigHub"]];
-    return `<p class="cw-nav-title"><strong>${relPath === "guides.html" ? "Find your starting point" : "Your Argo CD Guide"}</strong></p>${list(local)}
+      : [["guides.html", "All Guides"], ...guideHeadings(html).map(([id, title]) => [`${relPath}#${id}`, title])];
+    const primary = local.slice(0, 7);
+    const extra = local.slice(7);
+    return `<p class="cw-nav-title"><strong>${relPath === "guides.html" ? "Find your starting point" : "In this Guide"}</strong></p>${list(primary)}
       <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>
-      <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>`;
+      <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
+${extra.length ? `<details><summary>More in this Guide</summary>${list(extra)}</details>` : ""}`;
   }
   if (section?.hub === relPath) {
     return `<p class="cw-nav-title"><strong>Starting questions</strong></p>${list(sectionStartingQuestions(section.label))}
@@ -2755,9 +2795,10 @@ function injectSiteChrome(html, relPath) {
   const section = siteSectionFor(relPath);
   const toc = siteTocHtml(inner);
   const next = siteNextHtml(relPath, section);
-  const tocRail = ["guides.html", "bring-argo-into-confighub.html"].includes(relPath) ? "" : toc + next;
-  const sidebar = siteSidebarHtml(relPath, section);
-  const layout = `\n<div class="cw-header" role="banner">${chrome}</div>\n<div class="cw-layout${tocRail ? "" : " no-toc"}">\n<nav class="cw-sidebar" aria-label="Sections">${sidebar}</nav>\n<div class="cw-content">\n<details class="cw-mobile-nav"><summary>Browse ${escapeHtml(section ? section.label : "the site")}</summary>${sidebar}</details>${inner}</div>\n${tocRail ? `<nav class="cw-toc" aria-label="On this page and where next">${tocRail}</nav>\n` : ""}</div>\n`;
+  const guidePage = isGuidePage(relPath);
+  const tocRail = guidePage || ["guides.html", "apps.html", "docs.html", "catalog-docs.html"].includes(relPath) ? "" : toc + next;
+  const sidebar = siteSidebarHtml(relPath, section, inner);
+  const layout = `\n<a class="cw-skip" href="#cw-content">Skip to content</a>\n<div class="cw-header" role="banner">${chrome}</div>\n<div class="cw-layout${tocRail ? "" : " no-toc"}${guidePage ? " cw-guide" : ""}">\n<nav class="cw-sidebar" aria-label="Sections">${sidebar}</nav>\n<div class="cw-content" id="cw-content" tabindex="-1">\n<details class="cw-mobile-nav"><summary>${guidePage ? "In this Guide" : `Browse ${escapeHtml(section ? section.label : "the site")}`}</summary>${sidebar}</details>${inner}</div>\n${tocRail ? `<nav class="cw-toc" aria-label="On this page and where next">${tocRail}</nav>\n` : ""}</div>\n`;
   return out.slice(0, bodyStart) + layout + out.slice(bodyClose);
 }
 
@@ -4206,7 +4247,7 @@ function tryHtml(catalog) {
   <p><b>Limits.</b> This renders and inspects. <code>cub installer setup</code> writes files and does not apply them, so nothing has touched a cluster. <a href="./confighub.html">Keep this reviewed result in ConfigHub</a> once you want to change it with your team or promote it between environments.</p>
 </header>
 <main>
-  <div class="narrow-section">
+  <details class="narrow-section"><summary>How this differs from installing with Helm</summary>
     <h3 id="helm-or-cub-installer">Helm or <code>cub installer</code>?</h3>
     <p>Redis is the smallest example on this site, which makes it the clearest place to compare a normal Helm install with the <code>cub installer</code> path.</p>
     ${markdownLikeTable([
@@ -4222,7 +4263,7 @@ function tryHtml(catalog) {
       ["Can it write the rendered result as OCI?", "Yes, with <code>--output-oci</code>. The output holds the selected preset's non-secret objects, source record, and checks."],
       ["Do I need ConfigHub for this first step?", "No. ConfigHub comes later, for Units, variants, approvals, OCI delivery, observations, and operations."],
     ], { rawFirstColumn: true, rawSecondColumn: true })}
-  </div>
+  </details>
 
   <section aria-labelledby="install-cub">
     <h2 id="install-cub">1. Install cub and the package plugin</h2>
@@ -4271,7 +4312,7 @@ grep -R "^kind:" ./redis/out/manifests</code></pre>
     <p>Local files work with kubectl alone. Keep them, test them, apply them with kubectl, or commit them to Git.</p>
     <p><strong>Next:</strong> <a href="./deploy-with-flux-or-argo.html#now-deploy">choose how to deploy the reviewed result</a>.</p>
     <p>For your own Helm values or an unexpected result, <a href="./ask.html">check your configuration with your AI assistant</a>.</p>
-    <p>Other paths: <a href="./testing.html">choose a Helm, AICR, OCI, YAML, promotion, or fleet example</a>, or <a href="./redis-walkthrough.html">continue the detailed Redis walkthrough</a>. Before promoting an upgrade, <a href="./promote.html">check it against the next environment</a>, or <a href="./confighub.html">keep the result in ConfigHub</a>.</p>
+    <p>Other paths: <a href="./testing.html">choose a Helm, AICR, OCI, YAML, promotion, or fleet example</a>, or <a href="./redis-walkthrough.html">continue the detailed Redis walkthrough</a>. Before promoting an upgrade, <a href="./promote.html">check it against the next environment</a>, or <a href="./confighub.html">keep the result in ConfigHub</a>. <a href="./how-it-works.html">Learn how releases, promotion and rollback fit together</a>.</p>
   </section>
 </main>
 <footer><p>The first three steps use no ConfigHub Server and no ConfigHub account.</p></footer>
@@ -4299,9 +4340,12 @@ function tryAicrHtml() {
   <h1>Compare GPU nodes and pull an AICR config</h1>
   <p class="boundary-chip">Two independent starting paths</p>
   <p class="lead">Compare GPU nodes you already run, or inspect one retained AI-platform configuration without a GPU.</p>
+  <p><a href="#retained-config-path">No GPU? Inspect a configuration locally</a> · <a href="#aicr-node-state">Already have GPU nodes? Compare them</a></p>
+  <details><summary>What each path needs and proves</summary>
   <p>An &ldquo;AICR platform&rdquo; here is the composed set of Argo CD Applications AICR generates for one AI target, whether training or inference. This page never runs it, so it stays a <a href="./stack.html#what-a-stack-is">stack</a> in this site's sense, and never becomes the running, governed platform that stack could be.</p>
   <p>The node comparison needs read access to a Kubernetes cluster and creates a temporary collector Job with its ServiceAccount and RBAC. It does not need an AICR recipe or deploy a platform bundle.</p>
   <p>The retained-configuration exercise is local. It needs no ConfigHub account, Kubernetes cluster, cloud account, GPU, or registry login.</p>
+  </details>
 </header>
 <main>
     <p class="notice"><a href="./d/docs/user/workshop-match-guide.html">Compare a GPU workload with supplied Node facts</a> with direct cub commands or an assistant, including saved results and a failure case.</p>
@@ -4309,6 +4353,7 @@ function tryAicrHtml() {
     <h2 id="aicr-questions">Choose the question first</h2>
     <p><strong>New to AICR, with no GPU or cluster?</strong> <a href="#retained-config-path">Start with the local configuration exercise</a>. You will inspect retained files and their identity; you will not deploy them.</p>
     <p><strong>Already operate GPU nodes?</strong> <a href="#aicr-node-state">Compare node snapshots</a>. This needs cluster access and permission to create the temporary collector resources described above.</p>
+    <details><summary>How inspection, destination checks and runtime proof differ</summary>
     ${markdownLikeTable([
       ["Question", "AICR path"],
       ["What do I have?", "Use snapshot and diff to report differences between existing GPU nodes. No recipe, bundle, or Catalog match is required."],
@@ -4316,11 +4361,12 @@ function tryAicrHtml() {
       ["Can this destination accept it?", "Check that the destination matches the variant's GPU, network, cloud, controller, credential, API, and component requirements."],
       ["Did it work?", "Run recipe-dependent resource and runtime checks only after the declared components have been deployed."],
     ])}
+    </details>
   </section>
 
   <section id="aicr-node-state" aria-labelledby="aicr-node-state-title">
     <h2 id="aicr-node-state-title">Path A: compare existing GPU nodes</h2>
-    <p>Use AICR's read-only path when the question is whether two nodes or two points in time differ. It records kernel command-line settings, modules, system services, GPU hardware, and other measured state as YAML.</p>
+    <p><strong>Needs an existing Kubernetes cluster and collector permissions.</strong> The snapshot creates a temporary Job, ServiceAccount and RBAC; it does not change the node configuration. Use AICR's observation path when the question is whether two nodes or two points in time differ. It records kernel command-line settings, modules, system services, GPU hardware, and other measured state as YAML.</p>
     <pre><code>aicr snapshot --output baseline.yaml
 # select the other node or repeat after the change
 aicr snapshot --output current.yaml
@@ -5832,6 +5878,7 @@ function askHtml(catalog) {
     <p><a class="button primary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a> <button class="button secondary" id="load-example" type="button">See an illustrative object review</button></p>
     <p>Use this page for your own chart, values, new version, or unexpected result. Use the <a href="./charts/index.html">Catalog</a> when we have already tested the exact chart and version.</p>
     <p>The chart route builds instructions for your local AI assistant. Already have rendered YAML? Check it in this browser with no AI needed. Neither route deploys your configuration.</p>
+    <p><strong>Flattened configuration</strong> means the fully rendered Kubernetes objects, with template choices already resolved. You can inspect and change that data before choosing a delivery path.</p>
     <p><strong>Checking private configuration?</strong> Keep the chart, values, and output on your machine. Do not upload private files; this page does not upload them for you. Keep secrets out of the form, AI prompt, and any public issue.</p>
     <p>Keep the result locally, publish the reviewed objects as OCI, or retain the same result in ConfigHub when a team needs history and promotion.</p>
     <p><strong>Already accepted a result?</strong> <a href="./promote.html">Compare the exact current result with the candidate for the next stage</a>. The promotion review shows what changed, what blocks the move, and which destination checks have not run.</p>
@@ -7006,7 +7053,7 @@ ${sections}
 // agent notes, skill playbooks, and planning notes collapse into one "For
 // contributors" group instead of taking a nav area, since they are not
 // material a site visitor is choosing between.
-function allDocsIndexHtml() {
+function allDocsIndexHtml({ catalogEntries = false } = {}) {
   const contributorLabels = { agent: "Agent notes", skills: "Skill playbooks", planning: "Planning notes" };
   const contributorOrder = ["agent", "skills", "planning"];
   const areaItems = new Map(AREAS.map((area) => [area, []]));
@@ -7017,6 +7064,8 @@ function allDocsIndexHtml() {
       if (statSync(full).isDirectory()) { walk(full, `${prefix}${name}/`); continue; }
       if (!name.endsWith(".md")) continue;
       const repoPath = `${prefix}${name}`;
+      const perEntry = /^docs\/(demo|corpus)\//.test(repoPath);
+      if (perEntry !== catalogEntries) continue;
       const source = readFileSync(full, "utf8");
       const title = (source.match(/^#\s+(.+?)\s*$/m)?.[1] ?? name.replace(/\.md$/, "")).trim();
       const entry = { title, href: `./${renderedDocRelPath(repoPath)}` };
@@ -7100,7 +7149,7 @@ function docsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Docs</h1>
-    <p class="lead">Docs explain how the Workshop works and why you can trust it. Each area starts with a short doc for people and goes deeper for agents.</p>
+    <p class="lead">Find explanations and references by topic. For step-by-step work, choose a Guide; for a specific Catalog entry, open its documentation.</p>
   </header>
   <main>
 
@@ -7108,24 +7157,28 @@ function docsHtml(catalog) {
 
 
     <section aria-labelledby="areas">
-      <h2 id="areas">Docs, by area</h2>
-      <p>Each area starts with a short doc for people. The deeper docs under it are the ones agents read, and they stay complete.</p>
-      ${markdownLikeTable([
-        ["Area", "Start here", "Then"],
-        ["Concepts", `<a href="./config.html">How configuration works</a>`, `<a href="./variants.html">Variants</a> · <a href="./oci.html">OCI shapes</a> · <a href="./quirks.html">What charts hide</a>`],
-        ["ConfigHub", `<a href="./how-confighub-works.html">How ConfigHub works</a>`, `<a href="./confighub.html">ConfigHub Server</a> · <a href="./how-it-works.html">Release, promote and roll back</a> · <a href="./operate-a-fleet.html">Operate a fleet</a>`],
-        ["Trust", `<a href="./proof.html">Why trust it</a>`, `<a href="./known-gaps.html">Known gaps</a> · <a href="./matrix.html">Evidence index</a> · <a href="./check-a-claim-yourself.html">Check a claim yourself</a>`],
-        ["About", `<a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a>`, `<a href="./offering.html">Offering</a>`],
-        ["Reference", `<a href="#continue">Every doc, by area</a>`, `<a href="#all-references">All technical references</a> · <a href="./kubara-and-confighub.html">Kubara and ConfigHub, explained</a> · <a href="./aicr-configurations.html">Where an AICR configuration comes from</a> · <a href="./agents-maintain-the-catalog.html">How agents help maintain the Catalog</a> · <a href="./public-questions.html">What happens to a public question</a>`],
-      ], { rawSecondColumn: true, rawThirdColumn: true })}
+      <h2 id="areas">Find your topic</h2>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+        <article class="card"><h3>AI and agents</h3><p>Give an agent a useful task and review its answer.</p><p><a href="./ai.html">Start with Claude or Codex</a> · <a href="./ask.html">Check your own configuration</a></p></article>
+        <article class="card"><h3>GitOps</h3><p>Keep your controller while introducing reviewed configuration.</p><p><a href="./bring-argo-into-confighub.html">Argo CD</a> · <a href="./bring-flux-into-confighub.html">Flux</a> · <a href="./deploy-with-flux-or-argo.html">Delivery choices</a></p></article>
+        <article class="card"><h3>Deployment and promotion</h3><p>Take a checked result into deployment, then manage changes.</p><p><a href="./confighub.html">Deploy and manage with ConfigHub</a> · <a href="./how-it-works.html">Release, promote and roll back</a></p></article>
+        <article class="card"><h3>Configuration and Helm</h3><p>Understand rendered configuration, values and variants.</p><p><a href="./config.html">Configuration as data</a> · <a href="./variants.html">Variants</a> · <a href="./quirks.html">Hooks, CRDs and chart behavior</a></p></article>
+        <article class="card"><h3>Apps, platforms and fleets</h3><p>Learn what an app looks like and how its dependencies fit.</p><p><a href="./apps.html">Example apps</a> · <a href="./compose-a-stack.html">Compose a stack</a> · <a href="./operate-a-fleet.html">Operate a fleet</a></p></article>
+        <article class="card"><h3>GPUs, AICR and NIM</h3><p>Inspect an AI configuration and understand its target requirements.</p><p><a href="./try-aicr.html">Start with AICR</a> · <a href="./aicr-configurations.html">Where configurations come from</a> · <a href="./d/docs/demo/aicr/kserve-nim-inference.html">NIM example</a></p></article>
+        <article class="card"><h3>ConfigHub and UIs</h3><p>Understand the server and choose a view of stored or live configuration.</p><p><a href="./how-confighub-works.html">How ConfigHub works</a> · <a href="./view-and-change-config-with-uis.html">Official GUI and other interfaces</a> · <a href="./see-what-is-running.html">Scout cluster view</a></p></article>
+        <article class="card"><h3>Trust and evidence</h3><p>Find what was checked and what remains unknown.</p><p><a href="./proof.html">Why trust it</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./check-a-claim-yourself.html">Check a claim</a></p></article>
+      </div>
+      <p><a href="./d/docs/user/what-config-workshop-is.html">About Workshop</a> · <a href="./offering.html">Offering</a> · <a href="#all-references">Technical references</a></p>
       <p><strong>Inspect and keep an exact record.</strong> <a href="./records/bitnami-redis-25-5-3-default.json" download="record.json">Download record.json</a> with the full Redis default record and its Catalog and record hashes. <a href="${GITHUB_BLOB_BASE_URL}examples/workshop-catalog-inspection/README.md">The inspection exercise</a> reproduces the lookup and a refusal locally.</p>
       <p>Looking for the steps to do something? <a href="./guides.html">Guides</a> hold every path an agent walks with you, and <a href="./guides.html#by-step">find a Guide by the step you are on</a>.</p>
     </section>
 
     <section aria-labelledby="continue">
       <h2 id="continue">Every doc, by area</h2>
-      <p>Every guide, reference, and demonstration record on the site, grouped by area. <a href="#all-references">Browse all technical references</a> for the curated set.</p>
+      <p><a href="./catalog-docs.html"><strong>Catalog docs: the complete entry documentation index</strong></a>. Find chart, app and platform demonstrations, source notes and recorded limits there.</p>
+      <details><summary>Browse all general documentation and contributor notes</summary>
       ${allDocsIndexHtml()}
+      </details>
       <details id="all-references">
         <summary><strong>All technical references</strong>: the curated guides, evidence tables, and generated data sources</summary>
         ${allReferencesHtml(catalog)}
@@ -7133,10 +7186,27 @@ function docsHtml(catalog) {
       <p><a href="./confighub.html">Continue with ConfigHub</a> when your team needs shared variants, approvals, and rollout history.</p>
     </section>
   </main>
-  <footer>Start each area with its short doc. Use the full reference index only when you need deeper detail.</footer>
+  <footer>Start with a topic or Guide. Open Catalog docs for the entry-specific details.</footer>
 </body>
 </html>
 `;
+}
+
+function catalogDocsHtml() {
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalog docs · ConfigHub Workshop</title><style>${siteCss()}
+.docs-index-list{columns:2;column-gap:26px;padding-left:18px}.docs-index-list li{break-inside:avoid;margin:6px 0}.docs-count{font-size:.8rem;color:var(--muted)}
+@media(max-width:640px){.docs-index-list{columns:1}}
+</style></head><body>
+<header class="hero human-hero">${topNav(".")}<h1>Catalog docs</h1>
+<p class="lead">The complete index of retained entry demonstrations and corpus notes. Read a configuration's instructions, source and evidence limits before using it.</p>
+<p><a href="./docs.html">Back to Docs by topic</a> · <a href="./charts/index.html">Find a configuration by name or version</a> · <a href="./guides.html">Find a walkthrough</a></p></header>
+<main><section aria-labelledby="continue"><h2 id="continue">Every doc, by area</h2>
+<p>These documents describe specific examples and recorded checks. A listed document is not a claim that its entry is deployed or production-ready. The configuration's Catalog page links its current package records and receipts.</p>
+${allDocsIndexHtml({ catalogEntries: true })}
+<details id="all-references"><summary>Need a general reference instead?</summary><p><a href="./docs.html#all-references">Technical references</a> · <a href="./matrix.html">Evidence index</a> · <a href="./confighub.html">Deploy and manage with ConfigHub</a></p></details>
+</section></main><footer>Entry documentation is generated from the retained docs, so new records remain discoverable.</footer></body></html>`;
 }
 
 function verificationHtml() {
@@ -7308,10 +7378,10 @@ function quirksHtml(catalog) {
 function gitopsOnboardingHtml(kind) {
   const plugin = readYaml(join(repoRoot, "data/workshop-plugins/plugins.yaml")).spec.plugins.find((row) => row.id === kind);
   const referenceUrl = `https://github.com/confighub/examples/blob/${plugin.release.tag}/cub-${kind}/docs/onboard-your-${kind === "argo" ? "argo-estate" : "flux-fleet"}.md`;
-  return splitGuideHtml({ ...gitopsOnboardingGuide(kind, { install: plugin.install, referenceUrl }), compactAgent: kind === "argo" });
+  return splitGuideHtml({ ...gitopsOnboardingGuide(kind, { install: plugin.install, referenceUrl }), compactAgent: true });
 }
 
-function splitGuideHtml({ title, lead, ask = "", body, css = "", eyebrow = "A Guide", compactAgent = false }) {
+function splitGuideHtml({ title, lead, ask = "", body, css = "", eyebrow = "A Guide", compactAgent = true }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -9205,7 +9275,7 @@ function appsHtml() {
     <h1>Apps</h1>
     <p class="lead">See what working on your app looks like with ConfigHub. Start with a local example, compare a useful change, then decide what to keep.</p>
     <p>An app is a workload you bring. Your code and container images stay in their existing workflows. ConfigHub manages the configuration that connects and runs them.</p>
-    <p><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a> shows how, step by step.</p>
+    <p><a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Check an app against a platform</a></p>
     ${agentNote(`Read the same rows as data at <a href="./apps.json">apps.json</a>.`)}
   </header>
   <main>
@@ -9660,6 +9730,8 @@ function kubaraGuideHtml(catalog) {
     <section aria-labelledby="first-result">
       <h2 id="first-result">1. See your platform the way ConfigHub would hold it</h2>
       <p>This takes about 15 minutes. You need the <code>cub</code> CLI, <a href="https://github.com/kubara-io/kubara">Kubara</a> v0.15 or newer, and <code>helm</code>. You need no ConfigHub account and no cluster, and nothing changes outside the directories these commands write.</p>
+      <p><strong>Already run Kubara?</strong> Skip <code>init</code> and <code>kubara generate</code>, and run <code>plan</code> and <code>render</code> on your Kubara work directory.</p>
+      <p><strong>Before creating inputs:</strong> the <code>.env</code> file holds your Argo CD password and Git token. Keep it out of Git and shared review output.</p>
       ${commandBlock([
         { comment: "Install the plugin release this page was checked with", cmd: `cub plugin install confighub/kubara-confighub@${pins.kubara}` },
         { cmd: "cub kubara version" },
@@ -9672,11 +9744,11 @@ function kubaraGuideHtml(catalog) {
       ])}
       <p><strong>What you get.</strong> <code>plan</code> prints the stages in rollout order, a base for each component, and a variant for each cluster that runs it. For each chart it says if the Workshop Catalog checked the exact version Kubara pins. With Kubara's 3.0 catalogs, the default for Kubara v0.16, the Workshop has checked every upstream chart version they pin (<a href="https://github.com/confighub/helm-expt/pull/2052">#2052</a>), so each one links its Catalog page. <code>render</code> writes each cluster's services as <code>objects.yaml</code> files, and <code>render.json</code> records each chart, values file and digest.</p>
       <p><strong>You can stop here.</strong> Open one generated <code>objects.yaml</code> and find its chart and values in <code>render.json</code>. You now have inspectable configuration; no service has been deployed. Continue to governance only when you want to store and deliver it.</p>
-      <p><strong>Already run Kubara?</strong> Skip <code>init</code> and <code>kubara generate</code>, and run <code>plan</code> and <code>render</code> on your Kubara work directory.</p>
       <p><code>init</code>, <code>generate</code> and <code>plan</code> take seconds. The first <code>render</code> takes longer, because Helm fetches each chart's dependencies into a cached copy. Your work directory stays as it was. In the render, each Secret keeps its keys and loses its values.</p>
       <p><code>init</code> also writes a <code>.gitignore</code> that leaves out <code>.env</code>, <code>**/charts/</code>, <code>**/Chart.lock</code> and <code>**/*.tgz</code>. If one exists, <code>init</code> adds only the lines it lacks. Keep <code>.env</code> out of Git, because it holds the Argo CD password and your Git token.</p>
       <p><strong>To undo</strong>, delete <code>my-platform</code> and <code>my-platform-render</code>. The guide explains each step: ${guide("see-what-a-kubara-catalog-offers", "services")}, ${guide("start-a-new-platform", "init")}, ${guide("see-the-plan", "plan")} and ${guide("render-the-platform-as-kubara-delivers-it", "render")}.</p>
     </section>
+    <details id="kubara-after-preview"><summary>After the local result: store, deliver and recover</summary>
     <section aria-labelledby="kubara-govern">
       <h2 id="kubara-govern">2. Govern it: apply, handover, check, handback</h2>
       <p>These steps bring the platform into a ConfigHub organization and point Kubara's hub at approved releases. <code>apply</code>, <code>handover</code> and <code>handback</code> only write a script. You read the script, then you run it.</p>
@@ -9719,6 +9791,7 @@ function kubaraGuideHtml(catalog) {
       <p>Change a base once, then take the change through the stages with <code>cub changeorder create</code>, <code>cub variant promote</code>, <code>cub variant approve</code> and <code>cub release publish</code>. When Kubara generates something new, such as a newer catalog, run <code>apply</code> and <code>apply.sh</code> again. Each base that changed gets one change order to review, and changes made in ConfigHub stay. To undo a released change, release the state before it with <code>--revision Before:ChangeOrder:&lt;change order&gt;</code>.</p>
       <p>The guide has each step: ${guide("bring-the-platform-into-confighub", "apply")}, ${guide("hand-the-hub-to-confighub", "handover")}, ${guide("change-the-platform-after-handover", "a change after handover")}, ${guide("take-a-new-kubara-catalog-through-the-stages", "a new Kubara catalog")}, ${guide("see-live-status-and-gate-a-stage-on-health", "live status and the Healthy gate")}, ${guide("check-that-each-cluster-runs-what-was-approved", "check")}, ${guide("hand-the-hub-back-to-git", "handback")}, ${guide("what-each-step-changes-and-how-to-undo-it", "what each step changes")} and ${guide("if-something-goes-wrong", "if something goes wrong")}.</p>
     </section>
+    </details>
     <section aria-labelledby="kubara-stack">
       <h2 id="kubara-stack">3. Check the same platform as a Workshop stack</h2>
       <p>A Workshop stack is the same platform seen as one composition: a component for each service and a variant for each cluster. Use it to check the platform before anything runs, compose apps onto it, or publish it as OCI. Approvals and handover stay with <code>cub kubara</code>.</p>

@@ -585,7 +585,21 @@
   .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
   .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
   .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
-  .cw-content { min-width: 0; }
+  .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  .cw-guide .cw-content { max-width: 880px; }
+  .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
+  .cw-guide h1 { font-size: clamp(2rem, 3vw, 2.7rem); line-height: 1.15; }
+  .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
+  .cw-content pre { max-width: 100%; overflow-x: auto; }
+  .cw-content summary { cursor: pointer; padding: 10px 0; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cw-skip { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 6px; }
+  .cw-skip:focus { top: 12px; }
+  @media (max-width: 600px) {
+    .cw-layout { padding: 0 16px; }
+    .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 200px; }
+    .cw-guide .cw-content h1 { overflow-wrap: anywhere; }
+  }
   .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
   .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
   .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
@@ -607,12 +621,13 @@
   }</style>
 </head>
 <body class="calm-page">
+<a class="cw-skip" href="#cw-content">Skip to content</a>
 <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
-<div class="cw-layout">
+<div class="cw-layout no-toc">
 <nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>Starting questions</strong></p><ul><li><a href="./testing.html">What does a complete example app look like?</a></li><li><a href="./journey-what-my-app-needs.html">What does my app need to run?</a></li><li><a href="./put-an-app-on-a-platform.html">How do I put my app on a platform?</a></li><li><a href="./journey-installs-never-starts.html">Why does my app install but never start?</a></li><li><a href="./confighub.html#promote-a-change">How do I release and promote my app?</a></li><li><a href="./build-a-confighub-app.html">Can I build a tool that operates on configs?</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p></nav>
-<div class="cw-content">
+<div class="cw-content" id="cw-content" tabindex="-1">
 <details class="cw-mobile-nav"><summary>Browse Apps</summary><p class="cw-nav-title"><strong>Starting questions</strong></p><ul><li><a href="./testing.html">What does a complete example app look like?</a></li><li><a href="./journey-what-my-app-needs.html">What does my app need to run?</a></li><li><a href="./put-an-app-on-a-platform.html">How do I put my app on a platform?</a></li><li><a href="./journey-installs-never-starts.html">Why does my app install but never start?</a></li><li><a href="./confighub.html#promote-a-change">How do I release and promote my app?</a></li><li><a href="./build-a-confighub-app.html">Can I build a tool that operates on configs?</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p></details>
@@ -621,36 +636,42 @@
     <h1>Apps</h1>
     <p class="lead">See what working on your app looks like with ConfigHub. Start with a local example, compare a useful change, then decide what to keep.</p>
     <p>An app is a workload you bring. Your code and container images stay in their existing workflows. ConfigHub manages the configuration that connects and runs them.</p>
-    <p><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a> shows how, step by step.</p>
+    <p><a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Check an app against a platform</a></p>
     <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Read the same rows as data at <a href="./apps.json">apps.json</a>.</aside>
   </header>
   <main>
     <section aria-labelledby="apps-change-path">
-      <h2 id="apps-change-path">How configuration changes the work</h2>
-      <p>For an existing Argo CD or Flux estate, ConfigHub can make rendered changes, ownership, approvals, and releases easier to follow while your controller remains responsible for applying them.</p>
+      <h2 id="apps-change-path">See what changes—and what stays yours</h2>
+      <p>Keep your app, your Git repos, and the Argo CD or Flux setup you already use. Start by seeing exactly what a change would do. When you’re ready, bring that configuration into ConfigHub so your team can review, approve and release it together.</p>
       <ol>
-        <li><strong>Preview.</strong> Read the plan and compare the objects first. This stage needs no cluster.</li>
-        <li><strong>Import alongside Git.</strong> Create a parallel ConfigHub record while Git remains the controller’s source.</li>
-        <li><strong>Review handover.</strong> Check which source and owner will change, inspect the generated recovery steps, then hand over when the team is ready.</li>
+        <li><strong>Look first.</strong> Preview the configuration and compare a change. You need no cluster for this step.</li>
+        <li><strong>Try ConfigHub alongside Git.</strong> Import a copy of the configuration. Your controller keeps reading Git.</li>
+        <li><strong>Switch when you’re ready.</strong> Review the delivery changes and the way back before asking your controller to use ConfigHub releases.</li>
       </ol>
-      <p>Handing back restores the controller’s source; it does not restore database contents or other application effects. Use the <a href="./bring-argo-into-confighub.html">Argo CD guide</a> or <a href="./bring-flux-into-confighub.html">Flux guide</a> for this estate path.</p>
+      <p>You can point the controller back to its previous source. That does not undo database writes or other changes the app has made. Use the <a href="./bring-argo-into-confighub.html">Argo CD guide</a> or <a href="./bring-flux-into-confighub.html">Flux guide</a> for the steps.</p>
 
+      <p><a href="#what-an-app-is">Browse all examples</a>, or choose a change below to see the before and after.</p>
       <div class="app-learning-cards">
         <article class="door">
           <span class="kicker">Small app and database</span>
-          <h3>Change the frontend; keep its database context</h3>
+          <h3>Add frontend replicas without losing sight of the database</h3>
+          <p>Try a small change to a complete app, then see what it shares with other environments.</p>
+          <details><summary>Walk through this change</summary>
           <p><strong>App and dependencies:</strong> a frontend, backend, and PostgreSQL StatefulSet, connected through a layered recipe.</p>
           <p><strong>Before ConfigHub:</strong> the example starts with development settings. Its flattened configuration is fully rendered Kubernetes YAML, rather than chart templates. App code, images, and delivery stay in their own workflows.</p>
-          <p><strong>With ConfigHub:</strong> inspect the plan and local replica change, then retain component ancestry and app-level provenance. A <em>base</em> is shared starting configuration; a <em>variant</em> adds choices for one environment. A target and apply are separate steps.</p>
+          <p><strong>With ConfigHub:</strong> see the replica change alongside the rest of the app and keep a record of where its configuration came from. A <em>base</em> is shared starting configuration; a <em>variant</em> adds choices for one environment. A target and apply are separate steps.</p>
           <p><strong>Try:</strong> raise the frontend replica count in a deployment variant and compare it with the shared base.</p>
           <aside class="agent-note"><strong>For your agent:</strong> “Show how a frontend replica change flows from the shared base to its deployment variant. Flag database risks; do not apply anything.”</aside>
           <p><a href="./ai.html">AI guide</a> · <a href="https://github.com/confighub/examples/blob/7f1b8f2fc849bb6488bc2c58f1469172018fc9dd/catalog/FIRST_APP.md">Manual next: the first-app walkthrough</a></p>
           <p><a href="https://github.com/confighub/examples/tree/7f1b8f2fc849bb6488bc2c58f1469172018fc9dd/global-app-layer/realistic-app">Open the realistic-app example</a>. Its local preview is read-only; successful Unit verification does not prove that the app is serving requests.</p>
+          </details>
         </article>
 
         <article class="door">
           <span class="kicker">Development and production</span>
           <h3>Promote the tag you reviewed</h3>
+          <p>Catch a wrong image tag before it reaches production.</p>
+          <details><summary>Walk through this change</summary>
           <p><strong>App and dependencies:</strong> one frontend, two Git repositories, and separate Argo CD Applications for dev and prod.</p>
           <p><strong>Before ConfigHub:</strong> CI proposes the dev image tag; a second pull request promotes that same tag to prod.</p>
           <p><strong>With ConfigHub:</strong> render each environment into its own Space and inspect the actual image-field diff alongside Git’s separate promotion record.</p>
@@ -658,11 +679,14 @@
           <aside class="agent-note"><strong>For your agent:</strong> “Compare the dev and prod image tags with the promotion record. Show the object field that changes; do not open a pull request or deploy.”</aside>
           <p><a href="./ai.html">AI guide</a> · <a href="./bring-argo-into-confighub.html">Manual next: bring an Argo CD estate into ConfigHub</a></p>
           <p><a href="https://github.com/confighub/examples/tree/7f1b8f2fc849bb6488bc2c58f1469172018fc9dd/gitops/argo/intermediate-ci-to-gitops">Open the dev-to-prod example</a>. Its CI and promotion workflows are illustrative; the example does not install Argo CD or deploy to a live cluster.</p>
+          </details>
         </article>
 
         <article class="door">
           <span class="kicker">GPU inference</span>
-          <h3>Shape a RAG app for NIM</h3>
+          <h3>See what your AI app needs to run</h3>
+          <p>Choose a model and see which services and resources the app needs. Live NIM needs x86_64, NVIDIA hardware and credentials.</p>
+          <details><summary>Walk through this change</summary>
           <p><strong>App and dependencies:</strong> rag-server, NIM language and embedding services, and a vector database.</p>
           <p><strong>Before ConfigHub:</strong> model images, GPU placement, and service connections sit across several component configurations.</p>
           <p><strong>With ConfigHub:</strong> the example layers the four components and records direct, Flux, and Argo variants so a model-profile change has a traceable path.</p>
@@ -670,6 +694,7 @@
           <aside class="agent-note"><strong>For your agent:</strong> “Trace how an LLM and embedding model change flows through the Enterprise RAG recipe. List what the NIM target needs; do not claim a live result.”</aside>
           <p><a href="./ai.html">AI guide</a> · <a href="./try-aicr.html">Manual next: compare GPU nodes and AICR requirements</a></p>
           <p><a href="https://github.com/confighub/examples/tree/7f1b8f2fc849bb6488bc2c58f1469172018fc9dd/global-app-layer/enterprise-rag-blueprint">Open the Enterprise RAG example</a>. Its runnable NIM path requires x86_64, NVIDIA hardware, and NGC credentials. This Apps page does not claim live GPU success; recipe verification and local Ollama queries do not prove NIM runtime on your cluster.</p>
+          </details>
         </article>
       </div>
     </section>
@@ -690,7 +715,6 @@
     </section>
   </main>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./put-an-app-on-a-platform.html">Put an app on a platform &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./try-aicr.html">GPU nodes and AICR</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>

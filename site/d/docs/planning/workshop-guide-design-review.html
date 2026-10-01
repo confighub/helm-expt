@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Workshop Guide design review · ConfigHub Workshop</title>
+  <meta name="description" content="Workshop Guide design review: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/workshop-guide-design-review.html">
+  <meta property="og:title" content="Workshop Guide design review · ConfigHub Workshop">
+  <meta property="og:description" content="Workshop Guide design review: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/workshop-guide-design-review.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+        --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
+      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
+    }
+    :root[data-theme="light"] {
+      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
+      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .app-learning-cards { display: grid; gap: 20px; margin: 26px 0; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--heading, Manrope, Inter, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 800; }
+  h2, h3 { font-weight: 700; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  .cw-guide .cw-content { max-width: 880px; }
+  .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
+  .cw-guide h1 { font-size: clamp(2rem, 3vw, 2.7rem); line-height: 1.15; }
+  .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
+  .cw-content pre { max-width: 100%; overflow-x: auto; }
+  .cw-content summary { cursor: pointer; padding: 10px 0; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cw-skip { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 6px; }
+  .cw-skip:focus { top: 12px; }
+  @media (max-width: 600px) {
+    .cw-layout { padding: 0 16px; }
+    .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 200px; }
+    .cw-guide .cw-content h1 { overflow-wrap: anywhere; }
+  }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.35; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<a class="cw-skip" href="#cw-content">Skip to content</a>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="../../../charts/index.html">Configs</a><a href="../../../stack.html">Stacks</a><a href="../../../apps.html">Apps</a><a href="../../../plugins.html">Plugins</a><a href="../../../guides.html">Guides</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Every stack</a></li><li><a href="../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="../../../apps.html">Every app</a></li><li><a href="../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="../../../plugins.html">Every cub plugin</a></li><li><a href="../../../bring-kubara-into-confighub.html">Bring a Kubara platform into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="../../../guides.html">Every Guide</a></li><li><a href="../../../journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="../../../journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="../../../journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="../../../journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="../../../journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../see-what-is-running.html">See what is running with cub scout</a></li><li><a href="../../../view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="../../../bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="../../../bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="../../../bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="../../../choose-a-tool.html">Choose a tool and start</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></nav>
+<div class="cw-content" id="cw-content" tabindex="-1">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Every stack</a></li><li><a href="../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="../../../apps.html">Every app</a></li><li><a href="../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="../../../plugins.html">Every cub plugin</a></li><li><a href="../../../bring-kubara-into-confighub.html">Bring a Kubara platform into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="../../../guides.html">Every Guide</a></li><li><a href="../../../journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="../../../journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="../../../journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="../../../journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="../../../journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../see-what-is-running.html">See what is running with cub scout</a></li><li><a href="../../../view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="../../../bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="../../../bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="../../../bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="../../../choose-a-tool.html">Choose a tool and start</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>Workshop Guide design review</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/workshop-guide-design-review.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-10-01T00:34:41.144Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Reviewed: 1 October 2026. Follow-through for #679, after the #2059 prototype.</p>
+<h2 id="goal-and-scope">Goal and scope</h2>
+<p>A newcomer should find a task, understand what the first result means, and recognize when a later command changes local files, ConfigHub or a cluster. Keep the six main sections, approved homepage positioning, existing Guide URLs and evidence boundaries. The review covers hierarchy and task navigation, not new runtime capabilities or a claim of measured adoption.</p>
+<h2 id="comparables-and-decisions">Comparables and decisions</h2>
+<p>The following pages were read and visually inspected at 1280 x 720 and 390 x 844. These are observations of a small representative sample, not a ranking of whole products. Their designs inform decisions; their wording is not copied.</p>
+<table><thead><tr><th>Reference</th><th>Useful observation</th><th>Consequence for Workshop</th></tr></thead><tbody><tr><td><a href="https://en.wikipedia.org/wiki/Kubernetes">Wikipedia: Kubernetes</a></td><td>A clear article title and a local contents list distinguish the current subject from global navigation. The sampled page also has a large warning and infobox that dominate the phone view.</td><td>Use a local Guide outline; do not copy the warning-heavy opening or introduce an encyclopedia hierarchy.</td></tr>
+<tr><td><a href="https://huggingface.co/docs/hub/en/models-the-hub">Hugging Face: Model Hub</a></td><td>Documentation separates the subject, local outline and catalog navigation. Its signup banner takes substantial space before the actual explanation, including on mobile.</td><td>Keep exact configuration identity and readable evidence available, but keep the anonymous first task ahead of account acquisition. Do not add a signup banner.</td></tr>
+<tr><td><a href="https://developer.hashicorp.com/terraform/tutorials/aws-get-started/aws-create">HashiCorp: Create infrastructure</a></td><td>A task title, short tutorial sequence and explicit prerequisites make the route legible. The large interactive-terminal area delays the first instruction in the sampled phone view.</td><td>Name the task and requirements, show commands and expected results, and avoid decorative or empty interactive space before the first useful action.</td></tr>
+<tr><td><a href="https://docs.jfrog.com/artifactory/docs/getting-started">JFrog: Get started</a></td><td>Product orientation is distinct from setup and connection tasks; the large hero occupies much of the phone viewport.</td><td>Keep the progression into managed ConfigHub work, but make it optional after a useful local result and avoid a larger marketing hero.</td></tr>
+<tr><td><a href="https://docs.confighub.com/">ConfigHub documentation</a></td><td>A restrained reading column and direct product documentation links support deeper learning; the opening is a conceptual introduction rather than a short task.</td><td>Workshop provides the bounded first task and links to official documentation for sustained operations. Do not duplicate the product reference or imply a local preview is deployment.</td></tr></tbody></table>
+<h2 id="observed-workshop-friction">Observed Workshop friction</h2>
+<p>The prior Flux page presented a long section tree on the left, a separate outline on the right, an expanded agent prompt and a full handover sequence. This made choosing an action compete with understanding its instructions. The Argo prototype had already addressed that problem on one page.</p>
+<p>The Apps page put three long teaching cards ahead of its full directory. The own-chart Guide explained several models and agent-checking habits before the first render. The GPU page explained its taxonomy before its two starting paths. Sveltos and Kubara mentioned sensitive input handling after commands that prepared those inputs.</p>
+<h2 id="implementation">Implementation</h2>
+<ul><li>All registered Guides use a local heading-based outline, with All Guides, AI and ConfigHub links retained. Longer outlines disclose their later sections. The duplicate right rail is removed from these pages. The registry remains the source of Guide identity, including Markdown-backed Helm Guides.</li><li>Guide reading width is bounded. Phone layouts retain a collapsed local menu, command blocks scroll within the content column, and summaries have visible keyboard focus. A skip link bypasses repeated chrome.</li><li>Flux and Sveltos now offer a useful stopping point after planning; their later write/delivery sections are disclosed separately. Plan examples stay visible. Sveltos distinguishes local script creation from scripts that can change the management cluster.</li><li>Kubara keeps local generation and the inspectable result visible, places sensitive-input guidance before preparation, and discloses governance steps. Existing health and rollback limitations remain.</li><li>The GPU entry presents local inspection and existing-node observation as separate choices. Collector resource creation remains explicit beside the node command. The model explanation and four-question table are optional.</li><li>The own-chart introduction is shorter, still defines flattened configuration as fully rendered Kubernetes objects, and distinguishes rendering from deployment. Agent-checking detail follows the four main moves; its anchor, commands and evidence remain intact.</li><li>Apps exposes a directory shortcut and three concise example choices, each with its complete before/after teaching material available on expansion. The migration sequence and hand-back/data-recovery boundary stay visible.</li><li>AI keeps its existing prompt-first content. It gains the same local navigation as the other Guides; no replacement messaging or new IA is needed.</li></ul>
+<ul><li>The NIM entry offers a concrete model-file inspection before GPU setup. The Redis entry folds its introductory comparison and retains its delivery link.</li><li>The UIs Guide leads with the official ConfigHub GUI for Enterprise Server and SaaS. The UI SDK serves custom use cases and plugins, including disconnected use; cub-commander is explicitly an early experimental terminal UI.</li></ul>
+<ul><li>Docs now starts with eight practical topics, including AI, GitOps and deployment. The full entry demonstration and corpus index moves to Catalog docs; general documentation stays available in a collapsed index. Existing Docs anchors remain valid, and the doc-map gate checks coverage across both.</li><li>Apps uses direct language about keeping existing tools, previewing a change, and choosing when to switch delivery. The recovery limits remain explicit.</li></ul>
+<h2 id="validation-and-limits">Validation and limits</h2>
+<p>Two inexpensive fresh readers performed seven content-reading tasks, without executing commands. The first correctly identified prerequisites, first results and mutation boundaries for Flux, Sveltos, local AICR inspection and an app example. The second correctly read the Helm, Kubara and UI routes, but found that the alternate Helm route did not define flattened configuration and that Kubara's existing-install shortcut appeared after new-install commands. Both were corrected and reread. These are reading trials, not runtime acceptance.</p>
+<p>Browser checks covered twelve entry pages at widths 390, 768 and 1280 pixels. All 36 final checks had no page-level horizontal overflow. Initial phone failures in the own-chart and NIM documents were corrected by allowing long inline identifiers to wrap and applying the Guide layout to the NIM entry. Command blocks retain internal horizontal scrolling. Keyboard checks reached the skip link, content and local menu. Fragment links opened the optional Argo, Flux, Sveltos and Kubara sections; mobile scroll clearance was increased so headings remain below the header. The removal of the old rail also exposed a missing Redis delivery link, which was restored explicitly.</p>
+<p>The final UIs wording was checked against the requested product distinctions. Repository gate results are recorded in the accompanying PR and #679. Those gates cover generation, links, prose constraints and retained command surfaces.</p>
+<p>These checks do not execute plugin operations, prove production migration, measure adoption, establish a population success rate or provide a complete screen-reader accessibility audit. Real-person acceptance remains #1956.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/workshop-guide-design-review.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#goal-and-scope">Goal and scope</a></li><li><a href="#comparables-and-decisions">Comparables and decisions</a></li><li><a href="#observed-workshop-friction">Observed Workshop friction</a></li><li><a href="#implementation">Implementation</a></li><li><a href="#validation-and-limits">Validation and limits</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+</div>
+</body>
+</html>

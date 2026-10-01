@@ -36,6 +36,7 @@ The shortest path from arriving to running something.
 
 | Document | Purpose |
 | --- | --- |
+| [Guide design review](./planning/workshop-guide-design-review.md) | Comparable-page observations, Guide layout decisions, first-result improvements and validation boundaries. |
 | [Agent configuration work plan](./planning/agent-configuration-work-plan.md) | Active plan for deterministic manual and agent configuration work, role discovery, composition, patches and rollout evidence. |
 | [Stack manifest contract](./reference/stack-manifest-contract.md) | Public schema and manual or agent path for selecting parts, authoring a Stack, checking it and rendering local objects. |
 | [../AGENTS.md](../AGENTS.md) | Working agreement for coding agents: who owns which surfaces, the gates every change runs, and the traps already paid for. |
