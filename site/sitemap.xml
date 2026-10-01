@@ -6,7 +6,10 @@
   <url><loc>https://confighub.github.io/helm-expt/site/aicr-configurations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/apps.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/ask.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/bring-argo-into-confighub.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/bring-flux-into-confighub.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/bring-sveltos-into-confighub.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/build-a-confighub-app.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/change-a-config-safely.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/</loc></url>

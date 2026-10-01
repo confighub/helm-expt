@@ -206,6 +206,23 @@ spec:
       the base, and keep it with a staging and production path.
     page: d/docs/user/workshop-argocd-hardening-guide.html
     command: "cub config values argo-cd --repo https://argoproj.github.io/argo-helm --version 10.2.1 --release argo-cd --namespace argocd --values base-values.yaml --out base-report.json --render-out base-render.yaml"
+  - id: bring-sveltos-into-confighub
+    group: gitops
+    title: Bring your Sveltos fleet into ConfigHub
+    summary: Preview exported fleet configuration, review ownership and connect live profiles in stages.
+    page: bring-sveltos-into-confighub.html
+  - id: bring-argo-into-confighub
+    group: gitops
+    title: Bring your Argo CD apps into ConfigHub
+    summary: Preview your existing setup without an account, then save, connect and review a change while Argo CD keeps deploying.
+    page: bring-argo-into-confighub.html
+    command: "cub argo plan ."
+  - id: bring-flux-into-confighub
+    group: gitops
+    title: Bring your Flux fleet into ConfigHub
+    summary: Preview your existing setup without an account, then save, connect and review a change while Flux keeps deploying.
+    page: bring-flux-into-confighub.html
+    command: "cub flux plan . --require Healthy"
   - id: compose
     group: stacks-and-platforms
     title: Compose and review a local workshop stack

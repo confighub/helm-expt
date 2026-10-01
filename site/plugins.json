@@ -68,7 +68,7 @@
       "install": "cub plugin install confighub/sveltos-confighub",
       "note": "Handover rollback and chart-rendered Secret handling remain open upstream work; review those limits before importing a fleet.",
       "guide": {
-        "address": "https://github.com/confighub/sveltos-confighub/blob/main/docs/user/onboard-your-sveltos-fleet.md",
+        "address": "https://confighub.github.io/helm-expt/site/bring-sveltos-into-confighub.html",
         "title": "Onboard a Sveltos fleet"
       },
       "next": {
@@ -220,8 +220,8 @@
       "install": "cub plugin install confighub/examples@cub-argo-v0.2.0 --name argo",
       "note": "Start with plan, which needs no account and changes no cluster. Live status comes back through argobot, or through cub argo status --watch --hard-refresh where argobot is not running, which also makes each release land at once; argobot's own refresh of moved Applications needs confighub/argobot#14.",
       "guide": {
-        "address": "https://github.com/confighub/examples/blob/main/cub-argo/docs/onboard-your-argo-estate.md",
-        "title": "Onboard an Argo CD estate"
+        "address": "https://confighub.github.io/helm-expt/site/bring-argo-into-confighub.html",
+        "title": "Bring your Argo CD apps into ConfigHub"
       },
       "next": {
         "command": "cub plugin install confighub/examples@cub-argo-v0.2.0 --name argo"
@@ -244,8 +244,8 @@
       "install": "cub plugin install confighub/examples@cub-flux-v0.2.0 --name flux",
       "note": "Start with plan, which changes no cluster. Healthy is reported only for layers that check their workloads with wait or healthChecks; review bootstrap ownership before handover.",
       "guide": {
-        "address": "https://github.com/confighub/examples/blob/main/cub-flux/docs/onboard-your-flux-fleet.md",
-        "title": "Onboard a Flux fleet"
+        "address": "https://confighub.github.io/helm-expt/site/bring-flux-into-confighub.html",
+        "title": "Bring your Flux fleet into ConfigHub"
       },
       "next": {
         "command": "cub plugin install confighub/examples@cub-flux-v0.2.0 --name flux"

@@ -313,6 +313,9 @@ const menuGuidePages = [
 ];
 
 const humanSplitPages = [
+  "site/bring-sveltos-into-confighub.html",
+  "site/bring-argo-into-confighub.html",
+  "site/bring-flux-into-confighub.html",
   "site/index.html",
   "site/ask.html",
   "site/promote.html",
@@ -1327,6 +1330,24 @@ checkServerEntryMenus(path.join(root, "site"));
 const serverPage = fs.readFileSync(path.join(root, "site/confighub.html"), "utf8");
 for (const id of ["start-managing", "import-and-deploy", "load-a-repo", "live-and-repo", "promote-a-change", "roll-out-a-change", "managed-result", "exact-handoff", "review-tutorial"]) {
   if (!serverPage.includes(`id="${id}"`)) failures.push(`site/confighub.html: missing action or retained section ${id}`);
+}
+
+// The short onboarding Guides must remain reachable without a GitHub detour,
+// and their install/reference versions must agree with the plugin registry.
+const onboardingPlugins = JSON.parse(fs.readFileSync(path.join(root, "site/plugins.json"), "utf8")).rows;
+for (const kind of ["argo", "flux"]) {
+  const name = `bring-${kind}-into-confighub.html`;
+  const html = fs.readFileSync(path.join(root, "site", name), "utf8");
+  const plugin = onboardingPlugins.find((row) => row.id === kind);
+  for (const entry of ["index.html", "plugins.html", "confighub.html", "guides.html"]) {
+    if (!fs.readFileSync(path.join(root, "site", entry), "utf8").includes(name)) failures.push(`${entry}: missing direct ${kind} onboarding Guide link`);
+  }
+  if (!html.includes(plugin.install) || !html.includes(`/blob/${plugin.release.tag}/cub-${kind}/docs/`)) failures.push(`${name}: install or reference does not match released plugin`);
+  const sections = ["preview-setup", "save-confighub", "connect-deployment", "change-approve-release"];
+  if (sections.some((id) => !html.includes(`id="${id}"`))) failures.push(`${name}: missing onboarding stage`);
+  const planAt = html.indexOf(`cub ${kind} plan .`);
+  const importAt = html.indexOf('bash onboard/apply.sh');
+  if (planAt < 0 || importAt <= planAt) failures.push(`${name}: preview must precede ConfigHub import`);
 }
 
 if (failures.length) {

@@ -17,6 +17,8 @@ import {
   CONFIGURATION_QUESTIONS,
   CONFIGURATION_QUESTION_RESEARCH,
 } from "./lib/configuration-questions.mjs";
+import { appLearningPathsHtml } from "./lib/app-learning-paths.mjs";
+import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
 
 // Spells small counts (stack.html's "the stacks that ship" prose) so a count
@@ -540,6 +542,12 @@ const JOURNEY_LINKS = {
 // that split between a Guide and a Doc. Each is registered once, here; a Doc
 // is marked doc: true and sits in the Docs sidebar.
 const SPLIT_PAGES = [
+  { key: "sveltosOnboardingHtml", file: "bring-sveltos-into-confighub.html", title: "Bring your Sveltos fleet into ConfigHub", description: "Preview a Sveltos fleet, review what changes and connect delivery in stages.", build: () => {
+    const plugin = readYaml(join(repoRoot, "data/workshop-plugins/plugins.yaml")).spec.plugins.find(row => row.id === "sveltos");
+    return splitGuideHtml(sveltosOnboardingGuide({ install: `cub plugin install ${plugin.repository}@${plugin.release.tag}`, referenceUrl: `https://github.com/${plugin.repository}/blob/${plugin.release.tag}/docs/user/onboard-your-sveltos-fleet.md` }));
+  } },
+  { key: "argoOnboardingHtml", file: "bring-argo-into-confighub.html", title: "Bring your Argo CD apps into ConfigHub", description: "Preview your Argo CD setup, save it in ConfigHub, connect delivery and review your next change.", build: () => gitopsOnboardingHtml("argo") },
+  { key: "fluxOnboardingHtml", file: "bring-flux-into-confighub.html", title: "Bring your Flux fleet into ConfigHub", description: "Preview your Flux setup, save it in ConfigHub, connect delivery and review your next change.", build: () => gitopsOnboardingHtml("flux") },
   { key: "checkClaimGuideHtml", file: "check-a-claim-yourself.html", title: "Check a claim yourself", description: "Pick a claim the site makes, run the smallest check that answers it, and read what it proved and what it left open.", build: (catalog) => checkClaimGuideHtml(catalog) },
   { key: "takeFurtherGuideHtml", file: "take-a-config-further.html", title: "Take a config further", description: "Take a reviewed configuration into a stack, keep it as an image, or save it in ConfigHub to move it through environments.", build: (catalog) => takeFurtherGuideHtml(catalog) },
   { key: "changeSafelyGuideHtml", file: "change-a-config-safely.html", title: "Change a config safely", description: "Decide whether a change rebuilds the base or belongs to one environment, then preview it and promote only what was reviewed.", build: (catalog) => changeSafelyGuideHtml(catalog) },
@@ -3460,7 +3468,8 @@ ${homeJourneyLinks()}
         <a href="./apps.html">What does an example app look like?</a>
         <a href="./compose-a-stack.html">How do I build my own platform?</a>
         <a href="./stack.html">How do I run a pre-tested stack?</a>
-        <a href="./guides.html#guides-gitops">How do I use Argo CD or Flux?</a>
+        <a href="./bring-argo-into-confighub.html">How do I bring in my Argo CD apps?</a>
+        <a href="./bring-flux-into-confighub.html">How do I bring in my Flux fleet?</a>
         <a href="./confighub.html#start-managing">How do I deploy and promote my app?</a>
         <a href="./guides.html">Which Guide solves my problem?</a>
         <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>
@@ -4751,12 +4760,12 @@ function configHubHtml(catalog) {
       <article class="server-start-card" aria-labelledby="load-a-repo">
         <h3 id="load-a-repo">Bring in an Argo CD or Flux repo</h3>
         <ol><li>Point the onboarding plugin at your repository and inspect its plan.</li><li>Review how your apps and environments will appear in ConfigHub, then import them.</li><li>Approve the handover when ready; your controller continues delivering the reviewed releases.</li></ol>
-        <p><a href="https://github.com/confighub/examples/blob/main/cub-argo/docs/onboard-your-argo-estate.md">Follow the Argo CD Guide</a> · <a href="https://github.com/confighub/examples/blob/main/cub-flux/docs/onboard-your-flux-fleet.md">Follow the Flux Guide</a></p>
+        <p><a href="./bring-argo-into-confighub.html">Follow the Argo CD Guide</a> · <a href="./bring-flux-into-confighub.html">Follow the Flux Guide</a></p>
       </article>
       <article class="server-start-card" aria-labelledby="live-and-repo">
         <h3 id="live-and-repo">Start from a live cluster and its repo</h3>
         <ol><li>Discover what is running and which controller owns it.</li><li>Compare it with the repository. Review drift, live fixes and Secret ownership.</li><li>Choose what to retain in ConfigHub, then review the import and handover before changing delivery.</li></ol>
-        <p><a href="./plugins.html#scout">Inspect with cub scout</a> · <a href="https://github.com/confighub/examples/blob/main/cub-argo/docs/onboard-your-argo-estate.md">Argo CD onboarding</a> · <a href="https://github.com/confighub/examples/blob/main/cub-flux/docs/onboard-your-flux-fleet.md">Flux onboarding</a></p>
+        <p><a href="./plugins.html#scout">Inspect with cub scout</a> · <a href="./bring-argo-into-confighub.html">Argo CD onboarding</a> · <a href="./bring-flux-into-confighub.html">Flux onboarding</a></p>
         <p>Live discovery needs cluster access. Keep credentials out of imported configuration.</p>
       </article>
       <article class="server-start-card" aria-labelledby="promote-a-change">
@@ -6821,6 +6830,22 @@ function pluginsHtml() {
 `;
 }
 
+function familiarGuideStartsHtml() {
+  return `<section aria-labelledby="guides-your-tools">
+    <h2 id="guides-your-tools">Start with what you use</h2>
+    <p>Keep your tools. First inspect the configuration; choose delivery changes only when you are ready.</p>
+    <ul class="guide-list">
+      <li><a href="./bring-argo-into-confighub.html">I use Argo CD</a>. Preview your apps, import a parallel copy, then review handover and recovery.</li>
+      <li><a href="./bring-flux-into-confighub.html">I use Flux</a>. Preview your repository and move delivery one cluster at a time.</li>
+      <li><a href="./bring-sveltos-into-confighub.html">I want a fleet</a>. Use Sveltos to deliver reviewed configuration to your clusters.</li>
+      <li><a href="./bring-kubara-into-confighub.html">I want platform add-ons</a>. Keep Kubara generating your platform and add ConfigHub review.</li>
+      <li><a href="./d/docs/user/workshop-byo-charts-guide.html">I use Helm</a>. Render your own chart, diagnose values and compare a change before installing.</li>
+      <li>I use NVIDIA: <a href="./try-aicr.html">inspect an AICR platform configuration</a>, or <a href="./d/docs/demo/aicr/kserve-nim-inference.html">prepare NIM model serving</a>. Local inspection is separate from proving a GPU deployment.</li>
+    </ul>
+    <p><a href="./apps.html">Show me an example app</a> to see what changes in everyday work.</p>
+  </section>`;
+}
+
 function guidesHtml() {
   const rows = sectionRows("guides");
   const groups = [];
@@ -6835,7 +6860,7 @@ function guidesHtml() {
       <ul class="guide-list">
 ${group.rows.map((row) => `        <li><a href="${escapeHtml(href(row.address))}">${escapeHtml(row.title)}</a>. ${escapeHtml(row.summary)}</li>`).join("\n")}
       </ul>
-    </section>`).join("\n");
+    </section>${group.id === "journeys" ? familiarGuideStartsHtml() : ""}`).join("\n");
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -7252,6 +7277,12 @@ function quirksHtml(catalog) {
 // A Guide assembled from sections of pages that split between a Guide and a
 // Doc (site IA phase 4, step 7b). The sections keep their ids, so links that
 // follow them only change page.
+function gitopsOnboardingHtml(kind) {
+  const plugin = readYaml(join(repoRoot, "data/workshop-plugins/plugins.yaml")).spec.plugins.find((row) => row.id === kind);
+  const referenceUrl = `https://github.com/confighub/examples/blob/${plugin.release.tag}/cub-${kind}/docs/onboard-your-${kind === "argo" ? "argo-estate" : "flux-fleet"}.md`;
+  return splitGuideHtml(gitopsOnboardingGuide(kind, { install: plugin.install, referenceUrl }));
+}
+
 function splitGuideHtml({ title, lead, ask = "", body, css = "", eyebrow = "A Guide" }) {
   return `<!doctype html>
 <html lang="en">
@@ -7263,7 +7294,7 @@ function splitGuideHtml({ title, lead, ask = "", body, css = "", eyebrow = "A Gu
 </head>
 <body>
   <header class="hero human-hero">
-    ${topNav(".")}
+${topNav(".")}
     <p class="eyebrow">${escapeHtml(eyebrow)}</p>
     <h1>${escapeHtml(title)}</h1>
     <p class="lead">${lead}</p>
@@ -9144,11 +9175,13 @@ function appsHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Apps</h1>
-    <p class="lead">An app is a workload you bring. It declares what it needs from the platform under it, and <code>cub app check</code> reads its own objects to report that.</p>
+    <p class="lead">See what working on your app looks like with ConfigHub. Start with a local example, compare a useful change, then decide what to keep.</p>
+    <p>An app is a workload you bring. Your code and container images stay in their existing workflows. ConfigHub manages the configuration that connects and runs them.</p>
     <p><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a> shows how, step by step.</p>
     ${agentNote(`Read the same rows as data at <a href="./apps.json">apps.json</a>.`)}
   </header>
   <main>
+    ${appLearningPathsHtml()}
     <section aria-labelledby="what-an-app-is">
       <h2 id="what-an-app-is">Every worked example app</h2>
       <p>Each app links to its repository's default branch. The last column is the commit at which it was last checked.</p>
@@ -14186,6 +14219,7 @@ ${bannerCss()}
     /* Two across for the one-idea cards under a page's hero: four across was
        tight in the three-column layout and wrapped the titles. */
     .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .app-learning-cards { display: grid; gap: 20px; margin: 26px 0; }
     .door {
       border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
       padding: 16px; display: flex; flex-direction: column; gap: 8px;
@@ -14537,7 +14571,7 @@ function calmPageCss() {
     .calm-page .move-spine {
       gap: 22px;
     }
-  
+
   /* --- quality floor: keyboard focus and reduced motion --- */
   a:focus-visible, button:focus-visible, input:focus-visible,
   select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
