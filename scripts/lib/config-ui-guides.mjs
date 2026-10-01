@@ -29,7 +29,7 @@ cub scout gitops status</code></pre>
     </section>
     <section aria-labelledby="scout-next">
       <h2 id="scout-next">3. Choose where the change belongs</h2>
-      <p>If Git and Argo CD or Flux own the object, inspect that source before changing live YAML. A reconciler can overwrite a direct edit. If ConfigHub holds the intended configuration, continue with <a href="./view-and-change-config-with-uis.html">the browser UI or cub commander</a>.</p>
+      <p>If Git and Argo CD or Flux own the object, inspect that source before changing live YAML. A reconciler can overwrite a direct edit. If ConfigHub holds the intended configuration, continue with <a href="./view-and-change-config-with-uis.html">the official ConfigHub GUI</a>.</p>
       <p>For a reviewed move into ConfigHub, use the <a href="./bring-argo-into-confighub.html">Argo CD</a> or <a href="./bring-flux-into-confighub.html">Flux</a> Guide. That is a separate decision from viewing your cluster.</p>
       <details><summary>Versions and deeper reference</summary><p>This introduction follows <a href="${scoutSource}/README.md">Scout v2.12.4</a>. See its <a href="${scoutSource}/docs/getting-started/start-here.md">getting-started guide</a> for additional workflows. These instructions were checked against released documentation; this page does not record a new live-cluster trial. Avoid sharing raw observations containing private operational information.</p></details>
     </section>`,
@@ -39,26 +39,27 @@ cub scout gitops status</code></pre>
 export function configUiGuide() {
   return {
     title: 'View and change configuration with ConfigHub UIs',
-    lead: 'Find one saved configuration and understand its environment before changing it. Use the ConfigHub browser UI or cub commander in your terminal; you do not need both.',
+    lead: 'Start with the official ConfigHub GUI, available with Enterprise Server and SaaS. Find one saved configuration and understand its environment before changing it.',
     ask: 'Help me find one configuration in ConfigHub, explain its environment and revision, and compare it with another environment if one exists. Keep this first task read-only; propose any change separately.',
     body: `<section aria-labelledby="ui-choose">
-      <h2 id="ui-choose">1. Choose your view</h2>
+      <h2 id="ui-choose">1. Start with the official GUI</h2>
       <p><strong>You need:</strong> access to a ConfigHub organization containing configuration you are allowed to inspect. No saved configuration yet? Follow <a href="https://docs.confighub.com/get-started/tutorial/">the official introductory tutorial</a> first. A cluster is not needed just to browse stored configuration.</p>
       <table><thead><tr><th>Use</th><th>When you want</th><th>Start</th></tr></thead><tbody>
-      <tr><td>ConfigHub browser UI</td><td>To explore your team’s configuration in a web browser</td><td>Open the ConfigHub server your team uses and sign in</td></tr>
-      <tr><td>cub commander</td><td>To browse, query and compare configuration in a full-screen terminal</td><td>Use the commands below</td></tr>
+      <tr><td><strong>ConfigHub GUI — official main route</strong></td><td>To view and operate on configuration with Enterprise Server or SaaS</td><td>Open your team’s ConfigHub server or SaaS instance and sign in</td></tr>
+      <tr><td>ConfigHub UI SDK</td><td>To adapt the interface to new use cases and plugins, including standalone, disconnected use</td><td>Choose this when building a custom interface; it is not required for this walkthrough</td></tr>
+      <tr><td>cub-commander — early experimental TUI</td><td>To try browsing, querying and comparing configuration in a full-screen terminal</td><td>Use the commands below</td></tr>
       <tr><td>cub scout</td><td>To inspect what a cluster reports now</td><td><a href="./see-what-is-running.html">Use the separate Scout Guide</a></td></tr>
       </tbody></table>
       <p>A <strong>Unit</strong> is a stored piece of configuration. A <strong>Space</strong> groups Units. A <strong>revision</strong> records a version of that configuration. These are intended settings; live observations answer a different question.</p>
     </section>
     <section aria-labelledby="ui-browser">
-      <h2 id="ui-browser">2. Find one configuration in the browser</h2>
+      <h2 id="ui-browser">2. Find one configuration in the official GUI</h2>
       <ol><li>Confirm the organization you are viewing.</li><li>Find a component or Space you recognize, then open one Unit. If you have no entries or lack permission, ask for a tutorial Space or access; do not create production data just to follow this Guide.</li><li>Read its configuration and revision. Identify the environment from its labels and relationships, rather than guessing from its name.</li></ol>
       <p><strong>Your first result:</strong> you can name the configuration, the environment it belongs to and the revision you inspected. Keep the view read-only for now. Saving an edit changes stored configuration; it is a separate step from opening a Unit. For the next hands-on task, the official <a href="https://docs.confighub.com/get-started/tutorial/change/">Make a Change tutorial</a> shows editing the base, promoting and releasing as separate steps.</p>
     </section>
     <section aria-labelledby="ui-terminal">
-      <h2 id="ui-terminal">3. Or browse with cub commander</h2>
-      <p>Install the <a href="./try.html#install-cub">cub CLI</a> and sign in to the same server and organization you intend to inspect. Commander is an early terminal lab; its interface can change between versions.</p>
+      <h2 id="ui-terminal">3. Optional: try the experimental terminal UI</h2>
+      <p>Install the <a href="./try.html#install-cub">cub CLI</a> and sign in to the same server and organization you intend to inspect. cub-commander is an early experimental terminal UI (TUI), not the main product interface. Its interface can change between versions.</p>
       <pre><code>cub auth login
 cub plugin install confighub/cub-commander@v0.3.0
 cub commander</code></pre>
@@ -79,7 +80,7 @@ cub commander --scout-binding '&lt;target-id&gt;=&lt;kube-context&gt;'</code></p
     <section aria-labelledby="ui-next">
       <h2 id="ui-next">5. Make your next step deliberate</h2>
       <p>For a first managed change, continue with <a href="https://docs.confighub.com/get-started/tutorial/change/">the official change tutorial</a>. To understand deployment and promotion first, use <a href="./confighub.html">Deploy and manage with ConfigHub</a>. To investigate the live side, return to <a href="./see-what-is-running.html">Scout</a>.</p>
-      <p>The browser UI, terminal UI and CLI work with the same ConfigHub model. They need not expose identical features or permissions. Source review for this Guide: <a href="${commanderSource}/README.md">Commander v0.3.0</a> and the official tutorial. No new authenticated UI or live-cluster acceptance is claimed here.</p>
+      <p>The official GUI is the main product route. The UI SDK is for adapting that interface to new use cases and plugins; it can also run standalone and disconnected. Disconnected use does not provide a live server or cluster view. The experimental TUI and CLI offer other ways to work with the ConfigHub model; their features and permissions can differ. Source review for this Guide: <a href="${commanderSource}/README.md">Commander v0.3.0</a> and the official tutorial. No new authenticated UI or live-cluster acceptance is claimed here.</p>
     </section>`,
   };
 }

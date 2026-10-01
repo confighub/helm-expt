@@ -95,10 +95,9 @@ ${kind === "flux" ? '<p><code>--require Healthy</code> makes later promotions wa
       <p>${link(upstreamPlan, `Read the full ${upper} planning reference`)} for layouts and limits.</p>
     </section>
 
-${kind === "argo" ? `    <p><strong>You can stop here.</strong> The plan is read-only. To generate local scripts, connect delivery, or make a reviewed change, open the advanced steps below.</p>
+    <p><strong>You can stop here.</strong> The plan is read-only. To generate local scripts, connect delivery, or make a reviewed change, open the advanced steps below.</p>
     <details id="after-preview">
       <summary>After the preview: save, connect delivery and make a change</summary>
-` : ""}
 
     <section aria-labelledby="save-confighub">
       <h2 id="save-confighub">3. Save the reviewed setup in ConfigHub</h2>
@@ -138,7 +137,7 @@ ${commandBlock("cub variant approve --change-order <space>/<order> --stage <stag
 ${commandBlock(guide.status)}
       <p>${link(upstreamStatus, `Read the ${upper} status details`)}. A release, controller sync, and workload health are separate results; record the exact revision and target for each.</p>
     </section>
-${kind === "argo" ? "    </details>" : ""}`,
+    </details>`,
   };
 }
 
@@ -156,21 +155,27 @@ export function sveltosOnboardingGuide({ install, referenceUrl } = {}) {
       <h2 id="sveltos-preview">1. Preview the setup</h2>
       <p>Install ${link("./try.html#install-cub", "the cub CLI")} and the released plugin:</p>
       <pre><code>${escapeHtml(install)}</code></pre>
-      <p><strong>Prepare the inputs.</strong> On the Sveltos management cluster, export the profiles and clusters the first input file should describe:</p>
+      <p><strong>Confirm the management context.</strong> Check that kubectl is pointed at the Sveltos management cluster before exporting:</p>
+${commandBlock("kubectl config current-context")}
+      <p><strong>Prepare the inputs.</strong> The exports can contain sensitive configuration. Keep Secrets and credentials out of review files. On the confirmed Sveltos management cluster, export the profiles and clusters the first input file should describe:</p>
 ${commandBlock("kubectl get clusterprofiles,sveltosclusters -A -o yaml > my-fleet.yaml")}
       <p>This reads the management cluster; it requires access to a cluster running Sveltos v1.14.0 or newer. For each ConfigMap named by a profile's <code>policyRefs</code>, export that ConfigMap as a separate YAML input and pass it after <code>my-fleet.yaml</code>. For example, if a profile refers to the <code>kyverno-policies</code> ConfigMap in the <code>default</code> namespace:</p>
 ${commandBlock("kubectl get configmap -n default kyverno-policies -o yaml > kyverno-policies.yaml")}
-      <p>Keep Secrets and credentials out of review files. Once these YAML files are ready, planning is offline and needs no ConfigHub account or cluster mutation:</p>
+      <p>Once these YAML files are ready, planning is offline and needs no ConfigHub account or cluster mutation:</p>
 ${commandBlock("cub sveltos plan my-fleet.yaml kyverno-policies.yaml --stage-label env --stages staging,prod")}
       <p>The plan shows the shared base, a variant for each selected cluster, the rollout stages, and the objects rendered from charts and policy ConfigMaps. Review its exclusions and warnings too: hooks and unsupported ownership may need a deliberate decision. A hooks refusal is a prompt to review the lifecycle, not a reason to add <code>--include-hooks</code> blindly.</p>
       <p>${link(`${referenceUrl}#1-export-what-sveltos-knows`, "Prepare the example inputs")} · ${link(`${referenceUrl}#2-see-the-plan`, "read the planning reference")}.</p>
     </section>
 
+    <p><strong>You can stop here.</strong> The plan reads the exported YAML and does not change the cluster. To generate setup scripts, connect delivery, or make a reviewed change, open the advanced steps below.</p>
+    <details id="after-preview">
+      <summary>After the preview: save, connect delivery and make a change</summary>
+
     <section aria-labelledby="sveltos-save">
       <h2 id="sveltos-save">2. Review setup before running it</h2>
       <p>Generate scripts first. This writes files only.</p>
 ${commandBlock("cub sveltos apply my-fleet.yaml kyverno-policies.yaml --stage-label env --stages staging,prod --out onboard")}
-      <p>Read <code>onboard/apply.sh</code>. Running it needs ConfigHub login and a management-cluster context. For profiles that are not already live, it creates the gateway Secret and delivery profiles, so Sveltos begins delivering ConfigHub releases. Existing live profiles are deferred to handover and remain in control until then.</p>
+      <p>Read <code>onboard/apply.sh</code> before running it. Running it needs ConfigHub login and a management-cluster context. It can change that cluster: for profiles that are not already live, it creates the gateway Secret and delivery profiles. Sveltos then begins delivering ConfigHub releases. Existing live profiles are deferred to handover and remain in control until then.</p>
 ${commandBlock("MGMT_CONTEXT=<management-cluster-context> bash onboard/apply.sh")}
       <p>Use a disposable fleet first. A missing Unit can mean a released profile removes objects it no longer holds.</p>
     </section>
@@ -191,6 +196,7 @@ ${commandBlock("cub function set --space sveltos-kyverno-base --unit kyverno --c
       <p>Live status writes Sveltos observations to ConfigHub:</p>
 ${commandBlock("cub sveltos status --context <management-cluster-context> --watch")}
       <p>${link(`${referenceUrl}#making-a-change-afterwards`, "Read change, approval, release, and status details")}.</p>
-    </section>`,
+    </section>
+    </details>`,
   };
 }

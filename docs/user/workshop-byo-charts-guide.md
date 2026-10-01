@@ -1,37 +1,21 @@
 # Render your own chart to exact objects, adapt them as data, and keep them
 
-You have a Helm chart or a values file that is not a Catalog entry. It might
-be a chart your team maintains, a public chart with your own values, or
-values an AI assistant wrote or changed for you. That last case is the normal
-one this Guide is built for, not a special or risky one. An assistant that
-proposes a values change is doing the same job a teammate does when they open
-a pull request, and the four moves below are how you look at the result
-before you rely on it, whoever or whatever wrote it.
+Render your chart and values to flattened, fully rendered Kubernetes objects,
+then check what those objects need. Flattening gives you the exact objects;
+it does not deploy them. The first result is local, with no ConfigHub account
+or cluster. You need network access once to pull a chart you have not rendered
+before.
 
-This Guide walks four moves on your own chart and values. Render the chart to
-the exact Kubernetes objects it produces and see what those objects need.
-Compare two versions of your values or chart and see exactly what changed,
-object by object and field by field, so an assistant's edit is a diff you can
-read rather than a sentence you have to trust. When the chart has no field
-for something you need, edit the rendered object directly instead of forking
-the chart or writing a Kustomize overlay. Keep the reviewed objects with an
-identity so the Argo CD or Flux you already run can keep delivering them
-without re-templating the chart itself.
+This Guide then compares two versions, adapts a field the chart does not
+expose, and keeps the reviewed objects for delivery by your existing Argo CD
+or Flux. Stop after move 3 for a local review. Move 4 introduces ConfigHub
+and previews managed changes without approving them. You can follow the steps
+yourself or [give an assistant the whole path](#give-an-assistant-the-whole-path).
 
-Every command through the third move runs on your machine with no ConfigHub
-account and no cluster; the first move needs network access once, to pull
-the chart. The fourth move is where an account first matters, and this Guide
-says exactly where that starts. It works the same way read top to bottom by a
-person, or run end to end by an AI assistant with you watching the result;
-[jump to the assistant task](#give-an-assistant-the-whole-path) if that is
-how you want to start. Complete the setup below first if this is your first
-Guide.
-
-The concrete example throughout is this repository's own bring-your-own
-NGINX case: `bitnami/nginx` 24.0.2 with values an AI proposed, and the values
-a person reviewed before keeping them. Run the same commands on your own
-chart and values by swapping the chart reference, the values file, and the
-namespace; the flag shapes stay the same.
+The example is this repository's `bitnami/nginx` 24.0.2 with AI-proposed
+values reviewed by a person. For your own chart, replace the chart reference,
+values file, and namespace. Complete the setup below before running the first
+command.
 
 ## Set up the pinned tooling
 
@@ -55,25 +39,6 @@ already rendered does not.
 
 No account, credentials, cluster, registry, or Docker is needed for the
 first three moves. The fourth move names exactly where that changes.
-
-## Check your agent the same way every time
-
-Predicting the exit code and the one answering field before you run each
-command is the same rule the skill states from the agent's side in
-["Say What You Expect Before You Run It"](../../skills/config-workshop/SKILL.md#say-what-you-expect-before-you-run-it),
-and the three moves in
-[the Helm Guide's agent-checking section](./workshop-helm-questions-guide.md#check-your-agent-the-same-way-every-time)
-apply here without change: make the agent cite full object identities
-(`apps/v1|Deployment|nginx|nginx`, not "the Deployment"), compare its answer
-with the retained file the move names, then run that move's command and read
-the actual output before trusting the agent's summary of it.
-
-One habit matters more here than elsewhere, because the values under review
-may be the agent's own work. Ask it to name the exact object and field path
-it changed, not the outcome it intended, then run the diff in move 2 and
-check that its answer names the same objects the diff reports. An agent that
-describes what it meant to do is not the same as one that can point at what
-it actually did.
 
 ## 1. Render your chart and see what it needs
 
@@ -357,6 +322,25 @@ destination you point this at.
 target and its gates are ready, and let your Argo or Flux reconcile the
 result. Repeat move 2 whenever the source chart or values change again, so
 the next AI-proposed edit gets the same read before it is kept.
+
+## Check your agent the same way every time
+
+Predicting the exit code and the one answering field before you run each
+command is the same rule the skill states from the agent's side in
+["Say What You Expect Before You Run It"](../../skills/config-workshop/SKILL.md#say-what-you-expect-before-you-run-it),
+and the three moves in
+[the Helm Guide's agent-checking section](./workshop-helm-questions-guide.md#check-your-agent-the-same-way-every-time)
+apply here without change: make the agent cite full object identities
+(`apps/v1|Deployment|nginx|nginx`, not "the Deployment"), compare its answer
+with the retained file the move names, then run that move's command and read
+the actual output before trusting the agent's summary of it.
+
+One habit matters more here than elsewhere, because the values under review
+may be the agent's own work. Ask it to name the exact object and field path
+it changed, not the outcome it intended, then run the diff in move 2 and
+check that its answer names the same objects the diff reports. An agent that
+describes what it meant to do is not the same as one that can point at what
+it actually did.
 
 ## Give an assistant the whole path
 

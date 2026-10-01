@@ -16,6 +16,25 @@ entry: no NIM container ran, no model was fetched, and nothing was pulled from
 catalog page for the described model profile supplied the governing-terms
 names, and the profile stores those names with the date they were read.
 
+## First result: inspect one model without a GPU
+
+Open the retained [one-GPU Llama 3.1 8B configuration](../../../examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/llama-3.1-8b-instruct_1xgpu_1.1.0.yaml).
+Reading this file needs no account, cluster, model download or NGC credentials.
+
+Find three things under `spec.predictor.model`:
+
+- `resources` requests and limits one `nvidia.com/gpu`.
+- `runtime` names the required NIM serving runtime.
+- `storageUri` refers to `pvc://nvidia-nim-pvc/`, which the target must provide.
+
+You can stop with an explanation of what this model configuration asks the
+platform to supply. The file alone does not install those dependencies or prove
+inference works. Running it requires the compatible serving stack, GPU capacity,
+storage and model access described by the retained upstream instructions.
+
+For a local package exercise instead, [inspect the AICR starter](../../../site/try-aicr.html#retained-config-path).
+It also stops before deployment.
+
 ## Why this source, and what it is not
 
 This entry retains NVIDIA's KServe reference implementation, which is a

@@ -498,7 +498,21 @@
   .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
   .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
   .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
-  .cw-content { min-width: 0; }
+  .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  .cw-guide .cw-content { max-width: 880px; }
+  .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
+  .cw-guide h1 { font-size: clamp(2rem, 3vw, 2.7rem); line-height: 1.15; }
+  .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
+  .cw-content pre { max-width: 100%; overflow-x: auto; }
+  .cw-content summary { cursor: pointer; padding: 10px 0; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cw-skip { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 6px; }
+  .cw-skip:focus { top: 12px; }
+  @media (max-width: 600px) {
+    .cw-layout { padding: 0 16px; }
+    .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 200px; }
+    .cw-guide .cw-content h1 { overflow-wrap: anywhere; }
+  }
   .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
   .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
   .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
@@ -520,12 +534,13 @@
   }</style>
 </head>
 <body>
+<a class="cw-skip" href="#cw-content">Skip to content</a>
 <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="../charts/index.html">Configs</a><a href="../stack.html">Stacks</a><a href="../apps.html">Apps</a><a href="../plugins.html">Plugins</a><a href="../guides.html">Guides</a><a href="../docs.html">Docs</a><a class="nav-cta" href="../confighub.html">ConfigHub Server</a></span></nav></div></div>
 <div class="cw-layout">
 <nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>Starting questions</strong></p><ul><li><a href="../config.html">How does Helm become configuration as data?</a></li><li><a href="../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../did-this-chart-version-change.html">Did a chart version change?</a></li><li><a href="../did-your-bitnami-chart-stop-pulling.html">Did my chart stop pulling?</a></li><li><a href="../try-aicr.html">Which GPU nodes match an AICR recipe?</a></li><li><a href="../charts/index.html?format=ai-platform">Where are the AICR and NVIDIA NIM configs?</a></li><li><a href="../proof.html">What has been tested?</a></li><li><a href="../confighub.html#promote-a-change">How do I release and promote a config?</a></li></ul>
       <p class="cw-nav-title"><strong><a href="../ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p></nav>
-<div class="cw-content">
+<div class="cw-content" id="cw-content" tabindex="-1">
 <details class="cw-mobile-nav"><summary>Browse Configs</summary><p class="cw-nav-title"><strong>Starting questions</strong></p><ul><li><a href="../config.html">How does Helm become configuration as data?</a></li><li><a href="../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../did-this-chart-version-change.html">Did a chart version change?</a></li><li><a href="../did-your-bitnami-chart-stop-pulling.html">Did my chart stop pulling?</a></li><li><a href="../try-aicr.html">Which GPU nodes match an AICR recipe?</a></li><li><a href="../charts/index.html?format=ai-platform">Where are the AICR and NVIDIA NIM configs?</a></li><li><a href="../proof.html">What has been tested?</a></li><li><a href="../confighub.html#promote-a-change">How do I release and promote a config?</a></li></ul>
       <p class="cw-nav-title"><strong><a href="../ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p></details>

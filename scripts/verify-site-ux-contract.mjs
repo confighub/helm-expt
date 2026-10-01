@@ -230,7 +230,7 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Docs, by area", "How configuration works", "How ConfigHub works", "Why trust it", "What ConfigHub Workshop is", "records/bitnami-redis-25-5-3-default.json", "Download record.json", "examples/workshop-catalog-inspection/README.md", "Inspect and keep an exact record", "All technical references", "Technical Guides", "Verification and evidence", "Every doc, by area", "Try Redis", "Component Catalog", "Browse all technical references", "Continue with ConfigHub"],
+    terms: ["Find your topic", "AI and agents", "GitOps", "Deployment and promotion", "Configuration as data", "How ConfigHub works", "Why trust it", "About Workshop", "catalog-docs.html", "records/bitnami-redis-25-5-3-default.json", "Download record.json", "examples/workshop-catalog-inspection/README.md", "Inspect and keep an exact record", "All technical references", "Technical Guides", "Verification and evidence", "Every doc, by area", "Try Redis", "Component Catalog", "Continue with ConfigHub"],
   },
   // Site IA phase 4, step 8: "Choose a tool and start" left How configuration works for its Guide.
   {
