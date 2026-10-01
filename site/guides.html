@@ -661,12 +661,20 @@
     </section><section aria-labelledby="guides-your-tools">
     <h2 id="guides-your-tools">Start with what you use</h2>
     <p>Keep your tools. First inspect the configuration; choose delivery changes only when you are ready.</p>
+    <h3 id="guides-existing-apps">Bring an existing app</h3>
+    <p>Start from the chart or delivery system you already use.</p>
     <ul class="guide-list">
       <li><a href="./bring-argo-into-confighub.html">I use Argo CD</a>. Preview your apps, import a parallel copy, then review handover and recovery.</li>
       <li><a href="./bring-flux-into-confighub.html">I use Flux</a>. Preview your repository and move delivery one cluster at a time.</li>
-      <li><a href="./bring-sveltos-into-confighub.html">I want a fleet</a>. Use Sveltos to deliver reviewed configuration to your clusters.</li>
-      <li><a href="./bring-kubara-into-confighub.html">I want platform add-ons</a>. Keep Kubara generating your platform and add ConfigHub review.</li>
-      <li><a href="./d/docs/user/workshop-byo-charts-guide.html">I use Helm</a>. Render your own chart, diagnose values and compare a change before installing.</li>
+      <li><a href="./d/docs/user/workshop-byo-charts-guide.html">I use Helm</a>. Render your own chart and values, then check and compare a change before installing.</li>
+      <li><a href="./deploy-with-flux-or-argo.html">Other GitOps delivery paths</a>. Review how rendered configuration reaches your controller.</li>
+    </ul>
+    <h3 id="guides-platforms-fleets">Build a platform or fleet for your apps</h3>
+    <p>Choose the services your apps need, then review the configuration before anything runs.</p>
+    <ul class="guide-list">
+      <li><a href="./bring-kubara-into-confighub.html">Build a platform with Kubara</a>. Generate platform add-ons, inspect them and add ConfigHub review when you are ready.</li>
+      <li><a href="./bring-sveltos-into-confighub.html">Manage a fleet with Sveltos</a>. This Guide starts from an existing Sveltos management cluster and takes delivery into ConfigHub in stages.</li>
+      <li><a href="./compose-a-stack.html">Compose a stack with an app</a>. Choose components and check that they fit together.</li>
       <li>I use NVIDIA: <a href="./try-aicr.html">inspect an AICR platform configuration</a>, or <a href="./d/docs/demo/aicr/kserve-nim-inference.html">prepare NIM model serving</a>. Local inspection is separate from proving a GPU deployment.</li>
     </ul>
     <p><a href="./see-what-is-running.html">Show me what is running</a> · <a href="./view-and-change-config-with-uis.html">Let me browse configuration in a UI</a></p>
