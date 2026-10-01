@@ -8,7 +8,7 @@ are the next rows to work, not the whole corpus.
 
 ```text
 gap-review first rows:             9
-strict promotion-review rows:      33
+strict promotion-review rows:      32
 latest-version promotion rows:     7
 variant-build rows:                5
 production-disposition first rows: 5
@@ -60,7 +60,6 @@ receipts before the follow-up runtime/GitOps and image-digest lanes run.
 | 2 | external-dns/external-dns@1.21.1 | default;no-crds;dry-run-txt-registry | 0 | 3 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | fairwinds-stable/vpa@4.11.0 | default;no-crds | 0 | 21 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | gatekeeper/gatekeeper@3.22.2 | default;no-crds | 0 | 22 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
-| 2 | grafana/alloy@1.8.2 | default;no-crds | 0 | 3 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | grafana/rollout-operator@0.49.0 | default;no-crds | 0 | 8 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | jaegertracing/jaeger-operator@2.57.0 | default;no-crds | 0 | 3 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | jetstack/trust-manager@v0.22.1 | default;no-crds | 0 | 4 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |

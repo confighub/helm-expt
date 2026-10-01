@@ -15,29 +15,29 @@ Catalog support must come from explicit catalog-status.yaml files.
 ## Summary
 
 ```text
-recipes reviewed: 142
-machine checks pass: 142
+recipes reviewed: 156
+machine checks pass: 156
 machine checks fail: 0
-proof-grade: 99
-catalog-candidate: 23
+proof-grade: 108
+catalog-candidate: 28
 catalog-supported: 20
 blocked: 0
-default-only recipes: 50
-multi-variant recipes: 92
-recipes with warning gates: 125
+default-only recipes: 59
+multi-variant recipes: 97
+recipes with warning gates: 139
 recipes with non-current executable fixture path: 0
 ```
 
 ## Proof Tiers
 
-- `bespoke-top20`: 55
+- `bespoke-top20`: 69
 - `next80-full`: 80
 - `successor-full`: 7
 
 ## Support Levels
 
-- `machine-proof-only`: 99
-- `promotion-review-needed`: 23
+- `machine-proof-only`: 108
+- `promotion-review-needed`: 28
 - `supported-for-declared-scopes`: 20
 
 ## Catalog Candidates
@@ -50,6 +50,7 @@ proof work.
 | --- | ---: | --- | --- |
 | `argo-cd/argo-cd@10.1.3` | 2 | warn | run human catalog promotion review |
 | `argo-cd/argo-cd@10.2.1` | 2 | warn | run human catalog promotion review |
+| `argo-cd/argo-cd@10.7.0` | 2 | warn | run human catalog promotion review |
 | `argo-cd/argo-cd@9.5.17` | 2 | warn | run human catalog promotion review |
 | `aws-controllers-k8s/ec2-chart@1.18.4` | 2 | warn | run human catalog promotion review |
 | `aws-controllers-k8s/eks-chart@1.16.3` | 2 | warn | run human catalog promotion review |
@@ -61,13 +62,12 @@ proof work.
 | `bitnami/postgresql@18.6.10` | 2 | warn | run human catalog promotion review |
 | `bitnami/postgresql@18.7.0` | 2 | warn | run human catalog promotion review |
 | `bitnami/redis@27.0.0` | 2 | warn | run human catalog promotion review |
+| `external-secrets/external-secrets@2.10.0` | 2 | warn | run human catalog promotion review |
 | `external-secrets/external-secrets@2.7.0` | 2 | warn | run human catalog promotion review |
 | `external-secrets/external-secrets@2.8.0` | 2 | warn | run human catalog promotion review |
 | `jetstack/cert-manager@v1.21.0` | 2 | warn | run human catalog promotion review |
+| `jetstack/cert-manager@v1.21.1` | 2 | warn | run human catalog promotion review |
 | `karpenter/karpenter@1.14.0` | 3 | blocked | run human catalog promotion review |
-| `metrics-server/metrics-server@3.13.1` | 2 | warn | run human catalog promotion review |
-| `nvidia/nvidia-device-plugin@0.19.3` | 3 | warn | run human catalog promotion review |
-| `prometheus-community/kube-prometheus-stack@86.1.0` | 2 | warn | run human catalog promotion review |
 
 ## Main Gaps
 

@@ -7,7 +7,7 @@
     "site/listings/index.json",
     "site/listings/<id>.json"
   ],
-  "count": 262,
+  "count": 282,
   "rows": [
     {
       "id": "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
@@ -227,6 +227,50 @@
       "listing": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-2-1-no-crds.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-2-1-no-crds.json"
+      }
+    },
+    {
+      "id": "argo-cd-argo-cd-10-7-0-default",
+      "name": "argo-cd/argo-cd",
+      "format": "helm",
+      "version": "10.7.0",
+      "base": "default",
+      "summary": "argo-cd/argo-cd 10.7.0, helm, base default: 55 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 55,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:5642d162c6718874a310acebeaaa75dbd1f0825e6188418b36d8b06357fdface",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-7-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-7-0-default.json"
+      }
+    },
+    {
+      "id": "argo-cd-argo-cd-10-7-0-no-crds",
+      "name": "argo-cd/argo-cd",
+      "format": "helm",
+      "version": "10.7.0",
+      "base": "no-crds",
+      "summary": "argo-cd/argo-cd 10.7.0, helm, base no-crds: 52 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 52,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:9e7f272f1f39d5c4911a02de8b72e2901ad25163f5308080b7fabb748c6e2532",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-7-0-no-crds.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-7-0-no-crds.json"
       }
     },
     {
@@ -2320,6 +2364,50 @@
       }
     },
     {
+      "id": "external-secrets-external-secrets-2-10-0-default",
+      "name": "external-secrets/external-secrets",
+      "format": "helm",
+      "version": "2.10.0",
+      "base": "default",
+      "summary": "external-secrets/external-secrets 2.10.0, helm, base default: 44 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 44,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:5836924e6c7df634a86ae7fb6b35de5133778dab0afe1d0a25f9adde2187ee2e",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/external-secrets-external-secrets-2-10-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/external-secrets-external-secrets-2-10-0-default.json"
+      }
+    },
+    {
+      "id": "external-secrets-external-secrets-2-10-0-no-crds",
+      "name": "external-secrets/external-secrets",
+      "format": "helm",
+      "version": "2.10.0",
+      "base": "no-crds",
+      "summary": "external-secrets/external-secrets 2.10.0, helm, base no-crds: 19 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 19,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:5bee43e3c91bccbe93e20fc0f9bd47fb08e5564cb0c1f932049039d7998d24f2",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/external-secrets-external-secrets-2-10-0-no-crds.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/external-secrets-external-secrets-2-10-0-no-crds.json"
+      }
+    },
+    {
       "id": "external-secrets-external-secrets-2-5-0-default",
       "name": "external-secrets/external-secrets",
       "format": "helm",
@@ -2694,6 +2782,28 @@
       }
     },
     {
+      "id": "grafana-alloy-1-12-1-default",
+      "name": "grafana/alloy",
+      "format": "helm",
+      "version": "1.12.1",
+      "base": "default",
+      "summary": "grafana/alloy 1.12.1, helm, base default: 7 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 7,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:e3b30c75c9a0bc3241f42a8dde5d4b05371091c319ab5712fe30685234d17549",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/grafana-alloy-1-12-1-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/grafana-alloy-1-12-1-default.json"
+      }
+    },
+    {
       "id": "grafana-alloy-1-8-2-default",
       "name": "grafana/alloy",
       "format": "helm",
@@ -2845,6 +2955,28 @@
       "listing": "https://confighub.github.io/helm-expt/site/listings/grafana-loki-7-1-0-default.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/listings/grafana-loki-7-1-0-default.json"
+      }
+    },
+    {
+      "id": "grafana-loki-7-3-0-default",
+      "name": "grafana/loki",
+      "format": "helm",
+      "version": "7.3.0",
+      "base": "default",
+      "summary": "grafana/loki 7.3.0, helm, base default: 19 objects, flattening verdict unsafe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 19,
+      "flatteningVerdict": "unsafe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:748a9b3329ec784fc8eeba2bc023fd9f42af37816a0e3a40fa02a4e44ae8afaa",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/grafana-loki-7-3-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/grafana-loki-7-3-0-default.json"
       }
     },
     {
@@ -3508,6 +3640,50 @@
       }
     },
     {
+      "id": "jetstack-cert-manager-v1-21-1-crds-enabled",
+      "name": "jetstack/cert-manager",
+      "format": "helm",
+      "version": "v1.21.1",
+      "base": "crds-enabled",
+      "summary": "jetstack/cert-manager v1.21.1, helm, base crds-enabled: 46 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 46,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/jetstack-cert-manager-v1-21-1-crds-enabled.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/jetstack-cert-manager-v1-21-1-crds-enabled.json"
+      }
+    },
+    {
+      "id": "jetstack-cert-manager-v1-21-1-default",
+      "name": "jetstack/cert-manager",
+      "format": "helm",
+      "version": "v1.21.1",
+      "base": "default",
+      "summary": "jetstack/cert-manager v1.21.1, helm, base default: 40 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 40,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:e07b13b5b7f193be263181e405388fc362e7850dc1bac9561cad4bb8f4609ad3",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/jetstack-cert-manager-v1-21-1-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/jetstack-cert-manager-v1-21-1-default.json"
+      }
+    },
+    {
       "id": "jetstack-trust-manager-v0-22-1-default",
       "name": "jetstack/trust-manager",
       "format": "helm",
@@ -3772,6 +3948,28 @@
       }
     },
     {
+      "id": "kyverno-kyverno-3-9-0-default",
+      "name": "kyverno/kyverno",
+      "format": "helm",
+      "version": "3.9.0",
+      "base": "default",
+      "summary": "kyverno/kyverno 3.9.0, helm, base default: 69 objects, flattening verdict unsafe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 69,
+      "flatteningVerdict": "unsafe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/kyverno-kyverno-3-9-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/kyverno-kyverno-3-9-0-default.json"
+      }
+    },
+    {
       "id": "kyverno-kyverno-policies-3-8-0-default",
       "name": "kyverno/kyverno-policies",
       "format": "helm",
@@ -3813,6 +4011,28 @@
       "listing": "https://confighub.github.io/helm-expt/site/listings/kyverno-kyverno-policies-3-8-2-default.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/listings/kyverno-kyverno-policies-3-8-2-default.json"
+      }
+    },
+    {
+      "id": "kyverno-kyverno-policies-3-9-0-default",
+      "name": "kyverno/kyverno-policies",
+      "format": "helm",
+      "version": "3.9.0",
+      "base": "default",
+      "summary": "kyverno/kyverno-policies 3.9.0, helm, base default: 11 objects, flattening verdict unsafe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 11,
+      "flatteningVerdict": "unsafe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:eae1a47312f3ecdf88eaabd4eff1d17e3259140694e265d3dbb5c71fc6f39278",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/kyverno-kyverno-policies-3-9-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/kyverno-kyverno-policies-3-9-0-default.json"
       }
     },
     {
@@ -3901,6 +4121,28 @@
       "listing": "https://confighub.github.io/helm-expt/site/listings/longhorn-longhorn-1-12-0-default.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/listings/longhorn-longhorn-1-12-0-default.json"
+      }
+    },
+    {
+      "id": "longhorn-longhorn-1-12-1-default",
+      "name": "longhorn/longhorn",
+      "format": "helm",
+      "version": "1.12.1",
+      "base": "default",
+      "summary": "longhorn/longhorn 1.12.1, helm, base default: 50 objects, flattening verdict unsafe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 50,
+      "flatteningVerdict": "unsafe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:1e1c0981fa9e52c72e1e6adac0a981b809532f423a8f095a362501a7bf77e5b8",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/longhorn-longhorn-1-12-1-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/longhorn-longhorn-1-12-1-default.json"
       }
     },
     {
@@ -4011,6 +4253,50 @@
       "listing": "https://confighub.github.io/helm-expt/site/listings/metrics-server-metrics-server-3-13-1-external-tls-ca.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/listings/metrics-server-metrics-server-3-13-1-external-tls-ca.json"
+      }
+    },
+    {
+      "id": "metrics-server-metrics-server-3-14-0-default",
+      "name": "metrics-server/metrics-server",
+      "format": "helm",
+      "version": "3.14.0",
+      "base": "default",
+      "summary": "metrics-server/metrics-server 3.14.0, helm, base default: 9 objects, flattening verdict safe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 9,
+      "flatteningVerdict": "safe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:6e0dc279447462b6ad2ca64f6af6e40c5fac2057c1d6498933d720ffd7d810b2",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/metrics-server-metrics-server-3-14-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/metrics-server-metrics-server-3-14-0-default.json"
+      }
+    },
+    {
+      "id": "metrics-server-metrics-server-3-14-0-external-tls-ca",
+      "name": "metrics-server/metrics-server",
+      "format": "helm",
+      "version": "3.14.0",
+      "base": "external-tls-ca",
+      "summary": "metrics-server/metrics-server 3.14.0, helm, base external-tls-ca: 9 objects, flattening verdict unsafe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 9,
+      "flatteningVerdict": "unsafe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:3c7569acec1ac9a798aedac416aae5cbed9ac8caa28813a3cf0e373537511052",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/metrics-server-metrics-server-3-14-0-external-tls-ca.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/metrics-server-metrics-server-3-14-0-external-tls-ca.json"
       }
     },
     {
@@ -4542,6 +4828,28 @@
       }
     },
     {
+      "id": "policy-reporter-policy-reporter-3-10-0-default",
+      "name": "policy-reporter/policy-reporter",
+      "format": "helm",
+      "version": "3.10.0",
+      "base": "default",
+      "summary": "policy-reporter/policy-reporter 3.10.0, helm, base default: 8 objects, flattening verdict safe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 8,
+      "flatteningVerdict": "safe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:a7b6293916be3b1e6e7746a1fb2802f6e820ecd9fbb24aa122fc028a6f95de10",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/policy-reporter-policy-reporter-3-10-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/policy-reporter-policy-reporter-3-10-0-default.json"
+      }
+    },
+    {
       "id": "policy-reporter-policy-reporter-3-9-1-default",
       "name": "policy-reporter/policy-reporter",
       "format": "helm",
@@ -4872,6 +5180,72 @@
       }
     },
     {
+      "id": "prometheus-community-kube-prometheus-stack-88-6-3-default",
+      "name": "prometheus-community/kube-prometheus-stack",
+      "format": "helm",
+      "version": "88.6.3",
+      "base": "default",
+      "summary": "prometheus-community/kube-prometheus-stack 88.6.3, helm, base default: 125 objects, flattening verdict unsafe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 125,
+      "flatteningVerdict": "unsafe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:7b1bb6bd944ccfff3fa9e42b82a1fe442ddffefccf28f08f670b841c12906f4d",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-88-6-3-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-88-6-3-default.json"
+      }
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-88-6-3-existing-secret",
+      "name": "prometheus-community/kube-prometheus-stack",
+      "format": "helm",
+      "version": "88.6.3",
+      "base": "existing-secret",
+      "summary": "prometheus-community/kube-prometheus-stack 88.6.3, helm, base existing-secret: 124 objects, flattening verdict unsafe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 124,
+      "flatteningVerdict": "unsafe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:2aa77c122fb43a9beb0a714f6bc033d9e78f0f2151ff6c3f58193e50162c0284",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-88-6-3-existing-secret.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-88-6-3-existing-secret.json"
+      }
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-88-6-3-no-crds",
+      "name": "prometheus-community/kube-prometheus-stack",
+      "format": "helm",
+      "version": "88.6.3",
+      "base": "no-crds",
+      "summary": "prometheus-community/kube-prometheus-stack 88.6.3, helm, base no-crds: 115 objects, flattening verdict unsafe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 115,
+      "flatteningVerdict": "unsafe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:3927a5c00b43122e4126947dd428d621a93e6e972c22a78b1033c40f39722959",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-88-6-3-no-crds.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-88-6-3-no-crds.json"
+      }
+    },
+    {
       "id": "prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly",
       "name": "prometheus-community/kube-state-metrics",
       "format": "helm",
@@ -5133,6 +5507,28 @@
       "listing": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-blackbox-exporter-11-15-1-default.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-blackbox-exporter-11-15-1-default.json"
+      }
+    },
+    {
+      "id": "prometheus-community-prometheus-blackbox-exporter-11-18-0-default",
+      "name": "prometheus-community/prometheus-blackbox-exporter",
+      "format": "helm",
+      "version": "11.18.0",
+      "base": "default",
+      "summary": "prometheus-community/prometheus-blackbox-exporter 11.18.0, helm, base default: 4 objects, flattening verdict safe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 4,
+      "flatteningVerdict": "safe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:f9a8cddd436d84f31bcb4903756d6a1e149e7f4197d33d18013e33b077195aa2",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-blackbox-exporter-11-18-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-blackbox-exporter-11-18-0-default.json"
       }
     },
     {
@@ -5444,6 +5840,28 @@
       }
     },
     {
+      "id": "stakater-reloader-2-2-16-default",
+      "name": "stakater/reloader",
+      "format": "helm",
+      "version": "2.2.16",
+      "base": "default",
+      "summary": "stakater/reloader 2.2.16, helm, base default: 6 objects, flattening verdict safe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 6,
+      "flatteningVerdict": "safe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:64a45378bc0d60bf4cb4fb5094cf8c58aeb5c337934d0f9df3273fcaa04b2a3b",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/stakater-reloader-2-2-16-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/stakater-reloader-2-2-16-default.json"
+      }
+    },
+    {
       "id": "strimzi-strimzi-kafka-operator-1-0-0-default",
       "name": "strimzi/strimzi-kafka-operator",
       "format": "helm",
@@ -5617,6 +6035,28 @@
       "listing": "https://confighub.github.io/helm-expt/site/listings/traefik-traefik-41-0-2-default.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/listings/traefik-traefik-41-0-2-default.json"
+      }
+    },
+    {
+      "id": "traefik-traefik-41-4-0-default",
+      "name": "traefik/traefik",
+      "format": "helm",
+      "version": "41.4.0",
+      "base": "default",
+      "summary": "traefik/traefik 41.4.0, helm, base default: 31 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 31,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/traefik-traefik-41-4-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/traefik-traefik-41-4-0-default.json"
       }
     },
     {

@@ -1,0 +1,138 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "kyverno-kyverno-3.9.0"
+  chart: "kyverno/kyverno"
+  version: "3.9.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "kyverno/kyverno"
+    version: "3.9.0"
+    appVersion: "v1.19.0"
+    sourceLock: "recipes/kyverno/kyverno/3.9.0/source-lock.yaml"
+    dependencyLock: "recipes/kyverno/kyverno/3.9.0/dependency-lock.yaml"
+    repository: "https://kyverno.github.io/kyverno"
+    packageSHA256: "9663e8d3d15b070e5925b4f26b3f9a8824872a42ac7bf27ca105c897cb5aba51"
+  recipe:
+    path: "recipes/kyverno/kyverno/3.9.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/kyverno/kyverno/3.9.0/helm-plan.yaml"
+    chartDossier: "recipes/kyverno/kyverno/3.9.0/chart-dossier.yaml"
+    controlPoints: "recipes/kyverno/kyverno/3.9.0/control-points.yaml"
+    valueModel: "recipes/kyverno/kyverno/3.9.0/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/kyverno/kyverno/3.9.0/helm-pain-report.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "catalog-coverage"
+      - "crd-lifecycle"
+      - "dependency-lock"
+      - "source-lock"
+  catalogStatus:
+    path: "recipes/kyverno/kyverno/3.9.0/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: "1/1"
+      inConfigHub: "0/1"
+      localLive: "0/1"
+      gitopsLive: "0/1"
+      liveParity: "0/1"
+    featureSummary: "none-recorded"
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/kyverno/kyverno/3.9.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.9.0@sha256:d776bb0614033308ed60af0b15af522ba857f255ad92b3247773f8c4cd63874f"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.9.0"
+    manifestDigest: "sha256:d776bb0614033308ed60af0b15af522ba857f255ad92b3247773f8c4cd63874f"
+    layerDigest: "sha256:8d4dab1dbdf1764f18a998c88b53139fb6b8aa63fd85762f2ab18cd90bfcd403"
+    publicationReceipt: "runs/installer-oci/kyverno-kyverno/3.9.0/installer-package-publication-receipt.yaml"
+    installer: "packages/kyverno/kyverno/3.9.0/installer.yaml"
+    receipt: "recipes/kyverno/kyverno/3.9.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "8d4dab1dbdf1764f18a998c88b53139fb6b8aa63fd85762f2ab18cd90bfcd403"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/kyverno/kyverno/3.9.0/bases/default"
+        default: true
+        description: "kyverno chart defaults variant rendered from kyverno/kyverno@3.9.0"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/kyverno/kyverno/3.9.0/variants/default/variant.yaml"
+      namespace: "kyverno"
+      releaseName: "kyverno"
+      valuesProfile: "recipes/kyverno/kyverno/3.9.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/kyverno/kyverno/3.9.0/bases/default"
+        default: true
+        description: "kyverno chart defaults variant rendered from kyverno/kyverno@3.9.0"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.9.0@sha256:d776bb0614033308ed60af0b15af522ba857f255ad92b3247773f8c4cd63874f --base default --work-dir <tmp> --non-interactive --namespace kyverno"
+        helmReleaseObjectCount: 69
+        cubInstallObjectCountIncludingSupport: 70
+        semanticObjectMatches: "69/69"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||kyverno"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/kyverno/kyverno/3.9.0/revisions/default/r001/variant-revision.yaml"
+          digest: "ea613f7f672c7e9c5e2c44a7f637768f17580745f7b9bd80aed25109f7fd538d"
+          renderedObjectSetSHA256: "ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a"
+          renderedObjects: "recipes/kyverno/kyverno/3.9.0/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/kyverno/kyverno/3.9.0/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 69
+          helmObjectCount: 69
+          cubInstallObjectCountIncludingSupport: 70
+          semanticObjectMatches: "69/69"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/kyverno/kyverno/3.9.0/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/kyverno/kyverno/3.9.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/kyverno/kyverno/3.9.0/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/kyverno/kyverno/3.9.0/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a"

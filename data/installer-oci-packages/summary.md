@@ -38,7 +38,7 @@ does not return the requested manifest.
 | Count | Value |
 | --- | ---: |
 | Installer packages | 156 |
-| Public catalog packages | 110 |
+| Public catalog packages | 111 |
 | Package refs with publication receipts | 156 |
 | Assigned refs without publication receipts yet | 0 |
 | Published manifests with signature receipts | 156 |

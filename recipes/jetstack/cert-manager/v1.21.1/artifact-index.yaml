@@ -1,0 +1,270 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "jetstack-cert-manager-v1.21.1"
+  chart: "jetstack/cert-manager"
+  version: "v1.21.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "jetstack/cert-manager"
+    version: "v1.21.1"
+    appVersion: "v1.21.1"
+    sourceLock: "recipes/jetstack/cert-manager/v1.21.1/source-lock.yaml"
+    dependencyLock: "recipes/jetstack/cert-manager/v1.21.1/dependency-lock.yaml"
+    repository: "https://charts.jetstack.io"
+    packageSHA256: "c27101f3f3e2349fb4a9e704316105bf7b52ad73b8c8257d3498ef7f2f6a4adc"
+  recipe:
+    path: "recipes/jetstack/cert-manager/v1.21.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/jetstack/cert-manager/v1.21.1/helm-plan.yaml"
+    chartDossier: "recipes/jetstack/cert-manager/v1.21.1/chart-dossier.yaml"
+    controlPoints: "recipes/jetstack/cert-manager/v1.21.1/control-points.yaml"
+    valueModel: "recipes/jetstack/cert-manager/v1.21.1/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/jetstack/cert-manager/v1.21.1/helm-pain-report.yaml"
+    controlPointCategories:
+      - "admission-webhook"
+      - "capability-profile"
+      - "cluster-rbac"
+      - "crd-policy"
+      - "dependency-lock"
+      - "hook-policy"
+      - "installer-support-object"
+      - "source-lock"
+      - "tpl"
+  catalogStatus:
+    path: "recipes/jetstack/cert-manager/v1.21.1/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "crds-enabled"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "none-recorded"
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/jetstack/cert-manager/v1.21.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.1@sha256:830d0dfee2531c05cb48f3328abd1858b97bacf050208e583ab2dd2214d2cba5"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.1"
+    manifestDigest: "sha256:830d0dfee2531c05cb48f3328abd1858b97bacf050208e583ab2dd2214d2cba5"
+    layerDigest: "sha256:8fc68b3cafecf7fd55b02e63b88268d1a3b9735c76f809c022ad979e59db8a42"
+    publicationReceipt: "runs/installer-oci/jetstack-cert-manager/v1.21.1/installer-package-publication-receipt.yaml"
+    installer: "packages/jetstack/cert-manager/v1.21.1/installer.yaml"
+    receipt: "recipes/jetstack/cert-manager/v1.21.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "8fc68b3cafecf7fd55b02e63b88268d1a3b9735c76f809c022ad979e59db8a42"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/jetstack/cert-manager/v1.21.1/bases/default"
+        default: true
+        description: "cert-manager default variant rendered from jetstack/cert-manager@v1.21.1"
+      -
+        name: "crds-enabled"
+        path: "packages/jetstack/cert-manager/v1.21.1/bases/crds-enabled"
+        default: false
+        description: "cert-manager CRDs enabled variant rendered from jetstack/cert-manager@v1.21.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/jetstack/cert-manager/v1.21.1/variants/default/variant.yaml"
+      namespace: "cert-manager"
+      releaseName: "cert-manager"
+      valuesProfile: "recipes/jetstack/cert-manager/v1.21.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "challenges.acme.cert-manager.io"
+            purpose: "cert-manager CRD staged before the default chart and its startup API check"
+            sourceVariant: "crds-enabled"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "orders.acme.cert-manager.io"
+            purpose: "cert-manager CRD staged before the default chart and its startup API check"
+            sourceVariant: "crds-enabled"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "certificaterequests.cert-manager.io"
+            purpose: "cert-manager CRD staged before the default chart and its startup API check"
+            sourceVariant: "crds-enabled"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "certificates.cert-manager.io"
+            purpose: "cert-manager CRD staged before the default chart and its startup API check"
+            sourceVariant: "crds-enabled"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusterissuers.cert-manager.io"
+            purpose: "cert-manager CRD staged before the default chart and its startup API check"
+            sourceVariant: "crds-enabled"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "issuers.cert-manager.io"
+            purpose: "cert-manager CRD staged before the default chart and its startup API check"
+            sourceVariant: "crds-enabled"
+      targetFactSummary: "required CRD challenges.acme.cert-manager.io; required CRD orders.acme.cert-manager.io; required CRD certificaterequests.cert-manager.io; required CRD certificates.cert-manager.io; required CRD clusterissuers.cert-manager.io; required CRD issuers.cert-manager.io"
+      packageBase:
+        name: "default"
+        path: "packages/jetstack/cert-manager/v1.21.1/bases/default"
+        default: true
+        description: "cert-manager default variant rendered from jetstack/cert-manager@v1.21.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.1@sha256:830d0dfee2531c05cb48f3328abd1858b97bacf050208e583ab2dd2214d2cba5 --base default --work-dir <tmp> --non-interactive --namespace cert-manager"
+        helmReleaseObjectCount: 40
+        cubInstallObjectCountIncludingSupport: 41
+        semanticObjectMatches: "40/40"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||cert-manager"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/variant-revision.yaml"
+          digest: "25bd33f598cb68e825d1e71a9056cfd819fe4963e46cf71bc76559a2636465a1"
+          renderedObjectSetSHA256: "e07b13b5b7f193be263181e405388fc362e7850dc1bac9561cad4bb8f4609ad3"
+          renderedObjects: "recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 40
+          helmObjectCount: 40
+          cubInstallObjectCountIncludingSupport: 41
+          semanticObjectMatches: "40/40"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "e07b13b5b7f193be263181e405388fc362e7850dc1bac9561cad4bb8f4609ad3"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "e07b13b5b7f193be263181e405388fc362e7850dc1bac9561cad4bb8f4609ad3"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "e07b13b5b7f193be263181e405388fc362e7850dc1bac9561cad4bb8f4609ad3"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "e07b13b5b7f193be263181e405388fc362e7850dc1bac9561cad4bb8f4609ad3"
+    -
+      name: "crds-enabled"
+      variant: "recipes/jetstack/cert-manager/v1.21.1/variants/crds-enabled/variant.yaml"
+      namespace: "cert-manager"
+      releaseName: "cert-manager"
+      valuesProfile: "recipes/jetstack/cert-manager/v1.21.1/effective-values-crds-enabled.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "crds-enabled"
+        path: "packages/jetstack/cert-manager/v1.21.1/bases/crds-enabled"
+        default: false
+        description: "cert-manager CRDs enabled variant rendered from jetstack/cert-manager@v1.21.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.1@sha256:830d0dfee2531c05cb48f3328abd1858b97bacf050208e583ab2dd2214d2cba5 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager"
+        helmReleaseObjectCount: 46
+        cubInstallObjectCountIncludingSupport: 47
+        semanticObjectMatches: "46/46"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||cert-manager"
+      revisions:
+        -
+          name: "crds-enabled-r001"
+          revision: "r001"
+          variantRevision: "recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/variant-revision.yaml"
+          digest: "5f6623f5a4ea8e1f77c11a60202a0dff3ca4adfdcf0cc1b85805e36d9963ff48"
+          renderedObjectSetSHA256: "b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db"
+          renderedObjects: "recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/rendered/object-inventory.yaml"
+          objectCount: 46
+          helmObjectCount: 46
+          cubInstallObjectCountIncludingSupport: 47
+          semanticObjectMatches: "46/46"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db"

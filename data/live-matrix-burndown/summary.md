@@ -19,27 +19,27 @@ For the cell-level completion count, use
 
 | Metric | Rows |
 | --- | ---: |
-| Matrix variant rows | 472 |
-| Variants needing at least one live command | 147 |
-| Live commands remaining | 244 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 124 |
-| Two-cluster kind parity commands | 120 |
-| Watch/blocked/review rows | 167 |
-| Ready-to-run todo rows | 77 |
+| Matrix variant rows | 506 |
+| Variants needing at least one live command | 167 |
+| Live commands remaining | 284 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 144 |
+| Two-cluster kind parity commands | 140 |
+| Watch/blocked/review rows | 187 |
+| Ready-to-run todo rows | 97 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
-| `kind-parity` | 120 |
-| `live-parity` | 124 |
+| `kind-parity` | 140 |
+| `live-parity` | 144 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `blocked` | 65 |
-| `todo` | 123 |
+| `blocked` | 68 |
+| `todo` | 160 |
 | `watch` | 56 |
 
 ## By Run Readiness
@@ -48,9 +48,9 @@ For the cell-level completion count, use
 | --- | ---: |
 | `inspect-diff-first` | 16 |
 | `inspect-receipt-first` | 2 |
-| `model-or-stage-first` | 97 |
-| `ready-to-run` | 77 |
-| `review-target-first` | 52 |
+| `model-or-stage-first` | 114 |
+| `ready-to-run` | 97 |
+| `review-target-first` | 55 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
 example, a two-cluster kind row may need a versioned receipt path before rerun
@@ -98,6 +98,7 @@ generated priority. They are good candidates for a serial live block.
 | cloudpirates/redis | 0.34.11 | reuse-existing-secret | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base reuse-existing-secret |
 | argo-cd/argo-cd | 10.1.3 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.1.3 --base default |
 | argo-cd/argo-cd | 10.2.1 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.2.1 --base default |
+| argo-cd/argo-cd | 10.7.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.7.0 --base default |
 | aws-controllers-k8s/ec2-chart | 1.18.4 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base default |
 | aws-controllers-k8s/ec2-chart | 1.18.4 | eks-inference | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base eks-inference |
 | aws-controllers-k8s/eks-chart | 1.16.3 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/eks-chart/1.16.3 --base default |
@@ -108,10 +109,9 @@ generated priority. They are good candidates for a serial live block.
 | cloudnative-pg/cloudnative-pg | 0.29.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudnative-pg/cloudnative-pg/0.29.0 --base default |
 | cloudpirates/nginx | 0.16.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/nginx/0.16.1 --base default |
 | grafana/alloy | 1.11.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/alloy/1.11.0 --base default |
+| grafana/alloy | 1.12.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/alloy/1.12.1 --base default |
 | grafana/grafana | 10.5.15 | customer-acme-prod | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base customer-acme-prod |
 | grafana/grafana | 10.5.15 | prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base prod-us-east |
-| grafana/loki | 7.1.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/loki/7.1.0 --base default |
-| hashicorp/vault | 0.32.0 | regulated-prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base regulated-prod-us-east |
 
 ## Full Queue
 

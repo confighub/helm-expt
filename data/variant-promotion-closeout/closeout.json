@@ -7,14 +7,14 @@
     "data/master-catalog-matrix/matrix.csv"
   ],
   "changesetBug": "https://github.com/confighub/helm-expt/issues/682",
-  "variantCount": 250,
+  "variantCount": 270,
   "byOwnerClass": {
     "not-applicable-if-any": 179,
-    "run-proof": 71
+    "run-proof": 91
   },
   "byReadiness": {
     "promotion-proven": 179,
-    "blocked-needs-confighub-proof": 52,
+    "blocked-needs-confighub-proof": 72,
     "watch-grade": 17,
     "blocked-proof-failed": 2
   },
@@ -92,6 +92,34 @@
     {
       "chart": "argo-cd/argo-cd",
       "version": "10.2.1",
+      "base": "no-crds",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "argo-cd/argo-cd",
+      "version": "10.7.0",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "argo-cd/argo-cd",
+      "version": "10.7.0",
       "base": "no-crds",
       "promotion_state": "todo",
       "promotion_status": "missing-confighub-proof",
@@ -1407,6 +1435,34 @@
     },
     {
       "chart": "external-secrets/external-secrets",
+      "version": "2.10.0",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "external-secrets/external-secrets",
+      "version": "2.10.0",
+      "base": "no-crds",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "external-secrets/external-secrets",
       "version": "2.5.0",
       "base": "default",
       "promotion_state": "yes",
@@ -1645,6 +1701,20 @@
     },
     {
       "chart": "grafana/alloy",
+      "version": "1.12.1",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "grafana/alloy",
       "version": "1.8.2",
       "base": "default",
       "promotion_state": "no",
@@ -1730,6 +1800,20 @@
     {
       "chart": "grafana/loki",
       "version": "7.1.0",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "grafana/loki",
+      "version": "7.3.0",
       "base": "default",
       "promotion_state": "todo",
       "promotion_status": "missing-confighub-proof",
@@ -2162,6 +2246,34 @@
       "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
     },
     {
+      "chart": "jetstack/cert-manager",
+      "version": "v1.21.1",
+      "base": "crds-enabled",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "jetstack/cert-manager",
+      "version": "v1.21.1",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
       "chart": "jetstack/trust-manager",
       "version": "v0.22.1",
       "base": "default",
@@ -2288,6 +2400,20 @@
       "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
     },
     {
+      "chart": "kyverno/kyverno-policies",
+      "version": "3.9.0",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
       "chart": "kyverno/kyverno",
       "version": "3.8.1",
       "base": "default",
@@ -2318,6 +2444,20 @@
     {
       "chart": "kyverno/kyverno",
       "version": "3.8.2",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "kyverno/kyverno",
+      "version": "3.9.0",
       "base": "default",
       "promotion_state": "todo",
       "promotion_status": "missing-confighub-proof",
@@ -2374,6 +2514,20 @@
     {
       "chart": "longhorn/longhorn",
       "version": "1.12.0",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "longhorn/longhorn",
+      "version": "1.12.1",
       "base": "default",
       "promotion_state": "todo",
       "promotion_status": "missing-confighub-proof",
@@ -2444,6 +2598,34 @@
     {
       "chart": "metrics-server/metrics-server",
       "version": "3.13.1",
+      "base": "external-tls-ca",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "metrics-server/metrics-server",
+      "version": "3.14.0",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "metrics-server/metrics-server",
+      "version": "3.14.0",
       "base": "external-tls-ca",
       "promotion_state": "todo",
       "promotion_status": "missing-confighub-proof",
@@ -2793,6 +2975,20 @@
     },
     {
       "chart": "policy-reporter/policy-reporter",
+      "version": "3.10.0",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "policy-reporter/policy-reporter",
       "version": "3.9.1",
       "base": "default",
       "promotion_state": "todo",
@@ -2988,6 +3184,48 @@
       "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
     },
     {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "88.6.3",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "88.6.3",
+      "base": "existing-secret",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "88.6.3",
+      "base": "no-crds",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
       "chart": "prometheus-community/kube-state-metrics",
       "version": "7.4.0",
       "base": "cluster-metrics-readonly",
@@ -3088,6 +3326,20 @@
     {
       "chart": "prometheus-community/prometheus-blackbox-exporter",
       "version": "11.15.1",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "prometheus-community/prometheus-blackbox-exporter",
+      "version": "11.18.0",
       "base": "default",
       "promotion_state": "todo",
       "promotion_status": "missing-confighub-proof",
@@ -3352,6 +3604,20 @@
       "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
     },
     {
+      "chart": "stakater/reloader",
+      "version": "2.2.16",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
       "chart": "strimzi/strimzi-kafka-operator",
       "version": "1.0.0",
       "base": "default",
@@ -3410,6 +3676,20 @@
     {
       "chart": "traefik/traefik",
       "version": "41.0.2",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "traefik/traefik",
+      "version": "41.4.0",
       "base": "default",
       "promotion_state": "todo",
       "promotion_status": "missing-confighub-proof",

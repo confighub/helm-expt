@@ -7,9 +7,9 @@ evidence or product decision would move a partial row toward covered.
 ## Summary
 
 ~~~text
-partial rows: 90
-promotion-review: 41
-user-shaped-variant: 36
+partial rows: 91
+promotion-review: 40
+user-shaped-variant: 38
 limitation-decision: 7
 supported-refresh: 0
 ~~~
@@ -19,8 +19,8 @@ supported-refresh: 0
 | Queue | Rows | First step | Done when |
 | --- | ---: | --- | --- |
 | `limitation-decision` | 7 | decide whether to support, disclose, defer, or block: named limitation | the limitation has a recorded support, disclosure, deferral, or blocker decision |
-| `promotion-review` | 41 | run catalog promotion review, choose one supported base, then add selected live evidence | scan/disposition evidence exists and at least one selected base has live witness or routed deferral |
-| `user-shaped-variant` | 36 | design one realistic base variant a Helm user would actually choose | a realistic named base variant exists and the chart moves to promotion or limitation review |
+| `promotion-review` | 40 | run catalog promotion review, choose one supported base, then add selected live evidence | scan/disposition evidence exists and at least one selected base has live witness or routed deferral |
+| `user-shaped-variant` | 38 | design one realistic base variant a Helm user would actually choose | a realistic named base variant exists and the chart moves to promotion or limitation review |
 | `supported-refresh` | 0 | refresh target-scoped production support evidence | fresh target-scoped receipts support the current claim |
 | `review` | 6 | review row and choose the next evidence lane | the row has a concrete next action and evidence path |
 
@@ -47,7 +47,7 @@ supported-refresh: 0
 | 2 | `promotion-review` | `external-dns/external-dns@1.21.1` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `fairwinds-stable/vpa@4.11.0` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 | 2 | `promotion-review` | `gatekeeper/gatekeeper@3.22.2` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
-| 2 | `promotion-review` | `grafana/alloy@1.8.2` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
+| 2 | `promotion-review` | `grafana/rollout-operator@0.49.0` | 88% | f | run catalog promotion review, choose one supported base, then add selected live evidence |
 
 ## Files
 

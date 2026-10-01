@@ -6,10 +6,10 @@ that are not yet public catalog-supported entries.
 Read it as a work queue, not as a support claim:
 
 ~~~text
-next80 charts: 90
-promotion-review: 41
+next80 charts: 91
+promotion-review: 40
 limitation-review: 7
-user-shaped-variant: 42
+user-shaped-variant: 44
 ~~~
 
 ## Queues
@@ -26,7 +26,7 @@ user-shaped-variant: 42
 | --- | --- |
 | `promotion-review` | `traefik/traefik@40.2.0`<br>`external-dns/external-dns@1.21.1`<br>`kyverno/kyverno@3.8.1`<br>`cloudnative-pg/cloudnative-pg@0.28.2`<br>`kedacore/keda@2.19.0`<br>`prometheus-community/kube-state-metrics@7.4.0`<br>`elastic/eck-operator@3.4.0`<br>`prometheus-community/prometheus-blackbox-exporter@11.10.0` |
 | `limitation-review` | `bitnami/elasticsearch@22.1.6`<br>`bitnami/spark@10.0.3`<br>`bitnami/zookeeper@13.8.7`<br>`bitnami/phpmyadmin@20.0.0`<br>`bitnami/contour@21.1.4`<br>`bitnami/apache@11.4.29`<br>`grafana/pyroscope@2.0.2` |
-| `user-shaped-variant` | `gitlab/gitlab-runner@0.89.0`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`elastic/kibana@8.5.1`<br>`descheduler/descheduler@0.36.0`<br>`jaegertracing/jaeger@4.8.0`<br>`dex/dex@0.24.0` |
+| `user-shaped-variant` | `gitlab/gitlab-runner@0.89.0`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`elastic/kibana@8.5.1`<br>`descheduler/descheduler@0.36.0`<br>`jaegertracing/jaeger@4.8.0`<br>`grafana/alloy@1.12.1` |
 
 ## First Action Rows
 
@@ -82,7 +82,7 @@ They should not disappear into a generic promotion-review queue.
 | `elastic/kibana@8.5.1` | `default` | `in-confighub-proof` | - | - | add at least one user-shaped variant before catalog promotion |
 | `descheduler/descheduler@0.36.0` | `default` | `live-helm-vs-confighub-parity` | - | - | add at least one user-shaped variant before catalog promotion |
 | `jaegertracing/jaeger@4.8.0` | `default` | `live-helm-vs-confighub-parity` | - | existing-secret (chart ships no Secret toggle) | add at least one user-shaped variant before catalog promotion |
-| `dex/dex@0.24.0` | `default` | `in-confighub-proof` | - | - | add at least one user-shaped variant before catalog promotion |
+| `grafana/alloy@1.12.1` | `default` | `render-parity` | - | - | add at least one user-shaped variant before catalog promotion |
 
 ## How This Relates To Top100
 

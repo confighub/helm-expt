@@ -8,17 +8,17 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 ## Headline
 
 ```text
-charts: 142
-charts needing variant work: 90
-charts already variant-complete: 52
-total variants to build: 112
+charts: 156
+charts needing variant work: 98
+charts already variant-complete: 58
+total variants to build: 121
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
-- `existing-secret`: 67 charts
-- `no-crds`: 22 charts
-- `ha`: 19 charts
+- `existing-secret`: 71 charts
+- `no-crds`: 26 charts
+- `ha`: 20 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
 
@@ -29,6 +29,7 @@ total variants to build: 112
 | `aqua/trivy-operator@0.32.1` | 2 | existing-secret |
 | `argo-cd/argo-cd@10.1.3` | 2 | existing-secret, ha |
 | `argo-cd/argo-cd@10.2.1` | 2 | existing-secret, ha |
+| `argo-cd/argo-cd@10.7.0` | 2 | existing-secret, ha |
 | `argo-cd/argo-cd@9.5.15` | 2 | existing-secret, ha |
 | `argo-cd/argo-cd@9.5.17` | 2 | existing-secret, ha |
 | `argo-cd/argocd-image-updater@1.2.2` | 1 | existing-secret, no-crds |
@@ -61,6 +62,7 @@ total variants to build: 112
 | `dex/dex@0.24.0` | 1 | existing-secret |
 | `elastic/eck-operator@3.4.0` | 3 | existing-secret |
 | `external-dns/external-dns@1.21.1` | 3 | existing-secret |
+| `external-secrets/external-secrets@2.10.0` | 2 | existing-secret |
 | `external-secrets/external-secrets@2.5.0` | 2 | existing-secret |
 | `external-secrets/external-secrets@2.7.0` | 2 | existing-secret |
 | `external-secrets/external-secrets@2.8.0` | 2 | existing-secret |
@@ -70,6 +72,7 @@ total variants to build: 112
 | `gatekeeper/gatekeeper@3.22.2` | 2 | existing-secret |
 | `gitlab/gitlab-runner@0.89.0` | 1 | existing-secret |
 | `grafana/alloy@1.11.0` | 1 | no-crds |
+| `grafana/alloy@1.12.1` | 1 | no-crds |
 | `grafana/promtail@6.17.1` | 1 | existing-secret |
 | `grafana/pyroscope@2.0.2` | 3 | existing-secret |
 | `grafana/tempo@1.24.4` | 2 | no-crds, ha, ingress-tls |
@@ -82,12 +85,15 @@ total variants to build: 112
 | `karpenter/karpenter@1.14.0` | 3 | existing-secret |
 | `kyverno/kyverno@3.8.1` | 2 | existing-secret |
 | `kyverno/kyverno@3.8.2` | 1 | no-crds |
+| `kyverno/kyverno@3.9.0` | 1 | no-crds |
 | `linkerd/linkerd-crds@1.8.0` | 1 | existing-secret, no-crds |
 | `longhorn/longhorn@1.11.2` | 2 | no-crds, ha |
 | `longhorn/longhorn@1.12.0` | 1 | no-crds |
+| `longhorn/longhorn@1.12.1` | 1 | no-crds |
 | `metallb/metallb@0.16.1` | 1 | existing-secret, no-crds |
 | `metrics-server/metrics-server@3.13.0` | 2 | existing-secret |
 | `metrics-server/metrics-server@3.13.1` | 2 | existing-secret |
+| `metrics-server/metrics-server@3.14.0` | 2 | existing-secret |
 | `minio-operator/operator@7.1.1` | 1 | no-crds |
 | `minio-operator/tenant@7.1.1` | 1 | existing-secret |
 | `mysql/mysql-operator@2.3.0` | 1 | no-crds |
@@ -97,6 +103,7 @@ total variants to build: 112
 | `oauth2-proxy/oauth2-proxy@10.7.0` | 1 | existing-secret |
 | `open-telemetry/opentelemetry-operator@0.114.0` | 2 | existing-secret |
 | `percona/psmdb-operator@1.23.0` | 1 | no-crds |
+| `policy-reporter/policy-reporter@3.10.0` | 1 | existing-secret |
 | `policy-reporter/policy-reporter@3.9.1` | 1 | existing-secret |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | 2 | existing-secret |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | 2 | existing-secret |
@@ -112,6 +119,7 @@ total variants to build: 112
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | 2 | no-crds |
 | `traefik/traefik@40.2.0` | 2 | existing-secret |
 | `traefik/traefik@41.0.2` | 1 | no-crds |
+| `traefik/traefik@41.4.0` | 1 | no-crds |
 | `velero/velero@12.0.1` | 2 | existing-secret |
 | `velero/velero@12.1.0` | 1 | existing-secret, no-crds |
 | `vm/victoria-logs-single@0.12.5` | 1 | existing-secret, ha |
