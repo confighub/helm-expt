@@ -6870,7 +6870,12 @@ function pluginsHtml() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Plugins · ConfigHub Workshop</title>
-  <style>${siteCss()}</style>
+  <style>${siteCss()}
+    [aria-labelledby="every-plugin"] > .card { overflow-x: auto; }
+    [aria-labelledby="every-plugin"] table { display: table; min-width: 44rem; white-space: normal; }
+    [aria-labelledby="every-plugin"] :is(th, td):nth-child(1),
+    [aria-labelledby="every-plugin"] :is(th, td):nth-child(3) { width: 9.5rem; min-width: 9.5rem; }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">

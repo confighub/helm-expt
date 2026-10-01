@@ -465,6 +465,11 @@
     .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
     .agent-note a { color: inherit; }
 
+    [aria-labelledby="every-plugin"] > .card { overflow-x: auto; }
+    [aria-labelledby="every-plugin"] table { display: table; min-width: 44rem; white-space: normal; }
+    [aria-labelledby="every-plugin"] :is(th, td):nth-child(1),
+    [aria-labelledby="every-plugin"] :is(th, td):nth-child(3) { width: 9.5rem; min-width: 9.5rem; }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
