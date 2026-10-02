@@ -657,7 +657,7 @@
     <section aria-labelledby="sveltos-preview">
       <h2 id="sveltos-preview">1. Preview the setup</h2>
       <p>Install <a href="./try.html#install-cub">the cub CLI</a> and the released plugin:</p>
-      <pre><code>cub plugin install confighub/sveltos-confighub@v0.11.0</code></pre>
+      <pre><code>cub plugin install confighub/sveltos-confighub@v0.12.0</code></pre>
       <p><strong>Confirm the management context.</strong> Check that kubectl is pointed at the Sveltos management cluster before exporting:</p>
 <pre><code>kubectl config current-context</code></pre>
       <p><strong>Prepare the inputs.</strong> The exports can contain sensitive configuration. Keep Secrets and credentials out of review files. On the confirmed Sveltos management cluster, export the profiles and clusters the first input file should describe:</p>
@@ -667,7 +667,7 @@
       <p>Once these YAML files are ready, planning is offline and needs no ConfigHub account or cluster mutation:</p>
 <pre><code>cub sveltos plan my-fleet.yaml kyverno-policies.yaml --stage-label env --stages staging,prod</code></pre>
       <p>The plan shows the shared base, a variant for each selected cluster, the rollout stages, and the objects rendered from charts and policy ConfigMaps. Review its exclusions and warnings too: hooks and unsupported ownership may need a deliberate decision. A hooks refusal is a prompt to review the lifecycle, not a reason to add <code>--include-hooks</code> blindly.</p>
-      <p><a href="https://github.com/confighub/sveltos-confighub/blob/v0.11.0/docs/user/onboard-your-sveltos-fleet.md#1-export-what-sveltos-knows">Prepare the example inputs</a> · <a href="https://github.com/confighub/sveltos-confighub/blob/v0.11.0/docs/user/onboard-your-sveltos-fleet.md#2-see-the-plan">read the planning reference</a>.</p>
+      <p><a href="https://github.com/confighub/sveltos-confighub/blob/v0.12.0/docs/user/onboard-your-sveltos-fleet.md#1-export-what-sveltos-knows">Prepare the example inputs</a> · <a href="https://github.com/confighub/sveltos-confighub/blob/v0.12.0/docs/user/onboard-your-sveltos-fleet.md#2-see-the-plan">read the planning reference</a>.</p>
     </section>
 
     <p><strong>You can stop here.</strong> The plan reads the exported YAML and does not change the cluster. To generate setup scripts, connect delivery, or make a reviewed change, open the advanced steps below.</p>
@@ -688,7 +688,7 @@
       <p>Only live profiles need handover. The generated script checks the planned render, Helm’s recorded release, cluster reachability, and current ownership before changing a profile.</p>
 <pre><code>MGMT_CONTEXT=&lt;management-cluster-context&gt; bash onboard/handover.sh</code></pre>
       <p>It is a managed fleet operation, not a universal single-profile shortcut. Keep workload Secrets out of exported review files, review the printed recovery order, and retain backups. The guide records open limits around handover rollback and chart-rendered Secret handling.</p>
-      <p><a href="https://github.com/confighub/sveltos-confighub/blob/v0.11.0/docs/user/onboard-your-sveltos-fleet.md#if-your-profiles-are-live">Advanced handover and recovery reference</a>.</p>
+      <p><a href="https://github.com/confighub/sveltos-confighub/blob/v0.12.0/docs/user/onboard-your-sveltos-fleet.md#if-your-profiles-are-live">Advanced handover and recovery reference</a>.</p>
     </section>
 
     <section aria-labelledby="sveltos-change">
@@ -699,7 +699,7 @@
       <p>To deliver the change, follow the linked reference to create its change order, promote, approve and publish each stage. The starter workflow allows the author to approve; set <code>AllowAuthors: false</code> when independent approval is required.</p>
       <p>Live status writes Sveltos observations to ConfigHub:</p>
 <pre><code>cub sveltos status --context &lt;management-cluster-context&gt; --watch</code></pre>
-      <p><a href="https://github.com/confighub/sveltos-confighub/blob/v0.11.0/docs/user/onboard-your-sveltos-fleet.md#making-a-change-afterwards">Read change, approval, release, and status details</a>.</p>
+      <p><a href="https://github.com/confighub/sveltos-confighub/blob/v0.12.0/docs/user/onboard-your-sveltos-fleet.md#making-a-change-afterwards">Read change, approval, release, and status details</a>.</p>
     </section>
     </details>  </main>
 </div>
