@@ -240,7 +240,7 @@ const checks = [
   // Site IA phase 4, step 8: explanation sections became agent docs.
   {
     file: "site/kubara-and-confighub.html",
-    terms: ["Kubara and ConfigHub, explained", "1. What stays Kubara, and what ConfigHub adds", "2. The current path: cub kubara", "bring-kubara-into-confighub.html", "It has run on kind only", "3. Benefits with explicit acceptance evidence", "Evidence or acceptance target", "current deterministic", "live receipt required", "4. The honest boundaries"],
+    terms: ["Kubara and ConfigHub, explained", "Kubara manages a cluster's add-ons", "1. What stays Kubara, and what ConfigHub adds", "2. The current path: cub kubara", "bring-kubara-into-confighub.html", "It has run on kind only", "3. Benefits with explicit acceptance evidence", "Evidence or acceptance target", "current deterministic", "live receipt required", "4. The honest boundaries"],
   },
   {
     file: "site/aicr-configurations.html",
@@ -364,7 +364,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/bring-kubara-into-confighub.html",
-    headerTerms: ["Bring a Kubara platform into ConfigHub", "Keep Kubara as it is", "about 15 minutes and needs no account and no cluster", "Kubara composes; ConfigHub governs; Argo reconciles.", "a base for each component and a variant for each cluster", "confighub/kubara-confighub", "#first-result", "#kubara-govern", "#kubara-stack", "#kubara-limits", "#kubara-evidence"],
+    headerTerms: ["Bring a Kubara platform into ConfigHub", "For teams who manage cluster add-ons with Kubara", "Manage your clusters' add-ons with Kubara, and approve every change to them in ConfigHub", "about 15 minutes and needs no account and no cluster", "Kubara is good at add-ons", "Kubara calls that set a platform", "Bring your own set.", "Promote, roll out and approve.", "Apps the same way.", "cub stack from-kubara --app", "cub app check", "Let an assistant do the work.", "shows its plan before it changes anything", "Kubara composes; ConfigHub governs; Argo reconciles.", "a base for each component and a variant for each cluster", "confighub/kubara-confighub", "#first-result", "#kubara-govern", "#kubara-stack", "#kubara-limits", "#kubara-evidence"],
   },
   {
     file: "site/variants.html",

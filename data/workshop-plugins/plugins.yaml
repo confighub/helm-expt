@@ -21,7 +21,7 @@ spec:
     - id: kubara
       name: Kubara
       commands: [cub kubara]
-      summary: Plans and renders a Kubara platform offline, then hands its hub to ConfigHub's approved releases, checks each cluster and hands back to Git.
+      summary: Brings the add-ons Kubara manages for your clusters into ConfigHub. Plans and renders them offline, then hands the hub to approved releases, checks each cluster and hands back to Git.
       guide: {address: "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md", title: "Run a Kubara platform through ConfigHub"}
       note: Tested on kind only. For a few minutes after a release, the Healthy gate can read the previous release's status. argobot cannot refresh Kubara's Applications (confighub/argobot#13).
       repository: confighub/kubara-confighub

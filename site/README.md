@@ -22,7 +22,7 @@ Open `site/base-variant-records.json` for the Catalog source-and-intent index us
 the Check and Promote pages. Open `site/promotion-review.schema.json` for the
 browser promotion record.
 Open `site/testing.html` for working starting, managed, platform, and App examples.
-Open `site/bring-kubara-into-confighub.html` for the cub kubara path (offline plan and render, then apply,
+Open `site/bring-kubara-into-confighub.html` for Kubara's add-ons on the cub kubara path (offline plan and render, then apply,
 handover, check and handback), its limits and evidence, and the earlier six-step journey.
 Open `site/confighub.html` to sign up, follow the official tutorial, or read the blog.
 Open `site/charts/index.html` for the Catalog and `site/testing.html` for the Helm, AICR, OCI, and YAML examples.
