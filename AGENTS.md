@@ -59,6 +59,7 @@ Narrower gates, run first:
 | A `cub installer` example | `npm run installer:command-surface:verify` |
 | A `cub variant` example | `npm run variant:command-surface:verify` |
 | Anything at all | `npm run verify:no-personal-names` and `npm run verify:no-temp-paths` |
+| A pull request title or description | Keep personal names out of both. This repo squash-merges, so that text becomes the commit message on `main`. The `Pull request text` workflow fails on a name, and editing the title or description re-runs it. Write "the team", "a colleague", or the issue number. |
 
 ## Rules
 
