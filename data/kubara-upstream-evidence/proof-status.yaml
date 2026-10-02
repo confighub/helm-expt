@@ -20,16 +20,17 @@ spec:
     retired: true
     rerun: false
     predates: cub 0.4 field renames
-  # The kind lab at the commit pinned in lock.json (kubara-confighub v0.2.4).
+  # The kind lab at the commit pinned in lock.json (kubara-confighub v0.3.0).
   # Each log was recorded with cub kubara built from a branch before its
   # release, not with a released binary: the first three from the branches
-  # v0.2.3 released, the second-approver and re-bootstrap runs from 0.2.4-dev.
+  # v0.2.3 released, the second-approver and re-bootstrap runs from 0.2.4-dev,
+  # and the run against ConfigHub v0.8.0 from 0.3.0-dev.
   currentLiveProof:
     repository: confighub/kubara-confighub
-    release: v0.2.4
-    commit: fdae8a233fec57bf2f4102b8fea43c3bf557e35e
+    release: v0.3.0
+    commit: 62afd6a7ef95e854b5d1cbb3834843c0a2911d67
     path: examples/kind-lab/
-    url: https://github.com/confighub/kubara-confighub/tree/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab
+    url: https://github.com/confighub/kubara-confighub/tree/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab
     logs:
       - path: examples/kind-lab/run-2026-09-30.log
         title: recorded run
@@ -41,3 +42,5 @@ spec:
         title: recorded run with a second approver
       - path: examples/kind-lab/rebootstrap-2026-09-30.log
         title: recorded recovery after kubara bootstrap
+      - path: examples/kind-lab/run-sdk-2026-10-02.log
+        title: recorded ConfigHub v0.8.0 run
