@@ -70,7 +70,7 @@ Narrower gates, run first:
 5. Run live lanes one at a time, on one machine. They need Docker, a kind cluster, and the local ConfigHub server; live promotion is limited by the Unit quota; recording a live result cascades into about forty generated surfaces. Two agents running live lanes at once corrupt each other's receipts.
 6. Use `git grep`, not `grep`. Plain `grep` is ripgrep here and skips the gitignored, force-added files under `runs/`.
 7. Receipts under `runs/` are force-added. When a chart's digest changes, run `node scripts/resync-package-receipts.mjs` rather than editing SHAs by hand.
-8. No personal names anywhere in the repository: not in commits, issues, pull requests, paths, or docs. Say "a colleague" or cite the issue number. Home directories are written `$HOME`.
+8. No personal names anywhere in the repository: not in commits, issues, pull requests, paths, docs, or receipts under `runs/`, which the names gate also reads. Say "a colleague" or cite the issue number. Home directories are written `$HOME`, and an account address is written `user@example.com`.
 9. Work on a branch, open a pull request, and let a person merge. Never push to `main`. Pull requests are squash-merged, so never stack a branch on another branch.
 10. Commit subjects read `area: what changed` in plain words. Put the reasoning in the body. Long bodies go through `--body-file`.
 11. A backgrounded run dies when the machine sleeps. Long lanes run in the foreground or on a machine that stays awake.
