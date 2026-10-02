@@ -11,9 +11,12 @@
 // contains an absolute macOS or Linux scratch path.
 //
 // Scope notes:
-//   - runs/ is exempt, matching the no-personal-names precedent. Those receipts
-//     are recorded evidence: several are verbatim tool transcripts, and a rewrite
-//     would falsify what the run actually printed.
+//   - runs/ is exempt. Those receipts are recorded evidence: several are
+//     verbatim tool transcripts, and a rewrite would falsify what the run
+//     actually printed. The no-personal-names gate used to exempt runs/ too and
+//     no longer does, because a name is personal data and a scratch path is
+//     not. The scratch paths recorded under runs/ hold no personal name; the
+//     names gate now proves that on every run.
 //   - Two live-run receipts sit outside runs/ by an older filing choice. They are
 //     recorded evidence too, so they are named exemptions rather than edits, and
 //     the site page generated from one of them is exempt for the same reason.

@@ -59,8 +59,8 @@ spec:
   legs:
     regularHelm:
       result: pass
-      command: helm upgrade --install traefik /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/exact-chart-artifact/traefik-41.0.2.tgz
-        --namespace traefik-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/regular-helm-values.yaml
+      command: helm upgrade --install traefik $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/exact-chart-artifact/traefik-41.0.2.tgz
+        --namespace traefik-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac
       objectCount: 31
@@ -77,7 +77,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/traefik/traefik/41.0.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/traefik/traefik/41.0.2
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d
         --non-interactive --namespace traefik-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1215,8 +1215,8 @@ spec:
     finishedAt: '2026-08-04T13:37:01Z'
     elapsedSeconds: 10.807
     timeoutSeconds: 900
-    command: helm upgrade --install traefik /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/exact-chart-artifact/traefik-41.0.2.tgz
-      --namespace traefik-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/regular-helm-values.yaml
+    command: helm upgrade --install traefik $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/exact-chart-artifact/traefik-41.0.2.tgz
+      --namespace traefik-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1224,7 +1224,7 @@ spec:
     finishedAt: '2026-08-04T13:37:07Z'
     elapsedSeconds: 0.439
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/traefik/traefik/41.0.2
+    command: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/traefik/traefik/41.0.2
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d
       --non-interactive --namespace traefik-apply
   - name: configHub-direct-crd-apply
@@ -1233,9 +1233,9 @@ spec:
     finishedAt: '2026-08-04T13:37:09Z'
     elapsedSeconds: 0.219
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-tra-41-0-2-d.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-kub-tra-41-0-2-d.kubeconfig
       --context kind-helm-expt-parity-kub-tra-41-0-2-d apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/confighub-rendered-crds.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/confighub-rendered-crds.yaml
     objectCount: 25
   - name: configHub-direct-apply
     result: pass
@@ -1243,9 +1243,9 @@ spec:
     finishedAt: '2026-08-04T13:37:13Z'
     elapsedSeconds: 0.132
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-tra-41-0-2-d.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-kub-tra-41-0-2-d.kubeconfig
       --context kind-helm-expt-parity-kub-tra-41-0-2-d apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/direct-apply-manifest.yaml
     objectCount: 6
   - name: configHub-direct-readiness
     result: pass
@@ -1260,7 +1260,7 @@ spec:
     finishedAt: '2026-08-04T13:37:40Z'
     elapsedSeconds: 0.482
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/traefik/traefik/41.0.2
+    command: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/traefik/traefik/41.0.2
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d
       --non-interactive --namespace traefik-oci
   - name: configHub-oci-upload
@@ -1302,7 +1302,7 @@ spec:
     elapsedSeconds: 0.976
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-kub-tra-41-0-2-d-argo-apps kub-tra-41-0-2-d-parity-app
-      /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/argo-application.json
+      $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/argo-application.json
       --target helm-expt-parity-kub-tra-41-0-2-d/target --allow-exists
   - name: configHub-oci-app-release-publish
     result: pass
@@ -1330,14 +1330,14 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: exact-source-artifact
     result: pass
     detail: oci://ghcr.io/traefik/helm/traefik:41.0.2
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-kub-tra-41-0-2-d\" (kubeconfig:\
-      \ /Users/alexis/.confighub/clusters/helm-expt-parity-kub-tra-41-0-2-d.kubeconfig)...\n\
+      \ $HOME/.confighub/clusters/helm-expt-parity-kub-tra-41-0-2-d.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-kub-tra-41-0-2-d\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1348,7 +1348,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-kub-tra-41-0-2-d\"\nYou can\
       \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kub-tra-41-0-2-d\
-      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-tra-41-0-2-d.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-kub-tra-41-0-2-d.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
       \ {}\nstatus: {"

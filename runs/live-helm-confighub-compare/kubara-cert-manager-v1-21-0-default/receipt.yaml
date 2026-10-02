@@ -48,8 +48,8 @@ spec:
   legs:
     regularHelm:
       result: pass
-      command: helm upgrade --install cert-manager /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-default/exact-chart-artifact/chart.tgz
-        --namespace cert-manager-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-default/regular-helm-values.yaml
+      command: helm upgrade --install cert-manager $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-default/exact-chart-artifact/chart.tgz
+        --namespace cert-manager-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09
       objectCount: 40
@@ -74,7 +74,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/jetstack/cert-manager/v1.21.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/jetstack/cert-manager/v1.21.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-cm-v1-21-0-d-kub-cm-v1-21-0-d
         --non-interactive --namespace cert-manager-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1359,8 +1359,8 @@ spec:
     finishedAt: '2026-08-04T12:06:26Z'
     elapsedSeconds: 28.654
     timeoutSeconds: 900
-    command: helm upgrade --install cert-manager /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-default/exact-chart-artifact/chart.tgz
-      --namespace cert-manager-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-default/regular-helm-values.yaml
+    command: helm upgrade --install cert-manager $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-default/exact-chart-artifact/chart.tgz
+      --namespace cert-manager-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1368,7 +1368,7 @@ spec:
     finishedAt: '2026-08-04T12:06:32Z'
     elapsedSeconds: 0.598
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/jetstack/cert-manager/v1.21.0
+    command: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/jetstack/cert-manager/v1.21.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-cm-v1-21-0-d-kub-cm-v1-21-0-d
       --non-interactive --namespace cert-manager-apply
   - name: configHub-direct-apply
@@ -1377,9 +1377,9 @@ spec:
     finishedAt: '2026-08-04T12:06:36Z'
     elapsedSeconds: 0.269
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-cm-v1-21-0-d.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-kub-cm-v1-21-0-d.kubeconfig
       --context kind-helm-expt-parity-kub-cm-v1-21-0-d apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-default/direct-apply-manifest.yaml
     objectCount: 40
   - name: configHub-direct-readiness
     result: pass
@@ -1394,7 +1394,7 @@ spec:
     finishedAt: '2026-08-04T12:07:05Z'
     elapsedSeconds: 0.513
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/jetstack/cert-manager/v1.21.0
+    command: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/jetstack/cert-manager/v1.21.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-cm-v1-21-0-d-kub-cm-v1-21-0-d
       --non-interactive --namespace cert-manager-oci
   - name: configHub-oci-upload
@@ -1436,7 +1436,7 @@ spec:
     elapsedSeconds: 0.931
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-kub-cm-v1-21-0-d-argo-apps kub-cm-v1-21-0-d-parity-app
-      /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-default/argo-application.json
+      $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-default/argo-application.json
       --target helm-expt-parity-kub-cm-v1-21-0-d/target --allow-exists
   - name: configHub-oci-app-release-publish
     result: pass
@@ -1464,14 +1464,14 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: exact-source-artifact
     result: pass
     detail: https://charts.jetstack.io/charts/cert-manager-v1.21.0.tgz
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-kub-cm-v1-21-0-d\" (kubeconfig:\
-      \ /Users/alexis/.confighub/clusters/helm-expt-parity-kub-cm-v1-21-0-d.kubeconfig)...\n\
+      \ $HOME/.confighub/clusters/helm-expt-parity-kub-cm-v1-21-0-d.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-kub-cm-v1-21-0-d\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1482,7 +1482,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-kub-cm-v1-21-0-d\"\nYou can\
       \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kub-cm-v1-21-0-d\
-      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-cm-v1-21-0-d.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-kub-cm-v1-21-0-d.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\n\
       spec: {}\nsta"
@@ -1601,42 +1601,42 @@ spec:
       stagedCRDs:
       - name: challenges.acme.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: orders.acme.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: certificaterequests.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: certificates.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: clusterissuers.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: issuers.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
@@ -1650,42 +1650,42 @@ spec:
       stagedCRDs:
       - name: challenges.acme.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: orders.acme.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: certificaterequests.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: certificates.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: clusterissuers.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: issuers.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
@@ -1699,42 +1699,42 @@ spec:
       stagedCRDs:
       - name: challenges.acme.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: orders.acme.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: certificaterequests.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: certificates.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: clusterissuers.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: issuers.cert-manager.io
         sourceVariant: crds-enabled
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml
         sourceSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
         sourceURL: ''
         applyMode: server-side

@@ -47,8 +47,8 @@ spec:
   legs:
     regularHelm:
       result: pass
-      command: helm upgrade --install metrics-server /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-default/exact-chart-artifact/chart.tgz
-        --namespace kube-system-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-default/regular-helm-values.yaml
+      command: helm upgrade --install metrics-server $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-default/exact-chart-artifact/chart.tgz
+        --namespace kube-system-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: ba425a0f2a88f25a0052c54d3cbfe143f399f5ee13e53e1d926d84f82066e93d
       objectCount: 9
@@ -65,7 +65,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/metrics-server/metrics-server/3.13.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/metrics-server/metrics-server/3.13.1
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-met-3131-d-kub-met-3131-d
         --non-interactive --namespace kube-system-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -966,8 +966,8 @@ spec:
     finishedAt: '2026-08-04T11:09:40Z'
     elapsedSeconds: 27.161
     timeoutSeconds: 900
-    command: helm upgrade --install metrics-server /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-default/exact-chart-artifact/chart.tgz
-      --namespace kube-system-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-default/regular-helm-values.yaml
+    command: helm upgrade --install metrics-server $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-default/exact-chart-artifact/chart.tgz
+      --namespace kube-system-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -975,7 +975,7 @@ spec:
     finishedAt: '2026-08-04T11:09:46Z'
     elapsedSeconds: 0.816
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/metrics-server/metrics-server/3.13.1
+    command: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/metrics-server/metrics-server/3.13.1
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-met-3131-d-kub-met-3131-d
       --non-interactive --namespace kube-system-apply
   - name: configHub-direct-apply
@@ -984,9 +984,9 @@ spec:
     finishedAt: '2026-08-04T11:09:47Z'
     elapsedSeconds: 0.141
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-met-3131-d.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-kub-met-3131-d.kubeconfig
       --context kind-helm-expt-parity-kub-met-3131-d apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-default/direct-apply-manifest.yaml
     objectCount: 9
   - name: configHub-direct-readiness
     result: pass
@@ -1001,7 +1001,7 @@ spec:
     finishedAt: '2026-08-04T11:10:29Z'
     elapsedSeconds: 0.717
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/metrics-server/metrics-server/3.13.1
+    command: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/metrics-server/metrics-server/3.13.1
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-met-3131-d-kub-met-3131-d
       --non-interactive --namespace kube-system-oci
   - name: configHub-oci-upload
@@ -1043,7 +1043,7 @@ spec:
     elapsedSeconds: 0.941
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-kub-met-3131-d-argo-apps kub-met-3131-d-parity-app
-      /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-default/argo-application.json
+      $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-default/argo-application.json
       --target helm-expt-parity-kub-met-3131-d/target --allow-exists
   - name: configHub-oci-app-release-publish
     result: pass
@@ -1071,14 +1071,14 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: exact-source-artifact
     result: pass
     detail: https://github.com/kubernetes-sigs/metrics-server/releases/download/metrics-server-helm-chart-3.13.1/metrics-server-3.13.1.tgz
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-kub-met-3131-d\" (kubeconfig:\
-      \ /Users/alexis/.confighub/clusters/helm-expt-parity-kub-met-3131-d.kubeconfig)...\n\
+      \ $HOME/.confighub/clusters/helm-expt-parity-kub-met-3131-d.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-kub-met-3131-d\" ...\n \u2022 Ensuring node\
       \ image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1089,7 +1089,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-kub-met-3131-d\"\nYou can now\
       \ use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kub-met-3131-d\
-      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-met-3131-d.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-kub-met-3131-d.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
       \ {}\nstatus: {}\nnamespace/"

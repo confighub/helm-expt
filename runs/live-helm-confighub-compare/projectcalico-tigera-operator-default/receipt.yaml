@@ -68,7 +68,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install tigera-operator tigera-operator --repo https://docs.tigera.io/calico/charts
-        --version v3.32.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/regular-helm-values.yaml
+        --version v3.32.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350
       objectCount: 10
@@ -85,7 +85,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/projectcalico/tigera-operator/v3.32.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/projectcalico/tigera-operator/v3.32.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -962,7 +962,7 @@ spec:
     elapsedSeconds: 4.698
     timeoutSeconds: 900
     command: helm upgrade --install tigera-operator tigera-operator --repo https://docs.tigera.io/calico/charts
-      --version v3.32.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/regular-helm-values.yaml
+      --version v3.32.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -970,7 +970,7 @@ spec:
     finishedAt: '2026-07-28T22:43:20Z'
     elapsedSeconds: 0.312
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/projectcalico/tigera-operator/v3.32.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/projectcalico/tigera-operator/v3.32.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -979,9 +979,9 @@ spec:
     finishedAt: '2026-07-28T22:43:21Z'
     elapsedSeconds: 0.166
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-tigeraoperator-ms58pw55-gct.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-tigeraoperator-ms58pw55-gct.kubeconfig
       --context kind-helm-expt-parity-tigeraoperator-ms58pw55-gct apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml
     objectCount: 10
   - name: configHub-direct-readiness
     result: pass
@@ -996,7 +996,7 @@ spec:
     finishedAt: '2026-07-28T22:43:36Z'
     elapsedSeconds: 0.259
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/projectcalico/tigera-operator/v3.32.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/projectcalico/tigera-operator/v3.32.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1039,7 +1039,7 @@ spec:
     elapsedSeconds: 1.005
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster
-      tigera-operator-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/argo-application.json
+      tigera-operator-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/argo-application.json
       --target helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster/oci --allow-exists
   - name: configHub-oci-app-release-publish
     result: pass
@@ -1067,11 +1067,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-tigeraoperator-ms58pw55-gct\"\
-      \ (kubeconfig: /Users/alexis/.confighub/clusters/helm-expt-parity-tigeraoperator-ms58pw55-gct.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/clusters/helm-expt-parity-tigeraoperator-ms58pw55-gct.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-tigeraoperator-ms58pw55-gct\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -1082,7 +1082,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-tigeraoperator-ms58pw55-gct\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-tigeraoperator-ms58pw55-gct\
-      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-tigeraoperator-ms58pw55-gct.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-tigeraoperator-ms58pw55-gct.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\nap"
   - name: target-profile

@@ -48,8 +48,8 @@ spec:
   legs:
     regularHelm:
       result: pass
-      command: helm upgrade --install external-secrets /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/exact-chart-artifact/chart.tgz
-        --namespace external-secrets-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/regular-helm-values.yaml
+      command: helm upgrade --install external-secrets $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/exact-chart-artifact/chart.tgz
+        --namespace external-secrets-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 63eae27464b7c2c352d5b4fd8c1c7aa21c6e04cf024ca530206b0f6b2d9819d1
       objectCount: 19
@@ -74,7 +74,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/external-secrets/external-secrets/2.7.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/external-secrets/external-secrets/2.7.0
         --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-eso-2-7-0-nc-kub-eso-2-7-0-nc
         --non-interactive --namespace external-secrets-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1105,8 +1105,8 @@ spec:
     finishedAt: '2026-08-04T12:25:51Z'
     elapsedSeconds: 40.506
     timeoutSeconds: 900
-    command: helm upgrade --install external-secrets /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/exact-chart-artifact/chart.tgz
-      --namespace external-secrets-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/regular-helm-values.yaml
+    command: helm upgrade --install external-secrets $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/exact-chart-artifact/chart.tgz
+      --namespace external-secrets-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1114,7 +1114,7 @@ spec:
     finishedAt: '2026-08-04T12:25:58Z'
     elapsedSeconds: 0.519
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/external-secrets/external-secrets/2.7.0
+    command: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/external-secrets/external-secrets/2.7.0
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-eso-2-7-0-nc-kub-eso-2-7-0-nc
       --non-interactive --namespace external-secrets-apply
   - name: configHub-direct-apply
@@ -1123,9 +1123,9 @@ spec:
     finishedAt: '2026-08-04T12:26:20Z'
     elapsedSeconds: 0.222
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-eso-2-7-0-nc.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-kub-eso-2-7-0-nc.kubeconfig
       --context kind-helm-expt-parity-kub-eso-2-7-0-nc apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/direct-apply-manifest.yaml
     objectCount: 19
   - name: configHub-direct-readiness
     result: pass
@@ -1140,7 +1140,7 @@ spec:
     finishedAt: '2026-08-04T12:27:01Z'
     elapsedSeconds: 0.535
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/external-secrets/external-secrets/2.7.0
+    command: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/external-secrets/external-secrets/2.7.0
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-eso-2-7-0-nc-kub-eso-2-7-0-nc
       --non-interactive --namespace external-secrets-oci
   - name: configHub-oci-upload
@@ -1182,7 +1182,7 @@ spec:
     elapsedSeconds: 0.967
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-kub-eso-2-7-0-nc-argo-apps kub-eso-2-7-0-nc-parity-app
-      /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/argo-application.json
+      $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/argo-application.json
       --target helm-expt-parity-kub-eso-2-7-0-nc/target --allow-exists
   - name: configHub-oci-app-release-publish
     result: pass
@@ -1210,14 +1210,14 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: exact-source-artifact
     result: pass
     detail: https://github.com/external-secrets/external-secrets/releases/download/helm-chart-2.7.0/external-secrets-2.7.0.tgz
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-kub-eso-2-7-0-nc\" (kubeconfig:\
-      \ /Users/alexis/.confighub/clusters/helm-expt-parity-kub-eso-2-7-0-nc.kubeconfig)...\n\
+      \ $HOME/.confighub/clusters/helm-expt-parity-kub-eso-2-7-0-nc.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-kub-eso-2-7-0-nc\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1228,7 +1228,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-kub-eso-2-7-0-nc\"\nYou can\
       \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kub-eso-2-7-0-nc\
-      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-eso-2-7-0-nc.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-kub-eso-2-7-0-nc.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
       \ {}\nstatus: {"
@@ -1322,168 +1322,168 @@ spec:
       stagedCRDs:
       - name: acraccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: cloudsmithaccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: clusterexternalsecrets.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: clustergenerators.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: clusterpushsecrets.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: clustersecretstores.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: ecrauthorizationtokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: externalsecrets.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: fakes.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: gcraccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: generatorstates.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: githubaccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: grafanas.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: mfas.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: passwords.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: pushsecrets.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: quayaccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: secretstores.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: sshkeys.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: stssessiontokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: uuids.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: vaultdynamicsecrets.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: webhooks.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
@@ -1503,168 +1503,168 @@ spec:
       stagedCRDs:
       - name: acraccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: cloudsmithaccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: clusterexternalsecrets.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: clustergenerators.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: clusterpushsecrets.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: clustersecretstores.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: ecrauthorizationtokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: externalsecrets.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: fakes.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: gcraccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: generatorstates.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: githubaccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: grafanas.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: mfas.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: passwords.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: pushsecrets.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: quayaccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: secretstores.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: sshkeys.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: stssessiontokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: uuids.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: vaultdynamicsecrets.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: webhooks.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
@@ -1672,7 +1672,7 @@ spec:
       stagedObjectStores: []
       stagedNamespaces: []
       lifecycleActions: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -1685,168 +1685,168 @@ spec:
       stagedCRDs:
       - name: acraccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: cloudsmithaccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: clusterexternalsecrets.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: clustergenerators.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: clusterpushsecrets.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: clustersecretstores.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: ecrauthorizationtokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: externalsecrets.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: fakes.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: gcraccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: generatorstates.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: githubaccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: grafanas.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: mfas.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: passwords.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: pushsecrets.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: quayaccesstokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: secretstores.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: sshkeys.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: stssessiontokens.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: uuids.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: vaultdynamicsecrets.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: webhooks.generators.external-secrets.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 33f0d74470d5f0a3affc7589a1929d5dc6cd1a30b557ccfb624545820a0a0d11
         sourceURL: ''
         applyMode: server-side
@@ -1854,7 +1854,7 @@ spec:
       stagedObjectStores: []
       stagedNamespaces: []
       lifecycleActions: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-7-0-no-crds/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass

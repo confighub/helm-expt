@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install rollout-operator rollout-operator --repo https://grafana.github.io/helm-charts
-        --version 0.49.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-rollout-operator-no-crds/regular-helm-values.yaml
+        --version 0.49.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/grafana-rollout-operator-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/rollout-operator/0.49.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/rollout-operator/0.49.0
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-crdpkg-graf-rollout-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -202,16 +202,16 @@ spec:
       - name: replicatemplates.rollout-operator.grafana.com
         sourceVariant: default
         sourceKind: recorded-source-variant
-        sourcePath: /Users/alexis/code/helm-expt/recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: zoneawarepoddisruptionbudgets.rollout-operator.grafana.com
         sourceVariant: default
         sourceKind: recorded-source-variant
-        sourcePath: /Users/alexis/code/helm-expt/recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-rollout-operator-no-crds/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/grafana-rollout-operator-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
@@ -219,16 +219,16 @@ spec:
       - name: replicatemplates.rollout-operator.grafana.com
         sourceVariant: default
         sourceKind: installer-package
-        sourcePath: /Users/alexis/code/helm-expt/packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml
+        sourcePath: $HOME/code/helm-expt/packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: zoneawarepoddisruptionbudgets.rollout-operator.grafana.com
         sourceVariant: default
         sourceKind: installer-package
-        sourcePath: /Users/alexis/code/helm-expt/packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml
+        sourcePath: $HOME/code/helm-expt/packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-rollout-operator-no-crds/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/grafana-rollout-operator-no-crds/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:
