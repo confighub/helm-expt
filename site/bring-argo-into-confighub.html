@@ -663,7 +663,7 @@
     <section aria-labelledby="preview-setup">
       <h2 id="preview-setup">2. Preview the setup</h2>
       <p>Install <a href="./try.html#install-cub">the cub CLI</a> and this released plugin:</p>
-      <pre><code>cub plugin install confighub/examples@cub-argo-v0.2.0 --name argo</code></pre>
+      <pre><code>cub plugin install confighub/examples@cub-argo-v0.3.0 --name argo</code></pre>
       <p><strong>What you need:</strong> a local checkout of the Git repository this Argo CD installation reads, the <code>cub</code> CLI, and this plugin. Start in that repository's root; replace the directory placeholder below with its path. Planning reads the repository and needs no ConfigHub account or cluster.</p>
 <pre><code>cd &lt;your-argo-gitops-repository&gt;
 cub argo plan .</code></pre>
@@ -677,7 +677,7 @@ Read 9 objects
 Control tree (stays as it is: this is the management record)
   Application apptique-apps  wave 0  root, applied by hand</code></pre>
       </details>
-      <p><a href="https://github.com/confighub/examples/blob/cub-argo-v0.2.0/cub-argo/docs/onboard-your-argo-estate.md#1-see-the-plan">Read the full Argo CD planning reference</a> for layouts and limits.</p>
+      <p><a href="https://github.com/confighub/examples/blob/cub-argo-v0.3.0/cub-argo/docs/onboard-your-argo-estate.md#1-see-the-plan">Read the full Argo CD planning reference</a> for layouts and limits.</p>
     </section>
 
     <p><strong>You can stop here.</strong> The plan is read-only. To generate local scripts, connect delivery, or make a reviewed change, open the advanced steps below.</p>
@@ -705,7 +705,7 @@ Control tree (stays as it is: this is the management record)
 <pre><code># Example only: remote cluster prod-1
 ARGOCD_CONTEXT=&lt;argo-context&gt; DEST_CONTEXT_prod_1=&lt;prod-1-context&gt; CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/handover.sh</code></pre>
       </details>
-      <p><a href="https://github.com/confighub/examples/blob/cub-argo-v0.2.0/cub-argo/docs/onboard-your-argo-estate.md#3-hand-the-estate-over">Advanced handover and recovery reference</a>. Do not delete ConfigHub spaces as rollback: restore controller sources first, then use the script’s printed order.</p>
+      <p><a href="https://github.com/confighub/examples/blob/cub-argo-v0.3.0/cub-argo/docs/onboard-your-argo-estate.md#3-hand-the-estate-over">Advanced handover and recovery reference</a>. Do not delete ConfigHub spaces as rollback: restore controller sources first, then use the script’s printed order.</p>
     </section>
 
     <section aria-labelledby="change-approve-release">
@@ -720,11 +720,11 @@ cub changeorder create --space argo-apptique-base more-replicas --change-workflo
 cub variant promote --change-order argo-apptique-base/more-replicas --target-stage canary
 cub variant approve --change-order argo-apptique-base/more-replicas --stage canary
 cub release publish argo-apptique-dev-1 --revision ChangeOrder:argo-apptique-base/more-replicas</code></pre>
-        <p><a href="https://github.com/confighub/examples/blob/cub-argo-v0.2.0/cub-argo/docs/onboard-your-argo-estate.md#making-a-change-afterwards">Read the released worked example</a> before using its example Space names.</p>
+        <p><a href="https://github.com/confighub/examples/blob/cub-argo-v0.3.0/cub-argo/docs/onboard-your-argo-estate.md#making-a-change-afterwards">Read the released worked example</a> before using its example Space names.</p>
       </details>
       <p>Live status is also a write. This sends the observed revision and health to ConfigHub. Argo CD also gets a hard refresh.</p>
 <pre><code>cub argo status . --kube-context &lt;argo-context&gt; --watch --hard-refresh</code></pre>
-      <p><a href="https://github.com/confighub/examples/blob/cub-argo-v0.2.0/cub-argo/docs/onboard-your-argo-estate.md#what-confighub-hears-back-live-status">Read the Argo CD status details</a>. A release, controller sync, and workload health are separate results; record the exact revision and target for each.</p>
+      <p><a href="https://github.com/confighub/examples/blob/cub-argo-v0.3.0/cub-argo/docs/onboard-your-argo-estate.md#what-confighub-hears-back-live-status">Read the Argo CD status details</a>. A release, controller sync, and workload health are separate results; record the exact revision and target for each.</p>
     </section>
     </details>  </main>
 </div>
