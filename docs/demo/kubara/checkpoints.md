@@ -25,13 +25,14 @@ reference organization, recorded in August 2026. That organization is retired
 and is not rerun, and its receipts predate the cub 0.4 field renames. By the
 owner's decision of 2026-09-30 the proof is accepted and labelled historical.
 The current live proof is the
-[kind lab](https://github.com/confighub/kubara-confighub/tree/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab)
-in confighub/kubara-confighub v0.2.4, with its
-[recorded run](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/run-2026-09-30.log),
-[recorded hand-back](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/handback-2026-09-30.log),
-[run on Kubara v0.16](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/run-v0.16-2026-09-30.log),
-[run with a second approver](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/run-approve-2026-09-30.log)
-and [recovery after `kubara bootstrap`](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/rebootstrap-2026-09-30.log).
+[kind lab](https://github.com/confighub/kubara-confighub/tree/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab)
+in confighub/kubara-confighub v0.3.0, with its
+[recorded run](https://github.com/confighub/kubara-confighub/blob/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab/run-2026-09-30.log),
+[recorded hand-back](https://github.com/confighub/kubara-confighub/blob/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab/handback-2026-09-30.log),
+[run on Kubara v0.16](https://github.com/confighub/kubara-confighub/blob/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab/run-v0.16-2026-09-30.log),
+[run with a second approver](https://github.com/confighub/kubara-confighub/blob/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab/run-approve-2026-09-30.log),
+[recovery after `kubara bootstrap`](https://github.com/confighub/kubara-confighub/blob/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab/rebootstrap-2026-09-30.log)
+and [run against ConfigHub v0.8.0](https://github.com/confighub/kubara-confighub/blob/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab/run-sdk-2026-10-02.log).
 
 | Claim | Exact evidence | Current status |
 | --- | --- | --- |

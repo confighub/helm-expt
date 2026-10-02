@@ -57,19 +57,21 @@ the cub 0.4 field renames, and the proof is accepted and labelled historical.
 [`proof-status.yaml`](../../data/kubara-upstream-evidence/proof-status.yaml)
 records that decision, and the site labels every accepted pill from it as
 "retained (historical)". The current live proof is the
-[kind lab](https://github.com/confighub/kubara-confighub/tree/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab)
-in kubara-confighub v0.2.4, at the pinned commit: its
-[recorded run](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/run-2026-09-30.log),
-[recorded hand-back](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/handback-2026-09-30.log),
-[run on Kubara v0.16](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/run-v0.16-2026-09-30.log),
-[run with a second approver](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/run-approve-2026-09-30.log)
-and [recovery after `kubara bootstrap`](https://github.com/confighub/kubara-confighub/blob/fdae8a233fec57bf2f4102b8fea43c3bf557e35e/examples/kind-lab/rebootstrap-2026-09-30.log).
+[kind lab](https://github.com/confighub/kubara-confighub/tree/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab)
+in kubara-confighub v0.3.0, at the pinned commit: its
+[recorded run](https://github.com/confighub/kubara-confighub/blob/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab/run-2026-09-30.log),
+[recorded hand-back](https://github.com/confighub/kubara-confighub/blob/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab/handback-2026-09-30.log),
+[run on Kubara v0.16](https://github.com/confighub/kubara-confighub/blob/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab/run-v0.16-2026-09-30.log),
+[run with a second approver](https://github.com/confighub/kubara-confighub/blob/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab/run-approve-2026-09-30.log),
+[recovery after `kubara bootstrap`](https://github.com/confighub/kubara-confighub/blob/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab/rebootstrap-2026-09-30.log)
+and [run against ConfigHub v0.8.0](https://github.com/confighub/kubara-confighub/blob/62afd6a7ef95e854b5d1cbb3834843c0a2911d67/examples/kind-lab/run-sdk-2026-10-02.log).
 Each log was recorded with `cub kubara` built from a branch before its
 release, not with a released binary: the first three from the branches v0.2.3
-released, the last two from 0.2.4-dev. `proof-status.yaml` names the commit
+released, the next two from 0.2.4-dev, the last from 0.3.0-dev. `proof-status.yaml` names the commit
 and the logs, and the reader test requires that commit to be the pin.
 
-The pin is `fdae8a233fec57bf2f4102b8fea43c3bf557e35e`, kubara-confighub v0.2.4. It moved there on 2026-09-30 from
+The pin is `62afd6a7ef95e854b5d1cbb3834843c0a2911d67`, kubara-confighub v0.3.0. It moved there on 2026-10-02 from
+`fdae8a233fec57bf2f4102b8fea43c3bf557e35e` (v0.2.4), which had moved on 2026-09-30 from
 `86884faae853b12e552354d0b7cb898bc8df59fa` (v0.2.3), which had moved from
 `a5bbe1fd20838d162e53cd8802293420c7ae53b5` the same day. At each move every
 snapshot file and both executor identities were byte-identical, so only the

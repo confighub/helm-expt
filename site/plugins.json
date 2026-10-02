@@ -39,8 +39,8 @@
       ],
       "repository": "confighub/kubara-confighub",
       "release": {
-        "date": "2026-10-01",
-        "tag": "v0.2.5"
+        "date": "2026-10-02",
+        "tag": "v0.3.0"
       },
       "install": "cub plugin install confighub/kubara-confighub",
       "note": "Tested on kind only. For a few minutes after a release, the Healthy gate can read the previous release's status. argobot cannot refresh Kubara's Applications (confighub/argobot#13).",
@@ -62,8 +62,8 @@
       ],
       "repository": "confighub/sveltos-confighub",
       "release": {
-        "date": "2026-09-30",
-        "tag": "v0.11.0"
+        "date": "2026-10-02",
+        "tag": "v0.12.0"
       },
       "install": "cub plugin install confighub/sveltos-confighub",
       "note": "Handover rollback and chart-rendered Secret handling remain open upstream work; review those limits before importing a fleet.",
