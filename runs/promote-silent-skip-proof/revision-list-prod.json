@@ -226,14 +226,14 @@ $ cub revision list statefulset-vault-vault --space hashicorp-vault-env-prod --s
     "User": {
       "CreatedAt": "2025-04-24T09:32:50.884524Z",
       "CursorID": 13,
-      "DisplayName": "Alexis Richardson",
+      "DisplayName": "Example User",
       "EntityType": "User",
       "ExternalID": "ed35b0be-d37a-4fc1-babf-374f9dd73732",
       "ProfilePictureURL": "https://workoscdn.com/images/v1/sd6fzMASrbcala6Z5NPcZAXKyvUh9pHcL9tbhb-TFPg",
       "Slug": "user_01jm2ff30dxjzw69w3hr7rd36s",
       "UpdatedAt": "2025-04-24T09:32:50.884524Z",
       "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
-      "Username": "alexis@confighub.com",
+      "Username": "user@example.com",
       "Version": 1
     }
   },
@@ -457,14 +457,14 @@ $ cub revision list statefulset-vault-vault --space hashicorp-vault-env-prod --s
     "User": {
       "CreatedAt": "2025-04-24T09:32:50.884524Z",
       "CursorID": 13,
-      "DisplayName": "Alexis Richardson",
+      "DisplayName": "Example User",
       "EntityType": "User",
       "ExternalID": "ed35b0be-d37a-4fc1-babf-374f9dd73732",
       "ProfilePictureURL": "https://workoscdn.com/images/v1/sd6fzMASrbcala6Z5NPcZAXKyvUh9pHcL9tbhb-TFPg",
       "Slug": "user_01jm2ff30dxjzw69w3hr7rd36s",
       "UpdatedAt": "2025-04-24T09:32:50.884524Z",
       "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
-      "Username": "alexis@confighub.com",
+      "Username": "user@example.com",
       "Version": 1
     }
   },
@@ -682,14 +682,14 @@ $ cub revision list statefulset-vault-vault --space hashicorp-vault-env-prod --s
     "User": {
       "CreatedAt": "2025-04-24T09:32:50.884524Z",
       "CursorID": 13,
-      "DisplayName": "Alexis Richardson",
+      "DisplayName": "Example User",
       "EntityType": "User",
       "ExternalID": "ed35b0be-d37a-4fc1-babf-374f9dd73732",
       "ProfilePictureURL": "https://workoscdn.com/images/v1/sd6fzMASrbcala6Z5NPcZAXKyvUh9pHcL9tbhb-TFPg",
       "Slug": "user_01jm2ff30dxjzw69w3hr7rd36s",
       "UpdatedAt": "2025-04-24T09:32:50.884524Z",
       "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
-      "Username": "alexis@confighub.com",
+      "Username": "user@example.com",
       "Version": 1
     }
   },
@@ -902,14 +902,14 @@ $ cub revision list statefulset-vault-vault --space hashicorp-vault-env-prod --s
     "User": {
       "CreatedAt": "2025-04-24T09:32:50.884524Z",
       "CursorID": 13,
-      "DisplayName": "Alexis Richardson",
+      "DisplayName": "Example User",
       "EntityType": "User",
       "ExternalID": "ed35b0be-d37a-4fc1-babf-374f9dd73732",
       "ProfilePictureURL": "https://workoscdn.com/images/v1/sd6fzMASrbcala6Z5NPcZAXKyvUh9pHcL9tbhb-TFPg",
       "Slug": "user_01jm2ff30dxjzw69w3hr7rd36s",
       "UpdatedAt": "2025-04-24T09:32:50.884524Z",
       "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
-      "Username": "alexis@confighub.com",
+      "Username": "user@example.com",
       "Version": 1
     }
   },
@@ -1115,14 +1115,14 @@ $ cub revision list statefulset-vault-vault --space hashicorp-vault-env-prod --s
     "User": {
       "CreatedAt": "2025-04-24T09:32:50.884524Z",
       "CursorID": 13,
-      "DisplayName": "Alexis Richardson",
+      "DisplayName": "Example User",
       "EntityType": "User",
       "ExternalID": "ed35b0be-d37a-4fc1-babf-374f9dd73732",
       "ProfilePictureURL": "https://workoscdn.com/images/v1/sd6fzMASrbcala6Z5NPcZAXKyvUh9pHcL9tbhb-TFPg",
       "Slug": "user_01jm2ff30dxjzw69w3hr7rd36s",
       "UpdatedAt": "2025-04-24T09:32:50.884524Z",
       "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
-      "Username": "alexis@confighub.com",
+      "Username": "user@example.com",
       "Version": 1
     }
   }

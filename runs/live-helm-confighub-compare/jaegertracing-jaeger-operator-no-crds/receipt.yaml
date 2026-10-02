@@ -69,7 +69,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install jaeger-operator jaeger-operator --repo https://jaegertracing.github.io/helm-charts
-        --version 2.57.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/regular-helm-values.yaml
+        --version 2.57.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975
       objectCount: 10
@@ -86,7 +86,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jaegertracing/jaeger-operator/2.57.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/jaegertracing/jaeger-operator/2.57.0
         --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -974,7 +974,7 @@ spec:
     elapsedSeconds: 18.497
     timeoutSeconds: 900
     command: helm upgrade --install jaeger-operator jaeger-operator --repo https://jaegertracing.github.io/helm-charts
-      --version 2.57.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/regular-helm-values.yaml
+      --version 2.57.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -982,7 +982,7 @@ spec:
     finishedAt: '2026-07-28T21:10:24Z'
     elapsedSeconds: 0.332
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jaegertracing/jaeger-operator/2.57.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/jaegertracing/jaeger-operator/2.57.0
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -991,9 +991,9 @@ spec:
     finishedAt: '2026-07-28T21:10:27Z'
     elapsedSeconds: 0.166
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-jaegeroperator-ms55d7i2-1grx.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-jaegeroperator-ms55d7i2-1grx.kubeconfig
       --context kind-helm-expt-parity-jaegeroperator-ms55d7i2-1grx apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/direct-apply-manifest.yaml
     objectCount: 10
   - name: configHub-direct-readiness
     result: pass
@@ -1008,7 +1008,7 @@ spec:
     finishedAt: '2026-07-28T21:10:43Z'
     elapsedSeconds: 0.241
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jaegertracing/jaeger-operator/2.57.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/jaegertracing/jaeger-operator/2.57.0
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1051,7 +1051,7 @@ spec:
     elapsedSeconds: 1.022
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster
-      jaeger-operator-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/argo-application.json
+      jaeger-operator-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/argo-application.json
       --target helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster/oci --allow-exists
   - name: configHub-oci-app-release-publish
     result: pass
@@ -1079,11 +1079,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-jaegeroperator-ms55d7i2-1grx\"\
-      \ (kubeconfig: /Users/alexis/.confighub/clusters/helm-expt-parity-jaegeroperator-ms55d7i2-1grx.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/clusters/helm-expt-parity-jaegeroperator-ms55d7i2-1grx.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-jaegeroperator-ms55d7i2-1grx\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -1094,7 +1094,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-jaegeroperator-ms55d7i2-1grx\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-jaegeroperator-ms55d7i2-1grx\
-      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-jaegeroperator-ms55d7i2-1grx.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-jaegeroperator-ms55d7i2-1grx.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k"
   - name: target-profile
     result: pass

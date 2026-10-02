@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install keda keda --repo https://kedacore.github.io/charts
-        --version 2.19.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/kedacore-keda-no-crds/regular-helm-values.yaml
+        --version 2.19.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/kedacore-keda-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7
@@ -90,7 +90,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/kedacore/keda/2.19.0
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-keda-33086-syi4-keda
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -236,36 +236,36 @@ spec:
       - name: cloudeventsources.eventing.keda.sh
         sourceVariant: default
         sourceKind: recorded-source-path
-        sourcePath: /Users/alexis/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: clustercloudeventsources.eventing.keda.sh
         sourceVariant: default
         sourceKind: recorded-source-path
-        sourcePath: /Users/alexis/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: clustertriggerauthentications.keda.sh
         sourceVariant: default
         sourceKind: recorded-source-path
-        sourcePath: /Users/alexis/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: scaledjobs.keda.sh
         sourceVariant: default
         sourceKind: recorded-source-path
-        sourcePath: /Users/alexis/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: scaledobjects.keda.sh
         sourceVariant: default
         sourceKind: recorded-source-path
-        sourcePath: /Users/alexis/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: triggerauthentications.keda.sh
         sourceVariant: default
         sourceKind: recorded-source-path
-        sourcePath: /Users/alexis/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/kedacore-keda-no-crds/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/kedacore-keda-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
@@ -273,36 +273,36 @@ spec:
       - name: cloudeventsources.eventing.keda.sh
         sourceVariant: default
         sourceKind: installer-package
-        sourcePath: /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
+        sourcePath: $HOME/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: clustercloudeventsources.eventing.keda.sh
         sourceVariant: default
         sourceKind: installer-package
-        sourcePath: /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
+        sourcePath: $HOME/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: clustertriggerauthentications.keda.sh
         sourceVariant: default
         sourceKind: installer-package
-        sourcePath: /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
+        sourcePath: $HOME/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: scaledjobs.keda.sh
         sourceVariant: default
         sourceKind: installer-package
-        sourcePath: /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
+        sourcePath: $HOME/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: scaledobjects.keda.sh
         sourceVariant: default
         sourceKind: installer-package
-        sourcePath: /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
+        sourcePath: $HOME/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: triggerauthentications.keda.sh
         sourceVariant: default
         sourceKind: installer-package
-        sourcePath: /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
+        sourcePath: $HOME/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/kedacore-keda-no-crds/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/kedacore-keda-no-crds/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

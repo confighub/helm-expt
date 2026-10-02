@@ -48,8 +48,8 @@ spec:
   legs:
     regularHelm:
       result: pass
-      command: helm upgrade --install argo-cd /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/exact-chart-artifact/chart.tgz
-        --namespace argocd-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/regular-helm-values.yaml
+      command: helm upgrade --install argo-cd $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/exact-chart-artifact/chart.tgz
+        --namespace argocd-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 813fb156368c0a1588c666c9870f07e5441347d11af65a9d349161109ae1a5da
       objectCount: 52
@@ -92,7 +92,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/argo-cd/argo-cd/10.1.3
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/argo-cd/argo-cd/10.1.3
         --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-argo-10-1-3-nc-kub-argo-10-1-3-nc
         --non-interactive --namespace argocd-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1555,8 +1555,8 @@ spec:
     finishedAt: '2026-08-04T12:32:03Z'
     elapsedSeconds: 38.227
     timeoutSeconds: 900
-    command: helm upgrade --install argo-cd /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/exact-chart-artifact/chart.tgz
-      --namespace argocd-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/regular-helm-values.yaml
+    command: helm upgrade --install argo-cd $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/exact-chart-artifact/chart.tgz
+      --namespace argocd-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1564,7 +1564,7 @@ spec:
     finishedAt: '2026-08-04T12:32:10Z'
     elapsedSeconds: 0.614
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/argo-cd/argo-cd/10.1.3
+    command: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/argo-cd/argo-cd/10.1.3
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-argo-10-1-3-nc-kub-argo-10-1-3-nc
       --non-interactive --namespace argocd-apply
   - name: configHub-direct-apply
@@ -1573,9 +1573,9 @@ spec:
     finishedAt: '2026-08-04T12:32:16Z'
     elapsedSeconds: 0.408
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-argo-10-1-3-nc.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-kub-argo-10-1-3-nc.kubeconfig
       --context kind-helm-expt-parity-kub-argo-10-1-3-nc apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/direct-apply-manifest.yaml
     objectCount: 52
   - name: configHub-direct-readiness
     result: pass
@@ -1590,7 +1590,7 @@ spec:
     finishedAt: '2026-08-04T12:32:47Z'
     elapsedSeconds: 0.442
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/argo-cd/argo-cd/10.1.3
+    command: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/argo-cd/argo-cd/10.1.3
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-argo-10-1-3-nc-kub-argo-10-1-3-nc
       --non-interactive --namespace argocd-oci
   - name: configHub-oci-upload
@@ -1632,7 +1632,7 @@ spec:
     elapsedSeconds: 0.891
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-kub-argo-10-1-3-nc-argo-apps
-      kub-argo-10-1-3-nc-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/argo-application.json
+      kub-argo-10-1-3-nc-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/argo-application.json
       --target helm-expt-parity-kub-argo-10-1-3-nc/target --allow-exists
   - name: configHub-oci-app-release-publish
     result: pass
@@ -1660,14 +1660,14 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: exact-source-artifact
     result: pass
     detail: https://github.com/argoproj/argo-helm/releases/download/argo-cd-10.1.3/argo-cd-10.1.3.tgz
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-kub-argo-10-1-3-nc\" (kubeconfig:\
-      \ /Users/alexis/.confighub/clusters/helm-expt-parity-kub-argo-10-1-3-nc.kubeconfig)...\n\
+      \ $HOME/.confighub/clusters/helm-expt-parity-kub-argo-10-1-3-nc.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-kub-argo-10-1-3-nc\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1678,7 +1678,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-kub-argo-10-1-3-nc\"\nYou can\
       \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kub-argo-10-1-3-nc\
-      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-argo-10-1-3-nc.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-kub-argo-10-1-3-nc.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\n"
   - name: cluster-target-discovery
@@ -1777,21 +1777,21 @@ spec:
       stagedCRDs:
       - name: applications.argoproj.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: b2cbe21e58abbf285edb7710df9df299c93bb288293eed091ef7e24f83f850b5
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: applicationsets.argoproj.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: b2cbe21e58abbf285edb7710df9df299c93bb288293eed091ef7e24f83f850b5
         sourceURL: ''
         applyMode: server-side
         lane: regularHelm
       - name: appprojects.argoproj.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: b2cbe21e58abbf285edb7710df9df299c93bb288293eed091ef7e24f83f850b5
         sourceURL: ''
         applyMode: server-side
@@ -1810,21 +1810,21 @@ spec:
       stagedCRDs:
       - name: applications.argoproj.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: b2cbe21e58abbf285edb7710df9df299c93bb288293eed091ef7e24f83f850b5
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: applicationsets.argoproj.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: b2cbe21e58abbf285edb7710df9df299c93bb288293eed091ef7e24f83f850b5
         sourceURL: ''
         applyMode: server-side
         lane: configHubKubectlApply
       - name: appprojects.argoproj.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: b2cbe21e58abbf285edb7710df9df299c93bb288293eed091ef7e24f83f850b5
         sourceURL: ''
         applyMode: server-side
@@ -1832,7 +1832,7 @@ spec:
       stagedObjectStores: []
       stagedNamespaces: []
       lifecycleActions: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -1844,21 +1844,21 @@ spec:
       stagedCRDs:
       - name: applications.argoproj.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: b2cbe21e58abbf285edb7710df9df299c93bb288293eed091ef7e24f83f850b5
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: applicationsets.argoproj.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: b2cbe21e58abbf285edb7710df9df299c93bb288293eed091ef7e24f83f850b5
         sourceURL: ''
         applyMode: server-side
         lane: configHubOciArgo
       - name: appprojects.argoproj.io
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: b2cbe21e58abbf285edb7710df9df299c93bb288293eed091ef7e24f83f850b5
         sourceURL: ''
         applyMode: server-side
@@ -1866,7 +1866,7 @@ spec:
       stagedObjectStores: []
       stagedNamespaces: []
       lifecycleActions: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-1-3-no-crds/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass

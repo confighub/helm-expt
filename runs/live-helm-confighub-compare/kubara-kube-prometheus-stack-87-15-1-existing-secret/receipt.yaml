@@ -48,8 +48,8 @@ spec:
   legs:
     regularHelm:
       result: pass
-      command: helm upgrade --install kube-prometheus-stack /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/exact-chart-artifact/chart.tgz
-        --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/regular-helm-values.yaml
+      command: helm upgrade --install kube-prometheus-stack $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/exact-chart-artifact/chart.tgz
+        --namespace monitoring-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 7297b2aaced5ed2e6e6bd040af1114b0f4360fa4fdebbb1d63a1ce65d89edfcc
       objectCount: 124
@@ -86,7 +86,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/prometheus-community/kube-prometheus-stack/87.15.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/prometheus-community/kube-prometheus-stack/87.15.1
         --base existing-secret --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-kps-87-15-1-es-kub-kps-87-15-1-es
         --non-interactive --namespace monitoring-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -2061,8 +2061,8 @@ spec:
     finishedAt: '2026-08-04T13:25:28Z'
     elapsedSeconds: 94.896
     timeoutSeconds: 900
-    command: helm upgrade --install kube-prometheus-stack /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/exact-chart-artifact/chart.tgz
-      --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/regular-helm-values.yaml
+    command: helm upgrade --install kube-prometheus-stack $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/exact-chart-artifact/chart.tgz
+      --namespace monitoring-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -2070,7 +2070,7 @@ spec:
     finishedAt: '2026-08-04T13:26:10Z'
     elapsedSeconds: 2.579
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/prometheus-community/kube-prometheus-stack/87.15.1
+    command: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/prometheus-community/kube-prometheus-stack/87.15.1
       --base existing-secret --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-kps-87-15-1-es-kub-kps-87-15-1-es
       --non-interactive --namespace monitoring-apply
   - name: configHub-direct-crd-apply
@@ -2079,9 +2079,9 @@ spec:
     finishedAt: '2026-08-04T13:26:39Z'
     elapsedSeconds: 0.803
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-kps-87-15-1-es.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-kub-kps-87-15-1-es.kubeconfig
       --context kind-helm-expt-parity-kub-kps-87-15-1-es apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/confighub-rendered-crds.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/confighub-rendered-crds.yaml
     objectCount: 10
   - name: configHub-direct-apply
     result: pass
@@ -2089,9 +2089,9 @@ spec:
     finishedAt: '2026-08-04T13:26:43Z'
     elapsedSeconds: 0.694
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-kps-87-15-1-es.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-kub-kps-87-15-1-es.kubeconfig
       --context kind-helm-expt-parity-kub-kps-87-15-1-es apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/direct-apply-manifest.yaml
     objectCount: 114
   - name: configHub-direct-readiness
     result: pass
@@ -2106,7 +2106,7 @@ spec:
     finishedAt: '2026-08-04T13:27:24Z'
     elapsedSeconds: 2.074
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/prometheus-community/kube-prometheus-stack/87.15.1
+    command: cub installer setup --pull $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/prometheus-community/kube-prometheus-stack/87.15.1
       --base existing-secret --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-kps-87-15-1-es-kub-kps-87-15-1-es
       --non-interactive --namespace monitoring-oci
   - name: configHub-oci-upload
@@ -2148,7 +2148,7 @@ spec:
     elapsedSeconds: 0.993
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-kub-kps-87-15-1-es-argo-apps
-      kub-kps-87-15-1-es-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/argo-application.json
+      kub-kps-87-15-1-es-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/argo-application.json
       --target helm-expt-parity-kub-kps-87-15-1-es/target --allow-exists
   - name: configHub-oci-app-release-publish
     result: pass
@@ -2176,14 +2176,14 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: exact-source-artifact
     result: pass
     detail: https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-87.15.1/kube-prometheus-stack-87.15.1.tgz
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-kub-kps-87-15-1-es\" (kubeconfig:\
-      \ /Users/alexis/.confighub/clusters/helm-expt-parity-kub-kps-87-15-1-es.kubeconfig)...\n\
+      \ $HOME/.confighub/clusters/helm-expt-parity-kub-kps-87-15-1-es.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-kub-kps-87-15-1-es\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -2194,7 +2194,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-kub-kps-87-15-1-es\"\nYou can\
       \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kub-kps-87-15-1-es\
-      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-kps-87-15-1-es.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-kub-kps-87-15-1-es.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing Argo CD...\nCreating namespace \"argoc"
   - name: cluster-target-discovery
@@ -2287,70 +2287,70 @@ spec:
       stagedCRDs:
       - name: alertmanagerconfigs.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: regularHelm
       - name: alertmanagers.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: regularHelm
       - name: podmonitors.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: regularHelm
       - name: probes.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: regularHelm
       - name: prometheusagents.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: regularHelm
       - name: prometheuses.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: regularHelm
       - name: prometheusrules.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: regularHelm
       - name: scrapeconfigs.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: regularHelm
       - name: servicemonitors.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: regularHelm
       - name: thanosrulers.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
@@ -2358,7 +2358,7 @@ spec:
       stagedObjectStores: []
       stagedNamespaces: []
       lifecycleActions: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/target-facts-regular-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -2378,70 +2378,70 @@ spec:
       stagedCRDs:
       - name: alertmanagerconfigs.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: alertmanagers.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: podmonitors.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: probes.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: prometheusagents.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: prometheuses.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: prometheusrules.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: scrapeconfigs.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: servicemonitors.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: thanosrulers.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
@@ -2449,7 +2449,7 @@ spec:
       stagedObjectStores: []
       stagedNamespaces: []
       lifecycleActions: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -2469,70 +2469,70 @@ spec:
       stagedCRDs:
       - name: alertmanagerconfigs.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: alertmanagers.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: podmonitors.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: probes.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: prometheusagents.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: prometheuses.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: prometheusrules.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: scrapeconfigs.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: servicemonitors.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: thanosrulers.monitoring.coreos.com
         sourceVariant: default
-        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
+        sourcePath: $HOME/code/helm-expt/data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml
         sourceSHA256: 97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09
         sourceURL: ''
         applyMode: server-side-force-conflicts
@@ -2540,7 +2540,7 @@ spec:
       stagedObjectStores: []
       stagedNamespaces: []
       lifecycleActions: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/kubara-kube-prometheus-stack-87-15-1-existing-secret/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass

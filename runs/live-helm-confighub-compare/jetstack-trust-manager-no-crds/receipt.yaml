@@ -69,7 +69,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install trust-manager trust-manager --repo https://charts.jetstack.io
-        --version v0.22.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/regular-helm-values.yaml
+        --version v0.22.1 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250
       objectCount: 13
@@ -86,7 +86,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
         --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1014,7 +1014,7 @@ spec:
     elapsedSeconds: 19.611
     timeoutSeconds: 900
     command: helm upgrade --install trust-manager trust-manager --repo https://charts.jetstack.io
-      --version v0.22.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/regular-helm-values.yaml
+      --version v0.22.1 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1022,7 +1022,7 @@ spec:
     finishedAt: '2026-07-28T19:45:39Z'
     elapsedSeconds: 0.369
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -1031,9 +1031,9 @@ spec:
     finishedAt: '2026-07-28T19:45:41Z'
     elapsedSeconds: 0.158
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-trustmanager-ms52cwh1-1s3u.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-trustmanager-ms52cwh1-1s3u.kubeconfig
       --context kind-helm-expt-parity-trustmanager-ms52cwh1-1s3u apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/direct-apply-manifest.yaml
     objectCount: 13
   - name: configHub-direct-readiness
     result: pass
@@ -1048,7 +1048,7 @@ spec:
     finishedAt: '2026-07-28T19:45:57Z'
     elapsedSeconds: 0.278
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1090,7 +1090,7 @@ spec:
     elapsedSeconds: 0.916
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster
-      trust-manager-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/argo-application.json
+      trust-manager-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/argo-application.json
       --target helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster/oci --allow-exists
   - name: configHub-oci-app-release-publish
     result: pass
@@ -1118,11 +1118,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-trustmanager-ms52cwh1-1s3u\"\
-      \ (kubeconfig: /Users/alexis/.confighub/clusters/helm-expt-parity-trustmanager-ms52cwh1-1s3u.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/clusters/helm-expt-parity-trustmanager-ms52cwh1-1s3u.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-trustmanager-ms52cwh1-1s3u\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -1133,7 +1133,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-trustmanager-ms52cwh1-1s3u\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-trustmanager-ms52cwh1-1s3u\
-      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-trustmanager-ms52cwh1-1s3u.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-trustmanager-ms52cwh1-1s3u.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#commu"
   - name: target-profile
     result: pass
@@ -1211,7 +1211,7 @@ spec:
       stagedNamespaces:
       - name: cert-manager
         lane: regularHelm
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/target-facts-regular-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -1242,7 +1242,7 @@ spec:
       stagedNamespaces:
       - name: cert-manager
         lane: configHubKubectlApply
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -1273,7 +1273,7 @@ spec:
       stagedNamespaces:
       - name: cert-manager
         lane: configHubOciArgo
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass
