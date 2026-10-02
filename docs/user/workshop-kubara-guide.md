@@ -15,7 +15,7 @@ from [kubara-confighub](https://github.com/confighub/kubara-confighub) instead o
 this Guide. Your path is `kubara generate`, then `cub kubara plan` and
 `render`, which run offline, then `apply`, `handover` and `check`. `handback`
 returns the hub to Git. The path has no stack step.
-[Bring a Kubara platform into ConfigHub](https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html)
+[Bring Kubara's managed add-ons into ConfigHub](https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html)
 gives the order and what each step changes, and the
 [cub kubara guide](https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md)
 walks it. This Guide answers a different question: what a generated Kubara
