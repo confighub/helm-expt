@@ -685,7 +685,7 @@ const PAGE_DESCRIPTIONS = {
   "ai.html": "Install the ConfigHub Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.",
   "security.html": "Review the exact Kubernetes objects, their source, security checks, approvals, and delivery record before release.",
   "testing.html": "Find a tested starting configuration for a component, AI-infrastructure stack, or internal developer platform, then inspect the exact result before using it.",
-  "kubara.html": "Kubara moved: see the kubara row in Plugins, and the Guide Bring a Kubara platform into ConfigHub.",
+  "kubara.html": "Kubara moved: see the kubara row in Plugins, and the Guide Bring Kubara's managed add-ons into ConfigHub.",
   "entry-path-reference.html": "Detailed entry paths for Helm, AICR AI-infrastructure packages, existing OCI, and Kubernetes YAML, with commands and evidence links.",
   "future.html": "Separate ConfigHub Workshop results that can be used today from ideas that remain planned or only partly tested.",
   "operations.html": "Operations moved: the operations now live on the Guide Operate a fleet, and building an App on Build a ConfigHub App.",
@@ -1536,7 +1536,7 @@ function buildSite(generatedAt) {
     aiHtml: calmPage(aiHtml(catalog)),
     securityHtml: securityHtml(),
     pillarsHtml: calmPage(examplesHtml(catalog)),
-    kubaraHtml: movedPageHtml("Kubara platforms", "./plugins.html#kubara", "Kubara is now a row in Plugins, with its Guide, Bring a Kubara platform into ConfigHub."),
+    kubaraHtml: movedPageHtml("Kubara platforms", "./plugins.html#kubara", "Kubara is now a row in Plugins, with its Guide, Bring Kubara's managed add-ons into ConfigHub."),
     kubaraGuideHtml: calmPage(kubaraGuideHtml(catalog)),
     ...Object.fromEntries(JOURNEY_PAGES.map((journey) => [journey.key, calmPage(journeyGuideHtml(journey))])),
     ...Object.fromEntries(SPLIT_PAGES.map((guide) => [guide.key, calmPage(guide.build(catalog))])),
@@ -2567,7 +2567,7 @@ function siteSections() {
     ["apps.html", "Every app"], ["put-an-app-on-a-platform.html", "Put an app on a platform"], ["testing.html", "Find a starting configuration"],
   ] },
   { label: "Plugins", hub: "plugins.html", pages: [
-    ["plugins.html", "Every cub plugin"], ["bring-kubara-into-confighub.html", "Bring a Kubara platform into ConfigHub"],
+    ["plugins.html", "Every cub plugin"], ["bring-kubara-into-confighub.html", "Bring Kubara's managed add-ons into ConfigHub"],
   ] },
   { label: "Guides", hub: "guides.html", pages: [
     ["guides.html", "Every Guide"], ...JOURNEY_PAGES.map((journey) => [journey.file, journey.title]), ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"],
@@ -7983,7 +7983,7 @@ function kubaraExplainedHtml(catalog) {
     <section aria-labelledby="current-path">
       <h2 id="current-path">2. The current path: cub kubara</h2>
       <p>Today a Kubara platform comes into ConfigHub through <code>cub kubara</code> ${escapeHtml(kubaraPluginPins().kubara)}. <code>plan</code> and <code>render</code> run offline. <code>apply.sh</code> creates the bases, variants and rollout workflows, and <code>handover.sh</code> points Kubara's hub at each cluster's approved release. <code>check</code> judges each cluster, health included, and <code>handback.sh</code> returns the hub to Git.</p>
-      <p><a href="./bring-kubara-into-confighub.html">Bring a Kubara platform into ConfigHub</a> gives the commands, what each step changes, how to undo it, and the known limits. Its live evidence is the <a href="${escapeHtml(facts.proofStatus.spec.currentLiveProof.url)}">kind lab</a> at commit <code>${escapeHtml(facts.proofStatus.spec.currentLiveProof.commit.slice(0, 7))}</code>, with its ${kubaraLiveProofLogLinks(facts.proofStatus)}. It has run on kind only. The benefits below come from the older, separate proof.</p>
+      <p><a href="./bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a> gives the commands, what each step changes, how to undo it, and the known limits. Its live evidence is the <a href="${escapeHtml(facts.proofStatus.spec.currentLiveProof.url)}">kind lab</a> at commit <code>${escapeHtml(facts.proofStatus.spec.currentLiveProof.commit.slice(0, 7))}</code>, with its ${kubaraLiveProofLogLinks(facts.proofStatus)}. It has run on kind only. The benefits below come from the older, separate proof.</p>
     </section>
     <section aria-labelledby="benefits">
       <h2 id="benefits">3. Benefits with explicit acceptance evidence</h2>
@@ -9748,14 +9748,14 @@ function kubaraGuideHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bring a Kubara platform into ConfigHub · ConfigHub Workshop</title>
+  <title>Bring Kubara's managed add-ons into ConfigHub · ConfigHub Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
     ${audienceLabel("For teams who manage cluster add-ons with Kubara")}
-    <h1>Bring a Kubara platform into ConfigHub</h1>
+    <h1>Bring Kubara's managed add-ons into ConfigHub</h1>
     <p class="lead">Manage your clusters' add-ons with Kubara, and approve every change to them in ConfigHub. Your first result takes about 15 minutes and needs no account and no cluster.</p>
     <p>Kubara is good at add-ons: the certificate manager, the ingress controller, monitoring, secrets and the rest of what a cluster needs before an app can run. You choose them in <code>config.yaml</code>, and Kubara generates them for each cluster. Kubara calls that set a platform, and so do the commands on this page.</p>
     <ul>

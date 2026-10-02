@@ -488,7 +488,7 @@
       "id": "bring-kubara-into-confighub",
       "group": "stacks-and-platforms",
       "groupTitle": "Stacks and platforms",
-      "title": "Bring a Kubara platform into ConfigHub",
+      "title": "Bring Kubara's managed add-ons into ConfigHub",
       "summary": "Manage your clusters' add-ons with Kubara, and approve every change to them in ConfigHub. See them offline in about 15 minutes, then govern them with cub kubara, or check them with an app as a Workshop stack.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html",
