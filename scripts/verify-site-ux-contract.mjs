@@ -70,7 +70,7 @@ const checks = [
   })),
   {
     file: "site/index.html",
-    terms: ["Configuration catalog for Agents and Kubernetes", "Config Catalog and Workshop", "Helm, AICR, OCI, YAML and More", "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "I have an existing app", "Check my charts and values", "Build a platform or fleet", "Set up my AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
+    terms: ["Configuration catalog for Agents and Kubernetes", "Helm, AICR, OCI, YAML, Argo, Flux, Sveltos and more", "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "I have an existing app", "Check my charts and values", "Build a platform or fleet", "Set up my AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
   },
   {
     file: "site/ask.html",
@@ -344,7 +344,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Configuration catalog for Agents and Kubernetes", "ConfigHub Workshop lets an AI get Kubernetes configuration right on your behalf. It gives agents, and the people working beside them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.", "Start with your own chart or app", "Local checks need no account", "ConfigHub adds version history, approvals and releases", "Argo CD or Flux still delivers it"],
+    headerTerms: ["Configuration catalog for Agents and Kubernetes", "ConfigHub Workshop lets an AI get Kubernetes configuration right on your behalf. It gives agents, and the people working with them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.", "Start with your own chart or app", "Local checks need no account", "ConfigHub adds version history, approvals and releases", "Argo CD or Flux still delivers it using your existing setup."],
   },
   {
     file: "site/ask.html",

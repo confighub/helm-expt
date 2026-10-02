@@ -103,7 +103,7 @@
   * { box-sizing: border-box; }
   body { margin: 0; }
   .wrap { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; }
-  .page { max-width: 1260px; margin: 0 auto; padding: 0 22px 8px; display: grid; grid-template-columns: 186px minmax(0, 1fr); grid-template-rows: auto auto auto; column-gap: 34px; align-items: start; }
+  .page { max-width: 1280px; margin: 0 auto; padding: 0 20px 8px; display: grid; grid-template-columns: 236px minmax(0, 1fr); grid-template-rows: auto auto auto; column-gap: 40px; align-items: start; }
   .page > header, .page > main, .page > footer { grid-column: 2; min-width: 0; }
   .agent-prompt code { background: none; padding: 0; font-size: inherit; white-space: normal; }
   .agent-prompt { font-family: var(--mono); font-size: .86rem; line-height: 1.55; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin: 0 0 14px; max-width: 860px; color: var(--ink); }
@@ -374,9 +374,9 @@
       </nav>
       <header>
         <div class="hero-head">
-          <span class="eyebrow">Config Catalog and Workshop &middot; Helm, AICR, OCI, YAML and More</span>
+          <span class="eyebrow">Helm, AICR, OCI, YAML, Argo, Flux, Sveltos and more</span>
           <h1>Configuration catalog for Agents and Kubernetes</h1>
-          <p class="lead">ConfigHub Workshop lets an AI get Kubernetes configuration right on your behalf. It gives agents, and the people working beside them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.</p>
+          <p class="lead">ConfigHub Workshop lets an AI get Kubernetes configuration right on your behalf. It gives agents, and the people working with them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.</p>
         </div>
         <div class="hero">
           <div>
@@ -385,7 +385,7 @@
               <a class="btn primary" href="./guides.html#guides-existing-apps">I have an existing app</a>
               <a class="btn primary" href="./ask.html">Check my charts and values</a>
             </div>
-            <p>When your team needs to keep and share the result, ConfigHub adds version history, approvals and releases. Argo CD or Flux still delivers it.</p>
+            <p>When your team needs to keep and share the result, ConfigHub adds version history, approvals and releases. Argo CD or Flux still delivers it using your existing setup.</p>
             <div class="cta-row">
               <a class="btn primary" href="./guides.html#guides-platforms-fleets">Build a platform or fleet</a>
               <a class="btn primary" href="./ai.html">Set up my AI agent</a>
