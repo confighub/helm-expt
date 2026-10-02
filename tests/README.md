@@ -44,6 +44,7 @@ Legend: ● exercises · ○ partial/indirect · – n/a. Counts are indicative 
 | Chart-page claim integrity | ● | ○ | ● | ● | `chart-claim-integrity:verify`, [claim-integrity audit](../docs/planning/chart-claim-integrity-audit-2026-06-22.md) | gate is green: chart pages must not make claims that contradict their cited receipts; remaining warnings stay visible → [live findings](../data/chart-claim-integrity-audit-2026-06-22/summary.md) |
 | Chart-page omission lint | ○ | ○ | ○ | ● | `site:ux:verify` | gate is green: chart pages must not leak unresolved `<action>: unknown` next-action placeholders or raw `<tmp>` work-dir placeholders |
 | No personal names in committed files | – | – | – | – | `verify:no-personal-names` | gate: tracked files outside `runs/` must not name people (receipts stay exempt as recorded evidence); green once the #1102 sweep is in |
+| No personal names in pull request text | – | – | – | – | `verify:no-personal-names:self-test`, the `Pull request text` workflow | gate: a pull request title or body must not name people, because a squash merge makes that text the commit message on `main`; the workflow reads the same pattern as the file gate, and the self-test in the chain proves the matcher |
 | ConfigHub proof (scan/safe-ops) | – | – | ● | ● | confighub proof lanes, `<chart>:verify-proof` | complete in-ConfigHub → [outcome-coverage](../data/outcome-coverage/summary.md) |
 | Local k8s live | ● | ● | ○ | ● | `chart-install-test`, local-live receipts | partial, receipt-gated → [status-dashboard](../data/status-dashboard/summary.md) |
 | Strict kind-parity (2-cluster) | ● | ● | – | ● | `live-helm-installer-kind-parity-test`, `kind-parity:run` | partial → [live-kind-parity](../data/live-kind-parity/summary.md) |
@@ -98,6 +99,7 @@ The map routes into the existing detail — fit around this page, not replaced b
 | Whether a chart page's claims match its cited receipts | `chart-claim-integrity:verify` · [claim-integrity audit](../docs/planning/chart-claim-integrity-audit-2026-06-22.md) |
 | Whether chart pages leak unresolved UX placeholders | `site:ux:verify` |
 | Whether committed files keep personal names out | `verify:no-personal-names` |
+| Whether a pull request title or body keeps personal names out | `.github/workflows/pr-text.yml` · `verify:no-personal-names:self-test` |
 | The fuzz and Helm-migrant roadmap | [fuzz-corpus-tests-roadmap.md](../docs/planning/fuzz-corpus-tests-roadmap.md) |
 | The recorded F1–F4 findings | [findings.md](findings.md) |
 | The top-100 runtime/GitOps sweep plan | [top100-runtime-gitops.md](top100-runtime-gitops.md) |

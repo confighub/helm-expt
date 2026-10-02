@@ -1,0 +1,47 @@
+name: Pull request text
+
+# This repo squash-merges, so a pull request's title and description become the
+# commit message on main. The file gate keeps personal names out of committed
+# files, but nothing read the pull request text, and that is how names reached
+# main's history. This job reads the title and body and fails on a name.
+#
+# `edited` is in the trigger list so that fixing the title or description
+# re-runs the check without a new push.
+#
+# The title and body are written by whoever opens the pull request, so they are
+# never interpolated into a script here. The checker reads them from the event
+# file the runner already wrote (GITHUB_EVENT_PATH). The job only reads, and it
+# needs no token beyond checkout.
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-text-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pr-text:
+    name: No personal names in the pull request title or body
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out helm-expt
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          package-manager-cache: false
+
+      - name: The matcher catches a name and lets a handle through
+        run: node scripts/verify-no-personal-names.mjs --self-test
+
+      - name: No personal names in the pull request title or body
+        run: node scripts/verify-no-personal-names.mjs --pr-text
