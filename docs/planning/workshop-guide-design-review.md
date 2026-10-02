@@ -107,3 +107,38 @@ gates cover generation, links, prose constraints and retained command surfaces.
 These checks do not execute plugin operations, prove production migration,
 measure adoption, establish a population success rate or provide a complete
 screen-reader accessibility audit. Real-person acceptance remains #1956.
+
+## Visual noise follow-up, 2 October 2026
+
+The same five reference pages were inspected again at 1280 pixels wide;
+ConfigHub documentation and HashiCorp were also inspected at 390 pixels.
+The comparison focused on typographic hierarchy and surrounding navigation,
+not wording or a new information architecture. Wikipedia uses a stable reading
+rhythm despite dense content. HashiCorp makes peripheral navigation subordinate
+to the task. ConfigHub documentation uses restrained headings and few boxes.
+The Hugging Face signup panel and JFrog hero still occupy substantial opening
+space; those treatments are not adopted here.
+
+Workshop's remaining noise came from competing treatments: oversized heavy
+headings, uppercase monospace navigation labels, boxed directory entries,
+pill outlines in the header, and repeated accent-colored sidebar links.
+The follow-up uses one sans-serif family for prose, headings and navigation,
+retaining monospace for commands and agent instructions. Shared type sizes
+separate reading text, introductions, navigation and metadata. Interior page
+titles use a smaller consistent scale. Body copy is not globally shrunk.
+
+Navigation labels retain their words but lose decorative uppercase tracking.
+Sidebar links lose their repeated vertical rules; the current page indicator,
+keyboard focus, AI and ConfigHub routes remain. Header links retain their hit
+areas without pill outlines. The five demo cards become separated rows with
+all descriptions intact. Home terminal and card shadows are removed. Colors,
+status meanings, section order, anchors and disclosure behavior are unchanged.
+
+Validation before recording this note compared 834 regenerated HTML files to
+the base revision after excluding styles and the font-loading link: there were
+no other differences. Ten representative pages (Home, Guides, Docs, Apps,
+Plugins, Configs, Flux, Argo, AI and ConfigHub Server) were checked at 1280,
+768 and 390 pixels, with no page-level horizontal overflow in all 30 checks.
+Screenshots were inspected for Home, Guides and Flux on desktop and Guides on
+phone. This is design inspection and responsive checking, not human acceptance
+or a complete accessibility audit. Full gate results belong in the PR.
