@@ -62,7 +62,7 @@
     --term-bg: #221c15; --term-ink: #ede7dd;
     --shadow: 0 1px 2px rgba(16,32,45,.06), 0 8px 24px rgba(16,32,45,.05);
     --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif;
-    --heading: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+    --heading: Inter, ui-sans-serif, system-ui, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   }
   @media (prefers-color-scheme: dark) {
@@ -114,13 +114,13 @@
   @media (max-width: 760px) { .home-overview { grid-template-columns: 1fr; gap: 0; } }
   .home-sections { padding-left: 1.2em; line-height: 1.8; max-width: 860px; }
   .home-rail { grid-column: 1; grid-row: 1 / -1; position: sticky; top: 18px; align-self: start; padding-top: 40px; }
-  .home-rail .rail-h { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin: 18px 0 8px; }
+  .home-rail .rail-h { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; color: var(--muted); margin: 18px 0 8px; }
   .home-rail .rail-h:first-child { margin-top: 0; }
-  .home-rail a { display: block; padding: 7px 0 7px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.3; font-size: .92rem; }
+  .home-rail a { display: block; padding: 7px 0 7px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; line-height: 1.5; font-size: var(--cw-nav); }
   .home-rail .rail-h a { font: inherit; letter-spacing: inherit; padding: 0; border: 0; color: inherit; }
   .home-rail a:hover { color: var(--ink); border-left-color: var(--accent); }
   .home-rail a.rail-primary { color: var(--ink); font-weight: 640; border-left-color: var(--accent); }
-  .eyebrow { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+  .eyebrow { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; color: var(--muted); }
   h1,h2,h3 { text-wrap: balance; }
   a { color: inherit; }
 
@@ -132,13 +132,13 @@
      public Catalog" in two; sized to the column it sits on a single line from a
      laptop up, and wraps gracefully (never overflows) only when genuinely too
      narrow, near the width where the rail folds away. */
-  .hero-head h1 { font-size: clamp(1.35rem, 3.8cqi, 2.4rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
+  .hero-head h1 { font-size: clamp(1.35rem, 3.8cqi, 2.4rem); font-weight: 700; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
   /* Top-aligned, not centred: the right column carries the terminal and two
      notes now, so centring dropped the lead half a screen below the headline
      and left a hole where the reader looks first. */
   .boundary-chip { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; margin: 4px 0 0; }
   .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: start; padding: 32px 0 44px; }
-  .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
+  .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 700; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
   .hero-head .lead { font-size: 1rem; line-height: 1.65; margin: 22px 0 0; max-width: 78ch; }
   .hero > div:first-child > p { color: var(--muted); font-size: .95rem; line-height: 1.65; margin: 0 0 22px; }
   .hero .lead { font-size: .95rem; color: var(--muted); margin: 0 0 22px; max-width: 48ch; }
@@ -147,7 +147,7 @@
      cards under "What is the Workshop?" below, one idea per card, so the top
      of the page scans instead of reads. */
   .what-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 4px 0 14px; }
-  .what-card { border: 1px solid var(--line); border-radius: 13px; padding: 16px 18px; background: var(--surface); box-shadow: var(--shadow); }
+  .what-card { border: 1px solid var(--line); border-radius: 13px; padding: 16px 18px; background: var(--surface); box-shadow: none; }
   .what-card h3 { margin: 0 0 6px; font-size: .98rem; font-weight: 700; }
   .what-card p { margin: 0; font-size: .9rem; color: var(--muted); line-height: 1.5; }
   .what-links { font-size: .9rem; color: var(--muted); margin: 0; }
@@ -185,7 +185,7 @@
   .sources { font-family: var(--mono); font-size: .74rem; color: var(--faint); display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
   .sources b { color: var(--muted); font-weight: 600; }
 
-  .term { background: var(--term-bg); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); font-family: var(--mono); }
+  .term { background: var(--term-bg); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: none; font-family: var(--mono); }
   /* The explanations belong against the command they explain. Left to the
      injectors both notes landed as bare paragraphs at the top of the first
      section, orphaned from the terminal they describe, which read as a layout
@@ -206,7 +206,7 @@
 
   .section { padding: 44px 0; border-top: 1px solid var(--line); }
   .section > .eyebrow { display: block; margin-bottom: 6px; }
-  .section h2 { font-size: clamp(1.4rem, 2.6vw, 1.85rem); font-weight: 740; letter-spacing: -.02em; margin: 0 0 14px; }
+  .section h2 { font-size: 1.5rem; font-weight: 600; letter-spacing: -.02em; margin: 0 0 14px; }
   .section .intro { color: var(--muted); font-size: 1rem; margin: 0 0 22px; max-width: 60ch; }
 
   .verbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
@@ -219,7 +219,7 @@
   /* The four jobs a reader arrives with, one card each: a title, one sentence,
      and where it goes. The Guides line and the search box follow them. */
   .routes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 0 0 18px; }
-  .route-card { border: 1px solid var(--line); border-radius: 13px; padding: 17px; background: var(--surface); box-shadow: var(--shadow); text-decoration: none; transition: border-color .15s ease; }
+  .route-card { border: 1px solid var(--line); border-radius: 13px; padding: 17px; background: var(--surface); box-shadow: none; text-decoration: none; transition: border-color .15s ease; }
   .route-card:hover { border-color: var(--accent); }
   .route-card.mid { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
   .route-card h3 { margin: 0 0 4px; font-size: .96rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
@@ -289,11 +289,25 @@
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=IBM+Plex+Mono:wght@400;700&display=swap">
-  <style>  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
-  h1, h2, h3, h4 { font-family: var(--heading, Manrope, Inter, sans-serif); letter-spacing: -0.01em; }
-  h1 { font-weight: 800; }
-  h2, h3 { font-weight: 700; }
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  :root { --cw-body: .9375rem; --cw-nav: .875rem; --cw-meta: .8125rem; --cw-lead: 1rem; }
+  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--sans, Inter, system-ui, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 700; }
+  h2, h3 { font-weight: 600; }
+  .cw-content h1 { font-size: clamp(1.75rem, 2.8vw, 2.25rem); line-height: 1.2; }
+  .cw-content h2 { font-size: 1.375rem; line-height: 1.35; }
+  .cw-content h3 { font-size: 1.0625rem; line-height: 1.4; }
+  .cw-content .lead, .cw-content .tagline { font-size: var(--cw-lead); line-height: 1.65; }
+  .cw-content { font-size: var(--cw-body); line-height: 1.65; }
+  .topbar { font-size: var(--cw-nav); }
+  .topbar .site-purpose { font-family: var(--sans); font-size: var(--cw-meta); text-transform: none; }
+  .topbar .brand, .navlinks a.nav-cta { border-color: transparent; background: transparent; }
+  .cw-nav-title a { color: var(--ink); text-decoration: none; }
+  .cw-nav-title a:hover { text-decoration: underline; }
+  .cw-content :is(.eyebrow, .kicker, .generated), .site-footer .sf-h { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; }
+  .cw-content :is(.button, .route-help > summary, details.deep > summary) { font-size: var(--cw-body); }
+  .cw-content :is(p, li, td) > code { border: 0; }
   code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
   .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
   .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
@@ -303,7 +317,6 @@
   .cw-content { min-width: 0; overflow-wrap: anywhere; }
   .cw-guide .cw-content { max-width: 880px; }
   .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
-  .cw-guide h1 { font-size: clamp(2rem, 3vw, 2.7rem); line-height: 1.15; }
   .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
   .cw-content pre { max-width: 100%; overflow-x: auto; }
   .cw-content summary { cursor: pointer; padding: 10px 0; }
@@ -316,19 +329,19 @@
     .cw-guide .cw-content h1 { overflow-wrap: anywhere; }
   }
   .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
-  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: .88rem; }
-  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: var(--cw-nav); }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
   .cw-sidebar details { margin: 0; }
-  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
   .cw-sidebar summary::-webkit-details-marker { display: none; }
   .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
   .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
   .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
-  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); line-height: 1.35; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; line-height: 1.5; }
   .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
   .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
   .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
-  .cw-mobile-nav summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  .cw-mobile-nav summary { min-height: 44px; cursor: pointer; font-weight: 600; color: var(--muted); }
   @media (max-width: 1100px) {
     .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
     .cw-sidebar, .cw-toc { display: none; }
