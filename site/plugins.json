@@ -214,17 +214,17 @@
       "repository": "confighub/examples",
       "address": "https://github.com/confighub/examples/tree/main/cub-argo",
       "release": {
-        "date": "2026-09-30",
-        "tag": "cub-argo-v0.2.0"
+        "date": "2026-10-02",
+        "tag": "cub-argo-v0.3.0"
       },
-      "install": "cub plugin install confighub/examples@cub-argo-v0.2.0 --name argo",
+      "install": "cub plugin install confighub/examples@cub-argo-v0.3.0 --name argo",
       "note": "Start with plan, which needs no account and changes no cluster. Live status comes back through argobot, or through cub argo status --watch --hard-refresh where argobot is not running, which also makes each release land at once; argobot's own refresh of moved Applications needs confighub/argobot#14.",
       "guide": {
         "address": "https://confighub.github.io/helm-expt/site/bring-argo-into-confighub.html",
         "title": "Bring your Argo CD apps into ConfigHub"
       },
       "next": {
-        "command": "cub plugin install confighub/examples@cub-argo-v0.2.0 --name argo"
+        "command": "cub plugin install confighub/examples@cub-argo-v0.3.0 --name argo"
       }
     },
     {
@@ -238,17 +238,17 @@
       "repository": "confighub/examples",
       "address": "https://github.com/confighub/examples/tree/main/cub-flux",
       "release": {
-        "date": "2026-09-30",
-        "tag": "cub-flux-v0.2.0"
+        "date": "2026-10-02",
+        "tag": "cub-flux-v0.3.0"
       },
-      "install": "cub plugin install confighub/examples@cub-flux-v0.2.0 --name flux",
+      "install": "cub plugin install confighub/examples@cub-flux-v0.3.0 --name flux",
       "note": "Start with plan, which changes no cluster. Healthy is reported only for layers that check their workloads with wait or healthChecks; review bootstrap ownership before handover.",
       "guide": {
         "address": "https://confighub.github.io/helm-expt/site/bring-flux-into-confighub.html",
         "title": "Bring your Flux fleet into ConfigHub"
       },
       "next": {
-        "command": "cub plugin install confighub/examples@cub-flux-v0.2.0 --name flux"
+        "command": "cub plugin install confighub/examples@cub-flux-v0.3.0 --name flux"
       }
     }
   ]
