@@ -1,14 +1,16 @@
 # Answer the questions Kubara users ask
 
-Kubara selects platform components and generates the configuration that runs
-them. It does not hand you one chart's values; it takes a platform
+Kubara manages a cluster's add-ons: the certificate manager, the ingress
+controller, monitoring, secrets and the rest of what a cluster needs before an
+app can run. Kubara calls that set a platform, and so does this Guide. It does
+not hand you one chart's values; it takes a platform
 description, a target cluster, and a set of enabled services, and generates
 the Helm charts and cluster-specific values an Argo CD bootstrap renders into
 one platform's worth of objects. The Workshop treats a Kubara entry the same
 way it treats every other source: generate the exact objects, check what they
 need, and carry the bootstrap, secret, and CRD work forward with them.
 
-If you run Kubara and want its platform governed in ConfigHub, use `cub kubara`
+If you run Kubara and want its add-ons governed in ConfigHub, use `cub kubara`
 from [kubara-confighub](https://github.com/confighub/kubara-confighub) instead of
 this Guide. Your path is `kubara generate`, then `cub kubara plan` and
 `render`, which run offline, then `apply`, `handover` and `check`. `handback`

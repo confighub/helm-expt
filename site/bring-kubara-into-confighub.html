@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bring a Kubara platform into ConfigHub · ConfigHub Workshop</title>
-  <meta name="description" content="Plan and render a Kubara platform offline with cub kubara, then hand over, check and hand back, or check it as a Workshop stack.">
+  <meta name="description" content="Manage your clusters' add-ons with Kubara and approve every change in ConfigHub: plan and render offline, then hand over, check and hand back, or check them with an app as a Workshop stack.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html">
   <meta property="og:title" content="Bring a Kubara platform into ConfigHub · ConfigHub Workshop">
-  <meta property="og:description" content="Plan and render a Kubara platform offline with cub kubara, then hand over, check and hand back, or check it as a Workshop stack.">
+  <meta property="og:description" content="Manage your clusters' add-ons with Kubara and approve every change in ConfigHub: plan and render offline, then hand over, check and hand back, or check them with an app as a Workshop stack.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html">
   <style>
@@ -648,10 +648,17 @@
 <details><summary>More in this Guide</summary><ul><li><a href="./bring-kubara-into-confighub.html#earlier-work">7. Earlier work, before cub kubara</a></li></ul></details></details>
   <header class="hero human-hero">
     
-    <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">For platform teams who run Kubara</p>
+    <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">For teams who manage cluster add-ons with Kubara</p>
     <h1>Bring a Kubara platform into ConfigHub</h1>
-    <p class="lead">Keep Kubara as it is, and approve each change to your platform in ConfigHub. Your first result takes about 15 minutes and needs no account and no cluster.</p>
+    <p class="lead">Manage your clusters' add-ons with Kubara, and approve every change to them in ConfigHub. Your first result takes about 15 minutes and needs no account and no cluster.</p>
     <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Run cub kubara plan on my Kubara platform, show me what ConfigHub would hold, and change nothing.”</aside>
+    <p>Kubara is good at add-ons: the certificate manager, the ingress controller, monitoring, secrets and the rest of what a cluster needs before an app can run. You choose them in <code>config.yaml</code>, and Kubara generates them for each cluster. Kubara calls that set a platform, and so do the commands on this page.</p>
+    <ul>
+      <li><strong>Bring your own set.</strong> Choose add-ons from Kubara's catalogs. The Workshop Catalog shows which chart versions it has checked, and what each one installs and needs.</li>
+      <li><strong>Promote, roll out and approve.</strong> You make a change once. It reaches each cluster stage by stage, with an approval in each stage.</li>
+      <li><strong>Apps the same way.</strong> An app you deliver through ConfigHub is promoted and approved like the add-ons under it. The Workshop checks that the add-ons carry what the app needs, with <a href="#kubara-stack"><code>cub stack from-kubara --app</code></a> and <a href="./put-an-app-on-a-platform.html"><code>cub app check</code></a>.</li>
+      <li><strong>Let an assistant do the work.</strong> Every step is a command that shows its plan before it changes anything, so an AI assistant can run it and stop for your approval.</li>
+    </ul>
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong> Kubara keeps its catalogs, its generated files and its hub Argo CD. ConfigHub holds a base for each component and a variant for each cluster, with an approval before each release.</p>
     <p>The plugin is <code>cub kubara</code>, from <a href="https://github.com/confighub/kubara-confighub">confighub/kubara-confighub</a> v0.2.5. Its <a href="https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md">guide</a> walks every command. This page gives the order, what each step changes, how to undo it, and the evidence.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="#first-result">First result in 15 minutes</a> · <a href="#kubara-govern">Govern it</a> · <a href="#kubara-stack">Check it as a stack</a> · <a href="#kubara-limits">Known limits</a> · <a href="#kubara-evidence">Evidence</a></p>

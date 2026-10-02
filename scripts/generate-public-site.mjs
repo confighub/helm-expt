@@ -674,7 +674,7 @@ const PAGE_DESCRIPTIONS = {
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
   "oci.html": "See every OCI shape this catalog produces, who produces and consumes each one, which layout each consumer needs, and which shapes are signed today.",
   "formats.html": "Browse every non-Helm Catalog entry by format: AICR, Timoni, cub installer, Kubara, configuration OCI, Kubernetes YAML, and Sveltos, each linked to its listing record.",
-  "bring-kubara-into-confighub.html": "Plan and render a Kubara platform offline with cub kubara, then hand over, check and hand back, or check it as a Workshop stack.",
+  "bring-kubara-into-confighub.html": "Manage your clusters' add-ons with Kubara and approve every change in ConfigHub: plan and render offline, then hand over, check and hand back, or check them with an app as a Workshop stack.",
   "put-an-app-on-a-platform.html": "Check what an app needs, check it on a platform, take it into ConfigHub, or bring an app that already runs.",
   "compose-a-stack.html": "Get a stack, check it for conflicts and missing needs before anything runs, then run and govern it in ConfigHub.",
   "plugins.html": "Every public cub plugin, marked by its state, with the one line that installs it.",
@@ -2056,7 +2056,7 @@ function buildLlmsTxt() {
 - [All technical references](${SITE_BASE_URL}docs.html#all-references): the complete guide and evidence index, on Docs.
 - [Continue with ConfigHub](${SITE_BASE_URL}confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
 - [Catalog](${SITE_BASE_URL}charts/index.html): every tested component and version, with its image, receipt, and the commands to check and verify it.
-- [Kubara with ConfigHub](${SITE_BASE_URL}bring-kubara-into-confighub.html): bring a Kubara platform into ConfigHub with cub kubara. Plan and render offline first, then apply, hand over, check and hand back, with each step's undo, the known limits and the live evidence.
+- [Kubara with ConfigHub](${SITE_BASE_URL}bring-kubara-into-confighub.html): manage your clusters' add-ons with Kubara, and approve every change to them in ConfigHub with cub kubara. Kubara calls the set a platform. Plan and render offline first, then apply, hand over, check and hand back, with each step's undo, the known limits and the live evidence.
 - [Kubara six-step tutorial](${SITE_BASE_URL}d/docs/demo/kubara/adoption.html): the earlier path, before cub kubara: choose, generate, push to Git, create OCI, load the selected organization, and deploy applications while Argo CD remains the reconciler.
 - [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.
 
@@ -5490,7 +5490,7 @@ function allReferencesHtml(catalog) {
     ["Check or promote your own config", `<a href="./ask.html">Check my config</a>`, "Compare exact objects in your browser, carry Catalog lifecycle facts into the review, then continue to a source-aware promotion plan."],
     ["Use your AI agent", `<a href="./ai.html">AI agents</a>`, "Install the ConfigHub Workshop skill, choose one task, and keep source records, exact objects, lifecycle work, checks, and limits visible."],
     ["Choose a worked example", `<a href="./testing.html">Examples</a>`, "Start with Helm, AICR, OCI, or YAML. Continue with ConfigHub only when you want saved configuration and managed operations."],
-    ["Start or adopt a Kubara platform", `<a href="./bring-kubara-into-confighub.html">Kubara with ConfigHub</a>`, "Plan and render your Kubara platform offline in about 15 minutes, then hand its hub to ConfigHub's approved releases. Kubara keeps composing and Argo CD keeps reconciling."],
+    ["Manage cluster add-ons with Kubara", `<a href="./bring-kubara-into-confighub.html">Kubara with ConfigHub</a>`, "Choose your add-ons with Kubara, see them offline in about 15 minutes, then promote and approve each change in ConfigHub. Kubara keeps composing and Argo CD keeps reconciling."],
     ["Follow configuration to deployment", `<a href="./how-it-works.html">Operate</a>`, "Release a reviewed configuration by digest, promote it, gate it on approval, and roll it back."],
     ["See every source and App demonstration", `<a href="../docs/user/config-catalog-demonstrations.md">Demonstration record</a>`, "See the exact example that ran, its result, and the work still needed for broader support."],
     ["Choose a public component", `<a href="./charts/index.html">Component Catalog</a>`, "Pick an exact retained package version, then read its packaged configurations, output, hooks, CRDs, setup work, and evidence."],
@@ -5531,7 +5531,7 @@ function allReferencesHtml(catalog) {
     ["Gated answer: same version, same bytes", "An assistant compares a recipe's locked digest against the digest a publisher later served for the same version, and a gate holds the same-bytes verdict to the upstream-drift record.", "../data/ai-supply-drift/summary.md"],
     ["RBAC review example", "Find unnecessary Secret access, make one exact Role change, require approval, publish the reviewed objects as OCI, and let Argo CD deliver the result.", "../docs/demo/apps/rbac-review.md"],
     ["RBAC permissions report", "Review broad RBAC rules across committed default chart renders without needing a cluster or running Helm again.", "../data/app-readiness/summary.md"],
-    ["Kubara with ConfigHub", "The Kubara Guide: a first result offline in about 15 minutes, the governed path from apply to hand-back, the Workshop stack view, known limits, and the live evidence.", "./bring-kubara-into-confighub.html"],
+    ["Kubara with ConfigHub", "The Kubara Guide, for the add-ons Kubara manages: a first result offline in about 15 minutes, the governed path from apply to hand-back, the Workshop stack view with an app, known limits, and the live evidence.", "./bring-kubara-into-confighub.html"],
     ["Kubara six-step adoption tutorial", "Choose components, generate with Kubara, push the complete Git hand-off, create immutable OCI, load the selected ConfigHub organization, and deploy applications through Argo CD.", "../docs/demo/kubara/adoption.md"],
     ["Kubara + ConfigHub technical mini-IDP", "The complete maintainer-grade v0.13.0 runbook: four clusters, seven platform roles, two apps, exact catalog generation, Git/OCI import, matrix, wiring, faithful hub-spoke delivery, and receipt-gated ConfigHub platform surfaces.", "../docs/demo/kubara/single-platform.md"],
     ["Historical Kubara v0.12.0 compatibility proof", "Retained read-only evidence for the one-cluster generation, OCI route, Argo bootstrap, and dated live result. It is not a command path for the current Kubara organization.", "../docs/demo/kubara/local-platform.md"],
@@ -7970,7 +7970,7 @@ function kubaraExplainedHtml(catalog) {
   return splitGuideHtml({
     eyebrow: "Docs",
     title: "Kubara and ConfigHub, explained",
-    lead: "When ConfigHub governs a Kubara platform, Kubara keeps its catalog, its generated files and its Argo CD. This doc says what ConfigHub adds, the evidence behind each benefit, and the honest boundaries.",
+    lead: "Kubara manages a cluster's add-ons: the certificate manager, the ingress controller, monitoring, secrets and the rest. Kubara calls that set a platform. When ConfigHub governs it, Kubara keeps its catalog, its generated files and its Argo CD. This doc says what ConfigHub adds, the evidence behind each benefit, and the honest boundaries.",
     body: `    <section aria-labelledby="stays-adds">
       <h2 id="stays-adds">1. What stays Kubara, and what ConfigHub adds</h2>
       ${markdownLikeTable([
@@ -9753,9 +9753,16 @@ function kubaraGuideHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    ${audienceLabel("For platform teams who run Kubara")}
+    ${audienceLabel("For teams who manage cluster add-ons with Kubara")}
     <h1>Bring a Kubara platform into ConfigHub</h1>
-    <p class="lead">Keep Kubara as it is, and approve each change to your platform in ConfigHub. Your first result takes about 15 minutes and needs no account and no cluster.</p>
+    <p class="lead">Manage your clusters' add-ons with Kubara, and approve every change to them in ConfigHub. Your first result takes about 15 minutes and needs no account and no cluster.</p>
+    <p>Kubara is good at add-ons: the certificate manager, the ingress controller, monitoring, secrets and the rest of what a cluster needs before an app can run. You choose them in <code>config.yaml</code>, and Kubara generates them for each cluster. Kubara calls that set a platform, and so do the commands on this page.</p>
+    <ul>
+      <li><strong>Bring your own set.</strong> Choose add-ons from Kubara's catalogs. The Workshop Catalog shows which chart versions it has checked, and what each one installs and needs.</li>
+      <li><strong>Promote, roll out and approve.</strong> You make a change once. It reaches each cluster stage by stage, with an approval in each stage.</li>
+      <li><strong>Apps the same way.</strong> An app you deliver through ConfigHub is promoted and approved like the add-ons under it. The Workshop checks that the add-ons carry what the app needs, with <a href="#kubara-stack"><code>cub stack from-kubara --app</code></a> and <a href="./put-an-app-on-a-platform.html"><code>cub app check</code></a>.</li>
+      <li><strong>Let an assistant do the work.</strong> Every step is a command that shows its plan before it changes anything, so an AI assistant can run it and stop for your approval.</li>
+    </ul>
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong> Kubara keeps its catalogs, its generated files and its hub Argo CD. ConfigHub holds a base for each component and a variant for each cluster, with an approval before each release.</p>
     <p>The plugin is <code>cub kubara</code>, from <a href="https://github.com/confighub/kubara-confighub">confighub/kubara-confighub</a> ${escapeHtml(pins.kubara)}. Its <a href="${KUBARA_GUIDE_URL}">guide</a> walks every command. This page gives the order, what each step changes, how to undo it, and the evidence.</p>
     ${humanLinks([["First result in 15 minutes", "#first-result"], ["Govern it", "#kubara-govern"], ["Check it as a stack", "#kubara-stack"], ["Known limits", "#kubara-limits"], ["Evidence", "#kubara-evidence"]])}
@@ -14891,7 +14898,7 @@ Open \`site/base-variant-records.json\` for the Catalog source-and-intent index 
 the Check and Promote pages. Open \`site/promotion-review.schema.json\` for the
 browser promotion record.
 Open \`site/testing.html\` for working starting, managed, platform, and App examples.
-Open \`site/bring-kubara-into-confighub.html\` for the cub kubara path (offline plan and render, then apply,
+Open \`site/bring-kubara-into-confighub.html\` for Kubara's add-ons on the cub kubara path (offline plan and render, then apply,
 handover, check and handback), its limits and evidence, and the earlier six-step journey.
 Open \`site/confighub.html\` to sign up, follow the official tutorial, or read the blog.
 Open \`site/charts/index.html\` for the Catalog and \`site/testing.html\` for the Helm, AICR, OCI, and YAML examples.
