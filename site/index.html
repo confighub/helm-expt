@@ -52,6 +52,7 @@
 
 
   :root {
+    color-scheme: light;
     --bg: #ffffff; --surface: #ffffff; --surface-2: #f3f0e9;
     --ink: #221c15; --muted: #6e6659; --faint: #9c9285;
     --line: #e7e1d6; --line-strong: #d5cec2;
@@ -65,20 +66,9 @@
     --heading: Inter, ui-sans-serif, system-ui, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #17130f; --surface: #201a14; --surface-2: #262019;
-      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365;
-      --line: #322b23; --line-strong: #4a4034;
-      --accent: #e56a31; --accent-ink: #ee7b45;
-      --pass: #4bc07d; --pass-bg: #12291d;
-      --watch: #e0a648; --watch-bg: #2c2213;
-      --blocked: #ef7570; --blocked-bg: #2e1717;
-      --term-bg: #262019; --term-ink: #e3dcd1;
-      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
-    }
-  }
+
   :root[data-theme="dark"] {
+      color-scheme: dark;
     --bg: #17130f; --surface: #201a14; --surface-2: #262019;
     --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365;
     --line: #322b23; --line-strong: #4a4034;
@@ -171,7 +161,7 @@
   .qtable td:first-child { font-weight: 650; white-space: nowrap; }
   .btn { font-family: var(--sans); font-size: .92rem; font-weight: 560; padding: 11px 18px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; }
   .btn.primary { background: var(--accent); color: #fff; }
-  @media (prefers-color-scheme: dark){ .btn.primary { color: #04222c; font-weight: 640; } }
+
   :root[data-theme="dark"] .btn.primary { color: #04222c; font-weight: 640; }
   :root[data-theme="light"] .btn.primary { color: #fff; }
   .btn.ghost { border-color: var(--line-strong); color: var(--ink); background: var(--surface); }
