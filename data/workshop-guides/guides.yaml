@@ -9,6 +9,8 @@ spec:
   groups:
   - id: journeys
     title: Five cool demos
+  - id: deep-dives
+    title: Deep Dives
   - id: start-here
     title: Topic based walkthroughs
   - id: helm-questions
@@ -56,6 +58,12 @@ spec:
     summary: Every check passes. Should I install it? The image no longer exists, said before the install.
     page: journey-installs-never-starts.html
     command: "cub config check work/mysql.yaml"
+  - id: ai-chaos-in-production
+    group: deep-dives
+    title: Can AI fix my fleet and prevent the next outage?
+    summary: See recorded repairs, approvals and prevention on a disposable Sveltos fleet. Read the story
+      without setup, inspect the evidence, or plan the full two-to-three-hour demonstration.
+    page: ai-chaos-in-production.html
   - id: redis-intro
     group: start-here
     title: Walk the whole model once, with Redis

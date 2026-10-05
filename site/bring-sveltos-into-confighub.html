@@ -693,6 +693,7 @@
 
     <section aria-labelledby="sveltos-change">
       <h2 id="sveltos-change">4. Change, approve, and release</h2>
+      <p><a href="./ai-chaos-in-production.html">See agents repair a fleet and prevent recurrence</a> in the recorded Deep Dive, then decide whether to run the disposable demonstration.</p>
       <p>The released guide shows this field change. Use your generated plan for real Space names. This stores configuration; it does not publish a release.</p>
 <pre><code>cub function set --space sveltos-kyverno-base --unit kyverno --change-desc &quot;Admission controller at 4 replicas&quot; -- \
   set-yq &#39;(select(.kind == &quot;Deployment&quot; and .metadata.name == &quot;kyverno-admission-controller&quot;) | .spec.replicas) = 4&#39;</code></pre>

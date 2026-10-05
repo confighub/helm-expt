@@ -32,6 +32,9 @@ function readCatalogCounts() {
 }
 
 const checks = [
+  { file: "site/ai-chaos-in-production.html", terms: ["six local kind clusters", "two to three hours", "after onboarding", "40Mi", "mutating check", "The parity gate works.", "Workshop has not rerun", "teardown.sh --confighub", "agent contract", "assets/ai-chaos/r2-gui-refused-order.jpg"] },
+  ...["index", "guides", "ai", "plugins", "bring-sveltos-into-confighub"].map(page => ({ file: `site/${page}.html`, terms: ["ai-chaos-in-production.html"] })),
+  { file: "site/guides.html", terms: ['id="guides-deep-dives"', 'id="guides-gitops"', 'id="guides-stacks-and-platforms"'] },
   { file: "site/see-what-is-running.html", terms: ["cub scout map", "kubectl config current-context", "You can stop here", "view-and-change-config-with-uis.html"] },
   { file: "site/view-and-change-config-with-uis.html", terms: ["cub commander", "read-only", "separate", "scout-binding", "see-what-is-running.html"] },
   {
@@ -387,6 +390,16 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages])];
 
 const failures = [];
+// Deep Dives are an extra entry point, never a replacement for topic discovery.
+const topicGuides = JSON.parse(fs.readFileSync(path.join(root, "site/guides.json"), "utf8")).rows;
+for (const [id, group] of [
+  ["bring-argo-into-confighub", "gitops"],
+  ["bring-flux-into-confighub", "gitops"],
+  ["bring-sveltos-into-confighub", "gitops"],
+  ["bring-kubara-into-confighub", "stacks-and-platforms"],
+]) {
+  if (!topicGuides.some(row => row.id === id && row.group === group)) failures.push(`Deep Dive ${id} must also remain in its original ${group} topic`);
+}
 const composeGuide = fs.readFileSync(path.join(root, "docs/user/workshop-compose-guide.md"), "utf8");
 const composeAssistantTask = composeGuide.split("## A task for an AI assistant")[1]?.match(/```text\n([\s\S]*?)```/)?.[1] ?? "";
 for (const term of ["After the refusal", "recovered/stack.yaml", "recovered/recovery.json", "Preserve incompatible unchanged", "prior successful"] ) {

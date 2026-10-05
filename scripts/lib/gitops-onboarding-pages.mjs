@@ -190,6 +190,7 @@ ${commandBlock("MGMT_CONTEXT=<management-cluster-context> bash onboard/handover.
 
     <section aria-labelledby="sveltos-change">
       <h2 id="sveltos-change">4. Change, approve, and release</h2>
+      <p><a href="./ai-chaos-in-production.html">See agents repair a fleet and prevent recurrence</a> in the recorded Deep Dive, then decide whether to run the disposable demonstration.</p>
       <p>The released guide shows this field change. Use your generated plan for real Space names. This stores configuration; it does not publish a release.</p>
 ${commandBlock("cub function set --space sveltos-kyverno-base --unit kyverno --change-desc \"Admission controller at 4 replicas\" -- \\\n  set-yq '(select(.kind == \"Deployment\" and .metadata.name == \"kyverno-admission-controller\") | .spec.replicas) = 4'")}
       <p>To deliver the change, follow the linked reference to create its change order, promote, approve and publish each stage. The starter workflow allows the author to approve; set <code>AllowAuthors: false</code> when independent approval is required.</p>

@@ -18,6 +18,7 @@ import {
   CONFIGURATION_QUESTION_RESEARCH,
 } from "./lib/configuration-questions.mjs";
 import { scoutUiGuide, configUiGuide } from "./lib/config-ui-guides.mjs";
+import { aiChaosGuide, AI_CHAOS_IMAGES, AI_CHAOS_SOURCE } from "./lib/ai-chaos-guide.mjs";
 import { appLearningPathsHtml } from "./lib/app-learning-paths.mjs";
 import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
@@ -543,6 +544,7 @@ const JOURNEY_LINKS = {
 // that split between a Guide and a Doc. Each is registered once, here; a Doc
 // is marked doc: true and sits in the Docs sidebar.
 const SPLIT_PAGES = [
+  { key: "aiChaosHtml", file: "ai-chaos-in-production.html", title: "Can AI fix my fleet and prevent the next outage?", description: "See recorded repairs, approvals and prevention on a disposable Sveltos fleet; inspect the evidence or run the full demonstration.", build: () => splitGuideHtml(aiChaosGuide()) },
   { key: "scoutUiHtml", file: "see-what-is-running.html", title: "See what is running with cub scout", description: "Inspect one workload, its owner and the limits of live observations without changing delivery.", build: () => splitGuideHtml(scoutUiGuide()) },
   { key: "configUiHtml", file: "view-and-change-config-with-uis.html", title: "View and change configuration with ConfigHub UIs", description: "Start with the official ConfigHub GUI for Enterprise Server and SaaS; learn where the UI SDK and experimental terminal UI fit.", build: () => splitGuideHtml(configUiGuide()) },
   { key: "sveltosOnboardingHtml", file: "bring-sveltos-into-confighub.html", title: "Bring your Sveltos fleet into ConfigHub", description: "Preview a Sveltos fleet, review what changes and connect delivery in stages.", build: () => {
@@ -736,6 +738,7 @@ if (mode === "--generate") {
   rmSync(privateRoot, { recursive: true, force: true });
   rmSync(docPagesRoot, { recursive: true, force: true });
   rmSync(join(siteRoot, "sh"), { recursive: true, force: true });
+  for (const name of AI_CHAOS_IMAGES) write(join(siteRoot, "assets/ai-chaos", name), readFileSync(join(repoRoot, "scripts/assets/ai-chaos", name)));
   write(indexPath, site.indexHtml);
   write(offeringPath, site.offeringHtml);
   write(tryPath, site.tryHtml);
@@ -915,6 +918,7 @@ if (mode === "--generate") {
   check(readFileSync(operationsPath, "utf8") === site.operationsHtml, "site/operations.html is stale");
   check(existsSync(guidesPath), "site/guides.html is missing; run npm run site:generate");
   check(readFileSync(guidesPath, "utf8") === site.guidesHtml, "site/guides.html is stale");
+  for (const name of AI_CHAOS_IMAGES) check(readFileSync(join(siteRoot, "assets/ai-chaos", name)).equals(readFileSync(join(repoRoot, "scripts/assets/ai-chaos", name))), `site/assets/ai-chaos/${name} is stale`);
   check(readFileSync(pluginsPath, "utf8") === site.pluginsHtml, "site/plugins.html is stale");
   check(readFileSync(composeStackPath, "utf8") === site.composeStackGuideHtml, "site/compose-a-stack.html is stale");
   check(readFileSync(appGuidePath, "utf8") === site.appGuideHtml, "site/put-an-app-on-a-platform.html is stale");
@@ -2013,6 +2017,8 @@ function buildLlmsTxt() {
 - [Plugins](${SITE_BASE_URL}plugins.json): the Plugins section, one row per public cub plugin with its state, latest release and install command. Schema: ${SITE_BASE_URL}plugins.schema.json.
 - [Guides](${SITE_BASE_URL}guides.json): the Guides section, one row per known path an agent walks with a person, grouped by where the reader starts, the five journeys first. Schema: ${SITE_BASE_URL}guides.schema.json.
 - [ConfigHub Workshop agent skill](${SITE_BASE_URL}.well-known/agent-skills/config-workshop/SKILL.md): installable instructions for resolving exact Catalog entries, checking user configuration, reviewing promotions, and keeping checks and limits visible.
+- [Deep Dives](${SITE_BASE_URL}guides.html#guides-deep-dives): longer staged journeys; existing Guides remain in their topic groups.
+- [AI fleet repair and prevention](${SITE_BASE_URL}ai-chaos-in-production.html): recorded kind-fleet demonstration, agent refusal and a separate deterministic parity check. Read the [pinned demo README](${AI_CHAOS_SOURCE}/README.md) and [agent contract](${AI_CHAOS_SOURCE}/agents/README.md) before execution; requires dedicated resources and approval.
 - [Use ConfigHub Workshop with an AI agent](${SITE_BASE_URL}ai.html): installation, realistic tasks, machine records, and the boundary between a proposed change and a reviewed result.
 - [Catalog JSON](${SITE_BASE_URL}catalog.json): machine-readable summary of the catalog: components, retained versions, packaged configurations, counts, and the repo data paths they come from.
 - [Change feed](${SITE_BASE_URL}changes.json): exact chart versions, aliases, package digests, declared coverage, canonical pages, and evidence URLs.
@@ -3530,6 +3536,8 @@ function configTestCentreHome(catalog) {
       <nav class="home-rail" aria-label="Getting Started Demos">
         <p class="rail-h"><strong>Getting Started Demos</strong></p>
 ${homeJourneyLinks()}
+        <p class="rail-h"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p>
+        <a href="./ai-chaos-in-production.html">Can AI fix my fleet?</a>
         <p class="rail-h"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
         <p class="rail-h"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
         <p class="rail-h"><strong>Common Questions</strong></p>
@@ -6878,7 +6886,7 @@ function sectionCount(section) {
 function pluginsHtml() {
   const rows = sectionRows("plugins");
   const state = (row) => row.state === "released" ? `Released, ${escapeHtml(row.release.tag)}` : row.state === "in-progress" ? "In progress" : "Draft";
-  const pluginGuide = (row) => (row.id === "kubara" ? ' <a href="./bring-kubara-into-confighub.html">Workshop platform Guide</a>.' : "") + (row.guide ? ` Guide: <a href="${escapeHtml(row.guide.address)}">${escapeHtml(row.guide.title)}</a>.` : "");
+  const pluginGuide = (row) => (row.id === "sveltos" ? ' <a href="./ai-chaos-in-production.html">Deep Dive: AI fleet repair and prevention</a>.' : "") + (row.id === "kubara" ? ' <a href="./bring-kubara-into-confighub.html">Workshop platform Guide</a>.' : "") + (row.guide ? ` Guide: <a href="${escapeHtml(row.guide.address)}">${escapeHtml(row.guide.title)}</a>.` : "");
   const tableRows = rows.map((row) => [
     `<span id="${escapeHtml(row.id)}"></span>` + (row.address || row.repository ? `<a href="${escapeHtml(row.address ?? `https://github.com/${row.repository}`)}">${escapeHtml(row.name)}</a>` : escapeHtml(row.name)),
     `${row.commands.map((command) => `<code>${escapeHtml(command)}</code>`).join(", ")}. ${escapeHtml(row.summary)}` + pluginGuide(row),
@@ -6943,6 +6951,16 @@ function familiarGuideStartsHtml() {
   </section>`;
 }
 
+function deepDiveTopicsHtml() {
+  const ids = ["bring-argo-into-confighub", "bring-flux-into-confighub", "bring-kubara-into-confighub", "bring-sveltos-into-confighub"];
+  const guides = sectionRows("guides");
+  return `<h3>Continue with your own tools</h3><ul class="guide-list">${ids.map(id => {
+    const row = guides.find(item => item.id === id);
+    check(row, `Deep Dive points to missing Guide ${id}`);
+    return `<li><a href="${escapeHtml(row.address)}">${escapeHtml(row.title)}</a>. ${escapeHtml(row.summary)}</li>`;
+  }).join("")}</ul>`;
+}
+
 function guidesHtml() {
   const rows = sectionRows("guides");
   const groups = [];
@@ -6954,9 +6972,11 @@ function guidesHtml() {
   const href = (address) => address.startsWith(SITE_BASE_URL) ? `./${address.slice(SITE_BASE_URL.length)}` : address;
   const sections = groups.map((group) => `    <section aria-labelledby="guides-${group.id}">
       <h2 id="guides-${group.id}">${escapeHtml(group.title)}</h2>
+${group.id === "deep-dives" ? '<p>Follow a longer journey in stages, from inspection to governed delivery. Start by reading; each Guide explains when an account or cluster is needed. These links also stay in their original topics.</p>' : ""}
       <ul class="guide-list${group.id === "journeys" ? " demo-choices" : ""}">
 ${group.rows.map((row) => `        <li><a href="${escapeHtml(href(row.address))}">${escapeHtml(row.title)}</a>${group.id === "journeys" ? "" : ". "}${escapeHtml(row.summary)}</li>`).join("\n")}
       </ul>
+${group.id === "deep-dives" ? deepDiveTopicsHtml() : ""}
     </section>${group.id === "journeys" ? familiarGuideStartsHtml() : ""}`).join("\n");
   return `<!doctype html>
 <html lang="en">
@@ -9455,6 +9475,7 @@ function aiJourneyStartsHtml() {
   const prompt = (text) => `<details><summary>Prompt for Claude Code or Codex</summary>${agentNote(escapeHtml(text), "Give this to your agent")}</details>`;
   return `<section aria-labelledby="ai-starting-points">
     <h2 id="ai-starting-points">What would you like to get done?</h2>
+    <p><a href="./ai-chaos-in-production.html">See agents repair a fleet, with approvals and prevention</a>. Read the recorded Deep Dive without setup, or plan a full run on a disposable fleet.</p>
     <p>Start small, with your own chart, app or YAML. You do not need an account to read the Catalog or run local checks. A coding agent needs shell access for commands; a chat without tools can explain and plan, but cannot run them.</p>
     <h3 id="ai-understand">Understand or fix a configuration</h3>
     <p>Find why a value did nothing, what a chart installs, or what an upgrade changes. Get a specific answer and the rendered objects behind it.</p>
