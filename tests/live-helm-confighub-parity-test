@@ -27,6 +27,7 @@ import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit
 
 try:
     import yaml
@@ -66,40 +67,72 @@ def helm_chart_command_args(chart: str, repo_url: str) -> list[str]:
 
 
 def discover_cluster_oci_target(rig: str) -> tuple[str, str, str, str]:
-    """Return (cluster space, target name, Argo-apps space, observation)."""
+    """Resolve one explicitly annotated target and verify its release binding."""
     observations = []
+    candidates = []
     for space in (rig, f"{rig}-cluster"):
-        rc, out, err = sh(["cub", "target", "list", "--space", space], timeout=120)
-        observations.append(f"{space}: {(out or err)[:500]}")
+        rc, out, err = sh(["cub", "target", "list", "--space", space, "-o", "json", "--select", "Slug,TargetID,SpaceSlug,Annotations"], timeout=120)
         if rc != 0:
+            observations.append(f"{space}: target list unavailable: {err[:500]}")
             continue
-        for line in out.splitlines():
-            fields = line.split()
-            if not fields or fields[0] == "NAME":
+        try:
+            targets = json.loads(out)
+        except (ValueError, TypeError) as exc:
+            raise RuntimeError(f"target list for {space} returned invalid JSON") from exc
+        if not isinstance(targets, list):
+            raise RuntimeError(f"target list for {space} is not a JSON array")
+        observations.append(f"{space}: {len(targets)} target(s)")
+        for extended in targets:
+            target = extended.get("Target") if isinstance(extended, dict) else None
+            if not isinstance(target, dict):
+                raise RuntimeError(f"target list for {space} has no Target object")
+            annotations = target.get("Annotations") or {}
+            if not isinstance(annotations, dict):
+                raise RuntimeError(f"target annotations for {space} are malformed")
+            apps_space = annotations.get("confighub.com/argo-apps-space")
+            if not apps_space:
                 continue
-            if "OCI" in fields:
-                target_name = fields[0]
-                argo_apps_space = f"{rig}-argo-apps"
-                target_rc, target_out, target_err = sh(
-                    ["cub", "target", "get", target_name, "--space", space, "-o", "json"],
-                    timeout=120,
-                )
-                observations.append(f"target {space}/{target_name}: {(target_out or target_err)[:500]}")
-                if target_rc == 0:
-                    target_payload = json.loads(target_out)
-                    annotations = (target_payload.get("Target") or {}).get("Annotations") or {}
-                    argo_apps_space = annotations.get("confighub.com/argo-apps-space", argo_apps_space)
-                apps_rc, apps_out, apps_err = sh(["cub", "space", "get", argo_apps_space], timeout=120)
-                observations.append(f"argo apps {argo_apps_space}: {(apps_out or apps_err)[:500]}")
-                if apps_rc != 0:
-                    raise RuntimeError(
-                        f"OCI target {space}/{target_name} names missing Argo apps Space {argo_apps_space}"
-                    )
-                return space, target_name, argo_apps_space, "\n".join(observations)
-    raise RuntimeError(
-        f"could not discover the OCI target created for cluster {rig}: "
-        + " | ".join(observations)
-    )
+            name, target_id = target.get("Slug"), target.get("TargetID")
+            if not all(isinstance(value, str) and value.strip() == value and value
+                       for value in (name, target_id, apps_space)):
+                raise RuntimeError(f"annotated target for {space} lacks exact identity")
+            if target.get("SpaceSlug") != space:
+                raise RuntimeError(f"annotated target for {space} has a different SpaceSlug")
+            candidates.append((space, name, target_id, apps_space))
+    if len(candidates) != 1:
+        raise RuntimeError(
+            f"expected one explicitly annotated cluster target for {rig}, found {len(candidates)}: "
+            + " | ".join(observations)
+        )
+    space, name, target_id, apps_space = candidates[0]
+    rc, out, err = sh(["cub", "space", "get", apps_space, "-o", "json"], timeout=120)
+    if rc != 0:
+        raise RuntimeError(f"target {space}/{name} names unavailable Argo apps Space {apps_space}: {err[:500]}")
+    try:
+        payload = json.loads(out)
+    except (ValueError, TypeError) as exc:
+        raise RuntimeError(f"Argo apps Space {apps_space} returned invalid JSON") from exc
+    app_space = payload.get("Space") if isinstance(payload, dict) else None
+    if not isinstance(app_space, dict) or app_space.get("Slug") != apps_space or app_space.get("ReleaseTargetID") != target_id:
+        raise RuntimeError(f"Argo apps Space {apps_space} does not bind exact target {space}/{name}")
+    observations.append(f"target {space}/{name}: exact Argo apps Space release binding verified")
+    return space, name, apps_space, "\n".join(observations)
+
+
+def workload_oci_repo_url(root_repo_url: str, apps_space: str, workload_space: str) -> str:
+    """Keep the scoped root registry authority; never substitute a public host."""
+    if not isinstance(root_repo_url, str) or not re.fullmatch(r"[a-z0-9][a-z0-9-]*", workload_space):
+        raise RuntimeError("workload OCI source lacks an exact Space slug")
+    try:
+        root = urlsplit(root_repo_url)
+        root.port  # Validate a supplied port rather than forwarding malformed input.
+    except ValueError as exc:
+        raise RuntimeError("root OCI source is malformed") from exc
+    if (root.scheme != "oci" or not root.hostname or root.username is not None
+            or root.password is not None or root.query or root.fragment
+            or root.path != f"/space/{apps_space}"):
+        raise RuntimeError("root OCI source does not match the exact Argo apps Space")
+    return urlunsplit((root.scheme, root.netloc, f"/space/{workload_space}", "", ""))
 
 
 def sha256_file(path: Path) -> str:
@@ -289,7 +322,8 @@ def multi_node_target_profile_blocker() -> str:
 
 
 def cluster_kubeconfig_for_profile(profile: str, rig: str) -> Path:
-    return Path.home() / ".confighub" / "clusters" / f"{rig}.kubeconfig"
+    config_dir = Path(os.environ["CUB_CONFIG"]) if os.environ.get("CUB_CONFIG") else Path.home() / ".confighub"
+    return config_dir / "clusters" / f"{rig}.kubeconfig"
 
 
 def teardown_rig(rig: str, manager: str = "cluster") -> tuple[bool, str]:
@@ -3932,6 +3966,15 @@ def main() -> int:
             )
 
         mark_stage("configHub-oci-argo")
+        root_app = json.loads(kubectl_must([
+            "get", "application", argo_apps_space, "-n", "argocd", "-o", "json",
+        ], kubeconfig, context, "root Argo Application source read", timeout=30))
+        metadata = root_app.get("metadata") or {}
+        root_spec = root_app.get("spec") or {}
+        if metadata.get("name") != argo_apps_space or metadata.get("namespace") != "argocd" or root_spec.get("sources"):
+            raise RuntimeError("root Argo Application source identity is ambiguous")
+        root_source = root_spec.get("source") or {}
+        repo_url = workload_oci_repo_url(root_source.get("repoURL"), argo_apps_space, wspace)
         app = {
             "apiVersion": "argoproj.io/v1alpha1",
             "kind": "Application",
@@ -3939,7 +3982,7 @@ def main() -> int:
             "spec": {
                 "project": "default",
                 "source": {
-                    "repoURL": f"oci://oci.hub.confighub.com:443/space/{wspace}",
+                    "repoURL": repo_url,
                     "targetRevision": "latest",
                     "path": ".",
                 },

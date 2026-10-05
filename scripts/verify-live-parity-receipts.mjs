@@ -57,6 +57,10 @@ for (const receiptPath of receipts) {
 }
 
 testPassingRunBinding();
+execFileSync("python3", ["-B", "tests/live-parity-target-discovery.test.py"], {
+  cwd: repoRoot,
+  stdio: "inherit",
+});
 console.log(`verified ${receipts.length} live Helm-vs-ConfigHub parity receipt(s)`);
 
 function verifyPassingReceipt(spec, context, allowLegacyMissingNamespaces) {
