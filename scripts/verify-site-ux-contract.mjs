@@ -390,6 +390,13 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages])];
 
 const failures = [];
+// The approved palette is light by default, even on a dark-mode device.
+for (const page of ["index", "guides", "ai", "plugins", "ai-chaos-in-production"]) {
+  const html = fs.readFileSync(path.join(root, `site/${page}.html`), "utf8");
+  if (html.includes("prefers-color-scheme: dark") || !html.includes("color-scheme: light;")) {
+    failures.push(`site/${page}.html must default to the approved light palette independently of device preference`);
+  }
+}
 // Deep Dives are an extra entry point, never a replacement for topic discovery.
 const topicGuides = JSON.parse(fs.readFileSync(path.join(root, "site/guides.json"), "utf8")).rows;
 for (const [id, group] of [

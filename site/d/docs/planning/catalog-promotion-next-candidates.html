@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-promotion-next-candidates.html">
   <style>
     :root {
-      color-scheme: light dark;
+      color-scheme: light;
       --ink: #221c15;
       --muted: #6e6659;
       --faint: #9c9285;
@@ -31,13 +31,9 @@
       --heading: Inter, ui-sans-serif, system-ui, sans-serif;
       --term: #0e1419;
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
-        --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
-      }
-    }
+
     :root[data-theme="dark"] {
+      color-scheme: dark;
       --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
       --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
     }
@@ -358,13 +354,7 @@
     .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
     .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
     .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
-    @media (prefers-color-scheme: dark) {
-      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
-      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
-      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
-      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
-      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
-    }
+
     :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
     :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
     :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
