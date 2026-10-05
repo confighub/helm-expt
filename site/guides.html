@@ -664,6 +664,7 @@
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <section aria-labelledby="guides-journeys">
       <h2 id="guides-journeys">Five cool demos</h2>
+
       <ul class="guide-list demo-choices">
         <li><a href="./journey-values-did-nothing.html">Helm ignores my values</a>The assistant wrote my Helm values. Did they do anything? Three of seven did nothing, and Helm never said so.</li>
         <li><a href="./journey-preserve-my-fixes.html">AI overwrites my fixes</a>The assistant rewrote my app. Are my fixes still there? Then ConfigHub carries the fixes through the rewrite.</li>
@@ -671,6 +672,7 @@
         <li><a href="./journey-before-gitops.html">My chart behaves differently in GitOps</a>My Redis has run fine for a month. Is it safe to hand to GitOps? Three problems, then a reviewed alternative from the Catalog.</li>
         <li><a href="./journey-installs-never-starts.html">My app installs but will not start</a>Every check passes. Should I install it? The image no longer exists, said before the install.</li>
       </ul>
+
     </section><section aria-labelledby="guides-your-tools">
     <h2 id="guides-your-tools">Start with what you use</h2>
     <p>Keep your tools. First inspect the configuration; choose delivery changes only when you are ready.</p>
@@ -693,8 +695,17 @@
     <p><a href="./see-what-is-running.html">Show me what is running</a> · <a href="./view-and-change-config-with-uis.html">Let me browse configuration in a UI</a></p>
     <p><a href="./apps.html">Show me an example app</a> to see what changes in everyday work.</p>
   </section>
+    <section aria-labelledby="guides-deep-dives">
+      <h2 id="guides-deep-dives">Deep Dives</h2>
+<p>Follow a longer journey in stages, from inspection to governed delivery. Start by reading; each Guide explains when an account or cluster is needed. These links also stay in their original topics.</p>
+      <ul class="guide-list">
+        <li><a href="./ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a>. See recorded repairs, approvals and prevention on a disposable Sveltos fleet. Read the story without setup, inspect the evidence, or plan the full two-to-three-hour demonstration.</li>
+      </ul>
+<h3>Continue with your own tools</h3><ul class="guide-list"><li><a href="https://confighub.github.io/helm-expt/site/bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a>. Preview your existing setup without an account, then save, connect and review a change while Argo CD keeps deploying.</li><li><a href="https://confighub.github.io/helm-expt/site/bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a>. Preview your existing setup without an account, then save, connect and review a change while Flux keeps deploying.</li><li><a href="https://confighub.github.io/helm-expt/site/bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a>. Manage your clusters' add-ons with Kubara, and approve every change to them in ConfigHub. See them offline in about 15 minutes, then govern them with cub kubara, or check them with an app as a Workshop stack.</li><li><a href="https://confighub.github.io/helm-expt/site/bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a>. Preview exported fleet configuration, review ownership and connect live profiles in stages.</li></ul>
+    </section>
     <section aria-labelledby="guides-start-here">
       <h2 id="guides-start-here">Topic based walkthroughs</h2>
+
       <ul class="guide-list">
         <li><a href="./d/docs/user/workshop-redis-intro-guide.html">Walk the whole model once, with Redis</a>. One chart, Redis, walked through the Catalog, flattening, OCI, variants, promotion, policy and stacks in one pass, marking which steps are free and local.</li>
         <li><a href="./try.html">Try it: Redis in ten minutes</a>. Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.</li>
@@ -706,9 +717,11 @@
         <li><a href="./choose-a-tool.html">Choose a tool and start</a>. Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.</li>
         <li><a href="./see-what-is-running.html">See what is running with cub scout</a>. Inspect one workload and its owner in a read-only cluster map, without a ConfigHub account.</li>
       </ul>
+
     </section>
     <section aria-labelledby="guides-helm-questions">
       <h2 id="guides-helm-questions">Helm questions</h2>
+
       <ul class="guide-list">
         <li><a href="./d/docs/user/workshop-helm-questions-guide.html">Answer the ten questions Helm users ask</a>. Walk the ten questions a Helm user asks, with the pain beneath each one and a check you run on your agent's answer.</li>
         <li><a href="./d/docs/user/workshop-values-guide.html">Find why a Helm value did not change the output</a>. Compare a typo with the correct key in controlled renders, including a value the template transforms.</li>
@@ -720,18 +733,22 @@
         <li><a href="./d/docs/user/workshop-byo-charts-guide.html">Render your own chart to exact objects, adapt them as data, and keep them</a>. Render your own chart and values, an AI-written one included, then check, diff, adapt a field, and keep the reviewed objects for your own Argo CD or Flux.</li>
         <li><a href="./send-a-public-chart.html">Send a missing or broken public chart</a>. Look for a public chart in the Catalog, render it yourself, and send the chart and values when it is missing or its output differs from Helm.</li>
       </ul>
+
     </section>
     <section aria-labelledby="guides-formats">
       <h2 id="guides-formats">Formats</h2>
+
       <ul class="guide-list">
         <li><a href="./d/docs/user/workshop-aicr-guide.html">Answer the questions AICR users ask</a>. Compose an H100 training recipe's exact objects, compare three retained versions, and read the recorded accelerator-fit and component-order routes.</li>
         <li><a href="./d/docs/user/workshop-timoni-guide.html">Answer the questions Timoni users ask</a>. Build a typed module's exact objects, check the typed schema and the CRD ordering, and see which module bytes are digest-bound.</li>
         <li><a href="./d/docs/user/workshop-yaml-guide.html">Answer the questions plain Kubernetes YAML users ask</a>. Check what four files will install, compare two versions with one edit, and read why this base's lifecycle-route status is a recorded gap.</li>
         <li><a href="./d/docs/user/workshop-kubara-guide.html">Answer the questions Kubara users ask</a>. Check what a generated Kubara platform contains, and read its recorded CRD, secret and bootstrap routes. To govern a Kubara platform, use cub kubara.</li>
       </ul>
+
     </section>
     <section aria-labelledby="guides-gitops">
       <h2 id="guides-gitops">GitOps</h2>
+
       <ul class="guide-list">
         <li><a href="./d/docs/user/gitops-adopter-guide.html">Use ConfigHub With Argo CD Or Flux</a>. Keep the Argo CD or Flux you already run. ConfigHub publishes the reviewed Kubernetes objects as an OCI image for that controller to pull.</li>
         <li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a>. Reconcile a published component with no account, render any catalog chart to an image your Flux, Argo CD, or kubectl consumes, and verify its receipt first.</li>
@@ -740,9 +757,11 @@
         <li><a href="./bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a>. Preview your existing setup without an account, then save, connect and review a change while Argo CD keeps deploying.</li>
         <li><a href="./bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a>. Preview your existing setup without an account, then save, connect and review a change while Flux keeps deploying.</li>
       </ul>
+
     </section>
     <section aria-labelledby="guides-stacks-and-platforms">
       <h2 id="guides-stacks-and-platforms">Stacks and platforms</h2>
+
       <ul class="guide-list">
         <li><a href="./d/docs/user/workshop-compose-guide.html">Compose and review a local workshop stack</a>. Save a Kubara and Argo CD selection, move it, edit the app and retain a refusal when an API does not fit.</li>
         <li><a href="./d/docs/user/workshop-lifecycle-guide.html">Find the hook and CRD work before delivery</a>. Inspect a hook without running it, preserve an API refusal and identify what delivery still requires.</li>
@@ -753,9 +772,11 @@
         <li><a href="./bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a>. Manage your clusters' add-ons with Kubara, and approve every change to them in ConfigHub. See them offline in about 15 minutes, then govern them with cub kubara, or check them with an app as a Workshop stack.</li>
         <li><a href="./handle-hooks-and-crds.html">Handle hooks and CRDs</a>. Find the hooks, CRDs, setup jobs and target facts a chart needs before delivery, decide who runs each, and stage the target first.</li>
       </ul>
+
     </section>
     <section aria-labelledby="guides-confighub">
       <h2 id="guides-confighub">ConfigHub</h2>
+
       <ul class="guide-list">
         <li><a href="./promote.html">Can I promote this configuration?</a>. Compare current and proposed Kubernetes objects, see what changes, and choose the tests required before moving the change.</li>
         <li><a href="./d/docs/user/workshop-field-restore-guide.html">Add one field and keep the original configuration</a>. Review one added label, detect an object replacement and restore the exact original file.</li>
@@ -768,6 +789,7 @@
         <li><a href="./how-it-works.html">Release, promote and roll back</a>. Release a reviewed configuration, promote it to the next environment, gate it with approvals, and roll it back.</li>
         <li><a href="./view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a>. Browse stored configuration in the browser or cub commander, compare environments and separate editing from release.</li>
       </ul>
+
     </section>
     <details class="route-help">
       <summary>Need help choosing? Follow the configuration lifecycle</summary>
