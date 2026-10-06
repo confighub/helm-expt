@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-10-01T00:34:41.144Z",
+  "generatedAt": "2026-10-06T13:45:42.258Z",
   "installerAvailability": "cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux.",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",

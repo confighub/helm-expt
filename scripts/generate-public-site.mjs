@@ -71,6 +71,11 @@ const guidesPath = join(siteRoot, "guides.html");
 const pluginsPath = join(siteRoot, "plugins.html");
 const composeStackPath = join(siteRoot, "compose-a-stack.html");
 const appGuidePath = join(siteRoot, "put-an-app-on-a-platform.html");
+const firstAppExamplePath = join(siteRoot, "examples", "acme-web.yaml");
+const firstAppSourceRoot = join(repoRoot, "examples", "plain-yaml", "acme-web");
+const firstAppExampleYaml = ["namespace.yaml", "configmap.yaml", "deployment.yaml", "service.yaml"]
+  .map((file) => readFileSync(join(firstAppSourceRoot, file), "utf8").trim())
+  .join("\n---\n") + "\n";
 const kubaraGuidePath = join(siteRoot, "bring-kubara-into-confighub.html");
 const askPath = join(siteRoot, "ask.html");
 const promotePath = join(siteRoot, "promote.html");
@@ -448,7 +453,7 @@ const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 // questions; the fuller one also says what is in the Catalog and when the
 // agent needs ConfigHub server. Defined up here, above the generate flow,
 // because aiHtml() runs during module evaluation.
-const AGENT_PROMPT_ONE_LINER = `Use the ConfigHub Workshop catalog for Kubernetes config work. It holds known-good configurations across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, which lists the Catalog's five section files first (configs.json, stacks.json, apps.json, plugins.json and guides.json), read the one listing you need from https://confighub.github.io/helm-expt/site/listings/index.json, and do the work with \`cub\` and the cub workshop plugin (https://github.com/confighub/cub-workshop): \`cub config\`, \`cub config values\` and \`cub config diff\`, \`cub stack check\` and \`cub stack sandbox\`, \`cub app match\`. Prefer exact versions and digests.`;
+const AGENT_PROMPT_ONE_LINER = `Use the ConfigHub Workshop catalog for Kubernetes config work. It holds known-good configurations across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, search only enough of the relevant section or listings index to identify one entry, then read that entry's listing and one relevant Guide. Do not load whole indexes or the whole catalog into model context. Do the work with \`cub\` and the cub workshop plugin (https://github.com/confighub/cub-workshop): \`cub config\`, \`cub config values\` and \`cub config diff\`, \`cub stack check\` and \`cub stack sandbox\`, \`cub app match\`. Prefer exact versions and digests.`;
 
 const AGENT_PROMPT_FULLER = `Use the ConfigHub Workshop when I ask about Kubernetes configuration. It is a public catalog of known-good configurations you can read as data, with no account, and it works with \`cub\` and the cub workshop plugin that you run from a shell.
 
@@ -460,7 +465,7 @@ What is in the catalog, so you know what to expect:
 * A Kubara platform generated from selected components (kubara-local-platform).
 * A Sveltos fleet (Kyverno across clusters), plain Kubernetes YAML, configuration held in OCI, and a cub installer package.
 
-Start at https://confighub.github.io/helm-expt/site/llms.txt, which indexes everything. It lists the Catalog's five section files first, configs.json, stacks.json, apps.json, plugins.json and guides.json, each with one row per item and the command or address to use next. Each entry has its own listing at https://confighub.github.io/helm-expt/site/listings/<id>.json, all indexed at https://confighub.github.io/helm-expt/site/listings/index.json. A listing gives you the source and exact version and digest, the rendered Kubernetes objects and their count, the OCI packages, the base and its variants, the routing and lifecycle work such as hooks, CRDs, ordering, and tests, and a flattening verdict that says whether the exact objects can safely stand in for the source. Read the one entry you need instead of the whole catalog.
+Start at https://confighub.github.io/helm-expt/site/llms.txt, which indexes everything. It lists the Catalog's five section files first, configs.json, stacks.json, apps.json, plugins.json and guides.json, each with one row per item and the command or address to use next. Each entry has its own listing at https://confighub.github.io/helm-expt/site/listings/<id>.json, all indexed at https://confighub.github.io/helm-expt/site/listings/index.json. Search an index for the one matching row without putting its whole response into model context, then read one listing and the relevant Guide. A listing gives you the source and exact version and digest, the rendered Kubernetes objects and their count, the OCI packages, the base and its variants, the routing and lifecycle work such as hooks, CRDs, ordering, and tests, and a flattening verdict that says whether the exact objects can safely stand in for the source. Read the one entry you need instead of the whole catalog. Do not load the whole catalog when one entry answers the question.
 
 Do the work with \`cub\` and the cub workshop plugin from https://github.com/confighub/cub-workshop. Installing them is one line and needs no account. \`cub config\` renders and inspects one configuration, and \`cub config diff\` compares two and reports exactly what changed. \`cub config values\` names every value in a Helm values file that the chart ignored. \`cub stack check\` and \`cub stack sandbox\` check and render a whole composition before anything runs. \`cub app match\` checks whether a workload fits a target you supply, and \`cub app check\` reports what a workload needs. \`cub fleet\` reads and plans placement across many clusters.
 
@@ -768,6 +773,7 @@ if (mode === "--generate") {
   write(pluginsPath, site.pluginsHtml);
   write(composeStackPath, site.composeStackGuideHtml);
   write(appGuidePath, site.appGuideHtml);
+  write(firstAppExamplePath, firstAppExampleYaml);
   write(kubaraGuidePath, site.kubaraGuideHtml);
   for (const journey of JOURNEY_PAGES) write(join(siteRoot, journey.file), site[journey.key]);
   for (const guide of SPLIT_PAGES) write(join(siteRoot, guide.file), site[guide.key]);
@@ -922,6 +928,7 @@ if (mode === "--generate") {
   check(readFileSync(pluginsPath, "utf8") === site.pluginsHtml, "site/plugins.html is stale");
   check(readFileSync(composeStackPath, "utf8") === site.composeStackGuideHtml, "site/compose-a-stack.html is stale");
   check(readFileSync(appGuidePath, "utf8") === site.appGuideHtml, "site/put-an-app-on-a-platform.html is stale");
+  check(readFileSync(firstAppExamplePath, "utf8") === firstAppExampleYaml, "site/examples/acme-web.yaml is stale");
   check(readFileSync(kubaraGuidePath, "utf8") === site.kubaraGuideHtml, "site/bring-kubara-into-confighub.html is stale");
   for (const journey of JOURNEY_PAGES) check(readFileSync(join(siteRoot, journey.file), "utf8") === site[journey.key], `site/${journey.file} is stale`);
   for (const guide of SPLIT_PAGES) check(readFileSync(join(siteRoot, guide.file), "utf8") === site[guide.key], `site/${guide.file} is stale`);
@@ -3106,7 +3113,7 @@ function homeTerminalCss() {
 }
 
 // ConfigHub Workshop homepage: the design-language home page (self-contained,
-// theme-aware). Replaces the old light-theme parity-first homepage.
+// with the Workshop's fixed light appearance).
 function homeDesignCss() {
   return `
 ${bannerCss()}
@@ -3125,30 +3132,6 @@ ${bannerCss()}
     --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif;
     --heading: Inter, ui-sans-serif, system-ui, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-  }
-
-  :root[data-theme="dark"] {
-      color-scheme: dark;
-    --bg: #17130f; --surface: #201a14; --surface-2: #262019;
-    --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365;
-    --line: #322b23; --line-strong: #4a4034;
-    --accent: #e56a31; --accent-ink: #ee7b45;
-    --pass: #4bc07d; --pass-bg: #12291d;
-    --watch: #e0a648; --watch-bg: #2c2213;
-    --blocked: #ef7570; --blocked-bg: #2e1717;
-    --term-bg: #262019; --term-ink: #e3dcd1;
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
-  }
-  :root[data-theme="light"] {
-    --bg: #ffffff; --surface: #ffffff; --surface-2: #f3f0e9;
-    --ink: #221c15; --muted: #6e6659; --faint: #9c9285;
-    --line: #e7e1d6; --line-strong: #d5cec2;
-    --accent: #ba3d03; --accent-ink: #a33502;
-    --pass: #1f8a4c; --pass-bg: #e4f3ea;
-    --watch: #b5761a; --watch-bg: #f7ecd8;
-    --blocked: #c53a3a; --blocked-bg: #f7e2e2;
-    --term-bg: #221c15; --term-ink: #ede7dd;
-    --shadow: 0 1px 2px rgba(16,32,45,.06), 0 8px 24px rgba(16,32,45,.05);
   }
   * { box-sizing: border-box; }
   body { margin: 0; }
@@ -3221,9 +3204,6 @@ ${bannerCss()}
   .qtable td:first-child { font-weight: 650; white-space: nowrap; }
   .btn { font-family: var(--sans); font-size: .92rem; font-weight: 560; padding: 11px 18px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; }
   .btn.primary { background: var(--accent); color: #fff; }
-
-  :root[data-theme="dark"] .btn.primary { color: #04222c; font-weight: 640; }
-  :root[data-theme="light"] .btn.primary { color: #fff; }
   .btn.ghost { border-color: var(--line-strong); color: var(--ink); background: var(--surface); }
   .btn.ghost:hover { border-color: var(--accent); }
   /* The third action is a different kind of thing from the first two. They are
@@ -4727,7 +4707,7 @@ function howItWorksHtml() {
     <p>Release publishes an approved configuration by digest, so your reconciler pulls exactly that image instead of a hand-pushed bundle.</p>
     ${markdownLikeTable([
       ["Level", "Do this", "Command", "What you get"],
-      ["Advanced", "Attach a cluster that pulls", "<code>cub cluster up demo-dev</code>", "A kind cluster with Argo CD, wired to an OCI target in ConfigHub, so releases published to it reconcile."],
+      ["Advanced", "Attach a cluster that pulls", "<code>cub cluster up --name demo-dev</code>", "A kind cluster with Argo CD, wired to <code>demo-dev/target</code> in ConfigHub, so target-bound releases can reconcile."],
       ["Basic", "Upload one image, or one app, as a base", "<code>cub variant upload --component redis --variant base oci://…@sha256:…</code><br><code>cub app upload shop-web --run</code>", "A base variant you can clone. Nothing is deployed yet."],
       ["Basic", "Place it on a cluster", "<code>cub variant create demo-dev metrics-server-base --target demo-dev/target --space-pattern \"template:metrics-server-demo-dev\"</code>", "A deployment variant, cloned from the base into a Space named metrics-server-demo-dev, bound to that cluster's OCI target."],
       ["Basic", "Release it", "<code>cub release publish metrics-server-demo-dev</code>", "An OCI image in ConfigHub's registry, pinned to its digest, for your reconciler to pull."],
@@ -5260,6 +5240,40 @@ cub stack check my-platform/stack.yaml</code></pre>
       <p>A passing check says whether the stack carries what your app needs, and lists what must exist first: namespaces, a ClusterIssuer your Certificate names, or CRDs a component does not ship. It checks configuration only. It installs nothing and does not show that the app works on a cluster.</p>
       <p>A refusal is a starting point, not a dead end. Change either side, adapt the app or grow the platform by the service it needs, and run the check again until it passes. The app and the platform negotiate through the check, so the platform ends up shaped by its apps. That is how the <code>kubara-shop-first-try</code> refusal becomes <code>kubara-shop-platform</code>.</p>
     </section>
+    <section class="narrow-section" aria-labelledby="first-stack-live">
+      <h2 id="first-stack-live">Deploy a tiny first stack</h2>
+      <p><code>web-tiny</code> is the bounded teaching path: two components, each holding one ConfigMap in the <code>web</code> namespace. The steps below continue beyond upload into two ConfigHub Bases, two target-bound dev variants, two Releases, two Argo CD Applications, and two object checks. They are a runnable path, not a retained live receipt, and they do not claim that every arbitrary stack is safe to deploy this way.</p>
+      <h3>1. Check the composition and create a target</h3>
+      ${commandBlock([
+        { cmd: WORKSHOP_PLUGIN_INSTALL },
+        { cmd: "cub stack check web-tiny", out: "CHECKED; two ConfigMaps; no cluster write" },
+        { cmd: "cub auth login" },
+        { cmd: "cub cluster up --name workshop" },
+        { cmd: "source ~/.confighub/clusters/workshop.env" },
+      ])}
+      <h3>2. Download the same two component files</h3>
+      ${commandBlock([
+        { cmd: "curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.56/components/frontend-config.yaml" },
+        { cmd: "curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.56/components/backend-config.yaml" },
+      ])}
+      <p>Read both files. The first component owns the Namespace; the second reuses it, so two Argo Applications do not compete to manage the same Namespace object.</p>
+      <h3>3. Import, place, and release each component</h3>
+      ${commandBlock([
+        { cmd: "cub variant upload --component first-stack-frontend --variant base --namespace web --create-namespace ./frontend-config.yaml" },
+        { cmd: "cub variant upload --component first-stack-backend --variant base --namespace web ./backend-config.yaml" },
+        { cmd: "cub variant create dev first-stack-frontend-base --target workshop/target --namespace web" },
+        { cmd: "cub variant create dev first-stack-backend-base --target workshop/target --namespace web" },
+        { cmd: "cub release publish first-stack-frontend-dev" },
+        { cmd: "cub release publish first-stack-backend-dev" },
+      ])}
+      <h3>4. Prove controller and cluster state</h3>
+      ${commandBlock([
+        { cmd: "kubectl get applications -n argocd first-stack-frontend-dev first-stack-backend-dev", out: "both rows must report Synced and Healthy" },
+        { cmd: "kubectl get configmap -n web frontend-config backend-config" },
+      ])}
+      <p>The Releases prove ConfigHub accepted immutable desired configuration. The Argo rows prove the controller saw it. The ConfigMaps prove the target received both components. If one checkpoint is missing, stop there instead of calling the stack live.</p>
+      <p>The Workshop plugin source also contains a bounded <code>cub stack deploy web-tiny --target workshop/target --run</code> helper that performs step 3 and refuses every other stack. Use it only from a released plugin version whose help lists <code>stack deploy</code>; the pinned release on this page keeps the explicit commands so the Guide remains runnable today.</p>
+    </section>
     <section class="narrow-section">
       <details class="deep" id="shipped-stacks">
       <summary>The stacks that ship, by altitude</summary>
@@ -5308,7 +5322,7 @@ cub stack check my-platform/stack.yaml</code></pre>
     </section>
     <section class="narrow-section" aria-labelledby="becoming">
       <h2 id="run-and-govern">Run and govern it</h2>
-      <p><code>cub stack upload &lt;name&gt; --run</code> checks first, then builds one base Space per component in ConfigHub and the links the manifest declares. Without <code>--run</code> it prints the plan and changes nothing. From there ConfigHub's own verbs take over: <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree.</p>
+      <p><code>cub stack upload &lt;name&gt; --run</code> checks first, then builds one base Space per component in ConfigHub and the links the manifest declares. It does not place or release those components. Without <code>--run</code> it prints the plan and changes nothing. The <a href="#first-stack-live">tiny first stack</a> shows the additional target placement, Release, controller, and live-object checkpoints explicitly. From there ConfigHub's own verbs take over: <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree.</p>
       <p>A fleet places a stack across many clusters as data. <code>cub fleet up meridian</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases their deployments through those same governed verbs. <code>cub fleet status meridian</code> then recomputes four attention tiles, blocking gates, unreleased changes, upgrades available, and outstanding rollouts, from the queries the product runs. <a href="./d/docs/planning/stack-manifest-spec.html">The fleet model is specified alongside the stack manifest</a>.</p>
       <p>A stack can also leave as OCI with no account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened form a reconciler pulls. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>. <a href="./oci.html">See every OCI shape in one table</a>.</p>
     </section>
@@ -5854,6 +5868,67 @@ spec:
       <p>Pruning and CRD ordering differ per path. The <a href="./d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a> has the tested details; the <a href="./d/data/crd-ordering-gap/summary.html">CRD ordering record</a> shows the failure you avoid.</p>`;
 }
 
+// Token counts vary by model and agent host. These numbers are deliberately
+// planning anchors, not billing claims. Keeping the estimate next to the
+// generated source means the two fixed routing costs cannot silently shrink
+// below the content an agent actually has to read.
+function roughPlanningTokenCount(text) {
+  return Math.ceil((text.length / 4) / 100) * 100;
+}
+
+function roughPlanningTokenLabel(text) {
+  const count = roughPlanningTokenCount(text);
+  if (count < 1000) return String(count);
+  return `${(count / 1000).toFixed(1).replace(/\.0$/, "")}k`;
+}
+
+function tokenEstimateCaveatHtml() {
+  const llmsEstimate = roughPlanningTokenLabel(buildLlmsTxt());
+  const skillEstimate = roughPlanningTokenLabel(readFileSync(join(agentSkillSourceRoot, "SKILL.md"), "utf8"));
+  return `<p><strong>How to read the estimates.</strong> They are rough planning ranges for one focused turn, not quotas, provider bills, or guarantees. They include the likely Guide, one relevant record, task files, and useful command output; an agent host may add system instructions, tool transcripts, retries, and uncached context. The planning heuristic is about one token per four characters. At the current site size, <code>llms.txt</code> is about ${llmsEstimate} tokens and the core <code>SKILL.md</code> is about ${skillEstimate} before references or task files. Use your provider's token meter for the actual count. To estimate money, multiply input and output tokens by that model's current per-million-token rates; caching and tool billing vary by provider.</p>`;
+}
+
+function onboardingJourneyStagesHtml(idPrefix) {
+  return `<h3 id="${idPrefix}-nine-checkpoints">From discovery to verified use: nine checkpoints</h3>
+    <p>An answer is not the end of the journey. Keep each boundary visible so a quick local success does not become an unsupported deployment claim.</p>
+    ${markdownLikeTable([
+      ["Checkpoint", "What good looks like"],
+      ["1. Awareness", "See a concrete before-and-after example on the <a href=\"./index.html\">Workshop front door</a>, not only a product category."],
+      ["2. Problem match", "Choose the job you already have: understand, change, build, connect an existing controller, or repeat a proven result."],
+      ["3. Find", "Open one matching <a href=\"./guides.html\">Guide</a> or use <a href=\"./ask.html\">Check my config</a>; do not make the reader assemble a path from unrelated pages."],
+      ["4. Understand", "Read the inputs, expected result, what that result proves, and what remains untested before running anything."],
+      ["5. Start", "Run the smallest local or read-only step first. Private files stay local, and every write or delivery step remains explicit."],
+      ["6. First value", "Keep an exact diff, object hash, check result, or inventory that answers the original question."],
+      ["7. Delivery request", "Choose deliberately whether to keep the result local, publish OCI, or save and release it with <a href=\"./confighub.html\">ConfigHub</a>. No earlier step silently deploys."],
+      ["8. Verified live", "Check the release, controller reconciliation, Kubernetes resources, and workload health separately; use the <a href=\"./known-gaps.html\">known limits</a> when proof is missing."],
+      ["9. Expand or return", "Pin the useful inputs and commands, repeat them in CI where appropriate, then take one next environment, app, or Guide rather than reopening the whole catalog."],
+    ], { rawSecondColumn: true })}`;
+}
+
+function askTokenPlanningHtml() {
+  return `<section aria-labelledby="ask-token-budget">
+    <h2 id="ask-token-budget">Choose the lowest-token route that can answer the question</h2>
+    <p>Use a deterministic check when it can answer the question. AI is most useful for selecting evidence, explaining a diff, or proposing a bounded change; it should not spend tokens reproducing work that Helm, <code>cub</code>, or this browser can do exactly.</p>
+    ${markdownLikeTable([
+      ["Route", "Rough input / output", "Expected result, proof, and boundary"],
+      ["Rendered YAML in this browser, or local render/diff/check commands", "0 / 0 AI tokens", "Expected: an inventory, exact diff, check result, and downloadable hashes. Proven: only the deterministic local checks that completed. Not proven: source rendering the browser did not run, delivery, controller convergence, or workload health."],
+      ["One Catalog answer", "6k–15k / 0.5k–2k", "Expected: one matching entry, Guide, and named receipt. Proven: only the claim that receipt covers. Not proven: behavior on your target. Resolve one id, then read one listing; do not feed the model all of <code>configs.json</code> or <code>listings/index.json</code>."],
+      ["Understand or fix your chart, values, or objects", "10k–30k / 1k–4k", "Expected: one rendered candidate, the smallest proposed fix, and an exact diff. Proven: the local render and checks that ran. Not proven: admission, delivery, health, upgrade, or rollback unless each has its own result."],
+      ["Discover an existing app, app-of-apps, controller setup, or stack", "20k–80k+ / 2k–8k", "Expected first: a read-only inventory and reversible handover plan for one root or leaf slice. Proven: the observed inventory. Not proven: a successful transfer of control, deployment, or live outcome."],
+    ], { rawThirdColumn: true })}
+    ${tokenEstimateCaveatHtml()}
+    <h3 id="ask-token-optimal">The token-optimal path</h3>
+    <ol>
+      <li>Render, compare, search, and hash locally first. Those deterministic steps use no model tokens.</li>
+      <li>Ask one decision question. Give the agent the relevant file, compact diff, or failed check instead of a whole repository or unbounded log.</li>
+      <li>Use <code>llms.txt</code> as a router, search an index for one matching row without adding the whole index to context, then read one Guide and one listing or receipt.</li>
+      <li>Stop when the expected result is present. Start a separate bounded step for saving, delivery, or live verification so permissions and proof do not blur together.</li>
+      <li>Reuse the retained result and exact command on the next run. Do not ask the model to rediscover evidence you already pinned.</li>
+    </ol>
+    ${onboardingJourneyStagesHtml("ask")}
+  </section>`;
+}
+
 function askHtml(catalog) {
   const questionEntries = Object.entries(CONFIGURATION_QUESTIONS)
     .sort(([codeA, itemA], [codeB, itemB]) => {
@@ -5894,7 +5969,7 @@ function askHtml(catalog) {
     <h1>Is my configuration right?</h1>
     <p id="question-context" hidden><strong id="question-context-text"></strong></p>
     <p class="lead">Check your own chart and values, or compare rendered Kubernetes YAML. Keep the findings and the exact configuration they describe.</p>
-    <p><a class="button primary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a> <button class="button secondary" id="load-example" type="button">See an illustrative object review</button></p>
+    <p><a class="button primary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a> <a class="button secondary" href="#ask-token-budget">Plan token cost</a> <button class="button secondary" id="load-example" type="button">See an illustrative object review</button></p>
     <p>Use this page for your own chart, values, new version, or unexpected result. Use the <a href="./charts/index.html">Catalog</a> when we have already tested the exact chart and version.</p>
     <p>The chart route builds instructions for your local AI assistant. Already have rendered YAML? Check it in this browser with no AI needed. Neither route deploys your configuration.</p>
     <p><strong>Flattened configuration</strong> means the fully rendered Kubernetes objects, with template choices already resolved. You can inspect and change that data before choosing a delivery path.</p>
@@ -5919,6 +5994,7 @@ function askHtml(catalog) {
       ])}
       <p>Already comparing GPU nodes rather than a deployable configuration? <a href="./try-aicr.html">Use AICR snapshot and diff</a>. That read-only path needs cluster access but no recipe or bundle deployment.</p>
     </section>
+    ${askTokenPlanningHtml()}
     <section aria-labelledby="build-prompt">
       <h2 id="build-prompt">Start with a chart and values</h2>
       <p>Choose one question. This form does not upload a values file or render Helm in your browser. It builds instructions for the Claude, Codex, or other AI assistant already running on your machine. The assistant runs Helm locally, records the inputs, and compares the exact objects.</p>
@@ -6927,6 +7003,12 @@ function familiarGuideStartsHtml() {
       <li><a href="./bring-flux-into-confighub.html">I use Flux</a>. Preview your repository and move delivery one cluster at a time.</li>
       <li><a href="./d/docs/user/workshop-byo-charts-guide.html">I use Helm</a>. Render your own chart and values, then check and compare a change before installing.</li>
       <li><a href="./deploy-with-flux-or-argo.html">Other GitOps delivery paths</a>. Review how rendered configuration reaches your controller.</li>
+    </ul>
+    <h3 id="guides-first-deployment">Deploy something small first</h3>
+    <p>Use a bounded example to learn the whole chain before bringing production configuration.</p>
+    <ul class="guide-list">
+      <li><a href="./put-an-app-on-a-platform.html#confighub">Deploy a four-object app</a>. Relate source, Base, dev variant, Release, Argo CD Application, and ready workload.</li>
+      <li><a href="./compose-a-stack.html#first-stack-live">Deploy a two-component stack</a>. Check, import, place, release, and verify both components.</li>
     </ul>
     <h3 id="guides-platforms-fleets">Build a platform or fleet for your apps</h3>
     <p>Choose the services your apps need, then review the configuration before anything runs.</p>
@@ -9338,8 +9420,8 @@ function appsHtml() {
 function appGuideHtml(catalog) {
   const tierRows = [
     ["Right now, free", "Check what your app needs, then check it against a platform, with no cluster and no account.", "cub app check &middot; cub stack sandbox"],
-    ["Connected to ConfigHub", "Put the app on the stack next to the platform parts, uploaded as a base variant.", "cub app upload &middot; stack placement"],
-    ["Inside ConfigHub", "Operate the app on the running platform, with the same verbs as any component.", "release &middot; promote &middot; gate &middot; roll back"],
+    ["First live app", "Import four plain-YAML objects, create a dev variant, publish it, and check Argo CD plus the workload.", "cluster up &middot; variant upload/create &middot; release publish"],
+    ["Inside ConfigHub", "Operate the running app with the same verbs as any component.", "release &middot; promote &middot; gate &middot; roll back"],
   ];
   const adoptRows = [
     ["Argo CD or Flux app", "Record its source, rendered objects, namespace, health, and sync state.", "Keep controller delivery unchanged while you compare the saved configuration."],
@@ -9368,9 +9450,9 @@ function appGuideHtml(catalog) {
     ${topNav(".")}
     <p class="eyebrow">A Guide</p>
     <h1>Put an app on a platform</h1>
-    <p class="lead">The check confirms first that the platform carries what the app needs, then you promote the app across environments in ConfigHub.</p>
+    <p class="lead">Start with a four-object app you can actually release and observe. Then use the same model to check a richer app against the platform services it needs.</p>
     <p>The app lands on a <a href="./stack.html">stack</a> at the moment the stack check reads it. The <a href="./apps.html">Apps</a> list holds every worked example.</p>
-    ${humanLinks([["Try it now", "#try"], ["Follow the demo, step by step", "#demo"], ["Take it into ConfigHub", "#confighub"], ["Bring an app that already runs", "#adopt"]])}
+    ${humanLinks([["Check an app locally", "#try"], ["Deploy the first app", "#confighub"], ["Check an app on a platform", "#demo"], ["Bring an app that already runs", "#adopt"]])}
   </header>
   <main>
     <section aria-labelledby="try">
@@ -9400,22 +9482,46 @@ function appGuideHtml(catalog) {
       <p>Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/shop-platform.yaml">shop-platform manifest</a>, the <a href="https://github.com/confighub/cub-workshop/tree/main/apps">shipped apps</a>, and the <a href="https://github.com/confighub/cub-workshop/blob/main/proofs/assistant-composition-2026-09-02/journal.md">recorded composition</a>, where an assistant chose the parts and the check read them. <a href="./stack.html">Stacks</a> explains the manifest.</p>
     </section>
     <section aria-labelledby="confighub">
-      <h2 id="confighub">Take it into ConfigHub</h2>
-      <p>The free checks answer whether an app fits. ConfigHub is where the reviewed result becomes a shared record that a team can release, promote, and roll back.</p>
-      <h3>Once connected, put the app on the stack</h3>
-      <p><code>cub app upload</code> puts the app into ConfigHub, and a stack placement clones it next to the platform parts it needs. Each object becomes a Unit, and the app is now a base variant the check still reads as part of the whole stack.</p>
+      <h2 id="confighub">Deploy the first app, end to end</h2>
+      <p>This path uses one Namespace, ConfigMap, Deployment, and Service. It is deliberately small enough that you can relate the four source objects to the ConfigHub Base and dev variant, the immutable Release, the Argo CD Application, and the live workload.</p>
+      <p><strong>What you need:</strong> <code>cub</code>, Docker, kind, kubectl, and a ConfigHub Cloud account. The first check is local. The cluster and ConfigHub writes begin only when the commands say so.</p>
+      <h3>1. Download and check the exact input</h3>
       ${commandBlock([
-        { comment: "a base Unit per object, cloned next to the platform", cmd: "cub app upload shop-web --run" },
-        { comment: "place it on a cluster's target, in a Space named shop-web-demo-dev", cmd: 'cub variant create demo-dev shop-web-base --target demo-dev/target --space-pattern "template:shop-web-demo-dev"' },
+        { cmd: WORKSHOP_PLUGIN_INSTALL },
+        { cmd: "curl -fsSLo acme-web.yaml https://confighub.github.io/helm-expt/site/examples/acme-web.yaml" },
+        { cmd: "cub config check ./acme-web.yaml", out: "four Kubernetes objects; no account or cluster write" },
       ])}
-      <h3>Inside ConfigHub, operate the app on the platform</h3>
+      <p>Open <a href="./examples/acme-web.yaml">the downloaded YAML</a>. The Namespace is part of the app rather than an undeclared prerequisite. The <a href="./d/data/literal-config-examples/summary.html">retained import proof</a> records the same four-object set and its limits.</p>
+      <h3>2. Create one local destination</h3>
+      ${commandBlock([
+        { cmd: "cub auth login" },
+        { cmd: "cub cluster up --name workshop" },
+        { cmd: "source ~/.confighub/clusters/workshop.env" },
+        { cmd: "cub target get workshop/target", out: "the ConfigHub target that represents this cluster" },
+      ])}
+      <p><code>cub cluster up</code> creates the kind cluster, installs Argo CD and the live-status helper, and creates <code>workshop/target</code>. Sourcing the generated file selects that cluster for the kubectl checks below.</p>
+      <h3>3. Save the Base and make the dev deployment</h3>
+      ${commandBlock([
+        { comment: "save the four reviewed objects; nothing deploys yet", cmd: "cub variant upload --component acme-web --variant base ./acme-web.yaml" },
+        { comment: "clone the Base and attach it to the real target", cmd: "cub variant create dev acme-web-base --target workshop/target --namespace acme-web" },
+        { cmd: "cub component open acme-web" },
+      ])}
+      <p>The component view should show <code>acme-web-base</code> and its target-bound <code>acme-web-dev</code> child. Upload stores configuration; variant creation chooses where the child belongs. Neither command should be described as a successful deployment yet.</p>
+      <h3>4. Publish, then prove every boundary</h3>
+      ${commandBlock([
+        { cmd: "cub release publish acme-web-dev" },
+        { comment: "controller proof", cmd: "kubectl get application -n argocd acme-web-dev", out: "the row must report Synced and Healthy" },
+        { comment: "workload proof", cmd: "kubectl -n acme-web rollout status deployment/acme-web --timeout=5m" },
+        { comment: "running objects", cmd: "kubectl -n acme-web get deployment,service,pods" },
+      ])}
+      <p>Read these as separate checkpoints: ConfigHub published a Release; Argo CD reports its Application; Kubernetes reports the Deployment ready. A green result at one boundary does not substitute for the next one. The product's maintained deploy-path test also checks the observed revision, ready replicas, ConfigHub origin metadata, and live-status feedback; this four-object Workshop fixture has a retained import receipt, while a fresh joined live receipt remains separate evidence.</p>
+      <h3>Continue with promotion, approval, and rollback</h3>
       <p>From here the app uses the same verbs as any platform component. The commands below are separate operation examples, not a sequence that installs an approval gate. For gated delivery, first configure the workflow and bind the ChangeOrder, then record the qualifying approval before attempting the gated operation. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
       ${commandBlock([
-        { comment: "release by digest; the reconciler pulls it", cmd: "cub release publish shop-web-demo-dev" },
-        { comment: "preview a promotion, then run it without --dry-run", cmd: "cub variant promote shop-web-demo-dev --dry-run" },
+        { comment: "preview a promotion, then run it without --dry-run", cmd: "cub variant promote acme-web-dev --dry-run" },
         { comment: "read the attestation prerequisite schema before configuring the ChangeWorkflow", cmd: "cub changeworkflow create --help" },
-        { comment: "Review selected revisions, then approve this Space’s targeted Units", cmd: "cub variant approve shop-web-demo-dev" },
-        { comment: "roll back to a revision that already ran", cmd: "cub unit update --space shop-web-demo-dev shop-web-deployment --restore 2" },
+        { comment: "review selected revisions, then approve this Space's targeted Units", cmd: "cub variant approve acme-web-dev" },
+        { comment: "inspect revision history before restoring an earlier one", cmd: "cub unit list --space acme-web-dev" },
       ])}
       <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. Approval attestations satisfy a configured ChangeWorkflow prerequisite; recording an approval alone does not add a gate. This example assumes the reviewed workflow is already bound to the ChangeOrder when gated delivery is required. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>
       <p>Check the current delivery gaps before you rely on gate order across an app's CRDs. <a href="./known-gaps.html">Read the known gaps</a>.</p>
@@ -9461,31 +9567,63 @@ function customAppsHtml() {
 function existingAppsHtml() {
   return movedPageHtml("Understand an existing app", "./put-an-app-on-a-platform.html#adopt", "Understanding an existing app now lives on Apps on a platform.");
 }
+
+function aiJourneyTokenPlanningHtml() {
+  return `<h3 id="ai-token-budget">Plan token cost before you start</h3>
+    <p>These are planning ranges for a focused journey, not a reason to give an agent the whole repository. Start with the zero-token local checks, then spend model context only where judgment or explanation adds value.</p>
+    ${markdownLikeTable([
+      ["Journey", "Rough input / output", "Token-optimal route"],
+      ["Browser review or deterministic local checks", "0 / 0 AI tokens", "Render, diff, hash, and run <code>cub check</code> without a model. Bring only the compact result to an agent if interpretation is still needed."],
+      ["One Catalog question", "6k–15k / 0.5k–2k", "Route with <code>llms.txt</code>; search for one row; read one Guide, one listing, and only the receipt that supports the claim."],
+      ["Understand or fix configuration", "10k–30k / 1k–4k", "Render locally, isolate the affected objects and values, and ask for one smallest fix plus an exact diff."],
+      ["Preserve fixes through a rewrite", "8k–25k / 1k–3k", "Supply the original, candidate, and compact diff. Do not send unrelated repository history."],
+      ["Put an app on a platform", "15k–50k / 2k–6k", "Start with one app contract and the few candidate components it needs. Run the composition gate before asking for delivery."],
+      ["Connect an existing Argo CD, Flux, Kubara, or Sveltos setup", "20k–80k+ / 2k–8k", "Inventory one root or leaf slice read-only, suppress generated noise, and separate the handover plan from any write or controller change."],
+      ["Turn a result into CI or repeated work", "10k–30k / 1k–4k", "Give the retained inputs, command, expected result, and failure case. Do not ask the agent to rediscover the journey."],
+    ], { rawThirdColumn: true })}
+    ${tokenEstimateCaveatHtml()}
+    <h4 id="ai-token-optimal">Five rules for a token-optimal run</h4>
+    <ol>
+      <li>Prefer a zero-AI-token browser or CLI check when the answer is deterministic.</li>
+      <li>Use <code>llms.txt</code> to choose a route, then retrieve one Guide and one relevant record. Search large indexes without placing their whole response into model context.</li>
+      <li>Send compact diffs, summaries, exact failing objects, and bounded log excerpts instead of whole repositories, catalogs, or logs.</li>
+      <li>Keep investigation, managed writes, delivery, and live verification as separate turns with separate authority and evidence.</li>
+      <li>Pin the useful result. Reuse it on the next run and measure actual tokens in the agent or provider rather than assuming caching.</li>
+    </ol>
+    ${onboardingJourneyStagesHtml("ai")}`;
+}
+
 function aiJourneyStartsHtml() {
   const prompt = (text) => `<details><summary>Prompt for Claude Code or Codex</summary>${agentNote(escapeHtml(text), "Give this to your agent")}</details>`;
   return `<section aria-labelledby="ai-starting-points">
     <h2 id="ai-starting-points">What would you like to get done?</h2>
     <p><a href="./ai-chaos-in-production.html">See agents repair a fleet, with approvals and prevention</a>. Read the recorded Deep Dive without setup, or plan a full run on a disposable fleet.</p>
     <p>Start small, with your own chart, app or YAML. You do not need an account to read the Catalog or run local checks. A coding agent needs shell access for commands; a chat without tools can explain and plan, but cannot run them.</p>
+    ${aiJourneyTokenPlanningHtml()}
     <h3 id="ai-understand">Understand or fix a configuration</h3>
     <p>Find why a value did nothing, what a chart installs, or what an upgrade changes. Get a specific answer and the rendered objects behind it.</p>
+    <p><strong>Expected:</strong> one rendered candidate, the smallest proposed fix, and an exact diff. <strong>Proven:</strong> only the local render and checks that completed. <strong>Not proven:</strong> cluster admission, delivery, or workload health. <strong>Token-optimal:</strong> isolate the affected values and objects before asking for an explanation.</p>
     ${prompt("Use Workshop to inspect this chart version and my values file. Explain which values affect the rendered objects and which do not. Propose the smallest fix, check it, and show the exact diff. Do not deploy.")}
     <p><a href="./journey-values-did-nothing.html">Try the Helm values demo</a> · <a href="./d/docs/user/workshop-byo-charts-guide.html">Use your own chart</a></p>
     <h3 id="ai-change">Make a change without losing your fixes</h3>
     <p>Review an AI rewrite against the original, keep only the intended changes, then use ConfigHub to preserve your choices through the next update.</p>
+    <p><strong>Expected:</strong> a reviewed original-to-candidate diff and an explicit list of protected choices. <strong>Proven:</strong> the fields retained by the recorded comparison or update. <strong>Not proven:</strong> a general merge or successful deployment. <strong>Token-optimal:</strong> provide only the original, candidate, and compact diff.</p>
     ${prompt("Add a readiness probe to this app. Compare against the committed version, preserve my other fixes, and show every changed field. Keep the result local; explain how ConfigHub could retain those choices next time.")}
     <p><a href="./journey-preserve-my-fixes.html">Try the protected-fixes demo</a> · <a href="#confighub-review">See the cub commands and recorded results</a></p>
     <h3 id="ai-build">Put an app on a platform</h3>
     <p>Start from an <a href="./apps.html">example app</a> or bring your own. Ask for the platform services it needs, a checked composition and files you can save and resume.</p>
+    <p><strong>Expected:</strong> one app contract, a bounded component selection, a checked stack, and resumable files. <strong>Proven:</strong> static compatibility and the checks named in the result. <strong>Not proven:</strong> deployment or runtime health. <strong>Token-optimal:</strong> start with one app and only the candidate components that meet its declared needs.</p>
     ${prompt("Help me run this app on a platform built from the Catalog. Identify its dependencies, choose compatible components, and check the composition. Give me the files and results to resume later. Mark missing target facts and do not call a static check a deployment.")}
     <p><a href="./journey-what-my-app-needs.html">Try the app-and-platform demo</a> · <a href="./bring-kubara-into-confighub.html">Build with Kubara</a> · <a href="./d/docs/user/workshop-match-guide.html">Match a GPU workload</a></p>
     <h3 id="ai-connect">Keep your delivery tools and add ConfigHub</h3>
     <p>Ask the agent to inspect first, explain what stays as it is, and prepare a reviewed handover. Use the Guide for your controller; the setup and recovery steps differ.</p>
+    <p><strong>Expected first:</strong> a read-only inventory, authority map, reversible handover plan, and one bounded pilot slice. <strong>Proven:</strong> the source and live facts actually observed. <strong>Not proven:</strong> transfer of control, reconciliation, or workload health until those later steps run. <strong>Token-optimal:</strong> begin with one root or leaf and omit generated controller noise unless it answers the question.</p>
     ${prompt("Inspect my existing deployment setup using its Workshop Guide. Explain what ConfigHub would add, what would change, and how to go back. Run the non-mutating plan first. Ask before saving ConfigHub data or changing controller delivery.")}
     <p>Want to see the configuration yourself? <a href="./see-what-is-running.html">Explore the cluster with Scout</a> or <a href="./view-and-change-config-with-uis.html">browse saved configuration in a UI</a>.</p>
     <p><a href="./bring-argo-into-confighub.html">Argo CD</a> · <a href="./bring-flux-into-confighub.html">Flux</a> · <a href="./bring-sveltos-into-confighub.html">Sveltos fleets</a> · <a href="./confighub.html#start-managing">Deploy, promote and manage</a></p>
     <h3 id="ai-repeat">Turn a useful result into repeatable work</h3>
     <p>Once a journey works, keep its inputs, exact commands, checks and expected results in your repository. Ask your agent to prepare a CI check or an operational App from that record. ConfigHub supplies shared configuration, approvals and releases; your runner and controllers do the work.</p>
+    <p><strong>Expected:</strong> a pinned command, inputs, expected result, retained output, and a failure case. <strong>Proven:</strong> repeatability only after the job runs and matches its contract. <strong>Not proven:</strong> scheduled execution, delivery, or live health unless explicitly added and checked. <strong>Token-optimal:</strong> give the agent the retained record instead of asking it to rediscover the path.</p>
     ${prompt("Turn the configuration check we just completed into a repeatable CI job. Pin its inputs and tools, retain the result and exact diff, and report missing checks. Stop for review on an unexpected result. Do not add deployment, new credentials or scheduled execution without my approval.")}
     <p><a href="./d/docs/user/ci-render-check.html">Keep a review in CI</a> · <a href="./build-a-confighub-app.html">Build an operational App</a> · <a href="./guides.html">Find another journey</a></p>
     <p>The site does not host an agent or start a background job. In a live chat, your agent needs connected tools and the right authority to call <code>cub</code> or ConfigHub APIs. The same work can be run manually with <code>cub</code>.</p>
@@ -9515,9 +9653,10 @@ function aiHtml(catalog) {
     <p><em>Our aim is to lower the time and (token) cost of getting up and running with reliable solutions.</em></p>
     <p class="lead">Work with Claude Code or Codex, from one configuration question to a complete app or platform journey. Workshop gives your agent tested starting points, tools and Guides, so you get a useful result you can inspect and keep.</p>
     <p>Your agent investigates and proposes. <code>cub</code> renders, compares and checks. You see the source, the Kubernetes objects and the diff. ConfigHub keeps accepted configuration, protected fixes and team decisions when you want to take the next step.</p>
+    <p><a class="button primary" href="#ai-starting-points">Choose an AI journey</a> <a class="button secondary" href="#ai-token-budget">Plan token cost</a> <a class="button secondary" href="./ask.html#ask-token-budget">Use the zero-token checks</a></p>
     <div class="agent-start" id="paste-a-prompt">
       <p><strong>Start here.</strong> Paste this into Claude Code, Codex, or any agent that can run a shell. To keep it in a project, add it to <code>CLAUDE.md</code> or <code>AGENTS.md</code>.</p>
-      <pre><code>${escapeHtml("Help me with [my Kubernetes configuration question or task]. Use https://confighub.github.io/helm-expt/site/llms.txt to find the relevant Workshop tools and Guide. Start from my existing files and tools. Explain the useful result, run the checks this task needs, and show what changed and what remains untested. Keep it local until I ask to save in ConfigHub or change delivery.")}</code></pre>
+      <pre><code>${escapeHtml("Help me with [my Kubernetes configuration question or task]. Use https://confighub.github.io/helm-expt/site/llms.txt as a router. Search only enough of the relevant index to identify one entry, then read one relevant Guide and listing or receipt; do not load whole indexes or the whole catalog into context. Start from my existing files and tools. Run deterministic local checks before using model context for explanation. State the expected result, what the completed checks prove, what remains untested, and the token-optimal next step. Keep it local until I ask to save in ConfigHub or change delivery.")}</code></pre>
       <p>Use this prompt for a one-off question, or <a href="#install-skill">install the skill</a> to keep the instructions in your project.</p>
       <p>For a new project, use <a href="#fuller-prompt">the fuller prompt</a>. It also says what is in the Catalog and when you need ConfigHub server.</p>
     </div>
@@ -14280,16 +14419,6 @@ function siteCss() {
       --heading: Inter, ui-sans-serif, system-ui, sans-serif;
       --term: #0e1419;
     }
-
-    :root[data-theme="dark"] {
-      color-scheme: dark;
-      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
-      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
-    }
-    :root[data-theme="light"] {
-      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
-      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
-    }
     * { box-sizing: border-box; }
     input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
     html { scroll-behavior: smooth; }
@@ -14565,12 +14694,6 @@ ${bannerCss()}
     .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
     .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
     .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
-
-    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
-    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
-    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
-    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
-    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
     .row-links { margin: 0; font-size: .9rem; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }

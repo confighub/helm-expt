@@ -31,16 +31,6 @@
       --heading: Inter, ui-sans-serif, system-ui, sans-serif;
       --term: #0e1419;
     }
-
-    :root[data-theme="dark"] {
-      color-scheme: dark;
-      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
-      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
-    }
-    :root[data-theme="light"] {
-      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
-      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
-    }
     * { box-sizing: border-box; }
     input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
     html { scroll-behavior: smooth; }
@@ -354,12 +344,6 @@
     .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
     .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
     .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
-
-    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
-    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
-    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
-    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
-    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
     .row-links { margin: 0; font-size: .9rem; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
@@ -731,12 +715,12 @@
 <a class="cw-skip" href="#cw-content">Skip to content</a>
 <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
 <div class="cw-layout no-toc cw-guide">
-<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./compose-a-stack.html#get-a-stack">Get a stack</a></li><li><a href="./compose-a-stack.html#stack-checks">Checking your stack</a></li><li><a href="./compose-a-stack.html#stack-in-full">What a stack is, in full</a></li><li><a href="./compose-a-stack.html#run-and-govern">Run and govern it</a></li><li><a href="./compose-a-stack.html#run-it-stacks">Run it</a></li></ul>
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./compose-a-stack.html#get-a-stack">Get a stack</a></li><li><a href="./compose-a-stack.html#stack-checks">Checking your stack</a></li><li><a href="./compose-a-stack.html#first-stack-live">Deploy a tiny first stack</a></li><li><a href="./compose-a-stack.html#stack-in-full">What a stack is, in full</a></li><li><a href="./compose-a-stack.html#run-and-govern">Run and govern it</a></li><li><a href="./compose-a-stack.html#run-it-stacks">Run it</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
 </nav>
 <div class="cw-content" id="cw-content" tabindex="-1">
-<details class="cw-mobile-nav"><summary>In this Guide</summary><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./compose-a-stack.html#get-a-stack">Get a stack</a></li><li><a href="./compose-a-stack.html#stack-checks">Checking your stack</a></li><li><a href="./compose-a-stack.html#stack-in-full">What a stack is, in full</a></li><li><a href="./compose-a-stack.html#run-and-govern">Run and govern it</a></li><li><a href="./compose-a-stack.html#run-it-stacks">Run it</a></li></ul>
+<details class="cw-mobile-nav"><summary>In this Guide</summary><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./compose-a-stack.html#get-a-stack">Get a stack</a></li><li><a href="./compose-a-stack.html#stack-checks">Checking your stack</a></li><li><a href="./compose-a-stack.html#first-stack-live">Deploy a tiny first stack</a></li><li><a href="./compose-a-stack.html#stack-in-full">What a stack is, in full</a></li><li><a href="./compose-a-stack.html#run-and-govern">Run and govern it</a></li><li><a href="./compose-a-stack.html#run-it-stacks">Run it</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
 </details>
@@ -813,6 +797,45 @@ cub stack check my-platform/stack.yaml</code></pre>
       <p>A passing check says whether the stack carries what your app needs, and lists what must exist first: namespaces, a ClusterIssuer your Certificate names, or CRDs a component does not ship. It checks configuration only. It installs nothing and does not show that the app works on a cluster.</p>
       <p>A refusal is a starting point, not a dead end. Change either side, adapt the app or grow the platform by the service it needs, and run the check again until it passes. The app and the platform negotiate through the check, so the platform ends up shaped by its apps. That is how the <code>kubara-shop-first-try</code> refusal becomes <code>kubara-shop-platform</code>.</p>
     </section>
+    <section class="narrow-section" aria-labelledby="first-stack-live">
+      <h2 id="first-stack-live">Deploy a tiny first stack</h2>
+      <p><code>web-tiny</code> is the bounded teaching path: two components, each holding one ConfigMap in the <code>web</code> namespace. The steps below continue beyond upload into two ConfigHub Bases, two target-bound dev variants, two Releases, two Argo CD Applications, and two object checks. They are a runnable path, not a retained live receipt, and they do not claim that every arbitrary stack is safe to deploy this way.</p>
+      <h3>1. Check the composition and create a target</h3>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.56
+
+<span class="term-prompt">$</span> cub stack check web-tiny
+CHECKED; two ConfigMaps; no cluster write
+
+<span class="term-prompt">$</span> cub auth login
+
+<span class="term-prompt">$</span> cub cluster up --name workshop
+
+<span class="term-prompt">$</span> source ~/.confighub/clusters/workshop.env</code></pre>
+      <h3>2. Download the same two component files</h3>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.56/components/frontend-config.yaml
+
+<span class="term-prompt">$</span> curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.56/components/backend-config.yaml</code></pre>
+      <p>Read both files. The first component owns the Namespace; the second reuses it, so two Argo Applications do not compete to manage the same Namespace object.</p>
+      <h3>3. Import, place, and release each component</h3>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub variant upload --component first-stack-frontend --variant base --namespace web --create-namespace ./frontend-config.yaml
+
+<span class="term-prompt">$</span> cub variant upload --component first-stack-backend --variant base --namespace web ./backend-config.yaml
+
+<span class="term-prompt">$</span> cub variant create dev first-stack-frontend-base --target workshop/target --namespace web
+
+<span class="term-prompt">$</span> cub variant create dev first-stack-backend-base --target workshop/target --namespace web
+
+<span class="term-prompt">$</span> cub release publish first-stack-frontend-dev
+
+<span class="term-prompt">$</span> cub release publish first-stack-backend-dev</code></pre>
+      <h3>4. Prove controller and cluster state</h3>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> kubectl get applications -n argocd first-stack-frontend-dev first-stack-backend-dev
+both rows must report Synced and Healthy
+
+<span class="term-prompt">$</span> kubectl get configmap -n web frontend-config backend-config</code></pre>
+      <p>The Releases prove ConfigHub accepted immutable desired configuration. The Argo rows prove the controller saw it. The ConfigMaps prove the target received both components. If one checkpoint is missing, stop there instead of calling the stack live.</p>
+      <p>The Workshop plugin source also contains a bounded <code>cub stack deploy web-tiny --target workshop/target --run</code> helper that performs step 3 and refuses every other stack. Use it only from a released plugin version whose help lists <code>stack deploy</code>; the pinned release on this page keeps the explicit commands so the Guide remains runnable today.</p>
+    </section>
     <section class="narrow-section">
       <details class="deep" id="shipped-stacks">
       <summary>The stacks that ship, by altitude</summary>
@@ -879,7 +902,7 @@ cub stack check my-platform/stack.yaml</code></pre>
     </section>
     <section class="narrow-section" aria-labelledby="becoming">
       <h2 id="run-and-govern">Run and govern it</h2>
-      <p><code>cub stack upload &lt;name&gt; --run</code> checks first, then builds one base Space per component in ConfigHub and the links the manifest declares. Without <code>--run</code> it prints the plan and changes nothing. From there ConfigHub's own verbs take over: <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree.</p>
+      <p><code>cub stack upload &lt;name&gt; --run</code> checks first, then builds one base Space per component in ConfigHub and the links the manifest declares. It does not place or release those components. Without <code>--run</code> it prints the plan and changes nothing. The <a href="#first-stack-live">tiny first stack</a> shows the additional target placement, Release, controller, and live-object checkpoints explicitly. From there ConfigHub's own verbs take over: <code>cub variant create</code> places a base on a target, <code>cub release publish</code> releases it by digest, and <code>cub variant promote</code> moves a reviewed change up the tree.</p>
       <p>A fleet places a stack across many clusters as data. <code>cub fleet up meridian</code> scaffolds ten regional cluster Spaces, uploads twenty component bases, and places and releases their deployments through those same governed verbs. <code>cub fleet status meridian</code> then recomputes four attention tiles, blocking gates, unreleased changes, upgrades available, and outstanding rollouts, from the queries the product runs. <a href="./d/docs/planning/stack-manifest-spec.html">The fleet model is specified alongside the stack manifest</a>.</p>
       <p>A stack can also leave as OCI with no account. <code>cub stack publish &lt;name&gt; --out oci://…</code> publishes it as an index of images with the manifest and verdict attached, and <code>cub stack sandbox &lt;name&gt; --out oci://…</code> publishes the flattened form a reconciler pulls. <a href="./d/docs/planning/oci-design-center.html">Every result is an image</a>. <a href="./oci.html">See every OCI shape in one table</a>.</p>
     </section>

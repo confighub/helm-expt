@@ -1,0 +1,667 @@
+apiVersion: workshop.confighub.com/v1alpha1
+kind: OnboardingJourneyContract
+metadata:
+  name: workshop-onboarding-journeys
+spec:
+  purpose: >-
+    Measure where a new evaluator stops between first awareness and a verified
+    live result, while keeping a release request separate from controller and
+    workload proof.
+
+  test:
+    mode: deterministic-persona-walk
+    repetitions: 3
+    network: forbidden
+    llm: forbidden
+    writes: forbidden
+    startPage: index.html
+    scope: >-
+      Read generated HTML locally, follow only local links, check the promised
+      Guide language, and replay every persona-to-journey route identically.
+
+  tokenPolicy:
+    measurementEvent: onboarding_token_path_selected
+    measurementProperties:
+      - journey_id
+      - path_id
+      - estimate_kind
+      - estimated_input_min_tokens
+      - estimated_input_max_tokens
+      - estimated_output_min_tokens
+      - estimated_output_max_tokens
+    actualUsageEvent: onboarding_token_usage_observed
+    actualUsageProperties:
+      - journey_id
+      - path_id
+      - actual_input_tokens
+      - actual_output_tokens
+    unit: tokens
+    pricing: excluded
+    estimateRule: >-
+      Estimated ranges are broad planning ranges for bounded context, not
+      measured usage, a provider quote, or a model-specific promise.
+    actualUsageRule: >-
+      Record actual input and output tokens separately when the user's agent
+      exposes them; never infer billing from this contract.
+    zeroPathRule: >-
+      A deterministic zero-token path makes no LLM call. It can still use the
+      browser, local files, CLI tools, a registry, ConfigHub, or a cluster.
+
+  stages:
+    - id: awareness
+      question: Did the person encounter ConfigHub or the Workshop?
+      successSignal:
+        event: onboarding_entry_viewed
+        source: browser
+        passWhen: A qualified visitor views a ConfigHub or Workshop entry surface.
+      exitReasonIds:
+        - no-qualified-arrival
+        - value-not-visible
+
+    - id: problem-recognition
+      question: Did they recognize their problem and tools in the promise?
+      successSignal:
+        event: onboarding_problem_matched
+        source: browser
+        passWhen: The visitor selects a journey that names their job, input, or delivery controller.
+      exitReasonIds:
+        - problem-not-named
+        - tool-not-recognized
+
+    - id: find
+      question: Could they find the right Guide without guessing product nouns?
+      successSignal:
+        event: onboarding_guide_opened
+        source: browser
+        passWhen: The intended Guide opens from an entry surface within its click budget.
+      exitReasonIds:
+        - guide-not-found
+        - route-too-deep
+
+    - id: understand
+      question: Does the Guide explain the input, result, non-result, and next proof?
+      successSignal:
+        event: onboarding_outcome_understood
+        source: browser-or-test
+        passWhen: The person can state what will be created, what will not be deployed yet, and how success is checked.
+      exitReasonIds:
+        - jargon-blocked
+        - outcome-unclear
+
+    - id: start
+      question: Did they begin the first bounded action?
+      successSignal:
+        event: onboarding_first_action_started
+        source: browser-or-cli
+        passWhen: The first command or guided browser action starts with its prerequisites satisfied.
+      exitReasonIds:
+        - prerequisite-blocked
+        - first-action-failed
+
+    - id: first-value
+      question: Did they see and verify a useful result?
+      successSignal:
+        event: onboarding_first_value_verified
+        source: browser-or-cli
+        passWhen: The expected component, diff, object set, digest, app, or stack is visible and checked.
+      exitReasonIds:
+        - artifact-not-visible
+        - result-not-explained
+
+    - id: delivery-requested
+      question: Was an exact release requested for an explicit target?
+      successSignal:
+        event: onboarding_delivery_requested
+        source: confighub
+        passWhen: ConfigHub records a release request for the intended target and revision.
+      exitReasonIds:
+        - target-not-connected
+        - release-not-requested
+
+    - id: verified-live
+      question: Did the delivery controller and workload converge?
+      successSignal:
+        event: onboarding_live_state_verified
+        source: controller-and-workload
+        passWhen: Controller state and workload or object state are both checked; a release request alone never passes.
+      exitReasonIds:
+        - controller-not-observed
+        - workload-not-converged
+
+    - id: expand-return
+      question: Did they start the next relevant Guide or return to continue?
+      successSignal:
+        event: onboarding_next_journey_started
+        source: browser-or-confighub
+        passWhen: The person starts the named next journey in-session or returns within the agreed activation window.
+      exitReasonIds:
+        - no-next-guide
+        - no-return
+
+  exitReasons:
+    - id: no-qualified-arrival
+      stage: awareness
+      meaning: No relevant visitor reached a ConfigHub or Workshop entry surface.
+    - id: value-not-visible
+      stage: awareness
+      meaning: The entry surface did not make a concrete outcome visible.
+    - id: problem-not-named
+      stage: problem-recognition
+      meaning: The visitor could not match their job to a journey.
+    - id: tool-not-recognized
+      stage: problem-recognition
+      meaning: The visitor could not see their existing format or delivery controller.
+    - id: guide-not-found
+      stage: find
+      meaning: The intended Guide was not reachable from the chosen entry surface.
+    - id: route-too-deep
+      stage: find
+      meaning: The intended Guide exceeded its allowed click budget.
+    - id: jargon-blocked
+      stage: understand
+      meaning: Product nouns appeared before a plain-language job and relationship.
+    - id: outcome-unclear
+      stage: understand
+      meaning: The person could not distinguish create, release requested, and verified live.
+    - id: prerequisite-blocked
+      stage: start
+      meaning: An account, tool, credential, or cluster prerequisite appeared too late or could not be satisfied.
+    - id: first-action-failed
+      stage: start
+      meaning: The first bounded command or browser action did not complete.
+    - id: artifact-not-visible
+      stage: first-value
+      meaning: The promised component, diff, object set, digest, app, or stack was not visible.
+    - id: result-not-explained
+      stage: first-value
+      meaning: A result existed but the person could not relate it to the source or next action.
+    - id: target-not-connected
+      stage: delivery-requested
+      meaning: No explicit target could receive the reviewed release.
+    - id: release-not-requested
+      stage: delivery-requested
+      meaning: The person reached a reviewed result but did not request delivery.
+    - id: controller-not-observed
+      stage: verified-live
+      meaning: The release was requested but Argo CD, Flux, or the selected controller was not checked.
+    - id: workload-not-converged
+      stage: verified-live
+      meaning: Controller evidence existed but the workload or expected objects did not converge.
+    - id: no-next-guide
+      stage: expand-return
+      meaning: The completed Guide did not offer a relevant next journey.
+    - id: no-return
+      stage: expand-return
+      meaning: The person did not continue or return inside the activation window.
+
+  personas:
+    - id: ai-assisted-configuration-user
+      situation: Already uses an AI coding agent and wants one bounded configuration answer rather than a broad autonomous project.
+      needs: A smallest-file-first Catalog route, explicit local and mutating boundaries, broad token estimates, and a zero-token fallback when rendered YAML already exists.
+      journeyIds:
+        - ask-ai-assisted-configuration
+        - agent-catalog-skill-path
+
+    - id: first-time-saas-evaluator
+      situation: Knows Kubernetes or Git but not ConfigHub product nouns.
+      needs: A browser-first sample, a short relationship glossary, and an explicit statement that nothing deploys yet.
+      journeyIds:
+        - browser-guided-first-component
+        - first-live-app
+
+    - id: application-and-stack-developer
+      situation: Wants a small app or multi-component stack running with very few decisions.
+      needs: Copyable examples, bounded defaults, and separate release and runtime checks.
+      journeyIds:
+        - first-live-app
+        - tiny-two-component-stack
+
+    - id: brownfield-gitops-operator
+      situation: Already runs Argo CD or Flux and must preserve controller behavior during adoption.
+      needs: Read-only discovery, ownership boundaries, reversible handover, and ongoing source-change proof.
+      journeyIds:
+        - brownfield-argo-app-of-apps
+        - brownfield-flux-fleet
+
+    - id: fleet-platform-engineer
+      situation: Operates multiple environments, clusters, or cloud accounts.
+      needs: Root-to-descendant visibility, staged rollout, target evidence, and fleet-scale recovery.
+      journeyIds:
+        - tiny-two-component-stack
+        - brownfield-flux-fleet
+        - aicr-or-oci-package
+
+    - id: helm-and-oci-maintainer
+      situation: Starts with a chart, values, rendered YAML, or an OCI package.
+      needs: Source-to-object provenance, exact before-and-after output, and digest identity.
+      journeyIds:
+        - helm-chart-change
+        - aicr-or-oci-package
+
+    - id: change-and-release-reviewer
+      situation: Must understand what changes, why it is safe, and how to recover.
+      needs: Exact diffs, approvals, target checks, controller proof, and a rehearsed rollback boundary.
+      journeyIds:
+        - helm-chart-change
+        - diff-promote-and-rollback
+
+    - id: enterprise-example-evaluator
+      situation: Needs concrete examples before deciding whether ConfigHub fits an existing estate.
+      needs: Small before-and-after apps, stacks, and controller examples with source, release, and live relationships shown.
+      journeyIds:
+        - browser-guided-first-component
+        - first-live-app
+        - tiny-two-component-stack
+        - diff-promote-and-rollback
+
+  journeys:
+    - id: ask-ai-assisted-configuration
+      name: Ask with browser or AI-assisted configuration review
+      personaIds:
+        - ai-assisted-configuration-user
+      job: Choose the smallest route that answers one configuration question, using the zero-token browser check for rendered YAML or a bounded local-agent investigation for chart inputs.
+      entryPage: index.html
+      destinationPage: ask.html
+      maxClicks: 1
+      contentMarkers:
+        - Is my configuration right?
+        - Already have rendered YAML? Check it in this browser with no AI needed.
+        - Build instructions for my AI
+        - Neither route deploys your configuration.
+      terminalStage: first-value
+      startAction: Select one question, then either load rendered YAML in the browser or build bounded instructions for the local agent.
+      firstValue: A local review names the exact inputs and objects, the finding, what did not run, and the next check without claiming deployment.
+      nextJourneyId: agent-catalog-skill-path
+      tokenPlan:
+        tokenOptimalPathId: browser-rendered-yaml
+        selectionRule: Use the zero-token browser path when rendered YAML already exists; use the estimated agent path only when source materialization or diagnosis is still needed.
+        paths:
+          - id: browser-rendered-yaml
+            kind: deterministic-zero
+            estimateLabel: Deterministic zero-token local path
+            inputTokens: { min: 0, max: 0 }
+            outputTokens: { min: 0, max: 0 }
+            assumptions:
+              - No AI or LLM assistant is invoked.
+              - The person already has bounded rendered Kubernetes YAML to check in the browser.
+            optimization: Load only the rendered files needed for this question and download the review; do not generate an AI prompt unless a finding remains unexplained.
+            pricing: not-estimated
+          - id: bounded-local-agent
+            kind: estimated-range
+            estimateLabel: Estimated broad token range
+            inputTokens: { min: 10000, max: 30000 }
+            outputTokens: { min: 1000, max: 4000 }
+            assumptions:
+              - One bounded chart or source, one values set, and one selected question are in scope.
+              - Local tools render and diff the objects; large raw manifests and chart source are summarized rather than pasted into the agent context.
+              - Repositories, unusually large renders, or repeated repair turns require a fresh estimate.
+            rangeBasis: The agent receives the generated instructions, bounded source context, and local command summaries, then returns one finding and the unrun checks.
+            optimization: Ask one question, run deterministic render and diff tools locally, and return changed pointers and summaries instead of whole manifests.
+            pricing: not-estimated
+      watchExitReasonIds:
+        - outcome-unclear
+        - first-action-failed
+        - result-not-explained
+
+    - id: agent-catalog-skill-path
+      name: Catalog-first agent and Workshop skill
+      personaIds:
+        - ai-assisted-configuration-user
+      job: Route one agent question through llms.txt, one section index, one per-entry listing, the matching Guide, and the Workshop skill without loading the whole Catalog.
+      entryPage: index.html
+      destinationPage: ai.html
+      maxClicks: 1
+      contentMarkers:
+        - Use Claude or Codex for Kubernetes configuration
+        - Install the ConfigHub Workshop skill
+        - Read the one entry you need instead of the whole catalog.
+        - npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop
+      supportFiles:
+        - path: site/llms.txt
+          markers:
+            - ConfigHub Workshop agent skill
+            - Every maintained entry has one listing
+            - Missing coverage means we have not checked that claim.
+        - path: site/guides.json
+          markers:
+            - '"id": "ai"'
+            - '"title": "Use ConfigHub Workshop with your AI agent"'
+        - path: site/listings/bitnami-redis-25-5-3-default.json
+          markers:
+            - '"kind": "CatalogListing"'
+            - '"listingVersion": "1"'
+            - '"generatedFrom"'
+        - path: skills/config-workshop/SKILL.md
+          markers:
+            - Read The Catalog First
+            - Look for a per-listing record
+            - Escalate Only As Far As The Question Needs
+      terminalStage: first-value
+      startAction: Give the agent one bounded question and require it to resolve the smallest relevant index, listing, Guide, and evidence before installing or mutating anything.
+      firstValue: The answer names the matched journey, exact source version or digest, checked coverage, unrun work, and the smallest justified next command.
+      nextJourneyId: ask-ai-assisted-configuration
+      tokenPlan:
+        tokenOptimalPathId: catalog-first-single-listing
+        selectionRule: Read llms.txt as the router, then one section row, one listing, and only the relevant skill or Guide sections.
+        paths:
+          - id: catalog-first-single-listing
+            kind: estimated-range
+            estimateLabel: Estimated broad token range
+            inputTokens: { min: 6000, max: 15000 }
+            outputTokens: { min: 500, max: 2000 }
+            assumptions:
+              - The question maps to one known Guide or Catalog entry and needs at most one per-entry listing.
+              - The agent reads selected machine records and relevant skill sections, not catalog.json, every listing, or every Guide.
+              - User files, multi-entry comparisons, or additional investigation turns require a fresh estimate.
+            rangeBasis: The context contains the short router, one row or listing, the matched task rules, and compact command evidence for one answer.
+            optimization: Resolve the listing id first, read one listing and its coverage, and stop as soon as the bounded question is answered or the next missing input is named.
+            pricing: not-estimated
+      watchExitReasonIds:
+        - guide-not-found
+        - outcome-unclear
+        - result-not-explained
+
+    - id: browser-guided-first-component
+      name: First browser tutorial and Component
+      personaIds:
+        - first-time-saas-evaluator
+        - enterprise-example-evaluator
+      job: Create and inspect a sample Component and reusable Base without implying that it deployed.
+      entryPage: index.html
+      destinationPage: confighub.html
+      maxClicks: 1
+      contentMarkers:
+        - Upload a reviewed configuration into ConfigHub
+        - Open the tutorial
+      terminalStage: first-value
+      startAction: Open the guided SaaS tutorial and create the sample Component.
+      firstValue: The sample Base is visible with its source and the explanation that no target has received it.
+      nextJourneyId: first-live-app
+      tokenPlan:
+        tokenOptimalPathId: guided-browser
+        selectionRule: Use the guided browser tutorial directly; an AI explanation is optional and is not part of this measured path.
+        paths:
+          - id: guided-browser
+            kind: deterministic-zero
+            estimateLabel: Deterministic zero-token local path
+            inputTokens: { min: 0, max: 0 }
+            outputTokens: { min: 0, max: 0 }
+            assumptions:
+              - No AI or LLM assistant is invoked.
+              - The evaluator uses the shipped sample in the browser.
+            optimization: Open the tutorial directly and defer extra conceptual reading until the sample Base is visible.
+            pricing: not-estimated
+      watchExitReasonIds:
+        - jargon-blocked
+        - artifact-not-visible
+        - result-not-explained
+
+    - id: first-live-app
+      name: First live application
+      personaIds:
+        - first-time-saas-evaluator
+        - application-and-stack-developer
+        - enterprise-example-evaluator
+      job: Take one small namespaced application from checked YAML to a ConfigHub Release and a live workload.
+      entryPage: index.html
+      destinationPage: put-an-app-on-a-platform.html
+      maxClicks: 1
+      contentMarkers:
+        - Deploy the first app, end to end
+        - cub release publish acme-web-dev
+        - kubectl get application -n argocd acme-web-dev
+        - kubectl -n acme-web rollout status deployment/acme-web --timeout=5m
+      terminalStage: expand-return
+      startAction: Check and upload the small application example.
+      firstValue: The Base and target-bound development variant are visible and inspectable.
+      deliveryRequested: ConfigHub records the exact application Release requested for the selected target.
+      verifiedLive: The Argo CD Application is observed and the application Deployment reaches Available.
+      nextJourneyId: tiny-two-component-stack
+      tokenPlan:
+        tokenOptimalPathId: bounded-app-guide
+        selectionRule: Follow the exact app Guide and its bounded commands without asking an agent to rediscover the flow.
+        paths:
+          - id: bounded-app-guide
+            kind: deterministic-zero
+            estimateLabel: Deterministic zero-token local path
+            inputTokens: { min: 0, max: 0 }
+            outputTokens: { min: 0, max: 0 }
+            assumptions:
+              - No AI or LLM assistant is invoked.
+              - The shipped acme-web example and documented target shape are used unchanged.
+            optimization: Run only the Guide commands and the two named live checks; do not load unrelated app examples.
+            pricing: not-estimated
+      watchExitReasonIds:
+        - prerequisite-blocked
+        - release-not-requested
+        - workload-not-converged
+
+    - id: tiny-two-component-stack
+      name: Tiny two-component stack
+      personaIds:
+        - application-and-stack-developer
+        - fleet-platform-engineer
+        - enterprise-example-evaluator
+      job: Check and deploy two related components with one bounded stack example.
+      entryPage: index.html
+      destinationPage: compose-a-stack.html
+      maxClicks: 1
+      contentMarkers:
+        - Deploy a tiny first stack
+        - cub release publish first-stack-frontend-dev
+        - cub release publish first-stack-backend-dev
+        - kubectl get applications -n argocd first-stack-frontend-dev first-stack-backend-dev
+        - kubectl get configmap -n web frontend-config backend-config
+      terminalStage: expand-return
+      startAction: Check the shipped web-tiny stack before creating anything.
+      firstValue: Two Bases and two target-bound variants are visible with shared namespace ownership explained.
+      deliveryRequested: ConfigHub records one Release request for each component on the same target.
+      verifiedLive: Two Argo CD Applications and the two expected ConfigMaps are observed separately.
+      nextJourneyId: diff-promote-and-rollback
+      tokenPlan:
+        tokenOptimalPathId: bounded-stack-guide
+        selectionRule: Use the shipped web-tiny path directly before exploring larger stack composition.
+        paths:
+          - id: bounded-stack-guide
+            kind: deterministic-zero
+            estimateLabel: Deterministic zero-token local path
+            inputTokens: { min: 0, max: 0 }
+            outputTokens: { min: 0, max: 0 }
+            assumptions:
+              - No AI or LLM assistant is invoked.
+              - The two shipped components are used without custom composition.
+            optimization: Check and release only web-tiny, then stop after the two Application and ConfigMap checks.
+            pricing: not-estimated
+      watchExitReasonIds:
+        - outcome-unclear
+        - target-not-connected
+        - controller-not-observed
+
+    - id: brownfield-argo-app-of-apps
+      name: Existing Argo CD app-of-apps
+      personaIds:
+        - brownfield-gitops-operator
+      job: Bring an existing Argo CD root and descendants into ConfigHub without losing their relationships or pretending generated objects are source.
+      entryPage: index.html
+      destinationPage: bring-argo-into-confighub.html
+      maxClicks: 1
+      contentMarkers:
+        - Bring your Argo CD apps into ConfigHub
+        - app-of-apps estate
+      terminalStage: expand-return
+      startAction: Run read-only discovery against the root, child Applications, sources, and ownership boundaries.
+      firstValue: The root-to-child structure and chart-rendered descendants are visible with desired configuration separated from evidence.
+      deliveryRequested: An approved handover requests the root Release in dependency order and records the recovery point.
+      verifiedLive: Argo CD reports the root and descendants synced and the expected workloads or objects converge.
+      nextJourneyId: diff-promote-and-rollback
+      tokenPlan:
+        tokenOptimalPathId: argo-guide-and-tools
+        selectionRule: Use the read-only Argo Guide and its discovery commands; do not ask an LLM to ingest the estate for this measured path.
+        paths:
+          - id: argo-guide-and-tools
+            kind: deterministic-zero
+            estimateLabel: Deterministic zero-token local path
+            inputTokens: { min: 0, max: 0 }
+            outputTokens: { min: 0, max: 0 }
+            assumptions:
+              - No AI or LLM assistant is invoked.
+              - The operator can run the documented read-only discovery against the selected estate.
+            optimization: Inventory the root and referenced descendants once, then inspect only exceptions and ownership boundaries.
+            pricing: not-estimated
+      watchExitReasonIds:
+        - tool-not-recognized
+        - outcome-unclear
+        - controller-not-observed
+
+    - id: brownfield-flux-fleet
+      name: Existing Flux fleet
+      personaIds:
+        - brownfield-gitops-operator
+        - fleet-platform-engineer
+      job: Discover a Flux repository and move reviewed sources in dependency order while Flux remains the controller.
+      entryPage: index.html
+      destinationPage: bring-flux-into-confighub.html
+      maxClicks: 1
+      contentMarkers:
+        - Bring your Flux fleet into ConfigHub
+        - Flux stays the delivery controller
+      terminalStage: expand-return
+      startAction: Run the read-only Flux plan against a small disposable estate.
+      firstValue: The fleet layers, clusters, dependencies, Bases, and variants are mapped before handover.
+      deliveryRequested: Reviewed Releases replace the selected Flux sources in the declared order with recovery recorded.
+      verifiedLive: Flux reconciliation and the corresponding workloads or objects are both observed on each selected cluster.
+      nextJourneyId: diff-promote-and-rollback
+      tokenPlan:
+        tokenOptimalPathId: flux-guide-and-tools
+        selectionRule: Use the read-only Flux planner and generated records without sending repository contents to an LLM.
+        paths:
+          - id: flux-guide-and-tools
+            kind: deterministic-zero
+            estimateLabel: Deterministic zero-token local path
+            inputTokens: { min: 0, max: 0 }
+            outputTokens: { min: 0, max: 0 }
+            assumptions:
+              - No AI or LLM assistant is invoked.
+              - The operator starts with one small disposable estate as the Guide requires.
+            optimization: Plan one selected estate and inspect its summary and warnings before opening generated detail files.
+            pricing: not-estimated
+      watchExitReasonIds:
+        - prerequisite-blocked
+        - target-not-connected
+        - workload-not-converged
+
+    - id: helm-chart-change
+      name: Helm chart change with exact before and after
+      personaIds:
+        - helm-and-oci-maintainer
+        - change-and-release-reviewer
+      job: Show how chart source and values become reviewed Kubernetes objects and how one change flows to a target.
+      entryPage: index.html
+      destinationPage: change-a-config-safely.html
+      maxClicks: 2
+      contentMarkers:
+        - Change a config safely
+        - Does the change alter what Helm renders
+      terminalStage: expand-return
+      startAction: Render the current and candidate chart inputs without applying them.
+      firstValue: An object-level before-and-after diff is visible with source, values, and retained choices related.
+      deliveryRequested: The approved candidate digest is requested as a ConfigHub Release for the test target.
+      verifiedLive: The controller consumes that digest and the expected workload change converges without unexplained drift.
+      nextJourneyId: diff-promote-and-rollback
+      tokenPlan:
+        tokenOptimalPathId: local-render-and-diff
+        selectionRule: Render and compare the two bounded inputs locally; use an AI assistant only if the deterministic diff leaves an unresolved question.
+        paths:
+          - id: local-render-and-diff
+            kind: deterministic-zero
+            estimateLabel: Deterministic zero-token local path
+            inputTokens: { min: 0, max: 0 }
+            outputTokens: { min: 0, max: 0 }
+            assumptions:
+              - No AI or LLM assistant is invoked.
+              - The chart, versions, and values are already identified.
+            optimization: Compare normalized objects and summaries instead of reading whole chart sources or manifests conversationally.
+            pricing: not-estimated
+      watchExitReasonIds:
+        - result-not-explained
+        - release-not-requested
+        - workload-not-converged
+
+    - id: aicr-or-oci-package
+      name: AICR or existing OCI package
+      personaIds:
+        - fleet-platform-engineer
+        - helm-and-oci-maintainer
+      job: Inspect a package, retain exact provenance and digest identity, then prove only the environments actually tested.
+      entryPage: index.html
+      destinationPage: try-aicr.html
+      maxClicks: 1
+      contentMarkers:
+        - Compare GPU nodes and pull an AICR config
+        - OCI
+      terminalStage: expand-return
+      startAction: Pull and inspect the public package locally without an account or cluster.
+      firstValue: The exact object set, provenance, digest, and unrun hardware or lifecycle checks are visible.
+      deliveryRequested: The reviewed package digest is requested for an explicit compatible target.
+      verifiedLive: The controller and workload evidence are checked on that target; an unrun GPU or hardware check remains unproven.
+      nextJourneyId: diff-promote-and-rollback
+      tokenPlan:
+        tokenOptimalPathId: local-package-inspection
+        selectionRule: Pull and inspect the exact package with deterministic tools before requesting any AI interpretation.
+        paths:
+          - id: local-package-inspection
+            kind: deterministic-zero
+            estimateLabel: Deterministic zero-token local path
+            inputTokens: { min: 0, max: 0 }
+            outputTokens: { min: 0, max: 0 }
+            assumptions:
+              - No AI or LLM assistant is invoked.
+              - The immutable package reference and intended target profile are known.
+            optimization: Read the package inventory, provenance, and recorded gaps; avoid loading every retained AICR version.
+            pricing: not-estimated
+      watchExitReasonIds:
+        - outcome-unclear
+        - target-not-connected
+        - workload-not-converged
+
+    - id: diff-promote-and-rollback
+      name: Diff, promote, verify, and roll back
+      personaIds:
+        - change-and-release-reviewer
+        - enterprise-example-evaluator
+      job: Compare environments, approve the exact revision, promote it, verify delivery, and retain a bounded recovery path.
+      entryPage: index.html
+      destinationPage: promote.html
+      maxClicks: 1
+      contentMarkers:
+        - Can I promote this configuration
+        - Roll back the selected release
+      terminalStage: expand-return
+      startAction: Compare the accepted development revision with the current production revision and target facts.
+      firstValue: The exact diff, checks, approval boundary, and current evidence gaps are visible.
+      deliveryRequested: The approved revision is requested for the next target while the prior digest is retained.
+      verifiedLive: Controller and workload state converge on the approved revision, and any rollback claim has its own observed result.
+      nextJourneyId: helm-chart-change
+      tokenPlan:
+        tokenOptimalPathId: deterministic-promotion-review
+        selectionRule: Use the browser or CLI diff and retained receipts directly; request AI review only for a named unresolved risk.
+        paths:
+          - id: deterministic-promotion-review
+            kind: deterministic-zero
+            estimateLabel: Deterministic zero-token local path
+            inputTokens: { min: 0, max: 0 }
+            outputTokens: { min: 0, max: 0 }
+            assumptions:
+              - No AI or LLM assistant is invoked.
+              - Current, proposed, target, and prior-release records are available.
+            optimization: Read the exact diff, failed checks, and rollback boundary rather than replaying the full change history.
+            pricing: not-estimated
+      watchExitReasonIds:
+        - outcome-unclear
+        - controller-not-observed
+        - no-next-guide
+
+  limits:
+    - This local contract test checks structure, discoverability, wording markers, and deterministic routing; it is not an outside-user usability trial.
+    - It does not create a ConfigHub account, request a real release, contact a controller, or prove a workload live.
+    - A live-stage success event requires separate controller and workload evidence; this validator never manufactures that evidence.

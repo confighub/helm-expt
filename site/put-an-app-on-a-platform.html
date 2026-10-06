@@ -31,16 +31,6 @@
       --heading: Inter, ui-sans-serif, system-ui, sans-serif;
       --term: #0e1419;
     }
-
-    :root[data-theme="dark"] {
-      color-scheme: dark;
-      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
-      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
-    }
-    :root[data-theme="light"] {
-      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
-      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
-    }
     * { box-sizing: border-box; }
     input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
     html { scroll-behavior: smooth; }
@@ -354,12 +344,6 @@
     .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
     .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
     .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
-
-    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
-    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
-    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
-    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
-    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
     .row-links { margin: 0; font-size: .9rem; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
@@ -627,12 +611,12 @@
 <a class="cw-skip" href="#cw-content">Skip to content</a>
 <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
 <div class="cw-layout no-toc cw-guide">
-<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./put-an-app-on-a-platform.html#try">Try it now</a></li><li><a href="./put-an-app-on-a-platform.html#demo">Follow the demo, step by step</a></li><li><a href="./put-an-app-on-a-platform.html#confighub">Take it into ConfigHub</a></li><li><a href="./put-an-app-on-a-platform.html#adopt">Bring an app that already runs</a></li><li><a href="./put-an-app-on-a-platform.html#app-in-full">What an app is, in full</a></li><li><a href="./put-an-app-on-a-platform.html#proof">Open working examples</a></li></ul>
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./put-an-app-on-a-platform.html#try">Try it now</a></li><li><a href="./put-an-app-on-a-platform.html#demo">Follow the demo, step by step</a></li><li><a href="./put-an-app-on-a-platform.html#confighub">Deploy the first app, end to end</a></li><li><a href="./put-an-app-on-a-platform.html#adopt">Bring an app that already runs</a></li><li><a href="./put-an-app-on-a-platform.html#app-in-full">What an app is, in full</a></li><li><a href="./put-an-app-on-a-platform.html#proof">Open working examples</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
 </nav>
 <div class="cw-content" id="cw-content" tabindex="-1">
-<details class="cw-mobile-nav"><summary>In this Guide</summary><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./put-an-app-on-a-platform.html#try">Try it now</a></li><li><a href="./put-an-app-on-a-platform.html#demo">Follow the demo, step by step</a></li><li><a href="./put-an-app-on-a-platform.html#confighub">Take it into ConfigHub</a></li><li><a href="./put-an-app-on-a-platform.html#adopt">Bring an app that already runs</a></li><li><a href="./put-an-app-on-a-platform.html#app-in-full">What an app is, in full</a></li><li><a href="./put-an-app-on-a-platform.html#proof">Open working examples</a></li></ul>
+<details class="cw-mobile-nav"><summary>In this Guide</summary><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./put-an-app-on-a-platform.html#try">Try it now</a></li><li><a href="./put-an-app-on-a-platform.html#demo">Follow the demo, step by step</a></li><li><a href="./put-an-app-on-a-platform.html#confighub">Deploy the first app, end to end</a></li><li><a href="./put-an-app-on-a-platform.html#adopt">Bring an app that already runs</a></li><li><a href="./put-an-app-on-a-platform.html#app-in-full">What an app is, in full</a></li><li><a href="./put-an-app-on-a-platform.html#proof">Open working examples</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
 </details>
@@ -640,10 +624,10 @@
     
     <p class="eyebrow">A Guide</p>
     <h1>Put an app on a platform</h1>
-    <p class="lead">The check confirms first that the platform carries what the app needs, then you promote the app across environments in ConfigHub.</p>
+    <p class="lead">Start with a four-object app you can actually release and observe. Then use the same model to check a richer app against the platform services it needs.</p>
     <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Check what my app needs, check it on &lt;platform&gt;, and tell me what to change on either side.”</aside>
     <p>The app lands on a <a href="./stack.html">stack</a> at the moment the stack check reads it. The <a href="./apps.html">Apps</a> list holds every worked example.</p>
-    <p style="margin-top:14px;font-size:.9rem"><a href="#try">Try it now</a> · <a href="#demo">Follow the demo, step by step</a> · <a href="#confighub">Take it into ConfigHub</a> · <a href="#adopt">Bring an app that already runs</a></p>
+    <p style="margin-top:14px;font-size:.9rem"><a href="#try">Check an app locally</a> · <a href="#confighub">Deploy the first app</a> · <a href="#demo">Check an app on a platform</a> · <a href="#adopt">Bring an app that already runs</a></p>
   </header>
   <main>
     <section aria-labelledby="try">
@@ -661,7 +645,7 @@
       <p>These three tiers build on each other, and you can stop at any one with a working result.</p>
       <div class="card"><table>
         <thead><tr><th>Tier</th><th>What you can do</th><th>The command</th></tr></thead>
-        <tbody><tr><td>Right now, free</td><td>Check what your app needs, then check it against a platform, with no cluster and no account.</td><td>cub app check &middot; cub stack sandbox</td></tr><tr><td>Connected to ConfigHub</td><td>Put the app on the stack next to the platform parts, uploaded as a base variant.</td><td>cub app upload &middot; stack placement</td></tr><tr><td>Inside ConfigHub</td><td>Operate the app on the running platform, with the same verbs as any component.</td><td>release &middot; promote &middot; gate &middot; roll back</td></tr></tbody>
+        <tbody><tr><td>Right now, free</td><td>Check what your app needs, then check it against a platform, with no cluster and no account.</td><td>cub app check &middot; cub stack sandbox</td></tr><tr><td>First live app</td><td>Import four plain-YAML objects, create a dev variant, publish it, and check Argo CD plus the workload.</td><td>cluster up &middot; variant upload/create &middot; release publish</td></tr><tr><td>Inside ConfigHub</td><td>Operate the running app with the same verbs as any component.</td><td>release &middot; promote &middot; gate &middot; roll back</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -682,31 +666,62 @@
       <p>Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/shop-platform.yaml">shop-platform manifest</a>, the <a href="https://github.com/confighub/cub-workshop/tree/main/apps">shipped apps</a>, and the <a href="https://github.com/confighub/cub-workshop/blob/main/proofs/assistant-composition-2026-09-02/journal.md">recorded composition</a>, where an assistant chose the parts and the check read them. <a href="./stack.html">Stacks</a> explains the manifest.</p>
     </section>
     <section aria-labelledby="confighub">
-      <h2 id="confighub">Take it into ConfigHub</h2>
-      <p>The free checks answer whether an app fits. ConfigHub is where the reviewed result becomes a shared record that a team can release, promote, and roll back.</p>
-      <h3>Once connected, put the app on the stack</h3>
-      <p><code>cub app upload</code> puts the app into ConfigHub, and a stack placement clones it next to the platform parts it needs. Each object becomes a Unit, and the app is now a base variant the check still reads as part of the whole stack.</p>
-      <pre class="terminal-body"><code><span class="term-comment"># a base Unit per object, cloned next to the platform</span>
-<span class="term-prompt">$</span> cub app upload shop-web --run
+      <h2 id="confighub">Deploy the first app, end to end</h2>
+      <p>This path uses one Namespace, ConfigMap, Deployment, and Service. It is deliberately small enough that you can relate the four source objects to the ConfigHub Base and dev variant, the immutable Release, the Argo CD Application, and the live workload.</p>
+      <p><strong>What you need:</strong> <code>cub</code>, Docker, kind, kubectl, and a ConfigHub Cloud account. The first check is local. The cluster and ConfigHub writes begin only when the commands say so.</p>
+      <h3>1. Download and check the exact input</h3>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.56
 
-<span class="term-comment"># place it on a cluster's target, in a Space named shop-web-demo-dev</span>
-<span class="term-prompt">$</span> cub variant create demo-dev shop-web-base --target demo-dev/target --space-pattern &quot;template:shop-web-demo-dev&quot;</code></pre>
-      <h3>Inside ConfigHub, operate the app on the platform</h3>
+<span class="term-prompt">$</span> curl -fsSLo acme-web.yaml https://confighub.github.io/helm-expt/site/examples/acme-web.yaml
+
+<span class="term-prompt">$</span> cub config check ./acme-web.yaml
+four Kubernetes objects; no account or cluster write</code></pre>
+      <p>Open <a href="./examples/acme-web.yaml">the downloaded YAML</a>. The Namespace is part of the app rather than an undeclared prerequisite. The <a href="https://github.com/confighub/helm-expt/blob/main/data/literal-config-examples/summary.md">retained import proof</a> records the same four-object set and its limits.</p>
+      <h3>2. Create one local destination</h3>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
+
+<span class="term-prompt">$</span> cub cluster up --name workshop
+
+<span class="term-prompt">$</span> source ~/.confighub/clusters/workshop.env
+
+<span class="term-prompt">$</span> cub target get workshop/target
+the ConfigHub target that represents this cluster</code></pre>
+      <p><code>cub cluster up</code> creates the kind cluster, installs Argo CD and the live-status helper, and creates <code>workshop/target</code>. Sourcing the generated file selects that cluster for the kubectl checks below.</p>
+      <h3>3. Save the Base and make the dev deployment</h3>
+      <pre class="terminal-body"><code><span class="term-comment"># save the four reviewed objects; nothing deploys yet</span>
+<span class="term-prompt">$</span> cub variant upload --component acme-web --variant base ./acme-web.yaml
+
+<span class="term-comment"># clone the Base and attach it to the real target</span>
+<span class="term-prompt">$</span> cub variant create dev acme-web-base --target workshop/target --namespace acme-web
+
+<span class="term-prompt">$</span> cub component open acme-web</code></pre>
+      <p>The component view should show <code>acme-web-base</code> and its target-bound <code>acme-web-dev</code> child. Upload stores configuration; variant creation chooses where the child belongs. Neither command should be described as a successful deployment yet.</p>
+      <h3>4. Publish, then prove every boundary</h3>
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub release publish acme-web-dev
+
+<span class="term-comment"># controller proof</span>
+<span class="term-prompt">$</span> kubectl get application -n argocd acme-web-dev
+the row must report Synced and Healthy
+
+<span class="term-comment"># workload proof</span>
+<span class="term-prompt">$</span> kubectl -n acme-web rollout status deployment/acme-web --timeout=5m
+
+<span class="term-comment"># running objects</span>
+<span class="term-prompt">$</span> kubectl -n acme-web get deployment,service,pods</code></pre>
+      <p>Read these as separate checkpoints: ConfigHub published a Release; Argo CD reports its Application; Kubernetes reports the Deployment ready. A green result at one boundary does not substitute for the next one. The product's maintained deploy-path test also checks the observed revision, ready replicas, ConfigHub origin metadata, and live-status feedback; this four-object Workshop fixture has a retained import receipt, while a fresh joined live receipt remains separate evidence.</p>
+      <h3>Continue with promotion, approval, and rollback</h3>
       <p>From here the app uses the same verbs as any platform component. The commands below are separate operation examples, not a sequence that installs an approval gate. For gated delivery, first configure the workflow and bind the ChangeOrder, then record the qualifying approval before attempting the gated operation. <a href="./operations.html">Operate saved configuration</a> and <a href="./variants.html">Variants</a> carry the detail.</p>
-      <pre class="terminal-body"><code><span class="term-comment"># release by digest; the reconciler pulls it</span>
-<span class="term-prompt">$</span> cub release publish shop-web-demo-dev
-
-<span class="term-comment"># preview a promotion, then run it without --dry-run</span>
-<span class="term-prompt">$</span> cub variant promote shop-web-demo-dev --dry-run
+      <pre class="terminal-body"><code><span class="term-comment"># preview a promotion, then run it without --dry-run</span>
+<span class="term-prompt">$</span> cub variant promote acme-web-dev --dry-run
 
 <span class="term-comment"># read the attestation prerequisite schema before configuring the ChangeWorkflow</span>
 <span class="term-prompt">$</span> cub changeworkflow create --help
 
-<span class="term-comment"># Review selected revisions, then approve this Space’s targeted Units</span>
-<span class="term-prompt">$</span> cub variant approve shop-web-demo-dev
+<span class="term-comment"># review selected revisions, then approve this Space's targeted Units</span>
+<span class="term-prompt">$</span> cub variant approve acme-web-dev
 
-<span class="term-comment"># roll back to a revision that already ran</span>
-<span class="term-prompt">$</span> cub unit update --space shop-web-demo-dev shop-web-deployment --restore 2</code></pre>
+<span class="term-comment"># inspect revision history before restoring an earlier one</span>
+<span class="term-prompt">$</span> cub unit list --space acme-web-dev</code></pre>
       <p>Each command reuses a verb from Operate. Release publishes by digest, and promote carries a reviewed change forward with a dry run first. Approval attestations satisfy a configured ChangeWorkflow prerequisite; recording an approval alone does not add a gate. This example assumes the reviewed workflow is already bound to the ChangeOrder when gated delivery is required. Roll back moves a Unit's head to a revision that already ran. <a href="./how-it-works.html">See every verb explained</a>.</p>
       <p>Check the current delivery gaps before you rely on gate order across an app's CRDs. <a href="./known-gaps.html">Read the known gaps</a>.</p>
     </section>

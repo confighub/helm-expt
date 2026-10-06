@@ -66,30 +66,6 @@
     --heading: Inter, ui-sans-serif, system-ui, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   }
-
-  :root[data-theme="dark"] {
-      color-scheme: dark;
-    --bg: #17130f; --surface: #201a14; --surface-2: #262019;
-    --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365;
-    --line: #322b23; --line-strong: #4a4034;
-    --accent: #e56a31; --accent-ink: #ee7b45;
-    --pass: #4bc07d; --pass-bg: #12291d;
-    --watch: #e0a648; --watch-bg: #2c2213;
-    --blocked: #ef7570; --blocked-bg: #2e1717;
-    --term-bg: #262019; --term-ink: #e3dcd1;
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
-  }
-  :root[data-theme="light"] {
-    --bg: #ffffff; --surface: #ffffff; --surface-2: #f3f0e9;
-    --ink: #221c15; --muted: #6e6659; --faint: #9c9285;
-    --line: #e7e1d6; --line-strong: #d5cec2;
-    --accent: #ba3d03; --accent-ink: #a33502;
-    --pass: #1f8a4c; --pass-bg: #e4f3ea;
-    --watch: #b5761a; --watch-bg: #f7ecd8;
-    --blocked: #c53a3a; --blocked-bg: #f7e2e2;
-    --term-bg: #221c15; --term-ink: #ede7dd;
-    --shadow: 0 1px 2px rgba(16,32,45,.06), 0 8px 24px rgba(16,32,45,.05);
-  }
   * { box-sizing: border-box; }
   body { margin: 0; }
   .wrap { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; }
@@ -161,9 +137,6 @@
   .qtable td:first-child { font-weight: 650; white-space: nowrap; }
   .btn { font-family: var(--sans); font-size: .92rem; font-weight: 560; padding: 11px 18px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; }
   .btn.primary { background: var(--accent); color: #fff; }
-
-  :root[data-theme="dark"] .btn.primary { color: #04222c; font-weight: 640; }
-  :root[data-theme="light"] .btn.primary { color: #fff; }
   .btn.ghost { border-color: var(--line-strong); color: var(--ink); background: var(--surface); }
   .btn.ghost:hover { border-color: var(--accent); }
   /* The third action is a different kind of thing from the first two. They are
@@ -410,7 +383,7 @@
           <span class="eyebrow">For your agent</span>
           <h2>Prompt Claude or Codex to get started</h2>
           <p class="intro">Paste this into Claude Code, Codex, or any agent that can run a shell.</p>
-          <p class="agent-prompt"><code>Use the ConfigHub Workshop catalog for Kubernetes config work. It holds known-good configurations across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, which lists the Catalog's five section files first (configs.json, stacks.json, apps.json, plugins.json and guides.json), read the one listing you need from https://confighub.github.io/helm-expt/site/listings/index.json, and do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack check` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code></p>
+          <p class="agent-prompt"><code>Use the ConfigHub Workshop catalog for Kubernetes config work. It holds known-good configurations across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, search only enough of the relevant section or listings index to identify one entry, then read that entry's listing and one relevant Guide. Do not load whole indexes or the whole catalog into model context. Do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack check` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code></p>
           <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt.</p>
           <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.</aside>
           <pre class="home-cmd"><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>

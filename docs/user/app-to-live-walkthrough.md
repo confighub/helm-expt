@@ -1,165 +1,150 @@
-# Your App To Live: Variants And Promotions End To End
+# Your First App To Live
 
-**UNOFFICIAL/EXPERIMENTAL.** This walkthrough answers one question: I have a
-simple app; how do I store it as a base, make staging and production variants,
-promote a change, and deliver each environment through GitOps?
-
-The variant and promotion sequence was run live on 2026-07-02. The cluster and
-OCI commands have since moved into the main `cub` CLI. The commands below use
-the current `cub cluster` and `cub release publish` path rather than preserving
-the retired command spelling from that run.
-
-The chain:
+**UNOFFICIAL/EXPERIMENTAL.** This walkthrough takes one small, self-contained
+application through the current ConfigHub deployment path:
 
 ```text
-your app (plain manifests)
-  -> cub variant upload        -> base Space
-  -> cub variant create (x2)   -> staging and production Spaces
-  -> cub release publish       -> one OCI release per environment
-  -> Argo CD pulls             -> the reviewed objects run on the cluster
-  -> edit base, promote        -> staged rollout, environment by environment
+four plain-YAML objects
+  -> Base in ConfigHub
+  -> target-bound dev variant
+  -> immutable Release
+  -> Argo CD Application
+  -> ready Kubernetes workload
 ```
 
-## Prerequisites
+It is intentionally narrower than the promotion and app-of-apps Guides. Finish
+one deployment with every checkpoint visible, then continue to those Guides.
 
-- `cub` installed and logged in (`cub auth login`).
-- Docker running (for the local kind cluster).
+## What you need
 
-## Step 1: Create a temporary cluster and its delivery target
+- `cub` installed and authenticated with `cub auth login`;
+- Docker, kind, and kubectl; and
+- a ConfigHub organization you can write to.
 
-```text
-cub cluster up --name demo --space demo-cluster
+The example is
+[`examples/plain-yaml/acme-web`](../../examples/plain-yaml/acme-web/README.md):
+one Namespace, one ConfigMap, one Deployment, and one Service. The Namespace is
+part of the input, so the first run does not depend on an undeclared namespace.
+
+## 1. Inspect the source before writing anything
+
+From this repository checkout:
+
+```sh
+for file in namespace.yaml configmap.yaml deployment.yaml service.yaml; do
+  printf '%s\n' '---'
+  cat "examples/plain-yaml/acme-web/$file"
+done > acme-web.yaml
+
+cub plugin install confighub/cub-workshop@v0.6.56
+cub config check ./acme-web.yaml
 ```
 
-This provisions a kind cluster, installs Argo CD, creates a `demo-cluster`
-Space with an OCI target (`demo-cluster/oci`), installs the OCI pull
-credentials, and bootstraps a root Application. Load the cluster credentials
-in any shell that needs `kubectl`:
+The check reads four Kubernetes objects. It does not write ConfigHub data or
+touch a cluster. The retained
+[plain-YAML import receipt](../../runs/literal-yaml-upload-proof/receipt.yaml)
+records this four-object import boundary, but explicitly does not claim a live
+deployment.
 
-```text
+## 2. Create one local cluster and target
+
+```sh
+cub cluster up --name demo
 source ~/.confighub/clusters/demo.env
+cub target get demo/target
 ```
 
-## Step 2: A simple app, three manifests
+`cub cluster up` creates a kind cluster, installs Argo CD and the live-status
+helper, and creates two ConfigHub Spaces: `demo` for the target and worker, and
+`demo-argo-apps` for the root Application and its children. The target used by
+deployments is `demo/target`.
 
-A Deployment, ConfigMap, and Service, all in one namespace. Any plain manifests
-work; nothing here is chart-specific. For a committed four-object starting
-fixture and a focused upload receipt, use the
-[plain YAML example](../../examples/plain-yaml/acme-web/README.md). This longer
-walkthrough continues past import into variants, releases, GitOps delivery, and
-promotion.
+Sourcing the generated environment file selects this cluster for the kubectl
+checks later in the Guide.
 
-## Step 3: Upload the base
+## 3. Import the Base
 
-```text
-cub variant upload --component acme-web --variant base \
-  --space acme-web-base --granularity per-resource ./app
+```sh
+cub variant upload \
+  --component acme-web \
+  --variant base \
+  ./acme-web.yaml
+
+cub component open acme-web
 ```
 
-One Unit per resource lands in `acme-web-base`, links inferred from references. The upload warns about anything your manifests reference but do not contain (for example the namespace, or a Secret it expects to exist): read those warnings, they are the honest list of what the target cluster must provide.
+Checkpoint: the Component view shows `acme-web-base` and the same four objects.
+Nothing has deployed. The input YAML is the source; the Base is the reusable
+configuration ConfigHub now manages.
 
-## Step 4: Staging and production variants
+## 4. Create the dev deployment
 
-```text
-cub variant create staging acme-web-base \
-  --space-pattern "template:acme-web-staging" \
-  --environment Staging --namespace acme-staging \
-  --target demo-cluster/oci
-
-cub variant create production acme-web-base \
-  --space-pattern "template:acme-web-prod" \
-  --environment Prod --namespace acme-prod \
-  --target demo-cluster/oci \
-  --unit-delete-gate customer-demo --unit-destroy-gate customer-demo
+```sh
+cub variant create dev acme-web-base \
+  --target demo/target \
+  --namespace acme-web
 ```
 
-Each clone records its upstream link (promotion follows it later), rewrites the namespace on every cloned Unit (verified: the staging ConfigMap says `namespace: acme-staging`, prod says `acme-prod`), and production's Units are gated against accidental delete and destroy. Pass `--space-pattern` for a predictable Space name; the server default produces a longer derived slug.
+Checkpoint: the Component view now shows `acme-web-dev` beneath the Base and
+attached to `demo/target`. Current `cub variant create --target` also creates
+the child Argo CD Application in `demo-argo-apps`; there is no manual
+Application-Unit step.
 
-## Step 5: Publish one release OCI for each environment
+Creating the variant chooses the destination. It still does not prove that the
+application is running.
 
-```text
-cub release publish acme-web-staging
-cub release publish acme-web-prod
+## 5. Publish and prove each boundary
+
+```sh
+cub release publish acme-web-dev
+
+# Controller checkpoint
+kubectl get application -n argocd acme-web-dev
+
+# Workload checkpoint
+kubectl wait -n acme-web \
+  --for=condition=Available deployment/acme-web \
+  --timeout=180s
+
+# Delivered objects
+kubectl get deployment,service,pods -n acme-web
 ```
 
-Each command packages the exact Units in that Space. The pull URLs are
-`oci://oci.hub.confighub.com:443/space/acme-web-staging` and
-`oci://oci.hub.confighub.com:443/space/acme-web-prod`.
+Do not collapse these into one green check:
 
-## Step 6: Tell Argo about the two environments, as config
+| Checkpoint | What it establishes |
+| --- | --- |
+| `cub release publish` | ConfigHub accepted an immutable desired release. |
+| Argo CD Application | The controller observed and reconciled that delivery request. |
+| Deployment Available | Kubernetes reports the workload ready. |
+| Service and Pods | The expected live objects exist in the chosen namespace. |
 
-The Argo `Application` objects are themselves Units in the cluster Space, so even the delivery wiring is versioned config:
+The maintained product deployment E2E additionally checks the exact observed
+revision, ready replica count, ConfigHub origin metadata, and the live-status
+feedback reported by argobot. This exact four-object fixture has retained
+import evidence; a fresh joined live receipt for it is still a separate test,
+so this document does not present the old 2026-07-02 run as current proof.
 
-```text
-cub unit create --space demo-cluster acme-web-staging-app app-staging.yaml \
-  --target demo-cluster/oci --change-desc "Argo Application for the staging variant"
-```
+## 6. Continue from a working result
 
-The Application source is the Space release OCI:
-
-```yaml
-source:
-  repoURL: oci://oci.hub.confighub.com:443/space/acme-web-staging
-  targetRevision: latest
-  path: .
-```
-
-Same again for prod (path `./acme-web-prod`, destination namespace `acme-prod`).
-
-## Step 7: Publish the cluster Space, and watch it become real
-
-```text
-cub release publish demo-cluster
-```
-
-The root Application created by `cub cluster up` reads the cluster Space
-release and creates the two child Applications. Each child pulls its
-environment's release OCI. In the recorded run, both apps reached
-`Synced/Healthy` and both namespaces served `VERSION 1`.
-
-## Step 8: The staged rollout
-
-Change the base with a function (a recorded revision with your reason), then promote one environment at a time:
-
-```text
-cub run set-yq --space acme-web-base --unit acme-configmap-acme-web-content \
-  --change-desc "Release VERSION 2 of the content" \
-  '.data."index.html" = "acme-web VERSION 2\n"'
-
-cub variant promote acme-web-staging --dry-run
-cub variant promote acme-web-staging --change-desc "Promote VERSION 2 to staging"
-cub release publish acme-web-staging
-```
-
-Observed live state after that, and this is the point of the whole model:
-
-```text
-staging: acme-web VERSION 2
-prod:    acme-web VERSION 1
-```
-
-Two environments, one reviewed base, the difference explicit and deliberate. Then the same two commands for `acme-web-prod`, and both environments read `VERSION 2`. The prod Unit's revision history tells the story in three lines: `CloneUnit` (the variant was created), `Invoke` (the namespace rewrite), `UpgradeUnit` (the promotion).
-
-## Honest notes from the live run
-
-- Use `cub run set-yq` (or another mutating function) to edit data. Its read-only sibling `yq` accepts `--change-desc` and exits cleanly while changing nothing; if a promote then says nothing needs upgrading, check the base actually gained a revision (`cub revision list`).
-- `cub variant promote --dry-run` prints a correct would-upgrade summary. `--dry-run -o mutations` currently prints nothing; do not read its silence as "nothing to promote".
-- Right after content lands, Argo can briefly report `OutOfSync` with the content already correct; it settles on the next reconcile.
-- The cluster's kubeconfig is its own file
-  (`~/.confighub/clusters/<name>.kubeconfig`); source the generated env file
-  rather than assuming your default kubeconfig has the context.
+- To change the Base and promote the reviewed result, follow
+  [variants after upload](./variants-after-upload.md) and the
+  [official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/).
+- To bring an existing Argo CD app or app-of-apps estate, use
+  [Bring your Argo CD apps into ConfigHub](https://confighub.github.io/helm-expt/site/bring-argo-into-confighub.html).
+  It begins read-only and preserves Argo CD as the delivery controller.
+- To check an application together with platform dependencies, continue to
+  [Put an app on a platform](https://confighub.github.io/helm-expt/site/put-an-app-on-a-platform.html).
 
 ## Teardown
 
-```text
+Only remove the resources created by this walkthrough:
+
+```sh
 cub cluster down --name demo
-cub space delete acme-web-staging --recursive
-cub space delete acme-web-prod --recursive-force   # gates block plain delete, by design
+cub space delete acme-web-dev --recursive
 cub space delete acme-web-base --recursive
 ```
 
-## Where this fits
-
-- The variant model and the decision rule behind it: [variants after upload](./variants-after-upload.md).
-- Delivery shapes beyond Argo, including Flux and the no-controller path: [cub deployment path](./cub-deployment-path.md).
-- The catalog's receipted evidence for the same mechanism per chart base variant: the master matrix Promotion lane.
+If deletion is refused, read the named dependency or gate instead of forcing a
+broad cleanup.

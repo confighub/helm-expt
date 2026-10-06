@@ -31,16 +31,6 @@
       --heading: Inter, ui-sans-serif, system-ui, sans-serif;
       --term: #0e1419;
     }
-
-    :root[data-theme="dark"] {
-      color-scheme: dark;
-      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
-      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
-    }
-    :root[data-theme="light"] {
-      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
-      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
-    }
     * { box-sizing: border-box; }
     input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
     html { scroll-behavior: smooth; }
@@ -354,12 +344,6 @@
     .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
     .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
     .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
-
-    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
-    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
-    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
-    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
-    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
     .row-links { margin: 0; font-size: .9rem; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
@@ -548,7 +532,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/workshop-ux-readiness.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-10-01T00:34:41.144Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-10-06T13:45:42.258Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>Status: bounded assistant missions and browser discovery recorded, 2026-09-11. <a href="https://github.com/confighub/helm-expt/blob/main/runs/workshop-ux/2026-09-11/README.md">Round summary and remaining acceptance</a>. <a href="https://github.com/confighub/helm-expt/blob/main/runs/workshop-ux/2026-09-11/m1-first-cohort/README.md">Results and limitations</a> include two excluded harness pilots and two corrected-snapshot attempts. All six local missions have participant evidence, with separate failures, changed briefs and setup limitations. Two browser discovery tasks ran; human, unassisted first-use installation and live-chat API trials have not run. An isolated CLI installation smoke check is retained in <a href="https://github.com/confighub/helm-expt/blob/main/runs/workshop-ux/2026-09-11/fresh-cli-setup/README.md">the setup evidence</a>; it used existing Node and Git and is not an unassisted setup trial. A <a href="https://github.com/confighub/helm-expt/blob/main/runs/workshop-ux/2026-09-11/m1-retest/README.md">second inspection pair</a> fixed output placement but both failed exact identity. A <a href="https://github.com/confighub/helm-expt/blob/main/runs/workshop-ux/2026-09-11/m1-candidate/README.md">fixed candidate pair</a> passed exact identity and explanation review, allowing local mission expansion. This candidate result is separate from public deployment and browser testing. A <a href="https://github.com/confighub/helm-expt/blob/main/runs/workshop-ux/2026-09-11/m2-first-pair/README.md">first Compose pair</a> selected a valid stack without the requested GitOps services. The platform page now names the GitOps-plus-app Guide explicitly; a fresh pair passed. Mixed-history refusal/recovery remains inconsistent, despite passing clean baselines. The corrected copyable assistant task passed a separate guided pair; two <a href="https://github.com/confighub/helm-expt/blob/main/runs/workshop-ux/2026-09-11/recovery-protocol/README.md">written-brief retests</a> preserved failed source and certified separate copies. These used the explicit M5 requirement omitted from the broader earlier prompt, so they remain a separate cohort. First-use/browser/human acceptance remains #1897. This is the test protocol for the <a href="workshop-execution-plan.html">execution plan</a>, not a replacement roadmap or a new proof of deployment.</p>
 <p>The mission is to make configurations, charts, apps and stacks easy to find, inspect, compose, adapt and retain, with the same evidence boundaries for a person using cub and an assistant using tools. A useful anonymous local result is a successful outcome. Signup is not a success requirement. A supplied GPU snapshot is not a live fleet; shell access is not a hosted API.</p>
