@@ -62,8 +62,8 @@
       ],
       "repository": "confighub/sveltos-confighub",
       "release": {
-        "date": "2026-10-02",
-        "tag": "v0.12.0"
+        "date": "2026-10-03",
+        "tag": "v0.13.0"
       },
       "install": "cub plugin install confighub/sveltos-confighub",
       "note": "Handover rollback and chart-rendered Secret handling remain open upstream work; review those limits before importing a fleet.",
@@ -140,8 +140,8 @@
       ],
       "repository": "confighub/cub-scout",
       "release": {
-        "date": "2026-09-30",
-        "tag": "v2.12.4"
+        "date": "2026-10-06",
+        "tag": "v2.13.1"
       },
       "install": "cub plugin install confighub/cub-scout",
       "next": {
@@ -177,8 +177,8 @@
       ],
       "repository": "confighub/cub-server",
       "release": {
-        "date": "2026-09-26",
-        "tag": "v0.2.2"
+        "date": "2026-10-05",
+        "tag": "v0.2.3"
       },
       "install": "cub plugin install confighub/cub-server",
       "next": {
