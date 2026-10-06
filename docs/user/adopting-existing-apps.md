@@ -69,7 +69,6 @@ cub variant upload \
   --component plain-yaml-acme-web \
   --variant base \
   --space plain-yaml-acme-web-base \
-  --granularity per-resource \
   examples/plain-yaml/acme-web
 ```
 
@@ -81,11 +80,13 @@ the `helm-catalog` demo organization.
 This proves the import boundary. No cluster apply, promotion, release, or
 workload observation is claimed by this receipt.
 
-The current cub v0.2.9 command surface does not provide a one-step GitOps
-discovery/import command. Read the controller objects and desired Kubernetes
-objects first. Review their source, target, namespace, and ownership, then use
-`cub variant upload` for the YAML or literal OCI you chose to store. The upload
-creates ConfigHub records; it does not change the controller or cluster.
+The current command surface does not provide a one-step GitOps
+discovery/import and controller-handover command. Read the controller objects
+and desired Kubernetes objects first. Review their source, target, namespace,
+and ownership, then use `cub variant upload` for the YAML or literal OCI you
+chose to store. Server-side upload creates one Unit per Kubernetes resource;
+the retired `--granularity` flag is not needed. The upload creates ConfigHub
+records; it does not change the controller or cluster.
 
 ## Adoption Levels
 

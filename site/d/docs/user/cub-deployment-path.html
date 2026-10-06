@@ -31,16 +31,6 @@
       --heading: Inter, ui-sans-serif, system-ui, sans-serif;
       --term: #0e1419;
     }
-
-    :root[data-theme="dark"] {
-      color-scheme: dark;
-      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
-      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
-    }
-    :root[data-theme="light"] {
-      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
-      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
-    }
     * { box-sizing: border-box; }
     input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
     html { scroll-behavior: smooth; }
@@ -354,12 +344,6 @@
     .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
     .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
     .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
-
-    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
-    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
-    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
-    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
-    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
     .row-links { margin: 0; font-size: .9rem; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
@@ -564,37 +548,54 @@
 <tr><td>ConfigHub Space release OCI</td><td>The exact reviewed Units from one ConfigHub Space</td><td>After review, when Argo CD or Flux delivers the configuration; a local test can also pull it directly</td></tr></tbody></table>
 <p>An installer package may offer several preset configurations. A Space release contains one selected and reviewed configuration. Do not use an installer package URL as if it were a Space release URL.</p>
 <h2 id="publishing-and-consuming-a-space-release">Publishing and consuming a Space release</h2>
-<p><code>cub cluster up</code> creates a temporary kind cluster, installs Argo CD, and creates the ConfigHub Space and OCI target used by the cluster:</p>
+<p><code>cub cluster up</code> creates a temporary kind cluster, installs Argo CD and the live-status helper, and creates two ConfigHub Spaces:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>cub auth login
-cub cluster up --name myrig --space myrig-cluster</code></pre>
-<p>This is the current command. Older evidence may contain <code>cub-lk-kind-vanilla</code>, which is a historical target-class name rather than an instruction to install or run another tool.</p>
-<p>After uploading an application's Kubernetes objects to a Space, set that Space's release target and publish it:</p>
-<pre><code>cub space update my-app --release-target myrig-cluster/oci
-cub release publish my-app</code></pre>
-<p>You can inspect the stored Kubernetes configuration before publishing it:</p>
-<pre><code>cub k8s types --space my-app
-cub k8s get deploy --space my-app
-cub k8s get all --space my-app --show data</code></pre>
-<p>These commands read the desired configuration stored in ConfigHub. They do not read live cluster state.</p>
-<p>Argo CD reads the published release with an OCI source:</p>
+cub cluster up --name myrig
+source ~/.confighub/clusters/myrig.env
+cub target get myrig/target</code></pre>
+<ul><li><code>myrig</code> holds the worker and the OCI Target <code>myrig/target</code>;</li><li><code>myrig-argo-apps</code> holds the root app-of-apps and child Argo CD Application Units.</li></ul>
+<p>Older evidence may contain <code>cub-lk-kind-vanilla</code> or a Target ending in <code>/oci</code>. Those are historical names, not the current command or Target shape.</p>
+<p>Upload an application's rendered objects as its Base, then create a target-bound deployment variant and publish that deployment's Release:</p>
+<pre><code>cub variant upload \
+  --component my-app \
+  --variant base \
+  --namespace my-app \
+  --create-namespace \
+  ./rendered
+
+cub variant create dev my-app-base \
+  --target myrig/target \
+  --namespace my-app
+
+cub release publish my-app-dev</code></pre>
+<p>The upload creates <code>my-app-base</code> and deploys nothing. On a Target created by <code>cub cluster up</code>, <code>cub variant create --target</code> also adds the child Application to <code>myrig-argo-apps</code> and republishes that apps Space. Publishing <code>my-app-dev</code> then gives the child Application the configuration it pulls. Use <code>--no-argo-app</code> only when another process owns the Application.</p>
+<p>You can inspect the stored desired configuration before publishing it:</p>
+<pre><code>cub k8s types --space my-app-dev
+cub k8s get deploy --space my-app-dev
+cub k8s get all --space my-app-dev --show data</code></pre>
+<p>These commands read ConfigHub state. They do not prove that Argo CD reconciled the Release or that the workload is healthy. Check those boundaries separately:</p>
+<pre><code>kubectl get application -n argocd my-app-dev
+kubectl rollout status -n my-app deployment/my-app --timeout=5m</code></pre>
+<p>The generated Argo CD Application reads the published Space Release as an OCI source:</p>
 <pre><code>source:
-  repoURL: oci://oci.hub.confighub.com:443/space/my-app
+  repoURL: oci://oci.hub.confighub.com:443/space/my-app-dev
   targetRevision: latest
   path: .</code></pre>
-<p>Flux uses the same Space release:</p>
+<p>Flux can use the same Space Release, but <code>cub cluster up</code> does not install or configure Flux. Create or choose a Flux-capable Target, keep the Flux source and reconciliation objects under their existing owner, and point an <code>OCIRepository</code> at the deployment Space:</p>
 <pre><code>apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: my-app
+  name: my-app-dev
   namespace: flux-system
 spec:
   interval: 1m
-  url: oci://oci.hub.confighub.com:443/space/my-app
+  url: oci://oci.hub.confighub.com:443/space/my-app-dev
   ref:
     tag: latest
   secretRef:
     name: confighub-oci</code></pre>
+<p>That object only fetches the artifact. A Flux <code>Kustomization</code> still has to consume it, and controller and workload checks remain separate. See the <a href="gitops-adopter-guide.html">GitOps adopter guide</a> before changing an existing Flux delivery path.</p>
 <p>When the test is finished:</p>
 <pre><code>cub cluster down --name myrig --force</code></pre>
 <h2 id="hooks-crds-and-other-setup-work">Hooks, CRDs, and other setup work</h2>

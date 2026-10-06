@@ -31,16 +31,6 @@
       --heading: Inter, ui-sans-serif, system-ui, sans-serif;
       --term: #0e1419;
     }
-
-    :root[data-theme="dark"] {
-      color-scheme: dark;
-      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
-      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
-    }
-    :root[data-theme="light"] {
-      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
-      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
-    }
     * { box-sizing: border-box; }
     input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
     html { scroll-behavior: smooth; }
@@ -354,12 +344,6 @@
     .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
     .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
     .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
-
-    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
-    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
-    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
-    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
-    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
     .row-links { margin: 0; font-size: .9rem; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
@@ -648,7 +632,7 @@
     <p id="question-context" hidden><strong id="question-context-text"></strong></p>
     <p class="lead">Check your own chart and values, or compare rendered Kubernetes YAML. Keep the findings and the exact configuration they describe.</p>
     <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Render &lt;chart&gt; with my values, tell me which values did nothing and what it would install, and change nothing.”</aside>
-    <p><a class="button primary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a> <button class="button secondary" id="load-example" type="button">See an illustrative object review</button></p>
+    <p><a class="button primary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a> <a class="button secondary" href="#ask-token-budget">Plan token cost</a> <button class="button secondary" id="load-example" type="button">See an illustrative object review</button></p>
     <p>Use this page for your own chart, values, new version, or unexpected result. Use the <a href="./charts/index.html">Catalog</a> when we have already tested the exact chart and version.</p>
     <p>The chart route builds instructions for your local AI assistant. Already have rendered YAML? Check it in this browser with no AI needed. Neither route deploys your configuration.</p>
     <p><strong>Flattened configuration</strong> means the fully rendered Kubernetes objects, with template choices already resolved. You can inspect and change that data before choosing a delivery path.</p>
@@ -676,6 +660,41 @@
       </style>
       <p>Already comparing GPU nodes rather than a deployable configuration? <a href="./try-aicr.html">Use AICR snapshot and diff</a>. That read-only path needs cluster access but no recipe or bundle deployment.</p>
     </section>
+    <section aria-labelledby="ask-token-budget">
+    <h2 id="ask-token-budget">Choose the lowest-token route that can answer the question</h2>
+    <p>Use a deterministic check when it can answer the question. AI is most useful for selecting evidence, explaining a diff, or proposing a bounded change; it should not spend tokens reproducing work that Helm, <code>cub</code>, or this browser can do exactly.</p>
+    <div class="card"><table>
+        <thead><tr><th>Route</th><th>Rough input / output</th><th>Expected result, proof, and boundary</th></tr></thead>
+        <tbody><tr><td>Rendered YAML in this browser, or local render/diff/check commands</td><td>0 / 0 AI tokens</td><td>Expected: an inventory, exact diff, check result, and downloadable hashes. Proven: only the deterministic local checks that completed. Not proven: source rendering the browser did not run, delivery, controller convergence, or workload health.</td></tr><tr><td>One Catalog answer</td><td>6k–15k / 0.5k–2k</td><td>Expected: one matching entry, Guide, and named receipt. Proven: only the claim that receipt covers. Not proven: behavior on your target. Resolve one id, then read one listing; do not feed the model all of <code>configs.json</code> or <code>listings/index.json</code>.</td></tr><tr><td>Understand or fix your chart, values, or objects</td><td>10k–30k / 1k–4k</td><td>Expected: one rendered candidate, the smallest proposed fix, and an exact diff. Proven: the local render and checks that ran. Not proven: admission, delivery, health, upgrade, or rollback unless each has its own result.</td></tr><tr><td>Discover an existing app, app-of-apps, controller setup, or stack</td><td>20k–80k+ / 2k–8k</td><td>Expected first: a read-only inventory and reversible handover plan for one root or leaf slice. Proven: the observed inventory. Not proven: a successful transfer of control, deployment, or live outcome.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    <p><strong>How to read the estimates.</strong> They are rough planning ranges for one focused turn, not quotas, provider bills, or guarantees. They include the likely Guide, one relevant record, task files, and useful command output; an agent host may add system instructions, tool transcripts, retries, and uncached context. The planning heuristic is about one token per four characters. At the current site size, <code>llms.txt</code> is about 3.7k tokens and the core <code>SKILL.md</code> is about 5.1k before references or task files. Use your provider's token meter for the actual count. To estimate money, multiply input and output tokens by that model's current per-million-token rates; caching and tool billing vary by provider.</p>
+    <h3 id="ask-token-optimal">The token-optimal path</h3>
+    <ol>
+      <li>Render, compare, search, and hash locally first. Those deterministic steps use no model tokens.</li>
+      <li>Ask one decision question. Give the agent the relevant file, compact diff, or failed check instead of a whole repository or unbounded log.</li>
+      <li>Use <code>llms.txt</code> as a router, search an index for one matching row without adding the whole index to context, then read one Guide and one listing or receipt.</li>
+      <li>Stop when the expected result is present. Start a separate bounded step for saving, delivery, or live verification so permissions and proof do not blur together.</li>
+      <li>Reuse the retained result and exact command on the next run. Do not ask the model to rediscover evidence you already pinned.</li>
+    </ol>
+    <h3 id="ask-nine-checkpoints">From discovery to verified use: nine checkpoints</h3>
+    <p>An answer is not the end of the journey. Keep each boundary visible so a quick local success does not become an unsupported deployment claim.</p>
+    <div class="card"><table>
+        <thead><tr><th>Checkpoint</th><th>What good looks like</th></tr></thead>
+        <tbody><tr><td>1. Awareness</td><td>See a concrete before-and-after example on the <a href="./index.html">Workshop front door</a>, not only a product category.</td></tr><tr><td>2. Problem match</td><td>Choose the job you already have: understand, change, build, connect an existing controller, or repeat a proven result.</td></tr><tr><td>3. Find</td><td>Open one matching <a href="./guides.html">Guide</a> or use <a href="./ask.html">Check my config</a>; do not make the reader assemble a path from unrelated pages.</td></tr><tr><td>4. Understand</td><td>Read the inputs, expected result, what that result proves, and what remains untested before running anything.</td></tr><tr><td>5. Start</td><td>Run the smallest local or read-only step first. Private files stay local, and every write or delivery step remains explicit.</td></tr><tr><td>6. First value</td><td>Keep an exact diff, object hash, check result, or inventory that answers the original question.</td></tr><tr><td>7. Delivery request</td><td>Choose deliberately whether to keep the result local, publish OCI, or save and release it with <a href="./confighub.html">ConfigHub</a>. No earlier step silently deploys.</td></tr><tr><td>8. Verified live</td><td>Check the release, controller reconciliation, Kubernetes resources, and workload health separately; use the <a href="./known-gaps.html">known limits</a> when proof is missing.</td></tr><tr><td>9. Expand or return</td><td>Pin the useful inputs and commands, repeat them in CI where appropriate, then take one next environment, app, or Guide rather than reopening the whole catalog.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+  </section>
     <section aria-labelledby="build-prompt">
       <h2 id="build-prompt">Start with a chart and values</h2>
       <p>Choose one question. This form does not upload a values file or render Helm in your browser. It builds instructions for the Claude, Codex, or other AI assistant already running on your machine. The assistant runs Helm locally, records the inputs, and compares the exact objects.</p>
@@ -1287,7 +1306,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
   <script src="./config-workshop-yaml.js"></script>
   <script src="./check-config.js"></script>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#check-scope">What this page can answer</a></li><li><a href="#build-prompt">Start with a chart and values</a></li><li><a href="#run-prompt">Run the investigation on your machine</a></li><li><a href="#check-command-title">Run the shared checks on your machine</a></li><li><a href="#completed-decision">See what a completed review looks like</a></li><li><a href="#check-files-title">Or: Check rendered objects in this browser</a></li><li><a href="#review-result-title">Keep or share the reviewed result</a></li><li><a href="#four-common-helm-questions">Four common Helm questions</a></li><li><a href="#questions-we-answer">Questions people are asking</a></li><li><a href="#faq">Find a direct answer</a></li><li><a href="#next-jobs">What happens next</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#check-scope">What this page can answer</a></li><li><a href="#ask-token-budget">Choose the lowest-token route that can answer the question</a></li><li><a href="#build-prompt">Start with a chart and values</a></li><li><a href="#run-prompt">Run the investigation on your machine</a></li><li><a href="#check-command-title">Run the shared checks on your machine</a></li><li><a href="#completed-decision">See what a completed review looks like</a></li><li><a href="#check-files-title">Or: Check rendered objects in this browser</a></li><li><a href="#review-result-title">Keep or share the reviewed result</a></li><li><a href="#four-common-helm-questions">Four common Helm questions</a></li><li><a href="#questions-we-answer">Questions people are asking</a></li><li><a href="#faq">Find a direct answer</a></li><li><a href="#next-jobs">What happens next</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./try-aicr.html">GPU nodes and AICR</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>

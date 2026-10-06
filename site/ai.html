@@ -31,16 +31,6 @@
       --heading: Inter, ui-sans-serif, system-ui, sans-serif;
       --term: #0e1419;
     }
-
-    :root[data-theme="dark"] {
-      color-scheme: dark;
-      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
-      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
-    }
-    :root[data-theme="light"] {
-      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
-      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
-    }
     * { box-sizing: border-box; }
     input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
     html { scroll-behavior: smooth; }
@@ -354,12 +344,6 @@
     .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
     .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
     .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
-
-    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
-    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
-    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
-    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
-    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
     .row-links { margin: 0; font-size: .9rem; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
@@ -647,9 +631,10 @@
     <p><em>Our aim is to lower the time and (token) cost of getting up and running with reliable solutions.</em></p>
     <p class="lead">Work with Claude Code or Codex, from one configuration question to a complete app or platform journey. Workshop gives your agent tested starting points, tools and Guides, so you get a useful result you can inspect and keep.</p>
     <p>Your agent investigates and proposes. <code>cub</code> renders, compares and checks. You see the source, the Kubernetes objects and the diff. ConfigHub keeps accepted configuration, protected fixes and team decisions when you want to take the next step.</p>
+    <p><a class="button primary" href="#ai-starting-points">Choose an AI journey</a> <a class="button secondary" href="#ai-token-budget">Plan token cost</a> <a class="button secondary" href="./ask.html#ask-token-budget">Use the zero-token checks</a></p>
     <div class="agent-start" id="paste-a-prompt">
       <p><strong>Start here.</strong> Paste this into Claude Code, Codex, or any agent that can run a shell. To keep it in a project, add it to <code>CLAUDE.md</code> or <code>AGENTS.md</code>.</p>
-      <pre><code>Help me with [my Kubernetes configuration question or task]. Use https://confighub.github.io/helm-expt/site/llms.txt to find the relevant Workshop tools and Guide. Start from my existing files and tools. Explain the useful result, run the checks this task needs, and show what changed and what remains untested. Keep it local until I ask to save in ConfigHub or change delivery.</code></pre>
+      <pre><code>Help me with [my Kubernetes configuration question or task]. Use https://confighub.github.io/helm-expt/site/llms.txt as a router. Search only enough of the relevant index to identify one entry, then read one relevant Guide and listing or receipt; do not load whole indexes or the whole catalog into context. Start from my existing files and tools. Run deterministic local checks before using model context for explanation. State the expected result, what the completed checks prove, what remains untested, and the token-optimal next step. Keep it local until I ask to save in ConfigHub or change delivery.</code></pre>
       <p>Use this prompt for a one-off question, or <a href="#install-skill">install the skill</a> to keep the instructions in your project.</p>
       <p>For a new project, use <a href="#fuller-prompt">the fuller prompt</a>. It also says what is in the Catalog and when you need ConfigHub server.</p>
     </div>
@@ -673,7 +658,7 @@ What is in the catalog, so you know what to expect:
 * A Kubara platform generated from selected components (kubara-local-platform).
 * A Sveltos fleet (Kyverno across clusters), plain Kubernetes YAML, configuration held in OCI, and a cub installer package.
 
-Start at https://confighub.github.io/helm-expt/site/llms.txt, which indexes everything. It lists the Catalog's five section files first, configs.json, stacks.json, apps.json, plugins.json and guides.json, each with one row per item and the command or address to use next. Each entry has its own listing at https://confighub.github.io/helm-expt/site/listings/&lt;id&gt;.json, all indexed at https://confighub.github.io/helm-expt/site/listings/index.json. A listing gives you the source and exact version and digest, the rendered Kubernetes objects and their count, the OCI packages, the base and its variants, the routing and lifecycle work such as hooks, CRDs, ordering, and tests, and a flattening verdict that says whether the exact objects can safely stand in for the source. Read the one entry you need instead of the whole catalog.
+Start at https://confighub.github.io/helm-expt/site/llms.txt, which indexes everything. It lists the Catalog's five section files first, configs.json, stacks.json, apps.json, plugins.json and guides.json, each with one row per item and the command or address to use next. Each entry has its own listing at https://confighub.github.io/helm-expt/site/listings/&lt;id&gt;.json, all indexed at https://confighub.github.io/helm-expt/site/listings/index.json. Search an index for the one matching row without putting its whole response into model context, then read one listing and the relevant Guide. A listing gives you the source and exact version and digest, the rendered Kubernetes objects and their count, the OCI packages, the base and its variants, the routing and lifecycle work such as hooks, CRDs, ordering, and tests, and a flattening verdict that says whether the exact objects can safely stand in for the source. Read the one entry you need instead of the whole catalog. Do not load the whole catalog when one entry answers the question.
 
 Do the work with `cub` and the cub workshop plugin from https://github.com/confighub/cub-workshop. Installing them is one line and needs no account. `cub config` renders and inspects one configuration, and `cub config diff` compares two and reports exactly what changed. `cub config values` names every value in a Helm values file that the chart ignored. `cub stack check` and `cub stack sandbox` check and render a whole composition before anything runs. `cub app match` checks whether a workload fits a target you supply, and `cub app check` reports what a workload needs. `cub fleet` reads and plans placement across many clusters.
 
@@ -689,25 +674,63 @@ When I ask about a chart, a values file, an upgrade, a rollback, a digest or sup
     <h2 id="ai-starting-points">What would you like to get done?</h2>
     <p><a href="./ai-chaos-in-production.html">See agents repair a fleet, with approvals and prevention</a>. Read the recorded Deep Dive without setup, or plan a full run on a disposable fleet.</p>
     <p>Start small, with your own chart, app or YAML. You do not need an account to read the Catalog or run local checks. A coding agent needs shell access for commands; a chat without tools can explain and plan, but cannot run them.</p>
+    <h3 id="ai-token-budget">Plan token cost before you start</h3>
+    <p>These are planning ranges for a focused journey, not a reason to give an agent the whole repository. Start with the zero-token local checks, then spend model context only where judgment or explanation adds value.</p>
+    <div class="card"><table>
+        <thead><tr><th>Journey</th><th>Rough input / output</th><th>Token-optimal route</th></tr></thead>
+        <tbody><tr><td>Browser review or deterministic local checks</td><td>0 / 0 AI tokens</td><td>Render, diff, hash, and run <code>cub check</code> without a model. Bring only the compact result to an agent if interpretation is still needed.</td></tr><tr><td>One Catalog question</td><td>6k–15k / 0.5k–2k</td><td>Route with <code>llms.txt</code>; search for one row; read one Guide, one listing, and only the receipt that supports the claim.</td></tr><tr><td>Understand or fix configuration</td><td>10k–30k / 1k–4k</td><td>Render locally, isolate the affected objects and values, and ask for one smallest fix plus an exact diff.</td></tr><tr><td>Preserve fixes through a rewrite</td><td>8k–25k / 1k–3k</td><td>Supply the original, candidate, and compact diff. Do not send unrelated repository history.</td></tr><tr><td>Put an app on a platform</td><td>15k–50k / 2k–6k</td><td>Start with one app contract and the few candidate components it needs. Run the composition gate before asking for delivery.</td></tr><tr><td>Connect an existing Argo CD, Flux, Kubara, or Sveltos setup</td><td>20k–80k+ / 2k–8k</td><td>Inventory one root or leaf slice read-only, suppress generated noise, and separate the handover plan from any write or controller change.</td></tr><tr><td>Turn a result into CI or repeated work</td><td>10k–30k / 1k–4k</td><td>Give the retained inputs, command, expected result, and failure case. Do not ask the agent to rediscover the journey.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    <p><strong>How to read the estimates.</strong> They are rough planning ranges for one focused turn, not quotas, provider bills, or guarantees. They include the likely Guide, one relevant record, task files, and useful command output; an agent host may add system instructions, tool transcripts, retries, and uncached context. The planning heuristic is about one token per four characters. At the current site size, <code>llms.txt</code> is about 3.7k tokens and the core <code>SKILL.md</code> is about 5.1k before references or task files. Use your provider's token meter for the actual count. To estimate money, multiply input and output tokens by that model's current per-million-token rates; caching and tool billing vary by provider.</p>
+    <h4 id="ai-token-optimal">Five rules for a token-optimal run</h4>
+    <ol>
+      <li>Prefer a zero-AI-token browser or CLI check when the answer is deterministic.</li>
+      <li>Use <code>llms.txt</code> to choose a route, then retrieve one Guide and one relevant record. Search large indexes without placing their whole response into model context.</li>
+      <li>Send compact diffs, summaries, exact failing objects, and bounded log excerpts instead of whole repositories, catalogs, or logs.</li>
+      <li>Keep investigation, managed writes, delivery, and live verification as separate turns with separate authority and evidence.</li>
+      <li>Pin the useful result. Reuse it on the next run and measure actual tokens in the agent or provider rather than assuming caching.</li>
+    </ol>
+    <h3 id="ai-nine-checkpoints">From discovery to verified use: nine checkpoints</h3>
+    <p>An answer is not the end of the journey. Keep each boundary visible so a quick local success does not become an unsupported deployment claim.</p>
+    <div class="card"><table>
+        <thead><tr><th>Checkpoint</th><th>What good looks like</th></tr></thead>
+        <tbody><tr><td>1. Awareness</td><td>See a concrete before-and-after example on the <a href="./index.html">Workshop front door</a>, not only a product category.</td></tr><tr><td>2. Problem match</td><td>Choose the job you already have: understand, change, build, connect an existing controller, or repeat a proven result.</td></tr><tr><td>3. Find</td><td>Open one matching <a href="./guides.html">Guide</a> or use <a href="./ask.html">Check my config</a>; do not make the reader assemble a path from unrelated pages.</td></tr><tr><td>4. Understand</td><td>Read the inputs, expected result, what that result proves, and what remains untested before running anything.</td></tr><tr><td>5. Start</td><td>Run the smallest local or read-only step first. Private files stay local, and every write or delivery step remains explicit.</td></tr><tr><td>6. First value</td><td>Keep an exact diff, object hash, check result, or inventory that answers the original question.</td></tr><tr><td>7. Delivery request</td><td>Choose deliberately whether to keep the result local, publish OCI, or save and release it with <a href="./confighub.html">ConfigHub</a>. No earlier step silently deploys.</td></tr><tr><td>8. Verified live</td><td>Check the release, controller reconciliation, Kubernetes resources, and workload health separately; use the <a href="./known-gaps.html">known limits</a> when proof is missing.</td></tr><tr><td>9. Expand or return</td><td>Pin the useful inputs and commands, repeat them in CI where appropriate, then take one next environment, app, or Guide rather than reopening the whole catalog.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
     <h3 id="ai-understand">Understand or fix a configuration</h3>
     <p>Find why a value did nothing, what a chart installs, or what an upgrade changes. Get a specific answer and the rendered objects behind it.</p>
+    <p><strong>Expected:</strong> one rendered candidate, the smallest proposed fix, and an exact diff. <strong>Proven:</strong> only the local render and checks that completed. <strong>Not proven:</strong> cluster admission, delivery, or workload health. <strong>Token-optimal:</strong> isolate the affected values and objects before asking for an explanation.</p>
     <details><summary>Prompt for Claude Code or Codex</summary><aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>Use Workshop to inspect this chart version and my values file. Explain which values affect the rendered objects and which do not. Propose the smallest fix, check it, and show the exact diff. Do not deploy.</aside></details>
     <p><a href="./journey-values-did-nothing.html">Try the Helm values demo</a> · <a href="./d/docs/user/workshop-byo-charts-guide.html">Use your own chart</a></p>
     <h3 id="ai-change">Make a change without losing your fixes</h3>
     <p>Review an AI rewrite against the original, keep only the intended changes, then use ConfigHub to preserve your choices through the next update.</p>
+    <p><strong>Expected:</strong> a reviewed original-to-candidate diff and an explicit list of protected choices. <strong>Proven:</strong> the fields retained by the recorded comparison or update. <strong>Not proven:</strong> a general merge or successful deployment. <strong>Token-optimal:</strong> provide only the original, candidate, and compact diff.</p>
     <details><summary>Prompt for Claude Code or Codex</summary><aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>Add a readiness probe to this app. Compare against the committed version, preserve my other fixes, and show every changed field. Keep the result local; explain how ConfigHub could retain those choices next time.</aside></details>
     <p><a href="./journey-preserve-my-fixes.html">Try the protected-fixes demo</a> · <a href="#confighub-review">See the cub commands and recorded results</a></p>
     <h3 id="ai-build">Put an app on a platform</h3>
     <p>Start from an <a href="./apps.html">example app</a> or bring your own. Ask for the platform services it needs, a checked composition and files you can save and resume.</p>
+    <p><strong>Expected:</strong> one app contract, a bounded component selection, a checked stack, and resumable files. <strong>Proven:</strong> static compatibility and the checks named in the result. <strong>Not proven:</strong> deployment or runtime health. <strong>Token-optimal:</strong> start with one app and only the candidate components that meet its declared needs.</p>
     <details><summary>Prompt for Claude Code or Codex</summary><aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>Help me run this app on a platform built from the Catalog. Identify its dependencies, choose compatible components, and check the composition. Give me the files and results to resume later. Mark missing target facts and do not call a static check a deployment.</aside></details>
     <p><a href="./journey-what-my-app-needs.html">Try the app-and-platform demo</a> · <a href="./bring-kubara-into-confighub.html">Build with Kubara</a> · <a href="./d/docs/user/workshop-match-guide.html">Match a GPU workload</a></p>
     <h3 id="ai-connect">Keep your delivery tools and add ConfigHub</h3>
     <p>Ask the agent to inspect first, explain what stays as it is, and prepare a reviewed handover. Use the Guide for your controller; the setup and recovery steps differ.</p>
+    <p><strong>Expected first:</strong> a read-only inventory, authority map, reversible handover plan, and one bounded pilot slice. <strong>Proven:</strong> the source and live facts actually observed. <strong>Not proven:</strong> transfer of control, reconciliation, or workload health until those later steps run. <strong>Token-optimal:</strong> begin with one root or leaf and omit generated controller noise unless it answers the question.</p>
     <details><summary>Prompt for Claude Code or Codex</summary><aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>Inspect my existing deployment setup using its Workshop Guide. Explain what ConfigHub would add, what would change, and how to go back. Run the non-mutating plan first. Ask before saving ConfigHub data or changing controller delivery.</aside></details>
     <p>Want to see the configuration yourself? <a href="./see-what-is-running.html">Explore the cluster with Scout</a> or <a href="./view-and-change-config-with-uis.html">browse saved configuration in a UI</a>.</p>
     <p><a href="./bring-argo-into-confighub.html">Argo CD</a> · <a href="./bring-flux-into-confighub.html">Flux</a> · <a href="./bring-sveltos-into-confighub.html">Sveltos fleets</a> · <a href="./confighub.html#start-managing">Deploy, promote and manage</a></p>
     <h3 id="ai-repeat">Turn a useful result into repeatable work</h3>
     <p>Once a journey works, keep its inputs, exact commands, checks and expected results in your repository. Ask your agent to prepare a CI check or an operational App from that record. ConfigHub supplies shared configuration, approvals and releases; your runner and controllers do the work.</p>
+    <p><strong>Expected:</strong> a pinned command, inputs, expected result, retained output, and a failure case. <strong>Proven:</strong> repeatability only after the job runs and matches its contract. <strong>Not proven:</strong> scheduled execution, delivery, or live health unless explicitly added and checked. <strong>Token-optimal:</strong> give the agent the retained record instead of asking it to rediscover the path.</p>
     <details><summary>Prompt for Claude Code or Codex</summary><aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>Turn the configuration check we just completed into a repeatable CI job. Pin its inputs and tools, retain the result and exact diff, and report missing checks. Stop for review on an unexpected result. Do not add deployment, new credentials or scheduled execution without my approval.</aside></details>
     <p><a href="./d/docs/user/ci-render-check.html">Keep a review in CI</a> · <a href="./build-a-confighub-app.html">Build an operational App</a> · <a href="./guides.html">Find another journey</a></p>
     <p>The site does not host an agent or start a background job. In a live chat, your agent needs connected tools and the right authority to call <code>cub</code> or ConfigHub APIs. The same work can be run manually with <code>cub</code>.</p>

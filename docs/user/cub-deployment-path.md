@@ -51,62 +51,97 @@ package URL as if it were a Space release URL.
 
 ## Publishing and consuming a Space release
 
-`cub cluster up` creates a temporary kind cluster, installs Argo CD, and creates
-the ConfigHub Space and OCI target used by the cluster:
+`cub cluster up` creates a temporary kind cluster, installs Argo CD and the
+live-status helper, and creates two ConfigHub Spaces:
 
 ```sh
 cub auth login
-cub cluster up --name myrig --space myrig-cluster
+cub cluster up --name myrig
+source ~/.confighub/clusters/myrig.env
+cub target get myrig/target
 ```
 
-This is the current command. Older evidence may contain
-`cub-lk-kind-vanilla`, which is a historical target-class name rather than an
-instruction to install or run another tool.
+- `myrig` holds the worker and the OCI Target `myrig/target`;
+- `myrig-argo-apps` holds the root app-of-apps and child Argo CD Application
+  Units.
 
-After uploading an application's Kubernetes objects to a Space, set that
-Space's release target and publish it:
+Older evidence may contain `cub-lk-kind-vanilla` or a Target ending in `/oci`.
+Those are historical names, not the current command or Target shape.
+
+Upload an application's rendered objects as its Base, then create a
+target-bound deployment variant and publish that deployment's Release:
 
 ```sh
-cub space update my-app --release-target myrig-cluster/oci
-cub release publish my-app
+cub variant upload \
+  --component my-app \
+  --variant base \
+  --namespace my-app \
+  --create-namespace \
+  ./rendered
+
+cub variant create dev my-app-base \
+  --target myrig/target \
+  --namespace my-app
+
+cub release publish my-app-dev
 ```
 
-You can inspect the stored Kubernetes configuration before publishing it:
+The upload creates `my-app-base` and deploys nothing. On a Target created by
+`cub cluster up`, `cub variant create --target` also adds the child Application
+to `myrig-argo-apps` and republishes that apps Space. Publishing `my-app-dev`
+then gives the child Application the configuration it pulls. Use
+`--no-argo-app` only when another process owns the Application.
+
+You can inspect the stored desired configuration before publishing it:
 
 ```sh
-cub k8s types --space my-app
-cub k8s get deploy --space my-app
-cub k8s get all --space my-app --show data
+cub k8s types --space my-app-dev
+cub k8s get deploy --space my-app-dev
+cub k8s get all --space my-app-dev --show data
 ```
 
-These commands read the desired configuration stored in ConfigHub. They do not
-read live cluster state.
+These commands read ConfigHub state. They do not prove that Argo CD reconciled
+the Release or that the workload is healthy. Check those boundaries separately:
 
-Argo CD reads the published release with an OCI source:
+```sh
+kubectl get application -n argocd my-app-dev
+kubectl rollout status -n my-app deployment/my-app --timeout=5m
+```
+
+The generated Argo CD Application reads the published Space Release as an OCI
+source:
 
 ```yaml
 source:
-  repoURL: oci://oci.hub.confighub.com:443/space/my-app
+  repoURL: oci://oci.hub.confighub.com:443/space/my-app-dev
   targetRevision: latest
   path: .
 ```
 
-Flux uses the same Space release:
+Flux can use the same Space Release, but `cub cluster up` does not install or
+configure Flux. Create or choose a Flux-capable Target, keep the Flux source
+and reconciliation objects under their existing owner, and point an
+`OCIRepository` at the deployment Space:
 
 ```yaml
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: my-app
+  name: my-app-dev
   namespace: flux-system
 spec:
   interval: 1m
-  url: oci://oci.hub.confighub.com:443/space/my-app
+  url: oci://oci.hub.confighub.com:443/space/my-app-dev
   ref:
     tag: latest
   secretRef:
     name: confighub-oci
 ```
+
+That object only fetches the artifact. A Flux `Kustomization` still has to
+consume it, and controller and workload checks remain separate. See the
+[GitOps adopter guide](gitops-adopter-guide.md) before changing an existing
+Flux delivery path.
 
 When the test is finished:
 

@@ -77,7 +77,7 @@ const checks = [
   },
   {
     file: "site/ask.html",
-    terms: ["Is my configuration right?", "Check your own chart and values", "question-guide", "why-did-helm-ignore-my-values.html#own-chart", "ai.html#confighub-review", "deploy-with-flux-or-argo.html#handover", "Use this page for your own chart, values, new version, or unexpected result", "Check it in this browser with no AI needed.", "Neither route deploys your configuration.", "The chart route builds instructions for your local AI assistant.", "cub helm", "cub installer", "Run the shared checks on your machine", "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan", "cub check --format json --output cub-check.json ./rendered", "stable finding IDs", "Copy commands to keep this result", "Do not upload private files", "Keep secrets out of the form", "question-context", "See an illustrative object review", "AI wrote these values. What did they actually change?", "I set a value. Why did the rendered object not change?", "If Helm ignored a setting, check first for a misspelled or wrong values path", "Can I upgrade this chart without breaking production?", "The chart does not expose the field I need. Must I fork it?", "How should Argo CD or Flux handle this chart's hooks and CRDs?", "Can I roll back to exactly what ran before?", "How is this candidate different from production?", "Where does this vulnerable image run, and how can I update it safely?", "What will this install, and what must already exist?", "Do these version and digest records identify the same bytes?", "Start with a chart and values", "catalog-search-from-form", "Search the Catalog for this chart and version", "Optional comparison: add what you run today", "No, keep this investigation private", "Installed Helm release", "Read the existing-release commands", "Build instructions for my AI", "WORKSHOP FINDING", "Check rendered objects in this browser", "I have rendered YAML", "Check these objects", "Helm, AICR, and Timoni must produce their Kubernetes objects locally first", "Timoni module or bundle", "This is a first check, not a Helm render", "The checks on this page run in your browser", "This page does not send your files to an AI service", "Do not add credentials or Secret values", "Add the result from <code>cub check</code>", "accepts it only when its object count and object-set hash match", "Keep or share the reviewed result", "Find matching Catalog records", "Download complete result", "Create a pull-request report from this result", "Open the ConfigHub tutorial", "See what this check does not prove", "Read the upgrade and rollback walkthrough", "Download review record", "Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.", "WorkshopResult schema", "ConfigurationReview schema", "See how to keep this in ConfigHub", "Candidate file hash", "Local findings remain advisory", "Copy commands to keep this result", "Use your own AI assistant", "Copy handoff for my AI", "Optional: propose a public Catalog case", "A maintainer must reproduce and classify the case", "Four common Helm questions", "came up most often in a review of forty recent public Helm discussions", "Questions people are asking", "40 recent public Helm discussions", "not customer or site usage totals", "What happens to a public question", "What happens next", "The review finds a credential surprise", "See one NGINX configuration go from local finding to ConfigHub gate to promotion", "find configurations that use existing Secrets", "The render is surprising", "publish the reviewed files as OCI", "Save the reviewed result in ConfigHub", "delivery limitations", "checks and publication receipts", "promotion and fleet examples"],
+    terms: ["Is my configuration right?", "Check your own chart and values", "question-guide", "why-did-helm-ignore-my-values.html#own-chart", "ai.html#confighub-review", "deploy-with-flux-or-argo.html#handover", "Use this page for your own chart, values, new version, or unexpected result", "Check it in this browser with no AI needed.", "Neither route deploys your configuration.", "The chart route builds instructions for your local AI assistant.", "cub helm", "cub installer", "Run the shared checks on your machine", "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan", "cub check --format json --output cub-check.json ./rendered", "stable finding IDs", "Copy commands to keep this result", "Do not upload private files", "Keep secrets out of the form", "question-context", "See an illustrative object review", "AI wrote these values. What did they actually change?", "I set a value. Why did the rendered object not change?", "If Helm ignored a setting, check first for a misspelled or wrong values path", "Can I upgrade this chart without breaking production?", "The chart does not expose the field I need. Must I fork it?", "How should Argo CD or Flux handle this chart's hooks and CRDs?", "Can I roll back to exactly what ran before?", "How is this candidate different from production?", "Where does this vulnerable image run, and how can I update it safely?", "What will this install, and what must already exist?", "Do these version and digest records identify the same bytes?", "Start with a chart and values", "catalog-search-from-form", "Search the Catalog for this chart and version", "Optional comparison: add what you run today", "No, keep this investigation private", "Installed Helm release", "Read the existing-release commands", "Build instructions for my AI", "WORKSHOP FINDING", "Check rendered objects in this browser", "I have rendered YAML", "Check these objects", "Helm, AICR, and Timoni must produce their Kubernetes objects locally first", "Timoni module or bundle", "This is a first check, not a Helm render", "The checks on this page run in your browser", "This page does not send your files to an AI service", "Do not add credentials or Secret values", "Add the result from <code>cub check</code>", "accepts it only when its object count and object-set hash match", "Keep or share the reviewed result", "Find matching Catalog records", "Download complete result", "Create a pull-request report from this result", "Open the ConfigHub tutorial", "See what this check does not prove", "Read the upgrade and rollback walkthrough", "Download review record", "Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.", "WorkshopResult schema", "ConfigurationReview schema", "See how to keep this in ConfigHub", "Candidate file hash", "Local findings remain advisory", "Copy commands to keep this result", "Use your own AI assistant", "Copy handoff for my AI", "Optional: propose a public Catalog case", "A maintainer must reproduce and classify the case", "Four common Helm questions", "came up most often in a review of forty recent public Helm discussions", "Questions people are asking", "40 recent public Helm discussions", "not customer or site usage totals", "What happens to a public question", "What happens next", "The review finds a credential surprise", "See one NGINX configuration go from local finding to ConfigHub gate to promotion", "find configurations that use existing Secrets", "The render is surprising", "publish the reviewed files as OCI", "Save the reviewed result in ConfigHub", "delivery limitations", "checks and publication receipts", "promotion and fleet examples", "Choose the lowest-token route that can answer the question", "0 / 0 AI tokens", "6k–15k / 0.5k–2k", "10k–30k / 1k–4k", "20k–80k+ / 2k–8k", "Expected: an inventory, exact diff, check result, and downloadable hashes", "Not proven: source rendering the browser did not run", "The token-optimal path", "do not feed the model all of <code>configs.json</code> or <code>listings/index.json</code>", "From discovery to verified use: nine checkpoints", "1. Awareness", "2. Problem match", "3. Find", "4. Understand", "5. Start", "6. First value", "7. Delivery request", "8. Verified live", "9. Expand or return"],
   },
   {
     file: "site/why-did-helm-ignore-my-values.html",
@@ -145,12 +145,12 @@ const checks = [
   // Site IA phase 4, step 5: the Apps how-to moved to its Guide.
   {
     file: "site/put-an-app-on-a-platform.html",
-    terms: ["the platform carries what the app needs", "What an app is", "A standalone app needs neither.", "Try it now", "cub app check shop-web", "cub stack sandbox shop-platform", "Follow the demo, step by step", "Take it into ConfigHub", "Bring an app that already runs", "Open working examples", "Read the known gaps"],
+    terms: ["Check what your app needs, then check it against a platform", "What an app is", "A standalone app needs neither.", "Try it now", "cub app check shop-web", "cub stack sandbox shop-platform", "Follow the demo, step by step", "Deploy the first app, end to end", "https://confighub.github.io/helm-expt/site/examples/acme-web.yaml", 'href="./examples/acme-web.yaml"', "cub variant upload --component acme-web --variant base ./acme-web.yaml", "cub release publish acme-web-dev", "kubectl get application -n argocd acme-web-dev", "Bring an app that already runs", "Open working examples", "Read the known gaps"],
   },
   // Site IA phase 4, step 4: the Stacks how-to moved to its Guide.
   {
     file: "site/compose-a-stack.html",
-    terms: ["Check your own app on a shipped platform", "cub stack sandbox web-platform --workspace my-platform", "cub plugin install confighub/cub-workshop@v0.6.56", "cub stack sandbox eks-inference", "=&gt; CHECKED", "=&gt; REFUSED", "Get a stack", "Want a ready-made one?", "What a stack is", "placed across many clusters as data", "An app, in turn, is", "cub stack from-kubara", "Checking your stack", "What each app needs", "The stacks that ship, by altitude", "Run and govern it", "What you can do with the workshop plugin", "cub fleet status demo-platform", "Fleet operations live here too", "cub changeorder create traefik-wave", "cub stack publish"],
+    terms: ["Check your own app on a shipped platform", "cub stack sandbox web-platform --workspace my-platform", "cub plugin install confighub/cub-workshop@v0.6.56", "cub stack sandbox eks-inference", "=&gt; CHECKED", "=&gt; REFUSED", "Get a stack", "Want a ready-made one?", "What a stack is", "placed across many clusters as data", "An app, in turn, is", "cub stack from-kubara", "Checking your stack", "What each app needs", "Deploy a tiny first stack", "cub stack check web-tiny", "cub variant create dev first-stack-frontend-base --target workshop/target --namespace web", "cub release publish first-stack-backend-dev", "kubectl get applications -n argocd first-stack-frontend-dev first-stack-backend-dev", "The stacks that ship, by altitude", "Run and govern it", "What you can do with the workshop plugin", "cub fleet status demo-platform", "Fleet operations live here too", "cub changeorder create traefik-wave", "cub stack publish"],
   },
   {
     file: "site/proof.html",
@@ -290,7 +290,7 @@ const checks = [
   },
   {
     file: "site/ai.html",
-    terms: ["Use Claude or Codex for Kubernetes configuration", "1. Install the ConfigHub Workshop skill", "2. Ask for one result", "composed a five-component stack and had it certified", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "Check the proof and limits", "6. Keep your fixes and reviewed results in ConfigHub", "Review an AI rewrite", "git show HEAD:k8s/deploy.yaml", "A diff catches the next rewrite; it does not prevent it", "cub unit update --space \"$SPACE\" app --upgrade", "expected/step-7.txt", "invoice-preservation/receipt.json", "kept all six", "app k8s/deploy.yaml --protect --change-desc", "@v0.6.56\ngit show HEAD:k8s/deploy.yaml", "protected local overrides", "invoice-protection/receipt.json", "it is not a general merge", "Missing coverage means the claim is unchecked"],
+    terms: ["Use Claude or Codex for Kubernetes configuration", "1. Install the ConfigHub Workshop skill", "2. Ask for one result", "composed a five-component stack and had it certified", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "Check the proof and limits", "6. Keep your fixes and reviewed results in ConfigHub", "Review an AI rewrite", "git show HEAD:k8s/deploy.yaml", "A diff catches the next rewrite; it does not prevent it", "cub unit update --space \"$SPACE\" app --upgrade", "expected/step-7.txt", "invoice-preservation/receipt.json", "kept all six", "app k8s/deploy.yaml --protect --change-desc", "@v0.6.56\ngit show HEAD:k8s/deploy.yaml", "protected local overrides", "invoice-protection/receipt.json", "it is not a general merge", "Missing coverage means the claim is unchecked", "Plan token cost before you start", "0 / 0 AI tokens", "6k–15k / 0.5k–2k", "8k–25k / 1k–3k", "15k–50k / 2k–6k", "20k–80k+ / 2k–8k", "Five rules for a token-optimal run", "do not load whole indexes or the whole catalog into context", "Expected:</strong> one rendered candidate", "Not proven:</strong> cluster admission, delivery, or workload health", "Expected first:</strong> a read-only inventory", "From discovery to verified use: nine checkpoints", "7. Delivery request", "8. Verified live", "9. Expand or return"],
   },
   {
     file: "site/testing.html",
@@ -351,7 +351,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/ask.html",
-    headerTerms: ["Is my configuration right?", "Check your own chart and values", "Catalog", "Use this page for your own chart", "The chart route builds instructions for your local AI assistant", "Check it in this browser with no AI needed", "Neither route deploys your configuration", "Start with my chart and values", "See an illustrative object review", "I have rendered YAML"],
+    headerTerms: ["Is my configuration right?", "Check your own chart and values", "Catalog", "Use this page for your own chart", "The chart route builds instructions for your local AI assistant", "Check it in this browser with no AI needed", "Neither route deploys your configuration", "Start with my chart and values", "See an illustrative object review", "I have rendered YAML", "Plan token cost"],
   },
   {
     file: "site/try.html",
@@ -383,7 +383,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/ai.html",
-    headerTerms: ["Use Claude or Codex for Kubernetes configuration", "one configuration question", "the source, the Kubernetes objects and the diff"],
+    headerTerms: ["Use Claude or Codex for Kubernetes configuration", "one configuration question", "the source, the Kubernetes objects and the diff", "Choose an AI journey", "Plan token cost", "Use the zero-token checks"],
   },
 ];
 
@@ -1309,6 +1309,9 @@ for (const file of htmlFilesUnder(path.join(root, "site"))) {
   if (/helm ops/i.test(text)) {
     failures.push(`${path.relative(root, file)}: contains the retired \"Helm Ops\" label`);
   }
+  if (text.includes("prefers-color-scheme: dark") || text.includes('data-theme="dark"') || text.includes("color-scheme: light dark")) {
+    failures.push(`${path.relative(root, file)}: can revert from the fixed Workshop light appearance to a dark theme`);
+  }
 }
 
 // Chart-card placeholder lint: a chart page must never render an unresolved
@@ -1370,6 +1373,49 @@ for (const kind of ["argo", "flux"]) {
   const planAt = html.indexOf(`cub ${kind} plan .`);
   const importAt = html.indexOf('bash onboard/apply.sh');
   if (planAt < 0 || importAt <= planAt) failures.push(`${name}: preview must precede ConfigHub import`);
+}
+
+// Downloadable Guide inputs are part of the runnable path, not decorative
+// links. Resolve both the relative browser link and the public curl URL back
+// into the generated site tree so a renamed or omitted asset fails before
+// publication instead of becoming a GitHub Pages 404.
+const downloadableGuideAssets = [
+  {
+    page: "site/put-an-app-on-a-platform.html",
+    href: "./examples/acme-web.yaml",
+    publicUrl: "https://confighub.github.io/helm-expt/site/examples/acme-web.yaml",
+    expectedYamlDocuments: 4,
+  },
+];
+const publicSitePrefix = "https://confighub.github.io/helm-expt/site/";
+for (const asset of downloadableGuideAssets) {
+  const pagePath = path.join(root, asset.page);
+  if (!fs.existsSync(pagePath)) {
+    failures.push(`${asset.page}: missing page for downloadable Guide asset`);
+    continue;
+  }
+  const html = fs.readFileSync(pagePath, "utf8");
+  if (!html.includes(`href="${asset.href}"`)) failures.push(`${asset.page}: missing asset link ${asset.href}`);
+  if (!html.includes(asset.publicUrl)) failures.push(`${asset.page}: missing public download URL ${asset.publicUrl}`);
+
+  const relativeAssetPath = path.resolve(path.dirname(pagePath), asset.href);
+  const publicRelativePath = asset.publicUrl.startsWith(publicSitePrefix)
+    ? asset.publicUrl.slice(publicSitePrefix.length)
+    : null;
+  const publicAssetPath = publicRelativePath ? path.resolve(root, "site", publicRelativePath) : null;
+  if (!publicAssetPath) failures.push(`${asset.page}: download URL is outside the Workshop site prefix`);
+  if (publicAssetPath && publicAssetPath !== relativeAssetPath) {
+    failures.push(`${asset.page}: browser link and public download URL resolve to different assets`);
+  }
+  if (!fs.existsSync(relativeAssetPath)) {
+    failures.push(`${asset.page}: downloadable Guide asset is missing at ${path.relative(root, relativeAssetPath)}`);
+    continue;
+  }
+  const yaml = fs.readFileSync(relativeAssetPath, "utf8").trim();
+  const documentCount = yaml ? yaml.split(/^---\s*$/m).filter((document) => document.trim()).length : 0;
+  if (documentCount !== asset.expectedYamlDocuments) {
+    failures.push(`${path.relative(root, relativeAssetPath)}: expected ${asset.expectedYamlDocuments} YAML documents, found ${documentCount}`);
+  }
 }
 
 if (failures.length) {

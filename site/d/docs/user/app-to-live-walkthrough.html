@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Your App To Live: Variants And Promotions End To End · ConfigHub Workshop</title>
-  <meta name="description" content="Your App To Live: Variants And Promotions End To End: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Your First App To Live · ConfigHub Workshop</title>
+  <meta name="description" content="Your First App To Live: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/app-to-live-walkthrough.html">
-  <meta property="og:title" content="Your App To Live: Variants And Promotions End To End · ConfigHub Workshop">
-  <meta property="og:description" content="Your App To Live: Variants And Promotions End To End: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="Your First App To Live · ConfigHub Workshop">
+  <meta property="og:description" content="Your First App To Live: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/app-to-live-walkthrough.html">
   <style>
@@ -30,16 +30,6 @@
       --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       --heading: Inter, ui-sans-serif, system-ui, sans-serif;
       --term: #0e1419;
-    }
-
-    :root[data-theme="dark"] {
-      color-scheme: dark;
-      --ink: #ede7dd; --muted: #a69c8d; --faint: #7c7365; --line: #322b23; --line-strong: #4a4034; --panel: #201a14; --surface-2: #201a14;
-      --accent: #ee7b45; --accent-ink: #ee7b45; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #17130f;
-    }
-    :root[data-theme="light"] {
-      --ink: #221c15; --muted: #6e6659; --faint: #9c9285; --line: #e7e1d6; --line-strong: #d5cec2; --panel: #f3f0e9; --surface-2: #f3f0e9;
-      --accent: #ba3d03; --accent-ink: #a33502; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
     }
     * { box-sizing: border-box; }
     input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
@@ -354,12 +344,6 @@
     .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
     .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
     .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
-
-    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
-    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
-    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
-    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
-    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
     .row-links { margin: 0; font-size: .9rem; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
@@ -548,89 +532,85 @@
 <details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
   <header class="hero human-hero">
     
-    <h1>Your App To Live: Variants And Promotions End To End</h1>
-    <p class="lead">The variant and promotion sequence was run live on 2026-07-02. The cluster and OCI commands have since moved into the main <code>cub</code> CLI. The commands below use the current <code>cub cluster</code> and <code>cub release publish</code> path rather than preserving the retired command spelling from that run. <a href="../../../../docs/user/app-to-live-walkthrough.md">View source markdown</a>.</p>
+    <h1>Your First App To Live</h1>
+    <p class="lead">It is intentionally narrower than the promotion and app-of-apps Guides. Finish one deployment with every checkpoint visible, then continue to those Guides. <a href="../../../../docs/user/app-to-live-walkthrough.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL.</b> This walkthrough answers one question: I have a simple app; how do I store it as a base, make staging and production variants, promote a change, and deliver each environment through GitOps?</p>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> This walkthrough takes one small, self-contained application through the current ConfigHub deployment path:</p>
+<pre><code>four plain-YAML objects
+  -&gt; Base in ConfigHub
+  -&gt; target-bound dev variant
+  -&gt; immutable Release
+  -&gt; Argo CD Application
+  -&gt; ready Kubernetes workload</code></pre>
 
-<p>The chain:</p>
+<h2 id="what-you-need">What you need</h2>
+<ul><li><code>cub</code> installed and authenticated with <code>cub auth login</code>;</li><li>Docker, kind, and kubectl; and</li><li>a ConfigHub organization you can write to.</li></ul>
+<p>The example is <a href="../../examples/plain-yaml/acme-web/README.html"><code>examples/plain-yaml/acme-web</code></a>: one Namespace, one ConfigMap, one Deployment, and one Service. The Namespace is part of the input, so the first run does not depend on an undeclared namespace.</p>
+<h2 id="1-inspect-the-source-before-writing-anything">1. Inspect the source before writing anything</h2>
+<p>From this repository checkout:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>your app (plain manifests)
-  -&gt; cub variant upload        -&gt; base Space
-  -&gt; cub variant create (x2)   -&gt; staging and production Spaces
-  -&gt; cub release publish       -&gt; one OCI release per environment
-  -&gt; Argo CD pulls             -&gt; the reviewed objects run on the cluster
-  -&gt; edit base, promote        -&gt; staged rollout, environment by environment</code></pre>
-<h2 id="prerequisites">Prerequisites</h2>
-<ul><li><code>cub</code> installed and logged in (<code>cub auth login</code>).</li><li>Docker running (for the local kind cluster).</li></ul>
-<h2 id="step-1-create-a-temporary-cluster-and-its-delivery-target">Step 1: Create a temporary cluster and its delivery target</h2>
-<pre><code>cub cluster up --name demo --space demo-cluster</code></pre>
-<p>This provisions a kind cluster, installs Argo CD, creates a <code>demo-cluster</code> Space with an OCI target (<code>demo-cluster/oci</code>), installs the OCI pull credentials, and bootstraps a root Application. Load the cluster credentials in any shell that needs <code>kubectl</code>:</p>
-<pre><code>source ~/.confighub/clusters/demo.env</code></pre>
-<h2 id="step-2-a-simple-app-three-manifests">Step 2: A simple app, three manifests</h2>
-<p>A Deployment, ConfigMap, and Service, all in one namespace. Any plain manifests work; nothing here is chart-specific. For a committed four-object starting fixture and a focused upload receipt, use the <a href="../../examples/plain-yaml/acme-web/README.html">plain YAML example</a>. This longer walkthrough continues past import into variants, releases, GitOps delivery, and promotion.</p>
-<h2 id="step-3-upload-the-base">Step 3: Upload the base</h2>
-<pre><code>cub variant upload --component acme-web --variant base \
-  --space acme-web-base --granularity per-resource ./app</code></pre>
-<p>One Unit per resource lands in <code>acme-web-base</code>, links inferred from references. The upload warns about anything your manifests reference but do not contain (for example the namespace, or a Secret it expects to exist): read those warnings, they are the honest list of what the target cluster must provide.</p>
-<h2 id="step-4-staging-and-production-variants">Step 4: Staging and production variants</h2>
-<pre><code>cub variant create staging acme-web-base \
-  --space-pattern &quot;template:acme-web-staging&quot; \
-  --environment Staging --namespace acme-staging \
-  --target demo-cluster/oci
+  <pre><code>for file in namespace.yaml configmap.yaml deployment.yaml service.yaml; do
+  printf '%s\n' '---'
+  cat &quot;examples/plain-yaml/acme-web/$file&quot;
+done &gt; acme-web.yaml
 
-cub variant create production acme-web-base \
-  --space-pattern &quot;template:acme-web-prod&quot; \
-  --environment Prod --namespace acme-prod \
-  --target demo-cluster/oci \
-  --unit-delete-gate customer-demo --unit-destroy-gate customer-demo</code></pre>
-<p>Each clone records its upstream link (promotion follows it later), rewrites the namespace on every cloned Unit (verified: the staging ConfigMap says <code>namespace: acme-staging</code>, prod says <code>acme-prod</code>), and production's Units are gated against accidental delete and destroy. Pass <code>--space-pattern</code> for a predictable Space name; the server default produces a longer derived slug.</p>
-<h2 id="step-5-publish-one-release-oci-for-each-environment">Step 5: Publish one release OCI for each environment</h2>
-<pre><code>cub release publish acme-web-staging
-cub release publish acme-web-prod</code></pre>
-<p>Each command packages the exact Units in that Space. The pull URLs are <code>oci://oci.hub.confighub.com:443/space/acme-web-staging</code> and <code>oci://oci.hub.confighub.com:443/space/acme-web-prod</code>.</p>
-<h2 id="step-6-tell-argo-about-the-two-environments-as-config">Step 6: Tell Argo about the two environments, as config</h2>
-<p>The Argo <code>Application</code> objects are themselves Units in the cluster Space, so even the delivery wiring is versioned config:</p>
-<pre><code>cub unit create --space demo-cluster acme-web-staging-app app-staging.yaml \
-  --target demo-cluster/oci --change-desc &quot;Argo Application for the staging variant&quot;</code></pre>
-<p>The Application source is the Space release OCI:</p>
-<pre><code>source:
-  repoURL: oci://oci.hub.confighub.com:443/space/acme-web-staging
-  targetRevision: latest
-  path: .</code></pre>
-<p>Same again for prod (path <code>./acme-web-prod</code>, destination namespace <code>acme-prod</code>).</p>
-<h2 id="step-7-publish-the-cluster-space-and-watch-it-become-real">Step 7: Publish the cluster Space, and watch it become real</h2>
-<pre><code>cub release publish demo-cluster</code></pre>
-<p>The root Application created by <code>cub cluster up</code> reads the cluster Space release and creates the two child Applications. Each child pulls its environment's release OCI. In the recorded run, both apps reached <code>Synced/Healthy</code> and both namespaces served <code>VERSION 1</code>.</p>
-<h2 id="step-8-the-staged-rollout">Step 8: The staged rollout</h2>
-<p>Change the base with a function (a recorded revision with your reason), then promote one environment at a time:</p>
-<pre><code>cub run set-yq --space acme-web-base --unit acme-configmap-acme-web-content \
-  --change-desc &quot;Release VERSION 2 of the content&quot; \
-  '.data.&quot;index.html&quot; = &quot;acme-web VERSION 2\n&quot;'
+cub plugin install confighub/cub-workshop@v0.6.56
+cub config check ./acme-web.yaml</code></pre>
+<p>The check reads four Kubernetes objects. It does not write ConfigHub data or touch a cluster. The retained <a href="../../../../runs/literal-yaml-upload-proof/receipt.yaml">plain-YAML import receipt</a> records this four-object import boundary, but explicitly does not claim a live deployment.</p>
+<h2 id="2-create-one-local-cluster-and-target">2. Create one local cluster and target</h2>
+<pre><code>cub cluster up --name demo
+source ~/.confighub/clusters/demo.env
+cub target get demo/target</code></pre>
+<p><code>cub cluster up</code> creates a kind cluster, installs Argo CD and the live-status helper, and creates two ConfigHub Spaces: <code>demo</code> for the target and worker, and <code>demo-argo-apps</code> for the root Application and its children. The target used by deployments is <code>demo/target</code>.</p>
+<p>Sourcing the generated environment file selects this cluster for the kubectl checks later in the Guide.</p>
+<h2 id="3-import-the-base">3. Import the Base</h2>
+<pre><code>cub variant upload \
+  --component acme-web \
+  --variant base \
+  ./acme-web.yaml
 
-cub variant promote acme-web-staging --dry-run
-cub variant promote acme-web-staging --change-desc &quot;Promote VERSION 2 to staging&quot;
-cub release publish acme-web-staging</code></pre>
-<p>Observed live state after that, and this is the point of the whole model:</p>
-<pre><code>staging: acme-web VERSION 2
-prod:    acme-web VERSION 1</code></pre>
-<p>Two environments, one reviewed base, the difference explicit and deliberate. Then the same two commands for <code>acme-web-prod</code>, and both environments read <code>VERSION 2</code>. The prod Unit's revision history tells the story in three lines: <code>CloneUnit</code> (the variant was created), <code>Invoke</code> (the namespace rewrite), <code>UpgradeUnit</code> (the promotion).</p>
-<h2 id="honest-notes-from-the-live-run">Honest notes from the live run</h2>
-<ul><li>Use <code>cub run set-yq</code> (or another mutating function) to edit data. Its read-only sibling <code>yq</code> accepts <code>--change-desc</code> and exits cleanly while changing nothing; if a promote then says nothing needs upgrading, check the base actually gained a revision (<code>cub revision list</code>).</li><li><code>cub variant promote --dry-run</code> prints a correct would-upgrade summary. <code>--dry-run -o mutations</code> currently prints nothing; do not read its silence as &quot;nothing to promote&quot;.</li><li>Right after content lands, Argo can briefly report <code>OutOfSync</code> with the content already correct; it settles on the next reconcile.</li><li>The cluster's kubeconfig is its own file (<code>~/.confighub/clusters/&lt;name&gt;.kubeconfig</code>); source the generated env file rather than assuming your default kubeconfig has the context.</li></ul>
+cub component open acme-web</code></pre>
+<p>Checkpoint: the Component view shows <code>acme-web-base</code> and the same four objects. Nothing has deployed. The input YAML is the source; the Base is the reusable configuration ConfigHub now manages.</p>
+<h2 id="4-create-the-dev-deployment">4. Create the dev deployment</h2>
+<pre><code>cub variant create dev acme-web-base \
+  --target demo/target \
+  --namespace acme-web</code></pre>
+<p>Checkpoint: the Component view now shows <code>acme-web-dev</code> beneath the Base and attached to <code>demo/target</code>. Current <code>cub variant create --target</code> also creates the child Argo CD Application in <code>demo-argo-apps</code>; there is no manual Application-Unit step.</p>
+<p>Creating the variant chooses the destination. It still does not prove that the application is running.</p>
+<h2 id="5-publish-and-prove-each-boundary">5. Publish and prove each boundary</h2>
+<pre><code>cub release publish acme-web-dev
+
+# Controller checkpoint
+kubectl get application -n argocd acme-web-dev
+
+# Workload checkpoint
+kubectl wait -n acme-web \
+  --for=condition=Available deployment/acme-web \
+  --timeout=180s
+
+# Delivered objects
+kubectl get deployment,service,pods -n acme-web</code></pre>
+<p>Do not collapse these into one green check:</p>
+<table><thead><tr><th>Checkpoint</th><th>What it establishes</th></tr></thead><tbody><tr><td><code>cub release publish</code></td><td>ConfigHub accepted an immutable desired release.</td></tr>
+<tr><td>Argo CD Application</td><td>The controller observed and reconciled that delivery request.</td></tr>
+<tr><td>Deployment Available</td><td>Kubernetes reports the workload ready.</td></tr>
+<tr><td>Service and Pods</td><td>The expected live objects exist in the chosen namespace.</td></tr></tbody></table>
+<p>The maintained product deployment E2E additionally checks the exact observed revision, ready replica count, ConfigHub origin metadata, and the live-status feedback reported by argobot. This exact four-object fixture has retained import evidence; a fresh joined live receipt for it is still a separate test, so this document does not present the old 2026-07-02 run as current proof.</p>
+<h2 id="6-continue-from-a-working-result">6. Continue from a working result</h2>
+<ul><li>To change the Base and promote the reviewed result, follow <a href="variants-after-upload.html">variants after upload</a> and the <a href="https://docs.confighub.com/get-started/tutorial/">official ConfigHub tutorial</a>.</li><li>To bring an existing Argo CD app or app-of-apps estate, use <a href="https://confighub.github.io/helm-expt/site/bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a>. It begins read-only and preserves Argo CD as the delivery controller.</li><li>To check an application together with platform dependencies, continue to <a href="https://confighub.github.io/helm-expt/site/put-an-app-on-a-platform.html">Put an app on a platform</a>.</li></ul>
 <h2 id="teardown">Teardown</h2>
+<p>Only remove the resources created by this walkthrough:</p>
 <pre><code>cub cluster down --name demo
-cub space delete acme-web-staging --recursive
-cub space delete acme-web-prod --recursive-force   # gates block plain delete, by design
+cub space delete acme-web-dev --recursive
 cub space delete acme-web-base --recursive</code></pre>
-<h2 id="where-this-fits">Where this fits</h2>
-<ul><li>The variant model and the decision rule behind it: <a href="variants-after-upload.html">variants after upload</a>.</li><li>Delivery shapes beyond Argo, including Flux and the no-controller path: <a href="cub-deployment-path.html">cub deployment path</a>.</li><li>The catalog's receipted evidence for the same mechanism per chart base variant: the master matrix Promotion lane.</li></ul>
+<p>If deletion is refused, read the named dependency or gate instead of forcing a broad cleanup.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/app-to-live-walkthrough.md</code>. The source file is the authoritative version.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#prerequisites">Prerequisites</a></li><li><a href="#step-1-create-a-temporary-cluster-and-its-delivery-target">Step 1: Create a temporary cluster and its delivery target</a></li><li><a href="#step-2-a-simple-app-three-manifests">Step 2: A simple app, three manifests</a></li><li><a href="#step-3-upload-the-base">Step 3: Upload the base</a></li><li><a href="#step-4-staging-and-production-variants">Step 4: Staging and production variants</a></li><li><a href="#step-5-publish-one-release-oci-for-each-environment">Step 5: Publish one release OCI for each environment</a></li><li><a href="#step-6-tell-argo-about-the-two-environments-as-config">Step 6: Tell Argo about the two environments, as config</a></li><li><a href="#step-7-publish-the-cluster-space-and-watch-it-become-real">Step 7: Publish the cluster Space, and watch it become real</a></li><li><a href="#step-8-the-staged-rollout">Step 8: The staged rollout</a></li><li><a href="#honest-notes-from-the-live-run">Honest notes from the live run</a></li><li><a href="#teardown">Teardown</a></li><li><a href="#where-this-fits">Where this fits</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#what-you-need">What you need</a></li><li><a href="#1-inspect-the-source-before-writing-anything">1. Inspect the source before writing anything</a></li><li><a href="#2-create-one-local-cluster-and-target">2. Create one local cluster and target</a></li><li><a href="#3-import-the-base">3. Import the Base</a></li><li><a href="#4-create-the-dev-deployment">4. Create the dev deployment</a></li><li><a href="#5-publish-and-prove-each-boundary">5. Publish and prove each boundary</a></li><li><a href="#6-continue-from-a-working-result">6. Continue from a working result</a></li><li><a href="#teardown">Teardown</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>

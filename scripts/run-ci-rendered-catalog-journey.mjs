@@ -59,7 +59,7 @@ if (mode === "--land") {
     const scan = cub("check", join(FIXTURE_DIR, `${component.name}.yaml`));
     const findings = (scan.match(/^Findings: (\d+)/m) ?? [])[1] ?? "0";
     cub("variant", "upload", "--component", component.name, "--variant", "base",
-      "--granularity", "per-resource", "--owner", "CI Rendered Catalog", join(FIXTURE_DIR, `${component.name}.yaml`));
+      "--owner", "CI Rendered Catalog", join(FIXTURE_DIR, `${component.name}.yaml`));
     console.log(`  ${component.name}: checked (${findings} advisory finding(s)), landed per-resource in ${component.name}-base`);
   }
   process.exit(0);

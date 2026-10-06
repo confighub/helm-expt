@@ -77,6 +77,7 @@ ${guide.plan}`);
     body: `    <section aria-labelledby="migration-shape">
       <h2 id="migration-shape">1. What changes, and what does not</h2>
       <p>${upper} stays the delivery controller. Preview has no account or cluster mutation; import makes a parallel ConfigHub copy while Git still delivers; handover then moves sources to reviewed releases. Handover has checks and recovery steps, not zero risk.</p>
+${kind === "argo" ? '      <p>For an app-of-apps estate, ConfigHub keeps the root management structure and its parent-to-child relationships visible. Argo CD still renders charts and reconciles the descendants. The plan inventories descendant Applications and their rendered objects so you can inspect what the root governs; controller-generated or live objects remain evidence unless you deliberately choose them as desired configuration.</p>\n' : ""}
       <p>Start with a small disposable estate. Roots, generators, and pruning can make production migration an ordered fleet operation.</p>
     </section>
 

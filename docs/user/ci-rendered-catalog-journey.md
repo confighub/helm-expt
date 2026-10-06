@@ -9,8 +9,12 @@ The whole journey is a recorded run with [a committed receipt](../../data/ci-ren
 The fixture is three CI-rendered files taken verbatim from this catalog's committed renders, a Redis, a metrics-server, and a Traefik, standing in for a private repo of rendered charts. Each file gets the free look first, `cub check`, which names its advisory findings with stable identifiers. Then each lands with one command:
 
 ```sh
-cub variant upload --component redis --variant base --granularity per-resource redis.yaml
+cub variant upload --component redis --variant base redis.yaml
 ```
+
+Current `cub` splits the rendered input into one Unit per Kubernetes resource
+server-side. The earlier `--granularity per-resource` spelling has been
+removed; omitting it now expresses the same resource-oriented import.
 
 The receipt carries the claim that matters: the objects in ConfigHub are canonically equal to the files CI rendered. Nothing is lost in the move, so there is nothing to re-review.
 
