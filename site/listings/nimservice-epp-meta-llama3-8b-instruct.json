@@ -847,6 +847,11 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/epp-meta-llama3-8b-instruct/flattening-safety-verdict.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-nim-operator-models/catalog-entries/epp-meta-llama3-8b-instruct/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/epp-meta-llama3-8b-instruct/literal-config-oci.yaml"
+      },
+      {
         "name": "operatorRoute",
         "path": "data/aicr-nim-operator-models/catalog-entries/epp-meta-llama3-8b-instruct/operator-first-ordering.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/epp-meta-llama3-8b-instruct/operator-first-ordering.yaml"
@@ -911,10 +916,6 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nvstaging/nim-internal/vllm-oss-nim-llm-4-devel-llama3.1-8b-instruct:2.0.0-rc.20260203175658-38778af4c5e1fc45 (tag, served-model-container); registry.k8s.io/gateway-api-inference-extension/epp:v1.3.1 (tag, endpoint-picker)"
-      },
-      {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-nim-operator-models/catalog-entries/epp-meta-llama3-8b-instruct/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",

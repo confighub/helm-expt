@@ -843,6 +843,11 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/multi-node-deepseek-r1-multi-node-nimservice-rdma/flattening-safety-verdict.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-nim-operator-models/catalog-entries/multi-node-deepseek-r1-multi-node-nimservice-rdma/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/multi-node-deepseek-r1-multi-node-nimservice-rdma/literal-config-oci.yaml"
+      },
+      {
         "name": "operatorRoute",
         "path": "data/aicr-nim-operator-models/catalog-entries/multi-node-deepseek-r1-multi-node-nimservice-rdma/operator-first-ordering.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/multi-node-deepseek-r1-multi-node-nimservice-rdma/operator-first-ordering.yaml"
@@ -903,10 +908,6 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nim/deepseek-ai/deepseek-r1:1.7.3 (tag, served-model-container); nvcr.io/nim/deepseek-ai/deepseek-r1:1.7.3 (tag, model-puller)"
-      },
-      {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-nim-operator-models/catalog-entries/multi-node-deepseek-r1-multi-node-nimservice-rdma/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",

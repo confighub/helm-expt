@@ -830,6 +830,11 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/flattening-safety-verdict.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/literal-config-oci.yaml"
+      },
+      {
         "name": "operatorRoute",
         "path": "data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/operator-first-ordering.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/operator-first-ordering.yaml"
@@ -890,10 +895,6 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nim/nvidia/riva-tts:1.3.0 (tag, served-model-container); nvcr.io/nim/nvidia/riva-tts:1.3.0 (tag, model-puller)"
-      },
-      {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",

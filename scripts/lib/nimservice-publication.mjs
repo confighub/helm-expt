@@ -43,6 +43,17 @@ const OCI_EMPTY_CONFIG_TYPE = "application/vnd.oci.empty.v1+json";
 const OCI_EMPTY_CONFIG = Buffer.from("{}");
 const CREATED_ANNOTATION = "1970-01-01T00:00:00Z";
 
+// One spelling of a value whatever order its keys were written or read in. A
+// receipt is written as YAML and read back with its keys sorted, so a plain
+// JSON comparison of the two would call a faithful receipt different.
+function canonical(value) {
+  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value ?? null);
+}
+
 const sha256Hex = (data) => createHash("sha256").update(data).digest("hex");
 const digestOf = (data) => `sha256:${sha256Hex(data)}`;
 
@@ -312,7 +323,7 @@ export function nimServicePublicationProblems(receipt, artifact) {
   expect(spec.immutableReference === artifact.immutableReference, "its immutable reference does not pin the manifest digest");
   expect(spec.artifactType === artifact.artifactType, `its artifact type is ${spec.artifactType ?? "missing"}`);
   expect(spec.objectSetSha256 === artifact.objectSetSha256 && spec.sourceFileSha256 === artifact.sourceFileSha256, "its object-set or source-file digest is not the retained sample's");
-  expect(JSON.stringify(spec.stagedFiles ?? []) === JSON.stringify(stagedRows(artifact)), "its staged files are not the sample and the two route files this variant has now");
+  expect(canonical(spec.stagedFiles ?? []) === canonical(stagedRows(artifact)), "its staged files are not the sample and the two route files this variant has now");
   expect(spec.contents?.nvidiaImagesOrWeights === false && spec.contents?.secretValues === false, "it does not say the artifact holds no NVIDIA image, no weight and no Secret value");
   expect(spec.push?.result === "pass", "it records no passing push");
   const pull = spec.anonymousPull ?? {};
@@ -381,7 +392,7 @@ export function expectedNimServiceLiteralConfigOci(publication) {
 // record's literalConfigOci is exactly what the publication state allows.
 export function nimServiceLiteralConfigOciProblem(name, actual, publication) {
   const expected = expectedNimServiceLiteralConfigOci(publication);
-  if (JSON.stringify(actual ?? {}) === JSON.stringify(expected)) return "";
+  if (canonical(actual ?? {}) === canonical(expected)) return "";
   if (publication?.published) {
     return `${name}: ${publication.receiptRel} records a publication of ${publication.artifact.manifestDigest}, and delivery.literalConfigOci does not carry exactly that reference, those digests and that receipt`;
   }

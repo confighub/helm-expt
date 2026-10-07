@@ -38,7 +38,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { check, repoRoot, serializeYaml, trackedExists, writeYaml } from "./lib/proof-common.mjs";
+import { check, readYamlText, repoRoot, serializeYaml, trackedExists, writeYaml } from "./lib/proof-common.mjs";
 import { loadNimServiceEntries } from "./lib/nimservice-entries.mjs";
 import {
   buildNimServiceArtifact,
@@ -287,6 +287,12 @@ function selfTest() {
     anonymousPull: { result: "pass", manifestDigest: entry.artifact.manifestDigest, layerDigest: entry.artifact.layerDigest, filesMatched: 3 },
   });
   check(nimServicePublicationProblems(receipt, entry.artifact).length === 0, "self-test: a receipt for these bytes was refused");
+  // A receipt is read back from YAML with its keys in another order, and it
+  // must still be the receipt of these bytes.
+  check(
+    nimServicePublicationProblems(readYamlText(serializeYaml(receipt)), entry.artifact).length === 0,
+    "self-test: a receipt written as YAML and read back was refused",
+  );
   check(nimServicePublicationProblems(receipt, other.artifact).length > 0, "self-test: a receipt for other bytes was accepted");
   check(nimServicePublicationProblems(receipt, changed.artifact).some((problem) => /its manifest digest is/.test(problem)), "self-test: a receipt was accepted for an artifact whose bytes changed after it was written");
   check(expectedNimServiceLiteralConfigOci({ published: false }).status === "not-published", "self-test: a variant with no receipt was given a published state");

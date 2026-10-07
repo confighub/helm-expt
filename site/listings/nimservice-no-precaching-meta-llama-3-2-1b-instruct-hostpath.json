@@ -804,6 +804,11 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-hostpath/flattening-safety-verdict.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-hostpath/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-hostpath/literal-config-oci.yaml"
+      },
+      {
         "name": "operatorRoute",
         "path": "data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-hostpath/operator-first-ordering.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-hostpath/operator-first-ordering.yaml"
@@ -864,10 +869,6 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 (tag, served-model-container)"
-      },
-      {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-hostpath/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",

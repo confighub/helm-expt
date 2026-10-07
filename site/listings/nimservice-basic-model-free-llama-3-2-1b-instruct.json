@@ -817,6 +817,11 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/basic-model-free-llama-3-2-1b-instruct/flattening-safety-verdict.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-nim-operator-models/catalog-entries/basic-model-free-llama-3-2-1b-instruct/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/basic-model-free-llama-3-2-1b-instruct/literal-config-oci.yaml"
+      },
+      {
         "name": "operatorRoute",
         "path": "data/aicr-nim-operator-models/catalog-entries/basic-model-free-llama-3-2-1b-instruct/operator-first-ordering.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/basic-model-free-llama-3-2-1b-instruct/operator-first-ordering.yaml"
@@ -877,10 +882,6 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nim/nvidia/model-free-nim:3.0.0 (tag, served-model-container); nvcr.io/nim/nvidia/model-free-nim:3.0.0 (tag, model-puller)"
-      },
-      {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-nim-operator-models/catalog-entries/basic-model-free-llama-3-2-1b-instruct/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",

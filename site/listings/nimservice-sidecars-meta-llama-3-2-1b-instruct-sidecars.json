@@ -808,6 +808,11 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/sidecars-meta-llama-3-2-1b-instruct-sidecars/flattening-safety-verdict.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-nim-operator-models/catalog-entries/sidecars-meta-llama-3-2-1b-instruct-sidecars/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/sidecars-meta-llama-3-2-1b-instruct-sidecars/literal-config-oci.yaml"
+      },
+      {
         "name": "operatorRoute",
         "path": "data/aicr-nim-operator-models/catalog-entries/sidecars-meta-llama-3-2-1b-instruct-sidecars/operator-first-ordering.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/sidecars-meta-llama-3-2-1b-instruct-sidecars/operator-first-ordering.yaml"
@@ -868,10 +873,6 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 (tag, served-model-container); busybox:1.36 (tag, init-container); busybox:1.36 (tag, sidecar-container)"
-      },
-      {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-nim-operator-models/catalog-entries/sidecars-meta-llama-3-2-1b-instruct-sidecars/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",

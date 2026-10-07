@@ -817,6 +817,11 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/multi-node-llama-3-1-8b-instruct-multinode/flattening-safety-verdict.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-nim-operator-models/catalog-entries/multi-node-llama-3-1-8b-instruct-multinode/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/multi-node-llama-3-1-8b-instruct-multinode/literal-config-oci.yaml"
+      },
+      {
         "name": "operatorRoute",
         "path": "data/aicr-nim-operator-models/catalog-entries/multi-node-llama-3-1-8b-instruct-multinode/operator-first-ordering.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/multi-node-llama-3-1-8b-instruct-multinode/operator-first-ordering.yaml"
@@ -881,10 +886,6 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nim/meta/llama-3.1-8b-instruct:2.0.10 (tag, served-model-container); nvcr.io/nim/meta/llama-3.1-8b-instruct:2.0.10 (tag, model-puller)"
-      },
-      {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-nim-operator-models/catalog-entries/multi-node-llama-3-1-8b-instruct-multinode/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",

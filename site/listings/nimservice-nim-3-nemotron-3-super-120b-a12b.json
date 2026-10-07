@@ -804,6 +804,11 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/nim-3-nemotron-3-super-120b-a12b/flattening-safety-verdict.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-nim-operator-models/catalog-entries/nim-3-nemotron-3-super-120b-a12b/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/nim-3-nemotron-3-super-120b-a12b/literal-config-oci.yaml"
+      },
+      {
         "name": "operatorRoute",
         "path": "data/aicr-nim-operator-models/catalog-entries/nim-3-nemotron-3-super-120b-a12b/operator-first-ordering.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/nim-3-nemotron-3-super-120b-a12b/operator-first-ordering.yaml"
@@ -864,10 +869,6 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nim/nvidia/nemotron-3-super-120b-a12b:3.0.0 (tag, served-model-container); nvcr.io/nim/nvidia/nemotron-3-super-120b-a12b:3.0.0 (tag, model-puller)"
-      },
-      {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-nim-operator-models/catalog-entries/nim-3-nemotron-3-super-120b-a12b/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",

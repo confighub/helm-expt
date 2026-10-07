@@ -804,6 +804,11 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/flattening-safety-verdict.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/literal-config-oci.yaml"
+      },
+      {
         "name": "operatorRoute",
         "path": "data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/operator-first-ordering.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/operator-first-ordering.yaml"
@@ -864,10 +869,6 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nim/nvidia/llama-nemotron-embed-vl-1b-v2:2.3.0 (tag, served-model-container); nvcr.io/nim/nvidia/llama-nemotron-embed-vl-1b-v2:2.3.0 (tag, model-puller)"
-      },
-      {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",
