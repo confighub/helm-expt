@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nvidia-cluster-readiness-engine-v0.6.0-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "245bf4e26305a0475518903ffaaa08dac7b558564913776ba2c88eda82051c26"
+  mergedValuesCaptured: false
+  values:
+    {}

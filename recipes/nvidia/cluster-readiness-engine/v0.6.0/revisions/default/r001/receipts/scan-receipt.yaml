@@ -1,0 +1,217 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "cluster-readiness-engine-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "3d7c5f88d97f8f74f84b7ced2ae32d75fceb9888aa4d2701124eb6beea713170"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.1.0"
+  policyBundleDigest: "d80d50015a2ec7372f8bfdc47bf2c610c282c68d5e0edcb9b781c2cc34323648"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 33
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-bandwidthmeasurement-admin-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-bandwidthmeasurement-admin-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-bandwidthmeasurement-editor-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-bandwidthmeasurement-editor-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-bandwidthmeasurement-viewer-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-bandwidthmeasurement-viewer-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-certification-admin-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-certification-admin-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-certification-editor-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-certification-editor-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-certification-viewer-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-certification-viewer-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-goodputmeasurement-admin-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-goodputmeasurement-admin-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-goodputmeasurement-editor-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-goodputmeasurement-editor-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-goodputmeasurement-viewer-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-goodputmeasurement-viewer-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-job-admin-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-job-admin-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-job-editor-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-job-editor-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-job-viewer-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-job-viewer-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-logprofile-admin-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-logprofile-admin-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-logprofile-editor-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-logprofile-editor-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-logprofile-viewer-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-logprofile-viewer-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-manager-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-manager-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-metrics-auth-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-metrics-auth-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-metrics-reader"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-metrics-reader"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-workflow-admin-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-workflow-admin-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-workflow-editor-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-workflow-editor-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-workflow-viewer-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-workflow-viewer-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-workloadrun-admin-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-workloadrun-admin-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-workloadrun-editor-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-workloadrun-editor-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvcre-workloadrun-viewer-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvcre-workloadrun-viewer-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||nvcre-manager-rolebinding"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||nvcre-manager-rolebinding"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||nvcre-metrics-auth-rolebinding"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||nvcre-metrics-auth-rolebinding"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "crd-upgrade-policy:apiextensions.k8s.io/v1|CustomResourceDefinition||bandwidthmeasurements.nvcre.nvidia.com"
+      rule: "crd-upgrade-policy"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||bandwidthmeasurements.nvcre.nvidia.com"
+      message: "CRD ownership and upgrade behavior require production review"
+    -
+      id: "crd-upgrade-policy:apiextensions.k8s.io/v1|CustomResourceDefinition||certifications.nvcre.nvidia.com"
+      rule: "crd-upgrade-policy"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||certifications.nvcre.nvidia.com"
+      message: "CRD ownership and upgrade behavior require production review"
+    -
+      id: "crd-upgrade-policy:apiextensions.k8s.io/v1|CustomResourceDefinition||goodputmeasurements.nvcre.nvidia.com"
+      rule: "crd-upgrade-policy"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||goodputmeasurements.nvcre.nvidia.com"
+      message: "CRD ownership and upgrade behavior require production review"
+    -
+      id: "crd-upgrade-policy:apiextensions.k8s.io/v1|CustomResourceDefinition||jobs.nvcre.nvidia.com"
+      rule: "crd-upgrade-policy"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||jobs.nvcre.nvidia.com"
+      message: "CRD ownership and upgrade behavior require production review"
+    -
+      id: "crd-upgrade-policy:apiextensions.k8s.io/v1|CustomResourceDefinition||logprofiles.nvcre.nvidia.com"
+      rule: "crd-upgrade-policy"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||logprofiles.nvcre.nvidia.com"
+      message: "CRD ownership and upgrade behavior require production review"
+    -
+      id: "crd-upgrade-policy:apiextensions.k8s.io/v1|CustomResourceDefinition||workflows.nvcre.nvidia.com"
+      rule: "crd-upgrade-policy"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||workflows.nvcre.nvidia.com"
+      message: "CRD ownership and upgrade behavior require production review"
+    -
+      id: "crd-upgrade-policy:apiextensions.k8s.io/v1|CustomResourceDefinition||workloadruns.nvcre.nvidia.com"
+      rule: "crd-upgrade-policy"
+      severity: "medium"
+      object: "apiextensions.k8s.io/v1|CustomResourceDefinition||workloadruns.nvcre.nvidia.com"
+      message: "CRD ownership and upgrade behavior require production review"

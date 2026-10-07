@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "nvidia-cluster-readiness-engine-v0.6.0"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "nvidia/cluster-readiness-engine"
+    version: "v0.6.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 43
+    cubInstallObjectsByVariant:
+      default: 44
+    helmMatchByVariant:
+      default: "43/43"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish and sign the package, then complete target-specific live qualification on a GPU target before production"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
