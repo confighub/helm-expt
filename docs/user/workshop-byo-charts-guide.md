@@ -24,6 +24,9 @@ You need Node.js, Git, and `cub` on your `PATH`. Install
 and the [cub CLI](https://docs.confighub.com/get-started/setup/#install-the-cli).
 For the CLI version used in the retained local trials, choose the matching
 [cub v0.4.4 release binary](https://github.com/confighub/sdk/releases/tag/v0.4.4).
+The `cub` commands this Guide names also match the help of cub v0.8.7. They
+have not been re-run with that release. The managed move near the end uses
+`--unit-annotation`, so it needs a CLI whose help lists that flag.
 
 Install the pinned Workshop plugin as described in the
 [Adapt setup](./workshop-adapt-guide.md#prerequisites-and-setup). That gives
@@ -270,18 +273,20 @@ Preview every mutating command before you run it for real.
 
 ```sh
 cub server install
-cub variant upload --dry-run --component byo-nginx-ai-values --variant reviewed --space byo-nginx-ai-values-24-0-2-reviewed --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397 ./rendered
+cub variant upload --dry-run --component byo-nginx-ai-values --variant reviewed --space byo-nginx-ai-values-24-0-2-reviewed --unit-annotation workshop.confighub.com/object-set-sha256=sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397 ./rendered
 ```
 
 **Read the result.** The dry run reports what `cub variant upload` would
 retain without writing anything. Run the same command without `--dry-run`
-when you are ready to keep the result, then bind the accepted identity so
-the annotation travels with the Unit:
+when you are ready to keep the result:
 
 ```sh
-cub variant upload --component byo-nginx-ai-values --variant reviewed --space byo-nginx-ai-values-24-0-2-reviewed --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397 ./rendered
-cub unit update byo-nginx-ai-values --space byo-nginx-ai-values-24-0-2-reviewed --annotation workshop.confighub.com/object-set-sha256=sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397 --change-desc "Bind the accepted object set"
+cub variant upload --component byo-nginx-ai-values --variant reviewed --space byo-nginx-ai-values-24-0-2-reviewed --unit-annotation workshop.confighub.com/object-set-sha256=sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397 ./rendered
 ```
+
+The upload sets the annotation on every Unit it writes, so the accepted
+identity travels with them and no separate binding command follows. That is
+read from the help of cub v0.8.7 and has not been re-run here.
 
 Derive a variant for another environment the same way, then preview a
 promotion before running it:

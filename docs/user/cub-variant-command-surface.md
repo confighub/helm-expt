@@ -9,10 +9,15 @@ installed client.
 Current commands:
 
 ```text
+cub variant approve
 cub variant create
+cub variant demote
+cub variant diff
 cub variant promote
 cub variant upload
 ```
+
+That list is the one the help of cub v0.8.7 prints.
 
 Not current local command:
 
@@ -122,10 +127,12 @@ safe to promote in production. A chart/base should claim promotion support only
 after its promotion receipt covers changed Units, added Units, local field
 ownership, and any deletion or refusal case relevant to that base.
 
-Use `cub unit set-predicates` for explicit field ownership when a downstream
+Use `cub unit set-protection` for explicit field ownership when a downstream
 variant should keep a local override during future promotion. For example, a
-production variant can protect one workload's `spec.replicas` field, then
-reopen that path later.
+production variant can protect one workload's `spec.replicas` field with
+`--protect`, then reopen that path later with `--unprotect`. The command is
+taken from the help of cub v0.8.7 and has not been re-run here. It replaces
+`cub unit set-predicates`, which the CLI no longer has.
 
 Use `cub variant upload` for already-rendered manifests that you want to ingest
 directly as a ConfigHub variant Space. In helm-expt's curated catalog path,

@@ -112,7 +112,7 @@ and Deployment rollout health are not checked by any command on this page.
 the listing itself gives:
 
 ```sh
-cub variant upload --dry-run --component plain-yaml-acme-web --variant base --space kubernetes-yaml-acme-web-base --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926 ./rendered
+cub variant upload --dry-run --component plain-yaml-acme-web --variant base --space kubernetes-yaml-acme-web-base --unit-annotation workshop.confighub.com/object-set-sha256=sha256:963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926 ./rendered
 ```
 
 ## 2. How do two YAML files, or two versions of the same file, differ?

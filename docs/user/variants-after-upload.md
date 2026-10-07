@@ -80,7 +80,7 @@ What each part does, and why you want it:
 | `--namespace redis-prod` | Runs `set-namespace` on the cloned Units. | Each environment lands in its own namespace; the base stays neutral. |
 | `--unit-delete-gate` / `--unit-destroy-gate` | Blocks delete and destroy of the cloned Units until the gate is removed. | Prod objects should not be one bulk command away from gone. Name the gate for the reason it exists. |
 
-Name the new Space yourself with `--space-pattern` (for example `--space-pattern "template:my-redis-prod"`); in live testing, omitting it produced a server-derived slug like `<upstream>-<variant>-<Environment>`, which works but is long. Either way, confirm with `cub space list`. The clone copies the upstream Space's triggers and permissions along with the Units. Both the namespace rewrite and the gates were verified live: cloned Units carry the new namespace, and a gated Space refuses plain deletion until the gate is removed or overridden.
+Name the new Space yourself with `--space-pattern` (for example `--space-pattern "template:my-redis-prod"`). When you omit it, the help of cub v0.8.7 gives the default slug as `<component>-<variant>`. That default has not been re-run here. Either way, confirm with `cub space list`. The clone does not copy Triggers. The new Space selects the Triggers the upstream Space selects, and the upstream Space's permissions are copied. Both the namespace rewrite and the gates were verified live: cloned Units carry the new namespace, and a gated Space refuses plain deletion until the gate is removed or overridden.
 
 ## Step 2: Change something in the variant
 

@@ -128,7 +128,7 @@ need," and it is not claimed for `v0.14.0`.
 the listing itself gives:
 
 ```sh
-cub variant upload --dry-run --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801 ./rendered
+cub variant upload --dry-run --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801 ./rendered
 ```
 
 ## 2. How does one AICR version differ from another?

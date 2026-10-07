@@ -27,15 +27,20 @@ cub unit list --space <space>
 cub unit tree --space <space>
 ```
 
-During `cub unit apply --wait`, separate ConfigHub apply progress from cluster
-and GitOps progress:
+After `cub release publish <space>`, separate the published Release from
+cluster and GitOps progress:
 
 ```sh
 cub unit list --space <space>
-cub unit livestate <unit> --space <space>
+cub release list --space <space>
 kubectl --kubeconfig <kubeconfig> get applications -n argocd
 kubectl --kubeconfig <kubeconfig> get pods -A
 ```
+
+The current CLI no longer has `cub unit apply` or `cub unit livestate`, which
+this page named before. The two `cub release` commands are taken from the help
+of cub v0.8.7 and have not been re-run here. That help names no command that
+reads one Unit's live state, so that step is not documented yet.
 
 For GitOps/OCI, check both the root application and the child resources:
 

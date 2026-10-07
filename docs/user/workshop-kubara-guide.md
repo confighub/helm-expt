@@ -143,7 +143,7 @@ path are all recorded as `recorded-not-live`, not checked by this command.
 the listing itself gives:
 
 ```sh
-cub variant upload --dry-run --component local-platform --variant base --space kubara-local-platform-v0-12-0-base --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:d8061dd05c290ac90542560bcb29bd49c655b03183362da0894585275ef4a5d8 ./rendered
+cub variant upload --dry-run --component local-platform --variant base --space kubara-local-platform-v0-12-0-base --unit-annotation workshop.confighub.com/object-set-sha256=sha256:d8061dd05c290ac90542560bcb29bd49c655b03183362da0894585275ef4a5d8 ./rendered
 ```
 
 ## 2. What bootstrap, secret, and ordering work travels with this platform?

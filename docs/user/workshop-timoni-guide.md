@@ -136,7 +136,7 @@ not been run for this entry.
 listing itself gives for making a variant:
 
 ```sh
-cub variant upload --dry-run --component redis --variant default --space timoni-redis-8-10-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2 ./rendered
+cub variant upload --dry-run --component redis --variant default --space timoni-redis-8-10-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2 ./rendered
 ```
 
 ## 2. How does this build differ from another build, or from the module's defaults?
