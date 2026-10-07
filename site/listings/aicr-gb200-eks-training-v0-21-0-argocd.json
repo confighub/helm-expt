@@ -1,0 +1,536 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:bd1ce709a1792bee3135a0a4dd5bb203361fb7ccb3ee87f63de2c012a4990780",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/aicr-gb200-eks-training-v0-21-0-argocd.yaml",
+      "sha256": "sha256:3f99e01d78fbd01225b061a48fe3d164bad91af2e627b30de5d1cfadb8dec5d2",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-gb200-eks-training-v0-21-0-argocd.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "aicr-gb200-eks-training-v0-21-0-argocd",
+    "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-eks-training-v0-21-0-argocd.json",
+    "name": "aicr-gb200-eks-training",
+    "format": "aicr",
+    "formatLabel": "AICR recipe",
+    "version": "v0.21.0",
+    "base": "argocd"
+  },
+  "discovery": {
+    "status": "not-classified",
+    "roles": [],
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
+  "source": {
+    "format": "aicr",
+    "name": "gb200-eks-training",
+    "version": "v0.21.0",
+    "reference": "gb200-eks-training@v0.21.0",
+    "record": "examples/aicr/gb200-eks-training/generation-receipt.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/generation-receipt.yaml",
+    "selection": {
+      "name": "gb200-eks-training",
+      "kind": "source-variant",
+      "provider": "NVIDIA AICR",
+      "record": "examples/aicr/gb200-eks-training/generation-receipt.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/generation-receipt.yaml"
+    },
+    "pin": {
+      "digest": "sha256:c471a4186e77a34d962ef553063dbf8b8987cabced316b232024bcb80ed8a2f0",
+      "role": "aicr-platform-index",
+      "revision": "generated-v0.21.0",
+      "record": "examples/aicr/gb200-eks-training/digest-index/platform-index.json",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/digest-index/platform-index.json"
+    },
+    "fixedAtBuildTime": [
+      "accelerator=gb200",
+      "intent=training",
+      "os=any",
+      "platform=any",
+      "service=eks",
+      "acceleratedNodeSelector=nvidia.com/gpu.present=true",
+      "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt",
+      "storageClass=gp3",
+      "workloadSelector=app.kubernetes.io/part-of=training",
+      "deployer=argocd-helm",
+      "selectedOverlay=gb200-eks-training",
+      "appliedOverlays=base>monitoring-hpa>gb200-any>eks>eks-training>gb200-eks-training"
+    ]
+  },
+  "flattened": {
+    "method": "aicr-compose-then-helm-render",
+    "materializationStatus": "captured",
+    "format": "argocd-application-yaml",
+    "objectCount": 16,
+    "digest": "sha256:025cf74a502ff31366c31b4ee51a30222770149c7e0845df6695559a8d3445e6",
+    "digestRole": "inventory-file",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
+    "scope": "gb200-eks-training@v0.21.0/argocd; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "AICR composed the platform and generated an Argo CD app-of-apps chart; Helm rendered that wrapper into exact Application objects.",
+      "The component Applications still reference their own sources, so those nested sources are processed later by Argo CD."
+    ],
+    "objects": "examples/aicr/gb200-eks-training/argocd-rendered",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/argocd-rendered",
+    "inventory": "examples/aicr/gb200-eks-training/argocd-rendered/checksums.txt",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/argocd-rendered/checksums.txt",
+    "digestRecord": "examples/aicr/gb200-eks-training/argocd-rendered/checksums.txt",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/argocd-rendered/checksums.txt",
+    "verdictRecord": "data/aicr-flattening-verdicts/aicr-gb200-eks-training/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-eks-training/flattening-safety-verdict.yaml"
+  },
+  "oci": {
+    "sourcePackageRef": "",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-published",
+        "status": "not-published",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle:0.21.0",
+        "referenceState": "planned",
+        "digests": [],
+        "referenceField": "plannedRef",
+        "note": "The reference the rendered Applications name. Nothing has been pushed to it."
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The rendered Application set has not been packaged or pushed as a literal configuration OCI."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-published",
+        "status": "not-run",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-run",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-run"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-applicable",
+        "status": "not-run-for-argo-application-wrapper"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-run"
+      }
+    ]
+  },
+  "variants": {
+    "base": "argocd",
+    "known": [
+      {
+        "id": "aicr-gb200-eks-training-v0-21-0-argocd",
+        "base": "argocd",
+        "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-eks-training-v0-21-0-argocd.json",
+        "self": true,
+        "digest": "sha256:025cf74a502ff31366c31b4ee51a30222770149c7e0845df6695559a8d3445e6"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:025cf74a502ff31366c31b4ee51a30222770149c7e0845df6695559a8d3445e6. The exact objects are recorded at examples/aicr/gb200-eks-training/argocd-rendered.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component gb200-eks-training --variant argocd --space aicr-gb200-eks-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:025cf74a502ff31366c31b4ee51a30222770149c7e0845df6695559a8d3445e6 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component gb200-eks-training --variant argocd --space aicr-gb200-eks-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:025cf74a502ff31366c31b4ee51a30222770149c7e0845df6695559a8d3445e6 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging aicr-gb200-eks-training-v0-21-0-argocd --space-pattern template:aicr-gb200-eks-training-v0-21-0-argocd-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:025cf74a502ff31366c31b4ee51a30222770149c7e0845df6695559a8d3445e6",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote aicr-gb200-eks-training-v0-21-0-argocd-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "recorded",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "argocd-sync-wave-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Apply the 15 component Applications in the 5 sync-waves they carry, from wave 1 to wave 13. The order is recorded as a route beside the bundle and no runtime has executed it."
+      },
+      {
+        "id": "nested-source-lifecycle",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Argo CD renders 13 upstream charts and 3 AICR bundle paths at sync time. Their CRDs, hooks, certificates and operators are handled there, and this entry has not rendered or assessed them."
+      },
+      {
+        "id": "argo-cd-application-api",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Argo CD and its Application API must exist on the destination, with the argocd namespace, because every object in this base is an Argo CD Application in that namespace."
+      },
+      {
+        "id": "aicr-bundle-source-package",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "3 of the 16 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package is not published, so a destination needs a reachable copy before Argo CD can resolve them."
+      },
+      {
+        "id": "recipe-criteria",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "AICR generated this recipe for accelerator=gb200, intent=training, os=any, platform=any, service=eks. A destination has to match those criteria, and nothing here has checked one."
+      }
+    ],
+    "routes": [
+      {
+        "id": "argocd-sync-wave-ordering",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "generated-not-live",
+        "automatic": false,
+        "actor": "Argo CD on the selected destination",
+        "mechanism": "Apply the 15 component Applications in the 5 sync-waves they carry, from wave 1 to wave 13. The order is recorded as a route beside the bundle and no runtime has executed it.",
+        "supportedRuntimes": [
+          "Argo CD"
+        ],
+        "requirementRefs": [
+          "argocd-sync-wave-ordering"
+        ],
+        "checks": [
+          "A recorded Argo CD sync of this exact Application set on a named destination."
+        ],
+        "evidence": [
+          "data/aicr-flattening-verdicts/aicr-gb200-eks-training/sync-wave-ordering.yaml"
+        ],
+        "orderHint": 1
+      },
+      {
+        "id": "nested-source-lifecycle",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "not-evaluated",
+        "automatic": false,
+        "actor": "Argo CD on the selected destination",
+        "mechanism": "Argo CD renders 13 upstream charts and 3 AICR bundle paths at sync time. Their CRDs, hooks, certificates and operators are handled there, and this entry has not rendered or assessed them.",
+        "supportedRuntimes": [
+          "Argo CD"
+        ],
+        "requirementRefs": [
+          "nested-source-lifecycle"
+        ],
+        "checks": [
+          "A flattening verdict or a recorded sync for each nested source on the selected destination."
+        ],
+        "evidence": [
+          "data/aicr-flattening-verdicts/aicr-gb200-eks-training/flattening-safety-verdict.yaml"
+        ],
+        "orderHint": 2
+      }
+    ],
+    "records": [
+      {
+        "name": "sync-wave-ordering.yaml",
+        "path": "data/aicr-flattening-verdicts/aicr-gb200-eks-training/sync-wave-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-eks-training/sync-wave-ordering.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "destination-facts-recorded-not-run",
+    "installTimeInputs": [
+      {
+        "name": "argo-cd-application-api",
+        "kind": "delivery-runtime",
+        "detail": "Argo CD and its Application API must exist on the destination, with the argocd namespace, because every object in this base is an Argo CD Application in that namespace.",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "aicr-bundle-source-package",
+        "kind": "source-package-oci",
+        "detail": "3 of the 16 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package is not published, so a destination needs a reachable copy before Argo CD can resolve them.",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "recipe-criteria",
+        "kind": "target-fact",
+        "detail": "AICR generated this recipe for accelerator=gb200, intent=training, os=any, platform=any, service=eks. A destination has to match those criteria, and nothing here has checked one.",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "confighub_scan_ops": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "local_kubernetes": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "lifecycle_observation": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "gitops_oci_live": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "live_dual_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "two_cluster_kind": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "variant_promotion": {
+        "status": "not_declared",
+        "declared": null
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "workflow-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "system-configuration",
+      "ownerClass": "platform-team",
+      "changeCadence": "planned-platform-release"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Choices fixed by the recorded source configuration"
+      ],
+      "variantControlled": [
+        "Exact object changes retained after the base"
+      ],
+      "targetSupplied": [
+        "argo-cd-application-api",
+        "aicr-bundle-source-package",
+        "recipe-criteria"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect or compare AICR snapshots without selecting a recipe. The diff reports observed differences; select the intended provider-curated source variant before deciding whether a difference is a fault.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "An AICR snapshot, recipe, generated bundle, or exact generated output"
+        ],
+        "records": [
+          {
+            "name": "generation-receipt.yaml",
+            "path": "examples/aicr/gb200-eks-training/generation-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/generation-receipt.yaml"
+          },
+          {
+            "name": "argocd-rendered",
+            "path": "examples/aicr/gb200-eks-training/argocd-rendered",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/argocd-rendered"
+          },
+          {
+            "name": "checksums.txt",
+            "path": "examples/aicr/gb200-eks-training/argocd-rendered/checksums.txt",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/argocd-rendered/checksums.txt"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
+        ],
+        "records": [
+          {
+            "name": "generation-receipt.yaml",
+            "path": "examples/aicr/gb200-eks-training/generation-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/generation-receipt.yaml"
+          },
+          {
+            "name": "checksums.txt",
+            "path": "examples/aicr/gb200-eks-training/argocd-rendered/checksums.txt",
+            "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/argocd-rendered/checksums.txt"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "sync-wave-ordering.yaml",
+            "path": "data/aicr-flattening-verdicts/aicr-gb200-eks-training/sync-wave-ordering.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-eks-training/sync-wave-ordering.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "flatteningVerdict",
+        "path": "data/aicr-flattening-verdicts/aicr-gb200-eks-training/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-eks-training/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "orderingRoute",
+        "path": "data/aicr-flattening-verdicts/aicr-gb200-eks-training/sync-wave-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-eks-training/sync-wave-ordering.yaml"
+      },
+      {
+        "name": "entryPage",
+        "path": "docs/demo/aicr/gb200-eks-training.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/demo/aicr/gb200-eks-training.md"
+      },
+      {
+        "name": "argocd-rendered",
+        "path": "examples/aicr/gb200-eks-training/argocd-rendered",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/argocd-rendered"
+      },
+      {
+        "name": "checksums.txt",
+        "path": "examples/aicr/gb200-eks-training/argocd-rendered/checksums.txt",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/argocd-rendered/checksums.txt"
+      },
+      {
+        "name": "digestIndex",
+        "path": "examples/aicr/gb200-eks-training/digest-index/platform-index.json",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/digest-index/platform-index.json"
+      },
+      {
+        "name": "sourceGenerationReceipt",
+        "path": "examples/aicr/gb200-eks-training/generation-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/generation-receipt.yaml"
+      },
+      {
+        "name": "recipe",
+        "path": "examples/aicr/gb200-eks-training/recipe.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-eks-training/recipe.yaml"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "appliedOverlays",
+        "value": "base > monitoring-hpa > gb200-any > eks > eks-training > gb200-eks-training"
+      },
+      {
+        "name": "overlayDependentEntryCount",
+        "value": "3"
+      },
+      {
+        "name": "overlayParentEntries",
+        "value": "aicr-gb200-any-v0-21-0-argocd, aicr-eks-v0-21-0-argocd, aicr-eks-training-v0-21-0-argocd"
+      },
+      {
+        "name": "overlayRole",
+        "value": "base-overlay"
+      },
+      {
+        "name": "retention",
+        "value": "retained-and-rendered-not-published-not-deployed"
+      }
+    ]
+  }
+}

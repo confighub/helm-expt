@@ -285,6 +285,3282 @@
           "gpuWorkloadsProven": false,
           "published": null
         }
+      },
+      {
+        "id": "a100-aks-training",
+        "title": "a100-aks-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:c1a03ffce7af2d3761a368d00c89d07084003a0fb72c2ec305403790c010c6f2",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/a100-aks-training",
+          "page": "docs/demo/aicr/a100-aks-training.md",
+          "digestIndex": "examples/aicr/a100-aks-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/a100-aks-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/a100-aks-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "a100-aks-ubuntu-training",
+        "title": "a100-aks-ubuntu-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:5c18b45496a9e1b8e96935202b0b25acc5989503d73ac6717e7b1cd46e4a2bf5",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/a100-aks-ubuntu-training",
+          "page": "docs/demo/aicr/a100-aks-ubuntu-training.md",
+          "digestIndex": "examples/aicr/a100-aks-ubuntu-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/a100-aks-ubuntu-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/a100-aks-ubuntu-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "a100-aks-ubuntu-training-kubeflow",
+        "title": "a100-aks-ubuntu-training-kubeflow overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:1fed9a872f590e7cea07d0f496971354d2db8c1fe52ec93e69e2840e22f098df",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/a100-aks-ubuntu-training-kubeflow",
+          "page": "docs/demo/aicr/a100-aks-ubuntu-training-kubeflow.md",
+          "digestIndex": "examples/aicr/a100-aks-ubuntu-training-kubeflow/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/a100-aks-ubuntu-training-kubeflow/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/a100-aks-ubuntu-training-kubeflow/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "a100-any",
+        "title": "a100-any overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:163187faffad9e3fe52d5740386b4f10924a92fae042dd230b32fc4b3b208d33",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/a100-any",
+          "page": "docs/demo/aicr/a100-any.md",
+          "digestIndex": "examples/aicr/a100-any/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/a100-any/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/a100-any/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "a100-eks-training",
+        "title": "a100-eks-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:0628e90a59951b6987828c555a245cb8070edfcbe890b6256368e9c7387baa43",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/a100-eks-training",
+          "page": "docs/demo/aicr/a100-eks-training.md",
+          "digestIndex": "examples/aicr/a100-eks-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/a100-eks-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/a100-eks-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "a100-eks-ubuntu-training",
+        "title": "a100-eks-ubuntu-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:0bc28fd0f334d81810dc33860979b5168068a302facdad50328c4d11e013ed96",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/a100-eks-ubuntu-training",
+          "page": "docs/demo/aicr/a100-eks-ubuntu-training.md",
+          "digestIndex": "examples/aicr/a100-eks-ubuntu-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/a100-eks-ubuntu-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/a100-eks-ubuntu-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "a100-eks-ubuntu-training-kubeflow",
+        "title": "a100-eks-ubuntu-training-kubeflow overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:ac76027ac36ef22f0ff3ce9190c4ea78a731bf2175a8e7c4825bace183b6ba3f",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/a100-eks-ubuntu-training-kubeflow",
+          "page": "docs/demo/aicr/a100-eks-ubuntu-training-kubeflow.md",
+          "digestIndex": "examples/aicr/a100-eks-ubuntu-training-kubeflow/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/a100-eks-ubuntu-training-kubeflow/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/a100-eks-ubuntu-training-kubeflow/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "a100-gke-cos-training",
+        "title": "a100-gke-cos-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:829dd47ff75a38e5b43d7623a79716608ce74dac460f52a883cecb200f422f85",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/a100-gke-cos-training",
+          "page": "docs/demo/aicr/a100-gke-cos-training.md",
+          "digestIndex": "examples/aicr/a100-gke-cos-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/a100-gke-cos-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/a100-gke-cos-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "a100-gke-cos-training-kubeflow",
+        "title": "a100-gke-cos-training-kubeflow overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:74043c5b40298b1bcc0dff62798928a7402fd0a1648af8e0fb23dd423b021f03",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/a100-gke-cos-training-kubeflow",
+          "page": "docs/demo/aicr/a100-gke-cos-training-kubeflow.md",
+          "digestIndex": "examples/aicr/a100-gke-cos-training-kubeflow/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/a100-gke-cos-training-kubeflow/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/a100-gke-cos-training-kubeflow/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "a100-oke-training",
+        "title": "a100-oke-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:7428b1f8e236f210c7bb24e000094f7b23465b8be14c05ffa423e10eee9a66c2",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/a100-oke-training",
+          "page": "docs/demo/aicr/a100-oke-training.md",
+          "digestIndex": "examples/aicr/a100-oke-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/a100-oke-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/a100-oke-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "a100-oke-ubuntu-training",
+        "title": "a100-oke-ubuntu-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:5acd99ffdff6bfc290faa19d6e25d9b7fa3978fd51f88fb05b779675b08a0c4d",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/a100-oke-ubuntu-training",
+          "page": "docs/demo/aicr/a100-oke-ubuntu-training.md",
+          "digestIndex": "examples/aicr/a100-oke-ubuntu-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/a100-oke-ubuntu-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/a100-oke-ubuntu-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "a100-oke-ubuntu-training-kubeflow",
+        "title": "a100-oke-ubuntu-training-kubeflow overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:494365c875ad948aadb76c04f3867eb5d57536992ea975ee61da8df63d0b0bbd",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/a100-oke-ubuntu-training-kubeflow",
+          "page": "docs/demo/aicr/a100-oke-ubuntu-training-kubeflow.md",
+          "digestIndex": "examples/aicr/a100-oke-ubuntu-training-kubeflow/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/a100-oke-ubuntu-training-kubeflow/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/a100-oke-ubuntu-training-kubeflow/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "aks",
+        "title": "aks overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:371dfad96609b1387052eed2dfa244a75a71c0e29c1fa8dbbc2f564d5da0c133",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/aks",
+          "page": "docs/demo/aicr/aks.md",
+          "digestIndex": "examples/aicr/aks/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/aks/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/aks/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "aks-inference",
+        "title": "aks-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:84c6191a4c0ddca96ced747a4a3c2201cceed80ed36b7260f0084d504e1b6071",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/aks-inference",
+          "page": "docs/demo/aicr/aks-inference.md",
+          "digestIndex": "examples/aicr/aks-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/aks-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/aks-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "aks-training",
+        "title": "aks-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:0f5b1650b1047f39741d572ea907716b6854965175a3ccd37bc101b5d55be371",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/aks-training",
+          "page": "docs/demo/aicr/aks-training.md",
+          "digestIndex": "examples/aicr/aks-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/aks-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/aks-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "b200-any",
+        "title": "b200-any overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:c907cd258f6b81c613dca4f516cc83d2eec4783a4f74276e1c92e25a8b509fb1",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/b200-any",
+          "page": "docs/demo/aicr/b200-any.md",
+          "digestIndex": "examples/aicr/b200-any/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/b200-any/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/b200-any/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "b200-gke-cos-inference",
+        "title": "b200-gke-cos-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:9263c8cb5881e2c0bd8eacb5d9ed1894c856ffe1e3d2feb829d30e9807e3c903",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/b200-gke-cos-inference",
+          "page": "docs/demo/aicr/b200-gke-cos-inference.md",
+          "digestIndex": "examples/aicr/b200-gke-cos-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/b200-gke-cos-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/b200-gke-cos-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "b200-gke-cos-inference-dynamo",
+        "title": "b200-gke-cos-inference-dynamo overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:ba467f53f01ecb5ba574f1b82a7dd8f29772f8e69a1a3b282530e73e1ef73e94",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/b200-gke-cos-inference-dynamo",
+          "page": "docs/demo/aicr/b200-gke-cos-inference-dynamo.md",
+          "digestIndex": "examples/aicr/b200-gke-cos-inference-dynamo/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/b200-gke-cos-inference-dynamo/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/b200-gke-cos-inference-dynamo/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "b200-gke-cos-training",
+        "title": "b200-gke-cos-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:c1ee11876380ace9482d500f155463d8ebd9198709f252b950831772bcdbbe55",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/b200-gke-cos-training",
+          "page": "docs/demo/aicr/b200-gke-cos-training.md",
+          "digestIndex": "examples/aicr/b200-gke-cos-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/b200-gke-cos-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/b200-gke-cos-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "b200-gke-cos-training-kubeflow",
+        "title": "b200-gke-cos-training-kubeflow overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:022f618566ae6a893d25701d73f2ab409e27fec53b659140b875ea09565976dc",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/b200-gke-cos-training-kubeflow",
+          "page": "docs/demo/aicr/b200-gke-cos-training-kubeflow.md",
+          "digestIndex": "examples/aicr/b200-gke-cos-training-kubeflow/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/b200-gke-cos-training-kubeflow/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/b200-gke-cos-training-kubeflow/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "bcm",
+        "title": "bcm overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:9cf12bd5c5f141d093760e45bb434fb2b5349b5749181355247e4549cdb91e84",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/bcm",
+          "page": "docs/demo/aicr/bcm.md",
+          "digestIndex": "examples/aicr/bcm/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/bcm/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/bcm/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "bcm-inference",
+        "title": "bcm-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:3d123758567e2457815c0fa900f39a2930bb25a7e8005555adcb0e2734c3973b",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/bcm-inference",
+          "page": "docs/demo/aicr/bcm-inference.md",
+          "digestIndex": "examples/aicr/bcm-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/bcm-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/bcm-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "bcm-training",
+        "title": "bcm-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:f0d8e2782677d88671852d8647f5c6809258b34e01bd0e051b1f1542e7128cca",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/bcm-training",
+          "page": "docs/demo/aicr/bcm-training.md",
+          "digestIndex": "examples/aicr/bcm-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/bcm-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/bcm-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "eks",
+        "title": "eks overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:494c59d9ca807843859c5645ddf4f7c413cd8b2d3c50caffbadfbdc4ac69231f",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/eks",
+          "page": "docs/demo/aicr/eks.md",
+          "digestIndex": "examples/aicr/eks/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/eks/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/eks/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "eks-inference",
+        "title": "eks-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:8ca5225172f17a1e6517e25b4f02832424a705f18c72ee95017648c6c4123842",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/eks-inference",
+          "page": "docs/demo/aicr/eks-inference.md",
+          "digestIndex": "examples/aicr/eks-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/eks-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/eks-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "eks-training",
+        "title": "eks-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:7a65b22d4cd47a2b855c7b762738a0a7df22e6c2074eb7e0579f47fa6d3caa98",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/eks-training",
+          "page": "docs/demo/aicr/eks-training.md",
+          "digestIndex": "examples/aicr/eks-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/eks-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/eks-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb200-any",
+        "title": "gb200-any overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:6a518d10eabdf4b7c45d7722c3d7d055566300161866d223475b53c94a48dfd1",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb200-any",
+          "page": "docs/demo/aicr/gb200-any.md",
+          "digestIndex": "examples/aicr/gb200-any/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb200-any/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb200-any/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb200-eks-inference",
+        "title": "gb200-eks-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:ae7b896d72b27279ac54cf07774e3036eafd1a613593a6ad5f50c0a728ff3003",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb200-eks-inference",
+          "page": "docs/demo/aicr/gb200-eks-inference.md",
+          "digestIndex": "examples/aicr/gb200-eks-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb200-eks-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb200-eks-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb200-eks-training",
+        "title": "gb200-eks-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:c471a4186e77a34d962ef553063dbf8b8987cabced316b232024bcb80ed8a2f0",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb200-eks-training",
+          "page": "docs/demo/aicr/gb200-eks-training.md",
+          "digestIndex": "examples/aicr/gb200-eks-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb200-eks-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb200-eks-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb200-eks-ubuntu-inference",
+        "title": "gb200-eks-ubuntu-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:f9cd858613dd4e32467e69eae75e7853013f3463e1d4fb97f94504d28d284289",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb200-eks-ubuntu-inference",
+          "page": "docs/demo/aicr/gb200-eks-ubuntu-inference.md",
+          "digestIndex": "examples/aicr/gb200-eks-ubuntu-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb200-eks-ubuntu-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb200-eks-ubuntu-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb200-eks-ubuntu-inference-dynamo",
+        "title": "gb200-eks-ubuntu-inference-dynamo overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:b8e49252968cb02f3727a14621e5bc7731e41ee5297c16e0e12a15a668b85144",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb200-eks-ubuntu-inference-dynamo",
+          "page": "docs/demo/aicr/gb200-eks-ubuntu-inference-dynamo.md",
+          "digestIndex": "examples/aicr/gb200-eks-ubuntu-inference-dynamo/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb200-eks-ubuntu-inference-dynamo/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb200-eks-ubuntu-inference-dynamo/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb200-eks-ubuntu-training",
+        "title": "gb200-eks-ubuntu-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:3bea15154673b3e4aacdefbaf0cb7727cb0799252fd136e4b0443d1386d0ce66",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb200-eks-ubuntu-training",
+          "page": "docs/demo/aicr/gb200-eks-ubuntu-training.md",
+          "digestIndex": "examples/aicr/gb200-eks-ubuntu-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb200-eks-ubuntu-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb200-eks-ubuntu-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb200-eks-ubuntu-training-kubeflow",
+        "title": "gb200-eks-ubuntu-training-kubeflow overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:709c67358f6be86040511da0c53694f37c2f64de720dbb81ff10ffd562ee48a3",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb200-eks-ubuntu-training-kubeflow",
+          "page": "docs/demo/aicr/gb200-eks-ubuntu-training-kubeflow.md",
+          "digestIndex": "examples/aicr/gb200-eks-ubuntu-training-kubeflow/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb200-eks-ubuntu-training-kubeflow/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb200-eks-ubuntu-training-kubeflow/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb200-eks-ubuntu-training-slurm",
+        "title": "gb200-eks-ubuntu-training-slurm overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:0f66403e0f75d20004e16e42c67d54a4e4ee0a8d7ca20e568a26819cdc23a63b",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb200-eks-ubuntu-training-slurm",
+          "page": "docs/demo/aicr/gb200-eks-ubuntu-training-slurm.md",
+          "digestIndex": "examples/aicr/gb200-eks-ubuntu-training-slurm/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb200-eks-ubuntu-training-slurm/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb200-eks-ubuntu-training-slurm/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb200-oke-inference",
+        "title": "gb200-oke-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:884a3da8a1987ec2b39a26bff77b1ed760c273868a56da223dcf8e4a45826a19",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb200-oke-inference",
+          "page": "docs/demo/aicr/gb200-oke-inference.md",
+          "digestIndex": "examples/aicr/gb200-oke-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb200-oke-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb200-oke-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb200-oke-training",
+        "title": "gb200-oke-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:a20bd7d1f5114cebc332782ebfebcf6edb212849a6fcd4f0e311ef272d29742f",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb200-oke-training",
+          "page": "docs/demo/aicr/gb200-oke-training.md",
+          "digestIndex": "examples/aicr/gb200-oke-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb200-oke-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb200-oke-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb200-oke-ubuntu-inference",
+        "title": "gb200-oke-ubuntu-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:3a8f2c56e7f6b9886b92e52aefe55f79e9e5574d61d813b25ebdd55360a2c713",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb200-oke-ubuntu-inference",
+          "page": "docs/demo/aicr/gb200-oke-ubuntu-inference.md",
+          "digestIndex": "examples/aicr/gb200-oke-ubuntu-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb200-oke-ubuntu-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb200-oke-ubuntu-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb200-oke-ubuntu-inference-dynamo",
+        "title": "gb200-oke-ubuntu-inference-dynamo overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:892b686b19e6d88f4a419d87e290d78ba668cab4e86b1e6c80ba1881e644f2cf",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb200-oke-ubuntu-inference-dynamo",
+          "page": "docs/demo/aicr/gb200-oke-ubuntu-inference-dynamo.md",
+          "digestIndex": "examples/aicr/gb200-oke-ubuntu-inference-dynamo/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb200-oke-ubuntu-inference-dynamo/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb200-oke-ubuntu-inference-dynamo/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb200-oke-ubuntu-training",
+        "title": "gb200-oke-ubuntu-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:75502525da988df223502e858d9f31fc91a5ba23f8fe275e3d70840cb7fa5eec",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb200-oke-ubuntu-training",
+          "page": "docs/demo/aicr/gb200-oke-ubuntu-training.md",
+          "digestIndex": "examples/aicr/gb200-oke-ubuntu-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb200-oke-ubuntu-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb200-oke-ubuntu-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb200-oke-ubuntu-training-kubeflow",
+        "title": "gb200-oke-ubuntu-training-kubeflow overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:98f0dab98c1c1f2bd70346c9fedc984a732764e11925c84420dd59bb6aa5aac3",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb200-oke-ubuntu-training-kubeflow",
+          "page": "docs/demo/aicr/gb200-oke-ubuntu-training-kubeflow.md",
+          "digestIndex": "examples/aicr/gb200-oke-ubuntu-training-kubeflow/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb200-oke-ubuntu-training-kubeflow/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb200-oke-ubuntu-training-kubeflow/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb300-any",
+        "title": "gb300-any overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:ae6358616ce9e818c4026305c93e7c4b79f4ef89cf3fdbd9742daa3530e2bb32",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb300-any",
+          "page": "docs/demo/aicr/gb300-any.md",
+          "digestIndex": "examples/aicr/gb300-any/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb300-any/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb300-any/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb300-eks-inference",
+        "title": "gb300-eks-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:33805ca7caed5305004fe5a86775265ea39b66eafe9de56134776e543f10c396",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb300-eks-inference",
+          "page": "docs/demo/aicr/gb300-eks-inference.md",
+          "digestIndex": "examples/aicr/gb300-eks-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb300-eks-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb300-eks-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb300-eks-training",
+        "title": "gb300-eks-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:f8cea07e9d55f2a08ca578b0b5472da94720aa8d620d9defff11e81533f02350",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb300-eks-training",
+          "page": "docs/demo/aicr/gb300-eks-training.md",
+          "digestIndex": "examples/aicr/gb300-eks-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb300-eks-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb300-eks-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb300-eks-ubuntu-inference",
+        "title": "gb300-eks-ubuntu-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:e307d98b33d801fe5fc784e9fe1a69c53e15ce0eb6d2870a4ccc188ae4d4285b",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb300-eks-ubuntu-inference",
+          "page": "docs/demo/aicr/gb300-eks-ubuntu-inference.md",
+          "digestIndex": "examples/aicr/gb300-eks-ubuntu-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb300-eks-ubuntu-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb300-eks-ubuntu-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb300-eks-ubuntu-inference-dynamo",
+        "title": "gb300-eks-ubuntu-inference-dynamo overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:7ccbfec7c588bc64ccf96cdc7532a07846f108daf8ebe0d4aa38e26e3829d3a7",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb300-eks-ubuntu-inference-dynamo",
+          "page": "docs/demo/aicr/gb300-eks-ubuntu-inference-dynamo.md",
+          "digestIndex": "examples/aicr/gb300-eks-ubuntu-inference-dynamo/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb300-eks-ubuntu-inference-dynamo/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb300-eks-ubuntu-inference-dynamo/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb300-eks-ubuntu-training",
+        "title": "gb300-eks-ubuntu-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:b86242ab537276e423e687a4e25fd4a0b6876de9c40ba96ff9f711f116f1d8f9",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb300-eks-ubuntu-training",
+          "page": "docs/demo/aicr/gb300-eks-ubuntu-training.md",
+          "digestIndex": "examples/aicr/gb300-eks-ubuntu-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb300-eks-ubuntu-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb300-eks-ubuntu-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb300-eks-ubuntu-training-kubeflow",
+        "title": "gb300-eks-ubuntu-training-kubeflow overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:9640349ea475db211ddfa484ebeca002b980eb6bd21ba69d8a932be7175a5eb6",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb300-eks-ubuntu-training-kubeflow",
+          "page": "docs/demo/aicr/gb300-eks-ubuntu-training-kubeflow.md",
+          "digestIndex": "examples/aicr/gb300-eks-ubuntu-training-kubeflow/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb300-eks-ubuntu-training-kubeflow/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb300-eks-ubuntu-training-kubeflow/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb300-eks-ubuntu-training-slurm",
+        "title": "gb300-eks-ubuntu-training-slurm overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:09fae5abb81f0b8e3b9b4624fe88a5b551238fea8138720af02f9663c44f2eb6",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb300-eks-ubuntu-training-slurm",
+          "page": "docs/demo/aicr/gb300-eks-ubuntu-training-slurm.md",
+          "digestIndex": "examples/aicr/gb300-eks-ubuntu-training-slurm/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb300-eks-ubuntu-training-slurm/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb300-eks-ubuntu-training-slurm/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gb300-generic-ubuntu-training",
+        "title": "gb300-generic-ubuntu-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:7cd4a7d7dda7e7c1f357c5c0cdeac0c059f1acb0d0b3e9d5c3a1d16ca09d8ebd",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gb300-generic-ubuntu-training",
+          "page": "docs/demo/aicr/gb300-generic-ubuntu-training.md",
+          "digestIndex": "examples/aicr/gb300-generic-ubuntu-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gb300-generic-ubuntu-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gb300-generic-ubuntu-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gke-cos",
+        "title": "gke-cos overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:006da321a3a1f166b01b3d0c3ed5b8b81958638191917079617a7a9f2e4b7392",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gke-cos",
+          "page": "docs/demo/aicr/gke-cos.md",
+          "digestIndex": "examples/aicr/gke-cos/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gke-cos/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gke-cos/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gke-cos-inference",
+        "title": "gke-cos-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:475979942084a542419811fff1d6e0d6f766ae8bba41ab6a6fd0af0f0ac77c51",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gke-cos-inference",
+          "page": "docs/demo/aicr/gke-cos-inference.md",
+          "digestIndex": "examples/aicr/gke-cos-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gke-cos-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gke-cos-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "gke-cos-training",
+        "title": "gke-cos-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:5fb3e208bf9bf06c74dea4000ebca76d1b21a877693eef99c1483654089a70da",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/gke-cos-training",
+          "page": "docs/demo/aicr/gke-cos-training.md",
+          "digestIndex": "examples/aicr/gke-cos-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/gke-cos-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/gke-cos-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-aks-inference",
+        "title": "h100-aks-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:a2e326fd0769107738146b353e24f5b26ba74410b269f5e655363e6cfafb6c7f",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-aks-inference",
+          "page": "docs/demo/aicr/h100-aks-inference.md",
+          "digestIndex": "examples/aicr/h100-aks-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-aks-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-aks-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-aks-training",
+        "title": "h100-aks-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:85a8d831ddc37afd53890cd6cd0e31d102b8eb2a55cf9dcec7d4e8195ef65eb3",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-aks-training",
+          "page": "docs/demo/aicr/h100-aks-training.md",
+          "digestIndex": "examples/aicr/h100-aks-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-aks-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-aks-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-aks-ubuntu-inference",
+        "title": "h100-aks-ubuntu-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:ad1de016c2c147888a7f5c563b4c4bfd89e5de21792d15b09c747c1c7f7152fb",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-aks-ubuntu-inference",
+          "page": "docs/demo/aicr/h100-aks-ubuntu-inference.md",
+          "digestIndex": "examples/aicr/h100-aks-ubuntu-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-aks-ubuntu-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-aks-ubuntu-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-aks-ubuntu-inference-dynamo",
+        "title": "h100-aks-ubuntu-inference-dynamo overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:7a94ff47e571850ff38cc100a59bc3feaf5b79ba935f11484f44f89b241f8d0a",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-aks-ubuntu-inference-dynamo",
+          "page": "docs/demo/aicr/h100-aks-ubuntu-inference-dynamo.md",
+          "digestIndex": "examples/aicr/h100-aks-ubuntu-inference-dynamo/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-aks-ubuntu-inference-dynamo/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-aks-ubuntu-inference-dynamo/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-aks-ubuntu-training",
+        "title": "h100-aks-ubuntu-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:80a2c4d00fe1767f276fd5edd76e35c6ea866b76aa6877eb09c77c9147e3260f",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-aks-ubuntu-training",
+          "page": "docs/demo/aicr/h100-aks-ubuntu-training.md",
+          "digestIndex": "examples/aicr/h100-aks-ubuntu-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-aks-ubuntu-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-aks-ubuntu-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-aks-ubuntu-training-kubeflow",
+        "title": "h100-aks-ubuntu-training-kubeflow overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:21e7c0aab6538934a159e531cec8055706b51cd23cb70ff986bc3c51c9b1a2c8",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-aks-ubuntu-training-kubeflow",
+          "page": "docs/demo/aicr/h100-aks-ubuntu-training-kubeflow.md",
+          "digestIndex": "examples/aicr/h100-aks-ubuntu-training-kubeflow/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-aks-ubuntu-training-kubeflow/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-aks-ubuntu-training-kubeflow/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-aks-ubuntu-training-slurm",
+        "title": "h100-aks-ubuntu-training-slurm overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:78659251c491392e49ae3d0a7eba55f5e0371f941ca7f0c49d5a6cf5b667db7e",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-aks-ubuntu-training-slurm",
+          "page": "docs/demo/aicr/h100-aks-ubuntu-training-slurm.md",
+          "digestIndex": "examples/aicr/h100-aks-ubuntu-training-slurm/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-aks-ubuntu-training-slurm/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-aks-ubuntu-training-slurm/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-any",
+        "title": "h100-any overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:41f224542be28f6df94b68d090fa95ad83cb70fc75b9d90964420294a3489074",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-any",
+          "page": "docs/demo/aicr/h100-any.md",
+          "digestIndex": "examples/aicr/h100-any/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-any/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-any/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-bcm-training",
+        "title": "h100-bcm-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:ebbc462a90d5eec8d70c0de123d5df275eaf215c02e1a8d8381ac76126f175af",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-bcm-training",
+          "page": "docs/demo/aicr/h100-bcm-training.md",
+          "digestIndex": "examples/aicr/h100-bcm-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-bcm-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-bcm-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-bcm-ubuntu-training",
+        "title": "h100-bcm-ubuntu-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:481454092aaa412f68ae5e91b4e644faf199004e8c5ad08a11c4d310c3099eaf",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-bcm-ubuntu-training",
+          "page": "docs/demo/aicr/h100-bcm-ubuntu-training.md",
+          "digestIndex": "examples/aicr/h100-bcm-ubuntu-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-bcm-ubuntu-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-bcm-ubuntu-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-eks-inference",
+        "title": "h100-eks-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:3ea5cc02f9600d71ec072738205ab7ad65e38737ab9278fd2ec335e4bf89f933",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-eks-inference",
+          "page": "docs/demo/aicr/h100-eks-inference.md",
+          "digestIndex": "examples/aicr/h100-eks-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-eks-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-eks-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-eks-training",
+        "title": "h100-eks-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:5720bc3142de7f43b70cb3e9f2f61ca2a33c086565b43f8480c1649f18ce8a75",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-eks-training",
+          "page": "docs/demo/aicr/h100-eks-training.md",
+          "digestIndex": "examples/aicr/h100-eks-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-eks-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-eks-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-eks-ubuntu-inference",
+        "title": "h100-eks-ubuntu-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:4485997c020d18744e62a771bf0138e03bb623ae2bfed91c60400a4fc3e8a9d7",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-eks-ubuntu-inference",
+          "page": "docs/demo/aicr/h100-eks-ubuntu-inference.md",
+          "digestIndex": "examples/aicr/h100-eks-ubuntu-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-eks-ubuntu-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-eks-ubuntu-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-eks-ubuntu-inference-dynamo",
+        "title": "h100-eks-ubuntu-inference-dynamo overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:3baf988b49546adcfa19f26ddefcba132f2f6f800e5cc2665ebdddd7553005ad",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-eks-ubuntu-inference-dynamo",
+          "page": "docs/demo/aicr/h100-eks-ubuntu-inference-dynamo.md",
+          "digestIndex": "examples/aicr/h100-eks-ubuntu-inference-dynamo/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-eks-ubuntu-inference-dynamo/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-eks-ubuntu-inference-dynamo/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-eks-ubuntu-inference-nim",
+        "title": "h100-eks-ubuntu-inference-nim overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:aa240bc8a47caf105597b0e044e7d8cbde099d91fd7229637267768f91eeb39c",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-eks-ubuntu-inference-nim",
+          "page": "docs/demo/aicr/h100-eks-ubuntu-inference-nim.md",
+          "digestIndex": "examples/aicr/h100-eks-ubuntu-inference-nim/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-eks-ubuntu-inference-nim/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-eks-ubuntu-inference-nim/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-eks-ubuntu-training",
+        "title": "h100-eks-ubuntu-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:b97ded6e84e0b30bd1f072d9b25021d2e3ada954d7c582340370411abdd5638d",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-eks-ubuntu-training",
+          "page": "docs/demo/aicr/h100-eks-ubuntu-training.md",
+          "digestIndex": "examples/aicr/h100-eks-ubuntu-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-eks-ubuntu-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-eks-ubuntu-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-eks-ubuntu-training-kubeflow",
+        "title": "h100-eks-ubuntu-training-kubeflow overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:446c3d36d4f922f241cb8ab624d4accf5aeb9f73c4abaf3e8809115aec3098ab",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-eks-ubuntu-training-kubeflow",
+          "page": "docs/demo/aicr/h100-eks-ubuntu-training-kubeflow.md",
+          "digestIndex": "examples/aicr/h100-eks-ubuntu-training-kubeflow/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-eks-ubuntu-training-kubeflow/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-eks-ubuntu-training-kubeflow/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-eks-ubuntu-training-slurm",
+        "title": "h100-eks-ubuntu-training-slurm overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:fcf5f4882560111378be329833586e2efdb5e0b98ddc369998f071b13cc02d2b",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-eks-ubuntu-training-slurm",
+          "page": "docs/demo/aicr/h100-eks-ubuntu-training-slurm.md",
+          "digestIndex": "examples/aicr/h100-eks-ubuntu-training-slurm/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-eks-ubuntu-training-slurm/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-eks-ubuntu-training-slurm/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-gke-cos-inference",
+        "title": "h100-gke-cos-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:34b6655a8bb63e215f91f7d205a9b48a2dc655ca97b9d361d775b9f62b554b2d",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-gke-cos-inference",
+          "page": "docs/demo/aicr/h100-gke-cos-inference.md",
+          "digestIndex": "examples/aicr/h100-gke-cos-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-gke-cos-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-gke-cos-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-gke-cos-inference-dynamo",
+        "title": "h100-gke-cos-inference-dynamo overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:be7471135bdcf5f304497a53b5322914049ea2ae8e6f671bcba5d8e30c3fb766",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-gke-cos-inference-dynamo",
+          "page": "docs/demo/aicr/h100-gke-cos-inference-dynamo.md",
+          "digestIndex": "examples/aicr/h100-gke-cos-inference-dynamo/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-gke-cos-inference-dynamo/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-gke-cos-inference-dynamo/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-gke-cos-training",
+        "title": "h100-gke-cos-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:c682fcdaedf70712ef9df940c1eb643677ae837b709032be76368dd04d7b9312",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-gke-cos-training",
+          "page": "docs/demo/aicr/h100-gke-cos-training.md",
+          "digestIndex": "examples/aicr/h100-gke-cos-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-gke-cos-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-gke-cos-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-gke-cos-training-kubeflow",
+        "title": "h100-gke-cos-training-kubeflow overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:7006383ad28f137992785411557a69e4f8f460899f610e71ebcd301b542103bb",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-gke-cos-training-kubeflow",
+          "page": "docs/demo/aicr/h100-gke-cos-training-kubeflow.md",
+          "digestIndex": "examples/aicr/h100-gke-cos-training-kubeflow/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-gke-cos-training-kubeflow/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-gke-cos-training-kubeflow/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-gke-cos-training-slurm",
+        "title": "h100-gke-cos-training-slurm overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:854b9138707c5a5881d8a2eb0e3bc1b524fabdd14942b666dbb27eba23e71281",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-gke-cos-training-slurm",
+          "page": "docs/demo/aicr/h100-gke-cos-training-slurm.md",
+          "digestIndex": "examples/aicr/h100-gke-cos-training-slurm/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-gke-cos-training-slurm/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-gke-cos-training-slurm/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-kind-inference",
+        "title": "h100-kind-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:d47895a43cc5585462a8ae4cde4f8b8371642682fe082f36165d88e6f0784b39",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-kind-inference",
+          "page": "docs/demo/aicr/h100-kind-inference.md",
+          "digestIndex": "examples/aicr/h100-kind-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-kind-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-kind-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-kind-inference-dynamo",
+        "title": "h100-kind-inference-dynamo overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:b5e2f8910c00052362b84781fcda501613c5d83fde0ae015f549afd8538d2828",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-kind-inference-dynamo",
+          "page": "docs/demo/aicr/h100-kind-inference-dynamo.md",
+          "digestIndex": "examples/aicr/h100-kind-inference-dynamo/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-kind-inference-dynamo/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-kind-inference-dynamo/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-kind-training",
+        "title": "h100-kind-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:fe2f974798d77382ed93c4b9d5d183c260db33f2c7eebd8fa0b55027f4497a0d",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-kind-training",
+          "page": "docs/demo/aicr/h100-kind-training.md",
+          "digestIndex": "examples/aicr/h100-kind-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-kind-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-kind-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-kind-training-kubeflow",
+        "title": "h100-kind-training-kubeflow overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:3316714582ebb576c3d868e5e47083a3da41a03ecb4f27d9fd9c37fffa6de6e0",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-kind-training-kubeflow",
+          "page": "docs/demo/aicr/h100-kind-training-kubeflow.md",
+          "digestIndex": "examples/aicr/h100-kind-training-kubeflow/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-kind-training-kubeflow/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-kind-training-kubeflow/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h100-kind-training-slurm",
+        "title": "h100-kind-training-slurm overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:7112acbf836a26924fff4c29527e72d2ec10b96e7a6b3761d67ce8ae976bb540",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h100-kind-training-slurm",
+          "page": "docs/demo/aicr/h100-kind-training-slurm.md",
+          "digestIndex": "examples/aicr/h100-kind-training-slurm/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h100-kind-training-slurm/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h100-kind-training-slurm/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h200-any",
+        "title": "h200-any overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:a11a7b68ba9f007d44f07e39ba2aaa5a80afbae73db4e65f0998e22ab0705ed6",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h200-any",
+          "page": "docs/demo/aicr/h200-any.md",
+          "digestIndex": "examples/aicr/h200-any/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h200-any/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h200-any/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h200-eks-inference",
+        "title": "h200-eks-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:5d48fcb89d96cbd6957457c337d5166e0b2628849634df1df48fb5b3c44710c5",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h200-eks-inference",
+          "page": "docs/demo/aicr/h200-eks-inference.md",
+          "digestIndex": "examples/aicr/h200-eks-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h200-eks-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h200-eks-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "h200-eks-training",
+        "title": "h200-eks-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:cc55e775697253c646d3fbe516a4bdcaf4b2d19e16a9ede6b2770a94ac80b7a1",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/h200-eks-training",
+          "page": "docs/demo/aicr/h200-eks-training.md",
+          "digestIndex": "examples/aicr/h200-eks-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/h200-eks-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/h200-eks-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "kind",
+        "title": "kind overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:4f2b373598ec2870e5d7df72055e3d236a3e3e17d1686b370d131f7ae52bd180",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/kind",
+          "page": "docs/demo/aicr/kind.md",
+          "digestIndex": "examples/aicr/kind/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/kind/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/kind/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "kind-inference",
+        "title": "kind-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:851cc512466a35a470ab682000e195a991bad36845de37030163aa2d144afe17",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/kind-inference",
+          "page": "docs/demo/aicr/kind-inference.md",
+          "digestIndex": "examples/aicr/kind-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/kind-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/kind-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "l40-any",
+        "title": "l40-any overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:9cc63cccaa86b42e5d3f82963a3fa05577a2d1676c59c2afbdbde3eb1165d6a7",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/l40-any",
+          "page": "docs/demo/aicr/l40-any.md",
+          "digestIndex": "examples/aicr/l40-any/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/l40-any/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/l40-any/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "l40s-any",
+        "title": "l40s-any overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:ee17b5f87345f0fcdae01ce4fc24a04fd75f6dc5964be8cdeca0f150ef3d31b4",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/l40s-any",
+          "page": "docs/demo/aicr/l40s-any.md",
+          "digestIndex": "examples/aicr/l40s-any/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/l40s-any/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/l40s-any/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "l40s-oke-inference",
+        "title": "l40s-oke-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:4d95e32cec08bb67b6eb4d01b7fe498699f542e06287d32fd7caad767949c54b",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/l40s-oke-inference",
+          "page": "docs/demo/aicr/l40s-oke-inference.md",
+          "digestIndex": "examples/aicr/l40s-oke-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/l40s-oke-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/l40s-oke-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "l40s-oke-training",
+        "title": "l40s-oke-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:d41087fe0efa5621adb49227730bb0c13bcb2c5991e9027461d9779d8f0eee1b",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/l40s-oke-training",
+          "page": "docs/demo/aicr/l40s-oke-training.md",
+          "digestIndex": "examples/aicr/l40s-oke-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/l40s-oke-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/l40s-oke-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "lke",
+        "title": "lke overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:5902f2de8eb20420e80d932e4d06cbeef42f5c7739c3b31cb0e21d24cb7fa9f0",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/lke",
+          "page": "docs/demo/aicr/lke.md",
+          "digestIndex": "examples/aicr/lke/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/lke/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/lke/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "lke-inference",
+        "title": "lke-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:1bc958e67e8be82762d5d40c601ad0dda832b4b7f239c4a9f1ff5137db290277",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/lke-inference",
+          "page": "docs/demo/aicr/lke-inference.md",
+          "digestIndex": "examples/aicr/lke-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/lke-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/lke-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "lke-training",
+        "title": "lke-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:591736e8d65bc523eb076b3ffef3adfc68906405d74e0bda44d4b7217cb42bcf",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/lke-training",
+          "page": "docs/demo/aicr/lke-training.md",
+          "digestIndex": "examples/aicr/lke-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/lke-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/lke-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "ocp",
+        "title": "ocp overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:8b7331c63faba428e0241b7d7d21b4fb24f2ab05f0917ddfd011fc62bbfa73eb",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/ocp",
+          "page": "docs/demo/aicr/ocp.md",
+          "digestIndex": "examples/aicr/ocp/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/ocp/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/ocp/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "ocp-inference",
+        "title": "ocp-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:7391cb74a9b9ce9ac9ccefc00d1c0320101fba86a8b9c4a5c6c0730159ef8276",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/ocp-inference",
+          "page": "docs/demo/aicr/ocp-inference.md",
+          "digestIndex": "examples/aicr/ocp-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/ocp-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/ocp-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "ocp-inference-nim",
+        "title": "ocp-inference-nim overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:5128366e2a332f9f4928df15cb1a0b9b10af6fc1a6b698e51bc5731580526e35",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/ocp-inference-nim",
+          "page": "docs/demo/aicr/ocp-inference-nim.md",
+          "digestIndex": "examples/aicr/ocp-inference-nim/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/ocp-inference-nim/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/ocp-inference-nim/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "ocp-training",
+        "title": "ocp-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:35225e3ac3acf400d1a630e5c4872163754eef1facbac655f525dc4b19eadc7b",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/ocp-training",
+          "page": "docs/demo/aicr/ocp-training.md",
+          "digestIndex": "examples/aicr/ocp-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/ocp-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/ocp-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "oke-ol",
+        "title": "oke-ol overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:40aa1d6f9221c078ab6165708c41f9a09fe5a25148dbb5c9f658db5343dbb1f7",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/oke-ol",
+          "page": "docs/demo/aicr/oke-ol.md",
+          "digestIndex": "examples/aicr/oke-ol/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/oke-ol/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/oke-ol/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "oke-ol-inference",
+        "title": "oke-ol-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:31080d0124a0623f2efe1fa863bb77039309a656a3e8948c4ff4f84e79124cdb",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/oke-ol-inference",
+          "page": "docs/demo/aicr/oke-ol-inference.md",
+          "digestIndex": "examples/aicr/oke-ol-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/oke-ol-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/oke-ol-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "oke-ol-training",
+        "title": "oke-ol-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:4c155d04346a94bc55c9785acf36a3a8d1ff4effba896b2f58702b03485a4f79",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/oke-ol-training",
+          "page": "docs/demo/aicr/oke-ol-training.md",
+          "digestIndex": "examples/aicr/oke-ol-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/oke-ol-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/oke-ol-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rke2",
+        "title": "rke2 overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:d739b3079f49e3692a9889190c7b4b679c195b07ad862c7668e5ebe663fddc27",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rke2",
+          "page": "docs/demo/aicr/rke2.md",
+          "digestIndex": "examples/aicr/rke2/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rke2/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rke2/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rke2-inference",
+        "title": "rke2-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:b551611d2bad91b481a9022d1144658f0ed6711534f363fb125bb28ef2651d6e",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rke2-inference",
+          "page": "docs/demo/aicr/rke2-inference.md",
+          "digestIndex": "examples/aicr/rke2-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rke2-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rke2-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rke2-training",
+        "title": "rke2-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:92a4f42249cffb204466941cd99c22e9d2f2bc740199ebba37642aaa9ec81122",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rke2-training",
+          "page": "docs/demo/aicr/rke2-training.md",
+          "digestIndex": "examples/aicr/rke2-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rke2-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rke2-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rtx-pro-6000-any",
+        "title": "rtx-pro-6000-any overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:1591f466cf761f112693574fca18fd5e47120367b333cdb705de7a15950fb5c2",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rtx-pro-6000-any",
+          "page": "docs/demo/aicr/rtx-pro-6000-any.md",
+          "digestIndex": "examples/aicr/rtx-pro-6000-any/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rtx-pro-6000-any/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rtx-pro-6000-any/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rtx-pro-6000-eks-inference",
+        "title": "rtx-pro-6000-eks-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:311bb8760eba394ce73f135379178fa5462c89c274dcb2c9c7943a73819d8d44",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rtx-pro-6000-eks-inference",
+          "page": "docs/demo/aicr/rtx-pro-6000-eks-inference.md",
+          "digestIndex": "examples/aicr/rtx-pro-6000-eks-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rtx-pro-6000-eks-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rtx-pro-6000-eks-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rtx-pro-6000-eks-training",
+        "title": "rtx-pro-6000-eks-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:b7d67fff1a82aa1bd6c9b880b89c3e70314ee02f4a6cad3fd90ef8a3354c4761",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rtx-pro-6000-eks-training",
+          "page": "docs/demo/aicr/rtx-pro-6000-eks-training.md",
+          "digestIndex": "examples/aicr/rtx-pro-6000-eks-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rtx-pro-6000-eks-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rtx-pro-6000-eks-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rtx-pro-6000-eks-ubuntu-inference",
+        "title": "rtx-pro-6000-eks-ubuntu-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:f1d7c70f50c516c1209b42676a95619b6c2c203841eb029c1fd40c229d6d40a8",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rtx-pro-6000-eks-ubuntu-inference",
+          "page": "docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference.md",
+          "digestIndex": "examples/aicr/rtx-pro-6000-eks-ubuntu-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rtx-pro-6000-eks-ubuntu-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rtx-pro-6000-eks-ubuntu-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rtx-pro-6000-eks-ubuntu-inference-dynamo",
+        "title": "rtx-pro-6000-eks-ubuntu-inference-dynamo overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:cebdd5b78b41f2320d18dfc119d43f1f7a8dbf057e000540cb2c8417d0be2353",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo",
+          "page": "docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo.md",
+          "digestIndex": "examples/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rtx-pro-6000-eks-ubuntu-inference-nim",
+        "title": "rtx-pro-6000-eks-ubuntu-inference-nim overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:135d22893887f278f066cd15f1a29175a77de574d0fd89f28789310d2e94a371",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rtx-pro-6000-eks-ubuntu-inference-nim",
+          "page": "docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-nim.md",
+          "digestIndex": "examples/aicr/rtx-pro-6000-eks-ubuntu-inference-nim/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rtx-pro-6000-eks-ubuntu-inference-nim/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rtx-pro-6000-eks-ubuntu-inference-nim/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rtx-pro-6000-eks-ubuntu-training",
+        "title": "rtx-pro-6000-eks-ubuntu-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:ea4caed106f806b104c4d6e559479ec77456494198467e9394e24b47a3e169df",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rtx-pro-6000-eks-ubuntu-training",
+          "page": "docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training.md",
+          "digestIndex": "examples/aicr/rtx-pro-6000-eks-ubuntu-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rtx-pro-6000-eks-ubuntu-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rtx-pro-6000-eks-ubuntu-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rtx-pro-6000-eks-ubuntu-training-kubeflow",
+        "title": "rtx-pro-6000-eks-ubuntu-training-kubeflow overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:a0dae8631b6be7e4fff0add7c49aea257af6c645aaf241ed8372808736625e6d",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow",
+          "page": "docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow.md",
+          "digestIndex": "examples/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rtx-pro-6000-lke-inference",
+        "title": "rtx-pro-6000-lke-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:9363622f062c413db52bd2f673ea7f25a2cfd8f38147261e46d5092e27800121",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rtx-pro-6000-lke-inference",
+          "page": "docs/demo/aicr/rtx-pro-6000-lke-inference.md",
+          "digestIndex": "examples/aicr/rtx-pro-6000-lke-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rtx-pro-6000-lke-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rtx-pro-6000-lke-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rtx-pro-6000-lke-training",
+        "title": "rtx-pro-6000-lke-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:d0f06f543f13c54214c0e766032f34b1752c80f6a77cd7ad3a2d1e25aef19b18",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rtx-pro-6000-lke-training",
+          "page": "docs/demo/aicr/rtx-pro-6000-lke-training.md",
+          "digestIndex": "examples/aicr/rtx-pro-6000-lke-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rtx-pro-6000-lke-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rtx-pro-6000-lke-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rtx-pro-6000-lke-ubuntu-inference",
+        "title": "rtx-pro-6000-lke-ubuntu-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:07d3fb76a364d00559f36b8fed2b12979ea4ba0d084f867f5bce29c4c0297eae",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rtx-pro-6000-lke-ubuntu-inference",
+          "page": "docs/demo/aicr/rtx-pro-6000-lke-ubuntu-inference.md",
+          "digestIndex": "examples/aicr/rtx-pro-6000-lke-ubuntu-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rtx-pro-6000-lke-ubuntu-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rtx-pro-6000-lke-ubuntu-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "rtx-pro-6000-lke-ubuntu-training",
+        "title": "rtx-pro-6000-lke-ubuntu-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:ed066397c1022c2cc38e7c931396472fb544713a75e255110184f24fa28320f8",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/rtx-pro-6000-lke-ubuntu-training",
+          "page": "docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training.md",
+          "digestIndex": "examples/aicr/rtx-pro-6000-lke-ubuntu-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/rtx-pro-6000-lke-ubuntu-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/rtx-pro-6000-lke-ubuntu-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "vr200-rke2-ubuntu-inference",
+        "title": "vr200-rke2-ubuntu-inference overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:34a5fafa76080d272e7e667453d11df8d3829b5e9351fa3f259d558563b234dc",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/vr200-rke2-ubuntu-inference",
+          "page": "docs/demo/aicr/vr200-rke2-ubuntu-inference.md",
+          "digestIndex": "examples/aicr/vr200-rke2-ubuntu-inference/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/vr200-rke2-ubuntu-inference/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/vr200-rke2-ubuntu-inference/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "vr200-rke2-ubuntu-inference-dynamo",
+        "title": "vr200-rke2-ubuntu-inference-dynamo overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:712d0efe6949b67bf62c4003984cce53dc3248652627fda21d987749be91428d",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/vr200-rke2-ubuntu-inference-dynamo",
+          "page": "docs/demo/aicr/vr200-rke2-ubuntu-inference-dynamo.md",
+          "digestIndex": "examples/aicr/vr200-rke2-ubuntu-inference-dynamo/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/vr200-rke2-ubuntu-inference-dynamo/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/vr200-rke2-ubuntu-inference-dynamo/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
+        "id": "vr200-rke2-ubuntu-training",
+        "title": "vr200-rke2-ubuntu-training overlay, AICR v0.21.0",
+        "provenance": "mirrored-upstream-overlay",
+        "platformDigest": "sha256:81f63b556cca5636aad5a9190540505025a5bc1aede6b6f295e8896c73e940df",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.21.0",
+          "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/vr200-rke2-ubuntu-training",
+          "page": "docs/demo/aicr/vr200-rke2-ubuntu-training.md",
+          "digestIndex": "examples/aicr/vr200-rke2-ubuntu-training/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/vr200-rke2-ubuntu-training/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/vr200-rke2-ubuntu-training/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
       }
     ],
     "crossEntryEvidence": [

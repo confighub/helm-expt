@@ -64,7 +64,12 @@ const versions = {
     artifacts: {
       renderedApplications: 17,
       componentWaves: 5,
-      // No base-variant record exists yet; it needs public OCI evidence.
+      // The record aicr-eks-h100-training-kubeflow-v1-0-0-argocd exists and
+      // says nothing is published. This stays null because the field means
+      // "registered in config-catalog/source-catalog-imports.yaml", and that
+      // registry's verifier requires the AICR page on the site to show the
+      // imported catalog digest, which it does not yet do for v1.0.0. Until
+      // then the artifact check validates the source-catalog record directly.
       baseVariantRecord: null,
       nestedSources: {
         status: "not-yet-materialized-for-v1.0.0",

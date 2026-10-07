@@ -9,7 +9,7 @@ Retaining an exact version is a deliberate choice, and a deliberate choice
 needs a number next to it. This measures the gap instead of leaving it to be
 discovered when someone happens to look at a release page.
 
-This watch contains 6 entries: the intersection of the AICR naming
+This watch contains 123 entries: the intersection of the AICR naming
 register and published platform evidence naming upstream `NVIDIA AICR`.
 Generated overlay records without matching platform evidence are outside this
 watch. That exclusion is a scope boundary, not evidence that those records are
@@ -23,7 +23,7 @@ as a date rather than hidden behind a moving number.
 
 ## The gap today
 
-The newest version in this watch is 2 release(s) and 16 days behind upstream's newest.
+The newest version in this watch is 1 release(s) and 1 days behind upstream's newest.
 
 | Entry | Provenance | AICR version | Released | Releases published since |
 | --- | --- | --- | --- | --- |
@@ -33,6 +33,123 @@ The newest version in this watch is 2 release(s) and 16 days behind upstream's n
 | `eks-h100-training-kubeflow-v0-20-0` | retained-upstream | v0.20.0 | 2026-08-24 | 2 |
 | `eks-h100-inference-nim` | retained-upstream | v0.14.0 | 2026-06-01 | 8 |
 | `cpu-starter` | derived | v0.14.0 | 2026-06-01 | 8 |
+| `eks-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-eks-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `a100-aks-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `a100-aks-ubuntu-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `a100-aks-ubuntu-training-kubeflow` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `a100-any` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `a100-eks-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `a100-eks-ubuntu-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `a100-eks-ubuntu-training-kubeflow` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `a100-gke-cos-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `a100-gke-cos-training-kubeflow` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `a100-oke-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `a100-oke-ubuntu-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `a100-oke-ubuntu-training-kubeflow` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `aks` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `aks-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `aks-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `b200-any` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `b200-gke-cos-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `b200-gke-cos-inference-dynamo` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `b200-gke-cos-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `b200-gke-cos-training-kubeflow` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `bcm` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `bcm-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `bcm-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `eks` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `eks-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb200-any` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb200-eks-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb200-eks-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb200-eks-ubuntu-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb200-eks-ubuntu-inference-dynamo` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb200-eks-ubuntu-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb200-eks-ubuntu-training-kubeflow` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb200-oke-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb200-oke-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb200-oke-ubuntu-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb200-oke-ubuntu-inference-dynamo` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb200-oke-ubuntu-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb200-oke-ubuntu-training-kubeflow` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb300-any` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb300-eks-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb300-eks-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb300-eks-ubuntu-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb300-eks-ubuntu-inference-dynamo` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb300-eks-ubuntu-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb300-eks-ubuntu-training-kubeflow` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb300-generic-ubuntu-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gke-cos` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gke-cos-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gke-cos-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-aks-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-aks-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-aks-ubuntu-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-aks-ubuntu-inference-dynamo` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-aks-ubuntu-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-aks-ubuntu-training-kubeflow` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-any` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-bcm-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-bcm-ubuntu-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-eks-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-eks-ubuntu-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-eks-ubuntu-inference-dynamo` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-eks-ubuntu-inference-nim` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-eks-ubuntu-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-eks-ubuntu-training-kubeflow` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-gke-cos-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-gke-cos-inference-dynamo` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-gke-cos-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-gke-cos-training-kubeflow` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-kind-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-kind-inference-dynamo` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-kind-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-kind-training-kubeflow` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-kind-training-slurm` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h200-any` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h200-eks-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h200-eks-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `kind` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `kind-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `l40-any` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `l40s-any` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `l40s-oke-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `l40s-oke-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `lke` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `lke-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `lke-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `ocp` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `ocp-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `ocp-inference-nim` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `ocp-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `oke-ol` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `oke-ol-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `oke-ol-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rke2` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rke2-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rke2-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rtx-pro-6000-any` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rtx-pro-6000-eks-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rtx-pro-6000-eks-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rtx-pro-6000-eks-ubuntu-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rtx-pro-6000-eks-ubuntu-inference-dynamo` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rtx-pro-6000-eks-ubuntu-inference-nim` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rtx-pro-6000-eks-ubuntu-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rtx-pro-6000-eks-ubuntu-training-kubeflow` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rtx-pro-6000-lke-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rtx-pro-6000-lke-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rtx-pro-6000-lke-ubuntu-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `rtx-pro-6000-lke-ubuntu-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `vr200-rke2-ubuntu-inference` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `vr200-rke2-ubuntu-inference-dynamo` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `vr200-rke2-ubuntu-training` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb200-eks-ubuntu-training-slurm` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `gb300-eks-ubuntu-training-slurm` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-aks-ubuntu-training-slurm` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-eks-ubuntu-training-slurm` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
+| `h100-gke-cos-training-slurm` | mirrored-upstream-overlay | v0.21.0 | 2026-09-08 | 1 |
 
 A derived entry carries the version of the entry it came from, so it moves when
 that entry moves rather than on its own. Listing it here keeps the row count
@@ -43,7 +160,7 @@ equal to the number of AICR-dependent entries within this watch.
 | Release | Published | In this watch |
 | --- | --- | --- |
 | v0.21.1 | 2026-09-09 | outside this watch |
-| v0.21.0 | 2026-09-08 | outside this watch |
+| v0.21.0 | 2026-09-08 | watched |
 | v0.20.0 | 2026-08-24 | watched |
 | v0.19.0 | 2026-08-10 | watched |
 | v0.18.0 | 2026-07-23 | watched |
