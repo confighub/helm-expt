@@ -1,9 +1,19 @@
 #!/usr/bin/env node
 
+// Verify one retained AICR entry against its own bytes: the source chart and
+// its checksums, the two local OCI layouts, a fresh Helm render, the
+// flattening verdict, and the hand-authored records beside them.
+//
+// AICR_ARTIFACTS_VERSION selects the retained version and defaults to 0.20.0.
+// What differs between versions (counts, the stage each entry has reached)
+// comes from lib/aicr-retained-versions.mjs. Publication and ConfigHub results
+// are read from the receipts that exist: an entry with no public receipt must
+// say publication has not run, and one with a receipt must match it.
+
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { basename, join } from "node:path";
+import { join } from "node:path";
 
 import {
   check,
@@ -14,14 +24,17 @@ import {
   repoRoot,
   sha256,
 } from "./lib/proof-common.mjs";
-import { resolveSourceCatalogImports } from "./lib/source-catalog-import.mjs";
+import { aicrRetainedVersion } from "./lib/aicr-retained-versions.mjs";
+import {
+  resolveSourceCatalogImports,
+  validateSourceCatalogRecord,
+} from "./lib/source-catalog-import.mjs";
 
-const root = join(
-  repoRoot,
-  "examples",
-  "aicr",
-  "eks-h100-training-kubeflow-v0-20-0",
-);
+const retained = aicrRetainedVersion("AICR_ARTIFACTS_VERSION");
+const { version, semver } = retained;
+const facts = retained.artifacts;
+const root = retained.entryRoot;
+const selectedVariant = "h100-eks-ubuntu-training-kubeflow";
 const sourceRoot = join(root, "argocd-helm-bundle");
 const renderedRoot = join(root, "argocd-rendered");
 const receipt = readYaml(join(root, "generation-receipt.yaml"));
@@ -37,19 +50,35 @@ const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
 const promotionReceiptPath = join(root, "promotion-readiness-receipt.yaml");
 const releaseReceiptPath = join(root, "confighub-release-oci-receipt.yaml");
 const expected = receipt.spec?.processing?.transport ?? {};
-const sourceCatalogImport = resolveSourceCatalogImports().find(
-  (item) => item.baseVariantRecord
-    === "aicr-eks-h100-training-kubeflow-v0-20-0-argocd",
-);
-check(sourceCatalogImport, "AICR v0.20.0 source-catalog import is missing");
+// An entry with a base-variant record is in the source-catalog import
+// registry, and the registry validates its record. An entry that has not
+// reached that stage has its record validated directly against the same rules.
+if (facts.baseVariantRecord) {
+  const sourceCatalogImport = resolveSourceCatalogImports().find(
+    (item) => item.baseVariantRecord === facts.baseVariantRecord,
+  );
+  check(sourceCatalogImport, `AICR ${version} source-catalog import is missing`);
+} else {
+  validateSourceCatalogRecord(
+    readYaml(sourceCatalogPath),
+    {
+      providerName: "NVIDIA",
+      catalogVersion: version,
+      catalogDigest: retained.sourceCatalog.catalogDigest,
+      selectedSourceVariant: selectedVariant,
+    },
+    { recordPath: relativeRepo(sourceCatalogPath) },
+  );
+}
 
 verifySourceChecksums();
+verifyBundleRecipes();
 verifySourceLayout();
 verifyConfigurationLayout();
 verifyFreshRender();
 verifyFlatteningVerdict();
 verifySupportingRecords();
-console.log("verified the AICR v0.20.0 source chart and exact-configuration OCI layouts");
+console.log(`verified the AICR ${version} source chart and exact-configuration OCI layouts`);
 
 function readLayout(name, expectedDigest) {
   const layoutRoot = join(root, "oci-layouts", name);
@@ -58,7 +87,7 @@ function readLayout(name, expectedDigest) {
   const descriptor = index.manifests[0];
   check(descriptor.digest === expectedDigest, `${name}: layout digest changed`);
   check(
-    descriptor.annotations?.["org.opencontainers.image.ref.name"] === "0.20.0",
+    descriptor.annotations?.["org.opencontainers.image.ref.name"] === semver,
     `${name}: layout tag changed`,
   );
   const manifestPath = join(
@@ -76,21 +105,60 @@ function readLayout(name, expectedDigest) {
 }
 
 function verifySourceChecksums() {
-  const rows = readChecksumFile(join(sourceRoot, "checksums.txt"));
-  const files = listFiles(sourceRoot)
-    .filter((path) => basename(path) !== "checksums.txt")
-    .map((path) => relativeRepo(path).slice(`${relativeRepo(sourceRoot)}/`.length))
+  verifyBundleChecksums(sourceRoot, "source chart");
+  verifyBundleChecksums(join(root, "flux-bundle"), "Flux bundle");
+}
+
+function verifyBundleChecksums(bundleRoot, label) {
+  const rows = readChecksumFile(join(bundleRoot, "checksums.txt"));
+  const files = listFiles(bundleRoot)
+    .filter((path) => relativeRepo(path) !== relativeRepo(join(bundleRoot, "checksums.txt")))
+    .map((path) => relativeRepo(path).slice(`${relativeRepo(bundleRoot)}/`.length))
     .sort();
   check(
     JSON.stringify(files) === JSON.stringify([...rows.keys()].sort()),
-    "source chart files differ from checksums.txt",
+    `${label} files differ from checksums.txt`,
   );
   for (const [file, digest] of rows) {
     check(
-      sha256(readFileSync(join(sourceRoot, file))) === digest,
-      `source chart checksum changed: ${file}`,
+      sha256(readFileSync(join(bundleRoot, file))) === digest,
+      `${label} checksum changed: ${file}`,
     );
   }
+}
+
+// From v1.0.0 a bundle carries the recipe it was built from and records that
+// recipe's digest in bundle-info.yaml. When the generation receipt records
+// those digests, hold the retained bytes to them. The bundled recipe can
+// differ from the selected recipe, because AICR may leave a component out.
+function verifyBundleRecipes() {
+  const digests = receipt.spec?.result?.recipeDigests;
+  if (!digests) return;
+  check(
+    digests.selectedRecipe === `sha256:${sha256(readFileSync(join(root, "recipe.yaml")))}`,
+    "generation receipt records a different selected recipe digest",
+  );
+  for (const bundle of ["argocd-helm-bundle", "flux-bundle"]) {
+    const bundled = `sha256:${sha256(readFileSync(join(root, bundle, "recipe.yaml")))}`;
+    check(bundled === digests.bundledRecipe, `${bundle}/recipe.yaml differs from the recorded bundled recipe digest`);
+    check(
+      readYaml(join(root, bundle, "bundle-info.yaml")).build?.recipe?.digest === bundled,
+      `${bundle}/bundle-info.yaml records a different recipe digest`,
+    );
+  }
+  const selectedNames = (readYaml(join(root, "recipe.yaml")).componentRefs ?? []).map((item) => item.name);
+  const bundledNames = (readYaml(join(sourceRoot, "recipe.yaml")).componentRefs ?? []).map((item) => item.name);
+  const leftOut = selectedNames.filter((name) => !bundledNames.includes(name)).sort();
+  check(
+    stableJson(leftOut)
+      === stableJson((receipt.spec.result.componentsLeftOutOfBundle ?? []).map((item) => item.name).sort()),
+    "generation receipt does not name exactly the components the bundle left out",
+  );
+  check(
+    receipt.spec.result.componentCount === selectedNames.length
+      && receipt.spec.result.bundledComponentCount === bundledNames.length,
+    "generation receipt component counts differ from the retained recipes",
+  );
 }
 
 function verifySourceLayout() {
@@ -116,7 +184,7 @@ function verifySourceLayout() {
   const layerBytes = readFileSync(layerPath);
   check(`sha256:${sha256(layerBytes)}` === layer.digest, "source package chart layer changed");
 
-  const work = mkdtempSync(join(tmpdir(), "helm-expt-aicr-v020-source-"));
+  const work = mkdtempSync(join(tmpdir(), `helm-expt-aicr-${retained.slug}-source-`));
   try {
     execFileSync("tar", ["-xzf", layerPath, "-C", work]);
     const extractedRoot = join(work, "aicr-bundle");
@@ -156,7 +224,10 @@ function verifyConfigurationLayout() {
     manifest.artifactType === "application/vnd.confighub.kubernetes.config.v1",
     "literal configuration has the wrong artifact type",
   );
-  check(manifest.layers?.length === 17, "literal configuration must contain 17 YAML layers");
+  check(
+    manifest.layers?.length === facts.renderedApplications,
+    `literal configuration must contain ${facts.renderedApplications} YAML layers`,
+  );
   const checksums = readChecksumFile(join(renderedRoot, "checksums.txt"));
   const seen = new Set();
   for (const layer of manifest.layers) {
@@ -177,7 +248,7 @@ function verifyConfigurationLayout() {
 }
 
 function verifyFreshRender() {
-  const work = mkdtempSync(join(tmpdir(), "helm-expt-aicr-v020-render-"));
+  const work = mkdtempSync(join(tmpdir(), `helm-expt-aicr-${retained.slug}-render-`));
   try {
     execFileSync(
       "helm",
@@ -208,7 +279,7 @@ function verifyFreshRender() {
         "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow/aicr-bundle",
       "the root Application does not point at the versioned AICR source package",
     );
-    check(rootApplication.spec?.source?.targetRevision === "0.20.0", "the root Application version changed");
+    check(rootApplication.spec?.source?.targetRevision === semver, "the root Application version changed");
   } finally {
     rmSync(work, { recursive: true, force: true });
   }
@@ -229,7 +300,7 @@ function verifyFlatteningVerdict() {
   );
   check(verdict.kind === "FlatteningSafetyVerdict", "flattening verdict has the wrong kind");
   check(
-    verdict.spec?.subject?.upstreamVersion === "v0.20.0",
+    verdict.spec?.subject?.upstreamVersion === version,
     "flattening verdict is for a different AICR version",
   );
   check(
@@ -245,7 +316,27 @@ function verifyFlatteningVerdict() {
       === stableJson(nestedApplications),
     "flattening verdict does not name every nested Application source",
   );
-  check(waves.size === 5, `expected five distinct component waves, found ${waves.size}`);
+  check(
+    waves.size === facts.componentWaves,
+    `expected ${facts.componentWaves} distinct component waves, found ${waves.size}`,
+  );
+  // The verdict's two "absent" findings are claims about the retained bytes.
+  check(
+    applications.length === facts.renderedApplications
+      && applications.every((doc) => doc.apiVersion === "argoproj.io/v1alpha1" && doc.kind === "Application"),
+    "the retained set is not exactly the expected Argo CD Applications, so the no-Secret finding does not hold",
+  );
+  check(
+    applications.every((doc) => Object.keys(doc.metadata?.annotations ?? {})
+      .every((key) => !key.startsWith("helm.sh/hook") && !key.startsWith("argocd.argoproj.io/hook"))),
+    "a retained Application carries a hook annotation, so the no-hook finding does not hold",
+  );
+  for (const absent of ["wrapper-helm-hooks", "wrapper-secrets"]) {
+    check(
+      verdict.spec?.dispositions?.some((item) => item.class === absent && item.finding === "absent"),
+      `flattening verdict does not record ${absent} as absent`,
+    );
+  }
   check(
     verdict.spec?.dispositions?.some(
       (item) => item.class === "component-ordering"
@@ -258,7 +349,9 @@ function verifyFlatteningVerdict() {
     verdict.spec?.dispositions?.some(
       (item) => item.class === "nested-component-sources"
         && item.finding === "present"
-        && item.gap === "https://github.com/confighub/helm-expt/issues/1615",
+        && (facts.nestedSources.gap
+          ? item.gap === facts.nestedSources.gap
+          : item.evidence?.includes(relativeRepo(routeIntentPath))),
     ),
     "flattening verdict does not name the unfinished nested-source work",
   );
@@ -272,10 +365,8 @@ function verifySupportingRecords() {
   check(
     sourceCatalog.spec?.provider?.name === "NVIDIA"
       && sourceCatalog.spec?.provider?.role === "source-catalog-curator"
-      && sourceCatalog.spec?.catalog?.digest
-        === "sha256:676f2d59eacd79ae1b72e5cbe00216b577def1da412dbdabb032f317a62dc1d8"
-      && sourceCatalog.spec?.selection?.name
-        === "h100-eks-ubuntu-training-kubeflow"
+      && sourceCatalog.spec?.catalog?.digest === retained.sourceCatalog.catalogDigest
+      && sourceCatalog.spec?.selection?.name === selectedVariant
       && sourceCatalog.status?.catalogDigestVerified === true
       && sourceCatalog.status?.selectedVariantReproducible === true
       && sourceCatalog.status?.runtimeProven === false,
@@ -290,13 +381,12 @@ function verifySupportingRecords() {
   check(
     routeIntent.spec?.routes?.some(
       (route) => route.id === "downstream-chart-lifecycle"
-        && route.status === "materialized-awaits-destination-execution"
-        && route.evidence?.includes("data/aicr-v0-20-0-nested-sources/summary.md")
-        && route.evidence?.includes(
-          "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-flux.yaml",
-        ),
+        && route.status === facts.nestedSources.status
+        && facts.nestedSources.evidence.every((path) => route.evidence?.includes(path)),
     ),
-    "route intent does not link the materialized nested sources and destination resolutions",
+    facts.nestedSources.evidence.length > 0
+      ? "route intent does not link the materialized nested sources and destination resolutions"
+      : "route intent does not name the unfinished nested lifecycle work",
   );
 
   const fieldPolicy = readYaml(fieldPolicyPath);
@@ -311,9 +401,11 @@ function verifySupportingRecords() {
   check(receipt.status?.binaryAttestationVerified === true, "generation receipt does not record binary verification");
   check(receipt.status?.sbomAttestationVerified === true, "generation receipt does not record SBOM verification");
   check(
-    receipt.spec?.provenance?.verifiedReceipt === "runs/aicr-provenance-v0-20-0/receipt.yaml",
+    receipt.spec?.provenance?.verifiedReceipt === retained.provenanceReceipt,
     "generation receipt does not link the provenance receipt",
   );
+  check(receipt.spec?.source?.version === version, "generation receipt is for a different AICR version");
+  check(receipt.spec?.source?.commit === retained.commit, "generation receipt pins a different AICR commit");
   check(existsPath(receipt.spec.provenance.verifiedReceipt), "linked provenance receipt is missing");
   const published = existsSync(publicReceiptPath);
   check(
@@ -348,6 +440,7 @@ function verifySupportingRecords() {
     check(receipt.status?.[key] === "not-run", `generation receipt must keep ${key} at not-run`);
   }
   if (published) verifyPublicationRecords();
+  verifyRequiredInputs(published);
 
   verifyRetainedManifest(
     "argocd-source",
@@ -359,6 +452,34 @@ function verifySupportingRecords() {
     join(root, "local-argocd-config-oci-manifest.json"),
     expected.literalConfiguration?.digest,
   );
+}
+
+// A generation input that a version newly requires changes the retained bytes.
+// Each one must appear in the recorded bundle commands, and an entry must not
+// be published while the value of one still awaits confirmation.
+function verifyRequiredInputs(published) {
+  for (const input of receipt.spec?.sourceAndIntent?.newRequiredInputs ?? []) {
+    check(
+      ["awaiting-maintainer-confirmation", "confirmed"].includes(input.valueStatus),
+      `${input.input}: required input has no confirmation status`,
+    );
+    check(
+      receipt.spec.sourceAndIntent.generationInputs?.[input.input] === input.value,
+      `${input.input}: required input value differs from the generation inputs`,
+    );
+    for (const command of ["bundle", "fluxBundle"]) {
+      const words = receipt.spec.commands?.[command] ?? [];
+      const index = words.indexOf(input.flag);
+      check(
+        index !== -1 && words[index + 1] === input.value,
+        `${input.input}: the recorded ${command} command does not pass ${input.flag} ${input.value}`,
+      );
+    }
+    check(
+      !(published && input.valueStatus !== "confirmed"),
+      `${input.input}: the entry is published while this input's value awaits confirmation`,
+    );
+  }
 }
 
 function verifyPublicationRecords() {

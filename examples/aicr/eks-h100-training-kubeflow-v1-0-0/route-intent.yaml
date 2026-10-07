@@ -1,0 +1,143 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: PlatformRouteIntent
+metadata:
+  name: aicr-eks-h100-training-kubeflow-v1-0-0
+spec:
+  source:
+    type: aicr
+    provider: NVIDIA
+    sourceVariant: h100-eks-ubuntu-training-kubeflow
+    record: examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml
+  materializedObjects: examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered
+  boundary:
+    exactObjects: >-
+      The retained files are 17 Argo CD Application objects. Their exact
+      content can be reviewed and transported before delivery.
+    downstreamRendering: >-
+      Sixteen component Applications still reference Helm or local chart
+      sources. Argo CD or Flux processes those sources later. This entry does
+      not call the wrapper Applications the final workload objects.
+    observation: >-
+      The v1.0.0 CLI lists snapshot and diff commands for node facts. Neither
+      was run for this entry. A reported difference is a fault only after the
+      node is bound to the intended provider-curated variant and target role.
+  targetFacts:
+    - Argo CD and its Application CRD must exist before the retained wrapper objects can be applied.
+    - The destination must match the selected EKS, H100, Ubuntu, and Kubeflow training source variant.
+    - A gp3 StorageClass must be available for the selected storage input.
+    - Nodes that run system components must carry the label nodeGroup=system-worker.
+    - GPU nodes must carry nvidia.com/gpu.present=true before the node-tuning object is applied.
+    - The GPU driver, EFA device plugin, and node tuning must suit the actual node and network role.
+  targetFactBasis:
+    - fact: Argo CD and its Application CRD
+      basis: Every retained object is an argoproj.io/v1alpha1 Application.
+    - fact: source variant match
+      basis: The recipe criteria and its constraints (Kubernetes >= 1.32.4, Ubuntu 24.04, kernel >= 6.8).
+    - fact: gp3 StorageClass
+      basis: The storageClass generation input.
+    - fact: nodeGroup=system-worker
+      newInVersion: v1.0.0
+      basis: >-
+        The systemNodeSelector generation input. It is written into the values
+        of 12 of the 16 component Applications. A cluster without that label
+        on any node leaves those components unschedulable. The value awaits
+        the maintainer's confirmation; see generation-receipt.yaml.
+    - fact: nvidia.com/gpu.present=true before node tuning
+      newInVersion: v1.0.0
+      basis: >-
+        The acceleratedNodeSelector generation input sets the NodeWright
+        tuning selector to that label. The generated tuning template itself
+        says the label comes from GPU feature discovery inside gpu-operator,
+        which is ordered after nodewright-customizations, so on a new cluster
+        the selector matches no node until something else applies the label.
+        Whether that matters depends on the destination and is not assessed
+        here.
+    - fact: driver, EFA, and node tuning
+      basis: >-
+        The gpu-operator values pin driver 580.173.02 with kernelModuleType
+        auto and driver RDMA disabled. The aws-efa component is included. The
+        NodeWright tuning object reboots matched nodes one at a time.
+  routes:
+    - id: source-variant-target-match
+      lifecycleWork: compare observed destination facts with the intended NVIDIA source variant
+      owner: platform operator or admission policy
+      order: before destination-specific promotion or delivery
+      evidenceRequired: target snapshot, selected source-catalog digest, and an explained match or exception
+      status: recorded-not-run
+    - id: argocd-prerequisite
+      lifecycleWork: make the Argo CD Application API and controller available
+      owner: platform operator
+      order: before any retained Application object
+      evidenceRequired: Argo CD CRD discovery and controller readiness
+      status: recorded-not-run
+    - id: component-order
+      lifecycleWork: reconcile component Applications in AICR dependency order
+      owner: Argo CD
+      order: sync-wave annotations generated from recipe.deploymentOrder
+      evidenceRequired: observed sync operations and component health, not annotation survival alone
+      status: recorded-not-run
+    - id: downstream-chart-lifecycle
+      lifecycleWork: handle CRDs, hooks, certificates, operators, and setup Jobs for every nested source
+      owner: destination controller and the referenced source processor
+      order: source- and destination-specific
+      evidenceRequired: nested source render, flattening decision, route resolution, and execution receipt
+      status: not-yet-materialized-for-v1.0.0
+    - id: upgrade-over-existing-installation
+      lifecycleWork: follow the manual steps AICR lists before applying this bundle over an earlier installation
+      owner: platform operator
+      order: before the first sync of this version on a cluster that already runs an earlier one
+      evidenceRequired: the completed steps for each listed component and an upgrade-check report for the exact move
+      evidence:
+        - examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-helm-bundle/UPGRADING.md
+        - examples/aicr/eks-h100-training-kubeflow-v1-0-0/flux-bundle/UPGRADING.md
+      observed:
+        - >-
+          UPGRADING.md lists manual steps for nodewright-operator when moving
+          from below 0.18.0, and says that move is not reversible. The v0.20.0
+          entry pins nodewright-operator v0.17.1 and this entry pins v0.19.0.
+        - >-
+          UPGRADING.md lists manual steps for nvsentinel when moving from
+          1.22.0 up to but not including 1.25.0. The v0.20.0 entry pins
+          nvsentinel v1.20.0, which is outside that range, so the file says
+          nothing about that exact move.
+        - >-
+          aicr upgrade-check from the retained v0.20.0 recipe to this bundle
+          was refused by the v1.0.0 binary, because the v0.20.0 recipe uses
+          apiVersion aicr.run/v1alpha2, which v1.0.0 no longer reads. No
+          upgrade verdict from v0.20.0 exists for this entry.
+      status: recorded-not-run
+      newInVersion: v1.0.0
+    - id: dra-plugin-eviction
+      lifecycleWork: decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts
+      owner: platform operator
+      order: before the first GPU driver upgrade or restart
+      evidenceRequired: a chosen DRA eviction node label and a regenerated bundle, or a recorded decision to leave it off
+      observed: >-
+        Bundle generation warned that no DRA eviction node label was set and
+        left dra-node-labeler out of the bundle. The recipe still lists that
+        component.
+      status: recorded-not-run
+      newInVersion: v1.0.0
+    - id: aicr-node-inspection
+      lifecycleWork: collect and compare node facts
+      owner: AICR snapshot and diff
+      order: before or independently of configuration delivery
+      evidenceRequired: snapshot digests and the exact diff
+      status: available-not-run-for-this-entry
+    - id: aicr-configuration-validation
+      lifecycleWork: run checks whose prerequisites are satisfied by the selected source variant
+      owner: AICR validator or the operator's test runner
+      order: after the relevant components or hardware exist
+      evidenceRequired: per-check prerequisite classification and target output
+      status: not-run
+  checkClasses:
+    status: not-assessed-for-v1.0.0
+    reason: >-
+      The v0.20.0 entry classifies AICR checks by what each needs before it
+      can run. That classification was not re-derived against the v1.0.0
+      validator, so it is not repeated here. The recipe declares 4 deployment
+      checks, 1 performance check, and 10 conformance checks.
+status:
+  configurationGenerated: true
+  routesExecuted: false
+  runtimeProven: false
