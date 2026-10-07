@@ -412,8 +412,14 @@ for (const entry of aicrRecipeEntries) {
     `${name}: a retained AICR recipe entry must carry a recorded route intent that no run has made automatic`,
   );
   const delivery = spec.delivery ?? {};
+  // The ConfigHub-ready lane uploads a bundle once and deletes the Space. That
+  // temporary upload is the only one a retained entry may record, and it must
+  // name the lane's receipt.
+  const temporaryUpload = delivery.configHubUpload?.status === "temporary-pass"
+    && delivery.configHubUpload.receipt === "data/confighub-ready/receipt.yaml";
   const publishedRoles = ["sourcePackageOci", "literalConfigOci", "configHubUpload", "configHubReleaseOci"]
-    .filter((role) => !["not-published", "not-run"].includes(delivery[role]?.status));
+    .filter((role) => !["not-published", "not-run"].includes(delivery[role]?.status))
+    .filter((role) => !(role === "configHubUpload" && temporaryUpload));
   requireCondition(
     publishedRoles.length === 0 && (spec.source?.packageOciRef ?? "") === "",
     `${name}: ${entry.receiptRel} says the entry was never published, and the record claims ${publishedRoles.join(", ") || "a source package reference"}`,
@@ -440,7 +446,11 @@ for (const entry of aicrRecipeEntries) {
   );
   requireCondition(
     (listing.oci?.bundles ?? []).length === 4
-      && listing.oci.bundles.every((bundle) => bundle.state === "not-published" && bundle.referenceState !== "published")
+      && listing.oci.bundles.every(
+        (bundle) =>
+          (bundle.state === "not-published" || (bundle.role === "confighub-upload" && temporaryUpload && bundle.state === "local"))
+          && bundle.referenceState !== "published",
+      )
       && (listing.oci?.runtimes ?? []).every((runtime) => ["not-run", "not-applicable"].includes(runtime.state)),
     `${name}: the listing reads as published or delivered for an entry that is neither`,
   );

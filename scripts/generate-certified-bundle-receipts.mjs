@@ -85,6 +85,23 @@ const AICR_ENTRIES = [
 const AICR_HAND_BUILT_IDS = new Set(AICR_ENTRIES.map((entry) => entry.id));
 const AICR_ORDERING_PARITY_SUMMARY = "data/aicr-ordering-parity/summary.md";
 
+// A discovered entry gets its verdict and its route from this generator. It
+// does not get a receipt yet, and the reason is a commitment rather than a
+// shortcut. A row in receipts.csv is a certified image, and the ConfigHub-ready
+// lane requires a recorded upload into a ConfigHub organization for every
+// certified image. None of these entries has been uploaded, and an upload is a
+// live run. Writing the receipts first would leave that lane red and would make
+// the site's sentence about every certified image false.
+//
+// The receipt builder below is complete and was verified through the strict
+// ingest check with this switch on. Turn it on in the same change that runs
+// npm run confighub-ready:run for these entries, so the receipts and their
+// recorded outcomes land together.
+const AICR_RETAINED_ENTRY_RECEIPTS = false;
+// The verdict and the route sit together, outside the certified-bundle tree,
+// because no bundle ships this route yet.
+const aicrRetainedRouteRel = (name) => `data/aicr-flattening-verdicts/${name}/sync-wave-ordering.yaml`;
+
 function aicrRecipeEntries() {
   return loadAicrRecipeEntries().filter((entry) => !AICR_HAND_BUILT_IDS.has(entry.id));
 }
@@ -2111,7 +2128,7 @@ function buildAicrRecipeEntryReceipt(entry) {
     };
   });
 
-  const routeRel = `data/certified-bundles/routes/aicr/${name}/sync-wave-ordering.yaml`;
+  const routeRel = aicrRetainedRouteRel(name);
   const routeContents = `${toYaml({
       apiVersion: "evidence.confighub.com/v1alpha1",
       kind: "BundleRoute",
@@ -2175,6 +2192,13 @@ function buildAicrRecipeEntryReceipt(entry) {
         }
       : row;
   });
+  // The verdict stands whether or not a bundle exists, so it names the route
+  // as recorded. Only a receipt may say a bundle ships it.
+  const verdictDispositions = dispositions.map((row) =>
+    row.class === "crd-ordering"
+      ? { ...row, disposition: `route recorded beside this verdict at ${routeRel}; no runtime has executed it` }
+      : row,
+  );
 
   const openQuestions = ordering.deployedDependsOnUndeployed.map(
     (edge) =>
@@ -2197,7 +2221,7 @@ function buildAicrRecipeEntryReceipt(entry) {
           note:
             `The subject is a platform shape rather than a chart. It is the rendered Argo CD Application set produced from AICR's argocd-helm bundle chart for the ${entry.selectedOverlay} overlay. ${overlaySentence}`,
         },
-        dispositions,
+        dispositions: verdictDispositions,
         componentScope: {
           mode: "render-late-by-argo",
           referencedCharts: uniqueCharts,
@@ -2399,7 +2423,7 @@ function summaryRow(receipt, receiptRel) {
   };
 }
 
-function summaryMd(rows) {
+function summaryMd(rows, retainedAicrCount = 0) {
   const lines = [];
   lines.push("# Certified bundle receipts");
   lines.push("");
@@ -2434,9 +2458,10 @@ function summaryMd(rows) {
     retainedOnly.every((row) => row.published !== "published"),
     "a receipt built from a retained-and-rendered AICR recipe directory reads as published",
   );
-  const retainedProvisional = retainedOnly.filter((row) => row.status === "provisional").length;
   lines.push(
-    `${retainedOnly.length} of the aicr rows were built from AICR recipe directories that are retained and rendered and nothing more. None of the ${retainedOnly.length} is published or ingested. Each receipt covers the Application wrapper only and records the sync-wave order as a route that no runtime has executed. The nested charts are rendered by Argo CD at sync time and stay outside the verdict. ${retainedProvisional} of them are provisional, because their recipe makes a deployed component depend on one it does not deploy, and each of those receipts names that open question.`,
+    retainedOnly.length > 0
+      ? `${retainedOnly.length} of the aicr rows were built from AICR recipe directories that are retained and rendered and nothing more. None of the ${retainedOnly.length} is published. Each receipt covers the Application wrapper only and records the sync-wave order as a route that no runtime has executed. ${retainedOnly.filter((row) => row.status === "provisional").length} of them are provisional, because their recipe makes a deployed component depend on one it does not deploy.`
+      : `${retainedAicrCount} further AICR recipe directories are retained and rendered and have no row here. Each has a platform-shape flattening verdict and a recorded sync-wave route under data/aicr-flattening-verdicts, covering the Application wrapper only. A row in this table is a certified image, and the ConfigHub-ready lane uploads every certified image into a ConfigHub organization. None of these ${retainedAicrCount} has been uploaded, so none has a receipt yet.`,
   );
   lines.push("");
   lines.push(
@@ -2608,6 +2633,18 @@ function eksInferenceStackGuide(receipts) {
 }
 
 function buildAll() {
+  // Every discovered entry is built, because building it is what emits its
+  // verdict and its route. Its receipt joins the table only when the switch
+  // above says the ConfigHub-ready lane is running for it.
+  const retainedAicrEntries = aicrRecipeEntries();
+  const builtAicrReceipts = retainedAicrEntries.map((entry) => ({
+    rel: `data/certified-bundles/receipts/aicr/${entry.id}/receipt.yaml`,
+    value: buildAicrRecipeEntryReceipt(entry),
+    // Nothing holds these bundles yet, so the guide must not read as if a
+    // Space did.
+    notIngested: true,
+  }));
+  const retainedAicrReceipts = AICR_RETAINED_ENTRY_RECEIPTS ? builtAicrReceipts : [];
   const receipts = [
     {
       rel: "data/certified-bundles/receipts/catalog/kube-prometheus-stack-87.19.2-minimal/receipt.yaml",
@@ -2699,13 +2736,7 @@ function buildAll() {
       rel: `data/certified-bundles/receipts/aicr/${entry.id}/receipt.yaml`,
       value: buildAicrReceipt(entry),
     })),
-    ...aicrRecipeEntries().map((entry) => ({
-      rel: `data/certified-bundles/receipts/aicr/${entry.id}/receipt.yaml`,
-      value: buildAicrRecipeEntryReceipt(entry),
-      // Nothing holds these bundles yet, so the guide must not read as if a
-      // Space did.
-      notIngested: true,
-    })),
+    ...retainedAicrReceipts,
     { rel: "data/certified-bundles/receipts/aicr/kserve-nim-inference/receipt.yaml", value: buildAicrKserveReceipt() },
   ];
   for (const receipt of receipts) {
@@ -2773,7 +2804,7 @@ function buildAll() {
   }));
   outputs.push(...emittedRoutes);
   outputs.push({ path: join(OUT_DIR, "receipts.csv"), contents: toCsv(rows) });
-  outputs.push({ path: join(OUT_DIR, "summary.md"), contents: summaryMd(rows) });
+  outputs.push({ path: join(OUT_DIR, "summary.md"), contents: summaryMd(rows, retainedAicrEntries.length) });
   outputs.push({
     path: join(OUT_DIR, "eks-inference-stack.md"),
     contents: eksInferenceStackGuide(receipts),

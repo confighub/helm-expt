@@ -131,6 +131,21 @@ const legacyApprovalTriggerRef = "platform/require-approval";
 const aicrVerdictRoot = "data/aicr-flattening-verdicts";
 const aicrRouteRoot = "data/certified-bundles/routes/aicr";
 const aicrReceiptRoot = "data/certified-bundles/receipts/aicr";
+const configHubReadyReceiptPath = "data/confighub-ready/receipt.yaml";
+let configHubReadyOutcomes = null;
+// What the ConfigHub-ready lane recorded for a bundle name, if it ran for it.
+// That lane uploads a bundle once as a temporary base variant, counts its
+// Units and deletes the Space, so a pass is a recorded temporary upload and
+// nothing more.
+function configHubReadyOutcome(bundleName) {
+  if (!configHubReadyOutcomes) {
+    const receipt = existsRepo(configHubReadyReceiptPath)
+      ? readYaml(join(repoRoot, configHubReadyReceiptPath))
+      : null;
+    configHubReadyOutcomes = new Map((receipt?.spec?.bundles ?? []).map((row) => [row.name, row]));
+  }
+  return configHubReadyOutcomes.get(bundleName) ?? null;
+}
 // The records built from retained-and-rendered AICR recipe directories, keyed
 // by record name. flatteningRecord and validateRecords both hold these records
 // to a stricter rule than the rest, and this is how they recognise one.
@@ -1053,13 +1068,23 @@ function buildAicrModernArgoCdRecord(version) {
 function buildAicrRecipeRecord(entry) {
   const name = entry.recordName;
   const applications = entry.applications;
-  const routeRel = `${aicrRouteRoot}/${entry.bundleName}/sync-wave-ordering.yaml`;
+  // The route sits beside the platform-shape verdict. The one entry the
+  // certified-bundle generator builds by hand keeps its route in that tree.
+  const routeCandidates = [
+    `${aicrVerdictRoot}/${entry.bundleName}/sync-wave-ordering.yaml`,
+    `${aicrRouteRoot}/${entry.bundleName}/sync-wave-ordering.yaml`,
+  ];
+  const routeRel = routeCandidates.find(existsRepo);
+  check(
+    routeRel,
+    `${name}: no recorded sync-wave route at ${routeCandidates.join(" or ")}; run npm run certified-bundles before npm run config-catalog`,
+  );
   const verdictRel = `${aicrVerdictRoot}/${entry.bundleName}/flattening-safety-verdict.yaml`;
   const bundleReceiptRel = `${aicrReceiptRoot}/${entry.id}/receipt.yaml`;
-  check(
-    existsRepo(routeRel),
-    `${name}: no recorded sync-wave route at ${routeRel}; run npm run certified-bundles before npm run config-catalog`,
-  );
+  const readyOutcome = configHubReadyOutcome(entry.bundleName);
+  const temporaryUpload = readyOutcome?.status === "pass" && Number(readyOutcome.units) > 0
+    ? readyOutcome
+    : null;
   assertOrderingSupportsRoute(entry);
   const ordering = entry.ordering;
   const criteria = entry.receipt.criteria;
@@ -1192,7 +1217,13 @@ function buildAicrRecipeRecord(entry) {
           status: "not-published",
           note: "The rendered Application set has not been packaged or pushed as a literal configuration OCI.",
         },
-        configHubUpload: { status: "not-run" },
+        configHubUpload: temporaryUpload
+          ? {
+              status: "temporary-pass",
+              receipt: configHubReadyReceiptPath,
+              note: `The ConfigHub-ready lane uploaded this Application set once as a temporary base variant, counted ${temporaryUpload.units} Units and deleted the Space. No Space holds this entry now.`,
+            }
+          : { status: "not-run" },
         configHubReleaseOci: { status: "not-run" },
         argoCd: "not-run",
         flux: "not-run-for-argo-application-wrapper",
@@ -1210,7 +1241,7 @@ function buildAicrRecipeRecord(entry) {
         digestIndex: entry.indexRel,
         flatteningVerdict: verdictRel,
         orderingRoute: routeRel,
-        certifiedBundleReceipt: bundleReceiptRel,
+        ...(existsRepo(bundleReceiptRel) ? { certifiedBundleReceipt: bundleReceiptRel } : {}),
         ...(entry.page && existsRepo(entry.page) ? { entryPage: entry.page } : {}),
         retention: "retained-and-rendered-not-published-not-deployed",
         overlayRole: entry.overlayRole,
@@ -1246,7 +1277,9 @@ function buildAicrRecipeRecord(entry) {
       limits: [
         "Flattened covers the Application wrapper only. Argo CD renders the nested charts at sync time, and their flattening verdicts are outside this record.",
         `${bundlePathApplications} of the ${applications.length} Applications name${bundlePathApplications === 1 ? "s" : ""} the AICR bundle package at ${entry.sourcePackageRepository}, which is not published. This entry cannot be delivered until that package is.`,
-        "No OCI artifact is published for this entry, nothing was uploaded to ConfigHub, and no variant, promotion or release exists for it.",
+        temporaryUpload
+          ? `No OCI artifact is published for this entry. The ConfigHub-ready lane uploaded it once as a temporary base variant of ${temporaryUpload.units} Units and deleted the Space, so no Space, variant, promotion or release exists for it.`
+          : "No OCI artifact is published for this entry, nothing was uploaded to ConfigHub, and no variant, promotion or release exists for it.",
         "The sync-wave order is recorded as a route. No Argo CD instance has executed it.",
         ...orderingSentences(entry).slice(1),
         `The recipe criteria are ${criteriaText}. No cluster, cloud service, accelerator, model or workload was contacted or run for this entry.`,
@@ -4217,7 +4250,7 @@ function runAicrRecipeEntrySelfTest() {
     [
       "a ConfigHub upload",
       (record) => { record.spec.delivery.configHubUpload.status = "pass"; },
-      /delivery\.configHubUpload says pass, and nothing was uploaded to or released from ConfigHub/,
+      /delivery\.configHubUpload says pass, and data\/confighub-ready\/receipt\.yaml records no upload for/,
     ],
     [
       "an Argo CD delivery result",
@@ -4933,14 +4966,24 @@ function validateAicrRecipeRecord(record, entry) {
       `${name}: delivery.${role} says ${delivery[role]?.status ?? "nothing"}, and this entry has published no OCI image`,
     );
   }
-  for (const role of ["configHubUpload", "configHubReleaseOci"]) {
-    check(
-      delivery[role]?.status === "not-run",
-      `${name}: delivery.${role} says ${delivery[role]?.status ?? "nothing"}, and nothing was uploaded to or released from ConfigHub for this entry`,
-    );
-  }
+  // The one upload a retained entry may carry is the temporary one the
+  // ConfigHub-ready lane recorded for it, and only while that receipt says so.
+  const readyOutcome = configHubReadyOutcome(entry.bundleName);
+  const temporaryUpload = readyOutcome?.status === "pass" && Number(readyOutcome.units) > 0;
+  check(
+    delivery.configHubUpload?.status === (temporaryUpload ? "temporary-pass" : "not-run")
+      && (delivery.configHubUpload.receipt ?? "") === (temporaryUpload ? configHubReadyReceiptPath : ""),
+    `${name}: delivery.configHubUpload says ${delivery.configHubUpload?.status ?? "nothing"}, and ${configHubReadyReceiptPath} records ${temporaryUpload ? "one temporary upload" : "no upload"} for ${entry.bundleName}`,
+  );
+  check(
+    delivery.configHubReleaseOci?.status === "not-run",
+    `${name}: delivery.configHubReleaseOci says ${delivery.configHubReleaseOci?.status ?? "nothing"}, and nothing was released from ConfigHub for this entry`,
+  );
   for (const role of ["sourcePackageOci", "literalConfigOci", "configHubUpload", "configHubReleaseOci"]) {
-    const claimed = Object.keys(delivery[role]).filter((key) => !["status", "plannedRef", "note"].includes(key));
+    const allowed = role === "configHubUpload" && temporaryUpload
+      ? ["status", "note", "receipt"]
+      : ["status", "plannedRef", "note"];
+    const claimed = Object.keys(delivery[role]).filter((key) => !allowed.includes(key));
     check(
       claimed.length === 0,
       `${name}: delivery.${role} carries ${claimed.join(", ")}, which only a published or uploaded artifact has`,
