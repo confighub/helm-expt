@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "gpu-operator-external-nfd-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "30a949cc36999ed032f4aa18838e11f4bacc29c2840e6a2b3bce8712e9305b37"
+    objectCount: 9
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 10
+    uploadedManifestFiles: 10
+    separatedSecretFiles: 0
+    semanticObjectMatches: "9/9"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||gpu-operator"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run gpu-operator:compare"

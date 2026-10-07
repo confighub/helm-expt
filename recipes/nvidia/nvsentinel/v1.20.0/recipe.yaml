@@ -21,3 +21,5 @@ spec:
       - "nvsentinel"
   variants:
     - "variants/default/variant.yaml"
+    - "variants/no-pod-monitor/variant.yaml"
+    - "variants/aicr-eks-training/variant.yaml"

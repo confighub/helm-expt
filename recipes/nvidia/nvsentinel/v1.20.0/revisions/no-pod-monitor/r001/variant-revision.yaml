@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "no-pod-monitor-r001"
+spec:
+  variant: "../../../variants/no-pod-monitor/variant.yaml"
+  revision: "r001"
+  digest: "a46ed72336c25058dc402f3650755ca21aac76685afb42a020f62799bee56503"
+  digestInputs:
+    recipeSHA256: "a89ed341dc8cb8ceb4474b27ee16d178ba8790dd15954a7e91969e564fe34163"
+    variantSHA256: "843dac7a19e0fdb57e5deddea68e03916a3f5502e6710211fec53dbf823fbe17"
+    effectiveValuesSHA256: "99b277b3e8a91191ecc5fd6a07f67074118bab9810020415df248b79b16dbef6"
+    rendererSHA256: "9bfc45a85aeb59e59bfba0bcd479aba97d9c0bc7080f39e11351071d732ac707"
+    renderedObjectSetSHA256: "90aeac70ec22badcd205ec6a6ee66b7490a8353eb3242cde61bedce08bd4c3eb"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 21

@@ -43,6 +43,204 @@ spec:
           suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
       name: "default"
       path: "bases/default"
+    -
+      description: "gpu-operator driver 580.105.08 (driver support for this chart version and for any operating system was not checked) variant rendered from nvidia/gpu-operator@v26.7.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD clusterpolicies.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-105-08-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD computedomaincliques.resource.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-105-08-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD computedomains.resource.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-105-08-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD gpuclusters.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-105-08-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeaturegroups.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-105-08-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeaturerules.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-105-08-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeatures.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-105-08-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nvidiadrivers.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-105-08-crds.yaml"
+      name: "driver-580.105.08"
+      path: "bases/driver-580.105.08"
+    -
+      description: "gpu-operator driver 580.126.20 (driver support for this chart version and for any operating system was not checked) variant rendered from nvidia/gpu-operator@v26.7.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD clusterpolicies.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-126-20-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD computedomaincliques.resource.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-126-20-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD computedomains.resource.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-126-20-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD gpuclusters.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-126-20-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeaturegroups.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-126-20-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeaturerules.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-126-20-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeatures.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-126-20-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nvidiadrivers.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/driver-580-126-20-crds.yaml"
+      name: "driver-580.126.20"
+      path: "bases/driver-580.126.20"
+    -
+      description: "gpu-operator pre-installed NVIDIA driver variant rendered from nvidia/gpu-operator@v26.7.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD clusterpolicies.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD computedomaincliques.resource.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD computedomains.resource.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD gpuclusters.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeaturegroups.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeaturerules.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeatures.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nvidiadrivers.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-crds.yaml"
+      name: "preinstalled-driver"
+      path: "bases/preinstalled-driver"
+    -
+      description: "gpu-operator pre-installed NVIDIA driver and container toolkit variant rendered from nvidia/gpu-operator@v26.7.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD clusterpolicies.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-and-toolkit-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD computedomaincliques.resource.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-and-toolkit-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD computedomains.resource.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-and-toolkit-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD gpuclusters.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-and-toolkit-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeaturegroups.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-and-toolkit-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeaturerules.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-and-toolkit-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeatures.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-and-toolkit-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nvidiadrivers.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/preinstalled-driver-and-toolkit-crds.yaml"
+      name: "preinstalled-driver-and-toolkit"
+      path: "bases/preinstalled-driver-and-toolkit"
+    -
+      description: "gpu-operator Node Feature Discovery already in the cluster variant rendered from nvidia/gpu-operator@v26.7.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD clusterpolicies.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/external-nfd-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD computedomaincliques.resource.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/external-nfd-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD computedomains.resource.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/external-nfd-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD gpuclusters.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/external-nfd-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nvidiadrivers.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/external-nfd-crds.yaml"
+      name: "external-nfd"
+      path: "bases/external-nfd"
+    -
+      description: "gpu-operator AICR EKS training values variant rendered from nvidia/gpu-operator@v26.7.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD clusterpolicies.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD computedomaincliques.resource.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD computedomains.resource.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD gpuclusters.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nvidiadrivers.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+      name: "aicr-eks-training"
+      path: "bases/aicr-eks-training"
   collector:
     command: "/bin/sh"
     args:

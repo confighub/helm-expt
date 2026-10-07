@@ -14,6 +14,11 @@ spec:
     []
   candidateVariants:
     - "default"
+    - "driver-580.105.08"
+    - "driver-595.91.07"
+    - "preinstalled-driver"
+    - "preinstalled-driver-and-toolkit"
+    - "external-nfd"
     - "aicr-eks-training"
   deferredVariants: []
   review:

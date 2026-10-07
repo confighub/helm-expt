@@ -9,12 +9,20 @@ spec:
     version: "v1.9.0"
     variants:
       - "default"
+      - "no-pod-monitor"
+      - "aicr-eks-training"
     helmObjectsByVariant:
       default: 21
+      no-pod-monitor: 20
+      aicr-eks-training: 20
     cubInstallObjectsByVariant:
       default: 22
+      no-pod-monitor: 21
+      aicr-eks-training: 21
     helmMatchByVariant:
       default: "21/21"
+      no-pod-monitor: "20/20"
+      aicr-eks-training: "20/20"
     scanGate: "warn-production-blocked"
     nextAction: "publish and sign the package, then complete target-specific live qualification on a GPU target before production"
   receipts:
@@ -22,3 +30,11 @@ spec:
     - "revisions/default/r001/receipts/render-receipt.yaml"
     - "revisions/default/r001/receipts/scan-receipt.yaml"
     - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/no-pod-monitor/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/no-pod-monitor/r001/receipts/render-receipt.yaml"
+    - "revisions/no-pod-monitor/r001/receipts/scan-receipt.yaml"
+    - "revisions/no-pod-monitor/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/install-gate.yaml"

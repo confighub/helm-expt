@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 // Renders, packages and checks the NVIDIA GPU stack chart versions listed in
-// scripts/lib/nvidia-gpu-stack-coverage.mjs: gpu-operator, nvsentinel and
-// cluster-readiness-engine. Each addition runs its own proof declaration against
+// scripts/lib/nvidia-gpu-stack-coverage.mjs: gpu-operator, nvsentinel,
+// cluster-readiness-engine and k8s-nim-operator. Each addition runs its own proof declaration against
 // the exact upstream archive, addressed by URL and SHA-256.
 //
 //   node scripts/nvidia-gpu-stack-coverage.mjs --list
@@ -12,13 +12,15 @@
 //   node scripts/nvidia-gpu-stack-coverage.mjs --value-delta <chart> <version>[/<base>] <path>=<value>
 //
 // --generate replaces only the recipe and package directories of the versions it
-// names (and, for gpu-operator, the packaged lifecycle files). It does not publish
+// names (and, for gpu-operator and k8s-nim-operator, the packaged lifecycle files). It does not publish
 // anything: OCI publication, signing and the derived catalog views are separate
 // steps that need registry credentials and the maintainer's approval.
 //
 // --verify reads committed files and re-packages through the installer. It needs
 // no network. --diff compares two committed renders, object by object, and also
-// needs no network. --value-delta downloads the locked archive, renders one base
+// needs no network. Each side is <version>[/<base>], so it compares two versions,
+// or two bases of one version: --diff gpu-operator v25.10.1/default
+// v25.10.1/driver-580.126.20 answers what a driver change does to the objects. --value-delta downloads the locked archive, renders one base
 // twice with and without a single changed value, and prints what moved.
 
 import { execFileSync, spawnSync } from "node:child_process";
@@ -26,8 +28,8 @@ import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "no
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { canonicalObjectMaps, check, readYaml, repoRoot, sha256File } from "./lib/proof-common.mjs";
-import { NVIDIA_GPU_STACK_ADDITIONS, nvidiaGpuStackAddition } from "./lib/nvidia-gpu-stack-coverage.mjs";
+import { check, readYaml, repoRoot, sha256File } from "./lib/proof-common.mjs";
+import { NVIDIA_GPU_STACK_ADDITIONS, nvidiaGpuStackAddition, objectDelta } from "./lib/nvidia-gpu-stack-coverage.mjs";
 
 const args = process.argv.slice(2);
 const mode = args[0] ?? "--verify";
@@ -88,7 +90,7 @@ function run(item, flag) {
 // The Helm hook objects are packaged beside the bases as recorded lifecycle
 // actions. None has been run, and the generated files say so.
 function lifecycle(item, flag) {
-  const result = spawnSync(process.execPath, [join("scripts", item.lifecycle), flag, "--version", item.version], {
+  const result = spawnSync(process.execPath, [join("scripts", item.lifecycle), flag, "--chart", item.chart, "--version", item.version], {
     cwd: repoRoot,
     env: env(item),
     stdio: "inherit",
@@ -124,47 +126,24 @@ function parseRef(chart, ref) {
   return { item, version, base };
 }
 
-// JSON-pointer paths at which two parsed objects differ.
-function changedPaths(left, right, path = "") {
-  if (left === right) return [];
-  const leftIsObject = left !== null && typeof left === "object";
-  const rightIsObject = right !== null && typeof right === "object";
-  if (!leftIsObject || !rightIsObject || Array.isArray(left) !== Array.isArray(right)) return [path || "/"];
-  if (Array.isArray(left)) {
-    const paths = [];
-    for (let index = 0; index < Math.max(left.length, right.length); index += 1) {
-      if (index >= left.length || index >= right.length) paths.push(`${path}/${index}`);
-      else paths.push(...changedPaths(left[index], right[index], `${path}/${index}`));
-    }
-    return paths;
-  }
-  const paths = [];
-  for (const key of [...new Set([...Object.keys(left), ...Object.keys(right)])].sort()) {
-    const next = `${path}/${key.replaceAll("~", "~0").replaceAll("/", "~1")}`;
-    if (!(key in left) || !(key in right)) paths.push(next);
-    else paths.push(...changedPaths(left[key], right[key], next));
-  }
-  return paths;
-}
-
 function printObjectDiff(fromLabel, toLabel, fromYaml, toYaml) {
-  const maps = canonicalObjectMaps(fromYaml, toYaml);
-  const from = maps.helm;
-  const to = maps.cub;
-  const removed = Object.keys(from).filter((key) => !(key in to)).sort();
-  const added = Object.keys(to).filter((key) => !(key in from)).sort();
-  const changed = Object.keys(from)
-    .filter((key) => key in to && from[key] !== to[key])
-    .sort();
-  console.log(`from ${fromLabel}: ${Object.keys(from).length} objects`);
-  console.log(`to   ${toLabel}: ${Object.keys(to).length} objects`);
-  console.log(`removed ${removed.length}, added ${added.length}, changed ${changed.length}, unchanged ${Object.keys(from).length - removed.length - changed.length}`);
-  for (const key of removed) console.log(`- ${key}`);
-  for (const key of added) console.log(`+ ${key}`);
-  for (const key of changed) {
-    const paths = changedPaths(JSON.parse(from[key]), JSON.parse(to[key]));
+  const delta = objectDelta(fromYaml, toYaml);
+  console.log(`from ${fromLabel}: ${delta.fromCount} objects`);
+  console.log(`to   ${toLabel}: ${delta.toCount} objects`);
+  console.log(
+    `removed ${delta.removed.length}, added ${delta.added.length}, changed ${delta.changed.length}, unchanged ${delta.fromCount - delta.removed.length - delta.changed.length}`,
+  );
+  for (const key of delta.removed) console.log(`- ${key}`);
+  for (const key of delta.added) console.log(`+ ${key}`);
+  const show = (value) => (value === undefined ? "(absent)" : JSON.stringify(value));
+  for (const { key, paths, values } of delta.changed) {
     console.log(`~ ${key} (${paths.length} field${paths.length === 1 ? "" : "s"})`);
-    for (const path of paths.slice(0, 40)) console.log(`    ${path}`);
+    for (const path of paths.slice(0, 40)) {
+      // A short plain value is shown on both sides, so a driver or image change reads directly.
+      const pair = values[path];
+      const text = pair ? `${show(pair.from)} -> ${show(pair.to)}` : "";
+      console.log(`    ${path}${text && text.length <= 160 ? `: ${text}` : ""}`);
+    }
     if (paths.length > 40) console.log(`    ... and ${paths.length - 40} more`);
   }
 }

@@ -5,8 +5,8 @@ metadata:
 spec:
   chart: "nvidia/nvsentinel"
   version: "v1.20.0"
-  status: "proof-grade"
-  supportLevel: "machine-proof-only"
+  status: "catalog-candidate"
+  supportLevel: "promotion-review-needed"
   supportedScopes:
     []
   productionReadiness: "not-reviewed-for-production"
@@ -14,10 +14,12 @@ spec:
     []
   candidateVariants:
     - "default"
+    - "no-pod-monitor"
+    - "aicr-eks-training"
   deferredVariants: []
   review:
     lastReviewed: null
     humanReviewRequired: true
     productReviewRequired: true
   notes:
-    - "Machine proof exists; catalog support is not claimed until variant and product review are complete."
+    - "Machine proof exists; human product review must confirm the supported variants and production dispositions."

@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "gpu-operator-driver-580.126.20-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "07c886e36a064b51cc99954ae5f3e98f3ca07d3ba51e1721e7affbf6a01654aa"
+    objectCount: 27
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 28
+    uploadedManifestFiles: 28
+    separatedSecretFiles: 0
+    semanticObjectMatches: "27/27"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||gpu-operator"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run gpu-operator:compare"

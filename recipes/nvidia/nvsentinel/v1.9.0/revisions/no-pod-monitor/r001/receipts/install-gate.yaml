@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "nvsentinel-no-pod-monitor-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "5319d654999e0575a5c43ab992c31af9a22a92f5d55f025e4f3ad539cb963810"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for no-pod-monitor"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "this base needs no CRD on the target; the rendered objects carry no namespace, so they must be applied into the nvsentinel namespace"

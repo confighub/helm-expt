@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "gpu-operator-external-nfd-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "30a949cc36999ed032f4aa18838e11f4bacc29c2840e6a2b3bce8712e9305b37"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for external-nfd"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the ClusterPolicy makes the operator create privileged operand workloads that no render shows"
+    - "the 2 CRDs must be established before the ClusterPolicy object; the target must already run Node Feature Discovery; the 4 Helm hook objects (4 pre-upgrade) are packaged lifecycle actions, not part of the base"

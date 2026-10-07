@@ -101,6 +101,41 @@ targetFactChecks:
   result: "$result"
 YAML
     ;;
+  'aicr-eks-training')
+    if [ "$check_mode" = "live" ]; then
+      live_check_crd 'podmonitors.monitoring.coreos.com'
+      result="pass"
+    else
+      result="recorded"
+    fi
+    cat <<YAML
+targetFacts:
+  requiredSecrets: []
+
+  requiredCRDs:
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: podmonitors.monitoring.coreos.com
+    purpose: Prometheus Operator PodMonitor CRD required before Kubernetes accepts the
+      rendered PodMonitor object; the chart does not ship it
+    sourcePath: ../../../prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/rendered/release-objects.yaml
+    sourceVariant: prometheus-community/kube-prometheus-stack@88.6.3/default
+
+  requiredValues: []
+
+  requiredObjectStores: []
+
+  requiredTopology: null
+
+targetFactChecks:
+  base: "aicr-eks-training"
+  mode: "$check_mode"
+  result: "$result"
+YAML
+    ;;
   *)
     emit_empty
     ;;

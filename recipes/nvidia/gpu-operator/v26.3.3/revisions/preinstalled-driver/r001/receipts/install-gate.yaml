@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "gpu-operator-preinstalled-driver-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "a683f3569297e0bec21311881018d80b25feacabc15939acef49b045b18fc627"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for preinstalled-driver"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the ClusterPolicy makes the operator create privileged operand workloads that no render shows"
+    - "the 5 CRDs must be established before the ClusterPolicy object; the GPU nodes must already have the NVIDIA driver installed; the 8 Helm hook objects (4 pre-upgrade, 4 post-delete) are packaged lifecycle actions, not part of the base"

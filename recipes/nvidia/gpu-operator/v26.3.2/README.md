@@ -5,6 +5,11 @@ This recipe audits the NVIDIA GPU Operator chart at v26.3.2, taken from the NGC 
 Variants:
 
 - `default`: chart defaults: the bundled node-feature-discovery on, driver 580.126.20; 24 Helm objects, 25 cub installer objects including Namespace.
+- `driver-580.105.08`: chart defaults with only driver.version changed, from 580.126.20 to 580.105.08, the default driver of chart v25.10.1; driver support for this chart version and for any operating system was not checked; 24 Helm objects, 25 cub installer objects including Namespace.
+- `driver-595.91.07`: chart defaults with only driver.version changed, from 580.126.20 to 595.91.07, the default driver of chart v26.7.1; driver support for this chart version and for any operating system was not checked; 24 Helm objects, 25 cub installer objects including Namespace.
+- `preinstalled-driver`: the NVIDIA driver is already installed on the GPU nodes: driver.enabled false, so the operator deploys no driver; everything else is chart defaults; 24 Helm objects, 25 cub installer objects including Namespace.
+- `preinstalled-driver-and-toolkit`: the NVIDIA driver and the NVIDIA Container Toolkit are already installed on the GPU nodes: driver.enabled false and toolkit.enabled false, so the operator deploys neither; everything else is chart defaults; 24 Helm objects, 25 cub installer objects including Namespace.
+- `external-nfd`: Node Feature Discovery already runs in the cluster: nfd.enabled false, so the bundled node-feature-discovery, its three CRDs and its post-delete prune hook do not render; everything else is chart defaults; 9 Helm objects, 10 cub installer objects including Namespace.
 
 What this proves:
 

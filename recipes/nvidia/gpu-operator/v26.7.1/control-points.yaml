@@ -22,7 +22,7 @@ spec:
       category: "lifecycle-policy"
       status: "attention-required"
       policy: "no-hooks"
-      note: "the bases are rendered with --no-hooks; default renders 27 objects (8 CRDs) and 9 Helm hook objects. The hook objects are packaged under prerequisites/gpu-operator-lifecycle with a lifecycle-actions.yaml record, and nothing runs them automatically. No hook has been run on a cluster for this entry."
+      note: "the bases are rendered with --no-hooks; default renders 27 objects (8 CRDs) and 9 Helm hook objects; driver-580.105.08 renders 27 objects (8 CRDs) and 9 Helm hook objects; driver-580.126.20 renders 27 objects (8 CRDs) and 9 Helm hook objects; preinstalled-driver renders 27 objects (8 CRDs) and 9 Helm hook objects; preinstalled-driver-and-toolkit renders 27 objects (8 CRDs) and 9 Helm hook objects; external-nfd renders 12 objects (5 CRDs) and 5 Helm hook objects; aicr-eks-training renders 13 objects (5 CRDs) and 5 Helm hook objects. The hook objects are packaged under prerequisites/gpu-operator-lifecycle with a lifecycle-actions.yaml record, and nothing runs them automatically. No hook has been run on a cluster for this entry."
     -
       category: "crd-lifecycle"
       status: "review-required"

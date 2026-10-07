@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "gpu-operator-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "4bd9d60ec2d64a15f28d175934c33d26efd49990a5a28d36b463182b807f9a9b"
+    objectCount: 13
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 14
+    uploadedManifestFiles: 14
+    separatedSecretFiles: 0
+    semanticObjectMatches: "13/13"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||gpu-operator"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run gpu-operator:compare"

@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "gpu-operator-external-nfd-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "34ebe94f22cf684215999b125a22142004b1162d7fde803fe19aac699a104ff5"
+    dependencyLockSHA256: "0d168ced086b2c38087a65b67481b4fc278a3a427a5eb08389e8a824ee2b66a9"
+    effectiveValuesSHA256: "dd806eadb2f2045ad2ba8a624b118ec93e5f2bd36fd6e87d94300f40436dc2de"
+  outputs:
+    renderedObjectSetSHA256: "8667cb754f68c927b3d9dee8e7c4e1cb7d5141e6947f788f3e44853883df665a"
+    renderedObjectInventorySHA256: "4758e5cd4b2a0d96e4c7bd1031a405a2f9c588c3f289385362d1165ca5a9d154"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 9
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

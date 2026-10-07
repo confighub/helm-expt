@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "external-nfd"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "gpu-operator"
+  releaseName: "gpu-operator"
+  valuesProfile: "../../effective-values-external-nfd.yaml"
+  capabilityProfile:
+    kubeVersion: "1.31.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "clusterpolicies.nvidia.com"
+        sourceVariant: "external-nfd"
+        purpose: "gpu-operator CRD included in this base; it must be established before Kubernetes accepts the rendered ClusterPolicy object"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "nvidiadrivers.nvidia.com"
+        sourceVariant: "external-nfd"
+        purpose: "CRD included in this base and applied before the workloads that use it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"

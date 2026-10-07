@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "nvsentinel-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee"
+    objectCount: 21
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 22
+    uploadedManifestFiles: 22
+    separatedSecretFiles: 0
+    semanticObjectMatches: "21/21"
+  semanticNormalizations:
+    - "prune-null-fields"
+    - "nvsentinel-configmap-leading-blank-line-pruned-by-kustomize"
+  classifications:
+    -
+      identity: "v1|Namespace||nvsentinel"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run nvidia-gpu-stack-coverage:compare"

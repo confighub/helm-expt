@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "external-nfd-r001"
+spec:
+  variant: "../../../variants/external-nfd/variant.yaml"
+  revision: "r001"
+  digest: "9ff222d4ef6ae4132cf8c258b5a46953aeecf4b67ae4dfca0d2d72938509ff7c"
+  digestInputs:
+    recipeSHA256: "902738f729d2b3c0c2b8b07a4355972677dca6a01e9432aaf2056ead6c5231e8"
+    variantSHA256: "942517dedb2b5982195f01f946bdce65ef795453e561c17b6a92a71fac4abbf2"
+    effectiveValuesSHA256: "418b7f9ad833933e1bed8b23dad9f283981f8a570af6dfc2c52f2a22dd8bc791"
+    rendererSHA256: "9bfc45a85aeb59e59bfba0bcd479aba97d9c0bc7080f39e11351071d732ac707"
+    renderedObjectSetSHA256: "a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 12

@@ -51,7 +51,7 @@ spec:
       supportedVariantStatus: "handled"
     -
       id: "lifecycle-policy"
-      detectedPainPoint: "the chart-default render contains no Helm hook object, with or without --no-hooks"
+      detectedPainPoint: "no base's render contains a Helm hook object, with or without --no-hooks"
       evidence:
         - "no-hooks"
       configHubHome: "lifecycle-policy"
