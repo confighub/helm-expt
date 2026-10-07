@@ -1,0 +1,179 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "aicr-rke2-training"
+spec:
+  producer:
+    name: "aicr"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "aicr-entry"
+    canonicalHome:
+      repository: "https://github.com/confighub/helm-expt"
+      path: "examples/aicr/rke2-training"
+    evidence:
+      - "examples/aicr/rke2-training/generation-receipt.yaml"
+      - "examples/aicr/rke2-training/digest-index/platform-index.json"
+      - "examples/aicr/rke2-training/recipe.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    platformDigest: "sha256:92a4f42249cffb204466941cd99c22e9d2f2bc740199ebba37642aaa9ec81122"
+    files:
+      -
+        path: "aicr-stack.yaml"
+        sha256: "64ba063fd7e70ca275cf914bf8d113811cd15a3b39f1e0ed6ad4fe74b2c0eae2"
+        bytes: 1054
+        role: "Argo CD Application"
+      -
+        path: "cert-manager.yaml"
+        sha256: "985a091ec2292de53781a21b4457013cea2ffe8ae8661095e8673b3a2c05b37e"
+        bytes: 1906
+        role: "Argo CD Application"
+      -
+        path: "gpu-operator.yaml"
+        sha256: "806ce0ec9f69256b91b5b196517d721b400789979ca173f9fc5fc9558442a421"
+        bytes: 9522
+        role: "Argo CD Application"
+      -
+        path: "k8s-ephemeral-storage-metrics.yaml"
+        sha256: "8b0a5f0ca8b5d64e81597e9742cdb2e5c42abd34d790805c66864655cedd8dc6"
+        bytes: 1514
+        role: "Argo CD Application"
+      -
+        path: "kai-scheduler.yaml"
+        sha256: "294dc9b6df008a36f2666a3e941cb51c44716fffbc615855f71899b3de96eb67"
+        bytes: 1105
+        role: "Argo CD Application"
+      -
+        path: "kube-prometheus-stack.yaml"
+        sha256: "bf15a87dc8ae1943f99c326b4578366e7d0d5e48f70618a7914d18cba3efad9d"
+        bytes: 3319
+        role: "Argo CD Application"
+      -
+        path: "nfd.yaml"
+        sha256: "059ea77f08b05a701d5b07e9eb9272f544d51b3bfe6851aa655af7a5ee4c8eb2"
+        bytes: 1477
+        role: "Argo CD Application"
+      -
+        path: "nodewright-operator.yaml"
+        sha256: "e6ede18ee94b6a292da49daf55daf1196da22adcab5686e63a88bf259ef580c4"
+        bytes: 1426
+        role: "Argo CD Application"
+      -
+        path: "nvidia-dra-driver-gpu.yaml"
+        sha256: "da968ff17457158d1cec791e39aec68951c4682d6deb8a791fc40e464b4fc98e"
+        bytes: 1673
+        role: "Argo CD Application"
+      -
+        path: "nvsentinel.yaml"
+        sha256: "3e75727799a9de36db61ab02e43940fd637ca533f8897dfb1fbaada34db6450b"
+        bytes: 1392
+        role: "Argo CD Application"
+      -
+        path: "prometheus-adapter.yaml"
+        sha256: "a91ffca0db02833bb16825e488c344c4a200391ff40a0751a867c27300a0239f"
+        bytes: 4794
+        role: "Argo CD Application"
+      -
+        path: "prometheus-operator-crds.yaml"
+        sha256: "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+        bytes: 765
+        role: "Argo CD Application"
+      -
+        path: "data/certified-bundles/routes/aicr/aicr-rke2-training/sync-wave-ordering.yaml"
+        sha256: "755305ba74043653dc784d6964fadbd3df2d53ea2f96389ef0b9ad9ddcf5e160"
+        bytes: 2819
+        role: "route:crd-ordering"
+      -
+        path: "data/certified-bundles/guides/aicr/rke2-training/space-guide.md"
+        sha256: "10ac0b2890728dbb833525f814476ea14d153bbc8e93f16b37f7293faba850c5"
+        bytes: 1203
+        role: "space-guide"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the rendered Application set; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "11 Applications carry a sync-wave across 4 waves, and 12 recipe dependency edges between deployed components hold in them"
+      disposition: "route this bundle ships at data/certified-bundles/routes/aicr/aicr-rke2-training/sync-wave-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the rendered Application set"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the platform-shape flattening verdict at data/aicr-flattening-verdicts/aicr-rke2-training/flattening-safety-verdict.yaml"
+    notes: "The bundle is the rendered Argo CD Application set for AICR v0.21.0, overlay rke2-training. Flattened covers the Application wrapper only. It ships with one recorded route, the sync-wave ordering emitted beside this receipt, and no runtime has executed that route. The 11 charts these Applications reference are not flattened by this bundle. Argo CD would render them at sync time, so their flattening verdicts belong to the chart catalog and are out of scope here. The bundle is retained and rendered. It is not published and not deployed, and no workload claim attaches."
+    componentDelivery:
+      mode: "render-late-by-argo"
+      referencedCharts:
+        - "cert-manager"
+        - "dra-driver-nvidia-gpu"
+        - "gpu-operator"
+        - "k8s-ephemeral-storage-metrics"
+        - "kai-scheduler"
+        - "kube-prometheus-stack"
+        - "node-feature-discovery"
+        - "nodewright"
+        - "nvsentinel"
+        - "prometheus-adapter"
+        - "prometheus-operator-crds"
+      outOfScopeReason: "a chart this bundle points at is never flattened by it, so this bundle cannot carry that chart's flattening verdict"
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "examples/aicr/rke2-training/argocd-rendered/templates"
+      - "examples/aicr/rke2-training/digest-index/platform-index.json"
+      - "examples/aicr/rke2-training/generation-receipt.yaml"
+      - "examples/aicr/rke2-training/recipe.yaml"

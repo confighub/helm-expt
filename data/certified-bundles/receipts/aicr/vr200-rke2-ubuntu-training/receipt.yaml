@@ -1,0 +1,194 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "aicr-vr200-rke2-ubuntu-training"
+spec:
+  producer:
+    name: "aicr"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "aicr-entry"
+    canonicalHome:
+      repository: "https://github.com/confighub/helm-expt"
+      path: "examples/aicr/vr200-rke2-ubuntu-training"
+    evidence:
+      - "examples/aicr/vr200-rke2-ubuntu-training/generation-receipt.yaml"
+      - "examples/aicr/vr200-rke2-ubuntu-training/digest-index/platform-index.json"
+      - "examples/aicr/vr200-rke2-ubuntu-training/recipe.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    platformDigest: "sha256:81f63b556cca5636aad5a9190540505025a5bc1aede6b6f295e8896c73e940df"
+    files:
+      -
+        path: "aicr-stack.yaml"
+        sha256: "64ba063fd7e70ca275cf914bf8d113811cd15a3b39f1e0ed6ad4fe74b2c0eae2"
+        bytes: 1054
+        role: "Argo CD Application"
+      -
+        path: "cert-manager.yaml"
+        sha256: "985a091ec2292de53781a21b4457013cea2ffe8ae8661095e8673b3a2c05b37e"
+        bytes: 1906
+        role: "Argo CD Application"
+      -
+        path: "dranet.yaml"
+        sha256: "11a57e30f93304c667b9dcdf6cb0a69b081a67a1fbe211508bcdf4191c906c58"
+        bytes: 732
+        role: "Argo CD Application"
+      -
+        path: "gpu-operator.yaml"
+        sha256: "027b41bb80abe0fbef99ef8bc7f3b65a455af7f61f638bbc1b52093ec2688e9b"
+        bytes: 9523
+        role: "Argo CD Application"
+      -
+        path: "k8s-ephemeral-storage-metrics.yaml"
+        sha256: "8b0a5f0ca8b5d64e81597e9742cdb2e5c42abd34d790805c66864655cedd8dc6"
+        bytes: 1514
+        role: "Argo CD Application"
+      -
+        path: "kai-scheduler.yaml"
+        sha256: "294dc9b6df008a36f2666a3e941cb51c44716fffbc615855f71899b3de96eb67"
+        bytes: 1105
+        role: "Argo CD Application"
+      -
+        path: "kube-prometheus-stack.yaml"
+        sha256: "bf15a87dc8ae1943f99c326b4578366e7d0d5e48f70618a7914d18cba3efad9d"
+        bytes: 3319
+        role: "Argo CD Application"
+      -
+        path: "nfd.yaml"
+        sha256: "8c6df333c3488b1fd401f1b3a31ab6c92c907ba285f88a02aba6f9ba2251ed8d"
+        bytes: 1476
+        role: "Argo CD Application"
+      -
+        path: "nodewright-customizations.yaml"
+        sha256: "e3cab3bfcb9b01b040eef6443602396573b821ae03c85243778841f4c18fc27b"
+        bytes: 785
+        role: "Argo CD Application"
+      -
+        path: "nodewright-operator.yaml"
+        sha256: "e6ede18ee94b6a292da49daf55daf1196da22adcab5686e63a88bf259ef580c4"
+        bytes: 1426
+        role: "Argo CD Application"
+      -
+        path: "nvidia-dra-driver-gpu.yaml"
+        sha256: "b9e784223d29eb9f12171258a771f389bbe0ef03d1e5f20904c0b14d76098995"
+        bytes: 1656
+        role: "Argo CD Application"
+      -
+        path: "nvsentinel.yaml"
+        sha256: "ed11cb25e236ee20778042b65039f87b9c39b749ba5cb1b4ab38fd4d872f71fa"
+        bytes: 1535
+        role: "Argo CD Application"
+      -
+        path: "prometheus-adapter.yaml"
+        sha256: "a91ffca0db02833bb16825e488c344c4a200391ff40a0751a867c27300a0239f"
+        bytes: 4794
+        role: "Argo CD Application"
+      -
+        path: "prometheus-operator-crds.yaml"
+        sha256: "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+        bytes: 765
+        role: "Argo CD Application"
+      -
+        path: "rdma-netns-exclusive.yaml"
+        sha256: "a601c41d69aadb1cadae0c3c5cc4561111989657014068b231b1b4b32e2e9012"
+        bytes: 770
+        role: "Argo CD Application"
+      -
+        path: "data/certified-bundles/routes/aicr/aicr-vr200-rke2-ubuntu-training/sync-wave-ordering.yaml"
+        sha256: "43f47fa8347c107c9b45288e9224a8ae7d790f99915b52cae84afb0e0c8023d7"
+        bytes: 2960
+        role: "route:crd-ordering"
+      -
+        path: "data/certified-bundles/guides/aicr/vr200-rke2-ubuntu-training/space-guide.md"
+        sha256: "5dff53f2951e1264f6ecb2e9cd0bcce624ce713c9adfcea952f354fdd25501b8"
+        bytes: 1255
+        role: "space-guide"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the rendered Application set; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "14 Applications carry a sync-wave across 4 waves, and 15 recipe dependency edges between deployed components hold in them"
+      disposition: "route this bundle ships at data/certified-bundles/routes/aicr/aicr-vr200-rke2-ubuntu-training/sync-wave-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the rendered Application set"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the platform-shape flattening verdict at data/aicr-flattening-verdicts/aicr-vr200-rke2-ubuntu-training/flattening-safety-verdict.yaml"
+    notes: "The bundle is the rendered Argo CD Application set for AICR v0.21.0, overlay vr200-rke2-ubuntu-training. Flattened covers the Application wrapper only. It ships with one recorded route, the sync-wave ordering emitted beside this receipt, and no runtime has executed that route. The 11 charts these Applications reference are not flattened by this bundle. Argo CD would render them at sync time, so their flattening verdicts belong to the chart catalog and are out of scope here. The bundle is retained and rendered. It is not published and not deployed, and no workload claim attaches."
+    componentDelivery:
+      mode: "render-late-by-argo"
+      referencedCharts:
+        - "cert-manager"
+        - "dra-driver-nvidia-gpu"
+        - "gpu-operator"
+        - "k8s-ephemeral-storage-metrics"
+        - "kai-scheduler"
+        - "kube-prometheus-stack"
+        - "node-feature-discovery"
+        - "nodewright"
+        - "nvsentinel"
+        - "prometheus-adapter"
+        - "prometheus-operator-crds"
+      outOfScopeReason: "a chart this bundle points at is never flattened by it, so this bundle cannot carry that chart's flattening verdict"
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "examples/aicr/vr200-rke2-ubuntu-training/argocd-rendered/templates"
+      - "examples/aicr/vr200-rke2-ubuntu-training/digest-index/platform-index.json"
+      - "examples/aicr/vr200-rke2-ubuntu-training/generation-receipt.yaml"
+      - "examples/aicr/vr200-rke2-ubuntu-training/recipe.yaml"

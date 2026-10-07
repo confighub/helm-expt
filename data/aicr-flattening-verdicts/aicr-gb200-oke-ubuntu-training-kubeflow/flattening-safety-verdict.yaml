@@ -1,0 +1,104 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "aicr-gb200-oke-ubuntu-training-kubeflow"
+spec:
+  subject:
+    kind: "aicr-platform-shape"
+    entry: "examples/aicr/gb200-oke-ubuntu-training-kubeflow"
+    platformDigest: "sha256:98f0dab98c1c1f2bd70346c9fedc984a732764e11925c84420dd59bb6aa5aac3"
+    upstreamVersion: "v0.21.0"
+    note: "The subject is a platform shape rather than a chart. It is the rendered Argo CD Application set produced from AICR's argocd-helm bundle chart for the gb200-oke-ubuntu-training-kubeflow overlay. It is a leaf overlay. No other retained entry builds on it."
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the rendered Application set; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "16 Applications carry a sync-wave across 7 waves, and 17 recipe dependency edges between deployed components hold in them"
+      disposition: "route this bundle ships at data/certified-bundles/routes/aicr/aicr-gb200-oke-ubuntu-training-kubeflow/sync-wave-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the rendered Application set"
+      disposition: "none required"
+  componentScope:
+    mode: "render-late-by-argo"
+    referencedCharts:
+      - "cert-manager"
+      - "dra-driver-nvidia-gpu"
+      - "gpu-operator"
+      - "k8s-ephemeral-storage-metrics"
+      - "kai-scheduler"
+      - "kube-prometheus-stack"
+      - "kubeflow-trainer"
+      - "network-operator"
+      - "node-feature-discovery"
+      - "nodewright"
+      - "nvsentinel"
+      - "prometheus-adapter"
+      - "prometheus-operator-crds"
+    statement: "Each Application points at a source that Argo CD renders at sync time. 13 Applications name 13 upstream charts, and 4 take a path inside the AICR bundle package. No chart is flattened by this shape, so no chart's flattening verdict is decided here. Those verdicts belong to the chart catalog and are read per chart."
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Flattened here means the Application wrapper only. The Application set is rendered output that carries an ordering declaration a delivery runtime would execute, and ordering declarations are what this lane covers. The nested charts are rendered by Argo CD at sync time and are outside this verdict."
+    routes:
+      - "sync-wave ordering across the platform components, recorded and not executed"
+  boundedness:
+    - "This verdict decides the wrapper, not the components. A component chart can be unsafe-to-flatten and still sit inside this shape, because this shape does not flatten it."
+    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 16 rendered Applications, which fall into 7 waves. The retained recipe deploys 13 components, and 17 of the 17 dependency edges between them hold in those waves."
+    - "3 waved Applications render without appearing in the recipe's deployment order (network-operator-post, gpu-operator-pre, kubeflow-trainer-post). They are companions of a component, and they are named here so the comparison does not drop them silently."
+    - "Every Application carries an automated sync policy. That is a delivery decision a destination has to accept, not a flattening hazard."
+    - "4 of the 17 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package has not been published, and this entry does not retain it, so Argo CD could not resolve those sources today."
+    - "This entry is retained and rendered. It is not published and not deployed. No registry holds it, no ConfigHub Space holds it, and no cluster has synced it."
+    - "No workload ran. This verdict is config-plane only and says nothing about any cloud, accelerator or model."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "examples/aicr/gb200-oke-ubuntu-training-kubeflow/argocd-rendered/templates"
+      - "examples/aicr/gb200-oke-ubuntu-training-kubeflow/digest-index/platform-index.json"
+      - "examples/aicr/gb200-oke-ubuntu-training-kubeflow/recipe.yaml"

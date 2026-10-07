@@ -1,0 +1,180 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "aicr-ocp-inference"
+spec:
+  producer:
+    name: "aicr"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "aicr-entry"
+    canonicalHome:
+      repository: "https://github.com/confighub/helm-expt"
+      path: "examples/aicr/ocp-inference"
+    evidence:
+      - "examples/aicr/ocp-inference/generation-receipt.yaml"
+      - "examples/aicr/ocp-inference/digest-index/platform-index.json"
+      - "examples/aicr/ocp-inference/recipe.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    platformDigest: "sha256:7391cb74a9b9ce9ac9ccefc00d1c0320101fba86a8b9c4a5c6c0730159ef8276"
+    files:
+      -
+        path: "aicr-stack.yaml"
+        sha256: "64ba063fd7e70ca275cf914bf8d113811cd15a3b39f1e0ed6ad4fe74b2c0eae2"
+        bytes: 1054
+        role: "Argo CD Application"
+      -
+        path: "cert-manager-ocp-olm.yaml"
+        sha256: "373d89b17be35c76f0506072171ab9e43cae2a021deee7b62f2ece24a249a5ec"
+        bytes: 784
+        role: "Argo CD Application"
+      -
+        path: "cert-manager-ocp.yaml"
+        sha256: "a82a6e1f45a08f0126a7719cab43b053f1b2699a2cab9a99f35660e20d3062f6"
+        bytes: 773
+        role: "Argo CD Application"
+      -
+        path: "gpu-operator-ocp-olm.yaml"
+        sha256: "515c29f055dee9cf2a748e1a482d1b22469f4d5536cd581640db7c8bca9d04c8"
+        bytes: 775
+        role: "Argo CD Application"
+      -
+        path: "gpu-operator-ocp.yaml"
+        sha256: "ece403f352dee7b03d7be84412467ec9b7521b8190b873c271d6794924102bad"
+        bytes: 764
+        role: "Argo CD Application"
+      -
+        path: "network-operator-ocp-olm.yaml"
+        sha256: "9a46aa9517a8205702516bb50eb629c8a17c05dbf78db3bec7c70be687f9e6a9"
+        bytes: 798
+        role: "Argo CD Application"
+      -
+        path: "network-operator-ocp.yaml"
+        sha256: "54f5bfb4f25e1ea264239b48ff5bda9d86e2c457618e1255188ff54d8d90672b"
+        bytes: 787
+        role: "Argo CD Application"
+      -
+        path: "nfd-ocp-olm.yaml"
+        sha256: "1e8bc62df19247535347befc62ab1a6440691e132ae14118a842af0e9b356488"
+        bytes: 749
+        role: "Argo CD Application"
+      -
+        path: "nfd-ocp.yaml"
+        sha256: "176b5736240a67fad0bb8f9419cbe1baeaecae10db64f285be3be4df21eb74d5"
+        bytes: 737
+        role: "Argo CD Application"
+      -
+        path: "nvidia-dra-driver-gpu-ocp-pre.yaml"
+        sha256: "781e2b758e636e9e3ace6add0c1a95cc94bc822b4b924a4eb66b69274d45da16"
+        bytes: 808
+        role: "Argo CD Application"
+      -
+        path: "nvidia-dra-driver-gpu-ocp.yaml"
+        sha256: "77a348489190cd6b3b8b486f740e3e52059917a2ac1d5dd03321c0f8b7538fe6"
+        bytes: 1483
+        role: "Argo CD Application"
+      -
+        path: "prometheus-adapter-ocp-post.yaml"
+        sha256: "57af9ca3827bae1287f97d97bfa91bad7279a6b347d29d84e0eeadea52f52e32"
+        bytes: 794
+        role: "Argo CD Application"
+      -
+        path: "prometheus-adapter-ocp-pre.yaml"
+        sha256: "c45ee7c34543c967f6112d5cb392b28104cc48b4243eae791e65307f157ecf29"
+        bytes: 791
+        role: "Argo CD Application"
+      -
+        path: "prometheus-adapter-ocp.yaml"
+        sha256: "5b44d7d4cd525c41665fd19af41b19758e5ce746abf44f7b30c94c18bc895caa"
+        bytes: 5700
+        role: "Argo CD Application"
+      -
+        path: "data/certified-bundles/routes/aicr/aicr-ocp-inference/sync-wave-ordering.yaml"
+        sha256: "478744afa691f50b2599feb2720da494be41f6055d762fd160f688559f24ee06"
+        bytes: 4630
+        role: "route:crd-ordering"
+      -
+        path: "data/certified-bundles/guides/aicr/ocp-inference/space-guide.md"
+        sha256: "1c6b48872331c353e184cf83a744f15849245e559d5d1b174878f725c04739ff"
+        bytes: 1203
+        role: "space-guide"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the rendered Application set; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "13 Applications carry a sync-wave across 9 waves, and 9 recipe dependency edges between deployed components hold in them"
+      disposition: "route this bundle ships at data/certified-bundles/routes/aicr/aicr-ocp-inference/sync-wave-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the rendered Application set"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the platform-shape flattening verdict at data/aicr-flattening-verdicts/aicr-ocp-inference/flattening-safety-verdict.yaml"
+    notes: "The bundle is the rendered Argo CD Application set for AICR v0.21.0, overlay ocp-inference. Flattened covers the Application wrapper only. It ships with one recorded route, the sync-wave ordering emitted beside this receipt, and no runtime has executed that route. The 2 charts these Applications reference are not flattened by this bundle. Argo CD would render them at sync time, so their flattening verdicts belong to the chart catalog and are out of scope here. The bundle is retained and rendered. It is not published and not deployed, and no workload claim attaches."
+    componentDelivery:
+      mode: "render-late-by-argo"
+      referencedCharts:
+        - "dra-driver-nvidia-gpu"
+        - "prometheus-adapter"
+      outOfScopeReason: "a chart this bundle points at is never flattened by it, so this bundle cannot carry that chart's flattening verdict"
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "examples/aicr/ocp-inference/argocd-rendered/templates"
+      - "examples/aicr/ocp-inference/digest-index/platform-index.json"
+      - "examples/aicr/ocp-inference/generation-receipt.yaml"
+      - "examples/aicr/ocp-inference/recipe.yaml"
