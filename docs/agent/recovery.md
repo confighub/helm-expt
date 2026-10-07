@@ -27,6 +27,7 @@ repair that matches the failure.
 | `helm-render-intents` output is stale | Render-intent YAML/CSV/JSON no longer matches matrix or lifecycle data. | Run `npm run helm-render-intents`, then `npm run helm-render-intents:verify`. |
 | Matrix output is stale | The master matrix no longer matches source data. | Run `npm run master-matrix`, then `npm run master-matrix:verify`. |
 | Command-surface verifier rejects an example | A doc uses stale `cub` syntax or planned syntax without saying it is planned. | Fix the example or mark planned/future syntax clearly; re-run the command-surface verifier. |
+| `deterministic bundle SHA mismatch` on a package nobody changed | The local installer plugin is a release that differs from the commit CI builds (`INSTALLER_COMMIT` in `.github/workflows/full-verify.yml`). The two package the same directory into different bytes, so the digests disagree. | Do not regenerate the digest with the local release. Run the step through the pin: `node scripts/run-with-pinned-installer.mjs -- <command>`. It builds the pinned commit once into the user cache directory and routes `cub installer` to it. Generate package digests the same way, or CI rejects them. |
 | `git diff --check` reports trailing whitespace | A generated or manual file has whitespace errors. | Fix the source generator if many generated files are affected; fix the manual file directly if only manual docs changed. |
 
 ## When Not To Regenerate
