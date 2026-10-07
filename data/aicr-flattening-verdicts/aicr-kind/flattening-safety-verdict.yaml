@@ -81,7 +81,7 @@ spec:
       - "nvsentinel"
       - "prometheus-adapter"
       - "prometheus-operator-crds"
-    statement: "Each Application points at a source that Argo CD renders at sync time. 12 Applications name 12 upstream charts, and 1 take a path inside the AICR bundle package. No chart is flattened by this shape, so no chart's flattening verdict is decided here. Those verdicts belong to the chart catalog and are read per chart."
+    statement: "Each Application points at a source that Argo CD renders at sync time. 12 Applications name 12 upstream charts, and 1 takes a path inside the AICR bundle package. No chart is flattened by this shape, so no chart's flattening verdict is decided here. Those verdicts belong to the chart catalog and are read per chart."
   verdict:
     lane: "flatten-with-routes"
     rationale: "Flattened here means the Application wrapper only. The Application set is rendered output that carries an ordering declaration a delivery runtime would execute, and ordering declarations are what this lane covers. The nested charts are rendered by Argo CD at sync time and are outside this verdict."
@@ -91,7 +91,7 @@ spec:
     - "This verdict decides the wrapper, not the components. A component chart can be unsafe-to-flatten and still sit inside this shape, because this shape does not flatten it."
     - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 12 rendered Applications, which fall into 4 waves. The retained recipe deploys 12 components, and 14 of the 14 dependency edges between them hold in those waves."
     - "Every Application carries an automated sync policy. That is a delivery decision a destination has to accept, not a flattening hazard."
-    - "1 of the 13 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package has not been published, and this entry does not retain it, so Argo CD could not resolve those sources today."
+    - "1 of the 13 Applications takes its source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package has not been published, and this entry does not retain it, so Argo CD could not resolve that source today."
     - "This entry is retained and rendered. It is not published and not deployed. No registry holds it, no ConfigHub Space holds it, and no cluster has synced it."
     - "No workload ran. This verdict is config-plane only and says nothing about any cloud, accelerator or model."
   provenance:

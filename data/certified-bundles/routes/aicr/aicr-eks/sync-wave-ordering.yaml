@@ -68,7 +68,7 @@ spec:
     - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 13 rendered Applications, which fall into 4 waves. The retained recipe deploys 13 components, and 12 of the 12 dependency edges between them hold in those waves."
     - "The ordering-parity lane in data/aicr-ordering-parity/summary.md covers four hand-retained entries and does not cover this one. The comparison above applies the same dependency-edge rule to this entry's own recipe."
     - "No runtime has executed this route. Nothing in this repository has synced this Application set on any cluster."
-    - "1 of the 14 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package has not been published, and this entry does not retain it, so Argo CD could not resolve those sources today."
+    - "1 of the 14 Applications takes its source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package has not been published, and this entry does not retain it, so Argo CD could not resolve that source today."
   provenance:
     emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
     generatedFrom:

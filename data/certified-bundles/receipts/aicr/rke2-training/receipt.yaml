@@ -81,8 +81,8 @@ spec:
         role: "Argo CD Application"
       -
         path: "data/certified-bundles/routes/aicr/aicr-rke2-training/sync-wave-ordering.yaml"
-        sha256: "755305ba74043653dc784d6964fadbd3df2d53ea2f96389ef0b9ad9ddcf5e160"
-        bytes: 2819
+        sha256: "438548e84795c4e7f8babf44a1d89a31657026d32a6146b67e52817de3fabf8a"
+        bytes: 2816
         role: "route:crd-ordering"
       -
         path: "data/certified-bundles/guides/aicr/rke2-training/space-guide.md"
