@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/nvidia/gpu-operator/v26.3.2 -o <tmp>/gpu-operator-v26.3.2.tgz"
-    sha256: "de4e6c17db86c683c4343590d6aa0942d452320ad7ca21accf5ccbf01d4aeb56"
+    sha256: "241c9b0f47bac7f0d4d82787105ad8b677794b5646e115e165f5314d6d158a5a"
   package:
     name: "nvidia-gpu-operator"
     path: "packages/nvidia/gpu-operator/v26.3.2"

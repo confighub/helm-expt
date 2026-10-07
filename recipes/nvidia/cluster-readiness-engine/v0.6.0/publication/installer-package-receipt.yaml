@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/nvidia/cluster-readiness-engine/v0.6.0 -o <tmp>/cluster-readiness-engine-v0.6.0.tgz"
-    sha256: "236ac604eb4d6f4602d2e3565bc8ce420b088bbb8335b03996c93be89f72aab9"
+    sha256: "e3068274eee9e154acce62bfeea4f2ddb523ac7099d41711fc8421d9b49c2d09"
   package:
     name: "nvidia-cluster-readiness-engine"
     path: "packages/nvidia/cluster-readiness-engine/v0.6.0"

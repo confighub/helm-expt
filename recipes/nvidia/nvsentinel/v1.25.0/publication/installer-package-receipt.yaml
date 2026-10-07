@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/nvidia/nvsentinel/v1.25.0 -o <tmp>/nvsentinel-v1.25.0.tgz"
-    sha256: "37806b7f2514d79b473b10a32290101dc58e847adfcbbec82513d73709e214b6"
+    sha256: "a4d42c70b701a4e089cde752d8f10d5eabdeee1a67caf6de03a4b42c9400687c"
   package:
     name: "nvidia-nvsentinel"
     path: "packages/nvidia/nvsentinel/v1.25.0"

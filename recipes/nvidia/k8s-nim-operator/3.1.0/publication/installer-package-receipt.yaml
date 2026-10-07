@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/nvidia/k8s-nim-operator/3.1.0 -o <tmp>/k8s-nim-operator-3.1.0.tgz"
-    sha256: "730512b7d9a0b418ed62074509712822854b21fdaafe858167cea45f9d6a4438"
+    sha256: "0d487bab6f732bb5176775d222e9006c47ed58a35d72548acece8e98ab7d1efd"
   package:
     name: "nvidia-k8s-nim-operator"
     path: "packages/nvidia/k8s-nim-operator/3.1.0"
