@@ -1,0 +1,538 @@
+[
+  {
+    "path": "recipes/overlays/a100-aks-training.yaml",
+    "sha256": "5213440d319d18a3915151fa29b0f56aa81dc147d21f5cbbc988f9ffd25f2dc6"
+  },
+  {
+    "path": "recipes/overlays/a100-aks-ubuntu-training-kubeflow.yaml",
+    "sha256": "6d738ca40f562ba53c5165c1ef7cfeac0de16cae8e5f04a8ccb2a2385dbdadf7"
+  },
+  {
+    "path": "recipes/overlays/a100-aks-ubuntu-training.yaml",
+    "sha256": "bca1329965b5094883825f6ba7973f347dc442854f64dc93dc30f6f2079f126d"
+  },
+  {
+    "path": "recipes/overlays/a100-any.yaml",
+    "sha256": "245990590c41656a510bc1cdf5e4ac75d5051530c37018464dc3c2f19d9d8d33"
+  },
+  {
+    "path": "recipes/overlays/a100-eks-training.yaml",
+    "sha256": "bf65abd23f11d9e65847af8b9048496571f55a2fbb5d99ab7dfdcba69d573622"
+  },
+  {
+    "path": "recipes/overlays/a100-eks-ubuntu-training-kubeflow.yaml",
+    "sha256": "6e8d90f777cf10104011faf46907b94ff1e045fbc474061759dd861f2eddfe7e"
+  },
+  {
+    "path": "recipes/overlays/a100-eks-ubuntu-training.yaml",
+    "sha256": "e19924ddd5c8a0cd736b0eddc72cd3d086f674dcb5b77a7873089503359d1fdd"
+  },
+  {
+    "path": "recipes/overlays/a100-gke-cos-training-kubeflow.yaml",
+    "sha256": "e95b649f1852a22292b9b1be56112a55195f175b5242d0f5975b2bfbaef3c0d1"
+  },
+  {
+    "path": "recipes/overlays/a100-gke-cos-training.yaml",
+    "sha256": "1dc80ad016dbc5ecd318ae424caf52c3a087730416cf24e0c1ba3e014bee7376"
+  },
+  {
+    "path": "recipes/overlays/a100-oke-training.yaml",
+    "sha256": "44f8eb4262cd9fba86baff1a4485844b8752d21f4042bdeb70acf33977d77317"
+  },
+  {
+    "path": "recipes/overlays/a100-oke-ubuntu-training-kubeflow.yaml",
+    "sha256": "ca0aede412ad8ca4713e185f9438997f2290cf8ff82c1f659714bbd8da4e5473"
+  },
+  {
+    "path": "recipes/overlays/a100-oke-ubuntu-training.yaml",
+    "sha256": "eb7b7d545c904902b3acf40fb188bdcece608719cb699184f375d6b6564d0771"
+  },
+  {
+    "path": "recipes/overlays/aks-inference.yaml",
+    "sha256": "e96175c4fd6ab5afcb582a896ed4761fd73f4ce168c22550388059b7ed4b0724"
+  },
+  {
+    "path": "recipes/overlays/aks-training.yaml",
+    "sha256": "a676b77d2c4849bbdc3e43589411eb903c8b0f94a1042331bf3d662ea9db4480"
+  },
+  {
+    "path": "recipes/overlays/aks-ubuntu.yaml",
+    "sha256": "a4dd241088f79e2e7ee1f857520b5539daf0065e4817020d44c8e4c54dbf2021"
+  },
+  {
+    "path": "recipes/overlays/aks.yaml",
+    "sha256": "a714630db190ab9628ee4abb76b04a8048d16fe0cc6ce226059cd3bd09a5d4c5"
+  },
+  {
+    "path": "recipes/overlays/b200-any.yaml",
+    "sha256": "824c29d9957fedb81beac62d2f3e239641eceb29018ce3f72ad7b14ad9c92189"
+  },
+  {
+    "path": "recipes/overlays/b200-gke-cos-inference-dynamo.yaml",
+    "sha256": "d40e8f7b87749228aa7aae966e5e63bae86b15d1e10f248ce8c75c467649f28f"
+  },
+  {
+    "path": "recipes/overlays/b200-gke-cos-inference.yaml",
+    "sha256": "2db44c4c15697fbd22db86282facfb8952327e5703a3c67286f4d97657c07806"
+  },
+  {
+    "path": "recipes/overlays/b200-gke-cos-training-kubeflow.yaml",
+    "sha256": "3f7090e7050ff7bb6217002f45c43daaa0f64f6b68ae488605ced3522dee5f2f"
+  },
+  {
+    "path": "recipes/overlays/b200-gke-cos-training.yaml",
+    "sha256": "e240b7b7809c4cbb9228a668a3a996ebd00785d32bab9844b85d0eae34d2e141"
+  },
+  {
+    "path": "recipes/overlays/base.yaml",
+    "sha256": "d0c4465c034037a911b9c9749b1d9e1046afc4ea4b559fcaf0f4bc773a1f5058"
+  },
+  {
+    "path": "recipes/overlays/bcm-inference.yaml",
+    "sha256": "5bc3ba7d6547c110569a06dfa87f43511f240c985c64b49689ffd394047e4503"
+  },
+  {
+    "path": "recipes/overlays/bcm-training.yaml",
+    "sha256": "e552011b02920a2632a7827aa7532e6b08039d31ec94330205d092d6e9b33f7a"
+  },
+  {
+    "path": "recipes/overlays/bcm.yaml",
+    "sha256": "2b75800a11ffd0d35939ca97849d1c4bc43f7e73278b502712a73b8ee9426ece"
+  },
+  {
+    "path": "recipes/overlays/eks-inference.yaml",
+    "sha256": "9f55c9fdd1fb6968b8c0217fe6a8f0209e7897f7561913a9cf3c97edd4b48dd5"
+  },
+  {
+    "path": "recipes/overlays/eks-training.yaml",
+    "sha256": "45d9e045aa4c576c9c3b6ce5210b925d755a83cbb16ee4760c86fde67011e42d"
+  },
+  {
+    "path": "recipes/overlays/eks-ubuntu.yaml",
+    "sha256": "85facc2ad38070d4db6013ac31413628530558fce3aa9bde2dfd7481ce4fa8be"
+  },
+  {
+    "path": "recipes/overlays/eks.yaml",
+    "sha256": "4bd0d9ecc32b0e175cb233b7d732ed58bcbbb69370d0d2d8e0f08cc82173bece"
+  },
+  {
+    "path": "recipes/overlays/gb200-any.yaml",
+    "sha256": "0d7be8c903d4464e2a6df190dde2488a7b9bc9cb63981432cae3a74c890b5852"
+  },
+  {
+    "path": "recipes/overlays/gb200-eks-inference.yaml",
+    "sha256": "5133a7e8df5327415bde32b92b6451735386b965848783d64a6b008e10de1dfc"
+  },
+  {
+    "path": "recipes/overlays/gb200-eks-training.yaml",
+    "sha256": "ed9d0649b956ae2cae99d291b830fe4bc44af6d091b1a539f6b62b2ffadcab1e"
+  },
+  {
+    "path": "recipes/overlays/gb200-eks-ubuntu-inference-dynamo.yaml",
+    "sha256": "eddf74430cf49aa51ec601c19d68a17ae3e701301938f9bafba39a2c19d5b805"
+  },
+  {
+    "path": "recipes/overlays/gb200-eks-ubuntu-inference.yaml",
+    "sha256": "ce61184db73c2f808b73c37ad32a474d6cb4464d3d390e9ec35887ef7e7b5396"
+  },
+  {
+    "path": "recipes/overlays/gb200-eks-ubuntu-training-kubeflow.yaml",
+    "sha256": "c4f0b3e4d5a03dbeac326db46d0882a2f0adc348641cfd11ba63a581086b72ef"
+  },
+  {
+    "path": "recipes/overlays/gb200-eks-ubuntu-training-slurm.yaml",
+    "sha256": "64da8e77ce58bc0379892034ace1fab68a05e77fb399c906c3c7836961ec8e10"
+  },
+  {
+    "path": "recipes/overlays/gb200-eks-ubuntu-training.yaml",
+    "sha256": "75e5237a66243177da8019c7dade4c8bb5b5469f89840be72851ee6e973a7fc3"
+  },
+  {
+    "path": "recipes/overlays/gb200-gke-cos-inference-dynamo.yaml",
+    "sha256": "af2d5970a68d08162ae7c2dc1215a0c8bc35e05badfce1178b38cfc965089419"
+  },
+  {
+    "path": "recipes/overlays/gb200-gke-cos-inference.yaml",
+    "sha256": "7b7a55d5b1955e07ec654ae9397c35359785beb6dee5291401ddec8dcec5e885"
+  },
+  {
+    "path": "recipes/overlays/gb200-gke-cos-training-kubeflow.yaml",
+    "sha256": "4e57792cccf493a9913557c22048c17325415d8356b607b390ecc7cde6cafae2"
+  },
+  {
+    "path": "recipes/overlays/gb200-gke-cos-training-slurm.yaml",
+    "sha256": "e4d086dc515b4c4d31ed6d9371fa1eab819c611986e691077394a9e38c5a1b4c"
+  },
+  {
+    "path": "recipes/overlays/gb200-gke-cos-training.yaml",
+    "sha256": "2475e6ff87ecaf1bc51c156f117b7db3999316f88079a4f03fb816127d7d8ad2"
+  },
+  {
+    "path": "recipes/overlays/gb200-oke-inference.yaml",
+    "sha256": "b8ae3f0771005a89a5e038f6c5d4064e2f40caec929fc4069e7dce6f56e0f05b"
+  },
+  {
+    "path": "recipes/overlays/gb200-oke-training.yaml",
+    "sha256": "33c8269c38c00e3cc592dc2c8330ec33ae5a0fe9b977432b0a5938fb9adf02c8"
+  },
+  {
+    "path": "recipes/overlays/gb200-oke-ubuntu-inference-dynamo.yaml",
+    "sha256": "e4043fbb0bbaf4ad6e63d3ae648cb8ecfeb09fb5e136195509e0ea4aa4563516"
+  },
+  {
+    "path": "recipes/overlays/gb200-oke-ubuntu-inference.yaml",
+    "sha256": "d0f45e5a065d8138318a1023342f2a240af22128a57b2e559766ae09a0728cbc"
+  },
+  {
+    "path": "recipes/overlays/gb200-oke-ubuntu-training-kubeflow.yaml",
+    "sha256": "ff3f37d6a89b60764112c3e3b67ca9f977252c3f96b89243c78fc4484ee4993a"
+  },
+  {
+    "path": "recipes/overlays/gb200-oke-ubuntu-training.yaml",
+    "sha256": "f72df1f7261d7431205d4f8d2d4c6fe4701d9aff15d2869f88dec6c2c626303b"
+  },
+  {
+    "path": "recipes/overlays/gb300-any.yaml",
+    "sha256": "4ab7f7e7d0b9d38636127478fb911ec015de6183a4607590c3406b99aea17487"
+  },
+  {
+    "path": "recipes/overlays/gb300-eks-inference.yaml",
+    "sha256": "d97624f301ee2934f8751f8911a56cd5b4a274155e3cf6cc8c652bbd87b52d24"
+  },
+  {
+    "path": "recipes/overlays/gb300-eks-training.yaml",
+    "sha256": "0261ef5fe6915162ed8ea7299664ceb74c66065e094235bc4a7c0676b5f0ee1f"
+  },
+  {
+    "path": "recipes/overlays/gb300-eks-ubuntu-inference-dynamo.yaml",
+    "sha256": "f3f454ee5cb1b4e9df21669b2d8dfd3bf9cac61f646d1f85d2d08299ffd5fae7"
+  },
+  {
+    "path": "recipes/overlays/gb300-eks-ubuntu-inference.yaml",
+    "sha256": "34f3a5e5ebdedef1e91d38bdd97c83e841a18a22c66728b2466afd40c3e3016e"
+  },
+  {
+    "path": "recipes/overlays/gb300-eks-ubuntu-training-kubeflow.yaml",
+    "sha256": "7cec1dd8f757f991457f0ed150d8b9b4d0962901d23d6563127d424bffa207bc"
+  },
+  {
+    "path": "recipes/overlays/gb300-eks-ubuntu-training-slurm.yaml",
+    "sha256": "0f0574be47257ea28c9a4ff687064a48c6660e528d85922da065fb89f97a3b97"
+  },
+  {
+    "path": "recipes/overlays/gb300-eks-ubuntu-training.yaml",
+    "sha256": "067bed3db3775f2ee10e0bd014e2afa7ae376d07acde5635456b9cae082beb34"
+  },
+  {
+    "path": "recipes/overlays/gb300-generic-ubuntu-training.yaml",
+    "sha256": "81de7126630a5b6aa31b7a65be8eed4434439aabf69df506f799f64f519d9686"
+  },
+  {
+    "path": "recipes/overlays/gke-cos-inference.yaml",
+    "sha256": "83f53ddd4c56e5fe7d807ae7ce379575efde2d79e14eca370f6547a63972da2f"
+  },
+  {
+    "path": "recipes/overlays/gke-cos-training.yaml",
+    "sha256": "bb0e1db7af1f8035dd60df62655b34dfe3552cfe068d396f2969075b484c2fd4"
+  },
+  {
+    "path": "recipes/overlays/gke-cos.yaml",
+    "sha256": "60b55b56bcff0c59745ba1399e705b8a377e0fc486edf97d167f9f70707291a8"
+  },
+  {
+    "path": "recipes/overlays/h100-aks-inference.yaml",
+    "sha256": "dfa81541131a69a655fb86e2390d377335f81b0942eb54420cbbcb363689801b"
+  },
+  {
+    "path": "recipes/overlays/h100-aks-training.yaml",
+    "sha256": "9b380757d956a992db99d059fa4eb7a7927809ba729a0eff8e69ae724e6d3062"
+  },
+  {
+    "path": "recipes/overlays/h100-aks-ubuntu-inference-dynamo.yaml",
+    "sha256": "cf917b3c5cbc859a0ea03a1ada55d9b302153d03634d9c08d17877923753c4c3"
+  },
+  {
+    "path": "recipes/overlays/h100-aks-ubuntu-inference.yaml",
+    "sha256": "f0398e5f3a18dc7f8ca35deb856e23ecda626c16b38fb4371ca45ec95e7f8465"
+  },
+  {
+    "path": "recipes/overlays/h100-aks-ubuntu-training-kubeflow.yaml",
+    "sha256": "bb0a78947f7fad84359a637aa99af510026354af0ef6359a2ccfa57e01f32ef0"
+  },
+  {
+    "path": "recipes/overlays/h100-aks-ubuntu-training-slurm.yaml",
+    "sha256": "aea2628b593717c7c056596785f301bf9aaddbd1c0b33d54664528d765988744"
+  },
+  {
+    "path": "recipes/overlays/h100-aks-ubuntu-training.yaml",
+    "sha256": "0ae1ebc319133c74827ab71559b7765737a0284fd8fb8b2fa4fae01e9af337be"
+  },
+  {
+    "path": "recipes/overlays/h100-any.yaml",
+    "sha256": "65ee2fa90203c815c2d252833e094970684e516838e58826db7c277bc4e4b828"
+  },
+  {
+    "path": "recipes/overlays/h100-bcm-training.yaml",
+    "sha256": "860c55ac9309003fbf3c2585201a25542bfb369a73a55d9756ba21dcbae17262"
+  },
+  {
+    "path": "recipes/overlays/h100-bcm-ubuntu-training-kubeflow.yaml",
+    "sha256": "586bf6701d30677ebcee0bea6fe7c0dbed0020f77e1c7d60c699ef0898b4e41d"
+  },
+  {
+    "path": "recipes/overlays/h100-bcm-ubuntu-training.yaml",
+    "sha256": "3729caa9b034b8934430b1a23a15b3602fc1426b42350ad1d7b2791be3259ccc"
+  },
+  {
+    "path": "recipes/overlays/h100-eks-inference.yaml",
+    "sha256": "e0e4b5bf13d650b7495aedc3b20bd38d4128b87bc655192e8c8dc595719fba82"
+  },
+  {
+    "path": "recipes/overlays/h100-eks-training.yaml",
+    "sha256": "b42cf5cfbf82a40dcdfa5e1cdf860897b60cd1e1294ea92af339c2a5dcd6d620"
+  },
+  {
+    "path": "recipes/overlays/h100-eks-ubuntu-inference-dynamo.yaml",
+    "sha256": "53032f55fe6279d1af17ce7111228fe0cdfb710f5fe2467da19d5c2871e3948c"
+  },
+  {
+    "path": "recipes/overlays/h100-eks-ubuntu-inference-nim.yaml",
+    "sha256": "d02beafa4f39247b608c2da5117898564b4e7df70638906708483076a268c03b"
+  },
+  {
+    "path": "recipes/overlays/h100-eks-ubuntu-inference.yaml",
+    "sha256": "d7bd0003b0f53921d4e656ec1a34015c7dad5cb119a1ab3de532ca29f9445706"
+  },
+  {
+    "path": "recipes/overlays/h100-eks-ubuntu-training-kubeflow.yaml",
+    "sha256": "51877c0b6a44df9f713840bbfe73a37c1318ba49ffe9d8ce409e7ff9f263b542"
+  },
+  {
+    "path": "recipes/overlays/h100-eks-ubuntu-training-slurm.yaml",
+    "sha256": "a1ad560e7d4f28b260783c3bfa55ce0970d70d9eb4aac3d463861c1d82e94ac9"
+  },
+  {
+    "path": "recipes/overlays/h100-eks-ubuntu-training.yaml",
+    "sha256": "c8d7ed93843b8d2fcec19aa62c29c44e807b7b8a78a994c2782080d65f59882f"
+  },
+  {
+    "path": "recipes/overlays/h100-gke-cos-inference-dynamo.yaml",
+    "sha256": "a9ce189b7ac5a843d944e9b73134ab9d8fd1fa97985a2a743c6ec14fa02b06eb"
+  },
+  {
+    "path": "recipes/overlays/h100-gke-cos-inference.yaml",
+    "sha256": "d052c8ea60468eecd87953920269249aa0b0ed52e31d8767f04191375f7d3233"
+  },
+  {
+    "path": "recipes/overlays/h100-gke-cos-training-kubeflow.yaml",
+    "sha256": "e3c2d27874ec59e0a9b864cb82c224fe9a8d8cbf72c68bd38dc540371e3089b7"
+  },
+  {
+    "path": "recipes/overlays/h100-gke-cos-training-slurm.yaml",
+    "sha256": "76da5b34843100f52ebcada38a311ccdcfaff7fd0aa8aa883f750eebc760afb3"
+  },
+  {
+    "path": "recipes/overlays/h100-gke-cos-training.yaml",
+    "sha256": "dd95a4b0faf355279a9590701cf8e550308cb95a3ebc947849e5b0fd454421f0"
+  },
+  {
+    "path": "recipes/overlays/h100-kind-inference-dynamo.yaml",
+    "sha256": "a761e98b40b4ed2dee41de4952a3b2e77cb4c4a719cd85fb4fe12f9b05945af9"
+  },
+  {
+    "path": "recipes/overlays/h100-kind-inference.yaml",
+    "sha256": "cbb65b821868d3eec868cc0f54300f5e5f62413c932536e45b949e7240041c6f"
+  },
+  {
+    "path": "recipes/overlays/h100-kind-training-kubeflow.yaml",
+    "sha256": "b7c68af2ce6a561e941a86aa6e60fbcc427682c7ce5ba37477776a4215128c41"
+  },
+  {
+    "path": "recipes/overlays/h100-kind-training-slurm.yaml",
+    "sha256": "3dd05e742038d17bf682ab8dcb108252f79f232d6717f23a0a9d6c2ad4abf93e"
+  },
+  {
+    "path": "recipes/overlays/h100-kind-training.yaml",
+    "sha256": "1e11402f33d6daae0385df751fac920a2e94076c26000a1c5484954e268f6d18"
+  },
+  {
+    "path": "recipes/overlays/h200-any.yaml",
+    "sha256": "87c762feb1b1f75b4f63cb6cd5d3068a8fe7a77cd6999868c686fe4d8fd8120a"
+  },
+  {
+    "path": "recipes/overlays/h200-eks-inference.yaml",
+    "sha256": "e7680eb27babb292ad9854f7b434b8955479e78dc0840be65abbfad7a9d2d825"
+  },
+  {
+    "path": "recipes/overlays/h200-eks-training-kubeflow.yaml",
+    "sha256": "48415244630bf7b77a2e93bbd1cb424e8cd404a1cf19fff689aa2c6d901831a7"
+  },
+  {
+    "path": "recipes/overlays/h200-eks-training.yaml",
+    "sha256": "1c7154fb870fd48e8c8a1234d25190fa95d0bd9cf053f1e3cff01571f0ede46c"
+  },
+  {
+    "path": "recipes/overlays/h200-k0s-ubuntu-training.yaml",
+    "sha256": "a121557ee58e48c3fb113468817ac5765de2149dcd81bb4d56068b80f17a381e"
+  },
+  {
+    "path": "recipes/overlays/k0s-training.yaml",
+    "sha256": "68373883a73a55bd57a5a9610eb10a34e6ede8e12396f5f87a48c5feb68a1f4e"
+  },
+  {
+    "path": "recipes/overlays/k0s.yaml",
+    "sha256": "e030191334e68336d7d5dc380d7d2fceedfb202a6ec311316e4f1f7c27383305"
+  },
+  {
+    "path": "recipes/overlays/kind-inference.yaml",
+    "sha256": "7c0aae2329c63ba28dc14d4ec219e1b63b8eb4a98164523e8d4a96bf47f4aad8"
+  },
+  {
+    "path": "recipes/overlays/kind.yaml",
+    "sha256": "1654b2da4754563b4e7569befa77151692bbd8bec18b138121ef9883a897883d"
+  },
+  {
+    "path": "recipes/overlays/l40-any.yaml",
+    "sha256": "3d4c94b3896bbf9d1ffc85ecbe92a6814f08364476c319b35bff7afb22f89e8e"
+  },
+  {
+    "path": "recipes/overlays/l40s-any.yaml",
+    "sha256": "fb182831c26dadcf69b45e81be943b8f892be9103d3cca7a9885d5e0594b06a1"
+  },
+  {
+    "path": "recipes/overlays/l40s-oke-inference.yaml",
+    "sha256": "ff9fa4002c2ed65aa57ac7761a8ba2c0a8dd752fabebaaaaba22bd6c35eb3f11"
+  },
+  {
+    "path": "recipes/overlays/l40s-oke-training-kubeflow.yaml",
+    "sha256": "1877ccee4edb33dc4da72b42003a40be1934dab3f14071f20db0d74f255947bd"
+  },
+  {
+    "path": "recipes/overlays/l40s-oke-training.yaml",
+    "sha256": "08de3a6f84496c436e3eeeba5207b99f58c46f9b48ebf94da77edd5b52c29491"
+  },
+  {
+    "path": "recipes/overlays/lke-inference.yaml",
+    "sha256": "1820dadaf872988fc6da04d5e66e0573a5a85a9899a01454485741d7e5187953"
+  },
+  {
+    "path": "recipes/overlays/lke-training.yaml",
+    "sha256": "7c0df6b427cb89c68e7d3aedda3b2a81a9caaafdd5668adddf2ea819c6c804bf"
+  },
+  {
+    "path": "recipes/overlays/lke.yaml",
+    "sha256": "f3c1fa51885ab5eaa61779daa7a2527e2c96a735138e0bfcb9a453381443ff49"
+  },
+  {
+    "path": "recipes/overlays/monitoring-hpa.yaml",
+    "sha256": "7bacf07246cae8456150e99798b677c1f75df3cbab1bbe1fb52fee4f765530be"
+  },
+  {
+    "path": "recipes/overlays/ocp-inference-nim.yaml",
+    "sha256": "d5ee3cb0bab26b9319b058bb146b56876fe0ca266f5e3cb40bbc73bd4ee966a9"
+  },
+  {
+    "path": "recipes/overlays/ocp-inference.yaml",
+    "sha256": "044a9a0f1080de2677d159c0ec503aa1bfc234ea16e020d8c9fadfbc9af61a86"
+  },
+  {
+    "path": "recipes/overlays/ocp-training.yaml",
+    "sha256": "bac394aec881897dc88272ba183926f7e16f3e6e5970fe2b20a1d9f7b99c1a6e"
+  },
+  {
+    "path": "recipes/overlays/ocp.yaml",
+    "sha256": "cc1cbced7921c2ff342805978dd0ced19a58146ef96f217167ebdc95ee9d8a48"
+  },
+  {
+    "path": "recipes/overlays/oke-ol-inference.yaml",
+    "sha256": "49d404223394ee7a6ffab2becd0aefbf7ec1ed3f88fb1685602dc65cc82e9572"
+  },
+  {
+    "path": "recipes/overlays/oke-ol-training.yaml",
+    "sha256": "a87fb47a18a0a981aafa9d5189ad8ae17f7e2986fcaa79c7d2f7f72bb1e4b0fd"
+  },
+  {
+    "path": "recipes/overlays/oke-ol.yaml",
+    "sha256": "73a8efadedbc19009324510801f34d6d173903d616e7c5dae66f4b4c2628753d"
+  },
+  {
+    "path": "recipes/overlays/rke2-inference.yaml",
+    "sha256": "8610ff7aa88b96f052ff6d066213ecb56da961969e2195de0ea30fdb021be217"
+  },
+  {
+    "path": "recipes/overlays/rke2-training.yaml",
+    "sha256": "8d30e3e3359223f4fe1d2cddbb9e75929b83ddeed0ee64be6503edcba10f8294"
+  },
+  {
+    "path": "recipes/overlays/rke2.yaml",
+    "sha256": "77503e1bc046add16f7adac17be0885fe28bcb6f081211a5deb5b1903b1d8e54"
+  },
+  {
+    "path": "recipes/overlays/rtx-pro-6000-any.yaml",
+    "sha256": "6ef9b73f9de0fd911db9f7a4678d1f816d96697d69a9513fa79d6f89db184972"
+  },
+  {
+    "path": "recipes/overlays/rtx-pro-6000-eks-inference.yaml",
+    "sha256": "27400626de3f950519b839a9e38f0a63267e03d1c932fab3ead515f77f908733"
+  },
+  {
+    "path": "recipes/overlays/rtx-pro-6000-eks-training.yaml",
+    "sha256": "5d29bd4e06da978a5544e126a9015b36713814f3bb09478aea7d77706475cceb"
+  },
+  {
+    "path": "recipes/overlays/rtx-pro-6000-eks-ubuntu-inference-dynamo.yaml",
+    "sha256": "7229bcfb1d3061fcbaf96a5bff6562fc3c03050ddaaa2925e05793181d1e7fe9"
+  },
+  {
+    "path": "recipes/overlays/rtx-pro-6000-eks-ubuntu-inference-nim.yaml",
+    "sha256": "5ce088ae42a080cd8515ef2fab5b959cf6b8072b1a3826ea7eb6aacb3fb777a0"
+  },
+  {
+    "path": "recipes/overlays/rtx-pro-6000-eks-ubuntu-inference.yaml",
+    "sha256": "b781f5adfad611afdfb570c32ba10c8535fc6c1cbed62c587ace2a26941c1f3b"
+  },
+  {
+    "path": "recipes/overlays/rtx-pro-6000-eks-ubuntu-training-kubeflow.yaml",
+    "sha256": "8af87cfb21d3d73d40228114367e4599145ff14da6b739455d672a2a08fa8ca0"
+  },
+  {
+    "path": "recipes/overlays/rtx-pro-6000-eks-ubuntu-training.yaml",
+    "sha256": "d8c50daf17a150165f8debcc79eb24e83946a5d4b4542f282adffec6bb8d5dc0"
+  },
+  {
+    "path": "recipes/overlays/rtx-pro-6000-lke-inference.yaml",
+    "sha256": "da8bf0bc1d10eb29c5e183154f505bf7e728e394bea2c84cbbf995f40459086c"
+  },
+  {
+    "path": "recipes/overlays/rtx-pro-6000-lke-training.yaml",
+    "sha256": "a43f82b4d6137dc2b3f910a62f3ab55f521bbcdc296f734759c4f7fe14d41a7d"
+  },
+  {
+    "path": "recipes/overlays/rtx-pro-6000-lke-ubuntu-inference.yaml",
+    "sha256": "bb57dbb35776fcacf059cad0ef62efc5d9e9fdc33c164c5f409121ca134e6c73"
+  },
+  {
+    "path": "recipes/overlays/rtx-pro-6000-lke-ubuntu-training-kubeflow.yaml",
+    "sha256": "546efb450c5c2b58e9eb0cfd7dced04362987a69cd4a11ede95c37b5ec9a56c1"
+  },
+  {
+    "path": "recipes/overlays/rtx-pro-6000-lke-ubuntu-training.yaml",
+    "sha256": "8e238016a508de493459499e212b2a59840d35a0445688476c37fcf70d9a8e13"
+  },
+  {
+    "path": "recipes/overlays/vr200-rke2-ubuntu-inference-dynamo.yaml",
+    "sha256": "617fd9a73eb30789ebb3aea8b3d25d9c2a6910433fc058fab55c6d8ef8194a90"
+  },
+  {
+    "path": "recipes/overlays/vr200-rke2-ubuntu-inference.yaml",
+    "sha256": "e27cf7a745525283f73dc12298b10b956d21b7ff981f4e41ef41271386b07a93"
+  },
+  {
+    "path": "recipes/overlays/vr200-rke2-ubuntu-training-kubeflow.yaml",
+    "sha256": "a1ff2246c9d44a13dd4b8cf186fcb563d6ee305da1d7270a1fade7cdb0a7a365"
+  },
+  {
+    "path": "recipes/overlays/vr200-rke2-ubuntu-training.yaml",
+    "sha256": "51700540cd117c48c449335a2d727e41567bbdd050d7ed2fd7d7e79a7fdc091f"
+  }
+]

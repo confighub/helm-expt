@@ -15,15 +15,15 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:1f74c730f40baa7bca2f275e694b7f6fadaf1ab82494a4d1b1dd59cf3120ddf1",
+      "sha256": "sha256:bd1ce709a1792bee3135a0a4dd5bb203361fb7ccb3ee87f63de2c012a4990780",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "recordKind": "BaseVariantRecord"
   },
   "counts": {
-    "listings": 282,
+    "listings": 402,
     "formats": {
-      "aicr": 4,
+      "aicr": 124,
       "configuration-oci": 1,
       "cub-installer": 1,
       "helm": 271,
@@ -34,6 +34,366 @@
     }
   },
   "listings": [
+    {
+      "id": "aicr-a100-aks-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-a100-aks-training-v0-21-0-argocd.json",
+      "name": "aicr-a100-aks-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:db05f3511453d350ba86cca8469e177993920dae44fcfc43539b41f3a2c73cd0",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-a100-aks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-a100-aks-ubuntu-training-kubeflow-v0-21-0-argocd.json",
+      "name": "aicr-a100-aks-ubuntu-training-kubeflow",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 18,
+      "digest": "sha256:6a3ad9802c4ba2f0a2700de9193c13d0ff49da1ca91bdb94c9987a0747eea6cc",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-a100-aks-ubuntu-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-a100-aks-ubuntu-training-v0-21-0-argocd.json",
+      "name": "aicr-a100-aks-ubuntu-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:db05f3511453d350ba86cca8469e177993920dae44fcfc43539b41f3a2c73cd0",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-a100-any-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-a100-any-v0-21-0-argocd.json",
+      "name": "aicr-a100-any",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-a100-eks-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-a100-eks-training-v0-21-0-argocd.json",
+      "name": "aicr-a100-eks-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:ca3c499cef3b14479c53ba939e7209574fe8bdc1e4f59eff4ce2437a02568ab8",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-a100-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-a100-eks-ubuntu-training-kubeflow-v0-21-0-argocd.json",
+      "name": "aicr-a100-eks-ubuntu-training-kubeflow",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 17,
+      "digest": "sha256:67e1465474ef62bf09c049085e531f66a458c6ce9d684bf38e1199b125dc0417",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-a100-eks-ubuntu-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-a100-eks-ubuntu-training-v0-21-0-argocd.json",
+      "name": "aicr-a100-eks-ubuntu-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:ca3c499cef3b14479c53ba939e7209574fe8bdc1e4f59eff4ce2437a02568ab8",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-a100-gke-cos-training-kubeflow-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-a100-gke-cos-training-kubeflow-v0-21-0-argocd.json",
+      "name": "aicr-a100-gke-cos-training-kubeflow",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 17,
+      "digest": "sha256:2b92c9d254976390c772b7880d25431b425ec71f3e310f4422e4ba003f0d2dc6",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-a100-gke-cos-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-a100-gke-cos-training-v0-21-0-argocd.json",
+      "name": "aicr-a100-gke-cos-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:4a7d8bba2048552cf7021504c9161d986c1862fcb28a788b7d70ebdab68a755d",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-a100-oke-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-a100-oke-training-v0-21-0-argocd.json",
+      "name": "aicr-a100-oke-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:105780222300b144aa899afba06982f670a3a0d86c463e8379559ef41ae3aa16",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-a100-oke-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-a100-oke-ubuntu-training-kubeflow-v0-21-0-argocd.json",
+      "name": "aicr-a100-oke-ubuntu-training-kubeflow",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 14,
+      "digest": "sha256:b61c272a931f264ad7e59a1048da8b2a6de4860721224c644fb1c134d48190ab",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-a100-oke-ubuntu-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-a100-oke-ubuntu-training-v0-21-0-argocd.json",
+      "name": "aicr-a100-oke-ubuntu-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:105780222300b144aa899afba06982f670a3a0d86c463e8379559ef41ae3aa16",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-aks-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-aks-inference-v0-21-0-argocd.json",
+      "name": "aicr-aks-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 19,
+      "digest": "sha256:045230a667c950dc14f290be486cdfe7ee36af2f738195d6989fa4535a8068a0",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-aks-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-aks-training-v0-21-0-argocd.json",
+      "name": "aicr-aks-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:823bc6f65f7718633713d98f37cce06ee4e664cd0b01dae499777792bf5e8748",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-aks-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-aks-v0-21-0-argocd.json",
+      "name": "aicr-aks",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:5aeb0fba14912f42a1c28ae4a31e16401a7666c0007cbba609d503515b92050a",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-b200-any-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-b200-any-v0-21-0-argocd.json",
+      "name": "aicr-b200-any",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-b200-gke-cos-inference-dynamo-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-b200-gke-cos-inference-dynamo-v0-21-0-argocd.json",
+      "name": "aicr-b200-gke-cos-inference-dynamo",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 21,
+      "digest": "sha256:5b3d33a2557b6d77364f2cbee16e1b17c87623760aeb8bfe9a701033f05e3d78",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-b200-gke-cos-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-b200-gke-cos-inference-v0-21-0-argocd.json",
+      "name": "aicr-b200-gke-cos-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 19,
+      "digest": "sha256:43808201aafae5d5d3f781ebcf8c20ddd34495f7ca7b91b3b431699e43795410",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-b200-gke-cos-training-kubeflow-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-b200-gke-cos-training-kubeflow-v0-21-0-argocd.json",
+      "name": "aicr-b200-gke-cos-training-kubeflow",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 17,
+      "digest": "sha256:73144c7642d8ddd41378d55bf0b99a8129b66d90c3f6f06ff5d591fb6e6e8ae4",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-b200-gke-cos-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-b200-gke-cos-training-v0-21-0-argocd.json",
+      "name": "aicr-b200-gke-cos-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:e111ce921f9ea4e33cf3bf9c04596b6e3aee5aeb3f1925d1c4c5a6050a2a60db",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-bcm-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-bcm-inference-v0-21-0-argocd.json",
+      "name": "aicr-bcm-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 17,
+      "digest": "sha256:2a3e0f91c7b052346427d3d769290930c31b18d08fc81b589d45787df0e6e0a7",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-bcm-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-bcm-training-v0-21-0-argocd.json",
+      "name": "aicr-bcm-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 13,
+      "digest": "sha256:3a56f0001913d1a0c68693249bb62077a249e906b54435c3351d69538ff3f527",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-bcm-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-bcm-v0-21-0-argocd.json",
+      "name": "aicr-bcm",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 13,
+      "digest": "sha256:2e54e7986261bc9c6990d1c39e92c738cf2b127ceaccb9b78d09e43636233cc1",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-eks-h100-inference-nim-v0-14-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-inference-nim-v0-14-0-argocd.json",
+      "name": "aicr-eks-h100-inference-nim",
+      "format": "aicr",
+      "version": "v0.14.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 20,
+      "digest": "sha256:2013f555eb357921da5d684c681b592608d2f772c1bbac69fb79423f1c224e0e",
+      "flatteningVerdict": "flatten-with-routes"
+    },
     {
       "id": "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
       "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.json",
@@ -65,6 +425,21 @@
       "flatteningVerdict": "not-assessed"
     },
     {
+      "id": "aicr-eks-h100-training-kubeflow-v0-18-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-18-0-argocd.json",
+      "name": "aicr-eks-h100-training-kubeflow",
+      "format": "aicr",
+      "version": "v0.18.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 17,
+      "digest": "sha256:3be7f77a32b1b09677a2b468606a0e0abe8bfa729e687ffd5eb3b8d4bc97771e",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
       "id": "aicr-eks-h100-training-kubeflow-v0-19-0-argocd",
       "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-19-0-argocd.json",
       "name": "aicr-eks-h100-training-kubeflow",
@@ -92,6 +467,1431 @@
       },
       "objectCount": 17,
       "digest": "sha256:f2a4f9e60e872bf2266a8dc89a239e704b0dd5f77a643c3bdf9561a088de99cc",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-eks-h100-training-kubeflow-v1-0-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json",
+      "name": "aicr-eks-h100-training-kubeflow",
+      "format": "aicr",
+      "version": "v1.0.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 17,
+      "digest": "sha256:45baec5d12b562cec93aa771d1f631f19e8b6c68ab79fd7a8f6314dedff9c47e",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-eks-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-inference-v0-21-0-argocd.json",
+      "name": "aicr-eks-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 18,
+      "digest": "sha256:bb8e87802a99d59e1469f954bdb7426a8cdacb76382a12a1ba0974016042d36d",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-eks-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-training-v0-21-0-argocd.json",
+      "name": "aicr-eks-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 14,
+      "digest": "sha256:da307ff8c5dd8777f195741f3b2eb509624f10eb164142a770d8dd9cfd53c94e",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-eks-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-v0-21-0-argocd.json",
+      "name": "aicr-eks",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 14,
+      "digest": "sha256:15ae7fa22dac28d649dafc7538fa6b0804906931b874ebc09d62449edc823c15",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb200-any-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-any-v0-21-0-argocd.json",
+      "name": "aicr-gb200-any",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb200-eks-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-eks-inference-v0-21-0-argocd.json",
+      "name": "aicr-gb200-eks-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 20,
+      "digest": "sha256:20e8023414dbf8d155e4b2455101eba74552f0e4a763f8ed130e9e30623b240c",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb200-eks-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-eks-training-v0-21-0-argocd.json",
+      "name": "aicr-gb200-eks-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:025cf74a502ff31366c31b4ee51a30222770149c7e0845df6695559a8d3445e6",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb200-eks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-eks-ubuntu-inference-dynamo-v0-21-0-argocd.json",
+      "name": "aicr-gb200-eks-ubuntu-inference-dynamo",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 22,
+      "digest": "sha256:76e9ee01d345951d010f90e1cc4269f3afd0bb40c7bee60c283aa749b7e1ffb7",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb200-eks-ubuntu-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-eks-ubuntu-inference-v0-21-0-argocd.json",
+      "name": "aicr-gb200-eks-ubuntu-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 20,
+      "digest": "sha256:20e8023414dbf8d155e4b2455101eba74552f0e4a763f8ed130e9e30623b240c",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb200-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-eks-ubuntu-training-kubeflow-v0-21-0-argocd.json",
+      "name": "aicr-gb200-eks-ubuntu-training-kubeflow",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 18,
+      "digest": "sha256:824d6b95fa57b6314d03d51f94c88b68c245ebf0c642a47e292b80de2711bb43",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb200-eks-ubuntu-training-slurm-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-eks-ubuntu-training-slurm-v0-21-0-argocd.json",
+      "name": "aicr-gb200-eks-ubuntu-training-slurm",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 20,
+      "digest": "sha256:93138da5a2ff51666a93d6ca6a498a0a1c910124b24cd94bc6357fd2b84fab25",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb200-eks-ubuntu-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-eks-ubuntu-training-v0-21-0-argocd.json",
+      "name": "aicr-gb200-eks-ubuntu-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:025cf74a502ff31366c31b4ee51a30222770149c7e0845df6695559a8d3445e6",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb200-oke-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-oke-inference-v0-21-0-argocd.json",
+      "name": "aicr-gb200-oke-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:e443e520a9adf9811dcef3354cd75e15edcd9632304d99a79b1e590d88710580",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb200-oke-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-oke-training-v0-21-0-argocd.json",
+      "name": "aicr-gb200-oke-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:90f5806d125082e0ec8fc9596108e5ea37f27ea36c1cc5898e5244fd7d8c24bc",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb200-oke-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-oke-ubuntu-inference-dynamo-v0-21-0-argocd.json",
+      "name": "aicr-gb200-oke-ubuntu-inference-dynamo",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 18,
+      "digest": "sha256:a8c0c2110a9280ceeb340e78a353f61bc3c37a10c8020f0f2ff9c4265afedc99",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb200-oke-ubuntu-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-oke-ubuntu-inference-v0-21-0-argocd.json",
+      "name": "aicr-gb200-oke-ubuntu-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:e443e520a9adf9811dcef3354cd75e15edcd9632304d99a79b1e590d88710580",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb200-oke-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-oke-ubuntu-training-kubeflow-v0-21-0-argocd.json",
+      "name": "aicr-gb200-oke-ubuntu-training-kubeflow",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 17,
+      "digest": "sha256:74272e2ef1bccb98b916f1e7e44f8befde3890ecc54a35b774c523d2edb3b6be",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb200-oke-ubuntu-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb200-oke-ubuntu-training-v0-21-0-argocd.json",
+      "name": "aicr-gb200-oke-ubuntu-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:90f5806d125082e0ec8fc9596108e5ea37f27ea36c1cc5898e5244fd7d8c24bc",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb300-any-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb300-any-v0-21-0-argocd.json",
+      "name": "aicr-gb300-any",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb300-eks-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb300-eks-inference-v0-21-0-argocd.json",
+      "name": "aicr-gb300-eks-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 20,
+      "digest": "sha256:20e8023414dbf8d155e4b2455101eba74552f0e4a763f8ed130e9e30623b240c",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb300-eks-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb300-eks-training-v0-21-0-argocd.json",
+      "name": "aicr-gb300-eks-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:025cf74a502ff31366c31b4ee51a30222770149c7e0845df6695559a8d3445e6",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb300-eks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb300-eks-ubuntu-inference-dynamo-v0-21-0-argocd.json",
+      "name": "aicr-gb300-eks-ubuntu-inference-dynamo",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 22,
+      "digest": "sha256:76e9ee01d345951d010f90e1cc4269f3afd0bb40c7bee60c283aa749b7e1ffb7",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb300-eks-ubuntu-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb300-eks-ubuntu-inference-v0-21-0-argocd.json",
+      "name": "aicr-gb300-eks-ubuntu-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 20,
+      "digest": "sha256:20e8023414dbf8d155e4b2455101eba74552f0e4a763f8ed130e9e30623b240c",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb300-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb300-eks-ubuntu-training-kubeflow-v0-21-0-argocd.json",
+      "name": "aicr-gb300-eks-ubuntu-training-kubeflow",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 18,
+      "digest": "sha256:824d6b95fa57b6314d03d51f94c88b68c245ebf0c642a47e292b80de2711bb43",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb300-eks-ubuntu-training-slurm-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb300-eks-ubuntu-training-slurm-v0-21-0-argocd.json",
+      "name": "aicr-gb300-eks-ubuntu-training-slurm",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 20,
+      "digest": "sha256:86d3c86d5498201103a8fc45b82ed6271b1dfc3adf64ac435139e05380151084",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb300-eks-ubuntu-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb300-eks-ubuntu-training-v0-21-0-argocd.json",
+      "name": "aicr-gb300-eks-ubuntu-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:025cf74a502ff31366c31b4ee51a30222770149c7e0845df6695559a8d3445e6",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gb300-generic-ubuntu-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gb300-generic-ubuntu-training-v0-21-0-argocd.json",
+      "name": "aicr-gb300-generic-ubuntu-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:13a14bb2b6b02e9407e2b172e6ddd5a2009e0fb5cc64c84cfd2117218ecf49f7",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gke-cos-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gke-cos-inference-v0-21-0-argocd.json",
+      "name": "aicr-gke-cos-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 18,
+      "digest": "sha256:6222e3c2e4d0c0e60d9a5cfdcb94a1ff13568dddce9c5f3a117f879784934ddb",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gke-cos-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gke-cos-training-v0-21-0-argocd.json",
+      "name": "aicr-gke-cos-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 14,
+      "digest": "sha256:ac9622233b728568086a8bed94f9663f94264fd6dc4b0ce8295548402f09c9be",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-gke-cos-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-gke-cos-v0-21-0-argocd.json",
+      "name": "aicr-gke-cos",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 14,
+      "digest": "sha256:ac9622233b728568086a8bed94f9663f94264fd6dc4b0ce8295548402f09c9be",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-aks-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-aks-inference-v0-21-0-argocd.json",
+      "name": "aicr-h100-aks-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 20,
+      "digest": "sha256:d8dc5bca274d8ebd81e0c347f1d4be4b6a0b70f45b10def648c17d2d587c0878",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-aks-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-aks-training-v0-21-0-argocd.json",
+      "name": "aicr-h100-aks-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:db05f3511453d350ba86cca8469e177993920dae44fcfc43539b41f3a2c73cd0",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-aks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-aks-ubuntu-inference-dynamo-v0-21-0-argocd.json",
+      "name": "aicr-h100-aks-ubuntu-inference-dynamo",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 22,
+      "digest": "sha256:80d7af0c97bd5d01cac77dce30420d8b16cfe7dbf86283aa57726c5dd45c31d3",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-aks-ubuntu-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-aks-ubuntu-inference-v0-21-0-argocd.json",
+      "name": "aicr-h100-aks-ubuntu-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 20,
+      "digest": "sha256:d8dc5bca274d8ebd81e0c347f1d4be4b6a0b70f45b10def648c17d2d587c0878",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-aks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-aks-ubuntu-training-kubeflow-v0-21-0-argocd.json",
+      "name": "aicr-h100-aks-ubuntu-training-kubeflow",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 18,
+      "digest": "sha256:6a3ad9802c4ba2f0a2700de9193c13d0ff49da1ca91bdb94c9987a0747eea6cc",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-aks-ubuntu-training-slurm-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-aks-ubuntu-training-slurm-v0-21-0-argocd.json",
+      "name": "aicr-h100-aks-ubuntu-training-slurm",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 20,
+      "digest": "sha256:33c75d796e37836a0e0f8a969bdc4c226eb0981e34b66f25bfe3bbf518c0c171",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-aks-ubuntu-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-aks-ubuntu-training-v0-21-0-argocd.json",
+      "name": "aicr-h100-aks-ubuntu-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:db05f3511453d350ba86cca8469e177993920dae44fcfc43539b41f3a2c73cd0",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-any-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-any-v0-21-0-argocd.json",
+      "name": "aicr-h100-any",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-bcm-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-bcm-training-v0-21-0-argocd.json",
+      "name": "aicr-h100-bcm-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 13,
+      "digest": "sha256:33800d52ba0155bbf246acabfdd22054bc91eae84a5eb34144e7d29d3537b187",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-bcm-ubuntu-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-bcm-ubuntu-training-v0-21-0-argocd.json",
+      "name": "aicr-h100-bcm-ubuntu-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 13,
+      "digest": "sha256:33800d52ba0155bbf246acabfdd22054bc91eae84a5eb34144e7d29d3537b187",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-eks-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-eks-inference-v0-21-0-argocd.json",
+      "name": "aicr-h100-eks-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 19,
+      "digest": "sha256:dd8a92b805b5d6c878e28bab46fd2525482d5227bbb142005ed91776e5cb7c91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-eks-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-eks-training-v0-21-0-argocd.json",
+      "name": "aicr-h100-eks-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:ca3c499cef3b14479c53ba939e7209574fe8bdc1e4f59eff4ce2437a02568ab8",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-eks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-eks-ubuntu-inference-dynamo-v0-21-0-argocd.json",
+      "name": "aicr-h100-eks-ubuntu-inference-dynamo",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 21,
+      "digest": "sha256:61d9a3eb5d241279f19d08b12a5ec2452f0c90eb5714a3a2c4cd7f5f0f2b977a",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-eks-ubuntu-inference-nim-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-eks-ubuntu-inference-nim-v0-21-0-argocd.json",
+      "name": "aicr-h100-eks-ubuntu-inference-nim",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 20,
+      "digest": "sha256:1d29339d4dc166088e1eb237233b13d9468989cb89ec872bf6aeeb4d6f8d1915",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-eks-ubuntu-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-eks-ubuntu-inference-v0-21-0-argocd.json",
+      "name": "aicr-h100-eks-ubuntu-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 19,
+      "digest": "sha256:dd8a92b805b5d6c878e28bab46fd2525482d5227bbb142005ed91776e5cb7c91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-eks-ubuntu-training-kubeflow-v0-21-0-argocd.json",
+      "name": "aicr-h100-eks-ubuntu-training-kubeflow",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 17,
+      "digest": "sha256:67e1465474ef62bf09c049085e531f66a458c6ce9d684bf38e1199b125dc0417",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-eks-ubuntu-training-slurm-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-eks-ubuntu-training-slurm-v0-21-0-argocd.json",
+      "name": "aicr-h100-eks-ubuntu-training-slurm",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 19,
+      "digest": "sha256:c2ee63f6bad15f0f990c527bd3631614f4e0b46b4142298667c3495c19cd2f2f",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-eks-ubuntu-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-eks-ubuntu-training-v0-21-0-argocd.json",
+      "name": "aicr-h100-eks-ubuntu-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:ca3c499cef3b14479c53ba939e7209574fe8bdc1e4f59eff4ce2437a02568ab8",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-gke-cos-inference-dynamo-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-gke-cos-inference-dynamo-v0-21-0-argocd.json",
+      "name": "aicr-h100-gke-cos-inference-dynamo",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 21,
+      "digest": "sha256:5a1e50c94b25f117ce0412e86a17947dad6bb320dbbe6bdbd7968908a728f8d7",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-gke-cos-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-gke-cos-inference-v0-21-0-argocd.json",
+      "name": "aicr-h100-gke-cos-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 20,
+      "digest": "sha256:922e5ec650424f78b6b22a2045a11d049b599fd39d1871e4e54bd91760c4853d",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-gke-cos-training-kubeflow-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-gke-cos-training-kubeflow-v0-21-0-argocd.json",
+      "name": "aicr-h100-gke-cos-training-kubeflow",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 18,
+      "digest": "sha256:dca1dbacd3ec1efacb8004b4d2914c989c65fdab52607656dcd00bb379f44798",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-gke-cos-training-slurm-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-gke-cos-training-slurm-v0-21-0-argocd.json",
+      "name": "aicr-h100-gke-cos-training-slurm",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 21,
+      "digest": "sha256:496e16ba89c2de6e9adeaa4661ade664fff118a2cfc1f4df4f593ebbc7f54477",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-gke-cos-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-gke-cos-training-v0-21-0-argocd.json",
+      "name": "aicr-h100-gke-cos-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:8c9af7cafa221bd71d9c7e8b77573a46f327d658713dd01115d7c3d3837537a8",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-kind-inference-dynamo-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-kind-inference-dynamo-v0-21-0-argocd.json",
+      "name": "aicr-h100-kind-inference-dynamo",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 19,
+      "digest": "sha256:a0ca6d8ecafd66e9ad88c4595e449e118af65cfaf7e1c750435128c4d24a3a1b",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-kind-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-kind-inference-v0-21-0-argocd.json",
+      "name": "aicr-h100-kind-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 17,
+      "digest": "sha256:f9c3d23edf3b37e972b237f1e7648a46cfc4d77aa6f8df84da9557e0b66ae663",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-kind-training-kubeflow-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-kind-training-kubeflow-v0-21-0-argocd.json",
+      "name": "aicr-h100-kind-training-kubeflow",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:e6bf3145928c0b078f93b0a09afc4b66ae4fa8bd09000ff5206423bf2cca9b9f",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-kind-training-slurm-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-kind-training-slurm-v0-21-0-argocd.json",
+      "name": "aicr-h100-kind-training-slurm",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 18,
+      "digest": "sha256:520c0a191e0b5576139db9788d4d7928a15bf7050a75578ffeacd49780d3db64",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h100-kind-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h100-kind-training-v0-21-0-argocd.json",
+      "name": "aicr-h100-kind-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 13,
+      "digest": "sha256:765f1d1bcac41828910992c3b52ab12086013a5fb095cbc1311ee0dc6297face",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h200-any-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h200-any-v0-21-0-argocd.json",
+      "name": "aicr-h200-any",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h200-eks-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h200-eks-inference-v0-21-0-argocd.json",
+      "name": "aicr-h200-eks-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 19,
+      "digest": "sha256:dd8a92b805b5d6c878e28bab46fd2525482d5227bbb142005ed91776e5cb7c91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-h200-eks-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-h200-eks-training-v0-21-0-argocd.json",
+      "name": "aicr-h200-eks-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:ca3c499cef3b14479c53ba939e7209574fe8bdc1e4f59eff4ce2437a02568ab8",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-kind-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-kind-inference-v0-21-0-argocd.json",
+      "name": "aicr-kind-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 17,
+      "digest": "sha256:f9c3d23edf3b37e972b237f1e7648a46cfc4d77aa6f8df84da9557e0b66ae663",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-kind-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-kind-v0-21-0-argocd.json",
+      "name": "aicr-kind",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 13,
+      "digest": "sha256:765f1d1bcac41828910992c3b52ab12086013a5fb095cbc1311ee0dc6297face",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-l40-any-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-l40-any-v0-21-0-argocd.json",
+      "name": "aicr-l40-any",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-l40s-any-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-l40s-any-v0-21-0-argocd.json",
+      "name": "aicr-l40s-any",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-l40s-oke-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-l40s-oke-inference-v0-21-0-argocd.json",
+      "name": "aicr-l40s-oke-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:e443e520a9adf9811dcef3354cd75e15edcd9632304d99a79b1e590d88710580",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-l40s-oke-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-l40s-oke-training-v0-21-0-argocd.json",
+      "name": "aicr-l40s-oke-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 14,
+      "digest": "sha256:802859b550a16b392638fb729f91f90a466988ea1c44881ab3e1f3aa3cedb1a5",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-lke-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-lke-inference-v0-21-0-argocd.json",
+      "name": "aicr-lke-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:49a4be3d488a0cbff71ce8bf463a0db034b7132fea93ea51f23819db31c0628b",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-lke-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-lke-training-v0-21-0-argocd.json",
+      "name": "aicr-lke-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-lke-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-lke-v0-21-0-argocd.json",
+      "name": "aicr-lke",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-ocp-inference-nim-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-ocp-inference-nim-v0-21-0-argocd.json",
+      "name": "aicr-ocp-inference-nim",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:9439e6aa91c26ce0e23351ec9e1438cc36e1f91ce43185b5b3389b91e1002938",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-ocp-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-ocp-inference-v0-21-0-argocd.json",
+      "name": "aicr-ocp-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 14,
+      "digest": "sha256:f2cdbe08ae9ee7c8953e396957be9bc6c3860742aec82e52fa9c4c4369b87e76",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-ocp-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-ocp-training-v0-21-0-argocd.json",
+      "name": "aicr-ocp-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 14,
+      "digest": "sha256:f2cdbe08ae9ee7c8953e396957be9bc6c3860742aec82e52fa9c4c4369b87e76",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-ocp-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-ocp-v0-21-0-argocd.json",
+      "name": "aicr-ocp",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 14,
+      "digest": "sha256:f2cdbe08ae9ee7c8953e396957be9bc6c3860742aec82e52fa9c4c4369b87e76",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-oke-ol-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-oke-ol-inference-v0-21-0-argocd.json",
+      "name": "aicr-oke-ol-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:8ea8ea137c44eb1913fbea7dc2a994b8a6c994846b2c49928fd22572e4223f08",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-oke-ol-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-oke-ol-training-v0-21-0-argocd.json",
+      "name": "aicr-oke-ol-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:3c0805d0407b98cd72556e31c629a06803dbee613f376c05ccb7a105ef5cfdad",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-oke-ol-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-oke-ol-v0-21-0-argocd.json",
+      "name": "aicr-oke-ol",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:3c0805d0407b98cd72556e31c629a06803dbee613f376c05ccb7a105ef5cfdad",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rke2-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rke2-inference-v0-21-0-argocd.json",
+      "name": "aicr-rke2-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:aabcd100434cba612d2e3279df580a4c9eca630c53cdb01b05ea9bea57ee512c",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rke2-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rke2-training-v0-21-0-argocd.json",
+      "name": "aicr-rke2-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:ef80fd3826cd8eb6d78a2b2b0a76936f6a0f1c77b3f4762813a184a45205f81c",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rke2-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rke2-v0-21-0-argocd.json",
+      "name": "aicr-rke2",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:ef80fd3826cd8eb6d78a2b2b0a76936f6a0f1c77b3f4762813a184a45205f81c",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rtx-pro-6000-any-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rtx-pro-6000-any-v0-21-0-argocd.json",
+      "name": "aicr-rtx-pro-6000-any",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd.json",
+      "name": "aicr-rtx-pro-6000-eks-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 19,
+      "digest": "sha256:dd8a92b805b5d6c878e28bab46fd2525482d5227bbb142005ed91776e5cb7c91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rtx-pro-6000-eks-training-v0-21-0-argocd.json",
+      "name": "aicr-rtx-pro-6000-eks-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:ca3c499cef3b14479c53ba939e7209574fe8bdc1e4f59eff4ce2437a02568ab8",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rtx-pro-6000-eks-ubuntu-inference-dynamo-v0-21-0-argocd.json",
+      "name": "aicr-rtx-pro-6000-eks-ubuntu-inference-dynamo",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 21,
+      "digest": "sha256:61d9a3eb5d241279f19d08b12a5ec2452f0c90eb5714a3a2c4cd7f5f0f2b977a",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-inference-nim-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rtx-pro-6000-eks-ubuntu-inference-nim-v0-21-0-argocd.json",
+      "name": "aicr-rtx-pro-6000-eks-ubuntu-inference-nim",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 20,
+      "digest": "sha256:1d29339d4dc166088e1eb237233b13d9468989cb89ec872bf6aeeb4d6f8d1915",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rtx-pro-6000-eks-ubuntu-inference-v0-21-0-argocd.json",
+      "name": "aicr-rtx-pro-6000-eks-ubuntu-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 19,
+      "digest": "sha256:dd8a92b805b5d6c878e28bab46fd2525482d5227bbb142005ed91776e5cb7c91",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rtx-pro-6000-eks-ubuntu-training-kubeflow-v0-21-0-argocd.json",
+      "name": "aicr-rtx-pro-6000-eks-ubuntu-training-kubeflow",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 17,
+      "digest": "sha256:67e1465474ef62bf09c049085e531f66a458c6ce9d684bf38e1199b125dc0417",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rtx-pro-6000-eks-ubuntu-training-v0-21-0-argocd.json",
+      "name": "aicr-rtx-pro-6000-eks-ubuntu-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:ca3c499cef3b14479c53ba939e7209574fe8bdc1e4f59eff4ce2437a02568ab8",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rtx-pro-6000-lke-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rtx-pro-6000-lke-inference-v0-21-0-argocd.json",
+      "name": "aicr-rtx-pro-6000-lke-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:64ed896b94b1767d724b5c2bfdae01033748d2aef4857526754ce42164cc9292",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rtx-pro-6000-lke-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rtx-pro-6000-lke-training-v0-21-0-argocd.json",
+      "name": "aicr-rtx-pro-6000-lke-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:b135bf4360ab14e03a2bf9cef3e1a01943b1016e1d4ed2baf086ff9f9e30e25a",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rtx-pro-6000-lke-ubuntu-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rtx-pro-6000-lke-ubuntu-inference-v0-21-0-argocd.json",
+      "name": "aicr-rtx-pro-6000-lke-ubuntu-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 16,
+      "digest": "sha256:64ed896b94b1767d724b5c2bfdae01033748d2aef4857526754ce42164cc9292",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-rtx-pro-6000-lke-ubuntu-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-rtx-pro-6000-lke-ubuntu-training-v0-21-0-argocd.json",
+      "name": "aicr-rtx-pro-6000-lke-ubuntu-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 12,
+      "digest": "sha256:b135bf4360ab14e03a2bf9cef3e1a01943b1016e1d4ed2baf086ff9f9e30e25a",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-vr200-rke2-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-vr200-rke2-ubuntu-inference-dynamo-v0-21-0-argocd.json",
+      "name": "aicr-vr200-rke2-ubuntu-inference-dynamo",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 21,
+      "digest": "sha256:7ffce2534ab579ccab593232a77e080215bd893c9d3c02ed8ae15a255d1f50b1",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-vr200-rke2-ubuntu-inference-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-vr200-rke2-ubuntu-inference-v0-21-0-argocd.json",
+      "name": "aicr-vr200-rke2-ubuntu-inference",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 19,
+      "digest": "sha256:40498620be157d4312097c0162b8b9b77ccfab164d30621a5d5f8643f3385982",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-vr200-rke2-ubuntu-training-v0-21-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-vr200-rke2-ubuntu-training-v0-21-0-argocd.json",
+      "name": "aicr-vr200-rke2-ubuntu-training",
+      "format": "aicr",
+      "version": "v0.21.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 15,
+      "digest": "sha256:3b5bd137fc46df6c2726600d020b0c9a0c264cf8bc1b0020191761384941355f",
       "flatteningVerdict": "flatten-with-routes"
     },
     {

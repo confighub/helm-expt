@@ -1,0 +1,129 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: SourceFieldPolicyAssessment
+metadata:
+  name: aicr-v1-0-0-gpu-stack-profile
+spec:
+  purpose: >-
+    Show which choices NVIDIA AICR v1.0.0 controls at the source-variant
+    boundary, and keep those choices separate from later ConfigHub variants.
+  retainedEntry:
+    provider: NVIDIA
+    sourceVariant: h100-eks-ubuntu-training-kubeflow
+    service: eks
+    recipe: examples/aicr/eks-h100-training-kubeflow-v1-0-0/recipe.yaml
+    selectedProfile: null
+    result: >-
+      The EKS source variant declares no gpuStack profile. Supplying
+      --profile gpuStack=operator-managed is refused before a recipe is
+      written. Driver ownership is therefore a destination decision for this
+      exact EKS entry, not a protected profile field inherited from AKS.
+  adjacentProviderVariant:
+    provider: NVIDIA
+    service: aks
+    criteria: service=aks, accelerator=h100, os=ubuntu, intent=training, platform=kubeflow
+    profile: gpuStack
+    default: azure-managed
+    values:
+      - azure-managed
+      - operator-managed
+    ownedPaths:
+      gpu-operator:
+        - driver.enabled
+        - enabled
+        - operator.runtimeClass
+        - toolkit.enabled
+      nvidia-dra-driver-gpu:
+        - enabled
+        - nvidiaDriverRoot
+      nvsentinel:
+        - enabled
+    changeSinceV0200: The operator-managed AKS recipe now also lists nvsentinel.enabled as a profile-owned path.
+  controls:
+    - change: select gpuStack=operator-managed for the EKS source variant
+      result: refused
+      reason: the resolved EKS composition declares no such profile
+      message: profile "gpuStack" was selected, but the resolved composition declares no profile
+    - change: gpu-operator.driver.enabled=false on the AKS operator-managed source variant
+      result: refused
+      reason: the value conflicts with the selected provider profile
+      message: profile-owned path gpu-operator.driver.enabled diverged from selected profile gpuStack=operator-managed
+    - change: export gpu-operator.driver.enabled as an install-time field
+      result: refused
+      reason: a provider-owned path cannot become mutable at install time
+      message: install-time path gpu-operator.driver.enabled intersects profile-owned path gpu-operator.driver.enabled
+    - change: gpu-operator.driver.version=570.133.20
+      result: accepted
+      reason: the version path is not owned by the selected AKS profile
+    - change: generate a bundle with a storage class and no system node selector
+      result: refused
+      reason: >-
+        v1.0.0 requires a system node selector for kube-prometheus-stack once
+        a storage class is set. The same EKS bundle command without a storage
+        class and without a system node selector was accepted.
+      message: component "kube-prometheus-stack" requires --system-node-selector to be set
+      appliesTo: the retained EKS entry and the AKS control
+      newInVersion: v1.0.0
+  meaningForConfigHub: >-
+    Change a provider-owned field by selecting or regenerating the source
+    variant. Retain the resulting exact objects as a base. Other fields can
+    become reviewed derived ConfigHub variants. The classification belongs to
+    this provider, catalog version, and source variant; OCI transport does not
+    create or transfer ownership.
+  notAssessed:
+    - subject: which other generated fields v1.0.0 treats as provider-owned
+      reason: >-
+        Only the gpuStack profile paths and the system node selector
+        requirement were exercised. No other path was tested for refusal.
+    - subject: the bundle-info.yaml nodeScheduling tolerations
+      reason: >-
+        bundle-info.yaml records an Exists toleration for system and
+        accelerated nodes. No toleration was supplied on the command line, and
+        whether a later variant may change it was not tested.
+  evidence:
+    binaryVersion: 1.0.0
+    binaryCommit: 82bccef69855c70e151f8b5e6ed9d04d70a30f81
+    observedAt: "2026-10-07"
+    sourceCatalog: examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/source-catalog-record.yaml
+    retainedOutputs: >-
+      The command outputs were read when the commands ran and are quoted in
+      the messages above. The AKS recipe and bundles they produced are not
+      retained in this entry.
+    commands:
+      - aicr recipe --criteria-strict --service eks --accelerator h100 --os ubuntu --intent training --platform kubeflow --profile gpuStack=operator-managed
+      - aicr recipe --criteria-strict --service aks --accelerator h100 --os ubuntu --intent training --platform kubeflow --profile gpuStack=operator-managed
+      - >-
+        aicr bundle --recipe aks-operator.yaml --deployer argocd-helm
+        --output ./aks-conflict --storage-class managed-csi
+        --accelerated-node-selector nvidia.com/gpu.present=true
+        --workload-selector app.kubernetes.io/part-of=training
+        --system-node-selector nodeGroup=system-worker
+        --set gpuoperator:driver.enabled=false
+      - >-
+        aicr bundle --recipe aks-operator.yaml --deployer argocd-helm
+        --output ./aks-dynamic --storage-class managed-csi
+        --accelerated-node-selector nvidia.com/gpu.present=true
+        --workload-selector app.kubernetes.io/part-of=training
+        --system-node-selector nodeGroup=system-worker
+        --dynamic gpuoperator:driver.enabled
+      - >-
+        aicr bundle --recipe aks-operator.yaml --deployer argocd-helm
+        --output ./aks-accepted --storage-class managed-csi
+        --accelerated-node-selector nvidia.com/gpu.present=true
+        --accelerated-node-toleration nvidia.com/gpu:NoSchedule
+        --workload-selector app.kubernetes.io/part-of=training
+        --system-node-selector nodeGroup=system-worker
+        --set gpuoperator:driver.version=570.133.20
+      - >-
+        aicr bundle --recipe recipe.yaml --deployer argocd-helm
+        --output ./eks-no-system-selector --storage-class gp3
+        --accelerated-node-selector nvidia.com/gpu.present=true
+        --workload-selector app.kubernetes.io/part-of=training
+      - >-
+        aicr bundle --recipe recipe.yaml --deployer argocd-helm
+        --output ./eks-no-storage-class
+        --accelerated-node-selector nvidia.com/gpu.present=true
+        --workload-selector app.kubernetes.io/part-of=training
+status:
+  configPlaneOnly: true
+  targetContacted: false
+  gpuWorkloadRun: false

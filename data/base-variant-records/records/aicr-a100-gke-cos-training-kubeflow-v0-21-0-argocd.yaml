@@ -1,0 +1,303 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "aicr-a100-gke-cos-training-kubeflow-v0-21-0-argocd"
+  labels:
+    sourceType: "aicr"
+    component: "aicr-a100-gke-cos-training-kubeflow"
+    sourceVersion: "v0.21.0"
+    base: "argocd"
+spec:
+  source:
+    type: "aicr"
+    name: "a100-gke-cos-training-kubeflow"
+    version: "v0.21.0"
+    record: "examples/aicr/a100-gke-cos-training-kubeflow/generation-receipt.yaml"
+    packageOciRef: ""
+    selection:
+      name: "a100-gke-cos-training-kubeflow"
+      kind: "source-variant"
+      provider: "NVIDIA AICR"
+      record: "examples/aicr/a100-gke-cos-training-kubeflow/generation-receipt.yaml"
+  baseVariant:
+    name: "argocd"
+    revision: "generated-v0.21.0"
+    digest: "74043c5b40298b1bcc0dff62798928a7402fd0a1648af8e0fb23dd423b021f03"
+    digestRole: "aicr-platform-index"
+    digestRecord: "examples/aicr/a100-gke-cos-training-kubeflow/digest-index/platform-index.json"
+  configuration:
+    format: "argocd-application-yaml"
+    objects: "examples/aicr/a100-gke-cos-training-kubeflow/argocd-rendered"
+    inventory: "examples/aicr/a100-gke-cos-training-kubeflow/argocd-rendered/checksums.txt"
+    objectCount: 17
+    digest: "2b92c9d254976390c772b7880d25431b425ec71f3e310f4422e4ba003f0d2dc6"
+    digestRole: "inventory-file"
+    digestRecord: "examples/aicr/a100-gke-cos-training-kubeflow/argocd-rendered/checksums.txt"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "examples/aicr/a100-gke-cos-training-kubeflow/generation-receipt.yaml"
+    materialization:
+      method: "aicr-compose-then-helm-render"
+      status: "captured"
+      outputDigest: "2b92c9d254976390c772b7880d25431b425ec71f3e310f4422e4ba003f0d2dc6"
+      record: "examples/aicr/a100-gke-cos-training-kubeflow/argocd-rendered/checksums.txt"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "a100-gke-cos-training-kubeflow@v0.21.0/argocd; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "data/aicr-flattening-verdicts/aicr-a100-gke-cos-training-kubeflow/flattening-safety-verdict.yaml"
+    boundaries:
+      - "AICR composed the platform and generated an Argo CD app-of-apps chart; Helm rendered that wrapper into exact Application objects."
+      - "The component Applications still reference their own sources, so those nested sources are processed later by Argo CD."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect or compare AICR snapshots without selecting a recipe. The diff reports observed differences; select the intended provider-curated source variant before deciding whether a difference is a fault."
+        requiredInputs:
+          - "An AICR snapshot, recipe, generated bundle, or exact generated output"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "examples/aicr/a100-gke-cos-training-kubeflow/generation-receipt.yaml"
+          - "examples/aicr/a100-gke-cos-training-kubeflow/argocd-rendered"
+          - "examples/aicr/a100-gke-cos-training-kubeflow/argocd-rendered/checksums.txt"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "examples/aicr/a100-gke-cos-training-kubeflow/generation-receipt.yaml"
+          - "examples/aicr/a100-gke-cos-training-kubeflow/argocd-rendered/checksums.txt"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          - "data/aicr-flattening-verdicts/aicr-a100-gke-cos-training-kubeflow/sync-wave-ordering.yaml"
+        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "accelerator=a100"
+      - "intent=training"
+      - "os=cos"
+      - "platform=kubeflow"
+      - "service=gke"
+      - "acceleratedNodeSelector=nvidia.com/gpu.present=true"
+      - "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt"
+      - "storageClass=gp3"
+      - "workloadSelector=app.kubernetes.io/part-of=training"
+      - "deployer=argocd-helm"
+      - "selectedOverlay=a100-gke-cos-training-kubeflow"
+      - "appliedOverlays=base>monitoring-hpa>a100-any>gke-cos>gke-cos-training>a100-gke-cos-training>a100-gke-cos-training-kubeflow"
+    installTime:
+      -
+        category: "delivery-runtime"
+        name: "argo-cd-application-api"
+        purpose: "Argo CD and its Application API must exist on the destination, with the argocd namespace, because every object in this base is an Argo CD Application in that namespace."
+      -
+        category: "source-package-oci"
+        name: "aicr-bundle-source-package"
+        purpose: "5 of the 17 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package is not published, so a destination needs a reachable copy before Argo CD can resolve them."
+      -
+        category: "target-fact"
+        name: "recipe-criteria"
+        purpose: "AICR generated this recipe for accelerator=a100, intent=training, os=cos, platform=kubeflow, service=gke. A destination has to match those criteria, and nothing here has checked one."
+    installTimeStatus: "destination-facts-recorded-not-run"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "argocd-sync-wave-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Apply the 16 component Applications in the 6 sync-waves they carry, from wave 1 to wave 14. The order is recorded as a route beside the bundle and no runtime has executed it."
+        -
+          id: "nested-source-lifecycle"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Argo CD renders 12 upstream charts and 5 AICR bundle paths at sync time. Their CRDs, hooks, certificates and operators are handled there, and this entry has not rendered or assessed them."
+        -
+          id: "argo-cd-application-api"
+          origin: "base"
+          type: "target-fact"
+          detail: "Argo CD and its Application API must exist on the destination, with the argocd namespace, because every object in this base is an Argo CD Application in that namespace."
+        -
+          id: "aicr-bundle-source-package"
+          origin: "base"
+          type: "target-fact"
+          detail: "5 of the 17 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package is not published, so a destination needs a reachable copy before Argo CD can resolve them."
+        -
+          id: "recipe-criteria"
+          origin: "base"
+          type: "target-fact"
+          detail: "AICR generated this recipe for accelerator=a100, intent=training, os=cos, platform=kubeflow, service=gke. A destination has to match those criteria, and nothing here has checked one."
+      records:
+        - "data/aicr-flattening-verdicts/aicr-a100-gke-cos-training-kubeflow/sync-wave-ordering.yaml"
+    routeIntent:
+      status: "recorded"
+      routes:
+        -
+          id: "argocd-sync-wave-ordering"
+          requirementRefs:
+            - "argocd-sync-wave-ordering"
+          phase: "destination-resolution"
+          proposedActor: "Argo CD on the selected destination"
+          proposedMechanism: "Apply the 16 component Applications in the 6 sync-waves they carry, from wave 1 to wave 14. The order is recorded as a route beside the bundle and no runtime has executed it."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "generated-not-live"
+          supportedRuntimes:
+            - "Argo CD"
+          checks:
+            - "A recorded Argo CD sync of this exact Application set on a named destination."
+          evidence:
+            - "data/aicr-flattening-verdicts/aicr-a100-gke-cos-training-kubeflow/sync-wave-ordering.yaml"
+          orderHint: 1
+        -
+          id: "nested-source-lifecycle"
+          requirementRefs:
+            - "nested-source-lifecycle"
+          phase: "destination-resolution"
+          proposedActor: "Argo CD on the selected destination"
+          proposedMechanism: "Argo CD renders 12 upstream charts and 5 AICR bundle paths at sync time. Their CRDs, hooks, certificates and operators are handled there, and this entry has not rendered or assessed them."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "not-evaluated"
+          supportedRuntimes:
+            - "Argo CD"
+          checks:
+            - "A flattening verdict or a recorded sync for each nested source on the selected destination."
+          evidence:
+            - "data/aicr-flattening-verdicts/aicr-a100-gke-cos-training-kubeflow/flattening-safety-verdict.yaml"
+          orderHint: 2
+      records:
+        - "data/aicr-flattening-verdicts/aicr-a100-gke-cos-training-kubeflow/sync-wave-ordering.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        recipeCriteria:
+          accelerator: "a100"
+          intent: "training"
+          os: "cos"
+          platform: "kubeflow"
+          service: "gke"
+        argoCd:
+          required: true
+          applicationNamespace: "argocd"
+          ociHelmSourceRequired: true
+      requirementRefs:
+        - "argo-cd-application-api"
+        - "aicr-bundle-source-package"
+        - "recipe-criteria"
+      records:
+        - "data/aicr-flattening-verdicts/aicr-a100-gke-cos-training-kubeflow/sync-wave-ordering.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Choices fixed by the recorded source configuration"
+    variantControlled:
+      - "Exact object changes retained after the base"
+    targetSupplied:
+      - "argo-cd-application-api"
+      - "aicr-bundle-source-package"
+      - "recipe-criteria"
+    deliveryProtected:
+      []
+    records:
+      - "examples/aicr/a100-gke-cos-training-kubeflow/generation-receipt.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    sourcePackageOci:
+      status: "not-published"
+      plannedRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle:0.21.0"
+      note: "The reference the rendered Applications name. Nothing has been pushed to it."
+    literalConfigOci:
+      status: "not-published"
+      note: "The rendered Application set has not been packaged or pushed as a literal configuration OCI."
+    configHubUpload:
+      status: "not-run"
+    configHubReleaseOci:
+      status: "not-run"
+    argoCd: "not-run"
+    flux: "not-run-for-argo-application-wrapper"
+    direct: "not-run"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "workflow-approval"
+    normalSet: "approvalRequired"
+    approvalReason: "system-configuration"
+  evidence:
+    sourceGenerationReceipt: "examples/aicr/a100-gke-cos-training-kubeflow/generation-receipt.yaml"
+    recipe: "examples/aicr/a100-gke-cos-training-kubeflow/recipe.yaml"
+    digestIndex: "examples/aicr/a100-gke-cos-training-kubeflow/digest-index/platform-index.json"
+    flatteningVerdict: "data/aicr-flattening-verdicts/aicr-a100-gke-cos-training-kubeflow/flattening-safety-verdict.yaml"
+    orderingRoute: "data/aicr-flattening-verdicts/aicr-a100-gke-cos-training-kubeflow/sync-wave-ordering.yaml"
+    entryPage: "docs/demo/aicr/a100-gke-cos-training-kubeflow.md"
+    retention: "retained-and-rendered-not-published-not-deployed"
+    overlayRole: "leaf-overlay"
+    appliedOverlays: "base > monitoring-hpa > a100-any > gke-cos > gke-cos-training > a100-gke-cos-training > a100-gke-cos-training-kubeflow"
+    overlayParentEntries: "aicr-a100-any-v0-21-0-argocd, aicr-gke-cos-v0-21-0-argocd, aicr-gke-cos-training-v0-21-0-argocd, aicr-a100-gke-cos-training-v0-21-0-argocd"
+  operations:
+    resourceClass: "system-configuration"
+    ownerClass: "platform-team"
+    changeCadence: "planned-platform-release"
+status:
+  level: "partial"
+  claim: "AICR v0.21.0 generated the a100-gke-cos-training-kubeflow overlay as 17 Argo CD Applications. They are retained and rendered, not published, not deployed. It is a leaf overlay. No other retained entry builds on it."
+  limits:
+    - "Flattened covers the Application wrapper only. Argo CD renders the nested charts at sync time, and their flattening verdicts are outside this record."
+    - "5 of the 17 Applications name the AICR bundle package at oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle, which is not published. This entry cannot be delivered until that package is."
+    - "No OCI artifact is published for this entry, nothing was uploaded to ConfigHub, and no variant, promotion or release exists for it."
+    - "The sync-wave order is recorded as a route. No Argo CD instance has executed it."
+    - "2 waved Applications render without appearing in the recipe's deployment order (gpu-operator-pre, kubeflow-trainer-post). They are companions of a component, and they are named here so the comparison does not drop them silently."
+    - "The recipe criteria are accelerator=a100, intent=training, os=cos, platform=kubeflow, service=gke. No cluster, cloud service, accelerator, model or workload was contacted or run for this entry."

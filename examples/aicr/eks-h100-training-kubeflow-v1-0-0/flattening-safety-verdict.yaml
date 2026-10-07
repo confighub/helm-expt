@@ -1,0 +1,129 @@
+apiVersion: evidence.confighub.com/v1alpha1
+kind: FlatteningSafetyVerdict
+metadata:
+  name: aicr-eks-h100-training-kubeflow-v1-0-0-argocd
+spec:
+  subject:
+    kind: aicr-generated-argocd-application-set
+    entry: examples/aicr/eks-h100-training-kubeflow-v1-0-0
+    upstreamVersion: v1.0.0
+    platformDigest: sha256:b05bba571afb8d0aaf3fd4182f195569ff0dde97533bf3381627dd94f68727f8
+    note: >-
+      This verdict covers the 17 Argo CD Application objects generated from
+      one NVIDIA source variant. It does not approve or flatten the 16 nested
+      component sources.
+  dispositions:
+    - class: wrapper-helm-hooks
+      finding: absent
+      detail: The retained Application objects contain no Helm hook annotations.
+      disposition: No wrapper hook route is required.
+    - class: wrapper-secrets
+      finding: absent
+      detail: The retained Application set contains no Kubernetes Secret object.
+      disposition: No Secret value is carried by this literal wrapper layer.
+    - class: component-ordering
+      finding: present
+      detail: >-
+        Sixteen component Applications carry AICR deployment order as five
+        distinct Argo CD sync-wave values.
+      disposition: >-
+        Retain the waves and resolve their execution for the exact destination
+        after the final retained or derived variant is selected.
+      companionRequired: examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml
+      evidence:
+        - examples/aicr/eks-h100-training-kubeflow-v1-0-0/recipe.yaml
+        - examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml
+    - class: nested-component-sources
+      finding: present
+      detail: >-
+        Sixteen Applications still point at Helm or local component sources
+        that Argo CD processes later. Their v1.0.0 source identities are
+        visible in the exact Applications. Their final object sets and route
+        decisions are not retained for this version, and no issue tracks that
+        work yet.
+      disposition: >-
+        Materialize every nested source, record its object digest and lifecycle
+        requirements, then resolve those requirements for Argo CD or Flux.
+      evidence:
+        - examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml
+    - class: upgrade-over-existing-installation
+      finding: present
+      detail: >-
+        Both bundles ship UPGRADING.md. It lists manual steps for
+        nodewright-operator and nvsentinel when this version is applied over
+        an earlier installation, and it says the nodewright-operator chart
+        runs a pre-upgrade hook that deletes the operator Deployment. That
+        hook belongs to a nested source, not to the wrapper Applications.
+      disposition: >-
+        Treat a move from an earlier retained version as its own route. The
+        wrapper verdict says nothing about it.
+      companionRequired: examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml
+      evidence:
+        - examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-helm-bundle/UPGRADING.md
+    - class: system-node-placement
+      finding: present
+      detail: >-
+        Twelve component Applications carry the node selector
+        nodeGroup=system-worker in their values. The value is a generation
+        input that awaits confirmation.
+      disposition: >-
+        Confirm or replace the selector before publication. A different value
+        changes the retained bytes and this verdict's platform digest.
+      evidence:
+        - examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml
+    - class: destination-facts
+      finding: present
+      detail: >-
+        The selected source variant targets EKS, H100, Ubuntu, and Kubeflow
+        training and assumes controllers, storage, networking, GPU nodes, and
+        component prerequisites that the local generation run did not contact.
+      disposition: >-
+        Compare the intended source variant with an exact destination snapshot.
+        A difference is not automatically a fault.
+  componentScope:
+    mode: render-late-by-controller
+    referencedCharts:
+      - aws-ebs-csi-driver
+      - aws-efa
+      - cert-manager
+      - gpu-operator
+      - k8s-ephemeral-storage-metrics
+      - kai-scheduler
+      - kube-prometheus-stack
+      - kubeflow-trainer
+      - kubeflow-trainer-post
+      - nfd
+      - nodewright-customizations
+      - nodewright-operator
+      - nvidia-dra-driver-gpu
+      - nvsentinel
+      - prometheus-adapter
+      - prometheus-operator-crds
+    statement: >-
+      The wrapper is flattened. Nested sources retain their own processing and
+      lifecycle boundaries.
+  verdict:
+    lane: flatten-with-routes
+    rationale: >-
+      The exact Application objects can be retained without regenerating the
+      AICR wrapper during delivery. Ordering still needs a destination route,
+      and each nested source remains render-late until separately processed.
+    routes:
+      - AICR component order through controller dependencies or Argo CD sync waves
+      - Destination checks for EKS, H100, storage, networking, node labels, controllers, and component prerequisites
+      - Nested source processing for CRDs, hooks, operators, certificates, and setup Jobs
+      - The manual upgrade steps in UPGRADING.md when an earlier version is already installed
+  boundedness:
+    - This verdict covers the v1.0.0 wrapper at the recorded platform digest.
+    - It does not flatten or approve any nested component source.
+    - It records configuration-plane work only; no cloud, cluster, GPU, workload, or model request ran.
+    - A source refresh, lifecycle-sensitive derived variant, new destination, or different controller requires another resolution.
+    - The platform digest changes if the system node selector input changes.
+  provenance:
+    emittedBy: hand-authored from the files below; checked by scripts/verify-aicr-v020-artifacts.mjs
+    generatedFrom:
+      - examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/source-catalog-record.yaml
+      - examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml
+      - examples/aicr/eks-h100-training-kubeflow-v1-0-0/digest-index/platform-index.json
+      - examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates
+      - examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml

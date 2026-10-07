@@ -1,0 +1,124 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "aicr-ocp-training-sync-wave-ordering"
+spec:
+  quirkClass: "crd-ordering"
+  routeKind: "apply-ordering"
+  discharges: "The components of a platform install in a dependency order. Without an ordering declaration the Applications would apply in no guaranteed order, and a component would reach the cluster before the one it depends on."
+  declaration:
+    stages:
+      -
+        order: 1
+        name: "sync-wave-0"
+        observedSyncWave: 0
+        objectCount: 1
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "prometheus-adapter-ocp-pre"
+      -
+        order: 2
+        name: "sync-wave-1"
+        observedSyncWave: 1
+        objectCount: 2
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nfd-ocp-olm"
+            - "prometheus-adapter-ocp"
+      -
+        order: 3
+        name: "sync-wave-2"
+        observedSyncWave: 2
+        objectCount: 1
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "prometheus-adapter-ocp-post"
+      -
+        order: 4
+        name: "sync-wave-5"
+        observedSyncWave: 5
+        objectCount: 1
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nfd-ocp"
+      -
+        order: 5
+        name: "sync-wave-9"
+        observedSyncWave: 9
+        objectCount: 3
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "cert-manager-ocp-olm"
+            - "gpu-operator-ocp-olm"
+            - "network-operator-ocp-olm"
+      -
+        order: 6
+        name: "sync-wave-13"
+        observedSyncWave: 13
+        objectCount: 2
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "cert-manager-ocp"
+            - "network-operator-ocp"
+      -
+        order: 7
+        name: "sync-wave-17"
+        observedSyncWave: 17
+        objectCount: 1
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "gpu-operator-ocp"
+      -
+        order: 8
+        name: "sync-wave-20"
+        observedSyncWave: 20
+        objectCount: 1
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nvidia-dra-driver-gpu-ocp-pre"
+      -
+        order: 9
+        name: "sync-wave-21"
+        observedSyncWave: 21
+        objectCount: 1
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nvidia-dra-driver-gpu-ocp"
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "the sync-wave annotation each Application carries"
+        proven: false
+    automatic: false
+  boundedness:
+    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 13 rendered Applications, which fall into 9 waves. The retained recipe deploys 10 components, and 9 of the 9 dependency edges between them hold in those waves."
+    - "12 further dependency edges in the recipe name a component the recipe does not deploy (cert-manager, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kube-prometheus-stack, nfd, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, prometheus-operator-crds). No sync-wave exists for those components, so these edges are recorded and not checked."
+    - "None of them has a deployed component on the depending side, so no deployed component waits on something absent."
+    - "3 waved Applications render without appearing in the recipe's deployment order (prometheus-adapter-ocp-pre, prometheus-adapter-ocp-post, nvidia-dra-driver-gpu-ocp-pre). They are companions of a component, and they are named here so the comparison does not drop them silently."
+    - "The ordering-parity lane in data/aicr-ordering-parity/summary.md covers four hand-retained entries and does not cover this one. The comparison above applies the same dependency-edge rule to this entry's own recipe."
+    - "No runtime has executed this route. Nothing in this repository has synced this Application set on any cluster."
+    - "12 of the 14 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package has not been published, and this entry does not retain it, so Argo CD could not resolve those sources today."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "examples/aicr/ocp-training/argocd-rendered/templates"
+      - "examples/aicr/ocp-training/recipe.yaml"

@@ -6,7 +6,7 @@
   "generatedFrom": [
     "data/workshop-guides/guides.yaml"
   ],
-  "count": 52,
+  "count": 53,
   "rows": [
     {
       "id": "journey-values-did-nothing",
@@ -256,6 +256,19 @@
       "firstCommand": "cub config diff upgrade-review/current.yaml upgrade-review/candidate.yaml --json --out upgrade-review/comparison.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-upgrade-guide.html"
+      }
+    },
+    {
+      "id": "gpu-operator-upgrade",
+      "group": "helm-questions",
+      "groupTitle": "Helm questions",
+      "title": "See what a gpu-operator upgrade changes",
+      "summary": "Render three versions of NVIDIA's public gpu-operator chart, then compare a version upgrade, a patch upgrade and a driver version change field by field.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-gpu-operator-upgrade-guide.html",
+      "firstCommand": "cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-gpu-operator-upgrade-guide.html"
       }
     },
     {

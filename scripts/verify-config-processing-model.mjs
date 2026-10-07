@@ -4,6 +4,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 import { readYaml } from "./lib/proof-common.mjs";
+import { listAicrRecipeDirectories, loadAicrRecipeEntries } from "./lib/aicr-recipe-entries.mjs";
 
 const root = process.cwd();
 const read = (path) => readFileSync(join(root, path), "utf8");
@@ -376,6 +377,137 @@ for (const record of records) {
   if (spec.ownership?.status === "declared") ownershipDeclared += 1;
 }
 
+// Every AICR recipe directory that is retained and rendered must be its own
+// Catalog entry: one record and one listing, with a decided flattening verdict
+// and a recorded route. This check rediscovers the directories itself instead
+// of trusting the generator's list, because the failure it guards against is a
+// generator that skips a directory. A skipped directory used to read as
+// not-assessed, and nothing refused it.
+const aicrRecipeEntries = loadAicrRecipeEntries({ root });
+requireCondition(aicrRecipeEntries.length > 0, "no retained AICR recipe directory was discovered");
+let aicrRecipeEntriesWithRecord = 0;
+for (const entry of aicrRecipeEntries) {
+  const matching = records.filter((record) => record.spec?.configuration?.objects === entry.renderedRel);
+  requireCondition(
+    matching.length === 1,
+    `${entry.entryRel}: expected exactly one Catalog record for this retained AICR recipe directory, found ${matching.length}`,
+  );
+  if (matching.length !== 1) continue;
+  aicrRecipeEntriesWithRecord += 1;
+  const record = matching[0];
+  const name = record.metadata?.name ?? "unnamed-record";
+  const spec = record.spec ?? {};
+  const flattening = spec.processing?.flattening ?? {};
+  requireCondition(
+    flattening.status === "decided"
+      && flattening.verdict !== "not-assessed"
+      && Boolean(flattening.record)
+      && existsSync(join(root, flattening.record)),
+    `${name}: a retained AICR recipe entry is ${flattening.verdict ?? "missing a verdict"} with no decided flattening verdict on file; every such entry must resolve its own verdict`,
+  );
+  requireCondition(
+    spec.lifecycle?.routeIntent?.status === "recorded"
+      && (spec.lifecycle.routeIntent.routes ?? []).length > 0
+      && spec.lifecycle.routeIntent.routes.every((route) => route.automatic === false),
+    `${name}: a retained AICR recipe entry must carry a recorded route intent that no run has made automatic`,
+  );
+  const delivery = spec.delivery ?? {};
+  // The ConfigHub-ready lane uploads a bundle once and deletes the Space. That
+  // temporary upload is the only one a retained entry may record, and it must
+  // name the lane's receipt.
+  const temporaryUpload = delivery.configHubUpload?.status === "temporary-pass"
+    && delivery.configHubUpload.receipt === "data/confighub-ready/receipt.yaml";
+  const publishedRoles = ["sourcePackageOci", "literalConfigOci", "configHubUpload", "configHubReleaseOci"]
+    .filter((role) => !["not-published", "not-run"].includes(delivery[role]?.status))
+    .filter((role) => !(role === "configHubUpload" && temporaryUpload));
+  requireCondition(
+    publishedRoles.length === 0 && (spec.source?.packageOciRef ?? "") === "",
+    `${name}: ${entry.receiptRel} says the entry was never published, and the record claims ${publishedRoles.join(", ") || "a source package reference"}`,
+  );
+  requireCondition(
+    delivery.argoCd === "not-run" && delivery.direct === "not-run" && !/pass|live|reconciled|uploaded/.test(String(delivery.flux)),
+    `${name}: ${entry.receiptRel} says the entry was never delivered, and the record claims a delivery result`,
+  );
+  requireCondition(
+    !spec.promotion && record.status?.level === "partial"
+      && String(record.status?.claim ?? "").includes("not published")
+      && String(record.status?.claim ?? "").includes("not deployed"),
+    `${name}: the record must stay partial and say the entry is not published and not deployed`,
+  );
+  const listingPath = join(root, "site/listings", `${name}.json`);
+  requireCondition(existsSync(listingPath), `${name}: the entry has no listing at site/listings/${name}.json`);
+  if (!existsSync(listingPath)) continue;
+  const listing = JSON.parse(readFileSync(listingPath, "utf8"));
+  requireCondition(
+    listing.flattened?.verdict === flattening.verdict
+      && listing.flattened?.verdictStatus === "decided"
+      && listing.routing?.routeStatus === "recorded",
+    `${name}: the listing does not carry the decided verdict and the recorded route (found ${listing.flattened?.verdict}, ${listing.routing?.routeStatus})`,
+  );
+  requireCondition(
+    (listing.oci?.bundles ?? []).length === 4
+      && listing.oci.bundles.every(
+        (bundle) =>
+          (bundle.state === "not-published" || (bundle.role === "confighub-upload" && temporaryUpload && bundle.state === "local"))
+          && bundle.referenceState !== "published",
+      )
+      && (listing.oci?.runtimes ?? []).every((runtime) => ["not-run", "not-applicable"].includes(runtime.state)),
+    `${name}: the listing reads as published or delivered for an entry that is neither`,
+  );
+  requireCondition(
+    (listing.variants?.known ?? []).length === 1 && listing.variants.known[0].self === true,
+    `${name}: the listing presents another entry as a variant of this base`,
+  );
+}
+
+// The same rule for the recipe directories that are retained by hand, whatever
+// stage they have reached: one record and one listing over the rendered
+// Applications, with a decided verdict and a recorded route. A directory whose
+// generation receipt records public publication as not-run may not read as
+// published in its listing.
+const retainedOfflineIds = new Set(aicrRecipeEntries.map((entry) => entry.id));
+const aicrRecipeDirectories = listAicrRecipeDirectories(root);
+let aicrRecipeDirectoriesWithRecord = 0;
+for (const id of aicrRecipeDirectories) {
+  const renderedRel = `examples/aicr/${id}/argocd-rendered`;
+  const matching = records.filter((record) => record.spec?.configuration?.objects === renderedRel);
+  requireCondition(
+    matching.length === 1,
+    `examples/aicr/${id}: expected exactly one Catalog record over ${renderedRel}, found ${matching.length}`,
+  );
+  if (matching.length !== 1) continue;
+  aicrRecipeDirectoriesWithRecord += 1;
+  if (retainedOfflineIds.has(id)) continue;
+  const record = matching[0];
+  const name = record.metadata?.name ?? "unnamed-record";
+  const flattening = record.spec?.processing?.flattening ?? {};
+  requireCondition(
+    flattening.status === "decided" && Boolean(flattening.record) && existsSync(join(root, flattening.record)),
+    `${name}: an AICR recipe entry is ${flattening.verdict ?? "missing a verdict"} with no decided flattening verdict on file`,
+  );
+  requireCondition(
+    record.spec?.lifecycle?.routeIntent?.status === "recorded",
+    `${name}: an AICR recipe entry must carry a recorded route intent`,
+  );
+  const listingPath = join(root, "site/listings", `${name}.json`);
+  requireCondition(existsSync(listingPath), `${name}: the entry has no listing at site/listings/${name}.json`);
+  if (!existsSync(listingPath)) continue;
+  const listing = JSON.parse(readFileSync(listingPath, "utf8"));
+  requireCondition(
+    listing.flattened?.verdict === flattening.verdict && listing.routing?.routeStatus === "recorded",
+    `${name}: the listing does not carry the decided verdict and the recorded route`,
+  );
+  const generation = readYaml(join(root, "examples/aicr", id, "generation-receipt.yaml"));
+  if (generation.status?.publicOciPublication === "not-run") {
+    requireCondition(
+      (listing.oci?.bundles ?? []).every((bundle) => bundle.state !== "published" && bundle.referenceState !== "published")
+        && (listing.oci?.runtimes ?? []).every((runtime) => ["not-run", "not-applicable", "not-recorded"].includes(runtime.state))
+        && record.status?.level === "partial",
+      `${name}: examples/aicr/${id}/generation-receipt.yaml records public OCI publication as not-run, and the entry reads as published or delivered`,
+    );
+  }
+}
+
 requireCondition(
   JSON.stringify(assessmentCases.stageOrder) === JSON.stringify(assessmentStageOrder),
   "cross-format assessment stage order changed",
@@ -529,5 +661,5 @@ const sourceSummary = [...sourceCounts.entries()]
   .map(([source, count]) => `${source}=${count}`)
   .join(", ");
 console.log(
-  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}`,
+  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}; retained AICR recipe directories with their own record and listing=${aicrRecipeEntriesWithRecord}/${aicrRecipeEntries.length}; all AICR recipe directories with one record=${aicrRecipeDirectoriesWithRecord}/${aicrRecipeDirectories.length}`,
 );
