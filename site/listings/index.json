@@ -10,7 +10,8 @@
     "A listing is a projection of the BaseVariantRecord it names in generatedFrom. The record decides membership.",
     "Read coverage before citing a verdict. Only checked counts as evidence, and not_declared is not a pass.",
     "A route stays a proposal until a destination resolves it. automatic is false until a run proves otherwise.",
-    "A planned OCI reference names where a bundle would go. It has not been pushed."
+    "A planned OCI reference names where a bundle would go. It has not been pushed.",
+    "Every listing carries the same five nextSteps in the same order. A step states what the catalog has run for that entry, and a step whose precondition is missing carries no command."
   ],
   "generatedFrom": {
     "catalog": {

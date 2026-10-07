@@ -18,7 +18,8 @@
     "routing",
     "lifecycle",
     "assessment",
-    "evidence"
+    "evidence",
+    "nextSteps"
   ],
   "properties": {
     "apiVersion": {
@@ -1316,6 +1317,164 @@
         },
         "assignment": {
           "$ref": "#/$defs/digestedFile"
+        }
+      }
+    },
+    "nextSteps": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "description": "The same five steps on every listing, in the same order: get the exact objects, compare with another version or base, upload it as a variant, deploy it, promote a change. Each step states what the catalog has run for this entry, read from the sections above, and gives the commands this entry supports. A step whose precondition is missing carries no command and says what would unblock it.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "state",
+          "summary",
+          "basis",
+          "commands"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "get-objects",
+              "compare",
+              "upload",
+              "deploy",
+              "promote"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "state": {
+            "enum": [
+              "run-for-this-entry",
+              "partly-run-for-this-entry",
+              "not-run-for-this-entry",
+              "blocked-for-this-entry",
+              "not-available"
+            ],
+            "description": "run-for-this-entry: the catalog has a recorded result for this step on this entry. partly-run-for-this-entry: a result exists with a recorded limit, or only locally or for a related object set. not-run-for-this-entry: the commands apply and the catalog records no run. blocked-for-this-entry: the catalog's own run is blocked. not-available: a precondition is missing, so no command is given."
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          },
+          "basis": {
+            "type": "array",
+            "minItems": 1,
+            "description": "The listing fields this step's state was read from.",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "commands": {
+            "type": "array",
+            "description": "The commands for this entry, in order. Empty when the step is not available or blocked.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "command"
+              ],
+              "properties": {
+                "comment": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "command": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "expect": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "The output line the command prints when the bytes match the listing."
+                },
+                "needsAccount": {
+                  "type": "boolean",
+                  "description": "True when the command contacts ConfigHub and needs a signed-in account."
+                },
+                "writes": {
+                  "type": "boolean",
+                  "description": "True when the command changes ConfigHub data."
+                }
+              }
+            }
+          },
+          "siblings": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Every other maintained entry for the same source, in other versions and other bases.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "url",
+                "version",
+                "base",
+                "relation"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "version": {
+                  "type": "string"
+                },
+                "base": {
+                  "type": "string"
+                },
+                "relation": {
+                  "enum": [
+                    "other-base",
+                    "other-version"
+                  ]
+                }
+              }
+            }
+          },
+          "needs": {
+            "type": "array",
+            "minItems": 1,
+            "description": "The names of the destination inputs recorded in lifecycle.installTimeInputs.",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "alsoRecorded": {
+            "type": "string",
+            "minLength": 1
+          },
+          "link": {
+            "type": "string",
+            "format": "uri"
+          },
+          "receipt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "receiptUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "unblock": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What would make an unavailable step available."
+          }
         }
       }
     }

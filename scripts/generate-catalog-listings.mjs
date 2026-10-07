@@ -23,6 +23,7 @@ import { join } from "node:path";
 import { check, relativeRepo, repoRoot, sha256, trackedExists, write } from "./lib/proof-common.mjs";
 
 import { loadRoleAssignments, discoveryFor, testRoleAssignments } from "./lib/catalog-roles.mjs";
+import { NEXT_STEPS, NEXT_STEP_STATES, buildNextSteps, compareVersions, deriveStepState, nextStepClaimErrors, uploadPath } from "./lib/entry-next-steps.mjs";
 
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
@@ -116,6 +117,8 @@ function buildSuccessors(id, spec, labels, allRecords) {
 }
 
 const LISTING_VERSION = "1";
+// One fetch plan per record, filled on first use by fetchPlan() below.
+const fetchPlans = new Map();
 const COMMAND_CONTRACT_PATH = "data/config-workshop-command-contract/summary.md";
 
 const catalogPath = join(repoRoot, "data", "base-variant-records", "records.json");
@@ -321,8 +324,18 @@ function buildOutputs() {
     siblings.get(key).push(record);
   }
 
+  // Every maintained entry for one source, across versions and bases. A step
+  // that compares an entry needs its siblings in other versions too, and
+  // variants.known only holds the bases of one version.
+  const sameSource = new Map();
+  for (const record of records) {
+    const key = sourceNameKey(record);
+    if (!sameSource.has(key)) sameSource.set(key, []);
+    sameSource.get(key).push(record);
+  }
+
   const listings = records
-    .map((record) => buildListing(record, { catalogFile, siblings: siblings.get(sourceKey(record)), allRecords: records, roleAssignments }))
+    .map((record) => buildListing(record, { catalogFile, siblings: siblings.get(sourceKey(record)), sameSource: sameSource.get(sourceNameKey(record)), allRecords: records, roleAssignments }))
     .sort((left, right) => byText(left.identity.id, right.identity.id));
 
   const entries = new Map();
@@ -353,6 +366,7 @@ function buildIndex(listings, catalogFile) {
       "Read coverage before citing a verdict. Only checked counts as evidence, and not_declared is not a pass.",
       "A route stays a proposal until a destination resolves it. automatic is false until a run proves otherwise.",
       "A planned OCI reference names where a bundle would go. It has not been pushed.",
+      "Every listing carries the same five nextSteps in the same order. A step states what the catalog has run for that entry, and a step whose precondition is missing carries no command.",
     ],
     generatedFrom: { catalog: catalogFile, recordKind: "BaseVariantRecord" },
     counts: {
@@ -375,7 +389,7 @@ function buildIndex(listings, catalogFile) {
   };
 }
 
-function buildListing(record, { catalogFile, siblings, allRecords = [], roleAssignments }) {
+function buildListing(record, { catalogFile, siblings, sameSource = [], allRecords = [], roleAssignments }) {
   const spec = record.spec ?? {};
   const id = record.metadata?.name ?? "";
   const labels = record.metadata?.labels ?? {};
@@ -386,7 +400,7 @@ function buildListing(record, { catalogFile, siblings, allRecords = [], roleAssi
   check(existsSync(recordPath), `${id}: the retained record file is missing`);
   const digest = normalizeDigest(spec.configuration?.digest, `${id}: configuration digest`);
 
-  return {
+  const listing = {
     apiVersion: "catalog.confighub.com/v1alpha1",
     kind: "CatalogListing",
     listingVersion: LISTING_VERSION,
@@ -412,6 +426,81 @@ function buildListing(record, { catalogFile, siblings, allRecords = [], roleAssi
     lifecycle: buildLifecycle(spec),
     assessment: buildAssessment(spec),
     evidence: buildEvidence(spec),
+  };
+  // The five steps are derived last, from the finished sections, and then
+  // checked against those same sections before the listing is returned.
+  const context = nextStepContext(record, sameSource);
+  listing.nextSteps = buildNextSteps(listing, context);
+  const claimErrors = nextStepClaimErrors(listing, context);
+  check(claimErrors.length === 0, claimErrors[0]);
+  return listing;
+}
+
+// How a reader fetches the objects one record retains. A single retained file
+// is fetched by its raw URL. A directory is fetched through its inventory, and
+// only when the inventory is the file the record's digest covers and every
+// path it lists is tracked. Anything else has no fetch plan, so its steps show
+// a link and no command.
+function fetchPlan(record) {
+  const id = record.metadata?.name ?? "";
+  if (!fetchPlans.has(id)) fetchPlans.set(id, computeFetchPlan(record.spec?.configuration ?? {}));
+  return fetchPlans.get(id);
+}
+
+function computeFetchPlan(configuration) {
+  const none = { kind: "none" };
+  const retained = retainedObjectFile(configuration.objects);
+  if (retained) return { kind: "file", path: retained.path, url: retained.url, sha256: retained.sha256 };
+  const { inventory, objects } = configuration;
+  if (configuration.digestRole !== "inventory-file" || typeof inventory !== "string" || typeof objects !== "string") return none;
+  const inventoryName = inventory.slice(objects.length + 1);
+  if (!inventory.startsWith(`${objects}/`) || !/^[A-Za-z0-9._-]+$/.test(inventoryName)) return none;
+  if (!trackedExists(join(repoRoot, inventory))) return none;
+  const bytes = readFileSync(join(repoRoot, inventory));
+  const digest = `sha256:${sha256(bytes)}`;
+  if (digest !== normalizeDigest(configuration.digest, "inventory digest")) return none;
+  const files = [];
+  for (const line of bytes.toString("utf8").split("\n").filter(Boolean)) {
+    // sha256sum format: 64 hex characters, two spaces, then the path, so the
+    // path starts at column 67. The fetch command cuts on that column.
+    const match = /^[0-9a-f]{64} {2}([A-Za-z0-9._/-]+)$/.exec(line);
+    if (!match || match[1].startsWith("/") || match[1].split("/").some((part) => !part || part === "." || part === "..")) return none;
+    files.push(match[1]);
+  }
+  if (files.length === 0 || files.some((file) => !trackedExists(join(repoRoot, objects, file)))) return none;
+  const dirs = [...new Set(files.map((file) => (file.includes("/") ? file.slice(0, file.lastIndexOf("/")) : ".")))].sort(byText);
+  // The files join into one multi-document file only when they sit in one
+  // directory and each already opens with a document separator.
+  const joinable = dirs.length === 1 && dirs[0] !== "." && !dirs[0].includes("/")
+    && files.every((file) => file.endsWith(".yaml") && readFileSync(join(repoRoot, objects, file), "utf8").startsWith("---"));
+  return {
+    kind: "inventory",
+    path: objects,
+    inventoryName,
+    rawBase: `https://raw.githubusercontent.com/confighub/helm-expt/main/${objects.split("/").map(encodeURIComponent).join("/")}`,
+    sha256: digest,
+    dirs,
+    ...(joinable ? { joinGlob: `${dirs[0]}/*.yaml` } : {}),
+  };
+}
+
+function nextStepContext(record, sameSource) {
+  const id = record.metadata?.name ?? "";
+  return {
+    plan: fetchPlan(record),
+    related: sameSource
+      .filter((other) => (other.metadata?.name ?? "") !== id)
+      .map((other) => {
+        const otherId = other.metadata?.name ?? "";
+        return {
+          id: otherId,
+          url: `${SITE_BASE_URL}listings/${otherId}.json`,
+          version: other.metadata?.labels?.sourceVersion || other.spec?.source?.version || "",
+          base: other.metadata?.labels?.base || other.spec?.baseVariant?.name || "",
+          format: other.spec?.configuration?.format ?? "",
+          plan: fetchPlan(other),
+        };
+      }),
   };
 }
 
@@ -838,6 +927,11 @@ function blobUrl(path) {
   return link(path)?.url ?? "";
 }
 
+function sourceNameKey(record) {
+  const source = record.spec?.source ?? {};
+  return [source.type ?? "", source.name ?? ""].join("|");
+}
+
 function sourceKey(record) {
   const source = record.spec?.source ?? {};
   return [source.type ?? "", source.name ?? "", source.version ?? ""].join("|");
@@ -1047,6 +1141,8 @@ function runSelfTest() {
   }
   check(byText("README.md", "rendered") < 0, "self-test: sorting must compare code units, not collated text");
 
+  runNextStepSelfTest(loaded);
+
   const digest = normalizeDigest("b".repeat(64), "self-test digest");
   check(digest === `sha256:${"b".repeat(64)}`, "self-test: a bare hex digest must gain its algorithm prefix");
   let refused = false;
@@ -1076,4 +1172,142 @@ function runSelfTest() {
     !notes.some((note) => note.name === "renderParity") && !projected.attributes.some((entry) => entry.name === "renderParity"),
     "self-test: a coverage lane must stay in coverage",
   );
+}
+
+// The five steps are a claim about each entry, so the refusal is tested by
+// tampering: every case below changes one step of a correctly built listing
+// and requires nextStepClaimErrors to name it.
+function runNextStepSelfTest(loaded) {
+  const stepSchema = loaded.properties.nextSteps.items.properties;
+  check(
+    JSON.stringify(stepSchema.id.enum) === JSON.stringify(NEXT_STEPS.map((step) => step.id)),
+    "self-test: the schema and the step table must name the same five steps in the same order",
+  );
+  check(
+    JSON.stringify(stepSchema.state.enum) === JSON.stringify([...NEXT_STEP_STATES.keys()]),
+    "self-test: the schema and the state table must hold the same step states",
+  );
+  check(loaded.required.includes("nextSteps"), "self-test: every listing must carry nextSteps");
+  check(compareVersions("9.5.15", "10.1.3") < 0 && compareVersions("v0.21.0", "v0.20.0") > 0, "self-test: versions must compare as numbers");
+
+  const digest = `sha256:${"c".repeat(64)}`;
+  const stage = (id, evidenceState) => ({ id, evidenceState });
+  const lane = (status) => ({ status, declared: null });
+  const fixture = ({ ociRef = "", literal = "not-published", upload = "not-published", runtime = "not-run", promotion = "not-recorded", scanOps = "not_declared" }) => ({
+    identity: { id: "example-1-0-0-default", name: "example", version: "1.0.0", base: "default" },
+    source: { format: "helm", name: "example", ociRef, fixedAtBuildTime: ["namespace=example"] },
+    flattened: { materializationStatus: "captured", format: "kubernetes-yaml", objectCount: 3, digest, objectsUrl: "https://example.test/objects" },
+    oci: {
+      bundles: [
+        { role: "source-package", state: "not-recorded", reference: "", referenceState: "none" },
+        {
+          role: "literal-config",
+          state: literal,
+          reference: literal === "published" ? `oci://registry.example/example-config@${digest}` : "",
+          referenceState: literal === "published" ? "published" : "none",
+        },
+        { role: "confighub-upload", state: upload, reference: "", referenceState: "none" },
+        { role: "confighub-release", state: "not-published", reference: "", referenceState: "none" },
+      ],
+      runtimes: [{ runtime: "argo-cd", state: runtime }, { runtime: "flux", state: "not-run" }, { runtime: "direct", state: "not-run" }],
+    },
+    lifecycle: { promotion: { state: promotion }, coverage: { confighub_scan_ops: lane(scanOps) }, installTimeInputs: [] },
+    assessment: { stages: [stage("inspection", "completed"), stage("materialization", "completed")] },
+  });
+  const plan = { kind: "file", path: "objects.yaml", url: "https://example.test/objects.yaml", sha256: digest };
+  const sibling = { id: "example-0-9-0-default", url: "https://example.test/sibling.json", version: "0.9.0", base: "default", format: "kubernetes-yaml", plan };
+  const built = (options, context = { plan, related: [] }) => {
+    const listing = fixture(options);
+    listing.nextSteps = buildNextSteps(listing, context);
+    return listing;
+  };
+  const refuses = (listing, context, word) => nextStepClaimErrors(listing, context).some((message) => message.includes(word));
+  const alone = { plan, related: [] };
+
+  // An unpublished entry: the first step runs, and nothing after it is offered.
+  const unpublished = built({});
+  check(nextStepClaimErrors(unpublished, alone).length === 0, "self-test: a correctly built listing must pass its own claim check");
+  check(validate(loaded.properties.nextSteps, unpublished.nextSteps, "nextSteps", loaded).length === 0, "self-test: built steps must fit the published schema");
+  check(
+    JSON.stringify(unpublished.nextSteps.map((step) => step.state)) ===
+      JSON.stringify(["run-for-this-entry", "not-available", "not-available", "not-available", "not-available"]),
+    "self-test: an unpublished entry with no sibling must offer only the first step",
+  );
+  check(uploadPath(unpublished).kind === "none", "self-test: an unpublished entry has no public artifact to upload");
+  check(
+    unpublished.nextSteps.slice(1).every((step) => step.commands.length === 0 && step.unblock),
+    "self-test: an unavailable step must carry no command and must say what would unblock it",
+  );
+
+  // Tamper 1: claim a promotion the record does not hold.
+  const claimed = structuredClone(unpublished);
+  claimed.nextSteps[4].state = "run-for-this-entry";
+  check(refuses(claimed, alone, "step promote claims run-for-this-entry, and its record supports not-available"), "self-test: a promotion the record does not hold must be refused");
+
+  // Tamper 2: show an upload command for an entry with nothing published.
+  const commanded = structuredClone(unpublished);
+  commanded.nextSteps[2].commands = [{ command: "cub variant upload --component example --variant default ./rendered" }];
+  check(refuses(commanded, alone, "still shows a command"), "self-test: a command on an unavailable step must be refused");
+  check(refuses(commanded, alone, "no public artifact to upload"), "self-test: an upload command with no public artifact must be refused");
+
+  // Tamper 3: reorder the steps.
+  const reordered = structuredClone(unpublished);
+  reordered.nextSteps.reverse();
+  check(refuses(reordered, alone, "step 1 must be get-objects"), "self-test: the five steps must keep their order");
+
+  // Tamper 4: drop a step.
+  const short = structuredClone(unpublished);
+  short.nextSteps.pop();
+  check(refuses(short, alone, "exactly 5 steps"), "self-test: a listing must carry all five steps");
+
+  // Tamper 5: a state word outside the vocabulary fails the schema.
+  const invented = structuredClone(unpublished);
+  invented.nextSteps[3].state = "probably-fine";
+  check(validate(loaded.properties.nextSteps, invented.nextSteps, "nextSteps", loaded).length > 0, "self-test: an unrecorded step state must fail the schema");
+
+  // A published entry gets commands, and its states follow its record.
+  const pinned = `oci://registry.example/example:1.0.0@${digest}`;
+  const published = built({ ociRef: pinned, scanOps: "checked", promotion: "partial" }, { plan, related: [sibling] });
+  const withSibling = { plan, related: [sibling] };
+  check(nextStepClaimErrors(published, withSibling).length === 0, "self-test: a published listing must pass its own claim check");
+  check(
+    JSON.stringify(published.nextSteps.map((step) => step.state)) ===
+      JSON.stringify(["run-for-this-entry", "not-run-for-this-entry", "run-for-this-entry", "not-run-for-this-entry", "partly-run-for-this-entry"]),
+    "self-test: a published entry's step states must follow its record",
+  );
+  check(published.nextSteps[1].commands.some(({ command }) => command === "cub config diff example-0-9-0-default.yaml example-1-0-0-default.yaml --summary"), "self-test: the compare step must name a real sibling, older version first");
+  check(published.nextSteps[0].commands.some(({ command }) => command.includes(`--pull ${pinned} --base default`)), "self-test: the render command must pull the pinned package");
+
+  // Tamper 6: a watch-grade promotion may not read as a pass, and a delivery
+  // nobody ran may not read as run.
+  const rounded = structuredClone(published);
+  rounded.nextSteps[4].state = "run-for-this-entry";
+  check(refuses(rounded, withSibling, "its record supports partly-run-for-this-entry"), "self-test: a partial promotion must not be rounded up");
+  const delivered = structuredClone(published);
+  delivered.nextSteps[3].state = "run-for-this-entry";
+  check(refuses(delivered, withSibling, "step deploy claims run-for-this-entry"), "self-test: a delivery that never ran must be refused");
+
+  // Tamper 7: pull a package other than the one the listing pins.
+  const swapped = structuredClone(published);
+  swapped.nextSteps[0].commands.at(-1).command = swapped.nextSteps[0].commands.at(-1).command.replace(pinned, "oci://registry.example/example:latest");
+  check(refuses(swapped, withSibling, "pulls a package the listing does not pin"), "self-test: a pull of an unpinned package must be refused");
+
+  // Tamper 8: name a sibling that is not an entry for this source, and link a
+  // receipt the listing does not record.
+  const stranger = structuredClone(published);
+  stranger.nextSteps[1].siblings.push({ id: "another-2-0-0-default", url: "https://example.test/x.json", version: "2.0.0", base: "default", relation: "other-version" });
+  check(refuses(stranger, withSibling, "is not an entry for the same source"), "self-test: an invented sibling must be refused");
+  const receipted = structuredClone(published);
+  receipted.nextSteps[4].receiptUrl = "https://example.test/receipt.yaml";
+  check(refuses(receipted, withSibling, "links a receipt the listing does not record"), "self-test: an invented receipt must be refused");
+
+  // The state table, one row at a time.
+  const facts = { hasObjects: true, siblingCount: 0, comparableCount: 0 };
+  check(deriveStepState(fixture({ promotion: "blocked", ociRef: pinned }), "promote", facts).state === "blocked-for-this-entry", "self-test: a blocked promotion must read as blocked");
+  check(built({ promotion: "blocked", ociRef: pinned }).nextSteps[4].commands.length === 0, "self-test: a blocked promotion must carry no command");
+  check(deriveStepState(fixture({ runtime: "pass" }), "deploy", facts).state === "run-for-this-entry", "self-test: a passed runtime is a delivery run");
+  check(deriveStepState(fixture({ runtime: "partial" }), "deploy", facts).state === "partly-run-for-this-entry", "self-test: a partial runtime is not a delivery run");
+  check(deriveStepState(fixture({ upload: "local" }), "upload", facts).state === "partly-run-for-this-entry", "self-test: a local upload is not a retained one");
+  check(deriveStepState(fixture({ literal: "published" }), "upload", facts).state === "not-run-for-this-entry", "self-test: a published bundle nobody uploaded has not run");
+  check(deriveStepState(fixture({}), "get-objects", { ...facts, hasObjects: false }).state === "not-available", "self-test: an entry with no retained objects offers no fetch");
 }

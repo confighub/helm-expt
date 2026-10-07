@@ -1451,6 +1451,133 @@ for (const asset of downloadableGuideAssets) {
   }
 }
 
+// Every Catalog entry page carries the same five steps under one fixed
+// heading, built from the nextSteps array of the entry's own listing. This
+// checks the pages against the listings, which is what keeps the block honest:
+// every entry has exactly one block, the block shows the states its listing
+// records, and a step with a missing precondition shows no command.
+const ENTRY_STEPS_HEADING = '<h2 id="use-in-confighub">Use this entry in ConfigHub</h2>';
+const ENTRY_STEP_LABELS = ["Get the exact objects", "Compare with another version or base", "Upload it as a variant", "Deploy it", "Promote a change"];
+const ENTRY_STEP_STATE_TEXT = {
+  "run-for-this-entry": "Run for this entry",
+  "partly-run-for-this-entry": "Partly run for this entry",
+  "not-run-for-this-entry": "Not run for this entry",
+  "blocked-for-this-entry": "Blocked for this entry",
+  "not-available": "Not available yet",
+};
+const ENTRY_STEPS_COMMENT_MAX = 88;
+{
+  const listingDir = path.join(root, "site/listings");
+  const listings = new Map();
+  if (fs.existsSync(listingDir)) {
+    for (const name of fs.readdirSync(listingDir).filter((entry) => entry.endsWith(".json") && entry !== "index.json").sort()) {
+      const listing = JSON.parse(fs.readFileSync(path.join(listingDir, name), "utf8"));
+      listings.set(listing.identity.id, listing);
+    }
+  }
+  const htmlFiles = [];
+  const walk = (dir) => {
+    for (const name of fs.readdirSync(dir).sort()) {
+      const full = path.join(dir, name);
+      if (fs.statSync(full).isDirectory()) walk(full);
+      else if (name.endsWith(".html")) htmlFiles.push(full);
+    }
+  };
+  for (const dir of ["site/charts", "site/d"]) {
+    if (fs.existsSync(path.join(root, dir))) walk(path.join(root, dir));
+  }
+  const blocksById = new Map();
+  for (const fullPath of htmlFiles) {
+    const html = fs.readFileSync(fullPath, "utf8");
+    const file = path.relative(root, fullPath);
+    const isEntryPage = file.startsWith("site/charts/") && file !== "site/charts/index.html";
+    const section = html.match(/<section class="entry-steps"[\s\S]*?<\/section>/)?.[0] ?? "";
+    if (!section) {
+      if (isEntryPage) failures.push(`${file}: a Catalog entry page has no ${JSON.stringify("Use this entry in ConfigHub")} block`);
+      continue;
+    }
+    if ([...html.matchAll(/<section class="entry-steps"/g)].length !== 1) failures.push(`${file}: the entry-steps block appears more than once`);
+    if (!section.includes(ENTRY_STEPS_HEADING)) failures.push(`${file}: the entry-steps block does not carry its one fixed heading`);
+    const header = html.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "";
+    if (!header.includes('href="#use-in-confighub"')) failures.push(`${file}: the top of the page does not link the entry-steps block`);
+    if (!/<aside class="agent-note"[^>]*>[\s\S]*?nextSteps[\s\S]*?<\/aside>/.test(section)) failures.push(`${file}: the entry-steps block does not say in an agent box which listing fields it was built from`);
+    if (section.includes("<table")) failures.push(`${file}: the entry-steps block holds a table, which does not fit a phone-width page`);
+    // Phone width: a command block scrolls inside itself, and long ids,
+    // references and listing links in the prose break instead of widening
+    // the page.
+    if (!html.includes(".entry-steps pre { max-width: 100%; }") || !html.includes("overflow-x: auto")) failures.push(`${file}: the entry-steps command blocks are not held to the page width`);
+    if (!html.includes(".entry-steps p, .entry-steps .agent-note, .entry-steps :not(pre) > code { overflow-wrap: anywhere; }")) failures.push(`${file}: long ids in the entry-steps prose can widen a phone-width page`);
+    const chunks = section.split(/(?=<(?:div|details class="entry-steps-base") data-entry-steps=")/).slice(1);
+    if (chunks.length === 0) failures.push(`${file}: the entry-steps block names no entry`);
+    for (const chunk of chunks) {
+      const id = chunk.match(/data-entry-steps="([^"]+)"/)?.[1] ?? "";
+      const listing = listings.get(id);
+      if (!listing) {
+        failures.push(`${file}: the entry-steps block names ${id}, which has no listing`);
+        continue;
+      }
+      if (!blocksById.has(id)) blocksById.set(id, []);
+      blocksById.get(id).push(file);
+      const steps = [...chunk.matchAll(/<div class="entry-step" data-step="([^"]+)" data-state="([^"]+)">([\s\S]*?)<\/div>/g)];
+      if (steps.length !== ENTRY_STEP_LABELS.length) {
+        failures.push(`${file}: ${id} shows ${steps.length} steps, and every entry shows ${ENTRY_STEP_LABELS.length}`);
+        continue;
+      }
+      steps.forEach((match, index) => {
+        const [, stepId, state, body] = match;
+        const recorded = listing.nextSteps?.[index] ?? {};
+        if (!body.includes(`<h3>${index + 1}. ${ENTRY_STEP_LABELS[index]} `)) failures.push(`${file}: ${id} step ${index + 1} is not ${JSON.stringify(ENTRY_STEP_LABELS[index])}`);
+        if (recorded.id !== stepId || recorded.state !== state) {
+          failures.push(`${file}: ${id} step ${stepId} shows ${state}, and its listing records ${recorded.state ?? "no such step"}`);
+        }
+        if (!body.includes(`>${ENTRY_STEP_STATE_TEXT[state] ?? "\u0000"}</span>`)) failures.push(`${file}: ${id} step ${stepId} does not show its state in words`);
+        const commandLines = [...body.matchAll(/<span class="term-prompt">\$<\/span> /g)].length;
+        if (commandLines !== (recorded.commands ?? []).length) {
+          failures.push(`${file}: ${id} step ${stepId} shows ${commandLines} command(s), and its listing records ${(recorded.commands ?? []).length}`);
+        }
+        if (["not-available", "blocked-for-this-entry"].includes(state) && body.includes("<pre")) {
+          failures.push(`${file}: ${id} step ${stepId} is ${state} and still shows a command`);
+        }
+        if (state === "not-available" && !recorded.unblock) failures.push(`${file}: ${id} step ${stepId} is not available and does not say what would unblock it`);
+        // The code-block doctrine, applied here because its own check reads
+        // only the top-level pages: the comment sits above its command, and a
+        // comment is a short phrase.
+        for (const pre of body.matchAll(/<pre[^>]*><code>([\s\S]*?)<\/code><\/pre>/g)) {
+          for (const line of decodeBasicHtml(pre[1].replace(/<[^>]+>/g, "")).split("\n")) {
+            if (/^\s*#/.test(line) && line.length > ENTRY_STEPS_COMMENT_MAX) failures.push(`${file}: ${id} step ${stepId} has a ${line.length}-character comment, above ${ENTRY_STEPS_COMMENT_MAX}`);
+            if (/^\$ /.test(line) && /\S\s{2,}#\s/.test(line)) failures.push(`${file}: ${id} step ${stepId} puts a comment after a command`);
+          }
+        }
+      });
+      const flagged = (listing.assessment?.stages ?? []).some((stage) => stage.id === "materialization" && stage.resultState === "watch");
+      if (flagged !== chunk.includes('class="entry-steps-flag"')) {
+        failures.push(`${file}: ${id} ${flagged ? "is flagged for review and its block does not show the open question" : "is not flagged and its block shows a flag"}`);
+      }
+    }
+    // The block's own prose, held to the site's sentence cap. A flag quotes a
+    // record's open question, which is evidence and not this page's prose.
+    const prose = section.replace(/<p class="entry-steps-flag">[\s\S]*?<\/p>/g, " ").replace(/<aside[\s\S]*?<\/aside>/g, " ");
+    for (const block of proseBlocks(prose)) {
+      for (const sentence of sentences(block)) {
+        if (wordCount(sentence) > 32) failures.push(`${file}: an entry-steps sentence has ${wordCount(sentence)} words: ${JSON.stringify(sentence.slice(0, 160))}`);
+      }
+      if (/\u2014/.test(block)) failures.push(`${file}: an entry-steps sentence uses an em dash`);
+    }
+  }
+  for (const id of listings.keys()) {
+    const pages = blocksById.get(id) ?? [];
+    if (pages.length === 0) failures.push(`site/listings/${id}.json: no page carries this entry's five steps; give the entry a page or a fallback in entryStepsDocPlan()`);
+    if (pages.length > 1) failures.push(`site/listings/${id}.json: ${pages.length} pages carry this entry's five steps (${pages.join(", ")})`);
+  }
+  const catalogIndexPath = path.join(root, "site/charts/index.html");
+  if (fs.existsSync(catalogIndexPath)) {
+    const catalogIndexHtml = fs.readFileSync(catalogIndexPath, "utf8");
+    if (!/<p id="entry-steps-everywhere">Every entry page carries the same five steps under <strong>Use this entry in ConfigHub<\/strong>/.test(catalogIndexHtml)) {
+      failures.push("site/charts/index.html: the Catalog page does not say that every entry page carries the five steps");
+    }
+  }
+}
+
 if (failures.length) {
   console.error("site UX contract failed:");
   for (const failure of failures) console.error(`- ${failure}`);

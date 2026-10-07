@@ -370,5 +370,73 @@
       }
     ],
     "attributes": []
-  }
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog retains this entry's 4 objects as files in the repository, with no single file or inventory to fetch.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [],
+      "link": "https://github.com/confighub/helm-expt/blob/main/examples/plain-yaml/acme-web"
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-available",
+      "summary": "The Catalog holds no other version or base of this entry's source in the same format.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [],
+      "unblock": "A second entry for plain-yaml-acme-web in this format would give this step a sibling."
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog saved this entry in ConfigHub. The listing names no public artifact for it, so no upload command is given.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [],
+      "receipt": "runs/literal-yaml-upload-proof/receipt.yaml",
+      "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/literal-yaml-upload-proof/receipt.yaml"
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-available",
+      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [],
+      "unblock": "A published artifact for this entry, with a receipt, would make this step available."
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-available",
+      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [],
+      "unblock": "A published artifact for this entry, with a receipt, would make this step available."
+    }
+  ]
 }

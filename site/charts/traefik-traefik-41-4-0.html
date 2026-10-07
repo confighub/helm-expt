@@ -438,7 +438,21 @@
     .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
     .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
     .agent-note a { color: inherit; }
-</style>
+
+    .entry-steps .entry-step { border-top: 1px solid var(--line); padding: 14px 0 2px; }
+    .entry-steps .entry-step h3 { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; margin: 0 0 6px; }
+    .entry-steps .status.open { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .entry-steps .status.bad { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .entry-steps .status.none { color: var(--muted); background: #f3f4f6; }
+    .entry-steps .status { font-weight: 400; white-space: nowrap; }
+    .entry-steps details.entry-steps-base { border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; margin: 12px 0; }
+    .entry-steps details.entry-steps-base > summary { cursor: pointer; overflow-wrap: anywhere; }
+    .entry-steps pre { max-width: 100%; }
+    .entry-steps p, .entry-steps .agent-note, .entry-steps :not(pre) > code { overflow-wrap: anywhere; }
+    .entry-steps .term-comment { color: #7f8b96; }
+    .entry-steps .term-prompt { color: #78d99d; font-weight: 700; user-select: none; }
+    .entry-steps .entry-steps-flag { border-left: 3px solid var(--warn); padding: 2px 0 2px 12px; }
+  </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap">
@@ -528,6 +542,7 @@
     <p>Licenses: chart <strong>Apache-2.0</strong> (<a href="https://github.com/confighub/helm-expt/blob/main/data/chart-licenses/chart-licenses.yaml">the Artifact Hub package record, read 2026-08-08</a>). This describes the chart templates, not the packaged application images.</p>
     
     <p><a class="button primary" href="../promote.html?chart=traefik%2Ftraefik&current=41.4.0&base=default">Plan an upgrade or promotion</a></p>
+    <p class="entry-steps-link"><a href="#use-in-confighub">Use this entry in ConfigHub</a> in five steps, from fetching its exact objects to promoting a change.</p>
     <p><a href="./index.html">Back to the Component Catalog</a> · component versions: <a href="./traefik-traefik-41-4-0.html"><strong>41.4.0</strong></a> · <a href="./traefik-traefik-41-0-2.html">41.0.2</a> · <a href="./traefik-traefik-40-2-0.html">40.2.0</a></p>
   </header>
   <main>
@@ -559,8 +574,7 @@
     <section aria-labelledby="try-retained-chart">
       <h2 id="try-retained-chart">Try This Chart</h2>
       <p>Inspect the exact package first, then choose one of the packaged configurations. The version remains readable in the reference, and the manifest digest prevents the registry from returning different package bytes. The setup command renders files locally; it does not apply them to Kubernetes.</p>
-      <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+      <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.4.0@sha256:90bc2edf8dbea78d770b7917c7bc80c796cfcd603a02e90f3d9969a219377272 --json
 cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.4.0@sha256:90bc2edf8dbea78d770b7917c7bc80c796cfcd603a02e90f3d9969a219377272 --base default --work-dir ./traefik-traefik-41-4-0-default --non-interactive</code></pre>
       <p><strong>Run shared local configuration checks</strong> after the package has written its Kubernetes YAML:</p>
@@ -577,6 +591,67 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <p>A valid signature identifies who signed these package bytes. It does not show that the configuration is suitable for your cluster; use this page's checks and setup instructions for that decision.</p>
         <p><a href="../../runs/installer-oci-signatures/traefik-traefik/41.4.0/signature-receipt.yaml">Signature receipt</a> · <a href="../../runs/installer-oci-signatures/traefik-traefik/41.4.0/signature.sigstore.json">Sigstore bundle</a> · <a href="../d/docs/reference/installer-package-signing.html">How signature verification works</a></p>
       </details>
+    </section>
+
+    <section class="entry-steps" aria-labelledby="use-in-confighub">
+      <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
+      <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
+      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.56</code> adds.</p>
+      <div data-entry-steps="traefik-traefik-41-4-0-default">
+        <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
+          <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
+          <p>The Catalog rendered this entry and retains its 31 objects in one file.</p>
+          <pre class="terminal-body"><code><span class="term-comment"># fetch the retained objects for this entry</span>
+<span class="term-prompt">$</span> curl -fsSL -o traefik-traefik-41-4-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/traefik/traefik/41.4.0/revisions/default/r001/rendered/release-objects.yaml
+
+<span class="term-comment"># check the bytes against the listing</span>
+<span class="term-prompt">$</span> shasum -a 256 traefik-traefik-41-4-0-default.yaml
+8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b  traefik-traefik-41-4-0-default.yaml
+
+<span class="term-comment"># render this base from the signed package; step 3 uploads this directory</span>
+<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.4.0@sha256:90bc2edf8dbea78d770b7917c7bc80c796cfcd603a02e90f3d9969a219377272 --base default --work-dir ./traefik-traefik-41-4-0-default --non-interactive --namespace traefik</code></pre>
+        </div>
+        <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
+          <h3>2. Compare with another version or base <span class="status open">Not run for this entry</span></h3>
+          <p>The listing records no comparison for this entry. The commands run on the retained files, with no account. The Catalog holds 2 other versions, 40.2.0 and 41.0.2.</p>
+          <pre class="terminal-body"><code><span class="term-comment"># fetch the default base at version 41.0.2</span>
+<span class="term-prompt">$</span> curl -fsSL -o traefik-traefik-41-0-2-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/release-objects.yaml
+
+<span class="term-comment"># list what changed from 41.0.2 to 41.4.0</span>
+<span class="term-prompt">$</span> cub config diff traefik-traefik-41-0-2-default.yaml traefik-traefik-41-4-0-default.yaml --summary</code></pre>
+        </div>
+        <div class="entry-step" data-step="upload" data-state="not-run-for-this-entry">
+          <h3>3. Upload it as a variant <span class="status open">Not run for this entry</span></h3>
+          <p>The Catalog has not uploaded this entry. The commands use its signed installer package.</p>
+          <pre class="terminal-body"><code><span class="term-comment"># sign in; steps 3 to 5 write to your ConfigHub organization</span>
+<span class="term-prompt">$</span> cub auth login
+
+<span class="term-comment"># upload the directory rendered in step 1 as a Space of Units</span>
+<span class="term-prompt">$</span> cub installer upload --work-dir ./traefik-traefik-41-4-0-default --space traefik-traefik-41-4-0-default
+
+<span class="term-comment"># list the Units the upload created</span>
+<span class="term-prompt">$</span> cub unit list --space traefik-traefik-41-4-0-default</code></pre>
+        </div>
+        <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
+          <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
+          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination.</p>
+          <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
+<span class="term-prompt">$</span> cub variant create dev traefik-traefik-41-4-0-default --target workshop/target --space-pattern &quot;template:traefik-traefik-41-4-0-default-dev&quot;
+
+<span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
+<span class="term-prompt">$</span> cub release publish traefik-traefik-41-4-0-default-dev</code></pre>
+        </div>
+        <div class="entry-step" data-step="promote" data-state="not-run-for-this-entry">
+          <h3>5. Promote a change <span class="status open">Not run for this entry</span></h3>
+          <p>No promotion is recorded for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space.</p>
+          <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
+<span class="term-prompt">$</span> cub variant promote traefik-traefik-41-4-0-default-dev --dry-run -o mutations
+
+<span class="term-comment"># promote once you have read the preview</span>
+<span class="term-prompt">$</span> cub variant promote traefik-traefik-41-4-0-default-dev --change-desc &quot;Pull the reviewed base forward&quot;</code></pre>
+        </div>
+      </div>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../listings/traefik-traefik-41-4-0-default.json">traefik-traefik-41-4-0-default.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub.</aside>
     </section>
 
     <section aria-labelledby="retained-configurations">
@@ -744,7 +819,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
   </main>
   <footer>Generated from the retained installer package and its committed publication receipt. Publication proof is not runtime proof.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#retained-page-summary">What this page gives you</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#try-retained-chart">Try This Chart</a></li><li><a href="#retained-configurations">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#flattening">What This Chart Contains</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#retained-tests">What Has Been Tested</a></li><li><a href="#retained-requirements">What You Must Provide</a></li><li><a href="#retained-production">Before Production</a></li><li><a href="#retained-files">Source And Evidence Files</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#retained-page-summary">What this page gives you</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#try-retained-chart">Try This Chart</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#retained-configurations">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#flattening">What This Chart Contains</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#retained-tests">What Has Been Tested</a></li><li><a href="#retained-requirements">What You Must Provide</a></li><li><a href="#retained-production">Before Production</a></li><li><a href="#retained-files">Source And Evidence Files</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>

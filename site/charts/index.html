@@ -589,6 +589,7 @@
         <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Review before use</strong> entries have checks but need more chart-specific review. <strong>Package published; review before use</strong> confirms the exact package is available but does not claim that its runtime checks are complete. <strong>Not ready yet</strong> marks a planned path that is not runnable.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
         <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Check one question about the result</a>, then choose whether to report a public finding for Catalog review.</p>
+        <p id="entry-steps-everywhere">Every entry page carries the same five steps under <strong>Use this entry in ConfigHub</strong>, and each step says what the Catalog has run for that entry.</p>
       </div>
       <div class="card"><table id="chart-table">
         <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Base variants by version</th></tr></thead>
@@ -1658,7 +1659,7 @@
 <tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="eks-h100-training-kubeflow-v1-0-0 aicr ai platform v1.0.0 argocd    flatten-with-routes, wrapper only, route recorded, not published it is rendered as 17 argo cd applications and retained. it is not published and has not run.  placeholder">
         <td><a href="../listings/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json">eks-h100-training-kubeflow-v1-0-0</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
         <td class="mono">v1.0.0</td>
-        <td><a href="../listings/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json">Listing JSON</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.yaml">Record</a></td>
+        <td><a href="../d/docs/demo/aicr/index.html#use-in-confighub">Use this entry in ConfigHub</a> · <a href="../listings/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json">Listing JSON</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.yaml">Record</a></td>
         <td>It is rendered as 17 Argo CD Applications and retained. It is not published and has not run.</td>
         <td>The systemNodeSelector value is a placeholder. Change it to match your cluster, then regenerate the entry or make a variant.</td>
         <td>flatten-with-routes, wrapper only, route recorded, not published</td>

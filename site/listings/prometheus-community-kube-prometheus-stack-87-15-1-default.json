@@ -892,5 +892,247 @@
       }
     ],
     "attributes": []
-  }
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 125 objects in one file.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o prometheus-community-kube-prometheus-stack-87-15-1-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 prometheus-community-kube-prometheus-stack-87-15-1-default.yaml",
+          "expect": "97b4a93ca243b74fc8f39ac939701c5247eb24cd01d5eb5bfe86b81972759c09  prometheus-community-kube-prometheus-stack-87-15-1-default.yaml"
+        },
+        {
+          "comment": "render this base from the signed package; step 3 uploads this directory",
+          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:94a97814a7b82f12ab6294b51d8d70d9fbb176ee8cbd951be2e275dd63cd9858 --base default --work-dir ./prometheus-community-kube-prometheus-stack-87-15-1-default --non-interactive --namespace monitoring"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the existing-secret base of the same version",
+          "command": "curl -fsSL -o prometheus-community-kube-prometheus-stack-87-15-1-existing-secret.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/existing-secret/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what differs between the two bases",
+          "command": "cub config diff prometheus-community-kube-prometheus-stack-87-15-1-default.yaml prometheus-community-kube-prometheus-stack-87-15-1-existing-secret.yaml --summary"
+        },
+        {
+          "comment": "fetch the default base at version 86.1.0",
+          "command": "curl -fsSL -o prometheus-community-kube-prometheus-stack-86-1-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what changed from 86.1.0 to 87.15.1",
+          "command": "cub config diff prometheus-community-kube-prometheus-stack-86-1-0-default.yaml prometheus-community-kube-prometheus-stack-87-15-1-default.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "prometheus-community-kube-prometheus-stack-85-3-3-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-85-3-3-default.json",
+          "version": "85.3.3",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-85-3-3-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.json",
+          "version": "85.3.3",
+          "base": "no-crds",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-86-1-0-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-86-1-0-default.json",
+          "version": "86.1.0",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-86-1-0-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-86-1-0-no-crds.json",
+          "version": "86.1.0",
+          "base": "no-crds",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-87-15-1-existing-secret",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-15-1-existing-secret.json",
+          "version": "87.15.1",
+          "base": "existing-secret",
+          "relation": "other-base"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-87-15-1-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-15-1-no-crds.json",
+          "version": "87.15.1",
+          "base": "no-crds",
+          "relation": "other-base"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-87-19-2-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-default.json",
+          "version": "87.19.2",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-87-19-2-existing-secret",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-existing-secret.json",
+          "version": "87.19.2",
+          "base": "existing-secret",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-minimal.json",
+          "version": "87.19.2",
+          "base": "minimal",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-87-19-2-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-no-crds.json",
+          "version": "87.19.2",
+          "base": "no-crds",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-88-6-3-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-88-6-3-default.json",
+          "version": "88.6.3",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-88-6-3-existing-secret",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-88-6-3-existing-secret.json",
+          "version": "88.6.3",
+          "base": "existing-secret",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-88-6-3-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-88-6-3-no-crds.json",
+          "version": "88.6.3",
+          "base": "no-crds",
+          "relation": "other-version"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its signed installer package.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the directory rendered in step 1 as a Space of Units",
+          "command": "cub installer upload --work-dir ./prometheus-community-kube-prometheus-stack-87-15-1-default --space prometheus-community-kube-prometheus-stack-87-15-1-default",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "list the Units the upload created",
+          "command": "cub unit list --space prometheus-community-kube-prometheus-stack-87-15-1-default",
+          "needsAccount": true
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev prometheus-community-kube-prometheus-stack-87-15-1-default --target workshop/target --space-pattern \"template:prometheus-community-kube-prometheus-stack-87-15-1-default-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish prometheus-community-kube-prometheus-stack-87-15-1-default-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "needs": [
+        "alertmanagerconfigs.monitoring.coreos.com",
+        "alertmanagers.monitoring.coreos.com",
+        "podmonitors.monitoring.coreos.com",
+        "probes.monitoring.coreos.com",
+        "prometheusagents.monitoring.coreos.com",
+        "prometheuses.monitoring.coreos.com",
+        "prometheusrules.monitoring.coreos.com",
+        "scrapeconfigs.monitoring.coreos.com",
+        "servicemonitors.monitoring.coreos.com",
+        "thanosrulers.monitoring.coreos.com",
+        "kube-prometheus-stack-admission"
+      ],
+      "alsoRecorded": "The coverage lanes record a GitOps OCI run for this base. They are separate from the delivery record this step reads."
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote prometheus-community-kube-prometheus-stack-87-15-1-default-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote prometheus-community-kube-prometheus-stack-87-15-1-default-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
+    }
+  ]
 }

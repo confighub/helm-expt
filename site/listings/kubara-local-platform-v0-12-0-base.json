@@ -552,5 +552,88 @@
       }
     ],
     "attributes": []
-  }
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 77 objects in one file.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o kubara-local-platform-v0-12-0-base.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/examples/kubara/local-platform/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 kubara-local-platform-v0-12-0-base.yaml",
+          "expect": "fa12bcd9947b46b9423f4876b39fc22c764613574319bcf8a532921ec716c541  kubara-local-platform-v0-12-0-base.yaml"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-available",
+      "summary": "The Catalog holds no other version or base of this entry's source in the same format.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [],
+      "unblock": "A second entry for local-platform in this format would give this step a sibling."
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "not-available",
+      "summary": "This entry is not published, so there is no public artifact to upload.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [],
+      "unblock": "The listing records its literal configuration bundle as held only as a local layout. Publishing the rendered objects as that bundle, with a receipt, would make this step available."
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-available",
+      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [],
+      "unblock": "A published artifact for this entry, with a receipt, would make this step available.",
+      "needs": [
+        "Argo CD target cluster",
+        "External Secrets ClusterExternalSecret CRD",
+        "ClusterSecretStore=test-cluster-local",
+        "remote image-pull key when private images are used",
+        "approved handling for argocd-secret and cluster-kubernetes.default.svc"
+      ]
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-available",
+      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [],
+      "unblock": "A published artifact for this entry, with a receipt, would make this step available."
+    }
+  ]
 }

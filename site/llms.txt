@@ -78,6 +78,8 @@ A listing is a projection of the BaseVariantRecord it names in generatedFrom. Th
 
 Read a listing's coverage before citing a verdict. Only checked counts as evidence. A lane that reads not_declared was never declared, so it is not a pass, and a partial lane left a recorded caveat behind.
 
+Every listing carries nextSteps, the same five steps in the same order: get the exact objects, compare with another version or base, upload it as a variant, deploy it, promote a change. Each step has a state read from that listing and the commands that entry supports. A step whose state is not-available carries no command and says what would unblock it. A command marked needsAccount contacts ConfigHub, and one marked writes changes data there.
+
 A lifecycle route is a proposal until a destination resolves it, so automatic stays false until a run proves otherwise. A planned OCI reference names where a bundle would go and has not been pushed.
 
 When an entry is absent, render locally. Ask the user before filing a public issue.

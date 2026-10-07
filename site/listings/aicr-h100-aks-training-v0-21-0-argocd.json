@@ -532,5 +532,101 @@
         "value": "retained-and-rendered-not-published-not-deployed"
       }
     ]
-  }
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 16 Argo CD Applications as files that one inventory lists.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "make the directories the inventory names",
+          "command": "mkdir -p aicr-h100-aks-training-v0-21-0-argocd/templates"
+        },
+        {
+          "comment": "fetch the inventory, then every file it lists",
+          "command": "curl -fsSL -o aicr-h100-aks-training-v0-21-0-argocd/checksums.txt https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/h100-aks-training/argocd-rendered/checksums.txt"
+        },
+        {
+          "command": "cut -c67- aicr-h100-aks-training-v0-21-0-argocd/checksums.txt | xargs -I{} curl -fsSL -o aicr-h100-aks-training-v0-21-0-argocd/{} https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/h100-aks-training/argocd-rendered/{}"
+        },
+        {
+          "comment": "check every file against the inventory",
+          "command": "(cd aicr-h100-aks-training-v0-21-0-argocd && shasum -a 256 -c checksums.txt)"
+        },
+        {
+          "comment": "check the inventory against the listing digest",
+          "command": "shasum -a 256 aicr-h100-aks-training-v0-21-0-argocd/checksums.txt",
+          "expect": "db05f3511453d350ba86cca8469e177993920dae44fcfc43539b41f3a2c73cd0  aicr-h100-aks-training-v0-21-0-argocd/checksums.txt"
+        },
+        {
+          "comment": "join the files into one for step 2",
+          "command": "cat aicr-h100-aks-training-v0-21-0-argocd/templates/*.yaml > aicr-h100-aks-training-v0-21-0-argocd.yaml"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-available",
+      "summary": "The Catalog holds no other version or base of this entry's source in the same format.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [],
+      "unblock": "A second entry for h100-aks-training in this format would give this step a sibling."
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "not-available",
+      "summary": "This entry is not published, so there is no public artifact to upload.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [],
+      "unblock": "The listing records its literal configuration bundle as not published. Publishing the rendered objects as that bundle, with a receipt, would make this step available."
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-available",
+      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [],
+      "unblock": "A published artifact for this entry, with a receipt, would make this step available.",
+      "needs": [
+        "argo-cd-application-api",
+        "aicr-bundle-source-package",
+        "recipe-criteria"
+      ]
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-available",
+      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [],
+      "unblock": "A published artifact for this entry, with a receipt, would make this step available."
+    }
+  ]
 }
