@@ -1,0 +1,113 @@
+apiVersion: aicr.run/v1
+build:
+  deployer: flux
+  recipe:
+    digest: sha256:941e038903c5d9156ce2a1774da278a092673305a1cecda19663bdaf9dd82fe1
+    path: recipe.yaml
+    version: 1.0.0
+  settings:
+    attested: false
+    checksums: true
+    nodeScheduling:
+      accelerated:
+        selector:
+          nvidia.com/gpu.present: "true"
+        tolerations:
+          - operator: Exists
+      system:
+        selector:
+          nodeGroup: system-worker
+        tolerations:
+          - operator: Exists
+    readinessHooks: false
+    repoURL: https://github.com/YOUR_ORG/YOUR_REPO.git
+    serial: false
+    storageClass: gp3
+    targetRevision: main
+    vendorCharts: false
+kind: BundleInfo
+layout:
+  entrypoint: kustomization.yaml
+  releases:
+    - component: aws-ebs-csi-driver
+      manifest: aws-ebs-csi-driver/helmrelease.yaml
+      name: aws-ebs-csi-driver
+      namespace: kube-system
+      path: aws-ebs-csi-driver
+    - component: aws-efa
+      manifest: aws-efa/helmrelease.yaml
+      name: aws-efa
+      namespace: kube-system
+      path: aws-efa
+    - component: cert-manager
+      manifest: cert-manager/helmrelease.yaml
+      name: cert-manager
+      namespace: cert-manager
+      path: cert-manager
+    - component: nfd
+      manifest: nfd/helmrelease.yaml
+      name: nfd
+      namespace: node-feature-discovery
+      path: nfd
+    - component: nodewright-operator
+      manifest: nodewright-operator/helmrelease.yaml
+      name: nodewright-operator
+      namespace: nodewright
+      path: nodewright-operator
+    - component: nodewright-customizations
+      manifest: nodewright-customizations/helmrelease.yaml
+      name: nodewright-customizations
+      namespace: nodewright
+      path: nodewright-customizations
+    - component: prometheus-operator-crds
+      manifest: prometheus-operator-crds/helmrelease.yaml
+      name: prometheus-operator-crds
+      namespace: monitoring
+      path: prometheus-operator-crds
+    - component: kube-prometheus-stack
+      manifest: kube-prometheus-stack/helmrelease.yaml
+      name: kube-prometheus-stack
+      namespace: monitoring
+      path: kube-prometheus-stack
+    - component: gpu-operator
+      manifest: gpu-operator/helmrelease.yaml
+      name: gpu-operator
+      namespace: gpu-operator
+      path: gpu-operator
+    - component: k8s-ephemeral-storage-metrics
+      manifest: k8s-ephemeral-storage-metrics/helmrelease.yaml
+      name: k8s-ephemeral-storage-metrics
+      namespace: monitoring
+      path: k8s-ephemeral-storage-metrics
+    - component: kai-scheduler
+      manifest: kai-scheduler/helmrelease.yaml
+      name: kai-scheduler
+      namespace: kai-scheduler
+      path: kai-scheduler
+    - component: kubeflow-trainer
+      manifest: kubeflow-trainer/helmrelease.yaml
+      name: kubeflow-trainer
+      namespace: kubeflow
+      path: kubeflow-trainer
+    - component: kubeflow-trainer
+      manifest: kubeflow-trainer-post/helmrelease.yaml
+      name: kubeflow-trainer-post
+      namespace: kubeflow
+      path: kubeflow-trainer-post
+    - component: nvidia-dra-driver-gpu
+      manifest: nvidia-dra-driver-gpu/helmrelease.yaml
+      name: nvidia-dra-driver-gpu
+      namespace: nvidia-dra-driver
+      path: nvidia-dra-driver-gpu
+    - component: nvsentinel
+      manifest: nvsentinel/helmrelease.yaml
+      name: nvsentinel
+      namespace: nvsentinel
+      path: nvsentinel
+    - component: prometheus-adapter
+      manifest: prometheus-adapter/helmrelease.yaml
+      name: prometheus-adapter
+      namespace: monitoring
+      path: prometheus-adapter
+metadata:
+  version: 1.0.0

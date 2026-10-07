@@ -1,0 +1,87 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "SourceCatalogRecord"
+metadata:
+  name: "nvidia-aicr-v1-0-0"
+spec:
+  provider:
+    name: "NVIDIA"
+    role: "source-catalog-curator"
+    identity: "https://github.com/NVIDIA/aicr"
+  source:
+    project: "NVIDIA AICR"
+    repository: "https://github.com/NVIDIA/aicr"
+    version: "v1.0.0"
+    tag: "v1.0.0"
+    commit: "82bccef69855c70e151f8b5e6ed9d04d70a30f81"
+  catalog:
+    name: "NVIDIA AICR built-in catalog"
+    format: "aicr-embedded-catalog"
+    version: "v1.0.0"
+    record: "examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/catalog-list.json"
+    digest: "sha256:30bcae956bf066c57068aee2a78bdf3983ee4d9ef77bd120229276dd9fdc0ac6"
+    digestRole: "source-catalog-content"
+  inventories:
+    sourceTreeOverlays:
+      count: 134
+      record: "examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/source-overlays.json"
+      recordSha256: "df642cea85b70000b1776c46ddf465297b1ce10e7d1ff87e8a9a46041a16c40b"
+      origin: "attested-release-binary"
+      originNote: "The files were read from the recipes tree embedded in the attested release binary, not from a source checkout. The embedded registry and validator catalog are byte-equal to the retained files the recipe-catalog signature covers. Each path is the embedded name with the recipes/ prefix it has in the source tree."
+    embeddedCatalogEntries:
+      count: 133
+      record: "examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/catalog-list.json"
+      recordSha256: "30bcae956bf066c57068aee2a78bdf3983ee4d9ef77bd120229276dd9fdc0ac6"
+    resolvedLeaves:
+      count: 59
+      structuralPass: 59
+      providerEvidence: "not-recorded"
+      providerEvidenceReason: "NVIDIA's recipe-health page for this tag was not retained, so the number of leaves with linked or pending provider evidence is not recorded."
+      record: "examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/catalog-list.json"
+      recordSha256: "30bcae956bf066c57068aee2a78bdf3983ee4d9ef77bd120229276dd9fdc0ac6"
+  selection:
+    name: "h100-eks-ubuntu-training-kubeflow"
+    kind: "source-variant"
+    source: "embedded"
+    dimensions:
+      service: "eks"
+      accelerator: "h100"
+      os: "ubuntu"
+      intent: "training"
+      platform: "kubeflow"
+    structuralStatus: "pass"
+    appliedOverlays:
+      - "base"
+      - "monitoring-hpa"
+      - "h100-any"
+      - "eks"
+      - "eks-ubuntu"
+      - "eks-training"
+      - "h100-eks-training"
+      - "h100-eks-ubuntu-training"
+      - "h100-eks-ubuntu-training-kubeflow"
+    record:
+      path: "examples/aicr/eks-h100-training-kubeflow-v1-0-0/recipe.yaml"
+      digest: "sha256:9acc3887ff83c6d3728eaa45cd7613bd1fbd8d7c73cf68215171d33f52d93f2f"
+      digestRole: "selected-source-variant"
+    componentCount: 16
+    evidence:
+      status: "not-recorded"
+      records:
+        []
+      references:
+        []
+  interpretation:
+    sourceVariant: "The provider-curated leaf selected from this exact catalog instance."
+    retainedBaseVariant: "The exact objects later retained from this source variant, with separate digests and evidence."
+    derivedVariant: "A later reviewed ConfigHub change. It does not alter the identity or evidence of the provider source variant."
+    observedDifference: "A snapshot or diff reports what differs. It becomes a fault only when the intended source variant requires a different value."
+  limits:
+    - "The three inventory counts describe different sets and are not interchangeable."
+    - "Structural pass means the recipe resolves and pins chart versions; it is not runtime validation."
+    - "Provider evidence links are not recorded for this version. That is a gap in this record, not a statement that NVIDIA publishes no evidence."
+    - "The selected source variant does not prove that its generated objects ran on EKS or H100 through ConfigHub."
+status:
+  result: "pass"
+  catalogDigestVerified: true
+  selectedVariantReproducible: true
+  runtimeProven: false

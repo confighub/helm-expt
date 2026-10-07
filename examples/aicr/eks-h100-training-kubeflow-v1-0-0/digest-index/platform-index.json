@@ -1,0 +1,216 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "AICRPlatformDigestIndex",
+  "metadata": {
+    "name": "aicr-eks-h100-training-kubeflow-v1-0-0-v1-0-0-digest-index"
+  },
+  "spec": {
+    "platformDigest": "sha256:b05bba571afb8d0aaf3fd4182f195569ff0dde97533bf3381627dd94f68727f8",
+    "source": {
+      "binary": {
+        "attestation": "examples/aicr/upstream-signatures/v1.0.0/aicr-attestation.sigstore.json",
+        "reportedVersion": "aicr version 1.0.0 (commit: 82bccef69855c70e151f8b5e6ed9d04d70a30f81, date: 2026-10-05T23:31:06Z)",
+        "sha256": "972da08e016b3ea779cc5f51eafa3a0024a4f052fbdfbc5ea55cd6524766b8fc"
+      },
+      "commit": "82bccef69855c70e151f8b5e6ed9d04d70a30f81",
+      "name": "NVIDIA AICR",
+      "recipeCatalogSignature": "examples/aicr/upstream-signatures/v1.0.0/recipe-catalog.sigstore.json",
+      "releaseAsset": {
+        "name": "aicr_1.0.0_darwin_arm64.tar.gz",
+        "sha256": "cb85cce54a82deb88e826c3e735c26e11a0863173b8aa5ff3ba4ebc2dc6af8b2"
+      },
+      "releaseChecksums": {
+        "name": "aicr_checksums.txt",
+        "sha256": "fd564d8ff13ce1a7b07ec0bf71528f09c26d5198eba5441b2cea7f4628ac6cce"
+      },
+      "repository": "https://github.com/NVIDIA/aicr",
+      "sbom": {
+        "attestation": "examples/aicr/upstream-signatures/v1.0.0/aicr_1.0.0_darwin_arm64.sbom.json.sigstore.json",
+        "path": "examples/aicr/upstream-signatures/v1.0.0/aicr_1.0.0_darwin_arm64.sbom.json",
+        "sha256": "6d8bb956646a29d4277829a211eb605094ab31045381f3502278c9b3c7f74532"
+      },
+      "tagObject": "3ba332e57f2ca4ca12b336d3f82219d94e8a36e0",
+      "tagObjectNote": "The tag object was read from GitHub when the release assets were downloaded. The retained signed statements name the commit and the tag reference; they do not name the tag object.",
+      "version": "v1.0.0"
+    },
+    "criteria": {
+      "accelerator": "h100",
+      "intent": "training",
+      "os": "ubuntu",
+      "platform": "kubeflow",
+      "service": "eks"
+    },
+    "transports": [
+      {
+        "id": "argocd-config-oci",
+        "role": "literal-configuration",
+        "manifestPath": "local-argocd-config-oci-manifest.json",
+        "manifestDigest": "sha256:631dba7ef35a676eafa1590f11149c4bae02867af046dba36dc1dcfd5c9edc19",
+        "ociLayout": "oci-layouts/argocd-config",
+        "publicTarget": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:1.0.0"
+      },
+      {
+        "id": "argocd-source-oci",
+        "role": "source-package",
+        "manifestPath": "local-argocd-source-oci-manifest.json",
+        "manifestDigest": "sha256:b187253b95bfe5a30d28128b94ed5edeb39f4e08ad8b409d25ebe3c9982eebb3",
+        "ociLayout": "oci-layouts/argocd-source",
+        "publicTarget": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow/aicr-bundle:1.0.0"
+      }
+    ],
+    "members": [
+      {
+        "component": "aicr-stack",
+        "role": "platform-root",
+        "syncWave": null,
+        "payloadSha256": "d9794ae2b935873c74c7418e884a9d5cda7fed2ccb1435bd035009549260e0be",
+        "payloadPath": "payloads/aicr-stack-d9794ae2b935873c74c7418e884a9d5cda7fed2ccb1435bd035009549260e0be.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/aicr-stack:payload-d9794ae2b935873c74c7418e884a9d5cda7fed2ccb1435bd035009549260e0be"
+      },
+      {
+        "component": "aws-ebs-csi-driver",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "d37c6be17332dd37860b3f043778cc8dd933cc66b46d81fd680d6e1ffd84b37b",
+        "payloadPath": "payloads/aws-ebs-csi-driver-d37c6be17332dd37860b3f043778cc8dd933cc66b46d81fd680d6e1ffd84b37b.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/aws-ebs-csi-driver:payload-d37c6be17332dd37860b3f043778cc8dd933cc66b46d81fd680d6e1ffd84b37b"
+      },
+      {
+        "component": "aws-efa",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "88080f38f6e3610f0585f0ef363a9e71777892bb28f8974d9452f0273614bb02",
+        "payloadPath": "payloads/aws-efa-88080f38f6e3610f0585f0ef363a9e71777892bb28f8974d9452f0273614bb02.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/aws-efa:payload-88080f38f6e3610f0585f0ef363a9e71777892bb28f8974d9452f0273614bb02"
+      },
+      {
+        "component": "cert-manager",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00",
+        "payloadPath": "payloads/cert-manager-c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/cert-manager:payload-c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00"
+      },
+      {
+        "component": "gpu-operator",
+        "role": "component-application",
+        "syncWave": 9,
+        "payloadSha256": "5acb1a1421b7e8003953c7802eb23e435f0a80acc37e8e6cbf148297909e6096",
+        "payloadPath": "payloads/gpu-operator-5acb1a1421b7e8003953c7802eb23e435f0a80acc37e8e6cbf148297909e6096.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/gpu-operator:payload-5acb1a1421b7e8003953c7802eb23e435f0a80acc37e8e6cbf148297909e6096"
+      },
+      {
+        "component": "k8s-ephemeral-storage-metrics",
+        "role": "component-application",
+        "syncWave": 9,
+        "payloadSha256": "a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329",
+        "payloadPath": "payloads/k8s-ephemeral-storage-metrics-a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/k8s-ephemeral-storage-metrics:payload-a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329"
+      },
+      {
+        "component": "kai-scheduler",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc",
+        "payloadPath": "payloads/kai-scheduler-500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/kai-scheduler:payload-500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc"
+      },
+      {
+        "component": "kube-prometheus-stack",
+        "role": "component-application",
+        "syncWave": 5,
+        "payloadSha256": "e37a6c96c9a67d0e8578070629a87d982741c5a9d63428125aea5cb79f1515cb",
+        "payloadPath": "payloads/kube-prometheus-stack-e37a6c96c9a67d0e8578070629a87d982741c5a9d63428125aea5cb79f1515cb.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/kube-prometheus-stack:payload-e37a6c96c9a67d0e8578070629a87d982741c5a9d63428125aea5cb79f1515cb"
+      },
+      {
+        "component": "kubeflow-trainer-post",
+        "role": "component-application",
+        "syncWave": 14,
+        "payloadSha256": "25dea83a32c3c1735d45a42f27fc97303201e6201be1daaf18c77bd64902130b",
+        "payloadPath": "payloads/kubeflow-trainer-post-25dea83a32c3c1735d45a42f27fc97303201e6201be1daaf18c77bd64902130b.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/kubeflow-trainer-post:payload-25dea83a32c3c1735d45a42f27fc97303201e6201be1daaf18c77bd64902130b"
+      },
+      {
+        "component": "kubeflow-trainer",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "e7cb502cfc7177ba727fbb93448a6962b4ba65d35ae0cb6a4750b36a26981d45",
+        "payloadPath": "payloads/kubeflow-trainer-e7cb502cfc7177ba727fbb93448a6962b4ba65d35ae0cb6a4750b36a26981d45.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/kubeflow-trainer:payload-e7cb502cfc7177ba727fbb93448a6962b4ba65d35ae0cb6a4750b36a26981d45"
+      },
+      {
+        "component": "nfd",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "a03aa7c43df5768513ddeefc281823832f745db837e6f48101ea97e20b5b17b4",
+        "payloadPath": "payloads/nfd-a03aa7c43df5768513ddeefc281823832f745db837e6f48101ea97e20b5b17b4.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/nfd:payload-a03aa7c43df5768513ddeefc281823832f745db837e6f48101ea97e20b5b17b4"
+      },
+      {
+        "component": "nodewright-customizations",
+        "role": "component-application",
+        "syncWave": 5,
+        "payloadSha256": "d3d30ab264c20bd1a8cc0afb97cfe364d260bbe962fa4370c425284b4bea0c3b",
+        "payloadPath": "payloads/nodewright-customizations-d3d30ab264c20bd1a8cc0afb97cfe364d260bbe962fa4370c425284b4bea0c3b.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/nodewright-customizations:payload-d3d30ab264c20bd1a8cc0afb97cfe364d260bbe962fa4370c425284b4bea0c3b"
+      },
+      {
+        "component": "nodewright-operator",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "d3cabfad44a660bda516963a44d489f06bd2a7f332efdfe591b6dc2cf80568eb",
+        "payloadPath": "payloads/nodewright-operator-d3cabfad44a660bda516963a44d489f06bd2a7f332efdfe591b6dc2cf80568eb.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/nodewright-operator:payload-d3cabfad44a660bda516963a44d489f06bd2a7f332efdfe591b6dc2cf80568eb"
+      },
+      {
+        "component": "nvidia-dra-driver-gpu",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "bdec3f0c1104120e1a8a30ae946949ef1f0fd33c143675bfdae66155afb9f6dd",
+        "payloadPath": "payloads/nvidia-dra-driver-gpu-bdec3f0c1104120e1a8a30ae946949ef1f0fd33c143675bfdae66155afb9f6dd.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/nvidia-dra-driver-gpu:payload-bdec3f0c1104120e1a8a30ae946949ef1f0fd33c143675bfdae66155afb9f6dd"
+      },
+      {
+        "component": "nvsentinel",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "948c94d84adcce6680957a10e97d5913202e10beda2a68498e85040eb2d661b6",
+        "payloadPath": "payloads/nvsentinel-948c94d84adcce6680957a10e97d5913202e10beda2a68498e85040eb2d661b6.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/nvsentinel:payload-948c94d84adcce6680957a10e97d5913202e10beda2a68498e85040eb2d661b6"
+      },
+      {
+        "component": "prometheus-adapter",
+        "role": "component-application",
+        "syncWave": 9,
+        "payloadSha256": "5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3",
+        "payloadPath": "payloads/prometheus-adapter-5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/prometheus-adapter:payload-5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3"
+      },
+      {
+        "component": "prometheus-operator-crds",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb",
+        "payloadPath": "payloads/prometheus-operator-crds-110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-components/prometheus-operator-crds:payload-110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb"
+      }
+    ],
+    "aggregate": {
+      "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-v1-0-0-digest-index:platform-b05bba571afb8d0aaf3fd4182f195569ff0dde97533bf3381627dd94f68727f8",
+      "type": "target-neutral-index-published-only-after-member-manifest-digests-are-observed"
+    },
+    "boundary": {
+      "configPlaneOnly": true,
+      "published": false,
+      "gpuWorkloadsProven": false,
+      "secretValuesIncluded": false,
+      "liveRegistryPublicationClaimed": false,
+      "statement": "This index pins config-plane content by digest. No GPU workload ran to produce or verify it; workload-plane claims stay absent rather than implied."
+    }
+  },
+  "status": {
+    "result": "compiled-offline",
+    "liveRegistryPublicationClaimed": false
+  }
+}
