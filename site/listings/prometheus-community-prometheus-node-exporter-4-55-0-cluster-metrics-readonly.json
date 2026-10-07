@@ -192,12 +192,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-node-exporter --variant cluster-metrics-readonly --space prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d ./rendered",
+          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-node-exporter --variant cluster-metrics-readonly --space prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly --unit-annotation workshop.confighub.com/object-set-sha256=sha256:76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component prometheus-community-prometheus-node-exporter --variant cluster-metrics-readonly --space prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d ./rendered",
+          "command": "cub variant upload --component prometheus-community-prometheus-node-exporter --variant cluster-metrics-readonly --space prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly --unit-annotation workshop.confighub.com/object-set-sha256=sha256:76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d ./rendered",
           "writes": true
         },
         {

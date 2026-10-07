@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component h100-gke-cos-training-kubeflow --variant argocd --space aicr-h100-gke-cos-training-kubeflow-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:dca1dbacd3ec1efacb8004b4d2914c989c65fdab52607656dcd00bb379f44798 ./rendered",
+          "command": "cub variant upload --dry-run --component h100-gke-cos-training-kubeflow --variant argocd --space aicr-h100-gke-cos-training-kubeflow-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:dca1dbacd3ec1efacb8004b4d2914c989c65fdab52607656dcd00bb379f44798 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component h100-gke-cos-training-kubeflow --variant argocd --space aicr-h100-gke-cos-training-kubeflow-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:dca1dbacd3ec1efacb8004b4d2914c989c65fdab52607656dcd00bb379f44798 ./rendered",
+          "command": "cub variant upload --component h100-gke-cos-training-kubeflow --variant argocd --space aicr-h100-gke-cos-training-kubeflow-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:dca1dbacd3ec1efacb8004b4d2914c989c65fdab52607656dcd00bb379f44798 ./rendered",
           "writes": true
         },
         {

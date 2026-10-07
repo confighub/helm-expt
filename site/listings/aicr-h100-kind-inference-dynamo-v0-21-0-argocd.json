@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component h100-kind-inference-dynamo --variant argocd --space aicr-h100-kind-inference-dynamo-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:a0ca6d8ecafd66e9ad88c4595e449e118af65cfaf7e1c750435128c4d24a3a1b ./rendered",
+          "command": "cub variant upload --dry-run --component h100-kind-inference-dynamo --variant argocd --space aicr-h100-kind-inference-dynamo-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:a0ca6d8ecafd66e9ad88c4595e449e118af65cfaf7e1c750435128c4d24a3a1b ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component h100-kind-inference-dynamo --variant argocd --space aicr-h100-kind-inference-dynamo-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:a0ca6d8ecafd66e9ad88c4595e449e118af65cfaf7e1c750435128c4d24a3a1b ./rendered",
+          "command": "cub variant upload --component h100-kind-inference-dynamo --variant argocd --space aicr-h100-kind-inference-dynamo-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:a0ca6d8ecafd66e9ad88c4595e449e118af65cfaf7e1c750435128c4d24a3a1b ./rendered",
           "writes": true
         },
         {

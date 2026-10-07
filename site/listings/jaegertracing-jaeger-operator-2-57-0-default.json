@@ -192,12 +192,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component jaegertracing-jaeger-operator --variant default --space jaegertracing-jaeger-operator-2-57-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c17323ac7d71b000b42732323a79731fe3d9244ba4e641d8349a73a71b8807ab ./rendered",
+          "command": "cub variant upload --dry-run --component jaegertracing-jaeger-operator --variant default --space jaegertracing-jaeger-operator-2-57-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c17323ac7d71b000b42732323a79731fe3d9244ba4e641d8349a73a71b8807ab ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component jaegertracing-jaeger-operator --variant default --space jaegertracing-jaeger-operator-2-57-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c17323ac7d71b000b42732323a79731fe3d9244ba4e641d8349a73a71b8807ab ./rendered",
+          "command": "cub variant upload --component jaegertracing-jaeger-operator --variant default --space jaegertracing-jaeger-operator-2-57-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c17323ac7d71b000b42732323a79731fe3d9244ba4e641d8349a73a71b8807ab ./rendered",
           "writes": true
         },
         {

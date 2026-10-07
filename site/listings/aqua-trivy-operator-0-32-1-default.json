@@ -192,12 +192,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component aqua-trivy-operator --variant default --space aqua-trivy-operator-0-32-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25 ./rendered",
+          "command": "cub variant upload --dry-run --component aqua-trivy-operator --variant default --space aqua-trivy-operator-0-32-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component aqua-trivy-operator --variant default --space aqua-trivy-operator-0-32-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25 ./rendered",
+          "command": "cub variant upload --component aqua-trivy-operator --variant default --space aqua-trivy-operator-0-32-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25 ./rendered",
           "writes": true
         },
         {

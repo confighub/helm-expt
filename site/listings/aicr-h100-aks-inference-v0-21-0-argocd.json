@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component h100-aks-inference --variant argocd --space aicr-h100-aks-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:d8dc5bca274d8ebd81e0c347f1d4be4b6a0b70f45b10def648c17d2d587c0878 ./rendered",
+          "command": "cub variant upload --dry-run --component h100-aks-inference --variant argocd --space aicr-h100-aks-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:d8dc5bca274d8ebd81e0c347f1d4be4b6a0b70f45b10def648c17d2d587c0878 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component h100-aks-inference --variant argocd --space aicr-h100-aks-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:d8dc5bca274d8ebd81e0c347f1d4be4b6a0b70f45b10def648c17d2d587c0878 ./rendered",
+          "command": "cub variant upload --component h100-aks-inference --variant argocd --space aicr-h100-aks-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:d8dc5bca274d8ebd81e0c347f1d4be4b6a0b70f45b10def648c17d2d587c0878 ./rendered",
           "writes": true
         },
         {

@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component ocp-inference-nim --variant argocd --space aicr-ocp-inference-nim-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9439e6aa91c26ce0e23351ec9e1438cc36e1f91ce43185b5b3389b91e1002938 ./rendered",
+          "command": "cub variant upload --dry-run --component ocp-inference-nim --variant argocd --space aicr-ocp-inference-nim-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:9439e6aa91c26ce0e23351ec9e1438cc36e1f91ce43185b5b3389b91e1002938 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component ocp-inference-nim --variant argocd --space aicr-ocp-inference-nim-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9439e6aa91c26ce0e23351ec9e1438cc36e1f91ce43185b5b3389b91e1002938 ./rendered",
+          "command": "cub variant upload --component ocp-inference-nim --variant argocd --space aicr-ocp-inference-nim-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:9439e6aa91c26ce0e23351ec9e1438cc36e1f91ce43185b5b3389b91e1002938 ./rendered",
           "writes": true
         },
         {

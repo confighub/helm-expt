@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component vr200-rke2-ubuntu-inference --variant argocd --space aicr-vr200-rke2-ubuntu-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:40498620be157d4312097c0162b8b9b77ccfab164d30621a5d5f8643f3385982 ./rendered",
+          "command": "cub variant upload --dry-run --component vr200-rke2-ubuntu-inference --variant argocd --space aicr-vr200-rke2-ubuntu-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:40498620be157d4312097c0162b8b9b77ccfab164d30621a5d5f8643f3385982 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component vr200-rke2-ubuntu-inference --variant argocd --space aicr-vr200-rke2-ubuntu-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:40498620be157d4312097c0162b8b9b77ccfab164d30621a5d5f8643f3385982 ./rendered",
+          "command": "cub variant upload --component vr200-rke2-ubuntu-inference --variant argocd --space aicr-vr200-rke2-ubuntu-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:40498620be157d4312097c0162b8b9b77ccfab164d30621a5d5f8643f3385982 ./rendered",
           "writes": true
         },
         {

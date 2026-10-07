@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component lke-inference --variant argocd --space aicr-lke-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:49a4be3d488a0cbff71ce8bf463a0db034b7132fea93ea51f23819db31c0628b ./rendered",
+          "command": "cub variant upload --dry-run --component lke-inference --variant argocd --space aicr-lke-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:49a4be3d488a0cbff71ce8bf463a0db034b7132fea93ea51f23819db31c0628b ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component lke-inference --variant argocd --space aicr-lke-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:49a4be3d488a0cbff71ce8bf463a0db034b7132fea93ea51f23819db31c0628b ./rendered",
+          "command": "cub variant upload --component lke-inference --variant argocd --space aicr-lke-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:49a4be3d488a0cbff71ce8bf463a0db034b7132fea93ea51f23819db31c0628b ./rendered",
           "writes": true
         },
         {

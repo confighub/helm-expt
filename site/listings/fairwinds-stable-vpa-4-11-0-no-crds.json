@@ -197,12 +197,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component fairwinds-stable-vpa --variant no-crds --space fairwinds-stable-vpa-4-11-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187 ./rendered",
+          "command": "cub variant upload --dry-run --component fairwinds-stable-vpa --variant no-crds --space fairwinds-stable-vpa-4-11-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component fairwinds-stable-vpa --variant no-crds --space fairwinds-stable-vpa-4-11-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187 ./rendered",
+          "command": "cub variant upload --component fairwinds-stable-vpa --variant no-crds --space fairwinds-stable-vpa-4-11-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187 ./rendered",
           "writes": true
         },
         {

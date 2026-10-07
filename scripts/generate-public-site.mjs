@@ -4818,7 +4818,7 @@ function configHtml(catalog) {
     <ol>
       <li>Render or flatten once, with declared inputs, at build time and never in the delivery path.</li>
       <li>Package as a certified bundle: one OCI artifact per component, a digest-bound index pinning the composition, and a receipt.</li>
-      <li>Ingest as Units at per-file granularity, with the bundle digest recorded, into a base Space no target deploys.</li>
+      <li>Ingest as Units, one for each resource, with the bundle digest recorded, into a base Space no target deploys.</li>
       <li>Vary per target, then publish governed releases against an immutable digest.</li>
       <li>Any reconciler syncs that digest: Argo per cluster, Sveltos across a labeled fleet, plain kubectl for the minimal path.</li>
       <li>Receipts close the loop where convergence is recorded.</li>
@@ -5439,7 +5439,7 @@ cub stack check my-platform/stack.yaml</code></pre>
         { cmd: "kubectl get configmap -n web frontend-config backend-config" },
       ])}
       <p>The Releases prove ConfigHub accepted immutable desired configuration. The Argo rows prove the controller saw it. The ConfigMaps prove the target received both components. If one checkpoint is missing, stop there instead of calling the stack live.</p>
-      <p>The Workshop plugin source also contains a bounded <code>cub stack deploy web-tiny --target workshop/target --run</code> helper that performs step 3 and refuses every other stack. Use it only from a released plugin version whose help lists <code>stack deploy</code>; the pinned release on this page keeps the explicit commands so the Guide remains runnable today.</p>
+      <p>The Workshop plugin source also contains a bounded <code>stack deploy</code> helper for <code>web-tiny</code> that performs step 3 and refuses every other stack. The help of Workshop plugin v0.6.56 does not list it, so this page keeps the explicit commands and the Guide remains runnable today.</p>
     </section>
     <section class="narrow-section">
       <details class="deep" id="shipped-stacks">
@@ -6565,10 +6565,7 @@ deploy or contact a target. Explain which checks have not run.</code></pre>
         <p><label for="confighub-component"><strong>Component</strong></label><br><input id="confighub-component" type="text" value="redis" style="width:100%;padding:10px;margin-top:6px"></p>
         <p><label for="confighub-base-space"><strong>Base Space</strong></label><br><input id="confighub-base-space" type="text" value="redis-base" style="width:100%;padding:10px;margin-top:6px"></p>
       </div>
-      <div class="grid">
-        <p><label for="confighub-granularity"><strong>Unit layout</strong></label><br><select id="confighub-granularity" style="width:100%;padding:10px;margin-top:6px"><option value="minimal">minimal</option><option value="per-resource">per-resource</option><option value="per-file">per-file</option></select></p>
-        <p><label for="confighub-namespace"><strong>Recorded namespace</strong> <span style="color:var(--muted);font-weight:400">(optional)</span></label><br><input id="confighub-namespace" type="text" value="" placeholder="Repeat the namespace used for the first upload" style="width:100%;padding:10px;margin-top:6px"></p>
-      </div>
+      <p><label for="confighub-namespace"><strong>Release namespace</strong> <span style="color:var(--muted);font-weight:400">(optional)</span></label><br><input id="confighub-namespace" type="text" value="" placeholder="The namespace the objects were rendered with" style="width:100%;padding:10px;margin-top:6px"></p>
       <p><label for="confighub-destination-spaces"><strong>Downstream Spaces</strong></label><br><input id="confighub-destination-spaces" type="text" value="redis-staging" style="width:100%;padding:10px;margin-top:6px"></p>
       <p class="small">If a downstream Space does not exist, the preview shows its one-time creation command as a comment. Create it, then run the preview again before using the write commands.</p>
       <h4>Preview</h4>
@@ -9350,10 +9347,10 @@ Variants:
 function ociHtml(catalog) {
   const shapeRows = [
     ["Installer / source package OCI", "Not named; a multi-file OCI image (<code>installer.yaml</code>, presets, <code>records/</code>)", "<code>installer.yaml</code> plus preset configs plus <code>records/</code> (source-and-intent and Helm-render-intent files)", "The catalog publisher, with <code>npm run installer-oci:publish</code>", "<code>cub installer setup --pull</code>, <code>cub installer inspect</code>", "Google Artifact Registry, public read", "Yes: a dedicated Google service account, Sigstore keyless"],
-    ["Literal configuration bundle (upload layout)", "Not named", "Kubernetes YAML laid out for per-file ingestion; a different layout from the row below even for the same objects", "Not named as one command in these docs", "<code>cub variant upload oci://…</code>", "Not named", "Not stated"],
+    ["Literal configuration bundle (upload layout)", "Not named", "Kubernetes YAML in a tar layer, or in one layer for each file; a different layout from the row below even for the same objects", "Not named as one command in these docs", "<code>cub variant upload oci://…</code>", "Not named", "Not stated"],
     ["Portable deployment bundle (rendered OCI)", "Not named; described as “a standard OCI content layer”", "One selected preset's exact non-secret Kubernetes objects", "<code>cub installer setup --output-oci</code>", "Argo CD, Flux, an anonymous pull, or <code>cub variant upload</code>", "A local OCI layout, or an <code>oci://host/repo:tag</code> reference", "Not stated"],
     ["ConfigHub release bundle (Space release OCI)", "Not named", "The exact reviewed Units from one ConfigHub Space", "<code>cub release publish &lt;space&gt;</code>", "Argo CD, Flux, or another ConfigHub delivery path", "<code>oci://oci.hub.confighub.com:443/space/&lt;space&gt;</code>", "Not stated"],
-    ["Certified bundle", "<code>application/vnd.confighub.config.bundle.v1</code>", "One gzipped, byte-reproducible tar layer: sorted names, zeroed owners, epoch timestamps", "<code>cub config check --out oci://…</code>, <code>cub app check --out oci://…</code>", "<code>cub config verify</code>, then <code>cub variant upload --granularity per-file</code>", "Today: provider-specific paths on two registries. Proposed: a stable <code>oci://catalog.confighub.com/…</code> endpoint", "Open item: keyless cosign for a user's own output, the catalog's own key for its own"],
+    ["Certified bundle", "<code>application/vnd.confighub.config.bundle.v1</code>", "One gzipped, byte-reproducible tar layer: sorted names, zeroed owners, epoch timestamps", "<code>cub config check --out oci://…</code>, <code>cub app check --out oci://…</code>", "<code>cub config verify</code>, then <code>cub variant upload oci://…</code>", "Today: provider-specific paths on two registries. Proposed: a stable <code>oci://catalog.confighub.com/…</code> endpoint", "Open item: keyless cosign for a user's own output, the catalog's own key for its own"],
     ["Bundle receipt (referrer record)", "<code>application/vnd.confighub.record.v1+json</code>", "One JSON record, attached to the bundle's manifest digest as a referrer", "The same command that pushes the bundle it describes", "<code>cub config verify</code>, <code>oras discover</code>", "The same registry as the bundle it describes", "Not stated separately from the bundle"],
     ["Stack index", "An OCI image index; no dedicated type named", "Entries are component bundles by digest; the manifest and check verdict attach to the index digest", "<code>cub stack publish &lt;name&gt; --out oci://…</code>", "Today: the Catalog itself. Planned: <code>cub stack sandbox oci://…index@sha256:…</code>", "Wherever <code>--out oci://…</code> points", "Not stated; the verdict is a record, not a signature"],
     ["Stack release (flattened stack image)", "Not named", "The whole stack rendered into one manifest, not an index", "<code>cub stack sandbox &lt;name&gt; --out oci://…</code>", "A reconciler; it pulls one manifest", "Wherever <code>--out oci://…</code> points", "Not stated"],
@@ -9412,7 +9409,7 @@ function ociHtml(catalog) {
     <h3 id="layouts">Which consumer needs which layout</h3>
     <ul>
       <li><code>cub installer setup --pull</code> and <code>cub installer inspect</code> need the installer-package layout, row one above.</li>
-      <li><code>cub variant upload oci://…</code> needs the literal-configuration-bundle layout, row two, or a certified bundle ingested with <code>--granularity per-file</code>, row five.</li>
+      <li><code>cub variant upload oci://…</code> needs the literal-configuration-bundle layout, row two, or a certified bundle, row five. Every resource becomes its own Unit.</li>
       <li>Argo CD, Flux, an anonymous pull, or <code>oras</code> and <code>kubectl</code> need the portable-deployment-bundle layout, row three.</li>
       <li><code>cub config verify</code> needs the certified-bundle layout with its receipt attached as a referrer, rows five and six.</li>
       <li>A reconciler that pulls one manifest for a whole stack needs the flattened stack-release layout, row eight.</li>
@@ -10702,8 +10699,8 @@ function operationsTables(catalog) {
       status: "watch",
       boundary: "ConfigHub revisions and a live check",
       action: "compare live state with a previous approved revision",
-      code: "cub unit diff <space>/<unit> --from=PreviousLiveRevisionNum --to=LiveRevisionNum\ncub-scout compare three-way --dry-from <previous-render.yaml>",
-      get: "You see the difference between the current live app and the previous approved state. Today this is a rehearse-and-review path, because exact rollback automation depends on the app, the target, and any lifecycle step that cannot be undone.",
+      code: "cub unit diff <space>/<unit> --from=<earlier-revision-number> --to=LastReleasedRevisionNum\ncub-scout compare three-way --dry-from <previous-render.yaml>",
+      get: "You see the difference between the last released revision and an earlier approved one. The diff command is taken from the help of cub v0.8.7 and has not been re-run here. Today this is a rehearse-and-review path, because exact rollback automation depends on the app, the target, and any lifecycle step that cannot be undone.",
       see: ["day2-upgrade-story.md", "day2-upgrade-rollback.md", "cub-scout-diff-design.md"],
     },
   ];
@@ -14275,7 +14272,7 @@ function commandRoutes() {
     },
     {
       goal: "Adopt an existing Argo, Flux, KRM, or rendered-manifest app.",
-      command: "cub gitops discover/import, cub unit import, or managed import",
+      command: "cub argo plan, cub flux plan, or cub variant upload <files>",
       path: "existing-app-adoption",
     },
     {

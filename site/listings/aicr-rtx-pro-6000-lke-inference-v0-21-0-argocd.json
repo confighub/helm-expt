@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component rtx-pro-6000-lke-inference --variant argocd --space aicr-rtx-pro-6000-lke-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:64ed896b94b1767d724b5c2bfdae01033748d2aef4857526754ce42164cc9292 ./rendered",
+          "command": "cub variant upload --dry-run --component rtx-pro-6000-lke-inference --variant argocd --space aicr-rtx-pro-6000-lke-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:64ed896b94b1767d724b5c2bfdae01033748d2aef4857526754ce42164cc9292 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component rtx-pro-6000-lke-inference --variant argocd --space aicr-rtx-pro-6000-lke-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:64ed896b94b1767d724b5c2bfdae01033748d2aef4857526754ce42164cc9292 ./rendered",
+          "command": "cub variant upload --component rtx-pro-6000-lke-inference --variant argocd --space aicr-rtx-pro-6000-lke-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:64ed896b94b1767d724b5c2bfdae01033748d2aef4857526754ce42164cc9292 ./rendered",
           "writes": true
         },
         {

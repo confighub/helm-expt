@@ -185,12 +185,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component valkey-valkey --variant default --space valkey-valkey-0-11-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:0e66fc37f01be1b3812cf18bb9e0f83799a07f7d2d5a8d66c18cfca409d5e4df ./rendered",
+          "command": "cub variant upload --dry-run --component valkey-valkey --variant default --space valkey-valkey-0-11-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:0e66fc37f01be1b3812cf18bb9e0f83799a07f7d2d5a8d66c18cfca409d5e4df ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component valkey-valkey --variant default --space valkey-valkey-0-11-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:0e66fc37f01be1b3812cf18bb9e0f83799a07f7d2d5a8d66c18cfca409d5e4df ./rendered",
+          "command": "cub variant upload --component valkey-valkey --variant default --space valkey-valkey-0-11-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:0e66fc37f01be1b3812cf18bb9e0f83799a07f7d2d5a8d66c18cfca409d5e4df ./rendered",
           "writes": true
         },
         {

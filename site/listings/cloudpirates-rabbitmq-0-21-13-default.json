@@ -207,12 +207,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component cloudpirates-rabbitmq --variant default --space cloudpirates-rabbitmq-0-21-13-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df ./rendered",
+          "command": "cub variant upload --dry-run --component cloudpirates-rabbitmq --variant default --space cloudpirates-rabbitmq-0-21-13-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component cloudpirates-rabbitmq --variant default --space cloudpirates-rabbitmq-0-21-13-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df ./rendered",
+          "command": "cub variant upload --component cloudpirates-rabbitmq --variant default --space cloudpirates-rabbitmq-0-21-13-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df ./rendered",
           "writes": true
         },
         {

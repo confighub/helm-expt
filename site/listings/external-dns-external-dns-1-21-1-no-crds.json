@@ -198,12 +198,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component external-dns-external-dns --variant no-crds --space external-dns-external-dns-1-21-1-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf ./rendered",
+          "command": "cub variant upload --dry-run --component external-dns-external-dns --variant no-crds --space external-dns-external-dns-1-21-1-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component external-dns-external-dns --variant no-crds --space external-dns-external-dns-1-21-1-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf ./rendered",
+          "command": "cub variant upload --component external-dns-external-dns --variant no-crds --space external-dns-external-dns-1-21-1-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf ./rendered",
           "writes": true
         },
         {

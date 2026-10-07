@@ -216,12 +216,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component elastic-logstash --variant default --space elastic-logstash-8-5-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd ./rendered",
+          "command": "cub variant upload --dry-run --component elastic-logstash --variant default --space elastic-logstash-8-5-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component elastic-logstash --variant default --space elastic-logstash-8-5-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd ./rendered",
+          "command": "cub variant upload --component elastic-logstash --variant default --space elastic-logstash-8-5-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd ./rendered",
           "writes": true
         },
         {

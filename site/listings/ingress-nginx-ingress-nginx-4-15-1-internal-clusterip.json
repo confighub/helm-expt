@@ -199,12 +199,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component ingress-nginx-ingress-nginx --variant internal-clusterip --space ingress-nginx-ingress-nginx-4-15-1-internal-clusterip --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a ./rendered",
+          "command": "cub variant upload --dry-run --component ingress-nginx-ingress-nginx --variant internal-clusterip --space ingress-nginx-ingress-nginx-4-15-1-internal-clusterip --unit-annotation workshop.confighub.com/object-set-sha256=sha256:a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component ingress-nginx-ingress-nginx --variant internal-clusterip --space ingress-nginx-ingress-nginx-4-15-1-internal-clusterip --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a ./rendered",
+          "command": "cub variant upload --component ingress-nginx-ingress-nginx --variant internal-clusterip --space ingress-nginx-ingress-nginx-4-15-1-internal-clusterip --unit-annotation workshop.confighub.com/object-set-sha256=sha256:a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a ./rendered",
           "writes": true
         },
         {

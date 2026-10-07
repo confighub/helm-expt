@@ -541,9 +541,13 @@
 
 <p>Current commands:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub variant create
+  <pre><code>cub variant approve
+cub variant create
+cub variant demote
+cub variant diff
 cub variant promote
 cub variant upload</code></pre>
+<p>That list is the one the help of cub v0.8.7 prints.</p>
 <p>Not current local command:</p>
 <pre><code>cub variant release</code></pre>
 <p><code>cub variant release</code> may become useful, but user docs should describe it only as planned or candidate work until the CLI exposes it.</p>
@@ -586,7 +590,7 @@ cub variant upload</code></pre>
 -&gt; changeset, approval, apply or OCI/GitOps delivery</code></pre>
 <p>This is a ConfigHub server capability, not a helm-expt-only harness trick. Any component that is represented as an upstream ConfigHub Space with downstream Spaces created by <code>cub variant create</code> can use the same staging and rollout pattern. helm-expt uses Helm charts to show the pattern, but the promotion operation belongs to ConfigHub.</p>
 <p>The command being available does not mean every chart/base is already proven safe to promote in production. A chart/base should claim promotion support only after its promotion receipt covers changed Units, added Units, local field ownership, and any deletion or refusal case relevant to that base.</p>
-<p>Use <code>cub unit set-predicates</code> for explicit field ownership when a downstream variant should keep a local override during future promotion. For example, a production variant can protect one workload's <code>spec.replicas</code> field, then reopen that path later.</p>
+<p>Use <code>cub unit set-protection</code> for explicit field ownership when a downstream variant should keep a local override during future promotion. For example, a production variant can protect one workload's <code>spec.replicas</code> field with <code>--protect</code>, then reopen that path later with <code>--unprotect</code>. The command is taken from the help of cub v0.8.7 and has not been re-run here. It replaces <code>cub unit set-predicates</code>, which the CLI no longer has.</p>
 <p>Use <code>cub variant upload</code> for already-rendered manifests that you want to ingest directly as a ConfigHub variant Space. In helm-expt's curated catalog path, <code>cub installer upload</code> remains the preferred upload step because the package receipt, base, and recipe proof are part of the contract.</p>
 <p>Use a <code>cub installer</code> base variant when Helm must render a different object set, object shape, topology, dependency set, or lifecycle behavior.</p>
 <p>Short rule:</p>

@@ -196,12 +196,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component hashicorp-consul --variant default-control-plane --space hashicorp-consul-2-0-0-default-control-plane --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7 ./rendered",
+          "command": "cub variant upload --dry-run --component hashicorp-consul --variant default-control-plane --space hashicorp-consul-2-0-0-default-control-plane --unit-annotation workshop.confighub.com/object-set-sha256=sha256:7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component hashicorp-consul --variant default-control-plane --space hashicorp-consul-2-0-0-default-control-plane --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7 ./rendered",
+          "command": "cub variant upload --component hashicorp-consul --variant default-control-plane --space hashicorp-consul-2-0-0-default-control-plane --unit-annotation workshop.confighub.com/object-set-sha256=sha256:7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7 ./rendered",
           "writes": true
         },
         {

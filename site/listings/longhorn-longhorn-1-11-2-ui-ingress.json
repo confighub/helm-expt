@@ -200,12 +200,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component longhorn-longhorn --variant ui-ingress --space longhorn-longhorn-1-11-2-ui-ingress --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298 ./rendered",
+          "command": "cub variant upload --dry-run --component longhorn-longhorn --variant ui-ingress --space longhorn-longhorn-1-11-2-ui-ingress --unit-annotation workshop.confighub.com/object-set-sha256=sha256:2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component longhorn-longhorn --variant ui-ingress --space longhorn-longhorn-1-11-2-ui-ingress --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298 ./rendered",
+          "command": "cub variant upload --component longhorn-longhorn --variant ui-ingress --space longhorn-longhorn-1-11-2-ui-ingress --unit-annotation workshop.confighub.com/object-set-sha256=sha256:2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298 ./rendered",
           "writes": true
         },
         {

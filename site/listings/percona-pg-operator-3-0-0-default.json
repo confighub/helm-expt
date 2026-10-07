@@ -192,12 +192,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component percona-pg-operator --variant default --space percona-pg-operator-3-0-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff ./rendered",
+          "command": "cub variant upload --dry-run --component percona-pg-operator --variant default --space percona-pg-operator-3-0-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component percona-pg-operator --variant default --space percona-pg-operator-3-0-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff ./rendered",
+          "command": "cub variant upload --component percona-pg-operator --variant default --space percona-pg-operator-3-0-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff ./rendered",
           "writes": true
         },
         {

@@ -199,12 +199,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component kedacore-keda --variant no-crds --space kedacore-keda-2-19-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7 ./rendered",
+          "command": "cub variant upload --dry-run --component kedacore-keda --variant no-crds --space kedacore-keda-2-19-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component kedacore-keda --variant no-crds --space kedacore-keda-2-19-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7 ./rendered",
+          "command": "cub variant upload --component kedacore-keda --variant no-crds --space kedacore-keda-2-19-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7 ./rendered",
           "writes": true
         },
         {

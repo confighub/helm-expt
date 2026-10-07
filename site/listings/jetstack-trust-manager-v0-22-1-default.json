@@ -196,12 +196,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component jetstack-trust-manager --variant default --space jetstack-trust-manager-v0-22-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683 ./rendered",
+          "command": "cub variant upload --dry-run --component jetstack-trust-manager --variant default --space jetstack-trust-manager-v0-22-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component jetstack-trust-manager --variant default --space jetstack-trust-manager-v0-22-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683 ./rendered",
+          "command": "cub variant upload --component jetstack-trust-manager --variant default --space jetstack-trust-manager-v0-22-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683 ./rendered",
           "writes": true
         },
         {

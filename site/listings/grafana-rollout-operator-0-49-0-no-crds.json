@@ -191,12 +191,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component grafana-rollout-operator --variant no-crds --space grafana-rollout-operator-0-49-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403 ./rendered",
+          "command": "cub variant upload --dry-run --component grafana-rollout-operator --variant no-crds --space grafana-rollout-operator-0-49-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component grafana-rollout-operator --variant no-crds --space grafana-rollout-operator-0-49-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403 ./rendered",
+          "command": "cub variant upload --component grafana-rollout-operator --variant no-crds --space grafana-rollout-operator-0-49-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403 ./rendered",
           "writes": true
         },
         {

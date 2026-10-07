@@ -202,12 +202,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component bitnami-nginx --variant http-clusterip --space bitnami-nginx-24-0-2-http-clusterip --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba ./rendered",
+          "command": "cub variant upload --dry-run --component bitnami-nginx --variant http-clusterip --space bitnami-nginx-24-0-2-http-clusterip --unit-annotation workshop.confighub.com/object-set-sha256=sha256:7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component bitnami-nginx --variant http-clusterip --space bitnami-nginx-24-0-2-http-clusterip --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba ./rendered",
+          "command": "cub variant upload --component bitnami-nginx --variant http-clusterip --space bitnami-nginx-24-0-2-http-clusterip --unit-annotation workshop.confighub.com/object-set-sha256=sha256:7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba ./rendered",
           "writes": true
         },
         {

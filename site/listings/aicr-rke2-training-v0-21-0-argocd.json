@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component rke2-training --variant argocd --space aicr-rke2-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ef80fd3826cd8eb6d78a2b2b0a76936f6a0f1c77b3f4762813a184a45205f81c ./rendered",
+          "command": "cub variant upload --dry-run --component rke2-training --variant argocd --space aicr-rke2-training-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ef80fd3826cd8eb6d78a2b2b0a76936f6a0f1c77b3f4762813a184a45205f81c ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component rke2-training --variant argocd --space aicr-rke2-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ef80fd3826cd8eb6d78a2b2b0a76936f6a0f1c77b3f4762813a184a45205f81c ./rendered",
+          "command": "cub variant upload --component rke2-training --variant argocd --space aicr-rke2-training-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ef80fd3826cd8eb6d78a2b2b0a76936f6a0f1c77b3f4762813a184a45205f81c ./rendered",
           "writes": true
         },
         {

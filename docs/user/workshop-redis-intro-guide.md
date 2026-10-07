@@ -168,8 +168,8 @@ into a local directory named `rendered`, preview the retention, then retain
 it and derive a staging variant:
 
 ```sh
-cub variant upload --dry-run --component bitnami-redis --variant default --space bitnami-redis-25-5-3-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e ./rendered
-cub variant upload --component bitnami-redis --variant default --space bitnami-redis-25-5-3-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e ./rendered
+cub variant upload --dry-run --component bitnami-redis --variant default --space bitnami-redis-25-5-3-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e ./rendered
+cub variant upload --component bitnami-redis --variant default --space bitnami-redis-25-5-3-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e ./rendered
 cub variant create staging bitnami-redis-25-5-3-default --space-pattern template:bitnami-redis-25-5-3-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e
 ```
 

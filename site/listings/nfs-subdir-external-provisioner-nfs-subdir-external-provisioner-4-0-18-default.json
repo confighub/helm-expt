@@ -209,12 +209,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component nfs-subdir-external-provisioner-nfs-subdir-external-provisioner --variant default --space nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28 ./rendered",
+          "command": "cub variant upload --dry-run --component nfs-subdir-external-provisioner-nfs-subdir-external-provisioner --variant default --space nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component nfs-subdir-external-provisioner-nfs-subdir-external-provisioner --variant default --space nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28 ./rendered",
+          "command": "cub variant upload --component nfs-subdir-external-provisioner-nfs-subdir-external-provisioner --variant default --space nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28 ./rendered",
           "writes": true
         },
         {

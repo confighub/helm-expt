@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component b200-gke-cos-inference-dynamo --variant argocd --space aicr-b200-gke-cos-inference-dynamo-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:5b3d33a2557b6d77364f2cbee16e1b17c87623760aeb8bfe9a701033f05e3d78 ./rendered",
+          "command": "cub variant upload --dry-run --component b200-gke-cos-inference-dynamo --variant argocd --space aicr-b200-gke-cos-inference-dynamo-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:5b3d33a2557b6d77364f2cbee16e1b17c87623760aeb8bfe9a701033f05e3d78 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component b200-gke-cos-inference-dynamo --variant argocd --space aicr-b200-gke-cos-inference-dynamo-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:5b3d33a2557b6d77364f2cbee16e1b17c87623760aeb8bfe9a701033f05e3d78 ./rendered",
+          "command": "cub variant upload --component b200-gke-cos-inference-dynamo --variant argocd --space aicr-b200-gke-cos-inference-dynamo-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:5b3d33a2557b6d77364f2cbee16e1b17c87623760aeb8bfe9a701033f05e3d78 ./rendered",
           "writes": true
         },
         {

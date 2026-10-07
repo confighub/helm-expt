@@ -687,7 +687,7 @@ function buildVariants(id, spec, siblings, digest) {
 
   const component = slug(spec.source?.name ?? id);
   const annotation = `workshop.confighub.com/object-set-sha256=${digest}`;
-  const upload = `--component ${component} --variant ${base} --space ${id} --granularity minimal --annotation ${annotation} ./rendered`;
+  const upload = `--component ${component} --variant ${base} --space ${id} --unit-annotation ${annotation} ./rendered`;
   return {
     base,
     known,

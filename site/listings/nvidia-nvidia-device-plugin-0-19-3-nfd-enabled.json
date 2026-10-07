@@ -214,12 +214,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component nvidia-nvidia-device-plugin --variant nfd-enabled --space nvidia-nvidia-device-plugin-0-19-3-nfd-enabled --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119 ./rendered",
+          "command": "cub variant upload --dry-run --component nvidia-nvidia-device-plugin --variant nfd-enabled --space nvidia-nvidia-device-plugin-0-19-3-nfd-enabled --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component nvidia-nvidia-device-plugin --variant nfd-enabled --space nvidia-nvidia-device-plugin-0-19-3-nfd-enabled --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119 ./rendered",
+          "command": "cub variant upload --component nvidia-nvidia-device-plugin --variant nfd-enabled --space nvidia-nvidia-device-plugin-0-19-3-nfd-enabled --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119 ./rendered",
           "writes": true
         },
         {

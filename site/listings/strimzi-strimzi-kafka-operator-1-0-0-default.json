@@ -216,12 +216,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component strimzi-strimzi-kafka-operator --variant default --space strimzi-strimzi-kafka-operator-1-0-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b ./rendered",
+          "command": "cub variant upload --dry-run --component strimzi-strimzi-kafka-operator --variant default --space strimzi-strimzi-kafka-operator-1-0-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component strimzi-strimzi-kafka-operator --variant default --space strimzi-strimzi-kafka-operator-1-0-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b ./rendered",
+          "command": "cub variant upload --component strimzi-strimzi-kafka-operator --variant default --space strimzi-strimzi-kafka-operator-1-0-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b ./rendered",
           "writes": true
         },
         {

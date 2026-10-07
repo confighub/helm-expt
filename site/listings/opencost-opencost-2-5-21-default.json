@@ -213,12 +213,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component opencost-opencost --variant default --space opencost-opencost-2-5-21-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc ./rendered",
+          "command": "cub variant upload --dry-run --component opencost-opencost --variant default --space opencost-opencost-2-5-21-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component opencost-opencost --variant default --space opencost-opencost-2-5-21-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc ./rendered",
+          "command": "cub variant upload --component opencost-opencost --variant default --space opencost-opencost-2-5-21-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc ./rendered",
           "writes": true
         },
         {

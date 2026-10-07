@@ -201,12 +201,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component kyverno-kyverno --variant default --space kyverno-kyverno-3-9-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a ./rendered",
+          "command": "cub variant upload --dry-run --component kyverno-kyverno --variant default --space kyverno-kyverno-3-9-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component kyverno-kyverno --variant default --space kyverno-kyverno-3-9-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a ./rendered",
+          "command": "cub variant upload --component kyverno-kyverno --variant default --space kyverno-kyverno-3-9-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a ./rendered",
           "writes": true
         },
         {

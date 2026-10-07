@@ -191,12 +191,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component cloudnative-pg-cloudnative-pg --variant no-crds --space cloudnative-pg-cloudnative-pg-0-28-2-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d ./rendered",
+          "command": "cub variant upload --dry-run --component cloudnative-pg-cloudnative-pg --variant no-crds --space cloudnative-pg-cloudnative-pg-0-28-2-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component cloudnative-pg-cloudnative-pg --variant no-crds --space cloudnative-pg-cloudnative-pg-0-28-2-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d ./rendered",
+          "command": "cub variant upload --component cloudnative-pg-cloudnative-pg --variant no-crds --space cloudnative-pg-cloudnative-pg-0-28-2-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d ./rendered",
           "writes": true
         },
         {

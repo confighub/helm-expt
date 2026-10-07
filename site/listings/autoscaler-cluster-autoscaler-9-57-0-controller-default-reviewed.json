@@ -192,12 +192,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component autoscaler-cluster-autoscaler --variant controller-default-reviewed --space autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b89d1d1b0acbcfc12528c4aa8b29451000eb5734e04818aeedabf713c958837a ./rendered",
+          "command": "cub variant upload --dry-run --component autoscaler-cluster-autoscaler --variant controller-default-reviewed --space autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b89d1d1b0acbcfc12528c4aa8b29451000eb5734e04818aeedabf713c958837a ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component autoscaler-cluster-autoscaler --variant controller-default-reviewed --space autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b89d1d1b0acbcfc12528c4aa8b29451000eb5734e04818aeedabf713c958837a ./rendered",
+          "command": "cub variant upload --component autoscaler-cluster-autoscaler --variant controller-default-reviewed --space autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b89d1d1b0acbcfc12528c4aa8b29451000eb5734e04818aeedabf713c958837a ./rendered",
           "writes": true
         },
         {

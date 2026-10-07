@@ -216,12 +216,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component vm-victoria-metrics-single --variant default --space vm-victoria-metrics-single-0-39-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8 ./rendered",
+          "command": "cub variant upload --dry-run --component vm-victoria-metrics-single --variant default --space vm-victoria-metrics-single-0-39-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component vm-victoria-metrics-single --variant default --space vm-victoria-metrics-single-0-39-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8 ./rendered",
+          "command": "cub variant upload --component vm-victoria-metrics-single --variant default --space vm-victoria-metrics-single-0-39-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8 ./rendered",
           "writes": true
         },
         {

@@ -183,15 +183,15 @@ Useful first commands:
 # Find uploaded Helm experiment spaces.
 cub space list --where "Slug LIKE 'helm-%'"
 
-# Open matching spaces in the ConfigHub web UI.
-cub space list --where "Slug LIKE 'helm-%'" --web
+# Open the space list in the ConfigHub web UI.
+cub space open
 
 # List the Units for one uploaded chart variant.
 cub unit list --space <space> \
   --columns Unit.Slug,Unit.Labels.Component,Unit.Labels.HelmChartVersion,Unit.Labels.Variant
 
 # Open the Units for one space in the ConfigHub web UI.
-cub unit list --space <space> --web
+cub unit open --space <space>
 
 # Inspect the stored config for one Unit.
 cub unit data <unit> --space <space>
@@ -209,12 +209,17 @@ cub changeset create --space <space> helm-review --description "Review rendered 
 # --all includes selected uploaded Units even before a Target is attached.
 cub variant approve <space> --all --where "Labels.Variant = 'default'"
 
-# Dry-run an apply when the Units are attached to a target.
-cub unit apply --space <space> --where "Labels.Variant = 'default'" --dry-run
+# Publish a Release when the Space has a release Target.
+cub release publish <space>
 
 # Clone a reviewed ConfigHub space into an environment/region variant.
 cub variant create staging <upstream-space> --environment Staging --region us-east2
 ```
+
+The current CLI no longer has `cub unit apply`. A Space is delivered by
+publishing a Release for its release Target, which Argo CD or Flux then pulls.
+The `cub release publish`, `cub space open`, and `cub unit open` lines above
+are taken from the help of cub v0.8.7 and have not been re-run here.
 
 The retained `verify-bulk-ops:nginx` verifier still reads legacy `ApprovedBy`
 state. It has not been migrated to attestations, so do not use its approval
@@ -290,7 +295,7 @@ cub unit list
 cub unit data
 cub unit diff
 cub variant approve
-cub unit apply
+cub release publish
 cub function vet
 cub changeset create
 ```

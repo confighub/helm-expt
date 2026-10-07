@@ -200,12 +200,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component jetstack-cert-manager --variant crds-enabled --space jetstack-cert-manager-v1-21-1-crds-enabled --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db ./rendered",
+          "command": "cub variant upload --dry-run --component jetstack-cert-manager --variant crds-enabled --space jetstack-cert-manager-v1-21-1-crds-enabled --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component jetstack-cert-manager --variant crds-enabled --space jetstack-cert-manager-v1-21-1-crds-enabled --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db ./rendered",
+          "command": "cub variant upload --component jetstack-cert-manager --variant crds-enabled --space jetstack-cert-manager-v1-21-1-crds-enabled --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db ./rendered",
           "writes": true
         },
         {

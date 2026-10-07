@@ -185,12 +185,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component runix-pgadmin4 --variant default --space runix-pgadmin4-1-62-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565 ./rendered",
+          "command": "cub variant upload --dry-run --component runix-pgadmin4 --variant default --space runix-pgadmin4-1-62-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component runix-pgadmin4 --variant default --space runix-pgadmin4-1-62-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565 ./rendered",
+          "command": "cub variant upload --component runix-pgadmin4 --variant default --space runix-pgadmin4-1-62-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565 ./rendered",
           "writes": true
         },
         {

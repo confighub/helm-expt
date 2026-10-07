@@ -207,12 +207,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component kyverno-kyverno --variant no-crds --space kyverno-kyverno-3-8-1-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227 ./rendered",
+          "command": "cub variant upload --dry-run --component kyverno-kyverno --variant no-crds --space kyverno-kyverno-3-8-1-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component kyverno-kyverno --variant no-crds --space kyverno-kyverno-3-8-1-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227 ./rendered",
+          "command": "cub variant upload --component kyverno-kyverno --variant no-crds --space kyverno-kyverno-3-8-1-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227 ./rendered",
           "writes": true
         },
         {

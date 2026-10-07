@@ -192,12 +192,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component elastic-filebeat --variant node-or-cluster-collector --space elastic-filebeat-8-5-1-node-or-cluster-collector --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020 ./rendered",
+          "command": "cub variant upload --dry-run --component elastic-filebeat --variant node-or-cluster-collector --space elastic-filebeat-8-5-1-node-or-cluster-collector --unit-annotation workshop.confighub.com/object-set-sha256=sha256:690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component elastic-filebeat --variant node-or-cluster-collector --space elastic-filebeat-8-5-1-node-or-cluster-collector --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020 ./rendered",
+          "command": "cub variant upload --component elastic-filebeat --variant node-or-cluster-collector --space elastic-filebeat-8-5-1-node-or-cluster-collector --unit-annotation workshop.confighub.com/object-set-sha256=sha256:690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020 ./rendered",
           "writes": true
         },
         {

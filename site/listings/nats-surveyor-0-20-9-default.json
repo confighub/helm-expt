@@ -216,12 +216,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component nats-surveyor --variant default --space nats-surveyor-0-20-9-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1 ./rendered",
+          "command": "cub variant upload --dry-run --component nats-surveyor --variant default --space nats-surveyor-0-20-9-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component nats-surveyor --variant default --space nats-surveyor-0-20-9-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1 ./rendered",
+          "command": "cub variant upload --component nats-surveyor --variant default --space nats-surveyor-0-20-9-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1 ./rendered",
           "writes": true
         },
         {

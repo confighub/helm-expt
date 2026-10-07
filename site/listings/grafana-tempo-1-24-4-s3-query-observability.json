@@ -196,12 +196,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component grafana-tempo --variant s3-query-observability --space grafana-tempo-1-24-4-s3-query-observability --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed ./rendered",
+          "command": "cub variant upload --dry-run --component grafana-tempo --variant s3-query-observability --space grafana-tempo-1-24-4-s3-query-observability --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component grafana-tempo --variant s3-query-observability --space grafana-tempo-1-24-4-s3-query-observability --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed ./rendered",
+          "command": "cub variant upload --component grafana-tempo --variant s3-query-observability --space grafana-tempo-1-24-4-s3-query-observability --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed ./rendered",
           "writes": true
         },
         {

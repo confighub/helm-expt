@@ -117,24 +117,23 @@
   function buildConfigHubCommands(review) {
     const component = safeSlug(byId("confighub-component").value, "my-component");
     const baseSpace = safeSlug(byId("confighub-base-space").value, `${component}-base`);
-    const granularity = byId("confighub-granularity").value;
     const namespace = safeSlug(byId("confighub-namespace").value, "");
-    const uploadShape = `--granularity ${granularity}${namespace ? ` --namespace ${namespace}` : ""}`;
+    const uploadShape = namespace ? ` --namespace ${namespace}` : "";
     const destinations = byId("confighub-destination-spaces").value.split(/[\n,]/).map((value) => safeSlug(value, "")).filter(Boolean);
     const changeId = `promote-${review.spec.candidate.objectSetSha256.slice(7, 19)}`;
     const escapedBase = baseSpace.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const preview = [
-      "# 1. Read the Space first. A re-upload must repeat its recorded Unit layout and namespace.",
+      "# 1. Read the Space first. An upload creates or updates, so the same command refreshes the base.",
       `cub space get ${baseSpace} -o yaml`,
       "# 2. Preview the source refresh. This is a three-way merge and changes nothing.",
-      `cub variant upload --dry-run --component ${component} --variant base --space ${baseSpace} ${uploadShape} --annotation workshop.confighub.com/object-set-sha256=${review.spec.candidate.objectSetSha256} candidate.yaml`,
+      `cub variant upload --dry-run --component ${component} --variant base --space ${baseSpace}${uploadShape} --unit-annotation workshop.confighub.com/object-set-sha256=${review.spec.candidate.objectSetSha256} candidate.yaml`,
     ];
     const execute = [
       "set -euo pipefail",
       "",
       "# Run these writes only after the preview and destination checks pass.",
-      `cub variant upload --component ${component} --variant base --space ${baseSpace} ${uploadShape} --annotation workshop.confighub.com/object-set-sha256=${review.spec.candidate.objectSetSha256} --change-desc \"Reviewed ${review.spec.candidate.objectSetSha256}\" candidate.yaml`,
-      `cub unit update ${component} --space ${baseSpace} --annotation workshop.confighub.com/object-set-sha256=${review.spec.candidate.objectSetSha256} --change-desc \"Bind the accepted object set\"`,
+      `cub variant upload --component ${component} --variant base --space ${baseSpace}${uploadShape} --unit-annotation workshop.confighub.com/object-set-sha256=${review.spec.candidate.objectSetSha256} --change-desc \"Reviewed ${review.spec.candidate.objectSetSha256}\" candidate.yaml`,
+      "# The upload sets that annotation on every Unit it writes. This is read from the help of cub v0.8.7 and has not been re-run.",
     ];
     if (!destinations.length) preview.push("", "# Add one existing downstream Space above to preview its promotion.");
     for (const destination of destinations) {
@@ -286,7 +285,7 @@
       "Treat a missing prerequisite as blocked or not run. Do not call the source, candidate, workload, or conformance result failed unless the matching check actually ran and failed.",
       "Write any proposed correction to a new candidate file and show me the exact diff.",
       "Ask before running any ConfigHub write. Start with every --dry-run command in the review.",
-      "Before a ConfigHub re-upload, read the base Space and confirm that the command repeats its recorded Unit layout and namespace. Stop if they differ.",
+      "Before a ConfigHub re-upload, read the base Space and confirm that the command names the namespace the objects were rendered with. Stop if it differs.",
       "",
       "Tests still required:",
       tests,
@@ -652,7 +651,7 @@
   byId("copy-ai-promotion").addEventListener("click", () => copyText(byId("ai-promotion-prompt").value, "ai-promotion-copy-status"));
   byId("copy-confighub-preview").addEventListener("click", () => copyText(byId("confighub-promotion-preview").value, "confighub-preview-copy-status"));
   byId("copy-confighub-run").addEventListener("click", () => copyText(byId("confighub-promotion-run").value, "confighub-run-copy-status"));
-  for (const id of ["confighub-component", "confighub-base-space", "confighub-granularity", "confighub-namespace", "confighub-destination-spaces"]) {
+  for (const id of ["confighub-component", "confighub-base-space", "confighub-namespace", "confighub-destination-spaces"]) {
     byId(id).addEventListener("input", () => {
       if (latestReview) setConfigHubCommands(latestReview);
     });

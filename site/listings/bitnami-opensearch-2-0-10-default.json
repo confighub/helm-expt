@@ -227,12 +227,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component bitnami-opensearch --variant default --space bitnami-opensearch-2-0-10-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd ./rendered",
+          "command": "cub variant upload --dry-run --component bitnami-opensearch --variant default --space bitnami-opensearch-2-0-10-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component bitnami-opensearch --variant default --space bitnami-opensearch-2-0-10-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd ./rendered",
+          "command": "cub variant upload --component bitnami-opensearch --variant default --space bitnami-opensearch-2-0-10-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd ./rendered",
           "writes": true
         },
         {

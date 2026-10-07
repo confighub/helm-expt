@@ -183,12 +183,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component fairwinds-stable-goldilocks --variant default --space fairwinds-stable-goldilocks-10-3-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5 ./rendered",
+          "command": "cub variant upload --dry-run --component fairwinds-stable-goldilocks --variant default --space fairwinds-stable-goldilocks-10-3-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component fairwinds-stable-goldilocks --variant default --space fairwinds-stable-goldilocks-10-3-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5 ./rendered",
+          "command": "cub variant upload --component fairwinds-stable-goldilocks --variant default --space fairwinds-stable-goldilocks-10-3-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5 ./rendered",
           "writes": true
         },
         {

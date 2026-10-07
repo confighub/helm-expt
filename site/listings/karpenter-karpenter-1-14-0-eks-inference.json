@@ -223,12 +223,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component karpenter-karpenter --variant eks-inference --space karpenter-karpenter-1-14-0-eks-inference --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c ./rendered",
+          "command": "cub variant upload --dry-run --component karpenter-karpenter --variant eks-inference --space karpenter-karpenter-1-14-0-eks-inference --unit-annotation workshop.confighub.com/object-set-sha256=sha256:27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component karpenter-karpenter --variant eks-inference --space karpenter-karpenter-1-14-0-eks-inference --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c ./rendered",
+          "command": "cub variant upload --component karpenter-karpenter --variant eks-inference --space karpenter-karpenter-1-14-0-eks-inference --unit-annotation workshop.confighub.com/object-set-sha256=sha256:27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c ./rendered",
           "writes": true
         },
         {

@@ -18,11 +18,14 @@ derives a `prod-us-east` variant of the NGINX `http-clusterip` base.
 ```sh
 cub variant create prod-us-east helm-nginx-confighub-proof \
   --environment Prod --region us-east \
-  --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' \
+  --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' \
   --unit-delete-gate production-review \
   --unit-destroy-gate production-review \
   --allow-exists --wait --timeout 10m -o json
 ```
+
+The recorded run spelled the pattern flag `--space-name-pattern`. The CLI has
+since renamed it to `--space-pattern`, which is what the command above shows.
 
 Result: `pass`. The derived variant landed in a new space,
 `NGINX-prod-us-east`, cloned from the proof space `helm-nginx-confighub-proof`.

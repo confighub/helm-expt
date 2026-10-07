@@ -192,12 +192,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component open-telemetry-opentelemetry-operator --variant default --space open-telemetry-opentelemetry-operator-0-114-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873 ./rendered",
+          "command": "cub variant upload --dry-run --component open-telemetry-opentelemetry-operator --variant default --space open-telemetry-opentelemetry-operator-0-114-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component open-telemetry-opentelemetry-operator --variant default --space open-telemetry-opentelemetry-operator-0-114-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873 ./rendered",
+          "command": "cub variant upload --component open-telemetry-opentelemetry-operator --variant default --space open-telemetry-opentelemetry-operator-0-114-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873 ./rendered",
           "writes": true
         },
         {

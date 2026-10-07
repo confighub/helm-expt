@@ -216,12 +216,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component gatekeeper-gatekeeper --variant default --space gatekeeper-gatekeeper-3-22-2-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d ./rendered",
+          "command": "cub variant upload --dry-run --component gatekeeper-gatekeeper --variant default --space gatekeeper-gatekeeper-3-22-2-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component gatekeeper-gatekeeper --variant default --space gatekeeper-gatekeeper-3-22-2-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d ./rendered",
+          "command": "cub variant upload --component gatekeeper-gatekeeper --variant default --space gatekeeper-gatekeeper-3-22-2-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d ./rendered",
           "writes": true
         },
         {

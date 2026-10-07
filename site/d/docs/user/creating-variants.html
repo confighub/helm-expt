@@ -657,9 +657,10 @@ cub variant promote &lt;downstream-space&gt; \
 -&gt; apply/publish to the target
 -&gt; live observation</code></pre>
 <p>This is not a hidden Helm upgrade. Helm-render-changing choices still belong in the <code>cub installer</code> recipe/package path. <code>cub variant promote</code> carries the reviewed ConfigHub changes into derived variants so staging, production, and customer Spaces can move in controlled waves.</p>
-<p>When a downstream variant intentionally owns a field differently from the upstream, record that boundary explicitly. <code>cub unit set-predicates</code> can mark a path as protected or reopen it for future upstream merges:</p>
-<pre><code>cub unit set-predicates &lt;unit&gt; --space &lt;downstream-space&gt; \
-  --predicate &quot;apps/v1/Deployment:monitoring/prometheus-server:spec.replicas=false&quot;</code></pre>
+<p>When a downstream variant intentionally owns a field differently from the upstream, record that boundary explicitly. <code>cub unit set-protection</code> marks a path as protected, and its <code>--unprotect</code> flag reopens the path for future upstream merges:</p>
+<pre><code>cub unit set-protection &lt;unit&gt; --space &lt;downstream-space&gt; \
+  --protect &quot;apps/v1/Deployment:monitoring/prometheus-server:spec.replicas&quot;</code></pre>
+<p>This command is taken from the help of cub v0.8.7 and has not been re-run here. It replaces <code>cub unit set-predicates</code>, which the CLI no longer has.</p>
 <p>That makes promotion safer because local ownership is represented as ConfigHub data, not as an undocumented patch.</p>
 <p>The consolidated promotion model is in <a href="../reference/variant-promotion-model.html">Variant Promotion Model</a>. Current evidence shows server-side promotion mechanics for the primary top-20 rows, but those rows remain watch-grade until the changeset-bound path tracked in <a href="https://github.com/confighub/helm-expt/issues/682">#682</a> is fixed and rerun.</p>
 <h2 id="delivery-prerequisites">Delivery Prerequisites</h2>

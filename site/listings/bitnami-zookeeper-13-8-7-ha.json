@@ -198,12 +198,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component bitnami-zookeeper --variant ha --space bitnami-zookeeper-13-8-7-ha --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f ./rendered",
+          "command": "cub variant upload --dry-run --component bitnami-zookeeper --variant ha --space bitnami-zookeeper-13-8-7-ha --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component bitnami-zookeeper --variant ha --space bitnami-zookeeper-13-8-7-ha --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f ./rendered",
+          "command": "cub variant upload --component bitnami-zookeeper --variant ha --space bitnami-zookeeper-13-8-7-ha --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f ./rendered",
           "writes": true
         },
         {

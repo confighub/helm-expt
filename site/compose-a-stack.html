@@ -834,7 +834,7 @@ both rows must report Synced and Healthy
 
 <span class="term-prompt">$</span> kubectl get configmap -n web frontend-config backend-config</code></pre>
       <p>The Releases prove ConfigHub accepted immutable desired configuration. The Argo rows prove the controller saw it. The ConfigMaps prove the target received both components. If one checkpoint is missing, stop there instead of calling the stack live.</p>
-      <p>The Workshop plugin source also contains a bounded <code>cub stack deploy web-tiny --target workshop/target --run</code> helper that performs step 3 and refuses every other stack. Use it only from a released plugin version whose help lists <code>stack deploy</code>; the pinned release on this page keeps the explicit commands so the Guide remains runnable today.</p>
+      <p>The Workshop plugin source also contains a bounded <code>stack deploy</code> helper for <code>web-tiny</code> that performs step 3 and refuses every other stack. The help of Workshop plugin v0.6.56 does not list it, so this page keeps the explicit commands and the Guide remains runnable today.</p>
     </section>
     <section class="narrow-section">
       <details class="deep" id="shipped-stacks">

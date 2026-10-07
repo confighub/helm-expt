@@ -213,12 +213,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component rook-release-rook-ceph --variant default --space rook-release-rook-ceph-v1-19-5-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:26789923789aab27d01638f52680ee6de6d982268eee3740cabc733142f67ba8 ./rendered",
+          "command": "cub variant upload --dry-run --component rook-release-rook-ceph --variant default --space rook-release-rook-ceph-v1-19-5-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:26789923789aab27d01638f52680ee6de6d982268eee3740cabc733142f67ba8 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component rook-release-rook-ceph --variant default --space rook-release-rook-ceph-v1-19-5-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:26789923789aab27d01638f52680ee6de6d982268eee3740cabc733142f67ba8 ./rendered",
+          "command": "cub variant upload --component rook-release-rook-ceph --variant default --space rook-release-rook-ceph-v1-19-5-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:26789923789aab27d01638f52680ee6de6d982268eee3740cabc733142f67ba8 ./rendered",
           "writes": true
         },
         {

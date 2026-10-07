@@ -223,12 +223,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component external-dns-external-dns --variant default --space external-dns-external-dns-1-21-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74 ./rendered",
+          "command": "cub variant upload --dry-run --component external-dns-external-dns --variant default --space external-dns-external-dns-1-21-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component external-dns-external-dns --variant default --space external-dns-external-dns-1-21-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74 ./rendered",
+          "command": "cub variant upload --component external-dns-external-dns --variant default --space external-dns-external-dns-1-21-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74 ./rendered",
           "writes": true
         },
         {

@@ -198,12 +198,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component elastic-eck-operator --variant ha --space elastic-eck-operator-3-4-0-ha --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:20bc4c9cdd28f35aa9c1f646c0af7bc092faac39f8ce3e3606861b98789ee54a ./rendered",
+          "command": "cub variant upload --dry-run --component elastic-eck-operator --variant ha --space elastic-eck-operator-3-4-0-ha --unit-annotation workshop.confighub.com/object-set-sha256=sha256:20bc4c9cdd28f35aa9c1f646c0af7bc092faac39f8ce3e3606861b98789ee54a ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component elastic-eck-operator --variant ha --space elastic-eck-operator-3-4-0-ha --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:20bc4c9cdd28f35aa9c1f646c0af7bc092faac39f8ce3e3606861b98789ee54a ./rendered",
+          "command": "cub variant upload --component elastic-eck-operator --variant ha --space elastic-eck-operator-3-4-0-ha --unit-annotation workshop.confighub.com/object-set-sha256=sha256:20bc4c9cdd28f35aa9c1f646c0af7bc092faac39f8ce3e3606861b98789ee54a ./rendered",
           "writes": true
         },
         {

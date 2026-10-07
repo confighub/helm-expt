@@ -32,6 +32,8 @@ Missing a tool? Install [Node.js](https://nodejs.org/en/download),
 [cub CLI](https://docs.confighub.com/get-started/setup/#install-the-cli). For
 the CLI version used in the retained local trials, choose the matching
 [cub v0.4.4 release binary](https://github.com/confighub/sdk/releases/tag/v0.4.4).
+The `cub` commands this Guide names also match the help of cub v0.8.7. They
+have not been re-run with that release.
 
 Choose one empty parent directory and put both checkouts in it side by side.
 Two commands below hash a file across the pair, so the sibling layout keeps

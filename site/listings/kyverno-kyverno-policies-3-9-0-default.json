@@ -180,12 +180,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component kyverno-kyverno-policies --variant default --space kyverno-kyverno-policies-3-9-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:eae1a47312f3ecdf88eaabd4eff1d17e3259140694e265d3dbb5c71fc6f39278 ./rendered",
+          "command": "cub variant upload --dry-run --component kyverno-kyverno-policies --variant default --space kyverno-kyverno-policies-3-9-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:eae1a47312f3ecdf88eaabd4eff1d17e3259140694e265d3dbb5c71fc6f39278 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component kyverno-kyverno-policies --variant default --space kyverno-kyverno-policies-3-9-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:eae1a47312f3ecdf88eaabd4eff1d17e3259140694e265d3dbb5c71fc6f39278 ./rendered",
+          "command": "cub variant upload --component kyverno-kyverno-policies --variant default --space kyverno-kyverno-policies-3-9-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:eae1a47312f3ecdf88eaabd4eff1d17e3259140694e265d3dbb5c71fc6f39278 ./rendered",
           "writes": true
         },
         {

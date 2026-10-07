@@ -198,12 +198,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component fairwinds-stable-vpa --variant default --space fairwinds-stable-vpa-4-11-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b ./rendered",
+          "command": "cub variant upload --dry-run --component fairwinds-stable-vpa --variant default --space fairwinds-stable-vpa-4-11-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component fairwinds-stable-vpa --variant default --space fairwinds-stable-vpa-4-11-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b ./rendered",
+          "command": "cub variant upload --component fairwinds-stable-vpa --variant default --space fairwinds-stable-vpa-4-11-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b ./rendered",
           "writes": true
         },
         {

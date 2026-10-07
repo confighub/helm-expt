@@ -199,12 +199,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-adapter --variant apiservice-v1-capability --space prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23 ./rendered",
+          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-adapter --variant apiservice-v1-capability --space prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component prometheus-community-prometheus-adapter --variant apiservice-v1-capability --space prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23 ./rendered",
+          "command": "cub variant upload --component prometheus-community-prometheus-adapter --variant apiservice-v1-capability --space prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23 ./rendered",
           "writes": true
         },
         {

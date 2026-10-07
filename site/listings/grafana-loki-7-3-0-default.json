@@ -205,12 +205,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component grafana-loki --variant default --space grafana-loki-7-3-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:748a9b3329ec784fc8eeba2bc023fd9f42af37816a0e3a40fa02a4e44ae8afaa ./rendered",
+          "command": "cub variant upload --dry-run --component grafana-loki --variant default --space grafana-loki-7-3-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:748a9b3329ec784fc8eeba2bc023fd9f42af37816a0e3a40fa02a4e44ae8afaa ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component grafana-loki --variant default --space grafana-loki-7-3-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:748a9b3329ec784fc8eeba2bc023fd9f42af37816a0e3a40fa02a4e44ae8afaa ./rendered",
+          "command": "cub variant upload --component grafana-loki --variant default --space grafana-loki-7-3-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:748a9b3329ec784fc8eeba2bc023fd9f42af37816a0e3a40fa02a4e44ae8afaa ./rendered",
           "writes": true
         },
         {

@@ -216,12 +216,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-blackbox-exporter --variant default --space prometheus-community-prometheus-blackbox-exporter-11-10-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c ./rendered",
+          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-blackbox-exporter --variant default --space prometheus-community-prometheus-blackbox-exporter-11-10-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component prometheus-community-prometheus-blackbox-exporter --variant default --space prometheus-community-prometheus-blackbox-exporter-11-10-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c ./rendered",
+          "command": "cub variant upload --component prometheus-community-prometheus-blackbox-exporter --variant default --space prometheus-community-prometheus-blackbox-exporter-11-10-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c ./rendered",
           "writes": true
         },
         {

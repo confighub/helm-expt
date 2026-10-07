@@ -605,7 +605,8 @@ cub unit diff --space &lt;candidate-space&gt;
 cub changeset create --space &lt;candidate-space&gt; &lt;upgrade-review&gt;
 cub function vet --space &lt;candidate-space&gt;
 cub variant approve &lt;candidate-space&gt; --revision ChangeSet:&lt;upgrade-review&gt;
-cub unit apply --space &lt;candidate-space&gt; --changeset &lt;upgrade-review&gt; --wait</code></pre>
+cub release publish --revision ChangeSet:&lt;upgrade-review&gt; &lt;candidate-space&gt;</code></pre>
+<p>The last line is taken from the help of cub v0.8.7 and has not been re-run here. The CLI no longer has <code>cub unit apply</code>. A Space that has a release Target is delivered by publishing a Release, and the help says a ChangeSet must be closed before <code>--revision</code> can name it.</p>
 <p><code>cub variant approve</code> records Approval attestations for the selected revisions, which also cover later revisions of the same Unit with identical content. A named Space selects Target-bearing Units unless <code>--all</code> is supplied, and <code>--where</code> can narrow that selection. A ChangeWorkflow stage is gated only when its configured attestation prerequisite checks those revisions; recording an attestation does not create or migrate that prerequisite.</p>
 <p>The point is that the reviewer can see the exact object change, the scan result, the target prerequisites, and the observation receipts before production is declared healthy.</p>
 <h2 id="what-this-would-have-caught">What This Would Have Caught</h2>

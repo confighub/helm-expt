@@ -192,12 +192,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component cloudnative-pg-cloudnative-pg --variant default --space cloudnative-pg-cloudnative-pg-0-28-2-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46 ./rendered",
+          "command": "cub variant upload --dry-run --component cloudnative-pg-cloudnative-pg --variant default --space cloudnative-pg-cloudnative-pg-0-28-2-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component cloudnative-pg-cloudnative-pg --variant default --space cloudnative-pg-cloudnative-pg-0-28-2-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46 ./rendered",
+          "command": "cub variant upload --component cloudnative-pg-cloudnative-pg --variant default --space cloudnative-pg-cloudnative-pg-0-28-2-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46 ./rendered",
           "writes": true
         },
         {

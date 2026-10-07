@@ -191,12 +191,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component traefik-traefik --variant no-crds --space traefik-traefik-40-2-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce ./rendered",
+          "command": "cub variant upload --dry-run --component traefik-traefik --variant no-crds --space traefik-traefik-40-2-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component traefik-traefik --variant no-crds --space traefik-traefik-40-2-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce ./rendered",
+          "command": "cub variant upload --component traefik-traefik --variant no-crds --space traefik-traefik-40-2-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce ./rendered",
           "writes": true
         },
         {

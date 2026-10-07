@@ -223,12 +223,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component grafana-loki --variant simple-scalable-minio --space grafana-loki-7-0-0-simple-scalable-minio --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207 ./rendered",
+          "command": "cub variant upload --dry-run --component grafana-loki --variant simple-scalable-minio --space grafana-loki-7-0-0-simple-scalable-minio --unit-annotation workshop.confighub.com/object-set-sha256=sha256:91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component grafana-loki --variant simple-scalable-minio --space grafana-loki-7-0-0-simple-scalable-minio --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207 ./rendered",
+          "command": "cub variant upload --component grafana-loki --variant simple-scalable-minio --space grafana-loki-7-0-0-simple-scalable-minio --unit-annotation workshop.confighub.com/object-set-sha256=sha256:91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207 ./rendered",
           "writes": true
         },
         {

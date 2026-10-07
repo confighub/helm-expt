@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component l40s-oke-training --variant argocd --space aicr-l40s-oke-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:802859b550a16b392638fb729f91f90a466988ea1c44881ab3e1f3aa3cedb1a5 ./rendered",
+          "command": "cub variant upload --dry-run --component l40s-oke-training --variant argocd --space aicr-l40s-oke-training-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:802859b550a16b392638fb729f91f90a466988ea1c44881ab3e1f3aa3cedb1a5 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component l40s-oke-training --variant argocd --space aicr-l40s-oke-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:802859b550a16b392638fb729f91f90a466988ea1c44881ab3e1f3aa3cedb1a5 ./rendered",
+          "command": "cub variant upload --component l40s-oke-training --variant argocd --space aicr-l40s-oke-training-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:802859b550a16b392638fb729f91f90a466988ea1c44881ab3e1f3aa3cedb1a5 ./rendered",
           "writes": true
         },
         {

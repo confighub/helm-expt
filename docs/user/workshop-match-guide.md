@@ -19,6 +19,8 @@ Missing a tool? Install [Node.js](https://nodejs.org/en/download),
 The local steps in this Guide do not require signup or login.
 For the CLI version used in the retained local trials, choose the matching
 [cub v0.4.4 release binary](https://github.com/confighub/sdk/releases/tag/v0.4.4).
+The `cub` commands this Guide names also match the help of cub v0.8.7. They
+have not been re-run with that release.
 Check `node --version`, `git --version`, and `cub version` in the terminal or
 assistant session you will use, then install the pinned plugin below.
 

@@ -125,8 +125,13 @@ cub unit diff --space <candidate-space>
 cub changeset create --space <candidate-space> <upgrade-review>
 cub function vet --space <candidate-space>
 cub variant approve <candidate-space> --revision ChangeSet:<upgrade-review>
-cub unit apply --space <candidate-space> --changeset <upgrade-review> --wait
+cub release publish --revision ChangeSet:<upgrade-review> <candidate-space>
 ```
+
+The last line is taken from the help of cub v0.8.7 and has not been re-run
+here. The CLI no longer has `cub unit apply`. A Space that has a release
+Target is delivered by publishing a Release, and the help says a ChangeSet
+must be closed before `--revision` can name it.
 
 `cub variant approve` records Approval attestations for the selected revisions,
 which also cover later revisions of the same Unit with identical content. A

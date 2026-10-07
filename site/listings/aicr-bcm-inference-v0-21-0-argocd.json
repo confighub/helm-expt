@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component bcm-inference --variant argocd --space aicr-bcm-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:2a3e0f91c7b052346427d3d769290930c31b18d08fc81b589d45787df0e6e0a7 ./rendered",
+          "command": "cub variant upload --dry-run --component bcm-inference --variant argocd --space aicr-bcm-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:2a3e0f91c7b052346427d3d769290930c31b18d08fc81b589d45787df0e6e0a7 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component bcm-inference --variant argocd --space aicr-bcm-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:2a3e0f91c7b052346427d3d769290930c31b18d08fc81b589d45787df0e6e0a7 ./rendered",
+          "command": "cub variant upload --component bcm-inference --variant argocd --space aicr-bcm-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:2a3e0f91c7b052346427d3d769290930c31b18d08fc81b589d45787df0e6e0a7 ./rendered",
           "writes": true
         },
         {

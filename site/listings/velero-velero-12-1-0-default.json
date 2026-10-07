@@ -185,12 +185,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component velero-velero --variant default --space velero-velero-12-1-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:98ae56afed33da670906bb8ea003f7abd1ec19e4bbc42244590bc2e97f772d3f ./rendered",
+          "command": "cub variant upload --dry-run --component velero-velero --variant default --space velero-velero-12-1-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:98ae56afed33da670906bb8ea003f7abd1ec19e4bbc42244590bc2e97f772d3f ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component velero-velero --variant default --space velero-velero-12-1-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:98ae56afed33da670906bb8ea003f7abd1ec19e4bbc42244590bc2e97f772d3f ./rendered",
+          "command": "cub variant upload --component velero-velero --variant default --space velero-velero-12-1-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:98ae56afed33da670906bb8ea003f7abd1ec19e4bbc42244590bc2e97f772d3f ./rendered",
           "writes": true
         },
         {

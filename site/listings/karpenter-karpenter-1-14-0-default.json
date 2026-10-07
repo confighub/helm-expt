@@ -223,12 +223,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component karpenter-karpenter --variant default --space karpenter-karpenter-1-14-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381 ./rendered",
+          "command": "cub variant upload --dry-run --component karpenter-karpenter --variant default --space karpenter-karpenter-1-14-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component karpenter-karpenter --variant default --space karpenter-karpenter-1-14-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381 ./rendered",
+          "command": "cub variant upload --component karpenter-karpenter --variant default --space karpenter-karpenter-1-14-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381 ./rendered",
           "writes": true
         },
         {

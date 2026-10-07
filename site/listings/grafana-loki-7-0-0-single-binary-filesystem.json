@@ -223,12 +223,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component grafana-loki --variant single-binary-filesystem --space grafana-loki-7-0-0-single-binary-filesystem --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30 ./rendered",
+          "command": "cub variant upload --dry-run --component grafana-loki --variant single-binary-filesystem --space grafana-loki-7-0-0-single-binary-filesystem --unit-annotation workshop.confighub.com/object-set-sha256=sha256:6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component grafana-loki --variant single-binary-filesystem --space grafana-loki-7-0-0-single-binary-filesystem --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30 ./rendered",
+          "command": "cub variant upload --component grafana-loki --variant single-binary-filesystem --space grafana-loki-7-0-0-single-binary-filesystem --unit-annotation workshop.confighub.com/object-set-sha256=sha256:6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30 ./rendered",
           "writes": true
         },
         {

@@ -821,7 +821,7 @@
     <ol>
       <li>Render or flatten once, with declared inputs, at build time and never in the delivery path.</li>
       <li>Package as a certified bundle: one OCI artifact per component, a digest-bound index pinning the composition, and a receipt.</li>
-      <li>Ingest as Units at per-file granularity, with the bundle digest recorded, into a base Space no target deploys.</li>
+      <li>Ingest as Units, one for each resource, with the bundle digest recorded, into a base Space no target deploys.</li>
       <li>Vary per target, then publish governed releases against an immutable digest.</li>
       <li>Any reconciler syncs that digest: Argo per cluster, Sveltos across a labeled fleet, plain kubectl for the minimal path.</li>
       <li>Receipts close the loop where convergence is recorded.</li>

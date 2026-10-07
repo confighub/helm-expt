@@ -200,12 +200,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component autoscaler-vertical-pod-autoscaler --variant default --space autoscaler-vertical-pod-autoscaler-0-9-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490 ./rendered",
+          "command": "cub variant upload --dry-run --component autoscaler-vertical-pod-autoscaler --variant default --space autoscaler-vertical-pod-autoscaler-0-9-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component autoscaler-vertical-pod-autoscaler --variant default --space autoscaler-vertical-pod-autoscaler-0-9-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490 ./rendered",
+          "command": "cub variant upload --component autoscaler-vertical-pod-autoscaler --variant default --space autoscaler-vertical-pod-autoscaler-0-9-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490 ./rendered",
           "writes": true
         },
         {

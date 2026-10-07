@@ -246,9 +246,12 @@ cub installer upload
 cub variant create
 cub variant promote
 cub unit list/data/tree/diff/revision
-cub changeset, variant approve, and unit apply/cancel lanes where proven
+cub changeset, variant approve, unit cancel, and release publish lanes where proven
 ConfigHub function scans
 ```
+
+Lanes recorded with an older CLI used `cub unit apply`, which the current CLI
+no longer has. Their receipts keep the command they ran.
 
 Roadmap surfaces, not current commands in this repo:
 

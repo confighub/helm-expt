@@ -300,13 +300,17 @@ reviewed ConfigHub changes into derived variants so staging, production, and
 customer Spaces can move in controlled waves.
 
 When a downstream variant intentionally owns a field differently from the
-upstream, record that boundary explicitly. `cub unit set-predicates` can mark a
-path as protected or reopen it for future upstream merges:
+upstream, record that boundary explicitly. `cub unit set-protection` marks a
+path as protected, and its `--unprotect` flag reopens the path for future
+upstream merges:
 
 ```sh
-cub unit set-predicates <unit> --space <downstream-space> \
-  --predicate "apps/v1/Deployment:monitoring/prometheus-server:spec.replicas=false"
+cub unit set-protection <unit> --space <downstream-space> \
+  --protect "apps/v1/Deployment:monitoring/prometheus-server:spec.replicas"
 ```
+
+This command is taken from the help of cub v0.8.7 and has not been re-run
+here. It replaces `cub unit set-predicates`, which the CLI no longer has.
 
 That makes promotion safer because local ownership is represented as ConfigHub
 data, not as an undocumented patch.

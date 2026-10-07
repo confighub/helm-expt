@@ -548,6 +548,7 @@
 <tr><td><code>helm-render-intents</code> output is stale</td><td>Render-intent YAML/CSV/JSON no longer matches matrix or lifecycle data.</td><td>Run <code>npm run helm-render-intents</code>, then <code>npm run helm-render-intents:verify</code>.</td></tr>
 <tr><td>Matrix output is stale</td><td>The master matrix no longer matches source data.</td><td>Run <code>npm run master-matrix</code>, then <code>npm run master-matrix:verify</code>.</td></tr>
 <tr><td>Command-surface verifier rejects an example</td><td>A doc uses stale <code>cub</code> syntax or planned syntax without saying it is planned.</td><td>Fix the example or mark planned/future syntax clearly; re-run the command-surface verifier.</td></tr>
+<tr><td>Command-surface verifier names a command the help snapshot does not have</td><td>A reader-facing source shows a subcommand or flag that <code>tests/cub-help-surface.json</code> does not list.</td><td>Fix the source. If the CLI itself changed, run <code>npm run variant:command-surface:snapshot</code> on a machine with that CLI, commit the snapshot, and fix what the two verifiers then report. Never edit the snapshot by hand.</td></tr>
 <tr><td><code>git diff --check</code> reports trailing whitespace</td><td>A generated or manual file has whitespace errors.</td><td>Fix the source generator if many generated files are affected; fix the manual file directly if only manual docs changed.</td></tr></tbody></table>
 <h2 id="when-not-to-regenerate">When Not To Regenerate</h2>
 <p>Do not regenerate a broad surface just because it is nearby. Examples:</p>

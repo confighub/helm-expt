@@ -202,12 +202,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component bitnami-contour --variant legacy --space bitnami-contour-21-1-4-legacy --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:d7df93e9094b4f918f3f97621beb90909c2d8f5a64ab8dc51b8f8dce0c934123 ./rendered",
+          "command": "cub variant upload --dry-run --component bitnami-contour --variant legacy --space bitnami-contour-21-1-4-legacy --unit-annotation workshop.confighub.com/object-set-sha256=sha256:d7df93e9094b4f918f3f97621beb90909c2d8f5a64ab8dc51b8f8dce0c934123 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component bitnami-contour --variant legacy --space bitnami-contour-21-1-4-legacy --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:d7df93e9094b4f918f3f97621beb90909c2d8f5a64ab8dc51b8f8dce0c934123 ./rendered",
+          "command": "cub variant upload --component bitnami-contour --variant legacy --space bitnami-contour-21-1-4-legacy --unit-annotation workshop.confighub.com/object-set-sha256=sha256:d7df93e9094b4f918f3f97621beb90909c2d8f5a64ab8dc51b8f8dce0c934123 ./rendered",
           "writes": true
         },
         {

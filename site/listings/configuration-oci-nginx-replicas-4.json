@@ -193,12 +193,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component nginx-replicas-4 --variant replicas-4 --space configuration-oci-nginx-replicas-4 --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340 ./rendered",
+          "command": "cub variant upload --dry-run --component nginx-replicas-4 --variant replicas-4 --space configuration-oci-nginx-replicas-4 --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component nginx-replicas-4 --variant replicas-4 --space configuration-oci-nginx-replicas-4 --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340 ./rendered",
+          "command": "cub variant upload --component nginx-replicas-4 --variant replicas-4 --space configuration-oci-nginx-replicas-4 --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340 ./rendered",
           "writes": true
         },
         {

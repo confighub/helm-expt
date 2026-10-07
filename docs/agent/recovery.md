@@ -27,6 +27,7 @@ repair that matches the failure.
 | `helm-render-intents` output is stale | Render-intent YAML/CSV/JSON no longer matches matrix or lifecycle data. | Run `npm run helm-render-intents`, then `npm run helm-render-intents:verify`. |
 | Matrix output is stale | The master matrix no longer matches source data. | Run `npm run master-matrix`, then `npm run master-matrix:verify`. |
 | Command-surface verifier rejects an example | A doc uses stale `cub` syntax or planned syntax without saying it is planned. | Fix the example or mark planned/future syntax clearly; re-run the command-surface verifier. |
+| Command-surface verifier names a command the help snapshot does not have | A reader-facing source shows a subcommand or flag that `tests/cub-help-surface.json` does not list. | Fix the source. If the CLI itself changed, run `npm run variant:command-surface:snapshot` on a machine with that CLI, commit the snapshot, and fix what the two verifiers then report. Never edit the snapshot by hand. |
 | `git diff --check` reports trailing whitespace | A generated or manual file has whitespace errors. | Fix the source generator if many generated files are affected; fix the manual file directly if only manual docs changed. |
 
 ## When Not To Regenerate

@@ -199,12 +199,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-adapter --variant cluster-metrics-readonly --space prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a ./rendered",
+          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-adapter --variant cluster-metrics-readonly --space prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly --unit-annotation workshop.confighub.com/object-set-sha256=sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component prometheus-community-prometheus-adapter --variant cluster-metrics-readonly --space prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a ./rendered",
+          "command": "cub variant upload --component prometheus-community-prometheus-adapter --variant cluster-metrics-readonly --space prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly --unit-annotation workshop.confighub.com/object-set-sha256=sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a ./rendered",
           "writes": true
         },
         {

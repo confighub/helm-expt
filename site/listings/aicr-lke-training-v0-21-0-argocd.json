@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component lke-training --variant argocd --space aicr-lke-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91 ./rendered",
+          "command": "cub variant upload --dry-run --component lke-training --variant argocd --space aicr-lke-training-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component lke-training --variant argocd --space aicr-lke-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91 ./rendered",
+          "command": "cub variant upload --component lke-training --variant argocd --space aicr-lke-training-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:73f3875903bc59b980e6122624a7b24ccb9760812f31b86989d347b642de8f91 ./rendered",
           "writes": true
         },
         {

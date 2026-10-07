@@ -213,12 +213,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component elastic-metricbeat --variant default --space elastic-metricbeat-8-5-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939 ./rendered",
+          "command": "cub variant upload --dry-run --component elastic-metricbeat --variant default --space elastic-metricbeat-8-5-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component elastic-metricbeat --variant default --space elastic-metricbeat-8-5-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939 ./rendered",
+          "command": "cub variant upload --component elastic-metricbeat --variant default --space elastic-metricbeat-8-5-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939 ./rendered",
           "writes": true
         },
         {

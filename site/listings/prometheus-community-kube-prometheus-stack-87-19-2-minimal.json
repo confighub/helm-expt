@@ -245,12 +245,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c ./rendered",
+          "command": "cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --unit-annotation workshop.confighub.com/object-set-sha256=sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c ./rendered",
+          "command": "cub variant upload --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --unit-annotation workshop.confighub.com/object-set-sha256=sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c ./rendered",
           "writes": true
         },
         {

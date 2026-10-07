@@ -191,12 +191,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component percona-psmdb-operator --variant no-crds --space percona-psmdb-operator-1-22-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb ./rendered",
+          "command": "cub variant upload --dry-run --component percona-psmdb-operator --variant no-crds --space percona-psmdb-operator-1-22-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component percona-psmdb-operator --variant no-crds --space percona-psmdb-operator-1-22-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb ./rendered",
+          "command": "cub variant upload --component percona-psmdb-operator --variant no-crds --space percona-psmdb-operator-1-22-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb ./rendered",
           "writes": true
         },
         {

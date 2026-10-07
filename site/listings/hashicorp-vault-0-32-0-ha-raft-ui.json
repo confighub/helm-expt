@@ -203,12 +203,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component hashicorp-vault --variant ha-raft-ui --space hashicorp-vault-0-32-0-ha-raft-ui --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f ./rendered",
+          "command": "cub variant upload --dry-run --component hashicorp-vault --variant ha-raft-ui --space hashicorp-vault-0-32-0-ha-raft-ui --unit-annotation workshop.confighub.com/object-set-sha256=sha256:734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component hashicorp-vault --variant ha-raft-ui --space hashicorp-vault-0-32-0-ha-raft-ui --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f ./rendered",
+          "command": "cub variant upload --component hashicorp-vault --variant ha-raft-ui --space hashicorp-vault-0-32-0-ha-raft-ui --unit-annotation workshop.confighub.com/object-set-sha256=sha256:734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f ./rendered",
           "writes": true
         },
         {

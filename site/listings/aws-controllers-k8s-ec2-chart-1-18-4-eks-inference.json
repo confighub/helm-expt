@@ -216,12 +216,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component aws-controllers-k8s-ec2-chart --variant eks-inference --space aws-controllers-k8s-ec2-chart-1-18-4-eks-inference --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:52eab19d8c3c6c160d3259bd15bc468fa31eb295238e0b428fda9e53b8514a7d ./rendered",
+          "command": "cub variant upload --dry-run --component aws-controllers-k8s-ec2-chart --variant eks-inference --space aws-controllers-k8s-ec2-chart-1-18-4-eks-inference --unit-annotation workshop.confighub.com/object-set-sha256=sha256:52eab19d8c3c6c160d3259bd15bc468fa31eb295238e0b428fda9e53b8514a7d ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component aws-controllers-k8s-ec2-chart --variant eks-inference --space aws-controllers-k8s-ec2-chart-1-18-4-eks-inference --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:52eab19d8c3c6c160d3259bd15bc468fa31eb295238e0b428fda9e53b8514a7d ./rendered",
+          "command": "cub variant upload --component aws-controllers-k8s-ec2-chart --variant eks-inference --space aws-controllers-k8s-ec2-chart-1-18-4-eks-inference --unit-annotation workshop.confighub.com/object-set-sha256=sha256:52eab19d8c3c6c160d3259bd15bc468fa31eb295238e0b428fda9e53b8514a7d ./rendered",
           "writes": true
         },
         {

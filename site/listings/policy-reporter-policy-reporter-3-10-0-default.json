@@ -185,12 +185,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component policy-reporter-policy-reporter --variant default --space policy-reporter-policy-reporter-3-10-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:a7b6293916be3b1e6e7746a1fb2802f6e820ecd9fbb24aa122fc028a6f95de10 ./rendered",
+          "command": "cub variant upload --dry-run --component policy-reporter-policy-reporter --variant default --space policy-reporter-policy-reporter-3-10-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:a7b6293916be3b1e6e7746a1fb2802f6e820ecd9fbb24aa122fc028a6f95de10 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component policy-reporter-policy-reporter --variant default --space policy-reporter-policy-reporter-3-10-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:a7b6293916be3b1e6e7746a1fb2802f6e820ecd9fbb24aa122fc028a6f95de10 ./rendered",
+          "command": "cub variant upload --component policy-reporter-policy-reporter --variant default --space policy-reporter-policy-reporter-3-10-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:a7b6293916be3b1e6e7746a1fb2802f6e820ecd9fbb24aa122fc028a6f95de10 ./rendered",
           "writes": true
         },
         {

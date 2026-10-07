@@ -209,12 +209,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component argo-cd-argocd-image-updater --variant default --space argo-cd-argocd-image-updater-1-2-2-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2 ./rendered",
+          "command": "cub variant upload --dry-run --component argo-cd-argocd-image-updater --variant default --space argo-cd-argocd-image-updater-1-2-2-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component argo-cd-argocd-image-updater --variant default --space argo-cd-argocd-image-updater-1-2-2-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2 ./rendered",
+          "command": "cub variant upload --component argo-cd-argocd-image-updater --variant default --space argo-cd-argocd-image-updater-1-2-2-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2 ./rendered",
           "writes": true
         },
         {

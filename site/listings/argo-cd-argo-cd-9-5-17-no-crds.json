@@ -200,12 +200,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component argo-cd-argo-cd --variant no-crds --space argo-cd-argo-cd-9-5-17-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:58d54d31b7e52f80c4a352f48a8828fc62fc31b8e2c8aea497f756ae5ce0f9ec ./rendered",
+          "command": "cub variant upload --dry-run --component argo-cd-argo-cd --variant no-crds --space argo-cd-argo-cd-9-5-17-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:58d54d31b7e52f80c4a352f48a8828fc62fc31b8e2c8aea497f756ae5ce0f9ec ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component argo-cd-argo-cd --variant no-crds --space argo-cd-argo-cd-9-5-17-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:58d54d31b7e52f80c4a352f48a8828fc62fc31b8e2c8aea497f756ae5ce0f9ec ./rendered",
+          "command": "cub variant upload --component argo-cd-argo-cd --variant no-crds --space argo-cd-argo-cd-9-5-17-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:58d54d31b7e52f80c4a352f48a8828fc62fc31b8e2c8aea497f756ae5ce0f9ec ./rendered",
           "writes": true
         },
         {

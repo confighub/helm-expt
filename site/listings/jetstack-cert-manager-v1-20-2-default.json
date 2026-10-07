@@ -224,12 +224,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component jetstack-cert-manager --variant default --space jetstack-cert-manager-v1-20-2-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce ./rendered",
+          "command": "cub variant upload --dry-run --component jetstack-cert-manager --variant default --space jetstack-cert-manager-v1-20-2-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component jetstack-cert-manager --variant default --space jetstack-cert-manager-v1-20-2-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce ./rendered",
+          "command": "cub variant upload --component jetstack-cert-manager --variant default --space jetstack-cert-manager-v1-20-2-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce ./rendered",
           "writes": true
         },
         {

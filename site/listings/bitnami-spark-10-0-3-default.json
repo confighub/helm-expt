@@ -223,12 +223,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component bitnami-spark --variant default --space bitnami-spark-10-0-3-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55 ./rendered",
+          "command": "cub variant upload --dry-run --component bitnami-spark --variant default --space bitnami-spark-10-0-3-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component bitnami-spark --variant default --space bitnami-spark-10-0-3-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55 ./rendered",
+          "command": "cub variant upload --component bitnami-spark --variant default --space bitnami-spark-10-0-3-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55 ./rendered",
           "writes": true
         },
         {

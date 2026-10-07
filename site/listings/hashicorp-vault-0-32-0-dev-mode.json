@@ -203,12 +203,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component hashicorp-vault --variant dev-mode --space hashicorp-vault-0-32-0-dev-mode --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955 ./rendered",
+          "command": "cub variant upload --dry-run --component hashicorp-vault --variant dev-mode --space hashicorp-vault-0-32-0-dev-mode --unit-annotation workshop.confighub.com/object-set-sha256=sha256:f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component hashicorp-vault --variant dev-mode --space hashicorp-vault-0-32-0-dev-mode --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955 ./rendered",
+          "command": "cub variant upload --component hashicorp-vault --variant dev-mode --space hashicorp-vault-0-32-0-dev-mode --unit-annotation workshop.confighub.com/object-set-sha256=sha256:f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955 ./rendered",
           "writes": true
         },
         {

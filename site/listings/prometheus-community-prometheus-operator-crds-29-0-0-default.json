@@ -204,12 +204,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-operator-crds --variant default --space prometheus-community-prometheus-operator-crds-29-0-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:32cfda19c8684a1ad319476b44d9056af7824df3c06622b04a7e28d6bdfd5ab4 ./rendered",
+          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-operator-crds --variant default --space prometheus-community-prometheus-operator-crds-29-0-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:32cfda19c8684a1ad319476b44d9056af7824df3c06622b04a7e28d6bdfd5ab4 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component prometheus-community-prometheus-operator-crds --variant default --space prometheus-community-prometheus-operator-crds-29-0-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:32cfda19c8684a1ad319476b44d9056af7824df3c06622b04a7e28d6bdfd5ab4 ./rendered",
+          "command": "cub variant upload --component prometheus-community-prometheus-operator-crds --variant default --space prometheus-community-prometheus-operator-crds-29-0-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:32cfda19c8684a1ad319476b44d9056af7824df3c06622b04a7e28d6bdfd5ab4 ./rendered",
           "writes": true
         },
         {

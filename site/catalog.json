@@ -56,7 +56,7 @@
     },
     {
       "goal": "Adopt an existing Argo, Flux, KRM, or rendered-manifest app.",
-      "command": "cub gitops discover/import, cub unit import, or managed import",
+      "command": "cub argo plan, cub flux plan, or cub variant upload <files>",
       "path": "existing-app-adoption"
     },
     {
