@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>See what a gpu-operator upgrade changes · ConfigHub Workshop</title>
+  <meta name="description" content="See what a gpu-operator upgrade changes: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/workshop-gpu-operator-upgrade-guide.html">
+  <meta property="og:title" content="See what a gpu-operator upgrade changes · ConfigHub Workshop">
+  <meta property="og:description" content="See what a gpu-operator upgrade changes: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/workshop-gpu-operator-upgrade-guide.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .app-learning-cards { display: grid; gap: 20px; margin: 26px 0; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  :root { --cw-body: .9375rem; --cw-nav: .875rem; --cw-meta: .8125rem; --cw-lead: 1rem; }
+  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--sans, Inter, system-ui, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 700; }
+  h2, h3 { font-weight: 600; }
+  .cw-content h1 { font-size: clamp(1.75rem, 2.8vw, 2.25rem); line-height: 1.2; }
+  .cw-content h2 { font-size: 1.375rem; line-height: 1.35; }
+  .cw-content h3 { font-size: 1.0625rem; line-height: 1.4; }
+  .cw-content .lead, .cw-content .tagline { font-size: var(--cw-lead); line-height: 1.65; }
+  .cw-content { font-size: var(--cw-body); line-height: 1.65; }
+  .topbar { font-size: var(--cw-nav); }
+  .topbar .site-purpose { font-family: var(--sans); font-size: var(--cw-meta); text-transform: none; }
+  .topbar .brand, .navlinks a.nav-cta { border-color: transparent; background: transparent; }
+  .cw-nav-title a { color: var(--ink); text-decoration: none; }
+  .cw-nav-title a:hover { text-decoration: underline; }
+  .cw-content :is(.eyebrow, .kicker, .generated), .site-footer .sf-h { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; }
+  .cw-content :is(.button, .route-help > summary, details.deep > summary) { font-size: var(--cw-body); }
+  .cw-content :is(p, li, td) > code { border: 0; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  .cw-guide .cw-content { max-width: 880px; }
+  .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
+  .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
+  .cw-content pre { max-width: 100%; overflow-x: auto; }
+  .cw-content summary { cursor: pointer; padding: 10px 0; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cw-skip { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 6px; }
+  .cw-skip:focus { top: 12px; }
+  @media (max-width: 600px) {
+    .cw-layout { padding: 0 16px; }
+    .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 200px; }
+    .cw-guide .cw-content h1 { overflow-wrap: anywhere; }
+  }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: var(--cw-nav); }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; line-height: 1.5; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { min-height: 44px; cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<a class="cw-skip" href="#cw-content">Skip to content</a>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="../../../charts/index.html">Configs</a><a href="../../../stack.html">Stacks</a><a href="../../../apps.html">Apps</a><a href="../../../plugins.html">Plugins</a><a href="../../../guides.html">Guides</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Every stack</a></li><li><a href="../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="../../../apps.html">Every app</a></li><li><a href="../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="../../../plugins.html">Every cub plugin</a></li><li><a href="../../../bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="../../../guides.html">Every Guide</a></li><li><a href="../../../journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="../../../journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="../../../journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="../../../journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="../../../journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="../../../see-what-is-running.html">See what is running with cub scout</a></li><li><a href="../../../view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="../../../bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="../../../bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="../../../bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="../../../choose-a-tool.html">Choose a tool and start</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></nav>
+<div class="cw-content" id="cw-content" tabindex="-1">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Every stack</a></li><li><a href="../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="../../../apps.html">Every app</a></li><li><a href="../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="../../../plugins.html">Every cub plugin</a></li><li><a href="../../../bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="../../../guides.html">Every Guide</a></li><li><a href="../../../journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="../../../journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="../../../journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="../../../journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="../../../journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="../../../see-what-is-running.html">See what is running with cub scout</a></li><li><a href="../../../view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="../../../bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="../../../bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="../../../bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="../../../choose-a-tool.html">Choose a tool and start</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>See what a gpu-operator upgrade changes</h1>
+    <p class="lead">Render NVIDIA's public <code>gpu-operator</code> Helm chart at two versions and compare the Kubernetes objects each one installs. This Guide walks a version upgrade, a patch upgrade and a driver version change. Each comparison names every changed field. <a href="../../../../docs/user/workshop-gpu-operator-upgrade-guide.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <article class="doc-body">
+
+<p>Everything runs on your machine with Helm and <code>cub</code>, with no account and no cluster. The comparison reads configuration only. This chart is not a Catalog entry, and the Guide does not test it on a cluster or say an upgrade is safe.</p>
+<p>You can run the steps yourself or <a href="#a-task-for-an-assistant">give an assistant the task</a>.</p>
+<h2 id="set-up-the-tools">Set up the tools</h2>
+<p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://helm.sh/docs/intro/install/">Helm</a>. Then install the Workshop plugin release this Guide was checked with (version 0.6.56).</p>
+<pre><code>cub plugin install confighub/cub-workshop@v0.6.56</code></pre>
+<p>The commands below were checked with cub 0.8.7 and Helm <code>v4.1.4</code>.</p>
+<h2 id="1-render-the-three-chart-versions">1. Render the three chart versions</h2>
+<p>The chart pulls from NVIDIA's public Helm repository without a login. Its version strings start with <code>v</code>. The <code>--repo</code> flag reads the repository directly, so your Helm repository list stays as it is.</p>
+<pre><code>mkdir gpu-operator-diff
+cd gpu-operator-diff
+helm template gpu-operator gpu-operator --repo https://helm.ngc.nvidia.com/nvidia --version v25.10.1 --namespace gpu-operator &gt; gpu-operator-25.10.1.yaml
+helm template gpu-operator gpu-operator --repo https://helm.ngc.nvidia.com/nvidia --version v26.3.2 --namespace gpu-operator &gt; gpu-operator-26.3.2.yaml
+helm template gpu-operator gpu-operator --repo https://helm.ngc.nvidia.com/nvidia --version v26.3.3 --namespace gpu-operator &gt; gpu-operator-26.3.3.yaml</code></pre>
+<p>Each command exits <code>0</code>, and each file holds 27 objects. These renders use the chart's default values. To compare what you run, pass your own values file to both renders with <code>--values</code>.</p>
+<h2 id="2-compare-25101-with-2633">2. Compare 25.10.1 with 26.3.3</h2>
+<p>Start with the summary.</p>
+<pre><code>cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary</code></pre>
+<pre><code>Configuration diff: 1 added, 1 removed, 24 changed, 2 unchanged
+Kind summary (inventory only):
+  apps/v1 DaemonSet: 1 -&gt; 1 (+0)
+  apps/v1 Deployment: 3 -&gt; 3 (+0)
+  batch/v1 Job: 2 -&gt; 2 (+0)
+  nvidia.com/v1 ClusterPolicy: 1 -&gt; 1 (+0)
+  rbac.authorization.k8s.io/v1 ClusterRole: 5 -&gt; 5 (+0)
+  rbac.authorization.k8s.io/v1 ClusterRoleBinding: 5 -&gt; 5 (+0)
+  rbac.authorization.k8s.io/v1 Role: 2 -&gt; 2 (+0)
+  rbac.authorization.k8s.io/v1 RoleBinding: 2 -&gt; 2 (+0)
+  v1 ConfigMap: 2 -&gt; 2 (+0)
+  v1 ServiceAccount: 4 -&gt; 4 (+0)
+Local inventory comparison only. Matching kind counts do not establish object or behavior equivalence; this does not merge, protect edits or inspect a live target.</code></pre>
+<p>The kind counts match on both sides, yet 24 of the 27 objects changed. Save the full field list next.</p>
+<pre><code>cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --json --out upgrade.json</code></pre>
+<p>The command exits <code>0</code>, prints the JSON and writes the same JSON to <code>upgrade.json</code>. The file records a SHA-256 hash for each input file. It lists 104 changed fields across the 24 changed objects. Run the same command with no flags to read those fields as text.</p>
+<p>Seventeen of the 24 objects changed only in two labels, <code>app.kubernetes.io/version</code> and <code>helm.sh/chart</code>. The other seven hold the changes to read.</p>
+<table><thead><tr><th>Object</th><th>Changed fields</th><th>What changed besides the labels</th></tr></thead><tbody><tr><td>ClusterPolicy <code>cluster-policy</code></td><td>35</td><td>The component versions and several defaults. The next table lists nine of them.</td></tr>
+<tr><td>Deployment <code>gpu-operator</code></td><td>10</td><td>The image moves from <code>v25.10.1</code> to <code>v26.3.3</code>. The <code>host-os-release</code> volume and its mount are removed. The tolerations and node affinity drop <code>node-role.kubernetes.io/master</code>.</td></tr>
+<tr><td>Job <code>gpu-operator-upgrade-crd</code></td><td>8</td><td>The image moves to <code>v26.3.3</code>. The command changes from a shell that runs <code>kubectl apply</code> to <code>/usr/bin/manage-crds</code>.</td></tr>
+<tr><td>DaemonSet <code>gpu-operator-node-feature-discovery-worker</code></td><td>5</td><td>The image moves from <code>v0.18.2</code> to <code>v0.18.3</code>. The <code>checksum/config</code> annotation and the tolerations change.</td></tr>
+<tr><td>Job <code>gpu-operator-node-feature-discovery-prune</code></td><td>5</td><td>The image moves to <code>v0.18.3</code>.</td></tr>
+<tr><td>Deployment <code>gpu-operator-node-feature-discovery-master</code></td><td>4</td><td>The image moves to <code>v0.18.3</code>, and the <code>checksum/config</code> annotation changes.</td></tr>
+<tr><td>Deployment <code>gpu-operator-node-feature-discovery-gc</code></td><td>3</td><td>The image moves to <code>v0.18.3</code>.</td></tr></tbody></table>
+<p>The ClusterPolicy carries most of the upgrade. Eighteen of its 35 changed fields replace a version string. These nine show the kinds of change to look for.</p>
+<table><thead><tr><th>ClusterPolicy field</th><th>Before</th><th>After</th></tr></thead><tbody><tr><td><code>/spec/driver/version</code></td><td><code>580.105.08</code></td><td><code>580.126.20</code></td></tr>
+<tr><td><code>/spec/toolkit/version</code></td><td><code>v1.18.1</code></td><td><code>v1.19.1</code></td></tr>
+<tr><td><code>/spec/devicePlugin/version</code></td><td><code>v0.18.1</code></td><td><code>v0.19.3</code></td></tr>
+<tr><td><code>/spec/ccManager/enabled</code></td><td><code>false</code></td><td><code>true</code></td></tr>
+<tr><td><code>/spec/ccManager/defaultMode</code></td><td><code>off</code></td><td><code>on</code></td></tr>
+<tr><td><code>/spec/sandboxWorkloads/mode</code></td><td>absent</td><td><code>kubevirt</code></td></tr>
+<tr><td><code>/spec/kataSandboxDevicePlugin</code></td><td>absent</td><td>added, with <code>enabled: true</code></td></tr>
+<tr><td><code>/spec/kataManager/config</code></td><td>present</td><td>removed</td></tr>
+<tr><td><code>/spec/operator/initContainer</code></td><td>present</td><td>removed</td></tr></tbody></table>
+<p>The added object and the removed object are the same ServiceAccount, <code>gpu-operator-upgrade-crd-hook-sa</code>. Chart v25.10.1 renders it with no namespace, and chart v26.3.3 renders it in <code>gpu-operator</code>. The diff identifies an object by API version, kind, written namespace and name. It applies no Kubernetes defaults, so it reports one removal and one addition.</p>
+<h2 id="3-compare-2632-with-2633">3. Compare 26.3.2 with 26.3.3</h2>
+<p>Run the same two commands on the patch pair.</p>
+<pre><code>cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml --summary
+cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml --json --out patch.json</code></pre>
+<p>The summary starts with this line, and the kind counts are the same as in step 2.</p>
+<pre><code>Configuration diff: 0 added, 0 removed, 8 changed, 19 unchanged</code></pre>
+<p><code>patch.json</code> lists 27 changed fields in eight objects. Five of the eight changed only in the two version labels. Three hold other changes.</p>
+<table><thead><tr><th>Object</th><th>Changed fields</th><th>What changed besides the labels</th></tr></thead><tbody><tr><td>ClusterPolicy <code>cluster-policy</code></td><td>7</td><td><code>/spec/devicePlugin/version</code> and <code>/spec/gfd/version</code> move from <code>v0.19.2</code> to <code>v0.19.3</code>. <code>/spec/nodeStatusExporter/version</code> and <code>/spec/validator/version</code> move from <code>v26.3.2</code> to <code>v26.3.3</code>.</td></tr>
+<tr><td>Deployment <code>gpu-operator</code></td><td>5</td><td>The image moves from <code>v26.3.2</code> to <code>v26.3.3</code>.</td></tr>
+<tr><td>Job <code>gpu-operator-upgrade-crd</code></td><td>5</td><td>The image moves from <code>v26.3.2</code> to <code>v26.3.3</code>.</td></tr></tbody></table>
+<p>The driver version stays at <code>580.126.20</code> in this pair. The Node Feature Discovery objects are all among the 19 unchanged.</p>
+<h2 id="4-compare-a-driver-version-change">4. Compare a driver version change</h2>
+<p>Chart v25.10.1 sets <code>driver.version</code> to <code>580.105.08</code> by default. Charts v26.3.2 and v26.3.3 set it to <code>580.126.20</code>. This step keeps the chart at v25.10.1 and changes only the driver version.</p>
+<pre><code>helm template gpu-operator gpu-operator --repo https://helm.ngc.nvidia.com/nvidia --version v25.10.1 --namespace gpu-operator --set driver.version=580.105.08 &gt; driver-before.yaml
+helm template gpu-operator gpu-operator --repo https://helm.ngc.nvidia.com/nvidia --version v25.10.1 --namespace gpu-operator --set driver.version=580.126.20 &gt; driver-after.yaml
+cub config diff driver-before.yaml driver-after.yaml</code></pre>
+<pre><code>Configuration diff: 0 added, 0 removed, 1 changed, 26 unchanged
+  changed: nvidia.com/v1 ClusterPolicy (namespace unspecified)/cluster-policy
+    /spec/driver/version replace: &quot;580.105.08&quot; -&gt; &quot;580.126.20&quot;
+Local comparison only. This does not merge, protect edits or inspect a live target.</code></pre>
+<p>One field changes on one object. The version string appears once in each render, on the ClusterPolicy. What the operator does on each node after that field changes is outside this diff.</p>
+<p>Keep the result as a file in the same way.</p>
+<pre><code>cub config diff driver-before.yaml driver-after.yaml --json --out driver.json</code></pre>
+<p>This Guide does not check that driver <code>580.126.20</code> exists for your operating system. It does not check that chart v25.10.1 supports that driver either. Check both in NVIDIA's documentation before you use the value.</p>
+<h2 id="5-know-what-the-diff-does-not-show">5. Know what the diff does not show</h2>
+<h3 id="the-diff-compares-files-not-a-cluster">The diff compares files, not a cluster</h3>
+<p>Both inputs are files that Helm rendered from the chart's default values. Your cluster can hold other values, edits made in place and objects that exist only there. Neither file contains them.</p>
+<p>Each JSON file names four things the comparison did not check, under <code>notChecked</code>.</p>
+<ul><li>Kubernetes schema or admission validity</li><li>upstream merge and protected-field preservation</li><li>target readiness or live drift</li><li>application availability</li></ul>
+<h3 id="hooks-appear-as-ordinary-objects">Hooks appear as ordinary objects</h3>
+<p>Eight of the 27 objects in each render are Helm hooks. <code>helm template</code> prints them in the same stream as every other object, and the diff compares them the same way. A hook carries a <code>helm.sh/hook</code> annotation.</p>
+<p>Four are <code>pre-upgrade</code> hooks. They are the Job <code>gpu-operator-upgrade-crd</code> and its ServiceAccount, ClusterRole and ClusterRoleBinding. The other four are <code>post-delete</code> hooks for the Job <code>gpu-operator-node-feature-discovery-prune</code>. Render without hooks to see the split.</p>
+<pre><code>helm template gpu-operator gpu-operator --repo https://helm.ngc.nvidia.com/nvidia --version v26.3.3 --namespace gpu-operator --no-hooks &gt; no-hooks-26.3.3.yaml
+cub config diff gpu-operator-26.3.3.yaml no-hooks-26.3.3.yaml --summary</code></pre>
+<p>The summary starts with this line.</p>
+<pre><code>Configuration diff: 0 added, 8 removed, 0 changed, 19 unchanged</code></pre>
+<p>Rendering a hook does not run it. The annotation says what Helm does with the object. It does not show that Argo CD, Flux or <code>kubectl apply</code> does the same. The <a href="workshop-lifecycle-guide.html">hooks and CRDs Guide</a> shows how to review that work.</p>
+<h3 id="crds-stay-out-unless-you-ask-for-them">CRDs stay out unless you ask for them</h3>
+<p><code>helm template</code> leaves out the chart's <code>crds/</code> directory unless you add <code>--include-crds</code>. The steps above leave it out. Helm's <a href="https://helm.sh/docs/chart_best_practices/custom_resource_definitions/">CRD documentation</a> says Helm has no support for upgrading CRDs. A <code>helm upgrade</code> therefore does not apply that directory.</p>
+<p>This chart handles CRDs with its <code>pre-upgrade</code> hook instead. In v26.3.3 the <code>gpu-operator-upgrade-crd</code> Job applies three CRD files from inside the operator image. The render names those files. It cannot show what they contain.</p>
+<p>To see the CRD changes that the chart package carries, render both versions again with CRDs.</p>
+<pre><code>helm template gpu-operator gpu-operator --repo https://helm.ngc.nvidia.com/nvidia --version v25.10.1 --namespace gpu-operator --include-crds &gt; with-crds-25.10.1.yaml
+helm template gpu-operator gpu-operator --repo https://helm.ngc.nvidia.com/nvidia --version v26.3.3 --namespace gpu-operator --include-crds &gt; with-crds-26.3.3.yaml
+cub config diff with-crds-25.10.1.yaml with-crds-26.3.3.yaml --json --out crds.json</code></pre>
+<p>Each file now holds 32 objects, and five of them are CRDs. Two CRDs changed. <code>clusterpolicies.nvidia.com</code> has 42 changed fields and <code>nvidiadrivers.nvidia.com</code> has five. The three Node Feature Discovery CRDs did not change.</p>
+<h3 id="exit-0-is-not-approval">Exit 0 is not approval</h3>
+<p>Every <code>cub config diff</code> command above exits <code>0</code>, including the one that found 24 changed objects. Exit <code>0</code> means the comparison ran. With <code>--exit-code</code> the command exits <code>1</code> when the files differ and <code>0</code> when they match. Neither exit code says the upgrade is safe to apply.</p>
+<h2 id="a-task-for-an-assistant">A task for an assistant</h2>
+<p>Start a fresh session in an empty directory with normal approvals.</p>
+<pre><code>Render the NVIDIA gpu-operator chart from https://helm.ngc.nvidia.com/nvidia
+at v25.10.1, v26.3.2 and v26.3.3 with helm template, using release name
+gpu-operator and namespace gpu-operator, one file per version. Compare
+v25.10.1 with v26.3.3, then v26.3.2 with v26.3.3, using cub config diff with
+--summary and then with --json --out. Read every changed object and field.
+Separate the objects that changed only in version labels from the rest. Then
+render v25.10.1 twice, changing only driver.version from 580.105.08 to
+580.126.20, and compare the two renders. List the objects that carry a
+helm.sh/hook annotation and say what each hook Job runs. Say whether CRDs
+were rendered. Report actual exit codes, counts and input hashes. Do not
+infer a safe upgrade from exit 0 or from a short diff. Do not say a driver
+version is supported unless I give you a source. Do not contact a cluster or
+ConfigHub, and do not install, publish, approve or upgrade anything.</code></pre>
+<h2 id="where-the-next-step-belongs">Where the next step belongs</h2>
+<p>You now hold the renders and a JSON comparison for each case. Nothing was upgraded, approved or sent anywhere.</p>
+<p>To turn a comparison into a review packet, follow <a href="workshop-upgrade-guide.html">Review a chart upgrade before promoting it</a>. It adds the preconditions, the decision and the recovery plan that a diff cannot supply. Use the <a href="workshop-lifecycle-guide.html">hooks and CRDs Guide</a> to decide who runs the <code>pre-upgrade</code> Job and the CRD changes.</p>
+<p>To ask for this chart as a Catalog entry, use <a href="https://confighub.github.io/helm-expt/site/send-a-public-chart.html">Send a missing or broken public chart</a>.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/workshop-gpu-operator-upgrade-guide.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#set-up-the-tools">Set up the tools</a></li><li><a href="#1-render-the-three-chart-versions">1. Render the three chart versions</a></li><li><a href="#2-compare-25101-with-2633">2. Compare 25.10.1 with 26.3.3</a></li><li><a href="#3-compare-2632-with-2633">3. Compare 26.3.2 with 26.3.3</a></li><li><a href="#4-compare-a-driver-version-change">4. Compare a driver version change</a></li><li><a href="#5-know-what-the-diff-does-not-show">5. Know what the diff does not show</a></li><li><a href="#a-task-for-an-assistant">A task for an assistant</a></li><li><a href="#where-the-next-step-belongs">Where the next step belongs</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+</div>
+</body>
+</html>
