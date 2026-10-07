@@ -80,7 +80,7 @@ const checks = [
   },
   {
     file: "site/index.html",
-    terms: ["Configuration catalog for Agents and Kubernetes", "Helm, AICR, OCI, YAML, Argo, Flux, Sveltos and more", "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "I have an existing app", "Check my charts and values", "Build a platform or fleet", "Set up my AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
+    terms: ["AICR recipes rendered as Argo CD Applications, and they have not been published or run", "Configuration catalog for Agents and Kubernetes", "Helm, AICR, OCI, YAML, Argo, Flux, Sveltos and more", "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "I have an existing app", "Check my charts and values", "Build a platform or fleet", "Set up my AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
   },
   {
     file: "site/ask.html",
@@ -175,7 +175,7 @@ const checks = [
   },
   {
     file: "site/config.html",
-    terms: ["A simple model for all your config, templates and recipes", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "The four verdicts", "How the audited bases fall today", "One shape, from source to a synced digest"],
+    terms: ["verdicts cover only the Argo CD Application wrapper of an AICR recipe", "A simple model for all your config, templates and recipes", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "The four verdicts", "How the audited bases fall today", "One shape, from source to a synced digest"],
   },
   {
     file: "site/demo.html",
@@ -190,8 +190,12 @@ const checks = [
     terms: ["Package and deliver it as OCI, and see what is signed", "1. Tell the OCI shapes apart, and match each to its consumer", "2. See how a certified bundle and a stack become one artifact", "3. See what a signature actually proves", "4. See how other tools already produce these shapes", "Nine shapes, side by side", "Which consumer needs which layout", "application/vnd.confighub.config.bundle.v1", "application/vnd.confighub.record.v1+json", "Every digest, and what it pins", "Where the receipt lives is still an open question", "The design center attaches it to the same digest as a referrer", "the catalog emits a receipt beside each published bundle", "What is signed today", "cub config verify", "cosign verify", "Timoni", "AICR is a manifest emitter rather than a competing format", "Kubara's own adoption step already compiles one OCI package per component"],
   },
   {
+    file: "site/formats.html",
+    terms: ["<th>Published</th>", "Not published", "published as OCI", "flatten-with-routes, wrapper only, route recorded", "flagged for review"],
+  },
+  {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Configs · ConfigHub Workshop", "<h1>Configs</h1>", "Search the catalog", "entries shown", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Base variants by version", "Flattens as plain YAML?", "No entry matches these filters", "Check your chart and values locally", "provider-curated source variant", "A difference is not automatically a fault"],
+    terms: ["flatten-with-routes, wrapper only, route recorded, not published", "<strong>This entry is flagged for review.</strong>", "It is not published and has not run.", "Listing JSON", "AICR entries", "An entry flagged for review reads <code>completed/watch</code>", "id=\"chart-filter\"", "Configs · ConfigHub Workshop", "<h1>Configs</h1>", "Search the catalog", "entries shown", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Base variants by version", "Flattens as plain YAML?", "No entry matches these filters", "Check your chart and values locally", "provider-curated source variant", "A difference is not automatically a fault"],
   },
   // Site IA phase 4, step 3: the Catalog page's explanation moved to How
   // configuration works, its trust and verification to Why trust it, and its
@@ -814,6 +818,13 @@ if (fs.existsSync(homePath)) {
   for (const oldStructure of ["Five simple things", "Four things you can prove before you ship", "One resource, three depths", "What do you need help with?"]) {
     if (home.includes(oldStructure)) failures.push(`site/index.html: contains retired competing structure ${JSON.stringify(oldStructure)}`);
   }
+  // The Configs line once called every entry tested and rendered to the
+  // objects it installs. That overstates the AICR recipes that are rendered as
+  // Argo CD Applications and were never published or run, so the old sentence
+  // may not come back.
+  if (home.includes("tested configurations, each rendered to the exact objects it installs")) {
+    failures.push("site/index.html: the Configs line calls every entry tested and installable, which overstates the AICR recipes that are rendered and not published or run");
+  }
   // Site IA phase 4: the home page keeps the mission, the five journeys, the
   // agent prompt and skill, and one line per Catalog section.
   for (const href of ["./charts/index.html", "./stack.html", "./apps.html", "./plugins.html", "./guides.html", "./docs.html", "./confighub.html", "./ai.html", "./try.html", "./llms.txt"]) {
@@ -942,6 +953,21 @@ if (fs.existsSync(catalogIndexPath)) {
   if (publicationReceiptLinks !== retainedVersionLinks) failures.push(`site/charts/index.html: ${retainedVersionLinks} retained versions but ${publicationReceiptLinks} publication-receipt links`);
   if (packagedConfigurationRecords !== retainedVersionLinks) failures.push(`site/charts/index.html: ${retainedVersionLinks} retained versions but ${packagedConfigurationRecords} per-version configuration records`);
   if (catalogIndex.includes("Search charts")) failures.push("site/charts/index.html: filter still uses chart-first naming");
+  // Every AICR row states its own verdict and publication state, read from
+  // its listing. The generic sentences that used to stand in for them may not
+  // return, the count beside the format must be the number of rows listed, and
+  // a row with a listing must link it.
+  const aicrRows = [...catalogIndex.matchAll(/<tr data-chart-row data-kind="ai-platform"[\s\S]*?<\/tr>/g)].map((match) => match[0]);
+  const aicrChipCount = Number(catalogIndex.match(/AICR &amp; NIM <b>(\d+)<\/b>/)?.[1] ?? -1);
+  if (aicrRows.length !== aicrChipCount) failures.push(`site/charts/index.html: the format panel counts ${aicrChipCount} AICR entries and the table lists ${aicrRows.length}`);
+  for (const generic of ["Flattening is decided per generated layer", "An AI platform entry."]) {
+    if (catalogIndex.includes(generic)) failures.push(`site/charts/index.html: an AICR row falls back to generic text ${JSON.stringify(generic)} in place of its own verdict and state`);
+  }
+  const aicrRowsWithoutState = aicrRows.filter((row) => !/, (not published|published)<\/td>/.test(row) && !row.includes("no Catalog record yet"));
+  if (aicrRowsWithoutState.length > 0) failures.push(`site/charts/index.html: ${aicrRowsWithoutState.length} AICR row(s) do not say whether the entry is published`);
+  const aicrRowsWithoutListing = aicrRows.filter((row) => !row.includes("no Catalog record yet") && !/href="\.\.\/listings\/aicr-[a-z0-9-]+\.json">Listing JSON<\/a> · <a href="[^"]+\/data\/base-variant-records\/records\/aicr-[a-z0-9-]+\.yaml">Record<\/a>/.test(row));
+  if (aicrRowsWithoutListing.length > 0) failures.push(`site/charts/index.html: ${aicrRowsWithoutListing.length} AICR row(s) do not link their listing JSON and record`);
+  if (!aicrRows.some((row) => row.includes(">eks-h100-training-kubeflow-v1-0-0<"))) failures.push("site/charts/index.html: the v1.0.0 AICR entry has a record and no row");
   const successorsRecordedMarks = [...catalogIndex.matchAll(/Successors recorded:/g)].length;
   const successorToMarks = [...catalogIndex.matchAll(/Successor to </g)].length;
   if (successorsRecordedMarks < 5) failures.push(`site/charts/index.html: expected at least 5 'Successors recorded' rows from data/chart-successions, found ${successorsRecordedMarks}`);

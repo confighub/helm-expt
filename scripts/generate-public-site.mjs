@@ -153,6 +153,80 @@ const listingByCatalogKey = new Map(
 );
 let unmatchedCatalogListingLookups = 0;
 
+// What a page may say about one Catalog entry, read from the entry's own
+// listing file. Every word a row or a count uses about publication, delivery,
+// the flattening verdict or a flag comes from here, so a page cannot describe
+// an entry more kindly than its listing does.
+const listingFileCache = new Map();
+function readListingFile(id) {
+  if (!listingFileCache.has(id)) {
+    const path = join(siteRoot, "listings", `${id}.json`);
+    check(existsSync(path), `site/listings/${id}.json is missing: run npm run catalog:listings first`);
+    listingFileCache.set(id, JSON.parse(readFileSync(path, "utf8")));
+  }
+  return listingFileCache.get(id);
+}
+
+function listingFacts(id) {
+  const listing = readListingFile(id);
+  const bundles = listing.oci?.bundles ?? [];
+  const runtimes = listing.oci?.runtimes ?? [];
+  const materialization = (listing.assessment?.stages ?? []).find((stage) => stage.id === "materialization") ?? {};
+  const upload = bundles.find((bundle) => bundle.role === "confighub-upload");
+  return {
+    id,
+    format: listing.identity?.format ?? "",
+    version: listing.identity?.version ?? "",
+    base: listing.identity?.base ?? "",
+    objects: listing.flattened?.objects ?? "",
+    objectCount: listing.flattened?.objectCount ?? 0,
+    verdict: listing.flattened?.verdict ?? "not-assessed",
+    // An Argo CD Application names a chart that Argo CD renders later, so a
+    // verdict over Applications covers the wrapper and not the charts inside.
+    wrapperOnly: listing.flattened?.format === "argocd-application-yaml",
+    routeRecorded: listing.routing?.routeStatus === "recorded",
+    // Published means a public OCI reference exists. A planned reference or a
+    // local layout is not one.
+    published: bundles.some((bundle) => bundle.referenceState === "published"),
+    uploaded: upload?.state === "published",
+    delivered: runtimes.some((runtime) => runtime.state === "pass"),
+    deliveryPartlyRecorded: runtimes.some((runtime) => ["partial", "recorded-elsewhere"].includes(runtime.state)),
+    // The flag: a checked result with a limit to review, and the question.
+    flagged: materialization.resultState === "watch",
+    flagQuestion: materialization.resultState === "watch" ? String(materialization.answer ?? "") : "",
+    placeholders: (listing.lifecycle?.installTimeInputs ?? []).filter((input) => input.status === "confirmed-placeholder"),
+    recordPath: listing.generatedFrom?.record?.path ?? "",
+    recordUrl: listing.generatedFrom?.record?.url ?? "",
+  };
+}
+
+function listingNeverRun(facts) {
+  return !facts.uploaded && !facts.delivered && !facts.deliveryPartlyRecorded;
+}
+
+// The verdict as a row shows it. "wrapper only" is added wherever the verdict
+// covers Argo CD Applications, so the lane name is never read as a verdict on
+// the charts those Applications point at.
+function listingVerdictText(facts) {
+  return [
+    facts.verdict,
+    ...(facts.wrapperOnly ? ["wrapper only"] : []),
+    ...(facts.routeRecorded && facts.verdict === "flatten-with-routes" ? ["route recorded"] : []),
+  ].join(", ");
+}
+
+function listingPublishedText(facts) {
+  return facts.published ? "Published" : "Not published";
+}
+
+const aicrListingFacts = (listingsIndexData.listings ?? [])
+  .filter((listing) => listing.format === "aicr")
+  .map((listing) => listingFacts(listing.id));
+// The AICR recipes that are rendered as Argo CD Applications and stop there:
+// no public OCI reference, no ConfigHub upload, and no delivery result.
+const aicrRenderedOnlyCount = aicrListingFacts
+  .filter((facts) => facts.wrapperOnly && !facts.published && listingNeverRun(facts)).length;
+
 // One plain sentence per non-Helm format, drawn from the shared source-mapping
 // table (skills/config-workshop/references/processing-model.md) so this page
 // never invents behavior the model does not already describe. Sveltos has no
@@ -3579,7 +3653,7 @@ ${homeJourneyLinks()}
           <span class="eyebrow">The Catalog</span>
           <h2>What the Catalog holds</h2>
           <ul class="home-sections">
-            <li><a href="./charts/index.html">Configs</a>: ${sectionCount("configs")} tested configurations, each rendered to the exact objects it installs.</li>
+            <li><a href="./charts/index.html">Configs</a>: ${sectionCount("configs")} configurations. ${sectionCount("configs") - aicrRenderedOnlyCount} are tested and rendered to the exact objects they install. ${aicrRenderedOnlyCount} are AICR recipes rendered as Argo CD Applications, and they have not been published or run.</li>
             <li><a href="./stack.html">Stacks</a>: ${sectionCount("stacks")} stacks, sets of configs checked together before anything runs.</li>
             <li><a href="./apps.html">Apps</a>: ${sectionCount("apps")} worked example apps, plain or delivered by Argo CD, Flux or a generator.</li>
             <li><a href="./plugins.html">Plugins</a>: ${sectionCount("plugins")} cub plugins, each marked by its state.</li>
@@ -4454,6 +4528,12 @@ function configHtml(catalog) {
   const auditedBases = totalBases - laneTally["not-assessed"];
   const refuseFlatten = laneTally["unsafe-to-flatten"];
   const withRoutes = laneTally["flatten-with-routes"];
+  // A flatten-with-routes verdict over Argo CD Applications decides the
+  // wrapper. The charts inside are rendered by Argo CD later.
+  const wrapperOnlyRoutes = baseVariantRecords.filter(
+    (record) => record.spec?.processing?.flattening?.verdict === "flatten-with-routes"
+      && record.spec?.configuration?.format === "argocd-application-yaml",
+  ).length;
   return renumberSections(`<!doctype html>
 <html lang="en">
 <head>
@@ -4633,7 +4713,7 @@ function configHtml(catalog) {
     ], { rawFirstColumn: true })}
     <p>A verdict is decided per base, not per chart. The same chart with <code>auth.existingSecret</code> set is a different question from the same chart without it. The recorded scope says which values move the answer.</p>
     <h3 id="lane-counts">How the audited bases fall today</h3>
-    <p>Of ${totalBases} retained bases, ${auditedBases} have a decided verdict. ${refuseFlatten} of those refuse a flattened bundle and stay render-late through their installer package. ${withRoutes} can be flattened only when named companion routes travel with the bundle.</p>
+    <p>Of ${totalBases} retained bases, ${auditedBases} have a decided verdict. ${refuseFlatten} of those refuse a flattened bundle and stay render-late through their installer package. ${withRoutes} can be flattened only when named companion routes travel with the bundle. ${wrapperOnlyRoutes} of those ${withRoutes} verdicts cover only the Argo CD Application wrapper of an AICR recipe.</p>
     <ul>
       <li><code>safe-to-flatten</code>: ${laneTally["safe-to-flatten"]} bases.</li>
       <li><code>flatten-with-routes</code>: ${laneTally["flatten-with-routes"]} bases.</li>
@@ -9337,21 +9417,33 @@ function formatsHtml() {
       // Shorten the display only; the full digest still lives in the linked
       // listing record.
       const displayVersion = (version) => (/^sha256:[0-9a-f]{20,}$/.test(version) ? `${version.slice(0, 19)}…` : version);
+      // Publication is read per entry from its listing. An entry counts as
+      // published only when a public OCI reference exists for it.
+      const facts = new Map(entries.map((listing) => [listing.id, listingFacts(listing.id)]));
+      const publishedCount = [...facts.values()].filter((row) => row.published).length;
+      const publishedSentence = entries.length === 1
+        ? `It is ${publishedCount === 1 ? "published" : "not published"} as OCI.`
+        : `${publishedCount} of them ${publishedCount === 1 ? "is" : "are"} published as OCI.`;
+      const flaggedCount = [...facts.values()].filter((row) => row.flagged).length;
+      const flaggedSentence = flaggedCount > 0
+        ? ` ${flaggedCount} ${flaggedCount === 1 ? "is" : "are"} flagged for review, and the Flattening column says so.`
+        : "";
       const rows = entries.map((listing) => [
         listing.name,
         `${displayVersion(listing.version)} (${listing.base})`,
         String(listing.objectCount),
-        listing.flatteningVerdict,
+        `${listingVerdictText(facts.get(listing.id))}${facts.get(listing.id).flagged ? ", flagged for review" : ""}`,
+        listingPublishedText(facts.get(listing.id)),
         `<a href="./listings/${escapeHtml(listing.id)}.json">Listing record</a>`,
         `<a href="${escapeHtml(info.learnHref)}">${escapeHtml(info.learnLabel)}</a>`,
       ]);
       const table = markdownLikeTable(
-        [["Entry", "Version (base)", "Objects", "Flattening", "Listing record", "Learn more"], ...rows],
-        { rawColumns: [4, 5] },
+        [["Entry", "Version (base)", "Objects", "Flattening", "Published", "Listing record", "Learn more"], ...rows],
+        { rawColumns: [5, 6] },
       );
       return `<section aria-labelledby="${format}">
       <h2 id="${format}">${escapeHtml(info.label)}</h2>
-      <p>${escapeHtml(info.sentence)} The Catalog carries ${entries.length} ${entries.length === 1 ? "entry" : "entries"} today.</p>
+      <p>${escapeHtml(info.sentence)} The Catalog carries ${entries.length} ${entries.length === 1 ? "entry" : "entries"} today. ${publishedSentence}${flaggedSentence}</p>
       ${table}
     </section>`;
     })
@@ -10985,7 +11077,8 @@ function chartIndexHtml(catalog) {
   // Helm-only and can filter to any one format (the non-Helm entries are
   // otherwise scattered among the Helm rows and reachable only by text search).
   // The counts derive from the same sources the rows do, so they cannot drift.
-  const aicrEntryCount = (readYaml(join(repoRoot, "examples/aicr/claims/entry-names.yaml"))?.spec?.entries ?? []).length;
+  // The count is the number of AICR rows the table below lists.
+  const aicrEntryCount = aicrCatalogEntries().length;
   const catalogFormats = [
     ["Helm chart", "helm-chart", catalog.catalogComponents.length],
     ["AICR platform", "ai-platform", aicrEntryCount],
@@ -11058,10 +11151,59 @@ function chartIndexHtml(catalog) {
 // through a demo link on the Examples page. This renders them from the same
 // register the entry-naming gate checks, so the list cannot drift from the
 // entries that actually exist.
-function aicrCatalogRows() {
+// One row per AICR Catalog record, read from the listing index, and one row
+// per registered entry that has a page and no record yet. The register in
+// examples/aicr/claims/entry-names.yaml still supplies each entry's page and
+// prose names. It no longer decides which entries are listed, because an entry
+// can have a record before it has a page.
+function aicrCatalogEntries() {
   const register = readYaml(join(repoRoot, "examples/aicr/claims/entry-names.yaml"));
-  const entries = register?.spec?.entries ?? [];
-  check(entries.length > 0, "AICR entry register has no entries; the Catalog would list none");
+  const registered = (register?.spec?.entries ?? []).map((entry) => ({ ...entry, id: String(entry.id) }));
+  check(registered.length > 0, "AICR entry register has no entries; the Catalog would list none");
+  const registeredById = new Map(registered.map((entry) => [entry.id, entry]));
+  const byDirectory = new Map();
+  for (const facts of aicrListingFacts) {
+    const directory = /^examples\/aicr\/([^/]+)\//.exec(facts.objects)?.[1] ?? "";
+    check(directory, `${facts.id}: an AICR listing retains objects outside examples/aicr, so the Catalog cannot name its entry`);
+    if (!byDirectory.has(directory)) byDirectory.set(directory, []);
+    byDirectory.get(directory).push(facts);
+  }
+  const rowsFor = (id) => {
+    const entry = registeredById.get(id) ?? null;
+    const records = [...(byDirectory.get(id) ?? [])].sort((left, right) => left.base.localeCompare(right.base));
+    return records.length > 0
+      ? records.map((facts) => ({ id, entry, facts }))
+      : [{ id, entry, facts: null }];
+  };
+  // Registered entries keep the register's order. A recorded entry the
+  // register does not name follows the last registered version of the same
+  // recipe, or goes last when there is none.
+  const family = (id) => id.replace(/-v\d+-\d+-\d+$/, "");
+  const order = registered.map((entry) => entry.id);
+  for (const id of [...byDirectory.keys()].filter((directory) => !registeredById.has(directory)).sort()) {
+    const siblings = order.map((other, index) => (family(other) === family(id) ? index : -1)).filter((index) => index >= 0);
+    order.splice(siblings.length > 0 ? Math.max(...siblings) + 1 : order.length, 0, id);
+  }
+  return order.flatMap(rowsFor);
+}
+
+// What happened to an entry, in the order a reader asks: is it rendered, is it
+// published, did it run. Every clause is read from the listing.
+function aicrStateSentence(facts) {
+  const rendered = `It is rendered as ${facts.objectCount} ${facts.wrapperOnly ? "Argo CD Applications" : "objects"} and retained.`;
+  if (!facts.published && listingNeverRun(facts)) return `${rendered} It is not published and has not run.`;
+  return [
+    rendered,
+    facts.published ? "It is published as OCI." : "It is not published.",
+    facts.delivered
+      ? "A delivery run passed."
+      : facts.uploaded
+        ? "It was uploaded to ConfigHub, and no delivery run has passed."
+        : "Delivery is partly recorded, and no run has passed.",
+  ].join(" ");
+}
+
+function aicrCatalogRows() {
   const needs = {
     "cpu-starter": "Nothing. No GPU, no cloud account, no NGC key.",
     "eks-h100-training-kubeflow": "AWS and GPU capacity to run it. Reading it costs nothing.",
@@ -11076,25 +11218,45 @@ function aicrCatalogRows() {
     "eks-h100-training-kubeflow": "EKS, H100 nodes, Kubeflow, and a training job.",
     "eks-h100-training-kubeflow-v0-18-0": "The same training platform, regenerated four minor versions later.",
     "eks-h100-training-kubeflow-v0-19-0": "The training platform with public OCI, ConfigHub variants, and a release OCI.",
-    "eks-h100-training-kubeflow-v0-20-0": "The newest retained training platform, with public source and literal-configuration OCI.",
+    "eks-h100-training-kubeflow-v0-20-0": "The training platform with public source and literal-configuration OCI.",
     "eks-h100-inference-nim": "A cluster that can serve NIM models.",
     "kserve-nim-inference": "The exact shape one model runs in.",
   };
-  return entries.map((entry) => {
-    const id = String(entry.id);
-    const page = `../d/${String(entry.page).replace(/\.md$/, ".html")}`;
-    const version = String(entry.retainedVersion);
-    const search = [id, "aicr", "ai platform", version, builds[id] ?? "", needs[id] ?? "", (entry.names ?? []).join(" ")]
+  return aicrCatalogEntries().map(({ id, entry, facts }) => {
+    const page = entry ? `../d/${String(entry.page).replace(/\.md$/, ".html")}` : "";
+    const listingHref = facts ? `../listings/${facts.id}.json` : "";
+    const version = facts ? facts.version : String(entry.retainedVersion);
+    const verdict = facts
+      ? `${listingVerdictText(facts)}, ${facts.published ? "published" : "not published"}`
+      : "It has no verdict, because it has no Catalog record yet.";
+    const state = facts
+      ? aicrStateSentence(facts)
+      : "This entry has a page and no Catalog record or listing yet.";
+    const flag = facts?.flagged
+      ? `<br><strong>This entry is flagged for review.</strong> ${escapeHtml(facts.flagQuestion)}`
+      : "";
+    const placeholder = (facts?.placeholders ?? [])
+      .map((input) => `The ${input.name} value is a placeholder. Change it to match your cluster, then regenerate the entry or make a variant.`)
+      .join(" ");
+    const startLinks = [
+      page ? `<a href="${page}">Read the entry</a>` : "",
+      facts ? `<a href="${listingHref}">Listing JSON</a>` : "",
+      facts ? `<a href="${escapeHtml(facts.recordUrl)}">Record</a>` : "",
+    ].filter(Boolean).join(" · ");
+    const search = [
+      id, "aicr", "ai platform", version, facts?.base ?? "", builds[id] ?? "", needs[id] ?? "",
+      (entry?.names ?? []).join(" "), verdict, state, facts?.flagged ? "flagged for review watch" : "", placeholder ? "placeholder" : "",
+    ]
       .join(" ")
       .toLowerCase();
     return `<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="${escapeHtml(search)}">
-        <td><a href="${page}">${escapeHtml(id)}</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td><a href="${page || listingHref}">${escapeHtml(id)}</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
         <td class="mono">${escapeHtml(version)}</td>
-        <td><a href="${page}">Read the entry</a></td>
-        <td>${escapeHtml(builds[id] ?? "An AI platform entry.")}</td>
-        <td>${escapeHtml(needs[id] ?? "")}</td>
-        <td><span style="color:var(--muted)">Flattening is decided per generated layer. A retained wrapper can be flat while nested charts or other sources are processed later.</span></td>
-        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+        <td>${startLinks}</td>
+        <td>${builds[id] ? `${escapeHtml(builds[id])} ` : ""}${escapeHtml(state)}${flag}</td>
+        <td>${escapeHtml([needs[id] ?? "", placeholder].filter(Boolean).join(" "))}</td>
+        <td>${escapeHtml(verdict)}</td>
+        <td>${facts ? `${escapeHtml(facts.base)}. ` : ""}Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
       </tr>`;
   }).join("\n");
 }
@@ -11270,7 +11432,8 @@ ${nonHelmCatalogRowsHtml}
 
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
-      <p>The catalog holds ${catalog.catalogComponents.length} Helm charts and non-Helm entries in one filterable table: ${aicrEntryCount} AICR platforms, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. Use the <strong>Format</strong> filter to narrow to any one, for example all ${aicrEntryCount} AICR platforms; the other filters and the text search span every entry.</p>
+      <p>The catalog holds ${catalog.catalogComponents.length} Helm charts and non-Helm entries in one filterable table: ${aicrEntryCount} AICR entries, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. Use the <strong>Format</strong> filter to narrow to any one, for example all ${aicrEntryCount} AICR entries; the other filters and the text search span every entry.</p>
+      ${agentNote(`An entry flagged for review reads <code>completed/watch</code> at <code>checks.materialization</code> in <a href="../configs.json">configs.json</a>. Its listing gives the open question as that stage's answer.`)}
       <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the provider-curated source variant intended for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       ${catalogSearchBlock}
     </section>
