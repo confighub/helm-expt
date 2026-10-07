@@ -3,9 +3,11 @@
 // generator (scripts/generate-gpu-operator-packaged-lifecycle.mjs) so both render
 // the same inputs.
 //
-// The aicr-eks-training base uses, byte for byte, the values the AICR recipe
-// supplies to its gpu-operator Application. Only v26.3.3 has it, because that is
-// the only gpu-operator version with AICR values retained in this repository.
+// The aicr-eks-training base uses, byte for byte, the values the AICR v0.20.0
+// recipe supplies to its gpu-operator Application, and is checked against that
+// recipe's nested-render receipt. Only v26.3.3 has it. The AICR v1.0.0 example
+// retains values for v26.7.1 but no nested-render receipt, so v26.7.1 has no
+// AICR base yet.
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
