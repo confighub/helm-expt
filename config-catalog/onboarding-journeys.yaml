@@ -254,6 +254,34 @@ spec:
         - tiny-two-component-stack
         - diff-promote-and-rollback
 
+    - id: security-and-risk-reviewer
+      situation: Owns security, compliance, or vulnerability response and starts from rendered objects and policy, not from a chart.
+      needs: A local check of the exact objects, stable finding identifiers, a result kept beside the files it checked, and a plain statement of what the check does not cover.
+      journeyIds:
+        - security-risk-check
+
+    - id: platform-generator-owner
+      situation: Owns a golden path or internal platform that a generator, operator, or template set produces for other teams.
+      needs: A read-only view of how ConfigHub would hold the generated platform, with the generator and its source left in charge, before any account or cluster is involved.
+      journeyIds:
+        - generator-platform-plan
+
+  # Personas the Workshop does not serve yet. Each has evidence behind it, but
+  # no Guide ends at a real first result for it, so it has no journey. It moves
+  # to personas, with a journey, when the named surface exists.
+  unservedPersonas:
+    - id: self-hosted-evaluator
+      situation: Must evaluate ConfigHub on infrastructure they control, without a SaaS commitment.
+      needs: A Guide that takes them from installing a ConfigHub server on their own machine to one inspectable result, with its limits stated.
+      reason: The Workshop lists the released server plugin and names the install command, but no Guide walks the evaluation or says what the first result is.
+      requiredSurface: A Workshop Guide for evaluating a self-hosted ConfigHub server.
+
+    - id: returning-signed-up-user
+      situation: Signed up earlier and comes back to an empty or partly configured organization.
+      needs: A route that reads what already exists and resumes from it, instead of starting the first tutorial again.
+      reason: Resuming depends on the state of the person's own organization, which the Workshop cannot read. Its Guides can only start a job from the beginning.
+      requiredSurface: A state-aware resume route in the signed-in product.
+
   journeys:
     - id: ask-ai-assisted-configuration
       name: Ask with browser or AI-assisted configuration review
@@ -661,7 +689,80 @@ spec:
         - controller-not-observed
         - no-next-guide
 
+    - id: security-risk-check
+      name: Check rendered objects for known configuration risks
+      personaIds:
+        - security-and-risk-reviewer
+      job: Find known configuration risks in the exact rendered Kubernetes objects on your own machine, and keep the result beside the files it checked.
+      entryPage: index.html
+      destinationPage: ask.html
+      maxClicks: 1
+      contentMarkers:
+        - Run the shared checks on your machine
+        - cub check --format json --output cub-check.json ./rendered
+        - It does not upload them, contact ConfigHub, or apply them to a cluster.
+        - The result is advisory
+      terminalStage: first-value
+      startAction: Render the chart or collect the Kubernetes YAML, install the released check plugin, and run cub check on those files.
+      firstValue: A local JSON result records stable finding identifiers and the pinned pattern bundle for the exact files, and nothing is uploaded, applied, or deployed.
+      nextJourneyId: diff-promote-and-rollback
+      tokenPlan:
+        tokenOptimalPathId: local-shared-checks
+        selectionRule: Run the released check locally; ask an agent only to explain a finding that the result does not make clear.
+        paths:
+          - id: local-shared-checks
+            kind: deterministic-zero
+            estimateLabel: Deterministic zero-token local path
+            inputTokens: { min: 0, max: 0 }
+            outputTokens: { min: 0, max: 0 }
+            assumptions:
+              - No AI or LLM assistant is invoked.
+              - The rendered Kubernetes YAML already exists on the machine.
+            optimization: Check only the rendered files in scope, and keep the JSON result with their digest instead of pasting manifests into an agent.
+            pricing: not-estimated
+      watchExitReasonIds:
+        - prerequisite-blocked
+        - first-action-failed
+        - result-not-explained
+
+    - id: generator-platform-plan
+      name: See a generated platform the way ConfigHub would hold it
+      personaIds:
+        - platform-generator-owner
+      job: See how a platform that a generator produces would be held in ConfigHub, with the generator left in charge, using no account and no cluster.
+      entryPage: index.html
+      destinationPage: bring-kubara-into-confighub.html
+      maxClicks: 1
+      contentMarkers:
+        - See your platform the way ConfigHub would hold it
+        - You need no ConfigHub account and no cluster
+        - cub kubara plan
+        - Known limits
+      terminalStage: first-value
+      startAction: Install the pinned cub kubara plugin and run its plan on the generated platform directory.
+      firstValue: The plan shows what ConfigHub would hold for the platform, and nothing changes outside the directories the commands write.
+      nextJourneyId: tiny-two-component-stack
+      tokenPlan:
+        tokenOptimalPathId: local-generator-plan
+        selectionRule: Follow the Guide's pinned commands; an agent is not needed to read the plan.
+        paths:
+          - id: local-generator-plan
+            kind: deterministic-zero
+            estimateLabel: Deterministic zero-token local path
+            inputTokens: { min: 0, max: 0 }
+            outputTokens: { min: 0, max: 0 }
+            assumptions:
+              - No AI or LLM assistant is invoked.
+              - The generator and helm are installed, and the platform directory already exists or is created by the Guide's own commands.
+            optimization: Run the plan on one platform directory and read its summary; do not hand the generated tree to an agent.
+            pricing: not-estimated
+      watchExitReasonIds:
+        - prerequisite-blocked
+        - first-action-failed
+        - artifact-not-visible
+
   limits:
     - This local contract test checks structure, discoverability, wording markers, and deterministic routing; it is not an outside-user usability trial.
     - It does not create a ConfigHub account, request a real release, contact a controller, or prove a workload live.
     - A live-stage success event requires separate controller and workload evidence; this validator never manufactures that evidence.
+    - A persona under unservedPersonas has no tested route. Listing it records a known gap; it is not coverage.

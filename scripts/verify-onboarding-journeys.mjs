@@ -30,6 +30,8 @@ const requiredJourneys = new Set([
   "helm-chart-change",
   "aicr-or-oci-package",
   "diff-promote-and-rollback",
+  "security-risk-check",
+  "generator-platform-plan",
 ]);
 const allowedTokenKinds = new Set(["deterministic-zero", "estimated-range"]);
 const allowedSignalSources = new Set([
@@ -58,7 +60,7 @@ const walkCount = runs[0].length;
 const personaCount = contract.spec.personas.length;
 const journeyCount = contract.spec.journeys.length;
 console.log(
-  `verified ${journeyCount} onboarding journeys for ${personaCount} personas across ${repetitions} deterministic repetitions (${walkCount * repetitions} local walks, no network or LLM)`,
+  `verified ${journeyCount} onboarding journeys for ${personaCount} personas across ${repetitions} deterministic repetitions (${walkCount * repetitions} local walks, no network or LLM); ${(contract.spec.unservedPersonas ?? []).length} persona(s) declared not yet served`,
 );
 
 function validateContract(document) {
@@ -155,6 +157,25 @@ function validateContract(document) {
     [...requiredJourneys].every((id) => journeyMap.has(id)) && [...journeyMap.keys()].every((id) => requiredJourneys.has(id)),
     "onboarding journey ids do not match the required coverage set",
   );
+
+  // A persona the Workshop does not serve yet is declared apart from the
+  // served ones: it says why and which surface must exist first, and it can
+  // carry no journey, so it never counts as coverage.
+  const unserved = document?.spec?.unservedPersonas ?? [];
+  check(Array.isArray(unserved), "unservedPersonas must be a list");
+  const unservedMap = uniqueBy(unserved, "id", "unserved persona");
+  for (const persona of unserved) {
+    check(!personaMap.has(persona.id), `${persona.id} is listed as both served and unserved`);
+    for (const field of ["situation", "needs", "reason", "requiredSurface"]) {
+      check(typeof persona[field] === "string" && persona[field].trim(), `unserved ${persona.id} ${field} is missing`);
+    }
+    check(!Object.hasOwn(persona, "journeyIds"), `unserved ${persona.id} cannot name a journey; move it to personas when a journey serves it`);
+  }
+  for (const journey of journeys) {
+    for (const personaId of journey.personaIds ?? []) {
+      check(!unservedMap.has(personaId), `${journey.id} names unserved persona ${personaId}`);
+    }
+  }
 
   for (const persona of personas) {
     check(typeof persona.situation === "string" && persona.situation.trim(), `${persona.id} situation is missing`);
