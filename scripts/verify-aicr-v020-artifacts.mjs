@@ -24,6 +24,11 @@ import {
   repoRoot,
   sha256,
 } from "./lib/proof-common.mjs";
+import {
+  placeholderLandings,
+  requiredInputFindings,
+  runRequiredInputSelfTest,
+} from "./lib/aicr-required-inputs.mjs";
 import { aicrRetainedVersion } from "./lib/aicr-retained-versions.mjs";
 import {
   resolveSourceCatalogImports,
@@ -455,14 +460,19 @@ function verifySupportingRecords() {
 }
 
 // A generation input that a version newly requires changes the retained bytes.
-// Each one must appear in the recorded bundle commands, and an entry must not
-// be published while the value of one still awaits confirmation.
+// Each one must appear in the recorded bundle commands. An entry must not be
+// published while the value of one is neither confirmed nor a recorded
+// placeholder, and a recorded placeholder must name every place the rendered
+// Applications carry it. The rule lives in lib/aicr-required-inputs.mjs, and
+// its refusals are exercised here on every run.
 function verifyRequiredInputs(published) {
-  for (const input of receipt.spec?.sourceAndIntent?.newRequiredInputs ?? []) {
-    check(
-      ["awaiting-maintainer-confirmation", "confirmed"].includes(input.valueStatus),
-      `${input.input}: required input has no confirmation status`,
-    );
+  runRequiredInputSelfTest();
+  const inputs = receipt.spec?.sourceAndIntent?.newRequiredInputs ?? [];
+  const applications = inputs.length > 0 ? applicationSet(join(renderedRoot, "templates")) : [];
+  const routeIntent = inputs.length > 0 ? readYaml(routeIntentPath) : null;
+  for (const input of inputs) {
+    const landings = placeholderLandings(applications, input.value);
+    for (const finding of requiredInputFindings(input, { published, landings })) check(false, finding);
     check(
       receipt.spec.sourceAndIntent.generationInputs?.[input.input] === input.value,
       `${input.input}: required input value differs from the generation inputs`,
@@ -475,10 +485,20 @@ function verifyRequiredInputs(published) {
         `${input.input}: the recorded ${command} command does not pass ${input.flag} ${input.value}`,
       );
     }
-    check(
-      !(published && input.valueStatus !== "confirmed"),
-      `${input.input}: the entry is published while this input's value awaits confirmation`,
-    );
+    if (input.placeholder) {
+      check(
+        input.placeholder.renderedIn === relativeRepo(join(renderedRoot, "templates")),
+        `${input.input}: the placeholder record names a different rendered directory`,
+      );
+      check(
+        routeIntent.spec?.routes?.some(
+          (route) => route.id === input.placeholder.route
+            && route.status === "recorded-not-run"
+            && route.evidence?.includes(relativeRepo(join(root, "generation-receipt.yaml"))),
+        ),
+        `${input.input}: the route intent has no ${input.placeholder.route} route that is recorded, not run, and bound to the generation receipt`,
+      );
+    }
   }
 }
 
