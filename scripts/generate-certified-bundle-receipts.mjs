@@ -2090,7 +2090,7 @@ function buildAicrRecipeEntryReceipt(entry) {
   const paritySummary = readFileSync(repoPath(AICR_ORDERING_PARITY_SUMMARY), "utf8");
   const parityCovers = paritySummary.includes(`| \`${entry.id}\` |`);
   const orderingText = orderingSentences(entry);
-  const sourcePackageSentence = `${bundlePathApplications} of the ${entry.applications.length} Applications take their source from ${entry.sourcePackageRepository} at ${entry.sourcePackageRevision}. That package has not been published${bundleRetained ? "" : ", and this entry does not retain it"}, so Argo CD could not resolve those sources today.`;
+  const sourcePackageSentence = `${bundlePathApplications} of the ${entry.applications.length} Applications ${bundlePathApplications === 1 ? "takes its" : "take their"} source from ${entry.sourcePackageRepository} at ${entry.sourcePackageRevision}. That package has not been published${bundleRetained ? "" : ", and this entry does not retain it"}, so Argo CD could not resolve ${bundlePathApplications === 1 ? "that source" : "those sources"} today.`;
   const automated = entry.applications.every((application) => application.automatedSync);
 
   const waves = [...new Set(entry.applications
@@ -2202,7 +2202,7 @@ function buildAicrRecipeEntryReceipt(entry) {
           mode: "render-late-by-argo",
           referencedCharts: uniqueCharts,
           statement:
-            `Each Application points at a source that Argo CD renders at sync time. ${chartApplications} Applications name ${uniqueCharts.length} upstream charts, and ${bundlePathApplications} take a path inside the AICR bundle package. No chart is flattened by this shape, so no chart's flattening verdict is decided here. Those verdicts belong to the chart catalog and are read per chart.`,
+            `Each Application points at a source that Argo CD renders at sync time. ${chartApplications} Applications name ${uniqueCharts.length} upstream charts, and ${bundlePathApplications} ${bundlePathApplications === 1 ? "takes" : "take"} a path inside the AICR bundle package. No chart is flattened by this shape, so no chart's flattening verdict is decided here. Those verdicts belong to the chart catalog and are read per chart.`,
         },
         verdict: {
           lane: "flatten-with-routes",

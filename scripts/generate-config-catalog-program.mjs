@@ -25,6 +25,15 @@ import {
 } from "./lib/proof-common.mjs";
 import { resolveSourceCatalogImports } from "./lib/source-catalog-import.mjs";
 import { loadCatalogBundleBindings, findCatalogBundleBinding } from "./lib/catalog-bundle-bindings.mjs";
+import {
+  assertOrderingSupportsRoute,
+  AICR_MEMBERS_CSV,
+  loadAicrRecipeEntries,
+  orderingEvidenceFor,
+  orderingSentences,
+  receiptSaysRetainedOffline,
+  recordNameFor,
+} from "./lib/aicr-recipe-entries.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const intentIndexPath = join(repoRoot, "data", "helm-render-intents", "intents.json");
@@ -119,6 +128,13 @@ const workflowApprovalEvidence = [
   "ApprovalSubjectRevisionID",
 ];
 const legacyApprovalTriggerRef = "platform/require-approval";
+const aicrVerdictRoot = "data/aicr-flattening-verdicts";
+const aicrRouteRoot = "data/certified-bundles/routes/aicr";
+const aicrReceiptRoot = "data/certified-bundles/receipts/aicr";
+// The records built from retained-and-rendered AICR recipe directories, keyed
+// by record name. flatteningRecord and validateRecords both hold these records
+// to a stricter rule than the rest, and this is how they recognise one.
+const aicrRecipeRecordEntries = new Map();
 
 if (mode === "--self-test") {
   runSelfTest();
@@ -232,6 +248,9 @@ function buildReport() {
     buildAicrArgoCdRecord(),
     buildAicrModernArgoCdRecord("0.19.0"),
     buildAicrModernArgoCdRecord("0.20.0"),
+    // Every retained-and-rendered AICR recipe directory is its own entry. The
+    // list is discovered, so a directory cannot be retained without a record.
+    ...loadAicrRecipeEntries({ verdictRoot: aicrVerdictRoot }).map(buildAicrRecipeRecord),
     buildTimoniRecord(),
     buildTimoniFluxAioRecord(),
     buildKubaraRecord(),
@@ -1022,6 +1041,223 @@ function buildAicrModernArgoCdRecord(version) {
       ],
     },
   };
+}
+
+// One record per retained-and-rendered AICR recipe directory: a mirrored
+// overlay, or one of the two older directories with the same shape. Everything
+// here is read from the directory's own files and from the verdict and route
+// the certified-bundle generator wrote for it. The record says the entry is
+// retained and rendered. It does not say published, uploaded or deployed,
+// because none of that happened, and validateRecords refuses a record that
+// says otherwise.
+function buildAicrRecipeRecord(entry) {
+  const name = entry.recordName;
+  const applications = entry.applications;
+  const routeRel = `${aicrRouteRoot}/${entry.bundleName}/sync-wave-ordering.yaml`;
+  const verdictRel = `${aicrVerdictRoot}/${entry.bundleName}/flattening-safety-verdict.yaml`;
+  const bundleReceiptRel = `${aicrReceiptRoot}/${entry.id}/receipt.yaml`;
+  check(
+    existsRepo(routeRel),
+    `${name}: no recorded sync-wave route at ${routeRel}; run npm run certified-bundles before npm run config-catalog`,
+  );
+  assertOrderingSupportsRoute(entry);
+  const ordering = entry.ordering;
+  const criteria = entry.receipt.criteria;
+  const criteriaText = Object.entries(criteria).map(([key, value]) => `${key}=${value}`).join(", ");
+  const bundlePathApplications = entry.nestedSources.filter(
+    (row) => row.kind === "path-in-unpublished-aicr-bundle",
+  ).length;
+  const chartCount = new Set(entry.nestedSources.map((row) => row.chart).filter(Boolean)).size;
+  const applicationNamespaces = [...new Set(applications.map((application) => application.namespace))];
+  check(
+    applicationNamespaces.length === 1 && applicationNamespaces[0],
+    `${name}: the rendered Applications do not share one namespace`,
+  );
+  const baseOverlay = entry.overlayRole === "base-overlay";
+  const overlaySentence = baseOverlay
+    ? `It is a base overlay, a shared substrate that ${entry.overlayDependents.length} other retained entr${entry.overlayDependents.length === 1 ? "y builds" : "ies build"} on.`
+    : "It is a leaf overlay. No other retained entry builds on it.";
+
+  const targetRequirements = [
+    {
+      category: "delivery-runtime",
+      name: "argo-cd-application-api",
+      purpose: `Argo CD and its Application API must exist on the destination, with the ${applicationNamespaces[0]} namespace, because every object in this base is an Argo CD Application in that namespace.`,
+    },
+    {
+      category: "source-package-oci",
+      name: "aicr-bundle-source-package",
+      purpose: `${bundlePathApplications} of the ${applications.length} Applications ${bundlePathApplications === 1 ? "takes its" : "take their"} source from ${entry.sourcePackageRepository} at ${entry.sourcePackageRevision}. That package is not published, so a destination needs a reachable copy before Argo CD can resolve ${bundlePathApplications === 1 ? "it" : "them"}.`,
+    },
+    {
+      category: "target-fact",
+      name: "recipe-criteria",
+      purpose: `AICR generated this recipe for ${criteriaText}. A destination has to match those criteria, and nothing here has checked one.`,
+    },
+  ];
+  const routes = [
+    {
+      routeName: "argocd-sync-wave-ordering",
+      lifecyclePhase: "destination-resolution",
+      actionKind: "resolve-lifecycle-work",
+      executionMode: "destination-specific",
+      automatic: false,
+      owner: "Argo CD on the selected destination",
+      operatingDetails: `Apply the ${ordering.wavedApplications} component Applications in the ${ordering.distinctWaves} sync-waves they carry, from wave ${ordering.lowestWave} to wave ${ordering.highestWave}. The order is recorded as a route beside the bundle and no runtime has executed it.`,
+      disposition: "generated-not-live",
+      evidenceRequired: "A recorded Argo CD sync of this exact Application set on a named destination.",
+      order: 1,
+      evidence: [routeRel],
+    },
+    {
+      routeName: "nested-source-lifecycle",
+      lifecyclePhase: "destination-resolution",
+      actionKind: "resolve-lifecycle-work",
+      executionMode: "destination-specific",
+      automatic: false,
+      owner: "Argo CD on the selected destination",
+      operatingDetails: `Argo CD renders ${chartCount} upstream chart${chartCount === 1 ? "" : "s"} and ${bundlePathApplications} AICR bundle path${bundlePathApplications === 1 ? "" : "s"} at sync time. Their CRDs, hooks, certificates and operators are handled there, and this entry has not rendered or assessed them.`,
+      disposition: "not-evaluated",
+      evidenceRequired: "A flattening verdict or a recorded sync for each nested source on the selected destination.",
+      order: 2,
+      evidence: [verdictRel],
+    },
+  ];
+
+  const record = {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "BaseVariantRecord",
+    metadata: {
+      name,
+      labels: {
+        sourceType: "aicr",
+        component: `aicr-${entry.sourceName}`,
+        sourceVersion: entry.version,
+        base: "argocd",
+      },
+    },
+    spec: {
+      source: {
+        type: "aicr",
+        name: entry.sourceName,
+        version: entry.version,
+        record: entry.receiptRel,
+        sourceVariant: entry.selectedOverlay,
+        packageOciRef: "",
+      },
+      baseVariant: {
+        name: "argocd",
+        revision: `generated-${entry.version}`,
+        digest: entry.platformDigest.replace(/^sha256:/, ""),
+        digestRole: "aicr-platform-index",
+        digestRecord: entry.indexRel,
+      },
+      configuration: {
+        format: "argocd-application-yaml",
+        objects: entry.renderedRel,
+        inventory: entry.inventoryRel,
+        objectCount: applications.length,
+      },
+      inputs: {
+        fixedAtBuildTime: [
+          ...Object.entries(criteria).map(([key, value]) => `${key}=${value}`),
+          ...Object.entries(entry.receipt.generationInputs).map(([key, value]) => `${key}=${value}`),
+          "deployer=argocd-helm",
+          `selectedOverlay=${entry.selectedOverlay}`,
+          `appliedOverlays=${entry.recipe.appliedOverlays.join(">")}`,
+        ],
+        installTime: targetRequirements,
+        installTimeStatus: "destination-facts-recorded-not-run",
+      },
+      routing: {
+        routes,
+        targetFacts: {
+          recipeCriteria: criteria,
+          argoCd: {
+            required: true,
+            applicationNamespace: applicationNamespaces[0],
+            ociHelmSourceRequired: true,
+          },
+          requirements: targetRequirements,
+        },
+        sourceRecord: routeRel,
+      },
+      delivery: {
+        sourcePackageOci: {
+          status: "not-published",
+          plannedRef: `${entry.sourcePackageRepository}:${entry.sourcePackageRevision}`,
+          note: "The reference the rendered Applications name. Nothing has been pushed to it.",
+        },
+        literalConfigOci: {
+          status: "not-published",
+          note: "The rendered Application set has not been packaged or pushed as a literal configuration OCI.",
+        },
+        configHubUpload: { status: "not-run" },
+        configHubReleaseOci: { status: "not-run" },
+        argoCd: "not-run",
+        flux: "not-run-for-argo-application-wrapper",
+        direct: "not-run",
+      },
+      policy: {
+        profile: "catalog-standard",
+        productionAdds: ["workflow-approval"],
+        normalSet: "approvalRequired",
+        approvalReason: "system-configuration",
+      },
+      evidence: {
+        sourceGenerationReceipt: entry.receiptRel,
+        recipe: entry.recipeRel,
+        digestIndex: entry.indexRel,
+        flatteningVerdict: verdictRel,
+        orderingRoute: routeRel,
+        certifiedBundleReceipt: bundleReceiptRel,
+        ...(entry.page && existsRepo(entry.page) ? { entryPage: entry.page } : {}),
+        retention: "retained-and-rendered-not-published-not-deployed",
+        overlayRole: entry.overlayRole,
+        appliedOverlays: entry.recipe.appliedOverlays.join(" > "),
+        // Related entries, named so a listing can link them. They are other
+        // source overlays with their own records, not variants of this base.
+        ...(entry.overlayParents.length > 0
+          ? {
+              overlayParentEntries: entry.overlayParents
+                .map((id) => recordNameFor(id, entry.version))
+                .join(", "),
+            }
+          : {}),
+        ...(entry.overlayDependents.length > 0
+          ? { overlayDependentEntryCount: String(entry.overlayDependents.length) }
+          : {}),
+        ...(entry.memberRows > 0
+          ? {
+              attachedMembers: AICR_MEMBERS_CSV,
+              attachedMemberRows: `${entry.memberRows} model profiles joined by criteria; none was executed`,
+            }
+          : {}),
+      },
+      operations: {
+        resourceClass: "system-configuration",
+        ownerClass: "platform-team",
+        changeCadence: "planned-platform-release",
+      },
+    },
+    status: {
+      level: "partial",
+      claim: `AICR ${entry.version} generated the ${entry.selectedOverlay} overlay as ${applications.length} Argo CD Applications. They are retained and rendered, not published, not deployed. ${overlaySentence}`,
+      limits: [
+        "Flattened covers the Application wrapper only. Argo CD renders the nested charts at sync time, and their flattening verdicts are outside this record.",
+        `${bundlePathApplications} of the ${applications.length} Applications name${bundlePathApplications === 1 ? "s" : ""} the AICR bundle package at ${entry.sourcePackageRepository}, which is not published. This entry cannot be delivered until that package is.`,
+        "No OCI artifact is published for this entry, nothing was uploaded to ConfigHub, and no variant, promotion or release exists for it.",
+        "The sync-wave order is recorded as a route. No Argo CD instance has executed it.",
+        ...orderingSentences(entry).slice(1),
+        `The recipe criteria are ${criteriaText}. No cluster, cloud service, accelerator, model or workload was contacted or run for this entry.`,
+        ...(entry.memberRows > 0
+          ? [`${entry.memberRows} model profiles are joined to this platform by criteria in ${AICR_MEMBERS_CSV}. None of them was executed here.`]
+          : []),
+      ],
+    },
+  };
+  aicrRecipeRecordEntries.set(name, entry);
+  return record;
 }
 
 function buildTimoniRecord() {
@@ -2327,6 +2563,8 @@ function validateRecords(records) {
     ].filter(Boolean)) {
       check(existsRepo(path), `${record.metadata.name} points at missing ${path}`);
     }
+    const aicrRecipeEntry = aicrRecipeRecordEntries.get(record.metadata.name);
+    if (aicrRecipeEntry) validateAicrRecipeRecord(record, aicrRecipeEntry);
   }
   const exactDelivery = records.find(
     (record) => record.metadata.name === catalogOciDeliveryRecord,
@@ -3603,6 +3841,7 @@ function validateFleetPromotionReceipt(source, receipt) {
 
 function runSelfTest() {
   execFileSync(process.execPath, ["--test", join(repoRoot, "tests/catalog-bundle-bindings.test.mjs")], { cwd: repoRoot, stdio: "inherit" });
+  runAicrRecipeEntrySelfTest();
   const policy = readYaml(policySourcePath);
   validatePolicy(policy);
   const program = readYaml(programSourcePath);
@@ -3794,6 +4033,237 @@ function runSelfTest() {
   );
 }
 
+// A refusal is only proved when the right guard fired, so these fixtures match
+// the message as well as the failure.
+function expectRefusal(fn, pattern, message) {
+  let refusal = "";
+  try {
+    fn();
+  } catch (error) {
+    refusal = String(error?.message ?? error);
+  }
+  check(
+    pattern.test(refusal),
+    `${message}${refusal ? ` (it was refused with: ${refusal})` : " (it was accepted)"}`,
+  );
+}
+
+function runAicrRecipeEntrySelfTest() {
+  const receipt = (status) => ({ kind: "SourceGenerationReceipt", status });
+  check(
+    receiptSaysRetainedOffline(receipt({ result: "retained-offline", liveRegistryPublicationClaimed: false })),
+    "self-test: a retained-offline receipt must be discovered",
+  );
+  check(
+    receiptSaysRetainedOffline(
+      receipt({ generated: true, published: false, configHubUpload: "not-run", deliveryProof: "not-run" }),
+    ),
+    "self-test: the older field-by-field receipt must be discovered",
+  );
+  for (const status of [
+    { result: "retained-offline", liveRegistryPublicationClaimed: true },
+    { generated: true, published: true, configHubUpload: "not-run", deliveryProof: "not-run" },
+    { generated: true, published: false, configHubUpload: "pass", deliveryProof: "not-run" },
+    { generated: true },
+  ]) {
+    check(
+      !receiptSaysRetainedOffline(receipt(status)),
+      `self-test: a receipt with status ${JSON.stringify(status)} must not be described as retained and unpublished`,
+    );
+  }
+
+  const shape = (applications, deploymentOrder, components) => {
+    const entry = {
+      entryRel: "examples/aicr/self-test",
+      applications: applications.map(([name, syncWave]) => ({ name, syncWave })),
+      recipe: { deploymentOrder, components: components.map(([name, dependencyRefs]) => ({ name, dependencyRefs })) },
+    };
+    entry.ordering = orderingEvidenceFor(entry);
+    return entry;
+  };
+  const ordered = shape(
+    [["root", null], ["alpha", "1"], ["beta", "5"], ["beta-post", "6"]],
+    ["alpha", "beta"],
+    [["alpha", []], ["beta", ["alpha"]]],
+  );
+  assertOrderingSupportsRoute(ordered);
+  check(
+    ordered.ordering.edgesHeld === 1
+      && ordered.ordering.distinctWaves === 3
+      && sameJson(ordered.ordering.companions, ["beta-post"])
+      && sameJson(ordered.ordering.platformRoots, ["root"]),
+    "self-test: the ordering evidence misread a well-ordered fixture",
+  );
+  expectRefusal(
+    () => assertOrderingSupportsRoute(shape(
+      [["root", null], ["alpha", "5"], ["beta", "1"]],
+      ["alpha", "beta"],
+      [["alpha", []], ["beta", ["alpha"]]],
+    )),
+    /refusing to record a sync-wave route that contradicts the recipe: beta depends on alpha/,
+    "self-test: a wave that runs a component before its dependency was recorded as a route",
+  );
+  expectRefusal(
+    () => assertOrderingSupportsRoute(shape(
+      [["root", null], ["alpha", "1"], ["beta", "5"]],
+      ["alpha", "beta", "gamma"],
+      [["alpha", []], ["beta", ["alpha"]]],
+    )),
+    /the recipe deploys gamma, which the rendered Applications do not contain/,
+    "self-test: a deployed component missing from the render was recorded as a route",
+  );
+  expectRefusal(
+    () => assertOrderingSupportsRoute(shape(
+      [["root", null], ["alpha", "1"], ["beta", "1"]],
+      ["alpha", "beta"],
+      [["alpha", []], ["beta", []]],
+    )),
+    /there is no ordering to record as a route/,
+    "self-test: an Application set with one wave was recorded as an ordering route",
+  );
+  const absentDependency = shape(
+    [["root", null], ["alpha", "1"], ["beta", "5"]],
+    ["alpha", "beta"],
+    [["alpha", []], ["beta", ["alpha", "absent"]], ["absent", ["also-absent"]]],
+  );
+  assertOrderingSupportsRoute(absentDependency);
+  check(
+    absentDependency.ordering.edgesNamingAnUndeployedComponent.length === 2
+      && absentDependency.ordering.deployedDependsOnUndeployed.length === 1
+      && absentDependency.ordering.deployedDependsOnUndeployed[0].dependsOn === "absent",
+    "self-test: an edge to a component the recipe does not deploy must be recorded, not dropped and not failed",
+  );
+
+  const subject = {
+    entry: "examples/aicr/self-test",
+    upstreamVersion: "v9.9.9",
+    platformDigest: `sha256:${"a".repeat(64)}`,
+  };
+  const resolve = (overrides, verdictDocument) => resolveAicrFlattening({
+    recordName: "aicr-self-test-v9-9-9-argocd",
+    objects: "examples/aicr/self-test/argocd-rendered",
+    version: "v9.9.9",
+    platformDigest: subject.platformDigest,
+    requireDecision: true,
+    readVerdict: (rel) => (rel.startsWith(aicrVerdictRoot) ? verdictDocument : null),
+    ...overrides,
+  });
+  check(
+    resolve({}, { spec: { subject, verdict: { lane: "flatten-with-routes" } } }).verdict === "flatten-with-routes",
+    "self-test: a matching platform-shape verdict must decide the entry",
+  );
+  expectRefusal(
+    () => resolve({}, null),
+    /no flattening verdict decides this retained AICR recipe entry, so it would silently read as not-assessed/,
+    "self-test: a retained AICR recipe entry with no verdict fell through to not-assessed",
+  );
+  expectRefusal(
+    () => resolve({}, { spec: { subject: { ...subject, platformDigest: `sha256:${"b".repeat(64)}` }, verdict: { lane: "flatten-with-routes" } } }),
+    /decides platform digest sha256:b+, and the retained index says sha256:a+/,
+    "self-test: a verdict for other bytes decided a retained AICR recipe entry",
+  );
+  expectRefusal(
+    () => resolve({}, { spec: { subject: { ...subject, upstreamVersion: "v1.0.0" }, verdict: { lane: "flatten-with-routes" } } }),
+    /decides v1\.0\.0, and the record is v9\.9\.9/,
+    "self-test: a verdict for another AICR version decided a retained AICR recipe entry",
+  );
+  expectRefusal(
+    () => resolve({}, { spec: { subject, verdict: { lane: "not-assessed" } } }),
+    /may not be left not-assessed/,
+    "self-test: a verdict file with no decided lane was accepted for a retained AICR recipe entry",
+  );
+  check(
+    resolve({ requireDecision: false }, null).verdict === "not-assessed",
+    "self-test: an AICR record outside the retained recipe set keeps its existing not-assessed fallback",
+  );
+
+  // The record guards run against a real retained entry, so the fixture is the
+  // shape the generator actually writes.
+  const entries = loadAicrRecipeEntries({ verdictRoot: aicrVerdictRoot });
+  check(entries.length > 0, "self-test: no retained AICR recipe directory was discovered");
+  check(
+    new Set(entries.map((entry) => entry.recordName)).size === entries.length,
+    "self-test: two retained AICR recipe directories share one record name",
+  );
+  const entry = entries[0];
+  const build = () => alignRecordWithProcessingModel(buildAicrRecipeRecord(entry), undefined, undefined);
+  validateAicrRecipeRecord(build(), entry);
+  const tampered = (change) => {
+    const record = build();
+    change(record);
+    return () => validateAicrRecipeRecord(record, entry);
+  };
+  for (const [label, change, pattern] of [
+    [
+      "a published literal configuration OCI",
+      (record) => { record.spec.delivery.literalConfigOci.status = "public-anonymous-pull-proved"; },
+      /delivery\.literalConfigOci says public-anonymous-pull-proved, and this entry has published no OCI image/,
+    ],
+    [
+      "a published source package OCI",
+      (record) => { record.spec.delivery.sourcePackageOci.status = "published-with-receipt"; },
+      /delivery\.sourcePackageOci says published-with-receipt, and this entry has published no OCI image/,
+    ],
+    [
+      "an OCI digest on an unpublished leg",
+      (record) => { record.spec.delivery.literalConfigOci.manifestDigest = `sha256:${"c".repeat(64)}`; },
+      /delivery\.literalConfigOci carries manifestDigest, which only a published or uploaded artifact has/,
+    ],
+    [
+      "a source package reference",
+      (record) => { record.spec.source.packageOciRef = "oci://registry.example.invalid/aicr-bundle:0.0.0"; },
+      /claims a published source package/,
+    ],
+    [
+      "a ConfigHub upload",
+      (record) => { record.spec.delivery.configHubUpload.status = "pass"; },
+      /delivery\.configHubUpload says pass, and nothing was uploaded to or released from ConfigHub/,
+    ],
+    [
+      "an Argo CD delivery result",
+      (record) => { record.spec.delivery.argoCd = "pass"; },
+      /claims a delivery result \(argoCd=pass/,
+    ],
+    [
+      "a promotion",
+      (record) => { record.spec.promotion = { status: "pass" }; },
+      /carries a promotion for an entry that was never uploaded/,
+    ],
+    [
+      "an available status",
+      (record) => { record.status.level = "available"; },
+      /the status must stay partial and say the entry is not published and not deployed/,
+    ],
+    [
+      "a claim that drops the boundary",
+      (record) => { record.status.claim = "AICR generated these Applications and they are ready to use."; },
+      /the status must stay partial and say the entry is not published and not deployed/,
+    ],
+    [
+      "a not-assessed flattening verdict",
+      (record) => { record.spec.processing.flattening = { ...record.spec.processing.flattening, status: "not-assessed", verdict: "not-assessed", record: "" }; },
+      /must carry a decided flattening verdict and its record, found not-assessed/,
+    ],
+    [
+      "an automatic route",
+      (record) => { record.spec.lifecycle.routeIntent.routes[0].automatic = true; },
+      /a route nobody has executed is marked automatic or resolved/,
+    ],
+    [
+      "a passed post-deployment stage",
+      (record) => {
+        const stage = record.spec.assessment.stages.find((candidate) => candidate.id === "post-deployment");
+        stage.evidenceState = "completed";
+        stage.resultState = "pass";
+      },
+      /the post-deployment stage says completed\/pass for an entry no destination has seen/,
+    ],
+  ]) {
+    expectRefusal(tampered(change), pattern, `self-test: a retained AICR recipe record carrying ${label} was accepted`);
+  }
+  aicrRecipeRecordEntries.clear();
+}
+
 function expectFailure(fn, message) {
   let failed = false;
   try {
@@ -3928,7 +4398,11 @@ function identityRecord(record, intent) {
     objectDigest = String(revision.spec?.digestInputs?.renderedObjectSetSHA256 ?? "");
     objectDigestRole = "canonical-object-set";
     objectDigestRecord = revisionPath;
-  } else if (source.type === "aicr" && ["v0.19.0", "v0.20.0"].includes(source.version)) {
+  } else if (
+    source.type === "aicr"
+    && (["v0.19.0", "v0.20.0"].includes(source.version)
+      || record.spec.baseVariant.digestRole === "aicr-platform-index")
+  ) {
     baseDigestRole = "aicr-platform-index";
     baseDigestRecord = record.spec.evidence.digestIndex;
   } else if (source.type === "aicr") {
@@ -4316,31 +4790,26 @@ function flatteningRecord(record, intent) {
     source.type === "aicr"
     && record.spec.configuration.format === "argocd-application-yaml"
   ) {
-    const candidates = [
-      join(
-        repoRoot,
-        "examples",
-        "aicr",
-        `eks-h100-training-kubeflow-${String(source.version).replace(/^v/, "v").replaceAll(".", "-")}`,
-        "flattening-safety-verdict.yaml",
-      ),
-      join(
-        repoRoot,
-        "data",
-        "aicr-flattening-verdicts",
-        "aicr-eks-h100-training-kubeflow",
-        "flattening-safety-verdict.yaml",
-      ),
-    ];
-    for (const candidatePath of candidates) {
-      if (!existsSync(candidatePath)) continue;
-      const candidate = readYaml(candidatePath);
-      const candidateVersion = candidate.spec?.subject?.upstreamVersion;
-      if (candidateVersion && candidateVersion !== source.version) continue;
-      verdictPath = relativeRepo(candidatePath);
-      verdict = candidate.spec?.verdict?.lane ?? "not-assessed";
-      break;
-    }
+    const entry = aicrRecipeRecordEntries.get(record.metadata.name);
+    const resolved = resolveAicrFlattening({
+      recordName: record.metadata.name,
+      objects: record.spec.configuration.objects,
+      version: source.version,
+      platformDigest: entry?.platformDigest ?? "",
+      // A record built from a retained recipe directory may not fall through
+      // to not-assessed. Its verdict is generated, so a missing or stale one
+      // is a broken chain and is refused.
+      requireDecision: Boolean(entry),
+      readVerdict: (rel) => {
+        if (!existsRepo(rel)) return null;
+        if (entry?.verdict && rel === `${aicrVerdictRoot}/${entry.bundleName}/flattening-safety-verdict.yaml`) {
+          return { spec: { subject: entry.verdict.subject, verdict: { lane: entry.verdict.lane } } };
+        }
+        return readYaml(join(repoRoot, rel));
+      },
+    });
+    verdictPath = resolved.verdictPath;
+    verdict = resolved.verdict;
   } else if (source.type === "timoni") {
     const candidatePath = source.name === "flux-aio"
       ? join(repoRoot, "examples", "timoni", "flux-aio-2-9-4-0", "flattening-safety-verdict.yaml")
@@ -4369,6 +4838,140 @@ function flatteningRecord(record, intent) {
     scope: `${source.name}@${source.version}/${record.spec.baseVariant.name}; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes`,
     record: verdictPath,
   };
+}
+
+// Every AICR entry resolves its own flattening verdict. The directory comes
+// from the record's own object path, so the lookup works for any entry and not
+// only for the one training platform it was first written for. Two places are
+// read: a verdict kept beside the entry, then the platform-shape verdict the
+// certified-bundle generator writes.
+function resolveAicrFlattening({ recordName, objects, version, platformDigest, requireDecision, readVerdict }) {
+  const match = /^examples\/aicr\/([^/]+)\/argocd-rendered$/.exec(String(objects ?? ""));
+  check(match, `${recordName}: cannot tell which AICR entry directory holds ${objects}`);
+  const entryDir = match[1];
+  const candidates = [
+    `examples/aicr/${entryDir}/flattening-safety-verdict.yaml`,
+    `${aicrVerdictRoot}/aicr-${entryDir}/flattening-safety-verdict.yaml`,
+  ];
+  let stale = "";
+  for (const rel of candidates) {
+    const candidate = readVerdict(rel);
+    if (!candidate) continue;
+    const subject = candidate.spec?.subject ?? {};
+    if (subject.upstreamVersion && subject.upstreamVersion !== version) {
+      stale = `${rel} decides ${subject.upstreamVersion}, and the record is ${version}`;
+      continue;
+    }
+    if (requireDecision) {
+      if (subject.entry !== `examples/aicr/${entryDir}`) {
+        stale = `${rel} names ${subject.entry ?? "no entry"} as its subject`;
+        continue;
+      }
+      if (subject.platformDigest !== platformDigest) {
+        stale = `${rel} decides platform digest ${subject.platformDigest ?? "none"}, and the retained index says ${platformDigest}`;
+        continue;
+      }
+    }
+    const lane = candidate.spec?.verdict?.lane ?? "not-assessed";
+    if (requireDecision) {
+      check(
+        ["born-flattened", "safe-to-flatten", "flatten-with-routes", "unsafe-to-flatten"].includes(lane),
+        `${recordName}: ${rel} carries no decided flattening lane (found ${lane}); a retained AICR recipe entry may not be left not-assessed`,
+      );
+    }
+    return { verdictPath: rel, verdict: lane };
+  }
+  check(
+    !requireDecision,
+    `${recordName}: no flattening verdict decides this retained AICR recipe entry, so it would silently read as not-assessed. ${stale || `Neither ${candidates.join(" nor ")} exists`}. Run npm run certified-bundles, then npm run config-catalog.`,
+  );
+  return { verdictPath: "", verdict: "not-assessed" };
+}
+
+// A record built from a retained-and-rendered recipe directory may only say
+// what that directory supports. The generation receipt says nothing was
+// published, uploaded or delivered, so a record that says otherwise is wrong
+// whatever produced it, and it is refused field by field.
+function validateAicrRecipeRecord(record, entry) {
+  const name = record.metadata.name;
+  const spec = record.spec;
+  check(
+    receiptSaysRetainedOffline(entry.receipt),
+    `${name}: ${entry.receiptRel} no longer says the entry is retained and unpublished, so this builder may not describe it`,
+  );
+  const flattening = spec.processing.flattening;
+  check(
+    flattening.status === "decided"
+      && flattening.verdict !== "not-assessed"
+      && flattening.record
+      && existsRepo(flattening.record),
+    `${name}: a retained AICR recipe entry must carry a decided flattening verdict and its record, found ${flattening.verdict}`,
+  );
+  check(
+    spec.lifecycle.routeIntent.status === "recorded"
+      && spec.lifecycle.routeIntent.routes.some((route) => route.id === "argocd-sync-wave-ordering"),
+    `${name}: the sync-wave route is not recorded as a route intent`,
+  );
+  check(
+    spec.lifecycle.routeIntent.routes.every(
+      (route) => route.automatic === false && route.status === "requires-destination-resolution",
+    ),
+    `${name}: a route nobody has executed is marked automatic or resolved`,
+  );
+  check(
+    spec.lifecycle.resolution.status === "awaits-variant-and-target",
+    `${name}: no destination has resolved these routes, and the record says ${spec.lifecycle.resolution.status}`,
+  );
+  check(
+    spec.source.packageOciRef === "",
+    `${name}: claims a published source package (${spec.source.packageOciRef}) for an entry that was never published`,
+  );
+  const delivery = spec.delivery;
+  for (const role of ["sourcePackageOci", "literalConfigOci"]) {
+    check(
+      delivery[role]?.status === "not-published",
+      `${name}: delivery.${role} says ${delivery[role]?.status ?? "nothing"}, and this entry has published no OCI image`,
+    );
+  }
+  for (const role of ["configHubUpload", "configHubReleaseOci"]) {
+    check(
+      delivery[role]?.status === "not-run",
+      `${name}: delivery.${role} says ${delivery[role]?.status ?? "nothing"}, and nothing was uploaded to or released from ConfigHub for this entry`,
+    );
+  }
+  for (const role of ["sourcePackageOci", "literalConfigOci", "configHubUpload", "configHubReleaseOci"]) {
+    const claimed = Object.keys(delivery[role]).filter((key) => !["status", "plannedRef", "note"].includes(key));
+    check(
+      claimed.length === 0,
+      `${name}: delivery.${role} carries ${claimed.join(", ")}, which only a published or uploaded artifact has`,
+    );
+  }
+  check(
+    delivery.argoCd === "not-run"
+      && delivery.direct === "not-run"
+      && ["not-run", "not-run-for-argo-application-wrapper"].includes(delivery.flux),
+    `${name}: claims a delivery result (argoCd=${delivery.argoCd}, flux=${delivery.flux}, direct=${delivery.direct}) for an entry that was never deployed`,
+  );
+  check(!delivery.receipt, `${name}: names a delivery receipt for an entry that was never deployed`);
+  check(!spec.promotion, `${name}: carries a promotion for an entry that was never uploaded`);
+  for (const id of ["destination", "post-deployment"]) {
+    const stage = spec.assessment.stages.find((candidate) => candidate.id === id);
+    check(
+      stage.evidenceState === "not-run" && stage.resultState === "not-run",
+      `${name}: the ${id} stage says ${stage.evidenceState}/${stage.resultState} for an entry no destination has seen`,
+    );
+  }
+  check(
+    record.status.level === "partial"
+      && record.status.claim.includes("not published")
+      && record.status.claim.includes("not deployed"),
+    `${name}: the status must stay partial and say the entry is not published and not deployed`,
+  );
+  check(
+    spec.baseVariant.digest === entry.platformDigest.replace(/^sha256:/, "")
+      && spec.configuration.objectCount === entry.applications.length,
+    `${name}: the record no longer matches the retained platform digest or Application count`,
+  );
 }
 
 function lifecycleRecord(record, intent, legacyRouting) {
