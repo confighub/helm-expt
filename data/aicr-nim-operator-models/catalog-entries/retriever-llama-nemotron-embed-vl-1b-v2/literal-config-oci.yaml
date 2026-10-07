@@ -1,0 +1,41 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantLiteralConfigPlan"
+metadata:
+  name: "nimservice-retriever-llama-nemotron-embed-vl-1b-v2"
+spec:
+  catalogEntry: "nimservice"
+  variant: "retriever-llama-nemotron-embed-vl-1b-v2"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  plannedReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-retriever-llama-nemotron-embed-vl-1b-v2:upstream-5d5f66ee0e2e"
+  manifestDigest: "sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f"
+  layerDigest: "sha256:4802a291e2d0d1a71d02893dd893c509ab73d32a888007f9b0d13393a1d34140"
+  layerBytes: 11287
+  layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+  objectSetSha256: "sha256:1aafdea7ffa3795ddbeb645b82d0f526af40645390f78d2b9d415e29d5ec364a"
+  stagedFiles:
+    -
+      path: "embed.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/standalone/retriever/embed.yaml"
+      role: "exact objects"
+      sha256: "sha256:c7058d52175464fba77c58613365c7c163034d9cd396ae3b33c87fe5ebc0fabe"
+      bytes: 1385
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:4b866704bf1d844c6a89e8c7b1197c9a206938e10d45913156e4677a11fb381d"
+      bytes: 4109
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:3ef5140296d08451af2474bdb41da7fa266fc326a74807cd7ee25764ad80fa30"
+      bytes: 2268
+  contents:
+    statement: "The artifact holds the retained sample file and its two route files. It holds no container image, no model weight and no Secret value."
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  publication:
+    receipt: "runs/nimservice-variants/nimservice-retriever-llama-nemotron-embed-vl-1b-v2/publication-receipt.yaml"
+    rule: "The variant is published only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-nimservice-variants.mjs"

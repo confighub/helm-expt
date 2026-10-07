@@ -1,0 +1,41 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantLiteralConfigPlan"
+metadata:
+  name: "nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox"
+spec:
+  catalogEntry: "nimservice"
+  variant: "confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  plannedReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox:upstream-5d5f66ee0e2e"
+  manifestDigest: "sha256:8d2a87632008cd4b8844d4856e9aeb85631aef78d806a977ea3eeb4bf2b03cf4"
+  layerDigest: "sha256:8197107315541f790fdd0e383641eb8654cb4acdaf18ec8de8e59476bb0e4d15"
+  layerBytes: 10263
+  layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+  objectSetSha256: "sha256:4582a67b8e5bcff226b91319a744823e84308d81f05fa5827b3e225641012354"
+  stagedFiles:
+    -
+      path: "llm-kata-sandbox.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/standalone/confidential-computing/llm-kata-sandbox.yaml"
+      role: "exact objects"
+      sha256: "sha256:b47f6df0183fb5ceefea7f9751adbe4952f3fc64287a1627050c023825a9f462"
+      bytes: 715
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:d2b7adb89e51a927b1879a5735ff9ae6baa48512cad7e3fd24cec4a6dfa7239c"
+      bytes: 3783
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:558d6ab5b669a1cb1fdf658dc8e689900332a2de80ecb05e0765e95518f14897"
+      bytes: 2230
+  contents:
+    statement: "The artifact holds the retained sample file and its two route files. It holds no container image, no model weight and no Secret value."
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  publication:
+    receipt: "runs/nimservice-variants/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox/publication-receipt.yaml"
+    rule: "The variant is published only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-nimservice-variants.mjs"

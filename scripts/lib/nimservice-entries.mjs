@@ -15,8 +15,10 @@
 // processing-model verifier all call this module, so they cannot disagree.
 //
 // Nothing here contacts a registry, a cluster or NGC. It reads committed bytes.
-// Every sample is retained and not published, not uploaded and not deployed,
-// and every sentence this module writes says so.
+// Every sample is retained, not uploaded and not deployed, and every sentence
+// this module writes says so. A sample is described as published only when a
+// tracked receipt matches the artifact built from its committed bytes
+// (scripts/lib/nimservice-publication.mjs). Without one it is not published.
 
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -30,6 +32,11 @@ import {
   RECEIPTS_DIR,
 } from "./aicr-nim-operator-models.mjs";
 import { objectSetSha256 } from "../transform-config-oci.mjs";
+import {
+  buildNimServiceArtifact,
+  loadNimServicePublication,
+  nimServicePublicationPlanDoc,
+} from "./nimservice-publication.mjs";
 
 const posix = (path) => path.replaceAll("\\", "/");
 
@@ -607,6 +614,21 @@ export function loadNimServiceEntries({ root = repoRoot } = {}) {
   check(new Set(entries.map((entry) => entry.recordName)).size === entries.length, "two retained NIMService samples share one record name");
   check(new Set(entries.map((entry) => entry.fileRel)).size === entries.length, "two NIMService records would be built from one sample file");
   for (const entry of entries) entry.siblingRecordNames = entries.map((item) => item.recordName);
+  // The artifact a publication would push, built from the sample and the two
+  // route files as this module renders them, and the receipt for it if one is
+  // tracked. The route files say nothing about publication, so the artifact
+  // digest does not move when a variant is published.
+  for (const entry of entries) {
+    const rendered = new Map([
+      [entry.operatorRouteRel, serializeYaml(operatorRouteDoc(entry))],
+      [entry.secretRouteRel, serializeYaml(secretRouteDoc(entry))],
+    ]);
+    entry.artifact = buildNimServiceArtifact(entry, {
+      root,
+      readText: (rel) => rendered.get(rel) ?? readFileSync(repoPath(root, rel), "utf8"),
+    });
+    entry.publication = loadNimServicePublication(entry, { root, artifact: entry.artifact });
+  }
   return entries;
 }
 
@@ -617,7 +639,11 @@ export function boundarySentences(entry) {
     ? `The container image${entry.gatedImages.length === 1 ? "" : "s"} ${entry.gatedImages.join(" and ")} and the model weights are gated by NVIDIA. This entry did not pull them, does not hold them and will never redistribute them.`
     : "The model weights are gated by their publisher. This entry did not fetch them and does not hold them.";
   return {
-    notPublished: "This variant is not published. No OCI artifact exists for it, and nothing was uploaded to ConfigHub.",
+    // What is true of publication, read from the receipt. The key keeps its
+    // name because every caller puts this sentence where that limit goes.
+    notPublished: entry.publication?.published
+      ? `This variant is published as a literal configuration OCI at ${entry.publication.observedReference}, with its two route files. Nothing was uploaded to ConfigHub.`
+      : "This variant is not published. No OCI artifact exists for it, and nothing was uploaded to ConfigHub.",
     notDeployed: "This variant is not deployed. No operator reconciled it, no model was run, and no cluster or GPU was contacted.",
     gated,
     license: `The sample file is ${entry.source.license} configuration from ${entry.source.repository}, retained with its licence at ${NIMSERVICE_UPSTREAM_LICENSE}. The image and the weights are governed by NVIDIA's own terms and by each artifact's terms on NGC. ${NIMSERVICE_LICENSE_READ} records the general read, and nobody has read the terms for this exact artifact.`,
@@ -711,8 +737,11 @@ function entryDoc(entry) {
       },
     },
     status: {
-      result: "retained-not-published",
-      published: false,
+      result: entry.publication?.published ? "retained-published" : "retained-not-published",
+      published: entry.publication?.published === true,
+      ...(entry.publication?.published
+        ? { publicationReceipt: entry.publication.receiptRel, publishedReference: entry.publication.observedReference }
+        : {}),
       uploadedToConfigHub: false,
       deployed: false,
       imagePulled: false,
@@ -802,7 +831,6 @@ function verdictDoc(entry) {
 }
 
 function operatorRouteDoc(entry) {
-  const boundary = boundarySentences(entry);
   return {
     apiVersion: "evidence.confighub.com/v1alpha1",
     kind: "BundleRoute",
@@ -836,7 +864,6 @@ function operatorRouteDoc(entry) {
         entry.operator.versionCeiling,
         entry.operator.catalogEntryNote,
         "No runtime has executed this route. Nothing in this repository has installed the operator or applied this sample on any cluster.",
-        boundary.notPublished,
       ],
       provenance: {
         emittedBy: NIMSERVICE_GENERATOR,
@@ -906,6 +933,7 @@ export function buildNimServiceEntryOutputs({ root = repoRoot, entries = loadNim
     outputs.set(entry.verdictRel, serializeYaml(verdict));
     outputs.set(entry.operatorRouteRel, serializeYaml(operatorRouteDoc(entry)));
     outputs.set(entry.secretRouteRel, serializeYaml(secretRouteDoc(entry)));
+    outputs.set(entry.artifact.planRel, serializeYaml(nimServicePublicationPlanDoc(entry, entry.artifact)));
   }
   return outputs;
 }

@@ -1,0 +1,41 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantLiteralConfigPlan"
+metadata:
+  name: "nimservice-example0-meta-llama3-2-1b-instruct"
+spec:
+  catalogEntry: "nimservice"
+  variant: "example0-meta-llama3-2-1b-instruct"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  plannedReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-example0-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e"
+  manifestDigest: "sha256:42fdbde73d794ed567d19ad22aa46dd1afde557f3145e474c65d4d36c26dd7c5"
+  layerDigest: "sha256:d101668827e25b1f88f93af0cd0565f6a711274bf26e3d0fcbaee89e98c55cd2"
+  layerBytes: 11287
+  layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+  objectSetSha256: "sha256:86f43ab875e8756e03fef5d9fe148b8bf79eb6634e3227cd7563718d3fb5dc26"
+  stagedFiles:
+    -
+      path: "llm.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/advanced/dra/auto-creation/example0/llm.yaml"
+      role: "exact objects"
+      sha256: "sha256:40a21f78f2ddbccfe2d3bf67c961d032bd1b0d9cd74ddc523eaa9f718fd658b0"
+      bytes: 1115
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/example0-meta-llama3-2-1b-instruct/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:12abdd68b55dd24fedbd0602a0526630171f2101abde31fedf2af9694a7fcca7"
+      bytes: 4105
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/example0-meta-llama3-2-1b-instruct/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:aab51459378e0ab9607fc894610ec7f0ed6479990ac35ff1de06a656354977dd"
+      bytes: 2263
+  contents:
+    statement: "The artifact holds the retained sample file and its two route files. It holds no container image, no model weight and no Secret value."
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  publication:
+    receipt: "runs/nimservice-variants/nimservice-example0-meta-llama3-2-1b-instruct/publication-receipt.yaml"
+    rule: "The variant is published only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-nimservice-variants.mjs"

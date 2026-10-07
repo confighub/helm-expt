@@ -79,7 +79,6 @@ spec:
     - "The newest operator release this sample works with is not established. The sample was retained from upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, and this repository does not record which operator release contains that commit."
     - "The k8s-nim-operator chart is not yet a Catalog entry on this branch, so this requirement names the chart and does not link a record."
     - "No runtime has executed this route. Nothing in this repository has installed the operator or applied this sample on any cluster."
-    - "This variant is not published. No OCI artifact exists for it, and nothing was uploaded to ConfigHub."
   provenance:
     emittedBy: "scripts/generate-aicr-nim-operator-models.mjs"
     generatedFrom:
