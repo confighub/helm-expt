@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "nvidia-nvsentinel"
+  version: "v1.9.0"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/nvidia/nvsentinel/v1.9.0"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/nvidia/nvsentinel/v1.9.0"
+      - "--non-interactive"
+      - "--namespace"
+      - "nvsentinel"
+  variants:
+    - "variants/default/variant.yaml"

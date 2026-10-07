@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "nvidia-nvsentinel-v1.20.0"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "nvidia/nvsentinel"
+    version: "v1.20.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 22
+    cubInstallObjectsByVariant:
+      default: 23
+    helmMatchByVariant:
+      default: "22/22"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish and sign the package, then complete target-specific live qualification on a GPU target before production"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"

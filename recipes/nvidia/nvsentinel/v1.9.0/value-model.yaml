@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "nvidia-nvsentinel-v1.9.0"
+spec:
+  checkedValues:
+    -
+      path: "<chart defaults>"
+      variant: "default"
+      disposition: "default-render-captured"
+      reason: "the exact chart-default render of the locked archive is captured"
+    -
+      path: "podMonitor.enabled"
+      disposition: "default-render-captured"
+      reason: "True by chart default, so the render contains one monitoring.coreos.com/v1 PodMonitor. The chart ships no Prometheus Operator CRD."
+      note: "recorded as a target fact with a packaged copy of the CRD"
+      evidence: "templates/podMonitor.yaml"
+    -
+      path: "global.<component>.enabled"
+      disposition: "default-render-captured"
+      reason: "Each subchart is gated by its own global flag. Chart defaults turn on the GPU health monitor, the syslog health monitor, the labeler and the metadata collector, and leave the datastore, remediation, janitor, preflight and lifecycle components off."
+      note: "the lookups, generated credentials, webhooks, keep annotations, namespace creation and CRDs the packaged chart contains all sit in components the defaults leave off"
+      evidence: "Chart.yaml dependencies (one condition per subchart), values.yaml global block"
+    -
+      path: "nodeConditionCleanup.enabled"
+      disposition: "default-render-captured"
+      reason: "False by chart default, so the post-upgrade cleanup hook does not render."
+      note: "turning it on adds a Helm hook Job and its RBAC; that would need a recorded lifecycle action"
+      evidence: "templates/node-condition-cleanup-hook.yaml"
+  unknownValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"
+  deadValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"
+  ignoredValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"

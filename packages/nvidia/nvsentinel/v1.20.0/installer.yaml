@@ -1,0 +1,22 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "nvidia-nvsentinel"
+  version: "v1.20.0"
+spec:
+  bases:
+    -
+      default: true
+      description: "nvsentinel chart defaults variant rendered from nvidia/nvsentinel@v1.20.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD podmonitors.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+      name: "default"
+      path: "bases/default"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."
