@@ -41,10 +41,11 @@ export const NVIDIA_GPU_STACK_ADDITIONS = Object.freeze([
   entry("gpu-operator", "v26.3.2", "https://helm.ngc.nvidia.com/nvidia/charts/gpu-operator-v26.3.2.tgz", "b6b7b7a6d40bb8420d50e46c1169c097028ad19a0457d32156568db8214af77f", "gpu-operator-proof.mjs", gpuOperator),
   // AICR v0.19.0 and v0.20.0 pin this archive (their nested-render receipts record the same SHA-256).
   entry("gpu-operator", "v26.3.3", "https://helm.ngc.nvidia.com/nvidia/charts/gpu-operator-v26.3.3.tgz", "59abb5852a24b3ae0ef757bfea3051f419acbf559ee5efd72f0672d28af56a68", "gpu-operator-proof.mjs", gpuOperator),
-  // AICR v1.0.0 pins this version (recipes/registry.yaml at the upstream v1.0.0 tag, read 2026-10-07). No AICR values
-  // for it are retained in this repository, so it has the default base only.
+  // AICR v1.0.0 pins this version (examples/aicr/eks-h100-training-kubeflow-v1-0-0 names targetRevision 26.7.1). That
+  // example retains values for it, but no nested-render receipt to check an AICR base against, so this version has the
+  // default base only. Adding an AICR base for it is a separate decision.
   entry("gpu-operator", "v26.7.1", "https://helm.ngc.nvidia.com/nvidia/charts/gpu-operator-v26.7.1.tgz", "fdce4cba07db5ddb6dfd0bdf61276a44c24136f2b193bc6ebc81dd1b0f049777", "gpu-operator-proof.mjs", gpuOperator),
-  // nvsentinel: AICR v0.19.0 pins v1.9.0, AICR v0.20.0 pins v1.20.0, AICR v1.0.0 pins v1.25.0 (same upstream registry file), and v1.26.0 was the latest release on 2026-10-07.
+  // nvsentinel: AICR v0.19.0 pins v1.9.0, AICR v0.20.0 pins v1.20.0, AICR v1.0.0 pins v1.25.0 (the same example), and v1.26.0 was the latest release on 2026-10-07.
   entry("nvsentinel", "v1.9.0", "oci://ghcr.io/nvidia/nvsentinel:v1.9.0", "3f145e8ac66057f06ac434619abbe7aa24b384e63713fc0a55e7f47493335220", generic, {
     candidate: "nvsentinel",
     targetFacts: true,
