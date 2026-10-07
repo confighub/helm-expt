@@ -26,16 +26,30 @@ import {
 import { resolveSourceCatalogImports } from "./lib/source-catalog-import.mjs";
 import { loadCatalogBundleBindings, findCatalogBundleBinding } from "./lib/catalog-bundle-bindings.mjs";
 import {
+  INPUT_AWAITING,
+  INPUT_PLACEHOLDER,
+  placeholderSentences,
+} from "./lib/aicr-required-inputs.mjs";
+import {
   assertOrderingSupportsRoute,
   AICR_MEMBERS_CSV,
+  ATTENTION_STATE,
+  loadAicrOrderingEvidence,
   loadAicrRecipeEntries,
   orderingEvidenceFor,
+  orderingOpenQuestion,
   orderingSentences,
+  uncheckedOrderingEdges,
   receiptSaysRetainedOffline,
   recordNameFor,
 } from "./lib/aicr-recipe-entries.mjs";
 
 const mode = process.argv[2] ?? "--generate";
+// The words a record puts after a build-time input that is a confirmed
+// placeholder, so a reader of the input list sees it without opening anything.
+const PLACEHOLDER_INPUT_MARK = "placeholder, change it to match your cluster";
+// What a flagged entry tells its reader to do next.
+const OPEN_QUESTION_NEXT_ACTION = "Review the exact object set and its digest, and settle the open question before relying on the recorded order.";
 const intentIndexPath = join(repoRoot, "data", "helm-render-intents", "intents.json");
 const policySourcePath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
 const programSourcePath = join(repoRoot, "config-catalog", "program.yaml");
@@ -150,6 +164,8 @@ function configHubReadyOutcome(bundleName) {
 // by record name. flatteningRecord and validateRecords both hold these records
 // to a stricter rule than the rest, and this is how they recognise one.
 const aicrRecipeRecordEntries = new Map();
+// The ordering evidence per rendered directory, filled on first use.
+let aicrOrderingEvidenceByRendered = null;
 // The generation receipts of the hand-retained modern AICR records, keyed by
 // record name, so validateRecords can hold a record to what its receipt says
 // about publication.
@@ -870,19 +886,47 @@ function buildAicrModernArgoCdRecord(version) {
   // A generation input whose value nobody has confirmed changes what the
   // record may say. The value is in the bytes, so it is listed as fixed at
   // build time, and it is marked there and in the limits as unconfirmed.
-  const unconfirmedInputs = (generation.spec.sourceAndIntent.newRequiredInputs ?? []).filter(
-    (input) => input.valueStatus === "awaiting-maintainer-confirmation",
-  );
+  const requiredInputs = generation.spec.sourceAndIntent.newRequiredInputs ?? [];
+  const unconfirmedInputs = requiredInputs.filter((input) => input.valueStatus === INPUT_AWAITING);
   const unconfirmedByName = new Map(unconfirmedInputs.map((input) => [input.input, input]));
+  // A confirmed placeholder is settled as a decision and open as a value. It
+  // is carried the way a hook is: named among the install-time requirements
+  // with every place it lands, given a route in the route intent, and left
+  // for the destination to resolve. The artifact verifier has already
+  // compared the recorded locations with the rendered bytes.
+  const placeholderInputs = requiredInputs.filter((input) => input.valueStatus === INPUT_PLACEHOLDER);
+  const placeholderByName = new Map(placeholderInputs.map((input) => [input.input, input]));
+  for (const input of placeholderInputs) {
+    check(
+      routeIntent.spec.routes.some((route) => route.id === input.placeholder?.route),
+      `AICR ${retainedVersion}: the placeholder ${input.input} names the route ${input.placeholder?.route}, which ${routePath} does not record`,
+    );
+  }
   const generationInputLine = ([key, value]) =>
     unconfirmedByName.has(key)
       ? `${key}=${value} (awaiting maintainer confirmation)`
-      : `${key}=${value}`;
+      : placeholderByName.has(key)
+        ? `${key}=${value} (${PLACEHOLDER_INPUT_MARK})`
+        : `${key}=${value}`;
   const unconfirmedRequirements = unconfirmedInputs.map((input) => ({
     category: "generation-input",
     name: input.input,
     purpose: `The bundle was generated with ${input.input}=${input.value}. That value awaits the maintainer's confirmation. ${String(input.valueOrigin).trim()} ${String(input.effect).trim()}`,
-    status: "awaiting-maintainer-confirmation",
+    status: INPUT_AWAITING,
+  }));
+  const placeholderRequirements = placeholderInputs.map((input) => ({
+    category: "generation-input",
+    name: input.input,
+    purpose: placeholderSentences(input).purpose,
+    status: INPUT_PLACEHOLDER,
+    confirmedOn: input.confirmedOn,
+    changeTo: input.placeholder.changeTo,
+    route: input.placeholder.route,
+    container: input.placeholder.container,
+    appearsIn: input.placeholder.appearsIn.map((row) => ({
+      application: row.application,
+      valuesPaths: [...row.valuesPaths],
+    })),
   }));
   // The route intent says in its own words when no upgrade verdict exists, and
   // the record repeats that rather than leaving the reader to infer it.
@@ -940,10 +984,12 @@ function buildAicrModernArgoCdRecord(version) {
             .map(generationInputLine),
           "deployer=argocd-helm",
         ],
-        installTime: [...targetRequirements, ...unconfirmedRequirements],
+        installTime: [...targetRequirements, ...unconfirmedRequirements, ...placeholderRequirements],
         installTimeStatus: unconfirmedInputs.length > 0
           ? "destination-facts-recorded-not-run-generation-input-awaits-confirmation"
-          : "destination-facts-recorded-not-run",
+          : placeholderInputs.length > 0
+            ? "destination-facts-recorded-not-run-placeholder-input-recorded"
+            : "destination-facts-recorded-not-run",
       },
       routing: {
         routes: routeRows,
@@ -1097,6 +1143,7 @@ function buildAicrModernArgoCdRecord(version) {
           (input) =>
             `The generation input ${input.input}=${input.value} awaits the maintainer's confirmation. ${String(input.valueOrigin).trim()} A different value changes the bundle bytes and every digest in this record.`,
         ),
+        ...placeholderInputs.map((input) => placeholderSentences(input).limit),
         ...(missingUpgradeVerdictFrom
           ? [`No upgrade verdict from ${missingUpgradeVerdictFrom} to ${retainedVersion} exists. The route intent records why, and the upgrade route has not run.`]
           : []),
@@ -2645,6 +2692,7 @@ function validateRecords(records) {
     }
     const aicrRecipeEntry = aicrRecipeRecordEntries.get(record.metadata.name);
     if (aicrRecipeEntry) validateAicrRecipeRecord(record, aicrRecipeEntry);
+    validateAicrOrderingFlag(record);
     const aicrModernGeneration = aicrModernGenerationReceipts.get(record.metadata.name);
     if (aicrModernGeneration) validateAicrModernRecordAgainstReceipt(record, aicrModernGeneration);
   }
@@ -4343,6 +4391,55 @@ function runAicrRecipeEntrySelfTest() {
   ]) {
     expectRefusal(tampered(change), pattern, `self-test: a retained AICR recipe record carrying ${label} was accepted`);
   }
+
+  // The flag follows the ordering evidence in both directions. An entry with
+  // an unchecked edge must be flagged, and an entry without one must not be.
+  const alignedRecipe = (subject) => alignRecordWithProcessingModel(buildAicrRecipeRecord(subject), undefined, undefined);
+  const materializationOf = (record) => record.spec.assessment.stages.find((candidate) => candidate.id === "materialization");
+  const questioned = entries.find((candidate) => uncheckedOrderingEdges(candidate.ordering) > 0);
+  const settled = entries.find((candidate) => uncheckedOrderingEdges(candidate.ordering) === 0);
+  check(questioned && settled, "self-test: the flag fixtures need one entry with an unchecked edge and one without");
+  const flagged = alignedRecipe(questioned);
+  validateAicrOrderingFlag(flagged);
+  check(
+    materializationOf(flagged).resultState === ATTENTION_STATE
+      && materializationOf(flagged).answer === orderingOpenQuestion(questioned.ordering),
+    "self-test: an entry with an unchecked dependency edge was not flagged",
+  );
+  check(
+    materializationOf(alignedRecipe(settled)).resultState === "pass",
+    "self-test: an entry with every dependency edge checked was flagged",
+  );
+  for (const [label, subject, change, pattern] of [
+    [
+      "an unchecked edge and a passing materialization stage",
+      questioned,
+      (record) => { materializationOf(record).resultState = "pass"; },
+      /could not check, and the record does not flag the entry as watch with the open question/,
+    ],
+    [
+      "an unchecked edge and a flag that names no question",
+      questioned,
+      (record) => { materializationOf(record).answer = "Run the recorded step to produce the exact objects."; },
+      /could not check, and the record does not flag the entry as watch with the open question/,
+    ],
+    [
+      "an unchecked edge and no limit about it",
+      questioned,
+      (record) => { record.status.limits = record.status.limits.filter((limit) => !limit.includes("recorded and not checked")); },
+      /the limits do not say that \d+ dependency edges? w(as|ere) left unchecked/,
+    ],
+    [
+      "a flag with every edge checked",
+      settled,
+      (record) => { materializationOf(record).resultState = ATTENTION_STATE; },
+      /flags the entry as watch, and every dependency edge in .* was checked/,
+    ],
+  ]) {
+    const record = alignedRecipe(subject);
+    change(record);
+    expectRefusal(() => validateAicrOrderingFlag(record), pattern, `self-test: a retained AICR recipe record with ${label} was accepted`);
+  }
   aicrRecipeRecordEntries.clear();
 
   // The v1.0.0 training entry is retained by hand and unpublished. Its record
@@ -4382,18 +4479,39 @@ function runAicrRecipeEntrySelfTest() {
       /the status must stay partial and say nothing is published for this version/,
     ],
     [
-      "an unconfirmed input presented as settled",
+      "a placeholder input presented as settled",
       (record) => {
         record.spec.inputs.fixedAtBuildTime = record.spec.inputs.fixedAtBuildTime.map(
-          (line) => line.replace(" (awaiting maintainer confirmation)", ""),
+          (line) => line.replace(` (${PLACEHOLDER_INPUT_MARK})`, ""),
         );
       },
-      /awaits the maintainer's confirmation, and the record's inputs and limits must both say so/,
+      /is a placeholder, and the record's build-time inputs do not mark it as one/,
     ],
     [
-      "no limit about the unconfirmed input",
-      (record) => { record.status.limits = record.status.limits.filter((limit) => !limit.includes("awaits the maintainer")); },
-      /awaits the maintainer's confirmation, and the record's inputs and limits must both say so/,
+      "no named install-time requirement for the placeholder",
+      (record) => {
+        record.spec.inputs.installTime = record.spec.inputs.installTime.filter((item) => item.status !== INPUT_PLACEHOLDER);
+      },
+      /is not a named install-time requirement that says it is a placeholder/,
+    ],
+    [
+      "a placeholder with one location dropped",
+      (record) => {
+        record.spec.inputs.installTime.find((item) => item.status === INPUT_PLACEHOLDER).appearsIn.pop();
+      },
+      /does not record every Application and field path the generation receipt lists/,
+    ],
+    [
+      "a placeholder route marked resolved",
+      (record) => {
+        record.spec.lifecycle.routeIntent.routes.find((route) => route.id === "system-node-selector-placeholder").status = "recorded";
+      },
+      /route that still requires destination resolution/,
+    ],
+    [
+      "no limit about the placeholder",
+      (record) => { record.status.limits = record.status.limits.filter((limit) => !limit.includes("is a placeholder")); },
+      /the limits do not say that systemNodeSelector=nodeGroup=system-worker is a placeholder/,
     ],
   ]) {
     const record = buildModern();
@@ -4404,6 +4522,16 @@ function runAicrRecipeEntrySelfTest() {
       `self-test: the unpublished v1.0.0 record carrying ${label} was accepted`,
     );
   }
+  // The earlier state of the same input is still refused when it is hidden.
+  // A receipt that says the value awaits confirmation needs a record that
+  // says so, and the placeholder record does not.
+  const awaitingGeneration = structuredClone(modernGeneration);
+  for (const input of awaitingGeneration.spec.sourceAndIntent.newRequiredInputs) input.valueStatus = INPUT_AWAITING;
+  expectRefusal(
+    () => validateAicrModernRecordAgainstReceipt(buildModern(), awaitingGeneration),
+    /awaits the maintainer's confirmation, and the record's inputs and limits must both say so/,
+    "self-test: a record that hides an unconfirmed generation input was accepted",
+  );
   aicrModernGenerationReceipts.clear();
 }
 
@@ -4669,6 +4797,11 @@ function assessmentRecord(record, processing, lifecycle) {
   const literalSource = materialization.status === "recorded-no-op";
   const destination = destinationAssessment(lifecycle);
   const runtime = postDeploymentAssessment(record);
+  // An entry whose ordering evidence holds an unchecked edge is flagged here.
+  // The objects exist and their digest is recorded, so the evidence is
+  // complete. The result is watch, the existing word for a checked result with
+  // a limit to review, and the answer is the open question in one sentence.
+  const openQuestion = materialized ? aicrOpenQuestionFor(record) : "";
 
   return {
     stages: [
@@ -4693,9 +4826,11 @@ function assessmentRecord(record, processing, lifecycle) {
       {
         id: "materialization",
         question: "What will it produce?",
-        answer: literalSource
-          ? "This source already contains exact Kubernetes objects. Reading and fingerprinting them is the recorded materialization step."
-          : `Run the recorded ${materializationMethodName(materialization.method)} step to produce the exact Kubernetes objects for this configuration.`,
+        answer: openQuestion
+          ? openQuestion
+          : literalSource
+            ? "This source already contains exact Kubernetes objects. Reading and fingerprinting them is the recorded materialization step."
+            : `Run the recorded ${materializationMethodName(materialization.method)} step to produce the exact Kubernetes objects for this configuration.`,
         requiredInputs: [materializationInput(sourceType)],
         catalogMatchRequired: false,
         sourceIntentRequired: !literalSource,
@@ -4705,16 +4840,18 @@ function assessmentRecord(record, processing, lifecycle) {
           ? "completed"
           : materialization.status === "gap" ? "pending" : "not-run",
         resultState: materialized
-          ? "pass"
+          ? openQuestion ? ATTENTION_STATE : "pass"
           : materialization.status === "gap" ? "pending" : "not-run",
         records: compactUnique([
           processing.sourceIntent.record,
           materialization.record,
           record.spec.configuration.digestRecord,
         ]),
-        nextAction: materialized
-          ? "Review the exact object set and its digest."
-          : "Supply the named source inputs and run the source processor before reviewing or deploying anything.",
+        nextAction: openQuestion
+          ? OPEN_QUESTION_NEXT_ACTION
+          : materialized
+            ? "Review the exact object set and its digest."
+            : "Supply the named source inputs and run the source processor before reviewing or deploying anything.",
       },
       {
         id: "destination",
@@ -4752,6 +4889,54 @@ function assessmentRecord(record, processing, lifecycle) {
       },
     ],
   };
+}
+
+// The ordering evidence for every AICR directory that holds rendered
+// Applications, read once. A record is matched to its directory by the object
+// path it retains, so the rule covers a hand-retained entry as well as a
+// mirrored one.
+function aicrOrderingEvidenceFor(record) {
+  if (record.spec?.source?.type !== "aicr") return null;
+  if (!aicrOrderingEvidenceByRendered) {
+    aicrOrderingEvidenceByRendered = new Map(
+      [...loadAicrOrderingEvidence({ verdictRoot: aicrVerdictRoot }).values()].map((row) => [row.renderedRel, row]),
+    );
+  }
+  return aicrOrderingEvidenceByRendered.get(record.spec.configuration?.objects) ?? null;
+}
+
+function aicrOpenQuestionFor(record) {
+  return aicrOrderingEvidenceFor(record)?.openQuestion ?? "";
+}
+
+// The flag rule, checked on every AICR record. An entry whose ordering
+// evidence holds an unchecked edge must say watch and name the question, in
+// the assessment and in the limits. An entry with every edge checked must not
+// carry the flag, so the word keeps its meaning.
+function validateAicrOrderingFlag(record) {
+  const evidence = aicrOrderingEvidenceFor(record);
+  if (!evidence) return;
+  const name = record.metadata.name;
+  const stage = record.spec.assessment.stages.find((candidate) => candidate.id === "materialization");
+  const unchecked = uncheckedOrderingEdges(evidence.ordering);
+  if (unchecked > 0) {
+    check(
+      stage.resultState === ATTENTION_STATE
+        && stage.evidenceState === "completed"
+        && stage.answer === evidence.openQuestion
+        && stage.nextAction === OPEN_QUESTION_NEXT_ACTION,
+      `${name}: ${evidence.recipeRel} declares ${unchecked} dependency edge${unchecked === 1 ? "" : "s"} the rendered sync-waves could not check, and the record does not flag the entry as ${ATTENTION_STATE} with the open question`,
+    );
+    check(
+      record.status.limits.some((limit) => /recorded and not checked|do not confirm/.test(limit)),
+      `${name}: the limits do not say that ${unchecked} dependency edge${unchecked === 1 ? " was" : "s were"} left unchecked`,
+    );
+    return;
+  }
+  check(
+    stage.resultState !== ATTENTION_STATE,
+    `${name}: the record flags the entry as ${ATTENTION_STATE}, and every dependency edge in ${evidence.recipeRel} was checked against the rendered sync-waves`,
+  );
 }
 
 function destinationAssessment(lifecycle) {
@@ -5163,11 +5348,15 @@ function validateAicrModernRecordAgainstReceipt(record, generation) {
     );
   }
   for (const input of generation.spec?.sourceAndIntent?.newRequiredInputs ?? []) {
-    if (input.valueStatus !== "awaiting-maintainer-confirmation") continue;
+    if (input.valueStatus === INPUT_PLACEHOLDER) {
+      validatePlaceholderInput(record, input);
+      continue;
+    }
+    if (input.valueStatus !== INPUT_AWAITING) continue;
     check(
       record.spec.inputs.fixedAtBuildTime.includes(`${input.input}=${input.value} (awaiting maintainer confirmation)`)
         && record.spec.inputs.installTime.some(
-          (item) => item.name === input.input && item.status === "awaiting-maintainer-confirmation",
+          (item) => item.name === input.input && item.status === INPUT_AWAITING,
         )
         && record.status.limits.some(
           (limit) => limit.includes(`${input.input}=${input.value}`) && limit.includes("awaits the maintainer's confirmation"),
@@ -5175,6 +5364,58 @@ function validateAicrModernRecordAgainstReceipt(record, generation) {
       `${name}: the generation input ${input.input}=${input.value} awaits the maintainer's confirmation, and the record's inputs and limits must both say so`,
     );
   }
+}
+
+// A confirmed placeholder must stay visible as one. The record has to mark the
+// build-time input, carry the named install-time requirement with every place
+// the value lands, keep the route that replaces it unresolved, and say in its
+// limits what to change it to and what changing it costs. A record that drops
+// any of these presents a placeholder as a settled value.
+function validatePlaceholderInput(record, input) {
+  const name = record.metadata.name;
+  const placeholder = input.placeholder ?? {};
+  const pair = `${input.input}=${input.value}`;
+  check(
+    record.spec.inputs.fixedAtBuildTime.includes(`${pair} (${PLACEHOLDER_INPUT_MARK})`),
+    `${name}: the generation input ${pair} is a placeholder, and the record's build-time inputs do not mark it as one`,
+  );
+  const item = record.spec.inputs.installTime.find(
+    (candidate) => candidate.name === input.input && candidate.status === INPUT_PLACEHOLDER,
+  );
+  check(
+    item
+      && item.route === placeholder.route
+      && String(item.purpose).includes("is a placeholder")
+      && String(item.purpose).includes(`Change it to ${placeholder.changeTo}`)
+      && String(item.purpose).includes("regenerated"),
+    `${name}: the placeholder ${pair} is not a named install-time requirement that says it is a placeholder, what to change it to, and that the entry must be regenerated or a variant made`,
+  );
+  check(
+    JSON.stringify(item.appearsIn) === JSON.stringify(
+      placeholder.appearsIn.map((row) => ({ application: row.application, valuesPaths: [...row.valuesPaths] })),
+    )
+      && placeholder.appearsIn.every((row) => String(item.purpose).includes(`${row.application} at ${row.valuesPaths.join(" and ")}`)),
+    `${name}: the placeholder ${pair} does not record every Application and field path the generation receipt lists`,
+  );
+  const route = record.spec.lifecycle.routeIntent.routes.find((candidate) => candidate.id === placeholder.route);
+  check(
+    route && route.automatic === false && route.status === "requires-destination-resolution",
+    `${name}: the placeholder ${pair} has no ${placeholder.route} route that still requires destination resolution`,
+  );
+  check(
+    record.status.limits.some(
+      (limit) => limit.includes(pair)
+        && limit.includes("is a placeholder")
+        && limit.includes(`Change it to ${placeholder.changeTo}`)
+        && limit.includes("regenerated"),
+    ),
+    `${name}: the limits do not say that ${pair} is a placeholder, what to change it to, and what a different value changes`,
+  );
+  check(
+    !record.status.limits.some((limit) => limit.includes("awaits the maintainer's confirmation"))
+      && !record.spec.inputs.fixedAtBuildTime.some((line) => line.includes("awaiting maintainer confirmation")),
+    `${name}: the record still says a confirmed placeholder awaits confirmation`,
+  );
 }
 
 function lifecycleRecord(record, intent, legacyRouting) {

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bd1ce709a1792bee3135a0a4dd5bb203361fb7ccb3ee87f63de2c012a4990780",
+      "sha256": "sha256:d87b755aeb472bf0a515fc71c75a2a51bea153a42fd12852d7ecf848f52dd27b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.yaml",
-      "sha256": "sha256:8efd93651fb7e18d790932ae0def82a137480f41c1d381137e1e406275c88999",
+      "sha256": "sha256:22a3232ed46a92aa8280c49cc12b6ecd64987574695902c070b982ac12abfab6",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -60,7 +60,7 @@
       "acceleratedNodeSelector=nvidia.com/gpu.present=true",
       "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow",
       "storageClass=gp3",
-      "systemNodeSelector=nodeGroup=system-worker (awaiting maintainer confirmation)",
+      "systemNodeSelector=nodeGroup=system-worker (placeholder, change it to match your cluster)",
       "workloadSelector=app.kubernetes.io/part-of=training",
       "deployer=argocd-helm"
     ]
@@ -238,6 +238,12 @@
         "detail": "follow the manual steps AICR lists before applying this bundle over an earlier installation"
       },
       {
+        "id": "system-node-selector-placeholder",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "replace the placeholder system node selector nodeGroup=system-worker with the label on the destination cluster's system node group"
+      },
+      {
         "id": "dra-plugin-eviction",
         "type": "lifecycle-action",
         "origin": "base",
@@ -277,7 +283,7 @@
         "id": "aicr-target-fact-4",
         "type": "target-fact",
         "origin": "base",
-        "detail": "Nodes that run system components must carry the label nodeGroup=system-worker."
+        "detail": "Nodes that run system components must carry the system node selector label. This bundle carries the placeholder nodeGroup=system-worker, and the destination's own label replaces it."
       },
       {
         "id": "aicr-target-fact-5",
@@ -393,6 +399,25 @@
         ]
       },
       {
+        "id": "system-node-selector-placeholder",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected destination actor",
+        "mechanism": "replace the placeholder system node selector nodeGroup=system-worker with the label on the destination cluster's system node group",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "system-node-selector-placeholder"
+        ],
+        "checks": [
+          "the label observed on the destination's system node group, and either a bundle regenerated with that value or a variant made from this entry, with its new digests"
+        ],
+        "evidence": [
+          "examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml"
+        ]
+      },
+      {
         "id": "dra-plugin-eviction",
         "phase": "destination-resolution",
         "status": "requires-destination-resolution",
@@ -459,7 +484,7 @@
     ]
   },
   "lifecycle": {
-    "installTimeStatus": "destination-facts-recorded-not-run-generation-input-awaits-confirmation",
+    "installTimeStatus": "destination-facts-recorded-not-run-placeholder-input-recorded",
     "installTimeInputs": [
       {
         "name": "aicr-target-fact-1",
@@ -482,7 +507,7 @@
       {
         "name": "aicr-target-fact-4",
         "kind": "target-fact",
-        "detail": "Nodes that run system components must carry the label nodeGroup=system-worker.",
+        "detail": "Nodes that run system components must carry the system node selector label. This bundle carries the placeholder nodeGroup=system-worker, and the destination's own label replaces it.",
         "status": "declared-not-checked"
       },
       {
@@ -500,8 +525,8 @@
       {
         "name": "systemNodeSelector",
         "kind": "generation-input",
-        "detail": "The bundle was generated with systemNodeSelector=nodeGroup=system-worker. That value awaits the maintainer's confirmation. nodeGroup=system-worker is the example value in the upstream CLI reference. It was not chosen from a real cluster. The value is written into the generated system-component node selectors, so a different value changes the bundle bytes and every digest derived from them.",
-        "status": "awaiting-maintainer-confirmation"
+        "detail": "systemNodeSelector=nodeGroup=system-worker is a placeholder, confirmed as one on 2026-10-07. Change it to the label on your own cluster's system node group. It is written into spec.source.helm.values of 12 rendered Applications at 24 field paths, which are aws-ebs-csi-driver at controller.nodeSelector; cert-manager at cainjector.nodeSelector and nodeSelector and startupapicheck.nodeSelector and webhook.nodeSelector; gpu-operator at operator.nodeSelector; k8s-ephemeral-storage-metrics at nodeSelector; kai-scheduler at global.nodeSelector; kube-prometheus-stack at alertmanager.alertmanagerSpec.nodeSelector and grafana.nodeSelector and kube-state-metrics.nodeSelector and prometheus-node-exporter.nodeSelector and prometheus.prometheusSpec.nodeSelector and prometheusOperator.admissionWebhooks.patch.nodeSelector and prometheusOperator.nodeSelector and thanosRuler.thanosRulerSpec.nodeSelector; kubeflow-trainer at jobset.controller.nodeSelector and manager.nodeSelector; nfd at gc.nodeSelector and master.nodeSelector; nodewright-operator at controllerManager.selectors; nvidia-dra-driver-gpu at controller.nodeSelector; nvsentinel at global.systemNodeSelector; prometheus-adapter at nodeSelector. A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it.",
+        "status": "confirmed-placeholder"
       }
     ],
     "promotion": {

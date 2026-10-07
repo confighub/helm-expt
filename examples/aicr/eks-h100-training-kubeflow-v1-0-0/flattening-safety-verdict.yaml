@@ -65,10 +65,12 @@ spec:
       detail: >-
         Twelve component Applications carry the node selector
         nodeGroup=system-worker in their values. The value is a generation
-        input that awaits confirmation.
+        input that was confirmed as a placeholder on 2026-10-07.
       disposition: >-
-        Confirm or replace the selector before publication. A different value
-        changes the retained bytes and this verdict's platform digest.
+        Replace the placeholder with the label on the destination's system
+        node group, by regenerating the entry or making a variant. A different
+        value changes the retained bytes and this verdict's platform digest.
+      companionRequired: examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml
       evidence:
         - examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml
     - class: destination-facts

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bd1ce709a1792bee3135a0a4dd5bb203361fb7ccb3ee87f63de2c012a4990780",
+      "sha256": "sha256:d87b755aeb472bf0a515fc71c75a2a51bea153a42fd12852d7ecf848f52dd27b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aicr-h100-gke-cos-training-slurm-v0-21-0-argocd.yaml",
-      "sha256": "sha256:da32713e628bac8b881fd814372b2cdc2a1b33f927a0da9a4c5b1ba38b4e7321",
+      "sha256": "sha256:5391d14c4e97a76694bd10ba451e4077cd2a59fbdf8f590d228a18a957ec3ebf",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-h100-gke-cos-training-slurm-v0-21-0-argocd.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -407,10 +407,10 @@
       {
         "id": "materialization",
         "question": "What will it produce?",
-        "answer": "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration.",
+        "answer": "The recipe makes slinky-slurm depend on slurm-accounting-mariadb and does not deploy it, and nothing here shows whether slinky-slurm works without it.",
         "evidenceState": "completed",
-        "resultState": "pass",
-        "nextAction": "Review the exact object set and its digest.",
+        "resultState": "watch",
+        "nextAction": "Review the exact object set and its digest, and settle the open question before relying on the recorded order.",
         "destinationAccessRequired": false,
         "deploymentRequired": false,
         "requiredInputs": [

@@ -192,19 +192,93 @@ spec:
       - input: systemNodeSelector
         flag: --system-node-selector
         value: nodeGroup=system-worker
-        valueStatus: awaiting-maintainer-confirmation
+        valueStatus: confirmed-placeholder
+        confirmedOn: "2026-10-07"
+        confirmation: >-
+          The maintainer confirmed on 2026-10-07 that this entry carries
+          nodeGroup=system-worker as a placeholder. The entry does not claim
+          that any destination labels its system nodes this way. The value is
+          recorded, named and given a route, and it is resolved for the
+          destination like any other install-time requirement.
         observed: >-
           With --storage-class gp3 and no system node selector, v1.0.0 refuses
           to write either bundle and names kube-prometheus-stack as the
           component that requires the selector. The v0.20.0 entry was
           generated without this input.
         valueOrigin: >-
-          nodeGroup=system-worker is the example value in the upstream CLI
-          reference. It was not chosen from a real cluster.
+          The maintainer's confirmation gives the origin of the value. It is
+          the value upstream's own v1.0.0 EKS training demo uses for its
+          reference clusters (demos/cuj1-training.md in NVIDIA/aicr at tag
+          v1.0.0), and that demo says its selector values are examples to be
+          updated to match the cluster. The demo file is not retained in this
+          repository. The value was not chosen from a real cluster.
         effect: >-
           The value is written into the generated system-component node
           selectors, so a different value changes the bundle bytes and every
           digest derived from them.
+        placeholder:
+          meaning: >-
+            nodeGroup=system-worker stands in for the label that selects the
+            destination cluster's system node group.
+          changeTo: the label on your own cluster's system node group
+          changeEffect: >-
+            A different value changes the bundle bytes and every digest in
+            this entry, so the entry must be regenerated with the new value or
+            a variant must be made from it.
+          route: system-node-selector-placeholder
+          renderedIn: examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates
+          container: spec.source.helm.values
+          applications: 12
+          fieldPaths: 24
+          appearsIn:
+            - application: aws-ebs-csi-driver
+              valuesPaths:
+                - controller.nodeSelector
+            - application: cert-manager
+              valuesPaths:
+                - cainjector.nodeSelector
+                - nodeSelector
+                - startupapicheck.nodeSelector
+                - webhook.nodeSelector
+            - application: gpu-operator
+              valuesPaths:
+                - operator.nodeSelector
+            - application: k8s-ephemeral-storage-metrics
+              valuesPaths:
+                - nodeSelector
+            - application: kai-scheduler
+              valuesPaths:
+                - global.nodeSelector
+            - application: kube-prometheus-stack
+              valuesPaths:
+                - alertmanager.alertmanagerSpec.nodeSelector
+                - grafana.nodeSelector
+                - kube-state-metrics.nodeSelector
+                - prometheus-node-exporter.nodeSelector
+                - prometheus.prometheusSpec.nodeSelector
+                - prometheusOperator.admissionWebhooks.patch.nodeSelector
+                - prometheusOperator.nodeSelector
+                - thanosRuler.thanosRulerSpec.nodeSelector
+            - application: kubeflow-trainer
+              valuesPaths:
+                - jobset.controller.nodeSelector
+                - manager.nodeSelector
+            - application: nfd
+              valuesPaths:
+                - gc.nodeSelector
+                - master.nodeSelector
+            - application: nodewright-operator
+              valuesPaths:
+                - controllerManager.selectors
+            - application: nvidia-dra-driver-gpu
+              valuesPaths:
+                - controller.nodeSelector
+            - application: nvsentinel
+              valuesPaths:
+                - global.systemNodeSelector
+            - application: prometheus-adapter
+              valuesPaths:
+                - nodeSelector
     selectedProfile: null
     profileNote: >-
       This EKS composition declares no gpuStack profile. Profile ownership is
