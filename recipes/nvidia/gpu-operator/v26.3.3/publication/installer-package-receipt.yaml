@@ -1,0 +1,103 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "nvidia-gpu-operator-v26.3.3"
+spec:
+  chart:
+    name: "gpu-operator"
+    repository: "nvidia"
+    version: "v26.3.3"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/nvidia/gpu-operator/v26.3.3 -o <tmp>/gpu-operator-v26.3.3.tgz"
+    sha256: "0f01c753d015559e37b47a671468bd60566069f87c22ccb02330a3dfd3063945"
+  package:
+    name: "nvidia-gpu-operator"
+    path: "packages/nvidia/gpu-operator/v26.3.3"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "260604f26ca328c63a7ad15af4722fb0c24e7c88b598fc567253573df65452c7"
+        bytes: 1075
+      -
+        path: "bases/aicr-eks-training/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-training/upstream.yaml"
+        sha256: "8f33a5021500891676062706330ec40b6f356e115a013df11d41943c65bf1be7"
+        bytes: 218899
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "73ebb5f6de3d1f010330d266db11b99b508be84dfc92b9d5deb01a39b66fee7c"
+        bytes: 269235
+      -
+        path: "collector/target-facts.sh"
+        sha256: "19bd1a19c5a74785bff63aa37ca4039293225bff856938c5bbfa74e6a1ad64f7"
+        bytes: 4782
+      -
+        path: "installer.yaml"
+        sha256: "22a6c78e7876080009b77abfbbe86dbe860532ec10794117a02b3027c02ec3b9"
+        bytes: 1989
+      -
+        path: "prerequisites/gpu-operator-lifecycle/README.md"
+        sha256: "d39d7c7fb6eef8fa62795ada18d2f482f6b5806f688e9ccad553f2abb6978fa2"
+        bytes: 1271
+      -
+        path: "prerequisites/gpu-operator-lifecycle/aicr-eks-training/pre-upgrade.yaml"
+        sha256: "460dae6718a992e2d57e47d31e1e5861f124ab718869da5c84289068c3694352"
+        bytes: 2795
+      -
+        path: "prerequisites/gpu-operator-lifecycle/default/post-delete.yaml"
+        sha256: "edb00362cbfe100cddae4da49a999fcf36e34d8243a9968d8173fa2b04b58b9a"
+        bytes: 4046
+      -
+        path: "prerequisites/gpu-operator-lifecycle/default/pre-upgrade.yaml"
+        sha256: "49e9e2c057562da885eb63ab3e7551296cf6d19e797ca1f3cbe71286d081031f"
+        bytes: 2957
+      -
+        path: "prerequisites/gpu-operator-lifecycle/generation-receipt.yaml"
+        sha256: "48e969c7a002d5188a8ca66beea101be140faaabb84ba8d675732a0ee453e71d"
+        bytes: 2930
+      -
+        path: "prerequisites/gpu-operator-lifecycle/lifecycle-actions.yaml"
+        sha256: "ea3b9677726436d792c27331501c6207e5adb5320ae066ab4fdb7239310a33b8"
+        bytes: 3583
+      -
+        path: "prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        sha256: "2b41ccd4f88c61e926c5f4fdea61a0a719a9cef8a6e04ff280dc1717ae05aee7"
+        bytes: 190599
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "1df80f0020fd6fc3085d4cee6dcfd2c66226ec08f9be398c2677eb215e6d7832"
+        bytes: 228284
+    version: "v26.3.3"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||gpu-operator"
+      base: "default"
+      command: "cub installer setup --pull packages/nvidia/gpu-operator/v26.3.3 --base default --work-dir <tmp> --non-interactive --namespace gpu-operator"
+      cubInstallObjectCountIncludingSupport: 25
+      helmReleaseObjectCount: 24
+      semanticObjectMatches: "24/24"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||gpu-operator"
+      base: "aicr-eks-training"
+      command: "cub installer setup --pull packages/nvidia/gpu-operator/v26.3.3 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace gpu-operator"
+      cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
+      semanticObjectMatches: "10/10"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "aicr-eks-training"

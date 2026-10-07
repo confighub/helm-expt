@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "nvidia-gpu-operator-v26.7.1"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "nvidia/gpu-operator"
+    version: "v26.7.1"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 27
+    cubInstallObjectsByVariant:
+      default: 28
+    helmMatchByVariant:
+      default: "27/27"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish and sign the package, then run the CRD-first install, the upgrade action and the delete action on a GPU target before recording any lifecycle route as observed"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"

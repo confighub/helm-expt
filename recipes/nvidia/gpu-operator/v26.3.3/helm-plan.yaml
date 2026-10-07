@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "nvidia-gpu-operator-v26.3.3"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "nvidia/gpu-operator"
+    version: "v26.3.3"
+    variants:
+      - "default"
+      - "aicr-eks-training"
+    helmObjectsByVariant:
+      default: 24
+      aicr-eks-training: 10
+    cubInstallObjectsByVariant:
+      default: 25
+      aicr-eks-training: 11
+    helmMatchByVariant:
+      default: "24/24"
+      aicr-eks-training: "10/10"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish and sign the package, then run the CRD-first install, the upgrade action and the delete action on a GPU target before recording any lifecycle route as observed"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/install-gate.yaml"

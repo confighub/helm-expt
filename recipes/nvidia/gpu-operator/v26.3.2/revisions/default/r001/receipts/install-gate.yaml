@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "gpu-operator-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "51c7d8994a0ca9530254b46b3b6eae4fd38baeae4e0504c28f27933a4437950c"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the ClusterPolicy makes the operator create privileged operand workloads that no render shows"
+    - "the 5 CRDs must be established before the ClusterPolicy object; the 8 Helm hook objects (4 pre-upgrade, 4 post-delete) are packaged lifecycle actions, not part of the base"

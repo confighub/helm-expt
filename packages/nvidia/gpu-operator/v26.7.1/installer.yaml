@@ -1,0 +1,50 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "nvidia-gpu-operator"
+  version: "v26.7.1"
+spec:
+  bases:
+    -
+      default: true
+      description: "gpu-operator chart defaults variant rendered from nvidia/gpu-operator@v26.7.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD clusterpolicies.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD computedomaincliques.resource.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD computedomains.resource.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD gpuclusters.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeaturegroups.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeaturerules.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodefeatures.nfd.k8s-sigs.io"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nvidiadrivers.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+      name: "default"
+      path: "bases/default"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "nvidia-gpu-operator-v26.3.2"
+spec:
+  chart:
+    name: "gpu-operator"
+    repository: "nvidia"
+    version: "v26.3.2"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/nvidia/gpu-operator/v26.3.2 -o <tmp>/gpu-operator-v26.3.2.tgz"
+    sha256: "f9e023223e8309f3e6e61b53b9c60b5d8a42a21279eb7337f7a8c12ae6428803"
+  package:
+    name: "nvidia-gpu-operator"
+    path: "packages/nvidia/gpu-operator/v26.3.2"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "8efe81751acfd1056b558709a1ccd13b13bc00b808e2fead16bd58b86de1c2c6"
+        bytes: 788
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "51c7d8994a0ca9530254b46b3b6eae4fd38baeae4e0504c28f27933a4437950c"
+        bytes: 269235
+      -
+        path: "collector/target-facts.sh"
+        sha256: "7dfad8ee91e46a0cdba6fd8953b112e90197b9c049aace31e25a4bdcb31d010c"
+        bytes: 3721
+      -
+        path: "installer.yaml"
+        sha256: "9e9d86ceee96cac5caf2bd714188a90c4fd805398d0733bd9a299ad36b670af3"
+        bytes: 1410
+      -
+        path: "prerequisites/gpu-operator-lifecycle/README.md"
+        sha256: "575ea4fa296a232316b9840a08263971d78417dc01155e3a198a2d0ed7f1874d"
+        bytes: 1198
+      -
+        path: "prerequisites/gpu-operator-lifecycle/default/post-delete.yaml"
+        sha256: "edb00362cbfe100cddae4da49a999fcf36e34d8243a9968d8173fa2b04b58b9a"
+        bytes: 4046
+      -
+        path: "prerequisites/gpu-operator-lifecycle/default/pre-upgrade.yaml"
+        sha256: "b8194342bd0a6f4fe4826478a8f574ba76a0fbb9c450fc1e5696acd222a58383"
+        bytes: 2957
+      -
+        path: "prerequisites/gpu-operator-lifecycle/generation-receipt.yaml"
+        sha256: "09aa51d13715a53d17626297979302b6e3f63f55ed732da6d8f15dea57f385ec"
+        bytes: 2056
+      -
+        path: "prerequisites/gpu-operator-lifecycle/lifecycle-actions.yaml"
+        sha256: "9b3fd9549deb60ae72b258e586cc5af4e46973f5595933f68da7edf158a19cbf"
+        bytes: 2258
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "5acb5405e8c0c675b22e97b7a75a61cab25e05fea36bb2537b0df96de3beae7a"
+        bytes: 228284
+    version: "v26.3.2"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||gpu-operator"
+      base: "default"
+      command: "cub installer setup --pull packages/nvidia/gpu-operator/v26.3.2 --base default --work-dir <tmp> --non-interactive --namespace gpu-operator"
+      cubInstallObjectCountIncludingSupport: 25
+      helmReleaseObjectCount: 24
+      semanticObjectMatches: "24/24"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"

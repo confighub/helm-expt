@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "PackagedLifecycleActions"
+metadata:
+  name: "nvidia-gpu-operator-v25-10-1"
+spec:
+  bases:
+    -
+      actions:
+        -
+          automatic: false
+          evidenceState: "not-run"
+          invokedBy: "packaged-requirement"
+          name: "Install and establish the 5 CRDs before the ClusterPolicy object"
+          phase: "pre-apply"
+          detail: "Kubernetes rejects the rendered ClusterPolicy until clusterpolicies.nvidia.com is established. The bundle holds exactly the CRDs this base renders."
+          source: "prerequisites/target-facts/default-crds.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "pre-upgrade"
+          invokedBy: "delivery-workflow"
+          name: "Before an upgrade, move the CRDs to the new version"
+          phase: "pre-upgrade"
+          detail: "Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them."
+          source: "prerequisites/gpu-operator-lifecycle/default/pre-upgrade.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "post-delete"
+          invokedBy: "delivery-workflow"
+          name: "After deleting, prune node-feature-discovery labels from the nodes"
+          phase: "post-delete"
+          detail: "The Job runs nfd-master -prune, which removes node-feature-discovery labels, annotations and taints from every node, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. Apply the four objects only after the base objects are deleted, wait for the Job to complete, then delete them. Never apply them with the base: at install time the prune would run immediately."
+          source: "prerequisites/gpu-operator-lifecycle/default/post-delete.yaml"
+      name: "default"
+  chart: "nvidia/gpu-operator"
+  namespace: "gpu-operator"
+  version: "v25.10.1"
