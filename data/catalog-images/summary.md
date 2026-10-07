@@ -1,6 +1,6 @@
 # Container images in the catalog
 
-Read from the committed rendered objects of 277 of 282 entries. 5 entry(s) retain no single object file to read.
+Read from the committed rendered objects of 277 of 401 entries. 124 entry(s) retain no single object file to read.
 
 - 243 distinct images across 509 references.
 - 44 references are pinned by digest.

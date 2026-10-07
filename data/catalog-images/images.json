@@ -5,15 +5,159 @@
   "method": "Read from each entry's committed rendered objects: every image key whose value is a registry reference, under containers, initContainers, ephemeralContainers or a custom resource.",
   "boundary": "What the objects name, not what a registry holds. A tag can answer to different bytes later, and this index resolves nothing; cub config check --images asks the registry.",
   "summary": {
-    "entries": 282,
+    "entries": 401,
     "entriesRead": 277,
-    "entriesWithoutRetainedObjects": 5,
+    "entriesWithoutRetainedObjects": 124,
     "imageReferences": 509,
     "distinctImages": 243,
     "pinnedByDigest": 44,
     "namedByTag": 465
   },
   "entries": [
+    {
+      "id": "aicr-a100-aks-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-a100-aks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-a100-aks-ubuntu-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-a100-any-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-a100-eks-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-a100-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-a100-eks-ubuntu-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-a100-gke-cos-training-kubeflow-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-a100-gke-cos-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-a100-oke-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-a100-oke-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-a100-oke-ubuntu-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-aks-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-aks-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-aks-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-b200-any-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-b200-gke-cos-inference-dynamo-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-b200-gke-cos-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-b200-gke-cos-training-kubeflow-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-b200-gke-cos-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-bcm-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-bcm-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-bcm-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-eks-h100-inference-nim-v0-14-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
     {
       "id": "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
       "objects": null,
@@ -27,6 +171,12 @@
       "images": []
     },
     {
+      "id": "aicr-eks-h100-training-kubeflow-v0-18-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
       "id": "aicr-eks-h100-training-kubeflow-v0-19-0-argocd",
       "objects": null,
       "read": false,
@@ -34,6 +184,570 @@
     },
     {
       "id": "aicr-eks-h100-training-kubeflow-v0-20-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-eks-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-eks-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-eks-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb200-any-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb200-eks-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb200-eks-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb200-eks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb200-eks-ubuntu-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb200-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb200-eks-ubuntu-training-slurm-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb200-eks-ubuntu-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb200-oke-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb200-oke-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb200-oke-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb200-oke-ubuntu-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb200-oke-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb200-oke-ubuntu-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb300-any-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb300-eks-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb300-eks-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb300-eks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb300-eks-ubuntu-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb300-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb300-eks-ubuntu-training-slurm-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb300-eks-ubuntu-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gb300-generic-ubuntu-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gke-cos-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gke-cos-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-gke-cos-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-aks-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-aks-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-aks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-aks-ubuntu-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-aks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-aks-ubuntu-training-slurm-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-aks-ubuntu-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-any-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-bcm-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-bcm-ubuntu-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-eks-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-eks-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-eks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-eks-ubuntu-inference-nim-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-eks-ubuntu-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-eks-ubuntu-training-slurm-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-eks-ubuntu-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-gke-cos-inference-dynamo-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-gke-cos-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-gke-cos-training-kubeflow-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-gke-cos-training-slurm-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-gke-cos-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-kind-inference-dynamo-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-kind-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-kind-training-kubeflow-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-kind-training-slurm-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h100-kind-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h200-any-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h200-eks-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-h200-eks-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-kind-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-kind-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-l40-any-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-l40s-any-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-l40s-oke-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-l40s-oke-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-lke-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-lke-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-lke-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-ocp-inference-nim-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-ocp-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-ocp-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-ocp-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-oke-ol-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-oke-ol-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-oke-ol-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rke2-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rke2-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rke2-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-any-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-inference-nim-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-lke-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-lke-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-lke-ubuntu-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-lke-ubuntu-training-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-vr200-rke2-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-vr200-rke2-ubuntu-inference-v0-21-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-vr200-rke2-ubuntu-training-v0-21-0-argocd",
       "objects": null,
       "read": false,
       "images": []
