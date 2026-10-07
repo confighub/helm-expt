@@ -6,8 +6,9 @@
 // the exact upstream archive, addressed by URL and SHA-256.
 //
 //   node scripts/nvidia-gpu-stack-coverage.mjs --list
-//   node scripts/nvidia-gpu-stack-coverage.mjs --generate [--only <chart>[@<version>]]
-//   node scripts/nvidia-gpu-stack-coverage.mjs --verify   [--only <chart>[@<version>]]
+//   node scripts/nvidia-gpu-stack-coverage.mjs --generate  [--only <chart>[@<version>]]
+//   node scripts/nvidia-gpu-stack-coverage.mjs --repackage [--only <chart>[@<version>]]
+//   node scripts/nvidia-gpu-stack-coverage.mjs --verify    [--only <chart>[@<version>]]
 //   node scripts/nvidia-gpu-stack-coverage.mjs --diff <chart> <version>[/<base>] <version>[/<base>]
 //   node scripts/nvidia-gpu-stack-coverage.mjs --value-delta <chart> <version>[/<base>] <path>=<value>
 //
@@ -15,6 +16,11 @@
 // names (and, for gpu-operator and k8s-nim-operator, the packaged lifecycle files). It does not publish
 // anything: OCI publication, signing and the derived catalog views are separate
 // steps that need registry credentials and the maintainer's approval.
+//
+// --repackage rebuilds only the package directories and their recorded digests
+// from the committed recipes. It needs no network and leaves the recipes'
+// renders alone. Use it when a digest was recorded with an installer that CI
+// cannot reproduce; run it through scripts/run-with-pinned-installer.mjs.
 //
 // --verify reads committed files and re-packages through the installer. It needs
 // no network. --diff compares two committed renders, object by object, and also
@@ -59,11 +65,18 @@ if (mode === "--diff") {
       if (item.targetFacts) targetFacts(item, "--generate");
       verifyOne(item);
     }
+  } else if (mode === "--repackage") {
+    for (const item of items) {
+      console.log(`repackaging ${item.canonicalIdentity}@${item.version}`);
+      run(item, "--generate-package");
+      if (item.targetFacts) targetFacts(item, "--generate");
+      verifyOne(item);
+    }
   } else if (mode === "--verify") {
     for (const item of items) verifyOne(item);
   } else {
     console.log(`Usage:
-  node scripts/nvidia-gpu-stack-coverage.mjs --list | --generate | --verify [--only <chart>[@<version>]]
+  node scripts/nvidia-gpu-stack-coverage.mjs --list | --generate | --repackage | --verify [--only <chart>[@<version>]]
   node scripts/nvidia-gpu-stack-coverage.mjs --diff <chart> <version>[/<base>] <version>[/<base>]
   node scripts/nvidia-gpu-stack-coverage.mjs --value-delta <chart> <version>[/<base>] <path>=<value>`);
     process.exit(2);

@@ -3,27 +3,39 @@
 // Runs a command with the installer plugin that CI uses.
 //
 // CI builds the installer plugin from one pinned commit (INSTALLER_COMMIT in
-// .github/workflows/full-verify.yml). A workstation usually has an installer
-// release instead. The two can package the same directory into different
-// bytes, so a package digest generated with the local release fails in CI with
-// "deterministic bundle SHA mismatch", and a digest generated in CI fails
-// locally. This wrapper removes the difference: it builds the pinned commit
-// once, puts a `cub` shim first on PATH that sends `cub installer ...` to that
-// build and everything else to the real cub, and runs the command.
+// .github/workflows/full-verify.yml) with one Go release line (go-version in
+// the same workflow). Both matter. An installer package is a gzip-compressed
+// tar archive. The tar bytes depend on the installer source; the compressed
+// bytes also depend on the Go standard library that built the installer, and
+// they differ between Go release lines. Observed on 2026-10-07: the pinned
+// commit built with Go 1.27 and the installer release built with Go 1.25 write
+// identical tar content and different archives.
+//
+// So a package digest is right for CI only when the installer that produced it
+// was built with the Go line CI uses. Anything else fails with "deterministic
+// bundle SHA mismatch", in CI or locally. This wrapper removes the difference:
+// it builds the pinned commit once with that Go line, checks the build, puts a
+// `cub` shim first on PATH that sends `cub installer ...` to it and everything
+// else to the real cub, and runs the command.
 //
 //   node scripts/run-with-pinned-installer.mjs -- <command> [args...]
 //   node scripts/run-with-pinned-installer.mjs --print
 //   node scripts/run-with-pinned-installer.mjs --self-test
 //
 // The build lives outside the repository, in the user's cache directory, in a
-// directory named after the commit. An existing build is reused. A first build
-// needs git, go and network access to github.com and the Go module proxy. The
-// installer plugin directory under the home directory is never read or changed.
+// directory named after the commit and the Go line. An existing build is
+// reused. A first build needs git, go and network access to github.com and the
+// Go module proxy. When the local go is on another release line, the build asks
+// go for a toolchain of CI's line: the newest one already in the module cache,
+// else one go downloads. The installer plugin directory under the home
+// directory is never read or changed.
 //
 // HELM_EXPT_PINNED_INSTALLER_CACHE overrides the cache directory.
+// HELM_EXPT_PINNED_INSTALLER_GOTOOLCHAIN names the exact toolchain to build
+// with, for example go1.25.11. It must be on the Go line CI uses.
 
 import { execFileSync, spawnSync } from "node:child_process";
-import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { chmodSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { homedir, platform, tmpdir } from "node:os";
 import { delimiter, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -57,6 +69,67 @@ export function pinnedCommit(workflowTexts) {
   return [...found.keys()][0];
 }
 
+// The Go release line CI builds the installer with, for example "1.25", read
+// from every setup-go step of the workflows that pin the installer. A patch
+// wildcard such as "1.25.x" names the same line.
+export function pinnedGoLine(workflowTexts) {
+  const found = new Map();
+  for (const [name, text] of Object.entries(workflowTexts)) {
+    const matches = [...text.matchAll(/^\s*go-version:\s*["']?([^\s"'#]+)["']?\s*(?:#.*)?$/gm)].map((match) => match[1]);
+    if (matches.length === 0) throw new Error(`${name} sets no go-version`);
+    for (const version of matches) {
+      const line = version.match(/^(\d+\.\d+)(?:\.(?:\d+|x))?$/)?.[1];
+      if (!line) throw new Error(`${name} sets go-version ${version}, which names no Go release line`);
+      found.set(line, [...(found.get(line) ?? []), name]);
+    }
+  }
+  if (found.size !== 1) {
+    throw new Error(`the workflows build with different Go lines: ${[...found].map(([line, names]) => `${line} (${names.join(", ")})`).join("; ")}`);
+  }
+  return [...found.keys()][0];
+}
+
+// Whether a Go version such as "go1.25.11" is on a release line such as "1.25".
+export function onGoLine(goVersion, goLine) {
+  const [major, minor, ...rest] = String(goVersion ?? "").replace(/^go/, "").split(".");
+  return String(goVersion ?? "").startsWith("go") && `${major}.${minor}` === goLine && rest.length <= 1 && rest.every((part) => /^\d+$/.test(part));
+}
+
+const compareVersions = (left, right) => left.localeCompare(right, undefined, { numeric: true });
+
+// The toolchain to build with: the local go when it is already on CI's line,
+// else the newest toolchain of that line in the module cache, else the first
+// release of the line, which go downloads.
+export function chooseToolchain({ goLine, localVersion, cachedToolchains, override }) {
+  if (override) {
+    if (!onGoLine(override, goLine)) throw new Error(`HELM_EXPT_PINNED_INSTALLER_GOTOOLCHAIN is ${override}, which is not on the Go ${goLine} line CI uses`);
+    return { toolchain: override, source: "named by HELM_EXPT_PINNED_INSTALLER_GOTOOLCHAIN" };
+  }
+  if (onGoLine(localVersion, goLine)) return { toolchain: "local", source: `the local go, ${localVersion}` };
+  const cached = cachedToolchains.filter((version) => onGoLine(version, goLine)).sort(compareVersions);
+  if (cached.length > 0) return { toolchain: cached.at(-1), source: "already in the Go module cache" };
+  return { toolchain: `go${goLine}.0`, source: "downloaded by go" };
+}
+
+function goEnv(name) {
+  return execFileSync("go", ["env", name], { encoding: "utf8", env: { ...process.env, GOTOOLCHAIN: "local" } }).trim();
+}
+
+function cachedToolchainVersions() {
+  const root = join(goEnv("GOMODCACHE"), "golang.org");
+  if (!existsSync(root)) return [];
+  const suffix = `.${goEnv("GOOS")}-${goEnv("GOARCH")}`;
+  return readdirSync(root)
+    .filter((name) => name.startsWith("toolchain@v0.0.1-go") && name.endsWith(suffix))
+    .map((name) => name.slice("toolchain@v0.0.1-".length, -suffix.length));
+}
+
+// The Go version a binary was built with, from its embedded build information.
+function builtWithGo(binary) {
+  const output = execFileSync("go", ["version", binary], { encoding: "utf8", env: { ...process.env, GOTOOLCHAIN: "local" } });
+  return output.trim().split(/\s+/).at(-1);
+}
+
 export function cacheRoot(env = process.env) {
   if (env.HELM_EXPT_PINNED_INSTALLER_CACHE) return resolve(env.HELM_EXPT_PINNED_INSTALLER_CACHE);
   if (env.XDG_CACHE_HOME) return join(env.XDG_CACHE_HOME, "helm-expt", "pinned-installer");
@@ -69,8 +142,15 @@ function insideRepository(path) {
   return full === repoRoot || full.startsWith(`${repoRoot}/`);
 }
 
-// Fetches exactly the pinned commit and builds it the way the workflow does.
-function buildFromSource({ commit, root }) {
+// Fetches exactly the pinned commit and builds it with the Go line CI uses.
+function buildFromSource({ commit, root, goLine }) {
+  const choice = chooseToolchain({
+    goLine,
+    localVersion: goEnv("GOVERSION"),
+    cachedToolchains: cachedToolchainVersions(),
+    override: process.env.HELM_EXPT_PINNED_INSTALLER_GOTOOLCHAIN,
+  });
+  console.error(`run-with-pinned-installer: building confighub/installer ${commit} with Go ${goLine} (${choice.toolchain}, ${choice.source})`);
   const source = join(root, "src");
   rmSync(source, { recursive: true, force: true });
   mkdirSync(source, { recursive: true });
@@ -81,25 +161,36 @@ function buildFromSource({ commit, root }) {
   git(["checkout", "--quiet", "--detach", "FETCH_HEAD"]);
   const head = git(["rev-parse", "HEAD"]).trim();
   if (head !== commit) throw new Error(`fetched installer commit ${head}, expected ${commit}`);
-  execFileSync("go", ["build", "-o", join(root, "bin", "installer"), "./cmd/installer"], { cwd: source, stdio: ["ignore", "inherit", "inherit"] });
+  execFileSync("go", ["build", "-o", join(root, "bin", "installer"), "./cmd/installer"], {
+    cwd: source,
+    stdio: ["ignore", "inherit", "inherit"],
+    env: { ...process.env, GOTOOLCHAIN: choice.toolchain },
+  });
 }
 
-// Returns the installer binary for one commit, building it when the cache
-// directory does not already hold a finished build of that commit.
-export function ensureInstaller({ commit, cache, build = buildFromSource }) {
-  const root = join(cache, commit);
+// Returns the installer binary for one commit and Go line, building it when the
+// cache directory does not already hold a finished build of both. A binary that
+// was not built with the Go line CI uses is refused, new or reused, because it
+// would write archives CI cannot reproduce.
+export function ensureInstaller({ commit, goLine, cache, build = buildFromSource, goVersionOf = builtWithGo }) {
+  const root = join(cache, `${commit}-go${goLine}`);
   const binary = join(root, "bin", "installer");
   const marker = join(root, "built-commit");
-  const reused = existsSync(binary) && existsSync(marker) && readFileSync(marker, "utf8").trim() === commit;
+  const reused = existsSync(binary) && existsSync(marker) && readFileSync(marker, "utf8").trim() === `${commit} go${goLine}`;
   if (!reused) {
     rmSync(marker, { force: true });
     mkdirSync(join(root, "bin"), { recursive: true });
-    build({ commit, root });
+    build({ commit, root, goLine });
     if (!existsSync(binary)) throw new Error(`the installer build produced no ${binary}`);
-    // Written last, so an interrupted build is never mistaken for a finished one.
-    writeFileSync(marker, `${commit}\n`);
   }
-  return { root, binary, reused };
+  const goVersion = goVersionOf(binary);
+  if (!onGoLine(goVersion, goLine)) {
+    rmSync(marker, { force: true });
+    throw new Error(`${binary} was built with ${goVersion}, not the Go ${goLine} line CI uses; its archives would not match CI`);
+  }
+  // Written last, so an interrupted or refused build is never mistaken for a finished one.
+  if (!reused) writeFileSync(marker, `${commit} go${goLine}\n`);
+  return { root, binary, reused, goVersion };
 }
 
 // The first `cub` on PATH that is not one of this wrapper's own shims.
@@ -137,22 +228,27 @@ ${other}
   return { directory, path };
 }
 
+function workflowTexts() {
+  return Object.fromEntries(PIN_WORKFLOWS.map((path) => [path, readFileSync(join(repoRoot, path), "utf8")]));
+}
+
 function prepare() {
-  const commit = pinnedCommit(Object.fromEntries(PIN_WORKFLOWS.map((path) => [path, readFileSync(join(repoRoot, path), "utf8")])));
+  const commit = pinnedCommit(workflowTexts());
+  const goLine = pinnedGoLine(workflowTexts());
   const cache = cacheRoot();
   if (insideRepository(cache)) fail(`the cache directory ${cache} is inside the repository; choose one outside it`);
   let installer;
   try {
-    installer = ensureInstaller({ commit, cache });
+    installer = ensureInstaller({ commit, goLine, cache });
   } catch (error) {
-    fail(`could not build installer ${commit}: ${error.message}\nA first build needs git, go and network access to github.com and the Go module proxy.`);
+    fail(`could not prepare installer ${commit} for Go ${goLine}: ${error.message}\nA first build needs git, go and network access to github.com and the Go module proxy.`);
   }
   const realCub = findRealCub(process.env.PATH, cache);
   const shim = writeShim({ root: installer.root, binary: installer.binary, realCub });
   console.error(
-    `run-with-pinned-installer: cub installer -> ${installer.binary} (confighub/installer ${commit}, ${installer.reused ? "reused build" : "built now"}); other cub commands -> ${realCub ?? "none found"}`,
+    `run-with-pinned-installer: cub installer -> ${installer.binary} (confighub/installer ${commit}, built with ${installer.goVersion}, ${installer.reused ? "reused build" : "built now"}); other cub commands -> ${realCub ?? "none found"}`,
   );
-  return { commit, installer, shim };
+  return { commit, goLine, installer, shim };
 }
 
 function selfTest() {
@@ -175,6 +271,20 @@ function selfTest() {
   throws(() => pinnedCommit({ one: "env:\n  CUB_VERSION: v1\n" }), /does not set INSTALLER_COMMIT/, "a workflow with no pin");
   throws(() => pinnedCommit({ one: "  INSTALLER_COMMIT: main\n" }), /not a full commit SHA/, "a branch name as the pin");
 
+  assert(pinnedGoLine({ one: '  go-version: "1.25"\n', two: '          go-version: "1.25.x"\n' }) === "1.25", "an agreed Go line is read, with or without a patch wildcard");
+  assert(pinnedGoLine({ one: "  go-version: 1.25.3 # exact\n" }) === "1.25", "an exact patch version names its line");
+  throws(() => pinnedGoLine({ one: '  go-version: "1.25"\n', two: '  go-version: "1.27"\n' }), /different Go lines/, "workflows on different Go lines");
+  throws(() => pinnedGoLine({ one: "env:\n  CUB_VERSION: v1\n" }), /sets no go-version/, "a workflow with no Go version");
+  throws(() => pinnedGoLine({ one: "  go-version: stable\n" }), /names no Go release line/, "a moving Go version");
+  assert(onGoLine("go1.25.11", "1.25") && onGoLine("go1.25", "1.25"), "a patch release is on its line");
+  assert(!onGoLine("go1.27.1", "1.25") && !onGoLine("go1.250.1", "1.25") && !onGoLine("go1.2", "1.25") && !onGoLine("1.25.1", "1.25"), "another line is not");
+  const pick = (input) => chooseToolchain({ goLine: "1.25", localVersion: "go1.27.1", cachedToolchains: [], ...input }).toolchain;
+  assert(pick({ localVersion: "go1.25.4" }) === "local", "a local go on CI's line is used as it is");
+  assert(pick({ cachedToolchains: ["go1.24.0", "go1.25.9", "go1.25.11", "go1.27.0"] }) === "go1.25.11", "the newest cached toolchain of CI's line is chosen");
+  assert(pick({}) === "go1.25.0", "with nothing local, the first release of CI's line is requested");
+  assert(pick({ override: "go1.25.7" }) === "go1.25.7", "a named toolchain on CI's line is honoured");
+  throws(() => pick({ override: "go1.27.1" }), /not on the Go 1\.25 line/, "a named toolchain on another line");
+
   const temp = mkdtempSync(join(tmpdir(), "pinned-installer-self-test-"));
   try {
     const cache = join(temp, "cache");
@@ -184,16 +294,23 @@ function selfTest() {
       writeFileSync(join(root, "bin", "installer"), '#!/bin/sh\necho "pinned-installer plugin=${CUB_PLUGIN:-0} $*"\n');
       chmodSync(join(root, "bin", "installer"), 0o755);
     };
-    const first = ensureInstaller({ commit: a, cache, build });
-    assert(builds === 1 && first.reused === false, "the first use builds");
-    const second = ensureInstaller({ commit: a, cache, build });
+    const onLine = { goLine: "1.25", cache, build, goVersionOf: () => "go1.25.11" };
+    const first = ensureInstaller({ commit: a, ...onLine });
+    assert(builds === 1 && first.reused === false && first.goVersion === "go1.25.11", "the first use builds");
+    const second = ensureInstaller({ commit: a, ...onLine });
     assert(builds === 1 && second.reused === true && second.binary === first.binary, "a finished build is reused");
-    const other = ensureInstaller({ commit: b, cache, build });
+    const other = ensureInstaller({ commit: b, ...onLine });
     assert(builds === 2 && other.binary !== first.binary, "a different commit gets its own build");
+    const otherLine = ensureInstaller({ commit: a, ...onLine, goLine: "1.26", goVersionOf: () => "go1.26.2" });
+    assert(builds === 3 && otherLine.binary !== first.binary, "a different Go line gets its own build");
     rmSync(join(first.root, "built-commit"));
-    ensureInstaller({ commit: a, cache, build });
-    assert(builds === 3, "a build with no completion marker is rebuilt");
-    throws(() => ensureInstaller({ commit: "c".repeat(40), cache, build: () => {} }), /produced no/, "a build that leaves no binary");
+    ensureInstaller({ commit: a, ...onLine });
+    assert(builds === 4, "a build with no completion marker is rebuilt");
+    throws(() => ensureInstaller({ commit: "c".repeat(40), ...onLine, build: () => {} }), /produced no/, "a build that leaves no binary");
+    throws(() => ensureInstaller({ commit: "d".repeat(40), ...onLine, goVersionOf: () => "go1.27.1" }), /not the Go 1\.25 line CI uses/, "a build made with another Go line");
+    assert(!existsSync(join(cache, `${"d".repeat(40)}-go1.25`, "built-commit")), "a refused build is not marked finished");
+    throws(() => ensureInstaller({ commit: a, ...onLine, goVersionOf: () => "go1.27.1" }), /not the Go 1\.25 line CI uses/, "a reused build that turns out to be on another Go line");
+    ensureInstaller({ commit: a, ...onLine });
 
     const realDirectory = join(temp, "real");
     mkdirSync(realDirectory);
@@ -213,8 +330,9 @@ function selfTest() {
     rmSync(temp, { recursive: true, force: true });
   }
   // The committed workflows must agree, with no network and no build.
-  const commit = pinnedCommit(Object.fromEntries(PIN_WORKFLOWS.map((path) => [path, readFileSync(join(repoRoot, path), "utf8")])));
-  console.log(`run-with-pinned-installer self-test passed; the workflows pin confighub/installer ${commit}`);
+  const commit = pinnedCommit(workflowTexts());
+  const goLine = pinnedGoLine(workflowTexts());
+  console.log(`run-with-pinned-installer self-test passed; the workflows pin confighub/installer ${commit} built with Go ${goLine}`);
 }
 
 const isMain = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
@@ -224,7 +342,7 @@ if (isMain) {
     selfTest();
   } else if (args[0] === "--print" && args.length === 1) {
     const { commit, installer, shim } = prepare();
-    console.log(`commit: ${commit}\ninstaller: ${installer.binary}\nshim: ${shim.directory}`);
+    console.log(`commit: ${commit}\ngo: ${installer.goVersion}\ninstaller: ${installer.binary}\nshim: ${shim.directory}`);
   } else if (args[0] === "--" && args.length > 1) {
     const { commit, shim } = prepare();
     const result = spawnSync(args[1], args.slice(2), {
