@@ -150,6 +150,10 @@ function configHubReadyOutcome(bundleName) {
 // by record name. flatteningRecord and validateRecords both hold these records
 // to a stricter rule than the rest, and this is how they recognise one.
 const aicrRecipeRecordEntries = new Map();
+// The generation receipts of the hand-retained modern AICR records, keyed by
+// record name, so validateRecords can hold a record to what its receipt says
+// about publication.
+const aicrModernGenerationReceipts = new Map();
 
 if (mode === "--self-test") {
   runSelfTest();
@@ -263,6 +267,7 @@ function buildReport() {
     buildAicrArgoCdRecord(),
     buildAicrModernArgoCdRecord("0.19.0"),
     buildAicrModernArgoCdRecord("0.20.0"),
+    buildAicrModernArgoCdRecord("1.0.0"),
     // Every retained-and-rendered AICR recipe directory is its own entry. The
     // list is discovered, so a directory cannot be retained without a record.
     ...loadAicrRecipeEntries({ verdictRoot: aicrVerdictRoot }).map(buildAicrRecipeRecord),
@@ -781,7 +786,7 @@ function buildAicrArgoCdRecord() {
 }
 
 function buildAicrModernArgoCdRecord(version) {
-  check(["0.19.0", "0.20.0"].includes(version), `unsupported modern AICR version ${version}`);
+  check(["0.19.0", "0.20.0", "1.0.0"].includes(version), `unsupported modern AICR version ${version}`);
   const retainedVersion = `v${version}`;
   const versionSlug = `v${version.replaceAll(".", "-")}`;
   const hasProduction = version === "0.20.0";
@@ -862,6 +867,34 @@ function buildAicrModernArgoCdRecord(version) {
     order: route.order,
     evidence: [routePath],
   }));
+  // A generation input whose value nobody has confirmed changes what the
+  // record may say. The value is in the bytes, so it is listed as fixed at
+  // build time, and it is marked there and in the limits as unconfirmed.
+  const unconfirmedInputs = (generation.spec.sourceAndIntent.newRequiredInputs ?? []).filter(
+    (input) => input.valueStatus === "awaiting-maintainer-confirmation",
+  );
+  const unconfirmedByName = new Map(unconfirmedInputs.map((input) => [input.input, input]));
+  const generationInputLine = ([key, value]) =>
+    unconfirmedByName.has(key)
+      ? `${key}=${value} (awaiting maintainer confirmation)`
+      : `${key}=${value}`;
+  const unconfirmedRequirements = unconfirmedInputs.map((input) => ({
+    category: "generation-input",
+    name: input.input,
+    purpose: `The bundle was generated with ${input.input}=${input.value}. That value awaits the maintainer's confirmation. ${String(input.valueOrigin).trim()} ${String(input.effect).trim()}`,
+    status: "awaiting-maintainer-confirmation",
+  }));
+  // The route intent says in its own words when no upgrade verdict exists, and
+  // the record repeats that rather than leaving the reader to infer it.
+  const missingUpgradeVerdictFrom = routeIntent.spec.routes
+    .flatMap((route) => route.observed ?? [])
+    .map((text) => /No\s+upgrade\s+verdict\s+from\s+(v\d+\.\d+\.\d+)\s+exists/.exec(String(text).replace(/\s+/g, " "))?.[1])
+    .find(Boolean);
+  // Local OCI layouts exist and verify. Until a public receipt passes they are
+  // local artifacts with planned references, which is the word the listing
+  // already classifies.
+  const unpublishedOciStatus = "local-only";
+  aicrModernGenerationReceipts.set(`aicr-eks-h100-training-kubeflow-${versionSlug}-argocd`, generation);
 
   return {
     apiVersion: "catalog.confighub.com/v1alpha1",
@@ -904,11 +937,13 @@ function buildAicrModernArgoCdRecord(version) {
           ...Object.entries(generation.spec.sourceAndIntent.criteria)
             .map(([key, value]) => `${key}=${value}`),
           ...Object.entries(generation.spec.sourceAndIntent.generationInputs)
-            .map(([key, value]) => `${key}=${value}`),
+            .map(generationInputLine),
           "deployer=argocd-helm",
         ],
-        installTime: targetRequirements,
-        installTimeStatus: "destination-facts-recorded-not-run",
+        installTime: [...targetRequirements, ...unconfirmedRequirements],
+        installTimeStatus: unconfirmedInputs.length > 0
+          ? "destination-facts-recorded-not-run-generation-input-awaits-confirmation"
+          : "destination-facts-recorded-not-run",
       },
       routing: {
         routes: routeRows,
@@ -922,14 +957,14 @@ function buildAicrModernArgoCdRecord(version) {
       },
       delivery: {
         sourcePackageOci: {
-          status: publicPassed ? "public-anonymous-pull-proved" : "local-layout-verified",
+          status: publicPassed ? "public-anonymous-pull-proved" : unpublishedOciStatus,
           localDigest: sourcePackage.digest,
           plannedRef: sourcePublicRef,
           ociLayout: sourcePackage.ociLayout,
           ...(publicPassed ? { receipt: publicReceiptPath } : {}),
         },
         literalConfigOci: {
-          status: publicPassed ? "public-anonymous-pull-proved" : "local-layout-verified",
+          status: publicPassed ? "public-anonymous-pull-proved" : unpublishedOciStatus,
           localDigest: literalConfiguration.digest,
           plannedRef: configPublicRef,
           ociLayout: literalConfiguration.ociLayout,
@@ -970,7 +1005,9 @@ function buildAicrModernArgoCdRecord(version) {
               }
             : {}),
         },
-        argoCd: "applications-retained-not-reconciled",
+        // Retained means retained in ConfigHub. A version nobody uploaded has
+        // no Argo CD result of any kind.
+        argoCd: uploadPassed ? "applications-retained-not-reconciled" : "not-run",
         flux: "not-run-for-argo-application-wrapper",
       },
       ...(promotionPassed
@@ -1051,8 +1088,18 @@ function buildAicrModernArgoCdRecord(version) {
           : "No approved ConfigHub release OCI has been pulled and compared for this version.",
         existsRepo(nestedSourcesPath)
           ? "All 16 nested component sources rendered locally; eight rendered CRDs. Their destination-specific lifecycle handling still requires runtime evidence."
-          : "The 16 nested component sources have not been materialized and recorded separately.",
+          : `The 16 nested component sources are not rendered for ${retainedVersion}. Their objects, CRDs and hooks have not been materialized or recorded.`,
         "Argo CD reconciliation, EKS, H100 execution, training, model requests, and exact runtime rollback have not run for this version.",
+        ...(publicPassed
+          ? []
+          : ["Nothing is published for this version. The public OCI references are planned addresses, and this entry is not deliverable until they are pushed and pulled back."]),
+        ...unconfirmedInputs.map(
+          (input) =>
+            `The generation input ${input.input}=${input.value} awaits the maintainer's confirmation. ${String(input.valueOrigin).trim()} A different value changes the bundle bytes and every digest in this record.`,
+        ),
+        ...(missingUpgradeVerdictFrom
+          ? [`No upgrade verdict from ${missingUpgradeVerdictFrom} to ${retainedVersion} exists. The route intent records why, and the upgrade route has not run.`]
+          : []),
       ],
     },
   };
@@ -2598,6 +2645,8 @@ function validateRecords(records) {
     }
     const aicrRecipeEntry = aicrRecipeRecordEntries.get(record.metadata.name);
     if (aicrRecipeEntry) validateAicrRecipeRecord(record, aicrRecipeEntry);
+    const aicrModernGeneration = aicrModernGenerationReceipts.get(record.metadata.name);
+    if (aicrModernGeneration) validateAicrModernRecordAgainstReceipt(record, aicrModernGeneration);
   }
   const exactDelivery = records.find(
     (record) => record.metadata.name === catalogOciDeliveryRecord,
@@ -4295,6 +4344,67 @@ function runAicrRecipeEntrySelfTest() {
     expectRefusal(tampered(change), pattern, `self-test: a retained AICR recipe record carrying ${label} was accepted`);
   }
   aicrRecipeRecordEntries.clear();
+
+  // The v1.0.0 training entry is retained by hand and unpublished. Its record
+  // is checked against its own generation receipt.
+  const buildModern = () => alignRecordWithProcessingModel(buildAicrModernArgoCdRecord("1.0.0"), undefined, undefined);
+  const modernName = buildModern().metadata.name;
+  const modernGeneration = aicrModernGenerationReceipts.get(modernName);
+  check(
+    modernGeneration?.status?.publicOciPublication === "not-run",
+    "self-test: the v1.0.0 generation receipt no longer records publication as not-run, so these fixtures need a new subject",
+  );
+  validateAicrModernRecordAgainstReceipt(buildModern(), modernGeneration);
+  for (const [label, change, pattern] of [
+    [
+      "a published literal configuration OCI",
+      (record) => { record.spec.delivery.literalConfigOci.status = "public-anonymous-pull-proved"; },
+      /delivery\.literalConfigOci says public-anonymous-pull-proved, and the generation receipt records public OCI publication as not-run/,
+    ],
+    [
+      "a public OCI receipt on a local layout",
+      (record) => { record.spec.delivery.sourcePackageOci.receipt = "examples/aicr/eks-h100-training-kubeflow-v0-20-0/public-oci-receipt.yaml"; },
+      /delivery\.sourcePackageOci says local-only, and the generation receipt records public OCI publication as not-run/,
+    ],
+    [
+      "a retained-in-ConfigHub Argo CD status",
+      (record) => { record.spec.delivery.argoCd = "applications-retained-not-reconciled"; },
+      /claims a delivery result \(argoCd=applications-retained-not-reconciled\)/,
+    ],
+    [
+      "a ConfigHub upload",
+      (record) => { record.spec.delivery.configHubUpload.status = "pass"; },
+      /claims a ConfigHub upload, release or promotion/,
+    ],
+    [
+      "no limit saying nothing is published",
+      (record) => { record.status.limits = record.status.limits.filter((limit) => !limit.includes("Nothing is published")); },
+      /the status must stay partial and say nothing is published for this version/,
+    ],
+    [
+      "an unconfirmed input presented as settled",
+      (record) => {
+        record.spec.inputs.fixedAtBuildTime = record.spec.inputs.fixedAtBuildTime.map(
+          (line) => line.replace(" (awaiting maintainer confirmation)", ""),
+        );
+      },
+      /awaits the maintainer's confirmation, and the record's inputs and limits must both say so/,
+    ],
+    [
+      "no limit about the unconfirmed input",
+      (record) => { record.status.limits = record.status.limits.filter((limit) => !limit.includes("awaits the maintainer")); },
+      /awaits the maintainer's confirmation, and the record's inputs and limits must both say so/,
+    ],
+  ]) {
+    const record = buildModern();
+    change(record);
+    expectRefusal(
+      () => validateAicrModernRecordAgainstReceipt(record, modernGeneration),
+      pattern,
+      `self-test: the unpublished v1.0.0 record carrying ${label} was accepted`,
+    );
+  }
+  aicrModernGenerationReceipts.clear();
 }
 
 function expectFailure(fn, message) {
@@ -4431,11 +4541,7 @@ function identityRecord(record, intent) {
     objectDigest = String(revision.spec?.digestInputs?.renderedObjectSetSHA256 ?? "");
     objectDigestRole = "canonical-object-set";
     objectDigestRecord = revisionPath;
-  } else if (
-    source.type === "aicr"
-    && (["v0.19.0", "v0.20.0"].includes(source.version)
-      || record.spec.baseVariant.digestRole === "aicr-platform-index")
-  ) {
+  } else if (source.type === "aicr" && record.spec.evidence?.digestIndex) {
     baseDigestRole = "aicr-platform-index";
     baseDigestRecord = record.spec.evidence.digestIndex;
   } else if (source.type === "aicr") {
@@ -5017,6 +5123,60 @@ function validateAicrRecipeRecord(record, entry) {
   );
 }
 
+// A hand-retained modern AICR record may only claim what its generation
+// receipt records. While the receipt says public publication, upload and
+// delivery have not run, the record has verified local OCI layouts with
+// planned references and nothing more, and it must carry forward any
+// generation input the receipt marks as unconfirmed.
+function validateAicrModernRecordAgainstReceipt(record, generation) {
+  const name = record.metadata.name;
+  const status = generation.status ?? {};
+  const delivery = record.spec.delivery;
+  if (status.publicOciPublication === "not-run") {
+    for (const role of ["sourcePackageOci", "literalConfigOci"]) {
+      check(
+        delivery[role]?.status === "local-only" && !delivery[role].receipt,
+        `${name}: delivery.${role} says ${delivery[role]?.status ?? "nothing"}, and the generation receipt records public OCI publication as not-run`,
+      );
+    }
+    check(
+      record.spec.source.packageOciRef === "",
+      `${name}: claims a published source package (${record.spec.source.packageOciRef}), and the generation receipt records public OCI publication as not-run`,
+    );
+    check(
+      record.status.level === "partial"
+        && record.status.limits.some((limit) => limit.includes("Nothing is published for this version"))
+        && !/publicly pullable|deliverable\b(?! until)/.test(record.status.claim),
+      `${name}: the status must stay partial and say nothing is published for this version`,
+    );
+  }
+  if (status.configHubUpload === "not-run") {
+    check(
+      delivery.configHubUpload?.status === "not-run"
+        && delivery.configHubReleaseOci?.status === "not-run"
+        && !record.spec.promotion,
+      `${name}: claims a ConfigHub upload, release or promotion, and the generation receipt records the upload as not-run`,
+    );
+    check(
+      delivery.argoCd === "not-run" && !/pass|reconciled|uploaded/.test(String(delivery.flux)),
+      `${name}: claims a delivery result (argoCd=${delivery.argoCd}), and the generation receipt records no upload and no delivery`,
+    );
+  }
+  for (const input of generation.spec?.sourceAndIntent?.newRequiredInputs ?? []) {
+    if (input.valueStatus !== "awaiting-maintainer-confirmation") continue;
+    check(
+      record.spec.inputs.fixedAtBuildTime.includes(`${input.input}=${input.value} (awaiting maintainer confirmation)`)
+        && record.spec.inputs.installTime.some(
+          (item) => item.name === input.input && item.status === "awaiting-maintainer-confirmation",
+        )
+        && record.status.limits.some(
+          (limit) => limit.includes(`${input.input}=${input.value}`) && limit.includes("awaits the maintainer's confirmation"),
+        ),
+      `${name}: the generation input ${input.input}=${input.value} awaits the maintainer's confirmation, and the record's inputs and limits must both say so`,
+    );
+  }
+}
+
 function lifecycleRecord(record, intent, legacyRouting) {
   const routes = Array.isArray(legacyRouting.routes) ? legacyRouting.routes : [];
   const targetFactEnvelope = legacyRouting.targetFacts ?? {};
@@ -5262,9 +5422,9 @@ function firstNonEmptyString(...values) {
 
 function ownershipRecord(record, intent, legacyRouting) {
   const source = record.spec.source;
-  const fieldPolicy = source.type === "aicr" && ["v0.19.0", "v0.20.0"].includes(source.version)
-    ? `examples/aicr/eks-h100-training-kubeflow-${source.version.replaceAll(".", "-")}/field-policy-assessment.yaml`
-    : "";
+  // An AICR entry that retains a field-policy assessment names it in its
+  // evidence, whatever its version.
+  const fieldPolicy = source.type === "aicr" ? String(record.spec.evidence?.fieldPolicy ?? "") : "";
   const targetSupplied = (legacyRouting.targetFacts?.requirements ?? []).map(
     (requirement) => String(requirement.name ?? requirement.category ?? "target input"),
   );

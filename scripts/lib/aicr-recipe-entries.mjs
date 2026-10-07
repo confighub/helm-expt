@@ -167,6 +167,14 @@ function candidateDirectories(root) {
     .sort();
 }
 
+// Every AICR recipe directory that holds rendered Applications, whatever its
+// receipt says about publication. The model verifier requires a record for
+// each of these, so a directory retained by hand is held to the same rule as a
+// mirrored one.
+export function listAicrRecipeDirectories(root = repoRoot) {
+  return candidateDirectories(root).filter((id) => listApplicationFiles(root, `${AICR_EXAMPLES_ROOT}/${id}`).length > 0);
+}
+
 function memberRowCounts(root) {
   const path = join(root, AICR_MEMBERS_CSV);
   const counts = new Map();

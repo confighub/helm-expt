@@ -4,7 +4,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 import { readYaml } from "./lib/proof-common.mjs";
-import { loadAicrRecipeEntries } from "./lib/aicr-recipe-entries.mjs";
+import { listAicrRecipeDirectories, loadAicrRecipeEntries } from "./lib/aicr-recipe-entries.mjs";
 
 const root = process.cwd();
 const read = (path) => readFileSync(join(root, path), "utf8");
@@ -460,6 +460,54 @@ for (const entry of aicrRecipeEntries) {
   );
 }
 
+// The same rule for the recipe directories that are retained by hand, whatever
+// stage they have reached: one record and one listing over the rendered
+// Applications, with a decided verdict and a recorded route. A directory whose
+// generation receipt records public publication as not-run may not read as
+// published in its listing.
+const retainedOfflineIds = new Set(aicrRecipeEntries.map((entry) => entry.id));
+const aicrRecipeDirectories = listAicrRecipeDirectories(root);
+let aicrRecipeDirectoriesWithRecord = 0;
+for (const id of aicrRecipeDirectories) {
+  const renderedRel = `examples/aicr/${id}/argocd-rendered`;
+  const matching = records.filter((record) => record.spec?.configuration?.objects === renderedRel);
+  requireCondition(
+    matching.length === 1,
+    `examples/aicr/${id}: expected exactly one Catalog record over ${renderedRel}, found ${matching.length}`,
+  );
+  if (matching.length !== 1) continue;
+  aicrRecipeDirectoriesWithRecord += 1;
+  if (retainedOfflineIds.has(id)) continue;
+  const record = matching[0];
+  const name = record.metadata?.name ?? "unnamed-record";
+  const flattening = record.spec?.processing?.flattening ?? {};
+  requireCondition(
+    flattening.status === "decided" && Boolean(flattening.record) && existsSync(join(root, flattening.record)),
+    `${name}: an AICR recipe entry is ${flattening.verdict ?? "missing a verdict"} with no decided flattening verdict on file`,
+  );
+  requireCondition(
+    record.spec?.lifecycle?.routeIntent?.status === "recorded",
+    `${name}: an AICR recipe entry must carry a recorded route intent`,
+  );
+  const listingPath = join(root, "site/listings", `${name}.json`);
+  requireCondition(existsSync(listingPath), `${name}: the entry has no listing at site/listings/${name}.json`);
+  if (!existsSync(listingPath)) continue;
+  const listing = JSON.parse(readFileSync(listingPath, "utf8"));
+  requireCondition(
+    listing.flattened?.verdict === flattening.verdict && listing.routing?.routeStatus === "recorded",
+    `${name}: the listing does not carry the decided verdict and the recorded route`,
+  );
+  const generation = readYaml(join(root, "examples/aicr", id, "generation-receipt.yaml"));
+  if (generation.status?.publicOciPublication === "not-run") {
+    requireCondition(
+      (listing.oci?.bundles ?? []).every((bundle) => bundle.state !== "published" && bundle.referenceState !== "published")
+        && (listing.oci?.runtimes ?? []).every((runtime) => ["not-run", "not-applicable", "not-recorded"].includes(runtime.state))
+        && record.status?.level === "partial",
+      `${name}: examples/aicr/${id}/generation-receipt.yaml records public OCI publication as not-run, and the entry reads as published or delivered`,
+    );
+  }
+}
+
 requireCondition(
   JSON.stringify(assessmentCases.stageOrder) === JSON.stringify(assessmentStageOrder),
   "cross-format assessment stage order changed",
@@ -613,5 +661,5 @@ const sourceSummary = [...sourceCounts.entries()]
   .map(([source, count]) => `${source}=${count}`)
   .join(", ");
 console.log(
-  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}; retained AICR recipe directories with their own record and listing=${aicrRecipeEntriesWithRecord}/${aicrRecipeEntries.length}`,
+  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}; retained AICR recipe directories with their own record and listing=${aicrRecipeEntriesWithRecord}/${aicrRecipeEntries.length}; all AICR recipe directories with one record=${aicrRecipeDirectoriesWithRecord}/${aicrRecipeDirectories.length}`,
 );
