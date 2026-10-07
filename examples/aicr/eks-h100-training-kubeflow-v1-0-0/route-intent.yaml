@@ -22,20 +22,28 @@ spec:
       was run for this entry. A reported difference is a fault only after the
       node is bound to the intended provider-curated variant and target role.
   targetFacts:
-    - fact: Argo CD and its Application CRD must exist before the retained wrapper objects can be applied.
+    - Argo CD and its Application CRD must exist before the retained wrapper objects can be applied.
+    - The destination must match the selected EKS, H100, Ubuntu, and Kubeflow training source variant.
+    - A gp3 StorageClass must be available for the selected storage input.
+    - Nodes that run system components must carry the label nodeGroup=system-worker.
+    - GPU nodes must carry nvidia.com/gpu.present=true before the node-tuning object is applied.
+    - The GPU driver, EFA device plugin, and node tuning must suit the actual node and network role.
+  targetFactBasis:
+    - fact: Argo CD and its Application CRD
       basis: Every retained object is an argoproj.io/v1alpha1 Application.
-    - fact: The destination must match the selected EKS, H100, Ubuntu, and Kubeflow training source variant.
+    - fact: source variant match
       basis: The recipe criteria and its constraints (Kubernetes >= 1.32.4, Ubuntu 24.04, kernel >= 6.8).
-    - fact: A gp3 StorageClass must be available.
+    - fact: gp3 StorageClass
       basis: The storageClass generation input.
-    - fact: Nodes that run system components must carry the label nodeGroup=system-worker.
+    - fact: nodeGroup=system-worker
+      newInVersion: v1.0.0
       basis: >-
         The systemNodeSelector generation input. It is written into the values
         of 12 of the 16 component Applications. A cluster without that label
         on any node leaves those components unschedulable. The value awaits
         the maintainer's confirmation; see generation-receipt.yaml.
+    - fact: nvidia.com/gpu.present=true before node tuning
       newInVersion: v1.0.0
-    - fact: GPU nodes must carry nvidia.com/gpu.present=true before the node-tuning object is applied.
       basis: >-
         The acceleratedNodeSelector generation input sets the NodeWright
         tuning selector to that label. The generated tuning template itself
@@ -44,8 +52,7 @@ spec:
         the selector matches no node until something else applies the label.
         Whether that matters depends on the destination and is not assessed
         here.
-      newInVersion: v1.0.0
-    - fact: The GPU driver, EFA device plugin, and node tuning must suit the actual node and network role.
+    - fact: driver, EFA, and node tuning
       basis: >-
         The gpu-operator values pin driver 580.173.02 with kernelModuleType
         auto and driver RDMA disabled. The aws-efa component is included. The
