@@ -2,10 +2,12 @@
 
 UNOFFICIAL/EXPERIMENTAL. This entry belongs to
 [the AICR catalog overview](./index.md). It was produced by
-`scripts/generate-aicr-from-overlay.mjs a100-aks-ubuntu-training-kubeflow`, the generator built
-to mirror any overlay from NVIDIA's AICR recipe catalog into a first-class
-entry at the same bar as this catalog's other entries: source pinned by
-digest, render checked, one digest over the whole rendered shape.
+`scripts/generate-aicr-from-overlay.mjs a100-aks-ubuntu-training-kubeflow`, which mirrors an
+overlay from NVIDIA's AICR recipe catalog into a Catalog entry. Its source is
+pinned by digest, its render is checked, and one digest covers the whole
+rendered shape. That shape is the Argo CD wrapper only. The charts its
+Applications point at are not rendered or assessed here, the entry is not
+published, and it has never run on a cluster.
 
 ## What it is
 
