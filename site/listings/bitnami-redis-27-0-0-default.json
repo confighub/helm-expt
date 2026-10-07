@@ -441,5 +441,164 @@
       }
     ],
     "attributes": []
-  }
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 14 objects in one file.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o bitnami-redis-27-0-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/redis/27.0.0/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 bitnami-redis-27-0-0-default.yaml",
+          "expect": "758467319ec109764b55ee730ba51a37a2196744f45f5c064f212bfc176178f0  bitnami-redis-27-0-0-default.yaml"
+        },
+        {
+          "comment": "render this base from the signed package; step 3 uploads this directory",
+          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6 --base default --work-dir ./bitnami-redis-27-0-0-default --non-interactive --namespace redis"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the reuse-existing-secret base of the same version",
+          "command": "curl -fsSL -o bitnami-redis-27-0-0-reuse-existing-secret.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what differs between the two bases",
+          "command": "cub config diff bitnami-redis-27-0-0-default.yaml bitnami-redis-27-0-0-reuse-existing-secret.yaml --summary"
+        },
+        {
+          "comment": "fetch the default base at version 25.5.3",
+          "command": "curl -fsSL -o bitnami-redis-25-5-3-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what changed from 25.5.3 to 27.0.0",
+          "command": "cub config diff bitnami-redis-25-5-3-default.yaml bitnami-redis-27-0-0-default.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "bitnami-redis-25-5-3-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-redis-25-5-3-default.json",
+          "version": "25.5.3",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "bitnami-redis-25-5-3-reuse-existing-secret",
+          "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-redis-25-5-3-reuse-existing-secret.json",
+          "version": "25.5.3",
+          "base": "reuse-existing-secret",
+          "relation": "other-version"
+        },
+        {
+          "id": "bitnami-redis-27-0-0-reuse-existing-secret",
+          "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-redis-27-0-0-reuse-existing-secret.json",
+          "version": "27.0.0",
+          "base": "reuse-existing-secret",
+          "relation": "other-base"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog saved this entry in ConfigHub. The commands use its signed installer package.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the directory rendered in step 1 as a Space of Units",
+          "command": "cub installer upload --work-dir ./bitnami-redis-27-0-0-default --space bitnami-redis-27-0-0-default",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "list the Units the upload created",
+          "command": "cub unit list --space bitnami-redis-27-0-0-default",
+          "needsAccount": true
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev bitnami-redis-27-0-0-default --target workshop/target --space-pattern \"template:bitnami-redis-27-0-0-default-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish bitnami-redis-27-0-0-default-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "alsoRecorded": "The coverage lanes record a local Kubernetes run and a GitOps OCI run for this base. They are separate from the delivery record this step reads."
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "partly-run-for-this-entry",
+      "summary": "A promotion ran for this entry and left a limit to review.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote bitnami-redis-27-0-0-default-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote bitnami-redis-27-0-0-default-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
+    }
+  ]
 }

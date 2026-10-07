@@ -444,5 +444,141 @@
       }
     ],
     "attributes": []
-  }
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 20 objects in one file.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o aws-controllers-k8s-eks-chart-1-16-3-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 aws-controllers-k8s-eks-chart-1-16-3-default.yaml",
+          "expect": "3fe09ae2024abed56f4c85fa918c2950dc8fddc677cec46dc69b681cd43bc3a9  aws-controllers-k8s-eks-chart-1-16-3-default.yaml"
+        },
+        {
+          "comment": "render this base from the signed package; step 3 uploads this directory",
+          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:eb94b9abf66765bdab5f22a07d826f4ef60de76ce241e052d633fc9a512775a4 --base default --work-dir ./aws-controllers-k8s-eks-chart-1-16-3-default --non-interactive --namespace ack-system"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the eks-inference base of the same version",
+          "command": "curl -fsSL -o aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what differs between the two bases",
+          "command": "cub config diff aws-controllers-k8s-eks-chart-1-16-3-default.yaml aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "aws-controllers-k8s-eks-chart-1-16-3-eks-inference",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aws-controllers-k8s-eks-chart-1-16-3-eks-inference.json",
+          "version": "1.16.3",
+          "base": "eks-inference",
+          "relation": "other-base"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its signed installer package.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the directory rendered in step 1 as a Space of Units",
+          "command": "cub installer upload --work-dir ./aws-controllers-k8s-eks-chart-1-16-3-default --space aws-controllers-k8s-eks-chart-1-16-3-default",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "list the Units the upload created",
+          "command": "cub unit list --space aws-controllers-k8s-eks-chart-1-16-3-default",
+          "needsAccount": true
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev aws-controllers-k8s-eks-chart-1-16-3-default --target workshop/target --space-pattern \"template:aws-controllers-k8s-eks-chart-1-16-3-default-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish aws-controllers-k8s-eks-chart-1-16-3-default-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote aws-controllers-k8s-eks-chart-1-16-3-default-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote aws-controllers-k8s-eks-chart-1-16-3-default-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
+    }
+  ]
 }

@@ -477,5 +477,128 @@
       }
     ],
     "attributes": []
-  }
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 29 objects as files that one inventory lists.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "make the directories the inventory names",
+          "command": "mkdir -p aicr-eks-h100-training-kubeflow-v0-14-0-base aicr-eks-h100-training-kubeflow-v0-14-0-base/aws-ebs-csi-driver aicr-eks-h100-training-kubeflow-v0-14-0-base/aws-efa aicr-eks-h100-training-kubeflow-v0-14-0-base/cert-manager aicr-eks-h100-training-kubeflow-v0-14-0-base/gpu-operator aicr-eks-h100-training-kubeflow-v0-14-0-base/k8s-ephemeral-storage-metrics aicr-eks-h100-training-kubeflow-v0-14-0-base/kai-scheduler aicr-eks-h100-training-kubeflow-v0-14-0-base/kube-prometheus-stack aicr-eks-h100-training-kubeflow-v0-14-0-base/kubeflow-trainer aicr-eks-h100-training-kubeflow-v0-14-0-base/kubeflow-trainer-post aicr-eks-h100-training-kubeflow-v0-14-0-base/kubeflow-trainer-post/templates/components/kubeflow-trainer/manifests aicr-eks-h100-training-kubeflow-v0-14-0-base/nfd aicr-eks-h100-training-kubeflow-v0-14-0-base/nodewright-customizations aicr-eks-h100-training-kubeflow-v0-14-0-base/nodewright-customizations/templates/components/nodewright-customizations/manifests aicr-eks-h100-training-kubeflow-v0-14-0-base/nodewright-operator aicr-eks-h100-training-kubeflow-v0-14-0-base/nvidia-dra-driver-gpu aicr-eks-h100-training-kubeflow-v0-14-0-base/nvsentinel aicr-eks-h100-training-kubeflow-v0-14-0-base/prometheus-adapter aicr-eks-h100-training-kubeflow-v0-14-0-base/prometheus-operator-crds aicr-eks-h100-training-kubeflow-v0-14-0-base/sources"
+        },
+        {
+          "comment": "fetch the inventory, then every file it lists",
+          "command": "curl -fsSL -o aicr-eks-h100-training-kubeflow-v0-14-0-base/checksums.txt https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt"
+        },
+        {
+          "command": "cut -c67- aicr-eks-h100-training-kubeflow-v0-14-0-base/checksums.txt | xargs -I{} curl -fsSL -o aicr-eks-h100-training-kubeflow-v0-14-0-base/{} https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/{}"
+        },
+        {
+          "comment": "check every file against the inventory",
+          "command": "(cd aicr-eks-h100-training-kubeflow-v0-14-0-base && shasum -a 256 -c checksums.txt)"
+        },
+        {
+          "comment": "check the inventory against the listing digest",
+          "command": "shasum -a 256 aicr-eks-h100-training-kubeflow-v0-14-0-base/checksums.txt",
+          "expect": "6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104  aicr-eks-h100-training-kubeflow-v0-14-0-base/checksums.txt"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-available",
+      "summary": "The other Catalog entries for this source retain a different object shape, so no object comparison is given.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [],
+      "unblock": "A sibling retained in the same shape as this entry would make this step available.",
+      "siblings": [
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.json",
+          "version": "v0.14.0",
+          "base": "argocd",
+          "relation": "other-base"
+        },
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v0-18-0-argocd",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-18-0-argocd.json",
+          "version": "v0.18.0",
+          "base": "argocd",
+          "relation": "other-version"
+        },
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v0-19-0-argocd",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-19-0-argocd.json",
+          "version": "v0.19.0",
+          "base": "argocd",
+          "relation": "other-version"
+        },
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v0-20-0-argocd",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.json",
+          "version": "v0.20.0",
+          "base": "argocd",
+          "relation": "other-version"
+        },
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v1-0-0-argocd",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json",
+          "version": "v1.0.0",
+          "base": "argocd",
+          "relation": "other-version"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "not-available",
+      "summary": "This entry is not published, so there is no public artifact to upload.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [],
+      "unblock": "The listing records its literal configuration bundle as held only as a local layout. Publishing the rendered objects as that bundle, with a receipt, would make this step available."
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "partly-run-for-this-entry",
+      "summary": "A delivery is partly recorded for this entry, and no run has passed. Argo CD has not run, Flux is partly recorded, and kubectl has no record.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": []
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-available",
+      "summary": "This step needs the upload in step 3, which is not available for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [],
+      "unblock": "Publishing the entry, as step 3 describes, would make this step available."
+    }
+  ]
 }

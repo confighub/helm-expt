@@ -419,5 +419,164 @@
       }
     ],
     "attributes": []
-  }
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o traefik-traefik-40-2-0-no-crds.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 traefik-traefik-40-2-0-no-crds.yaml",
+          "expect": "9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce  traefik-traefik-40-2-0-no-crds.yaml"
+        },
+        {
+          "comment": "render this base from the signed package; step 3 uploads this directory",
+          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:b127b8df699116a6e6252bcf5a1199c2a32640b7e99de2e45fd507dd29022535 --base no-crds --work-dir ./traefik-traefik-40-2-0-no-crds --non-interactive --namespace default"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the default base of the same version",
+          "command": "curl -fsSL -o traefik-traefik-40-2-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/traefik/traefik/40.2.0/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what differs between the two bases",
+          "command": "cub config diff traefik-traefik-40-2-0-no-crds.yaml traefik-traefik-40-2-0-default.yaml --summary"
+        },
+        {
+          "comment": "fetch the default base at version 41.0.2",
+          "command": "curl -fsSL -o traefik-traefik-41-0-2-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what changes from 40.2.0 to 41.0.2",
+          "command": "cub config diff traefik-traefik-40-2-0-no-crds.yaml traefik-traefik-41-0-2-default.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "traefik-traefik-40-2-0-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/traefik-traefik-40-2-0-default.json",
+          "version": "40.2.0",
+          "base": "default",
+          "relation": "other-base"
+        },
+        {
+          "id": "traefik-traefik-41-0-2-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/traefik-traefik-41-0-2-default.json",
+          "version": "41.0.2",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "traefik-traefik-41-4-0-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/traefik-traefik-41-4-0-default.json",
+          "version": "41.4.0",
+          "base": "default",
+          "relation": "other-version"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog saved this entry in ConfigHub. The commands use its signed installer package.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the directory rendered in step 1 as a Space of Units",
+          "command": "cub installer upload --work-dir ./traefik-traefik-40-2-0-no-crds --space traefik-traefik-40-2-0-no-crds",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "list the Units the upload created",
+          "command": "cub unit list --space traefik-traefik-40-2-0-no-crds",
+          "needsAccount": true
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev traefik-traefik-40-2-0-no-crds --target workshop/target --space-pattern \"template:traefik-traefik-40-2-0-no-crds-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish traefik-traefik-40-2-0-no-crds-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "alsoRecorded": "The coverage lanes record a local Kubernetes run for this base. They are separate from the delivery record this step reads."
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "run-for-this-entry",
+      "summary": "A promotion ran for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote traefik-traefik-40-2-0-no-crds-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote traefik-traefik-40-2-0-no-crds-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
+    }
+  ]
 }

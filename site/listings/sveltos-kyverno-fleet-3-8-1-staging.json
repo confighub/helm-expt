@@ -617,5 +617,83 @@
         "value": "clusterprofile"
       }
     ]
-  }
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog retains its 1 object in one file, exactly as supplied.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o sveltos-kyverno-fleet-3-8-1-staging.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 sveltos-kyverno-fleet-3-8-1-staging.yaml",
+          "expect": "1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396  sveltos-kyverno-fleet-3-8-1-staging.yaml"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-available",
+      "summary": "This entry has no other version or base in the Catalog.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [],
+      "unblock": "A second retained version or base of kyverno-fleet would give this step a sibling."
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "partly-run-for-this-entry",
+      "summary": "The record holds a local, temporary or separately recorded upload for this entry, and no retained one. The listing names no public artifact for it, so no upload command is given.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": []
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "run-for-this-entry",
+      "summary": "A delivery run passed for this entry. Argo CD passed, Flux does not apply, and kubectl has no record.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [],
+      "needs": [
+        "management cluster",
+        "workload cluster registration"
+      ]
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-available",
+      "summary": "This step needs the upload in step 3, which is not available for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [],
+      "unblock": "Publishing the entry, as step 3 describes, would make this step available."
+    }
+  ]
 }

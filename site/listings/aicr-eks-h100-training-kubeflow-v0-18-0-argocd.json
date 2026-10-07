@@ -524,5 +524,156 @@
         "value": "retained-and-rendered-not-published-not-deployed"
       }
     ]
-  }
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 17 Argo CD Applications as files that one inventory lists.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "make the directories the inventory names",
+          "command": "mkdir -p aicr-eks-h100-training-kubeflow-v0-18-0-argocd/templates"
+        },
+        {
+          "comment": "fetch the inventory, then every file it lists",
+          "command": "curl -fsSL -o aicr-eks-h100-training-kubeflow-v0-18-0-argocd/checksums.txt https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/checksums.txt"
+        },
+        {
+          "command": "cut -c67- aicr-eks-h100-training-kubeflow-v0-18-0-argocd/checksums.txt | xargs -I{} curl -fsSL -o aicr-eks-h100-training-kubeflow-v0-18-0-argocd/{} https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/{}"
+        },
+        {
+          "comment": "check every file against the inventory",
+          "command": "(cd aicr-eks-h100-training-kubeflow-v0-18-0-argocd && shasum -a 256 -c checksums.txt)"
+        },
+        {
+          "comment": "check the inventory against the listing digest",
+          "command": "shasum -a 256 aicr-eks-h100-training-kubeflow-v0-18-0-argocd/checksums.txt",
+          "expect": "3be7f77a32b1b09677a2b468606a0e0abe8bfa729e687ffd5eb3b8d4bc97771e  aicr-eks-h100-training-kubeflow-v0-18-0-argocd/checksums.txt"
+        },
+        {
+          "comment": "join the files into one for step 2",
+          "command": "cat aicr-eks-h100-training-kubeflow-v0-18-0-argocd/templates/*.yaml > aicr-eks-h100-training-kubeflow-v0-18-0-argocd.yaml"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the argocd base at version v0.14.0",
+          "command": "mkdir -p aicr-eks-h100-training-kubeflow-v0-14-0-argocd/templates"
+        },
+        {
+          "command": "curl -fsSL -o aicr-eks-h100-training-kubeflow-v0-14-0-argocd/checksums.txt https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt"
+        },
+        {
+          "command": "cut -c67- aicr-eks-h100-training-kubeflow-v0-14-0-argocd/checksums.txt | xargs -I{} curl -fsSL -o aicr-eks-h100-training-kubeflow-v0-14-0-argocd/{} https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/eks-h100-training-kubeflow/argocd-rendered/{}"
+        },
+        {
+          "comment": "join them into one file",
+          "command": "cat aicr-eks-h100-training-kubeflow-v0-14-0-argocd/templates/*.yaml > aicr-eks-h100-training-kubeflow-v0-14-0-argocd.yaml"
+        },
+        {
+          "comment": "list what changed from v0.14.0 to v0.18.0",
+          "command": "cub config diff aicr-eks-h100-training-kubeflow-v0-14-0-argocd.yaml aicr-eks-h100-training-kubeflow-v0-18-0-argocd.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.json",
+          "version": "v0.14.0",
+          "base": "argocd",
+          "relation": "other-version"
+        },
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v0-14-0-base",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-14-0-base.json",
+          "version": "v0.14.0",
+          "base": "base",
+          "relation": "other-version"
+        },
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v0-19-0-argocd",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-19-0-argocd.json",
+          "version": "v0.19.0",
+          "base": "argocd",
+          "relation": "other-version"
+        },
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v0-20-0-argocd",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.json",
+          "version": "v0.20.0",
+          "base": "argocd",
+          "relation": "other-version"
+        },
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v1-0-0-argocd",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json",
+          "version": "v1.0.0",
+          "base": "argocd",
+          "relation": "other-version"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "not-available",
+      "summary": "This entry is not published, so there is no public artifact to upload.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [],
+      "unblock": "The listing records its literal configuration bundle as not published. Publishing the rendered objects as that bundle, with a receipt, would make this step available."
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-available",
+      "summary": "This step needs the upload in step 3, which is not available for this entry.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [],
+      "unblock": "Publishing the entry, as step 3 describes, would make this step available.",
+      "needs": [
+        "argo-cd-application-api",
+        "aicr-bundle-source-package",
+        "recipe-criteria"
+      ]
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-available",
+      "summary": "This step needs the upload in step 3, which is not available for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [],
+      "unblock": "Publishing the entry, as step 3 describes, would make this step available."
+    }
+  ]
 }

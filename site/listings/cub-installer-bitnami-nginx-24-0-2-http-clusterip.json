@@ -449,5 +449,81 @@
       }
     ],
     "attributes": []
-  }
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 5 objects in one file.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o cub-installer-bitnami-nginx-24-0-2-http-clusterip.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 cub-installer-bitnami-nginx-24-0-2-http-clusterip.yaml",
+          "expect": "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba  cub-installer-bitnami-nginx-24-0-2-http-clusterip.yaml"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-available",
+      "summary": "This entry has no other version or base in the Catalog.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [],
+      "unblock": "A second retained version or base of bitnami/nginx would give this step a sibling."
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "partly-run-for-this-entry",
+      "summary": "The record holds a local, temporary or separately recorded upload for this entry, and no retained one. The listing names no public artifact for it, so no upload command is given.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": []
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "partly-run-for-this-entry",
+      "summary": "A delivery is partly recorded for this entry, and no run has passed. Argo CD is recorded for a related object set, Flux is recorded for a related object set, and kubectl is recorded for a related object set.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [],
+      "receipt": "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml",
+      "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml"
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-available",
+      "summary": "This step needs the upload in step 3, which is not available for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [],
+      "unblock": "Publishing the entry, as step 3 describes, would make this step available."
+    }
+  ]
 }

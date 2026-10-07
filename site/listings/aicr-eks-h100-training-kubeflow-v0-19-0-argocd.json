@@ -671,5 +671,202 @@
       }
     ],
     "attributes": []
-  }
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 17 Argo CD Applications as files that one inventory lists.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "make the directories the inventory names",
+          "command": "mkdir -p aicr-eks-h100-training-kubeflow-v0-19-0-argocd/templates"
+        },
+        {
+          "comment": "fetch the inventory, then every file it lists",
+          "command": "curl -fsSL -o aicr-eks-h100-training-kubeflow-v0-19-0-argocd/checksums.txt https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/checksums.txt"
+        },
+        {
+          "command": "cut -c67- aicr-eks-h100-training-kubeflow-v0-19-0-argocd/checksums.txt | xargs -I{} curl -fsSL -o aicr-eks-h100-training-kubeflow-v0-19-0-argocd/{} https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/{}"
+        },
+        {
+          "comment": "check every file against the inventory",
+          "command": "(cd aicr-eks-h100-training-kubeflow-v0-19-0-argocd && shasum -a 256 -c checksums.txt)"
+        },
+        {
+          "comment": "check the inventory against the listing digest",
+          "command": "shasum -a 256 aicr-eks-h100-training-kubeflow-v0-19-0-argocd/checksums.txt",
+          "expect": "0825f8ba4888da84810184289cb1b0e0313b11f8f7414a4e91bae37fff5b7b94  aicr-eks-h100-training-kubeflow-v0-19-0-argocd/checksums.txt"
+        },
+        {
+          "comment": "join the files into one for step 2",
+          "command": "cat aicr-eks-h100-training-kubeflow-v0-19-0-argocd/templates/*.yaml > aicr-eks-h100-training-kubeflow-v0-19-0-argocd.yaml"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the argocd base at version v0.18.0",
+          "command": "mkdir -p aicr-eks-h100-training-kubeflow-v0-18-0-argocd/templates"
+        },
+        {
+          "command": "curl -fsSL -o aicr-eks-h100-training-kubeflow-v0-18-0-argocd/checksums.txt https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/checksums.txt"
+        },
+        {
+          "command": "cut -c67- aicr-eks-h100-training-kubeflow-v0-18-0-argocd/checksums.txt | xargs -I{} curl -fsSL -o aicr-eks-h100-training-kubeflow-v0-18-0-argocd/{} https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/{}"
+        },
+        {
+          "comment": "join them into one file",
+          "command": "cat aicr-eks-h100-training-kubeflow-v0-18-0-argocd/templates/*.yaml > aicr-eks-h100-training-kubeflow-v0-18-0-argocd.yaml"
+        },
+        {
+          "comment": "list what changed from v0.18.0 to v0.19.0",
+          "command": "cub config diff aicr-eks-h100-training-kubeflow-v0-18-0-argocd.yaml aicr-eks-h100-training-kubeflow-v0-19-0-argocd.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.json",
+          "version": "v0.14.0",
+          "base": "argocd",
+          "relation": "other-version"
+        },
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v0-14-0-base",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-14-0-base.json",
+          "version": "v0.14.0",
+          "base": "base",
+          "relation": "other-version"
+        },
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v0-18-0-argocd",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-18-0-argocd.json",
+          "version": "v0.18.0",
+          "base": "argocd",
+          "relation": "other-version"
+        },
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v0-20-0-argocd",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.json",
+          "version": "v0.20.0",
+          "base": "argocd",
+          "relation": "other-version"
+        },
+        {
+          "id": "aicr-eks-h100-training-kubeflow-v1-0-0-argocd",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json",
+          "version": "v1.0.0",
+          "base": "argocd",
+          "relation": "other-version"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog saved this entry in ConfigHub. The commands use its published literal configuration bundle.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "preview the upload of the published bundle; nothing is written",
+          "command": "cub variant upload --dry-run --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-19-0-argocd oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.19.0",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the bundle as a base Space of Units",
+          "command": "cub variant upload --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-19-0-argocd oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.19.0",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-upload-receipt.yaml",
+      "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-upload-receipt.yaml"
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "partly-run-for-this-entry",
+      "summary": "A delivery is partly recorded for this entry, and no run has passed. Argo CD is partly recorded, Flux does not apply, and kubectl has no record.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev aicr-eks-h100-training-kubeflow-v0-19-0-argocd --target workshop/target --space-pattern \"template:aicr-eks-h100-training-kubeflow-v0-19-0-argocd-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish aicr-eks-h100-training-kubeflow-v0-19-0-argocd-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "needs": [
+        "aicr-target-fact-1",
+        "aicr-target-fact-2",
+        "aicr-target-fact-3",
+        "aicr-target-fact-4"
+      ],
+      "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-release-oci-receipt.yaml",
+      "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-release-oci-receipt.yaml"
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "run-for-this-entry",
+      "summary": "A promotion ran for this entry. It followed base to development to staging.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote aicr-eks-h100-training-kubeflow-v0-19-0-argocd-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote aicr-eks-h100-training-kubeflow-v0-19-0-argocd-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/promotion-readiness-receipt.yaml",
+      "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow-v0-19-0/promotion-readiness-receipt.yaml"
+    }
+  ]
 }

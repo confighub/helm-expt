@@ -426,5 +426,149 @@
       }
     ],
     "attributes": []
-  }
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml",
+          "expect": "8e3b831abefa8ca2b8754e4beb16fbc1e369965dc95b8f83e1de76cd8f2a3e62  external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml"
+        },
+        {
+          "comment": "render this base from the signed package; step 3 uploads this directory",
+          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9 --base dry-run-txt-registry --work-dir ./external-dns-external-dns-1-21-1-dry-run-txt-registry --non-interactive --namespace default"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the default base of the same version",
+          "command": "curl -fsSL -o external-dns-external-dns-1-21-1-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/external-dns/external-dns/1.21.1/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what differs between the two bases",
+          "command": "cub config diff external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml external-dns-external-dns-1-21-1-default.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "external-dns-external-dns-1-21-1-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/external-dns-external-dns-1-21-1-default.json",
+          "version": "1.21.1",
+          "base": "default",
+          "relation": "other-base"
+        },
+        {
+          "id": "external-dns-external-dns-1-21-1-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/external-dns-external-dns-1-21-1-no-crds.json",
+          "version": "1.21.1",
+          "base": "no-crds",
+          "relation": "other-base"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog saved this entry in ConfigHub. The commands use its signed installer package.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the directory rendered in step 1 as a Space of Units",
+          "command": "cub installer upload --work-dir ./external-dns-external-dns-1-21-1-dry-run-txt-registry --space external-dns-external-dns-1-21-1-dry-run-txt-registry",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "list the Units the upload created",
+          "command": "cub unit list --space external-dns-external-dns-1-21-1-dry-run-txt-registry",
+          "needsAccount": true
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev external-dns-external-dns-1-21-1-dry-run-txt-registry --target workshop/target --space-pattern \"template:external-dns-external-dns-1-21-1-dry-run-txt-registry-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish external-dns-external-dns-1-21-1-dry-run-txt-registry-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "alsoRecorded": "The coverage lanes record a local Kubernetes run and a GitOps OCI run for this base. They are separate from the delivery record this step reads."
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "run-for-this-entry",
+      "summary": "A promotion ran for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote external-dns-external-dns-1-21-1-dry-run-txt-registry-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote external-dns-external-dns-1-21-1-dry-run-txt-registry-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
+    }
+  ]
 }
