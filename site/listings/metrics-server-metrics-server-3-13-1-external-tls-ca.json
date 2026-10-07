@@ -192,12 +192,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component metrics-server-metrics-server --variant external-tls-ca --space metrics-server-metrics-server-3-13-1-external-tls-ca --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:212865947af7715d777769dc65712ce8713c725c8ab9e805f8db55d2e345f537 ./rendered",
+          "command": "cub variant upload --dry-run --component metrics-server-metrics-server --variant external-tls-ca --space metrics-server-metrics-server-3-13-1-external-tls-ca --unit-annotation workshop.confighub.com/object-set-sha256=sha256:212865947af7715d777769dc65712ce8713c725c8ab9e805f8db55d2e345f537 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component metrics-server-metrics-server --variant external-tls-ca --space metrics-server-metrics-server-3-13-1-external-tls-ca --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:212865947af7715d777769dc65712ce8713c725c8ab9e805f8db55d2e345f537 ./rendered",
+          "command": "cub variant upload --component metrics-server-metrics-server --variant external-tls-ca --space metrics-server-metrics-server-3-13-1-external-tls-ca --unit-annotation workshop.confighub.com/object-set-sha256=sha256:212865947af7715d777769dc65712ce8713c725c8ab9e805f8db55d2e345f537 ./rendered",
           "writes": true
         },
         {

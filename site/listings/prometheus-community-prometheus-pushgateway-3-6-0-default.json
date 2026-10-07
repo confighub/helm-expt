@@ -209,12 +209,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-pushgateway --variant default --space prometheus-community-prometheus-pushgateway-3-6-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:80cb018f0b277814e17ca7208be55ef10ed74288a258a6519e7bbcf088a9f450 ./rendered",
+          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-pushgateway --variant default --space prometheus-community-prometheus-pushgateway-3-6-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:80cb018f0b277814e17ca7208be55ef10ed74288a258a6519e7bbcf088a9f450 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component prometheus-community-prometheus-pushgateway --variant default --space prometheus-community-prometheus-pushgateway-3-6-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:80cb018f0b277814e17ca7208be55ef10ed74288a258a6519e7bbcf088a9f450 ./rendered",
+          "command": "cub variant upload --component prometheus-community-prometheus-pushgateway --variant default --space prometheus-community-prometheus-pushgateway-3-6-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:80cb018f0b277814e17ca7208be55ef10ed74288a258a6519e7bbcf088a9f450 ./rendered",
           "writes": true
         },
         {

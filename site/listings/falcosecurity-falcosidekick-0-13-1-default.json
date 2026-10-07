@@ -185,12 +185,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component falcosecurity-falcosidekick --variant default --space falcosecurity-falcosidekick-0-13-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:7a657f26e36fdc7b72d0ec1ba0831010739e3f84677af99e7397a500a414d0b4 ./rendered",
+          "command": "cub variant upload --dry-run --component falcosecurity-falcosidekick --variant default --space falcosecurity-falcosidekick-0-13-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:7a657f26e36fdc7b72d0ec1ba0831010739e3f84677af99e7397a500a414d0b4 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component falcosecurity-falcosidekick --variant default --space falcosecurity-falcosidekick-0-13-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:7a657f26e36fdc7b72d0ec1ba0831010739e3f84677af99e7397a500a414d0b4 ./rendered",
+          "command": "cub variant upload --component falcosecurity-falcosidekick --variant default --space falcosecurity-falcosidekick-0-13-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:7a657f26e36fdc7b72d0ec1ba0831010739e3f84677af99e7397a500a414d0b4 ./rendered",
           "writes": true
         },
         {

@@ -192,12 +192,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component bitnami-redis --variant default --space bitnami-redis-25-5-3-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e ./rendered",
+          "command": "cub variant upload --dry-run --component bitnami-redis --variant default --space bitnami-redis-25-5-3-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component bitnami-redis --variant default --space bitnami-redis-25-5-3-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e ./rendered",
+          "command": "cub variant upload --component bitnami-redis --variant default --space bitnami-redis-25-5-3-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e ./rendered",
           "writes": true
         },
         {

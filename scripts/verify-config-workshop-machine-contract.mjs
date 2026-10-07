@@ -235,7 +235,8 @@ for (const example of commandContract.spec.examples) {
   check(example.stages.check.command.startsWith("cub check "), `${example.id}: shared check must use the released cub check command`);
   check(example.stages.retain.dryRun.includes("cub variant upload --dry-run --component"), `${example.id}: retention must start with a complete dry run`);
   check(example.stages.retain.dryRun.includes(`workshop.confighub.com/object-set-sha256=${example.acceptedObjectSet.sha256}`), `${example.id}: retention must carry the accepted object-set hash`);
-  check(example.stages.retain.bindAcceptedIdentity.includes("cub unit update"), `${example.id}: retention must bind the accepted identity after upload`);
+  check(example.stages.retain.execute.includes(`--unit-annotation workshop.confighub.com/object-set-sha256=${example.acceptedObjectSet.sha256}`), `${example.id}: the upload must set the accepted identity on the Units it writes`);
+  check(!("bindAcceptedIdentity" in example.stages.retain), `${example.id}: the upload sets the accepted identity, so no separate binding command belongs here`);
   check(example.stages.vary.command.includes("--space-pattern template:"), `${example.id}: variant creation must use current released cub syntax`);
   check(example.stages.promote.command.includes("cub variant promote") && example.stages.promote.command.includes("--dry-run -o mutations"), `${example.id}: promotion must remain a dry-run preview`);
   check(example.stages.release.status === "requires-release-target-and-gates", `${example.id}: release publication must name its target and gate prerequisites`);

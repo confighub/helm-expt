@@ -204,12 +204,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component linkerd-linkerd-crds --variant default --space linkerd-linkerd-crds-1-8-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b ./rendered",
+          "command": "cub variant upload --dry-run --component linkerd-linkerd-crds --variant default --space linkerd-linkerd-crds-1-8-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component linkerd-linkerd-crds --variant default --space linkerd-linkerd-crds-1-8-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b ./rendered",
+          "command": "cub variant upload --component linkerd-linkerd-crds --variant default --space linkerd-linkerd-crds-1-8-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b ./rendered",
           "writes": true
         },
         {

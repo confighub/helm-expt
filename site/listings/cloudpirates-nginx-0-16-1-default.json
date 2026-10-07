@@ -185,12 +185,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component cloudpirates-nginx --variant default --space cloudpirates-nginx-0-16-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:0ab5bf40e30391f43bb673d8e3f97c3d427ae2b2dda8d007dfd38464ad820e9b ./rendered",
+          "command": "cub variant upload --dry-run --component cloudpirates-nginx --variant default --space cloudpirates-nginx-0-16-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:0ab5bf40e30391f43bb673d8e3f97c3d427ae2b2dda8d007dfd38464ad820e9b ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component cloudpirates-nginx --variant default --space cloudpirates-nginx-0-16-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:0ab5bf40e30391f43bb673d8e3f97c3d427ae2b2dda8d007dfd38464ad820e9b ./rendered",
+          "command": "cub variant upload --component cloudpirates-nginx --variant default --space cloudpirates-nginx-0-16-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:0ab5bf40e30391f43bb673d8e3f97c3d427ae2b2dda8d007dfd38464ad820e9b ./rendered",
           "writes": true
         },
         {

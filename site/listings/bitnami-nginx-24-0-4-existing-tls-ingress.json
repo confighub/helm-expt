@@ -192,12 +192,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component bitnami-nginx --variant existing-tls-ingress --space bitnami-nginx-24-0-4-existing-tls-ingress --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f ./rendered",
+          "command": "cub variant upload --dry-run --component bitnami-nginx --variant existing-tls-ingress --space bitnami-nginx-24-0-4-existing-tls-ingress --unit-annotation workshop.confighub.com/object-set-sha256=sha256:35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component bitnami-nginx --variant existing-tls-ingress --space bitnami-nginx-24-0-4-existing-tls-ingress --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f ./rendered",
+          "command": "cub variant upload --component bitnami-nginx --variant existing-tls-ingress --space bitnami-nginx-24-0-4-existing-tls-ingress --unit-annotation workshop.confighub.com/object-set-sha256=sha256:35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f ./rendered",
           "writes": true
         },
         {

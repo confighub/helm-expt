@@ -191,12 +191,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component bitnami-apache --variant legacy --space bitnami-apache-11-4-29-legacy --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:1d068da0bd7af6230de4a414eb9abc70a895f63cfd7d79f5591d6951ece06399 ./rendered",
+          "command": "cub variant upload --dry-run --component bitnami-apache --variant legacy --space bitnami-apache-11-4-29-legacy --unit-annotation workshop.confighub.com/object-set-sha256=sha256:1d068da0bd7af6230de4a414eb9abc70a895f63cfd7d79f5591d6951ece06399 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component bitnami-apache --variant legacy --space bitnami-apache-11-4-29-legacy --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:1d068da0bd7af6230de4a414eb9abc70a895f63cfd7d79f5591d6951ece06399 ./rendered",
+          "command": "cub variant upload --component bitnami-apache --variant legacy --space bitnami-apache-11-4-29-legacy --unit-annotation workshop.confighub.com/object-set-sha256=sha256:1d068da0bd7af6230de4a414eb9abc70a895f63cfd7d79f5591d6951ece06399 ./rendered",
           "writes": true
         },
         {

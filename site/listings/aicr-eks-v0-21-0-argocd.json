@@ -169,12 +169,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component eks --variant argocd --space aicr-eks-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:15ae7fa22dac28d649dafc7538fa6b0804906931b874ebc09d62449edc823c15 ./rendered",
+          "command": "cub variant upload --dry-run --component eks --variant argocd --space aicr-eks-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:15ae7fa22dac28d649dafc7538fa6b0804906931b874ebc09d62449edc823c15 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component eks --variant argocd --space aicr-eks-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:15ae7fa22dac28d649dafc7538fa6b0804906931b874ebc09d62449edc823c15 ./rendered",
+          "command": "cub variant upload --component eks --variant argocd --space aicr-eks-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:15ae7fa22dac28d649dafc7538fa6b0804906931b874ebc09d62449edc823c15 ./rendered",
           "writes": true
         },
         {

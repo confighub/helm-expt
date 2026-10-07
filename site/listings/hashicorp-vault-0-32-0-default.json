@@ -227,12 +227,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component hashicorp-vault --variant default --space hashicorp-vault-0-32-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978 ./rendered",
+          "command": "cub variant upload --dry-run --component hashicorp-vault --variant default --space hashicorp-vault-0-32-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component hashicorp-vault --variant default --space hashicorp-vault-0-32-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978 ./rendered",
+          "command": "cub variant upload --component hashicorp-vault --variant default --space hashicorp-vault-0-32-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978 ./rendered",
           "writes": true
         },
         {

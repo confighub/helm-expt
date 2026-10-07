@@ -189,12 +189,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component grafana-alloy --variant default --space grafana-alloy-1-12-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:e3b30c75c9a0bc3241f42a8dde5d4b05371091c319ab5712fe30685234d17549 ./rendered",
+          "command": "cub variant upload --dry-run --component grafana-alloy --variant default --space grafana-alloy-1-12-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:e3b30c75c9a0bc3241f42a8dde5d4b05371091c319ab5712fe30685234d17549 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component grafana-alloy --variant default --space grafana-alloy-1-12-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:e3b30c75c9a0bc3241f42a8dde5d4b05371091c319ab5712fe30685234d17549 ./rendered",
+          "command": "cub variant upload --component grafana-alloy --variant default --space grafana-alloy-1-12-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:e3b30c75c9a0bc3241f42a8dde5d4b05371091c319ab5712fe30685234d17549 ./rendered",
           "writes": true
         },
         {

@@ -205,12 +205,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component aws-ebs-csi-driver-aws-ebs-csi-driver --variant default --space aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ae9f0b30339870e7bab818ea4eb299e5393416b5efd5053dd5800017373bb3a7 ./rendered",
+          "command": "cub variant upload --dry-run --component aws-ebs-csi-driver-aws-ebs-csi-driver --variant default --space aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ae9f0b30339870e7bab818ea4eb299e5393416b5efd5053dd5800017373bb3a7 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component aws-ebs-csi-driver-aws-ebs-csi-driver --variant default --space aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ae9f0b30339870e7bab818ea4eb299e5393416b5efd5053dd5800017373bb3a7 ./rendered",
+          "command": "cub variant upload --component aws-ebs-csi-driver-aws-ebs-csi-driver --variant default --space aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ae9f0b30339870e7bab818ea4eb299e5393416b5efd5053dd5800017373bb3a7 ./rendered",
           "writes": true
         },
         {

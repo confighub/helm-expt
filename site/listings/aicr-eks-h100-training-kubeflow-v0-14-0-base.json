@@ -174,12 +174,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component eks-h100-training-kubeflow --variant base --space aicr-eks-h100-training-kubeflow-v0-14-0-base --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104 ./rendered",
+          "command": "cub variant upload --dry-run --component eks-h100-training-kubeflow --variant base --space aicr-eks-h100-training-kubeflow-v0-14-0-base --unit-annotation workshop.confighub.com/object-set-sha256=sha256:6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component eks-h100-training-kubeflow --variant base --space aicr-eks-h100-training-kubeflow-v0-14-0-base --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104 ./rendered",
+          "command": "cub variant upload --component eks-h100-training-kubeflow --variant base --space aicr-eks-h100-training-kubeflow-v0-14-0-base --unit-annotation workshop.confighub.com/object-set-sha256=sha256:6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104 ./rendered",
           "writes": true
         },
         {

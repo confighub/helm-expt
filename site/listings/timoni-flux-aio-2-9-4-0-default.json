@@ -205,12 +205,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component flux-aio --variant default --space timoni-flux-aio-2-9-4-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:cb8a9a65993ca63c0e02a2fbd70240184691bec17678f0378b96842e8da28b24 ./rendered",
+          "command": "cub variant upload --dry-run --component flux-aio --variant default --space timoni-flux-aio-2-9-4-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:cb8a9a65993ca63c0e02a2fbd70240184691bec17678f0378b96842e8da28b24 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component flux-aio --variant default --space timoni-flux-aio-2-9-4-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:cb8a9a65993ca63c0e02a2fbd70240184691bec17678f0378b96842e8da28b24 ./rendered",
+          "command": "cub variant upload --component flux-aio --variant default --space timoni-flux-aio-2-9-4-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:cb8a9a65993ca63c0e02a2fbd70240184691bec17678f0378b96842e8da28b24 ./rendered",
           "writes": true
         },
         {

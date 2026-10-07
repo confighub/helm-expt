@@ -191,12 +191,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component jaegertracing-jaeger-operator --variant no-crds --space jaegertracing-jaeger-operator-2-57-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975 ./rendered",
+          "command": "cub variant upload --dry-run --component jaegertracing-jaeger-operator --variant no-crds --space jaegertracing-jaeger-operator-2-57-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component jaegertracing-jaeger-operator --variant no-crds --space jaegertracing-jaeger-operator-2-57-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975 ./rendered",
+          "command": "cub variant upload --component jaegertracing-jaeger-operator --variant no-crds --space jaegertracing-jaeger-operator-2-57-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975 ./rendered",
           "writes": true
         },
         {

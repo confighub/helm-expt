@@ -216,12 +216,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component argo-cd-argo-events --variant default --space argo-cd-argo-events-2-4-21-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b ./rendered",
+          "command": "cub variant upload --dry-run --component argo-cd-argo-events --variant default --space argo-cd-argo-events-2-4-21-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component argo-cd-argo-events --variant default --space argo-cd-argo-events-2-4-21-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b ./rendered",
+          "command": "cub variant upload --component argo-cd-argo-events --variant default --space argo-cd-argo-events-2-4-21-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b ./rendered",
           "writes": true
         },
         {

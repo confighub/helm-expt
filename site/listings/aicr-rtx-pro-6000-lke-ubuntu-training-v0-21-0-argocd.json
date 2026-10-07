@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component rtx-pro-6000-lke-ubuntu-training --variant argocd --space aicr-rtx-pro-6000-lke-ubuntu-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b135bf4360ab14e03a2bf9cef3e1a01943b1016e1d4ed2baf086ff9f9e30e25a ./rendered",
+          "command": "cub variant upload --dry-run --component rtx-pro-6000-lke-ubuntu-training --variant argocd --space aicr-rtx-pro-6000-lke-ubuntu-training-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b135bf4360ab14e03a2bf9cef3e1a01943b1016e1d4ed2baf086ff9f9e30e25a ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component rtx-pro-6000-lke-ubuntu-training --variant argocd --space aicr-rtx-pro-6000-lke-ubuntu-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b135bf4360ab14e03a2bf9cef3e1a01943b1016e1d4ed2baf086ff9f9e30e25a ./rendered",
+          "command": "cub variant upload --component rtx-pro-6000-lke-ubuntu-training --variant argocd --space aicr-rtx-pro-6000-lke-ubuntu-training-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b135bf4360ab14e03a2bf9cef3e1a01943b1016e1d4ed2baf086ff9f9e30e25a ./rendered",
           "writes": true
         },
         {

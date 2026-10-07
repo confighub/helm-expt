@@ -216,12 +216,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component metrics-server-metrics-server --variant default --space metrics-server-metrics-server-3-13-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51 ./rendered",
+          "command": "cub variant upload --dry-run --component metrics-server-metrics-server --variant default --space metrics-server-metrics-server-3-13-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component metrics-server-metrics-server --variant default --space metrics-server-metrics-server-3-13-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51 ./rendered",
+          "command": "cub variant upload --component metrics-server-metrics-server --variant default --space metrics-server-metrics-server-3-13-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51 ./rendered",
           "writes": true
         },
         {

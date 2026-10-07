@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component a100-oke-training --variant argocd --space aicr-a100-oke-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:105780222300b144aa899afba06982f670a3a0d86c463e8379559ef41ae3aa16 ./rendered",
+          "command": "cub variant upload --dry-run --component a100-oke-training --variant argocd --space aicr-a100-oke-training-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:105780222300b144aa899afba06982f670a3a0d86c463e8379559ef41ae3aa16 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component a100-oke-training --variant argocd --space aicr-a100-oke-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:105780222300b144aa899afba06982f670a3a0d86c463e8379559ef41ae3aa16 ./rendered",
+          "command": "cub variant upload --component a100-oke-training --variant argocd --space aicr-a100-oke-training-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:105780222300b144aa899afba06982f670a3a0d86c463e8379559ef41ae3aa16 ./rendered",
           "writes": true
         },
         {

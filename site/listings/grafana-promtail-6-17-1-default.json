@@ -220,12 +220,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component grafana-promtail --variant default --space grafana-promtail-6-17-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35 ./rendered",
+          "command": "cub variant upload --dry-run --component grafana-promtail --variant default --space grafana-promtail-6-17-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component grafana-promtail --variant default --space grafana-promtail-6-17-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35 ./rendered",
+          "command": "cub variant upload --component grafana-promtail --variant default --space grafana-promtail-6-17-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35 ./rendered",
           "writes": true
         },
         {

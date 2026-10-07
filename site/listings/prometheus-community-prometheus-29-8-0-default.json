@@ -236,12 +236,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component prometheus-community-prometheus --variant default --space prometheus-community-prometheus-29-8-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b ./rendered",
+          "command": "cub variant upload --dry-run --component prometheus-community-prometheus --variant default --space prometheus-community-prometheus-29-8-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component prometheus-community-prometheus --variant default --space prometheus-community-prometheus-29-8-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b ./rendered",
+          "command": "cub variant upload --component prometheus-community-prometheus --variant default --space prometheus-community-prometheus-29-8-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b ./rendered",
           "writes": true
         },
         {

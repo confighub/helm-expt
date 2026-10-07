@@ -216,12 +216,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant no-crds --space prometheus-community-kube-prometheus-stack-85-3-3-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2 ./rendered",
+          "command": "cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant no-crds --space prometheus-community-kube-prometheus-stack-85-3-3-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component prometheus-community-kube-prometheus-stack --variant no-crds --space prometheus-community-kube-prometheus-stack-85-3-3-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2 ./rendered",
+          "command": "cub variant upload --component prometheus-community-kube-prometheus-stack --variant no-crds --space prometheus-community-kube-prometheus-stack-85-3-3-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2 ./rendered",
           "writes": true
         },
         {

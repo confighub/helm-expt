@@ -187,12 +187,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component istio-gateway --variant controller-default-reviewed --space istio-gateway-1-30-0-controller-default-reviewed --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc ./rendered",
+          "command": "cub variant upload --dry-run --component istio-gateway --variant controller-default-reviewed --space istio-gateway-1-30-0-controller-default-reviewed --unit-annotation workshop.confighub.com/object-set-sha256=sha256:07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component istio-gateway --variant controller-default-reviewed --space istio-gateway-1-30-0-controller-default-reviewed --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc ./rendered",
+          "command": "cub variant upload --component istio-gateway --variant controller-default-reviewed --space istio-gateway-1-30-0-controller-default-reviewed --unit-annotation workshop.confighub.com/object-set-sha256=sha256:07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc ./rendered",
           "writes": true
         },
         {

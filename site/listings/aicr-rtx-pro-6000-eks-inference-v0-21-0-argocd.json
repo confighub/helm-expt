@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component rtx-pro-6000-eks-inference --variant argocd --space aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:dd8a92b805b5d6c878e28bab46fd2525482d5227bbb142005ed91776e5cb7c91 ./rendered",
+          "command": "cub variant upload --dry-run --component rtx-pro-6000-eks-inference --variant argocd --space aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:dd8a92b805b5d6c878e28bab46fd2525482d5227bbb142005ed91776e5cb7c91 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component rtx-pro-6000-eks-inference --variant argocd --space aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:dd8a92b805b5d6c878e28bab46fd2525482d5227bbb142005ed91776e5cb7c91 ./rendered",
+          "command": "cub variant upload --component rtx-pro-6000-eks-inference --variant argocd --space aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:dd8a92b805b5d6c878e28bab46fd2525482d5227bbb142005ed91776e5cb7c91 ./rendered",
           "writes": true
         },
         {

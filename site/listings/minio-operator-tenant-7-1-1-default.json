@@ -180,12 +180,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component minio-operator-tenant --variant default --space minio-operator-tenant-7-1-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a ./rendered",
+          "command": "cub variant upload --dry-run --component minio-operator-tenant --variant default --space minio-operator-tenant-7-1-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component minio-operator-tenant --variant default --space minio-operator-tenant-7-1-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a ./rendered",
+          "command": "cub variant upload --component minio-operator-tenant --variant default --space minio-operator-tenant-7-1-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a ./rendered",
           "writes": true
         },
         {

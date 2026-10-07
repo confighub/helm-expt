@@ -185,12 +185,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component vm-victoria-logs-single --variant default --space vm-victoria-logs-single-0-12-5-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04 ./rendered",
+          "command": "cub variant upload --dry-run --component vm-victoria-logs-single --variant default --space vm-victoria-logs-single-0-12-5-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component vm-victoria-logs-single --variant default --space vm-victoria-logs-single-0-12-5-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04 ./rendered",
+          "command": "cub variant upload --component vm-victoria-logs-single --variant default --space vm-victoria-logs-single-0-12-5-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04 ./rendered",
           "writes": true
         },
         {

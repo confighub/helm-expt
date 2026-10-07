@@ -196,12 +196,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component mysql-mysql-operator --variant default --space mysql-mysql-operator-2-3-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957 ./rendered",
+          "command": "cub variant upload --dry-run --component mysql-mysql-operator --variant default --space mysql-mysql-operator-2-3-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component mysql-mysql-operator --variant default --space mysql-mysql-operator-2-3-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957 ./rendered",
+          "command": "cub variant upload --component mysql-mysql-operator --variant default --space mysql-mysql-operator-2-3-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957 ./rendered",
           "writes": true
         },
         {

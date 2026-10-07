@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component h100-aks-ubuntu-inference-dynamo --variant argocd --space aicr-h100-aks-ubuntu-inference-dynamo-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:80d7af0c97bd5d01cac77dce30420d8b16cfe7dbf86283aa57726c5dd45c31d3 ./rendered",
+          "command": "cub variant upload --dry-run --component h100-aks-ubuntu-inference-dynamo --variant argocd --space aicr-h100-aks-ubuntu-inference-dynamo-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:80d7af0c97bd5d01cac77dce30420d8b16cfe7dbf86283aa57726c5dd45c31d3 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component h100-aks-ubuntu-inference-dynamo --variant argocd --space aicr-h100-aks-ubuntu-inference-dynamo-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:80d7af0c97bd5d01cac77dce30420d8b16cfe7dbf86283aa57726c5dd45c31d3 ./rendered",
+          "command": "cub variant upload --component h100-aks-ubuntu-inference-dynamo --variant argocd --space aicr-h100-aks-ubuntu-inference-dynamo-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:80d7af0c97bd5d01cac77dce30420d8b16cfe7dbf86283aa57726c5dd45c31d3 ./rendered",
           "writes": true
         },
         {

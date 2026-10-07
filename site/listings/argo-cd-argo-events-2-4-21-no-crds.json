@@ -191,12 +191,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component argo-cd-argo-events --variant no-crds --space argo-cd-argo-events-2-4-21-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49 ./rendered",
+          "command": "cub variant upload --dry-run --component argo-cd-argo-events --variant no-crds --space argo-cd-argo-events-2-4-21-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component argo-cd-argo-events --variant no-crds --space argo-cd-argo-events-2-4-21-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49 ./rendered",
+          "command": "cub variant upload --component argo-cd-argo-events --variant no-crds --space argo-cd-argo-events-2-4-21-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49 ./rendered",
           "writes": true
         },
         {

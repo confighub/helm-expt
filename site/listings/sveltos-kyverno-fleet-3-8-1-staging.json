@@ -192,12 +192,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component kyverno-fleet --variant staging --space sveltos-kyverno-fleet-3-8-1-staging --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396 ./rendered",
+          "command": "cub variant upload --dry-run --component kyverno-fleet --variant staging --space sveltos-kyverno-fleet-3-8-1-staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component kyverno-fleet --variant staging --space sveltos-kyverno-fleet-3-8-1-staging --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396 ./rendered",
+          "command": "cub variant upload --component kyverno-fleet --variant staging --space sveltos-kyverno-fleet-3-8-1-staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396 ./rendered",
           "writes": true
         },
         {

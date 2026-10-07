@@ -206,12 +206,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component grafana-pyroscope --variant no-crds --space grafana-pyroscope-2-0-2-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:bd128b8d66e06802da2e56a74216e817033ebe8ed59abe878df05886ec008086 ./rendered",
+          "command": "cub variant upload --dry-run --component grafana-pyroscope --variant no-crds --space grafana-pyroscope-2-0-2-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:bd128b8d66e06802da2e56a74216e817033ebe8ed59abe878df05886ec008086 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component grafana-pyroscope --variant no-crds --space grafana-pyroscope-2-0-2-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:bd128b8d66e06802da2e56a74216e817033ebe8ed59abe878df05886ec008086 ./rendered",
+          "command": "cub variant upload --component grafana-pyroscope --variant no-crds --space grafana-pyroscope-2-0-2-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:bd128b8d66e06802da2e56a74216e817033ebe8ed59abe878df05886ec008086 ./rendered",
           "writes": true
         },
         {

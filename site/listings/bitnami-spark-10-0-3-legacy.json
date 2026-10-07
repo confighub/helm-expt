@@ -198,12 +198,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component bitnami-spark --variant legacy --space bitnami-spark-10-0-3-legacy --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:05921876ce0d142a26b495df363557abefd1d460251b66c4777370838f8c9373 ./rendered",
+          "command": "cub variant upload --dry-run --component bitnami-spark --variant legacy --space bitnami-spark-10-0-3-legacy --unit-annotation workshop.confighub.com/object-set-sha256=sha256:05921876ce0d142a26b495df363557abefd1d460251b66c4777370838f8c9373 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component bitnami-spark --variant legacy --space bitnami-spark-10-0-3-legacy --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:05921876ce0d142a26b495df363557abefd1d460251b66c4777370838f8c9373 ./rendered",
+          "command": "cub variant upload --component bitnami-spark --variant legacy --space bitnami-spark-10-0-3-legacy --unit-annotation workshop.confighub.com/object-set-sha256=sha256:05921876ce0d142a26b495df363557abefd1d460251b66c4777370838f8c9373 ./rendered",
           "writes": true
         },
         {

@@ -191,12 +191,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component open-telemetry-opentelemetry-operator --variant no-crds --space open-telemetry-opentelemetry-operator-0-114-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1 ./rendered",
+          "command": "cub variant upload --dry-run --component open-telemetry-opentelemetry-operator --variant no-crds --space open-telemetry-opentelemetry-operator-0-114-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component open-telemetry-opentelemetry-operator --variant no-crds --space open-telemetry-opentelemetry-operator-0-114-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1 ./rendered",
+          "command": "cub variant upload --component open-telemetry-opentelemetry-operator --variant no-crds --space open-telemetry-opentelemetry-operator-0-114-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1 ./rendered",
           "writes": true
         },
         {

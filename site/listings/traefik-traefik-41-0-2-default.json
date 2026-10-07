@@ -220,12 +220,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component traefik-traefik --variant default --space traefik-traefik-41-0-2-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac ./rendered",
+          "command": "cub variant upload --dry-run --component traefik-traefik --variant default --space traefik-traefik-41-0-2-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component traefik-traefik --variant default --space traefik-traefik-41-0-2-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac ./rendered",
+          "command": "cub variant upload --component traefik-traefik --variant default --space traefik-traefik-41-0-2-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac ./rendered",
           "writes": true
         },
         {

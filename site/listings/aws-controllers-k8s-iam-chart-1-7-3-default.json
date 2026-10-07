@@ -216,12 +216,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component aws-controllers-k8s-iam-chart --variant default --space aws-controllers-k8s-iam-chart-1-7-3-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b ./rendered",
+          "command": "cub variant upload --dry-run --component aws-controllers-k8s-iam-chart --variant default --space aws-controllers-k8s-iam-chart-1-7-3-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component aws-controllers-k8s-iam-chart --variant default --space aws-controllers-k8s-iam-chart-1-7-3-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b ./rendered",
+          "command": "cub variant upload --component aws-controllers-k8s-iam-chart --variant default --space aws-controllers-k8s-iam-chart-1-7-3-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b ./rendered",
           "writes": true
         },
         {

@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component h100-kind-training-slurm --variant argocd --space aicr-h100-kind-training-slurm-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:520c0a191e0b5576139db9788d4d7928a15bf7050a75578ffeacd49780d3db64 ./rendered",
+          "command": "cub variant upload --dry-run --component h100-kind-training-slurm --variant argocd --space aicr-h100-kind-training-slurm-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:520c0a191e0b5576139db9788d4d7928a15bf7050a75578ffeacd49780d3db64 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component h100-kind-training-slurm --variant argocd --space aicr-h100-kind-training-slurm-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:520c0a191e0b5576139db9788d4d7928a15bf7050a75578ffeacd49780d3db64 ./rendered",
+          "command": "cub variant upload --component h100-kind-training-slurm --variant argocd --space aicr-h100-kind-training-slurm-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:520c0a191e0b5576139db9788d4d7928a15bf7050a75578ffeacd49780d3db64 ./rendered",
           "writes": true
         },
         {

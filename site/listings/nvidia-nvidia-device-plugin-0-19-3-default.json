@@ -234,12 +234,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component nvidia-nvidia-device-plugin --variant default --space nvidia-nvidia-device-plugin-0-19-3-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52 ./rendered",
+          "command": "cub variant upload --dry-run --component nvidia-nvidia-device-plugin --variant default --space nvidia-nvidia-device-plugin-0-19-3-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component nvidia-nvidia-device-plugin --variant default --space nvidia-nvidia-device-plugin-0-19-3-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52 ./rendered",
+          "command": "cub variant upload --component nvidia-nvidia-device-plugin --variant default --space nvidia-nvidia-device-plugin-0-19-3-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52 ./rendered",
           "writes": true
         },
         {

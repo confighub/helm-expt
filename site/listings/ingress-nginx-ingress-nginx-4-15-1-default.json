@@ -199,12 +199,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component ingress-nginx-ingress-nginx --variant default --space ingress-nginx-ingress-nginx-4-15-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d ./rendered",
+          "command": "cub variant upload --dry-run --component ingress-nginx-ingress-nginx --variant default --space ingress-nginx-ingress-nginx-4-15-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component ingress-nginx-ingress-nginx --variant default --space ingress-nginx-ingress-nginx-4-15-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d ./rendered",
+          "command": "cub variant upload --component ingress-nginx-ingress-nginx --variant default --space ingress-nginx-ingress-nginx-4-15-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d ./rendered",
           "writes": true
         },
         {

@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component h100-bcm-training --variant argocd --space aicr-h100-bcm-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:33800d52ba0155bbf246acabfdd22054bc91eae84a5eb34144e7d29d3537b187 ./rendered",
+          "command": "cub variant upload --dry-run --component h100-bcm-training --variant argocd --space aicr-h100-bcm-training-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:33800d52ba0155bbf246acabfdd22054bc91eae84a5eb34144e7d29d3537b187 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component h100-bcm-training --variant argocd --space aicr-h100-bcm-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:33800d52ba0155bbf246acabfdd22054bc91eae84a5eb34144e7d29d3537b187 ./rendered",
+          "command": "cub variant upload --component h100-bcm-training --variant argocd --space aicr-h100-bcm-training-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:33800d52ba0155bbf246acabfdd22054bc91eae84a5eb34144e7d29d3537b187 ./rendered",
           "writes": true
         },
         {

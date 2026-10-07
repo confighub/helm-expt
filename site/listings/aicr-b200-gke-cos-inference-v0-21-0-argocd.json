@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component b200-gke-cos-inference --variant argocd --space aicr-b200-gke-cos-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:43808201aafae5d5d3f781ebcf8c20ddd34495f7ca7b91b3b431699e43795410 ./rendered",
+          "command": "cub variant upload --dry-run --component b200-gke-cos-inference --variant argocd --space aicr-b200-gke-cos-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:43808201aafae5d5d3f781ebcf8c20ddd34495f7ca7b91b3b431699e43795410 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component b200-gke-cos-inference --variant argocd --space aicr-b200-gke-cos-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:43808201aafae5d5d3f781ebcf8c20ddd34495f7ca7b91b3b431699e43795410 ./rendered",
+          "command": "cub variant upload --component b200-gke-cos-inference --variant argocd --space aicr-b200-gke-cos-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:43808201aafae5d5d3f781ebcf8c20ddd34495f7ca7b91b3b431699e43795410 ./rendered",
           "writes": true
         },
         {

@@ -209,12 +209,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component projectcalico-tigera-operator --variant default --space projectcalico-tigera-operator-v3-32-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350 ./rendered",
+          "command": "cub variant upload --dry-run --component projectcalico-tigera-operator --variant default --space projectcalico-tigera-operator-v3-32-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component projectcalico-tigera-operator --variant default --space projectcalico-tigera-operator-v3-32-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350 ./rendered",
+          "command": "cub variant upload --component projectcalico-tigera-operator --variant default --space projectcalico-tigera-operator-v3-32-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350 ./rendered",
           "writes": true
         },
         {

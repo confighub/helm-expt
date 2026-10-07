@@ -209,12 +209,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component stakater-reloader --variant default --space stakater-reloader-2-2-14-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:206dcaad71b6f825e834c5b1c0a3dc6799927de8344f4f5d58ed8f6a8bded049 ./rendered",
+          "command": "cub variant upload --dry-run --component stakater-reloader --variant default --space stakater-reloader-2-2-14-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:206dcaad71b6f825e834c5b1c0a3dc6799927de8344f4f5d58ed8f6a8bded049 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component stakater-reloader --variant default --space stakater-reloader-2-2-14-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:206dcaad71b6f825e834c5b1c0a3dc6799927de8344f4f5d58ed8f6a8bded049 ./rendered",
+          "command": "cub variant upload --component stakater-reloader --variant default --space stakater-reloader-2-2-14-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:206dcaad71b6f825e834c5b1c0a3dc6799927de8344f4f5d58ed8f6a8bded049 ./rendered",
           "writes": true
         },
         {

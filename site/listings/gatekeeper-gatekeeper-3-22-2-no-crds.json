@@ -191,12 +191,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component gatekeeper-gatekeeper --variant no-crds --space gatekeeper-gatekeeper-3-22-2-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c ./rendered",
+          "command": "cub variant upload --dry-run --component gatekeeper-gatekeeper --variant no-crds --space gatekeeper-gatekeeper-3-22-2-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component gatekeeper-gatekeeper --variant no-crds --space gatekeeper-gatekeeper-3-22-2-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c ./rendered",
+          "command": "cub variant upload --component gatekeeper-gatekeeper --variant no-crds --space gatekeeper-gatekeeper-3-22-2-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c ./rendered",
           "writes": true
         },
         {

@@ -209,12 +209,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component fluent-fluent-bit --variant default --space fluent-fluent-bit-0-57-6-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b ./rendered",
+          "command": "cub variant upload --dry-run --component fluent-fluent-bit --variant default --space fluent-fluent-bit-0-57-6-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component fluent-fluent-bit --variant default --space fluent-fluent-bit-0-57-6-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b ./rendered",
+          "command": "cub variant upload --component fluent-fluent-bit --variant default --space fluent-fluent-bit-0-57-6-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b ./rendered",
           "writes": true
         },
         {

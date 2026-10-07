@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component eks-inference --variant argocd --space aicr-eks-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:bb8e87802a99d59e1469f954bdb7426a8cdacb76382a12a1ba0974016042d36d ./rendered",
+          "command": "cub variant upload --dry-run --component eks-inference --variant argocd --space aicr-eks-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:bb8e87802a99d59e1469f954bdb7426a8cdacb76382a12a1ba0974016042d36d ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component eks-inference --variant argocd --space aicr-eks-inference-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:bb8e87802a99d59e1469f954bdb7426a8cdacb76382a12a1ba0974016042d36d ./rendered",
+          "command": "cub variant upload --component eks-inference --variant argocd --space aicr-eks-inference-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:bb8e87802a99d59e1469f954bdb7426a8cdacb76382a12a1ba0974016042d36d ./rendered",
           "writes": true
         },
         {

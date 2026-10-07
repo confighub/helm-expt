@@ -223,12 +223,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component bitnami-zookeeper --variant default --space bitnami-zookeeper-13-8-7-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb ./rendered",
+          "command": "cub variant upload --dry-run --component bitnami-zookeeper --variant default --space bitnami-zookeeper-13-8-7-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component bitnami-zookeeper --variant default --space bitnami-zookeeper-13-8-7-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb ./rendered",
+          "command": "cub variant upload --component bitnami-zookeeper --variant default --space bitnami-zookeeper-13-8-7-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb ./rendered",
           "writes": true
         },
         {

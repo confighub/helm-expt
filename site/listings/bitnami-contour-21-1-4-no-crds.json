@@ -202,12 +202,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component bitnami-contour --variant no-crds --space bitnami-contour-21-1-4-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f ./rendered",
+          "command": "cub variant upload --dry-run --component bitnami-contour --variant no-crds --space bitnami-contour-21-1-4-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component bitnami-contour --variant no-crds --space bitnami-contour-21-1-4-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f ./rendered",
+          "command": "cub variant upload --component bitnami-contour --variant no-crds --space bitnami-contour-21-1-4-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f ./rendered",
           "writes": true
         },
         {

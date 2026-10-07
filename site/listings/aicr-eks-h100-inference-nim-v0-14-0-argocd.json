@@ -173,12 +173,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component eks-h100-inference-nim --variant argocd --space aicr-eks-h100-inference-nim-v0-14-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:2013f555eb357921da5d684c681b592608d2f772c1bbac69fb79423f1c224e0e ./rendered",
+          "command": "cub variant upload --dry-run --component eks-h100-inference-nim --variant argocd --space aicr-eks-h100-inference-nim-v0-14-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:2013f555eb357921da5d684c681b592608d2f772c1bbac69fb79423f1c224e0e ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component eks-h100-inference-nim --variant argocd --space aicr-eks-h100-inference-nim-v0-14-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:2013f555eb357921da5d684c681b592608d2f772c1bbac69fb79423f1c224e0e ./rendered",
+          "command": "cub variant upload --component eks-h100-inference-nim --variant argocd --space aicr-eks-h100-inference-nim-v0-14-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:2013f555eb357921da5d684c681b592608d2f772c1bbac69fb79423f1c224e0e ./rendered",
           "writes": true
         },
         {

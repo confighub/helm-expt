@@ -209,12 +209,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component descheduler-descheduler --variant default --space descheduler-descheduler-0-36-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707 ./rendered",
+          "command": "cub variant upload --dry-run --component descheduler-descheduler --variant default --space descheduler-descheduler-0-36-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component descheduler-descheduler --variant default --space descheduler-descheduler-0-36-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707 ./rendered",
+          "command": "cub variant upload --component descheduler-descheduler --variant default --space descheduler-descheduler-0-36-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707 ./rendered",
           "writes": true
         },
         {

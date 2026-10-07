@@ -209,12 +209,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component crossplane-stable-crossplane --variant default --space crossplane-stable-crossplane-2-3-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996 ./rendered",
+          "command": "cub variant upload --dry-run --component crossplane-stable-crossplane --variant default --space crossplane-stable-crossplane-2-3-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component crossplane-stable-crossplane --variant default --space crossplane-stable-crossplane-2-3-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996 ./rendered",
+          "command": "cub variant upload --component crossplane-stable-crossplane --variant default --space crossplane-stable-crossplane-2-3-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996 ./rendered",
           "writes": true
         },
         {

@@ -191,12 +191,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component prometheus-community-alertmanager --variant ha --space prometheus-community-alertmanager-1-37-0-ha --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:a016dbf7647ff32935788288023d6dbd78b924f6cca645ef2081fe1d8856f8b4 ./rendered",
+          "command": "cub variant upload --dry-run --component prometheus-community-alertmanager --variant ha --space prometheus-community-alertmanager-1-37-0-ha --unit-annotation workshop.confighub.com/object-set-sha256=sha256:a016dbf7647ff32935788288023d6dbd78b924f6cca645ef2081fe1d8856f8b4 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component prometheus-community-alertmanager --variant ha --space prometheus-community-alertmanager-1-37-0-ha --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:a016dbf7647ff32935788288023d6dbd78b924f6cca645ef2081fe1d8856f8b4 ./rendered",
+          "command": "cub variant upload --component prometheus-community-alertmanager --variant ha --space prometheus-community-alertmanager-1-37-0-ha --unit-annotation workshop.confighub.com/object-set-sha256=sha256:a016dbf7647ff32935788288023d6dbd78b924f6cca645ef2081fe1d8856f8b4 ./rendered",
           "writes": true
         },
         {

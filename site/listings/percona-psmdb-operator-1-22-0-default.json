@@ -192,12 +192,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component percona-psmdb-operator --variant default --space percona-psmdb-operator-1-22-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936 ./rendered",
+          "command": "cub variant upload --dry-run --component percona-psmdb-operator --variant default --space percona-psmdb-operator-1-22-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component percona-psmdb-operator --variant default --space percona-psmdb-operator-1-22-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936 ./rendered",
+          "command": "cub variant upload --component percona-psmdb-operator --variant default --space percona-psmdb-operator-1-22-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936 ./rendered",
           "writes": true
         },
         {

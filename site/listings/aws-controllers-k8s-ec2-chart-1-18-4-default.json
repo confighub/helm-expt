@@ -216,12 +216,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component aws-controllers-k8s-ec2-chart --variant default --space aws-controllers-k8s-ec2-chart-1-18-4-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:f554824764fd9d781aaea445b728b209a93a190ccd8865ccdf235139377fcc59 ./rendered",
+          "command": "cub variant upload --dry-run --component aws-controllers-k8s-ec2-chart --variant default --space aws-controllers-k8s-ec2-chart-1-18-4-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:f554824764fd9d781aaea445b728b209a93a190ccd8865ccdf235139377fcc59 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component aws-controllers-k8s-ec2-chart --variant default --space aws-controllers-k8s-ec2-chart-1-18-4-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:f554824764fd9d781aaea445b728b209a93a190ccd8865ccdf235139377fcc59 ./rendered",
+          "command": "cub variant upload --component aws-controllers-k8s-ec2-chart --variant default --space aws-controllers-k8s-ec2-chart-1-18-4-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:f554824764fd9d781aaea445b728b209a93a190ccd8865ccdf235139377fcc59 ./rendered",
           "writes": true
         },
         {

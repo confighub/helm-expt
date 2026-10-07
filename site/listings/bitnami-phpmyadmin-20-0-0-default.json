@@ -216,12 +216,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component bitnami-phpmyadmin --variant default --space bitnami-phpmyadmin-20-0-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:41d8e5dabf8548c2965f32db8fdb6870f07b3e3fd967d641d8dc952f7569eb0a ./rendered",
+          "command": "cub variant upload --dry-run --component bitnami-phpmyadmin --variant default --space bitnami-phpmyadmin-20-0-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:41d8e5dabf8548c2965f32db8fdb6870f07b3e3fd967d641d8dc952f7569eb0a ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component bitnami-phpmyadmin --variant default --space bitnami-phpmyadmin-20-0-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:41d8e5dabf8548c2965f32db8fdb6870f07b3e3fd967d641d8dc952f7569eb0a ./rendered",
+          "command": "cub variant upload --component bitnami-phpmyadmin --variant default --space bitnami-phpmyadmin-20-0-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:41d8e5dabf8548c2965f32db8fdb6870f07b3e3fd967d641d8dc952f7569eb0a ./rendered",
           "writes": true
         },
         {

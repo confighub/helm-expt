@@ -216,12 +216,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component nats-nack --variant default --space nats-nack-0-34-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9 ./rendered",
+          "command": "cub variant upload --dry-run --component nats-nack --variant default --space nats-nack-0-34-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component nats-nack --variant default --space nats-nack-0-34-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9 ./rendered",
+          "command": "cub variant upload --component nats-nack --variant default --space nats-nack-0-34-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9 ./rendered",
           "writes": true
         },
         {

@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component gb200-eks-ubuntu-training-kubeflow --variant argocd --space aicr-gb200-eks-ubuntu-training-kubeflow-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:824d6b95fa57b6314d03d51f94c88b68c245ebf0c642a47e292b80de2711bb43 ./rendered",
+          "command": "cub variant upload --dry-run --component gb200-eks-ubuntu-training-kubeflow --variant argocd --space aicr-gb200-eks-ubuntu-training-kubeflow-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:824d6b95fa57b6314d03d51f94c88b68c245ebf0c642a47e292b80de2711bb43 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component gb200-eks-ubuntu-training-kubeflow --variant argocd --space aicr-gb200-eks-ubuntu-training-kubeflow-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:824d6b95fa57b6314d03d51f94c88b68c245ebf0c642a47e292b80de2711bb43 ./rendered",
+          "command": "cub variant upload --component gb200-eks-ubuntu-training-kubeflow --variant argocd --space aicr-gb200-eks-ubuntu-training-kubeflow-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:824d6b95fa57b6314d03d51f94c88b68c245ebf0c642a47e292b80de2711bb43 ./rendered",
           "writes": true
         },
         {

@@ -163,12 +163,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component plain-yaml-acme-web --variant base --space kubernetes-yaml-acme-web-base --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926 ./rendered",
+          "command": "cub variant upload --dry-run --component plain-yaml-acme-web --variant base --space kubernetes-yaml-acme-web-base --unit-annotation workshop.confighub.com/object-set-sha256=sha256:963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component plain-yaml-acme-web --variant base --space kubernetes-yaml-acme-web-base --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926 ./rendered",
+          "command": "cub variant upload --component plain-yaml-acme-web --variant base --space kubernetes-yaml-acme-web-base --unit-annotation workshop.confighub.com/object-set-sha256=sha256:963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926 ./rendered",
           "writes": true
         },
         {

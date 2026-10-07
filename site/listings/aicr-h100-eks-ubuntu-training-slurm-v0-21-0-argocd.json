@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component h100-eks-ubuntu-training-slurm --variant argocd --space aicr-h100-eks-ubuntu-training-slurm-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c2ee63f6bad15f0f990c527bd3631614f4e0b46b4142298667c3495c19cd2f2f ./rendered",
+          "command": "cub variant upload --dry-run --component h100-eks-ubuntu-training-slurm --variant argocd --space aicr-h100-eks-ubuntu-training-slurm-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c2ee63f6bad15f0f990c527bd3631614f4e0b46b4142298667c3495c19cd2f2f ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component h100-eks-ubuntu-training-slurm --variant argocd --space aicr-h100-eks-ubuntu-training-slurm-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c2ee63f6bad15f0f990c527bd3631614f4e0b46b4142298667c3495c19cd2f2f ./rendered",
+          "command": "cub variant upload --component h100-eks-ubuntu-training-slurm --variant argocd --space aicr-h100-eks-ubuntu-training-slurm-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c2ee63f6bad15f0f990c527bd3631614f4e0b46b4142298667c3495c19cd2f2f ./rendered",
           "writes": true
         },
         {

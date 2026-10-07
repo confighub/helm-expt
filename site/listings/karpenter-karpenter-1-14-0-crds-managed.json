@@ -223,12 +223,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component karpenter-karpenter --variant crds-managed --space karpenter-karpenter-1-14-0-crds-managed --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb ./rendered",
+          "command": "cub variant upload --dry-run --component karpenter-karpenter --variant crds-managed --space karpenter-karpenter-1-14-0-crds-managed --unit-annotation workshop.confighub.com/object-set-sha256=sha256:cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component karpenter-karpenter --variant crds-managed --space karpenter-karpenter-1-14-0-crds-managed --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb ./rendered",
+          "command": "cub variant upload --component karpenter-karpenter --variant crds-managed --space karpenter-karpenter-1-14-0-crds-managed --unit-annotation workshop.confighub.com/object-set-sha256=sha256:cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb ./rendered",
           "writes": true
         },
         {

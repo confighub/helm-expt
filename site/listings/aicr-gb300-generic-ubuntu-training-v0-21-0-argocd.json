@@ -170,12 +170,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component gb300-generic-ubuntu-training --variant argocd --space aicr-gb300-generic-ubuntu-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:13a14bb2b6b02e9407e2b172e6ddd5a2009e0fb5cc64c84cfd2117218ecf49f7 ./rendered",
+          "command": "cub variant upload --dry-run --component gb300-generic-ubuntu-training --variant argocd --space aicr-gb300-generic-ubuntu-training-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:13a14bb2b6b02e9407e2b172e6ddd5a2009e0fb5cc64c84cfd2117218ecf49f7 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component gb300-generic-ubuntu-training --variant argocd --space aicr-gb300-generic-ubuntu-training-v0-21-0-argocd --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:13a14bb2b6b02e9407e2b172e6ddd5a2009e0fb5cc64c84cfd2117218ecf49f7 ./rendered",
+          "command": "cub variant upload --component gb300-generic-ubuntu-training --variant argocd --space aicr-gb300-generic-ubuntu-training-v0-21-0-argocd --unit-annotation workshop.confighub.com/object-set-sha256=sha256:13a14bb2b6b02e9407e2b172e6ddd5a2009e0fb5cc64c84cfd2117218ecf49f7 ./rendered",
           "writes": true
         },
         {

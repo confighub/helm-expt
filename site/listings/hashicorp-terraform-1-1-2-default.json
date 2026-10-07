@@ -192,12 +192,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component hashicorp-terraform --variant default --space hashicorp-terraform-1-1-2-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b ./rendered",
+          "command": "cub variant upload --dry-run --component hashicorp-terraform --variant default --space hashicorp-terraform-1-1-2-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component hashicorp-terraform --variant default --space hashicorp-terraform-1-1-2-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b ./rendered",
+          "command": "cub variant upload --component hashicorp-terraform --variant default --space hashicorp-terraform-1-1-2-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b ./rendered",
           "writes": true
         },
         {

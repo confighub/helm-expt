@@ -209,12 +209,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component rook-release-rook-ceph-cluster --variant default --space rook-release-rook-ceph-cluster-v1-19-5-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010 ./rendered",
+          "command": "cub variant upload --dry-run --component rook-release-rook-ceph-cluster --variant default --space rook-release-rook-ceph-cluster-v1-19-5-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component rook-release-rook-ceph-cluster --variant default --space rook-release-rook-ceph-cluster-v1-19-5-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010 ./rendered",
+          "command": "cub variant upload --component rook-release-rook-ceph-cluster --variant default --space rook-release-rook-ceph-cluster-v1-19-5-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010 ./rendered",
           "writes": true
         },
         {

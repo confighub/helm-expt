@@ -185,12 +185,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component elastic-kibana --variant default --space elastic-kibana-8-5-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3 ./rendered",
+          "command": "cub variant upload --dry-run --component elastic-kibana --variant default --space elastic-kibana-8-5-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component elastic-kibana --variant default --space elastic-kibana-8-5-1-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3 ./rendered",
+          "command": "cub variant upload --component elastic-kibana --variant default --space elastic-kibana-8-5-1-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:3c0e03c571ed6c5635edd63244a0085634a30bd73e011e2db802c9d1c63b0cb3 ./rendered",
           "writes": true
         },
         {

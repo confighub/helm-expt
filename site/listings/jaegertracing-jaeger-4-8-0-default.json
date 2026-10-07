@@ -185,12 +185,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component jaegertracing-jaeger --variant default --space jaegertracing-jaeger-4-8-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:da24b2c05d1c43492627f3d01b0d675ea01bb2acb38017a18dec5a70c55b7939 ./rendered",
+          "command": "cub variant upload --dry-run --component jaegertracing-jaeger --variant default --space jaegertracing-jaeger-4-8-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:da24b2c05d1c43492627f3d01b0d675ea01bb2acb38017a18dec5a70c55b7939 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component jaegertracing-jaeger --variant default --space jaegertracing-jaeger-4-8-0-default --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:da24b2c05d1c43492627f3d01b0d675ea01bb2acb38017a18dec5a70c55b7939 ./rendered",
+          "command": "cub variant upload --component jaegertracing-jaeger --variant default --space jaegertracing-jaeger-4-8-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:da24b2c05d1c43492627f3d01b0d675ea01bb2acb38017a18dec5a70c55b7939 ./rendered",
           "writes": true
         },
         {

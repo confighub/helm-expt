@@ -191,12 +191,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component percona-pg-operator --variant no-crds --space percona-pg-operator-3-0-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b74ec3d7caff70a013e25ff922dc6ead03c37f01193f603f63a1f6686e59f8d2 ./rendered",
+          "command": "cub variant upload --dry-run --component percona-pg-operator --variant no-crds --space percona-pg-operator-3-0-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b74ec3d7caff70a013e25ff922dc6ead03c37f01193f603f63a1f6686e59f8d2 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component percona-pg-operator --variant no-crds --space percona-pg-operator-3-0-0-no-crds --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b74ec3d7caff70a013e25ff922dc6ead03c37f01193f603f63a1f6686e59f8d2 ./rendered",
+          "command": "cub variant upload --component percona-pg-operator --variant no-crds --space percona-pg-operator-3-0-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b74ec3d7caff70a013e25ff922dc6ead03c37f01193f603f63a1f6686e59f8d2 ./rendered",
           "writes": true
         },
         {
