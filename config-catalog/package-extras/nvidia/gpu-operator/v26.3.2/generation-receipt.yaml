@@ -1,0 +1,49 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "PackagedLifecycleGenerationReceipt"
+metadata:
+  name: "nvidia-gpu-operator-v26-3-2"
+spec:
+  chart: "nvidia/gpu-operator"
+  version: "v26.3.2"
+  sourceLock: "recipes/nvidia/gpu-operator/v26.3.2/source-lock.yaml"
+  chartArtifactURL: "https://helm.ngc.nvidia.com/nvidia/charts/gpu-operator-v26.3.2.tgz"
+  chartPackageSha256: "b6b7b7a6d40bb8420d50e46c1169c097028ad19a0457d32156568db8214af77f"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+  evidenceState: "rendered-not-run"
+  bases:
+    -
+      name: "default"
+      valuesSHA256: null
+      totalChartObjects: 32
+      ordinaryObjects: 24
+      hookObjects: 8
+      hookJobs: 2
+      jobImages:
+        - "nvcr.io/nvidia/gpu-operator:v26.3.2"
+        - "registry.k8s.io/nfd/node-feature-discovery:v0.18.3"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-upgrade"
+          path: "default/pre-upgrade.yaml"
+          sha256: "b8194342bd0a6f4fe4826478a8f574ba76a0fbb9c450fc1e5696acd222a58383"
+          objects:
+            - "batch/v1|Job|gpu-operator|gpu-operator-upgrade-crd"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||gpu-operator-upgrade-crd-hook-binding"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||gpu-operator-upgrade-crd-hook-role"
+            - "v1|ServiceAccount|gpu-operator|gpu-operator-upgrade-crd-hook-sa"
+        -
+          phase: "post-delete"
+          path: "default/post-delete.yaml"
+          sha256: "edb00362cbfe100cddae4da49a999fcf36e34d8243a9968d8173fa2b04b58b9a"
+          objects:
+            - "batch/v1|Job|gpu-operator|gpu-operator-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||gpu-operator-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||gpu-operator-node-feature-discovery-prune"
+            - "v1|ServiceAccount|gpu-operator|gpu-operator-node-feature-discovery-prune"

@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "nvidia-gpu-operator-v25.10.1"
+spec:
+  chart: "nvidia/gpu-operator"
+  version: "v25.10.1"
+  caveats:
+    - "Applying a base installs the operator and its ClusterPolicy. GPU nodes are a scheduling prerequisite, not an install prerequisite: without them the operator runs and its operands schedule nowhere."
+    - "The default driver.version follows the chart version, so moving between chart versions can change the driver. Set driver.version explicitly to hold it."
+    - "With nfd.enabled false the operator still selects nodes by node-feature-discovery labels, so the target must run node-feature-discovery itself."
+    - "The pre-upgrade Job applies the CRD files baked into the operator image. A delivery tool that applies the CRDs in the base itself does the same work, and should not also run the Job unless it means to."
+    - "The post-delete prune Job removes node-feature-discovery labels, annotations and taints from every node. Applied as an ordinary object at install time it would do that immediately."
+  maintainedNotes:
+    - "This package is the exact gpu-operator@v25.10.1 chart from the NGC Helm repository, locked by archive URL and SHA-256."
+    - "With the release name gpu-operator in namespace gpu-operator: default renders 24 objects (5 CRDs) and 8 Helm hook objects."
+    - "The chart vendors one dependency, node-feature-discovery 0.18.2, gated by nfd.enabled."
+    - "driver.version lands at ClusterPolicy cluster-policy /spec/driver/version and nowhere else in the rendered objects. Rendering the locked archive twice with only driver.version changed, on 2026-10-07, changed that one field and nothing else, hook objects included."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, GPU scheduling, or production support."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "crd-ordering"
+    - "helm-hook-lifecycle-actions"
+    - "operator-managed-operands"
+    - "target-facts"
+    - "production-readiness-review"
