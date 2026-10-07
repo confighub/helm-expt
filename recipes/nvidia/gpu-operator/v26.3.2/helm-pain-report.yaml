@@ -1,0 +1,116 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "nvidia-gpu-operator-v26.3.2"
+spec:
+  chart:
+    name: "nvidia/gpu-operator"
+    version: "v26.3.2"
+    source: "https://helm.ngc.nvidia.com/nvidia"
+    digest: "b6b7b7a6d40bb8420d50e46c1169c097028ad19a0457d32156568db8214af77f"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    []
+  supportedVariants:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  notes:
+    - "This package is the exact gpu-operator@v26.3.2 chart from the NGC Helm repository, locked by archive URL and SHA-256."
+    - "With the release name gpu-operator in namespace gpu-operator: default renders 24 objects (5 CRDs) and 8 Helm hook objects."
+    - "The chart vendors one dependency, node-feature-discovery 0.18.3, gated by nfd.enabled."
+    - "driver.version lands at ClusterPolicy cluster-policy /spec/driver/version and nowhere else in the rendered objects. Rendering the locked archive twice with only driver.version changed, on 2026-10-07, changed that one field and nothing else, hook objects included."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, GPU scheduling, or production support."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "dependency-lock requires dependency-lock.yaml"
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "the packaged chart has no .Capabilities branch, so the render does not depend on the pinned Kubernetes version"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "lifecycle-policy"
+      detectedPainPoint: "the bases are rendered with --no-hooks; default renders 24 objects (5 CRDs) and 8 Helm hook objects. The hook objects are packaged under prerequisites/gpu-operator-lifecycle with a lifecycle-actions.yaml record, and nothing runs them automatically. No hook has been run on a cluster for this entry."
+      evidence:
+        - "no-hooks"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "attention-required"
+    -
+      id: "crd-lifecycle"
+      detectedPainPoint: "the bases include their CRDs, and each base records them as target facts with a packaged CRD bundle so they can be established before the ClusterPolicy object is applied"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "review-required"
+    -
+      id: "operator-managed-operands"
+      detectedPainPoint: "the ClusterPolicy object tells the operator which driver, container toolkit, device plugin, DCGM and validator workloads to create on GPU nodes. Those privileged DaemonSets are created at run time and appear in no render."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "review-required"
+    -
+      id: "catalog-coverage"
+      detectedPainPoint: "exact source and deterministic package are retained; publication, live qualification and production support remain separate gates"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "packaged-with-controls"
+    -
+      id: "installer-support-object"
+      detectedPainPoint: "installer-support-object affects v1|Namespace||gpu-operator"
+      evidence:
+        - "v1|Namespace||gpu-operator"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof; dead=not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof; ignored=not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"
+  answerForSkepticalHelmUser: "nvidia/gpu-operator@v26.3.2 maps its detected Helm pain to 7 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, recipe, scan-gate, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."
