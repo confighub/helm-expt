@@ -715,6 +715,17 @@ for (const entry of nimServiceEntries) {
   if (!existsSync(listingPath)) continue;
   nimServiceEntriesWithRecord += 1;
   const listing = JSON.parse(readFileSync(listingPath, "utf8"));
+  // The listing carries the same flag as the record, or a page built from the
+  // listing would show a flagged variant as settled.
+  const listingFlagStage = (listing.assessment?.stages ?? []).find((stage) => stage.id === "materialization") ?? {};
+  requireCondition(
+    entry.openQuestions.length > 0
+      ? listingFlagStage.resultState === ATTENTION_STATE && listingFlagStage.answer === openQuestion
+      : listingFlagStage.resultState !== ATTENTION_STATE,
+    entry.openQuestions.length > 0
+      ? `${name}: the sample raises an open question, and the listing does not flag the variant as ${ATTENTION_STATE} with that question`
+      : `${name}: the listing flags the variant as ${ATTENTION_STATE}, and the retained bytes raise no open question`,
+  );
   requireCondition(
     listing.identity?.name === NIMSERVICE_SOURCE_NAME
       && listing.identity?.base === entry.slug
