@@ -93,7 +93,7 @@ spec:
       summary: Seeds a ConfigHub organisation with a demo dataset.
       repository: confighub/cub-demo
       state: released
-      release: {tag: v0.2.2, date: "2026-09-16"}
+      release: {tag: v0.2.4, date: "2026-10-07"}
       install: cub plugin install confighub/cub-demo
     - id: argo
       name: Argo CD
