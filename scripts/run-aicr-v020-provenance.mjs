@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 
-// Verify the signed inputs used to retain AICR v0.20.0.
+// Verify the signed inputs used to retain one AICR version.
+//
+// AICR_PROVENANCE_VERSION selects the retained version and defaults to 0.20.0.
+// The npm scripts named for a version set it; the script itself is the same
+// for every version that signs its binary, recipe catalog, and SBOM.
 //
 // The release signs the CLI binary, recipe catalog, and SBOM. The live run
 // verifies those signatures with a pinned Cosign image and a committed trust
@@ -22,28 +26,25 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import { aicrRetainedVersion } from "./lib/aicr-retained-versions.mjs";
 
-const version = "v0.20.0";
-const versionSlug = "v0-20-0";
+const retained = aicrRetainedVersion("AICR_PROVENANCE_VERSION");
+const { version, semver } = retained;
+const versionSlug = retained.slug;
 const signatureRoot = join(repoRoot, "examples", "aicr", "upstream-signatures");
-const versionRoot = join(signatureRoot, version);
+const versionRoot = retained.signatureRoot;
+const sbomName = `aicr_${semver}_darwin_arm64.sbom.json`;
 const trustedRootPath = join(signatureRoot, "trusted_root.json");
 const recipeBundlePath = join(versionRoot, "recipe-catalog.sigstore.json");
 const binaryBundlePath = join(versionRoot, "aicr-attestation.sigstore.json");
-const sbomPath = join(versionRoot, "aicr_0.20.0_darwin_arm64.sbom.json");
-const sbomBundlePath = join(versionRoot, "aicr_0.20.0_darwin_arm64.sbom.json.sigstore.json");
+const sbomPath = join(versionRoot, sbomName);
+const sbomBundlePath = join(versionRoot, `${sbomName}.sigstore.json`);
 const checksumListPath = join(versionRoot, "aicr_checksums.txt");
-const generationReceiptPath = join(
-  repoRoot,
-  "examples",
-  "aicr",
-  "eks-h100-training-kubeflow-v0-20-0",
-  "generation-receipt.yaml",
-);
+const generationReceiptPath = join(retained.entryRoot, "generation-receipt.yaml");
 const receiptPath = join(repoRoot, "runs", `aicr-provenance-${versionSlug}`, "receipt.yaml");
 const summaryPath = join(repoRoot, "data", `aicr-provenance-${versionSlug}`, "summary.md");
 const expectedIdentity =
-  "https://github.com/NVIDIA/aicr/.github/workflows/on-tag.yaml@refs/tags/v0.20.0";
+  `https://github.com/NVIDIA/aicr/.github/workflows/on-tag.yaml@refs/tags/${version}`;
 const expectedIssuer = "https://token.actions.githubusercontent.com";
 const cosignImage =
   "gcr.io/projectsigstore/cosign@sha256:d91bc4e7e95e8d2f549c747a72dc174f90579e410a1695f57f686674f84ce849";
@@ -55,7 +56,9 @@ if (!["--run", "--generate", "--verify"].includes(mode)) {
   console.error(`Usage:
   node scripts/run-aicr-v020-provenance.mjs --run --binary /path/to/aicr --archive /path/to/archive.tar.gz
   node scripts/run-aicr-v020-provenance.mjs --generate
-  node scripts/run-aicr-v020-provenance.mjs --verify`);
+  node scripts/run-aicr-v020-provenance.mjs --verify
+
+Set AICR_PROVENANCE_VERSION (for example 1.0.0) to select a retained version other than 0.20.0.`);
   process.exit(2);
 }
 
@@ -165,7 +168,7 @@ function staticFacts() {
   const recipeSubject = recipeSignature.subjects.find((row) => row.name === "recipe-catalog");
   const binarySubject = binarySignature.subjects.find((row) => row.name === "aicr");
   const sbomSubject = sbomSignature.subjects.find(
-    (row) => row.name === "aicr_0.20.0_darwin_arm64.sbom.json",
+    (row) => row.name === sbomName,
   );
   check(recipeSubject, "recipe signature has no recipe-catalog subject");
   check(binarySubject, "binary attestation has no aicr subject");
@@ -211,8 +214,8 @@ function staticFacts() {
 
 function run() {
   check(process.env.HELM_EXPT_ALLOW_CONTAINER_TOOLS === "1", "set HELM_EXPT_ALLOW_CONTAINER_TOOLS=1 for the Cosign run");
-  check(binaryPath && existsSync(binaryPath), "--binary must name the extracted v0.20.0 aicr binary");
-  check(archivePath && existsSync(archivePath), "--archive must name the downloaded v0.20.0 tarball");
+  check(binaryPath && existsSync(binaryPath), `--binary must name the extracted ${version} aicr binary`);
+  check(archivePath && existsSync(archivePath), `--archive must name the downloaded ${version} tarball`);
   const facts = staticFacts();
   check(sha256(readFileSync(binaryPath)) === facts.binarySubject.sha256, "downloaded binary differs from its signed subject");
   check(sha256(readFileSync(archivePath)) === facts.archiveSha256, "downloaded archive differs from the release checksum list");
@@ -227,11 +230,11 @@ function run() {
   const sbomVerified = cosignSubject(
     expectedIdentity,
     sbomPath,
-    "aicr_0.20.0_darwin_arm64.sbom.json.sigstore.json",
+    `${sbomName}.sigstore.json`,
   );
   check(sbomVerified.ok && /verified ok/i.test(sbomVerified.output), `SBOM attestation failed: ${sbomVerified.output}`);
   const wrongIdentity =
-    "https://github.com/not-nvidia/not-aicr/.github/workflows/on-tag.yaml@refs/tags/v0.20.0";
+    `https://github.com/not-nvidia/not-aicr/.github/workflows/on-tag.yaml@refs/tags/${version}`;
   const refused = cosignSubject(
     wrongIdentity,
     binaryPath,
@@ -247,7 +250,7 @@ function run() {
 function cosignRecipe(identity) {
   return runDocker([
     "verify-blob-attestation",
-    "--bundle", "/sig/v0.20.0/recipe-catalog.sigstore.json",
+    "--bundle", `/sig/${version}/recipe-catalog.sigstore.json`,
     "--trusted-root", "/sig/trusted_root.json",
     "--certificate-oidc-issuer", expectedIssuer,
     "--certificate-identity", identity,
@@ -259,7 +262,7 @@ function cosignRecipe(identity) {
 function cosignSubject(identity, path, bundleName) {
   return runDocker([
     "verify-blob-attestation",
-    "--bundle", `/sig/v0.20.0/${bundleName}`,
+    "--bundle", `/sig/${version}/${bundleName}`,
     "--trusted-root", "/sig/trusted_root.json",
     "--certificate-oidc-issuer", expectedIssuer,
     "--certificate-identity", identity,
@@ -286,7 +289,7 @@ function buildReceipt(facts, observedAt) {
   return {
     apiVersion: "catalog.confighub.com/v1alpha1",
     kind: "AicrUpstreamProvenanceReceipt",
-    metadata: { name: "aicr-v0-20-0-provenance" },
+    metadata: { name: `aicr-${versionSlug}-provenance` },
     spec: {
       observedAt,
       upstream: {
@@ -385,7 +388,7 @@ function verify() {
   const receipt = readYaml(receiptPath);
   verifyReceipt(receipt, staticFacts());
   check(readFileSync(summaryPath, "utf8") === renderSummary(receipt), `${relativeRepo(summaryPath)} is stale`);
-  console.log("verified the AICR v0.20.0 recipe-catalog, binary, and SBOM provenance receipt");
+  console.log(`verified the AICR ${version} recipe-catalog, binary, and SBOM provenance receipt`);
 }
 
 function verifyReceipt(receipt, facts) {
@@ -408,7 +411,7 @@ function verifyReceipt(receipt, facts) {
 
 function renderSummary(receipt) {
   const spec = receipt.spec;
-  return `# AICR v0.20.0 source verification
+  return `# AICR ${version} source verification
 
 The release archive matched NVIDIA's checksum list. The extracted CLI binary
 matched the SHA-256 in its signed SLSA attestation. The retained SBOM matched
@@ -424,10 +427,10 @@ binary check refused an unrelated signer identity.
 
 This proves the source inputs used by the retained entry. It does not prove that
 the generated platform ran on EKS or an H100, and it does not cover every AICR
-overlay. The [generation receipt](../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml)
+overlay. The [generation receipt](../../${retained.entryPath}/generation-receipt.yaml)
 and digest index bind the generated files separately.
 
-Run \`npm run aicr-provenance-v0200:verify\` to check the committed receipt and
+Run \`npm run aicr-provenance-${retained.npmSuffix}:verify\` to check the committed receipt and
 retained bytes without Docker or network access.
 `;
 }
