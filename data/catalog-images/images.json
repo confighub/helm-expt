@@ -5,9 +5,9 @@
   "method": "Read from each entry's committed rendered objects: every image key whose value is a registry reference, under containers, initContainers, ephemeralContainers or a custom resource.",
   "boundary": "What the objects name, not what a registry holds. A tag can answer to different bytes later, and this index resolves nothing; cub config check --images asks the registry.",
   "summary": {
-    "entries": 401,
+    "entries": 402,
     "entriesRead": 277,
-    "entriesWithoutRetainedObjects": 124,
+    "entriesWithoutRetainedObjects": 125,
     "imageReferences": 509,
     "distinctImages": 243,
     "pinnedByDigest": 44,
@@ -184,6 +184,12 @@
     },
     {
       "id": "aicr-eks-h100-training-kubeflow-v0-20-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-eks-h100-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []

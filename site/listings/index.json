@@ -15,15 +15,15 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:8564af0e304be49983ccc552f755eeda84b0a192d9a87185c4283b81f6416878",
+      "sha256": "sha256:bd1ce709a1792bee3135a0a4dd5bb203361fb7ccb3ee87f63de2c012a4990780",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "recordKind": "BaseVariantRecord"
   },
   "counts": {
-    "listings": 401,
+    "listings": 402,
     "formats": {
-      "aicr": 123,
+      "aicr": 124,
       "configuration-oci": 1,
       "cub-installer": 1,
       "helm": 271,
@@ -467,6 +467,21 @@
       },
       "objectCount": 17,
       "digest": "sha256:f2a4f9e60e872bf2266a8dc89a239e704b0dd5f77a643c3bdf9561a088de99cc",
+      "flatteningVerdict": "flatten-with-routes"
+    },
+    {
+      "id": "aicr-eks-h100-training-kubeflow-v1-0-0-argocd",
+      "url": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json",
+      "name": "aicr-eks-h100-training-kubeflow",
+      "format": "aicr",
+      "version": "v1.0.0",
+      "base": "argocd",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 17,
+      "digest": "sha256:45baec5d12b562cec93aa771d1f631f19e8b6c68ab79fd7a8f6314dedff9c47e",
       "flatteningVerdict": "flatten-with-routes"
     },
     {

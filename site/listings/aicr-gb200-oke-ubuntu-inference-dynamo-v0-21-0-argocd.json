@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:8564af0e304be49983ccc552f755eeda84b0a192d9a87185c4283b81f6416878",
+      "sha256": "sha256:bd1ce709a1792bee3135a0a4dd5bb203361fb7ccb3ee87f63de2c012a4990780",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -276,7 +276,13 @@
         "orderHint": 2
       }
     ],
-    "records": []
+    "records": [
+      {
+        "name": "sync-wave-ordering.yaml",
+        "path": "data/aicr-flattening-verdicts/aicr-gb200-oke-ubuntu-inference-dynamo/sync-wave-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-oke-ubuntu-inference-dynamo/sync-wave-ordering.yaml"
+      }
+    ]
   },
   "lifecycle": {
     "installTimeStatus": "destination-facts-recorded-not-run",
@@ -436,7 +442,13 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": []
+        "records": [
+          {
+            "name": "sync-wave-ordering.yaml",
+            "path": "data/aicr-flattening-verdicts/aicr-gb200-oke-ubuntu-inference-dynamo/sync-wave-ordering.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-oke-ubuntu-inference-dynamo/sync-wave-ordering.yaml"
+          }
+        ]
       },
       {
         "id": "post-deployment",
@@ -461,6 +473,11 @@
         "name": "flatteningVerdict",
         "path": "data/aicr-flattening-verdicts/aicr-gb200-oke-ubuntu-inference-dynamo/flattening-safety-verdict.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-oke-ubuntu-inference-dynamo/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "orderingRoute",
+        "path": "data/aicr-flattening-verdicts/aicr-gb200-oke-ubuntu-inference-dynamo/sync-wave-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-oke-ubuntu-inference-dynamo/sync-wave-ordering.yaml"
       },
       {
         "name": "attachedMembers",
@@ -506,10 +523,6 @@
       {
         "name": "attachedMemberRows",
         "value": "77 model profiles joined by criteria; none was executed"
-      },
-      {
-        "name": "orderingRoute",
-        "value": "data/aicr-flattening-verdicts/aicr-gb200-oke-ubuntu-inference-dynamo/sync-wave-ordering.yaml"
       },
       {
         "name": "overlayParentEntries",

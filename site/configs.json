@@ -7,7 +7,7 @@
     "site/listings/index.json",
     "site/listings/<id>.json"
   ],
-  "count": 401,
+  "count": 402,
   "rows": [
     {
       "id": "aicr-a100-aks-training-v0-21-0-argocd",
@@ -645,6 +645,28 @@
       "listing": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.json"
+      }
+    },
+    {
+      "id": "aicr-eks-h100-training-kubeflow-v1-0-0-argocd",
+      "name": "aicr-eks-h100-training-kubeflow",
+      "format": "aicr",
+      "version": "v1.0.0",
+      "base": "argocd",
+      "summary": "aicr-eks-h100-training-kubeflow v1.0.0, aicr, base argocd: 17 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 17,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:45baec5d12b562cec93aa771d1f631f19e8b6c68ab79fd7a8f6314dedff9c47e",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json"
       }
     },
     {
