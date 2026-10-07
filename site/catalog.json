@@ -430,8 +430,8 @@
     {
       "section": "proof lanes",
       "metric": "render parity rows",
-      "value": "270",
-      "total": "270",
+      "value": "311",
+      "total": "311",
       "status": "good",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Every chart/base row has render parity under recorded inputs."
@@ -440,7 +440,7 @@
       "section": "proof lanes",
       "metric": "in-ConfigHub proof rows",
       "value": "198",
-      "total": "270",
+      "total": "311",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with upload, scan, or safe-operation proof receipts."
@@ -449,7 +449,7 @@
       "section": "proof lanes",
       "metric": "local live rows",
       "value": "148",
-      "total": "270",
+      "total": "311",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with committed local Kubernetes observation receipts."
@@ -476,7 +476,7 @@
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
       "value": "139",
-      "total": "270",
+      "total": "311",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "60 rows have non-pass GitOps/OCI receipts."
@@ -485,7 +485,7 @@
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
       "value": "139",
-      "total": "270",
+      "total": "311",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "60 rows have non-pass live parity receipts."
@@ -512,7 +512,7 @@
       "section": "proof lanes",
       "metric": "complete core lane rows",
       "value": "126",
-      "total": "270",
+      "total": "311",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
@@ -76326,13 +76326,13 @@
     }
   ],
   "matrixDisposition": {
-    "pass": 1066,
+    "pass": 1107,
     "watch": 107,
     "blocked": 128,
-    "todo": 425,
-    "na": 1816,
+    "todo": 630,
+    "na": 1934,
     "blank": 0,
-    "total": 3542
+    "total": 3906
   },
   "chartSkills": [
     {

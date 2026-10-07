@@ -49,16 +49,16 @@ Which detailed CSV should I open next?
 | top500 | proof-grade rows | 76/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | rows with no current recipe proof | 403/500 | gap | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | version-drift review rows | 27/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| proof lanes | render parity rows | 270/270 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | in-ConfigHub proof rows | 198/270 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | local live rows | 148/270 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | render parity rows | 311/311 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | in-ConfigHub proof rows | 198/311 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | local live rows | 148/311 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 21/21 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 51/51 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
-| proof lanes | GitOps/OCI live pass rows | 139/270 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | live Helm-vs-ConfigHub parity pass rows | 139/270 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | GitOps/OCI live pass rows | 139/311 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | live Helm-vs-ConfigHub parity pass rows | 139/311 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 130/179 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | two-cluster semantic parity pass rows | 155/179 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | complete core lane rows | 126/270 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | complete core lane rows | 126/311 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 26/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | proof lanes | top20 bases needing unresolved prerequisite or runtime review | 3/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
@@ -472,10 +472,10 @@ first.
 
 | Lane | Pass | Non-pass | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| in-ConfigHub | 198 | 0 | 72 | 270 |
-| local live | 148 | 51 | 71 | 270 |
-| GitOps/OCI live | 139 | 60 | 71 | 270 |
-| live Helm-vs-ConfigHub parity | 139 | 60 | 71 | 270 |
+| in-ConfigHub | 198 | 0 | 113 | 311 |
+| local live | 148 | 51 | 112 | 311 |
+| GitOps/OCI live | 139 | 60 | 112 | 311 |
+| live Helm-vs-ConfigHub parity | 139 | 60 | 112 | 311 |
 | two-cluster kind parity | 130 | 49 | 0 | 179 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
