@@ -557,7 +557,7 @@
          <a href="../bring-kubara-into-confighub.html">Kubara</a>
          <a href="../config.html#formats">Sveltos fleets</a>
          <a href="index.html?format=configuration-oci">OCI config <b>1</b></a>
-         <a href="index.html?format=kubernetes-yaml">Plain YAML <b>1</b></a>
+         <a href="index.html?format=kubernetes-yaml">Plain YAML <b>2</b></a>
        </div>
        <p class="support-group">Compose and deliver</p>
        <div class="support-chips">
@@ -572,14 +572,14 @@
 
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
-      <p>The catalog holds 113 Helm charts and non-Helm entries in one filterable table: 126 AICR entries, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. Use the <strong>Format</strong> filter to narrow to any one, for example all 126 AICR entries; the other filters and the text search span every entry.</p>
+      <p>The catalog holds 113 Helm charts and non-Helm entries in one filterable table: 126 AICR entries, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. The nimservice entry is one row with 38 model variants, and none is published as OCI yet. Use the <strong>Format</strong> filter to narrow to any one, for example all 126 AICR entries; the other filters and the text search span every entry.</p>
       <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>An entry flagged for review reads <code>completed/watch</code> at <code>checks.materialization</code> in <a href="../configs.json">configs.json</a>. Its listing gives the open question as that stage's answer.</aside>
       <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the provider-curated source variant intended for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       <div class="card">
         <label for="chart-filter"><strong>Search the catalog</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, format, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
-          <label>Format<br><select id="format-filter"><option value="">All formats</option><option value="helm-chart">Helm chart (113)</option><option value="ai-platform">AICR platform (126)</option><option value="timoni">Timoni module (1)</option><option value="configuration-oci">Configuration OCI (1)</option><option value="kubernetes-yaml">Kubernetes YAML (1)</option></select></label>
+          <label>Format<br><select id="format-filter"><option value="">All formats</option><option value="helm-chart">Helm chart (113)</option><option value="ai-platform">AICR platform (126)</option><option value="timoni">Timoni module (1)</option><option value="configuration-oci">Configuration OCI (1)</option><option value="kubernetes-yaml">Kubernetes YAML (2)</option></select></label>
           <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="ready-to-try">Ready to try</option><option value="review-before-use">Review before use</option><option value="package-published-review-before-use">Package published; review before use</option><option value="not-ready-yet">Not ready yet</option></select></label>
           <label>Workload category<br><select id="category-filter"><option value="">All</option><option value="security-secrets">Security and secrets</option><option value="monitoring-logs">Monitoring and logs</option><option value="networking-ingress">Networking and ingress</option><option value="storage-backup">Storage and backup</option><option value="databases-messaging">Databases and messaging</option><option value="delivery-automation">Delivery and automation</option><option value="cluster-operations">Cluster operations</option><option value="web-compute">Web and compute</option></select></label>
           <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
@@ -2744,6 +2744,15 @@
         <td></td>
         <td>flatten-with-routes, wrapper only, route recorded, not published</td>
         <td>argocd. Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>
+<tr data-chart-row data-kind="kubernetes-yaml" data-nimservice-entry data-readiness="" data-category="" data-status="" data-hooks="" data-crds="" data-search="nimservice nim nvidia model variants kubernetes yaml flatten-with-routes not published autoscaling-meta-llama-3-2-1b-instruct-llm autoscaling-meta-llama-3-2-1b-instruct-multi-llm basic-meta-llama-3-2-1b-instruct-llm basic-meta-llama-3-2-1b-instruct-multi-llm basic-model-free-llama-3-2-1b-instruct confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox epp-meta-llama3-8b-instruct example0-meta-llama3-2-1b-instruct example1-meta-llama3-2-1b-instruct example2-meta-llama3-2-1b-instruct full-meta-llama-3-2-1b-instruct-llm full-meta-llama-3-2-1b-instruct-multi-llm grpcroutes-riva-tts httproutes-meta-llama-3-2-1b-instruct-llm httproutes-meta-llama-3-2-1b-instruct-multi-llm ingress-meta-llama-3-2-1b-instruct-llm ingress-meta-llama-3-2-1b-instruct-multi-llm knative-meta-llama-3-2-1b-instruct-llm knative-meta-llama-3-2-1b-instruct-multi-llm lora-meta-llama-3-2-1b-instruct-llm lora-meta-llama-3-2-1b-instruct-multi-llm manual-meta-llama3-2-1b-instruct multi-node-deepseek-r1-multi-node-nimservice multi-node-deepseek-r1-multi-node-nimservice-rdma multi-node-llama-3-1-8b-instruct-multinode nim-3-nemotron-3-super-120b-a12b no-precaching-meta-llama-3-2-1b-instruct-emptydir no-precaching-meta-llama-3-2-1b-instruct-hostpath no-precaching-meta-llama-3-2-1b-instruct-llm no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc no-precaching-model-free-llama-3-2-1b-instruct retriever-llama-nemotron-embed-vl-1b-v2 scheduling-meta-llama-3-2-1b-instruct-scheduling sidecars-meta-llama-3-2-1b-instruct-sidecars standard-meta-llama-3-2-1b-instruct standard-nim-service-model-free standard-nim-service-multi-llm">
+        <td><a href="../nimservice.html">nimservice</a><br><span style="color:var(--muted);font-size:.85rem">NIMService model variants, kept from NVIDIA's k8s-nim-operator samples</span></td>
+        <td class="mono">5d5f66ee0e2e</td>
+        <td><a href="../nimservice.html">Choose a model variant</a> · <a href="../nimservice.html#use-in-confighub">Use this entry in ConfigHub</a></td>
+        <td>38 model variants are kept as exact objects with their routes. None of the 38 variants is published as OCI yet. 6 are flagged for review, and the entry page names each open question.</td>
+        <td>The NIM Operator, your own NGC Secrets and the GPU request of the variant you choose.</td>
+        <td>flatten-with-routes, route recorded, not published</td>
+        <td>38 model variants. <a href="../nimservice.html#variants">See them in one table</a></td>
       </tr>
 <tr data-chart-row data-kind="timoni" data-readiness="" data-category="" data-status="" data-hooks="" data-crds="" data-search="timoni redis 8.10.1 module typed oci flatten-with-routes non-helm">
         <td><a href="../d/examples/timoni/redis-8-10-1/README.html">Redis 8.10.1</a><br><span style="color:var(--muted);font-size:.85rem">Timoni module entry, built from a pinned OCI module</span></td>
