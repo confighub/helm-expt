@@ -195,8 +195,8 @@
       ],
       "repository": "confighub/cub-demo",
       "release": {
-        "date": "2026-09-16",
-        "tag": "v0.2.2"
+        "date": "2026-10-07",
+        "tag": "v0.2.4"
       },
       "install": "cub plugin install confighub/cub-demo",
       "next": {
