@@ -864,13 +864,13 @@
       "id": "deploy",
       "label": "Deploy it",
       "state": "not-available",
-      "summary": "This step needs the upload in step 3, which is not available for this entry.",
+      "summary": "This step needs an upload command from step 3, and this entry has none.",
       "basis": [
         "oci.runtimes",
         "lifecycle.installTimeInputs"
       ],
       "commands": [],
-      "unblock": "Publishing the entry, as step 3 describes, would make this step available.",
+      "unblock": "A published artifact for this entry, with a receipt, would make this step available.",
       "needs": [
         "aicr-target-fact-1",
         "aicr-target-fact-2",
@@ -885,12 +885,12 @@
       "id": "promote",
       "label": "Promote a change",
       "state": "not-available",
-      "summary": "This step needs the upload in step 3, which is not available for this entry.",
+      "summary": "This step needs an upload command from step 3, and this entry has none.",
       "basis": [
         "lifecycle.promotion"
       ],
       "commands": [],
-      "unblock": "Publishing the entry, as step 3 describes, would make this step available."
+      "unblock": "A published artifact for this entry, with a receipt, would make this step available."
     }
   ]
 }

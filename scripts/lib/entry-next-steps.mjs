@@ -277,8 +277,8 @@ export function buildNextSteps(listing, { plan, related = [] }) {
       }));
     if (related.length === 0) {
       return {
-        summary: "This entry has no other version or base in the Catalog.",
-        unblock: `A second retained version or base of ${name} would give this step a sibling.`,
+        summary: "The Catalog holds no other version or base of this entry's source in the same format.",
+        unblock: `A second entry for ${name} in this format would give this step a sibling.`,
         siblings,
       };
     }
@@ -377,8 +377,8 @@ export function buildNextSteps(listing, { plan, related = [] }) {
     const common = { ...(needs.length > 0 ? { needs } : {}), ...(alsoRecorded ? { alsoRecorded } : {}), ...evidence };
     if (state === "not-available") {
       return {
-        summary: "This step needs the upload in step 3, which is not available for this entry.",
-        unblock: "Publishing the entry, as step 3 describes, would make this step available.",
+        summary: "This step needs an upload command from step 3, and this entry has none.",
+        unblock: "A published artifact for this entry, with a receipt, would make this step available.",
         ...(needs.length > 0 ? { needs } : {}),
       };
     }
@@ -399,8 +399,8 @@ export function buildNextSteps(listing, { plan, related = [] }) {
     ];
     if (state === "not-available") {
       return {
-        summary: "This step needs the upload in step 3, which is not available for this entry.",
-        unblock: "Publishing the entry, as step 3 describes, would make this step available.",
+        summary: "This step needs an upload command from step 3, and this entry has none.",
+        unblock: "A published artifact for this entry, with a receipt, would make this step available.",
       };
     }
     if (state === "blocked-for-this-entry") {

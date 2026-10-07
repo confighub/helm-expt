@@ -470,14 +470,14 @@
       "id": "compare",
       "label": "Compare with another version or base",
       "state": "not-available",
-      "summary": "This entry has no other version or base in the Catalog.",
+      "summary": "The Catalog holds no other version or base of this entry's source in the same format.",
       "basis": [
         "variants.known",
         "source.name",
         "flattened.format"
       ],
       "commands": [],
-      "unblock": "A second retained version or base of bitnami/memcached would give this step a sibling."
+      "unblock": "A second entry for bitnami/memcached in this format would give this step a sibling."
     },
     {
       "id": "upload",

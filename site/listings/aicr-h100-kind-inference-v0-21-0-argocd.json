@@ -576,14 +576,14 @@
       "id": "compare",
       "label": "Compare with another version or base",
       "state": "not-available",
-      "summary": "This entry has no other version or base in the Catalog.",
+      "summary": "The Catalog holds no other version or base of this entry's source in the same format.",
       "basis": [
         "variants.known",
         "source.name",
         "flattened.format"
       ],
       "commands": [],
-      "unblock": "A second retained version or base of h100-kind-inference would give this step a sibling."
+      "unblock": "A second entry for h100-kind-inference in this format would give this step a sibling."
     },
     {
       "id": "upload",
@@ -604,13 +604,13 @@
       "id": "deploy",
       "label": "Deploy it",
       "state": "not-available",
-      "summary": "This step needs the upload in step 3, which is not available for this entry.",
+      "summary": "This step needs an upload command from step 3, and this entry has none.",
       "basis": [
         "oci.runtimes",
         "lifecycle.installTimeInputs"
       ],
       "commands": [],
-      "unblock": "Publishing the entry, as step 3 describes, would make this step available.",
+      "unblock": "A published artifact for this entry, with a receipt, would make this step available.",
       "needs": [
         "argo-cd-application-api",
         "aicr-bundle-source-package",
@@ -621,12 +621,12 @@
       "id": "promote",
       "label": "Promote a change",
       "state": "not-available",
-      "summary": "This step needs the upload in step 3, which is not available for this entry.",
+      "summary": "This step needs an upload command from step 3, and this entry has none.",
       "basis": [
         "lifecycle.promotion"
       ],
       "commands": [],
-      "unblock": "Publishing the entry, as step 3 describes, would make this step available."
+      "unblock": "A published artifact for this entry, with a receipt, would make this step available."
     }
   ]
 }
