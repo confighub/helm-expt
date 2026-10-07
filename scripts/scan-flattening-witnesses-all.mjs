@@ -23,6 +23,14 @@
 //
 // Usage:
 //   node scripts/scan-flattening-witnesses-all.mjs [--limit N] [--only <substring>]
+//   node scripts/scan-flattening-witnesses-all.mjs --offline
+//
+// --offline rewrites the coverage report from committed files and fetches
+// nothing. An entry whose committed witness matches its locked hash is current.
+// Any other entry keeps the row the committed report already holds, because that
+// row records what a real fetch found. An entry with neither is reported as
+// not-scanned. Use it after adding witnesses with scripts/scan-flattening-witness.mjs
+// when the sweep's other fetches are not wanted.
 
 import { execFile } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync } from "node:fs";
@@ -45,6 +53,11 @@ const only = args.includes("--only") ? args[args.indexOf("--only") + 1] : null;
 // download cache, and writes no witness, because its job is to report rather
 // than to record.
 const recheck = args.includes("--recheck");
+const offline = args.includes("--offline");
+if (offline && (recheck || only || Number.isFinite(limit))) {
+  console.error("--offline rewrites the whole report and takes no other option");
+  process.exit(1);
+}
 
 // One timestamp for the whole sweep: a witness records when the package was
 // observed, and a per-chart clock would add churn without adding meaning.
@@ -136,10 +149,44 @@ async function fetchTarball(entry) {
   return cached;
 }
 
+// The rows of the committed coverage report, keyed by recipe.
+function committedRows() {
+  const path = join(repoRoot, "data", "flattening-safety", "witness-coverage.csv");
+  const rows = new Map();
+  if (!existsSync(path)) return rows;
+  for (const line of readFileSync(path, "utf8").trim().split("\n").slice(1)) {
+    const cells = [];
+    let cell = "";
+    let quoted = false;
+    for (let index = 0; index < line.length; index += 1) {
+      const char = line[index];
+      if (quoted && char === '"' && line[index + 1] === '"') {
+        cell += '"';
+        index += 1;
+      } else if (char === '"') quoted = !quoted;
+      else if (char === "," && !quoted) {
+        cells.push(cell);
+        cell = "";
+      } else cell += char;
+    }
+    cells.push(cell);
+    rows.set(cells[0], { status: cells[4], detail: cells[5] });
+  }
+  return rows;
+}
+
+const previousRows = offline ? committedRows() : new Map();
+
 async function scanOne(entry) {
   if (!entry.sha) return { ...entry, status: "no-hash", detail: "source lock records no package hash" };
   if (!recheck && alreadyCurrent(entry))
     return { ...entry, status: "current", detail: "witness already matches the locked hash" };
+  if (offline) {
+    const previous = previousRows.get(entry.recipe);
+    // A committed row that claims a witness, with no matching witness on disk, is not carried forward.
+    if (previous && !["scanned", "current"].includes(previous.status)) return { ...entry, ...previous };
+    return { ...entry, status: "not-scanned", detail: "no committed witness matches the locked hash, and this offline run fetched nothing" };
+  }
 
   let tarball;
   try {
@@ -249,6 +296,7 @@ function summary(rows) {
     unavailable: "the pinned artifact could not be fetched",
     "scan-failed": "the package was fetched and verified but the scan did not complete",
     "no-hash": "the recipe's source lock records no package hash to verify against",
+    "not-scanned": "no committed witness matches the locked hash, and the report was rewritten without fetching",
   };
   for (const [status, count] of Object.entries(counts).sort((a, b) => b[1] - a[1])) {
     lines.push(`| ${status} | ${count} | ${meanings[status] ?? ""} |`);
