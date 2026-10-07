@@ -1,0 +1,148 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "nvidia-k8s-nim-operator-3.1.2"
+spec:
+  chart:
+    repository: "nvidia"
+    name: "k8s-nim-operator"
+    version: "3.1.2"
+    packageSHA256: "ebb31e27b4a62d22ac10a24083ff21a340e48030b1ac4c1e7b99b24318f8f92a"
+  witnessRef: "data/flattening-safety/witnesses/nvidia-k8s-nim-operator-3.1.2.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "one hook set renders with this base's values and is not in the base: a pre-upgrade Job that applies the CRD files inside the operator image, with its ServiceAccount, ClusterRole and ClusterRoleBinding. Every other hook in the packaged archive belongs to the dynamo-platform subchart, which dynamo.enabled leaves off"
+      disposition: "packaged lifecycle action under prerequisites/k8s-nim-operator-lifecycle, marked not automatic; it has not been run on a cluster"
+      evidence:
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/mpi-run-ssh-keygen-job.yaml:23"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/mpi-run-ssh-keygen-job.yaml:106"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/mpi-run-ssh-keygen-job.yaml:116"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/mpi-run-ssh-keygen-job.yaml:130"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/webhook-ca-inject-job.yaml:30"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/webhook-ca-inject-job.yaml:46"
+    -
+      class: "resource-policy-keep"
+      finding: "present-gated"
+      detail: "every keep annotation sits in the dynamo-crds and dynamo-platform subcharts, which dynamo.enabled leaves off"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/dynamo-crds/templates/nvidia.com_dynamocomponentdeployments.yaml:22"
+        - "charts/dynamo-crds/templates/nvidia.com_dynamographdeploymentrequests.yaml:22"
+        - "charts/dynamo-crds/templates/nvidia.com_dynamographdeployments.yaml:22"
+        - "charts/dynamo-crds/templates/nvidia.com_dynamographdeploymentscalingadapters.yaml:22"
+        - "charts/dynamo-crds/templates/nvidia.com_dynamomodels.yaml:22"
+        - "charts/dynamo-platform/charts/etcd/templates/snapshot-pvc.yaml:14"
+    -
+      class: "lookup"
+      finding: "present-gated"
+      detail: "every lookup call sits in the dynamo-platform subchart, which dynamo.enabled leaves off"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/_helpers.tpl:96"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/_helpers.tpl:128"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/_validation.tpl:29"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/_validation.tpl:51"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:103"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:166"
+    -
+      class: "webhook-ca"
+      finding: "present-gated"
+      detail: "the operator's own ValidatingWebhookConfiguration renders only when operator.admissionController.enabled is true, which chart defaults leave false; the other webhook configurations belong to the dynamo-platform subchart, which is off"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/webhook-configuration.yaml:19"
+        - "charts/dynamo-platform/charts/grove-charts/templates/authorizer-webhook-config.yaml:4"
+        - "charts/dynamo-platform/charts/grove-charts/templates/pcs-defaulting-webhook-config.yaml:3"
+        - "charts/dynamo-platform/charts/grove-charts/templates/pcs-validating-webhook-config.yaml:3"
+        - "templates/admission-controller.yaml:61"
+    -
+      class: "capabilities-api-versions"
+      finding: "present-gated"
+      detail: "every capability branch sits in the dynamo-platform subchart, which dynamo.enabled leaves off"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/operator-servicemonitor.yaml:15"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/prometheus.yaml:15"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_capabilities.tpl:12"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_capabilities.tpl:22"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_capabilities.tpl:170"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_capabilities.tpl:171"
+    -
+      class: "generated-secrets"
+      finding: "present-gated"
+      detail: "every generated credential sits in the etcd subchart inside dynamo-platform, which is off; this base renders no Secret"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:70"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:95"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:132"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:133"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:137"
+        - "charts/dynamo-platform/charts/etcd/templates/_helpers.tpl:210"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "nine CRDs render in this base, from the chart's own crds directory; no object in the base is an instance of them. The other CRDs in the archive belong to the Dynamo subcharts, which are off"
+      disposition: "ordering declaration ships with the bundle: the base's target facts name the CRDs and the package carries them as a CRD bundle"
+      evidence:
+        - "18 crds-directory file(s), 24 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "present-gated"
+      detail: "the Namespace templates belong to the kai-scheduler subchart inside dynamo-platform, which is off"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/dynamo-platform/charts/kai-scheduler/templates/services/resourcereservation-namespace.yaml:7"
+        - "charts/dynamo-platform/charts/kai-scheduler/templates/services/scalingpod-namespace.yaml:6"
+    -
+      class: "subchart-conditions"
+      finding: "present"
+      detail: "2 occurrence(s) in the packaged chart"
+      disposition: "the flatten step must render with the audited base's condition set; dynamo.enabled is false, which leaves both Dynamo subcharts out"
+      evidence:
+        - "dynamo-platform gated by dynamo.enabled"
+        - "dynamo-crds gated by dynamo.enabled"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "operator.admissionController.enabled true"
+      effect: "adds a ValidatingWebhookConfiguration, a webhook Service and, in cert-manager mode, a Certificate and an Issuer; the target must then run cert-manager, and that base needs its own verdict"
+    -
+      values: "operator.admissionController.tls.mode secret"
+      effect: "the webhook takes its CA bundle from values and its certificate from a Secret the user supplies; that base needs its own verdict"
+    -
+      values: "dynamo.enabled true"
+      effect: "brings in both Dynamo subcharts with their lookups, generated credentials, hooks, webhooks, Namespaces and CRDs; that base needs its own verdict"
+    -
+      values: "operator.upgradeCRD false"
+      effect: "the pre-upgrade hook leaves the render and moving the CRDs forward becomes entirely the delivery workflow's job"
+    -
+      values: "nfd.nodeFeatureRules.deviceID true"
+      effect: "adds a NodeFeatureRule and with it a Node Feature Discovery CRD precondition"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Hand read of the chart against this base's render. Nothing here is decided at render time: the operator's own templates hold no lookup, no generated value and no capability branch, and everything of that kind in the archive belongs to the Dynamo subcharts, which stay off. What flattening drops is the pre-upgrade hook, and what it needs is the nine CRDs before the operator starts. The hook objects are packaged as a lifecycle action and the CRDs as a bundle, so the lane names companions that exist in the package. Neither has been run on a cluster. Five namespaced objects carry no namespace, so a flattened copy must be applied into nvidia-nim; that is a precondition, not a route."
+    routes:
+      - "CRD ordering declaration: the nine CRDs are established before the operator starts, from the packaged CRD bundle"
+      - "pre-upgrade lifecycle action that moves the CRDs to the new version, recorded in the package and not yet run"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/nvidia-k8s-nim-operator-3.1.2.yaml"
+      - "recipes/nvidia/k8s-nim-operator/3.1.2/source-lock.yaml"

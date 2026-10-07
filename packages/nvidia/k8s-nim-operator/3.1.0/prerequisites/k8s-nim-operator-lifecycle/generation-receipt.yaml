@@ -1,0 +1,59 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "PackagedLifecycleGenerationReceipt"
+metadata:
+  name: "nvidia-k8s-nim-operator-3-1-0"
+spec:
+  chart: "nvidia/k8s-nim-operator"
+  version: "3.1.0"
+  sourceLock: "recipes/nvidia/k8s-nim-operator/3.1.0/source-lock.yaml"
+  chartArtifactURL: "https://helm.ngc.nvidia.com/nvidia/charts/k8s-nim-operator-3.1.0.tgz"
+  chartPackageSha256: "2d333ae76a17d687cd7987454d194378b8709eaefe11a675b01f92ee5bb99a47"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+  evidenceState: "rendered-not-run"
+  bases:
+    -
+      name: "default"
+      valuesSHA256: null
+      totalChartObjects: 21
+      ordinaryObjects: 17
+      hookObjects: 4
+      hookJobs: 1
+      jobImages:
+        - "nvcr.io/nvidia/cloud-native/k8s-nim-operator:v3.1.0"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-upgrade"
+          path: "default/pre-upgrade.yaml"
+          sha256: "e70eb8c27d920160e69bb3fb2f2dab01791610321e964ffbfe123f416ad4f05d"
+          objects:
+            - "batch/v1|Job|nvidia-nim|nim-operator-upgrade-crd"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||nim-operator-upgrade-crd-hook-binding"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||nim-operator-upgrade-crd-hook-role"
+            - "v1|ServiceAccount||nim-operator-upgrade-crd-hook-sa"
+    -
+      name: "aicr-eks-inference"
+      valuesSHA256: "c2642b3cd45dcb5231c830d3c5f107e928d1d00bcd5112646cdeee2070cf019e"
+      totalChartObjects: 25
+      ordinaryObjects: 21
+      hookObjects: 4
+      hookJobs: 1
+      jobImages:
+        - "nvcr.io/nvidia/cloud-native/k8s-nim-operator:v3.1.0"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-upgrade"
+          path: "aicr-eks-inference/pre-upgrade.yaml"
+          sha256: "7eddf5e9d69558c9ed83eefaafed35a9bafa29d004835978b112fdd689a79122"
+          objects:
+            - "batch/v1|Job|nvidia-nim|nim-operator-upgrade-crd"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||nim-operator-upgrade-crd-hook-binding"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||nim-operator-upgrade-crd-hook-role"
+            - "v1|ServiceAccount||nim-operator-upgrade-crd-hook-sa"

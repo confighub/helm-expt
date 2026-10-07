@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "nvidia-k8s-nim-operator-3.1.2"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "nvidia/k8s-nim-operator"
+    version: "3.1.2"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 17
+    cubInstallObjectsByVariant:
+      default: 18
+    helmMatchByVariant:
+      default: "17/17"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish and sign the package, then complete target-specific live qualification on a GPU target before production"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"

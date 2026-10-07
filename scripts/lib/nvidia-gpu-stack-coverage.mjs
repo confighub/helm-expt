@@ -2,7 +2,8 @@
 // Catalog entries, and how the Workshop Catalog checks each. The gpu-operator and
 // nvsentinel versions are the ones the AICR recipes pin (v0.19.0, v0.20.0 and
 // v1.0.0), plus neighbouring releases so a version-to-version object diff has both
-// sides. Each entry below is one addition, addressed by its exact archive URL and
+// sides. k8s-nim-operator is held at the version the AICR NIM inference recipes
+// pin and at the latest release. Each entry below is one addition, addressed by its exact archive URL and
 // SHA-256.
 //
 // `script` is the proof declaration that renders and packages the chart;
@@ -75,6 +76,18 @@ export const NVIDIA_GPU_STACK_ADDITIONS = Object.freeze([
     candidate: "cluster-readiness-engine",
     targetFacts: true,
     ociManifestDigest: "sha256:af20cf1d7827a35e60a539ef9f7fc8445e0def61f345e8bdb030afc76f01f6cf",
+  }),
+  // k8s-nim-operator from the NGC Helm repository, pulled anonymously on 2026-10-07. Each SHA-256 equals the digest the
+  // repository index listed for that version. The AICR NIM inference recipes pin 3.1.0; 3.1.2 was the latest release.
+  entry("k8s-nim-operator", "3.1.0", "https://helm.ngc.nvidia.com/nvidia/charts/k8s-nim-operator-3.1.0.tgz", "2d333ae76a17d687cd7987454d194378b8709eaefe11a675b01f92ee5bb99a47", generic, {
+    candidate: "k8s-nim-operator",
+    lifecycle: "generate-gpu-operator-packaged-lifecycle.mjs",
+    targetFacts: true,
+  }),
+  entry("k8s-nim-operator", "3.1.2", "https://helm.ngc.nvidia.com/nvidia/charts/k8s-nim-operator-3.1.2.tgz", "ebb31e27b4a62d22ac10a24083ff21a340e48030b1ac4c1e7b99b24318f8f92a", generic, {
+    candidate: "k8s-nim-operator",
+    lifecycle: "generate-gpu-operator-packaged-lifecycle.mjs",
+    targetFacts: true,
   }),
 ]);
 

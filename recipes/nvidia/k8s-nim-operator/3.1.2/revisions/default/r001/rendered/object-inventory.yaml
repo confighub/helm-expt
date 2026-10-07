@@ -1,0 +1,111 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "nvidia-k8s-nim-operator-3.1.2-default-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "b152742ed9d6d23ffc731464407499cf534c2c155657052cb1f9425000f6830f"
+  objectCount: 17
+  objects:
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nemocustomizers.apps.nvidia.com"
+      kind: "CustomResourceDefinition"
+      name: "nemocustomizers.apps.nvidia.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nemodatastores.apps.nvidia.com"
+      kind: "CustomResourceDefinition"
+      name: "nemodatastores.apps.nvidia.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nemoentitystores.apps.nvidia.com"
+      kind: "CustomResourceDefinition"
+      name: "nemoentitystores.apps.nvidia.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nemoevaluators.apps.nvidia.com"
+      kind: "CustomResourceDefinition"
+      name: "nemoevaluators.apps.nvidia.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nemoguardrails.apps.nvidia.com"
+      kind: "CustomResourceDefinition"
+      name: "nemoguardrails.apps.nvidia.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nimbuilds.apps.nvidia.com"
+      kind: "CustomResourceDefinition"
+      name: "nimbuilds.apps.nvidia.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nimcaches.apps.nvidia.com"
+      kind: "CustomResourceDefinition"
+      name: "nimcaches.apps.nvidia.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nimpipelines.apps.nvidia.com"
+      kind: "CustomResourceDefinition"
+      name: "nimpipelines.apps.nvidia.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nimservices.apps.nvidia.com"
+      kind: "CustomResourceDefinition"
+      name: "nimservices.apps.nvidia.com"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment||k8s-nim-operator"
+      kind: "Deployment"
+      name: "k8s-nim-operator"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||k8s-nim-operator-rolebinding"
+      kind: "ClusterRoleBinding"
+      name: "k8s-nim-operator-rolebinding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||k8s-nim-operator-metrics-reader"
+      kind: "ClusterRole"
+      name: "k8s-nim-operator-metrics-reader"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||k8s-nim-operator-role"
+      kind: "ClusterRole"
+      name: "k8s-nim-operator-role"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding||k8s-nim-operator-leader-election-rolebinding"
+      kind: "RoleBinding"
+      name: "k8s-nim-operator-leader-election-rolebinding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role||k8s-nim-operator-leader-election-role"
+      kind: "Role"
+      name: "k8s-nim-operator-leader-election-role"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount||k8s-nim-operator"
+      kind: "ServiceAccount"
+      name: "k8s-nim-operator"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|Service||k8s-nim-operator-metrics-service"
+      kind: "Service"
+      name: "k8s-nim-operator-metrics-service"
+      namespace: ""

@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nvidia-k8s-nim-operator-3.1.0-aicr-eks-inference"
+spec:
+  files:
+    -
+      path: "effective-values-aicr-eks-inference.yaml"
+      source: "inline-proof"
+      sha256: "c2642b3cd45dcb5231c830d3c5f107e928d1d00bcd5112646cdeee2070cf019e"
+  mergedValuesCaptured: false
+  values:
+    dynamo:
+      enabled: false
+    operator:
+      admissionController:
+        enabled: true
+        tls:
+          certManager:
+            issuerType: "selfsigned"
+          mode: "cert-manager"
+      affinity:
+        {}
+      tolerations:
+        -
+          operator: "Exists"

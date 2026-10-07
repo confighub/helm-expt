@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "aicr-eks-inference-r001"
+spec:
+  variant: "../../../variants/aicr-eks-inference/variant.yaml"
+  revision: "r001"
+  digest: "778b11a39f153d3e9d09869b495526733cbd0095cfd0824725a9bcc8f285e407"
+  digestInputs:
+    recipeSHA256: "3777bfd55e48b73149ee83c25da6f69e001da37574a79730aca89bceb5585a6f"
+    variantSHA256: "5cdc5e750080e1f8c553ea9e46ea52a8f881b25d491275ce0f52ad35a8b1c33e"
+    effectiveValuesSHA256: "eacd3d2716ef4e5c92cc44f45c9dcb364ba3385d8a88bb7b01c968ae2f082171"
+    rendererSHA256: "9bfc45a85aeb59e59bfba0bcd479aba97d9c0bc7080f39e11351071d732ac707"
+    renderedObjectSetSHA256: "ef6956d9cec1d29fa5955d22d5e5df9db12fa1a122613c7da358e0edcd19dbf8"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 21
