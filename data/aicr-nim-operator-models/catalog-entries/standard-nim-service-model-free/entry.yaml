@@ -1,0 +1,123 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NIMServiceCatalogEntry"
+metadata:
+  name: "nimservice-standard-nim-service-model-free"
+spec:
+  catalogEntry: "nimservice"
+  variant: "standard-nim-service-model-free"
+  scenario: "standard"
+  source:
+    name: "NVIDIA k8s-nim-operator sample corpus"
+    repository: "https://github.com/NVIDIA/k8s-nim-operator"
+    commit: "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
+    subtree: "config/samples/nim/serving"
+    license: "Apache-2.0"
+    retrievedAt: "2026-09-09"
+    file: "data/aicr-nim-operator-models/upstream/serving/kserve/standard/model-free.yaml"
+    fileSha256: "adec6f4cb47e17dba45b40f177c7b8c206bd59607baed41bd5c7df5de6a38904"
+    retentionReceipt: "data/aicr-nim-operator-models/retention-receipt.yaml"
+  objects:
+    count: 2
+    objectSetSha256: "41e2cd864f8bd9bf13dfa1acd1a201342561144b06e52d5d9050042174858609"
+    digestMethod: "sha256 over the JSON of every object in the file, each paired with its apiVersion|kind|namespace|name identity and sorted by that identity"
+    identities:
+      - "apps.nvidia.com/v1alpha1|NIMCache|nim-service|nim-cache-model-free"
+      - "apps.nvidia.com/v1alpha1|NIMService|nim-service|nim-service-model-free"
+    nimCacheIncluded: true
+    nimCaches:
+      - "nim-cache-model-free"
+    otherObjects:
+      []
+  images:
+    -
+      reference: "nvcr.io/nim/nvidia/model-free-nim:3.0.0"
+      pinnedBy: "tag"
+      namedBy: "NIMService spec.image"
+      role: "served-model-container"
+    -
+      reference: "nvcr.io/nim/nvidia/model-free-nim:3.0.0"
+      pinnedBy: "tag"
+      namedBy: "NIMCache spec.source.hf.modelPuller"
+      role: "model-puller"
+  secrets:
+    -
+      name: "ngc-secret"
+      role: "image-pull"
+      namedBy:
+        - "NIMCache spec.source.hf.pullSecret"
+        - "NIMService spec.image.pullSecrets"
+    -
+      name: "hf-api-secret"
+      role: "model-auth"
+      namedBy:
+        - "NIMCache spec.source.hf.authSecret"
+        - "NIMService spec.authSecret"
+  gpu:
+    count: 1
+    source: "resources.limits.\"nvidia.com/gpu\""
+    resource: "nvidia.com/gpu"
+    replicas: 1
+  storage:
+    -
+      kind: "nim-cache"
+      name: "nim-cache-model-free"
+      definedInSample: true
+      detail: "The NIMService reads its model from NIMCache nim-cache-model-free, which this sample file also defines."
+    -
+      kind: "persistent-volume-claim"
+      owner: "NIMCache nim-cache-model-free"
+      create: true
+      size: "50Gi"
+      storageClass: ""
+      accessMode: "ReadWriteOnce"
+      detail: "NIMCache nim-cache-model-free asks the operator to create a 50Gi ReadWriteOnce PersistentVolumeClaim with an empty storageClass, so the storage class is a destination choice."
+  operator:
+    chart: "k8s-nim-operator"
+    chartRepository: "https://helm.ngc.nvidia.com/nvidia"
+    apiVersion: "apps.nvidia.com/v1alpha1"
+    kinds:
+      - "NIMCache"
+      - "NIMService"
+    customResourceDefinitions:
+      - "nimcaches.apps.nvidia.com"
+      - "nimservices.apps.nvidia.com"
+    versionRange: ">=3.1.0"
+    versionFloorChecked: "3.1.0"
+    versionFloorBasis: "Every field this sample sets is declared by the apps.nvidia.com/v1alpha1 definitions retained from operator v3.1.0 under examples/aicr/eks-h100-inference-nim/operator-crds."
+    versionCeiling: "The newest operator release this sample works with is not established. The sample was retained from upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, and this repository does not record which operator release contains that commit."
+    fieldsOutsideRetainedDefinition:
+      []
+    catalogEntry: "not-in-the-catalog-on-this-branch"
+    catalogEntryNote: "The k8s-nim-operator chart is not yet a Catalog entry on this branch, so this requirement names the chart and does not link a record."
+  destinationRequirements:
+    -
+      name: "gpu-request"
+      detail: "The NIMService requests 1 GPU per pod as nvidia.com/gpu, with 1 replica. A destination needs that many allocatable GPUs of a kind the image supports, and nothing here checked one."
+    -
+      name: "namespace"
+      detail: "Every object in the sample is in the nim-service namespace. The sample ships no Namespace object, so the namespace must exist before apply."
+    -
+      name: "inference-platform"
+      detail: "The sample sets spec.inferencePlatform to kserve, so that platform must be installed on the destination before the operator can serve this NIMService."
+    -
+      name: "hugging-face-model"
+      detail: "The sample fetches model weights for meta-llama/Llama-3.2-1B-Instruct from https://huggingface.co. Those weights carry their own licence, and this entry fetched none of them."
+  licensing:
+    sampleLicense: "Apache-2.0"
+    sampleLicenseFile: "data/aicr-nim-operator-models/upstream/LICENSE"
+    ngcCatalogPage: "https://catalog.ngc.nvidia.com/orgs/nim/teams/nvidia/containers/model-free-nim"
+    governingTermsRead: false
+    licenseRead: "docs/planning/nim-ngc-license-read.md"
+    statement: "The sample file is Apache-2.0 configuration from https://github.com/NVIDIA/k8s-nim-operator, retained with its licence at data/aicr-nim-operator-models/upstream/LICENSE. The image and the weights are governed by NVIDIA's own terms and by each artifact's terms on NGC. docs/planning/nim-ngc-license-read.md records the general read, and nobody has read the terms for this exact artifact."
+  attention:
+    status: "none"
+    openQuestions:
+      []
+status:
+  result: "retained-not-published"
+  published: false
+  uploadedToConfigHub: false
+  deployed: false
+  imagePulled: false
+  modelFetched: false
+  modelRun: false

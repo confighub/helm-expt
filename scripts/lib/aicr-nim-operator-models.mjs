@@ -555,8 +555,25 @@ NIMService custom resource.
 This generator reads every \`kind: NIMService\` document across the retained
 samples and writes one profile record plus one receipt for each. It found
 ${facts.length} such documents across as many files, one NIMService per
-retained file throughout this corpus. It creates no new catalog entry and
-changes no catalog count.
+retained file throughout this corpus.
+
+## Each sample is a variant of one Catalog entry
+
+The profiles and receipts above are not Catalog entries. The same generator
+also writes, for each sample, the files a Catalog record is built from. They
+sit under \`${ROOT_DIR.replaceAll("\\", "/")}/catalog-entries/<slug>/\` and hold an entry
+inventory with the exact objects and their object-set digest, a
+flattening-safety verdict, and two route intents.
+\`npm run config-catalog\` then writes one base-variant record
+and one listing per sample, all under the one source name \`nimservice\`, so
+the ${facts.length} samples read as variants of one entry.
+
+Every one of those records says the same thing about its state. It is retained
+and not published, not uploaded to ConfigHub and not deployed. Its verdict is
+\`flatten-with-routes\`, because the objects are usable only after the NIM
+Operator's definitions and controller exist and the user has created the
+Secrets the sample names. A sample that raises a question the retained bytes
+cannot answer is marked \`watch\` and names the question.
 
 | Model shape | Scenario | Image | GPU count | GPU count source |
 | --- | --- | --- | --- | --- |

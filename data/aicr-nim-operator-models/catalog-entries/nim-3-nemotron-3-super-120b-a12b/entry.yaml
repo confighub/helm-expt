@@ -1,0 +1,117 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NIMServiceCatalogEntry"
+metadata:
+  name: "nimservice-nim-3-nemotron-3-super-120b-a12b"
+spec:
+  catalogEntry: "nimservice"
+  variant: "nim-3-nemotron-3-super-120b-a12b"
+  scenario: "nim-3"
+  source:
+    name: "NVIDIA k8s-nim-operator sample corpus"
+    repository: "https://github.com/NVIDIA/k8s-nim-operator"
+    commit: "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
+    subtree: "config/samples/nim/serving"
+    license: "Apache-2.0"
+    retrievedAt: "2026-09-09"
+    file: "data/aicr-nim-operator-models/upstream/serving/standalone/nim-3/nemotron-3-super.yaml"
+    fileSha256: "20a835700d82d1fc5c61cbec9b83248d51e68ab104c8bbdfa25fed0f7e3acbf8"
+    retentionReceipt: "data/aicr-nim-operator-models/retention-receipt.yaml"
+  objects:
+    count: 2
+    objectSetSha256: "c72d8fb61e0f8d4df55ce4e0d1f08f51f580561539af2aad16f1035c0e52221c"
+    digestMethod: "sha256 over the JSON of every object in the file, each paired with its apiVersion|kind|namespace|name identity and sorted by that identity"
+    identities:
+      - "apps.nvidia.com/v1alpha1|NIMCache|nim-service|nemotron-3-super-120b-a12b"
+      - "apps.nvidia.com/v1alpha1|NIMService|nim-service|nemotron-3-super-120b-a12b"
+    nimCacheIncluded: true
+    nimCaches:
+      - "nemotron-3-super-120b-a12b"
+    otherObjects:
+      []
+  images:
+    -
+      reference: "nvcr.io/nim/nvidia/nemotron-3-super-120b-a12b:3.0.0"
+      pinnedBy: "tag"
+      namedBy: "NIMService spec.image"
+      role: "served-model-container"
+    -
+      reference: "nvcr.io/nim/nvidia/nemotron-3-super-120b-a12b:3.0.0"
+      pinnedBy: "tag"
+      namedBy: "NIMCache spec.source.ngc.modelPuller"
+      role: "model-puller"
+  secrets:
+    -
+      name: "ngc-secret"
+      role: "image-pull"
+      namedBy:
+        - "NIMCache spec.source.ngc.pullSecret"
+        - "NIMService spec.image.pullSecrets"
+    -
+      name: "ngc-api-secret"
+      role: "model-auth"
+      namedBy:
+        - "NIMCache spec.source.ngc.authSecret"
+        - "NIMService spec.authSecret"
+  gpu:
+    count: 4
+    source: "resources.limits.\"nvidia.com/gpu\""
+    resource: "nvidia.com/gpu"
+    replicas: 1
+  storage:
+    -
+      kind: "nim-cache"
+      name: "nemotron-3-super-120b-a12b"
+      definedInSample: true
+      detail: "The NIMService reads its model from NIMCache nemotron-3-super-120b-a12b, which this sample file also defines."
+    -
+      kind: "persistent-volume-claim"
+      owner: "NIMCache nemotron-3-super-120b-a12b"
+      create: true
+      size: "250Gi"
+      storageClass: ""
+      accessMode: "ReadWriteOnce"
+      detail: "NIMCache nemotron-3-super-120b-a12b asks the operator to create a 250Gi ReadWriteOnce PersistentVolumeClaim with an empty storageClass, so the storage class is a destination choice."
+  operator:
+    chart: "k8s-nim-operator"
+    chartRepository: "https://helm.ngc.nvidia.com/nvidia"
+    apiVersion: "apps.nvidia.com/v1alpha1"
+    kinds:
+      - "NIMCache"
+      - "NIMService"
+    customResourceDefinitions:
+      - "nimcaches.apps.nvidia.com"
+      - "nimservices.apps.nvidia.com"
+    versionRange: ">=3.1.0"
+    versionFloorChecked: "3.1.0"
+    versionFloorBasis: "Every field this sample sets is declared by the apps.nvidia.com/v1alpha1 definitions retained from operator v3.1.0 under examples/aicr/eks-h100-inference-nim/operator-crds."
+    versionCeiling: "The newest operator release this sample works with is not established. The sample was retained from upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, and this repository does not record which operator release contains that commit."
+    fieldsOutsideRetainedDefinition:
+      []
+    catalogEntry: "not-in-the-catalog-on-this-branch"
+    catalogEntryNote: "The k8s-nim-operator chart is not yet a Catalog entry on this branch, so this requirement names the chart and does not link a record."
+  destinationRequirements:
+    -
+      name: "gpu-request"
+      detail: "The NIMService requests 4 GPUs per pod as nvidia.com/gpu, with 1 replica. A destination needs that many allocatable GPUs of a kind the image supports, and nothing here checked one."
+    -
+      name: "namespace"
+      detail: "Every object in the sample is in the nim-service namespace. The sample ships no Namespace object, so the namespace must exist before apply."
+  licensing:
+    sampleLicense: "Apache-2.0"
+    sampleLicenseFile: "data/aicr-nim-operator-models/upstream/LICENSE"
+    ngcCatalogPage: "https://catalog.ngc.nvidia.com/orgs/nim/teams/nvidia/containers/nemotron-3-super-120b-a12b"
+    governingTermsRead: false
+    licenseRead: "docs/planning/nim-ngc-license-read.md"
+    statement: "The sample file is Apache-2.0 configuration from https://github.com/NVIDIA/k8s-nim-operator, retained with its licence at data/aicr-nim-operator-models/upstream/LICENSE. The image and the weights are governed by NVIDIA's own terms and by each artifact's terms on NGC. docs/planning/nim-ngc-license-read.md records the general read, and nobody has read the terms for this exact artifact."
+  attention:
+    status: "none"
+    openQuestions:
+      []
+status:
+  result: "retained-not-published"
+  published: false
+  uploadedToConfigHub: false
+  deployed: false
+  imagePulled: false
+  modelFetched: false
+  modelRun: false
