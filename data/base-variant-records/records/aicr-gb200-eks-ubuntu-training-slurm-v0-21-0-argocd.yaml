@@ -73,7 +73,7 @@ spec:
       -
         id: "materialization"
         question: "What will it produce?"
-        answer: "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration."
+        answer: "The recipe makes slinky-slurm depend on slurm-accounting-mariadb and does not deploy it, and nothing here shows whether slinky-slurm works without it."
         requiredInputs:
           - "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
         catalogMatchRequired: false
@@ -81,11 +81,11 @@ spec:
         destinationAccessRequired: false
         deploymentRequired: false
         evidenceState: "completed"
-        resultState: "pass"
+        resultState: "watch"
         records:
           - "examples/aicr/gb200-eks-ubuntu-training-slurm/generation-receipt.yaml"
           - "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/checksums.txt"
-        nextAction: "Review the exact object set and its digest."
+        nextAction: "Review the exact object set and its digest, and settle the open question before relying on the recorded order."
       -
         id: "destination"
         question: "Can this destination accept it?"

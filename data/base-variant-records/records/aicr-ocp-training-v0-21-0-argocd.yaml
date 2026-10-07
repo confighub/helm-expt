@@ -73,7 +73,7 @@ spec:
       -
         id: "materialization"
         question: "What will it produce?"
-        answer: "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration."
+        answer: "The recipe declares 12 dependency edges that name components it does not deploy, and nothing here shows whether their order matters to the components it does deploy."
         requiredInputs:
           - "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
         catalogMatchRequired: false
@@ -81,11 +81,11 @@ spec:
         destinationAccessRequired: false
         deploymentRequired: false
         evidenceState: "completed"
-        resultState: "pass"
+        resultState: "watch"
         records:
           - "examples/aicr/ocp-training/generation-receipt.yaml"
           - "examples/aicr/ocp-training/argocd-rendered/checksums.txt"
-        nextAction: "Review the exact object set and its digest."
+        nextAction: "Review the exact object set and its digest, and settle the open question before relying on the recorded order."
       -
         id: "destination"
         question: "Can this destination accept it?"

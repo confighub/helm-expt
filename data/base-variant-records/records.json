@@ -11323,7 +11323,7 @@
             "acceleratedNodeSelector=nvidia.com/gpu.present=true",
             "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow",
             "storageClass=gp3",
-            "systemNodeSelector=nodeGroup=system-worker (awaiting maintainer confirmation)",
+            "systemNodeSelector=nodeGroup=system-worker (placeholder, change it to match your cluster)",
             "workloadSelector=app.kubernetes.io/part-of=training",
             "deployer=argocd-helm"
           ],
@@ -11346,7 +11346,7 @@
             {
               "category": "target-fact",
               "name": "aicr-target-fact-4",
-              "purpose": "Nodes that run system components must carry the label nodeGroup=system-worker."
+              "purpose": "Nodes that run system components must carry the system node selector label. This bundle carries the placeholder nodeGroup=system-worker, and the destination's own label replaces it."
             },
             {
               "category": "target-fact",
@@ -11361,11 +11361,101 @@
             {
               "category": "generation-input",
               "name": "systemNodeSelector",
-              "purpose": "The bundle was generated with systemNodeSelector=nodeGroup=system-worker. That value awaits the maintainer's confirmation. nodeGroup=system-worker is the example value in the upstream CLI reference. It was not chosen from a real cluster. The value is written into the generated system-component node selectors, so a different value changes the bundle bytes and every digest derived from them.",
-              "status": "awaiting-maintainer-confirmation"
+              "purpose": "systemNodeSelector=nodeGroup=system-worker is a placeholder, confirmed as one on 2026-10-07. Change it to the label on your own cluster's system node group. It is written into spec.source.helm.values of 12 rendered Applications at 24 field paths, which are aws-ebs-csi-driver at controller.nodeSelector; cert-manager at cainjector.nodeSelector and nodeSelector and startupapicheck.nodeSelector and webhook.nodeSelector; gpu-operator at operator.nodeSelector; k8s-ephemeral-storage-metrics at nodeSelector; kai-scheduler at global.nodeSelector; kube-prometheus-stack at alertmanager.alertmanagerSpec.nodeSelector and grafana.nodeSelector and kube-state-metrics.nodeSelector and prometheus-node-exporter.nodeSelector and prometheus.prometheusSpec.nodeSelector and prometheusOperator.admissionWebhooks.patch.nodeSelector and prometheusOperator.nodeSelector and thanosRuler.thanosRulerSpec.nodeSelector; kubeflow-trainer at jobset.controller.nodeSelector and manager.nodeSelector; nfd at gc.nodeSelector and master.nodeSelector; nodewright-operator at controllerManager.selectors; nvidia-dra-driver-gpu at controller.nodeSelector; nvsentinel at global.systemNodeSelector; prometheus-adapter at nodeSelector. A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it.",
+              "status": "confirmed-placeholder",
+              "confirmedOn": "2026-10-07",
+              "changeTo": "the label on your own cluster's system node group",
+              "route": "system-node-selector-placeholder",
+              "container": "spec.source.helm.values",
+              "appearsIn": [
+                {
+                  "application": "aws-ebs-csi-driver",
+                  "valuesPaths": [
+                    "controller.nodeSelector"
+                  ]
+                },
+                {
+                  "application": "cert-manager",
+                  "valuesPaths": [
+                    "cainjector.nodeSelector",
+                    "nodeSelector",
+                    "startupapicheck.nodeSelector",
+                    "webhook.nodeSelector"
+                  ]
+                },
+                {
+                  "application": "gpu-operator",
+                  "valuesPaths": [
+                    "operator.nodeSelector"
+                  ]
+                },
+                {
+                  "application": "k8s-ephemeral-storage-metrics",
+                  "valuesPaths": [
+                    "nodeSelector"
+                  ]
+                },
+                {
+                  "application": "kai-scheduler",
+                  "valuesPaths": [
+                    "global.nodeSelector"
+                  ]
+                },
+                {
+                  "application": "kube-prometheus-stack",
+                  "valuesPaths": [
+                    "alertmanager.alertmanagerSpec.nodeSelector",
+                    "grafana.nodeSelector",
+                    "kube-state-metrics.nodeSelector",
+                    "prometheus-node-exporter.nodeSelector",
+                    "prometheus.prometheusSpec.nodeSelector",
+                    "prometheusOperator.admissionWebhooks.patch.nodeSelector",
+                    "prometheusOperator.nodeSelector",
+                    "thanosRuler.thanosRulerSpec.nodeSelector"
+                  ]
+                },
+                {
+                  "application": "kubeflow-trainer",
+                  "valuesPaths": [
+                    "jobset.controller.nodeSelector",
+                    "manager.nodeSelector"
+                  ]
+                },
+                {
+                  "application": "nfd",
+                  "valuesPaths": [
+                    "gc.nodeSelector",
+                    "master.nodeSelector"
+                  ]
+                },
+                {
+                  "application": "nodewright-operator",
+                  "valuesPaths": [
+                    "controllerManager.selectors"
+                  ]
+                },
+                {
+                  "application": "nvidia-dra-driver-gpu",
+                  "valuesPaths": [
+                    "controller.nodeSelector"
+                  ]
+                },
+                {
+                  "application": "nvsentinel",
+                  "valuesPaths": [
+                    "global.systemNodeSelector"
+                  ]
+                },
+                {
+                  "application": "prometheus-adapter",
+                  "valuesPaths": [
+                    "nodeSelector"
+                  ]
+                }
+              ]
             }
           ],
-          "installTimeStatus": "destination-facts-recorded-not-run-generation-input-awaits-confirmation"
+          "installTimeStatus": "destination-facts-recorded-not-run-placeholder-input-recorded"
         },
         "lifecycle": {
           "requirements": {
@@ -11400,6 +11490,12 @@
                 "origin": "base",
                 "type": "lifecycle-action",
                 "detail": "follow the manual steps AICR lists before applying this bundle over an earlier installation"
+              },
+              {
+                "id": "system-node-selector-placeholder",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "replace the placeholder system node selector nodeGroup=system-worker with the label on the destination cluster's system node group"
               },
               {
                 "id": "dra-plugin-eviction",
@@ -11441,7 +11537,7 @@
                 "id": "aicr-target-fact-4",
                 "origin": "base",
                 "type": "target-fact",
-                "detail": "Nodes that run system components must carry the label nodeGroup=system-worker."
+                "detail": "Nodes that run system components must carry the system node selector label. This bundle carries the placeholder nodeGroup=system-worker, and the destination's own label replaces it."
               },
               {
                 "id": "aicr-target-fact-5",
@@ -11566,6 +11662,26 @@
                   "examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml"
                 ],
                 "orderHint": "before the first sync of this version on a cluster that already runs an earlier one"
+              },
+              {
+                "id": "system-node-selector-placeholder",
+                "requirementRefs": [
+                  "system-node-selector-placeholder"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "replace the placeholder system node selector nodeGroup=system-worker with the label on the destination cluster's system node group",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [
+                  "the label observed on the destination's system node group, and either a bundle regenerated with that value or a variant made from this entry, with its new digests"
+                ],
+                "evidence": [
+                  "examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml"
+                ],
+                "orderHint": "before the bundle is published or delivered to a destination"
               },
               {
                 "id": "dra-plugin-eviction",
@@ -11735,7 +11851,7 @@
           "The 16 nested component sources are not rendered for v1.0.0. Their objects, CRDs and hooks have not been materialized or recorded.",
           "Argo CD reconciliation, EKS, H100 execution, training, model requests, and exact runtime rollback have not run for this version.",
           "Nothing is published for this version. The public OCI references are planned addresses, and this entry is not deliverable until they are pushed and pulled back.",
-          "The generation input systemNodeSelector=nodeGroup=system-worker awaits the maintainer's confirmation. nodeGroup=system-worker is the example value in the upstream CLI reference. It was not chosen from a real cluster. A different value changes the bundle bytes and every digest in this record.",
+          "The generation input systemNodeSelector=nodeGroup=system-worker is a placeholder, confirmed as one on 2026-10-07. The maintainer's confirmation gives the origin of the value. It is the value upstream's own v1.0.0 EKS training demo uses for its reference clusters (demos/cuj1-training.md in NVIDIA/aicr at tag v1.0.0), and that demo says its selector values are examples to be updated to match the cluster. The demo file is not retained in this repository. The value was not chosen from a real cluster. Change it to the label on your own cluster's system node group. A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it.",
           "No upgrade verdict from v0.20.0 to v1.0.0 exists. The route intent records why, and the upgrade route has not run."
         ]
       }
@@ -15235,7 +15351,7 @@
             {
               "id": "materialization",
               "question": "What will it produce?",
-              "answer": "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration.",
+              "answer": "The recipe makes slinky-slurm depend on slurm-accounting-mariadb and does not deploy it, and nothing here shows whether slinky-slurm works without it.",
               "requiredInputs": [
                 "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
               ],
@@ -15244,12 +15360,12 @@
               "destinationAccessRequired": false,
               "deploymentRequired": false,
               "evidenceState": "completed",
-              "resultState": "pass",
+              "resultState": "watch",
               "records": [
                 "examples/aicr/gb200-eks-ubuntu-training-slurm/generation-receipt.yaml",
                 "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/checksums.txt"
               ],
-              "nextAction": "Review the exact object set and its digest."
+              "nextAction": "Review the exact object set and its digest, and settle the open question before relying on the recorded order."
             },
             {
               "id": "destination",
@@ -20541,7 +20657,7 @@
             {
               "id": "materialization",
               "question": "What will it produce?",
-              "answer": "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration.",
+              "answer": "The recipe makes slinky-slurm depend on slurm-accounting-mariadb and does not deploy it, and nothing here shows whether slinky-slurm works without it.",
               "requiredInputs": [
                 "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
               ],
@@ -20550,12 +20666,12 @@
               "destinationAccessRequired": false,
               "deploymentRequired": false,
               "evidenceState": "completed",
-              "resultState": "pass",
+              "resultState": "watch",
               "records": [
                 "examples/aicr/gb300-eks-ubuntu-training-slurm/generation-receipt.yaml",
                 "examples/aicr/gb300-eks-ubuntu-training-slurm/argocd-rendered/checksums.txt"
               ],
-              "nextAction": "Review the exact object set and its digest."
+              "nextAction": "Review the exact object set and its digest, and settle the open question before relying on the recorded order."
             },
             {
               "id": "destination",
@@ -24709,7 +24825,7 @@
             {
               "id": "materialization",
               "question": "What will it produce?",
-              "answer": "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration.",
+              "answer": "The recipe makes slinky-slurm depend on slurm-accounting-mariadb and does not deploy it, and nothing here shows whether slinky-slurm works without it.",
               "requiredInputs": [
                 "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
               ],
@@ -24718,12 +24834,12 @@
               "destinationAccessRequired": false,
               "deploymentRequired": false,
               "evidenceState": "completed",
-              "resultState": "pass",
+              "resultState": "watch",
               "records": [
                 "examples/aicr/h100-aks-ubuntu-training-slurm/generation-receipt.yaml",
                 "examples/aicr/h100-aks-ubuntu-training-slurm/argocd-rendered/checksums.txt"
               ],
-              "nextAction": "Review the exact object set and its digest."
+              "nextAction": "Review the exact object set and its digest, and settle the open question before relying on the recorded order."
             },
             {
               "id": "destination",
@@ -28875,7 +28991,7 @@
             {
               "id": "materialization",
               "question": "What will it produce?",
-              "answer": "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration.",
+              "answer": "The recipe makes slinky-slurm depend on slurm-accounting-mariadb and does not deploy it, and nothing here shows whether slinky-slurm works without it.",
               "requiredInputs": [
                 "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
               ],
@@ -28884,12 +29000,12 @@
               "destinationAccessRequired": false,
               "deploymentRequired": false,
               "evidenceState": "completed",
-              "resultState": "pass",
+              "resultState": "watch",
               "records": [
                 "examples/aicr/h100-eks-ubuntu-training-slurm/generation-receipt.yaml",
                 "examples/aicr/h100-eks-ubuntu-training-slurm/argocd-rendered/checksums.txt"
               ],
-              "nextAction": "Review the exact object set and its digest."
+              "nextAction": "Review the exact object set and its digest, and settle the open question before relying on the recorded order."
             },
             {
               "id": "destination",
@@ -30771,7 +30887,7 @@
             {
               "id": "materialization",
               "question": "What will it produce?",
-              "answer": "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration.",
+              "answer": "The recipe makes slinky-slurm depend on slurm-accounting-mariadb and does not deploy it, and nothing here shows whether slinky-slurm works without it.",
               "requiredInputs": [
                 "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
               ],
@@ -30780,12 +30896,12 @@
               "destinationAccessRequired": false,
               "deploymentRequired": false,
               "evidenceState": "completed",
-              "resultState": "pass",
+              "resultState": "watch",
               "records": [
                 "examples/aicr/h100-gke-cos-training-slurm/generation-receipt.yaml",
                 "examples/aicr/h100-gke-cos-training-slurm/argocd-rendered/checksums.txt"
               ],
-              "nextAction": "Review the exact object set and its digest."
+              "nextAction": "Review the exact object set and its digest, and settle the open question before relying on the recorded order."
             },
             {
               "id": "destination",
@@ -32668,7 +32784,7 @@
             {
               "id": "materialization",
               "question": "What will it produce?",
-              "answer": "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration.",
+              "answer": "The recipe makes slinky-slurm depend on slurm-accounting-mariadb and does not deploy it, and nothing here shows whether slinky-slurm works without it.",
               "requiredInputs": [
                 "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
               ],
@@ -32677,12 +32793,12 @@
               "destinationAccessRequired": false,
               "deploymentRequired": false,
               "evidenceState": "completed",
-              "resultState": "pass",
+              "resultState": "watch",
               "records": [
                 "examples/aicr/h100-kind-training-slurm/generation-receipt.yaml",
                 "examples/aicr/h100-kind-training-slurm/argocd-rendered/checksums.txt"
               ],
-              "nextAction": "Review the exact object set and its digest."
+              "nextAction": "Review the exact object set and its digest, and settle the open question before relying on the recorded order."
             },
             {
               "id": "destination",
@@ -37952,7 +38068,7 @@
             {
               "id": "materialization",
               "question": "What will it produce?",
-              "answer": "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration.",
+              "answer": "The recipe declares 12 dependency edges that name components it does not deploy, and nothing here shows whether their order matters to the components it does deploy.",
               "requiredInputs": [
                 "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
               ],
@@ -37961,12 +38077,12 @@
               "destinationAccessRequired": false,
               "deploymentRequired": false,
               "evidenceState": "completed",
-              "resultState": "pass",
+              "resultState": "watch",
               "records": [
                 "examples/aicr/ocp-inference-nim/generation-receipt.yaml",
                 "examples/aicr/ocp-inference-nim/argocd-rendered/checksums.txt"
               ],
-              "nextAction": "Review the exact object set and its digest."
+              "nextAction": "Review the exact object set and its digest, and settle the open question before relying on the recorded order."
             },
             {
               "id": "destination",
@@ -38335,7 +38451,7 @@
             {
               "id": "materialization",
               "question": "What will it produce?",
-              "answer": "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration.",
+              "answer": "The recipe declares 12 dependency edges that name components it does not deploy, and nothing here shows whether their order matters to the components it does deploy.",
               "requiredInputs": [
                 "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
               ],
@@ -38344,12 +38460,12 @@
               "destinationAccessRequired": false,
               "deploymentRequired": false,
               "evidenceState": "completed",
-              "resultState": "pass",
+              "resultState": "watch",
               "records": [
                 "examples/aicr/ocp-inference/generation-receipt.yaml",
                 "examples/aicr/ocp-inference/argocd-rendered/checksums.txt"
               ],
-              "nextAction": "Review the exact object set and its digest."
+              "nextAction": "Review the exact object set and its digest, and settle the open question before relying on the recorded order."
             },
             {
               "id": "destination",
@@ -38716,7 +38832,7 @@
             {
               "id": "materialization",
               "question": "What will it produce?",
-              "answer": "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration.",
+              "answer": "The recipe declares 12 dependency edges that name components it does not deploy, and nothing here shows whether their order matters to the components it does deploy.",
               "requiredInputs": [
                 "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
               ],
@@ -38725,12 +38841,12 @@
               "destinationAccessRequired": false,
               "deploymentRequired": false,
               "evidenceState": "completed",
-              "resultState": "pass",
+              "resultState": "watch",
               "records": [
                 "examples/aicr/ocp-training/generation-receipt.yaml",
                 "examples/aicr/ocp-training/argocd-rendered/checksums.txt"
               ],
-              "nextAction": "Review the exact object set and its digest."
+              "nextAction": "Review the exact object set and its digest, and settle the open question before relying on the recorded order."
             },
             {
               "id": "destination",
@@ -39096,7 +39212,7 @@
             {
               "id": "materialization",
               "question": "What will it produce?",
-              "answer": "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration.",
+              "answer": "The recipe declares 12 dependency edges that name components it does not deploy, and nothing here shows whether their order matters to the components it does deploy.",
               "requiredInputs": [
                 "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
               ],
@@ -39105,12 +39221,12 @@
               "destinationAccessRequired": false,
               "deploymentRequired": false,
               "evidenceState": "completed",
-              "resultState": "pass",
+              "resultState": "watch",
               "records": [
                 "examples/aicr/ocp/generation-receipt.yaml",
                 "examples/aicr/ocp/argocd-rendered/checksums.txt"
               ],
-              "nextAction": "Review the exact object set and its digest."
+              "nextAction": "Review the exact object set and its digest, and settle the open question before relying on the recorded order."
             },
             {
               "id": "destination",

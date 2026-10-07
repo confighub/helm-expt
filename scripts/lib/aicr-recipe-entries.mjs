@@ -21,6 +21,8 @@ export const AICR_EXAMPLES_ROOT = "examples/aicr";
 export const AICR_ENTRY_REGISTER = `${AICR_EXAMPLES_ROOT}/claims/entry-names.yaml`;
 export const AICR_MEMBERS_CSV = "data/aicr-nim-model-profiles/platform-members.csv";
 export const SYNC_WAVE_ANNOTATION = "argocd.argoproj.io/sync-wave";
+// Where a bundle keeps the recipe it was generated from, when it keeps one.
+export const BUNDLED_RECIPE = "argocd-helm-bundle/recipe.yaml";
 
 // The files a retained-and-rendered recipe directory must hold. A directory
 // that is missing one is refused rather than given a thinner record.
@@ -90,6 +92,13 @@ for entry in request["entries"]:
             })
         applications.append(row)
     verdict = load_one(entry["verdict"]) if entry.get("verdict") else None
+    bundled = load_one(entry["bundledRecipe"]) if entry.get("bundledRecipe") else None
+    bundled_components = []
+    for component in (bundled or {}).get("componentRefs") or []:
+        bundled_components.append({
+            "name": component.get("name") or component.get("chart") or "",
+            "dependencyRefs": list(component.get("dependencyRefs") or []),
+        })
     result["entries"][entry["id"]] = {
         "receipt": {
             "kind": receipt.get("kind"),
@@ -109,6 +118,10 @@ for entry in request["entries"]:
             "components": components,
         },
         "applications": applications,
+        "bundledRecipe": None if bundled is None else {
+            "deploymentOrder": list(bundled.get("deploymentOrder") or (bundled.get("spec") or {}).get("deploymentOrder") or []),
+            "components": bundled_components,
+        },
         "verdict": None if verdict is None else {
             "kind": verdict.get("kind"),
             "lane": ((verdict.get("spec") or {}).get("verdict") or {}).get("lane"),
@@ -312,6 +325,46 @@ export function orderingSentences(entry) {
   return sentences;
 }
 
+// The word a record and its listing carry when an entry needs attention. It is
+// the existing assessment result state for "checked, with a limit to review",
+// and it is never a pass.
+export const ATTENTION_STATE = "watch";
+
+// An edge is unchecked when the rendered sync-waves could not confirm it:
+// either it names a component the recipe does not deploy, or one side renders
+// without a wave.
+export function uncheckedOrderingEdges(ordering) {
+  return ordering.edgesNamingAnUndeployedComponent.length + ordering.edgesViolated.length;
+}
+
+function joinNames(names, word) {
+  if (names.length <= 1) return names.join("");
+  return `${names.slice(0, -1).join(", ")} ${word} ${names.at(-1)}`;
+}
+
+// The open question an entry carries when its ordering evidence holds an edge
+// nobody could check, as one plain sentence. An empty string means every edge
+// was checked. The record generator writes the sentence and the model verifier
+// recomputes it from the bytes, so the flag follows the evidence and nobody
+// keeps a list of flagged entries.
+export function orderingOpenQuestion(ordering) {
+  if (uncheckedOrderingEdges(ordering) === 0) return "";
+  const affecting = ordering.deployedDependsOnUndeployed;
+  if (affecting.length > 0) {
+    const missing = [...new Set(affecting.map((edge) => edge.dependsOn))].sort();
+    const dependers = [...new Set(affecting.map((edge) => edge.component))].sort();
+    const pairs = affecting.map((edge) => `${edge.component} depend on ${edge.dependsOn}`);
+    const it = missing.length === 1 ? "it" : "them";
+    return `The recipe makes ${joinNames(pairs, "and")} and does not deploy ${it}, and nothing here shows whether ${joinNames(dependers, "or")} work${dependers.length === 1 ? "s" : ""} without ${it}.`;
+  }
+  const undeployed = ordering.edgesNamingAnUndeployedComponent;
+  if (undeployed.length > 0) {
+    return `The recipe declares ${undeployed.length} dependency edge${undeployed.length === 1 ? "" : "s"} that name${undeployed.length === 1 ? "s" : ""} components it does not deploy, and nothing here shows whether their order matters to the components it does deploy.`;
+  }
+  const violated = ordering.edgesViolated;
+  return `The rendered sync-waves do not confirm ${violated.length} dependency edge${violated.length === 1 ? "" : "s"} the recipe declares (${violated.map((edge) => `${edge.component} on ${edge.dependsOn}`).join(", ")}), and nothing here shows whether the recorded order is safe.`;
+}
+
 // The nested sources the Applications point at. They are read from each
 // Application's own source block, so a chart pulled from an OCI repository is
 // counted even though it carries no chart field.
@@ -338,23 +391,64 @@ export function nestedSourcesFor(entry, sourcePackageRepository) {
 // the generated platform-shape verdicts live, so a caller that needs the
 // verdict gets it from the same pass; a caller that writes those verdicts
 // passes nothing and reads none.
-export function loadAicrRecipeEntries({ root = repoRoot, verdictRoot = "" } = {}) {
+const extractionCache = new Map();
+
+// One parse per root and verdict tree, shared by the two readers below.
+function extractAicrDirectories(root, verdictRoot) {
+  const key = `${root}|${verdictRoot}`;
+  if (extractionCache.has(key)) return extractionCache.get(key);
   const directories = candidateDirectories(root);
   const request = {
     register: join(root, AICR_ENTRY_REGISTER),
     entries: directories.map((id) => {
       const entryRel = `${AICR_EXAMPLES_ROOT}/${id}`;
       const verdictRel = verdictRoot ? `${verdictRoot}/aicr-${id}/flattening-safety-verdict.yaml` : "";
+      const bundledRecipe = join(root, entryRel, BUNDLED_RECIPE);
       return {
         id,
         receipt: join(root, entryRel, "generation-receipt.yaml"),
         recipe: existsSync(join(root, entryRel, "recipe.yaml")) ? join(root, entryRel, "recipe.yaml") : join(root, entryRel, "generation-receipt.yaml"),
+        bundledRecipe: existsSync(bundledRecipe) ? bundledRecipe : "",
         applications: listApplicationFiles(root, entryRel),
         verdict: verdictRel && existsSync(join(root, verdictRel)) ? join(root, verdictRel) : "",
       };
     }),
   };
-  const parsed = py(EXTRACT_SCRIPT, JSON.stringify(request));
+  const result = { directories, parsed: py(EXTRACT_SCRIPT, JSON.stringify(request)) };
+  extractionCache.set(key, result);
+  return result;
+}
+
+// The ordering evidence for every AICR directory that holds rendered
+// Applications, whatever stage it has reached. The rendered sync-waves are
+// compared with the recipe the bundle itself carries when it carries one,
+// because that is the recipe the waves were computed from. AICR v1.0.0 writes
+// that recipe into the bundle and can leave a selected component out of it.
+// Older bundles carry none, and the retained recipe is the only one there is.
+export function loadAicrOrderingEvidence({ root = repoRoot, verdictRoot = "" } = {}) {
+  const { directories, parsed } = extractAicrDirectories(root, verdictRoot);
+  const evidence = new Map();
+  for (const id of directories) {
+    const facts = parsed.entries[id];
+    if (facts.applications.length === 0) continue;
+    const entryRel = `${AICR_EXAMPLES_ROOT}/${id}`;
+    const ordering = orderingEvidenceFor({
+      applications: facts.applications,
+      recipe: facts.bundledRecipe ?? facts.recipe,
+    });
+    evidence.set(id, {
+      id,
+      renderedRel: `${entryRel}/argocd-rendered`,
+      recipeRel: facts.bundledRecipe ? `${entryRel}/${BUNDLED_RECIPE}` : `${entryRel}/recipe.yaml`,
+      ordering,
+      openQuestion: orderingOpenQuestion(ordering),
+    });
+  }
+  return evidence;
+}
+
+export function loadAicrRecipeEntries({ root = repoRoot, verdictRoot = "" } = {}) {
+  const { directories, parsed } = extractAicrDirectories(root, verdictRoot);
   const registered = new Map((parsed.register?.spec?.entries ?? []).map((row) => [String(row.id), row]));
   const members = memberRowCounts(root);
 

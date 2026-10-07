@@ -4,7 +4,13 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 import { readYaml } from "./lib/proof-common.mjs";
-import { listAicrRecipeDirectories, loadAicrRecipeEntries } from "./lib/aicr-recipe-entries.mjs";
+import {
+  ATTENTION_STATE,
+  listAicrRecipeDirectories,
+  loadAicrOrderingEvidence,
+  loadAicrRecipeEntries,
+  uncheckedOrderingEdges,
+} from "./lib/aicr-recipe-entries.mjs";
 
 const root = process.cwd();
 const read = (path) => readFileSync(join(root, path), "utf8");
@@ -508,6 +514,43 @@ for (const id of aicrRecipeDirectories) {
   }
 }
 
+// If in doubt, flag the entry. An AICR entry whose ordering evidence holds a
+// dependency edge the rendered sync-waves could not check must carry the flag
+// in its record and in its listing: the materialization stage says watch and
+// its answer is the open question. The evidence is recomputed here from the
+// recipe and the rendered Applications, so a record cannot lose its flag while
+// the bytes still hold the edge. An entry with every edge checked may not
+// carry the flag either, or the word would stop meaning anything.
+let aicrEntriesFlagged = 0;
+for (const evidence of loadAicrOrderingEvidence({ root }).values()) {
+  const record = records.find((candidate) => candidate.spec?.configuration?.objects === evidence.renderedRel);
+  if (!record) continue;
+  const name = record.metadata?.name ?? "unnamed-record";
+  const stageOf = (stages) => (stages ?? []).find((stage) => stage.id === "materialization") ?? {};
+  const recordStage = stageOf(record.spec?.assessment?.stages);
+  const listingPath = join(root, "site/listings", `${name}.json`);
+  const listingStage = existsSync(listingPath)
+    ? stageOf(JSON.parse(readFileSync(listingPath, "utf8")).assessment?.stages)
+    : {};
+  const unchecked = uncheckedOrderingEdges(evidence.ordering);
+  if (unchecked === 0) {
+    requireCondition(
+      recordStage.resultState !== ATTENTION_STATE && listingStage.resultState !== ATTENTION_STATE,
+      `${name}: the entry is flagged as ${ATTENTION_STATE}, and every dependency edge in ${evidence.recipeRel} was checked against the rendered sync-waves`,
+    );
+    continue;
+  }
+  aicrEntriesFlagged += 1;
+  requireCondition(
+    recordStage.resultState === ATTENTION_STATE && recordStage.answer === evidence.openQuestion,
+    `${name}: ${evidence.recipeRel} declares ${unchecked} dependency edge(s) the rendered sync-waves could not check, and the record does not flag the entry as ${ATTENTION_STATE} with the open question`,
+  );
+  requireCondition(
+    listingStage.resultState === ATTENTION_STATE && listingStage.answer === evidence.openQuestion,
+    `${name}: ${evidence.recipeRel} declares ${unchecked} dependency edge(s) the rendered sync-waves could not check, and the listing does not flag the entry as ${ATTENTION_STATE} with the open question`,
+  );
+}
+
 requireCondition(
   JSON.stringify(assessmentCases.stageOrder) === JSON.stringify(assessmentStageOrder),
   "cross-format assessment stage order changed",
@@ -661,5 +704,5 @@ const sourceSummary = [...sourceCounts.entries()]
   .map(([source, count]) => `${source}=${count}`)
   .join(", ");
 console.log(
-  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}; retained AICR recipe directories with their own record and listing=${aicrRecipeEntriesWithRecord}/${aicrRecipeEntries.length}; all AICR recipe directories with one record=${aicrRecipeDirectoriesWithRecord}/${aicrRecipeDirectories.length}`,
+  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}; retained AICR recipe directories with their own record and listing=${aicrRecipeEntriesWithRecord}/${aicrRecipeEntries.length}; all AICR recipe directories with one record=${aicrRecipeDirectoriesWithRecord}/${aicrRecipeDirectories.length}; AICR entries flagged ${ATTENTION_STATE} for an unchecked ordering edge=${aicrEntriesFlagged}`,
 );
