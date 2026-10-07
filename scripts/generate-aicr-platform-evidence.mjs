@@ -22,6 +22,7 @@ import {
   repoRoot,
   write,
 } from "./lib/proof-common.mjs";
+import { loadAicrRecipeEntries } from "./lib/aicr-recipe-entries.mjs";
 
 const outputJson = join(repoRoot, "data", "aicr-platform-evidence", "platform-evidence.json");
 const outputSummary = join(repoRoot, "data", "aicr-platform-evidence", "summary.md");
@@ -156,6 +157,38 @@ const entries = [
   },
 ];
 
+// The list above was the whole record, so 117 mirrored overlays were retained
+// in the repository and absent from the evidence record. Each is added here
+// with an empty ladder, for the reason the v0.18.0 entry gives: an entry that
+// exists and has proven nothing further is a fact worth publishing. The list
+// is discovered from the directories, so a new mirror cannot be left out.
+const retainedRecipeEntries = loadAicrRecipeEntries();
+const mirroredOverlayIds = new Set(
+  retainedRecipeEntries.filter((entry) => entry.origin === "mirrored-overlay").map((entry) => entry.id),
+);
+const handWrittenIds = new Set(entries.map((entry) => entry.id));
+for (const entry of retainedRecipeEntries) {
+  if (handWrittenIds.has(entry.id)) continue;
+  check(entry.page, `${entry.id}: the entry register names no page for this retained recipe directory`);
+  entries.push({
+    id: entry.id,
+    title: `${entry.selectedOverlay} overlay, AICR ${entry.version}`,
+    provenance: entry.origin === "mirrored-overlay" ? "mirrored-upstream-overlay" : "retained-upstream",
+    page: entry.page,
+    sourceReceipt: "generation-receipt.yaml",
+    ladder: [],
+  });
+}
+// A mirrored overlay's own receipt says it was retained and never published,
+// uploaded or delivered. A rung on its ladder would contradict that receipt,
+// so the receipt has to change before a rung can be listed.
+for (const entry of entries) {
+  check(
+    !mirroredOverlayIds.has(entry.id) || entry.ladder.length === 0,
+    `${entry.id}: a mirrored overlay whose generation receipt says retained-offline cannot carry the ladder rung ${entry.ladder.map((rung) => rung.rung).join(", ")}; record the later step in the entry's own receipt first`,
+  );
+}
+
 const crossEntryEvidence = [
   {
     id: "upstream-signature-verification",
@@ -218,6 +251,7 @@ function buildRecord() {
 
     const sourceReceiptPath = join(entryRoot, entry.sourceReceipt);
     check(existsSync(sourceReceiptPath), `${entry.id}: ${entry.sourceReceipt} is missing`);
+    check(existsSync(join(repoRoot, entry.page)), `${entry.id}: the entry page ${entry.page} is missing`);
     const sourceReceipt = readYaml(sourceReceiptPath);
     const source = sourceReceipt.spec?.source ?? sourceReceipt.spec?.derivedFrom?.upstream ?? {};
 
@@ -326,6 +360,8 @@ same result.
 | --- | --- | --- | --- |
 ${rows}
 
+${mirroredSentence(record)}
+
 Cross-entry evidence covers the whole set rather than one entry:
 ${record.spec.crossEntryEvidence.map((row) => `\`${row.id}\``).join(", ")}.
 
@@ -335,4 +371,11 @@ ${record.spec.openRungs.map((row) => `- ${row}`).join("\n")}
 
 Every path needed to inspect a claim is published in the record.
 `;
+}
+
+function mirroredSentence(record) {
+  const mirrored = record.spec.entries.filter((entry) => entry.provenance === "mirrored-upstream-overlay");
+  const climbed = mirrored.filter((entry) => entry.ladder.climbedCount > 0).length;
+  check(climbed === 0, "a mirrored overlay is listed with a climbed ladder rung");
+  return `${mirrored.length} of the ${record.spec.entries.length} entries are mirrored overlays. Each one is retained and rendered and has no receipt for any later step, so its ladder is empty. None of them is published or deployed.`;
 }
