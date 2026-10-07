@@ -8,16 +8,16 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 ## Headline
 
 ```text
-charts: 156
-charts needing variant work: 98
-charts already variant-complete: 58
-total variants to build: 121
+charts: 165
+charts needing variant work: 103
+charts already variant-complete: 62
+total variants to build: 126
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
 - `existing-secret`: 71 charts
-- `no-crds`: 26 charts
+- `no-crds`: 31 charts
 - `ha`: 20 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
@@ -99,6 +99,11 @@ total variants to build: 121
 | `mysql/mysql-operator@2.3.0` | 1 | no-crds |
 | `nats/nack@0.34.0` | 2 | existing-secret |
 | `nats/nats@2.14.0` | 2 | existing-secret |
+| `nvidia/cluster-readiness-engine@v0.6.0` | 1 | no-crds |
+| `nvidia/gpu-operator@v25.10.1` | 1 | no-crds |
+| `nvidia/gpu-operator@v26.3.2` | 1 | no-crds |
+| `nvidia/gpu-operator@v26.3.3` | 2 | no-crds |
+| `nvidia/gpu-operator@v26.7.1` | 1 | no-crds |
 | `nvidia/nvidia-device-plugin@0.19.3` | 3 | existing-secret, no-crds |
 | `oauth2-proxy/oauth2-proxy@10.7.0` | 1 | existing-secret |
 | `open-telemetry/opentelemetry-operator@0.114.0` | 2 | existing-secret |

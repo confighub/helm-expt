@@ -82,7 +82,10 @@ nats/nack,0.34.0,default,no,,,,yes,6,no-crds,customize;prune;ssa-conflict
 nats/nats,2.14.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 nats/surveyor,0.20.9,default,no,,,,no,0,,customize;prune;ssa-conflict
 nfs-subdir-external-provisioner/nfs-subdir-external-provisioner,4.0.18,default,no,,,,no,0,,customize;prune;ssa-conflict
+nvidia/cluster-readiness-engine,v0.6.0,default,no,,,,yes,8,,customize;prune;ssa-conflict
+nvidia/gpu-operator,v26.7.1,default,no,,,,yes,8,,customize;prune;ssa-conflict
 nvidia/nvidia-device-plugin,0.19.3,default,no,,,,no,0,,customize;prune;ssa-conflict
+nvidia/nvsentinel,v1.9.0,default,no,,,,yes,1,,customize;prune;ssa-conflict
 oauth2-proxy/oauth2-proxy,10.7.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 open-telemetry/opentelemetry-operator,0.114.0,default,no,,default,"Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator",yes,6,no-crds,customize;prune;ssa-conflict
 opencost/opencost,2.5.21,default,no,,,,no,0,,customize;prune;ssa-conflict
