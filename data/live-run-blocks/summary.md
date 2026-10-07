@@ -24,10 +24,10 @@ guess. Always classify from the actual receipt after a run.
 ## Counts
 
 ```text
-ready-to-run rows:   97
-run blocks:          20  (G/P: 14, K: 6)
+ready-to-run rows:   179
+run blocks:          36  (G/P: 22, K: 14)
 derived predictions: 45
-unknown predictions: 52
+unknown predictions: 134
 ```
 
 Order: G/P live-parity blocks first (one command classifies both the G and P
@@ -52,7 +52,7 @@ then by predicted residue family and chart family. Blocks are capped at
 
 ## GP-02 — G/P · operator/CRD/lifecycle
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with predicted gitops-runtime / unknown (kyverno/kyverno-policies@3.9.0, kyverno/kyverno@3.8.2, kyverno/kyverno@3.9.0, mysql/mysql-operator@2.3.0, percona/psmdb-operator@1.23.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with predicted gitops-runtime / unknown (kyverno/kyverno-policies@3.9.0, kyverno/kyverno@3.8.2, kyverno/kyverno@3.9.0, mysql/mysql-operator@2.3.0, nvidia/gpu-operator@v26.3.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
@@ -62,121 +62,205 @@ then by predicted residue family and chart family. Blocks are capped at
 | kyverno/kyverno@3.8.2 | default | `npm run live-parity:run -- --recipe recipes/kyverno/kyverno/3.8.2 --base default` | gitops-runtime | medium | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
 | kyverno/kyverno@3.9.0 | default | `npm run live-parity:run -- --recipe recipes/kyverno/kyverno/3.9.0 --base default` | gitops-runtime | medium | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
 | mysql/mysql-operator@2.3.0 | default | `npm run live-parity:run -- --recipe recipes/mysql/mysql-operator/2.3.0 --base default` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel; stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
-| percona/psmdb-operator@1.23.0 | default | `npm run live-parity:run -- --recipe recipes/percona/psmdb-operator/1.23.0 --base default` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.3 | aicr-eks-training | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.3 --base aicr-eks-training` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
 
-## GP-03 — G/P · platform/networking
+## GP-03 — G/P · operator/CRD/lifecycle
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with predicted gitops-runtime / capability-profile (traefik/traefik@41.0.2, traefik/traefik@41.4.0, prometheus-community/prometheus-blackbox-exporter@11.15.1, prometheus-community/prometheus-blackbox-exporter@11.18.0, argo-cd/argo-cd@10.1.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/gpu-operator@v26.7.1, nvidia/gpu-operator@v25.10.1, nvidia/gpu-operator@v26.3.2, nvidia/gpu-operator@v26.3.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| nvidia/gpu-operator@v26.7.1 | aicr-eks-training | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.7.1 --base aicr-eks-training` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v25.10.1 | default | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v25.10.1 --base default` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.2 | default | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.2 --base default` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.3 | default | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.3 --base default` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.7.1 | default | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.7.1 --base default` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+
+## GP-04 — G/P · operator/CRD/lifecycle
+
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/gpu-operator@v26.3.2, nvidia/gpu-operator@v26.3.3, nvidia/gpu-operator@v26.7.1, nvidia/gpu-operator@v25.10.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| nvidia/gpu-operator@v26.3.2 | driver-580.105.08 | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.2 --base driver-580.105.08` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.3 | driver-580.105.08 | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.3 --base driver-580.105.08` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.7.1 | driver-580.105.08 | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.7.1 --base driver-580.105.08` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v25.10.1 | driver-580.126.20 | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v25.10.1 --base driver-580.126.20` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.7.1 | driver-580.126.20 | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.7.1 --base driver-580.126.20` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+
+## GP-05 — G/P · operator/CRD/lifecycle
+
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/gpu-operator@v25.10.1, nvidia/gpu-operator@v26.3.2, nvidia/gpu-operator@v26.3.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| nvidia/gpu-operator@v25.10.1 | driver-595.91.07 | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v25.10.1 --base driver-595.91.07` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.2 | driver-595.91.07 | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.2 --base driver-595.91.07` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.3 | driver-595.91.07 | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.3 --base driver-595.91.07` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v25.10.1 | external-nfd | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v25.10.1 --base external-nfd` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.2 | external-nfd | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.2 --base external-nfd` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+
+## GP-06 — G/P · operator/CRD/lifecycle
+
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/gpu-operator@v26.3.3, nvidia/gpu-operator@v26.7.1, nvidia/gpu-operator@v25.10.1, nvidia/gpu-operator@v26.3.2); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| nvidia/gpu-operator@v26.3.3 | external-nfd | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.3 --base external-nfd` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.7.1 | external-nfd | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.7.1 --base external-nfd` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v25.10.1 --base preinstalled-driver` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.2 --base preinstalled-driver` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.3 --base preinstalled-driver` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+
+## GP-07 — G/P · operator/CRD/lifecycle
+
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/gpu-operator@v26.7.1, nvidia/gpu-operator@v25.10.1, nvidia/gpu-operator@v26.3.2, nvidia/gpu-operator@v26.3.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.7.1 --base preinstalled-driver` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver-and-toolkit | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v25.10.1 --base preinstalled-driver-and-toolkit` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver-and-toolkit | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.2 --base preinstalled-driver-and-toolkit` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver-and-toolkit | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.3 --base preinstalled-driver-and-toolkit` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver-and-toolkit | `npm run live-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.7.1 --base preinstalled-driver-and-toolkit` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+
+## GP-08 — G/P · operator/CRD/lifecycle
+
+**Goal:** G/P: run the 5 ready live-parity row(s) with predicted unknown / gitops-runtime (nvidia/k8s-nim-operator@3.1.0, nvidia/k8s-nim-operator@3.1.2, percona/psmdb-operator@1.23.0, traefik/traefik@41.0.2); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| nvidia/k8s-nim-operator@3.1.0 | aicr-eks-inference | `npm run live-parity:run -- --recipe recipes/nvidia/k8s-nim-operator/3.1.0 --base aicr-eks-inference` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/k8s-nim-operator@3.1.0 | default | `npm run live-parity:run -- --recipe recipes/nvidia/k8s-nim-operator/3.1.0 --base default` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/k8s-nim-operator@3.1.2 | default | `npm run live-parity:run -- --recipe recipes/nvidia/k8s-nim-operator/3.1.2 --base default` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| percona/psmdb-operator@1.23.0 | default | `npm run live-parity:run -- --recipe recipes/percona/psmdb-operator/1.23.0 --base default` | unknown | unknown | installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
 | traefik/traefik@41.0.2 | default | `npm run live-parity:run -- --recipe recipes/traefik/traefik/41.0.2 --base default` | gitops-runtime | high | light controller — safe within a block |
+
+## GP-09 — G/P · platform/networking
+
+**Goal:** G/P: run the 5 ready live-parity row(s) with predicted gitops-runtime / capability-profile (traefik/traefik@41.4.0, prometheus-community/prometheus-blackbox-exporter@11.15.1, prometheus-community/prometheus-blackbox-exporter@11.18.0, argo-cd/argo-cd@10.1.3, argo-cd/argo-cd@10.2.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
 | traefik/traefik@41.4.0 | default | `npm run live-parity:run -- --recipe recipes/traefik/traefik/41.4.0 --base default` | gitops-runtime | high | light controller — safe within a block |
 | prometheus-community/prometheus-blackbox-exporter@11.15.1 | default | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1 --base default` | capability-profile | low | light controller — safe within a block |
 | prometheus-community/prometheus-blackbox-exporter@11.18.0 | default | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-blackbox-exporter/11.18.0 --base default` | capability-profile | low | light controller — safe within a block |
 | argo-cd/argo-cd@10.1.3 | default | `npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.1.3 --base default` | gitops-runtime | high | light controller — safe within a block |
+| argo-cd/argo-cd@10.2.1 | default | `npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.2.1 --base default` | gitops-runtime | high | light controller — safe within a block |
 
-## GP-04 — G/P · app
+## GP-10 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with predicted gitops-runtime (argo-cd/argo-cd@10.2.1, argo-cd/argo-cd@10.7.0, grafana/grafana@10.5.15, prometheus-community/prometheus@29.8.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with predicted gitops-runtime (argo-cd/argo-cd@10.7.0, grafana/grafana@10.5.15, prometheus-community/prometheus@29.8.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| argo-cd/argo-cd@10.2.1 | default | `npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.2.1 --base default` | gitops-runtime | high | light controller — safe within a block |
 | argo-cd/argo-cd@10.7.0 | default | `npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.7.0 --base default` | gitops-runtime | high | light controller — safe within a block |
 | grafana/grafana@10.5.15 | customer-acme-prod | `npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base customer-acme-prod` | gitops-runtime | medium | light controller — safe within a block |
 | grafana/grafana@10.5.15 | prod-us-east | `npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base prod-us-east` | gitops-runtime | medium | light controller — safe within a block |
 | prometheus-community/prometheus@29.8.0 | prod-us-east | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.8.0 --base prod-us-east` | gitops-runtime | high | light controller — safe within a block |
+| prometheus-community/prometheus@29.8.0 | staging-eu-west | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.8.0 --base staging-eu-west` | gitops-runtime | high | light controller — safe within a block |
 
-## GP-05 — G/P · app
+## GP-11 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with predicted gitops-runtime / model-gap-render (prometheus-community/prometheus@29.8.0, prometheus-community/kube-prometheus-stack@87.15.1, prometheus-community/kube-prometheus-stack@87.19.2, prometheus-community/kube-prometheus-stack@88.6.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with predicted model-gap-render (prometheus-community/kube-prometheus-stack@87.15.1, prometheus-community/kube-prometheus-stack@87.19.2, prometheus-community/kube-prometheus-stack@88.6.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| prometheus-community/prometheus@29.8.0 | staging-eu-west | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.8.0 --base staging-eu-west` | gitops-runtime | high | light controller — safe within a block |
 | prometheus-community/kube-prometheus-stack@87.15.1 | default | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.15.1 --base default` | model-gap-render | high | light controller — safe within a block |
 | prometheus-community/kube-prometheus-stack@87.19.2 | default | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.19.2 --base default` | model-gap-render | high | light controller — safe within a block |
 | prometheus-community/kube-prometheus-stack@88.6.3 | default | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/88.6.3 --base default` | model-gap-render | high | light controller — safe within a block |
 | prometheus-community/kube-prometheus-stack@87.15.1 | existing-secret | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.15.1 --base existing-secret` | model-gap-render | high | light controller — safe within a block |
+| prometheus-community/kube-prometheus-stack@87.19.2 | existing-secret | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.19.2 --base existing-secret` | model-gap-render | high | light controller — safe within a block |
 
-## GP-06 — G/P · app
+## GP-12 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with predicted model-gap-render (prometheus-community/kube-prometheus-stack@87.19.2, prometheus-community/kube-prometheus-stack@88.6.3, prometheus-community/kube-prometheus-stack@87.15.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with predicted model-gap-render / operate-policy (prometheus-community/kube-prometheus-stack@88.6.3, prometheus-community/kube-prometheus-stack@87.15.1, prometheus-community/kube-prometheus-stack@87.19.2, hashicorp/vault@0.32.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| prometheus-community/kube-prometheus-stack@87.19.2 | existing-secret | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.19.2 --base existing-secret` | model-gap-render | high | light controller — safe within a block |
 | prometheus-community/kube-prometheus-stack@88.6.3 | existing-secret | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/88.6.3 --base existing-secret` | model-gap-render | high | light controller — safe within a block |
 | prometheus-community/kube-prometheus-stack@87.15.1 | no-crds | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.15.1 --base no-crds` | model-gap-render | high | light controller — safe within a block |
 | prometheus-community/kube-prometheus-stack@87.19.2 | no-crds | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.19.2 --base no-crds` | model-gap-render | high | light controller — safe within a block |
 | prometheus-community/kube-prometheus-stack@88.6.3 | no-crds | `npm run live-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/88.6.3 --base no-crds` | model-gap-render | high | light controller — safe within a block |
+| hashicorp/vault@0.32.0 | regulated-prod-us-east | `npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base regulated-prod-us-east` | operate-policy | high | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 
-## GP-07 — G/P · app
+## GP-13 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with predicted operate-policy / remote-image / render-input / target-prerequisite (hashicorp/vault@0.32.0, bitnami/redis@25.5.3, velero/velero@12.1.0, metrics-server/metrics-server@3.13.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with predicted operate-policy / remote-image / render-input / target-prerequisite (hashicorp/vault@0.32.0, bitnami/redis@25.5.3, velero/velero@12.1.0, metrics-server/metrics-server@3.13.1, metrics-server/metrics-server@3.14.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| hashicorp/vault@0.32.0 | regulated-prod-us-east | `npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base regulated-prod-us-east` | operate-policy | high | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | hashicorp/vault@0.32.0 | staging-us-east | `npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base staging-us-east` | operate-policy | high | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | bitnami/redis@25.5.3 | prod-us-east | `npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base prod-us-east` | remote-image | medium | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | velero/velero@12.1.0 | default | `npm run live-parity:run -- --recipe recipes/velero/velero/12.1.0 --base default` | render-input | high | light controller — safe within a block |
 | metrics-server/metrics-server@3.13.1 | default | `npm run live-parity:run -- --recipe recipes/metrics-server/metrics-server/3.13.1 --base default` | target-prerequisite | medium | light controller — safe within a block |
+| metrics-server/metrics-server@3.14.0 | default | `npm run live-parity:run -- --recipe recipes/metrics-server/metrics-server/3.14.0 --base default` | target-prerequisite | medium | light controller — safe within a block |
 
-## GP-08 — G/P · app
+## GP-14 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with predicted target-prerequisite / target-runtime (metrics-server/metrics-server@3.14.0, metrics-server/metrics-server@3.13.1, grafana/alloy@1.11.0, grafana/alloy@1.12.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with predicted target-prerequisite / target-runtime (metrics-server/metrics-server@3.13.1, metrics-server/metrics-server@3.14.0, grafana/alloy@1.11.0, grafana/alloy@1.12.1, grafana/loki@7.1.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| metrics-server/metrics-server@3.14.0 | default | `npm run live-parity:run -- --recipe recipes/metrics-server/metrics-server/3.14.0 --base default` | target-prerequisite | medium | light controller — safe within a block |
 | metrics-server/metrics-server@3.13.1 | external-tls-ca | `npm run live-parity:run -- --recipe recipes/metrics-server/metrics-server/3.13.1 --base external-tls-ca` | target-prerequisite | medium | light controller — safe within a block |
 | metrics-server/metrics-server@3.14.0 | external-tls-ca | `npm run live-parity:run -- --recipe recipes/metrics-server/metrics-server/3.14.0 --base external-tls-ca` | target-prerequisite | medium | light controller — safe within a block |
 | grafana/alloy@1.11.0 | default | `npm run live-parity:run -- --recipe recipes/grafana/alloy/1.11.0 --base default` | target-runtime | medium | light controller — safe within a block |
 | grafana/alloy@1.12.1 | default | `npm run live-parity:run -- --recipe recipes/grafana/alloy/1.12.1 --base default` | target-runtime | medium | light controller — safe within a block |
+| grafana/loki@7.1.0 | default | `npm run live-parity:run -- --recipe recipes/grafana/loki/7.1.0 --base default` | target-runtime | medium | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 
-## GP-09 — G/P · app
+## GP-15 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with predicted target-runtime / unknown (grafana/loki@7.1.0, grafana/loki@7.3.0, aws-controllers-k8s/ec2-chart@1.18.4, aws-controllers-k8s/eks-chart@1.16.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with predicted target-runtime / unknown (grafana/loki@7.3.0, aws-controllers-k8s/ec2-chart@1.18.4, aws-controllers-k8s/eks-chart@1.16.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| grafana/loki@7.1.0 | default | `npm run live-parity:run -- --recipe recipes/grafana/loki/7.1.0 --base default` | target-runtime | medium | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | grafana/loki@7.3.0 | default | `npm run live-parity:run -- --recipe recipes/grafana/loki/7.3.0 --base default` | target-runtime | medium | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | aws-controllers-k8s/ec2-chart@1.18.4 | default | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base default` | unknown | unknown | light controller — safe within a block |
 | aws-controllers-k8s/ec2-chart@1.18.4 | eks-inference | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base eks-inference` | unknown | unknown | light controller — safe within a block |
 | aws-controllers-k8s/eks-chart@1.16.3 | default | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/eks-chart/1.16.3 --base default` | unknown | unknown | light controller — safe within a block |
+| aws-controllers-k8s/eks-chart@1.16.3 | eks-inference | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/eks-chart/1.16.3 --base eks-inference` | unknown | unknown | light controller — safe within a block |
 
-## GP-10 — G/P · app
+## GP-16 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (aws-controllers-k8s/eks-chart@1.16.3, aws-controllers-k8s/iam-chart@1.7.3, cloudnative-pg/cloudnative-pg@0.29.0, cloudpirates/nginx@0.16.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (aws-controllers-k8s/iam-chart@1.7.3, cloudnative-pg/cloudnative-pg@0.29.0, cloudpirates/nginx@0.16.1, cloudpirates/rabbitmq@0.21.13); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| aws-controllers-k8s/eks-chart@1.16.3 | eks-inference | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/eks-chart/1.16.3 --base eks-inference` | unknown | unknown | light controller — safe within a block |
 | aws-controllers-k8s/iam-chart@1.7.3 | default | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base default` | unknown | unknown | light controller — safe within a block |
 | aws-controllers-k8s/iam-chart@1.7.3 | eks-inference | `npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base eks-inference` | unknown | unknown | light controller — safe within a block |
 | cloudnative-pg/cloudnative-pg@0.29.0 | default | `npm run live-parity:run -- --recipe recipes/cloudnative-pg/cloudnative-pg/0.29.0 --base default` | unknown | unknown | light controller — safe within a block |
 | cloudpirates/nginx@0.16.1 | default | `npm run live-parity:run -- --recipe recipes/cloudpirates/nginx/0.16.1 --base default` | unknown | unknown | light controller — safe within a block |
+| cloudpirates/rabbitmq@0.21.13 | default | `npm run live-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base default` | unknown | unknown | light controller — safe within a block |
 
-## GP-11 — G/P · app
+## GP-17 — G/P · app
 
 **Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (cloudpirates/rabbitmq@0.21.13, cloudpirates/redis@0.34.11, karpenter/karpenter@1.14.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
@@ -184,29 +268,29 @@ then by predicted residue family and chart family. Blocks are capped at
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| cloudpirates/rabbitmq@0.21.13 | default | `npm run live-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base default` | unknown | unknown | light controller — safe within a block |
 | cloudpirates/rabbitmq@0.21.13 | existing-secret | `npm run live-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base existing-secret` | unknown | unknown | light controller — safe within a block |
 | cloudpirates/redis@0.34.11 | default | `npm run live-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base default` | unknown | unknown | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | cloudpirates/redis@0.34.11 | reuse-existing-secret | `npm run live-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base reuse-existing-secret` | unknown | unknown | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | karpenter/karpenter@1.14.0 | crds-managed | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base crds-managed` | unknown | unknown | light controller — safe within a block |
+| karpenter/karpenter@1.14.0 | default | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base default` | unknown | unknown | light controller — safe within a block |
 
-## GP-12 — G/P · app
+## GP-18 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (karpenter/karpenter@1.14.0, longhorn/longhorn@1.12.0, longhorn/longhorn@1.12.1, metallb/metallb@0.16.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (karpenter/karpenter@1.14.0, longhorn/longhorn@1.12.0, longhorn/longhorn@1.12.1, metallb/metallb@0.16.1, nvidia/cluster-readiness-engine@v0.6.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| karpenter/karpenter@1.14.0 | default | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base default` | unknown | unknown | light controller — safe within a block |
 | karpenter/karpenter@1.14.0 | eks-inference | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base eks-inference` | unknown | unknown | light controller — safe within a block |
 | longhorn/longhorn@1.12.0 | default | `npm run live-parity:run -- --recipe recipes/longhorn/longhorn/1.12.0 --base default` | unknown | unknown | light controller — safe within a block |
 | longhorn/longhorn@1.12.1 | default | `npm run live-parity:run -- --recipe recipes/longhorn/longhorn/1.12.1 --base default` | unknown | unknown | light controller — safe within a block |
 | metallb/metallb@0.16.1 | default | `npm run live-parity:run -- --recipe recipes/metallb/metallb/0.16.1 --base default` | unknown | unknown | light controller — safe within a block |
+| nvidia/cluster-readiness-engine@v0.6.0 | default | `npm run live-parity:run -- --recipe recipes/nvidia/cluster-readiness-engine/v0.6.0 --base default` | unknown | unknown | light controller — safe within a block |
 
-## GP-13 — G/P · app
+## GP-19 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nvidia-device-plugin@0.19.3, oauth2-proxy/oauth2-proxy@10.7.0, policy-reporter/policy-reporter@3.10.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nvidia-device-plugin@0.19.3, nvidia/nvsentinel@v1.20.0, nvidia/nvsentinel@v1.25.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
@@ -215,17 +299,46 @@ then by predicted residue family and chart family. Blocks are capped at
 | nvidia/nvidia-device-plugin@0.19.3 | default | `npm run live-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base default` | unknown | unknown | light controller — safe within a block |
 | nvidia/nvidia-device-plugin@0.19.3 | eks-inference | `npm run live-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base eks-inference` | unknown | unknown | light controller — safe within a block |
 | nvidia/nvidia-device-plugin@0.19.3 | nfd-enabled | `npm run live-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base nfd-enabled` | unknown | unknown | light controller — safe within a block |
-| oauth2-proxy/oauth2-proxy@10.7.0 | default | `npm run live-parity:run -- --recipe recipes/oauth2-proxy/oauth2-proxy/10.7.0 --base default` | unknown | unknown | light controller — safe within a block |
-| policy-reporter/policy-reporter@3.10.0 | default | `npm run live-parity:run -- --recipe recipes/policy-reporter/policy-reporter/3.10.0 --base default` | unknown | unknown | light controller — safe within a block |
+| nvidia/nvsentinel@v1.20.0 | aicr-eks-training | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.20.0 --base aicr-eks-training` | unknown | unknown | light controller — safe within a block |
+| nvidia/nvsentinel@v1.25.0 | aicr-eks-training | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.25.0 --base aicr-eks-training` | unknown | unknown | light controller — safe within a block |
 
-## GP-14 — G/P · app
+## GP-20 — G/P · app
 
-**Goal:** G/P: run the 4 ready live-parity row(s) with no prior residue signal (first observation) (policy-reporter/policy-reporter@3.9.1, stakater/reloader@2.2.14, stakater/reloader@2.2.16, valkey/valkey@0.11.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nvsentinel@v1.9.0, nvidia/nvsentinel@v1.20.0, nvidia/nvsentinel@v1.25.0, nvidia/nvsentinel@v1.26.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| nvidia/nvsentinel@v1.9.0 | aicr-eks-training | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.9.0 --base aicr-eks-training` | unknown | unknown | light controller — safe within a block |
+| nvidia/nvsentinel@v1.20.0 | default | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.20.0 --base default` | unknown | unknown | light controller — safe within a block |
+| nvidia/nvsentinel@v1.25.0 | default | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.25.0 --base default` | unknown | unknown | light controller — safe within a block |
+| nvidia/nvsentinel@v1.26.0 | default | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.26.0 --base default` | unknown | unknown | light controller — safe within a block |
+| nvidia/nvsentinel@v1.9.0 | default | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.9.0 --base default` | unknown | unknown | light controller — safe within a block |
+
+## GP-21 — G/P · app
+
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nvsentinel@v1.20.0, nvidia/nvsentinel@v1.25.0, nvidia/nvsentinel@v1.26.0, nvidia/nvsentinel@v1.9.0, oauth2-proxy/oauth2-proxy@10.7.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| nvidia/nvsentinel@v1.20.0 | no-pod-monitor | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.20.0 --base no-pod-monitor` | unknown | unknown | light controller — safe within a block |
+| nvidia/nvsentinel@v1.25.0 | no-pod-monitor | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.25.0 --base no-pod-monitor` | unknown | unknown | light controller — safe within a block |
+| nvidia/nvsentinel@v1.26.0 | no-pod-monitor | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.26.0 --base no-pod-monitor` | unknown | unknown | light controller — safe within a block |
+| nvidia/nvsentinel@v1.9.0 | no-pod-monitor | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.9.0 --base no-pod-monitor` | unknown | unknown | light controller — safe within a block |
+| oauth2-proxy/oauth2-proxy@10.7.0 | default | `npm run live-parity:run -- --recipe recipes/oauth2-proxy/oauth2-proxy/10.7.0 --base default` | unknown | unknown | light controller — safe within a block |
+
+## GP-22 — G/P · app
+
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (policy-reporter/policy-reporter@3.10.0, policy-reporter/policy-reporter@3.9.1, stakater/reloader@2.2.14, stakater/reloader@2.2.16, valkey/valkey@0.11.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| policy-reporter/policy-reporter@3.10.0 | default | `npm run live-parity:run -- --recipe recipes/policy-reporter/policy-reporter/3.10.0 --base default` | unknown | unknown | light controller — safe within a block |
 | policy-reporter/policy-reporter@3.9.1 | default | `npm run live-parity:run -- --recipe recipes/policy-reporter/policy-reporter/3.9.1 --base default` | unknown | unknown | light controller — safe within a block |
 | stakater/reloader@2.2.14 | default | `npm run live-parity:run -- --recipe recipes/stakater/reloader/2.2.14 --base default` | unknown | unknown | light controller — safe within a block |
 | stakater/reloader@2.2.16 | default | `npm run live-parity:run -- --recipe recipes/stakater/reloader/2.2.16 --base default` | unknown | unknown | light controller — safe within a block |
@@ -233,74 +346,187 @@ then by predicted residue family and chart family. Blocks are capped at
 
 ## K-01 — K · operator/CRD/lifecycle
 
-**Goal:** K: run the 5 ready kind-parity row(s) with predicted unknown / model-gap-render / target-runtime (mysql/mysql-operator@2.3.0, prometheus-community/kube-prometheus-stack@87.15.1, prometheus-community/kube-prometheus-stack@87.19.2, prometheus-community/kube-prometheus-stack@88.6.3, grafana/loki@7.1.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (mysql/mysql-operator@2.3.0, nvidia/gpu-operator@v26.3.3, nvidia/gpu-operator@v26.7.1, nvidia/gpu-operator@v25.10.1, nvidia/gpu-operator@v26.3.2); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
 | mysql/mysql-operator@2.3.0 | default | `npm run kind-parity:run -- --recipe recipes/mysql/mysql-operator/2.3.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel; stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
+| nvidia/gpu-operator@v26.3.3 | aicr-eks-training | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.3 --base aicr-eks-training` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.7.1 | aicr-eks-training | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.7.1 --base aicr-eks-training` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v25.10.1 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v25.10.1 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.2 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.2 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+
+## K-02 — K · operator/CRD/lifecycle
+
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (nvidia/gpu-operator@v26.3.3, nvidia/gpu-operator@v26.7.1, nvidia/gpu-operator@v26.3.2); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| nvidia/gpu-operator@v26.3.3 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.3 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.7.1 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.7.1 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.2 | driver-580.105.08 | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.2 --base driver-580.105.08` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.3 | driver-580.105.08 | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.3 --base driver-580.105.08` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.7.1 | driver-580.105.08 | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.7.1 --base driver-580.105.08` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+
+## K-03 — K · operator/CRD/lifecycle
+
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (nvidia/gpu-operator@v25.10.1, nvidia/gpu-operator@v26.7.1, nvidia/gpu-operator@v26.3.2, nvidia/gpu-operator@v26.3.3); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| nvidia/gpu-operator@v25.10.1 | driver-580.126.20 | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v25.10.1 --base driver-580.126.20` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.7.1 | driver-580.126.20 | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.7.1 --base driver-580.126.20` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v25.10.1 | driver-595.91.07 | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v25.10.1 --base driver-595.91.07` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.2 | driver-595.91.07 | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.2 --base driver-595.91.07` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.3 | driver-595.91.07 | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.3 --base driver-595.91.07` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+
+## K-04 — K · operator/CRD/lifecycle
+
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (nvidia/gpu-operator@v25.10.1, nvidia/gpu-operator@v26.3.2, nvidia/gpu-operator@v26.3.3, nvidia/gpu-operator@v26.7.1); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| nvidia/gpu-operator@v25.10.1 | external-nfd | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v25.10.1 --base external-nfd` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.2 | external-nfd | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.2 --base external-nfd` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.3 | external-nfd | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.3 --base external-nfd` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.7.1 | external-nfd | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.7.1 --base external-nfd` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v25.10.1 --base preinstalled-driver` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+
+## K-05 — K · operator/CRD/lifecycle
+
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (nvidia/gpu-operator@v26.3.2, nvidia/gpu-operator@v26.3.3, nvidia/gpu-operator@v26.7.1, nvidia/gpu-operator@v25.10.1); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.2 --base preinstalled-driver` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.3 --base preinstalled-driver` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.7.1 --base preinstalled-driver` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver-and-toolkit | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v25.10.1 --base preinstalled-driver-and-toolkit` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver-and-toolkit | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.2 --base preinstalled-driver-and-toolkit` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+
+## K-06 — K · operator/CRD/lifecycle
+
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (nvidia/gpu-operator@v26.3.3, nvidia/gpu-operator@v26.7.1, nvidia/k8s-nim-operator@3.1.0, nvidia/k8s-nim-operator@3.1.2); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver-and-toolkit | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.3.3 --base preinstalled-driver-and-toolkit` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver-and-toolkit | `npm run kind-parity:run -- --recipe recipes/nvidia/gpu-operator/v26.7.1 --base preinstalled-driver-and-toolkit` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/k8s-nim-operator@3.1.0 | aicr-eks-inference | `npm run kind-parity:run -- --recipe recipes/nvidia/k8s-nim-operator/3.1.0 --base aicr-eks-inference` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/k8s-nim-operator@3.1.0 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/k8s-nim-operator/3.1.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+| nvidia/k8s-nim-operator@3.1.2 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/k8s-nim-operator/3.1.2 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters); installs cluster-scoped CRDs/webhooks — verify CRD ownership and cleanup; do not batch with another CRD installer in parallel |
+
+## K-07 — K · app
+
+**Goal:** K: run the 5 ready kind-parity row(s) with predicted model-gap-render / target-runtime (prometheus-community/kube-prometheus-stack@87.15.1, prometheus-community/kube-prometheus-stack@87.19.2, prometheus-community/kube-prometheus-stack@88.6.3, grafana/loki@7.1.0, grafana/loki@7.3.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
 | prometheus-community/kube-prometheus-stack@87.15.1 | existing-secret | `npm run kind-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.15.1 --base existing-secret` | model-gap-render | high | two-cluster kind run (provisions two clusters) |
 | prometheus-community/kube-prometheus-stack@87.19.2 | existing-secret | `npm run kind-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/87.19.2 --base existing-secret` | model-gap-render | high | two-cluster kind run (provisions two clusters) |
 | prometheus-community/kube-prometheus-stack@88.6.3 | existing-secret | `npm run kind-parity:run -- --recipe recipes/prometheus-community/kube-prometheus-stack/88.6.3 --base existing-secret` | model-gap-render | high | two-cluster kind run (provisions two clusters) |
 | grafana/loki@7.1.0 | default | `npm run kind-parity:run -- --recipe recipes/grafana/loki/7.1.0 --base default` | target-runtime | medium | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
+| grafana/loki@7.3.0 | default | `npm run kind-parity:run -- --recipe recipes/grafana/loki/7.3.0 --base default` | target-runtime | medium | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 
-## K-02 — K · app
+## K-08 — K · app
 
-**Goal:** K: run the 5 ready kind-parity row(s) with predicted target-runtime / unknown (grafana/loki@7.3.0, aws-controllers-k8s/ec2-chart@1.18.4, aws-controllers-k8s/eks-chart@1.16.3); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (aws-controllers-k8s/ec2-chart@1.18.4, aws-controllers-k8s/eks-chart@1.16.3, aws-controllers-k8s/iam-chart@1.7.3); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| grafana/loki@7.3.0 | default | `npm run kind-parity:run -- --recipe recipes/grafana/loki/7.3.0 --base default` | target-runtime | medium | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | aws-controllers-k8s/ec2-chart@1.18.4 | default | `npm run kind-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | aws-controllers-k8s/ec2-chart@1.18.4 | eks-inference | `npm run kind-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base eks-inference` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | aws-controllers-k8s/eks-chart@1.16.3 | default | `npm run kind-parity:run -- --recipe recipes/aws-controllers-k8s/eks-chart/1.16.3 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | aws-controllers-k8s/eks-chart@1.16.3 | eks-inference | `npm run kind-parity:run -- --recipe recipes/aws-controllers-k8s/eks-chart/1.16.3 --base eks-inference` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| aws-controllers-k8s/iam-chart@1.7.3 | default | `npm run kind-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 
-## K-03 — K · app
+## K-09 — K · app
 
-**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (aws-controllers-k8s/iam-chart@1.7.3, cloudpirates/nginx@0.16.1, cloudpirates/rabbitmq@0.21.13); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (aws-controllers-k8s/iam-chart@1.7.3, cloudpirates/nginx@0.16.1, cloudpirates/rabbitmq@0.21.13, cloudpirates/redis@0.34.11); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| aws-controllers-k8s/iam-chart@1.7.3 | default | `npm run kind-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | aws-controllers-k8s/iam-chart@1.7.3 | eks-inference | `npm run kind-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base eks-inference` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | cloudpirates/nginx@0.16.1 | default | `npm run kind-parity:run -- --recipe recipes/cloudpirates/nginx/0.16.1 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | cloudpirates/rabbitmq@0.21.13 | default | `npm run kind-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | cloudpirates/rabbitmq@0.21.13 | existing-secret | `npm run kind-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base existing-secret` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| cloudpirates/redis@0.34.11 | default | `npm run kind-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 
-## K-04 — K · app
+## K-10 — K · app
 
-**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (cloudpirates/redis@0.34.11, karpenter/karpenter@1.14.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (cloudpirates/redis@0.34.11, karpenter/karpenter@1.14.0, metallb/metallb@0.16.1); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| cloudpirates/redis@0.34.11 | default | `npm run kind-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | cloudpirates/redis@0.34.11 | reuse-existing-secret | `npm run kind-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base reuse-existing-secret` | unknown | unknown | two-cluster kind run (provisions two clusters); stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
 | karpenter/karpenter@1.14.0 | crds-managed | `npm run kind-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base crds-managed` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | karpenter/karpenter@1.14.0 | default | `npm run kind-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | karpenter/karpenter@1.14.0 | eks-inference | `npm run kind-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base eks-inference` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| metallb/metallb@0.16.1 | default | `npm run kind-parity:run -- --recipe recipes/metallb/metallb/0.16.1 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 
-## K-05 — K · app
+## K-11 — K · app
 
-**Goal:** K: run the 4 ready kind-parity row(s) with no prior residue signal (first observation) (metallb/metallb@0.16.1, nvidia/nvidia-device-plugin@0.19.3); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (nvidia/cluster-readiness-engine@v0.6.0, nvidia/nvidia-device-plugin@0.19.3, nvidia/nvsentinel@v1.20.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
-| metallb/metallb@0.16.1 | default | `npm run kind-parity:run -- --recipe recipes/metallb/metallb/0.16.1 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| nvidia/cluster-readiness-engine@v0.6.0 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/cluster-readiness-engine/v0.6.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | nvidia/nvidia-device-plugin@0.19.3 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | nvidia/nvidia-device-plugin@0.19.3 | eks-inference | `npm run kind-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base eks-inference` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | nvidia/nvidia-device-plugin@0.19.3 | nfd-enabled | `npm run kind-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base nfd-enabled` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| nvidia/nvsentinel@v1.20.0 | aicr-eks-training | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.20.0 --base aicr-eks-training` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 
-## K-06 — K · app
+## K-12 — K · app
+
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (nvidia/nvsentinel@v1.25.0, nvidia/nvsentinel@v1.9.0, nvidia/nvsentinel@v1.20.0, nvidia/nvsentinel@v1.26.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| nvidia/nvsentinel@v1.25.0 | aicr-eks-training | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.25.0 --base aicr-eks-training` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| nvidia/nvsentinel@v1.9.0 | aicr-eks-training | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.9.0 --base aicr-eks-training` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| nvidia/nvsentinel@v1.20.0 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.20.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| nvidia/nvsentinel@v1.25.0 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.25.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| nvidia/nvsentinel@v1.26.0 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.26.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+
+## K-13 — K · app
+
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (nvidia/nvsentinel@v1.9.0, nvidia/nvsentinel@v1.20.0, nvidia/nvsentinel@v1.25.0, nvidia/nvsentinel@v1.26.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| nvidia/nvsentinel@v1.9.0 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.9.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| nvidia/nvsentinel@v1.20.0 | no-pod-monitor | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.20.0 --base no-pod-monitor` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| nvidia/nvsentinel@v1.25.0 | no-pod-monitor | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.25.0 --base no-pod-monitor` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| nvidia/nvsentinel@v1.26.0 | no-pod-monitor | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.26.0 --base no-pod-monitor` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| nvidia/nvsentinel@v1.9.0 | no-pod-monitor | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.9.0 --base no-pod-monitor` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+
+## K-14 — K · app
 
 **Goal:** K: run the 4 ready kind-parity row(s) with no prior residue signal (first observation) (oauth2-proxy/oauth2-proxy@10.7.0, policy-reporter/policy-reporter@3.10.0, policy-reporter/policy-reporter@3.9.1, valkey/valkey@0.11.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 

@@ -664,7 +664,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix commands remaining",
-      "value": "284",
+      "value": "366",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",
@@ -673,7 +673,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix GitOps/OCI parity commands remaining",
-      "value": "144",
+      "value": "185",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",
@@ -682,7 +682,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix two-cluster kind commands remaining",
-      "value": "140",
+      "value": "181",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",
@@ -86331,7 +86331,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/aws-controllers-k8s/ec2-chart/1.18.4/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -86416,7 +86416,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/aws-controllers-k8s/ec2-chart/1.18.4/bases/eks-inference",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -86586,7 +86586,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/aws-controllers-k8s/eks-chart/1.16.3/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -86671,7 +86671,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/aws-controllers-k8s/eks-chart/1.16.3/bases/eks-inference",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -86841,7 +86841,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/aws-controllers-k8s/iam-chart/1.7.3/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -86926,7 +86926,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/aws-controllers-k8s/iam-chart/1.7.3/bases/eks-inference",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -87351,7 +87351,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/apache/11.4.29/bases/default",
       "completion_action": "image",
       "completion_action_summary": "image:4",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:4"
     },
@@ -87436,7 +87436,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/apache/11.4.29/bases/legacy",
       "completion_action": "image",
       "completion_action_summary": "image:3",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:3"
     },
@@ -87606,7 +87606,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/contour/21.1.4/bases/default",
       "completion_action": "image",
       "completion_action_summary": "deferred:1; image:4",
-      "completion_action_families": "CCP-03:remote-image-refresh; CCP-06:lifecycle-not-applicable",
+      "completion_action_families": "CCP-04:remote-image-refresh; CCP-06:lifecycle-not-applicable",
       "completion_deferred_cells": "1",
       "completion_owner_lanes": "Claude-non-live:4; product-decision:1"
     },
@@ -87776,7 +87776,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/contour/21.1.4/bases/no-crds",
       "completion_action": "image",
       "completion_action_summary": "deferred:1; image:4",
-      "completion_action_families": "CCP-03:remote-image-refresh; CCP-06:lifecycle-not-applicable",
+      "completion_action_families": "CCP-04:remote-image-refresh; CCP-06:lifecycle-not-applicable",
       "completion_deferred_cells": "1",
       "completion_owner_lanes": "Claude-non-live:4; product-decision:1"
     },
@@ -88031,7 +88031,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/elasticsearch/22.1.6/bases/default",
       "completion_action": "image",
       "completion_action_summary": "image:4",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:4"
     },
@@ -88116,7 +88116,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/elasticsearch/22.1.6/bases/ha",
       "completion_action": "image",
       "completion_action_summary": "image:4",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:4"
     },
@@ -88201,7 +88201,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/elasticsearch/22.1.6/bases/legacy",
       "completion_action": "image",
       "completion_action_summary": "image:3",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:3"
     },
@@ -89561,7 +89561,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/opensearch/2.0.10/bases/default",
       "completion_action": "image",
       "completion_action_summary": "image:4",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:4"
     },
@@ -89646,7 +89646,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/opensearch/2.0.10/bases/ha",
       "completion_action": "image",
       "completion_action_summary": "image:4",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:4"
     },
@@ -89731,7 +89731,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/opensearch/2.0.10/bases/legacy",
       "completion_action": "image",
       "completion_action_summary": "image:3",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:3"
     },
@@ -89901,7 +89901,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/phpmyadmin/20.0.0/bases/default",
       "completion_action": "image",
       "completion_action_summary": "image:4",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:4"
     },
@@ -89986,7 +89986,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/phpmyadmin/20.0.0/bases/legacy",
       "completion_action": "image",
       "completion_action_summary": "image:3",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:3"
     },
@@ -91176,7 +91176,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/spark/10.0.3/bases/default",
       "completion_action": "image",
       "completion_action_summary": "image:4",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:4"
     },
@@ -91261,7 +91261,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/spark/10.0.3/bases/ha",
       "completion_action": "image",
       "completion_action_summary": "image:4",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:4"
     },
@@ -91346,7 +91346,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/spark/10.0.3/bases/legacy",
       "completion_action": "image",
       "completion_action_summary": "image:3",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:3"
     },
@@ -91516,7 +91516,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/zookeeper/13.8.7/bases/default",
       "completion_action": "image",
       "completion_action_summary": "image:4",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:4"
     },
@@ -91601,7 +91601,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/zookeeper/13.8.7/bases/ha",
       "completion_action": "image",
       "completion_action_summary": "image:4",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:4"
     },
@@ -91686,7 +91686,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/zookeeper/13.8.7/bases/legacy",
       "completion_action": "image",
       "completion_action_summary": "image:3",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:3"
     },
@@ -92111,7 +92111,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/cloudpirates/nginx/0.16.1/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -92281,7 +92281,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/cloudpirates/rabbitmq/0.21.13/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -92366,7 +92366,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -92536,7 +92536,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/cloudpirates/redis/0.34.11/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -92621,7 +92621,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -98741,7 +98741,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/grafana/alloy/1.12.1/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "deferred:1; run:1; stage:3",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness; CCP-06:lifecycle-not-applicable",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness; CCP-06:lifecycle-not-applicable",
       "completion_deferred_cells": "1",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -102736,7 +102736,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/istio/gateway/1.30.0/bases/default",
       "completion_action": "image",
       "completion_action_summary": "image:4",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:4"
     },
@@ -102821,7 +102821,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/istio/gateway/1.30.0/bases/controller-default-reviewed",
       "completion_action": "image",
       "completion_action_summary": "image:4",
-      "completion_action_families": "CCP-03:remote-image-refresh",
+      "completion_action_families": "CCP-04:remote-image-refresh",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:4"
     },
@@ -104861,7 +104861,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/karpenter/karpenter/1.14.0/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "deferred:1; run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness; CCP-06:lifecycle-not-applicable",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness; CCP-06:lifecycle-not-applicable",
       "completion_deferred_cells": "1",
       "completion_owner_lanes": "Codex-live:1; product-decision:4; upstream-implementation:1"
     },
@@ -104946,7 +104946,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/karpenter/karpenter/1.14.0/bases/crds-managed",
       "completion_action": "stage",
       "completion_action_summary": "deferred:1; run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness; CCP-06:lifecycle-not-applicable",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness; CCP-06:lifecycle-not-applicable",
       "completion_deferred_cells": "1",
       "completion_owner_lanes": "Codex-live:1; product-decision:4; upstream-implementation:1"
     },
@@ -105031,7 +105031,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/karpenter/karpenter/1.14.0/bases/eks-inference",
       "completion_action": "stage",
       "completion_action_summary": "deferred:1; run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness; CCP-06:lifecycle-not-applicable",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness; CCP-06:lifecycle-not-applicable",
       "completion_deferred_cells": "1",
       "completion_owner_lanes": "Codex-live:1; product-decision:4; upstream-implementation:1"
     },
@@ -107326,7 +107326,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/mysql/mysql-operator/2.3.0/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -108856,7 +108856,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/nvidia/nvidia-device-plugin/0.19.3/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -108941,7 +108941,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/nvidia/nvidia-device-plugin/0.19.3/bases/eks-inference",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -109026,7 +109026,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/nvidia/nvidia-device-plugin/0.19.3/bases/nfd-enabled",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -110556,7 +110556,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/policy-reporter/policy-reporter/3.10.0/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
@@ -116081,7 +116081,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/valkey/valkey/0.11.0/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-04:local-kind-apply-harness",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },

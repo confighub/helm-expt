@@ -512,61 +512,61 @@ when you want the user/product view with those columns visible.
 |  | F2c | candidate review | storage-default-reviewed | candidate | `capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 |  | F3 | candidate review | default + review | candidate | `capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `nvidia/cluster-readiness-engine@v0.6.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/gpu-operator@v25.10.1` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | driver-580.126.20 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | driver-595.91.07 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | external-nfd | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | preinstalled-driver | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | preinstalled-driver-and-toolkit | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | driver-580.126.20 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | driver-595.91.07 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | external-nfd | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | preinstalled-driver | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | preinstalled-driver-and-toolkit | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/gpu-operator@v26.3.2` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | driver-580.105.08 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | driver-595.91.07 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | external-nfd | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | preinstalled-driver | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | preinstalled-driver-and-toolkit | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | driver-580.105.08 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | driver-595.91.07 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | external-nfd | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | preinstalled-driver | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | preinstalled-driver-and-toolkit | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/gpu-operator@v26.3.3` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | driver-580.105.08 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | driver-595.91.07 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | external-nfd | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | preinstalled-driver | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | preinstalled-driver-and-toolkit | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | driver-580.105.08 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | driver-595.91.07 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | external-nfd | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | preinstalled-driver | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | preinstalled-driver-and-toolkit | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/gpu-operator@v26.7.1` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | driver-580.105.08 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | driver-580.126.20 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | external-nfd | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | preinstalled-driver | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | preinstalled-driver-and-toolkit | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | driver-580.105.08 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | driver-580.126.20 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | external-nfd | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | preinstalled-driver | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | preinstalled-driver-and-toolkit | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/k8s-nim-operator@3.1.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | aicr-eks-inference | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-inference | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/k8s-nim-operator@3.1.2` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/nvidia-device-plugin@0.19.3` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | eks-inference | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | nfd-enabled | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/nvsentinel@v1.9.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | no-pod-monitor | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | no-pod-monitor | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/nvsentinel@v1.20.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | no-pod-monitor | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | no-pod-monitor | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/nvsentinel@v1.25.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | no-pod-monitor | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | no-pod-monitor | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/nvsentinel@v1.26.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
-|  | F2b | base | no-pod-monitor | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | - | render-parity | ⬜ |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | no-pod-monitor | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `oauth2-proxy/oauth2-proxy@10.7.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `open-telemetry/opentelemetry-operator@0.114.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |

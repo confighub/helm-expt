@@ -16,7 +16,7 @@ Two forms: [skills.csv](./skills.csv) (spreadsheet) and
 
 ## Coverage
 
-118 of 156 charts have at least one applicable skill. A chart
+118 of 167 charts have at least one applicable skill. A chart
 with none is a plain chart that needs no special playbook.
 
 | Skill | Charts |
@@ -151,7 +151,18 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | nats/nats@2.14.0 | 1 | live-parity | live |
 | nats/surveyor@0.20.9 | 0 | none | — |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | 1 | target-facts-and-lifecycle | stateful-storage |
+| nvidia/cluster-readiness-engine@v0.6.0 | 0 | none | — |
+| nvidia/gpu-operator@v25.10.1 | 0 | none | — |
+| nvidia/gpu-operator@v26.3.2 | 0 | none | — |
+| nvidia/gpu-operator@v26.3.3 | 0 | none | — |
+| nvidia/gpu-operator@v26.7.1 | 0 | none | — |
+| nvidia/k8s-nim-operator@3.1.0 | 0 | none | — |
+| nvidia/k8s-nim-operator@3.1.2 | 0 | none | — |
 | nvidia/nvidia-device-plugin@0.19.3 | 0 | none | — |
+| nvidia/nvsentinel@v1.20.0 | 0 | none | — |
+| nvidia/nvsentinel@v1.25.0 | 0 | none | — |
+| nvidia/nvsentinel@v1.26.0 | 0 | none | — |
+| nvidia/nvsentinel@v1.9.0 | 0 | none | — |
 | oauth2-proxy/oauth2-proxy@10.7.0 | 0 | none | — |
 | open-telemetry/opentelemetry-operator@0.114.0 | 1 | live-parity | live |
 | opencost/opencost@2.5.21 | 1 | target-facts-and-lifecycle | stateful-storage |
