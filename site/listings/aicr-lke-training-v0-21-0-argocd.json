@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:63bd8e47b439cf3ea6b878e89eb5ab2e4dc5be32bf3a3d0c1c6dcf49304c0403",
+      "sha256": "sha256:8564af0e304be49983ccc552f755eeda84b0a192d9a87185c4283b81f6416878",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aicr-lke-training-v0-21-0-argocd.yaml",
-      "sha256": "sha256:09ad9e79a20bc7117a1945317d9e6656e641b76279fd8f791187043f428ddb65",
+      "sha256": "sha256:d5370bb30222aab1223c11c7ac1567fa18a936ece7ce635386e9b2d2d6188a2b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-lke-training-v0-21-0-argocd.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -249,7 +249,7 @@
           "A recorded Argo CD sync of this exact Application set on a named destination."
         ],
         "evidence": [
-          "data/certified-bundles/routes/aicr/aicr-lke-training/sync-wave-ordering.yaml"
+          "data/aicr-flattening-verdicts/aicr-lke-training/sync-wave-ordering.yaml"
         ],
         "orderHint": 1
       },
@@ -276,13 +276,7 @@
         "orderHint": 2
       }
     ],
-    "records": [
-      {
-        "name": "sync-wave-ordering.yaml",
-        "path": "data/certified-bundles/routes/aicr/aicr-lke-training/sync-wave-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/aicr/aicr-lke-training/sync-wave-ordering.yaml"
-      }
-    ]
+    "records": []
   },
   "lifecycle": {
     "installTimeStatus": "destination-facts-recorded-not-run",
@@ -442,13 +436,7 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": [
-          {
-            "name": "sync-wave-ordering.yaml",
-            "path": "data/certified-bundles/routes/aicr/aicr-lke-training/sync-wave-ordering.yaml",
-            "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/aicr/aicr-lke-training/sync-wave-ordering.yaml"
-          }
-        ]
+        "records": []
       },
       {
         "id": "post-deployment",
@@ -473,16 +461,6 @@
         "name": "flatteningVerdict",
         "path": "data/aicr-flattening-verdicts/aicr-lke-training/flattening-safety-verdict.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-lke-training/flattening-safety-verdict.yaml"
-      },
-      {
-        "name": "certifiedBundleReceipt",
-        "path": "data/certified-bundles/receipts/aicr/lke-training/receipt.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/aicr/lke-training/receipt.yaml"
-      },
-      {
-        "name": "orderingRoute",
-        "path": "data/certified-bundles/routes/aicr/aicr-lke-training/sync-wave-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/aicr/aicr-lke-training/sync-wave-ordering.yaml"
       },
       {
         "name": "entryPage",
@@ -519,6 +497,10 @@
       {
         "name": "appliedOverlays",
         "value": "base > monitoring-hpa > lke > lke-training"
+      },
+      {
+        "name": "orderingRoute",
+        "value": "data/aicr-flattening-verdicts/aicr-lke-training/sync-wave-ordering.yaml"
       },
       {
         "name": "overlayDependentEntryCount",

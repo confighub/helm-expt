@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:63bd8e47b439cf3ea6b878e89eb5ab2e4dc5be32bf3a3d0c1c6dcf49304c0403",
+      "sha256": "sha256:8564af0e304be49983ccc552f755eeda84b0a192d9a87185c4283b81f6416878",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aicr-eks-h100-inference-nim-v0-14-0-argocd.yaml",
-      "sha256": "sha256:2ab90a44978305f316167fe269cae7f53070f95b82c48fd2089346f548f97174",
+      "sha256": "sha256:c10d06a1f4e6d01219cb0e1743819dfdfcc077997a4b71bd5820139973c4aa78",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-eks-h100-inference-nim-v0-14-0-argocd.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -114,11 +114,14 @@
       },
       {
         "role": "confighub-upload",
-        "state": "not-published",
-        "status": "not-run",
+        "state": "local",
+        "status": "temporary-pass",
         "reference": "",
         "referenceState": "none",
-        "digests": []
+        "digests": [],
+        "receipt": "data/confighub-ready/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/confighub-ready/receipt.yaml",
+        "note": "The ConfigHub-ready lane uploaded this Application set once as a temporary base variant, counted 20 Units and deleted the Space. No Space holds this entry now."
       },
       {
         "role": "confighub-release",

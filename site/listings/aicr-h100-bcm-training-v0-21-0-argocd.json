@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:63bd8e47b439cf3ea6b878e89eb5ab2e4dc5be32bf3a3d0c1c6dcf49304c0403",
+      "sha256": "sha256:8564af0e304be49983ccc552f755eeda84b0a192d9a87185c4283b81f6416878",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aicr-h100-bcm-training-v0-21-0-argocd.yaml",
-      "sha256": "sha256:22d0e000034e204cbe43ba95bee60ee990acf4a69a9f22a4fdd65bcbacf8ceaa",
+      "sha256": "sha256:ffaaac530f2cc3dd0467d60448cef73539de32b2a9aa304c4db0587fb26b09bc",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-h100-bcm-training-v0-21-0-argocd.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -249,7 +249,7 @@
           "A recorded Argo CD sync of this exact Application set on a named destination."
         ],
         "evidence": [
-          "data/certified-bundles/routes/aicr/aicr-h100-bcm-training/sync-wave-ordering.yaml"
+          "data/aicr-flattening-verdicts/aicr-h100-bcm-training/sync-wave-ordering.yaml"
         ],
         "orderHint": 1
       },
@@ -276,13 +276,7 @@
         "orderHint": 2
       }
     ],
-    "records": [
-      {
-        "name": "sync-wave-ordering.yaml",
-        "path": "data/certified-bundles/routes/aicr/aicr-h100-bcm-training/sync-wave-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/aicr/aicr-h100-bcm-training/sync-wave-ordering.yaml"
-      }
-    ]
+    "records": []
   },
   "lifecycle": {
     "installTimeStatus": "destination-facts-recorded-not-run",
@@ -442,13 +436,7 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": [
-          {
-            "name": "sync-wave-ordering.yaml",
-            "path": "data/certified-bundles/routes/aicr/aicr-h100-bcm-training/sync-wave-ordering.yaml",
-            "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/aicr/aicr-h100-bcm-training/sync-wave-ordering.yaml"
-          }
-        ]
+        "records": []
       },
       {
         "id": "post-deployment",
@@ -473,16 +461,6 @@
         "name": "flatteningVerdict",
         "path": "data/aicr-flattening-verdicts/aicr-h100-bcm-training/flattening-safety-verdict.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-h100-bcm-training/flattening-safety-verdict.yaml"
-      },
-      {
-        "name": "certifiedBundleReceipt",
-        "path": "data/certified-bundles/receipts/aicr/h100-bcm-training/receipt.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/aicr/h100-bcm-training/receipt.yaml"
-      },
-      {
-        "name": "orderingRoute",
-        "path": "data/certified-bundles/routes/aicr/aicr-h100-bcm-training/sync-wave-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/aicr/aicr-h100-bcm-training/sync-wave-ordering.yaml"
       },
       {
         "name": "entryPage",
@@ -519,6 +497,10 @@
       {
         "name": "appliedOverlays",
         "value": "base > monitoring-hpa > h100-any > bcm > bcm-training > h100-bcm-training"
+      },
+      {
+        "name": "orderingRoute",
+        "value": "data/aicr-flattening-verdicts/aicr-h100-bcm-training/sync-wave-ordering.yaml"
       },
       {
         "name": "overlayDependentEntryCount",

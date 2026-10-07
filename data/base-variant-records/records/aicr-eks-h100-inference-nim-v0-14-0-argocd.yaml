@@ -264,7 +264,9 @@ spec:
       status: "not-published"
       note: "The rendered Application set has not been packaged or pushed as a literal configuration OCI."
     configHubUpload:
-      status: "not-run"
+      status: "temporary-pass"
+      receipt: "data/confighub-ready/receipt.yaml"
+      note: "The ConfigHub-ready lane uploaded this Application set once as a temporary base variant, counted 20 Units and deleted the Space. No Space holds this entry now."
     configHubReleaseOci:
       status: "not-run"
     argoCd: "not-run"
@@ -299,7 +301,7 @@ status:
   limits:
     - "Flattened covers the Application wrapper only. Argo CD renders the nested charts at sync time, and their flattening verdicts are outside this record."
     - "4 of the 20 Applications name the AICR bundle package at oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle, which is not published. This entry cannot be delivered until that package is."
-    - "No OCI artifact is published for this entry, nothing was uploaded to ConfigHub, and no variant, promotion or release exists for it."
+    - "No OCI artifact is published for this entry. The ConfigHub-ready lane uploaded it once as a temporary base variant of 20 Units and deleted the Space, so no Space, variant, promotion or release exists for it."
     - "The sync-wave order is recorded as a route. No Argo CD instance has executed it."
     - "2 waved Applications render without appearing in the recipe's deployment order (agentgateway-crds-post, agentgateway-post). They are companions of a component, and they are named here so the comparison does not drop them silently."
     - "The recipe criteria are accelerator=h100, intent=inference, os=ubuntu, platform=nim, service=eks. No cluster, cloud service, accelerator, model or workload was contacted or run for this entry."

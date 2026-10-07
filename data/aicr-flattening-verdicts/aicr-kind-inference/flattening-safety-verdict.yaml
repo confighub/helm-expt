@@ -44,7 +44,7 @@ spec:
       class: "crd-ordering"
       finding: "present"
       detail: "16 Applications carry a sync-wave across 6 waves, and 16 recipe dependency edges between deployed components hold in them"
-      disposition: "route this bundle ships at data/certified-bundles/routes/aicr/aicr-kind-inference/sync-wave-ordering.yaml"
+      disposition: "route recorded beside this verdict at data/aicr-flattening-verdicts/aicr-kind-inference/sync-wave-ordering.yaml; no runtime has executed it"
       companionRequired: "apply-ordering"
     -
       class: "immutable-fields"

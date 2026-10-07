@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:63bd8e47b439cf3ea6b878e89eb5ab2e4dc5be32bf3a3d0c1c6dcf49304c0403",
+      "sha256": "sha256:8564af0e304be49983ccc552f755eeda84b0a192d9a87185c4283b81f6416878",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aicr-eks-inference-v0-21-0-argocd.yaml",
-      "sha256": "sha256:f04594eda327dee43cfe5032493bb7370e7c0c0e8f2efa07928bdc7a32ad3ee8",
+      "sha256": "sha256:584b05ad8f2d10c8e5db4917ef3b123ad4c63ab7a57f280122dc9473b9e187d0",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-eks-inference-v0-21-0-argocd.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -249,7 +249,7 @@
           "A recorded Argo CD sync of this exact Application set on a named destination."
         ],
         "evidence": [
-          "data/certified-bundles/routes/aicr/aicr-eks-inference/sync-wave-ordering.yaml"
+          "data/aicr-flattening-verdicts/aicr-eks-inference/sync-wave-ordering.yaml"
         ],
         "orderHint": 1
       },
@@ -276,13 +276,7 @@
         "orderHint": 2
       }
     ],
-    "records": [
-      {
-        "name": "sync-wave-ordering.yaml",
-        "path": "data/certified-bundles/routes/aicr/aicr-eks-inference/sync-wave-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/aicr/aicr-eks-inference/sync-wave-ordering.yaml"
-      }
-    ]
+    "records": []
   },
   "lifecycle": {
     "installTimeStatus": "destination-facts-recorded-not-run",
@@ -442,13 +436,7 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": [
-          {
-            "name": "sync-wave-ordering.yaml",
-            "path": "data/certified-bundles/routes/aicr/aicr-eks-inference/sync-wave-ordering.yaml",
-            "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/aicr/aicr-eks-inference/sync-wave-ordering.yaml"
-          }
-        ]
+        "records": []
       },
       {
         "id": "post-deployment",
@@ -473,16 +461,6 @@
         "name": "flatteningVerdict",
         "path": "data/aicr-flattening-verdicts/aicr-eks-inference/flattening-safety-verdict.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-eks-inference/flattening-safety-verdict.yaml"
-      },
-      {
-        "name": "certifiedBundleReceipt",
-        "path": "data/certified-bundles/receipts/aicr/eks-inference/receipt.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/aicr/eks-inference/receipt.yaml"
-      },
-      {
-        "name": "orderingRoute",
-        "path": "data/certified-bundles/routes/aicr/aicr-eks-inference/sync-wave-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/aicr/aicr-eks-inference/sync-wave-ordering.yaml"
       },
       {
         "name": "entryPage",
@@ -519,6 +497,10 @@
       {
         "name": "appliedOverlays",
         "value": "base > monitoring-hpa > eks > eks-inference"
+      },
+      {
+        "name": "orderingRoute",
+        "value": "data/aicr-flattening-verdicts/aicr-eks-inference/sync-wave-ordering.yaml"
       },
       {
         "name": "overlayDependentEntryCount",

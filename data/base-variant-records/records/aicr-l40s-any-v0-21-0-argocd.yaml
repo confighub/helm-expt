@@ -100,7 +100,7 @@ spec:
         evidenceState: "not-run"
         resultState: "not-run"
         records:
-          - "data/certified-bundles/routes/aicr/aicr-l40s-any/sync-wave-ordering.yaml"
+          - "data/aicr-flattening-verdicts/aicr-l40s-any/sync-wave-ordering.yaml"
         nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
       -
         id: "post-deployment"
@@ -175,7 +175,7 @@ spec:
           type: "target-fact"
           detail: "AICR generated this recipe for accelerator=l40s, intent=any, os=any, platform=any, service=any. A destination has to match those criteria, and nothing here has checked one."
       records:
-        - "data/certified-bundles/routes/aicr/aicr-l40s-any/sync-wave-ordering.yaml"
+        - "data/aicr-flattening-verdicts/aicr-l40s-any/sync-wave-ordering.yaml"
     routeIntent:
       status: "recorded"
       routes:
@@ -194,7 +194,7 @@ spec:
           checks:
             - "A recorded Argo CD sync of this exact Application set on a named destination."
           evidence:
-            - "data/certified-bundles/routes/aicr/aicr-l40s-any/sync-wave-ordering.yaml"
+            - "data/aicr-flattening-verdicts/aicr-l40s-any/sync-wave-ordering.yaml"
           orderHint: 1
         -
           id: "nested-source-lifecycle"
@@ -214,7 +214,7 @@ spec:
             - "data/aicr-flattening-verdicts/aicr-l40s-any/flattening-safety-verdict.yaml"
           orderHint: 2
       records:
-        - "data/certified-bundles/routes/aicr/aicr-l40s-any/sync-wave-ordering.yaml"
+        - "data/aicr-flattening-verdicts/aicr-l40s-any/sync-wave-ordering.yaml"
     targetFacts:
       status: "recorded"
       declared:
@@ -233,7 +233,7 @@ spec:
         - "aicr-bundle-source-package"
         - "recipe-criteria"
       records:
-        - "data/certified-bundles/routes/aicr/aicr-l40s-any/sync-wave-ordering.yaml"
+        - "data/aicr-flattening-verdicts/aicr-l40s-any/sync-wave-ordering.yaml"
     resolution:
       status: "awaits-variant-and-target"
       rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
@@ -280,8 +280,7 @@ spec:
     recipe: "examples/aicr/l40s-any/recipe.yaml"
     digestIndex: "examples/aicr/l40s-any/digest-index/platform-index.json"
     flatteningVerdict: "data/aicr-flattening-verdicts/aicr-l40s-any/flattening-safety-verdict.yaml"
-    orderingRoute: "data/certified-bundles/routes/aicr/aicr-l40s-any/sync-wave-ordering.yaml"
-    certifiedBundleReceipt: "data/certified-bundles/receipts/aicr/l40s-any/receipt.yaml"
+    orderingRoute: "data/aicr-flattening-verdicts/aicr-l40s-any/sync-wave-ordering.yaml"
     entryPage: "docs/demo/aicr/l40s-any.md"
     retention: "retained-and-rendered-not-published-not-deployed"
     overlayRole: "base-overlay"

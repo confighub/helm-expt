@@ -44,7 +44,7 @@ spec:
       class: "crd-ordering"
       finding: "present"
       detail: "21 Applications carry a sync-wave across 8 waves, and 21 recipe dependency edges between deployed components hold in them"
-      disposition: "route this bundle ships at data/certified-bundles/routes/aicr/aicr-gb300-eks-ubuntu-inference-dynamo/sync-wave-ordering.yaml"
+      disposition: "route recorded beside this verdict at data/aicr-flattening-verdicts/aicr-gb300-eks-ubuntu-inference-dynamo/sync-wave-ordering.yaml; no runtime has executed it"
       companionRequired: "apply-ordering"
     -
       class: "immutable-fields"

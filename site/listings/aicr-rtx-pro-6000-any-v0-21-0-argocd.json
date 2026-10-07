@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:63bd8e47b439cf3ea6b878e89eb5ab2e4dc5be32bf3a3d0c1c6dcf49304c0403",
+      "sha256": "sha256:8564af0e304be49983ccc552f755eeda84b0a192d9a87185c4283b81f6416878",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aicr-rtx-pro-6000-any-v0-21-0-argocd.yaml",
-      "sha256": "sha256:3303b30fc3b389082bef9204613ddef96c3baf122eaee01fb28e4860bf45701d",
+      "sha256": "sha256:297a6231c2e8aebe60e2055107b4cfea9b1603c67819af8cc7d42d2b7c09263e",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-rtx-pro-6000-any-v0-21-0-argocd.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -248,7 +248,7 @@
           "A recorded Argo CD sync of this exact Application set on a named destination."
         ],
         "evidence": [
-          "data/certified-bundles/routes/aicr/aicr-rtx-pro-6000-any/sync-wave-ordering.yaml"
+          "data/aicr-flattening-verdicts/aicr-rtx-pro-6000-any/sync-wave-ordering.yaml"
         ],
         "orderHint": 1
       },
@@ -275,13 +275,7 @@
         "orderHint": 2
       }
     ],
-    "records": [
-      {
-        "name": "sync-wave-ordering.yaml",
-        "path": "data/certified-bundles/routes/aicr/aicr-rtx-pro-6000-any/sync-wave-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/aicr/aicr-rtx-pro-6000-any/sync-wave-ordering.yaml"
-      }
-    ]
+    "records": []
   },
   "lifecycle": {
     "installTimeStatus": "destination-facts-recorded-not-run",
@@ -441,13 +435,7 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": [
-          {
-            "name": "sync-wave-ordering.yaml",
-            "path": "data/certified-bundles/routes/aicr/aicr-rtx-pro-6000-any/sync-wave-ordering.yaml",
-            "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/aicr/aicr-rtx-pro-6000-any/sync-wave-ordering.yaml"
-          }
-        ]
+        "records": []
       },
       {
         "id": "post-deployment",
@@ -472,16 +460,6 @@
         "name": "flatteningVerdict",
         "path": "data/aicr-flattening-verdicts/aicr-rtx-pro-6000-any/flattening-safety-verdict.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-rtx-pro-6000-any/flattening-safety-verdict.yaml"
-      },
-      {
-        "name": "certifiedBundleReceipt",
-        "path": "data/certified-bundles/receipts/aicr/rtx-pro-6000-any/receipt.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/aicr/rtx-pro-6000-any/receipt.yaml"
-      },
-      {
-        "name": "orderingRoute",
-        "path": "data/certified-bundles/routes/aicr/aicr-rtx-pro-6000-any/sync-wave-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/aicr/aicr-rtx-pro-6000-any/sync-wave-ordering.yaml"
       },
       {
         "name": "entryPage",
@@ -518,6 +496,10 @@
       {
         "name": "appliedOverlays",
         "value": "base > monitoring-hpa > rtx-pro-6000-any"
+      },
+      {
+        "name": "orderingRoute",
+        "value": "data/aicr-flattening-verdicts/aicr-rtx-pro-6000-any/sync-wave-ordering.yaml"
       },
       {
         "name": "overlayDependentEntryCount",
