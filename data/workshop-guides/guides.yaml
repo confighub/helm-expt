@@ -153,6 +153,13 @@ spec:
       visible.
     page: d/docs/user/workshop-upgrade-guide.html
     command: "cub config diff upgrade-review/current.yaml upgrade-review/candidate.yaml --json --out upgrade-review/comparison.json"
+  - id: gpu-operator-upgrade
+    group: helm-questions
+    title: See what a gpu-operator upgrade changes
+    summary: Render three versions of NVIDIA's public gpu-operator chart, then compare a version upgrade,
+      a patch upgrade and a driver version change field by field.
+    page: d/docs/user/workshop-gpu-operator-upgrade-guide.html
+    command: "cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary"
   - id: adapt
     group: helm-questions
     title: Adapt a configuration and inspect the exact edit
