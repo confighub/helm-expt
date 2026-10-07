@@ -1149,6 +1149,26 @@ spec:
       terms of use were not read here. The chart license is separate from the NVIDIA driver and container
       EULAs the deployed images carry, and from the license of the vendored node-feature-discovery subchart,
       which was not read here.
+  - chart: nvidia/k8s-nim-operator
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/NVIDIA/k8s-nim-operator/5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f/LICENSE.md
+      quote: Apache License / Version 2.0, January 2004
+    confidence: medium
+    verifiedIndependently: false
+    researchNote: Read 2026-10-07 from the copy this repository already retains, data/aicr-nim-operator-models/upstream/LICENSE,
+      which data/aicr-nim-operator-models/retention-receipt.yaml records as the repository-root LICENSE.md
+      of NVIDIA/k8s-nim-operator at commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f (2026-08-31), retrieved
+      2026-09-09. It was not fetched again for this row, and there was no second pass, so verifiedIndependently
+      is false. That commit is not the 3.1.0 or 3.1.2 release tag; the LICENSE at those tags was not read.
+      The packaged chart at 3.1.0 and 3.1.2, pulled anonymously from https://helm.ngc.nvidia.com/nvidia,
+      ships no LICENSE file and no license field, and its Chart.yaml names NVIDIA/k8s-nim-operator as
+      its source. Confidence is medium for those reasons and because NGC's own terms of use were not
+      read here. This is the chart license. It is separate from the licenses of the vendored dynamo-platform
+      and dynamo-crds subcharts (dynamo-platform's values.yaml carries an Apache-2.0 SPDX header; nothing
+      else of theirs was read), and from the NVIDIA terms the NIM model images carry.
   - chart: nvidia/nvidia-device-plugin
     spdx: Apache-2.0
     evidence:

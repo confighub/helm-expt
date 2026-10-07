@@ -317,9 +317,12 @@ Each audited chart version gets one receipted answer to one question: what happe
 | nvidia/nvsentinel | v1.26.0 | default | safe-to-flatten | recipes/nvidia/nvsentinel/v1.26.0/publication/flattening-safety-verdict.yaml |
 | nvidia/nvsentinel | v1.26.0 | no-pod-monitor | safe-to-flatten | recipes/nvidia/nvsentinel/v1.26.0/publication/flattening-safety-verdict-no-pod-monitor.yaml |
 | nvidia/cluster-readiness-engine | v0.6.0 | default | flatten-with-routes | recipes/nvidia/cluster-readiness-engine/v0.6.0/publication/flattening-safety-verdict.yaml |
+| nvidia/k8s-nim-operator | 3.1.0 | default | flatten-with-routes | recipes/nvidia/k8s-nim-operator/3.1.0/publication/flattening-safety-verdict.yaml |
+| nvidia/k8s-nim-operator | 3.1.0 | aicr-eks-inference | flatten-with-routes | recipes/nvidia/k8s-nim-operator/3.1.0/publication/flattening-safety-verdict-aicr-eks-inference.yaml |
+| nvidia/k8s-nim-operator | 3.1.2 | default | flatten-with-routes | recipes/nvidia/k8s-nim-operator/3.1.2/publication/flattening-safety-verdict.yaml |
 
 A lane holds for the audited base named in the verdict. The variantScope block records how other values move the finding set; a different base deserves its own verdict, which is why certified bundles key on chart version and recipe variant together.
 
-This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 113 charts here now have that axis answered from source, across 313 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.
+This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 114 charts here now have that axis answered from source, across 316 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.
 
 Witnesses are recorded once per pinned package by scripts/scan-flattening-witness.mjs, which needs the chart tarball and so runs outside the verify chain. Every witness hash is checked against the recipe source-lock here. Regenerate with `npm run flattening-safety`. Verify with `npm run flattening-safety:verify`.

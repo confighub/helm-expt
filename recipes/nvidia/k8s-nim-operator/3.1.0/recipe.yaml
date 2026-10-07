@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "nvidia-k8s-nim-operator"
+  version: "3.1.0"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/nvidia/k8s-nim-operator/3.1.0"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/nvidia/k8s-nim-operator/3.1.0"
+      - "--non-interactive"
+      - "--namespace"
+      - "nvidia-nim"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/aicr-eks-inference/variant.yaml"

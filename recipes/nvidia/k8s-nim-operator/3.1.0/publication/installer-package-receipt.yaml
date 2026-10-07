@@ -1,0 +1,99 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "nvidia-k8s-nim-operator-3.1.0"
+spec:
+  chart:
+    name: "k8s-nim-operator"
+    repository: "nvidia"
+    version: "3.1.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/nvidia/k8s-nim-operator/3.1.0 -o <tmp>/k8s-nim-operator-3.1.0.tgz"
+    sha256: "730512b7d9a0b418ed62074509712822854b21fdaafe858167cea45f9d6a4438"
+  package:
+    name: "nvidia-k8s-nim-operator"
+    path: "packages/nvidia/k8s-nim-operator/3.1.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "9b38ec80398f05bc31f3a27e51e3c88fe971233a08b8ab6cd5d53f0ee61e6416"
+        bytes: 281
+      -
+        path: "bases/aicr-eks-inference/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-inference/upstream.yaml"
+        sha256: "ef6956d9cec1d29fa5955d22d5e5df9db12fa1a122613c7da358e0edcd19dbf8"
+        bytes: 2104508
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "226c148d867aff54fd40bdce6debeec6201ce90a726f09087bd438ea426e450f"
+        bytes: 2101681
+      -
+        path: "collector/target-facts.sh"
+        sha256: "c422bac18e58285ba266077e0fddc2e9a105e3b9140b8a10206fe9e2081d8495"
+        bytes: 10179
+      -
+        path: "installer.yaml"
+        sha256: "dbe6bb41f73721eaf910f7446adc948e2f95f85ee99cfd4f4df47fc9522a893a"
+        bytes: 5135
+      -
+        path: "prerequisites/k8s-nim-operator-lifecycle/README.md"
+        sha256: "60a9ebe8368a0b227b096638734e19343b3c2d1f6e3250c81ea550f09acc0821"
+        bytes: 1251
+      -
+        path: "prerequisites/k8s-nim-operator-lifecycle/aicr-eks-inference/pre-upgrade.yaml"
+        sha256: "7eddf5e9d69558c9ed83eefaafed35a9bafa29d004835978b112fdd689a79122"
+        bytes: 3082
+      -
+        path: "prerequisites/k8s-nim-operator-lifecycle/default/pre-upgrade.yaml"
+        sha256: "e70eb8c27d920160e69bb3fb2f2dab01791610321e964ffbfe123f416ad4f05d"
+        bytes: 3183
+      -
+        path: "prerequisites/k8s-nim-operator-lifecycle/generation-receipt.yaml"
+        sha256: "162711ea603ff86995c741896b690e2fa5210649706b52b7b6a5b4570f5e427a"
+        bytes: 2313
+      -
+        path: "prerequisites/k8s-nim-operator-lifecycle/lifecycle-actions.yaml"
+        sha256: "f8ccec019a4e4c25a2569821b7e6702c2024c293d04fd218d91068a77d84073b"
+        bytes: 3156
+      -
+        path: "prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        sha256: "6d840eb95b0b06cdb9d623645a42a1469565a3d321f93d04fe9ed3c4f5852640"
+        bytes: 2276796
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "5326a31725159d3de553b4ea420c68c42dc3ed5a2a920ba356bea301f950af1a"
+        bytes: 1931996
+    version: "3.1.0"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nvidia-nim"
+      base: "default"
+      command: "cub installer setup --pull packages/nvidia/k8s-nim-operator/3.1.0 --base default --work-dir <tmp> --non-interactive --namespace nvidia-nim"
+      cubInstallObjectCountIncludingSupport: 18
+      helmReleaseObjectCount: 17
+      semanticObjectMatches: "17/17"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nvidia-nim"
+      base: "aicr-eks-inference"
+      command: "cub installer setup --pull packages/nvidia/k8s-nim-operator/3.1.0 --base aicr-eks-inference --work-dir <tmp> --non-interactive --namespace nvidia-nim"
+      cubInstallObjectCountIncludingSupport: 22
+      helmReleaseObjectCount: 21
+      semanticObjectMatches: "21/21"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "aicr-eks-inference"

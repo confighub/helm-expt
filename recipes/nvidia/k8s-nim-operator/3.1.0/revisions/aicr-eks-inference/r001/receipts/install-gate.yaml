@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "k8s-nim-operator-aicr-eks-inference-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "ef6956d9cec1d29fa5955d22d5e5df9db12fa1a122613c7da358e0edcd19dbf8"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for aicr-eks-inference"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the nine apps.nvidia.com CRDs must be established before the operator starts; the target must already run cert-manager, which issues the admission webhook certificate and injects its CA; the four pre-upgrade hook objects are a packaged lifecycle action, not part of the base"

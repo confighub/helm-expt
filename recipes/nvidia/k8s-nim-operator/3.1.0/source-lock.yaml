@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "nvidia-k8s-nim-operator-3.1.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "nvidia"
+  repositoryURL: "https://helm.ngc.nvidia.com/nvidia"
+  chart: "k8s-nim-operator"
+  version: "3.1.0"
+  appVersion: "3.1.0"
+  packageSHA256: "2d333ae76a17d687cd7987454d194378b8709eaefe11a675b01f92ee5bb99a47"
+  packageBytes: 674924
+  exactArtifact:
+    url: "https://helm.ngc.nvidia.com/nvidia/charts/k8s-nim-operator-3.1.0.tgz"
+    sha256: "2d333ae76a17d687cd7987454d194378b8709eaefe11a675b01f92ee5bb99a47"
+    resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

@@ -7047,6 +7047,16 @@ function nvidiaGpuStackVerdicts() {
         },
       ],
     },
+    nimDefault("3.1.0"),
+    nimOperatorRow({
+      version: "3.1.0",
+      base: "aicr-eks-inference",
+      admission: true,
+      rationale:
+        "Hand read of the chart against this base's render, which uses the values the AICR v0.14.0 NIM inference recipes carry inline in their Application. Against the default base it adds four objects, a ValidatingWebhookConfiguration, a webhook Service, a Certificate and a self-signed Issuer, and changes the operator Deployment; the proof checks the added set. Nothing is decided at render time: the webhook carries no CA bundle and cert-manager injects one on the target. So the companions are the nine CRDs before the operator, the pre-upgrade hook as a packaged lifecycle action, and cert-manager on the target, which this base does not install. None has been run on a cluster. The AICR example retains these values and no render of this component, so this base was not compared with an AICR render.",
+      variantScope: nimScope(true),
+    }),
+    nimDefault("3.1.2"),
   ];
 }
 

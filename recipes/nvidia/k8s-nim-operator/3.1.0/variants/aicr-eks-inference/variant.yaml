@@ -1,0 +1,128 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "aicr-eks-inference"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "nvidia-nim"
+  releaseName: "k8s-nim-operator"
+  valuesProfile: "../../effective-values-aicr-eks-inference.yaml"
+  capabilityProfile:
+    kubeVersion: "1.31.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "nemocustomizers.apps.nvidia.com"
+        sourceVariant: "aicr-eks-inference"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "nemodatastores.apps.nvidia.com"
+        sourceVariant: "aicr-eks-inference"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "nemoentitystores.apps.nvidia.com"
+        sourceVariant: "aicr-eks-inference"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "nemoevaluators.apps.nvidia.com"
+        sourceVariant: "aicr-eks-inference"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "nemoguardrails.apps.nvidia.com"
+        sourceVariant: "aicr-eks-inference"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "nimbuilds.apps.nvidia.com"
+        sourceVariant: "aicr-eks-inference"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "nimcaches.apps.nvidia.com"
+        sourceVariant: "aicr-eks-inference"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "nimpipelines.apps.nvidia.com"
+        sourceVariant: "aicr-eks-inference"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "nimservices.apps.nvidia.com"
+        sourceVariant: "aicr-eks-inference"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "certificates.cert-manager.io"
+        sourcePath: "../../../jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.21.1/crds-enabled"
+        purpose: "cert-manager CRD required before Kubernetes accepts the rendered Certificate and Issuer objects; the chart does not ship it, and cert-manager itself must be running to issue the webhook certificate"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "issuers.cert-manager.io"
+        sourcePath: "../../../jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.21.1/crds-enabled"
+        purpose: "cert-manager CRD required before Kubernetes accepts the rendered Certificate and Issuer objects; the chart does not ship it, and cert-manager itself must be running to issue the webhook certificate"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"

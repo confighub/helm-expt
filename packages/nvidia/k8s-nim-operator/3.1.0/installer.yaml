@@ -1,0 +1,123 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "nvidia-k8s-nim-operator"
+  version: "3.1.0"
+spec:
+  bases:
+    -
+      default: true
+      description: "k8s-nim-operator chart defaults variant rendered from nvidia/k8s-nim-operator@3.1.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD nemocustomizers.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nemodatastores.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nemoentitystores.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nemoevaluators.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nemoguardrails.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nimbuilds.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nimcaches.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nimpipelines.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nimservices.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+      name: "default"
+      path: "bases/default"
+    -
+      description: "k8s-nim-operator AICR EKS NIM inference values variant rendered from nvidia/k8s-nim-operator@3.1.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD nemocustomizers.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nemodatastores.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nemoentitystores.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nemoevaluators.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nemoguardrails.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nimbuilds.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nimcaches.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nimpipelines.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nimservices.apps.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD certificates.cert-manager.io"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD issuers.cert-manager.io"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          applyMode: "server-side"
+      name: "aicr-eks-inference"
+      path: "bases/aicr-eks-inference"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

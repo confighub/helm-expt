@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "nvidia-k8s-nim-operator-3.1.2"
+spec:
+  chart:
+    name: "k8s-nim-operator"
+    repository: "nvidia"
+    version: "3.1.2"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/nvidia/k8s-nim-operator/3.1.2 -o <tmp>/k8s-nim-operator-3.1.2.tgz"
+    sha256: "f0279b4f8e36cdf8070c798a0ecf86230bcf70dd5d45361d83acdad5c00bbbd6"
+  package:
+    name: "nvidia-k8s-nim-operator"
+    path: "packages/nvidia/k8s-nim-operator/3.1.2"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "3556e0f64d3998c28b0510dc4f258967101a10f2616404573c5b36b8c02c3640"
+        bytes: 281
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "b152742ed9d6d23ffc731464407499cf534c2c155657052cb1f9425000f6830f"
+        bytes: 2105082
+      -
+        path: "collector/target-facts.sh"
+        sha256: "cfa53be1e760da3cc27e397f665de22df86953343a8fc41dbe20a923cd31e552"
+        bytes: 5276
+      -
+        path: "installer.yaml"
+        sha256: "cffb2b9e4d01ff77bca60781978d0b54a4e8403374e8810bb022443dc91370d3"
+        bytes: 2448
+      -
+        path: "prerequisites/k8s-nim-operator-lifecycle/README.md"
+        sha256: "118cdc6e1ec0e13fad12b30b6e7a921e292954051d79d05e4680095ecd3f2a42"
+        bytes: 1176
+      -
+        path: "prerequisites/k8s-nim-operator-lifecycle/default/pre-upgrade.yaml"
+        sha256: "87553c284006eacdc92265a360058bb879f687ae3cbb9758ee0b3191aad096c7"
+        bytes: 3184
+      -
+        path: "prerequisites/k8s-nim-operator-lifecycle/generation-receipt.yaml"
+        sha256: "57199e7e549b4d32c33432d5239ec7076b33955e5fdaf70122c0f0b888ebd369"
+        bytes: 1435
+      -
+        path: "prerequisites/k8s-nim-operator-lifecycle/lifecycle-actions.yaml"
+        sha256: "153423a888f4d2277bc00f196019451f5a0338fedd6020660cb29032597ac914"
+        bytes: 1648
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "7d4dbdb191b781a34e15c8c414028989cbf9f842f3b06a5bf6008f3407b04c0f"
+        bytes: 1935315
+    version: "3.1.2"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nvidia-nim"
+      base: "default"
+      command: "cub installer setup --pull packages/nvidia/k8s-nim-operator/3.1.2 --base default --work-dir <tmp> --non-interactive --namespace nvidia-nim"
+      cubInstallObjectCountIncludingSupport: 18
+      helmReleaseObjectCount: 17
+      semanticObjectMatches: "17/17"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
