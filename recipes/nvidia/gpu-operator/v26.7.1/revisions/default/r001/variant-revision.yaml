@@ -5,9 +5,9 @@ metadata:
 spec:
   variant: "../../../variants/default/variant.yaml"
   revision: "r001"
-  digest: "616d0e5a53a88cb226e56ef32643c1e1c456adf9fae484ad173b4a4f0e2c36df"
+  digest: "49a49662639427199568ecf38345325f0bc1962d1250b9a16b870fbc4e55c225"
   digestInputs:
-    recipeSHA256: "1bfa484ed87ee43441c2cd6e8c7e40e2e9ac86c7d4ba5476ff8d724ea1301e60"
+    recipeSHA256: "902738f729d2b3c0c2b8b07a4355972677dca6a01e9432aaf2056ead6c5231e8"
     variantSHA256: "0998e4df49ec7edd8b629210b784a50cf23c6136203f25c54e5541f75b94d6a2"
     effectiveValuesSHA256: "ffb0850db122f50735ea56622997531f50229d541115f95f660ac40ccc015bd6"
     rendererSHA256: "9bfc45a85aeb59e59bfba0bcd479aba97d9c0bc7080f39e11351071d732ac707"

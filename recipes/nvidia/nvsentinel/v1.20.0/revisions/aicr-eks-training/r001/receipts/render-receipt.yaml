@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "nvsentinel-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "e346912d14da482bed20c36c2102ea17777cd49ffdbdbccf4a98b96f26fe2e67"
+    dependencyLockSHA256: "7dc4dc74daf50ff3a3be4c601d34aec6fe3119926f80dd637d3268d3dc49d433"
+    effectiveValuesSHA256: "abe83b7baebf2251df7f4dd7c3895263b40e983cc3359d29f782269b75d43735"
+  outputs:
+    renderedObjectSetSHA256: "28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee"
+    renderedObjectInventorySHA256: "976d3af8cf766ff4fd9c21a88ebe8de34906de935a81b83f8914eab207e649b2"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 21
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

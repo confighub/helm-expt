@@ -23,9 +23,9 @@ import { join } from "node:path";
 
 import { runProofCli } from "./lib/proof-kit.mjs";
 import { canonicalObjectMaps, identityFor, parseDocs, readYaml, repoRoot, sha256 } from "./lib/proof-common.mjs";
+import { objectDelta } from "./lib/nvidia-gpu-stack-coverage.mjs";
 import {
-  AICR_NESTED_RENDER_RECEIPT_PATH,
-  AICR_VALUES_PATH,
+  DRIVER_SUPPORT_NOT_CHECKED,
   gpuOperatorBases,
   gpuOperatorChart,
   gpuOperatorExpectations,
@@ -44,39 +44,49 @@ const hookSummary = (expected) =>
     .map(([phase, count]) => `${count} ${phase}`)
     .join(", ");
 
-const variants = bases.map((base) => {
-  const aicr = base.name === "aicr-eks-training";
-  return {
-    name: base.name,
-    base: base.name,
-    displayName: aicr ? "AICR EKS training values" : "chart defaults",
-    valuesFile: aicr ? "effective-values-aicr-eks-training.yaml" : "effective-values.yaml",
-    valuesText: base.valuesText,
-    valuesSummary: aicr
-      ? `the values the AICR EKS training recipe supplies (${AICR_VALUES_PATH}): node-feature-discovery off, driver ${base.expected.driverVersion}, a dcgm-exporter metrics ConfigMap`
-      : `chart defaults: the bundled node-feature-discovery on, driver ${base.expected.driverVersion}`,
-    expectedObjectCount: base.expected.objects,
-    expectedCRDCount: base.expected.crds.length,
-    expectedSecretCount: 0,
-    expectedCRDs: base.expected.crds,
-    expectedDriverVersion: base.expected.driverVersion,
-    expectedHooks: base.expected.hooks,
-    targetFacts: {
-      requiredCRDs: base.expected.crds.map((name) => ({
-        name,
-        sourceVariant: base.name,
-        purpose:
-          name === "clusterpolicies.nvidia.com"
-            ? "gpu-operator CRD included in this base; it must be established before Kubernetes accepts the rendered ClusterPolicy object"
-            : "CRD included in this base and applied before the workloads that use it",
-        deliveryLanes,
-      })),
-    },
-    targetFactNote: aicr
-      ? `the ${base.expected.crds.length} CRDs must be established before the ClusterPolicy object; node-feature-discovery is off in this base, so the target must already run it; the pre-upgrade hook is a packaged lifecycle action, not part of the base`
-      : `the ${base.expected.crds.length} CRDs must be established before the ClusterPolicy object; the ${base.hookObjectCount} Helm hook objects (${hookSummary(base.expected)}) are packaged lifecycle actions, not part of the base`,
-  };
-});
+const hookNote = (base) =>
+  `the ${base.hookObjectCount} Helm hook objects (${hookSummary(base.expected)}) are packaged lifecycle actions, not part of the base`;
+
+const variants = bases.map((base) => ({
+  name: base.name,
+  base: base.name,
+  kind: base.kind,
+  displayName: base.displayName,
+  valuesFile: base.valuesFile,
+  valuesText: base.valuesText,
+  valuesSummary: base.valuesSummary,
+  changedValues: base.changedValues ?? [],
+  aicr: base.aicr ?? null,
+  nfd: base.nfd,
+  policy: base.policy,
+  hookObjectCount: base.hookObjectCount,
+  expectedObjectCount: base.expected.objects,
+  expectedCRDCount: base.expected.crds.length,
+  expectedSecretCount: 0,
+  expectedCRDs: base.expected.crds,
+  expectedDriverVersion: base.expected.driverVersion,
+  expectedHooks: base.expected.hooks,
+  targetFacts: {
+    requiredCRDs: base.expected.crds.map((name) => ({
+      name,
+      sourceVariant: base.name,
+      purpose:
+        name === "clusterpolicies.nvidia.com"
+          ? "gpu-operator CRD included in this base; it must be established before Kubernetes accepts the rendered ClusterPolicy object"
+          : "CRD included in this base and applied before the workloads that use it",
+      deliveryLanes,
+    })),
+  },
+  targetFactNote: [
+    `the ${base.expected.crds.length} CRDs must be established before the ClusterPolicy object`,
+    ...(base.targetNeeds ? [base.targetNeeds] : []),
+    ...(base.kind === "driver" ? [DRIVER_SUPPORT_NOT_CHECKED] : []),
+    hookNote(base),
+  ].join("; "),
+}));
+
+const driverBases = bases.filter((base) => base.kind === "driver");
+const aicrBase = bases.find((base) => base.kind === "aicr") ?? null;
 
 const scanPolicy = {
   scanner: "helm-expt-local-rendered-object-scan",
@@ -135,15 +145,31 @@ npm run nvidia-gpu-stack-coverage:verify -- --only gpu-operator
         disposition: "variant-axis",
         reason:
           "The NVIDIA driver version. It lands at exactly one place in the rendered objects: ClusterPolicy cluster-policy, field /spec/driver/version.",
-        note: `this chart version defaults to ${reviewed.bases.default.driverVersion}${reviewed.bases["aicr-eks-training"] ? `; the aicr-eks-training base sets ${reviewed.bases["aicr-eks-training"].driverVersion}` : ""}; the proof asserts the rendered value for every base`,
+        note: `this chart version defaults to ${reviewed.driverVersion}; ${driverBases.map((base) => `${base.name} sets ${base.policy.driverVersion}`).join(", ")}${aicrBase ? `, and aicr-eks-training sets ${aicrBase.policy.driverVersion}` : ""}. The proof asserts the rendered value for every base, and that each driver base differs from the default base at this one field only. ${DRIVER_SUPPORT_NOT_CHECKED[0].toUpperCase()}${DRIVER_SUPPORT_NOT_CHECKED.slice(1)}.`,
         evidence: "templates/clusterpolicy.yaml (spec.driver.version from .Values.driver.version); templates/nvidiadriver.yaml reads the same value but renders only when driver.nvidiaDriverCRD.enabled is true, which no base sets",
+      },
+      {
+        path: "driver.enabled",
+        disposition: "variant-axis",
+        reason:
+          "Whether the operator deploys the NVIDIA driver. True by chart default. It lands at exactly one place in the rendered objects: ClusterPolicy cluster-policy, field /spec/driver/enabled.",
+        note: "the preinstalled-driver and preinstalled-driver-and-toolkit bases set it false, for nodes that already have the driver; the operator then deploys no driver DaemonSet, which no render shows either way",
+        evidence: "templates/clusterpolicy.yaml (spec.driver.enabled from .Values.driver.enabled)",
+      },
+      {
+        path: "toolkit.enabled",
+        disposition: "variant-axis",
+        reason:
+          "Whether the operator deploys the NVIDIA Container Toolkit. True by chart default. It lands at exactly one place in the rendered objects: ClusterPolicy cluster-policy, field /spec/toolkit/enabled.",
+        note: "the preinstalled-driver-and-toolkit base sets it false, for nodes that already have the toolkit",
+        evidence: "templates/clusterpolicy.yaml (spec.toolkit.enabled from .Values.toolkit.enabled)",
       },
       {
         path: "nfd.enabled",
         disposition: "variant-axis",
         reason:
           "Gates the vendored node-feature-discovery subchart. On by chart default. It adds the NFD workloads, their RBAC, three NodeFeature CRDs and the post-delete prune hook.",
-        note: "the aicr-eks-training base turns it off because the AICR recipe installs node-feature-discovery as its own component",
+        note: `the external-nfd base turns it off for a cluster that already runs Node Feature Discovery${aicrBase ? "; the aicr-eks-training base turns it off because the AICR recipe installs node-feature-discovery as its own component" : ""}. With it off the pre-upgrade Job no longer applies the node-feature-discovery CRD files`,
         evidence: "Chart.yaml dependencies (condition nfd.enabled), charts/node-feature-discovery/templates/post-delete-job.yaml",
       },
       {
@@ -207,7 +233,7 @@ npm run nvidia-gpu-stack-coverage:verify -- --only gpu-operator
     {
       category: "crd-lifecycle",
       status: "review-required",
-      count: reviewed.bases.default.crds.length,
+      count: reviewed.crds.length,
       note: "the bases include their CRDs, and each base records them as target facts with a packaged CRD bundle so they can be established before the ClusterPolicy object is applied",
     },
     {
@@ -228,10 +254,14 @@ npm run nvidia-gpu-stack-coverage:verify -- --only gpu-operator
       `With the release name gpu-operator in namespace gpu-operator: ${baseCountNote}.`,
       `The chart vendors one dependency, node-feature-discovery ${reviewed.nfdVersion}, gated by nfd.enabled.`,
       `driver.version lands at ClusterPolicy cluster-policy /spec/driver/version and nowhere else in the rendered objects. Rendering the locked archive twice with only driver.version changed, on 2026-10-07, changed that one field and nothing else, hook objects included.`,
+      `The driver bases (${driverBases.map((base) => base.name).join(", ")}) change only driver.version, to a driver version that is the chart default of another held chart version. Each differs from the default base at ClusterPolicy /spec/driver/version and nowhere else, and the proof checks that. They show what a driver change does to the rendered objects. ${DRIVER_SUPPORT_NOT_CHECKED[0].toUpperCase()}${DRIVER_SUPPORT_NOT_CHECKED.slice(1)}: nobody here checked NVIDIA's support matrix, a driver image for any operating system, or a running node.`,
+      "The preinstalled-driver, preinstalled-driver-and-toolkit and external-nfd bases are deployment scenarios NVIDIA's GPU Operator documentation describes. The first two change only ClusterPolicy fields (/spec/driver/enabled, and /spec/toolkit/enabled), so every other object equals the default base. external-nfd removes the 15 node-feature-discovery objects, three of them CRDs, and the post-delete prune hook, and changes no object that stays.",
       "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, GPU scheduling, or production support.",
-      ...(reviewed.bases["aicr-eks-training"]
+      ...(aicrBase
         ? [
-            `The aicr-eks-training base renders with the bytes of ${AICR_VALUES_PATH}. Its objects equal the ordinary objects of the AICR nested-render receipt for the same archive, and that receipt's other four objects are the pre-upgrade hook set.`,
+            aicrBase.aicr.nestedRenderReceiptPath
+              ? `The aicr-eks-training base renders with the bytes of ${aicrBase.aicr.valuesPath}. Its objects equal the ordinary objects of the AICR nested-render receipt for the same archive, and that receipt's other four objects are the pre-upgrade hook set.`
+              : `The aicr-eks-training base renders with the bytes of ${aicrBase.aicr.valuesPath}, the values the AICR ${aicrBase.aicr.release} recipe supplies to its gpu-operator Application, which pins chart ${aicrBase.aicr.applicationTargetRevision}. The values bytes match the bundle's own checksum list. That example retains no nested render of this component, so this base is not compared with an AICR render.`,
           ]
         : []),
     ],
@@ -249,6 +279,8 @@ npm run nvidia-gpu-stack-coverage:verify -- --only gpu-operator
         "Applying a base installs the operator and its ClusterPolicy. GPU nodes are a scheduling prerequisite, not an install prerequisite: without them the operator runs and its operands schedule nowhere.",
         "The default driver.version follows the chart version, so moving between chart versions can change the driver. Set driver.version explicitly to hold it.",
         "With nfd.enabled false the operator still selects nodes by node-feature-discovery labels, so the target must run node-feature-discovery itself.",
+        "With driver.enabled false the operator deploys no driver, so GPU nodes without a working NVIDIA driver stay unusable. With toolkit.enabled false the same holds for the NVIDIA Container Toolkit, and the container runtime must already be configured for it.",
+        `A driver base records a rendered difference, not a supported combination: ${DRIVER_SUPPORT_NOT_CHECKED}.`,
         "The pre-upgrade Job applies the CRD files baked into the operator image. A delivery tool that applies the CRDs in the base itself does the same work, and should not also run the Job unless it means to.",
         "The post-delete prune Job removes node-feature-discovery labels, annotations and taints from every node. Applied as an ordinary object at install time it would do that immediately.",
       ],
@@ -278,6 +310,9 @@ npm run nvidia-gpu-stack-coverage:verify -- --only gpu-operator
       `Helm equivalence passed for ${variant.name}`,
       "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded",
       "the ClusterPolicy makes the operator create privileged operand workloads that no render shows",
+      ...(variant.kind === "driver"
+        ? [`this base changes only driver.version to ${variant.policy.driverVersion}; ${DRIVER_SUPPORT_NOT_CHECKED}`]
+        : []),
       variant.targetFactNote,
     ],
   }),
@@ -317,6 +352,8 @@ npm run nvidia-gpu-stack-coverage:verify -- --only gpu-operator
       dependencies.length === 1 && dependencies[0].name === "node-feature-discovery" && dependencies[0].version === reviewed.nfdVersion,
       `gpu-operator ${chart.version} must vendor node-feature-discovery ${reviewed.nfdVersion}`,
     );
+    const defaultText = readFileSync(perVariant.get("default").releasePath, "utf8");
+    const policyKey = "nvidia.com/v1|ClusterPolicy||cluster-policy";
     for (const variant of variants) {
       const row = perVariant.get(variant.name);
       const releaseText = readFileSync(row.releasePath, "utf8");
@@ -339,30 +376,86 @@ npm run nvidia-gpu-stack-coverage:verify -- --only gpu-operator
         `${variant.name} ClusterPolicy /spec/driver/version must be ${variant.expectedDriverVersion}; found ${policies[0].spec?.driver?.version}`,
       );
       check(
+        policies[0].spec?.driver?.enabled === variant.policy.driverEnabled,
+        `${variant.name} ClusterPolicy /spec/driver/enabled must be ${variant.policy.driverEnabled}`,
+      );
+      check(
+        policies[0].spec?.toolkit?.enabled === variant.policy.toolkitEnabled,
+        `${variant.name} ClusterPolicy /spec/toolkit/enabled must be ${variant.policy.toolkitEnabled}`,
+      );
+      check(
         !policies[0].metadata?.annotations?.["helm.sh/resource-policy"],
         `${variant.name} ClusterPolicy must not carry a resource-policy annotation`,
       );
       check(row.identities.includes("apps/v1|Deployment|gpu-operator|gpu-operator"), `${variant.name} operator Deployment missing`);
       const nfdRendered = row.identities.some((identity) => identity.includes("node-feature-discovery"));
       check(
-        nfdRendered === (variant.name !== "aicr-eks-training"),
+        nfdRendered === variant.nfd,
         `${variant.name} node-feature-discovery rendering does not match the base definition`,
       );
       const variantDoc = readYaml(join(root, "variants", variant.name, "variant.yaml"));
       const declared = (variantDoc.spec?.targetFacts?.requiredCRDs ?? []).map((crd) => crd.name).sort();
       check(JSON.stringify(declared) === JSON.stringify(variant.expectedCRDs), `${variant.name} target facts must declare exactly the rendered CRDs`);
 
-      if (variant.name === "aicr-eks-training") verifyAicrBinding({ variant, releaseText, row, check });
+      // A base that claims to change named values must differ from the default
+      // base at exactly the fields those values reach, and nowhere else.
+      if (variant.kind === "driver" || variant.kind === "scenario") {
+        const delta = objectDelta(defaultText, releaseText);
+        check(delta.added.length === 0, `${variant.name} must add no object to the default base`);
+        if (variant.nfd) {
+          const expectedPaths = variant.changedValues.map((value) => `/spec/${value.replace(".", "/")}`).sort();
+          check(delta.removed.length === 0, `${variant.name} must remove no object from the default base`);
+          check(
+            delta.changed.length === 1
+              && delta.changed[0].key === policyKey
+              && JSON.stringify([...delta.changed[0].paths].sort()) === JSON.stringify(expectedPaths),
+            `${variant.name} must differ from the default base only at ClusterPolicy ${expectedPaths.join(" and ")}; found ${delta.changed.map((entry) => `${entry.key} ${entry.paths.join(" ")}`).join("; ")}`,
+          );
+        } else {
+          check(delta.changed.length === 0, `${variant.name} must change no object that stays; found ${delta.changed.map((entry) => `${entry.key} ${entry.paths.join(" ")}`).join("; ")}`);
+          check(
+            delta.removed.length === reviewed.nfdObjects
+              && delta.removed.every((key) => key.includes("node-feature-discovery") || key.includes(".nfd.k8s-sigs.io")),
+            `${variant.name} must remove exactly the ${reviewed.nfdObjects} node-feature-discovery objects; removed ${delta.removed.join(", ")}`,
+          );
+        }
+      }
+      if (variant.kind === "driver") {
+        check(
+          variantDoc.spec?.valuesProfile === `../../${variant.valuesFile}`
+            && JSON.stringify(readYaml(join(root, variant.valuesFile)).spec?.values) === JSON.stringify({ driver: { version: variant.policy.driverVersion } }),
+          `${variant.name} must set driver.version and nothing else`,
+        );
+      }
+      if (variant.kind === "aicr") verifyAicrBinding({ variant, releaseText, row, check });
     }
   },
 });
 
-// The aicr-eks-training base claims to be what the AICR recipe renders. That claim
-// is checked against the recipe's own committed nested-render receipt: same
-// archive, same values bytes, and the same objects once the hook set is set aside.
+// The aicr-eks-training base claims to be what an AICR recipe renders. Where the
+// AICR example retains a nested render, the claim is checked against its receipt:
+// same archive, same values bytes, and the same objects once the hook set is set
+// aside. Where it retains only the bundle, the values bytes are checked against
+// the bundle's checksum list and the chart version against its Application.
 function verifyAicrBinding({ variant, releaseText, row, check }) {
-  const receipt = readYaml(join(repoRoot, AICR_NESTED_RENDER_RECEIPT_PATH));
-  check(receipt.spec?.values?.path === AICR_VALUES_PATH, "AICR nested-render receipt no longer names the bound values file");
+  const binding = variant.aicr;
+  if (!binding.nestedRenderReceiptPath) {
+    const checksums = readFileSync(join(repoRoot, binding.bundleChecksumsPath), "utf8");
+    check(
+      checksums.split("\n").includes(`${sha256(variant.valuesText)}  ${binding.bundleChecksumsEntry}`),
+      "aicr-eks-training values bytes differ from the AICR bundle checksum list",
+    );
+    const application = readFileSync(join(repoRoot, binding.applicationTemplatePath), "utf8");
+    check(
+      /^\s*chart: gpu-operator$/m.test(application)
+        && new RegExp(`^\\s*targetRevision: ${binding.applicationTargetRevision.replaceAll(".", "\\.")}$`, "m").test(application)
+        && `v${binding.applicationTargetRevision}` === chart.version,
+      "the AICR Application no longer pins this gpu-operator chart version",
+    );
+    return;
+  }
+  const receipt = readYaml(join(repoRoot, binding.nestedRenderReceiptPath));
+  check(receipt.spec?.values?.path === binding.valuesPath, "AICR nested-render receipt no longer names the bound values file");
   check(
     sha256(variant.valuesText) === receipt.spec?.values?.sha256,
     "aicr-eks-training values bytes differ from the AICR nested-render receipt",

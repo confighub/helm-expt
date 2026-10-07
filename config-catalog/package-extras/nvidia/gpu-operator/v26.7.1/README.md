@@ -8,6 +8,12 @@ deleted. They are kept here, apart from the base, because applying them as
 ordinary objects would run them at install time.
 
 - `default`: `default/pre-upgrade.yaml` (4 objects), `default/pre-delete.yaml` (1 object), `default/post-delete.yaml` (4 objects).
+- `driver-580.105.08`: `driver-580.105.08/pre-upgrade.yaml` (4 objects), `driver-580.105.08/pre-delete.yaml` (1 object), `driver-580.105.08/post-delete.yaml` (4 objects).
+- `driver-580.126.20`: `driver-580.126.20/pre-upgrade.yaml` (4 objects), `driver-580.126.20/pre-delete.yaml` (1 object), `driver-580.126.20/post-delete.yaml` (4 objects).
+- `preinstalled-driver`: `preinstalled-driver/pre-upgrade.yaml` (4 objects), `preinstalled-driver/pre-delete.yaml` (1 object), `preinstalled-driver/post-delete.yaml` (4 objects).
+- `preinstalled-driver-and-toolkit`: `preinstalled-driver-and-toolkit/pre-upgrade.yaml` (4 objects), `preinstalled-driver-and-toolkit/pre-delete.yaml` (1 object), `preinstalled-driver-and-toolkit/post-delete.yaml` (4 objects).
+- `external-nfd`: `external-nfd/pre-upgrade.yaml` (4 objects), `external-nfd/pre-delete.yaml` (1 object).
+- `aicr-eks-training`: `aicr-eks-training/pre-upgrade.yaml` (4 objects), `aicr-eks-training/pre-delete.yaml` (1 object).
 
 `lifecycle-actions.yaml` records, for each base, when each set applies and what
 it does. `generation-receipt.yaml` binds every file to the chart archive it was

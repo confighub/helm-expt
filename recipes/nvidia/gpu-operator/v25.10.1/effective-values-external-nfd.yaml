@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nvidia-gpu-operator-v25.10.1-external-nfd"
+spec:
+  files:
+    -
+      path: "effective-values-external-nfd.yaml"
+      source: "inline-proof"
+      sha256: "3691cb1f1631e53ecaf2b8fea01ac3e75283368a6956714cc927b8471aae51ad"
+  mergedValuesCaptured: false
+  values:
+    nfd:
+      enabled: false

@@ -163,6 +163,534 @@ targetFactChecks:
   result: "$result"
 YAML
     ;;
+  'driver-580.105.08')
+    if [ "$check_mode" = "live" ]; then
+      live_check_crd 'clusterpolicies.nvidia.com'
+      live_check_crd 'computedomaincliques.resource.nvidia.com'
+      live_check_crd 'computedomains.resource.nvidia.com'
+      live_check_crd 'gpuclusters.nvidia.com'
+      live_check_crd 'nodefeaturegroups.nfd.k8s-sigs.io'
+      live_check_crd 'nodefeaturerules.nfd.k8s-sigs.io'
+      live_check_crd 'nodefeatures.nfd.k8s-sigs.io'
+      live_check_crd 'nvidiadrivers.nvidia.com'
+      result="pass"
+    else
+      result="recorded"
+    fi
+    cat <<YAML
+targetFacts:
+  requiredSecrets: []
+
+  requiredCRDs:
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: clusterpolicies.nvidia.com
+    purpose: gpu-operator CRD included in this base; it must be established before Kubernetes
+      accepts the rendered ClusterPolicy object
+    sourceVariant: driver-580.105.08
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: computedomaincliques.resource.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: driver-580.105.08
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: computedomains.resource.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: driver-580.105.08
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: gpuclusters.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: driver-580.105.08
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nodefeaturegroups.nfd.k8s-sigs.io
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: driver-580.105.08
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nodefeaturerules.nfd.k8s-sigs.io
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: driver-580.105.08
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nodefeatures.nfd.k8s-sigs.io
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: driver-580.105.08
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nvidiadrivers.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: driver-580.105.08
+
+  requiredValues: []
+
+  requiredObjectStores: []
+
+  requiredTopology: null
+
+targetFactChecks:
+  base: "driver-580.105.08"
+  mode: "$check_mode"
+  result: "$result"
+YAML
+    ;;
+  'driver-580.126.20')
+    if [ "$check_mode" = "live" ]; then
+      live_check_crd 'clusterpolicies.nvidia.com'
+      live_check_crd 'computedomaincliques.resource.nvidia.com'
+      live_check_crd 'computedomains.resource.nvidia.com'
+      live_check_crd 'gpuclusters.nvidia.com'
+      live_check_crd 'nodefeaturegroups.nfd.k8s-sigs.io'
+      live_check_crd 'nodefeaturerules.nfd.k8s-sigs.io'
+      live_check_crd 'nodefeatures.nfd.k8s-sigs.io'
+      live_check_crd 'nvidiadrivers.nvidia.com'
+      result="pass"
+    else
+      result="recorded"
+    fi
+    cat <<YAML
+targetFacts:
+  requiredSecrets: []
+
+  requiredCRDs:
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: clusterpolicies.nvidia.com
+    purpose: gpu-operator CRD included in this base; it must be established before Kubernetes
+      accepts the rendered ClusterPolicy object
+    sourceVariant: driver-580.126.20
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: computedomaincliques.resource.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: driver-580.126.20
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: computedomains.resource.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: driver-580.126.20
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: gpuclusters.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: driver-580.126.20
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nodefeaturegroups.nfd.k8s-sigs.io
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: driver-580.126.20
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nodefeaturerules.nfd.k8s-sigs.io
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: driver-580.126.20
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nodefeatures.nfd.k8s-sigs.io
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: driver-580.126.20
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nvidiadrivers.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: driver-580.126.20
+
+  requiredValues: []
+
+  requiredObjectStores: []
+
+  requiredTopology: null
+
+targetFactChecks:
+  base: "driver-580.126.20"
+  mode: "$check_mode"
+  result: "$result"
+YAML
+    ;;
+  'preinstalled-driver')
+    if [ "$check_mode" = "live" ]; then
+      live_check_crd 'clusterpolicies.nvidia.com'
+      live_check_crd 'computedomaincliques.resource.nvidia.com'
+      live_check_crd 'computedomains.resource.nvidia.com'
+      live_check_crd 'gpuclusters.nvidia.com'
+      live_check_crd 'nodefeaturegroups.nfd.k8s-sigs.io'
+      live_check_crd 'nodefeaturerules.nfd.k8s-sigs.io'
+      live_check_crd 'nodefeatures.nfd.k8s-sigs.io'
+      live_check_crd 'nvidiadrivers.nvidia.com'
+      result="pass"
+    else
+      result="recorded"
+    fi
+    cat <<YAML
+targetFacts:
+  requiredSecrets: []
+
+  requiredCRDs:
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: clusterpolicies.nvidia.com
+    purpose: gpu-operator CRD included in this base; it must be established before Kubernetes
+      accepts the rendered ClusterPolicy object
+    sourceVariant: preinstalled-driver
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: computedomaincliques.resource.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: preinstalled-driver
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: computedomains.resource.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: preinstalled-driver
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: gpuclusters.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: preinstalled-driver
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nodefeaturegroups.nfd.k8s-sigs.io
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: preinstalled-driver
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nodefeaturerules.nfd.k8s-sigs.io
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: preinstalled-driver
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nodefeatures.nfd.k8s-sigs.io
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: preinstalled-driver
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nvidiadrivers.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: preinstalled-driver
+
+  requiredValues: []
+
+  requiredObjectStores: []
+
+  requiredTopology: null
+
+targetFactChecks:
+  base: "preinstalled-driver"
+  mode: "$check_mode"
+  result: "$result"
+YAML
+    ;;
+  'preinstalled-driver-and-toolkit')
+    if [ "$check_mode" = "live" ]; then
+      live_check_crd 'clusterpolicies.nvidia.com'
+      live_check_crd 'computedomaincliques.resource.nvidia.com'
+      live_check_crd 'computedomains.resource.nvidia.com'
+      live_check_crd 'gpuclusters.nvidia.com'
+      live_check_crd 'nodefeaturegroups.nfd.k8s-sigs.io'
+      live_check_crd 'nodefeaturerules.nfd.k8s-sigs.io'
+      live_check_crd 'nodefeatures.nfd.k8s-sigs.io'
+      live_check_crd 'nvidiadrivers.nvidia.com'
+      result="pass"
+    else
+      result="recorded"
+    fi
+    cat <<YAML
+targetFacts:
+  requiredSecrets: []
+
+  requiredCRDs:
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: clusterpolicies.nvidia.com
+    purpose: gpu-operator CRD included in this base; it must be established before Kubernetes
+      accepts the rendered ClusterPolicy object
+    sourceVariant: preinstalled-driver-and-toolkit
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: computedomaincliques.resource.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: preinstalled-driver-and-toolkit
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: computedomains.resource.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: preinstalled-driver-and-toolkit
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: gpuclusters.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: preinstalled-driver-and-toolkit
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nodefeaturegroups.nfd.k8s-sigs.io
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: preinstalled-driver-and-toolkit
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nodefeaturerules.nfd.k8s-sigs.io
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: preinstalled-driver-and-toolkit
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nodefeatures.nfd.k8s-sigs.io
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: preinstalled-driver-and-toolkit
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nvidiadrivers.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: preinstalled-driver-and-toolkit
+
+  requiredValues: []
+
+  requiredObjectStores: []
+
+  requiredTopology: null
+
+targetFactChecks:
+  base: "preinstalled-driver-and-toolkit"
+  mode: "$check_mode"
+  result: "$result"
+YAML
+    ;;
+  'external-nfd')
+    if [ "$check_mode" = "live" ]; then
+      live_check_crd 'clusterpolicies.nvidia.com'
+      live_check_crd 'computedomaincliques.resource.nvidia.com'
+      live_check_crd 'computedomains.resource.nvidia.com'
+      live_check_crd 'gpuclusters.nvidia.com'
+      live_check_crd 'nvidiadrivers.nvidia.com'
+      result="pass"
+    else
+      result="recorded"
+    fi
+    cat <<YAML
+targetFacts:
+  requiredSecrets: []
+
+  requiredCRDs:
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: clusterpolicies.nvidia.com
+    purpose: gpu-operator CRD included in this base; it must be established before Kubernetes
+      accepts the rendered ClusterPolicy object
+    sourceVariant: external-nfd
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: computedomaincliques.resource.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: external-nfd
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: computedomains.resource.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: external-nfd
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: gpuclusters.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: external-nfd
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nvidiadrivers.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: external-nfd
+
+  requiredValues: []
+
+  requiredObjectStores: []
+
+  requiredTopology: null
+
+targetFactChecks:
+  base: "external-nfd"
+  mode: "$check_mode"
+  result: "$result"
+YAML
+    ;;
+  'aicr-eks-training')
+    if [ "$check_mode" = "live" ]; then
+      live_check_crd 'clusterpolicies.nvidia.com'
+      live_check_crd 'computedomaincliques.resource.nvidia.com'
+      live_check_crd 'computedomains.resource.nvidia.com'
+      live_check_crd 'gpuclusters.nvidia.com'
+      live_check_crd 'nvidiadrivers.nvidia.com'
+      result="pass"
+    else
+      result="recorded"
+    fi
+    cat <<YAML
+targetFacts:
+  requiredSecrets: []
+
+  requiredCRDs:
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: clusterpolicies.nvidia.com
+    purpose: gpu-operator CRD included in this base; it must be established before Kubernetes
+      accepts the rendered ClusterPolicy object
+    sourceVariant: aicr-eks-training
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: computedomaincliques.resource.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: aicr-eks-training
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: computedomains.resource.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: aicr-eks-training
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: gpuclusters.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: aicr-eks-training
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: nvidiadrivers.nvidia.com
+    purpose: CRD included in this base and applied before the workloads that use it
+    sourceVariant: aicr-eks-training
+
+  requiredValues: []
+
+  requiredObjectStores: []
+
+  requiredTopology: null
+
+targetFactChecks:
+  base: "aicr-eks-training"
+  mode: "$check_mode"
+  result: "$result"
+YAML
+    ;;
   *)
     emit_empty
     ;;

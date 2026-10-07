@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nvidia-gpu-operator-v26.3.2-preinstalled-driver"
+spec:
+  files:
+    -
+      path: "effective-values-preinstalled-driver.yaml"
+      source: "inline-proof"
+      sha256: "c384b36d5b80c74457674043b6560ee106946d8f785e00c22b953d066879c7b5"
+  mergedValuesCaptured: false
+  values:
+    driver:
+      enabled: false

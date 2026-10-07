@@ -1,0 +1,35 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nvidia-nvsentinel-v1.9.0-aicr-eks-training"
+spec:
+  files:
+    -
+      path: "effective-values-aicr-eks-training.yaml"
+      source: "inline-proof"
+      sha256: "7f4742e4c15d723361629bb11f58dbd9d10254ecc5f9eb80ef58e75a6892c2b9"
+  mergedValuesCaptured: false
+  values:
+    fullnameOverride: "nvsentinel"
+    global:
+      systemNodeTolerations:
+        -
+          operator: "Exists"
+      tolerations:
+        -
+          operator: "Exists"
+    janitor-provider:
+      csp:
+        provider: "generic"
+    networkPolicy:
+      enabled: false
+    platformConnector:
+      maxUnavailable: 1
+      resources:
+        limits:
+          cpu: "200m"
+          memory: "512Mi"
+        requests:
+          cpu: "200m"
+          memory: "512Mi"
+      updateStrategy: "RollingUpdate"

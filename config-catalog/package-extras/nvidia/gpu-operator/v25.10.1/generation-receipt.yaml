@@ -47,3 +47,143 @@ spec:
             - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||gpu-operator-node-feature-discovery-prune"
             - "rbac.authorization.k8s.io/v1|ClusterRole||gpu-operator-node-feature-discovery-prune"
             - "v1|ServiceAccount|gpu-operator|gpu-operator-node-feature-discovery-prune"
+    -
+      name: "driver-580.126.20"
+      valuesSHA256: "06b1938689cdbc1759998eb4b363f85f7177b6ab5bf0b04bf74da8d042d4f70c"
+      totalChartObjects: 32
+      ordinaryObjects: 24
+      hookObjects: 8
+      hookJobs: 2
+      jobImages:
+        - "nvcr.io/nvidia/gpu-operator:v25.10.1"
+        - "registry.k8s.io/nfd/node-feature-discovery:v0.18.2"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-upgrade"
+          path: "driver-580.126.20/pre-upgrade.yaml"
+          sha256: "6b6b61613320f8699d4bbdaa37c26835db9a67528bb76c1d34f21dfca24df3e0"
+          objects:
+            - "batch/v1|Job|gpu-operator|gpu-operator-upgrade-crd"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||gpu-operator-upgrade-crd-hook-binding"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||gpu-operator-upgrade-crd-hook-role"
+            - "v1|ServiceAccount||gpu-operator-upgrade-crd-hook-sa"
+        -
+          phase: "post-delete"
+          path: "driver-580.126.20/post-delete.yaml"
+          sha256: "28134027f25bbd6ba9c195bb67db1ea36c02ca404d2a0df5c89f6c612a35d475"
+          objects:
+            - "batch/v1|Job|gpu-operator|gpu-operator-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||gpu-operator-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||gpu-operator-node-feature-discovery-prune"
+            - "v1|ServiceAccount|gpu-operator|gpu-operator-node-feature-discovery-prune"
+    -
+      name: "driver-595.91.07"
+      valuesSHA256: "bc7a57d2a59992bcf26ac23cb091a2ab897d8eec60e5b31f9689998ecb117896"
+      totalChartObjects: 32
+      ordinaryObjects: 24
+      hookObjects: 8
+      hookJobs: 2
+      jobImages:
+        - "nvcr.io/nvidia/gpu-operator:v25.10.1"
+        - "registry.k8s.io/nfd/node-feature-discovery:v0.18.2"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-upgrade"
+          path: "driver-595.91.07/pre-upgrade.yaml"
+          sha256: "6b6b61613320f8699d4bbdaa37c26835db9a67528bb76c1d34f21dfca24df3e0"
+          objects:
+            - "batch/v1|Job|gpu-operator|gpu-operator-upgrade-crd"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||gpu-operator-upgrade-crd-hook-binding"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||gpu-operator-upgrade-crd-hook-role"
+            - "v1|ServiceAccount||gpu-operator-upgrade-crd-hook-sa"
+        -
+          phase: "post-delete"
+          path: "driver-595.91.07/post-delete.yaml"
+          sha256: "28134027f25bbd6ba9c195bb67db1ea36c02ca404d2a0df5c89f6c612a35d475"
+          objects:
+            - "batch/v1|Job|gpu-operator|gpu-operator-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||gpu-operator-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||gpu-operator-node-feature-discovery-prune"
+            - "v1|ServiceAccount|gpu-operator|gpu-operator-node-feature-discovery-prune"
+    -
+      name: "preinstalled-driver"
+      valuesSHA256: "c384b36d5b80c74457674043b6560ee106946d8f785e00c22b953d066879c7b5"
+      totalChartObjects: 32
+      ordinaryObjects: 24
+      hookObjects: 8
+      hookJobs: 2
+      jobImages:
+        - "nvcr.io/nvidia/gpu-operator:v25.10.1"
+        - "registry.k8s.io/nfd/node-feature-discovery:v0.18.2"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-upgrade"
+          path: "preinstalled-driver/pre-upgrade.yaml"
+          sha256: "6b6b61613320f8699d4bbdaa37c26835db9a67528bb76c1d34f21dfca24df3e0"
+          objects:
+            - "batch/v1|Job|gpu-operator|gpu-operator-upgrade-crd"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||gpu-operator-upgrade-crd-hook-binding"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||gpu-operator-upgrade-crd-hook-role"
+            - "v1|ServiceAccount||gpu-operator-upgrade-crd-hook-sa"
+        -
+          phase: "post-delete"
+          path: "preinstalled-driver/post-delete.yaml"
+          sha256: "28134027f25bbd6ba9c195bb67db1ea36c02ca404d2a0df5c89f6c612a35d475"
+          objects:
+            - "batch/v1|Job|gpu-operator|gpu-operator-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||gpu-operator-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||gpu-operator-node-feature-discovery-prune"
+            - "v1|ServiceAccount|gpu-operator|gpu-operator-node-feature-discovery-prune"
+    -
+      name: "preinstalled-driver-and-toolkit"
+      valuesSHA256: "3c37f652396ed81d9d3f303431dddcced1ab013deeded00c6fc772fe8a21c133"
+      totalChartObjects: 32
+      ordinaryObjects: 24
+      hookObjects: 8
+      hookJobs: 2
+      jobImages:
+        - "nvcr.io/nvidia/gpu-operator:v25.10.1"
+        - "registry.k8s.io/nfd/node-feature-discovery:v0.18.2"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-upgrade"
+          path: "preinstalled-driver-and-toolkit/pre-upgrade.yaml"
+          sha256: "6b6b61613320f8699d4bbdaa37c26835db9a67528bb76c1d34f21dfca24df3e0"
+          objects:
+            - "batch/v1|Job|gpu-operator|gpu-operator-upgrade-crd"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||gpu-operator-upgrade-crd-hook-binding"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||gpu-operator-upgrade-crd-hook-role"
+            - "v1|ServiceAccount||gpu-operator-upgrade-crd-hook-sa"
+        -
+          phase: "post-delete"
+          path: "preinstalled-driver-and-toolkit/post-delete.yaml"
+          sha256: "28134027f25bbd6ba9c195bb67db1ea36c02ca404d2a0df5c89f6c612a35d475"
+          objects:
+            - "batch/v1|Job|gpu-operator|gpu-operator-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||gpu-operator-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||gpu-operator-node-feature-discovery-prune"
+            - "v1|ServiceAccount|gpu-operator|gpu-operator-node-feature-discovery-prune"
+    -
+      name: "external-nfd"
+      valuesSHA256: "3691cb1f1631e53ecaf2b8fea01ac3e75283368a6956714cc927b8471aae51ad"
+      totalChartObjects: 13
+      ordinaryObjects: 9
+      hookObjects: 4
+      hookJobs: 1
+      jobImages:
+        - "nvcr.io/nvidia/gpu-operator:v25.10.1"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-upgrade"
+          path: "external-nfd/pre-upgrade.yaml"
+          sha256: "decd424520ace1758222c6881f2bbb4085b13ccee9c7d2601c2161d109ca5f5d"
+          objects:
+            - "batch/v1|Job|gpu-operator|gpu-operator-upgrade-crd"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||gpu-operator-upgrade-crd-hook-binding"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||gpu-operator-upgrade-crd-hook-role"
+            - "v1|ServiceAccount||gpu-operator-upgrade-crd-hook-sa"

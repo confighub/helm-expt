@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "gpu-operator-driver-580.105.08-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for driver-580.105.08"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the ClusterPolicy makes the operator create privileged operand workloads that no render shows"
+    - "this base changes only driver.version to 580.105.08; driver support for this chart version and for any operating system was not checked"
+    - "the 8 CRDs must be established before the ClusterPolicy object; driver support for this chart version and for any operating system was not checked; the 9 Helm hook objects (4 pre-upgrade, 1 pre-delete, 4 post-delete) are packaged lifecycle actions, not part of the base"

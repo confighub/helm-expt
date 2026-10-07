@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-// Packages the Helm hook objects of the reviewed gpu-operator chart versions as
-// recorded lifecycle actions.
+// Packages the Helm hook objects of the reviewed gpu-operator and
+// k8s-nim-operator chart versions as recorded lifecycle actions. --chart selects
+// the chart and defaults to gpu-operator.
 //
-// A gpu-operator base holds the ordinary objects the chart renders. The same
+// A base holds the ordinary objects the chart renders. The same
 // values also render hook-annotated objects that Helm runs at upgrade and delete
 // time. They cannot be flattened into the base: applied as ordinary objects they
 // would run at install time. This generator extracts them, per base and per hook
@@ -11,8 +12,8 @@
 // lifecycle-actions.yaml that says when each one applies. Nothing here runs a
 // hook, and nothing marks a hook as observed.
 //
-//   node scripts/generate-gpu-operator-packaged-lifecycle.mjs --generate --version <version>
-//   node scripts/generate-gpu-operator-packaged-lifecycle.mjs --verify [--version <version>]
+//   node scripts/generate-gpu-operator-packaged-lifecycle.mjs --generate [--chart <chart>] --version <version>
+//   node scripts/generate-gpu-operator-packaged-lifecycle.mjs --verify [--chart <chart>] [--version <version>]
 //
 // --generate downloads the archive named in scripts/lib/nvidia-gpu-stack-coverage.mjs,
 // checks its SHA-256 and renders it with the pinned Helm build. --verify reads
@@ -37,141 +38,105 @@ import {
   toYaml,
   write,
 } from "./lib/proof-common.mjs";
-import {
-  gpuOperatorBases,
-  gpuOperatorChart,
-  gpuOperatorReviewedVersions,
-  packageExtrasRoot,
-  packagedLifecycleRoot,
-} from "./lib/gpu-operator-bases.mjs";
+import { gpuOperatorLifecycleProfile } from "./lib/gpu-operator-bases.mjs";
+import { nimOperatorLifecycleProfile } from "./lib/k8s-nim-operator-bases.mjs";
 import { nvidiaGpuStackAddition } from "./lib/nvidia-gpu-stack-coverage.mjs";
 
 const args = process.argv.slice(2);
 const mode = args.find((arg) => ["--generate", "--verify"].includes(arg));
 const versionIndex = args.indexOf("--version");
 const requestedVersion = versionIndex === -1 ? "" : args[versionIndex + 1];
-if (!mode || (versionIndex !== -1 && (!requestedVersion || requestedVersion.startsWith("--")))) {
+const chartIndex = args.indexOf("--chart");
+const requestedChart = chartIndex === -1 ? "gpu-operator" : args[chartIndex + 1];
+const profiles = Object.fromEntries([gpuOperatorLifecycleProfile, nimOperatorLifecycleProfile].map((item) => [item.chartName, item]));
+const profile = profiles[requestedChart];
+if (!mode || !profile || (versionIndex !== -1 && (!requestedVersion || requestedVersion.startsWith("--")))) {
   console.error(`Usage:
-  node scripts/generate-gpu-operator-packaged-lifecycle.mjs --generate --version <version>
-  node scripts/generate-gpu-operator-packaged-lifecycle.mjs --verify [--version <version>]`);
+  node scripts/generate-gpu-operator-packaged-lifecycle.mjs --generate [--chart ${Object.keys(profiles).join("|")}] --version <version>
+  node scripts/generate-gpu-operator-packaged-lifecycle.mjs --verify [--chart ${Object.keys(profiles).join("|")}] [--version <version>]`);
   process.exit(2);
 }
+const chartName = profile.chartName;
+const chartFlag = chartName === "gpu-operator" ? "" : ` --chart ${chartName}`;
 check(mode === "--verify" || requestedVersion, "--generate requires --version");
-const versions = requestedVersion ? [requestedVersion] : gpuOperatorReviewedVersions;
+const versions = requestedVersion ? [requestedVersion] : profile.reviewedVersions;
 for (const version of versions) {
-  check(gpuOperatorReviewedVersions.includes(version), `unsupported gpu-operator lifecycle version ${version}`);
+  check(profile.reviewedVersions.includes(version), `unsupported ${chartName} lifecycle version ${version}`);
   if (mode === "--generate") generate(version);
   // Straight after --generate the package has not been rebuilt yet, so the
   // package copy is checked only by --verify.
   verify(version, { checkPackage: mode === "--verify" });
 }
 console.log(
-  `${mode === "--generate" ? "generated and verified" : "verified"} packaged gpu-operator lifecycle files for ${versions.join(", ")}`,
+  `${mode === "--generate" ? "generated and verified" : "verified"} packaged ${chartName} lifecycle files for ${versions.join(", ")}`,
 );
 
 function extrasRoot(version) {
-  return join(repoRoot, packageExtrasRoot, version);
+  return join(repoRoot, profile.extrasRoot, version);
 }
 
 function recipeRoot(version) {
-  return join(repoRoot, "recipes", "nvidia", "gpu-operator", version);
+  return join(repoRoot, "recipes", "nvidia", chartName, version);
 }
 
 function packageRoot(version) {
-  return join(repoRoot, "packages", "nvidia", "gpu-operator", version);
+  return join(repoRoot, "packages", "nvidia", chartName, version);
 }
 
 // What each hook phase means for a delivery workflow that applies rendered
-// objects instead of running Helm. The wording is the recorded route.
+// objects instead of running Helm. The chart's profile supplies the wording.
 function actionFor(phase, base) {
-  const source = `${packagedLifecycleRoot}/${base.name}/${phase}.yaml`;
-  if (phase === "pre-upgrade") {
-    return {
-      automatic: false,
-      evidenceState: "not-run",
-      helmHook: phase,
-      invokedBy: "delivery-workflow",
-      name: "Before an upgrade, move the CRDs to the new version",
-      phase: "pre-upgrade",
-      detail:
-        "Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them.",
-      source,
-    };
-  }
-  if (phase === "pre-delete") {
-    return {
-      automatic: false,
-      evidenceState: "not-run",
-      helmHook: phase,
-      invokedBy: "delivery-workflow",
-      name: "Before deleting, remove a chart-managed GPUCluster and wait for it to go",
-      phase: "pre-delete",
-      detail:
-        "The Job deletes the chart-managed GPUCluster object and waits until it is gone, so the operator can drain workloads under its finalizer while it is still running. It uses the base's own gpu-operator ServiceAccount, so run it and wait for it before deleting the base objects. It does nothing when no GPUCluster exists, which is the case for this base as rendered.",
-      source,
-    };
-  }
-  if (phase === "post-delete") {
-    return {
-      automatic: false,
-      evidenceState: "not-run",
-      helmHook: phase,
-      invokedBy: "delivery-workflow",
-      name: "After deleting, prune node-feature-discovery labels from the nodes",
-      phase: "post-delete",
-      detail:
-        "The Job runs nfd-master -prune, which removes node-feature-discovery labels, annotations and taints from every node, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. Apply the four objects only after the base objects are deleted, wait for the Job to complete, then delete them. Never apply them with the base: at install time the prune would run immediately.",
-      source,
-    };
-  }
-  throw new Error(`gpu-operator hook phase ${phase} has no reviewed lifecycle action`);
+  return {
+    automatic: false,
+    evidenceState: "not-run",
+    helmHook: phase,
+    invokedBy: "delivery-workflow",
+    phase,
+    ...profile.actionFor(phase, base),
+    source: `${profile.lifecycleRoot}/${base.name}/${phase}.yaml`,
+  };
 }
 
 function lifecycleActions(version) {
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "PackagedLifecycleActions",
-    metadata: { name: `nvidia-gpu-operator-${version.replaceAll(".", "-")}` },
+    metadata: { name: `nvidia-${chartName}-${version.replaceAll(".", "-")}` },
     spec: {
-      bases: gpuOperatorBases(version).map((base) => ({
+      bases: profile.bases(version).map((base) => ({
         actions: [
           {
             automatic: false,
             evidenceState: "not-run",
             invokedBy: "packaged-requirement",
-            name: `Install and establish the ${base.expected.crds.length} CRDs before the ClusterPolicy object`,
             phase: "pre-apply",
-            detail:
-              "Kubernetes rejects the rendered ClusterPolicy until clusterpolicies.nvidia.com is established. The bundle holds exactly the CRDs this base renders.",
-            source: `prerequisites/target-facts/${base.name}-crds.yaml`,
+            ...profile.preApply(base),
+            source: profile.crdBundlePath(base.name),
           },
           ...Object.keys(base.expected.hooks).map((phase) => actionFor(phase, base)),
         ],
         name: base.name,
       })),
-      chart: "nvidia/gpu-operator",
-      namespace: gpuOperatorChart.namespace,
+      chart: `nvidia/${chartName}`,
+      namespace: profile.chart.namespace,
       version,
     },
   };
 }
 
 function readme(version) {
-  const bases = gpuOperatorBases(version);
+  const bases = profile.bases(version);
   const lines = bases.map((base) => {
     const phases = Object.entries(base.expected.hooks)
       .map(([phase, count]) => `\`${base.name}/${phase}.yaml\` (${count} ${count === 1 ? "object" : "objects"})`)
       .join(", ");
     return `- \`${base.name}\`: ${phases}.`;
   });
-  return `# GPU Operator lifecycle actions
+  return `# ${profile.title} lifecycle actions
 
 > **Not run on a cluster.** These files were extracted from the locked chart archive. No hook here has been run, and the package has not been published.
 
-The gpu-operator chart renders more than the objects a base holds. It also
-renders Helm hook objects, which Helm runs when a release is upgraded or
-deleted. They are kept here, apart from the base, because applying them as
-ordinary objects would run them at install time.
+${profile.readmeIntro}
 
 ${lines.join("\n")}
 
@@ -184,8 +149,8 @@ person or a delivery workflow decides whether to run each one, and records the
 result. The Job images are the tags the chart renders; they are not pinned by
 digest here.
 
-These files come from \`nvidia/gpu-operator@${version}\`. Regenerate them with
-\`node scripts/generate-gpu-operator-packaged-lifecycle.mjs --generate --version ${version}\`.
+These files come from \`nvidia/${chartName}@${version}\`. Regenerate them with
+\`node scripts/generate-gpu-operator-packaged-lifecycle.mjs --generate${chartFlag} --version ${version}\`.
 `;
 }
 
@@ -197,29 +162,29 @@ function splitDocuments(text) {
 }
 
 function generate(version) {
-  const addition = nvidiaGpuStackAddition("gpu-operator", version);
-  check(Boolean(addition), `gpu-operator ${version} is not in the NVIDIA GPU stack coverage list`);
-  const tempRoot = mkdtempSync(join(tmpdir(), "gpu-operator-lifecycle-"));
+  const addition = nvidiaGpuStackAddition(chartName, version);
+  check(Boolean(addition), `${chartName} ${version} is not in the NVIDIA GPU stack coverage list`);
+  const tempRoot = mkdtempSync(join(tmpdir(), `${chartName}-lifecycle-`));
   try {
-    const archive = join(tempRoot, `gpu-operator-${version}.tgz`);
+    const archive = join(tempRoot, `${chartName}-${version}.tgz`);
     execFileSync("curl", ["--fail", "--location", "--retry", "3", "--silent", "--show-error", "--output", archive, addition.url], {
       cwd: repoRoot,
       stdio: ["ignore", "pipe", "inherit"],
     });
-    check(sha256File(archive) === addition.sha256, `chart artifact SHA mismatch for nvidia/gpu-operator@${version}`);
+    check(sha256File(archive) === addition.sha256, `chart artifact SHA mismatch for nvidia/${chartName}@${version}`);
 
     const root = extrasRoot(version);
     rmSync(root, { recursive: true, force: true });
     const receiptBases = [];
-    for (const base of gpuOperatorBases(version)) {
+    for (const base of profile.bases(version)) {
       const helmArgs = [
         "template",
-        gpuOperatorChart.releaseName,
+        profile.chart.releaseName,
         archive,
         "--namespace",
-        gpuOperatorChart.namespace,
+        profile.chart.namespace,
         "--kube-version",
-        gpuOperatorChart.kubeVersion,
+        profile.chart.kubeVersion,
         "--include-crds",
         "--skip-tests",
       ];
@@ -233,7 +198,7 @@ function generate(version) {
       const ordinary = [];
       for (const chunk of splitDocuments(rendered)) {
         const [doc] = parseDocs(chunk);
-        check(Boolean(doc), `gpu-operator ${version} ${base.name} rendered a document that is not an object`);
+        check(Boolean(doc), `${chartName} ${version} ${base.name} rendered a document that is not an object`);
         const phase = doc.metadata?.annotations?.["helm.sh/hook"];
         if (phase) {
           if (!byPhase.has(phase)) byPhase.set(phase, []);
@@ -244,11 +209,11 @@ function generate(version) {
       }
       check(
         ordinary.length === base.expected.objects,
-        `gpu-operator ${version} ${base.name} rendered ${ordinary.length} ordinary objects; reviewed count is ${base.expected.objects}`,
+        `${chartName} ${version} ${base.name} rendered ${ordinary.length} ordinary objects; reviewed count is ${base.expected.objects}`,
       );
       check(
         JSON.stringify([...byPhase.keys()].sort()) === JSON.stringify(Object.keys(base.expected.hooks).sort()),
-        `gpu-operator ${version} ${base.name} hook phases changed: ${[...byPhase.keys()].sort().join(", ")}`,
+        `${chartName} ${version} ${base.name} hook phases changed: ${[...byPhase.keys()].sort().join(", ")}`,
       );
       const files = [];
       const images = new Set();
@@ -256,7 +221,7 @@ function generate(version) {
         const entries = byPhase.get(phase);
         check(
           entries.length === base.expected.hooks[phase],
-          `gpu-operator ${version} ${base.name} rendered ${entries.length} ${phase} hook objects; reviewed count is ${base.expected.hooks[phase]}`,
+          `${chartName} ${version} ${base.name} rendered ${entries.length} ${phase} hook objects; reviewed count is ${base.expected.hooks[phase]}`,
         );
         const path = join(root, base.name, `${phase}.yaml`);
         write(path, normalizeYaml(entries.map((entry) => `---\n${entry.chunk.replace(/\n*$/, "\n")}`).join("")));
@@ -289,17 +254,17 @@ function generate(version) {
       `${toYaml({
         apiVersion: "helm-expt.confighub.com/v1alpha1",
         kind: "PackagedLifecycleGenerationReceipt",
-        metadata: { name: `nvidia-gpu-operator-${version.replaceAll(".", "-")}` },
+        metadata: { name: `nvidia-${chartName}-${version.replaceAll(".", "-")}` },
         spec: {
-          chart: "nvidia/gpu-operator",
+          chart: `nvidia/${chartName}`,
           version,
-          sourceLock: `recipes/nvidia/gpu-operator/${version}/source-lock.yaml`,
+          sourceLock: `recipes/nvidia/${chartName}/${version}/source-lock.yaml`,
           chartArtifactURL: addition.url,
           chartPackageSha256: addition.sha256,
           renderer: {
             name: "helm",
             version: execFileSync("helm", ["version", "--short"], { encoding: "utf8" }).trim(),
-            kubeVersion: gpuOperatorChart.kubeVersion,
+            kubeVersion: profile.chart.kubeVersion,
             flags: ["--include-crds", "--skip-tests"],
           },
           evidenceState: "rendered-not-run",
@@ -315,9 +280,9 @@ function generate(version) {
 function verify(version, { checkPackage }) {
   const root = extrasRoot(version);
   const rel = (path) => relative(repoRoot, path);
-  check(existsSync(root), `${rel(root)} is missing; run --generate --version ${version}`);
-  const addition = nvidiaGpuStackAddition("gpu-operator", version);
-  check(Boolean(addition), `gpu-operator ${version} is not in the NVIDIA GPU stack coverage list`);
+  check(existsSync(root), `${rel(root)} is missing; run --generate${chartFlag} --version ${version}`);
+  const addition = nvidiaGpuStackAddition(chartName, version);
+  check(Boolean(addition), `${chartName} ${version} is not in the NVIDIA GPU stack coverage list`);
   const receipt = readYaml(join(root, "generation-receipt.yaml"));
   check(receipt.kind === "PackagedLifecycleGenerationReceipt", `${rel(root)}/generation-receipt.yaml kind mismatch`);
   check(receipt.spec?.chartPackageSha256 === addition.sha256, `${version} lifecycle receipt does not bind the locked chart archive`);
@@ -331,7 +296,7 @@ function verify(version, { checkPackage }) {
   }
 
   const expectedFiles = new Set(["README.md", "generation-receipt.yaml", "lifecycle-actions.yaml"]);
-  const bases = gpuOperatorBases(version);
+  const bases = profile.bases(version);
   check((receipt.spec.bases ?? []).length === bases.length, `${version} lifecycle receipt base count mismatch`);
   for (const base of bases) {
     const row = receipt.spec.bases.find((item) => item.name === base.name);
@@ -381,9 +346,9 @@ function verify(version, { checkPackage }) {
   const expectedActions = `${toYaml(lifecycleActions(version))}\n`;
   check(
     readFileSync(join(root, "lifecycle-actions.yaml"), "utf8") === expectedActions,
-    `${rel(root)}/lifecycle-actions.yaml is stale; run --generate --version ${version}`,
+    `${rel(root)}/lifecycle-actions.yaml is stale; run --generate${chartFlag} --version ${version}`,
   );
-  check(readFileSync(join(root, "README.md"), "utf8") === readme(version), `${rel(root)}/README.md is stale; run --generate --version ${version}`);
+  check(readFileSync(join(root, "README.md"), "utf8") === readme(version), `${rel(root)}/README.md is stale; run --generate${chartFlag} --version ${version}`);
   const actualFiles = listFiles(root).map((path) => relative(root, path)).sort();
   check(
     JSON.stringify(actualFiles) === JSON.stringify([...expectedFiles].sort()),
@@ -391,7 +356,7 @@ function verify(version, { checkPackage }) {
   );
 
   // The package carries a byte-for-byte copy, and every action names a file the package holds.
-  const packaged = join(packageRoot(version), packagedLifecycleRoot);
+  const packaged = join(packageRoot(version), profile.lifecycleRoot);
   if (checkPackage && existsSync(packageRoot(version))) {
     check(existsSync(packaged), `${rel(packaged)} is missing; regenerate the package`);
     for (const file of actualFiles) {
@@ -409,7 +374,10 @@ function verify(version, { checkPackage }) {
       }
       const crdAction = base.actions.find((action) => action.phase === "pre-apply");
       const bundle = parseDocs(readFileSync(join(packageRoot(version), crdAction.source), "utf8"));
-      const expectedCRDs = bases.find((item) => item.name === base.name).expected.crds;
+      const declaredBase = bases.find((item) => item.name === base.name);
+      // A base may also need CRDs the chart does not ship; the bundle carries a copy of those.
+      const externalCRDs = declaredBase.externalCRDs ?? [];
+      const expectedCRDs = [...declaredBase.expected.crds, ...externalCRDs].sort();
       check(
         JSON.stringify(bundle.map((doc) => doc.metadata?.name).sort()) === JSON.stringify(expectedCRDs),
         `${version} ${base.name} CRD bundle does not hold exactly the base's CRDs`,
@@ -420,6 +388,7 @@ function verify(version, { checkPackage }) {
       );
       const maps = canonicalObjectMaps(releaseText, readFileSync(join(packageRoot(version), crdAction.source), "utf8"));
       for (const key of Object.keys(maps.cub)) {
+        if (externalCRDs.some((name) => key.endsWith(`|${name}`))) continue;
         check(maps.helm[key] === maps.cub[key], `${version} ${base.name} bundled CRD differs from the base render: ${key}`);
       }
     }

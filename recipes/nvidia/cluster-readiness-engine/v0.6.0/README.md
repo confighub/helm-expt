@@ -9,7 +9,7 @@ Variants:
 What this proves:
 
 - the version-specific upstream artifact and SHA are locked, and a moved tag fails the check instead of changing the entry;
-- the chart-default configuration renders deterministically and the installer package preserves the rendered object set;
+- every base renders deterministically and the installer package preserves the rendered object set;
 - retention here does not imply publication, live convergence, or production support.
 
 Useful commands:

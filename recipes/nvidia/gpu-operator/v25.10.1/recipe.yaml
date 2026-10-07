@@ -21,3 +21,8 @@ spec:
       - "gpu-operator"
   variants:
     - "variants/default/variant.yaml"
+    - "variants/driver-580.126.20/variant.yaml"
+    - "variants/driver-595.91.07/variant.yaml"
+    - "variants/preinstalled-driver/variant.yaml"
+    - "variants/preinstalled-driver-and-toolkit/variant.yaml"
+    - "variants/external-nfd/variant.yaml"

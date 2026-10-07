@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "nvsentinel-no-pod-monitor-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "f1413bcfa41aac533dda30c604e798b692e4900ab45c5f7ed649c9405164bca9"
+    dependencyLockSHA256: "3a91b643ec015b445d94bda226a76970067c20b14861db5a9c03975513cf54fc"
+    effectiveValuesSHA256: "8339bbcf027e0ae9687df3beb7b3d421e341daa08f77a7cc3682fd103ed24da4"
+  outputs:
+    renderedObjectSetSHA256: "efeccf54131507abb5c6c4965ec661bcc48b5e89f609afdcdf9f299a8afbbd25"
+    renderedObjectInventorySHA256: "4f02d9d44b7b93c6e9fbe5cbaa2805f0f495ebcbffa2f5d87ff1b74e08dfe155"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 21
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

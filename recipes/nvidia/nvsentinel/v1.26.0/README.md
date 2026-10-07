@@ -5,11 +5,12 @@ This is the exact-artifact ConfigHub component package for nvsentinel@v1.26.0. N
 Variants:
 
 - `default`: chart defaults; 22 Helm objects, 23 cub installer objects including Namespace.
+- `no-pod-monitor`: chart defaults with podMonitor.enabled false, which the chart's values.yaml gives for a cluster that scrapes with standard Prometheus annotations instead of the Prometheus Operator; the PodMonitor does not render, so no Prometheus Operator CRD is needed; 21 Helm objects, 22 cub installer objects including Namespace.
 
 What this proves:
 
 - the version-specific upstream artifact and SHA are locked, and a moved tag fails the check instead of changing the entry;
-- the chart-default configuration renders deterministically and the installer package preserves the rendered object set;
+- every base renders deterministically and the installer package preserves the rendered object set;
 - retention here does not imply publication, live convergence, or production support.
 
 Useful commands:

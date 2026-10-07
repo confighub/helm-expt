@@ -17,6 +17,8 @@ spec:
   notes:
     - "This package is the exact nvsentinel@v1.9.0 chart, locked by archive URL and SHA-256."
     - "With chart defaults nvsentinel@v1.9.0 renders 21 objects: no CRDs, no Secrets, no Helm hooks."
+    - "The no-pod-monitor base sets podMonitor.enabled false and renders 20 objects: the default base without its PodMonitor, and no other difference. The chart adds no scrape annotation in its place, so a Prometheus that discovers pods by annotation needs them added."
+    - "The aicr-eks-training base renders 20 objects with the bytes of examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/015-nvsentinel/values.yaml, the values the AICR v0.19.0 recipe supplies. Its objects equal the AICR nested render of the same archive, object for object."
     - "No namespaced object in the render carries metadata.namespace, because the chart templates leave it to Helm. A flattened copy must be applied into the nvsentinel namespace."
     - "The platform-connectors DaemonSet refers to a ConfigMap named mongodb-config and a Secret named mongo-app-client-cert-secret that the default render does not contain. Both references are marked optional, so Kubernetes starts the pods without them."
     - "The installer round trip drops one leading blank line from TOML files held in the syslog-health-monitor-config ConfigMap. The equivalence check admits only that whitespace difference, in that one ConfigMap, and compares everything else exactly."
@@ -52,7 +54,7 @@ spec:
       supportedVariantStatus: "handled"
     -
       id: "lifecycle-policy"
-      detectedPainPoint: "the chart-default render contains no Helm hook object, with or without --no-hooks"
+      detectedPainPoint: "no base's render contains a Helm hook object, with or without --no-hooks"
       evidence:
         - "no-hooks"
       configHubHome: "lifecycle-policy"

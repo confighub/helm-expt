@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "preinstalled-driver-and-toolkit-r001"
+spec:
+  variant: "../../../variants/preinstalled-driver-and-toolkit/variant.yaml"
+  revision: "r001"
+  digest: "c1fe66249272dac3a288b2a26c6017e60dc6eb3af6ea2191d5b6324605b28eae"
+  digestInputs:
+    recipeSHA256: "c214df6a93d75923c9eb577270f000e98240fe7a71439b1ba0bc7752ffafe472"
+    variantSHA256: "95d5113cfb90cd6d381c0a127d1adb2be3703dd319a90cd203cca74940fc1f19"
+    effectiveValuesSHA256: "5ad6ee7f58a02c2ad6aee04074e37a9d018fd93790d1e87334e6ac4449077408"
+    rendererSHA256: "9bfc45a85aeb59e59bfba0bcd479aba97d9c0bc7080f39e11351071d732ac707"
+    renderedObjectSetSHA256: "ec5537100284d75523d002dcd5d4754382bb372b4087d3564ad2c966103eaac8"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 24

@@ -15,6 +15,10 @@ spec:
           suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
       name: "default"
       path: "bases/default"
+    -
+      description: "nvsentinel no PodMonitor, for a cluster without the Prometheus Operator variant rendered from nvidia/nvsentinel@v1.26.0"
+      name: "no-pod-monitor"
+      path: "bases/no-pod-monitor"
   collector:
     command: "/bin/sh"
     args:

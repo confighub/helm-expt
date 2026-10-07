@@ -15,4 +15,4 @@ spec:
     - "Helm equivalence passed for aicr-eks-training"
     - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
     - "the ClusterPolicy makes the operator create privileged operand workloads that no render shows"
-    - "the 2 CRDs must be established before the ClusterPolicy object; node-feature-discovery is off in this base, so the target must already run it; the pre-upgrade hook is a packaged lifecycle action, not part of the base"
+    - "the 2 CRDs must be established before the ClusterPolicy object; the target must already run Node Feature Discovery; the 4 Helm hook objects (4 pre-upgrade) are packaged lifecycle actions, not part of the base"

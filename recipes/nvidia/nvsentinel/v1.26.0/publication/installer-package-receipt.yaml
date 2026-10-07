@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/nvidia/nvsentinel/v1.26.0 -o <tmp>/nvsentinel-v1.26.0.tgz"
-    sha256: "5adf1300598717a45fed1931a4fbb2691270c26df7fe16e6b1f94a25b2b7da48"
+    sha256: "8b323e97c05e87d2d7c20305cd73ab852b19c4a131519af5b21420cf2b7cc645"
   package:
     name: "nvidia-nvsentinel"
     path: "packages/nvidia/nvsentinel/v1.26.0"
@@ -28,13 +28,21 @@ spec:
         sha256: "24814ac18cb0a16ce47a9d02a6a4c01d86ad3b99c1382f47b5daf734c4bc70ae"
         bytes: 70035
       -
+        path: "bases/no-pod-monitor/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-pod-monitor/upstream.yaml"
+        sha256: "46e1eea6fdb17a85b71a8e36978dc96364ed5d65ee7951b02b22cf7de8733c00"
+        bytes: 69409
+      -
         path: "collector/target-facts.sh"
         sha256: "4a5a13cfc0a277dd10e1491d1a93d7ac56d8ec0dbbb937f4bf1024d4f4892656"
         bytes: 2653
       -
         path: "installer.yaml"
-        sha256: "a299d8d8e877593984e9edcde5f4f50ab8696fe855c48605d80578313ad536c2"
-        bytes: 694
+        sha256: "1fa484667b6b1e6230945d1d040fffece15e2be8191659d76dff2084dbffd089"
+        bytes: 905
       -
         path: "prerequisites/target-facts/default-crds.yaml"
         sha256: "3374a6d1aacabbc0c77bfef7f174b8ca7ff443af6cb2fbb46b565d4f01691312"
@@ -53,3 +61,15 @@ spec:
       targetFactMode: "collector-facts"
       targetFactsBound: true
       variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nvsentinel"
+      base: "no-pod-monitor"
+      command: "cub installer setup --pull packages/nvidia/nvsentinel/v1.26.0 --base no-pod-monitor --work-dir <tmp> --non-interactive --namespace nvsentinel"
+      cubInstallObjectCountIncludingSupport: 22
+      helmReleaseObjectCount: 21
+      semanticObjectMatches: "21/21"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      variant: "no-pod-monitor"

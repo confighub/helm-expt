@@ -6,6 +6,7 @@ spec:
   chart: "nvidia/cluster-readiness-engine"
   version: "v0.6.0"
   caveats:
+    - "This entry has the default base only. The chart's values.yaml documents no alternative deployment scenario: its switches are a PodDisruptionBudget and the ServiceMonitor, and no retained AICR recipe installs this chart."
     - "Installing the controller certifies nothing by itself. A certification run needs GPU nodes and the workload APIs the controller drives, which this chart does not install."
     - "Three of the CRDs are large. Their JSON forms are between 160 and 230 kilobytes, close to the 262144-byte limit that client-side kubectl apply puts on the last-applied annotation, so the target facts ask for server-side apply."
   maintainedNotes:

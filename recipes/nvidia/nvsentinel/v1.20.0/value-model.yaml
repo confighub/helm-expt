@@ -27,6 +27,18 @@ spec:
       reason: "False by chart default, so the post-upgrade cleanup hook does not render."
       note: "turning it on adds a Helm hook Job and its RBAC; that would need a recorded lifecycle action"
       evidence: "templates/node-condition-cleanup-hook.yaml"
+    -
+      path: "<no-pod-monitor values>"
+      variant: "no-pod-monitor"
+      disposition: "variant-axis"
+      reason: "chart defaults with podMonitor.enabled false, which the chart's values.yaml gives for a cluster that scrapes with standard Prometheus annotations instead of the Prometheus Operator; the PodMonitor does not render, so no Prometheus Operator CRD is needed"
+      note: "differs from the default base by removing monitoring.coreos.com/v1|PodMonitor||nvsentinel and nothing else; the proof checks the removed and added sets"
+    -
+      path: "<aicr-eks-training values>"
+      variant: "aicr-eks-training"
+      disposition: "variant-axis"
+      reason: "the values the AICR v0.20.0 EKS training recipe supplies (examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/015-nvsentinel/values.yaml): the metrics-access NetworkPolicy off and the labeler Deployment tolerating every taint"
+      note: "differs from the default base by removing networking.k8s.io/v1|NetworkPolicy||metrics-access and by the fields those values reach; the proof checks the removed and added sets"
   unknownValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"
   deadValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"
   ignoredValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"

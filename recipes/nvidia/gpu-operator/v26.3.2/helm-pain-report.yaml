@@ -16,9 +16,11 @@ spec:
   productionReadiness: "not-reviewed-for-production"
   notes:
     - "This package is the exact gpu-operator@v26.3.2 chart from the NGC Helm repository, locked by archive URL and SHA-256."
-    - "With the release name gpu-operator in namespace gpu-operator: default renders 24 objects (5 CRDs) and 8 Helm hook objects."
+    - "With the release name gpu-operator in namespace gpu-operator: default renders 24 objects (5 CRDs) and 8 Helm hook objects; driver-580.105.08 renders 24 objects (5 CRDs) and 8 Helm hook objects; driver-595.91.07 renders 24 objects (5 CRDs) and 8 Helm hook objects; preinstalled-driver renders 24 objects (5 CRDs) and 8 Helm hook objects; preinstalled-driver-and-toolkit renders 24 objects (5 CRDs) and 8 Helm hook objects; external-nfd renders 9 objects (2 CRDs) and 4 Helm hook objects."
     - "The chart vendors one dependency, node-feature-discovery 0.18.3, gated by nfd.enabled."
     - "driver.version lands at ClusterPolicy cluster-policy /spec/driver/version and nowhere else in the rendered objects. Rendering the locked archive twice with only driver.version changed, on 2026-10-07, changed that one field and nothing else, hook objects included."
+    - "The driver bases (driver-580.105.08, driver-595.91.07) change only driver.version, to a driver version that is the chart default of another held chart version. Each differs from the default base at ClusterPolicy /spec/driver/version and nowhere else, and the proof checks that. They show what a driver change does to the rendered objects. Driver support for this chart version and for any operating system was not checked: nobody here checked NVIDIA's support matrix, a driver image for any operating system, or a running node."
+    - "The preinstalled-driver, preinstalled-driver-and-toolkit and external-nfd bases are deployment scenarios NVIDIA's GPU Operator documentation describes. The first two change only ClusterPolicy fields (/spec/driver/enabled, and /spec/toolkit/enabled), so every other object equals the default base. external-nfd removes the 15 node-feature-discovery objects, three of them CRDs, and the post-delete prune hook, and changes no object that stays."
     - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, GPU scheduling, or production support."
   painPoints:
     -
@@ -50,7 +52,7 @@ spec:
       supportedVariantStatus: "handled"
     -
       id: "lifecycle-policy"
-      detectedPainPoint: "the bases are rendered with --no-hooks; default renders 24 objects (5 CRDs) and 8 Helm hook objects. The hook objects are packaged under prerequisites/gpu-operator-lifecycle with a lifecycle-actions.yaml record, and nothing runs them automatically. No hook has been run on a cluster for this entry."
+      detectedPainPoint: "the bases are rendered with --no-hooks; default renders 24 objects (5 CRDs) and 8 Helm hook objects; driver-580.105.08 renders 24 objects (5 CRDs) and 8 Helm hook objects; driver-595.91.07 renders 24 objects (5 CRDs) and 8 Helm hook objects; preinstalled-driver renders 24 objects (5 CRDs) and 8 Helm hook objects; preinstalled-driver-and-toolkit renders 24 objects (5 CRDs) and 8 Helm hook objects; external-nfd renders 9 objects (2 CRDs) and 4 Helm hook objects. The hook objects are packaged under prerequisites/gpu-operator-lifecycle with a lifecycle-actions.yaml record, and nothing runs them automatically. No hook has been run on a cluster for this entry."
       evidence:
         - "no-hooks"
       configHubHome: "lifecycle-policy"

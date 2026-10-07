@@ -21,7 +21,7 @@ spec:
       category: "lifecycle-policy"
       status: "handled"
       policy: "no-hooks"
-      note: "the chart-default render contains no Helm hook object, with or without --no-hooks"
+      note: "no base's render contains a Helm hook object, with or without --no-hooks"
     -
       category: "crd-lifecycle"
       status: "review-required"
