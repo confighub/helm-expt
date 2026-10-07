@@ -182,6 +182,15 @@ grafana/loki@7.3.0,catalog-coverage,standard,recipe
 kyverno/kyverno-policies@3.9.0,catalog-coverage,standard,recipe
 kyverno/kyverno@3.9.0,catalog-coverage,standard,recipe
 longhorn/longhorn@1.12.1,catalog-coverage,standard,recipe
+nvidia/cluster-readiness-engine@v0.6.0,catalog-coverage,standard,recipe
+nvidia/gpu-operator@v25.10.1,catalog-coverage,standard,recipe
+nvidia/gpu-operator@v26.3.2,catalog-coverage,standard,recipe
+nvidia/gpu-operator@v26.3.3,catalog-coverage,standard,recipe
+nvidia/gpu-operator@v26.7.1,catalog-coverage,standard,recipe
+nvidia/nvsentinel@v1.20.0,catalog-coverage,standard,recipe
+nvidia/nvsentinel@v1.25.0,catalog-coverage,standard,recipe
+nvidia/nvsentinel@v1.26.0,catalog-coverage,standard,recipe
+nvidia/nvsentinel@v1.9.0,catalog-coverage,standard,recipe
 policy-reporter/policy-reporter@3.10.0,catalog-coverage,standard,recipe
 prometheus-community/prometheus-blackbox-exporter@11.18.0,catalog-coverage,standard,recipe
 stakater/reloader@2.2.16,catalog-coverage,standard,recipe
@@ -246,6 +255,10 @@ hashicorp/consul@2.0.0,namespace-references,standard,recipe
 grafana/loki@7.0.0,object-storage-policy,standard,operate-policy
 grafana/tempo@1.24.4,object-store-runtime-prerequisite,standard,recipe
 hashicorp/vault@0.32.0,operate-policy,standard,recipe
+nvidia/gpu-operator@v25.10.1,operator-managed-operands,standard,recipe
+nvidia/gpu-operator@v26.3.2,operator-managed-operands,standard,recipe
+nvidia/gpu-operator@v26.3.3,operator-managed-operands,standard,recipe
+nvidia/gpu-operator@v26.7.1,operator-managed-operands,standard,recipe
 secrets-store-csi-driver/secrets-store-csi-driver@1.6.0,provider-integration,standard,recipe
 grafana/tempo@1.24.4,query-ingress-policy,standard,recipe
 bitnami/mongodb@19.0.7,replicaset-topology,standard,recipe
