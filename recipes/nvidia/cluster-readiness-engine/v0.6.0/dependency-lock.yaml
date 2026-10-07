@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "nvidia-cluster-readiness-engine-v0.6.0"
+spec:
+  chart: "nvidia/cluster-readiness-engine"
+  version: "v0.6.0"
+  dependencies:
+    []

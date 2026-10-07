@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "nvidia-cluster-readiness-engine-v0.6.0"
+spec:
+  chart: "nvidia/cluster-readiness-engine"
+  version: "v0.6.0"
+  caveats:
+    - "Installing the controller certifies nothing by itself. A certification run needs GPU nodes and the workload APIs the controller drives, which this chart does not install."
+    - "Three of the CRDs are large. Their JSON forms are between 160 and 230 kilobytes, close to the 262144-byte limit that client-side kubectl apply puts on the last-applied annotation, so the target facts ask for server-side apply."
+  maintainedNotes:
+    - "This package is the exact cluster-readiness-engine@v0.6.0 chart, locked by archive URL and SHA-256."
+    - "With chart defaults cluster-readiness-engine@v0.6.0 renders 43 objects as release nvcre in namespace nvcre: 7 CRDs, four cluster-scoped LogProfile objects of one of those CRDs, the manager Deployment, its RBAC, a metrics Service and a ServiceMonitor. It renders no Secrets and no Helm hooks."
+    - "The packaged chart contains no lookup, no .Capabilities branch, no generated credential, no webhook configuration and no subchart."
+    - "The manager ClusterRole grants access to trainer.kubeflow.org, resource.k8s.io and resource.nvidia.com resources. This chart installs none of those APIs."
+    - "The upstream v0.6.0 release notes name the chart's registry manifest digest; scripts/lib/nvidia-gpu-stack-coverage.mjs records the same digest beside the archive SHA-256."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, or production support."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "target-facts"
+    - "production-readiness-review"

@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "nvidia-cluster-readiness-engine-v0.6.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "nvidia"
+  repositoryURL: "oci://ghcr.io/nvidia"
+  chart: "cluster-readiness-engine"
+  version: "v0.6.0"
+  appVersion: "v0.6.0"
+  packageSHA256: "dc85e9cb4ec6b481f62315c5cff95cc4353b58dfa2a5ba86cb347fb509ee8a43"
+  packageBytes: 182491
+  exactArtifact:
+    url: "oci://ghcr.io/nvidia/cluster-readiness-engine:v0.6.0"
+    sha256: "dc85e9cb4ec6b481f62315c5cff95cc4353b58dfa2a5ba86cb347fb509ee8a43"
+    resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

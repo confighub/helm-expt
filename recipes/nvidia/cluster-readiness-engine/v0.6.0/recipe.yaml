@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "nvidia-cluster-readiness-engine"
+  version: "v0.6.0"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/nvidia/cluster-readiness-engine/v0.6.0"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/nvidia/cluster-readiness-engine/v0.6.0"
+      - "--non-interactive"
+      - "--namespace"
+      - "nvcre"
+  variants:
+    - "variants/default/variant.yaml"

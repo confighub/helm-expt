@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "cluster-readiness-engine-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "3d7c5f88d97f8f74f84b7ced2ae32d75fceb9888aa4d2701124eb6beea713170"
+    objectCount: 43
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 44
+    uploadedManifestFiles: 44
+    separatedSecretFiles: 0
+    semanticObjectMatches: "43/43"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||nvcre"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run nvidia-gpu-stack-coverage:compare"

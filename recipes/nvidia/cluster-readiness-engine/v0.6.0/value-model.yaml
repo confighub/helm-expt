@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "nvidia-cluster-readiness-engine-v0.6.0"
+spec:
+  checkedValues:
+    -
+      path: "<chart defaults>"
+      variant: "default"
+      disposition: "default-render-captured"
+      reason: "the exact chart-default render of the locked archive is captured"
+    -
+      path: "metrics.serviceMonitor.enabled"
+      disposition: "default-render-captured"
+      reason: "True by chart default, so the render contains one monitoring.coreos.com/v1 ServiceMonitor labelled release: prometheus. The chart ships no Prometheus Operator CRD."
+      note: "recorded as a target fact with a packaged copy of the CRD"
+      evidence: "templates/metrics-monitor.yaml, values.yaml metrics.serviceMonitor"
+    -
+      path: "manager.image.tag / manager.image.digest"
+      disposition: "default-render-captured"
+      reason: "Both empty by chart default, so the manager image falls back to the chart appVersion tag."
+      note: "the upstream release notes publish the signed image index digest; this base does not pin it"
+      evidence: "values.yaml manager.image, templates/deployment.yaml"
+  unknownValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"
+  deadValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"
+  ignoredValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"
