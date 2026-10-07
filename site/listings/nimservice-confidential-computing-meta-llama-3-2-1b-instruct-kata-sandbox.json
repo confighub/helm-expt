@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:9152d1e50263550df034cdb4669d308504caf94a37c140f9e9dce02c3158b251",
+      "sha256": "sha256:ec8396163a013ccefe0738aec88354fa239a205ccbedc23d7b05dfe2d4e5d35d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.yaml",
-      "sha256": "sha256:5a499953185ce086f442ee1a775442d8a64646562f4a3880c7e0b67f094c24c0",
+      "sha256": "sha256:62842e589c5de8611842a317ce7ab877a80a4f1553cd7aac86c1d2cd25db1be3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -877,6 +877,10 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 (tag, served-model-container)"
+      },
+      {
+        "name": "literalConfigPlan",
+        "value": "data/aicr-nim-operator-models/catalog-entries/confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",

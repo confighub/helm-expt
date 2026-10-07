@@ -339,6 +339,7 @@ spec:
     upstreamLicense: "data/aicr-nim-operator-models/upstream/LICENSE"
     licenseRead: "docs/planning/nim-ngc-license-read.md"
     retention: "retained-not-published-not-uploaded-not-deployed"
+    literalConfigPlan: "data/aicr-nim-operator-models/catalog-entries/nim-3-nemotron-3-super-120b-a12b/literal-config-oci.yaml"
     variantFamily: "nimservice, 38 variants at upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
     scenario: "nim-3"
     image: "nvcr.io/nim/nvidia/nemotron-3-super-120b-a12b:3.0.0"

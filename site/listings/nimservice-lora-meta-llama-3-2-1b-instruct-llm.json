@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:9152d1e50263550df034cdb4669d308504caf94a37c140f9e9dce02c3158b251",
+      "sha256": "sha256:ec8396163a013ccefe0738aec88354fa239a205ccbedc23d7b05dfe2d4e5d35d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nimservice-lora-meta-llama-3-2-1b-instruct-llm.yaml",
-      "sha256": "sha256:ec1984cbbc717698302b7966b17cae40398ac0aa68af9c453d1c62ae0c91a166",
+      "sha256": "sha256:5de8ed178367721baad078b18b831258956665127c81a636c8f8fd04ac4fd2fe",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nimservice-lora-meta-llama-3-2-1b-instruct-llm.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -868,6 +868,10 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 (tag, served-model-container)"
+      },
+      {
+        "name": "literalConfigPlan",
+        "value": "data/aicr-nim-operator-models/catalog-entries/lora-meta-llama-3-2-1b-instruct-llm/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",

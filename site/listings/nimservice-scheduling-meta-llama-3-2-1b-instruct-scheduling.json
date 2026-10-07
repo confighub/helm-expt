@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:9152d1e50263550df034cdb4669d308504caf94a37c140f9e9dce02c3158b251",
+      "sha256": "sha256:ec8396163a013ccefe0738aec88354fa239a205ccbedc23d7b05dfe2d4e5d35d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling.yaml",
-      "sha256": "sha256:e89fd2d75f5756c7df2adf35bab7002f0d22fc28dce7f19dc5b2f4a6b990c14c",
+      "sha256": "sha256:e02e3db36cc5036f91f547e8e6360d76e36c269ba5f6bed734458d321aaa1234",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -894,6 +894,10 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 (tag, served-model-container)"
+      },
+      {
+        "name": "literalConfigPlan",
+        "value": "data/aicr-nim-operator-models/catalog-entries/scheduling-meta-llama-3-2-1b-instruct-scheduling/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:9152d1e50263550df034cdb4669d308504caf94a37c140f9e9dce02c3158b251",
+      "sha256": "sha256:ec8396163a013ccefe0738aec88354fa239a205ccbedc23d7b05dfe2d4e5d35d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nimservice-retriever-llama-nemotron-embed-vl-1b-v2.yaml",
-      "sha256": "sha256:f2f9e6573c29e5bfbc6e3505450a11b9755f005f601235d72966496907bf1082",
+      "sha256": "sha256:7c499bdcb30930805323357469f7850578887c136516aca9e8f7dc8c08fbf6ba",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nimservice-retriever-llama-nemotron-embed-vl-1b-v2.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -864,6 +864,10 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nim/nvidia/llama-nemotron-embed-vl-1b-v2:2.3.0 (tag, served-model-container); nvcr.io/nim/nvidia/llama-nemotron-embed-vl-1b-v2:2.3.0 (tag, model-puller)"
+      },
+      {
+        "name": "literalConfigPlan",
+        "value": "data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",

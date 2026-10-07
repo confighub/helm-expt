@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:9152d1e50263550df034cdb4669d308504caf94a37c140f9e9dce02c3158b251",
+      "sha256": "sha256:ec8396163a013ccefe0738aec88354fa239a205ccbedc23d7b05dfe2d4e5d35d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir.yaml",
-      "sha256": "sha256:63f0dba51190e5527dd4cc0bc9ba2da8d27804b0ad43133d824b394997647840",
+      "sha256": "sha256:4a04c5520ff481459548bcecc02f173c7fc7be5e754e8b1c4144c84c130927ad",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -864,6 +864,10 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 (tag, served-model-container)"
+      },
+      {
+        "name": "literalConfigPlan",
+        "value": "data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-emptydir/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",

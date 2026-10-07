@@ -348,6 +348,7 @@ spec:
     upstreamLicense: "data/aicr-nim-operator-models/upstream/LICENSE"
     licenseRead: "docs/planning/nim-ngc-license-read.md"
     retention: "retained-not-published-not-uploaded-not-deployed"
+    literalConfigPlan: "data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf/literal-config-oci.yaml"
     variantFamily: "nimservice, 38 variants at upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
     scenario: "no-precaching"
     image: "nvcr.io/nim/nvidia/llm-nim:1.15.0"

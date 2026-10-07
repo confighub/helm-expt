@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:9152d1e50263550df034cdb4669d308504caf94a37c140f9e9dce02c3158b251",
+      "sha256": "sha256:ec8396163a013ccefe0738aec88354fa239a205ccbedc23d7b05dfe2d4e5d35d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm.yaml",
-      "sha256": "sha256:649497737eede28709d3569077cd6b88f2284555d3a5147e3418911fab7744ca",
+      "sha256": "sha256:8571c0b05b22b227177aa186e79442ae26e9c8a86dfe0ab6f4e84afe3f035b0a",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -890,6 +890,10 @@
       {
         "name": "imagesNamed",
         "value": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 (tag, served-model-container); nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 (tag, model-puller)"
+      },
+      {
+        "name": "literalConfigPlan",
+        "value": "data/aicr-nim-operator-models/catalog-entries/autoscaling-meta-llama-3-2-1b-instruct-llm/literal-config-oci.yaml"
       },
       {
         "name": "modelRun",

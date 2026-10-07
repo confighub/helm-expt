@@ -59,6 +59,12 @@ import {
   resolveNimServiceFlattening,
   secretNamesSentence,
 } from "./lib/nimservice-entries.mjs";
+import {
+  expectedNimServiceLiteralConfigOci,
+  nimServiceLiteralConfigOciProblem,
+  nimServicePublicationProblems,
+  nimServicePublicationReceiptDoc,
+} from "./lib/nimservice-publication.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 // The words a record puts after a build-time input that is a confirmed
@@ -2399,7 +2405,10 @@ function buildNimServiceRecord(entry) {
       evidence: [entry.entryRel],
     },
   ];
-  const claim = `NVIDIA's ${entry.scenario} NIMService sample ${entry.nimService.name} is retained as ${entry.objectCount} exact Kubernetes object${entry.objectCount === 1 ? "" : "s"} from upstream commit ${entry.source.commit.slice(0, 12)}${entry.nimCacheIncluded ? ", including its NIMCache" : ""}. It is one variant of the nimservice entry. It is not published, not uploaded to ConfigHub and not deployed.`;
+  // Published is read from the tracked receipt for the artifact built from
+  // this variant's committed bytes, and from nothing else.
+  const published = entry.publication?.published === true;
+  const claim = `NVIDIA's ${entry.scenario} NIMService sample ${entry.nimService.name} is retained as ${entry.objectCount} exact Kubernetes object${entry.objectCount === 1 ? "" : "s"} from upstream commit ${entry.source.commit.slice(0, 12)}${entry.nimCacheIncluded ? ", including its NIMCache" : ""}. It is one variant of the nimservice entry. ${published ? "It is published as a literal configuration OCI with its route files. It is not uploaded to ConfigHub and not deployed." : "It is not published, not uploaded to ConfigHub and not deployed."}`;
 
   const record = {
     apiVersion: "catalog.confighub.com/v1alpha1",
@@ -2484,10 +2493,7 @@ function buildNimServiceRecord(entry) {
           status: "not-published",
           note: "A plain-YAML sample has no source package, and nothing was pushed.",
         },
-        literalConfigOci: {
-          status: "not-published",
-          note: "This variant has not been packaged or pushed as a literal configuration OCI.",
-        },
+        literalConfigOci: expectedNimServiceLiteralConfigOci(entry.publication),
         configHubUpload: { status: "not-run" },
         configHubReleaseOci: { status: "not-run" },
         argoCd: "not-run",
@@ -2510,7 +2516,8 @@ function buildNimServiceRecord(entry) {
         secretRoute: entry.secretRouteRel,
         upstreamLicense: NIMSERVICE_UPSTREAM_LICENSE,
         licenseRead: NIMSERVICE_LICENSE_READ,
-        retention: "retained-not-published-not-uploaded-not-deployed",
+        retention: published ? "retained-published-not-uploaded-not-deployed" : "retained-not-published-not-uploaded-not-deployed",
+        literalConfigPlan: entry.artifact.planRel,
         variantFamily: `${NIMSERVICE_SOURCE_NAME}, ${entry.siblingRecordNames.length} variants at upstream commit ${entry.source.commit}`,
         scenario: entry.scenario,
         image: entry.image,
@@ -4870,13 +4877,13 @@ function runNimServiceEntrySelfTest() {
       "a published literal configuration OCI",
       entry,
       (record) => { record.spec.delivery.literalConfigOci.status = "public-anonymous-pull-proved"; },
-      /delivery\.literalConfigOci says public-anonymous-pull-proved, and this variant has published no OCI image/,
+      /delivery\.literalConfigOci says public-anonymous-pull-proved, and no tracked publication receipt for sha256:[0-9a-f]{64} exists at runs\/nimservice-variants\//,
     ],
     [
       "an OCI digest on an unpublished leg",
       entry,
       (record) => { record.spec.delivery.literalConfigOci.manifestDigest = `sha256:${"c".repeat(64)}`; },
-      /delivery\.literalConfigOci carries manifestDigest, which only a published or uploaded artifact has/,
+      /delivery\.literalConfigOci says not-published with sha256:c{64}, and no tracked publication receipt/,
     ],
     [
       "a source package reference",
@@ -5027,6 +5034,103 @@ function runNimServiceEntrySelfTest() {
   ]) {
     expectRefusal(tampered(subjectEntry, change), pattern, `self-test: a NIMService record carrying ${label} was accepted`);
   }
+
+  // Publication, in both directions. The fixture receipt is built in memory
+  // from the artifact of a real retained sample and is never written. With a
+  // valid receipt the record says published and is accepted. Without one, or
+  // with one for other bytes, a published record is refused. With one, a
+  // record that still says not published is refused too.
+  check(
+    entries.every((candidate) => candidate.artifact && candidate.publication),
+    "self-test: a retained NIMService sample has no artifact or publication state",
+  );
+  const fixtureReceipt = (subjectEntry) => nimServicePublicationReceiptDoc(subjectEntry.artifact, {
+    observedAt: "2026-01-01T00:00:00.000Z",
+    pushCommand: "self-test fixture, nothing was pushed",
+    anonymousPull: {
+      result: "pass",
+      manifestDigest: subjectEntry.artifact.manifestDigest,
+      layerDigest: subjectEntry.artifact.layerDigest,
+      filesMatched: subjectEntry.artifact.stagedFiles.length,
+    },
+  });
+  const receipt = fixtureReceipt(entry);
+  check(
+    nimServicePublicationProblems(receipt, entry.artifact).length === 0,
+    "self-test: a receipt built from the artifact was refused",
+  );
+  for (const [label, change, pattern] of [
+    ["another manifest digest", (doc) => { doc.spec.manifestDigest = `sha256:${"d".repeat(64)}`; }, /its manifest digest is sha256:d{64}, and the committed bytes build/],
+    ["another layer", (doc) => { doc.spec.layerDigest = `sha256:${"e".repeat(64)}`; }, /its layer is sha256:e{64}/],
+    ["no anonymous pull", (doc) => { doc.spec.anonymousPull.result = "not-run"; }, /records no anonymous pull of this manifest/],
+    ["an anonymous pull of another manifest", (doc) => { doc.spec.anonymousPull.manifestDigest = `sha256:${"f".repeat(64)}`; }, /records no anonymous pull of this manifest/],
+    ["an extra staged file", (doc) => { doc.spec.stagedFiles.push({ path: "weights.bin", source: "weights.bin", role: "model weights", sha256: `sha256:${"a".repeat(64)}`, bytes: 1 }); }, /its staged files are not the sample and the two route files/],
+    ["another variant's name", (doc) => { doc.metadata.name = flagged.recordName; }, /and not nimservice-/],
+    ["a claim that it holds weights", (doc) => { doc.spec.contents.nvidiaImagesOrWeights = true; }, /does not say the artifact holds no NVIDIA image/],
+  ]) {
+    const doc = structuredClone(receipt);
+    change(doc);
+    check(
+      nimServicePublicationProblems(doc, entry.artifact).some((problem) => pattern.test(problem)),
+      `self-test: a publication receipt with ${label} was accepted`,
+    );
+  }
+  check(
+    nimServicePublicationProblems(receipt, flagged.artifact).length > 0,
+    "self-test: one variant's receipt was accepted for another variant's bytes",
+  );
+  const publishedEntry = {
+    ...entry,
+    publication: {
+      published: true,
+      artifact: entry.artifact,
+      receipt,
+      receiptRel: entry.artifact.receiptRel,
+      receiptSha256: `sha256:${"9".repeat(64)}`,
+      observedReference: `oci://${entry.artifact.reference}@${entry.artifact.manifestDigest}`,
+    },
+  };
+  const publishedRecord = build(publishedEntry);
+  validateNimServiceRecord(publishedRecord, publishedEntry);
+  check(
+    publishedRecord.spec.delivery.literalConfigOci.status === "published-with-receipt"
+      && publishedRecord.spec.delivery.literalConfigOci.manifestDigest === entry.artifact.manifestDigest
+      && publishedRecord.spec.delivery.literalConfigOci.observedReference.startsWith("oci://")
+      && publishedRecord.status.claim.includes("It is published as a literal configuration OCI with its route files.")
+      && publishedRecord.spec.delivery.configHubUpload.status === "not-run",
+    "self-test: a variant with a valid publication receipt was not recorded as published, or was recorded as uploaded",
+  );
+  expectRefusal(
+    () => validateNimServiceRecord(structuredClone(publishedRecord), entry),
+    /delivery\.literalConfigOci says published-with-receipt with sha256:[0-9a-f]{64}, and no tracked publication receipt/,
+    "self-test: a published record was accepted with no publication receipt",
+  );
+  expectRefusal(
+    () => {
+      const record = structuredClone(publishedRecord);
+      record.spec.delivery.literalConfigOci.manifestDigest = `sha256:${"b".repeat(64)}`;
+      validateNimServiceRecord(record, publishedEntry);
+    },
+    /records a publication of sha256:[0-9a-f]{64}, and delivery\.literalConfigOci does not carry exactly that reference/,
+    "self-test: a published record carrying another digest was accepted",
+  );
+  expectRefusal(
+    () => {
+      nimServiceRecordEntries.set(entry.recordName, entry);
+      validateNimServiceRecord(build(entry), publishedEntry);
+    },
+    /records a publication of sha256:[0-9a-f]{64}, and delivery\.literalConfigOci does not carry exactly/,
+    "self-test: a record that says not published was accepted beside a valid publication receipt",
+  );
+  expectRefusal(
+    () => {
+      const record = structuredClone(publishedRecord);
+      record.status.claim = record.status.claim.replace("It is published as a literal configuration OCI with its route files.", "It is published and deployed.");
+      validateNimServiceRecord(record, publishedEntry);
+    },
+    /must stay partial and say the variant is published as a literal configuration OCI, not uploaded to ConfigHub and not deployed/,
+    "self-test: a published record that claims a deployment was accepted",
+  );
   nimServiceRecordEntries.clear();
 }
 
@@ -5924,19 +6028,24 @@ function validateNimServiceRecord(record, entry) {
     `${name}: claims a published source package (${spec.source.packageOciRef}) for a variant that was never published`,
   );
   const delivery = spec.delivery;
-  for (const role of ["sourcePackageOci", "literalConfigOci"]) {
-    check(
-      delivery[role]?.status === "not-published",
-      `${name}: delivery.${role} says ${delivery[role]?.status ?? "nothing"}, and this variant has published no OCI image`,
-    );
-  }
+  check(
+    delivery.sourcePackageOci?.status === "not-published",
+    `${name}: delivery.sourcePackageOci says ${delivery.sourcePackageOci?.status ?? "nothing"}, and a plain-YAML sample has no source package`,
+  );
+  // The literal configuration OCI is the one thing a variant can publish. The
+  // record may say so only with the reference, digests and receipt of a
+  // tracked receipt that matches the committed bytes, and must say not
+  // published without one.
+  const literalProblem = nimServiceLiteralConfigOciProblem(name, delivery.literalConfigOci, entry.publication);
+  check(!literalProblem, literalProblem);
+  const published = entry.publication?.published === true;
   for (const role of ["configHubUpload", "configHubReleaseOci"]) {
     check(
       delivery[role]?.status === "not-run",
       `${name}: delivery.${role} says ${delivery[role]?.status ?? "nothing"}, and nothing was uploaded to or released from ConfigHub for this variant`,
     );
   }
-  for (const role of ["sourcePackageOci", "literalConfigOci", "configHubUpload", "configHubReleaseOci"]) {
+  for (const role of ["sourcePackageOci", "configHubUpload", "configHubReleaseOci"]) {
     const claimed = Object.keys(delivery[role]).filter((key) => !["status", "note"].includes(key));
     check(
       claimed.length === 0,
@@ -5958,10 +6067,13 @@ function validateNimServiceRecord(record, entry) {
   }
   check(
     record.status.level === "partial"
-      && record.status.claim.includes("not published")
-      && record.status.claim.includes("not uploaded to ConfigHub")
-      && record.status.claim.includes("not deployed"),
-    `${name}: the status must stay partial and say the variant is not published, not uploaded to ConfigHub and not deployed`,
+      && record.status.claim.includes(published ? "It is published as a literal configuration OCI with its route files." : "It is not published,")
+      && record.status.claim.includes(published ? "It is not uploaded to ConfigHub and not deployed." : "not uploaded to ConfigHub and not deployed.")
+      && spec.evidence.retention === (published ? "retained-published-not-uploaded-not-deployed" : "retained-not-published-not-uploaded-not-deployed")
+      && record.status.limits.some((limit) => limit.startsWith(published ? "This variant is published as a literal configuration OCI at " : "This variant is not published.")),
+    published
+      ? `${name}: the status must stay partial and say the variant is published as a literal configuration OCI, not uploaded to ConfigHub and not deployed`
+      : `${name}: the status must stay partial and say the variant is not published, not uploaded to ConfigHub and not deployed`,
   );
   check(
     record.status.limits.some((limit) => limit.includes("gated by NVIDIA") && limit.includes("did not pull"))
