@@ -279,9 +279,19 @@ Each audited chart version gets one receipted answer to one question: what happe
 | velero/velero | 12.1.0 | default | unsafe-to-flatten | recipes/velero/velero/12.1.0/publication/flattening-safety-verdict.yaml |
 | vm/victoria-logs-single | 0.12.5 | default | unsafe-to-flatten | recipes/vm/victoria-logs-single/0.12.5/publication/flattening-safety-verdict.yaml |
 | vm/victoria-metrics-single | 0.39.0 | default-reviewed | safe-to-flatten | recipes/vm/victoria-metrics-single/0.39.0/publication/flattening-safety-verdict-default-reviewed.yaml |
+| nvidia/gpu-operator | v25.10.1 | default | flatten-with-routes | recipes/nvidia/gpu-operator/v25.10.1/publication/flattening-safety-verdict.yaml |
+| nvidia/gpu-operator | v26.3.2 | default | flatten-with-routes | recipes/nvidia/gpu-operator/v26.3.2/publication/flattening-safety-verdict.yaml |
+| nvidia/gpu-operator | v26.3.3 | default | flatten-with-routes | recipes/nvidia/gpu-operator/v26.3.3/publication/flattening-safety-verdict.yaml |
+| nvidia/gpu-operator | v26.3.3 | aicr-eks-training | flatten-with-routes | recipes/nvidia/gpu-operator/v26.3.3/publication/flattening-safety-verdict-aicr-eks-training.yaml |
+| nvidia/gpu-operator | v26.7.1 | default | flatten-with-routes | recipes/nvidia/gpu-operator/v26.7.1/publication/flattening-safety-verdict.yaml |
+| nvidia/nvsentinel | v1.9.0 | default | safe-to-flatten | recipes/nvidia/nvsentinel/v1.9.0/publication/flattening-safety-verdict.yaml |
+| nvidia/nvsentinel | v1.20.0 | default | safe-to-flatten | recipes/nvidia/nvsentinel/v1.20.0/publication/flattening-safety-verdict.yaml |
+| nvidia/nvsentinel | v1.25.0 | default | safe-to-flatten | recipes/nvidia/nvsentinel/v1.25.0/publication/flattening-safety-verdict.yaml |
+| nvidia/nvsentinel | v1.26.0 | default | safe-to-flatten | recipes/nvidia/nvsentinel/v1.26.0/publication/flattening-safety-verdict.yaml |
+| nvidia/cluster-readiness-engine | v0.6.0 | default | flatten-with-routes | recipes/nvidia/cluster-readiness-engine/v0.6.0/publication/flattening-safety-verdict.yaml |
 
 A lane holds for the audited base named in the verdict. The variantScope block records how other values move the finding set; a different base deserves its own verdict, which is why certified bundles key on chart version and recipe variant together.
 
-This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 110 charts here now have that axis answered from source, across 275 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.
+This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 113 charts here now have that axis answered from source, across 285 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.
 
 Witnesses are recorded once per pinned package by scripts/scan-flattening-witness.mjs, which needs the chart tarball and so runs outside the verify chain. Every witness hash is checked against the recipe source-lock here. Regenerate with `npm run flattening-safety`. Verify with `npm run flattening-safety:verify`.

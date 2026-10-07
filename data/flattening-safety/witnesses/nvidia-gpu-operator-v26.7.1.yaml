@@ -1,0 +1,70 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "nvidia-gpu-operator-v26.7.1"
+spec:
+  chart:
+    repository: "nvidia"
+    name: "gpu-operator"
+    version: "v26.7.1"
+  package:
+    sha256: "fdce4cba07db5ddb6dfd0bdf61276a44c24136f2b193bc6ebc81dd1b0f049777"
+    observedAt: "2026-10-07T15:01:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 53
+  subcharts:
+    count: 1
+    conditions:
+      -
+        dependency: "node-feature-discovery"
+        condition: "nfd.enabled"
+  crds:
+    files: 6
+    documents: 9
+  hookValues:
+    - "post-delete"
+    - "pre-delete"
+    - "pre-upgrade"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 1
+      files:
+        - "templates/validations.yaml:26"
+    helm-hooks:
+      count: 10
+      files:
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:10"
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:20"
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:41"
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:60"
+        - "templates/cleanup_crd.yaml:8"
+        - "templates/cleanup_gpucluster.yaml:13"
+        - "templates/upgrade_crd.yaml:9"
+        - "templates/upgrade_crd.yaml:18"
+        - "templates/upgrade_crd.yaml:39"
+        - "templates/upgrade_crd.yaml:57"
+    resource-policy-keep:
+      count: 2
+      files:
+        - "templates/clusterpolicy.yaml:13"
+        - "templates/gpucluster.yaml:12"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

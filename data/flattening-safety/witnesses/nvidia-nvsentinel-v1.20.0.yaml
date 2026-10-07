@@ -1,0 +1,159 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "nvidia-nvsentinel-v1.20.0"
+spec:
+  chart:
+    repository: "nvidia"
+    name: "nvsentinel"
+    version: "v1.20.0"
+  package:
+    sha256: "0e3c8836dfb2123e8cbf0e565ea51ed89bc2a913f90e20e23eb3032037c926e3"
+    observedAt: "2026-10-07T15:01:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 353
+  subcharts:
+    count: 26
+    conditions:
+      -
+        dependency: "gpu-health-monitor"
+        condition: "global.gpuHealthMonitor.enabled"
+      -
+        dependency: "mongodb-store"
+        condition: "global.mongodbStore.enabled"
+      -
+        dependency: "postgresql"
+        condition: "postgresql.enabled"
+      -
+        dependency: "fault-quarantine"
+        condition: "global.faultQuarantine.enabled"
+      -
+        dependency: "node-drainer"
+        condition: "global.nodeDrainer.enabled"
+      -
+        dependency: "fault-remediation"
+        condition: "global.faultRemediation.enabled"
+      -
+        dependency: "health-events-analyzer"
+        condition: "global.healthEventsAnalyzer.enabled"
+      -
+        dependency: "csp-health-monitor"
+        condition: "global.cspHealthMonitor.enabled"
+      -
+        dependency: "syslog-health-monitor"
+        condition: "global.syslogHealthMonitor.enabled"
+      -
+        dependency: "incluster-file-server"
+        condition: "global.inclusterFileServer.enabled"
+      -
+        dependency: "labeler"
+        condition: "global.labeler.enabled"
+      -
+        dependency: "janitor"
+        condition: "global.janitor.enabled"
+      -
+        dependency: "lifecycle-manager"
+        condition: "global.lifecycleManager.enabled"
+      -
+        dependency: "janitor-provider"
+        condition: "global.janitorProvider.enabled"
+      -
+        dependency: "metadata-collector"
+        condition: "global.metadataCollector.enabled"
+      -
+        dependency: "kubernetes-object-monitor"
+        condition: "global.kubernetesObjectMonitor.enabled"
+      -
+        dependency: "event-exporter"
+        condition: "global.eventExporter.enabled"
+      -
+        dependency: "preflight"
+        condition: "global.preflight.enabled"
+      -
+        dependency: "k8sdatastore-crds"
+        condition: "global.k8sdatastoreCrds.enabled"
+      -
+        dependency: "slurm-drain-monitor"
+        condition: "global.slurmDrainMonitor.enabled"
+      -
+        dependency: "nic-health-monitor"
+        condition: "global.nicHealthMonitor.enabled"
+  crds:
+    files: 8
+    documents: 10
+  hookValues:
+    - "post-install,post-upgrade"
+    - "post-upgrade"
+  findings:
+    lookup:
+      count: 8
+      files:
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:100"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:159"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:181"
+        - "charts/mongodb-store/charts/mongodb/templates/networkpolicy.yaml:45"
+        - "charts/mongodb-store/charts/psmdb-operator/templates/NOTES.txt:19"
+        - "charts/postgresql/charts/common/templates/_secrets.tpl:100"
+        - "charts/postgresql/charts/common/templates/_secrets.tpl:159"
+        - "charts/postgresql/charts/common/templates/_secrets.tpl:181"
+    capabilities:
+      count: 11
+      files:
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_capabilities.tpl:12"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_capabilities.tpl:221"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_capabilities.tpl:222"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_compatibility.tpl:14"
+        - "charts/mongodb-store/charts/mongodb/templates/_helpers.tpl:620"
+        - "charts/postgresql/charts/common/templates/_capabilities.tpl:12"
+        - "charts/postgresql/charts/common/templates/_capabilities.tpl:221"
+        - "charts/postgresql/charts/common/templates/_capabilities.tpl:222"
+        - "charts/postgresql/charts/common/templates/_compatibility.tpl:14"
+        - "charts/syslog-health-monitor/templates/_helpers.tpl:80"
+        - "charts/syslog-health-monitor/templates/_helpers.tpl:215"
+    helm-hooks:
+      count: 5
+      files:
+        - "templates/job-external-mongodb-setup.yaml:71"
+        - "templates/node-condition-cleanup-hook.yaml:25"
+        - "templates/node-condition-cleanup-hook.yaml:38"
+        - "templates/node-condition-cleanup-hook.yaml:68"
+        - "templates/node-condition-cleanup-hook.yaml:90"
+    resource-policy-keep:
+      count: 7
+      files:
+        - "charts/mongodb-store/charts/mongodb/templates/backup/pvc.yaml:29"
+        - "charts/mongodb-store/charts/mongodb/templates/standalone/pvc.yaml:16"
+        - "charts/mongodb-store/charts/psmdb-operator/templates/namespace.yaml:8"
+        - "charts/mongodb-store/templates/jobs.yaml:102"
+        - "charts/mongodb-store/templates/jobs.yaml:127"
+        - "charts/mongodb-store/values.yaml:144"
+        - "charts/postgresql/templates/backup/pvc.yaml:22"
+    generated-secrets:
+      count: 21
+      files:
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:70"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:92"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:125"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:126"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:130"
+        - "charts/mongodb-store/charts/mongodb/templates/secrets-ca.yaml:29"
+        - "charts/mongodb-store/charts/mongodb/templates/secrets.yaml:26"
+        - "charts/mongodb-store/charts/mongodb/templates/secrets.yaml:45"
+        - "charts/mongodb-store/charts/mongodb/templates/secrets.yaml:49"
+        - "charts/mongodb-store/charts/mongodb/templates/secrets.yaml:70"
+        - "charts/mongodb-store/charts/mongodb/templates/secrets.yaml:73"
+        - "charts/postgresql/charts/common/templates/_secrets.tpl:70"
+    webhook-config:
+      count: 3
+      files:
+        - "charts/janitor/templates/webhook.yaml:39"
+        - "charts/lifecycle-manager/templates/webhook.yaml:47"
+        - "charts/preflight/templates/mutatingwebhook.yaml:15"
+    namespace-creation:
+      count: 1
+      files:
+        - "charts/mongodb-store/charts/psmdb-operator/templates/namespace.yaml:4"
+    test-hooks:
+      count: 0
+      files:
+        []
