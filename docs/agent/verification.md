@@ -30,6 +30,7 @@ answers the claim.
 | NPM script catalog is current. | `npm run npm-scripts:catalog:verify` |
 | `cub installer` examples use current syntax. | `npm run installer:command-surface:verify` |
 | `cub variant` examples use current syntax. | `npm run variant:command-surface:verify` |
+| Reader-facing `cub` commands exist in the recorded CLI help. | Both command-surface verifiers. They read `tests/cub-help-surface.json` and never run `cub`. |
 | Lane status vocabulary is valid. | `npm run lane-tests:verify` |
 | Committed two-cluster parity receipts validate. | `npm run kind-parity:verify` |
 | Committed ConfigHub/OCI live receipts validate. | `npm run live-parity:verify` |

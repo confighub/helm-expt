@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 
 import { check, listFiles, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
 import { verifyMaintainedInstallerCommands } from "./verify-installer-consumer-commands.mjs";
+import { formatViolations, pluginGroups, scanReaderFacingSources } from "./lib/cub-command-surface.mjs";
 
 const roots = ["README.md", "CATALOG.md", "docs", "scripts", "recipes", "packages", "data", "runs"];
 const files = roots.flatMap((root) => {
@@ -52,6 +53,19 @@ for (const file of scanned) {
 }
 
 check(violations.length === 0, `installer command surface is stale:\n${violations.join("\n")}`);
+
+// Plugin commands in reader-facing sources are checked against the committed
+// snapshot of each plugin's own --help text. This never runs cub.
+const surface = scanReaderFacingSources({ unknownCommands: false });
+const plugins = pluginGroups(surface.snapshot);
+const pluginViolations = surface.violations.filter((item) => plugins.has(item.command.split(" ")[1]));
+check(
+  pluginViolations.length === 0,
+  `reader-facing sources show plugin commands that the recorded plugin help does not have. Fix the source, or refresh tests/cub-help-surface.json with node scripts/generate-cub-help-surface.mjs --write when a plugin has changed:\n${formatViolations(pluginViolations)}`,
+);
+console.log(
+  `verified plugin commands in ${surface.scanned.length} reader-facing file(s) against the recorded help of ${Object.entries(surface.snapshot.plugins).map(([name, plugin]) => `${name} ${plugin.version}`).join(", ")}`,
+);
 verifyMaintainedInstallerCommands();
 for (const [script, mode] of [
   ["scripts/generate-installer-package-signatures.mjs", "--verify"],
