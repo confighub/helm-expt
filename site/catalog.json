@@ -109,7 +109,7 @@
     "top500MatchedProofs": 97,
     "latestCandidates": 7,
     "runtimeGitopsWave": 11,
-    "imageSubjectsNeedingResolution": 230,
+    "imageSubjectsNeedingResolution": 271,
     "nextTenGapRows": 9,
     "baseVariants": 42,
     "startHereBaseVariants": 26,
@@ -17396,7 +17396,7 @@
       "crd_documents": "6",
       "gated_subcharts": "1",
       "scanned_files": "41",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "default:flatten-with-routes; driver-580.126.20:flatten-with-routes; driver-595.91.07:flatten-with-routes; external-nfd:flatten-with-routes; preinstalled-driver-and-toolkit:flatten-with-routes; preinstalled-driver:flatten-with-routes"
     },
     {
       "repository": "nvidia",
@@ -17413,7 +17413,7 @@
       "crd_documents": "6",
       "gated_subcharts": "1",
       "scanned_files": "43",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "default:flatten-with-routes; driver-580.105.08:flatten-with-routes; driver-595.91.07:flatten-with-routes; external-nfd:flatten-with-routes; preinstalled-driver-and-toolkit:flatten-with-routes; preinstalled-driver:flatten-with-routes"
     },
     {
       "repository": "nvidia",
@@ -17430,7 +17430,7 @@
       "crd_documents": "6",
       "gated_subcharts": "1",
       "scanned_files": "43",
-      "decided_lanes": "aicr-eks-training:flatten-with-routes; default:flatten-with-routes"
+      "decided_lanes": "aicr-eks-training:flatten-with-routes; default:flatten-with-routes; driver-580.105.08:flatten-with-routes; driver-595.91.07:flatten-with-routes; external-nfd:flatten-with-routes; preinstalled-driver-and-toolkit:flatten-with-routes; preinstalled-driver:flatten-with-routes"
     },
     {
       "repository": "nvidia",
@@ -17447,6 +17447,40 @@
       "crd_documents": "9",
       "gated_subcharts": "1",
       "scanned_files": "53",
+      "decided_lanes": "aicr-eks-training:flatten-with-routes; default:flatten-with-routes; driver-580.105.08:flatten-with-routes; driver-580.126.20:flatten-with-routes; external-nfd:flatten-with-routes; preinstalled-driver-and-toolkit:flatten-with-routes; preinstalled-driver:flatten-with-routes"
+    },
+    {
+      "repository": "nvidia",
+      "chart": "k8s-nim-operator",
+      "version": "3.1.0",
+      "hooks": "24",
+      "keep_policy": "7",
+      "lookup": "11",
+      "webhooks": "5",
+      "capabilities": "8",
+      "generated_secrets": "7",
+      "test_hooks": "0",
+      "namespace": "2",
+      "crd_documents": "24",
+      "gated_subcharts": "2",
+      "scanned_files": "212",
+      "decided_lanes": "aicr-eks-inference:flatten-with-routes; default:flatten-with-routes"
+    },
+    {
+      "repository": "nvidia",
+      "chart": "k8s-nim-operator",
+      "version": "3.1.2",
+      "hooks": "24",
+      "keep_policy": "7",
+      "lookup": "11",
+      "webhooks": "5",
+      "capabilities": "8",
+      "generated_secrets": "7",
+      "test_hooks": "0",
+      "namespace": "2",
+      "crd_documents": "24",
+      "gated_subcharts": "2",
+      "scanned_files": "212",
       "decided_lanes": "default:flatten-with-routes"
     },
     {
@@ -17481,7 +17515,7 @@
       "crd_documents": "10",
       "gated_subcharts": "21",
       "scanned_files": "353",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "aicr-eks-training:safe-to-flatten; default:safe-to-flatten; no-pod-monitor:safe-to-flatten"
     },
     {
       "repository": "nvidia",
@@ -17498,7 +17532,7 @@
       "crd_documents": "12",
       "gated_subcharts": "22",
       "scanned_files": "388",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "aicr-eks-training:safe-to-flatten; default:safe-to-flatten; no-pod-monitor:safe-to-flatten"
     },
     {
       "repository": "nvidia",
@@ -17515,7 +17549,7 @@
       "crd_documents": "12",
       "gated_subcharts": "22",
       "scanned_files": "421",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "default:safe-to-flatten; no-pod-monitor:safe-to-flatten"
     },
     {
       "repository": "nvidia",
@@ -17532,7 +17566,7 @@
       "crd_documents": "7",
       "gated_subcharts": "20",
       "scanned_files": "325",
-      "decided_lanes": "default:safe-to-flatten"
+      "decided_lanes": "aicr-eks-training:safe-to-flatten; default:safe-to-flatten; no-pod-monitor:safe-to-flatten"
     },
     {
       "repository": "oauth2-proxy",
@@ -18282,8 +18316,8 @@
       "repository": "argo-cd",
       "chart": "argo-cd",
       "version": "10.7.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/argo-cd-argo-cd-10.7.0.yaml"
     },
     {
@@ -18723,8 +18757,8 @@
       "repository": "external-secrets",
       "chart": "external-secrets",
       "version": "2.10.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/external-secrets-external-secrets-2.10.0.yaml"
     },
     {
@@ -18840,8 +18874,8 @@
       "repository": "grafana",
       "chart": "alloy",
       "version": "1.12.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/grafana-alloy-1.12.1.yaml"
     },
     {
@@ -18885,8 +18919,8 @@
       "repository": "grafana",
       "chart": "loki",
       "version": "7.3.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/grafana-loki-7.3.0.yaml"
     },
     {
@@ -19038,8 +19072,8 @@
       "repository": "jetstack",
       "chart": "cert-manager",
       "version": "v1.21.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/jetstack-cert-manager-v1.21.1.yaml"
     },
     {
@@ -19092,8 +19126,8 @@
       "repository": "kyverno",
       "chart": "kyverno-policies",
       "version": "3.9.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/kyverno-kyverno-policies-3.9.0.yaml"
     },
     {
@@ -19119,8 +19153,8 @@
       "repository": "kyverno",
       "chart": "kyverno",
       "version": "3.9.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/kyverno-kyverno-3.9.0.yaml"
     },
     {
@@ -19155,8 +19189,8 @@
       "repository": "longhorn",
       "chart": "longhorn",
       "version": "1.12.1",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/longhorn-longhorn-1.12.1.yaml"
     },
     {
@@ -19191,8 +19225,8 @@
       "repository": "metrics-server",
       "chart": "metrics-server",
       "version": "3.14.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/metrics-server-metrics-server-3.14.0.yaml"
     },
     {
@@ -19259,6 +19293,69 @@
       "witness": "data/flattening-safety/witnesses/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18.yaml"
     },
     {
+      "recipe": "recipes/nvidia/cluster-readiness-engine/v0.6.0",
+      "repository": "nvidia",
+      "chart": "cluster-readiness-engine",
+      "version": "v0.6.0",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
+      "witness": "data/flattening-safety/witnesses/nvidia-cluster-readiness-engine-v0.6.0.yaml"
+    },
+    {
+      "recipe": "recipes/nvidia/gpu-operator/v25.10.1",
+      "repository": "nvidia",
+      "chart": "gpu-operator",
+      "version": "v25.10.1",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
+      "witness": "data/flattening-safety/witnesses/nvidia-gpu-operator-v25.10.1.yaml"
+    },
+    {
+      "recipe": "recipes/nvidia/gpu-operator/v26.3.2",
+      "repository": "nvidia",
+      "chart": "gpu-operator",
+      "version": "v26.3.2",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
+      "witness": "data/flattening-safety/witnesses/nvidia-gpu-operator-v26.3.2.yaml"
+    },
+    {
+      "recipe": "recipes/nvidia/gpu-operator/v26.3.3",
+      "repository": "nvidia",
+      "chart": "gpu-operator",
+      "version": "v26.3.3",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
+      "witness": "data/flattening-safety/witnesses/nvidia-gpu-operator-v26.3.3.yaml"
+    },
+    {
+      "recipe": "recipes/nvidia/gpu-operator/v26.7.1",
+      "repository": "nvidia",
+      "chart": "gpu-operator",
+      "version": "v26.7.1",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
+      "witness": "data/flattening-safety/witnesses/nvidia-gpu-operator-v26.7.1.yaml"
+    },
+    {
+      "recipe": "recipes/nvidia/k8s-nim-operator/3.1.0",
+      "repository": "nvidia",
+      "chart": "k8s-nim-operator",
+      "version": "3.1.0",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
+      "witness": "data/flattening-safety/witnesses/nvidia-k8s-nim-operator-3.1.0.yaml"
+    },
+    {
+      "recipe": "recipes/nvidia/k8s-nim-operator/3.1.2",
+      "repository": "nvidia",
+      "chart": "k8s-nim-operator",
+      "version": "3.1.2",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
+      "witness": "data/flattening-safety/witnesses/nvidia-k8s-nim-operator-3.1.2.yaml"
+    },
+    {
       "recipe": "recipes/nvidia/nvidia-device-plugin/0.19.3",
       "repository": "nvidia",
       "chart": "nvidia-device-plugin",
@@ -19266,6 +19363,42 @@
       "status": "current",
       "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/nvidia-nvidia-device-plugin-0.19.3.yaml"
+    },
+    {
+      "recipe": "recipes/nvidia/nvsentinel/v1.20.0",
+      "repository": "nvidia",
+      "chart": "nvsentinel",
+      "version": "v1.20.0",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
+      "witness": "data/flattening-safety/witnesses/nvidia-nvsentinel-v1.20.0.yaml"
+    },
+    {
+      "recipe": "recipes/nvidia/nvsentinel/v1.25.0",
+      "repository": "nvidia",
+      "chart": "nvsentinel",
+      "version": "v1.25.0",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
+      "witness": "data/flattening-safety/witnesses/nvidia-nvsentinel-v1.25.0.yaml"
+    },
+    {
+      "recipe": "recipes/nvidia/nvsentinel/v1.26.0",
+      "repository": "nvidia",
+      "chart": "nvsentinel",
+      "version": "v1.26.0",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
+      "witness": "data/flattening-safety/witnesses/nvidia-nvsentinel-v1.26.0.yaml"
+    },
+    {
+      "recipe": "recipes/nvidia/nvsentinel/v1.9.0",
+      "repository": "nvidia",
+      "chart": "nvsentinel",
+      "version": "v1.9.0",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
+      "witness": "data/flattening-safety/witnesses/nvidia-nvsentinel-v1.9.0.yaml"
     },
     {
       "recipe": "recipes/oauth2-proxy/oauth2-proxy/10.7.0",
@@ -19335,8 +19468,8 @@
       "repository": "policy-reporter",
       "chart": "policy-reporter",
       "version": "3.10.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/policy-reporter-policy-reporter-3.10.0.yaml"
     },
     {
@@ -19407,8 +19540,8 @@
       "repository": "prometheus-community",
       "chart": "kube-prometheus-stack",
       "version": "88.6.3",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-kube-prometheus-stack-88.6.3.yaml"
     },
     {
@@ -19452,8 +19585,8 @@
       "repository": "prometheus-community",
       "chart": "prometheus-blackbox-exporter",
       "version": "11.18.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/prometheus-community-prometheus-blackbox-exporter-11.18.0.yaml"
     },
     {
@@ -19569,8 +19702,8 @@
       "repository": "stakater",
       "chart": "reloader",
       "version": "2.2.16",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/stakater-reloader-2.2.16.yaml"
     },
     {
@@ -19605,8 +19738,8 @@
       "repository": "traefik",
       "chart": "traefik",
       "version": "41.4.0",
-      "status": "scanned",
-      "detail": "",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/traefik-traefik-41.4.0.yaml"
     },
     {
@@ -83486,6 +83619,19 @@
       "password_fix_command": "",
       "ships_crds": "yes",
       "crd_count": "8",
+      "crd_separable_base": "",
+      "universal_caveats": "customize;prune;ssa-conflict"
+    },
+    {
+      "chart": "nvidia/k8s-nim-operator",
+      "version": "3.1.2",
+      "default_base": "default",
+      "bakes_shared_password": "no",
+      "password_keys": "",
+      "password_fix_base": "",
+      "password_fix_command": "",
+      "ships_crds": "yes",
+      "crd_count": "9",
       "crd_separable_base": "",
       "universal_caveats": "customize;prune;ssa-conflict"
     },

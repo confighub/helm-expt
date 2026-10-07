@@ -187,6 +187,8 @@ nvidia/gpu-operator@v25.10.1,catalog-coverage,standard,recipe
 nvidia/gpu-operator@v26.3.2,catalog-coverage,standard,recipe
 nvidia/gpu-operator@v26.3.3,catalog-coverage,standard,recipe
 nvidia/gpu-operator@v26.7.1,catalog-coverage,standard,recipe
+nvidia/k8s-nim-operator@3.1.0,catalog-coverage,standard,recipe
+nvidia/k8s-nim-operator@3.1.2,catalog-coverage,standard,recipe
 nvidia/nvsentinel@v1.20.0,catalog-coverage,standard,recipe
 nvidia/nvsentinel@v1.25.0,catalog-coverage,standard,recipe
 nvidia/nvsentinel@v1.26.0,catalog-coverage,standard,recipe

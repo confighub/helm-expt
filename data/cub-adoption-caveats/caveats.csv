@@ -84,6 +84,7 @@ nats/surveyor,0.20.9,default,no,,,,no,0,,customize;prune;ssa-conflict
 nfs-subdir-external-provisioner/nfs-subdir-external-provisioner,4.0.18,default,no,,,,no,0,,customize;prune;ssa-conflict
 nvidia/cluster-readiness-engine,v0.6.0,default,no,,,,yes,8,,customize;prune;ssa-conflict
 nvidia/gpu-operator,v26.7.1,default,no,,,,yes,8,,customize;prune;ssa-conflict
+nvidia/k8s-nim-operator,3.1.2,default,no,,,,yes,9,,customize;prune;ssa-conflict
 nvidia/nvidia-device-plugin,0.19.3,default,no,,,,no,0,,customize;prune;ssa-conflict
 nvidia/nvsentinel,v1.9.0,default,no,,,,yes,1,,customize;prune;ssa-conflict
 oauth2-proxy/oauth2-proxy,10.7.0,default,no,,,,no,0,,customize;prune;ssa-conflict

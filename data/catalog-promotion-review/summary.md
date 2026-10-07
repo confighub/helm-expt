@@ -15,29 +15,29 @@ Catalog support must come from explicit catalog-status.yaml files.
 ## Summary
 
 ```text
-recipes reviewed: 165
-machine checks pass: 165
+recipes reviewed: 167
+machine checks pass: 167
 machine checks fail: 0
-proof-grade: 116
-catalog-candidate: 29
+proof-grade: 110
+catalog-candidate: 37
 catalog-supported: 20
 blocked: 0
-default-only recipes: 67
-multi-variant recipes: 98
-recipes with warning gates: 148
+default-only recipes: 61
+multi-variant recipes: 106
+recipes with warning gates: 150
 recipes with non-current executable fixture path: 0
 ```
 
 ## Proof Tiers
 
-- `bespoke-top20`: 78
+- `bespoke-top20`: 80
 - `next80-full`: 80
 - `successor-full`: 7
 
 ## Support Levels
 
-- `machine-proof-only`: 116
-- `promotion-review-needed`: 29
+- `machine-proof-only`: 110
+- `promotion-review-needed`: 37
 - `supported-for-declared-scopes`: 20
 
 ## Catalog Candidates
