@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "nvidia-nvsentinel-v1.20.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "nvidia"
+  repositoryURL: "oci://ghcr.io/nvidia"
+  chart: "nvsentinel"
+  version: "v1.20.0"
+  appVersion: "v1.20.0"
+  packageSHA256: "0e3c8836dfb2123e8cbf0e565ea51ed89bc2a913f90e20e23eb3032037c926e3"
+  packageBytes: 446202
+  exactArtifact:
+    url: "oci://ghcr.io/nvidia/nvsentinel:v1.20.0"
+    sha256: "0e3c8836dfb2123e8cbf0e565ea51ed89bc2a913f90e20e23eb3032037c926e3"
+    resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

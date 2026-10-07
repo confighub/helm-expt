@@ -1,0 +1,73 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "nvidia-nvsentinel-v1.20.0"
+spec:
+  chart: "nvidia/nvsentinel"
+  version: "v1.20.0"
+  dependencies:
+    -
+      name: "gpu-health-monitor"
+      repository: ""
+      version: "0.1.0"
+    -
+      name: "mongodb-store"
+      repository: ""
+      version: "0.1.0"
+    -
+      name: "postgresql"
+      repository: ""
+      version: "15.5.38"
+    -
+      name: "fault-quarantine"
+      repository: ""
+      version: "0.1.0"
+    -
+      name: "node-drainer"
+      repository: ""
+      version: "0.1.0"
+    -
+      name: "fault-remediation"
+      repository: ""
+      version: "0.1.0"
+    -
+      name: "health-events-analyzer"
+      repository: ""
+      version: "0.1.0"
+    -
+      name: "csp-health-monitor"
+      repository: ""
+      version: "0.1.0"
+    -
+      name: "syslog-health-monitor"
+      repository: ""
+      version: "0.1.0"
+    -
+      name: "incluster-file-server"
+      repository: ""
+      version: "0.1.0"
+    -
+      name: "labeler"
+      repository: ""
+      version: "0.1.0"
+    -
+      name: "janitor"
+      repository: ""
+      version: "0.1.0"
+    -
+      name: "lifecycle-manager"
+      repository: ""
+      version: "0.1.0"
+    -
+      name: "metadata-collector"
+      repository: ""
+      version: "0.1.0"
+    -
+      name: "kubernetes-object-monitor"
+      repository: ""
+      version: "0.1.0"
+    -
+      name: "preflight"
+      repository: ""
+      version: "0.1.0"
+  chartLockDigest: "sha256:9f6ec426cf34f29407b4f8febe6cd89ddfce8f39a08c5f07e4a78c716afe5de1"

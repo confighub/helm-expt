@@ -1,0 +1,55 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "nvidia-nvsentinel-v1.20.0"
+spec:
+  chart:
+    name: "nvsentinel"
+    repository: "nvidia"
+    version: "v1.20.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/nvidia/nvsentinel/v1.20.0 -o <tmp>/nvsentinel-v1.20.0.tgz"
+    sha256: "0e6d675f59ebcf1bab396813cdae9754f5bae907d77dc7ddf1e614c2df658f9f"
+  package:
+    name: "nvidia-nvsentinel"
+    path: "packages/nvidia/nvsentinel/v1.20.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "f77292707b95f7bee37b6f93fd509a50240546494a23db5d8770fc9a347aa5b2"
+        bytes: 263
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "3344e2d68968a485305ba8280ebb1676457f5552cd665c8000faa38c42841377"
+        bytes: 61268
+      -
+        path: "collector/target-facts.sh"
+        sha256: "4a5a13cfc0a277dd10e1491d1a93d7ac56d8ec0dbbb937f4bf1024d4f4892656"
+        bytes: 2653
+      -
+        path: "installer.yaml"
+        sha256: "b0a8c169c2594b82daa44577b317d7e417cc52554485bb392ee5061ee496ff79"
+        bytes: 694
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "92f7eb3b7683b0fe1f7bcd4dc4516882b45902d310ad745aa844c6f63feedcea"
+        bytes: 69222
+    version: "v1.20.0"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nvsentinel"
+      base: "default"
+      command: "cub installer setup --pull packages/nvidia/nvsentinel/v1.20.0 --base default --work-dir <tmp> --non-interactive --namespace nvsentinel"
+      cubInstallObjectCountIncludingSupport: 23
+      helmReleaseObjectCount: 22
+      semanticObjectMatches: "22/22"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"

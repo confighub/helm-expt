@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "nvidia-nvsentinel-v1.9.0"
+spec:
+  chart: "nvidia/nvsentinel"
+  version: "v1.9.0"
+  caveats:
+    - "The GPU health monitor DaemonSets connect to a DCGM service in the gpu-operator namespace (nvidia-dcgm.gpu-operator.svc:5555). The GPU Operator provides it when DCGM is enabled; this chart does not install it."
+    - "The GPU health monitor, syslog health monitor and metadata collector DaemonSets select nodes by nvsentinel.dgxc.nvidia.com labels, so they run no pods on nodes without those labels. The platform-connectors DaemonSet has no node selector and runs on every node."
+    - "Chart defaults leave the datastore and the remediation components off, so this base detects and reports faults and does not quarantine, drain or remediate nodes."
+    - "The AICR recipes install this chart with their own values. This base is the chart-default render, not the AICR one."
+  maintainedNotes:
+    - "This package is the exact nvsentinel@v1.9.0 chart, locked by archive URL and SHA-256."
+    - "With chart defaults nvsentinel@v1.9.0 renders 21 objects: no CRDs, no Secrets, no Helm hooks."
+    - "No namespaced object in the render carries metadata.namespace, because the chart templates leave it to Helm. A flattened copy must be applied into the nvsentinel namespace."
+    - "The platform-connectors DaemonSet refers to a ConfigMap named mongodb-config and a Secret named mongo-app-client-cert-secret that the default render does not contain. Both references are marked optional, so Kubernetes starts the pods without them."
+    - "The installer round trip drops one leading blank line from TOML files held in the syslog-health-monitor-config ConfigMap. The equivalence check admits only that whitespace difference, in that one ConfigMap, and compares everything else exactly."
+    - "The packaged Chart.lock lists 15 dependencies and Chart.yaml lists more; the lock digest is the same in every reviewed version, so the lock is older than the chart. The dependency lock here records the Chart.lock list as packaged."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, or production support."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "target-facts"
+    - "production-readiness-review"

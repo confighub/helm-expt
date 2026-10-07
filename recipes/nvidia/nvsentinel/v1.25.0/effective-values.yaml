@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nvidia-nvsentinel-v1.25.0-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "cc17ebce334d2839a3de3a5a6c461de6e8ee8100af660eb3d4eee90dd3f61ce5"
+  mergedValuesCaptured: false
+  values:
+    {}
