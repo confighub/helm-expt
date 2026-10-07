@@ -189,7 +189,15 @@ npm run nvidia-gpu-stack-coverage:verify -- --only gpu-operator
   controlPoints: [
     { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
     { category: "dependency-lock", status: "handled", evidence: "dependency-lock.yaml", dependencyCount: 1 },
-    { category: "capability-profile", status: "handled", kubeVersion: chart.kubeVersion, note: "the packaged chart has no .Capabilities branch, so the render does not depend on the pinned Kubernetes version" },
+    {
+      category: "capability-profile",
+      status: "handled",
+      kubeVersion: chart.kubeVersion,
+      note:
+        chart.version === "v26.7.1"
+          ? "the packaged chart has one .Capabilities check, in templates/validations.yaml, and it runs only when gpuCluster.deployCR is true; no base sets it, so the render does not depend on the pinned Kubernetes version or API list"
+          : "the packaged chart has no .Capabilities branch, so the render does not depend on the pinned Kubernetes version",
+    },
     {
       category: "lifecycle-policy",
       status: "attention-required",

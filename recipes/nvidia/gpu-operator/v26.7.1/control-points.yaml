@@ -17,7 +17,7 @@ spec:
       category: "capability-profile"
       status: "handled"
       kubeVersion: "1.31.0"
-      note: "the packaged chart has no .Capabilities branch, so the render does not depend on the pinned Kubernetes version"
+      note: "the packaged chart has one .Capabilities check, in templates/validations.yaml, and it runs only when gpuCluster.deployCR is true; no base sets it, so the render does not depend on the pinned Kubernetes version or API list"
     -
       category: "lifecycle-policy"
       status: "attention-required"

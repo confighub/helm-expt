@@ -1,0 +1,100 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "nvidia-nvsentinel-v1.26.0"
+spec:
+  chart:
+    name: "nvidia/nvsentinel"
+    version: "v1.26.0"
+    source: "oci://ghcr.io/nvidia"
+    digest: "bba6a7bfd5a8dc27fe6157cdabb4f5b50a390cd657c79288f86bcd3b1994c68e"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    []
+  supportedVariants:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  notes:
+    - "This package is the exact nvsentinel@v1.26.0 chart, locked by archive URL and SHA-256."
+    - "With chart defaults nvsentinel@v1.26.0 renders 22 objects: no CRDs, no Secrets, no Helm hooks."
+    - "No namespaced object in the render carries metadata.namespace, because the chart templates leave it to Helm. A flattened copy must be applied into the nvsentinel namespace."
+    - "The platform-connectors DaemonSet refers to a ConfigMap named mongodb-config and a Secret named mongo-app-client-cert-secret that the default render does not contain. Both references are marked optional, so Kubernetes starts the pods without them."
+    - "The installer round trip drops one leading blank line from TOML files held in the syslog-health-monitor-config ConfigMap. The equivalence check admits only that whitespace difference, in that one ConfigMap, and compares everything else exactly."
+    - "The packaged Chart.lock lists 16 dependencies and Chart.yaml lists more; the lock digest is the same in every reviewed version, so the lock is older than the chart. The dependency lock here records the Chart.lock list as packaged."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, or production support."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "dependency-lock requires dependency-lock.yaml"
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "capability-profile is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "lifecycle-policy"
+      detectedPainPoint: "the chart-default render contains no Helm hook object, with or without --no-hooks"
+      evidence:
+        - "no-hooks"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "target-facts"
+      detectedPainPoint: "the target must already have the Prometheus Operator PodMonitor CRD; the rendered objects carry no namespace, so they must be applied into the nvsentinel namespace"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "review-required"
+    -
+      id: "catalog-coverage"
+      detectedPainPoint: "exact source and deterministic package are retained; publication, live qualification and production support remain separate gates"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "packaged-with-controls"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof; dead=not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof; ignored=not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"
+  answerForSkepticalHelmUser: "nvidia/nvsentinel@v1.26.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, target-fact-requirement, recipe, scan-gate, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."
