@@ -719,13 +719,12 @@
       "  --component " + component + " \\",
       "  --variant reviewed \\",
       "  --space " + space + " \\",
-      "  --granularity per-resource \\",
       "  --change-desc \"ConfigHub Workshop " + latestReview.metadata.id + "\" \\",
-      "  --annotation workshop.confighub.com/candidate-sha256=" + latestReview.spec.candidate.sha256 + " \\",
-      "  --annotation workshop.confighub.com/object-set-sha256=" + latestCandidateObjectSet.sha256 + " \\",
-      "  --annotation workshop.confighub.com/review-sha256=" + latestReviewDigest + " \\",
+      "  --unit-annotation workshop.confighub.com/candidate-sha256=" + latestReview.spec.candidate.sha256 + " \\",
+      "  --unit-annotation workshop.confighub.com/object-set-sha256=" + latestCandidateObjectSet.sha256 + " \\",
+      "  --unit-annotation workshop.confighub.com/review-sha256=" + latestReviewDigest + " \\",
       ...(latestReview.spec.checks.advisoryReceipts.length
-        ? ["  --annotation workshop.confighub.com/local-check-object-set-sha256=" + latestReview.spec.checks.advisoryReceipts[0].input.objectSetSha256 + " \\"]
+        ? ["  --unit-annotation workshop.confighub.com/local-check-object-set-sha256=" + latestReview.spec.checks.advisoryReceipts[0].input.objectSetSha256 + " \\"]
         : []),
       "  ./candidate.yaml",
       "",

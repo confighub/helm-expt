@@ -745,10 +745,7 @@ deploy or contact a target. Explain which checks have not run.</code></pre>
         <p><label for="confighub-component"><strong>Component</strong></label><br><input id="confighub-component" type="text" value="redis" style="width:100%;padding:10px;margin-top:6px"></p>
         <p><label for="confighub-base-space"><strong>Base Space</strong></label><br><input id="confighub-base-space" type="text" value="redis-base" style="width:100%;padding:10px;margin-top:6px"></p>
       </div>
-      <div class="grid">
-        <p><label for="confighub-granularity"><strong>Unit layout</strong></label><br><select id="confighub-granularity" style="width:100%;padding:10px;margin-top:6px"><option value="minimal">minimal</option><option value="per-resource">per-resource</option><option value="per-file">per-file</option></select></p>
-        <p><label for="confighub-namespace"><strong>Recorded namespace</strong> <span style="color:var(--muted);font-weight:400">(optional)</span></label><br><input id="confighub-namespace" type="text" value="" placeholder="Repeat the namespace used for the first upload" style="width:100%;padding:10px;margin-top:6px"></p>
-      </div>
+      <p><label for="confighub-namespace"><strong>Release namespace</strong> <span style="color:var(--muted);font-weight:400">(optional)</span></label><br><input id="confighub-namespace" type="text" value="" placeholder="The namespace the objects were rendered with" style="width:100%;padding:10px;margin-top:6px"></p>
       <p><label for="confighub-destination-spaces"><strong>Downstream Spaces</strong></label><br><input id="confighub-destination-spaces" type="text" value="redis-staging" style="width:100%;padding:10px;margin-top:6px"></p>
       <p class="small">If a downstream Space does not exist, the preview shows its one-time creation command as a comment. Create it, then run the preview again before using the write commands.</p>
       <h4>Preview</h4>

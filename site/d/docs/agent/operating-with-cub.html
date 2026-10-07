@@ -608,15 +608,15 @@ variant-labeled units: 14</code></pre>
 <pre><code># Find uploaded Helm experiment spaces.
 cub space list --where &quot;Slug LIKE 'helm-%'&quot;
 
-# Open matching spaces in the ConfigHub web UI.
-cub space list --where &quot;Slug LIKE 'helm-%'&quot; --web
+# Open the space list in the ConfigHub web UI.
+cub space open
 
 # List the Units for one uploaded chart variant.
 cub unit list --space &lt;space&gt; \
   --columns Unit.Slug,Unit.Labels.Component,Unit.Labels.HelmChartVersion,Unit.Labels.Variant
 
 # Open the Units for one space in the ConfigHub web UI.
-cub unit list --space &lt;space&gt; --web
+cub unit open --space &lt;space&gt;
 
 # Inspect the stored config for one Unit.
 cub unit data &lt;unit&gt; --space &lt;space&gt;
@@ -634,11 +634,12 @@ cub changeset create --space &lt;space&gt; helm-review --description &quot;Revie
 # --all includes selected uploaded Units even before a Target is attached.
 cub variant approve &lt;space&gt; --all --where &quot;Labels.Variant = 'default'&quot;
 
-# Dry-run an apply when the Units are attached to a target.
-cub unit apply --space &lt;space&gt; --where &quot;Labels.Variant = 'default'&quot; --dry-run
+# Publish a Release when the Space has a release Target.
+cub release publish &lt;space&gt;
 
 # Clone a reviewed ConfigHub space into an environment/region variant.
 cub variant create staging &lt;upstream-space&gt; --environment Staging --region us-east2</code></pre>
+<p>The current CLI no longer has <code>cub unit apply</code>. A Space is delivered by publishing a Release for its release Target, which Argo CD or Flux then pulls. The <code>cub release publish</code>, <code>cub space open</code>, and <code>cub unit open</code> lines above are taken from the help of cub v0.8.7 and have not been re-run here.</p>
 <p>The retained <code>verify-bulk-ops:nginx</code> verifier still reads legacy <code>ApprovedBy</code> state. It has not been migrated to attestations, so do not use its approval count as proof that a current <code>cub variant approve</code> command succeeded.</p>
 <p>The expected label model is visible in the Redis demo:</p>
 <pre><code>Component=Redis
@@ -676,7 +677,7 @@ cub unit list
 cub unit data
 cub unit diff
 cub variant approve
-cub unit apply
+cub release publish
 cub function vet
 cub changeset create</code></pre>
 <h2 id="additional-options-for-live-cluster-verification">Additional Options For Live Cluster Verification</h2>

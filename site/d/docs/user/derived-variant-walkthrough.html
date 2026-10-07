@@ -544,10 +544,11 @@
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>cub variant create prod-us-east helm-nginx-confighub-proof \
   --environment Prod --region us-east \
-  --space-name-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' \
+  --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' \
   --unit-delete-gate production-review \
   --unit-destroy-gate production-review \
   --allow-exists --wait --timeout 10m -o json</code></pre>
+<p>The recorded run spelled the pattern flag <code>--space-name-pattern</code>. The CLI has since renamed it to <code>--space-pattern</code>, which is what the command above shows.</p>
 <p>Result: <code>pass</code>. The derived variant landed in a new space, <code>NGINX-prod-us-east</code>, cloned from the proof space <code>helm-nginx-confighub-proof</code>.</p>
 <h2 id="what-actually-changed-from-the-receipt">What actually changed (from the receipt)</h2>
 <table><thead><tr><th>Fact</th><th>Value</th><th>Why it matters</th></tr></thead><tbody><tr><td>Units cloned</td><td>7</td><td>The whole rendered set carried over</td></tr>
