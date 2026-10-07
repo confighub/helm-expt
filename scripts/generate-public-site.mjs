@@ -22,6 +22,7 @@ import { aiChaosGuide, AI_CHAOS_IMAGES, AI_CHAOS_SOURCE } from "./lib/ai-chaos-g
 import { appLearningPathsHtml } from "./lib/app-learning-paths.mjs";
 import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
+import { NEXT_STEPS, NEXT_STEPS_HEADING, NEXT_STEPS_TARGET, NEXT_STEP_STATES } from "./lib/entry-next-steps.mjs";
 
 // Spells small counts (stack.html's "the stacks that ship" prose) so a count
 // read from data reads the way the surrounding hand-written numbers already
@@ -226,6 +227,80 @@ const aicrListingFacts = (listingsIndexData.listings ?? [])
 // no public OCI reference, no ConfigHub upload, and no delivery result.
 const aicrRenderedOnlyCount = aicrListingFacts
   .filter((facts) => facts.wrapperOnly && !facts.published && listingNeverRun(facts)).length;
+
+// Which page carries the five steps for which entries. A Helm entry, and the
+// cub installer entry for the same base, sit on the chart version page their
+// listing names. An AICR entry sits on the page the entry register gives it.
+// Any other entry sits on the nearest README above its retained objects. An
+// entry none of those rules place goes to the fallback page for its format,
+// and an entry with no fallback is counted and reported.
+const ENTRY_STEPS_FALLBACK_DOCS = new Map([
+  // The row for this entry on the Catalog page links this guide.
+  ["configuration-oci-nginx-replicas-4", "docs/user/transform-oci-package.md"],
+]);
+const AICR_ENTRY_INDEX_DOC = "docs/demo/aicr/index.md";
+// The block's one heading id, and the pill class each step state takes.
+const ENTRY_STEPS_ANCHOR = "use-in-confighub";
+const ENTRY_STEP_STATE_CLASS = new Map([
+  ["run-for-this-entry", "good"],
+  ["partly-run-for-this-entry", "warn"],
+  ["not-run-for-this-entry", "open"],
+  ["blocked-for-this-entry", "bad"],
+  ["not-available", "none"],
+]);
+
+function entryStepsListings() {
+  return (listingsIndexData.listings ?? []).map((listing) => readListingFile(listing.id));
+}
+
+function entryStepsForChartPage(fileName, firstBase) {
+  const pageUrl = `${SITE_BASE_URL}charts/${fileName}`;
+  const rank = (listing) => `${listing.identity.format === "helm" ? 0 : 1}${listing.identity.base === firstBase ? 0 : 1}${listing.identity.base}`;
+  return entryStepsListings()
+    .filter((listing) => listing.identity.page === pageUrl)
+    .sort((left, right) => (rank(left) < rank(right) ? -1 : rank(left) > rank(right) ? 1 : 0));
+}
+
+let entryStepsDocPlanCache = null;
+function entryStepsDocPlan() {
+  if (entryStepsDocPlanCache) return entryStepsDocPlanCache;
+  const plan = new Map();
+  const place = (repoPath, listing, withoutOwnPage = false) => {
+    if (!plan.has(repoPath)) plan.set(repoPath, { listings: [], withoutOwnPage: [] });
+    plan.get(repoPath).listings.push(listing);
+    if (withoutOwnPage) plan.get(repoPath).withoutOwnPage.push(listing.identity.id);
+  };
+  const register = readYaml(join(repoRoot, "examples/aicr/claims/entry-names.yaml"));
+  const aicrPages = new Map((register?.spec?.entries ?? []).map((entry) => [String(entry.id), String(entry.page ?? "")]));
+  const unplaced = [];
+  for (const listing of entryStepsListings()) {
+    if (listing.identity.page) continue;
+    const objects = String(listing.flattened?.objects ?? "");
+    if (listing.identity.format === "aicr") {
+      const directory = /^examples\/aicr\/([^/]+)\//.exec(`${objects}/`)?.[1] ?? "";
+      const page = aicrPages.get(directory) ?? "";
+      if (page && existsSync(join(repoRoot, page))) place(page, listing);
+      else place(AICR_ENTRY_INDEX_DOC, listing, true);
+      continue;
+    }
+    let directory = existsSync(join(repoRoot, objects)) && statSync(join(repoRoot, objects)).isDirectory() ? objects : posix.dirname(objects);
+    let readme = "";
+    while (directory.startsWith("examples/") && directory !== "examples") {
+      const candidate = `${directory}/README.md`;
+      if (existsSync(join(repoRoot, candidate))) {
+        readme = candidate;
+        break;
+      }
+      directory = posix.dirname(directory);
+    }
+    const fallback = ENTRY_STEPS_FALLBACK_DOCS.get(listing.identity.id) ?? "";
+    if (fallback) place(fallback, listing, true);
+    else if (readme) place(readme, listing);
+    else unplaced.push(listing.identity.id);
+  }
+  entryStepsDocPlanCache = { plan, unplaced };
+  return entryStepsDocPlanCache;
+}
 
 // One plain sentence per non-Helm format, drawn from the shared source-mapping
 // table (skills/config-workshop/references/processing-model.md) so this page
@@ -916,6 +991,7 @@ if (mode === "--generate") {
   }
   console.log(`wrote public site outputs, ${site.chartPages.length} Catalog version page(s), ${site.docPages.length} rendered doc page(s), and ${site.presetScripts.length} base variant script(s)`);
   console.log(`catalog rows with no matching listing (link omitted): ${unmatchedCatalogListingLookups}`);
+  console.log(`catalog entries with no page to carry their five steps: ${entryStepsDocPlan().unplaced.length}${entryStepsDocPlan().unplaced.length ? ` (${entryStepsDocPlan().unplaced.join(", ")})` : ""}`);
 } else if (mode === "--verify") {
   check(existsSync(generatedAtPath), "site/generated-at.txt is missing; run npm run site:generate");
   const site = buildSite(readFileSync(generatedAtPath, "utf8").trim());
@@ -2168,6 +2244,8 @@ A listing is a projection of the BaseVariantRecord it names in generatedFrom. Th
 
 Read a listing's coverage before citing a verdict. Only checked counts as evidence. A lane that reads not_declared was never declared, so it is not a pass, and a partial lane left a recorded caveat behind.
 
+Every listing carries nextSteps, the same five steps in the same order: get the exact objects, compare with another version or base, upload it as a variant, deploy it, promote a change. Each step has a state read from that listing and the commands that entry supports. A step whose state is not-available carries no command and says what would unblock it. A command marked needsAccount contacts ConfigHub, and one marked writes changes data there.
+
 A lifecycle route is a proposal until a destination resolves it, so automatic stays false until a run proves otherwise. A planned OCI reference names where a bundle would go and has not been pushed.
 
 When an entry is absent, render locally. Ask the user before filing a public issue.
@@ -2445,24 +2523,32 @@ function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
   const sourceStamp = docGeneratedStamp(catalog, repoPath);
   const guideLabel = /^docs\/user\/workshop-(compose|adapt|match)-guide\.md$/.test(repoPath)
     ? '<p class="eyebrow">Local Guide · cub or assistant</p>' : "";
+  // A page that is the page of a Catalog entry carries that entry's five
+  // steps after its own text, and one link to them from the top.
+  const entrySteps = entryStepsDocPlan().plan.get(repoPath);
+  const entryStepsNote = entrySteps?.withoutOwnPage.length
+    ? `This block is for ${entrySteps.withoutOwnPage.map((id) => `<code>${escapeHtml(id)}</code>`).join(" and ")}, which ${entrySteps.withoutOwnPage.length === 1 ? "has" : "have"} no page of ${entrySteps.withoutOwnPage.length === 1 ? "its" : "their"} own.`
+    : "";
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)} · ConfigHub Workshop</title>
-  <style>${siteCss()}${docPageCss(repoPath)}</style>
+  <style>${siteCss()}${docPageCss(repoPath)}${entrySteps ? entryStepsCss() : ""}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(base)}${guideLabel}
     <h1>${escapeHtml(title)}</h1>
-    <p class="lead">${lead}</p>
+    <p class="lead">${lead}</p>${entrySteps ? `
+    ${entryStepsTopLinkHtml()}` : ""}
   </header>
   <main>
 ${sourceStamp ? `    ${sourceStamp}\n` : ""}    <article class="doc-body">
 ${body}
-    </article>
+    </article>${entrySteps ? `
+    ${entryStepsSectionHtml(entrySteps.listings, { siteHref: base, note: entryStepsNote })}` : ""}
   </main>
   <footer><p>Generated from the committed markdown file <code>${escapeHtml(repoPath)}</code>. The source file is the authoritative version.</p></footer>
 </body>
@@ -11238,8 +11324,12 @@ function aicrCatalogRows() {
     const placeholder = (facts?.placeholders ?? [])
       .map((input) => `The ${input.name} value is a placeholder. Change it to match your cluster, then regenerate the entry or make a variant.`)
       .join(" ");
+    // An entry with a record and no page keeps its five steps on the AICR
+    // index page, so its row links them there.
+    const stepsHref = !page && facts ? `../d/${AICR_ENTRY_INDEX_DOC.replace(/\.md$/, ".html")}#${ENTRY_STEPS_ANCHOR}` : "";
     const startLinks = [
       page ? `<a href="${page}">Read the entry</a>` : "",
+      stepsHref ? `<a href="${stepsHref}">${escapeHtml(NEXT_STEPS_HEADING)}</a>` : "",
       facts ? `<a href="${listingHref}">Listing JSON</a>` : "",
       facts ? `<a href="${escapeHtml(facts.recordUrl)}">Record</a>` : "",
     ].filter(Boolean).join(" · ");
@@ -11311,6 +11401,7 @@ function aicrCatalogRows() {
         <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Review before use</strong> entries have checks but need more chart-specific review. <strong>Package published; review before use</strong> confirms the exact package is available but does not claim that its runtime checks are complete. <strong>Not ready yet</strong> marks a planned path that is not runnable.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
         <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Check one question about the result</a>, then choose whether to report a public finding for Catalog review.</p>
+        <p id="entry-steps-everywhere">Every entry page carries the same five steps under <strong>${escapeHtml(NEXT_STEPS_HEADING)}</strong>, and each step says what the Catalog has run for that entry.</p>
       </div>
       <div class="card"><table id="chart-table">
         <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Base variants by version</th></tr></thead>
@@ -12504,7 +12595,7 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(row.chart)} ${escapeHtml(row.version)} retained package · ConfigHub Workshop</title>
-  <style>${siteCss()}</style>
+  <style>${siteCss()}${entryStepsCss()}</style>
 </head>
 <body data-retained-only-version="${escapeHtml(identity)}"${kpsManagedPromotion ? ' data-bounded-runtime-proof="managed-promotion"' : ""}>
   <header>
@@ -12520,6 +12611,7 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
     ${licenseLine}
     ${successionCalloutHtml(catalog, row.chart)}
     <p><a class="button primary" href="../promote.html?chart=${encodeURIComponent(row.chart)}&current=${encodeURIComponent(row.version)}&base=${encodeURIComponent(row.default_base)}">Plan an upgrade or promotion</a></p>
+    ${entryStepsTopLinkHtml()}
     <p><a href="./index.html">Back to the Component Catalog</a> · component versions: ${versionLinks}</p>
   </header>
   <main>
@@ -12548,6 +12640,8 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       <p>The manifest digest comes from the committed publication receipt. <code>cub installer</code> refuses the pull if that exact manifest is not available.</p>` : ""}
       ${packageSignatureHtml}
     </section>
+
+    ${entryStepsSectionHtml(entryStepsForChartPage(chartPageFileName(row), row.default_base), { siteHref: ".." })}
 
     <section aria-labelledby="retained-configurations">
       <h2 id="retained-configurations">Available Configurations</h2>
@@ -12963,7 +13057,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(entry.chart)} ${escapeHtml(entry.version)} · ConfigHub Workshop</title>
-  <style>${siteCss()}
+  <style>${siteCss()}${entryStepsCss()}
     body :not(pre) > code { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
     .matrix-row-card .row-layer { font-family: inherit; white-space: normal; }
     .matrix-row-card .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -12987,6 +13081,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     ${successionCalloutHtml(catalog, entry.chart)}
     <p><a class="button primary" href="../ask.html?question_code=install-shape&amp;chart=${encodeURIComponent(entry.chart)}&amp;version=${encodeURIComponent(entry.version)}">Check this chart and version</a> <a class="button secondary" href="#run-this">Try the package</a> <a class="button secondary" href="../promote.html?chart=${encodeURIComponent(entry.chart)}&amp;current=${encodeURIComponent(entry.version)}&amp;base=${encodeURIComponent(entry.start_variant)}">Plan an upgrade or promotion</a></p>
     <p>Already reviewed the result? <a href="../confighub.html">Keep it in ConfigHub</a> when you need history, variants, approvals, or delivery.</p>
+    ${entryStepsTopLinkHtml()}
   </header>
   <main>
     <section aria-labelledby="pillars-here">
@@ -13086,6 +13181,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p><strong>Current status:</strong> ${escapeHtml(firstRunnableRow ? matrixRowStatusLabel(firstRunnableRow) : entry.start_base_readiness || "unknown")} · <strong>Reason:</strong> ${escapeHtml(firstRunnableDisplayReason)}</p>
       </div>
     </section>
+
+    ${entryStepsSectionHtml(entryStepsForChartPage(chartPageFileName(entry), entry.start_variant), { siteHref: ".." })}
 
     <section aria-labelledby="after-render">
       <h2 id="after-render">After You Render It</h2>
@@ -14554,6 +14651,136 @@ function bannerCss() {
       .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
     }
 `;
+}
+
+// The five steps every Catalog entry page carries, under one fixed heading.
+// The steps, their states and their commands are the nextSteps array of each
+// entry's own listing, so a page can say nothing its listing does not. This
+// function only lays them out.
+
+// One line near the top of an entry page, so the block is one click away.
+function entryStepsTopLinkHtml() {
+  return `<p class="entry-steps-link"><a href="#${ENTRY_STEPS_ANCHOR}">${escapeHtml(NEXT_STEPS_HEADING)}</a> in five steps, from fetching its exact objects to promoting a change.</p>`;
+}
+
+function entryStepsCss() {
+  return `
+    .entry-steps .entry-step { border-top: 1px solid var(--line); padding: 14px 0 2px; }
+    .entry-steps .entry-step h3 { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; margin: 0 0 6px; }
+    .entry-steps .status.open { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .entry-steps .status.bad { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .entry-steps .status.none { color: var(--muted); background: #f3f4f6; }
+    .entry-steps .status { font-weight: 400; white-space: nowrap; }
+    .entry-steps details.entry-steps-base { border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; margin: 12px 0; }
+    .entry-steps details.entry-steps-base > summary { cursor: pointer; overflow-wrap: anywhere; }
+    .entry-steps pre { max-width: 100%; }
+    .entry-steps p, .entry-steps .agent-note, .entry-steps :not(pre) > code { overflow-wrap: anywhere; }
+    .entry-steps .term-comment { color: #7f8b96; }
+    .entry-steps .term-prompt { color: #78d99d; font-weight: 700; user-select: none; }
+    .entry-steps .entry-steps-flag { border-left: 3px solid var(--warn); padding: 2px 0 2px 12px; }
+  `;
+}
+
+function entryStepSiblingSentences(step) {
+  const siblings = step.siblings ?? [];
+  const list = (items) => (items.length === 1 ? items[0] : `${items.slice(0, -1).join(", ")} and ${items.at(-1)}`);
+  const bases = siblings.filter((sibling) => sibling.relation === "other-base").map((sibling) => sibling.base);
+  const versions = [...new Set(siblings.filter((sibling) => sibling.relation === "other-version").map((sibling) => sibling.version))];
+  return [
+    bases.length ? `This version has ${bases.length === 1 ? "one other base" : `${bases.length} other bases`} in the Catalog, ${escapeHtml(list(bases))}.` : "",
+    versions.length ? `The Catalog holds ${versions.length === 1 ? "one other version" : `${versions.length} other versions`}, ${escapeHtml(list(versions))}.` : "",
+  ].filter(Boolean).join(" ");
+}
+
+function entryStepHtml(step, index, listing) {
+  const stateLabel = NEXT_STEP_STATES.get(step.state);
+  check(stateLabel, `${listing.identity.id}: step ${step.id} carries an unknown state ${step.state}`);
+  const commands = step.commands ?? [];
+  const sentences = [escapeHtml(step.summary)];
+  if (step.unblock) sentences.push(escapeHtml(step.unblock));
+  if (step.id === "compare") sentences.push(entryStepSiblingSentences(step));
+  if (step.id === "deploy") {
+    const needs = step.needs ?? [];
+    if (commands.length) {
+      sentences.push(`The commands name the Target <code>${escapeHtml(NEXT_STEPS_TARGET)}</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination.`);
+    }
+    if (needs.length && commands.length) {
+      sentences.push(`The listing records ${needs.length === 1 ? "one input" : `${needs.length} inputs`} that the destination must supply, so read ${needs.length === 1 ? "it" : "them"} before you deploy.`);
+    }
+    if (step.alsoRecorded) sentences.push(escapeHtml(step.alsoRecorded));
+  }
+  if (step.id === "promote" && commands.length) {
+    sentences.push("Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space.");
+  }
+  const links = [];
+  if (step.link) links.push(`<a href="${escapeHtml(step.link)}">Open the retained files</a>`);
+  if (step.receiptUrl) links.push(`<a href="${escapeHtml(step.receiptUrl)}">Read the receipt</a>`);
+  else if (["run-for-this-entry", "partly-run-for-this-entry", "blocked-for-this-entry"].includes(step.state) && step.id !== "get-objects") {
+    links.push(`<a href="${escapeHtml(listing.generatedFrom.record.url)}">Read the record that states this</a>`);
+  }
+  const block = commands.length
+    ? commandBlock(commands.map((command) => ({
+        ...(command.comment ? { comment: command.comment } : {}),
+        cmd: command.command,
+        ...(command.expect ? { out: command.expect } : {}),
+      })))
+    : "";
+  return `<div class="entry-step" data-step="${escapeHtml(step.id)}" data-state="${escapeHtml(step.state)}">
+          <h3>${index + 1}. ${escapeHtml(step.label)} <span class="status ${ENTRY_STEP_STATE_CLASS.get(step.state)}">${escapeHtml(stateLabel)}</span></h3>
+          <p>${sentences.filter(Boolean).join(" ")}${links.length ? ` ${links.join(" · ")}.` : ""}</p>${block ? `
+          ${block}` : ""}
+        </div>`;
+}
+
+// The block for one listing: its open question when it is flagged, then the
+// five steps in order.
+function entryStepsListingHtml(listing) {
+  const steps = listing.nextSteps ?? [];
+  check(
+    JSON.stringify(steps.map((step) => [step.id, step.label])) === JSON.stringify(NEXT_STEPS.map((step) => [step.id, step.label])),
+    `site/listings/${listing.identity.id}.json does not carry the five next steps in order: run npm run catalog:listings first`,
+  );
+  const materialization = (listing.assessment?.stages ?? []).find((stage) => stage.id === "materialization") ?? {};
+  const flag = materialization.resultState === "watch"
+    ? `<p class="entry-steps-flag"><strong>This entry is flagged for review.</strong> ${escapeHtml(materialization.answer ?? "")}</p>
+        `
+    : "";
+  return `${flag}${steps.map((step, index) => entryStepHtml(step, index, listing)).join("\n        ")}`;
+}
+
+// listings: the listing files for every entry this page covers, first one open.
+// siteHref: the relative path from the page to the site root.
+function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
+  const listingsHref = `${siteHref}/listings`;
+  check(listings.length > 0, "an entry-steps block needs at least one listing");
+  const label = (listing) => `${escapeHtml(listing.identity.formatLabel)}, base <strong>${escapeHtml(listing.identity.base)}</strong>, version ${escapeHtml(listing.identity.version)}`;
+  const body = listings.length === 1
+    ? `<div data-entry-steps="${escapeHtml(listings[0].identity.id)}">
+        ${entryStepsListingHtml(listings[0])}
+      </div>`
+    : listings.map((listing, index) => `<details class="entry-steps-base" data-entry-steps="${escapeHtml(listing.identity.id)}"${index === 0 ? " open" : ""}>
+        <summary>${label(listing)}</summary>
+        ${entryStepsListingHtml(listing)}
+      </details>`).join("\n      ");
+  const allCommands = listings.flatMap((listing) => (listing.nextSteps ?? []).flatMap((step) => step.commands ?? []));
+  const usesCub = allCommands.some(({ command }) => /^cub /.test(command));
+  const compares = allCommands.some(({ command }) => /^cub config diff /.test(command));
+  const listingLinks = listings
+    .map((listing) => `<a href="${listingsHref}/${escapeHtml(listing.identity.id)}.json">${escapeHtml(listing.identity.id)}.json</a>`)
+    .join(", ");
+  return `<section class="entry-steps" aria-labelledby="${ENTRY_STEPS_ANCHOR}">
+      <h2 id="${ENTRY_STEPS_ANCHOR}">${escapeHtml(NEXT_STEPS_HEADING)}</h2>
+      <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
+      <p>${[
+        "Steps 1 and 2 need no account.",
+        usesCub ? `<a href="${siteHref}/try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command.` : "",
+        compares ? `Step 2 uses <code>cub config diff</code>, which <code>${escapeHtml(WORKSHOP_PLUGIN_INSTALL)}</code> adds.` : "",
+        listings.length > 1 ? `This page covers ${listings.length} entries, so open the one you want.` : "",
+        note,
+      ].filter(Boolean).join(" ")}</p>
+      ${body}
+      ${agentNote(`These steps are the <code>nextSteps</code> array of ${listingLinks}. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub.`)}
+    </section>`;
 }
 
 // A note written for agents, not people: a prompt to hand an agent, or where
