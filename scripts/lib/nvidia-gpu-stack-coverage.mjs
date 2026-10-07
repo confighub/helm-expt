@@ -91,6 +91,39 @@ export const NVIDIA_GPU_STACK_ADDITIONS = Object.freeze([
   }),
 ]);
 
+// Discovery roles for these charts, in the vocabulary of scripts/lib/catalog-roles.mjs.
+// A role assignment is keyed by a base-variant record and that record's
+// configuration digest, and base-variant records exist only after publication.
+// So the classification is kept here, and scripts/assign-nvidia-gpu-stack-roles.mjs
+// writes it into data/catalog-roles/assignments.json once the records exist.
+// A role is discovery only: it claims no readiness, compatibility or support.
+export const NVIDIA_GPU_STACK_ROLES = Object.freeze({
+  "gpu-operator": {
+    role: "gpu",
+    componentType: "operator",
+    rationale:
+      "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware.",
+  },
+  nvsentinel: {
+    role: "gpu",
+    componentType: "agent",
+    rationale:
+      "The node DaemonSets watch GPU and system-log health and report faults; as retained they quarantine or repair nothing, and they supply no GPU capacity.",
+  },
+  "cluster-readiness-engine": {
+    role: "gpu",
+    componentType: "operator",
+    rationale:
+      "The Deployment installs a controller that certifies GPU clusters from Certification custom resources; it certifies nothing until one is created on a cluster with GPU nodes.",
+  },
+  "k8s-nim-operator": {
+    role: "gpu",
+    componentType: "operator",
+    rationale:
+      "The Deployment installs the NIM Operator, which runs GPU inference microservices from NIMService and NIMCache custom resources; it deploys no model, and a model still needs GPU nodes and an NGC key.",
+  },
+});
+
 export function nvidiaGpuStackAddition(chart, version) {
   return NVIDIA_GPU_STACK_ADDITIONS.find((item) => item.chart === chart && item.version === version) ?? null;
 }
