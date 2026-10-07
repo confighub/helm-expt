@@ -6544,7 +6544,268 @@ const CHARTS = [
       "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
     variantScope: [],
   },
+  ...nvidiaGpuStackVerdicts(),
 ];
+
+// The NVIDIA GPU stack entries (scripts/lib/nvidia-gpu-stack-coverage.mjs). Each
+// verdict is a hand read of the locked chart against the base's own render, and
+// the same judgment holds across the reviewed versions of a chart wherever the
+// witness finds the same classes, so one builder writes each chart's rows and the
+// version-specific facts are spelled out where they differ. No hook named here
+// has been run on a cluster: the gpu-operator routes are packaged lifecycle
+// actions and a CRD bundle, recorded and not observed.
+function nvidiaGpuStackVerdicts() {
+  const gpuOperatorDefault = ({ version, crds, gpuCluster }) => ({
+    repo: "nvidia",
+    chart: "gpu-operator",
+    version,
+    recipe: `recipes/nvidia/gpu-operator/${version}`,
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        detail: gpuCluster
+          ? "three hook sets render with chart defaults and none is in the base: a pre-upgrade Job that applies the CRD files inside the operator image, a pre-delete Job that removes a chart-managed GPUCluster, and the node-feature-discovery post-delete prune Job; the pre-upgrade and post-delete Jobs each bring a ServiceAccount, ClusterRole and ClusterRoleBinding. A second pre-delete Job, the CRD cleanup, sits behind operator.cleanupCRD, which is off"
+          : "two hook sets render with chart defaults and neither is in the base: a pre-upgrade Job that applies the CRD files inside the operator image, and the node-feature-discovery post-delete prune Job, each with a ServiceAccount, ClusterRole and ClusterRoleBinding. A pre-delete CRD cleanup Job sits behind operator.cleanupCRD, which is off",
+        disposition:
+          "packaged lifecycle actions under prerequisites/gpu-operator-lifecycle, each marked not automatic; none has been run on a cluster",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: gpuCluster
+          ? "the keep annotation is on the ClusterPolicy only when operator.cleanupCRD is true, and on the GPUCluster only when gpuCluster.deployCR is true; chart defaults set neither"
+          : "the keep annotation is on the ClusterPolicy only when operator.cleanupCRD is true, which chart defaults leave false",
+        disposition: "no route needed for the audited base",
+      },
+      ...(gpuCluster
+        ? {
+            "capabilities-api-versions": {
+              finding: "present-gated",
+              detail:
+                "the one capability check, in templates/validations.yaml, runs only when gpuCluster.deployCR is true; chart defaults leave it false",
+              disposition: "no route needed for the audited base",
+            },
+          }
+        : {}),
+      "crd-ordering": {
+        detail: `${crds} CRDs render in this base beside a ClusterPolicy object of one of them`,
+        disposition:
+          "ordering declaration ships with the bundle: the base's target facts name the CRDs and the package carries them as a CRD bundle",
+      },
+      "subchart-conditions": {
+        disposition:
+          "the flatten step must render with the audited base's condition set; chart defaults leave node-feature-discovery on",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      `CRD ordering declaration: the ${crds} CRDs are established before the ClusterPolicy object, from the packaged CRD bundle`,
+      "pre-upgrade lifecycle action that moves the CRDs to the new version, recorded in the package and not yet run",
+      ...(gpuCluster
+        ? ["pre-delete lifecycle action for the GPUCluster cleanup Job, recorded in the package and not yet run"]
+        : []),
+      "post-delete lifecycle action for the node-feature-discovery prune Job, recorded in the package and not yet run",
+    ],
+    rationale:
+      "Hand read of the chart against this base's render. Nothing here is decided at render time: no lookup, no generated value, no webhook certificate. What flattening drops is the chart's Helm hooks, and what it needs is the CRDs before the ClusterPolicy. The hook objects are packaged as lifecycle actions and the CRDs as a bundle, so the lane names companions that exist in the package. None of them has been run on a cluster, and no receipt says a flattened install, upgrade or delete behaves like the Helm one.",
+    variantScope: [
+      {
+        values: "nfd.enabled false",
+        effect:
+          "the node-feature-discovery objects, its three CRDs and the post-delete prune hook leave the render; the target must then run node-feature-discovery itself",
+      },
+      {
+        values: "operator.cleanupCRD true",
+        effect:
+          "adds a pre-delete Job that deletes the CRDs and a keep annotation on the ClusterPolicy; that base needs a fresh verdict",
+      },
+      {
+        values: "operator.upgradeCRD false",
+        effect: "the pre-upgrade hook leaves the render and moving the CRDs forward becomes entirely the delivery workflow's job",
+      },
+      {
+        values: "driver.version",
+        effect: "changes one field, ClusterPolicy /spec/driver/version, and does not move the finding set",
+      },
+      ...(gpuCluster
+        ? [
+            {
+              values: "gpuCluster.deployCR true",
+              effect:
+                "a keep-annotated GPUCluster object renders, the pre-delete cleanup Job has real work, and the chart refuses a target that does not serve the resource.k8s.io DeviceClass API; that base needs a fresh verdict",
+            },
+          ]
+        : []),
+    ],
+  });
+
+  const nvsentinelDefault = ({ version, lifecycleManager, externalMongoHook }) => ({
+    repo: "nvidia",
+    chart: "nvsentinel",
+    version,
+    recipe: `recipes/nvidia/nvsentinel/${version}`,
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present-gated",
+        detail: externalMongoHook
+          ? "the post-upgrade node-condition cleanup Job renders only when nodeConditionCleanup.enabled is true, and the external MongoDB setup Job only when an external datastore is configured; chart defaults set neither, and this base's render contains no hook object"
+          : "the post-upgrade node-condition cleanup Job renders only when nodeConditionCleanup.enabled is true; chart defaults leave it false, and this base's render contains no hook object",
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "every keep annotation sits in the mongodb-store and postgresql subcharts, which chart defaults leave off",
+        disposition: "no route needed for the audited base",
+      },
+      lookup: {
+        finding: "present-gated",
+        detail: "every lookup call sits in the mongodb-store and postgresql subcharts, which chart defaults leave off",
+        disposition: "no route needed for the audited base",
+      },
+      "webhook-ca": {
+        finding: "present-gated",
+        detail: lifecycleManager
+          ? "the webhook configurations belong to the janitor, lifecycle-manager and preflight subcharts, all off by chart default"
+          : "the webhook configurations belong to the janitor and preflight subcharts, both off by chart default",
+        disposition: "no route needed for the audited base",
+      },
+      "capabilities-api-versions": {
+        finding: "present-gated",
+        detail:
+          "the branches sit in the mongodb-store and postgresql subcharts, which are off, and in a syslog-health-monitor helper reached only when xidSideCar.enabled is true, which is false by default",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "every generated credential sits in the mongodb-store and postgresql subcharts, which chart defaults leave off; this base renders no Secret",
+        disposition: "no route needed for the audited base",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: "the CRDs ship in the crds directories of subcharts that chart defaults leave off; this base renders none",
+        disposition: "no route needed for the audited base",
+      },
+      "namespace-creation": {
+        finding: "present-gated",
+        detail: "the Namespace template belongs to the psmdb-operator subchart inside mongodb-store, which is off",
+        disposition: "no route needed for the audited base",
+      },
+      "subchart-conditions": {
+        disposition:
+          "the flatten step must render with the audited base's condition set; every subchart has its own flag and chart defaults turn most of them off",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Hand read of the chart against this base's render. Every hazard the packaged chart contains sits in a subchart or template that chart defaults leave off, and the render agrees: no hook, no CRD, no Secret, no webhook, no Namespace. Two things stay outside the bundle and are recorded as preconditions, not routes: the Prometheus Operator PodMonitor CRD must exist on the target, and the objects carry no namespace, so they must be applied into nvsentinel.",
+    variantScope: [
+      {
+        values: "global.mongodbStore.enabled or postgresql.enabled",
+        effect:
+          "brings in lookup-or-generate credentials, keep-annotated volumes, setup Jobs and operator CRDs; that base needs its own verdict",
+      },
+      {
+        values: lifecycleManager
+          ? "global.janitor.enabled, global.lifecycleManager.enabled or global.preflight.enabled"
+          : "global.janitor.enabled or global.preflight.enabled",
+        effect: "adds admission webhooks and CRDs; that base needs a certificate route and an ordering declaration",
+      },
+      {
+        values: "nodeConditionCleanup.enabled true",
+        effect: "adds a post-upgrade hook Job with its own RBAC; that base needs a recorded lifecycle action",
+      },
+      {
+        values: "podMonitor.enabled false",
+        effect: "removes the PodMonitor and with it the Prometheus Operator CRD precondition",
+      },
+    ],
+  });
+
+  return [
+    gpuOperatorDefault({ version: "v25.10.1", crds: "five", gpuCluster: false }),
+    gpuOperatorDefault({ version: "v26.3.2", crds: "five", gpuCluster: false }),
+    gpuOperatorDefault({ version: "v26.3.3", crds: "five", gpuCluster: false }),
+    {
+      repo: "nvidia",
+      chart: "gpu-operator",
+      version: "v26.3.3",
+      recipe: "recipes/nvidia/gpu-operator/v26.3.3",
+      auditedBase: "aicr-eks-training",
+      verdictFile: "flattening-safety-verdict-aicr-eks-training.yaml",
+      overrides: {
+        "helm-hooks": {
+          detail:
+            "the pre-upgrade Job that applies the CRD files inside the operator image renders with these values, with its ServiceAccount, ClusterRole and ClusterRoleBinding, and is not in the base; the node-feature-discovery post-delete prune set does not render because nfd.enabled is false",
+          disposition:
+            "packaged lifecycle action under prerequisites/gpu-operator-lifecycle, marked not automatic; it has not been run on a cluster",
+        },
+        "resource-policy-keep": {
+          finding: "present-gated",
+          detail: "the keep annotation is on the ClusterPolicy only when operator.cleanupCRD is true, which these values leave false",
+          disposition: "no route needed for the audited base",
+        },
+        "crd-ordering": {
+          detail: "two CRDs render in this base beside a ClusterPolicy object of one of them",
+          disposition:
+            "ordering declaration ships with the bundle: the base's target facts name the CRDs and the package carries them as a CRD bundle",
+        },
+        "subchart-conditions": {
+          disposition:
+            "the flatten step must render with this base's condition set; the AICR values turn node-feature-discovery off",
+        },
+      },
+      lane: "flatten-with-routes",
+      routes: [
+        "CRD ordering declaration: the two CRDs are established before the ClusterPolicy object, from the packaged CRD bundle",
+        "pre-upgrade lifecycle action that moves the CRDs to the new version, recorded in the package and not yet run",
+      ],
+      rationale:
+        "Hand read of the chart against this base's render, which uses the values the AICR EKS training recipe supplies. Nothing is decided at render time. With node-feature-discovery off, the only hook left is the pre-upgrade CRD Job, and the only ordering need is the two CRDs before the ClusterPolicy. Both companions are in the package. Neither has been run on a cluster, and the target must already run node-feature-discovery, which this base does not install.",
+      variantScope: [
+        {
+          values: "nfd.enabled true (the default base)",
+          effect: "node-feature-discovery, three more CRDs and the post-delete prune hook enter the render",
+        },
+        {
+          values: "driver.version",
+          effect: "changes one field, ClusterPolicy /spec/driver/version, and does not move the finding set",
+        },
+      ],
+    },
+    gpuOperatorDefault({ version: "v26.7.1", crds: "eight", gpuCluster: true }),
+    nvsentinelDefault({ version: "v1.9.0", lifecycleManager: false, externalMongoHook: true }),
+    nvsentinelDefault({ version: "v1.20.0", lifecycleManager: true, externalMongoHook: true }),
+    nvsentinelDefault({ version: "v1.25.0", lifecycleManager: true, externalMongoHook: true }),
+    nvsentinelDefault({ version: "v1.26.0", lifecycleManager: true, externalMongoHook: false }),
+    {
+      repo: "nvidia",
+      chart: "cluster-readiness-engine",
+      version: "v0.6.0",
+      recipe: "recipes/nvidia/cluster-readiness-engine/v0.6.0",
+      auditedBase: "default",
+      overrides: {
+        "crd-ordering": {
+          detail: "seven nvcre.nvidia.com CRDs render in this base beside four LogProfile objects of one of them",
+          disposition:
+            "ordering declaration ships with the bundle: the base's target facts name the CRDs and the package carries them as a CRD bundle",
+        },
+      },
+      lane: "flatten-with-routes",
+      routes: [
+        "CRD ordering declaration: the seven nvcre.nvidia.com CRDs are established before the four LogProfile objects, from the packaged CRD bundle",
+      ],
+      rationale:
+        "Hand read of the chart against this base's render. The packaged chart has no hook, lookup, capability branch, generated value, webhook or subchart. The definitions are the only construct needing a companion: per-file Units can otherwise apply a LogProfile before the definition that gives it meaning. The Prometheus Operator ServiceMonitor CRD is a precondition on the target, recorded as a target fact.",
+      variantScope: [
+        {
+          values: "metrics.serviceMonitor.enabled false",
+          effect: "removes the ServiceMonitor and with it the Prometheus Operator CRD precondition",
+        },
+      ],
+    },
+  ];
+}
 
 function witnessPath(entry) {
   return `data/flattening-safety/witnesses/${entry.repo}-${entry.chart}-${entry.version}.yaml`;

@@ -1,0 +1,155 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "nvidia-nvsentinel-v1.9.0"
+spec:
+  chart:
+    repository: "nvidia"
+    name: "nvsentinel"
+    version: "v1.9.0"
+    packageSHA256: "3f145e8ac66057f06ac434619abbe7aa24b384e63713fc0a55e7f47493335220"
+  witnessRef: "data/flattening-safety/witnesses/nvidia-nvsentinel-v1.9.0.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present-gated"
+      detail: "the post-upgrade node-condition cleanup Job renders only when nodeConditionCleanup.enabled is true, and the external MongoDB setup Job only when an external datastore is configured; chart defaults set neither, and this base's render contains no hook object"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/job-external-mongodb-setup.yaml:71"
+        - "templates/node-condition-cleanup-hook.yaml:25"
+        - "templates/node-condition-cleanup-hook.yaml:38"
+        - "templates/node-condition-cleanup-hook.yaml:68"
+        - "templates/node-condition-cleanup-hook.yaml:90"
+    -
+      class: "resource-policy-keep"
+      finding: "present-gated"
+      detail: "every keep annotation sits in the mongodb-store and postgresql subcharts, which chart defaults leave off"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/mongodb-store/charts/mongodb/templates/backup/pvc.yaml:29"
+        - "charts/mongodb-store/charts/mongodb/templates/standalone/pvc.yaml:16"
+        - "charts/mongodb-store/charts/psmdb-operator/templates/namespace.yaml:8"
+        - "charts/mongodb-store/templates/jobs.yaml:102"
+        - "charts/mongodb-store/templates/jobs.yaml:127"
+        - "charts/mongodb-store/values.yaml:144"
+    -
+      class: "lookup"
+      finding: "present-gated"
+      detail: "every lookup call sits in the mongodb-store and postgresql subcharts, which chart defaults leave off"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:100"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:159"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:181"
+        - "charts/mongodb-store/charts/mongodb/templates/networkpolicy.yaml:45"
+        - "charts/mongodb-store/charts/psmdb-operator/templates/NOTES.txt:19"
+        - "charts/postgresql/charts/common/templates/_secrets.tpl:100"
+    -
+      class: "webhook-ca"
+      finding: "present-gated"
+      detail: "the webhook configurations belong to the janitor and preflight subcharts, both off by chart default"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/janitor/templates/webhook.yaml:39"
+        - "charts/preflight/templates/mutatingwebhook.yaml:15"
+    -
+      class: "capabilities-api-versions"
+      finding: "present-gated"
+      detail: "the branches sit in the mongodb-store and postgresql subcharts, which are off, and in a syslog-health-monitor helper reached only when xidSideCar.enabled is true, which is false by default"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_capabilities.tpl:12"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_capabilities.tpl:221"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_capabilities.tpl:222"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_compatibility.tpl:14"
+        - "charts/mongodb-store/charts/mongodb/templates/_helpers.tpl:620"
+        - "charts/postgresql/charts/common/templates/_capabilities.tpl:12"
+    -
+      class: "generated-secrets"
+      finding: "present-gated"
+      detail: "every generated credential sits in the mongodb-store and postgresql subcharts, which chart defaults leave off; this base renders no Secret"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:70"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:92"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:125"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:126"
+        - "charts/mongodb-store/charts/mongodb/charts/common/templates/_secrets.tpl:130"
+        - "charts/mongodb-store/charts/mongodb/templates/secrets-ca.yaml:29"
+    -
+      class: "crd-ordering"
+      finding: "present-gated"
+      detail: "the CRDs ship in the crds directories of subcharts that chart defaults leave off; this base renders none"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "5 crds-directory file(s), 7 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "present-gated"
+      detail: "the Namespace template belongs to the psmdb-operator subchart inside mongodb-store, which is off"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/mongodb-store/charts/psmdb-operator/templates/namespace.yaml:4"
+    -
+      class: "subchart-conditions"
+      finding: "present"
+      detail: "20 occurrence(s) in the packaged chart"
+      disposition: "the flatten step must render with the audited base's condition set; every subchart has its own flag and chart defaults turn most of them off"
+      evidence:
+        - "gpu-health-monitor gated by global.gpuHealthMonitor.enabled"
+        - "mongodb-store gated by global.mongodbStore.enabled"
+        - "postgresql gated by postgresql.enabled"
+        - "fault-quarantine gated by global.faultQuarantine.enabled"
+        - "node-drainer gated by global.nodeDrainer.enabled"
+        - "fault-remediation gated by global.faultRemediation.enabled"
+        - "health-events-analyzer gated by global.healthEventsAnalyzer.enabled"
+        - "csp-health-monitor gated by global.cspHealthMonitor.enabled"
+        - "syslog-health-monitor gated by global.syslogHealthMonitor.enabled"
+        - "incluster-file-server gated by global.inclusterFileServer.enabled"
+        - "labeler gated by global.labeler.enabled"
+        - "janitor gated by global.janitor.enabled"
+        - "janitor-provider gated by global.janitorProvider.enabled"
+        - "metadata-collector gated by global.metadataCollector.enabled"
+        - "kubernetes-object-monitor gated by global.kubernetesObjectMonitor.enabled"
+        - "event-exporter gated by global.eventExporter.enabled"
+        - "preflight gated by global.preflight.enabled"
+        - "k8sdatastore-crds gated by global.k8sdatastoreCrds.enabled"
+        - "slurm-drain-monitor gated by global.slurmDrainMonitor.enabled"
+        - "nic-health-monitor gated by global.nicHealthMonitor.enabled"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "global.mongodbStore.enabled or postgresql.enabled"
+      effect: "brings in lookup-or-generate credentials, keep-annotated volumes, setup Jobs and operator CRDs; that base needs its own verdict"
+    -
+      values: "global.janitor.enabled or global.preflight.enabled"
+      effect: "adds admission webhooks and CRDs; that base needs a certificate route and an ordering declaration"
+    -
+      values: "nodeConditionCleanup.enabled true"
+      effect: "adds a post-upgrade hook Job with its own RBAC; that base needs a recorded lifecycle action"
+    -
+      values: "podMonitor.enabled false"
+      effect: "removes the PodMonitor and with it the Prometheus Operator CRD precondition"
+  verdict:
+    lane: "safe-to-flatten"
+    rationale: "Hand read of the chart against this base's render. Every hazard the packaged chart contains sits in a subchart or template that chart defaults leave off, and the render agrees: no hook, no CRD, no Secret, no webhook, no Namespace. Two things stay outside the bundle and are recorded as preconditions, not routes: the Prometheus Operator PodMonitor CRD must exist on the target, and the objects carry no namespace, so they must be applied into nvsentinel."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/nvidia-nvsentinel-v1.9.0.yaml"
+      - "recipes/nvidia/nvsentinel/v1.9.0/source-lock.yaml"

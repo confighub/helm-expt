@@ -274,3 +274,13 @@ velero,velero,12.0.1,no-crds,unsafe-to-flatten,present,absent,absent,absent,abse
 velero,velero,12.1.0,default,unsafe-to-flatten,present,absent,absent,absent,absent,present,recipes/velero/velero/12.1.0/publication/flattening-safety-verdict.yaml
 vm,victoria-logs-single,0.12.5,default,unsafe-to-flatten,absent,present,absent,absent,absent,absent,recipes/vm/victoria-logs-single/0.12.5/publication/flattening-safety-verdict.yaml
 vm,victoria-metrics-single,0.39.0,default-reviewed,safe-to-flatten,absent,absent,absent,absent,absent,absent,recipes/vm/victoria-metrics-single/0.39.0/publication/flattening-safety-verdict-default-reviewed.yaml
+nvidia,gpu-operator,v25.10.1,default,flatten-with-routes,present,absent,present-gated,absent,absent,present,recipes/nvidia/gpu-operator/v25.10.1/publication/flattening-safety-verdict.yaml
+nvidia,gpu-operator,v26.3.2,default,flatten-with-routes,present,absent,present-gated,absent,absent,present,recipes/nvidia/gpu-operator/v26.3.2/publication/flattening-safety-verdict.yaml
+nvidia,gpu-operator,v26.3.3,default,flatten-with-routes,present,absent,present-gated,absent,absent,present,recipes/nvidia/gpu-operator/v26.3.3/publication/flattening-safety-verdict.yaml
+nvidia,gpu-operator,v26.3.3,aicr-eks-training,flatten-with-routes,present,absent,present-gated,absent,absent,present,recipes/nvidia/gpu-operator/v26.3.3/publication/flattening-safety-verdict-aicr-eks-training.yaml
+nvidia,gpu-operator,v26.7.1,default,flatten-with-routes,present,absent,present-gated,absent,absent,present,recipes/nvidia/gpu-operator/v26.7.1/publication/flattening-safety-verdict.yaml
+nvidia,nvsentinel,v1.9.0,default,safe-to-flatten,present-gated,present-gated,present-gated,present-gated,present-gated,present-gated,recipes/nvidia/nvsentinel/v1.9.0/publication/flattening-safety-verdict.yaml
+nvidia,nvsentinel,v1.20.0,default,safe-to-flatten,present-gated,present-gated,present-gated,present-gated,present-gated,present-gated,recipes/nvidia/nvsentinel/v1.20.0/publication/flattening-safety-verdict.yaml
+nvidia,nvsentinel,v1.25.0,default,safe-to-flatten,present-gated,present-gated,present-gated,present-gated,present-gated,present-gated,recipes/nvidia/nvsentinel/v1.25.0/publication/flattening-safety-verdict.yaml
+nvidia,nvsentinel,v1.26.0,default,safe-to-flatten,present-gated,present-gated,present-gated,present-gated,present-gated,present-gated,recipes/nvidia/nvsentinel/v1.26.0/publication/flattening-safety-verdict.yaml
+nvidia,cluster-readiness-engine,v0.6.0,default,flatten-with-routes,absent,absent,absent,absent,absent,present,recipes/nvidia/cluster-readiness-engine/v0.6.0/publication/flattening-safety-verdict.yaml
