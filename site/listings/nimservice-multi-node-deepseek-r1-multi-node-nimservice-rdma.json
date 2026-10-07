@@ -1261,7 +1261,7 @@
         "lifecycle.coverage.confighub_scan_ops"
       ],
       "commands": [],
-      "unblock": "The listing records its literal configuration bundle as not published. Publishing the rendered objects as that bundle, with a receipt, would make this step available."
+      "unblock": "The listing records its literal configuration bundle as not published. Publishing the retained objects as that bundle, with a receipt, would make this step available."
     },
     {
       "id": "deploy",
