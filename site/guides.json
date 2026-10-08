@@ -6,7 +6,7 @@
   "generatedFrom": [
     "data/workshop-guides/guides.yaml"
   ],
-  "count": 53,
+  "count": 54,
   "rows": [
     {
       "id": "journey-values-did-nothing",
@@ -443,6 +443,19 @@
       "firstCommand": "cub stack sandbox ../stacks/kubara-gitops-shop.yaml --workspace ./platform",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-compose-guide.html"
+      }
+    },
+    {
+      "id": "stack-from-catalog",
+      "group": "stacks-and-platforms",
+      "groupTitle": "Stacks and platforms",
+      "title": "Make a stack from Catalog entries",
+      "summary": "Compose NVIDIA's gpu-operator, nvsentinel and cluster-readiness-engine entries into one local stack, check them together, then swap one entry and check again.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-stack-from-catalog-guide.html",
+      "firstCommand": "cub stack compose --entry nvidia-gpu-operator-v26-3-3-default --entry nvidia-nvsentinel-v1-25-0-default --entry nvidia-cluster-readiness-engine-v0-6-0-default --name gpu-node --out ./gpu-node",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/workshop-stack-from-catalog-guide.html"
       }
     },
     {
