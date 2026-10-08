@@ -935,6 +935,13 @@
       "applicable": []
     },
     {
+      "chart": "eks/aws-efa-k8s-device-plugin",
+      "version": "v0.5.29",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "elastic/eck-operator",
       "version": "3.4.0",
       "top_skill": "hook-and-secret-lifecycle",
@@ -2378,6 +2385,13 @@
           "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
         }
       ]
+    },
+    {
+      "chart": "node-feature-discovery/node-feature-discovery",
+      "version": "0.19.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
     },
     {
       "chart": "nvidia/cluster-readiness-engine",

@@ -7,14 +7,14 @@
     "data/master-catalog-matrix/matrix.csv"
   ],
   "changesetBug": "https://github.com/confighub/helm-expt/issues/682",
-  "variantCount": 339,
+  "variantCount": 344,
   "byOwnerClass": {
     "not-applicable-if-any": 179,
-    "run-proof": 160
+    "run-proof": 165
   },
   "byReadiness": {
     "promotion-proven": 179,
-    "blocked-needs-confighub-proof": 141,
+    "blocked-needs-confighub-proof": 146,
     "watch-grade": 17,
     "blocked-proof-failed": 2
   },
@@ -1381,6 +1381,34 @@
       "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
       "version": "0.5.0",
       "base": "gpu-resources",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "eks/aws-efa-k8s-device-plugin",
+      "version": "v0.5.29",
+      "base": "aicr-eks-training",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "eks/aws-efa-k8s-device-plugin",
+      "version": "v0.5.29",
+      "base": "default",
       "promotion_state": "todo",
       "promotion_status": "missing-confighub-proof",
       "server_clone_exists": "no",
@@ -3042,6 +3070,48 @@
       "evidence_receipt": "runs/nfs-provisioner-default-confighub-proof/latest/variant-promotion-receipt.yaml",
       "next_action": "keep receipt fresh when the upstream base changes",
       "reason": "server-side promotion receipt passed"
+    },
+    {
+      "chart": "node-feature-discovery/node-feature-discovery",
+      "version": "0.19.0",
+      "base": "aicr-eks-training-v0-20-0",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "node-feature-discovery/node-feature-discovery",
+      "version": "0.19.0",
+      "base": "aicr-eks-training-v1-0-0",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "node-feature-discovery/node-feature-discovery",
+      "version": "0.19.0",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
     },
     {
       "chart": "nvidia/cluster-readiness-engine",

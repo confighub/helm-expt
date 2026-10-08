@@ -42,23 +42,23 @@ from a different chart version's disposition row.
 
 | Metric | Value |
 | --- | ---: |
-| Chart versions | 178 |
-| Matrix rows | 597 |
-| F1 source / F2 base / candidate / F4 derived rows | 178 / 339 / 67 / 13 |
-| Layer rows | F1:178 / F2a:163 / F2b:176 / F2c:33 / F3:34 / F4a:7 / F4b:6 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 1136 / 107 / 128 / 772 / 2036 |
+| Chart versions | 180 |
+| Matrix rows | 604 |
+| F1 source / F2 base / candidate / F4 derived rows | 180 / 344 / 67 / 13 |
+| Layer rows | F1:180 / F2a:165 / F2b:179 / F2c:33 / F3:34 / F4a:7 / F4b:6 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 1141 / 107 / 128 / 797 / 2055 |
 | Base/derived rows with the complete core lane set | 131 |
 | Rows with a target run decision | 26 |
 | Target run decisions (runs / superseded / blocked-or-rejected) | 22 / 2 / 2 |
-| Server-side variant promotion (proven / watch / todo / blocked / n/a) | 179 / 17 / 141 / 2 / 258 |
-| Lifecycle route contracts (observed / watch / todo / n/a) | 27 / 0 / 1 / 569 |
+| Server-side variant promotion (proven / watch / todo / blocked / n/a) | 179 / 17 / 146 / 2 / 260 |
+| Lifecycle route contracts (observed / watch / todo / n/a) | 27 / 0 / 1 / 576 |
 | Render-intent lifecycle records (attached / gap / no separate route) | 12 / 14 / 285 |
 | Render-intent prerequisite records (attached / gap / none explicitly required) | 137 / 162 / 12 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
 | Rows currently in the active proof queue | 74 |
 | Cells with deferred accepted disposition | 113 |
 
-Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): `argo-cd/argo-cd@10.1.3`, `argo-cd/argo-cd@10.2.1`, `argo-cd/argo-cd@10.7.0`, `argo-cd/argo-cd@9.5.17`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0`, `bitnami/mongodb@19.0.9`, `bitnami/mongodb@19.1.0`, `bitnami/nginx@24.0.4`, `bitnami/nginx@25.0.0`, `bitnami/postgresql@18.6.10`, `bitnami/postgresql@18.7.0`, `bitnami/redis@27.0.0`, `cloudnative-pg/cloudnative-pg@0.29.0`, `dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1`, `dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0`, `external-secrets/external-secrets@2.10.0`, `external-secrets/external-secrets@2.7.0`, `external-secrets/external-secrets@2.8.0`, `grafana/alloy@1.11.0`, `grafana/alloy@1.8.2`, `grafana/loki@7.1.0`, `grafana/loki@7.3.0`, `jetstack/cert-manager@v1.21.0`, `jetstack/cert-manager@v1.21.1`, `k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2`, `kai-scheduler/kai-scheduler@v0.14.1`, `kai-scheduler/kai-scheduler@v0.16.9`, `kubeflow/kubeflow-trainer@2.2.0`, `kyverno/kyverno-policies@3.8.2`, `kyverno/kyverno-policies@3.9.0`, `kyverno/kyverno@3.8.2`, `kyverno/kyverno@3.9.0`, `longhorn/longhorn@1.12.0`, `longhorn/longhorn@1.12.1`, `metallb/metallb@0.16.1`, `metrics-server/metrics-server@3.13.1`, `metrics-server/metrics-server@3.14.0`, `nvidia/gpu-operator@v26.3.2`, `nvidia/gpu-operator@v26.3.3`, `nvidia/gpu-operator@v26.7.1`, `nvidia/k8s-nim-operator@3.1.2`, `nvidia/nodewright@v0.17.1`, `nvidia/nodewright@v0.19.0`, `nvidia/nvsentinel@v1.25.0`, `nvidia/nvsentinel@v1.26.0`, `nvidia/nvsentinel@v1.9.0`, `oauth2-proxy/oauth2-proxy@10.7.0`, `percona/psmdb-operator@1.23.0`, `policy-reporter/policy-reporter@3.9.1`, `prometheus-community/kube-prometheus-stack@84.4.0`, `prometheus-community/kube-prometheus-stack@86.1.0`, `prometheus-community/kube-prometheus-stack@87.15.1`, `prometheus-community/kube-prometheus-stack@87.19.2`, `prometheus-community/kube-prometheus-stack@88.6.3`, `prometheus-community/prometheus-blackbox-exporter@11.15.1`, `prometheus-community/prometheus-blackbox-exporter@11.18.0`, `prometheus-community/prometheus-operator-crds@28.0.1`, `prometheus-community/prometheus@29.9.0`, `stakater/reloader@2.2.14`, `stakater/reloader@2.2.16`, `traefik/traefik@41.0.2`, `traefik/traefik@41.4.0`, `velero/velero@12.1.0`.
+Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): `argo-cd/argo-cd@10.1.3`, `argo-cd/argo-cd@10.2.1`, `argo-cd/argo-cd@10.7.0`, `argo-cd/argo-cd@9.5.17`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0`, `bitnami/mongodb@19.0.9`, `bitnami/mongodb@19.1.0`, `bitnami/nginx@24.0.4`, `bitnami/nginx@25.0.0`, `bitnami/postgresql@18.6.10`, `bitnami/postgresql@18.7.0`, `bitnami/redis@27.0.0`, `cloudnative-pg/cloudnative-pg@0.29.0`, `dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1`, `dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0`, `eks/aws-efa-k8s-device-plugin@v0.5.29`, `external-secrets/external-secrets@2.10.0`, `external-secrets/external-secrets@2.7.0`, `external-secrets/external-secrets@2.8.0`, `grafana/alloy@1.11.0`, `grafana/alloy@1.8.2`, `grafana/loki@7.1.0`, `grafana/loki@7.3.0`, `jetstack/cert-manager@v1.21.0`, `jetstack/cert-manager@v1.21.1`, `k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2`, `kai-scheduler/kai-scheduler@v0.14.1`, `kai-scheduler/kai-scheduler@v0.16.9`, `kubeflow/kubeflow-trainer@2.2.0`, `kyverno/kyverno-policies@3.8.2`, `kyverno/kyverno-policies@3.9.0`, `kyverno/kyverno@3.8.2`, `kyverno/kyverno@3.9.0`, `longhorn/longhorn@1.12.0`, `longhorn/longhorn@1.12.1`, `metallb/metallb@0.16.1`, `metrics-server/metrics-server@3.13.1`, `metrics-server/metrics-server@3.14.0`, `node-feature-discovery/node-feature-discovery@0.19.0`, `nvidia/gpu-operator@v26.3.2`, `nvidia/gpu-operator@v26.3.3`, `nvidia/gpu-operator@v26.7.1`, `nvidia/k8s-nim-operator@3.1.2`, `nvidia/nodewright@v0.17.1`, `nvidia/nodewright@v0.19.0`, `nvidia/nvsentinel@v1.25.0`, `nvidia/nvsentinel@v1.26.0`, `nvidia/nvsentinel@v1.9.0`, `oauth2-proxy/oauth2-proxy@10.7.0`, `percona/psmdb-operator@1.23.0`, `policy-reporter/policy-reporter@3.9.1`, `prometheus-community/kube-prometheus-stack@84.4.0`, `prometheus-community/kube-prometheus-stack@86.1.0`, `prometheus-community/kube-prometheus-stack@87.15.1`, `prometheus-community/kube-prometheus-stack@87.19.2`, `prometheus-community/kube-prometheus-stack@88.6.3`, `prometheus-community/prometheus-blackbox-exporter@11.15.1`, `prometheus-community/prometheus-blackbox-exporter@11.18.0`, `prometheus-community/prometheus-operator-crds@28.0.1`, `prometheus-community/prometheus@29.9.0`, `stakater/reloader@2.2.14`, `stakater/reloader@2.2.16`, `traefik/traefik@41.0.2`, `traefik/traefik@41.4.0`, `velero/velero@12.1.0`.
 
 ## How To Use This Sheet
 
@@ -87,18 +87,18 @@ otherwise.
 
 | Queue | Rows | Meaning | Examples |
 | --- | ---: | --- | --- |
-| F1 source charts | 178 | Upstream Helm chart/version source rows. These are the starting points before any installer base is chosen. | `aqua/trivy-operator@0.32.1/(source)`, `argo-cd/argo-cd@9.5.15/(source)`, `argo-cd/argo-cd@9.5.17/(source)` |
+| F1 source charts | 180 | Upstream Helm chart/version source rows. These are the starting points before any installer base is chosen. | `aqua/trivy-operator@0.32.1/(source)`, `argo-cd/argo-cd@9.5.15/(source)`, `argo-cd/argo-cd@9.5.17/(source)` |
 | Public catalog rows | 42 | Reviewed top-20 catalog rows. Use base-readiness or the per-chart catalog page to choose the easiest first base. | `argo-cd/argo-cd@9.5.15/default`, `argo-cd/argo-cd@9.5.15/no-crds`, `bitnami/mongodb@19.0.7/existing-secret-replicaset` |
 | Promote after review | 84 | Proof-grade rows that need catalog/product review before becoming public starting points. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-events@2.4.21/default` |
 | Design a more useful base | 39 | Rows where plain render proof exists but the first user-facing base is not yet good enough. | `argo-cd/argocd-image-updater@1.2.2/default`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default`, `bitnami/memcached@8.5.5/default` |
 | Decide a limitation first | 19 | Rows where a product or operator boundary must be chosen before promotion. | `bitnami/apache@11.4.29/default`, `bitnami/apache@11.4.29/legacy`, `bitnami/contour@21.1.4/default` |
-| Complete the core proof lane | 221 | Real base or derived rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argo-cd@9.5.17/no-crds` |
+| Complete the core proof lane | 226 | Real base or derived rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argo-cd@9.5.17/no-crds` |
 | Active proof queue | 74 | Rows with a current non-pass live parity result and an exact rerun or review action. | `argo-cd/argo-cd@9.5.17/default`, `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` |
 | Deferred accepted dispositions | 34 | Rows whose current non-green cells are already accepted as watch or n/a; do not spend live-run time until scope changes. | `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argocd-image-updater@1.2.2/default`, `autoscaler/cluster-autoscaler@9.57.0/default` |
 | Derived ConfigHub variants | 13 | Downstream ConfigHub variants cloned from reviewed bases. These show environment, region, customer, or target-specific post-render customization without a Helm rerender. | `bitnami/nginx@24.0.2/customer-acme-prod`, `bitnami/nginx@24.0.2/prod-us-east`, `bitnami/redis@25.5.3/prod-us-east` |
 | Candidate rows | 67 | Planned F2/F3 paths from committed work-order data. These are visible product paths, not proof claims. | `autoscaler/cluster-autoscaler@9.57.0/default + review`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default + topology`, `bitnami/contour@21.1.4/legacy + review` |
 | Custom-discussion candidates | 56 | Non-default or target-specific paths where inputs, ownership, or risk must be discussed before the row becomes runnable. | `autoscaler/cluster-autoscaler@9.57.0/default + review`, `bitnami/contour@21.1.4/legacy + review`, `bitnami/memcached@8.5.5/storage-default-reviewed` |
-| Decide target run scope | 326 | Rows without a target run decision or target-bound receipt yet. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
+| Decide target run scope | 331 | Rows without a target run decision or target-bound receipt yet. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
 | Investigate hard gaps | 111 | Rows with a named chart/product gap rather than a simple missing receipt. | `argo-cd/argo-cd@9.5.15/default`, `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argocd-image-updater@1.2.2/default` |
 
 ## Sources joined, and what this view compresses
@@ -302,6 +302,9 @@ when you want the user/product view with those columns visible.
 |  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | gpu-resources | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `eks/aws-efa-k8s-device-plugin@v0.5.29` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `elastic/eck-operator@3.4.0` | F1 | source | (source) | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | ha | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
@@ -537,6 +540,10 @@ when you want the user/product view with those columns visible.
 |  | F2a | base | default | next80 | `capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ❌ | ❌ | ❌ | ✅ | model | in-confighub | ⬜ |
 |  | F2c | candidate review | storage-default-reviewed | candidate | `capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 |  | F3 | candidate review | default + review | candidate | `capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+| `node-feature-discovery/node-feature-discovery@0.19.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training-v0-20-0 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training-v1-0-0 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/cluster-readiness-engine@v0.6.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/gpu-operator@v25.10.1` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |

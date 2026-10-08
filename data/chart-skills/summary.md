@@ -16,7 +16,7 @@ Two forms: [skills.csv](./skills.csv) (spreadsheet) and
 
 ## Coverage
 
-119 of 178 charts have at least one applicable skill. A chart
+119 of 180 charts have at least one applicable skill. A chart
 with none is a plain chart that needs no special playbook.
 
 | Skill | Charts |
@@ -88,6 +88,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | dex/dex@0.24.0 | 0 | none | — |
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | 0 | none | — |
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | 0 | none | — |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | 0 | none | — |
 | elastic/eck-operator@3.4.0 | 3 | hook-and-secret-lifecycle | webhooks; stateful-storage; live |
 | elastic/filebeat@8.5.1 | 0 | none | — |
 | elastic/kibana@8.5.1 | 0 | none | — |
@@ -158,6 +159,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | nats/nats@2.14.0 | 1 | live-parity | live |
 | nats/surveyor@0.20.9 | 0 | none | — |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | 1 | target-facts-and-lifecycle | stateful-storage |
+| node-feature-discovery/node-feature-discovery@0.19.0 | 0 | none | — |
 | nvidia/cluster-readiness-engine@v0.6.0 | 0 | none | — |
 | nvidia/gpu-operator@v25.10.1 | 0 | none | — |
 | nvidia/gpu-operator@v26.3.2 | 0 | none | — |

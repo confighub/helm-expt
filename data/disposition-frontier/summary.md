@@ -18,29 +18,29 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 ## Headline
 
 ```text
-lane cells:                 2034
-recorded disposition:       1313  (64.6%)
+lane cells:                 2064
+recorded disposition:       1318  (63.9%)
 + derived blocked:          9
 + derived n/a (K covered):  57
-= verified disposition:     1379  (67.8%)
-genuine todo (named next):  141
-un-dispositioned gap:       514
+= verified disposition:     1384  (67.1%)
+genuine todo (named next):  146
+un-dispositioned gap:       534
 ```
 
-**Distance to 99%:** 655 cells are not yet a
-non-todo verified disposition (32.2% of cells).
+**Distance to 99%:** 680 cells are not yet a
+non-todo verified disposition (32.9% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
 
 | Lane | Cells | Verified disposition | Genuine todo | Un-dispositioned |
 | --- | ---: | ---: | ---: | ---: |
-| R render_parity | 339 | 339 | 0 | 0 |
-| C in_confighub | 339 | 198 | 141 | 0 |
-| L local_live | 339 | 199 | 0 | 140 |
-| G gitops_oci_live | 339 | 199 | 0 | 140 |
-| P live_helm_vs_confighub_parity | 339 | 199 | 0 | 140 |
-| K two_cluster_kind_parity | 339 | 245 | 0 | 94 |
+| R render_parity | 344 | 344 | 0 | 0 |
+| C in_confighub | 344 | 198 | 146 | 0 |
+| L local_live | 344 | 199 | 0 | 145 |
+| G gitops_oci_live | 344 | 199 | 0 | 145 |
+| P live_helm_vs_confighub_parity | 344 | 199 | 0 | 145 |
+| K two_cluster_kind_parity | 344 | 245 | 0 | 99 |
 
 ## The work to 99%, by next action
 
@@ -76,6 +76,8 @@ Each genuine `todo` cell, grouped by what closes it.
 | 1 | run scripts/run-top20-confighub-proof.mjs for dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 aicr-eks-training (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 gpu-resources (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for eks/aws-efa-k8s-device-plugin@v0.5.29 aicr-eks-training (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for eks/aws-efa-k8s-device-plugin@v0.5.29 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.10.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.10.0 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.7.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
@@ -115,6 +117,9 @@ Each genuine `todo` cell, grouped by what closes it.
 | 1 | run scripts/run-top20-confighub-proof.mjs for metrics-server/metrics-server@3.14.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for metrics-server/metrics-server@3.14.0 external-tls-ca (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for mysql/mysql-operator@2.3.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for node-feature-discovery/node-feature-discovery@0.19.0 aicr-eks-training-v0-20-0 (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for node-feature-discovery/node-feature-discovery@0.19.0 aicr-eks-training-v1-0-0 (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for node-feature-discovery/node-feature-discovery@0.19.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/cluster-readiness-engine@v0.6.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v25.10.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v25.10.1 driver-580.126.20 (loop's bitnami/prometheus-community/elastic candidate pipeline) |

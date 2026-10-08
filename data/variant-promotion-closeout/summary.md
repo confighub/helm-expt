@@ -18,21 +18,21 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 160 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
+| `run-proof` | 165 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
 | `not-applicable-if-any` | 179 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
 | `promotion-proven` | 179 |
-| `blocked-needs-confighub-proof` | 141 |
+| `blocked-needs-confighub-proof` | 146 |
 | `watch-grade` | 17 |
 | `blocked-proof-failed` | 2 |
 
 | Promotion state | Variants |
 | --- | ---: |
 | `yes` | 179 |
-| `todo` | 141 |
+| `todo` | 146 |
 | `watch` | 17 |
 | `no` | 2 |
 
@@ -74,7 +74,7 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | bitnami/redis@27.0.0 | reuse-existing-secret | runs/cl-redis-27-0-0-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | grafana/grafana@10.5.15 | static-passwords | runs/grafana-confighub-proof/latest/variant-promotion-receipt.yaml |
 
-## Blocked — needs the ConfigHub proof first (141)
+## Blocked — needs the ConfigHub proof first (146)
 
 No ConfigHub upload proof exists yet, so there is no clone to promote.
 
@@ -108,6 +108,8 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | aicr-eks-training | run the ConfigHub proof lane first |
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | default | run the ConfigHub proof lane first |
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | gpu-resources | run the ConfigHub proof lane first |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | aicr-eks-training | run the ConfigHub proof lane first |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default | run the ConfigHub proof lane first |
 | external-secrets/external-secrets@2.10.0 | default | run the ConfigHub proof lane first |
 | external-secrets/external-secrets@2.10.0 | no-crds | run the ConfigHub proof lane first |
 | external-secrets/external-secrets@2.7.0 | default | run the ConfigHub proof lane first |
@@ -147,6 +149,9 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | metrics-server/metrics-server@3.14.0 | default | run the ConfigHub proof lane first |
 | metrics-server/metrics-server@3.14.0 | external-tls-ca | run the ConfigHub proof lane first |
 | mysql/mysql-operator@2.3.0 | default | run the ConfigHub proof lane first |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | run the ConfigHub proof lane first |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | run the ConfigHub proof lane first |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | run the ConfigHub proof lane first |
 | nvidia/cluster-readiness-engine@v0.6.0 | default | run the ConfigHub proof lane first |
 | nvidia/gpu-operator@v25.10.1 | default | run the ConfigHub proof lane first |
 | nvidia/gpu-operator@v25.10.1 | driver-580.126.20 | run the ConfigHub proof lane first |

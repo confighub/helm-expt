@@ -24,10 +24,10 @@ guess. Always classify from the actual receipt after a run.
 ## Counts
 
 ```text
-ready-to-run rows:   232
-run blocks:          47  (G/P: 28, K: 19)
+ready-to-run rows:   242
+run blocks:          49  (G/P: 29, K: 20)
 derived predictions: 58
-unknown predictions: 174
+unknown predictions: 184
 ```
 
 Order: G/P live-parity blocks first (one command classifies both the G and P
@@ -304,7 +304,7 @@ then by predicted residue family and chart family. Blocks are capped at
 
 ## GP-20 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1, dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0, k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1, dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0, eks/aws-efa-k8s-device-plugin@v0.5.29, k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
@@ -312,53 +312,67 @@ then by predicted residue family and chart family. Blocks are capped at
 | --- | --- | --- | --- | --- | --- |
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | gpu-resources | `npm run live-parity:run -- --recipe recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1 --base gpu-resources` | unknown | unknown | light controller — safe within a block |
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | gpu-resources | `npm run live-parity:run -- --recipe recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0 --base gpu-resources` | unknown | unknown | light controller — safe within a block |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | aicr-eks-training | `npm run live-parity:run -- --recipe recipes/eks/aws-efa-k8s-device-plugin/v0.5.29 --base aicr-eks-training` | unknown | unknown | light controller — safe within a block |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default | `npm run live-parity:run -- --recipe recipes/eks/aws-efa-k8s-device-plugin/v0.5.29 --base default` | unknown | unknown | light controller — safe within a block |
 | k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v0-20-0 | `npm run live-parity:run -- --recipe recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 --base aicr-eks-training-v0-20-0` | unknown | unknown | light controller — safe within a block |
-| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v1-0-0 | `npm run live-parity:run -- --recipe recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 --base aicr-eks-training-v1-0-0` | unknown | unknown | light controller — safe within a block |
-| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | default | `npm run live-parity:run -- --recipe recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 --base default` | unknown | unknown | light controller — safe within a block |
 
 ## GP-21 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (kai-scheduler/kai-scheduler@v0.14.1, kai-scheduler/kai-scheduler@v0.16.9, karpenter/karpenter@1.14.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2, kai-scheduler/kai-scheduler@v0.14.1, kai-scheduler/kai-scheduler@v0.16.9); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v1-0-0 | `npm run live-parity:run -- --recipe recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 --base aicr-eks-training-v1-0-0` | unknown | unknown | light controller — safe within a block |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | default | `npm run live-parity:run -- --recipe recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 --base default` | unknown | unknown | light controller — safe within a block |
 | kai-scheduler/kai-scheduler@v0.14.1 | aicr-eks-training | `npm run live-parity:run -- --recipe recipes/kai-scheduler/kai-scheduler/v0.14.1 --base aicr-eks-training` | unknown | unknown | light controller — safe within a block |
 | kai-scheduler/kai-scheduler@v0.16.9 | aicr-eks-training | `npm run live-parity:run -- --recipe recipes/kai-scheduler/kai-scheduler/v0.16.9 --base aicr-eks-training` | unknown | unknown | light controller — safe within a block |
 | kai-scheduler/kai-scheduler@v0.14.1 | default | `npm run live-parity:run -- --recipe recipes/kai-scheduler/kai-scheduler/v0.14.1 --base default` | unknown | unknown | light controller — safe within a block |
-| kai-scheduler/kai-scheduler@v0.16.9 | default | `npm run live-parity:run -- --recipe recipes/kai-scheduler/kai-scheduler/v0.16.9 --base default` | unknown | unknown | light controller — safe within a block |
-| karpenter/karpenter@1.14.0 | crds-managed | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base crds-managed` | unknown | unknown | light controller — safe within a block |
 
 ## GP-22 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (karpenter/karpenter@1.14.0, kubeflow/kubeflow-trainer@2.2.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (kai-scheduler/kai-scheduler@v0.16.9, karpenter/karpenter@1.14.0, kubeflow/kubeflow-trainer@2.2.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| kai-scheduler/kai-scheduler@v0.16.9 | default | `npm run live-parity:run -- --recipe recipes/kai-scheduler/kai-scheduler/v0.16.9 --base default` | unknown | unknown | light controller — safe within a block |
+| karpenter/karpenter@1.14.0 | crds-managed | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base crds-managed` | unknown | unknown | light controller — safe within a block |
 | karpenter/karpenter@1.14.0 | default | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base default` | unknown | unknown | light controller — safe within a block |
 | karpenter/karpenter@1.14.0 | eks-inference | `npm run live-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base eks-inference` | unknown | unknown | light controller — safe within a block |
 | kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v0-20-0 | `npm run live-parity:run -- --recipe recipes/kubeflow/kubeflow-trainer/2.2.0 --base aicr-eks-training-v0-20-0` | unknown | unknown | light controller — safe within a block |
-| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v1-0-0 | `npm run live-parity:run -- --recipe recipes/kubeflow/kubeflow-trainer/2.2.0 --base aicr-eks-training-v1-0-0` | unknown | unknown | light controller — safe within a block |
-| kubeflow/kubeflow-trainer@2.2.0 | default | `npm run live-parity:run -- --recipe recipes/kubeflow/kubeflow-trainer/2.2.0 --base default` | unknown | unknown | light controller — safe within a block |
 
 ## GP-23 — G/P · app
 
-**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (longhorn/longhorn@1.12.0, longhorn/longhorn@1.12.1, metallb/metallb@0.16.1, nvidia/cluster-readiness-engine@v0.6.0, nvidia/nodewright@v0.17.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (kubeflow/kubeflow-trainer@2.2.0, longhorn/longhorn@1.12.0, longhorn/longhorn@1.12.1, metallb/metallb@0.16.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v1-0-0 | `npm run live-parity:run -- --recipe recipes/kubeflow/kubeflow-trainer/2.2.0 --base aicr-eks-training-v1-0-0` | unknown | unknown | light controller — safe within a block |
+| kubeflow/kubeflow-trainer@2.2.0 | default | `npm run live-parity:run -- --recipe recipes/kubeflow/kubeflow-trainer/2.2.0 --base default` | unknown | unknown | light controller — safe within a block |
 | longhorn/longhorn@1.12.0 | default | `npm run live-parity:run -- --recipe recipes/longhorn/longhorn/1.12.0 --base default` | unknown | unknown | light controller — safe within a block |
 | longhorn/longhorn@1.12.1 | default | `npm run live-parity:run -- --recipe recipes/longhorn/longhorn/1.12.1 --base default` | unknown | unknown | light controller — safe within a block |
 | metallb/metallb@0.16.1 | default | `npm run live-parity:run -- --recipe recipes/metallb/metallb/0.16.1 --base default` | unknown | unknown | light controller — safe within a block |
+
+## GP-24 — G/P · app
+
+**Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (node-feature-discovery/node-feature-discovery@0.19.0, nvidia/cluster-readiness-engine@v0.6.0, nvidia/nodewright@v0.17.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | `npm run live-parity:run -- --recipe recipes/node-feature-discovery/node-feature-discovery/0.19.0 --base aicr-eks-training-v0-20-0` | unknown | unknown | light controller — safe within a block |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | `npm run live-parity:run -- --recipe recipes/node-feature-discovery/node-feature-discovery/0.19.0 --base aicr-eks-training-v1-0-0` | unknown | unknown | light controller — safe within a block |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | `npm run live-parity:run -- --recipe recipes/node-feature-discovery/node-feature-discovery/0.19.0 --base default` | unknown | unknown | light controller — safe within a block |
 | nvidia/cluster-readiness-engine@v0.6.0 | default | `npm run live-parity:run -- --recipe recipes/nvidia/cluster-readiness-engine/v0.6.0 --base default` | unknown | unknown | light controller — safe within a block |
 | nvidia/nodewright@v0.17.1 | aicr-eks-training | `npm run live-parity:run -- --recipe recipes/nvidia/nodewright/v0.17.1 --base aicr-eks-training` | unknown | unknown | light controller — safe within a block |
 
-## GP-24 — G/P · app
+## GP-25 — G/P · app
 
 **Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nodewright@v0.19.0, nvidia/nodewright@v0.17.1, nvidia/nvidia-device-plugin@0.19.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
@@ -372,7 +386,7 @@ then by predicted residue family and chart family. Blocks are capped at
 | nvidia/nvidia-device-plugin@0.19.3 | default | `npm run live-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base default` | unknown | unknown | light controller — safe within a block |
 | nvidia/nvidia-device-plugin@0.19.3 | eks-inference | `npm run live-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base eks-inference` | unknown | unknown | light controller — safe within a block |
 
-## GP-25 — G/P · app
+## GP-26 — G/P · app
 
 **Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nvidia-device-plugin@0.19.3, nvidia/nvsentinel@v1.20.0, nvidia/nvsentinel@v1.25.0, nvidia/nvsentinel@v1.9.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
@@ -386,7 +400,7 @@ then by predicted residue family and chart family. Blocks are capped at
 | nvidia/nvsentinel@v1.9.0 | aicr-eks-training | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.9.0 --base aicr-eks-training` | unknown | unknown | light controller — safe within a block |
 | nvidia/nvsentinel@v1.20.0 | default | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.20.0 --base default` | unknown | unknown | light controller — safe within a block |
 
-## GP-26 — G/P · app
+## GP-27 — G/P · app
 
 **Goal:** G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nvsentinel@v1.25.0, nvidia/nvsentinel@v1.26.0, nvidia/nvsentinel@v1.9.0, nvidia/nvsentinel@v1.20.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
@@ -400,7 +414,7 @@ then by predicted residue family and chart family. Blocks are capped at
 | nvidia/nvsentinel@v1.20.0 | no-pod-monitor | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.20.0 --base no-pod-monitor` | unknown | unknown | light controller — safe within a block |
 | nvidia/nvsentinel@v1.25.0 | no-pod-monitor | `npm run live-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.25.0 --base no-pod-monitor` | unknown | unknown | light controller — safe within a block |
 
-## GP-27 — G/P · app
+## GP-28 — G/P · app
 
 **Goal:** G/P: run the 4 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nvsentinel@v1.26.0, nvidia/nvsentinel@v1.9.0, oauth2-proxy/oauth2-proxy@10.7.0, policy-reporter/policy-reporter@3.10.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
@@ -413,7 +427,7 @@ then by predicted residue family and chart family. Blocks are capped at
 | oauth2-proxy/oauth2-proxy@10.7.0 | default | `npm run live-parity:run -- --recipe recipes/oauth2-proxy/oauth2-proxy/10.7.0 --base default` | unknown | unknown | light controller — safe within a block |
 | policy-reporter/policy-reporter@3.10.0 | default | `npm run live-parity:run -- --recipe recipes/policy-reporter/policy-reporter/3.10.0 --base default` | unknown | unknown | light controller — safe within a block |
 
-## GP-28 — G/P · app
+## GP-29 — G/P · app
 
 **Goal:** G/P: run the 4 ready live-parity row(s) with no prior residue signal (first observation) (policy-reporter/policy-reporter@3.9.1, stakater/reloader@2.2.14, stakater/reloader@2.2.16, valkey/valkey@0.11.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
 
@@ -582,7 +596,7 @@ then by predicted residue family and chart family. Blocks are capped at
 
 ## K-12 — K · app
 
-**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1, dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0, k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1, dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0, eks/aws-efa-k8s-device-plugin@v0.5.29, k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
@@ -590,53 +604,67 @@ then by predicted residue family and chart family. Blocks are capped at
 | --- | --- | --- | --- | --- | --- |
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | gpu-resources | `npm run kind-parity:run -- --recipe recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1 --base gpu-resources` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | gpu-resources | `npm run kind-parity:run -- --recipe recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0 --base gpu-resources` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | aicr-eks-training | `npm run kind-parity:run -- --recipe recipes/eks/aws-efa-k8s-device-plugin/v0.5.29 --base aicr-eks-training` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default | `npm run kind-parity:run -- --recipe recipes/eks/aws-efa-k8s-device-plugin/v0.5.29 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v0-20-0 | `npm run kind-parity:run -- --recipe recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 --base aicr-eks-training-v0-20-0` | unknown | unknown | two-cluster kind run (provisions two clusters) |
-| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v1-0-0 | `npm run kind-parity:run -- --recipe recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 --base aicr-eks-training-v1-0-0` | unknown | unknown | two-cluster kind run (provisions two clusters) |
-| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | default | `npm run kind-parity:run -- --recipe recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 
 ## K-13 — K · app
 
-**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (kai-scheduler/kai-scheduler@v0.14.1, kai-scheduler/kai-scheduler@v0.16.9, karpenter/karpenter@1.14.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2, kai-scheduler/kai-scheduler@v0.14.1, kai-scheduler/kai-scheduler@v0.16.9); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v1-0-0 | `npm run kind-parity:run -- --recipe recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 --base aicr-eks-training-v1-0-0` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | default | `npm run kind-parity:run -- --recipe recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | kai-scheduler/kai-scheduler@v0.14.1 | aicr-eks-training | `npm run kind-parity:run -- --recipe recipes/kai-scheduler/kai-scheduler/v0.14.1 --base aicr-eks-training` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | kai-scheduler/kai-scheduler@v0.16.9 | aicr-eks-training | `npm run kind-parity:run -- --recipe recipes/kai-scheduler/kai-scheduler/v0.16.9 --base aicr-eks-training` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | kai-scheduler/kai-scheduler@v0.14.1 | default | `npm run kind-parity:run -- --recipe recipes/kai-scheduler/kai-scheduler/v0.14.1 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
-| kai-scheduler/kai-scheduler@v0.16.9 | default | `npm run kind-parity:run -- --recipe recipes/kai-scheduler/kai-scheduler/v0.16.9 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
-| karpenter/karpenter@1.14.0 | crds-managed | `npm run kind-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base crds-managed` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 
 ## K-14 — K · app
 
-**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (karpenter/karpenter@1.14.0, kubeflow/kubeflow-trainer@2.2.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (kai-scheduler/kai-scheduler@v0.16.9, karpenter/karpenter@1.14.0, kubeflow/kubeflow-trainer@2.2.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| kai-scheduler/kai-scheduler@v0.16.9 | default | `npm run kind-parity:run -- --recipe recipes/kai-scheduler/kai-scheduler/v0.16.9 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| karpenter/karpenter@1.14.0 | crds-managed | `npm run kind-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base crds-managed` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | karpenter/karpenter@1.14.0 | default | `npm run kind-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | karpenter/karpenter@1.14.0 | eks-inference | `npm run kind-parity:run -- --recipe recipes/karpenter/karpenter/1.14.0 --base eks-inference` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v0-20-0 | `npm run kind-parity:run -- --recipe recipes/kubeflow/kubeflow-trainer/2.2.0 --base aicr-eks-training-v0-20-0` | unknown | unknown | two-cluster kind run (provisions two clusters) |
-| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v1-0-0 | `npm run kind-parity:run -- --recipe recipes/kubeflow/kubeflow-trainer/2.2.0 --base aicr-eks-training-v1-0-0` | unknown | unknown | two-cluster kind run (provisions two clusters) |
-| kubeflow/kubeflow-trainer@2.2.0 | default | `npm run kind-parity:run -- --recipe recipes/kubeflow/kubeflow-trainer/2.2.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 
 ## K-15 — K · app
 
-**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (metallb/metallb@0.16.1, nvidia/cluster-readiness-engine@v0.6.0, nvidia/nodewright@v0.17.1, nvidia/nodewright@v0.19.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (kubeflow/kubeflow-trainer@2.2.0, metallb/metallb@0.16.1, node-feature-discovery/node-feature-discovery@0.19.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
 **Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
 
 | Chart | Base | Command | Predicted residue | Confidence | Serial safety |
 | --- | --- | --- | --- | --- | --- |
+| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v1-0-0 | `npm run kind-parity:run -- --recipe recipes/kubeflow/kubeflow-trainer/2.2.0 --base aicr-eks-training-v1-0-0` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| kubeflow/kubeflow-trainer@2.2.0 | default | `npm run kind-parity:run -- --recipe recipes/kubeflow/kubeflow-trainer/2.2.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | metallb/metallb@0.16.1 | default | `npm run kind-parity:run -- --recipe recipes/metallb/metallb/0.16.1 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | `npm run kind-parity:run -- --recipe recipes/node-feature-discovery/node-feature-discovery/0.19.0 --base aicr-eks-training-v0-20-0` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | `npm run kind-parity:run -- --recipe recipes/node-feature-discovery/node-feature-discovery/0.19.0 --base aicr-eks-training-v1-0-0` | unknown | unknown | two-cluster kind run (provisions two clusters) |
+
+## K-16 — K · app
+
+**Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (node-feature-discovery/node-feature-discovery@0.19.0, nvidia/cluster-readiness-engine@v0.6.0, nvidia/nodewright@v0.17.1, nvidia/nodewright@v0.19.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | `npm run kind-parity:run -- --recipe recipes/node-feature-discovery/node-feature-discovery/0.19.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | nvidia/cluster-readiness-engine@v0.6.0 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/cluster-readiness-engine/v0.6.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | nvidia/nodewright@v0.17.1 | aicr-eks-training | `npm run kind-parity:run -- --recipe recipes/nvidia/nodewright/v0.17.1 --base aicr-eks-training` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | nvidia/nodewright@v0.19.0 | aicr-eks-training | `npm run kind-parity:run -- --recipe recipes/nvidia/nodewright/v0.19.0 --base aicr-eks-training` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | nvidia/nodewright@v0.17.1 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/nodewright/v0.17.1 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 
-## K-16 — K · app
+## K-17 — K · app
 
 **Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (nvidia/nodewright@v0.19.0, nvidia/nvidia-device-plugin@0.19.3, nvidia/nvsentinel@v1.20.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
@@ -650,7 +678,7 @@ then by predicted residue family and chart family. Blocks are capped at
 | nvidia/nvidia-device-plugin@0.19.3 | nfd-enabled | `npm run kind-parity:run -- --recipe recipes/nvidia/nvidia-device-plugin/0.19.3 --base nfd-enabled` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | nvidia/nvsentinel@v1.20.0 | aicr-eks-training | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.20.0 --base aicr-eks-training` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 
-## K-17 — K · app
+## K-18 — K · app
 
 **Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (nvidia/nvsentinel@v1.25.0, nvidia/nvsentinel@v1.9.0, nvidia/nvsentinel@v1.20.0, nvidia/nvsentinel@v1.26.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
@@ -664,7 +692,7 @@ then by predicted residue family and chart family. Blocks are capped at
 | nvidia/nvsentinel@v1.25.0 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.25.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | nvidia/nvsentinel@v1.26.0 | default | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.26.0 --base default` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 
-## K-18 — K · app
+## K-19 — K · app
 
 **Goal:** K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (nvidia/nvsentinel@v1.9.0, nvidia/nvsentinel@v1.20.0, nvidia/nvsentinel@v1.25.0, nvidia/nvsentinel@v1.26.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 
@@ -678,7 +706,7 @@ then by predicted residue family and chart family. Blocks are capped at
 | nvidia/nvsentinel@v1.26.0 | no-pod-monitor | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.26.0 --base no-pod-monitor` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 | nvidia/nvsentinel@v1.9.0 | no-pod-monitor | `npm run kind-parity:run -- --recipe recipes/nvidia/nvsentinel/v1.9.0 --base no-pod-monitor` | unknown | unknown | two-cluster kind run (provisions two clusters) |
 
-## K-19 — K · app
+## K-20 — K · app
 
 **Goal:** K: run the 4 ready kind-parity row(s) with no prior residue signal (first observation) (oauth2-proxy/oauth2-proxy@10.7.0, policy-reporter/policy-reporter@3.10.0, policy-reporter/policy-reporter@3.9.1, valkey/valkey@0.11.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
 

@@ -18,30 +18,30 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-1402 non-green cells:
+1429 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 1171 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-target-or-prereq-fix` | 1198 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 124 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
 | `needs-run` | 62 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 45 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 597 |
-| `G` | 200 |
-| `P` | 200 |
-| `L` | 191 |
-| `K` | 152 |
+| `promotion` | 604 |
+| `G` | 205 |
+| `P` | 205 |
+| `L` | 196 |
+| `K` | 157 |
 | `lifecycle` | 62 |
 
 | State | Cells |
 | --- | ---: |
-| `missing` | 514 |
-| `blocked` | 247 |
+| `missing` | 534 |
+| `blocked` | 252 |
+| `not-applicable-source` | 180 |
 | `proven` | 179 |
-| `not-applicable-source` | 178 |
 | `watch` | 124 |
 | `not-applicable-candidate` | 67 |
 | `todo` | 62 |
@@ -117,7 +117,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (1171)
+## needs-target-or-prereq-fix (1198)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -388,6 +388,17 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | gpu-resources | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | gpu-resources | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | gpu-resources | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | aicr-eks-training | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | aicr-eks-training | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | aicr-eks-training | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | aicr-eks-training | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | aicr-eks-training | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | elastic/eck-operator@3.4.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | elastic/eck-operator@3.4.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | elastic/eck-operator@3.4.0 | ha | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -791,6 +802,22 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default + review | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | storage-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
+| node-feature-discovery/node-feature-discovery@0.19.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | nvidia/cluster-readiness-engine@v0.6.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | nvidia/cluster-readiness-engine@v0.6.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | nvidia/cluster-readiness-engine@v0.6.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |

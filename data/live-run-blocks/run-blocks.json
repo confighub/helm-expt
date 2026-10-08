@@ -9,8 +9,8 @@
     "recipes/<chart>/<version>/ support artifacts"
   ],
   "maxBlockSize": 5,
-  "readyRowCount": 232,
-  "blockCount": 47,
+  "readyRowCount": 242,
+  "blockCount": 49,
   "blocks": [
     {
       "block_id": "GP-01",
@@ -1872,7 +1872,7 @@
       "predicted_residue_families": [
         "unknown"
       ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1, dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0, k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1, dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0, eks/aws-efa-k8s-device-plugin@v0.5.29, k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
       "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
       "rows": [
         {
@@ -1911,6 +1911,40 @@
         },
         {
           "work_type": "live-parity",
+          "chart": "eks/aws-efa-k8s-device-plugin",
+          "version": "v0.5.29",
+          "base": "aicr-eks-training",
+          "command": "npm run live-parity:run -- --recipe recipes/eks/aws-efa-k8s-device-plugin/v0.5.29 --base aicr-eks-training",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "unknown",
+          "predicted_residue_family": "unknown",
+          "predicted_target_profile": "unknown",
+          "prediction_basis": "",
+          "confidence": "unknown",
+          "serial_safety_notes": "light controller — safe within a block"
+        },
+        {
+          "work_type": "live-parity",
+          "chart": "eks/aws-efa-k8s-device-plugin",
+          "version": "v0.5.29",
+          "base": "default",
+          "command": "npm run live-parity:run -- --recipe recipes/eks/aws-efa-k8s-device-plugin/v0.5.29 --base default",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "unknown",
+          "predicted_residue_family": "unknown",
+          "predicted_target_profile": "unknown",
+          "prediction_basis": "",
+          "confidence": "unknown",
+          "serial_safety_notes": "light controller — safe within a block"
+        },
+        {
+          "work_type": "live-parity",
           "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
           "version": "1.19.2",
           "base": "aicr-eks-training-v0-20-0",
@@ -1925,7 +1959,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-21",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2, kai-scheduler/kai-scheduler@v0.14.1, kai-scheduler/kai-scheduler@v0.16.9); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
@@ -1959,19 +2005,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-21",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (kai-scheduler/kai-scheduler@v0.14.1, kai-scheduler/kai-scheduler@v0.16.9, karpenter/karpenter@1.14.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "kai-scheduler/kai-scheduler",
@@ -2022,7 +2056,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-22",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (kai-scheduler/kai-scheduler@v0.16.9, karpenter/karpenter@1.14.0, kubeflow/kubeflow-trainer@2.2.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "kai-scheduler/kai-scheduler",
@@ -2056,19 +2102,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-22",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (karpenter/karpenter@1.14.0, kubeflow/kubeflow-trainer@2.2.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "karpenter/karpenter",
@@ -2119,7 +2153,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-23",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (kubeflow/kubeflow-trainer@2.2.0, longhorn/longhorn@1.12.0, longhorn/longhorn@1.12.1, metallb/metallb@0.16.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "kubeflow/kubeflow-trainer",
@@ -2153,19 +2199,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-23",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (longhorn/longhorn@1.12.0, longhorn/longhorn@1.12.1, metallb/metallb@0.16.1, nvidia/cluster-readiness-engine@v0.6.0, nvidia/nodewright@v0.17.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "longhorn/longhorn",
@@ -2216,6 +2250,69 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
+        }
+      ]
+    },
+    {
+      "block_id": "GP-24",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (node-feature-discovery/node-feature-discovery@0.19.0, nvidia/cluster-readiness-engine@v0.6.0, nvidia/nodewright@v0.17.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
+        {
+          "work_type": "live-parity",
+          "chart": "node-feature-discovery/node-feature-discovery",
+          "version": "0.19.0",
+          "base": "aicr-eks-training-v0-20-0",
+          "command": "npm run live-parity:run -- --recipe recipes/node-feature-discovery/node-feature-discovery/0.19.0 --base aicr-eks-training-v0-20-0",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "unknown",
+          "predicted_residue_family": "unknown",
+          "predicted_target_profile": "unknown",
+          "prediction_basis": "",
+          "confidence": "unknown",
+          "serial_safety_notes": "light controller — safe within a block"
+        },
+        {
+          "work_type": "live-parity",
+          "chart": "node-feature-discovery/node-feature-discovery",
+          "version": "0.19.0",
+          "base": "aicr-eks-training-v1-0-0",
+          "command": "npm run live-parity:run -- --recipe recipes/node-feature-discovery/node-feature-discovery/0.19.0 --base aicr-eks-training-v1-0-0",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "unknown",
+          "predicted_residue_family": "unknown",
+          "predicted_target_profile": "unknown",
+          "prediction_basis": "",
+          "confidence": "unknown",
+          "serial_safety_notes": "light controller — safe within a block"
+        },
+        {
+          "work_type": "live-parity",
+          "chart": "node-feature-discovery/node-feature-discovery",
+          "version": "0.19.0",
+          "base": "default",
+          "command": "npm run live-parity:run -- --recipe recipes/node-feature-discovery/node-feature-discovery/0.19.0 --base default",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "unknown",
+          "predicted_residue_family": "unknown",
+          "predicted_target_profile": "unknown",
+          "prediction_basis": "",
+          "confidence": "unknown",
+          "serial_safety_notes": "light controller — safe within a block"
         },
         {
           "work_type": "live-parity",
@@ -2254,7 +2351,7 @@
       ]
     },
     {
-      "block_id": "GP-24",
+      "block_id": "GP-25",
       "partition": "G/P",
       "hardness": "app",
       "predicted_residue_families": [
@@ -2351,7 +2448,7 @@
       ]
     },
     {
-      "block_id": "GP-25",
+      "block_id": "GP-26",
       "partition": "G/P",
       "hardness": "app",
       "predicted_residue_families": [
@@ -2448,7 +2545,7 @@
       ]
     },
     {
-      "block_id": "GP-26",
+      "block_id": "GP-27",
       "partition": "G/P",
       "hardness": "app",
       "predicted_residue_families": [
@@ -2545,7 +2642,7 @@
       ]
     },
     {
-      "block_id": "GP-27",
+      "block_id": "GP-28",
       "partition": "G/P",
       "hardness": "app",
       "predicted_residue_families": [
@@ -2625,7 +2722,7 @@
       ]
     },
     {
-      "block_id": "GP-28",
+      "block_id": "GP-29",
       "partition": "G/P",
       "hardness": "app",
       "predicted_residue_families": [
@@ -3782,7 +3879,7 @@
       "predicted_residue_families": [
         "unknown"
       ],
-      "block_goal": "K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1, dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0, k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
+      "block_goal": "K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1, dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0, eks/aws-efa-k8s-device-plugin@v0.5.29, k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
       "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
       "rows": [
         {
@@ -3821,6 +3918,40 @@
         },
         {
           "work_type": "kind-parity",
+          "chart": "eks/aws-efa-k8s-device-plugin",
+          "version": "v0.5.29",
+          "base": "aicr-eks-training",
+          "command": "npm run kind-parity:run -- --recipe recipes/eks/aws-efa-k8s-device-plugin/v0.5.29 --base aicr-eks-training",
+          "current_status": "todo",
+          "lane_cells": "K=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "unknown",
+          "predicted_residue_family": "unknown",
+          "predicted_target_profile": "unknown",
+          "prediction_basis": "",
+          "confidence": "unknown",
+          "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
+        },
+        {
+          "work_type": "kind-parity",
+          "chart": "eks/aws-efa-k8s-device-plugin",
+          "version": "v0.5.29",
+          "base": "default",
+          "command": "npm run kind-parity:run -- --recipe recipes/eks/aws-efa-k8s-device-plugin/v0.5.29 --base default",
+          "current_status": "todo",
+          "lane_cells": "K=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "unknown",
+          "predicted_residue_family": "unknown",
+          "predicted_target_profile": "unknown",
+          "prediction_basis": "",
+          "confidence": "unknown",
+          "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
+        },
+        {
+          "work_type": "kind-parity",
           "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
           "version": "1.19.2",
           "base": "aicr-eks-training-v0-20-0",
@@ -3835,7 +3966,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "K-13",
+      "partition": "K",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2, kai-scheduler/kai-scheduler@v0.14.1, kai-scheduler/kai-scheduler@v0.16.9); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "kind-parity",
           "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
@@ -3869,19 +4012,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
-        }
-      ]
-    },
-    {
-      "block_id": "K-13",
-      "partition": "K",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (kai-scheduler/kai-scheduler@v0.14.1, kai-scheduler/kai-scheduler@v0.16.9, karpenter/karpenter@1.14.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "kind-parity",
           "chart": "kai-scheduler/kai-scheduler",
@@ -3932,7 +4063,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "K-14",
+      "partition": "K",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (kai-scheduler/kai-scheduler@v0.16.9, karpenter/karpenter@1.14.0, kubeflow/kubeflow-trainer@2.2.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "kind-parity",
           "chart": "kai-scheduler/kai-scheduler",
@@ -3966,19 +4109,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
-        }
-      ]
-    },
-    {
-      "block_id": "K-14",
-      "partition": "K",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (karpenter/karpenter@1.14.0, kubeflow/kubeflow-trainer@2.2.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "kind-parity",
           "chart": "karpenter/karpenter",
@@ -4029,7 +4160,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "K-15",
+      "partition": "K",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (kubeflow/kubeflow-trainer@2.2.0, metallb/metallb@0.16.1, node-feature-discovery/node-feature-discovery@0.19.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "kind-parity",
           "chart": "kubeflow/kubeflow-trainer",
@@ -4063,25 +4206,76 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
-        }
-      ]
-    },
-    {
-      "block_id": "K-15",
-      "partition": "K",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (metallb/metallb@0.16.1, nvidia/cluster-readiness-engine@v0.6.0, nvidia/nodewright@v0.17.1, nvidia/nodewright@v0.19.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "kind-parity",
           "chart": "metallb/metallb",
           "version": "0.16.1",
           "base": "default",
           "command": "npm run kind-parity:run -- --recipe recipes/metallb/metallb/0.16.1 --base default",
+          "current_status": "todo",
+          "lane_cells": "K=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "unknown",
+          "predicted_residue_family": "unknown",
+          "predicted_target_profile": "unknown",
+          "prediction_basis": "",
+          "confidence": "unknown",
+          "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
+        },
+        {
+          "work_type": "kind-parity",
+          "chart": "node-feature-discovery/node-feature-discovery",
+          "version": "0.19.0",
+          "base": "aicr-eks-training-v0-20-0",
+          "command": "npm run kind-parity:run -- --recipe recipes/node-feature-discovery/node-feature-discovery/0.19.0 --base aicr-eks-training-v0-20-0",
+          "current_status": "todo",
+          "lane_cells": "K=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "unknown",
+          "predicted_residue_family": "unknown",
+          "predicted_target_profile": "unknown",
+          "prediction_basis": "",
+          "confidence": "unknown",
+          "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
+        },
+        {
+          "work_type": "kind-parity",
+          "chart": "node-feature-discovery/node-feature-discovery",
+          "version": "0.19.0",
+          "base": "aicr-eks-training-v1-0-0",
+          "command": "npm run kind-parity:run -- --recipe recipes/node-feature-discovery/node-feature-discovery/0.19.0 --base aicr-eks-training-v1-0-0",
+          "current_status": "todo",
+          "lane_cells": "K=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "unknown",
+          "predicted_residue_family": "unknown",
+          "predicted_target_profile": "unknown",
+          "prediction_basis": "",
+          "confidence": "unknown",
+          "serial_safety_notes": "two-cluster kind run (provisions two clusters)"
+        }
+      ]
+    },
+    {
+      "block_id": "K-16",
+      "partition": "K",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "K: run the 5 ready kind-parity row(s) with no prior residue signal (first observation) (node-feature-discovery/node-feature-discovery@0.19.0, nvidia/cluster-readiness-engine@v0.6.0, nvidia/nodewright@v0.17.1, nvidia/nodewright@v0.19.0); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
+        {
+          "work_type": "kind-parity",
+          "chart": "node-feature-discovery/node-feature-discovery",
+          "version": "0.19.0",
+          "base": "default",
+          "command": "npm run kind-parity:run -- --recipe recipes/node-feature-discovery/node-feature-discovery/0.19.0 --base default",
           "current_status": "todo",
           "lane_cells": "K=todo",
           "support_artifact": "",
@@ -4164,7 +4358,7 @@
       ]
     },
     {
-      "block_id": "K-16",
+      "block_id": "K-17",
       "partition": "K",
       "hardness": "app",
       "predicted_residue_families": [
@@ -4261,7 +4455,7 @@
       ]
     },
     {
-      "block_id": "K-17",
+      "block_id": "K-18",
       "partition": "K",
       "hardness": "app",
       "predicted_residue_families": [
@@ -4358,7 +4552,7 @@
       ]
     },
     {
-      "block_id": "K-18",
+      "block_id": "K-19",
       "partition": "K",
       "hardness": "app",
       "predicted_residue_families": [
@@ -4455,7 +4649,7 @@
       ]
     },
     {
-      "block_id": "K-19",
+      "block_id": "K-20",
       "partition": "K",
       "hardness": "app",
       "predicted_residue_families": [
