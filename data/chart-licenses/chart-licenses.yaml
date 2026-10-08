@@ -429,6 +429,23 @@ spec:
       own release tag dex-0.24.0 is Apache-2.0 (monorepo root governs charts/dex; Chart.yaml at that tag
       has no license field), and Artifact Hub API for the exact version (https://artifacthub.io/api/v1/packages/helm/dex/dex/0.24.0)
       returns "license":"Apache-2.0". Same publisher repo (charts.dexidp.io), not a fork.'
+  - chart: dra-driver-nvidia/dra-driver-nvidia-gpu
+    spdx: Apache-2.0
+    evidence:
+      source: chart-archive-license-file
+      label: the LICENSE file inside the chart archive
+      url: oci://registry.k8s.io/dra-driver-nvidia/charts/dra-driver-nvidia-gpu:0.5.0
+      quote: Apache License / Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: false
+    researchNote: 'Read 2026-10-08 from the two retained chart archives, 0.4.1 (SHA-256 c1c316f6bdcfe5fed3ff649cff1b43be50d27d0cb1aaf9d29e7bdca1eaa331ce)
+      and 0.5.0 (SHA-256 c7ca3dc31a6fa8b85c6fd5ee40948cf8d9162e32f20db9fc085113b4035e8b35), both pulled
+      with no registry credentials. Each ships a LICENSE file at the chart root, the same 202 lines in
+      both: the Apache License, Version 2.0. The chart''s templates carry the matching notice, Copyright
+      The Kubernetes Authors. This change was made offline apart from the chart archives, so the upstream
+      source repository was not read and there was no second pass through another source; verifiedIndependently
+      is false for that reason. This is the chart license. It is separate from the licenses of the driver
+      image and of the NVIDIA software the driver uses on a node.'
   - chart: elastic/eck-operator
     spdx: Elastic-2.0
     evidence:
@@ -919,6 +936,39 @@ spec:
     researchNote: Fetched at exact tag v0.22.1. Artifact Hub API for the exact version (https://artifacthub.io/api/v1/packages/helm/cert-manager/trust-manager/0.22.1)
       returns "license":"Apache-2.0" from repo https://charts.jetstack.io, and the repo LICENSE at v0.22.1
       is Apache License Version 2.0 text.
+  - chart: k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics
+    spdx: MIT
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's Chart.yaml (artifacthub.io/license annotation)
+      url: https://github.com/jmcgrath207/k8s-ephemeral-storage-metrics/releases/download/1.19.2/k8s-ephemeral-storage-metrics-1.19.2.tgz
+      quote: 'artifacthub.io/license: MIT'
+    confidence: medium
+    verifiedIndependently: false
+    researchNote: Read 2026-10-08 from Chart.yaml inside the retained chart archive 1.19.2 (SHA-256 50efd37764505551f24752c3806e63458be775fc8c10fb1c68fe1f62b5ed4cf1,
+      the digest the chart repository index lists). The annotation is the publisher's own statement. The
+      archive ships no LICENSE file. This change was made offline apart from the chart archives, so the
+      source repository LICENSE and the Artifact Hub record were not read and there was no second pass;
+      confidence is medium and verifiedIndependently is false for that reason. The chart is published
+      from a single maintainer's repository.
+  - chart: kai-scheduler/kai-scheduler
+    spdx: Apache-2.0
+    evidence:
+      source: chart-archive-file-headers
+      label: the SPDX headers on the files inside the chart archive
+      url: oci://ghcr.io/kai-scheduler/kai-scheduler/kai-scheduler:v0.16.9
+      quote: 'SPDX-License-Identifier: Apache-2.0'
+    confidence: medium
+    verifiedIndependently: false
+    researchNote: 'Read 2026-10-08 from the two retained chart archives, v0.14.1 (SHA-256 7ae052b56e752975eeac0ebb5de381f5eadf51207872c95f98eefd2901c4be4e)
+      and v0.16.9 (SHA-256 2f2f8080729c530fab41c5bc24717dfb29c9d5b39963c5eb9d82d10e96f8ab9d), both pulled
+      with no registry credentials. values.yaml, the templates and the CRD files carry the header Copyright
+      2025 NVIDIA CORPORATION, SPDX-License-Identifier: Apache-2.0: 51 of 52 files in v0.14.1 and 56 of
+      58 in v0.16.9. The files without it are Chart.yaml and, in v0.16.9, templates/_helpers.tpl. Neither
+      archive ships a LICENSE file, and Chart.yaml has no license field. This change was made offline
+      apart from the chart archives, so the upstream repository LICENSE was not read and there was no
+      second pass; confidence is medium and verifiedIndependently is false for that reason. This is the
+      chart license; the scheduler images carry their own.'
   - chart: karpenter/karpenter
     spdx: Apache-2.0
     evidence:
@@ -949,6 +999,24 @@ spec:
       and governs the keda chart directory; keda/Chart.yaml at that same tag confirms version: 2.19.0
       (exactly our retained version) and has no license field. Artifact Hub API .license is null for this
       chart, so the repo LICENSE is the operative source. KEDA is a CNCF project.'
+  - chart: kubeflow/kubeflow-trainer
+    spdx: Apache-2.0
+    evidence:
+      source: chart-archive-file-headers
+      label: the license notice on the files inside the chart archive
+      url: oci://ghcr.io/kubeflow/charts/kubeflow-trainer:2.2.0
+      quote: Licensed under the Apache License, Version 2.0
+    confidence: medium
+    verifiedIndependently: false
+    researchNote: 'Read 2026-10-08 from the retained chart archive 2.2.0 (SHA-256 34191da2886a91d9effb0543087ef0ad19b870b094c336c2ca34f474cba0030e),
+      pulled with no registry credentials. values.yaml and all 26 files under the chart''s own templates
+      directory carry the Apache License 2.0 notice, Copyright The Kubeflow authors. The archive ships
+      no LICENSE file, and Chart.yaml has no license field. This change was made offline apart from the
+      chart archives, so the LICENSE of kubeflow/trainer was not read and there was no second pass; confidence
+      is medium and verifiedIndependently is false for that reason. This is the license of the trainer
+      chart. The archive vendors two subcharts: jobset 0.11.0, where 24 of 29 files carry the same Apache
+      notice with Copyright The Kubernetes authors, and lws 0.8.0, whose files carry no notice and which
+      every base leaves off. Their licenses were not otherwise read.'
   - chart: kyverno/kyverno
     spdx: Apache-2.0
     evidence:
@@ -1169,6 +1237,23 @@ spec:
       read here. This is the chart license. It is separate from the licenses of the vendored dynamo-platform
       and dynamo-crds subcharts (dynamo-platform's values.yaml carries an Apache-2.0 SPDX header; nothing
       else of theirs was read), and from the NVIDIA terms the NIM model images carry.
+  - chart: nvidia/nodewright
+    spdx: Apache-2.0
+    evidence:
+      source: chart-archive-license-file
+      label: the LICENSE file inside the chart archive
+      url: oci://ghcr.io/nvidia/nodewright/charts/nodewright:v0.19.0
+      quote: Apache License / Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: false
+    researchNote: 'Read 2026-10-08 from the two retained chart archives, v0.17.1 (SHA-256 a75b0b3183e091e13207cd9b7693e0e612ea178bac8970398e101c7b9f2b4854)
+      and v0.19.0 (SHA-256 24c507791b3fd10cd4fba44831e621d98a7f9faa7833a81add0357bf2d7307ff), both pulled
+      with no registry credentials. Each ships a LICENSE file at the chart root, the same 202 lines in
+      both: the Apache License, Version 2.0. Chart.yaml has no license field. This change was made offline
+      apart from the chart archives, so the upstream source repository was not read and there was no second
+      pass through another source; verifiedIndependently is false for that reason. This is the chart license.
+      It is separate from the licenses of the operator image and of the packages a Skyhook or Nodewright
+      custom resource installs on a node.'
   - chart: nvidia/nvidia-device-plugin
     spdx: Apache-2.0
     evidence:
