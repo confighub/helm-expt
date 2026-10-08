@@ -499,7 +499,9 @@ for (const entry of aicrRecipeEntries) {
               && bundle.referenceState !== "published",
       )
       && (listing.oci?.runtimes ?? []).every((runtime) => ["not-run", "not-applicable"].includes(runtime.state)),
-    `${name}: the listing reads as published or delivered for an entry that is neither`,
+    mirror
+      ? `${name}: the listing does not carry the publication state the entry's receipts allow, or reads as delivered`
+      : `${name}: the listing reads as published or delivered for an entry that is neither`,
   );
   requireCondition(
     (listing.variants?.known ?? []).length === 1 && listing.variants.known[0].self === true,
