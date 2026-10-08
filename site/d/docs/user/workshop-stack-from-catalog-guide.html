@@ -634,7 +634,7 @@ cub config diff gpu-node/rendered.yaml gpu-node-v25/rendered.yaml | grep -E 'Con
 <h3 id="nothing-was-applied">Nothing was applied</h3>
 <p>Compose wrote files and the check read them. No object reached a cluster, and no cluster was contacted. The check line says target availability is not checked, and <code>result.json</code> records application health as <code>not-checked</code>.</p>
 <h3 id="a-passing-composition-is-not-runtime-compatibility">A passing composition is not runtime compatibility</h3>
-<p>The check looks at names, kinds, ordering and references inside the files. It does not show that gpu-operator and nvsentinel agree about a GPU node, that the driver matches your hardware, or that the three run next to each other. Each entry carries its own publication proof, and the Catalog does not inherit runtime proof from it.</p>
+<p>The check looks at names, kinds, ordering and references inside the files. It does not show that the three run next to each other. It does not show that the driver matches your hardware. Each entry carries its own publication proof, and the Catalog does not inherit runtime proof from it.</p>
 <h3 id="routes-are-recorded-and-not-executed">Routes are recorded and not executed</h3>
 <p>The workspace holds the CRD ordering routes and the gpu-operator hook routes as files. It runs no hook. Whoever delivers the stack must decide who applies the <code>pre-upgrade</code> Job, as the <a href="workshop-lifecycle-guide.html">hooks and CRDs Guide</a> explains.</p>
 <h3 id="the-stack-is-not-in-confighub">The stack is not in ConfigHub</h3>

@@ -227,9 +227,8 @@ checked, and `result.json` records application health as `not-checked`.
 ### A passing composition is not runtime compatibility
 
 The check looks at names, kinds, ordering and references inside the files. It
-does not show that gpu-operator and nvsentinel agree about a GPU node, that the
-driver matches your hardware, or that the three run next to each other. Each
-entry carries its own publication proof, and the Catalog does not inherit
+does not show that the three run next to each other. It does not show that the
+driver matches your hardware. Each entry carries its own publication proof, and the Catalog does not inherit
 runtime proof from it.
 
 ### Routes are recorded and not executed
