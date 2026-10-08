@@ -15,8 +15,8 @@ supported, that choice must be tracked as its own chart-recipe-variant row in `d
 
 ```text
 charts: 180
-supported (Level 2, all 6): 162
-not yet supported: 18
+supported (Level 2, all 6): 175
+not yet supported: 5
 variant-rich (enhancement, >1 variant): 119
 ```
 
@@ -24,7 +24,7 @@ variant-rich (enhancement, >1 variant): 119
 
 - `render_equivalent`: 180/180
 - `behaviorally_complete`: 175/180
-- `readable`: 167/180
+- `readable`: 180/180
 - `usable`: 180/180
 - `verifiable`: 180/180
 - `honestly_scoped`: 180/180
@@ -32,31 +32,17 @@ variant-rich (enhancement, >1 variant): 119
 
 ## Gap by criterion (how many charts each one blocks)
 
-- `readable`: 13
 - `behaviorally_complete`: 5
 
 ## Not yet supported (the work queue)
 
 | Chart | Score | Missing support criteria |
 | --- | ---: | --- |
-| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0` | 5/6 | readable |
-| `dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1` | 5/6 | readable |
-| `dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0` | 5/6 | readable |
-| `eks/aws-efa-k8s-device-plugin@v0.5.29` | 5/6 | readable |
 | `external-secrets/external-secrets@2.10.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.5.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.7.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.8.0` | 5/6 | behaviorally_complete |
 | `jetstack/cert-manager@v1.20.2` | 5/6 | behaviorally_complete |
-| `k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2` | 5/6 | readable |
-| `kai-scheduler/kai-scheduler@v0.14.1` | 5/6 | readable |
-| `kai-scheduler/kai-scheduler@v0.16.9` | 5/6 | readable |
-| `kubeflow/kubeflow-trainer@2.2.0` | 5/6 | readable |
-| `node-feature-discovery/node-feature-discovery@0.19.0` | 5/6 | readable |
-| `nvidia/nodewright@v0.17.1` | 5/6 | readable |
-| `nvidia/nodewright@v0.19.0` | 5/6 | readable |
-| `prometheus-community/kube-prometheus-stack@84.4.0` | 5/6 | readable |
-| `prometheus-community/prometheus-operator-crds@28.0.1` | 5/6 | readable |
 
 ## Notes
 
