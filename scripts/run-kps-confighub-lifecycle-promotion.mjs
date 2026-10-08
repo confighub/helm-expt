@@ -345,6 +345,7 @@ function runProof({ current = false } = {}) {
       runtime: currentRuntime,
     };
 
+    throw new Error("This lane was written for the minimal Unit layout of cub variant upload --granularity, which cub v0.8.7 no longer has: the server now makes one Unit per resource. Re-observe on the current CLI the Unit count, the configuration Units and the four-Unit check.");
     const baseDryRun = cub([
       "variant", "upload", "--dry-run",
       "--component", "kube-prometheus-stack",
@@ -609,6 +610,7 @@ function compareObjectSets(currentDocs, candidateDocs) {
 }
 
 function uploadBase(path, artifact, description) {
+  throw new Error("This lane was written for the minimal Unit layout of cub variant upload --granularity, which cub v0.8.7 no longer has: the server now makes one Unit per resource. Re-observe on the current CLI the Unit count, the configuration Units and the four-Unit check.");
   cub([
     "variant", "upload",
     "--component", "kube-prometheus-stack",

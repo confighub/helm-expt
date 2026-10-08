@@ -468,6 +468,7 @@ function prepareDeliverySpace({ deliverySpace, target }) {
       "--quiet",
     ]);
   } else {
+    throw new Error("This lane was written for the minimal Unit layout of cub variant upload --granularity, which cub v0.8.7 no longer has: the server now makes one Unit per resource. Re-observe on the current CLI how many Units the delivery Space holds.");
     cub([
       "variant",
       "upload",
