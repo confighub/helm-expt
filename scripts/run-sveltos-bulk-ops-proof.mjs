@@ -850,7 +850,7 @@ function approveAndReleaseChangeOrder(context, space, unit, stored, stageName) {
     cub(context, ["changeorder", "create", "--space", space, changeOrderSlug, "--component", source.ComponentID, "--in-scope-space", space, "--change-workflow", `${space}/${workflowSlug}`, "--quiet"]);
     const changeOrder = cubJson(context, ["changeorder", "get", "--space", space, changeOrderSlug, "-o", "json"]).ChangeOrder;
     check(changeOrder.ChangeWorkflowID === workflow.ChangeWorkflowID && Array.isArray(changeOrder.InScopeSpaceIDs) && changeOrder.InScopeSpaceIDs.length === 1 && changeOrder.InScopeSpaceIDs[0] === source.SpaceID && changeOrder.EndTagID, `${stageName} ChangeOrder is not exactly bound to its workflow and source Space`);
-    const headRevisionRows = cubJson(context, ["revision", "list", "--space", space, "--by-unit-id", stored.UnitID, "--where", `RevisionNum = ${stored.HeadRevisionNum}`, "-o", "json"])
+    const headRevisionRows = cubJson(context, ["revision", "list", "--space", space, stored.Slug, "--where", `RevisionNum = ${stored.HeadRevisionNum}`, "-o", "json"])
       .map((row) => row.Revision ?? row);
     const storedRevision = headRevisionRows[0];
     check(
@@ -862,7 +862,7 @@ function approveAndReleaseChangeOrder(context, space, unit, stored, stageName) {
         && storedRevision?.DataHash === stored.DataHash,
       `${stageName} could not resolve the Unit head to one immutable RevisionID`,
     );
-    const revisionRows = cubJson(context, ["revision", "list", "--space", space, "--by-unit-id", stored.UnitID, "--change-order", changeOrder.ChangeOrderID, "-o", "json"])
+    const revisionRows = cubJson(context, ["revision", "list", "--space", space, stored.Slug, "--change-order", changeOrder.ChangeOrderID, "-o", "json"])
       .map((row) => row.Revision ?? row);
     const selectedRevision = revisionRows[0];
     check(
@@ -3600,7 +3600,7 @@ function createFakeConfigHub() {
       return row ? ok(JSON.stringify({ ChangeOrder: row })) : refuse("changeorder not found");
     }
     if (entity === "revision" && verb === "list") {
-      const unit = [...units.values()].find((row) => row.SpaceSlug === flags.space && row.UnitID === flags["by-unit-id"]);
+      const unit = [...units.values()].find((row) => row.SpaceSlug === flags.space && row.Slug === rest[0]);
       if (!unit) return refuse("unit revision not found");
       const revisionID = revisionIds.get(unitKey(unit.SpaceSlug, unit.Slug));
       check(revisionID, "self-test revision ID is missing");

@@ -856,7 +856,7 @@ function approveAndReleaseChangeOrder(space, label, note) {
     && changeOrder.InScopeSpaceIDs[0] === source.SpaceID,
   "ChangeOrder scope is not exactly the one reviewed delivery Space");
   const selected = reviewed.map((unit) => {
-    const rows = cubJson(["revision", "list", "--space", space, "--by-unit-id", unit.unitID,
+    const rows = cubJson(["revision", "list", "--space", space, unit.slug,
       "--change-order", changeOrder.ChangeOrderID, "-o", "json"]);
     check(Array.isArray(rows) && rows.length === 1, `ChangeOrder ${changeOrder.ChangeOrderID} did not select exactly one revision for ${unit.slug}`);
     const row = rows[0]?.Revision ?? rows[0];
