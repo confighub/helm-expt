@@ -8,9 +8,9 @@ auto-resolving would be cosmetic).
 ## Headline
 
 ```text
-flagged quirks: 299
-charts affected: 148
-  standard (confirm a catalog-wide home): 125
+flagged quirks: 301
+charts affected: 150
+  standard (confirm a catalog-wide home): 127
   build    (build a variant, then handle):  21
   sme      (genuine per-chart human call):   153
 ```
@@ -24,7 +24,7 @@ _Resolution: confirm the catalog-wide ConfigHub home applies (CRD lifecycle / sc
 | Category | Flags | Charts |
 | --- | ---: | ---: |
 | `crds` | 35 | 35 |
-| `catalog-coverage` | 31 | 31 |
+| `catalog-coverage` | 33 | 33 |
 | `crd-policy` | 15 | 15 |
 | `stateful-storage` | 14 | 14 |
 | `apiservice` | 4 | 4 |

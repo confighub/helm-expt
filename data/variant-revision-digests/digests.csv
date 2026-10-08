@@ -97,6 +97,8 @@ recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r0
 recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/variant-revision.yaml,dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0,aicr-eks-training,r001,attached,matches,
 recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/variant-revision.yaml,dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0,default,r001,attached,matches,
 recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/variant-revision.yaml,dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0,gpu-resources,r001,attached,matches,
+recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/variant-revision.yaml,eks/aws-efa-k8s-device-plugin/v0.5.29,aicr-eks-training,r001,attached,matches,
+recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/variant-revision.yaml,eks/aws-efa-k8s-device-plugin/v0.5.29,default,r001,attached,matches,
 recipes/elastic/eck-operator/3.4.0/revisions/default/r001/variant-revision.yaml,elastic/eck-operator/3.4.0,default,r001,attached,matches,
 recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/variant-revision.yaml,elastic/eck-operator/3.4.0,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/variant-revision.yaml,elastic/eck-operator/3.4.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
@@ -215,6 +217,9 @@ recipes/nats/nats/2.14.0/revisions/ha/r001/variant-revision.yaml,nats/nats/2.14.
 recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml,nats/surveyor/0.20.9,default-reviewed,r001,attached,matches,
 recipes/nats/surveyor/0.20.9/revisions/default/r001/variant-revision.yaml,nats/surveyor/0.20.9,default,r001,attached,matches,
 recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml,nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18,default,r001,attached,matches,
+recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml,node-feature-discovery/node-feature-discovery/0.19.0,aicr-eks-training-v0-20-0,r001,attached,matches,
+recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml,node-feature-discovery/node-feature-discovery/0.19.0,aicr-eks-training-v1-0-0,r001,attached,matches,
+recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/variant-revision.yaml,node-feature-discovery/node-feature-discovery/0.19.0,default,r001,attached,matches,
 recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/variant-revision.yaml,nvidia/cluster-readiness-engine/v0.6.0,default,r001,attached,matches,
 recipes/nvidia/gpu-operator/v25.10.1/revisions/default/r001/variant-revision.yaml,nvidia/gpu-operator/v25.10.1,default,r001,attached,matches,
 recipes/nvidia/gpu-operator/v25.10.1/revisions/driver-580.126.20/r001/variant-revision.yaml,nvidia/gpu-operator/v25.10.1,driver-580.126.20,r001,attached,matches,

@@ -48,6 +48,7 @@ descheduler/descheduler@0.36.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,
 dex/dex@0.24.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/dex/dex/0.24.0
 dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1,no,5/6,yes,yes,no,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,readable,recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1
 dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0,no,5/6,yes,yes,no,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,readable,recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0
+eks/aws-efa-k8s-device-plugin@v0.5.29,no,5/6,yes,yes,no,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,readable,recipes/eks/aws-efa-k8s-device-plugin/v0.5.29
 elastic/eck-operator@3.4.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,proof-grade,not-reviewed-for-production,none,recipes/elastic/eck-operator/3.4.0
 elastic/filebeat@8.5.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/elastic/filebeat/8.5.1
 elastic/kibana@8.5.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/elastic/kibana/8.5.1
@@ -118,6 +119,7 @@ nats/nack@0.34.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-
 nats/nats@2.14.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/nats/nats/2.14.0
 nats/surveyor@0.20.9,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/nats/surveyor/0.20.9
 nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18
+node-feature-discovery/node-feature-discovery@0.19.0,no,5/6,yes,yes,no,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,readable,recipes/node-feature-discovery/node-feature-discovery/0.19.0
 nvidia/cluster-readiness-engine@v0.6.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/nvidia/cluster-readiness-engine/v0.6.0
 nvidia/gpu-operator@v25.10.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,6,catalog-candidate,not-reviewed-for-production,none,recipes/nvidia/gpu-operator/v25.10.1
 nvidia/gpu-operator@v26.3.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,6,catalog-candidate,not-reviewed-for-production,none,recipes/nvidia/gpu-operator/v26.3.2

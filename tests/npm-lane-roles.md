@@ -9,9 +9,9 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 53
+lanes outside the chain: 54
 should join the chain:   3
-deliberately outside:    50
+deliberately outside:    51
 superseded:              0
 ```
 

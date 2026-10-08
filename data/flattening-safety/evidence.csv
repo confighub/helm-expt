@@ -48,6 +48,7 @@ descheduler,descheduler,0.36.0,0,0,0,0,0,0,0,0,0,0,16,default:safe-to-flatten
 dex,dex,0.24.0,1,0,0,0,15,0,1,0,0,0,19,default:unsafe-to-flatten
 dra-driver-nvidia,dra-driver-nvidia-gpu,0.4.1,0,0,0,1,6,0,0,0,2,0,26,aicr-eks-training:flatten-with-routes; default:flatten-with-routes; gpu-resources:flatten-with-routes
 dra-driver-nvidia,dra-driver-nvidia-gpu,0.5.0,0,0,0,1,6,0,0,0,2,0,26,aicr-eks-training:flatten-with-routes; default:flatten-with-routes; gpu-resources:flatten-with-routes
+eks,aws-efa-k8s-device-plugin,v0.5.29,0,0,0,0,0,0,0,0,0,0,5,aicr-eks-training:safe-to-flatten; default:safe-to-flatten
 elastic,eck-operator,3.4.0,0,12,0,1,2,0,0,2,12,1,30,default:flatten-with-routes; ha:flatten-with-routes; no-crds:flatten-with-routes
 elastic,filebeat,8.5.1,0,0,0,0,0,0,0,0,0,0,21,default:safe-to-flatten; node-or-cluster-collector:safe-to-flatten
 elastic,kibana,8.5.1,9,0,0,0,0,0,0,0,0,0,24,default:unsafe-to-flatten
@@ -116,6 +117,7 @@ nats,nack,0.34.0,0,0,0,0,0,0,0,0,6,0,7,default:flatten-with-routes; no-crds:safe
 nats,nats,2.14.0,0,0,0,0,0,0,0,0,0,0,51,default:safe-to-flatten; ha:unsafe-to-flatten
 nats,surveyor,0.20.9,0,0,0,0,1,0,0,0,0,0,11,default-reviewed:safe-to-flatten; default:safe-to-flatten
 nfs-subdir-external-provisioner,nfs-subdir-external-provisioner,4.0.18,0,0,0,0,4,0,0,0,0,0,15,default:safe-to-flatten
+node-feature-discovery,node-feature-discovery,0.19.0,4,0,0,0,0,0,0,0,4,0,26,aicr-eks-training-v0-20-0:flatten-with-routes; aicr-eks-training-v1-0-0:flatten-with-routes; default:flatten-with-routes
 nvidia,cluster-readiness-engine,v0.6.0,0,0,0,0,0,0,0,0,7,0,48,default:flatten-with-routes
 nvidia,gpu-operator,v25.10.1,9,1,0,0,0,0,0,0,6,1,41,default:flatten-with-routes; driver-580.126.20:flatten-with-routes; driver-595.91.07:flatten-with-routes; external-nfd:flatten-with-routes; preinstalled-driver-and-toolkit:flatten-with-routes; preinstalled-driver:flatten-with-routes
 nvidia,gpu-operator,v26.3.2,9,1,0,0,0,0,0,0,6,1,43,default:flatten-with-routes; driver-580.105.08:flatten-with-routes; driver-595.91.07:flatten-with-routes; external-nfd:flatten-with-routes; preinstalled-driver-and-toolkit:flatten-with-routes; preinstalled-driver:flatten-with-routes

@@ -34,6 +34,7 @@ crossplane-stable/crossplane,2.3.1,default,no,,,,no,0,,customize;prune;ssa-confl
 descheduler/descheduler,0.36.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 dex/dex,0.24.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 dra-driver-nvidia/dra-driver-nvidia-gpu,0.5.0,default,no,,,,yes,2,,customize;prune;ssa-conflict
+eks/aws-efa-k8s-device-plugin,v0.5.29,default,no,,,,no,0,,customize;prune;ssa-conflict
 elastic/eck-operator,3.4.0,default,no,,,,yes,12,no-crds,customize;prune;ssa-conflict
 elastic/filebeat,8.5.1,default,no,,,,no,0,,customize;prune;ssa-conflict
 elastic/kibana,8.5.1,default,no,,,,no,0,,customize;prune;ssa-conflict
@@ -86,6 +87,7 @@ nats/nack,0.34.0,default,no,,,,yes,6,no-crds,customize;prune;ssa-conflict
 nats/nats,2.14.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 nats/surveyor,0.20.9,default,no,,,,no,0,,customize;prune;ssa-conflict
 nfs-subdir-external-provisioner/nfs-subdir-external-provisioner,4.0.18,default,no,,,,no,0,,customize;prune;ssa-conflict
+node-feature-discovery/node-feature-discovery,0.19.0,default,no,,,,yes,3,,customize;prune;ssa-conflict
 nvidia/cluster-readiness-engine,v0.6.0,default,no,,,,yes,8,,customize;prune;ssa-conflict
 nvidia/gpu-operator,v26.7.1,default,no,,,,yes,8,,customize;prune;ssa-conflict
 nvidia/k8s-nim-operator,3.1.2,default,no,,,,yes,9,,customize;prune;ssa-conflict

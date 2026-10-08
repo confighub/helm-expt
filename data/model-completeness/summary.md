@@ -14,25 +14,25 @@ supported, that choice must be tracked as its own chart-recipe-variant row in `d
 ## Headline
 
 ```text
-charts: 178
+charts: 180
 supported (Level 2, all 6): 162
-not yet supported: 16
-variant-rich (enhancement, >1 variant): 117
+not yet supported: 18
+variant-rich (enhancement, >1 variant): 119
 ```
 
 ## Per-criterion coverage (the 6 support criteria)
 
-- `render_equivalent`: 178/178
-- `behaviorally_complete`: 173/178
-- `readable`: 167/178
-- `usable`: 178/178
-- `verifiable`: 178/178
-- `honestly_scoped`: 178/178
-- _enhancement_ `variant_complete`: 117/178  (not a support criterion)
+- `render_equivalent`: 180/180
+- `behaviorally_complete`: 175/180
+- `readable`: 167/180
+- `usable`: 180/180
+- `verifiable`: 180/180
+- `honestly_scoped`: 180/180
+- _enhancement_ `variant_complete`: 119/180  (not a support criterion)
 
 ## Gap by criterion (how many charts each one blocks)
 
-- `readable`: 11
+- `readable`: 13
 - `behaviorally_complete`: 5
 
 ## Not yet supported (the work queue)
@@ -42,6 +42,7 @@ variant-rich (enhancement, >1 variant): 117
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0` | 5/6 | readable |
 | `dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1` | 5/6 | readable |
 | `dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0` | 5/6 | readable |
+| `eks/aws-efa-k8s-device-plugin@v0.5.29` | 5/6 | readable |
 | `external-secrets/external-secrets@2.10.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.5.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.7.0` | 5/6 | behaviorally_complete |
@@ -51,6 +52,7 @@ variant-rich (enhancement, >1 variant): 117
 | `kai-scheduler/kai-scheduler@v0.14.1` | 5/6 | readable |
 | `kai-scheduler/kai-scheduler@v0.16.9` | 5/6 | readable |
 | `kubeflow/kubeflow-trainer@2.2.0` | 5/6 | readable |
+| `node-feature-discovery/node-feature-discovery@0.19.0` | 5/6 | readable |
 | `nvidia/nodewright@v0.17.1` | 5/6 | readable |
 | `nvidia/nodewright@v0.19.0` | 5/6 | readable |
 | `prometheus-community/kube-prometheus-stack@84.4.0` | 5/6 | readable |
