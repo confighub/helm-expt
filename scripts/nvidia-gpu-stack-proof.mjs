@@ -12,6 +12,13 @@
 // scripts/nvidia-gpu-stack-coverage.mjs supplies and independently verifies the
 // exact artifact URL and SHA-256. This declaration never resolves a mutable tag
 // or repository index without checking the archive bytes it returns.
+//
+// The machinery below the candidate table is not NVIDIA-specific. Another list
+// of additions reuses it by naming its own candidate table:
+// HELM_EXPT_PROOF_CANDIDATE_SET selects the table (scripts/aicr-nested-charts-proof.mjs
+// sets it), and a candidate may then name its own repository, Kubernetes
+// version, Secrets, per-base CRDs and several AICR bindings. Every such field
+// is optional and defaults to what the NVIDIA candidates always had.
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -30,7 +37,8 @@ import {
   nimOperatorReviewedVersions,
 } from "./lib/k8s-nim-operator-bases.mjs";
 
-const candidateName = process.env.HELM_EXPT_NVIDIA_GPU_STACK_CANDIDATE ?? "";
+const candidateSet = process.env.HELM_EXPT_PROOF_CANDIDATE_SET ?? "nvidia-gpu-stack";
+const candidateName = process.env.HELM_EXPT_PROOF_CANDIDATE ?? process.env.HELM_EXPT_NVIDIA_GPU_STACK_CANDIDATE ?? "";
 const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "";
 const deliveryLanes = ["regularHelm", "cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"];
 
@@ -347,10 +355,20 @@ const candidates = {
   },
 };
 
-const selected = candidates[candidateName];
-if (!selected) {
-  throw new Error(`HELM_EXPT_NVIDIA_GPU_STACK_CANDIDATE must be one of ${Object.keys(candidates).join(", ")}`);
+// The candidate tables this declaration can run. The NVIDIA table is the one above.
+const candidateTables = {
+  "nvidia-gpu-stack": async () => candidates,
+  "aicr-nested-charts": async () => (await import("./lib/aicr-nested-chart-candidates.mjs")).AICR_NESTED_CHART_CANDIDATES,
+};
+if (!candidateTables[candidateSet]) {
+  throw new Error(`HELM_EXPT_PROOF_CANDIDATE_SET must be one of ${Object.keys(candidateTables).join(", ")}`);
 }
+const candidateTable = await candidateTables[candidateSet]();
+const selected = candidateTable[candidateName];
+if (!selected) {
+  throw new Error(`the ${candidateSet} candidate must be one of ${Object.keys(candidateTable).join(", ")}`);
+}
+const scriptPrefix = selected.scriptPrefix ?? "nvidia-gpu-stack-coverage";
 const expected = selected.versions[chartVersion];
 if (!expected) {
   throw new Error(
@@ -359,31 +377,36 @@ if (!expected) {
 }
 
 const chart = {
-  repository: "nvidia",
+  repository: selected.repository ?? "nvidia",
   repositoryURL: selected.repositoryURL,
   name: selected.name,
   version: chartVersion,
   releaseName: selected.releaseName,
-  namespace: selected.namespace,
-  kubeVersion: "1.31.0",
+  // A chart whose AICR namespace moved between versions names it per version.
+  namespace: expected.namespace ?? selected.namespace,
+  kubeVersion: selected.kubeVersion ?? "1.31.0",
 };
 
+// A chart whose own defaults refuse to render declares the smallest values that
+// do, as `expected.defaultBase`; the base says so in its display name.
 const defaultVariant = {
   name: "default",
   base: "default",
-  displayName: "chart defaults",
+  displayName: expected.defaultBase?.displayName ?? "chart defaults",
   valuesFile: "effective-values.yaml",
-  valuesText: "",
-  valuesSummary: "chart defaults",
+  valuesText: expected.defaultBase?.valuesText ?? "",
+  valuesSummary: expected.defaultBase?.valuesSummary ?? "chart defaults",
   expectedObjectCount: expected.objects,
   expectedCRDCount: expected.crds.length,
-  expectedSecretCount: 0,
+  expectedSecretCount: expected.secrets ?? 0,
+  crds: expected.crds,
   podMonitor: true,
-  targetFacts: { requiredCRDs: selected.requiredCRDs("default") },
+  // A base that renders no custom resource and no CRD needs no CRD on the target.
+  ...(selected.requiredCRDs("default", chartVersion).length ? { targetFacts: { requiredCRDs: selected.requiredCRDs("default", chartVersion) } } : {}),
   targetFactNote: selected.targetFactNote,
 };
 
-const requiredCRDsFor = (base) => base.requiredCRDs ?? selected.requiredCRDs(base.name);
+const requiredCRDsFor = (base) => base.requiredCRDs ?? selected.requiredCRDs(base.name, chartVersion);
 
 const variants = [
   defaultVariant,
@@ -395,18 +418,37 @@ const variants = [
     valuesText: base.valuesText,
     valuesSummary: base.valuesSummary,
     expectedObjectCount: base.objects,
-    expectedCRDCount: expected.crds.length,
-    expectedSecretCount: 0,
+    expectedCRDCount: (base.crds ?? expected.crds).length,
+    expectedSecretCount: base.secrets ?? expected.secrets ?? 0,
+    crds: base.crds ?? expected.crds,
     podMonitor: base.podMonitor,
     removedFromDefault: base.removedFromDefault ?? [],
     addedToDefault: base.addedToDefault ?? [],
     changesNothingElse: base.changesNothingElse,
+    // A base whose values rename its objects is not described as a delta of the default base.
+    compareWithDefault: base.compareWithDefault !== false,
+    deltaNote: base.deltaNote ?? null,
     aicr: base.aicr ?? null,
     // A base that renders no custom resource and no CRD needs no CRD on the target.
     ...(requiredCRDsFor(base).length ? { targetFacts: { requiredCRDs: requiredCRDsFor(base) } } : {}),
     targetFactNote: base.targetFactNote ?? selected.targetFactNote,
   })),
 ];
+
+// How a base differs from the default base, in a sentence the value model keeps.
+function variantDeltaNote(item) {
+  if (!item.compareWithDefault) return item.deltaNote;
+  const sets = [
+    ...(item.removedFromDefault.length ? [`removing ${item.removedFromDefault.join(", ")}`] : []),
+    ...(item.addedToDefault.length ? [`adding ${item.addedToDefault.join(", ")}`] : []),
+  ];
+  if (sets.length === 0) {
+    return item.changesNothingElse
+      ? "renders the same objects as the default base; the proof checks that no object is added, removed or changed"
+      : "adds no object to the default base and removes none; it differs only at the fields those values reach, and the proof checks the object set";
+  }
+  return `differs from the default base by ${sets.join(" and ")}${item.changesNothingElse ? " and nothing else" : " and by the fields those values reach"}; the proof checks the removed and added sets`;
+}
 
 const scanPolicy = {
   scanner: "helm-expt-local-rendered-object-scan",
@@ -425,8 +467,10 @@ runProofCli({
   chart,
   variants,
   scanPolicy,
-  scriptPrefix: "nvidia-gpu-stack-coverage",
+  scriptPrefix,
   receiptSlug: selected.name,
+  // The installer adds a Namespace object for the release namespace unless the base already holds a Namespace.
+  ...(selected.supportObjects ? { supportObjects: selected.supportObjects } : {}),
   ...(selected.lifecycle
     ? { packageExtraPaths: ({ ctx }) => [{ source: `${selected.lifecycle.extras}/${ctx.chart.version}`, destination: selected.lifecycle.root }] }
     : {}),
@@ -434,10 +478,13 @@ runProofCli({
   recordChartLockDigest: expected.dependencies > 0,
   semanticNormalizations: [
     "prune-null-fields",
-    ...(selected.name === "nvsentinel" ? ["nvsentinel-configmap-leading-blank-line-pruned-by-kustomize"] : []),
+    ...(candidateName === "nvsentinel" ? ["nvsentinel-configmap-leading-blank-line-pruned-by-kustomize"] : []),
+    ...(selected.leadingBlankLineConfigMaps?.length ? ["configmap-leading-blank-line-pruned-by-kustomize"] : []),
   ],
   allowedSemanticDiff({ key, helmObjectJson, cubObjectJson }) {
-    if (selected.name !== "nvsentinel") return false;
+    // Another chart with the same round-trip difference names the one ConfigMap it is admitted in.
+    if (selected.leadingBlankLineConfigMaps?.includes(key)) return leadingBlankLineOnly(key, helmObjectJson, cubObjectJson, key);
+    if (candidateName !== "nvsentinel") return false;
     return leadingBlankLineOnly(key, helmObjectJson, cubObjectJson);
   },
   valueModel: {
@@ -456,15 +503,12 @@ runProofCli({
           variant: item.name,
           disposition: "variant-axis",
           reason: item.valuesSummary,
-          note: `differs from the default base by ${[
-            ...(item.removedFromDefault.length ? [`removing ${item.removedFromDefault.join(", ")}`] : []),
-            ...(item.addedToDefault.length ? [`adding ${item.addedToDefault.join(", ")}`] : []),
-          ].join(" and ")}${item.changesNothingElse ? " and nothing else" : " and by the fields those values reach"}; the proof checks the removed and added sets`,
+          note: variantDeltaNote(item),
         })),
     ],
-    unknownValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof",
-    deadValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof",
-    ignoredValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof",
+    unknownValues: `not-exhaustively-checked-by-${scriptPrefix}-proof`,
+    deadValues: `not-exhaustively-checked-by-${scriptPrefix}-proof`,
+    ignoredValues: `not-exhaustively-checked-by-${scriptPrefix}-proof`,
   },
   controlPoints: [
     { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
@@ -475,7 +519,9 @@ runProofCli({
           category: "lifecycle-policy",
           status: "attention-required",
           policy: "no-hooks",
-          note: `the bases are rendered with --no-hooks; every base's values also render ${Object.entries(expected.hooks).map(([phase, count]) => `${count} ${phase}`).join(", ")} Helm hook objects. They are packaged under ${selected.lifecycle.root} with a lifecycle-actions.yaml record, and nothing runs them automatically. No hook has been run on a cluster for this entry.`,
+          note:
+            selected.lifecycle.note?.(expected)
+            ?? `the bases are rendered with --no-hooks; every base's values also render ${Object.entries(expected.hooks).map(([phase, count]) => `${count} ${phase}`).join(", ")} Helm hook objects. They are packaged under ${selected.lifecycle.root} with a lifecycle-actions.yaml record, and nothing runs them automatically. No hook has been run on a cluster for this entry.`,
         }
       : { category: "lifecycle-policy", status: "handled", policy: "no-hooks", note: "no base's render contains a Helm hook object, with or without --no-hooks" },
     ...(expected.crds.length
@@ -506,12 +552,14 @@ runProofCli({
       "target-facts",
       "production-readiness-review",
     ],
-    extra: { caveats: selected.caveats },
+    // An entry in doubt names its open questions here, per base, so the question
+    // travels with the recipe before any record of it exists.
+    extra: { caveats: selected.caveats, ...(expected.openQuestions?.length ? { openQuestions: expected.openQuestions } : {}) },
   },
   plan: {
     status: "packaged-with-controls",
     scanGate: "warn-production-blocked",
-    nextAction: "publish and sign the package, then complete target-specific live qualification on a GPU target before production",
+    nextAction: selected.nextAction ?? "publish and sign the package, then complete target-specific live qualification on a GPU target before production",
   },
   readme: {
     intro: `This is the exact-artifact ConfigHub component package for ${selected.name}@${chart.version}. ${selected.describe}`,
@@ -565,7 +613,19 @@ runProofCli({
     check((dependencyLock.spec?.dependencies ?? []).length === expected.dependencies, `${candidateName} dependency count mismatch`);
     const defaultText = readFileSync(perVariant.get("default").releasePath, "utf8");
     // Every custom resource in a render must have its CRD either in the render or declared as a target fact.
-    const builtinGroups = new Set(["", "apps", "batch", "rbac.authorization.k8s.io", "networking.k8s.io", "policy", "apiextensions.k8s.io", "admissionregistration.k8s.io"]);
+    const builtinGroups = new Set([
+      "",
+      "apps",
+      "batch",
+      "rbac.authorization.k8s.io",
+      "networking.k8s.io",
+      "policy",
+      "apiextensions.k8s.io",
+      "admissionregistration.k8s.io",
+      "storage.k8s.io",
+      "scheduling.k8s.io",
+      "resource.k8s.io",
+    ]);
     for (const item of variants) {
       const row = perVariant.get(item.name);
       const releaseText = readFileSync(row.releasePath, "utf8");
@@ -575,8 +635,11 @@ runProofCli({
         .filter((doc) => doc.kind === "CustomResourceDefinition")
         .map((doc) => doc.metadata?.name)
         .sort();
-      check(JSON.stringify(crds) === JSON.stringify([...expected.crds].sort()), `${candidateName} ${item.name} CRD set mismatch: ${crds.join(", ")}`);
-      check(!docs.some((doc) => doc.kind === "Secret"), `${candidateName} ${item.name} must render no Secret`);
+      check(JSON.stringify(crds) === JSON.stringify([...item.crds].sort()), `${candidateName} ${item.name} CRD set mismatch: ${crds.join(", ")}`);
+      check(
+        docs.filter((doc) => doc.kind === "Secret").length === item.expectedSecretCount,
+        `${candidateName} ${item.name} must render ${item.expectedSecretCount || "no"} Secret${item.expectedSecretCount === 1 ? "" : "s"}`,
+      );
       check(!docs.some((doc) => doc.metadata?.annotations?.["helm.sh/hook"]), `${candidateName} ${item.name} must render no Helm hook object`);
       check(!docs.some((doc) => doc.kind === "Job"), `${candidateName} ${item.name} must render no Job`);
       const variantDoc = readYaml(join(root, "variants", item.name, "variant.yaml"));
@@ -589,7 +652,8 @@ runProofCli({
           `${candidateName} ${item.name} renders ${doc.kind} (${group}) with no declared CRD target fact`,
         );
       }
-      for (const name of expected.crds) check(declared.includes(name), `${candidateName} ${item.name} target facts must declare rendered CRD ${name}`);
+      for (const name of item.crds) check(declared.includes(name), `${candidateName} ${item.name} target facts must declare rendered CRD ${name}`);
+      selected.verifyBase?.({ item, docs, check });
       if (candidateName === "nvsentinel") {
         check(
           docs.every((doc) => !doc.metadata?.namespace),
@@ -607,6 +671,10 @@ runProofCli({
       if (item.name === "default") continue;
       // A base says which objects it removes from the default base; the render must agree.
       const delta = objectDelta(defaultText, releaseText);
+      if (!item.compareWithDefault) {
+        for (const binding of [item.aicr ?? []].flat()) verifyAicrBinding({ item, binding, releaseText, check });
+        continue;
+      }
       check(
         JSON.stringify(delta.added) === JSON.stringify([...item.addedToDefault].sort()),
         `${candidateName} ${item.name} must add exactly ${item.addedToDefault.join(", ") || "nothing"} to the default base; added ${delta.added.join(", ")}`,
@@ -618,7 +686,8 @@ runProofCli({
       if (item.changesNothingElse) {
         check(delta.changed.length === 0, `${candidateName} ${item.name} must change no object that stays; found ${delta.changed.map((entry) => entry.key).join(", ")}`);
       }
-      if (item.aicr) verifyAicrBinding({ item, releaseText, check });
+      // A base whose values two AICR entries carry byte for byte is bound to both.
+      for (const binding of [item.aicr ?? []].flat()) verifyAicrBinding({ item, binding, releaseText, check });
     }
   },
 });
@@ -628,8 +697,7 @@ runProofCli({
 // same archive, same values bytes, same objects. In every case the values bytes
 // must match the bundle's own checksum list, and the bundle's Application must
 // pin this chart version.
-function verifyAicrBinding({ item, releaseText, check }) {
-  const binding = item.aicr;
+function verifyAicrBinding({ item, binding, releaseText, check }) {
   if (binding.applicationPath) {
     // The values are carried inline in a rendered Argo CD Application. The
     // Application must still pin this chart, version, release name and namespace,
@@ -664,7 +732,7 @@ function verifyAicrBinding({ item, releaseText, check }) {
   const application = readFileSync(join(repoRoot, binding.applicationTemplatePath), "utf8");
   check(
     new RegExp(`^\\s*chart: ${selected.name}$`, "m").test(application)
-      && new RegExp(`^\\s*targetRevision: ${chartVersion.replaceAll(".", "\\.")}$`, "m").test(application),
+      && new RegExp(`^\\s*targetRevision: ${(binding.targetRevision ?? chartVersion).replaceAll(".", "\\.")}$`, "m").test(application),
     `the AICR Application no longer pins ${selected.name} ${chartVersion}`,
   );
   if (!binding.nestedRenderReceiptPath) return;
@@ -677,8 +745,17 @@ function verifyAicrBinding({ item, releaseText, check }) {
   );
   const maps = canonicalObjectMaps(releaseText, readFileSync(join(repoRoot, receipt.spec.output.path), "utf8"));
   const baseKeys = Object.keys(maps.helm).sort();
+  // The AICR nested render is a plain helm template, so it also holds the Helm
+  // hook objects. A base never holds them, so they are set aside before comparing.
+  const nestedKeys = Object.keys(maps.cub)
+    .filter((key) => !JSON.parse(maps.cub[key]).metadata?.annotations?.["helm.sh/hook"])
+    .sort();
   check(
-    JSON.stringify(baseKeys) === JSON.stringify(Object.keys(maps.cub).sort()),
+    Object.keys(maps.cub).length - nestedKeys.length === (binding.nestedHookObjects ?? 0),
+    `${item.name}: the AICR nested render holds ${Object.keys(maps.cub).length - nestedKeys.length} Helm hook objects; reviewed count is ${binding.nestedHookObjects ?? 0}`,
+  );
+  check(
+    JSON.stringify(baseKeys) === JSON.stringify(nestedKeys),
     `${item.name} object set differs from the AICR nested render`,
   );
   for (const key of baseKeys) check(maps.helm[key] === maps.cub[key], `${item.name} object differs from the AICR nested render: ${key}`);
@@ -690,8 +767,8 @@ function verifyAicrBinding({ item, releaseText, check }) {
 // it is a byte difference, so it is admitted narrowly: only this ConfigMap, only a
 // data value, and only when the two strings are identical once a single leading
 // newline is removed from the Helm side. Everything else stays strict.
-function leadingBlankLineOnly(key, helmObjectJson, cubObjectJson) {
-  if (key !== "v1|ConfigMap||syslog-health-monitor-config") return false;
+function leadingBlankLineOnly(key, helmObjectJson, cubObjectJson, admittedKey = "v1|ConfigMap||syslog-health-monitor-config") {
+  if (key !== admittedKey) return false;
   const helmObject = JSON.parse(helmObjectJson);
   const cubObject = JSON.parse(cubObjectJson);
   const helmData = helmObject.data ?? {};
