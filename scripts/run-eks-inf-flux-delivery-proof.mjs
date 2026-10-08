@@ -48,7 +48,7 @@ if (mode === "--deliver") {
   cub("worker", "create", "worker", "--space", "simflux-cluster", "--is-server-worker");
   cub("target", "create", "target", "{}", "worker", "--space", "simflux-cluster", "-p", "OCI", "-t", "Any");
   cub("variant", "upload", "--component", "inference-workloads", "--variant", "base",
-    "--granularity", "per-file", "--owner", "EKS Inference", "--label", "managed-by=eks-inference", BUNDLE_REF);
+    "--owner", "EKS Inference", "--unit-label", "managed-by=eks-inference", BUNDLE_REF);
   cub("variant", "create", "simflux", "inference-workloads-base", "--target", "simflux-cluster/target");
   cub("release", "publish", "inference-workloads-simflux");
   console.log("delivered: base by pinned digest, target-bound variant, first release published");

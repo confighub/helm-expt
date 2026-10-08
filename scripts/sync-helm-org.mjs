@@ -1711,7 +1711,7 @@ if (mode === "--exhibits") {
       for (const file of ["hook-job.yaml", "workload.yaml"]) {
         write(join(stage, file), readFileSync(join(repoRoot, "tests/fixtures/hook-replacement-probe", file), "utf8"));
       }
-      cub(["variant", "upload", "--component", "hook-probe", "--variant", "base", "--space", "hook-probe-base", "--granularity", "per-resource", stage]);
+      cub(["variant", "upload", "--component", "hook-probe", "--variant", "base", "--space", "hook-probe-base", stage]);
       label("hook-probe-base", {
         Exhibit: "hooks-argo",
         SourceType: "rendered-config",

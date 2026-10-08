@@ -42,7 +42,7 @@ if (mode === "--up") {
 }
 if (mode === "--deliver") {
   cub("variant", "upload", "--component", "inference-workloads", "--variant", "base",
-    "--granularity", "per-file", "--owner", "EKS Inference", "--label", "managed-by=eks-inference", BUNDLE_REF);
+    "--owner", "EKS Inference", "--unit-label", "managed-by=eks-inference", BUNDLE_REF);
   cub("variant", "create", "simgpu", "inference-workloads-base", "--target", "simgpu/target");
   cub("release", "publish", "inference-workloads-simgpu");
   console.log("delivered: base uploaded from the pinned digest, variant bound to simgpu/target, release published");

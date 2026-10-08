@@ -167,10 +167,9 @@ function runProof() {
       "--component", "workshop-contract-nginx",
       "--variant", "base",
       "--space", baseSpace,
-      "--granularity", "minimal",
       "--environment", "Development",
       "--stage", "Development",
-      "--annotation", `${annotationKey}=${baseHash}`,
+      "--unit-annotation", `${annotationKey}=${baseHash}`,
       "--change-desc", "Retain the reviewed three-replica NGINX result",
       uploadPath,
     ]);
@@ -196,10 +195,9 @@ function runProof() {
       "--component", "workshop-contract-nginx",
       "--variant", "base",
       "--space", baseSpace,
-      "--granularity", "minimal",
       "--environment", "Development",
       "--stage", "Development",
-      "--annotation", `${annotationKey}=${candidateHash}`,
+      "--unit-annotation", `${annotationKey}=${candidateHash}`,
       "--change-desc", "Accept four replicas and bound temporary storage",
       uploadPath,
     ]);
