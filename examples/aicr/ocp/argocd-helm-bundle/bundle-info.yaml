@@ -1,0 +1,95 @@
+apiVersion: aicr.run/v1
+build:
+  deployer: argocd-helm
+  recipe:
+    digest: sha256:28fab14370c6b8f2dd4efd446abb83454e5d1ef6d01f6e78e2a4a319d011913c
+    path: recipe.yaml
+    version: 1.0.0
+  settings:
+    appName: aicr-stack
+    attested: false
+    checksums: true
+    nodeScheduling:
+      accelerated:
+        selector:
+          nvidia.com/gpu.present: "true"
+        tolerations:
+          - operator: Exists
+      system:
+        tolerations:
+          - operator: Exists
+    readinessHooks: false
+    serial: false
+    storageClass: gp3
+    vendorCharts: false
+kind: BundleInfo
+layout:
+  entrypoint: Chart.yaml
+  releases:
+    - component: nfd-ocp-olm
+      manifest: templates/nfd-ocp-olm.yaml
+      name: nfd-ocp-olm
+      namespace: openshift-nfd
+      path: 001-nfd-ocp-olm
+    - component: nfd-ocp
+      manifest: templates/nfd-ocp.yaml
+      name: nfd-ocp
+      namespace: openshift-nfd
+      path: 002-nfd-ocp
+    - component: cert-manager-ocp-olm
+      manifest: templates/cert-manager-ocp-olm.yaml
+      name: cert-manager-ocp-olm
+      namespace: cert-manager-operator
+      path: 003-cert-manager-ocp-olm
+    - component: cert-manager-ocp
+      manifest: templates/cert-manager-ocp.yaml
+      name: cert-manager-ocp
+      namespace: cert-manager-operator
+      path: 004-cert-manager-ocp
+    - component: gpu-operator-ocp-olm
+      manifest: templates/gpu-operator-ocp-olm.yaml
+      name: gpu-operator-ocp-olm
+      namespace: gpu-operator
+      path: 005-gpu-operator-ocp-olm
+    - component: network-operator-ocp-olm
+      manifest: templates/network-operator-ocp-olm.yaml
+      name: network-operator-ocp-olm
+      namespace: nvidia-network-operator
+      path: 006-network-operator-ocp-olm
+    - component: network-operator-ocp
+      manifest: templates/network-operator-ocp.yaml
+      name: network-operator-ocp
+      namespace: nvidia-network-operator
+      path: 007-network-operator-ocp
+    - component: gpu-operator-ocp
+      manifest: templates/gpu-operator-ocp.yaml
+      name: gpu-operator-ocp
+      namespace: gpu-operator
+      path: 008-gpu-operator-ocp
+    - component: nvidia-dra-driver-gpu-ocp
+      manifest: templates/nvidia-dra-driver-gpu-ocp-pre.yaml
+      name: nvidia-dra-driver-gpu-ocp-pre
+      namespace: nvidia-dra-driver
+      path: 009-nvidia-dra-driver-gpu-ocp-pre
+    - component: nvidia-dra-driver-gpu-ocp
+      manifest: templates/nvidia-dra-driver-gpu-ocp.yaml
+      name: nvidia-dra-driver-gpu-ocp
+      namespace: nvidia-dra-driver
+      path: 010-nvidia-dra-driver-gpu-ocp
+    - component: prometheus-adapter-ocp
+      manifest: templates/prometheus-adapter-ocp-pre.yaml
+      name: prometheus-adapter-ocp-pre
+      namespace: monitoring
+      path: 011-prometheus-adapter-ocp-pre
+    - component: prometheus-adapter-ocp
+      manifest: templates/prometheus-adapter-ocp.yaml
+      name: prometheus-adapter-ocp
+      namespace: monitoring
+      path: 012-prometheus-adapter-ocp
+    - component: prometheus-adapter-ocp
+      manifest: templates/prometheus-adapter-ocp-post.yaml
+      name: prometheus-adapter-ocp-post
+      namespace: monitoring
+      path: 013-prometheus-adapter-ocp-post
+metadata:
+  version: 1.0.0

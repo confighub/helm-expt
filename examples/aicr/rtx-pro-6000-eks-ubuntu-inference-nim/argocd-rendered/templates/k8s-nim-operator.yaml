@@ -26,6 +26,8 @@ spec:
                         issuerType: selfsigned
                       mode: cert-manager
                   affinity: {}
+                  nodeSelector:
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
         repoURL: https://helm.ngc.nvidia.com/nvidia

@@ -23,6 +23,8 @@ spec:
                 fullnameOverride: agentgateway
                 inferenceExtension:
                   enabled: true
+                nodeSelector:
+                  nodeGroup: system-worker
                 rbac:
                   gatewayNamespaces:
                   - agentgateway-system

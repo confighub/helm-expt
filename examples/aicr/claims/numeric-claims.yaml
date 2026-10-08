@@ -151,26 +151,6 @@ spec:
         equals: kserve-nim-inference
         field: ladder.climbedCount
 
-    - id: eks-inference-applications
-      description: The Argo CD Applications the eks-inference entry renders.
-      compute: { kind: files, dir: examples/aicr/eks-inference/argocd-rendered/templates, suffix: .yaml }
-    - id: eks-inference-components
-      description: The components the retained eks-inference recipe declares an order for.
-      compute: { kind: listLength, file: examples/aicr/eks-inference/recipe.yaml, path: deploymentOrder }
-    - id: eks-inference-overlays
-      description: The overlays AICR resolved to produce the eks-inference recipe.
-      compute: { kind: number, file: examples/aicr/eks-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
-
-    - id: h100-eks-inference-applications
-      description: The Argo CD Applications the h100-eks-inference entry renders.
-      compute: { kind: files, dir: examples/aicr/h100-eks-inference/argocd-rendered/templates, suffix: .yaml }
-    - id: h100-eks-inference-components
-      description: The components the retained h100-eks-inference recipe declares an order for.
-      compute: { kind: listLength, file: examples/aicr/h100-eks-inference/recipe.yaml, path: deploymentOrder }
-    - id: h100-eks-inference-overlays
-      description: The overlays AICR resolved to produce the h100-eks-inference recipe.
-      compute: { kind: number, file: examples/aicr/h100-eks-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
-
     - id: a100-aks-training-applications
       description: The Argo CD Applications the a100-aks-training entry renders.
       compute: { kind: files, dir: examples/aicr/a100-aks-training/argocd-rendered/templates, suffix: .yaml }
@@ -321,6 +301,16 @@ spec:
       description: The overlays AICR resolved to produce the aks-training recipe.
       compute: { kind: number, file: examples/aicr/aks-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
+    - id: aks-ubuntu-applications
+      description: The Argo CD Applications the aks-ubuntu entry renders.
+      compute: { kind: files, dir: examples/aicr/aks-ubuntu/argocd-rendered/templates, suffix: .yaml }
+    - id: aks-ubuntu-components
+      description: The components the retained aks-ubuntu recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/aks-ubuntu/recipe.yaml, path: deploymentOrder }
+    - id: aks-ubuntu-overlays
+      description: The overlays AICR resolved to produce the aks-ubuntu recipe.
+      compute: { kind: number, file: examples/aicr/aks-ubuntu/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
     - id: b200-any-applications
       description: The Argo CD Applications the b200-any entry renders.
       compute: { kind: files, dir: examples/aicr/b200-any/argocd-rendered/templates, suffix: .yaml }
@@ -411,6 +401,16 @@ spec:
       description: The overlays AICR resolved to produce the eks recipe.
       compute: { kind: number, file: examples/aicr/eks/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
+    - id: eks-inference-applications
+      description: The Argo CD Applications the eks-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/eks-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: eks-inference-components
+      description: The components the retained eks-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/eks-inference/recipe.yaml, path: deploymentOrder }
+    - id: eks-inference-overlays
+      description: The overlays AICR resolved to produce the eks-inference recipe.
+      compute: { kind: number, file: examples/aicr/eks-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
     - id: eks-training-applications
       description: The Argo CD Applications the eks-training entry renders.
       compute: { kind: files, dir: examples/aicr/eks-training/argocd-rendered/templates, suffix: .yaml }
@@ -420,6 +420,16 @@ spec:
     - id: eks-training-overlays
       description: The overlays AICR resolved to produce the eks-training recipe.
       compute: { kind: number, file: examples/aicr/eks-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: eks-ubuntu-applications
+      description: The Argo CD Applications the eks-ubuntu entry renders.
+      compute: { kind: files, dir: examples/aicr/eks-ubuntu/argocd-rendered/templates, suffix: .yaml }
+    - id: eks-ubuntu-components
+      description: The components the retained eks-ubuntu recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/eks-ubuntu/recipe.yaml, path: deploymentOrder }
+    - id: eks-ubuntu-overlays
+      description: The overlays AICR resolved to produce the eks-ubuntu recipe.
+      compute: { kind: number, file: examples/aicr/eks-ubuntu/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
     - id: gb200-any-applications
       description: The Argo CD Applications the gb200-any entry renders.
@@ -490,6 +500,66 @@ spec:
     - id: gb200-eks-ubuntu-training-kubeflow-overlays
       description: The overlays AICR resolved to produce the gb200-eks-ubuntu-training-kubeflow recipe.
       compute: { kind: number, file: examples/aicr/gb200-eks-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-eks-ubuntu-training-slurm-applications
+      description: The Argo CD Applications the gb200-eks-ubuntu-training-slurm entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-eks-ubuntu-training-slurm-components
+      description: The components the retained gb200-eks-ubuntu-training-slurm recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-eks-ubuntu-training-slurm/recipe.yaml, path: deploymentOrder }
+    - id: gb200-eks-ubuntu-training-slurm-overlays
+      description: The overlays AICR resolved to produce the gb200-eks-ubuntu-training-slurm recipe.
+      compute: { kind: number, file: examples/aicr/gb200-eks-ubuntu-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-gke-cos-inference-applications
+      description: The Argo CD Applications the gb200-gke-cos-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-gke-cos-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-gke-cos-inference-components
+      description: The components the retained gb200-gke-cos-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-gke-cos-inference/recipe.yaml, path: deploymentOrder }
+    - id: gb200-gke-cos-inference-overlays
+      description: The overlays AICR resolved to produce the gb200-gke-cos-inference recipe.
+      compute: { kind: number, file: examples/aicr/gb200-gke-cos-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-gke-cos-inference-dynamo-applications
+      description: The Argo CD Applications the gb200-gke-cos-inference-dynamo entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-gke-cos-inference-dynamo/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-gke-cos-inference-dynamo-components
+      description: The components the retained gb200-gke-cos-inference-dynamo recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-gke-cos-inference-dynamo/recipe.yaml, path: deploymentOrder }
+    - id: gb200-gke-cos-inference-dynamo-overlays
+      description: The overlays AICR resolved to produce the gb200-gke-cos-inference-dynamo recipe.
+      compute: { kind: number, file: examples/aicr/gb200-gke-cos-inference-dynamo/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-gke-cos-training-applications
+      description: The Argo CD Applications the gb200-gke-cos-training entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-gke-cos-training/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-gke-cos-training-components
+      description: The components the retained gb200-gke-cos-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-gke-cos-training/recipe.yaml, path: deploymentOrder }
+    - id: gb200-gke-cos-training-overlays
+      description: The overlays AICR resolved to produce the gb200-gke-cos-training recipe.
+      compute: { kind: number, file: examples/aicr/gb200-gke-cos-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-gke-cos-training-kubeflow-applications
+      description: The Argo CD Applications the gb200-gke-cos-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-gke-cos-training-kubeflow-components
+      description: The components the retained gb200-gke-cos-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-gke-cos-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: gb200-gke-cos-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the gb200-gke-cos-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/gb200-gke-cos-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: gb200-gke-cos-training-slurm-applications
+      description: The Argo CD Applications the gb200-gke-cos-training-slurm entry renders.
+      compute: { kind: files, dir: examples/aicr/gb200-gke-cos-training-slurm/argocd-rendered/templates, suffix: .yaml }
+    - id: gb200-gke-cos-training-slurm-components
+      description: The components the retained gb200-gke-cos-training-slurm recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb200-gke-cos-training-slurm/recipe.yaml, path: deploymentOrder }
+    - id: gb200-gke-cos-training-slurm-overlays
+      description: The overlays AICR resolved to produce the gb200-gke-cos-training-slurm recipe.
+      compute: { kind: number, file: examples/aicr/gb200-gke-cos-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
     - id: gb200-oke-inference-applications
       description: The Argo CD Applications the gb200-oke-inference entry renders.
@@ -621,6 +691,16 @@ spec:
       description: The overlays AICR resolved to produce the gb300-eks-ubuntu-training-kubeflow recipe.
       compute: { kind: number, file: examples/aicr/gb300-eks-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
+    - id: gb300-eks-ubuntu-training-slurm-applications
+      description: The Argo CD Applications the gb300-eks-ubuntu-training-slurm entry renders.
+      compute: { kind: files, dir: examples/aicr/gb300-eks-ubuntu-training-slurm/argocd-rendered/templates, suffix: .yaml }
+    - id: gb300-eks-ubuntu-training-slurm-components
+      description: The components the retained gb300-eks-ubuntu-training-slurm recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/gb300-eks-ubuntu-training-slurm/recipe.yaml, path: deploymentOrder }
+    - id: gb300-eks-ubuntu-training-slurm-overlays
+      description: The overlays AICR resolved to produce the gb300-eks-ubuntu-training-slurm recipe.
+      compute: { kind: number, file: examples/aicr/gb300-eks-ubuntu-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
     - id: gb300-generic-ubuntu-training-applications
       description: The Argo CD Applications the gb300-generic-ubuntu-training entry renders.
       compute: { kind: files, dir: examples/aicr/gb300-generic-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
@@ -721,6 +801,16 @@ spec:
       description: The overlays AICR resolved to produce the h100-aks-ubuntu-training-kubeflow recipe.
       compute: { kind: number, file: examples/aicr/h100-aks-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
+    - id: h100-aks-ubuntu-training-slurm-applications
+      description: The Argo CD Applications the h100-aks-ubuntu-training-slurm entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-aks-ubuntu-training-slurm/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-aks-ubuntu-training-slurm-components
+      description: The components the retained h100-aks-ubuntu-training-slurm recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-aks-ubuntu-training-slurm/recipe.yaml, path: deploymentOrder }
+    - id: h100-aks-ubuntu-training-slurm-overlays
+      description: The overlays AICR resolved to produce the h100-aks-ubuntu-training-slurm recipe.
+      compute: { kind: number, file: examples/aicr/h100-aks-ubuntu-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
     - id: h100-any-applications
       description: The Argo CD Applications the h100-any entry renders.
       compute: { kind: files, dir: examples/aicr/h100-any/argocd-rendered/templates, suffix: .yaml }
@@ -750,6 +840,26 @@ spec:
     - id: h100-bcm-ubuntu-training-overlays
       description: The overlays AICR resolved to produce the h100-bcm-ubuntu-training recipe.
       compute: { kind: number, file: examples/aicr/h100-bcm-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-bcm-ubuntu-training-kubeflow-applications
+      description: The Argo CD Applications the h100-bcm-ubuntu-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-bcm-ubuntu-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-bcm-ubuntu-training-kubeflow-components
+      description: The components the retained h100-bcm-ubuntu-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-bcm-ubuntu-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: h100-bcm-ubuntu-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the h100-bcm-ubuntu-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/h100-bcm-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h100-eks-inference-applications
+      description: The Argo CD Applications the h100-eks-inference entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-eks-inference/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-eks-inference-components
+      description: The components the retained h100-eks-inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-eks-inference/recipe.yaml, path: deploymentOrder }
+    - id: h100-eks-inference-overlays
+      description: The overlays AICR resolved to produce the h100-eks-inference recipe.
+      compute: { kind: number, file: examples/aicr/h100-eks-inference/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
     - id: h100-eks-training-applications
       description: The Argo CD Applications the h100-eks-training entry renders.
@@ -811,6 +921,16 @@ spec:
       description: The overlays AICR resolved to produce the h100-eks-ubuntu-training-kubeflow recipe.
       compute: { kind: number, file: examples/aicr/h100-eks-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
+    - id: h100-eks-ubuntu-training-slurm-applications
+      description: The Argo CD Applications the h100-eks-ubuntu-training-slurm entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-eks-ubuntu-training-slurm/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-eks-ubuntu-training-slurm-components
+      description: The components the retained h100-eks-ubuntu-training-slurm recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-eks-ubuntu-training-slurm/recipe.yaml, path: deploymentOrder }
+    - id: h100-eks-ubuntu-training-slurm-overlays
+      description: The overlays AICR resolved to produce the h100-eks-ubuntu-training-slurm recipe.
+      compute: { kind: number, file: examples/aicr/h100-eks-ubuntu-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
     - id: h100-gke-cos-inference-applications
       description: The Argo CD Applications the h100-gke-cos-inference entry renders.
       compute: { kind: files, dir: examples/aicr/h100-gke-cos-inference/argocd-rendered/templates, suffix: .yaml }
@@ -841,15 +961,15 @@ spec:
       description: The overlays AICR resolved to produce the h100-gke-cos-training recipe.
       compute: { kind: number, file: examples/aicr/h100-gke-cos-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
-    - id: h100-gke-cos-training-kubeflow-applications
-      description: The Argo CD Applications the h100-gke-cos-training-kubeflow entry renders.
-      compute: { kind: files, dir: examples/aicr/h100-gke-cos-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
-    - id: h100-gke-cos-training-kubeflow-components
-      description: The components the retained h100-gke-cos-training-kubeflow recipe declares an order for.
-      compute: { kind: listLength, file: examples/aicr/h100-gke-cos-training-kubeflow/recipe.yaml, path: deploymentOrder }
-    - id: h100-gke-cos-training-kubeflow-overlays
-      description: The overlays AICR resolved to produce the h100-gke-cos-training-kubeflow recipe.
-      compute: { kind: number, file: examples/aicr/h100-gke-cos-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+    - id: h100-gke-cos-training-slurm-applications
+      description: The Argo CD Applications the h100-gke-cos-training-slurm entry renders.
+      compute: { kind: files, dir: examples/aicr/h100-gke-cos-training-slurm/argocd-rendered/templates, suffix: .yaml }
+    - id: h100-gke-cos-training-slurm-components
+      description: The components the retained h100-gke-cos-training-slurm recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h100-gke-cos-training-slurm/recipe.yaml, path: deploymentOrder }
+    - id: h100-gke-cos-training-slurm-overlays
+      description: The overlays AICR resolved to produce the h100-gke-cos-training-slurm recipe.
+      compute: { kind: number, file: examples/aicr/h100-gke-cos-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
     - id: h100-kind-inference-applications
       description: The Argo CD Applications the h100-kind-inference entry renders.
@@ -931,6 +1051,46 @@ spec:
       description: The overlays AICR resolved to produce the h200-eks-training recipe.
       compute: { kind: number, file: examples/aicr/h200-eks-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
+    - id: h200-eks-training-kubeflow-applications
+      description: The Argo CD Applications the h200-eks-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/h200-eks-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: h200-eks-training-kubeflow-components
+      description: The components the retained h200-eks-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h200-eks-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: h200-eks-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the h200-eks-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/h200-eks-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: h200-k0s-ubuntu-training-applications
+      description: The Argo CD Applications the h200-k0s-ubuntu-training entry renders.
+      compute: { kind: files, dir: examples/aicr/h200-k0s-ubuntu-training/argocd-rendered/templates, suffix: .yaml }
+    - id: h200-k0s-ubuntu-training-components
+      description: The components the retained h200-k0s-ubuntu-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/h200-k0s-ubuntu-training/recipe.yaml, path: deploymentOrder }
+    - id: h200-k0s-ubuntu-training-overlays
+      description: The overlays AICR resolved to produce the h200-k0s-ubuntu-training recipe.
+      compute: { kind: number, file: examples/aicr/h200-k0s-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: k0s-applications
+      description: The Argo CD Applications the k0s entry renders.
+      compute: { kind: files, dir: examples/aicr/k0s/argocd-rendered/templates, suffix: .yaml }
+    - id: k0s-components
+      description: The components the retained k0s recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/k0s/recipe.yaml, path: deploymentOrder }
+    - id: k0s-overlays
+      description: The overlays AICR resolved to produce the k0s recipe.
+      compute: { kind: number, file: examples/aicr/k0s/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: k0s-training-applications
+      description: The Argo CD Applications the k0s-training entry renders.
+      compute: { kind: files, dir: examples/aicr/k0s-training/argocd-rendered/templates, suffix: .yaml }
+    - id: k0s-training-components
+      description: The components the retained k0s-training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/k0s-training/recipe.yaml, path: deploymentOrder }
+    - id: k0s-training-overlays
+      description: The overlays AICR resolved to produce the k0s-training recipe.
+      compute: { kind: number, file: examples/aicr/k0s-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
     - id: kind-applications
       description: The Argo CD Applications the kind entry renders.
       compute: { kind: files, dir: examples/aicr/kind/argocd-rendered/templates, suffix: .yaml }
@@ -990,6 +1150,16 @@ spec:
     - id: l40s-oke-training-overlays
       description: The overlays AICR resolved to produce the l40s-oke-training recipe.
       compute: { kind: number, file: examples/aicr/l40s-oke-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: l40s-oke-training-kubeflow-applications
+      description: The Argo CD Applications the l40s-oke-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/l40s-oke-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: l40s-oke-training-kubeflow-components
+      description: The components the retained l40s-oke-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/l40s-oke-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: l40s-oke-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the l40s-oke-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/l40s-oke-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
     - id: lke-applications
       description: The Argo CD Applications the lke entry renders.
@@ -1241,6 +1411,16 @@ spec:
       description: The overlays AICR resolved to produce the rtx-pro-6000-lke-ubuntu-training recipe.
       compute: { kind: number, file: examples/aicr/rtx-pro-6000-lke-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
+    - id: rtx-pro-6000-lke-ubuntu-training-kubeflow-applications
+      description: The Argo CD Applications the rtx-pro-6000-lke-ubuntu-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: rtx-pro-6000-lke-ubuntu-training-kubeflow-components
+      description: The components the retained rtx-pro-6000-lke-ubuntu-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: rtx-pro-6000-lke-ubuntu-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the rtx-pro-6000-lke-ubuntu-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
     - id: vr200-rke2-ubuntu-inference-applications
       description: The Argo CD Applications the vr200-rke2-ubuntu-inference entry renders.
       compute: { kind: files, dir: examples/aicr/vr200-rke2-ubuntu-inference/argocd-rendered/templates, suffix: .yaml }
@@ -1271,55 +1451,15 @@ spec:
       description: The overlays AICR resolved to produce the vr200-rke2-ubuntu-training recipe.
       compute: { kind: number, file: examples/aicr/vr200-rke2-ubuntu-training/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
-    - id: gb200-eks-ubuntu-training-slurm-applications
-      description: The Argo CD Applications the gb200-eks-ubuntu-training-slurm entry renders.
-      compute: { kind: files, dir: examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates, suffix: .yaml }
-    - id: gb200-eks-ubuntu-training-slurm-components
-      description: The components the retained gb200-eks-ubuntu-training-slurm recipe declares an order for.
-      compute: { kind: listLength, file: examples/aicr/gb200-eks-ubuntu-training-slurm/recipe.yaml, path: deploymentOrder }
-    - id: gb200-eks-ubuntu-training-slurm-overlays
-      description: The overlays AICR resolved to produce the gb200-eks-ubuntu-training-slurm recipe.
-      compute: { kind: number, file: examples/aicr/gb200-eks-ubuntu-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
-
-    - id: gb300-eks-ubuntu-training-slurm-applications
-      description: The Argo CD Applications the gb300-eks-ubuntu-training-slurm entry renders.
-      compute: { kind: files, dir: examples/aicr/gb300-eks-ubuntu-training-slurm/argocd-rendered/templates, suffix: .yaml }
-    - id: gb300-eks-ubuntu-training-slurm-components
-      description: The components the retained gb300-eks-ubuntu-training-slurm recipe declares an order for.
-      compute: { kind: listLength, file: examples/aicr/gb300-eks-ubuntu-training-slurm/recipe.yaml, path: deploymentOrder }
-    - id: gb300-eks-ubuntu-training-slurm-overlays
-      description: The overlays AICR resolved to produce the gb300-eks-ubuntu-training-slurm recipe.
-      compute: { kind: number, file: examples/aicr/gb300-eks-ubuntu-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
-
-    - id: h100-aks-ubuntu-training-slurm-applications
-      description: The Argo CD Applications the h100-aks-ubuntu-training-slurm entry renders.
-      compute: { kind: files, dir: examples/aicr/h100-aks-ubuntu-training-slurm/argocd-rendered/templates, suffix: .yaml }
-    - id: h100-aks-ubuntu-training-slurm-components
-      description: The components the retained h100-aks-ubuntu-training-slurm recipe declares an order for.
-      compute: { kind: listLength, file: examples/aicr/h100-aks-ubuntu-training-slurm/recipe.yaml, path: deploymentOrder }
-    - id: h100-aks-ubuntu-training-slurm-overlays
-      description: The overlays AICR resolved to produce the h100-aks-ubuntu-training-slurm recipe.
-      compute: { kind: number, file: examples/aicr/h100-aks-ubuntu-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
-
-    - id: h100-eks-ubuntu-training-slurm-applications
-      description: The Argo CD Applications the h100-eks-ubuntu-training-slurm entry renders.
-      compute: { kind: files, dir: examples/aicr/h100-eks-ubuntu-training-slurm/argocd-rendered/templates, suffix: .yaml }
-    - id: h100-eks-ubuntu-training-slurm-components
-      description: The components the retained h100-eks-ubuntu-training-slurm recipe declares an order for.
-      compute: { kind: listLength, file: examples/aicr/h100-eks-ubuntu-training-slurm/recipe.yaml, path: deploymentOrder }
-    - id: h100-eks-ubuntu-training-slurm-overlays
-      description: The overlays AICR resolved to produce the h100-eks-ubuntu-training-slurm recipe.
-      compute: { kind: number, file: examples/aicr/h100-eks-ubuntu-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
-
-    - id: h100-gke-cos-training-slurm-applications
-      description: The Argo CD Applications the h100-gke-cos-training-slurm entry renders.
-      compute: { kind: files, dir: examples/aicr/h100-gke-cos-training-slurm/argocd-rendered/templates, suffix: .yaml }
-    - id: h100-gke-cos-training-slurm-components
-      description: The components the retained h100-gke-cos-training-slurm recipe declares an order for.
-      compute: { kind: listLength, file: examples/aicr/h100-gke-cos-training-slurm/recipe.yaml, path: deploymentOrder }
-    - id: h100-gke-cos-training-slurm-overlays
-      description: The overlays AICR resolved to produce the h100-gke-cos-training-slurm recipe.
-      compute: { kind: number, file: examples/aicr/h100-gke-cos-training-slurm/generation-receipt.yaml, path: spec.result.overlaysResolved }
+    - id: vr200-rke2-ubuntu-training-kubeflow-applications
+      description: The Argo CD Applications the vr200-rke2-ubuntu-training-kubeflow entry renders.
+      compute: { kind: files, dir: examples/aicr/vr200-rke2-ubuntu-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: vr200-rke2-ubuntu-training-kubeflow-components
+      description: The components the retained vr200-rke2-ubuntu-training-kubeflow recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/vr200-rke2-ubuntu-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: vr200-rke2-ubuntu-training-kubeflow-overlays
+      description: The overlays AICR resolved to produce the vr200-rke2-ubuntu-training-kubeflow recipe.
+      compute: { kind: number, file: examples/aicr/vr200-rke2-ubuntu-training-kubeflow/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
   claims:
     - id: training-renders-seventeen
@@ -1457,30 +1597,7 @@ spec:
       quantity: training-v0200-components-with-crds
       page: eks-h100-training-kubeflow-v0-20-0.md
       phrases: ["Eight components"]
-    - id: eks-inference-renders-applications
-      quantity: eks-inference-applications
-      page: eks-inference.md
-      phrases: ["18 Applications"]
-    - id: eks-inference-declares-components
-      quantity: eks-inference-components
-      page: eks-inference.md
-      phrases: ["15 components"]
-    - id: eks-inference-resolves-overlays
-      quantity: eks-inference-overlays
-      page: eks-inference.md
-      phrases: ["four overlays"]
-    - id: h100-eks-inference-renders-applications
-      quantity: h100-eks-inference-applications
-      page: h100-eks-inference.md
-      phrases: ["19 Applications"]
-    - id: h100-eks-inference-declares-components
-      quantity: h100-eks-inference-components
-      page: h100-eks-inference.md
-      phrases: ["16 components"]
-    - id: h100-eks-inference-resolves-overlays
-      quantity: h100-eks-inference-overlays
-      page: h100-eks-inference.md
-      phrases: ["six overlays"]
+
     - id: a100-aks-training-renders-applications
       quantity: a100-aks-training-applications
       page: a100-aks-training.md
@@ -1488,7 +1605,7 @@ spec:
     - id: a100-aks-training-declares-components
       quantity: a100-aks-training-components
       page: a100-aks-training.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: a100-aks-training-resolves-overlays
       quantity: a100-aks-training-overlays
       page: a100-aks-training.md
@@ -1500,11 +1617,11 @@ spec:
     - id: a100-aks-ubuntu-training-declares-components
       quantity: a100-aks-ubuntu-training-components
       page: a100-aks-ubuntu-training.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: a100-aks-ubuntu-training-resolves-overlays
       quantity: a100-aks-ubuntu-training-overlays
       page: a100-aks-ubuntu-training.md
-      phrases: ["seven overlays"]
+      phrases: ["eight overlays"]
     - id: a100-aks-ubuntu-training-kubeflow-renders-applications
       quantity: a100-aks-ubuntu-training-kubeflow-applications
       page: a100-aks-ubuntu-training-kubeflow.md
@@ -1512,11 +1629,11 @@ spec:
     - id: a100-aks-ubuntu-training-kubeflow-declares-components
       quantity: a100-aks-ubuntu-training-kubeflow-components
       page: a100-aks-ubuntu-training-kubeflow.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: a100-aks-ubuntu-training-kubeflow-resolves-overlays
       quantity: a100-aks-ubuntu-training-kubeflow-overlays
       page: a100-aks-ubuntu-training-kubeflow.md
-      phrases: ["eight overlays"]
+      phrases: ["nine overlays"]
     - id: a100-any-renders-applications
       quantity: a100-any-applications
       page: a100-any.md
@@ -1524,7 +1641,7 @@ spec:
     - id: a100-any-declares-components
       quantity: a100-any-components
       page: a100-any.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: a100-any-resolves-overlays
       quantity: a100-any-overlays
       page: a100-any.md
@@ -1536,7 +1653,7 @@ spec:
     - id: a100-eks-training-declares-components
       quantity: a100-eks-training-components
       page: a100-eks-training.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: a100-eks-training-resolves-overlays
       quantity: a100-eks-training-overlays
       page: a100-eks-training.md
@@ -1548,11 +1665,11 @@ spec:
     - id: a100-eks-ubuntu-training-declares-components
       quantity: a100-eks-ubuntu-training-components
       page: a100-eks-ubuntu-training.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: a100-eks-ubuntu-training-resolves-overlays
       quantity: a100-eks-ubuntu-training-overlays
       page: a100-eks-ubuntu-training.md
-      phrases: ["seven overlays"]
+      phrases: ["eight overlays"]
     - id: a100-eks-ubuntu-training-kubeflow-renders-applications
       quantity: a100-eks-ubuntu-training-kubeflow-applications
       page: a100-eks-ubuntu-training-kubeflow.md
@@ -1560,11 +1677,11 @@ spec:
     - id: a100-eks-ubuntu-training-kubeflow-declares-components
       quantity: a100-eks-ubuntu-training-kubeflow-components
       page: a100-eks-ubuntu-training-kubeflow.md
-      phrases: ["15 components"]
+      phrases: ["16 components"]
     - id: a100-eks-ubuntu-training-kubeflow-resolves-overlays
       quantity: a100-eks-ubuntu-training-kubeflow-overlays
       page: a100-eks-ubuntu-training-kubeflow.md
-      phrases: ["eight overlays"]
+      phrases: ["nine overlays"]
     - id: a100-gke-cos-training-renders-applications
       quantity: a100-gke-cos-training-applications
       page: a100-gke-cos-training.md
@@ -1572,7 +1689,7 @@ spec:
     - id: a100-gke-cos-training-declares-components
       quantity: a100-gke-cos-training-components
       page: a100-gke-cos-training.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: a100-gke-cos-training-resolves-overlays
       quantity: a100-gke-cos-training-overlays
       page: a100-gke-cos-training.md
@@ -1584,7 +1701,7 @@ spec:
     - id: a100-gke-cos-training-kubeflow-declares-components
       quantity: a100-gke-cos-training-kubeflow-components
       page: a100-gke-cos-training-kubeflow.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: a100-gke-cos-training-kubeflow-resolves-overlays
       quantity: a100-gke-cos-training-kubeflow-overlays
       page: a100-gke-cos-training-kubeflow.md
@@ -1596,7 +1713,7 @@ spec:
     - id: a100-oke-training-declares-components
       quantity: a100-oke-training-components
       page: a100-oke-training.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: a100-oke-training-resolves-overlays
       quantity: a100-oke-training-overlays
       page: a100-oke-training.md
@@ -1608,7 +1725,7 @@ spec:
     - id: a100-oke-ubuntu-training-declares-components
       quantity: a100-oke-ubuntu-training-components
       page: a100-oke-ubuntu-training.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: a100-oke-ubuntu-training-resolves-overlays
       quantity: a100-oke-ubuntu-training-overlays
       page: a100-oke-ubuntu-training.md
@@ -1620,7 +1737,7 @@ spec:
     - id: a100-oke-ubuntu-training-kubeflow-declares-components
       quantity: a100-oke-ubuntu-training-kubeflow-components
       page: a100-oke-ubuntu-training-kubeflow.md
-      phrases: ["12 components"]
+      phrases: ["13 components"]
     - id: a100-oke-ubuntu-training-kubeflow-resolves-overlays
       quantity: a100-oke-ubuntu-training-kubeflow-overlays
       page: a100-oke-ubuntu-training-kubeflow.md
@@ -1632,7 +1749,7 @@ spec:
     - id: aks-declares-components
       quantity: aks-components
       page: aks.md
-      phrases: ["12 components"]
+      phrases: ["13 components"]
     - id: aks-resolves-overlays
       quantity: aks-overlays
       page: aks.md
@@ -1644,7 +1761,7 @@ spec:
     - id: aks-inference-declares-components
       quantity: aks-inference-components
       page: aks-inference.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: aks-inference-resolves-overlays
       quantity: aks-inference-overlays
       page: aks-inference.md
@@ -1656,10 +1773,22 @@ spec:
     - id: aks-training-declares-components
       quantity: aks-training-components
       page: aks-training.md
-      phrases: ["12 components"]
+      phrases: ["13 components"]
     - id: aks-training-resolves-overlays
       quantity: aks-training-overlays
       page: aks-training.md
+      phrases: ["four overlays"]
+    - id: aks-ubuntu-renders-applications
+      quantity: aks-ubuntu-applications
+      page: aks-ubuntu.md
+      phrases: ["15 Applications"]
+    - id: aks-ubuntu-declares-components
+      quantity: aks-ubuntu-components
+      page: aks-ubuntu.md
+      phrases: ["13 components"]
+    - id: aks-ubuntu-resolves-overlays
+      quantity: aks-ubuntu-overlays
+      page: aks-ubuntu.md
       phrases: ["four overlays"]
     - id: b200-any-renders-applications
       quantity: b200-any-applications
@@ -1668,7 +1797,7 @@ spec:
     - id: b200-any-declares-components
       quantity: b200-any-components
       page: b200-any.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: b200-any-resolves-overlays
       quantity: b200-any-overlays
       page: b200-any.md
@@ -1680,7 +1809,7 @@ spec:
     - id: b200-gke-cos-inference-declares-components
       quantity: b200-gke-cos-inference-components
       page: b200-gke-cos-inference.md
-      phrases: ["15 components"]
+      phrases: ["16 components"]
     - id: b200-gke-cos-inference-resolves-overlays
       quantity: b200-gke-cos-inference-overlays
       page: b200-gke-cos-inference.md
@@ -1692,7 +1821,7 @@ spec:
     - id: b200-gke-cos-inference-dynamo-declares-components
       quantity: b200-gke-cos-inference-dynamo-components
       page: b200-gke-cos-inference-dynamo.md
-      phrases: ["17 components"]
+      phrases: ["18 components"]
     - id: b200-gke-cos-inference-dynamo-resolves-overlays
       quantity: b200-gke-cos-inference-dynamo-overlays
       page: b200-gke-cos-inference-dynamo.md
@@ -1704,7 +1833,7 @@ spec:
     - id: b200-gke-cos-training-declares-components
       quantity: b200-gke-cos-training-components
       page: b200-gke-cos-training.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: b200-gke-cos-training-resolves-overlays
       quantity: b200-gke-cos-training-overlays
       page: b200-gke-cos-training.md
@@ -1716,7 +1845,7 @@ spec:
     - id: b200-gke-cos-training-kubeflow-declares-components
       quantity: b200-gke-cos-training-kubeflow-components
       page: b200-gke-cos-training-kubeflow.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: b200-gke-cos-training-kubeflow-resolves-overlays
       quantity: b200-gke-cos-training-kubeflow-overlays
       page: b200-gke-cos-training-kubeflow.md
@@ -1728,7 +1857,7 @@ spec:
     - id: bcm-declares-components
       quantity: bcm-components
       page: bcm.md
-      phrases: ["12 components"]
+      phrases: ["13 components"]
     - id: bcm-resolves-overlays
       quantity: bcm-overlays
       page: bcm.md
@@ -1740,7 +1869,7 @@ spec:
     - id: bcm-inference-declares-components
       quantity: bcm-inference-components
       page: bcm-inference.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: bcm-inference-resolves-overlays
       quantity: bcm-inference-overlays
       page: bcm-inference.md
@@ -1752,7 +1881,7 @@ spec:
     - id: bcm-training-declares-components
       quantity: bcm-training-components
       page: bcm-training.md
-      phrases: ["12 components"]
+      phrases: ["13 components"]
     - id: bcm-training-resolves-overlays
       quantity: bcm-training-overlays
       page: bcm-training.md
@@ -1764,11 +1893,23 @@ spec:
     - id: eks-declares-components
       quantity: eks-components
       page: eks.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: eks-resolves-overlays
       quantity: eks-overlays
       page: eks.md
       phrases: ["three overlays"]
+    - id: eks-inference-renders-applications
+      quantity: eks-inference-applications
+      page: eks-inference.md
+      phrases: ["18 Applications"]
+    - id: eks-inference-declares-components
+      quantity: eks-inference-components
+      page: eks-inference.md
+      phrases: ["16 components"]
+    - id: eks-inference-resolves-overlays
+      quantity: eks-inference-overlays
+      page: eks-inference.md
+      phrases: ["four overlays"]
     - id: eks-training-renders-applications
       quantity: eks-training-applications
       page: eks-training.md
@@ -1776,10 +1917,22 @@ spec:
     - id: eks-training-declares-components
       quantity: eks-training-components
       page: eks-training.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: eks-training-resolves-overlays
       quantity: eks-training-overlays
       page: eks-training.md
+      phrases: ["four overlays"]
+    - id: eks-ubuntu-renders-applications
+      quantity: eks-ubuntu-applications
+      page: eks-ubuntu.md
+      phrases: ["14 Applications"]
+    - id: eks-ubuntu-declares-components
+      quantity: eks-ubuntu-components
+      page: eks-ubuntu.md
+      phrases: ["14 components"]
+    - id: eks-ubuntu-resolves-overlays
+      quantity: eks-ubuntu-overlays
+      page: eks-ubuntu.md
       phrases: ["four overlays"]
     - id: gb200-any-renders-applications
       quantity: gb200-any-applications
@@ -1788,7 +1941,7 @@ spec:
     - id: gb200-any-declares-components
       quantity: gb200-any-components
       page: gb200-any.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: gb200-any-resolves-overlays
       quantity: gb200-any-overlays
       page: gb200-any.md
@@ -1800,7 +1953,7 @@ spec:
     - id: gb200-eks-inference-declares-components
       quantity: gb200-eks-inference-components
       page: gb200-eks-inference.md
-      phrases: ["16 components"]
+      phrases: ["17 components"]
     - id: gb200-eks-inference-resolves-overlays
       quantity: gb200-eks-inference-overlays
       page: gb200-eks-inference.md
@@ -1812,7 +1965,7 @@ spec:
     - id: gb200-eks-training-declares-components
       quantity: gb200-eks-training-components
       page: gb200-eks-training.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: gb200-eks-training-resolves-overlays
       quantity: gb200-eks-training-overlays
       page: gb200-eks-training.md
@@ -1824,11 +1977,11 @@ spec:
     - id: gb200-eks-ubuntu-inference-declares-components
       quantity: gb200-eks-ubuntu-inference-components
       page: gb200-eks-ubuntu-inference.md
-      phrases: ["16 components"]
+      phrases: ["17 components"]
     - id: gb200-eks-ubuntu-inference-resolves-overlays
       quantity: gb200-eks-ubuntu-inference-overlays
       page: gb200-eks-ubuntu-inference.md
-      phrases: ["seven overlays"]
+      phrases: ["eight overlays"]
     - id: gb200-eks-ubuntu-inference-dynamo-renders-applications
       quantity: gb200-eks-ubuntu-inference-dynamo-applications
       page: gb200-eks-ubuntu-inference-dynamo.md
@@ -1836,11 +1989,11 @@ spec:
     - id: gb200-eks-ubuntu-inference-dynamo-declares-components
       quantity: gb200-eks-ubuntu-inference-dynamo-components
       page: gb200-eks-ubuntu-inference-dynamo.md
-      phrases: ["18 components"]
+      phrases: ["19 components"]
     - id: gb200-eks-ubuntu-inference-dynamo-resolves-overlays
       quantity: gb200-eks-ubuntu-inference-dynamo-overlays
       page: gb200-eks-ubuntu-inference-dynamo.md
-      phrases: ["eight overlays"]
+      phrases: ["nine overlays"]
     - id: gb200-eks-ubuntu-training-renders-applications
       quantity: gb200-eks-ubuntu-training-applications
       page: gb200-eks-ubuntu-training.md
@@ -1848,11 +2001,11 @@ spec:
     - id: gb200-eks-ubuntu-training-declares-components
       quantity: gb200-eks-ubuntu-training-components
       page: gb200-eks-ubuntu-training.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: gb200-eks-ubuntu-training-resolves-overlays
       quantity: gb200-eks-ubuntu-training-overlays
       page: gb200-eks-ubuntu-training.md
-      phrases: ["seven overlays"]
+      phrases: ["eight overlays"]
     - id: gb200-eks-ubuntu-training-kubeflow-renders-applications
       quantity: gb200-eks-ubuntu-training-kubeflow-applications
       page: gb200-eks-ubuntu-training-kubeflow.md
@@ -1860,11 +2013,83 @@ spec:
     - id: gb200-eks-ubuntu-training-kubeflow-declares-components
       quantity: gb200-eks-ubuntu-training-kubeflow-components
       page: gb200-eks-ubuntu-training-kubeflow.md
-      phrases: ["15 components"]
+      phrases: ["16 components"]
     - id: gb200-eks-ubuntu-training-kubeflow-resolves-overlays
       quantity: gb200-eks-ubuntu-training-kubeflow-overlays
       page: gb200-eks-ubuntu-training-kubeflow.md
-      phrases: ["eight overlays"]
+      phrases: ["nine overlays"]
+    - id: gb200-eks-ubuntu-training-slurm-renders-applications
+      quantity: gb200-eks-ubuntu-training-slurm-applications
+      page: gb200-eks-ubuntu-training-slurm.md
+      phrases: ["20 Applications"]
+    - id: gb200-eks-ubuntu-training-slurm-declares-components
+      quantity: gb200-eks-ubuntu-training-slurm-components
+      page: gb200-eks-ubuntu-training-slurm.md
+      phrases: ["18 components"]
+    - id: gb200-eks-ubuntu-training-slurm-resolves-overlays
+      quantity: gb200-eks-ubuntu-training-slurm-overlays
+      page: gb200-eks-ubuntu-training-slurm.md
+      phrases: ["nine overlays"]
+    - id: gb200-gke-cos-inference-renders-applications
+      quantity: gb200-gke-cos-inference-applications
+      page: gb200-gke-cos-inference.md
+      phrases: ["20 Applications"]
+    - id: gb200-gke-cos-inference-declares-components
+      quantity: gb200-gke-cos-inference-components
+      page: gb200-gke-cos-inference.md
+      phrases: ["17 components"]
+    - id: gb200-gke-cos-inference-resolves-overlays
+      quantity: gb200-gke-cos-inference-overlays
+      page: gb200-gke-cos-inference.md
+      phrases: ["six overlays"]
+    - id: gb200-gke-cos-inference-dynamo-renders-applications
+      quantity: gb200-gke-cos-inference-dynamo-applications
+      page: gb200-gke-cos-inference-dynamo.md
+      phrases: ["23 Applications"]
+    - id: gb200-gke-cos-inference-dynamo-declares-components
+      quantity: gb200-gke-cos-inference-dynamo-components
+      page: gb200-gke-cos-inference-dynamo.md
+      phrases: ["19 components"]
+    - id: gb200-gke-cos-inference-dynamo-resolves-overlays
+      quantity: gb200-gke-cos-inference-dynamo-overlays
+      page: gb200-gke-cos-inference-dynamo.md
+      phrases: ["seven overlays"]
+    - id: gb200-gke-cos-training-renders-applications
+      quantity: gb200-gke-cos-training-applications
+      page: gb200-gke-cos-training.md
+      phrases: ["16 Applications"]
+    - id: gb200-gke-cos-training-declares-components
+      quantity: gb200-gke-cos-training-components
+      page: gb200-gke-cos-training.md
+      phrases: ["15 components"]
+    - id: gb200-gke-cos-training-resolves-overlays
+      quantity: gb200-gke-cos-training-overlays
+      page: gb200-gke-cos-training.md
+      phrases: ["six overlays"]
+    - id: gb200-gke-cos-training-kubeflow-renders-applications
+      quantity: gb200-gke-cos-training-kubeflow-applications
+      page: gb200-gke-cos-training-kubeflow.md
+      phrases: ["18 Applications"]
+    - id: gb200-gke-cos-training-kubeflow-declares-components
+      quantity: gb200-gke-cos-training-kubeflow-components
+      page: gb200-gke-cos-training-kubeflow.md
+      phrases: ["16 components"]
+    - id: gb200-gke-cos-training-kubeflow-resolves-overlays
+      quantity: gb200-gke-cos-training-kubeflow-overlays
+      page: gb200-gke-cos-training-kubeflow.md
+      phrases: ["seven overlays"]
+    - id: gb200-gke-cos-training-slurm-renders-applications
+      quantity: gb200-gke-cos-training-slurm-applications
+      page: gb200-gke-cos-training-slurm.md
+      phrases: ["20 Applications"]
+    - id: gb200-gke-cos-training-slurm-declares-components
+      quantity: gb200-gke-cos-training-slurm-components
+      page: gb200-gke-cos-training-slurm.md
+      phrases: ["18 components"]
+    - id: gb200-gke-cos-training-slurm-resolves-overlays
+      quantity: gb200-gke-cos-training-slurm-overlays
+      page: gb200-gke-cos-training-slurm.md
+      phrases: ["seven overlays"]
     - id: gb200-oke-inference-renders-applications
       quantity: gb200-oke-inference-applications
       page: gb200-oke-inference.md
@@ -1872,7 +2097,7 @@ spec:
     - id: gb200-oke-inference-declares-components
       quantity: gb200-oke-inference-components
       page: gb200-oke-inference.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: gb200-oke-inference-resolves-overlays
       quantity: gb200-oke-inference-overlays
       page: gb200-oke-inference.md
@@ -1884,7 +2109,7 @@ spec:
     - id: gb200-oke-training-declares-components
       quantity: gb200-oke-training-components
       page: gb200-oke-training.md
-      phrases: ["12 components"]
+      phrases: ["13 components"]
     - id: gb200-oke-training-resolves-overlays
       quantity: gb200-oke-training-overlays
       page: gb200-oke-training.md
@@ -1896,7 +2121,7 @@ spec:
     - id: gb200-oke-ubuntu-inference-declares-components
       quantity: gb200-oke-ubuntu-inference-components
       page: gb200-oke-ubuntu-inference.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: gb200-oke-ubuntu-inference-resolves-overlays
       quantity: gb200-oke-ubuntu-inference-overlays
       page: gb200-oke-ubuntu-inference.md
@@ -1908,7 +2133,7 @@ spec:
     - id: gb200-oke-ubuntu-inference-dynamo-declares-components
       quantity: gb200-oke-ubuntu-inference-dynamo-components
       page: gb200-oke-ubuntu-inference-dynamo.md
-      phrases: ["15 components"]
+      phrases: ["16 components"]
     - id: gb200-oke-ubuntu-inference-dynamo-resolves-overlays
       quantity: gb200-oke-ubuntu-inference-dynamo-overlays
       page: gb200-oke-ubuntu-inference-dynamo.md
@@ -1920,7 +2145,7 @@ spec:
     - id: gb200-oke-ubuntu-training-declares-components
       quantity: gb200-oke-ubuntu-training-components
       page: gb200-oke-ubuntu-training.md
-      phrases: ["12 components"]
+      phrases: ["13 components"]
     - id: gb200-oke-ubuntu-training-resolves-overlays
       quantity: gb200-oke-ubuntu-training-overlays
       page: gb200-oke-ubuntu-training.md
@@ -1932,7 +2157,7 @@ spec:
     - id: gb200-oke-ubuntu-training-kubeflow-declares-components
       quantity: gb200-oke-ubuntu-training-kubeflow-components
       page: gb200-oke-ubuntu-training-kubeflow.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: gb200-oke-ubuntu-training-kubeflow-resolves-overlays
       quantity: gb200-oke-ubuntu-training-kubeflow-overlays
       page: gb200-oke-ubuntu-training-kubeflow.md
@@ -1944,7 +2169,7 @@ spec:
     - id: gb300-any-declares-components
       quantity: gb300-any-components
       page: gb300-any.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: gb300-any-resolves-overlays
       quantity: gb300-any-overlays
       page: gb300-any.md
@@ -1956,7 +2181,7 @@ spec:
     - id: gb300-eks-inference-declares-components
       quantity: gb300-eks-inference-components
       page: gb300-eks-inference.md
-      phrases: ["16 components"]
+      phrases: ["17 components"]
     - id: gb300-eks-inference-resolves-overlays
       quantity: gb300-eks-inference-overlays
       page: gb300-eks-inference.md
@@ -1968,7 +2193,7 @@ spec:
     - id: gb300-eks-training-declares-components
       quantity: gb300-eks-training-components
       page: gb300-eks-training.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: gb300-eks-training-resolves-overlays
       quantity: gb300-eks-training-overlays
       page: gb300-eks-training.md
@@ -1980,11 +2205,11 @@ spec:
     - id: gb300-eks-ubuntu-inference-declares-components
       quantity: gb300-eks-ubuntu-inference-components
       page: gb300-eks-ubuntu-inference.md
-      phrases: ["16 components"]
+      phrases: ["17 components"]
     - id: gb300-eks-ubuntu-inference-resolves-overlays
       quantity: gb300-eks-ubuntu-inference-overlays
       page: gb300-eks-ubuntu-inference.md
-      phrases: ["seven overlays"]
+      phrases: ["eight overlays"]
     - id: gb300-eks-ubuntu-inference-dynamo-renders-applications
       quantity: gb300-eks-ubuntu-inference-dynamo-applications
       page: gb300-eks-ubuntu-inference-dynamo.md
@@ -1992,11 +2217,11 @@ spec:
     - id: gb300-eks-ubuntu-inference-dynamo-declares-components
       quantity: gb300-eks-ubuntu-inference-dynamo-components
       page: gb300-eks-ubuntu-inference-dynamo.md
-      phrases: ["18 components"]
+      phrases: ["19 components"]
     - id: gb300-eks-ubuntu-inference-dynamo-resolves-overlays
       quantity: gb300-eks-ubuntu-inference-dynamo-overlays
       page: gb300-eks-ubuntu-inference-dynamo.md
-      phrases: ["eight overlays"]
+      phrases: ["nine overlays"]
     - id: gb300-eks-ubuntu-training-renders-applications
       quantity: gb300-eks-ubuntu-training-applications
       page: gb300-eks-ubuntu-training.md
@@ -2004,11 +2229,11 @@ spec:
     - id: gb300-eks-ubuntu-training-declares-components
       quantity: gb300-eks-ubuntu-training-components
       page: gb300-eks-ubuntu-training.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: gb300-eks-ubuntu-training-resolves-overlays
       quantity: gb300-eks-ubuntu-training-overlays
       page: gb300-eks-ubuntu-training.md
-      phrases: ["seven overlays"]
+      phrases: ["eight overlays"]
     - id: gb300-eks-ubuntu-training-kubeflow-renders-applications
       quantity: gb300-eks-ubuntu-training-kubeflow-applications
       page: gb300-eks-ubuntu-training-kubeflow.md
@@ -2016,11 +2241,23 @@ spec:
     - id: gb300-eks-ubuntu-training-kubeflow-declares-components
       quantity: gb300-eks-ubuntu-training-kubeflow-components
       page: gb300-eks-ubuntu-training-kubeflow.md
-      phrases: ["15 components"]
+      phrases: ["16 components"]
     - id: gb300-eks-ubuntu-training-kubeflow-resolves-overlays
       quantity: gb300-eks-ubuntu-training-kubeflow-overlays
       page: gb300-eks-ubuntu-training-kubeflow.md
-      phrases: ["eight overlays"]
+      phrases: ["nine overlays"]
+    - id: gb300-eks-ubuntu-training-slurm-renders-applications
+      quantity: gb300-eks-ubuntu-training-slurm-applications
+      page: gb300-eks-ubuntu-training-slurm.md
+      phrases: ["20 Applications"]
+    - id: gb300-eks-ubuntu-training-slurm-declares-components
+      quantity: gb300-eks-ubuntu-training-slurm-components
+      page: gb300-eks-ubuntu-training-slurm.md
+      phrases: ["18 components"]
+    - id: gb300-eks-ubuntu-training-slurm-resolves-overlays
+      quantity: gb300-eks-ubuntu-training-slurm-overlays
+      page: gb300-eks-ubuntu-training-slurm.md
+      phrases: ["nine overlays"]
     - id: gb300-generic-ubuntu-training-renders-applications
       quantity: gb300-generic-ubuntu-training-applications
       page: gb300-generic-ubuntu-training.md
@@ -2028,7 +2265,7 @@ spec:
     - id: gb300-generic-ubuntu-training-declares-components
       quantity: gb300-generic-ubuntu-training-components
       page: gb300-generic-ubuntu-training.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: gb300-generic-ubuntu-training-resolves-overlays
       quantity: gb300-generic-ubuntu-training-overlays
       page: gb300-generic-ubuntu-training.md
@@ -2040,7 +2277,7 @@ spec:
     - id: gke-cos-declares-components
       quantity: gke-cos-components
       page: gke-cos.md
-      phrases: ["12 components"]
+      phrases: ["13 components"]
     - id: gke-cos-resolves-overlays
       quantity: gke-cos-overlays
       page: gke-cos.md
@@ -2052,7 +2289,7 @@ spec:
     - id: gke-cos-inference-declares-components
       quantity: gke-cos-inference-components
       page: gke-cos-inference.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: gke-cos-inference-resolves-overlays
       quantity: gke-cos-inference-overlays
       page: gke-cos-inference.md
@@ -2064,7 +2301,7 @@ spec:
     - id: gke-cos-training-declares-components
       quantity: gke-cos-training-components
       page: gke-cos-training.md
-      phrases: ["12 components"]
+      phrases: ["13 components"]
     - id: gke-cos-training-resolves-overlays
       quantity: gke-cos-training-overlays
       page: gke-cos-training.md
@@ -2076,7 +2313,7 @@ spec:
     - id: h100-aks-inference-declares-components
       quantity: h100-aks-inference-components
       page: h100-aks-inference.md
-      phrases: ["15 components"]
+      phrases: ["16 components"]
     - id: h100-aks-inference-resolves-overlays
       quantity: h100-aks-inference-overlays
       page: h100-aks-inference.md
@@ -2088,7 +2325,7 @@ spec:
     - id: h100-aks-training-declares-components
       quantity: h100-aks-training-components
       page: h100-aks-training.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: h100-aks-training-resolves-overlays
       quantity: h100-aks-training-overlays
       page: h100-aks-training.md
@@ -2100,11 +2337,11 @@ spec:
     - id: h100-aks-ubuntu-inference-declares-components
       quantity: h100-aks-ubuntu-inference-components
       page: h100-aks-ubuntu-inference.md
-      phrases: ["15 components"]
+      phrases: ["16 components"]
     - id: h100-aks-ubuntu-inference-resolves-overlays
       quantity: h100-aks-ubuntu-inference-overlays
       page: h100-aks-ubuntu-inference.md
-      phrases: ["seven overlays"]
+      phrases: ["eight overlays"]
     - id: h100-aks-ubuntu-inference-dynamo-renders-applications
       quantity: h100-aks-ubuntu-inference-dynamo-applications
       page: h100-aks-ubuntu-inference-dynamo.md
@@ -2112,11 +2349,11 @@ spec:
     - id: h100-aks-ubuntu-inference-dynamo-declares-components
       quantity: h100-aks-ubuntu-inference-dynamo-components
       page: h100-aks-ubuntu-inference-dynamo.md
-      phrases: ["17 components"]
+      phrases: ["18 components"]
     - id: h100-aks-ubuntu-inference-dynamo-resolves-overlays
       quantity: h100-aks-ubuntu-inference-dynamo-overlays
       page: h100-aks-ubuntu-inference-dynamo.md
-      phrases: ["eight overlays"]
+      phrases: ["nine overlays"]
     - id: h100-aks-ubuntu-training-renders-applications
       quantity: h100-aks-ubuntu-training-applications
       page: h100-aks-ubuntu-training.md
@@ -2124,11 +2361,11 @@ spec:
     - id: h100-aks-ubuntu-training-declares-components
       quantity: h100-aks-ubuntu-training-components
       page: h100-aks-ubuntu-training.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: h100-aks-ubuntu-training-resolves-overlays
       quantity: h100-aks-ubuntu-training-overlays
       page: h100-aks-ubuntu-training.md
-      phrases: ["seven overlays"]
+      phrases: ["eight overlays"]
     - id: h100-aks-ubuntu-training-kubeflow-renders-applications
       quantity: h100-aks-ubuntu-training-kubeflow-applications
       page: h100-aks-ubuntu-training-kubeflow.md
@@ -2136,11 +2373,23 @@ spec:
     - id: h100-aks-ubuntu-training-kubeflow-declares-components
       quantity: h100-aks-ubuntu-training-kubeflow-components
       page: h100-aks-ubuntu-training-kubeflow.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: h100-aks-ubuntu-training-kubeflow-resolves-overlays
       quantity: h100-aks-ubuntu-training-kubeflow-overlays
       page: h100-aks-ubuntu-training-kubeflow.md
-      phrases: ["eight overlays"]
+      phrases: ["nine overlays"]
+    - id: h100-aks-ubuntu-training-slurm-renders-applications
+      quantity: h100-aks-ubuntu-training-slurm-applications
+      page: h100-aks-ubuntu-training-slurm.md
+      phrases: ["20 Applications"]
+    - id: h100-aks-ubuntu-training-slurm-declares-components
+      quantity: h100-aks-ubuntu-training-slurm-components
+      page: h100-aks-ubuntu-training-slurm.md
+      phrases: ["17 components"]
+    - id: h100-aks-ubuntu-training-slurm-resolves-overlays
+      quantity: h100-aks-ubuntu-training-slurm-overlays
+      page: h100-aks-ubuntu-training-slurm.md
+      phrases: ["nine overlays"]
     - id: h100-any-renders-applications
       quantity: h100-any-applications
       page: h100-any.md
@@ -2148,7 +2397,7 @@ spec:
     - id: h100-any-declares-components
       quantity: h100-any-components
       page: h100-any.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: h100-any-resolves-overlays
       quantity: h100-any-overlays
       page: h100-any.md
@@ -2160,7 +2409,7 @@ spec:
     - id: h100-bcm-training-declares-components
       quantity: h100-bcm-training-components
       page: h100-bcm-training.md
-      phrases: ["12 components"]
+      phrases: ["13 components"]
     - id: h100-bcm-training-resolves-overlays
       quantity: h100-bcm-training-overlays
       page: h100-bcm-training.md
@@ -2172,11 +2421,35 @@ spec:
     - id: h100-bcm-ubuntu-training-declares-components
       quantity: h100-bcm-ubuntu-training-components
       page: h100-bcm-ubuntu-training.md
-      phrases: ["12 components"]
+      phrases: ["13 components"]
     - id: h100-bcm-ubuntu-training-resolves-overlays
       quantity: h100-bcm-ubuntu-training-overlays
       page: h100-bcm-ubuntu-training.md
       phrases: ["seven overlays"]
+    - id: h100-bcm-ubuntu-training-kubeflow-renders-applications
+      quantity: h100-bcm-ubuntu-training-kubeflow-applications
+      page: h100-bcm-ubuntu-training-kubeflow.md
+      phrases: ["15 Applications"]
+    - id: h100-bcm-ubuntu-training-kubeflow-declares-components
+      quantity: h100-bcm-ubuntu-training-kubeflow-components
+      page: h100-bcm-ubuntu-training-kubeflow.md
+      phrases: ["14 components"]
+    - id: h100-bcm-ubuntu-training-kubeflow-resolves-overlays
+      quantity: h100-bcm-ubuntu-training-kubeflow-overlays
+      page: h100-bcm-ubuntu-training-kubeflow.md
+      phrases: ["eight overlays"]
+    - id: h100-eks-inference-renders-applications
+      quantity: h100-eks-inference-applications
+      page: h100-eks-inference.md
+      phrases: ["19 Applications"]
+    - id: h100-eks-inference-declares-components
+      quantity: h100-eks-inference-components
+      page: h100-eks-inference.md
+      phrases: ["17 components"]
+    - id: h100-eks-inference-resolves-overlays
+      quantity: h100-eks-inference-overlays
+      page: h100-eks-inference.md
+      phrases: ["six overlays"]
     - id: h100-eks-training-renders-applications
       quantity: h100-eks-training-applications
       page: h100-eks-training.md
@@ -2184,7 +2457,7 @@ spec:
     - id: h100-eks-training-declares-components
       quantity: h100-eks-training-components
       page: h100-eks-training.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: h100-eks-training-resolves-overlays
       quantity: h100-eks-training-overlays
       page: h100-eks-training.md
@@ -2196,11 +2469,11 @@ spec:
     - id: h100-eks-ubuntu-inference-declares-components
       quantity: h100-eks-ubuntu-inference-components
       page: h100-eks-ubuntu-inference.md
-      phrases: ["16 components"]
+      phrases: ["17 components"]
     - id: h100-eks-ubuntu-inference-resolves-overlays
       quantity: h100-eks-ubuntu-inference-overlays
       page: h100-eks-ubuntu-inference.md
-      phrases: ["seven overlays"]
+      phrases: ["eight overlays"]
     - id: h100-eks-ubuntu-inference-dynamo-renders-applications
       quantity: h100-eks-ubuntu-inference-dynamo-applications
       page: h100-eks-ubuntu-inference-dynamo.md
@@ -2208,11 +2481,11 @@ spec:
     - id: h100-eks-ubuntu-inference-dynamo-declares-components
       quantity: h100-eks-ubuntu-inference-dynamo-components
       page: h100-eks-ubuntu-inference-dynamo.md
-      phrases: ["18 components"]
+      phrases: ["19 components"]
     - id: h100-eks-ubuntu-inference-dynamo-resolves-overlays
       quantity: h100-eks-ubuntu-inference-dynamo-overlays
       page: h100-eks-ubuntu-inference-dynamo.md
-      phrases: ["eight overlays"]
+      phrases: ["nine overlays"]
     - id: h100-eks-ubuntu-inference-nim-renders-applications
       quantity: h100-eks-ubuntu-inference-nim-applications
       page: h100-eks-ubuntu-inference-nim.md
@@ -2220,11 +2493,11 @@ spec:
     - id: h100-eks-ubuntu-inference-nim-declares-components
       quantity: h100-eks-ubuntu-inference-nim-components
       page: h100-eks-ubuntu-inference-nim.md
-      phrases: ["17 components"]
+      phrases: ["18 components"]
     - id: h100-eks-ubuntu-inference-nim-resolves-overlays
       quantity: h100-eks-ubuntu-inference-nim-overlays
       page: h100-eks-ubuntu-inference-nim.md
-      phrases: ["eight overlays"]
+      phrases: ["nine overlays"]
     - id: h100-eks-ubuntu-training-renders-applications
       quantity: h100-eks-ubuntu-training-applications
       page: h100-eks-ubuntu-training.md
@@ -2232,11 +2505,11 @@ spec:
     - id: h100-eks-ubuntu-training-declares-components
       quantity: h100-eks-ubuntu-training-components
       page: h100-eks-ubuntu-training.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: h100-eks-ubuntu-training-resolves-overlays
       quantity: h100-eks-ubuntu-training-overlays
       page: h100-eks-ubuntu-training.md
-      phrases: ["seven overlays"]
+      phrases: ["eight overlays"]
     - id: h100-eks-ubuntu-training-kubeflow-renders-applications
       quantity: h100-eks-ubuntu-training-kubeflow-applications
       page: h100-eks-ubuntu-training-kubeflow.md
@@ -2244,11 +2517,23 @@ spec:
     - id: h100-eks-ubuntu-training-kubeflow-declares-components
       quantity: h100-eks-ubuntu-training-kubeflow-components
       page: h100-eks-ubuntu-training-kubeflow.md
-      phrases: ["15 components"]
+      phrases: ["16 components"]
     - id: h100-eks-ubuntu-training-kubeflow-resolves-overlays
       quantity: h100-eks-ubuntu-training-kubeflow-overlays
       page: h100-eks-ubuntu-training-kubeflow.md
-      phrases: ["eight overlays"]
+      phrases: ["nine overlays"]
+    - id: h100-eks-ubuntu-training-slurm-renders-applications
+      quantity: h100-eks-ubuntu-training-slurm-applications
+      page: h100-eks-ubuntu-training-slurm.md
+      phrases: ["19 Applications"]
+    - id: h100-eks-ubuntu-training-slurm-declares-components
+      quantity: h100-eks-ubuntu-training-slurm-components
+      page: h100-eks-ubuntu-training-slurm.md
+      phrases: ["18 components"]
+    - id: h100-eks-ubuntu-training-slurm-resolves-overlays
+      quantity: h100-eks-ubuntu-training-slurm-overlays
+      page: h100-eks-ubuntu-training-slurm.md
+      phrases: ["nine overlays"]
     - id: h100-gke-cos-inference-renders-applications
       quantity: h100-gke-cos-inference-applications
       page: h100-gke-cos-inference.md
@@ -2256,7 +2541,7 @@ spec:
     - id: h100-gke-cos-inference-declares-components
       quantity: h100-gke-cos-inference-components
       page: h100-gke-cos-inference.md
-      phrases: ["16 components"]
+      phrases: ["17 components"]
     - id: h100-gke-cos-inference-resolves-overlays
       quantity: h100-gke-cos-inference-overlays
       page: h100-gke-cos-inference.md
@@ -2268,7 +2553,7 @@ spec:
     - id: h100-gke-cos-inference-dynamo-declares-components
       quantity: h100-gke-cos-inference-dynamo-components
       page: h100-gke-cos-inference-dynamo.md
-      phrases: ["17 components"]
+      phrases: ["18 components"]
     - id: h100-gke-cos-inference-dynamo-resolves-overlays
       quantity: h100-gke-cos-inference-dynamo-overlays
       page: h100-gke-cos-inference-dynamo.md
@@ -2280,22 +2565,22 @@ spec:
     - id: h100-gke-cos-training-declares-components
       quantity: h100-gke-cos-training-components
       page: h100-gke-cos-training.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: h100-gke-cos-training-resolves-overlays
       quantity: h100-gke-cos-training-overlays
       page: h100-gke-cos-training.md
       phrases: ["six overlays"]
-    - id: h100-gke-cos-training-kubeflow-renders-applications
-      quantity: h100-gke-cos-training-kubeflow-applications
-      page: h100-gke-cos-training-kubeflow.md
-      phrases: ["18 Applications"]
-    - id: h100-gke-cos-training-kubeflow-declares-components
-      quantity: h100-gke-cos-training-kubeflow-components
-      page: h100-gke-cos-training-kubeflow.md
-      phrases: ["15 components"]
-    - id: h100-gke-cos-training-kubeflow-resolves-overlays
-      quantity: h100-gke-cos-training-kubeflow-overlays
-      page: h100-gke-cos-training-kubeflow.md
+    - id: h100-gke-cos-training-slurm-renders-applications
+      quantity: h100-gke-cos-training-slurm-applications
+      page: h100-gke-cos-training-slurm.md
+      phrases: ["21 Applications"]
+    - id: h100-gke-cos-training-slurm-declares-components
+      quantity: h100-gke-cos-training-slurm-components
+      page: h100-gke-cos-training-slurm.md
+      phrases: ["19 components"]
+    - id: h100-gke-cos-training-slurm-resolves-overlays
+      quantity: h100-gke-cos-training-slurm-overlays
+      page: h100-gke-cos-training-slurm.md
       phrases: ["seven overlays"]
     - id: h100-kind-inference-renders-applications
       quantity: h100-kind-inference-applications
@@ -2304,7 +2589,7 @@ spec:
     - id: h100-kind-inference-declares-components
       quantity: h100-kind-inference-components
       page: h100-kind-inference.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: h100-kind-inference-resolves-overlays
       quantity: h100-kind-inference-overlays
       page: h100-kind-inference.md
@@ -2316,7 +2601,7 @@ spec:
     - id: h100-kind-inference-dynamo-declares-components
       quantity: h100-kind-inference-dynamo-components
       page: h100-kind-inference-dynamo.md
-      phrases: ["16 components"]
+      phrases: ["17 components"]
     - id: h100-kind-inference-dynamo-resolves-overlays
       quantity: h100-kind-inference-dynamo-overlays
       page: h100-kind-inference-dynamo.md
@@ -2328,7 +2613,7 @@ spec:
     - id: h100-kind-training-declares-components
       quantity: h100-kind-training-components
       page: h100-kind-training.md
-      phrases: ["12 components"]
+      phrases: ["13 components"]
     - id: h100-kind-training-resolves-overlays
       quantity: h100-kind-training-overlays
       page: h100-kind-training.md
@@ -2340,7 +2625,7 @@ spec:
     - id: h100-kind-training-kubeflow-declares-components
       quantity: h100-kind-training-kubeflow-components
       page: h100-kind-training-kubeflow.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: h100-kind-training-kubeflow-resolves-overlays
       quantity: h100-kind-training-kubeflow-overlays
       page: h100-kind-training-kubeflow.md
@@ -2352,7 +2637,7 @@ spec:
     - id: h100-kind-training-slurm-declares-components
       quantity: h100-kind-training-slurm-components
       page: h100-kind-training-slurm.md
-      phrases: ["16 components"]
+      phrases: ["17 components"]
     - id: h100-kind-training-slurm-resolves-overlays
       quantity: h100-kind-training-slurm-overlays
       page: h100-kind-training-slurm.md
@@ -2364,7 +2649,7 @@ spec:
     - id: h200-any-declares-components
       quantity: h200-any-components
       page: h200-any.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: h200-any-resolves-overlays
       quantity: h200-any-overlays
       page: h200-any.md
@@ -2376,7 +2661,7 @@ spec:
     - id: h200-eks-inference-declares-components
       quantity: h200-eks-inference-components
       page: h200-eks-inference.md
-      phrases: ["16 components"]
+      phrases: ["17 components"]
     - id: h200-eks-inference-resolves-overlays
       quantity: h200-eks-inference-overlays
       page: h200-eks-inference.md
@@ -2388,11 +2673,59 @@ spec:
     - id: h200-eks-training-declares-components
       quantity: h200-eks-training-components
       page: h200-eks-training.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: h200-eks-training-resolves-overlays
       quantity: h200-eks-training-overlays
       page: h200-eks-training.md
       phrases: ["six overlays"]
+    - id: h200-eks-training-kubeflow-renders-applications
+      quantity: h200-eks-training-kubeflow-applications
+      page: h200-eks-training-kubeflow.md
+      phrases: ["17 Applications"]
+    - id: h200-eks-training-kubeflow-declares-components
+      quantity: h200-eks-training-kubeflow-components
+      page: h200-eks-training-kubeflow.md
+      phrases: ["16 components"]
+    - id: h200-eks-training-kubeflow-resolves-overlays
+      quantity: h200-eks-training-kubeflow-overlays
+      page: h200-eks-training-kubeflow.md
+      phrases: ["seven overlays"]
+    - id: h200-k0s-ubuntu-training-renders-applications
+      quantity: h200-k0s-ubuntu-training-applications
+      page: h200-k0s-ubuntu-training.md
+      phrases: ["12 Applications"]
+    - id: h200-k0s-ubuntu-training-declares-components
+      quantity: h200-k0s-ubuntu-training-components
+      page: h200-k0s-ubuntu-training.md
+      phrases: ["12 components"]
+    - id: h200-k0s-ubuntu-training-resolves-overlays
+      quantity: h200-k0s-ubuntu-training-overlays
+      page: h200-k0s-ubuntu-training.md
+      phrases: ["six overlays"]
+    - id: k0s-renders-applications
+      quantity: k0s-applications
+      page: k0s.md
+      phrases: ["12 Applications"]
+    - id: k0s-declares-components
+      quantity: k0s-components
+      page: k0s.md
+      phrases: ["12 components"]
+    - id: k0s-resolves-overlays
+      quantity: k0s-overlays
+      page: k0s.md
+      phrases: ["three overlays"]
+    - id: k0s-training-renders-applications
+      quantity: k0s-training-applications
+      page: k0s-training.md
+      phrases: ["12 Applications"]
+    - id: k0s-training-declares-components
+      quantity: k0s-training-components
+      page: k0s-training.md
+      phrases: ["12 components"]
+    - id: k0s-training-resolves-overlays
+      quantity: k0s-training-overlays
+      page: k0s-training.md
+      phrases: ["four overlays"]
     - id: kind-renders-applications
       quantity: kind-applications
       page: kind.md
@@ -2400,7 +2733,7 @@ spec:
     - id: kind-declares-components
       quantity: kind-components
       page: kind.md
-      phrases: ["12 components"]
+      phrases: ["13 components"]
     - id: kind-resolves-overlays
       quantity: kind-overlays
       page: kind.md
@@ -2412,7 +2745,7 @@ spec:
     - id: kind-inference-declares-components
       quantity: kind-inference-components
       page: kind-inference.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: kind-inference-resolves-overlays
       quantity: kind-inference-overlays
       page: kind-inference.md
@@ -2424,7 +2757,7 @@ spec:
     - id: l40-any-declares-components
       quantity: l40-any-components
       page: l40-any.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: l40-any-resolves-overlays
       quantity: l40-any-overlays
       page: l40-any.md
@@ -2436,7 +2769,7 @@ spec:
     - id: l40s-any-declares-components
       quantity: l40s-any-components
       page: l40s-any.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: l40s-any-resolves-overlays
       quantity: l40s-any-overlays
       page: l40s-any.md
@@ -2448,7 +2781,7 @@ spec:
     - id: l40s-oke-inference-declares-components
       quantity: l40s-oke-inference-components
       page: l40s-oke-inference.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: l40s-oke-inference-resolves-overlays
       quantity: l40s-oke-inference-overlays
       page: l40s-oke-inference.md
@@ -2460,11 +2793,23 @@ spec:
     - id: l40s-oke-training-declares-components
       quantity: l40s-oke-training-components
       page: l40s-oke-training.md
-      phrases: ["12 components"]
+      phrases: ["13 components"]
     - id: l40s-oke-training-resolves-overlays
       quantity: l40s-oke-training-overlays
       page: l40s-oke-training.md
       phrases: ["six overlays"]
+    - id: l40s-oke-training-kubeflow-renders-applications
+      quantity: l40s-oke-training-kubeflow-applications
+      page: l40s-oke-training-kubeflow.md
+      phrases: ["16 Applications"]
+    - id: l40s-oke-training-kubeflow-declares-components
+      quantity: l40s-oke-training-kubeflow-components
+      page: l40s-oke-training-kubeflow.md
+      phrases: ["14 components"]
+    - id: l40s-oke-training-kubeflow-resolves-overlays
+      quantity: l40s-oke-training-kubeflow-overlays
+      page: l40s-oke-training-kubeflow.md
+      phrases: ["seven overlays"]
     - id: lke-renders-applications
       quantity: lke-applications
       page: lke.md
@@ -2472,7 +2817,7 @@ spec:
     - id: lke-declares-components
       quantity: lke-components
       page: lke.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: lke-resolves-overlays
       quantity: lke-overlays
       page: lke.md
@@ -2484,7 +2829,7 @@ spec:
     - id: lke-inference-declares-components
       quantity: lke-inference-components
       page: lke-inference.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: lke-inference-resolves-overlays
       quantity: lke-inference-overlays
       page: lke-inference.md
@@ -2496,7 +2841,7 @@ spec:
     - id: lke-training-declares-components
       quantity: lke-training-components
       page: lke-training.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: lke-training-resolves-overlays
       quantity: lke-training-overlays
       page: lke-training.md
@@ -2508,7 +2853,7 @@ spec:
     - id: ocp-declares-components
       quantity: ocp-components
       page: ocp.md
-      phrases: ["10 components"]
+      phrases: ["11 components"]
     - id: ocp-resolves-overlays
       quantity: ocp-overlays
       page: ocp.md
@@ -2520,7 +2865,7 @@ spec:
     - id: ocp-inference-declares-components
       quantity: ocp-inference-components
       page: ocp-inference.md
-      phrases: ["10 components"]
+      phrases: ["11 components"]
     - id: ocp-inference-resolves-overlays
       quantity: ocp-inference-overlays
       page: ocp-inference.md
@@ -2532,7 +2877,7 @@ spec:
     - id: ocp-inference-nim-declares-components
       quantity: ocp-inference-nim-components
       page: ocp-inference-nim.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: ocp-inference-nim-resolves-overlays
       quantity: ocp-inference-nim-overlays
       page: ocp-inference-nim.md
@@ -2544,7 +2889,7 @@ spec:
     - id: ocp-training-declares-components
       quantity: ocp-training-components
       page: ocp-training.md
-      phrases: ["10 components"]
+      phrases: ["11 components"]
     - id: ocp-training-resolves-overlays
       quantity: ocp-training-overlays
       page: ocp-training.md
@@ -2556,7 +2901,7 @@ spec:
     - id: oke-ol-declares-components
       quantity: oke-ol-components
       page: oke-ol.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: oke-ol-resolves-overlays
       quantity: oke-ol-overlays
       page: oke-ol.md
@@ -2568,7 +2913,7 @@ spec:
     - id: oke-ol-inference-declares-components
       quantity: oke-ol-inference-components
       page: oke-ol-inference.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: oke-ol-inference-resolves-overlays
       quantity: oke-ol-inference-overlays
       page: oke-ol-inference.md
@@ -2580,7 +2925,7 @@ spec:
     - id: oke-ol-training-declares-components
       quantity: oke-ol-training-components
       page: oke-ol-training.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: oke-ol-training-resolves-overlays
       quantity: oke-ol-training-overlays
       page: oke-ol-training.md
@@ -2592,7 +2937,7 @@ spec:
     - id: rke2-declares-components
       quantity: rke2-components
       page: rke2.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: rke2-resolves-overlays
       quantity: rke2-overlays
       page: rke2.md
@@ -2604,7 +2949,7 @@ spec:
     - id: rke2-inference-declares-components
       quantity: rke2-inference-components
       page: rke2-inference.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: rke2-inference-resolves-overlays
       quantity: rke2-inference-overlays
       page: rke2-inference.md
@@ -2616,7 +2961,7 @@ spec:
     - id: rke2-training-declares-components
       quantity: rke2-training-components
       page: rke2-training.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: rke2-training-resolves-overlays
       quantity: rke2-training-overlays
       page: rke2-training.md
@@ -2628,7 +2973,7 @@ spec:
     - id: rtx-pro-6000-any-declares-components
       quantity: rtx-pro-6000-any-components
       page: rtx-pro-6000-any.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: rtx-pro-6000-any-resolves-overlays
       quantity: rtx-pro-6000-any-overlays
       page: rtx-pro-6000-any.md
@@ -2640,7 +2985,7 @@ spec:
     - id: rtx-pro-6000-eks-inference-declares-components
       quantity: rtx-pro-6000-eks-inference-components
       page: rtx-pro-6000-eks-inference.md
-      phrases: ["16 components"]
+      phrases: ["17 components"]
     - id: rtx-pro-6000-eks-inference-resolves-overlays
       quantity: rtx-pro-6000-eks-inference-overlays
       page: rtx-pro-6000-eks-inference.md
@@ -2652,7 +2997,7 @@ spec:
     - id: rtx-pro-6000-eks-training-declares-components
       quantity: rtx-pro-6000-eks-training-components
       page: rtx-pro-6000-eks-training.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: rtx-pro-6000-eks-training-resolves-overlays
       quantity: rtx-pro-6000-eks-training-overlays
       page: rtx-pro-6000-eks-training.md
@@ -2664,11 +3009,11 @@ spec:
     - id: rtx-pro-6000-eks-ubuntu-inference-declares-components
       quantity: rtx-pro-6000-eks-ubuntu-inference-components
       page: rtx-pro-6000-eks-ubuntu-inference.md
-      phrases: ["16 components"]
+      phrases: ["17 components"]
     - id: rtx-pro-6000-eks-ubuntu-inference-resolves-overlays
       quantity: rtx-pro-6000-eks-ubuntu-inference-overlays
       page: rtx-pro-6000-eks-ubuntu-inference.md
-      phrases: ["seven overlays"]
+      phrases: ["eight overlays"]
     - id: rtx-pro-6000-eks-ubuntu-inference-dynamo-renders-applications
       quantity: rtx-pro-6000-eks-ubuntu-inference-dynamo-applications
       page: rtx-pro-6000-eks-ubuntu-inference-dynamo.md
@@ -2676,11 +3021,11 @@ spec:
     - id: rtx-pro-6000-eks-ubuntu-inference-dynamo-declares-components
       quantity: rtx-pro-6000-eks-ubuntu-inference-dynamo-components
       page: rtx-pro-6000-eks-ubuntu-inference-dynamo.md
-      phrases: ["18 components"]
+      phrases: ["19 components"]
     - id: rtx-pro-6000-eks-ubuntu-inference-dynamo-resolves-overlays
       quantity: rtx-pro-6000-eks-ubuntu-inference-dynamo-overlays
       page: rtx-pro-6000-eks-ubuntu-inference-dynamo.md
-      phrases: ["eight overlays"]
+      phrases: ["nine overlays"]
     - id: rtx-pro-6000-eks-ubuntu-inference-nim-renders-applications
       quantity: rtx-pro-6000-eks-ubuntu-inference-nim-applications
       page: rtx-pro-6000-eks-ubuntu-inference-nim.md
@@ -2688,11 +3033,11 @@ spec:
     - id: rtx-pro-6000-eks-ubuntu-inference-nim-declares-components
       quantity: rtx-pro-6000-eks-ubuntu-inference-nim-components
       page: rtx-pro-6000-eks-ubuntu-inference-nim.md
-      phrases: ["17 components"]
+      phrases: ["18 components"]
     - id: rtx-pro-6000-eks-ubuntu-inference-nim-resolves-overlays
       quantity: rtx-pro-6000-eks-ubuntu-inference-nim-overlays
       page: rtx-pro-6000-eks-ubuntu-inference-nim.md
-      phrases: ["eight overlays"]
+      phrases: ["nine overlays"]
     - id: rtx-pro-6000-eks-ubuntu-training-renders-applications
       quantity: rtx-pro-6000-eks-ubuntu-training-applications
       page: rtx-pro-6000-eks-ubuntu-training.md
@@ -2700,11 +3045,11 @@ spec:
     - id: rtx-pro-6000-eks-ubuntu-training-declares-components
       quantity: rtx-pro-6000-eks-ubuntu-training-components
       page: rtx-pro-6000-eks-ubuntu-training.md
-      phrases: ["14 components"]
+      phrases: ["15 components"]
     - id: rtx-pro-6000-eks-ubuntu-training-resolves-overlays
       quantity: rtx-pro-6000-eks-ubuntu-training-overlays
       page: rtx-pro-6000-eks-ubuntu-training.md
-      phrases: ["seven overlays"]
+      phrases: ["eight overlays"]
     - id: rtx-pro-6000-eks-ubuntu-training-kubeflow-renders-applications
       quantity: rtx-pro-6000-eks-ubuntu-training-kubeflow-applications
       page: rtx-pro-6000-eks-ubuntu-training-kubeflow.md
@@ -2712,11 +3057,11 @@ spec:
     - id: rtx-pro-6000-eks-ubuntu-training-kubeflow-declares-components
       quantity: rtx-pro-6000-eks-ubuntu-training-kubeflow-components
       page: rtx-pro-6000-eks-ubuntu-training-kubeflow.md
-      phrases: ["15 components"]
+      phrases: ["16 components"]
     - id: rtx-pro-6000-eks-ubuntu-training-kubeflow-resolves-overlays
       quantity: rtx-pro-6000-eks-ubuntu-training-kubeflow-overlays
       page: rtx-pro-6000-eks-ubuntu-training-kubeflow.md
-      phrases: ["eight overlays"]
+      phrases: ["nine overlays"]
     - id: rtx-pro-6000-lke-inference-renders-applications
       quantity: rtx-pro-6000-lke-inference-applications
       page: rtx-pro-6000-lke-inference.md
@@ -2724,7 +3069,7 @@ spec:
     - id: rtx-pro-6000-lke-inference-declares-components
       quantity: rtx-pro-6000-lke-inference-components
       page: rtx-pro-6000-lke-inference.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: rtx-pro-6000-lke-inference-resolves-overlays
       quantity: rtx-pro-6000-lke-inference-overlays
       page: rtx-pro-6000-lke-inference.md
@@ -2736,7 +3081,7 @@ spec:
     - id: rtx-pro-6000-lke-training-declares-components
       quantity: rtx-pro-6000-lke-training-components
       page: rtx-pro-6000-lke-training.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: rtx-pro-6000-lke-training-resolves-overlays
       quantity: rtx-pro-6000-lke-training-overlays
       page: rtx-pro-6000-lke-training.md
@@ -2748,7 +3093,7 @@ spec:
     - id: rtx-pro-6000-lke-ubuntu-inference-declares-components
       quantity: rtx-pro-6000-lke-ubuntu-inference-components
       page: rtx-pro-6000-lke-ubuntu-inference.md
-      phrases: ["13 components"]
+      phrases: ["14 components"]
     - id: rtx-pro-6000-lke-ubuntu-inference-resolves-overlays
       quantity: rtx-pro-6000-lke-ubuntu-inference-overlays
       page: rtx-pro-6000-lke-ubuntu-inference.md
@@ -2760,15 +3105,27 @@ spec:
     - id: rtx-pro-6000-lke-ubuntu-training-declares-components
       quantity: rtx-pro-6000-lke-ubuntu-training-components
       page: rtx-pro-6000-lke-ubuntu-training.md
-      phrases: ["11 components"]
+      phrases: ["12 components"]
     - id: rtx-pro-6000-lke-ubuntu-training-resolves-overlays
       quantity: rtx-pro-6000-lke-ubuntu-training-overlays
       page: rtx-pro-6000-lke-ubuntu-training.md
       phrases: ["seven overlays"]
+    - id: rtx-pro-6000-lke-ubuntu-training-kubeflow-renders-applications
+      quantity: rtx-pro-6000-lke-ubuntu-training-kubeflow-applications
+      page: rtx-pro-6000-lke-ubuntu-training-kubeflow.md
+      phrases: ["14 Applications"]
+    - id: rtx-pro-6000-lke-ubuntu-training-kubeflow-declares-components
+      quantity: rtx-pro-6000-lke-ubuntu-training-kubeflow-components
+      page: rtx-pro-6000-lke-ubuntu-training-kubeflow.md
+      phrases: ["13 components"]
+    - id: rtx-pro-6000-lke-ubuntu-training-kubeflow-resolves-overlays
+      quantity: rtx-pro-6000-lke-ubuntu-training-kubeflow-overlays
+      page: rtx-pro-6000-lke-ubuntu-training-kubeflow.md
+      phrases: ["eight overlays"]
     - id: vr200-rke2-ubuntu-inference-renders-applications
       quantity: vr200-rke2-ubuntu-inference-applications
       page: vr200-rke2-ubuntu-inference.md
-      phrases: ["19 Applications"]
+      phrases: ["18 Applications"]
     - id: vr200-rke2-ubuntu-inference-declares-components
       quantity: vr200-rke2-ubuntu-inference-components
       page: vr200-rke2-ubuntu-inference.md
@@ -2780,7 +3137,7 @@ spec:
     - id: vr200-rke2-ubuntu-inference-dynamo-renders-applications
       quantity: vr200-rke2-ubuntu-inference-dynamo-applications
       page: vr200-rke2-ubuntu-inference-dynamo.md
-      phrases: ["21 Applications"]
+      phrases: ["20 Applications"]
     - id: vr200-rke2-ubuntu-inference-dynamo-declares-components
       quantity: vr200-rke2-ubuntu-inference-dynamo-components
       page: vr200-rke2-ubuntu-inference-dynamo.md
@@ -2792,7 +3149,7 @@ spec:
     - id: vr200-rke2-ubuntu-training-renders-applications
       quantity: vr200-rke2-ubuntu-training-applications
       page: vr200-rke2-ubuntu-training.md
-      phrases: ["15 Applications"]
+      phrases: ["14 Applications"]
     - id: vr200-rke2-ubuntu-training-declares-components
       quantity: vr200-rke2-ubuntu-training-components
       page: vr200-rke2-ubuntu-training.md
@@ -2801,63 +3158,15 @@ spec:
       quantity: vr200-rke2-ubuntu-training-overlays
       page: vr200-rke2-ubuntu-training.md
       phrases: ["five overlays"]
-    - id: gb200-eks-ubuntu-training-slurm-renders-applications
-      quantity: gb200-eks-ubuntu-training-slurm-applications
-      page: gb200-eks-ubuntu-training-slurm.md
-      phrases: ["20 Applications"]
-    - id: gb200-eks-ubuntu-training-slurm-declares-components
-      quantity: gb200-eks-ubuntu-training-slurm-components
-      page: gb200-eks-ubuntu-training-slurm.md
-      phrases: ["17 components"]
-    - id: gb200-eks-ubuntu-training-slurm-resolves-overlays
-      quantity: gb200-eks-ubuntu-training-slurm-overlays
-      page: gb200-eks-ubuntu-training-slurm.md
-      phrases: ["eight overlays"]
-    - id: gb300-eks-ubuntu-training-slurm-renders-applications
-      quantity: gb300-eks-ubuntu-training-slurm-applications
-      page: gb300-eks-ubuntu-training-slurm.md
-      phrases: ["20 Applications"]
-    - id: gb300-eks-ubuntu-training-slurm-declares-components
-      quantity: gb300-eks-ubuntu-training-slurm-components
-      page: gb300-eks-ubuntu-training-slurm.md
-      phrases: ["17 components"]
-    - id: gb300-eks-ubuntu-training-slurm-resolves-overlays
-      quantity: gb300-eks-ubuntu-training-slurm-overlays
-      page: gb300-eks-ubuntu-training-slurm.md
-      phrases: ["eight overlays"]
-    - id: h100-aks-ubuntu-training-slurm-renders-applications
-      quantity: h100-aks-ubuntu-training-slurm-applications
-      page: h100-aks-ubuntu-training-slurm.md
-      phrases: ["20 Applications"]
-    - id: h100-aks-ubuntu-training-slurm-declares-components
-      quantity: h100-aks-ubuntu-training-slurm-components
-      page: h100-aks-ubuntu-training-slurm.md
-      phrases: ["16 components"]
-    - id: h100-aks-ubuntu-training-slurm-resolves-overlays
-      quantity: h100-aks-ubuntu-training-slurm-overlays
-      page: h100-aks-ubuntu-training-slurm.md
-      phrases: ["eight overlays"]
-    - id: h100-eks-ubuntu-training-slurm-renders-applications
-      quantity: h100-eks-ubuntu-training-slurm-applications
-      page: h100-eks-ubuntu-training-slurm.md
-      phrases: ["19 Applications"]
-    - id: h100-eks-ubuntu-training-slurm-declares-components
-      quantity: h100-eks-ubuntu-training-slurm-components
-      page: h100-eks-ubuntu-training-slurm.md
-      phrases: ["17 components"]
-    - id: h100-eks-ubuntu-training-slurm-resolves-overlays
-      quantity: h100-eks-ubuntu-training-slurm-overlays
-      page: h100-eks-ubuntu-training-slurm.md
-      phrases: ["eight overlays"]
-    - id: h100-gke-cos-training-slurm-renders-applications
-      quantity: h100-gke-cos-training-slurm-applications
-      page: h100-gke-cos-training-slurm.md
-      phrases: ["21 Applications"]
-    - id: h100-gke-cos-training-slurm-declares-components
-      quantity: h100-gke-cos-training-slurm-components
-      page: h100-gke-cos-training-slurm.md
-      phrases: ["18 components"]
-    - id: h100-gke-cos-training-slurm-resolves-overlays
-      quantity: h100-gke-cos-training-slurm-overlays
-      page: h100-gke-cos-training-slurm.md
-      phrases: ["seven overlays"]
+    - id: vr200-rke2-ubuntu-training-kubeflow-renders-applications
+      quantity: vr200-rke2-ubuntu-training-kubeflow-applications
+      page: vr200-rke2-ubuntu-training-kubeflow.md
+      phrases: ["16 Applications"]
+    - id: vr200-rke2-ubuntu-training-kubeflow-declares-components
+      quantity: vr200-rke2-ubuntu-training-kubeflow-components
+      page: vr200-rke2-ubuntu-training-kubeflow.md
+      phrases: ["15 components"]
+    - id: vr200-rke2-ubuntu-training-kubeflow-resolves-overlays
+      quantity: vr200-rke2-ubuntu-training-kubeflow-overlays
+      page: vr200-rke2-ubuntu-training-kubeflow.md
+      phrases: ["six overlays"]

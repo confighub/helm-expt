@@ -27,6 +27,8 @@ spec:
                 fullnameOverride: kubeflow-trainer
                 jobset:
                   controller:
+                    nodeSelector:
+                      nodeGroup: system-worker
                     tolerations:
                     - operator: Exists
                   install: true
@@ -39,6 +41,8 @@ spec:
                     enabled: true
                     serviceMonitor:
                       enabled: true
+                  nodeSelector:
+                    nodeGroup: system-worker
                   podSecurityContext:
                     runAsNonRoot: true
                   resources:

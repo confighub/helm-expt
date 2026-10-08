@@ -1,0 +1,11 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "DigestIndexConfig"
+metadata:
+  name: "aicr-eks-ubuntu"
+spec:
+  description: "This entry carries no OCI transport receipt of its own. The references below are the ones a publication uses, and the compiled index does not say whether one has happened."
+  publication:
+    recordedBy: "runs/aicr-mirror-artifacts/eks-ubuntu"
+  plannedOCIBase: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt"
+  sourcePackageRepository: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu/aicr-bundle"
+  renderedApplications: 14

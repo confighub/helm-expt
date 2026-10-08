@@ -1,0 +1,167 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "AICRPlatformDigestIndex",
+  "metadata": {
+    "name": "aicr-eks-ubuntu-v1-0-0-digest-index"
+  },
+  "spec": {
+    "platformDigest": "sha256:8f415fb1c49e934548bee4c7f912d5e69600ddd2762eca011ff0cb5547f3a679",
+    "source": {
+      "binarySha256": "972da08e016b3ea779cc5f51eafa3a0024a4f052fbdfbc5ea55cd6524766b8fc",
+      "binaryVerifiedBeforeUse": "The binary was checked against the sha256 pinned in scripts/generate-aicr-from-overlay.mjs before it ran. The pin is the binary NVIDIA's v1.0.0 attestation names, and runs/aicr-provenance-v1-0-0/receipt.yaml records the offline check of that attestation and of the release archive checksum.",
+      "commit": "82bccef69855c70e151f8b5e6ed9d04d70a30f81",
+      "name": "NVIDIA AICR",
+      "provenance": {
+        "binaryAttestation": "examples/aicr/upstream-signatures/v1.0.0/aicr-attestation.sigstore.json",
+        "checksumList": "examples/aicr/upstream-signatures/v1.0.0/aicr_checksums.txt",
+        "receipt": "runs/aicr-provenance-v1-0-0/receipt.yaml",
+        "recipeCatalogSignature": "examples/aicr/upstream-signatures/v1.0.0/recipe-catalog.sigstore.json"
+      },
+      "releaseAsset": {
+        "name": "aicr_1.0.0_darwin_arm64.tar.gz",
+        "sha256": "cb85cce54a82deb88e826c3e735c26e11a0863173b8aa5ff3ba4ebc2dc6af8b2"
+      },
+      "repository": "https://github.com/NVIDIA/aicr",
+      "version": "v1.0.0"
+    },
+    "criteria": {
+      "accelerator": "any",
+      "intent": "any",
+      "os": "ubuntu",
+      "platform": "any",
+      "service": "eks"
+    },
+    "transports": [],
+    "members": [
+      {
+        "component": "aicr-stack",
+        "role": "platform-root",
+        "syncWave": null,
+        "payloadSha256": "d5b043da0d396958209cb04be498b85079540e458cf31f7378842677dc29da47",
+        "payloadPath": "payloads/aicr-stack-d5b043da0d396958209cb04be498b85079540e458cf31f7378842677dc29da47.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-components/aicr-stack:payload-d5b043da0d396958209cb04be498b85079540e458cf31f7378842677dc29da47"
+      },
+      {
+        "component": "aws-ebs-csi-driver",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "d37c6be17332dd37860b3f043778cc8dd933cc66b46d81fd680d6e1ffd84b37b",
+        "payloadPath": "payloads/aws-ebs-csi-driver-d37c6be17332dd37860b3f043778cc8dd933cc66b46d81fd680d6e1ffd84b37b.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-components/aws-ebs-csi-driver:payload-d37c6be17332dd37860b3f043778cc8dd933cc66b46d81fd680d6e1ffd84b37b"
+      },
+      {
+        "component": "aws-efa",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "88080f38f6e3610f0585f0ef363a9e71777892bb28f8974d9452f0273614bb02",
+        "payloadPath": "payloads/aws-efa-88080f38f6e3610f0585f0ef363a9e71777892bb28f8974d9452f0273614bb02.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-components/aws-efa:payload-88080f38f6e3610f0585f0ef363a9e71777892bb28f8974d9452f0273614bb02"
+      },
+      {
+        "component": "cert-manager",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00",
+        "payloadPath": "payloads/cert-manager-c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-components/cert-manager:payload-c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00"
+      },
+      {
+        "component": "gpu-operator",
+        "role": "component-application",
+        "syncWave": 9,
+        "payloadSha256": "452ff9797d6bccb99f04bfd1a5999eefaf00f0e545c597f91df1e1950484f3d5",
+        "payloadPath": "payloads/gpu-operator-452ff9797d6bccb99f04bfd1a5999eefaf00f0e545c597f91df1e1950484f3d5.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-components/gpu-operator:payload-452ff9797d6bccb99f04bfd1a5999eefaf00f0e545c597f91df1e1950484f3d5"
+      },
+      {
+        "component": "k8s-ephemeral-storage-metrics",
+        "role": "component-application",
+        "syncWave": 9,
+        "payloadSha256": "a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329",
+        "payloadPath": "payloads/k8s-ephemeral-storage-metrics-a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-components/k8s-ephemeral-storage-metrics:payload-a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329"
+      },
+      {
+        "component": "kai-scheduler",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc",
+        "payloadPath": "payloads/kai-scheduler-500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-components/kai-scheduler:payload-500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc"
+      },
+      {
+        "component": "kube-prometheus-stack",
+        "role": "component-application",
+        "syncWave": 5,
+        "payloadSha256": "e37a6c96c9a67d0e8578070629a87d982741c5a9d63428125aea5cb79f1515cb",
+        "payloadPath": "payloads/kube-prometheus-stack-e37a6c96c9a67d0e8578070629a87d982741c5a9d63428125aea5cb79f1515cb.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-components/kube-prometheus-stack:payload-e37a6c96c9a67d0e8578070629a87d982741c5a9d63428125aea5cb79f1515cb"
+      },
+      {
+        "component": "nfd",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "03020302efc923cd1b66c2b59e92872a354a94645c4cb6e5a285782ed6e33c54",
+        "payloadPath": "payloads/nfd-03020302efc923cd1b66c2b59e92872a354a94645c4cb6e5a285782ed6e33c54.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-components/nfd:payload-03020302efc923cd1b66c2b59e92872a354a94645c4cb6e5a285782ed6e33c54"
+      },
+      {
+        "component": "nodewright-operator",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "d3cabfad44a660bda516963a44d489f06bd2a7f332efdfe591b6dc2cf80568eb",
+        "payloadPath": "payloads/nodewright-operator-d3cabfad44a660bda516963a44d489f06bd2a7f332efdfe591b6dc2cf80568eb.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-components/nodewright-operator:payload-d3cabfad44a660bda516963a44d489f06bd2a7f332efdfe591b6dc2cf80568eb"
+      },
+      {
+        "component": "nvidia-dra-driver-gpu",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "bdec3f0c1104120e1a8a30ae946949ef1f0fd33c143675bfdae66155afb9f6dd",
+        "payloadPath": "payloads/nvidia-dra-driver-gpu-bdec3f0c1104120e1a8a30ae946949ef1f0fd33c143675bfdae66155afb9f6dd.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-components/nvidia-dra-driver-gpu:payload-bdec3f0c1104120e1a8a30ae946949ef1f0fd33c143675bfdae66155afb9f6dd"
+      },
+      {
+        "component": "nvsentinel",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "948c94d84adcce6680957a10e97d5913202e10beda2a68498e85040eb2d661b6",
+        "payloadPath": "payloads/nvsentinel-948c94d84adcce6680957a10e97d5913202e10beda2a68498e85040eb2d661b6.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-components/nvsentinel:payload-948c94d84adcce6680957a10e97d5913202e10beda2a68498e85040eb2d661b6"
+      },
+      {
+        "component": "prometheus-adapter",
+        "role": "component-application",
+        "syncWave": 9,
+        "payloadSha256": "5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3",
+        "payloadPath": "payloads/prometheus-adapter-5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-components/prometheus-adapter:payload-5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3"
+      },
+      {
+        "component": "prometheus-operator-crds",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb",
+        "payloadPath": "payloads/prometheus-operator-crds-110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-components/prometheus-operator-crds:payload-110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb"
+      }
+    ],
+    "aggregate": {
+      "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu-digest-index:platform-8f415fb1c49e934548bee4c7f912d5e69600ddd2762eca011ff0cb5547f3a679",
+      "type": "target-neutral-index-published-only-after-member-manifest-digests-are-observed"
+    },
+    "boundary": {
+      "configPlaneOnly": true,
+      "publication": "not-recorded-in-this-index",
+      "publicationReceipts": "runs/aicr-mirror-artifacts/eks-ubuntu",
+      "gpuWorkloadsProven": false,
+      "secretValuesIncluded": false,
+      "liveRegistryPublicationClaimed": false,
+      "statement": "This index pins config-plane content by digest. No GPU workload ran to produce or verify it; workload-plane claims stay absent rather than implied."
+    }
+  },
+  "status": {
+    "result": "compiled-offline",
+    "liveRegistryPublicationClaimed": false
+  }
+}

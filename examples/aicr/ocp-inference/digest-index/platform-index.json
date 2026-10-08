@@ -2,21 +2,27 @@
   "apiVersion": "catalog.confighub.com/v1alpha1",
   "kind": "AICRPlatformDigestIndex",
   "metadata": {
-    "name": "aicr-ocp-inference-v0-21-0-digest-index"
+    "name": "aicr-ocp-inference-v1-0-0-digest-index"
   },
   "spec": {
-    "platformDigest": "sha256:7391cb74a9b9ce9ac9ccefc00d1c0320101fba86a8b9c4a5c6c0730159ef8276",
+    "platformDigest": "sha256:03b1c58489636eef1ccf2f35a2ea1df31539b68368d0b23d5c111793a7650916",
     "source": {
-      "binarySha256": "1a4bea881a45480b1761f7e01670f02a61f5d02a4c0fdae3d93da65a47e51afb",
-      "binaryVerifiedBeforeUse": "The release tarball and the binary it extracts to were both checked against the sha256 values pinned in scripts/generate-aicr-from-overlay.mjs before the binary ran.",
-      "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+      "binarySha256": "972da08e016b3ea779cc5f51eafa3a0024a4f052fbdfbc5ea55cd6524766b8fc",
+      "binaryVerifiedBeforeUse": "The binary was checked against the sha256 pinned in scripts/generate-aicr-from-overlay.mjs before it ran. The pin is the binary NVIDIA's v1.0.0 attestation names, and runs/aicr-provenance-v1-0-0/receipt.yaml records the offline check of that attestation and of the release archive checksum.",
+      "commit": "82bccef69855c70e151f8b5e6ed9d04d70a30f81",
       "name": "NVIDIA AICR",
+      "provenance": {
+        "binaryAttestation": "examples/aicr/upstream-signatures/v1.0.0/aicr-attestation.sigstore.json",
+        "checksumList": "examples/aicr/upstream-signatures/v1.0.0/aicr_checksums.txt",
+        "receipt": "runs/aicr-provenance-v1-0-0/receipt.yaml",
+        "recipeCatalogSignature": "examples/aicr/upstream-signatures/v1.0.0/recipe-catalog.sigstore.json"
+      },
       "releaseAsset": {
-        "name": "aicr_0.21.0_darwin_arm64.tar.gz",
-        "sha256": "5dbe88fc8c5b8c937ca87c624f8f01c29eaefbfb3ced8f556a0136c47ff6be63"
+        "name": "aicr_1.0.0_darwin_arm64.tar.gz",
+        "sha256": "cb85cce54a82deb88e826c3e735c26e11a0863173b8aa5ff3ba4ebc2dc6af8b2"
       },
       "repository": "https://github.com/NVIDIA/aicr",
-      "version": "v0.21.0"
+      "version": "v1.0.0"
     },
     "criteria": {
       "accelerator": "any",
@@ -31,122 +37,123 @@
         "component": "aicr-stack",
         "role": "platform-root",
         "syncWave": null,
-        "payloadSha256": "acf847a4ab090c909e42fb6b12ba6986670568bd0ebec1c4efcd1e86ba2d778d",
-        "payloadPath": "payloads/aicr-stack-acf847a4ab090c909e42fb6b12ba6986670568bd0ebec1c4efcd1e86ba2d778d.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/aicr-stack:payload-acf847a4ab090c909e42fb6b12ba6986670568bd0ebec1c4efcd1e86ba2d778d"
+        "payloadSha256": "3c6f3d6daba41a5ab08bf158908101455fc10f112a01985c678cc10804613875",
+        "payloadPath": "payloads/aicr-stack-3c6f3d6daba41a5ab08bf158908101455fc10f112a01985c678cc10804613875.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/aicr-stack:payload-3c6f3d6daba41a5ab08bf158908101455fc10f112a01985c678cc10804613875"
       },
       {
         "component": "cert-manager-ocp-olm",
         "role": "component-application",
         "syncWave": 9,
-        "payloadSha256": "171d8c298025dc06cf461f96007fbff5455b43c4ad1ba7a997ab4d86417566c5",
-        "payloadPath": "payloads/cert-manager-ocp-olm-171d8c298025dc06cf461f96007fbff5455b43c4ad1ba7a997ab4d86417566c5.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/cert-manager-ocp-olm:payload-171d8c298025dc06cf461f96007fbff5455b43c4ad1ba7a997ab4d86417566c5"
+        "payloadSha256": "275db05b096c7d3e5ca00a2b7ef1d1ac14a4419f9558798b44c20a6a484731d1",
+        "payloadPath": "payloads/cert-manager-ocp-olm-275db05b096c7d3e5ca00a2b7ef1d1ac14a4419f9558798b44c20a6a484731d1.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/cert-manager-ocp-olm:payload-275db05b096c7d3e5ca00a2b7ef1d1ac14a4419f9558798b44c20a6a484731d1"
       },
       {
         "component": "cert-manager-ocp",
         "role": "component-application",
         "syncWave": 13,
-        "payloadSha256": "2624e02998366ee560b2d929cc87311f36abbfa1a2d7140076792cbdfab68ceb",
-        "payloadPath": "payloads/cert-manager-ocp-2624e02998366ee560b2d929cc87311f36abbfa1a2d7140076792cbdfab68ceb.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/cert-manager-ocp:payload-2624e02998366ee560b2d929cc87311f36abbfa1a2d7140076792cbdfab68ceb"
+        "payloadSha256": "837ba72c079476fff4f2fffc1f3c414c8654e7e5ec672ff75731aca2ec8ac53b",
+        "payloadPath": "payloads/cert-manager-ocp-837ba72c079476fff4f2fffc1f3c414c8654e7e5ec672ff75731aca2ec8ac53b.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/cert-manager-ocp:payload-837ba72c079476fff4f2fffc1f3c414c8654e7e5ec672ff75731aca2ec8ac53b"
       },
       {
         "component": "gpu-operator-ocp-olm",
         "role": "component-application",
         "syncWave": 9,
-        "payloadSha256": "e07e4dc11ddada8289316724d1e1e26faf3d10fb175c4b0ad57a05e277c51e2e",
-        "payloadPath": "payloads/gpu-operator-ocp-olm-e07e4dc11ddada8289316724d1e1e26faf3d10fb175c4b0ad57a05e277c51e2e.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/gpu-operator-ocp-olm:payload-e07e4dc11ddada8289316724d1e1e26faf3d10fb175c4b0ad57a05e277c51e2e"
+        "payloadSha256": "85ad1394785e2b07374590234365f8465de08854c8a201da9067f06f652fada9",
+        "payloadPath": "payloads/gpu-operator-ocp-olm-85ad1394785e2b07374590234365f8465de08854c8a201da9067f06f652fada9.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/gpu-operator-ocp-olm:payload-85ad1394785e2b07374590234365f8465de08854c8a201da9067f06f652fada9"
       },
       {
         "component": "gpu-operator-ocp",
         "role": "component-application",
         "syncWave": 17,
-        "payloadSha256": "5ed6c8608542fdd5644a6def0f66466ea3f56513d5db24ed25a5a39e1b8df2ce",
-        "payloadPath": "payloads/gpu-operator-ocp-5ed6c8608542fdd5644a6def0f66466ea3f56513d5db24ed25a5a39e1b8df2ce.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/gpu-operator-ocp:payload-5ed6c8608542fdd5644a6def0f66466ea3f56513d5db24ed25a5a39e1b8df2ce"
+        "payloadSha256": "17990cd663f863b83c558538b5d4b6863c4b38d6a2e5f628e1c5d0ee49a42014",
+        "payloadPath": "payloads/gpu-operator-ocp-17990cd663f863b83c558538b5d4b6863c4b38d6a2e5f628e1c5d0ee49a42014.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/gpu-operator-ocp:payload-17990cd663f863b83c558538b5d4b6863c4b38d6a2e5f628e1c5d0ee49a42014"
       },
       {
         "component": "network-operator-ocp-olm",
         "role": "component-application",
         "syncWave": 9,
-        "payloadSha256": "3282a18a326925978d1e7a9c900ffa9a234930d8cb461fae8256e4574ab02496",
-        "payloadPath": "payloads/network-operator-ocp-olm-3282a18a326925978d1e7a9c900ffa9a234930d8cb461fae8256e4574ab02496.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/network-operator-ocp-olm:payload-3282a18a326925978d1e7a9c900ffa9a234930d8cb461fae8256e4574ab02496"
+        "payloadSha256": "73928b777c7e80fba83f12a96900595dcdfb58e241eeb62e5db0d06c7ef83bc5",
+        "payloadPath": "payloads/network-operator-ocp-olm-73928b777c7e80fba83f12a96900595dcdfb58e241eeb62e5db0d06c7ef83bc5.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/network-operator-ocp-olm:payload-73928b777c7e80fba83f12a96900595dcdfb58e241eeb62e5db0d06c7ef83bc5"
       },
       {
         "component": "network-operator-ocp",
         "role": "component-application",
         "syncWave": 13,
-        "payloadSha256": "75ee13e7cc79251852188aa004450a5376a5ad8b9a64bdd96a08afb46ad553a2",
-        "payloadPath": "payloads/network-operator-ocp-75ee13e7cc79251852188aa004450a5376a5ad8b9a64bdd96a08afb46ad553a2.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/network-operator-ocp:payload-75ee13e7cc79251852188aa004450a5376a5ad8b9a64bdd96a08afb46ad553a2"
+        "payloadSha256": "2d65d90e72d0886f881f1e188164335fa1d20ea91e1cfb851f0cc1876953bc0c",
+        "payloadPath": "payloads/network-operator-ocp-2d65d90e72d0886f881f1e188164335fa1d20ea91e1cfb851f0cc1876953bc0c.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/network-operator-ocp:payload-2d65d90e72d0886f881f1e188164335fa1d20ea91e1cfb851f0cc1876953bc0c"
       },
       {
         "component": "nfd-ocp-olm",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "e0086db81e62ed8bc2ae90573fbac745e449f365a6207606a8d1376bc4414546",
-        "payloadPath": "payloads/nfd-ocp-olm-e0086db81e62ed8bc2ae90573fbac745e449f365a6207606a8d1376bc4414546.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/nfd-ocp-olm:payload-e0086db81e62ed8bc2ae90573fbac745e449f365a6207606a8d1376bc4414546"
+        "payloadSha256": "2392c228a65fda0e1a99964981eaaf7af5fa3e375ed01f9c989cfacdeb8d3232",
+        "payloadPath": "payloads/nfd-ocp-olm-2392c228a65fda0e1a99964981eaaf7af5fa3e375ed01f9c989cfacdeb8d3232.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/nfd-ocp-olm:payload-2392c228a65fda0e1a99964981eaaf7af5fa3e375ed01f9c989cfacdeb8d3232"
       },
       {
         "component": "nfd-ocp",
         "role": "component-application",
         "syncWave": 5,
-        "payloadSha256": "9aabf9008053135065819df27afbc45704ebe5d71266b41b0f845760848ceb9a",
-        "payloadPath": "payloads/nfd-ocp-9aabf9008053135065819df27afbc45704ebe5d71266b41b0f845760848ceb9a.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/nfd-ocp:payload-9aabf9008053135065819df27afbc45704ebe5d71266b41b0f845760848ceb9a"
+        "payloadSha256": "ec319535fe7bb4dc2636c168f515961f2100462405e8c4ab8c71a1ed17dba977",
+        "payloadPath": "payloads/nfd-ocp-ec319535fe7bb4dc2636c168f515961f2100462405e8c4ab8c71a1ed17dba977.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/nfd-ocp:payload-ec319535fe7bb4dc2636c168f515961f2100462405e8c4ab8c71a1ed17dba977"
       },
       {
         "component": "nvidia-dra-driver-gpu-ocp-pre",
         "role": "component-application",
         "syncWave": 20,
-        "payloadSha256": "16f44654e82ac95fcb3e4396df453665a79259f1dcf411ac7725fed47917eb31",
-        "payloadPath": "payloads/nvidia-dra-driver-gpu-ocp-pre-16f44654e82ac95fcb3e4396df453665a79259f1dcf411ac7725fed47917eb31.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/nvidia-dra-driver-gpu-ocp-pre:payload-16f44654e82ac95fcb3e4396df453665a79259f1dcf411ac7725fed47917eb31"
+        "payloadSha256": "515a771763aa8a768c5d6d3cf8a8ad8d7027155b1a5743544b6b92d38f82a467",
+        "payloadPath": "payloads/nvidia-dra-driver-gpu-ocp-pre-515a771763aa8a768c5d6d3cf8a8ad8d7027155b1a5743544b6b92d38f82a467.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/nvidia-dra-driver-gpu-ocp-pre:payload-515a771763aa8a768c5d6d3cf8a8ad8d7027155b1a5743544b6b92d38f82a467"
       },
       {
         "component": "nvidia-dra-driver-gpu-ocp",
         "role": "component-application",
         "syncWave": 21,
-        "payloadSha256": "c89efdcfb60f25dbf09b12d6c7d0043bc0f7811141487060993c5d294ce585a0",
-        "payloadPath": "payloads/nvidia-dra-driver-gpu-ocp-c89efdcfb60f25dbf09b12d6c7d0043bc0f7811141487060993c5d294ce585a0.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/nvidia-dra-driver-gpu-ocp:payload-c89efdcfb60f25dbf09b12d6c7d0043bc0f7811141487060993c5d294ce585a0"
+        "payloadSha256": "f2c79fc5eb040d136689b193e51beec6ee6bae0025f536b85d38c89a9dbf1bbd",
+        "payloadPath": "payloads/nvidia-dra-driver-gpu-ocp-f2c79fc5eb040d136689b193e51beec6ee6bae0025f536b85d38c89a9dbf1bbd.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/nvidia-dra-driver-gpu-ocp:payload-f2c79fc5eb040d136689b193e51beec6ee6bae0025f536b85d38c89a9dbf1bbd"
       },
       {
         "component": "prometheus-adapter-ocp-post",
         "role": "component-application",
         "syncWave": 2,
-        "payloadSha256": "2248bd6657b3535f9452ca9b426e1dbda747802c7a1123ae5ae4b866e90f172e",
-        "payloadPath": "payloads/prometheus-adapter-ocp-post-2248bd6657b3535f9452ca9b426e1dbda747802c7a1123ae5ae4b866e90f172e.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/prometheus-adapter-ocp-post:payload-2248bd6657b3535f9452ca9b426e1dbda747802c7a1123ae5ae4b866e90f172e"
+        "payloadSha256": "eb429287b431ebbfba7a82556236e99f2ff636d3fa2584d0e8b4413d08ee1786",
+        "payloadPath": "payloads/prometheus-adapter-ocp-post-eb429287b431ebbfba7a82556236e99f2ff636d3fa2584d0e8b4413d08ee1786.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/prometheus-adapter-ocp-post:payload-eb429287b431ebbfba7a82556236e99f2ff636d3fa2584d0e8b4413d08ee1786"
       },
       {
         "component": "prometheus-adapter-ocp-pre",
         "role": "component-application",
         "syncWave": 0,
-        "payloadSha256": "be3ef49fead78707eaaddd87765da9849b61db3131964b940bb236f98d4bef80",
-        "payloadPath": "payloads/prometheus-adapter-ocp-pre-be3ef49fead78707eaaddd87765da9849b61db3131964b940bb236f98d4bef80.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/prometheus-adapter-ocp-pre:payload-be3ef49fead78707eaaddd87765da9849b61db3131964b940bb236f98d4bef80"
+        "payloadSha256": "0b787a1434c6d675ab6ff0534810d8ffa91d12ba233f2b5caca5b7aace723a3a",
+        "payloadPath": "payloads/prometheus-adapter-ocp-pre-0b787a1434c6d675ab6ff0534810d8ffa91d12ba233f2b5caca5b7aace723a3a.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/prometheus-adapter-ocp-pre:payload-0b787a1434c6d675ab6ff0534810d8ffa91d12ba233f2b5caca5b7aace723a3a"
       },
       {
         "component": "prometheus-adapter-ocp",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "364ff4a5786c9a203408f715a1b325b4ba3ff003ec033375fa759debe742883b",
-        "payloadPath": "payloads/prometheus-adapter-ocp-364ff4a5786c9a203408f715a1b325b4ba3ff003ec033375fa759debe742883b.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/prometheus-adapter-ocp:payload-364ff4a5786c9a203408f715a1b325b4ba3ff003ec033375fa759debe742883b"
+        "payloadSha256": "b4341ff5b223d99ad9e148b92febd3766a00987e5cf027f6c0750854f1082c09",
+        "payloadPath": "payloads/prometheus-adapter-ocp-b4341ff5b223d99ad9e148b92febd3766a00987e5cf027f6c0750854f1082c09.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-components/prometheus-adapter-ocp:payload-b4341ff5b223d99ad9e148b92febd3766a00987e5cf027f6c0750854f1082c09"
       }
     ],
     "aggregate": {
-      "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-digest-index:platform-7391cb74a9b9ce9ac9ccefc00d1c0320101fba86a8b9c4a5c6c0730159ef8276",
+      "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-digest-index:platform-03b1c58489636eef1ccf2f35a2ea1df31539b68368d0b23d5c111793a7650916",
       "type": "target-neutral-index-published-only-after-member-manifest-digests-are-observed"
     },
     "boundary": {
       "configPlaneOnly": true,
-      "published": false,
+      "publication": "not-recorded-in-this-index",
+      "publicationReceipts": "runs/aicr-mirror-artifacts/ocp-inference",
       "gpuWorkloadsProven": false,
       "secretValuesIncluded": false,
       "liveRegistryPublicationClaimed": false,

@@ -7,11 +7,11 @@ UNOFFICIAL/EXPERIMENTAL. This directory is compiled by
 The platform digest is:
 
 ```
-sha256:591736e8d65bc523eb076b3ffef3adfc68906405d74e0bda44d4b7217cb42bcf
+sha256:340d6a7118297f3bdac3b93346ca77daeb847e1de4a292feb4a7bd46b4a931c1
 ```
 
-That one value pins the exact upstream source (NVIDIA AICR v0.21.0,
-commit `36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe`), the recipe criteria, the planned OCI member references,
+That one value pins the exact upstream source (NVIDIA AICR v1.0.0,
+commit `82bccef69855c70e151f8b5e6ed9d04d70a30f81`), the recipe criteria, the planned OCI member references,
 and one immutable payload per rendered Argo CD Application:
 11 waved components plus the `aicr-stack` root. Change any rendered byte
 anywhere in the shape and the digest changes.
@@ -19,7 +19,7 @@ anywhere in the shape and the digest changes.
 [platform-index.json](./platform-index.json) holds the full index. Each member row
 names its payload file under [payloads/](./payloads/) and the OCI reference the
 payload uses or would use. Nothing in this directory claims a registry push by
-itself. This retained version has no OCI publication receipt, so every OCI reference remains a plan.
+itself. This index does not say whether the entry's OCI artifacts are published. A publication counts only when a tracked receipt under `runs/aicr-mirror-artifacts/lke-training` records it.
 
 This follows the pattern the Kubara importer proved: per-component immutable
 payloads plus one digest-bound index, compiled offline from committed bytes.

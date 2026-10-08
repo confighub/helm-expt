@@ -21,8 +21,11 @@ spec:
                 engine:
                   name: slinky
                   params:
+                    acceleratorDomainSourceLabel: nvidia.com/gpu.clique
+                    blockSizes:
+                    - 2
                     namespace: slurm
-                    plugin: topology/tree
+                    plugin: topology/block
                     podSelector:
                       matchLabels:
                         app.kubernetes.io/name: slurmd
@@ -36,6 +39,8 @@ spec:
                   tolerations:
                   - operator: Exists
                 nodeObserver:
+                  nodeSelector:
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                   topograph:
@@ -45,10 +50,15 @@ spec:
                       podSelector:
                         matchLabels:
                           app.kubernetes.io/name: slurmd
+                nodeSelector:
+                  nodeGroup: system-worker
                 provider:
-                  name: test
+                  name: dra
                   params:
-                    modelFileName: small-tree.yaml
+                    accelerator:
+                      kubernetesLabel:
+                        key: nvidia.com/gpu.clique
+                      source: kubernetes-label
                 service:
                   port: 49021
                   type: ClusterIP
@@ -57,7 +67,8 @@ spec:
                   name: slinky-topograph
                 tolerations:
                 - operator: Exists
-        repoURL: https://nvidia.github.io/topograph
+                verbosity: 4
+        repoURL: https://dsx-ai-factory.github.io/topograph
         targetRevision: 1.0.0
     syncPolicy:
         automated:

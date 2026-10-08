@@ -2,21 +2,27 @@
   "apiVersion": "catalog.confighub.com/v1alpha1",
   "kind": "AICRPlatformDigestIndex",
   "metadata": {
-    "name": "aicr-b200-gke-cos-inference-dynamo-v0-21-0-digest-index"
+    "name": "aicr-b200-gke-cos-inference-dynamo-v1-0-0-digest-index"
   },
   "spec": {
-    "platformDigest": "sha256:ba467f53f01ecb5ba574f1b82a7dd8f29772f8e69a1a3b282530e73e1ef73e94",
+    "platformDigest": "sha256:7f619045a8b773b41633629da594efcdbe4d2de3eeeb0ce69cf4a702a7a7a911",
     "source": {
-      "binarySha256": "1a4bea881a45480b1761f7e01670f02a61f5d02a4c0fdae3d93da65a47e51afb",
-      "binaryVerifiedBeforeUse": "The release tarball and the binary it extracts to were both checked against the sha256 values pinned in scripts/generate-aicr-from-overlay.mjs before the binary ran.",
-      "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+      "binarySha256": "972da08e016b3ea779cc5f51eafa3a0024a4f052fbdfbc5ea55cd6524766b8fc",
+      "binaryVerifiedBeforeUse": "The binary was checked against the sha256 pinned in scripts/generate-aicr-from-overlay.mjs before it ran. The pin is the binary NVIDIA's v1.0.0 attestation names, and runs/aicr-provenance-v1-0-0/receipt.yaml records the offline check of that attestation and of the release archive checksum.",
+      "commit": "82bccef69855c70e151f8b5e6ed9d04d70a30f81",
       "name": "NVIDIA AICR",
+      "provenance": {
+        "binaryAttestation": "examples/aicr/upstream-signatures/v1.0.0/aicr-attestation.sigstore.json",
+        "checksumList": "examples/aicr/upstream-signatures/v1.0.0/aicr_checksums.txt",
+        "receipt": "runs/aicr-provenance-v1-0-0/receipt.yaml",
+        "recipeCatalogSignature": "examples/aicr/upstream-signatures/v1.0.0/recipe-catalog.sigstore.json"
+      },
       "releaseAsset": {
-        "name": "aicr_0.21.0_darwin_arm64.tar.gz",
-        "sha256": "5dbe88fc8c5b8c937ca87c624f8f01c29eaefbfb3ced8f556a0136c47ff6be63"
+        "name": "aicr_1.0.0_darwin_arm64.tar.gz",
+        "sha256": "cb85cce54a82deb88e826c3e735c26e11a0863173b8aa5ff3ba4ebc2dc6af8b2"
       },
       "repository": "https://github.com/NVIDIA/aicr",
-      "version": "v0.21.0"
+      "version": "v1.0.0"
     },
     "criteria": {
       "accelerator": "b200",
@@ -31,178 +37,179 @@
         "component": "agentgateway-crds-post",
         "role": "component-application",
         "syncWave": 2,
-        "payloadSha256": "f0f547606154d1f47722f31796322f4e013aa366ff07e0fd9ec0d840085bba2f",
-        "payloadPath": "payloads/agentgateway-crds-post-f0f547606154d1f47722f31796322f4e013aa366ff07e0fd9ec0d840085bba2f.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/agentgateway-crds-post:payload-f0f547606154d1f47722f31796322f4e013aa366ff07e0fd9ec0d840085bba2f"
+        "payloadSha256": "dd5f5f2fd6e37d1ac08fbc7934bba68ec0200c3de6c62aeaf03619471b03bfa5",
+        "payloadPath": "payloads/agentgateway-crds-post-dd5f5f2fd6e37d1ac08fbc7934bba68ec0200c3de6c62aeaf03619471b03bfa5.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/agentgateway-crds-post:payload-dd5f5f2fd6e37d1ac08fbc7934bba68ec0200c3de6c62aeaf03619471b03bfa5"
       },
       {
         "component": "agentgateway-crds",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "2cba7507fc2243a6cb0badacece990715960bfbee3983bae05b343998bb9c4c4",
-        "payloadPath": "payloads/agentgateway-crds-2cba7507fc2243a6cb0badacece990715960bfbee3983bae05b343998bb9c4c4.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/agentgateway-crds:payload-2cba7507fc2243a6cb0badacece990715960bfbee3983bae05b343998bb9c4c4"
+        "payloadSha256": "904ad6d7450debe3f8c32a83c4e7190a120eafc2b591c0daaaf63dd7306928a5",
+        "payloadPath": "payloads/agentgateway-crds-904ad6d7450debe3f8c32a83c4e7190a120eafc2b591c0daaaf63dd7306928a5.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/agentgateway-crds:payload-904ad6d7450debe3f8c32a83c4e7190a120eafc2b591c0daaaf63dd7306928a5"
       },
       {
         "component": "agentgateway-post",
         "role": "component-application",
         "syncWave": 6,
-        "payloadSha256": "fcf15c89b7ef95cb1a60971590919e38d421a11208da53c91882543c197f18ce",
-        "payloadPath": "payloads/agentgateway-post-fcf15c89b7ef95cb1a60971590919e38d421a11208da53c91882543c197f18ce.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/agentgateway-post:payload-fcf15c89b7ef95cb1a60971590919e38d421a11208da53c91882543c197f18ce"
+        "payloadSha256": "917e01e2007f76662ff3d2aa0eba1e36bb9682b696632a5381d071baa4830c99",
+        "payloadPath": "payloads/agentgateway-post-917e01e2007f76662ff3d2aa0eba1e36bb9682b696632a5381d071baa4830c99.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/agentgateway-post:payload-917e01e2007f76662ff3d2aa0eba1e36bb9682b696632a5381d071baa4830c99"
       },
       {
         "component": "agentgateway",
         "role": "component-application",
         "syncWave": 5,
-        "payloadSha256": "166b64b4337e8fabd8b354f1eea627f60ae9f67ab25a1c3404dacf5833386dfa",
-        "payloadPath": "payloads/agentgateway-166b64b4337e8fabd8b354f1eea627f60ae9f67ab25a1c3404dacf5833386dfa.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/agentgateway:payload-166b64b4337e8fabd8b354f1eea627f60ae9f67ab25a1c3404dacf5833386dfa"
+        "payloadSha256": "0fbd596605c40efe0c12f6c34e077638aa4f07e0118dff344fdfde4867b7aa3f",
+        "payloadPath": "payloads/agentgateway-0fbd596605c40efe0c12f6c34e077638aa4f07e0118dff344fdfde4867b7aa3f.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/agentgateway:payload-0fbd596605c40efe0c12f6c34e077638aa4f07e0118dff344fdfde4867b7aa3f"
       },
       {
         "component": "aicr-stack",
         "role": "platform-root",
         "syncWave": null,
-        "payloadSha256": "acf847a4ab090c909e42fb6b12ba6986670568bd0ebec1c4efcd1e86ba2d778d",
-        "payloadPath": "payloads/aicr-stack-acf847a4ab090c909e42fb6b12ba6986670568bd0ebec1c4efcd1e86ba2d778d.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/aicr-stack:payload-acf847a4ab090c909e42fb6b12ba6986670568bd0ebec1c4efcd1e86ba2d778d"
+        "payloadSha256": "1f635adeb269f00a65c3514d3c5143907b0139da7bdf4151de36ea5219db48a2",
+        "payloadPath": "payloads/aicr-stack-1f635adeb269f00a65c3514d3c5143907b0139da7bdf4151de36ea5219db48a2.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/aicr-stack:payload-1f635adeb269f00a65c3514d3c5143907b0139da7bdf4151de36ea5219db48a2"
       },
       {
         "component": "cert-manager",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "372553a67a4f1a820301dc9a4383a764b7a11d4b7d1eda787fd8f390d35b3f2c",
-        "payloadPath": "payloads/cert-manager-372553a67a4f1a820301dc9a4383a764b7a11d4b7d1eda787fd8f390d35b3f2c.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/cert-manager:payload-372553a67a4f1a820301dc9a4383a764b7a11d4b7d1eda787fd8f390d35b3f2c"
+        "payloadSha256": "c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00",
+        "payloadPath": "payloads/cert-manager-c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/cert-manager:payload-c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00"
       },
       {
         "component": "dynamo-platform",
         "role": "component-application",
         "syncWave": 17,
-        "payloadSha256": "ba8ea454b2415aa940ca4ee148b0a56a614edf73547b9234743a78a04a34bccc",
-        "payloadPath": "payloads/dynamo-platform-ba8ea454b2415aa940ca4ee148b0a56a614edf73547b9234743a78a04a34bccc.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/dynamo-platform:payload-ba8ea454b2415aa940ca4ee148b0a56a614edf73547b9234743a78a04a34bccc"
+        "payloadSha256": "18761654f88591a4b78b01b3edad709d14cf6d62d193ce3fd7b1e8e9f752a1a6",
+        "payloadPath": "payloads/dynamo-platform-18761654f88591a4b78b01b3edad709d14cf6d62d193ce3fd7b1e8e9f752a1a6.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/dynamo-platform:payload-18761654f88591a4b78b01b3edad709d14cf6d62d193ce3fd7b1e8e9f752a1a6"
       },
       {
         "component": "gcp-driver-installer",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "24e9293748bcb06ae295d8b8d1872eb0fe88dbb04c40a92d9edb3b3a1b75feb9",
-        "payloadPath": "payloads/gcp-driver-installer-24e9293748bcb06ae295d8b8d1872eb0fe88dbb04c40a92d9edb3b3a1b75feb9.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/gcp-driver-installer:payload-24e9293748bcb06ae295d8b8d1872eb0fe88dbb04c40a92d9edb3b3a1b75feb9"
+        "payloadSha256": "66647ce6864ef3e3925c0b045ab33ceea741d2f78bdcf63002f95cb4ad26fdce",
+        "payloadPath": "payloads/gcp-driver-installer-66647ce6864ef3e3925c0b045ab33ceea741d2f78bdcf63002f95cb4ad26fdce.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/gcp-driver-installer:payload-66647ce6864ef3e3925c0b045ab33ceea741d2f78bdcf63002f95cb4ad26fdce"
       },
       {
         "component": "gpu-operator-pre",
         "role": "component-application",
         "syncWave": 8,
-        "payloadSha256": "6e89f93a44d7dad7ee2a4196c8260c31f396871804bb098af3520398c98f7ce5",
-        "payloadPath": "payloads/gpu-operator-pre-6e89f93a44d7dad7ee2a4196c8260c31f396871804bb098af3520398c98f7ce5.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/gpu-operator-pre:payload-6e89f93a44d7dad7ee2a4196c8260c31f396871804bb098af3520398c98f7ce5"
+        "payloadSha256": "7abaaa1d290fa83a1df7b39bfeec1924a82ea2389eaffc3014bfa851da22e092",
+        "payloadPath": "payloads/gpu-operator-pre-7abaaa1d290fa83a1df7b39bfeec1924a82ea2389eaffc3014bfa851da22e092.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/gpu-operator-pre:payload-7abaaa1d290fa83a1df7b39bfeec1924a82ea2389eaffc3014bfa851da22e092"
       },
       {
         "component": "gpu-operator",
         "role": "component-application",
         "syncWave": 9,
-        "payloadSha256": "4345a0213a198a5ee0394426a49737f2ba0f2aa793f53d68d77b080b2075a320",
-        "payloadPath": "payloads/gpu-operator-4345a0213a198a5ee0394426a49737f2ba0f2aa793f53d68d77b080b2075a320.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/gpu-operator:payload-4345a0213a198a5ee0394426a49737f2ba0f2aa793f53d68d77b080b2075a320"
+        "payloadSha256": "fee93850b48b46199d1d4e4cf2d85e61e30f729ade51a04822fb83c0911bb31c",
+        "payloadPath": "payloads/gpu-operator-fee93850b48b46199d1d4e4cf2d85e61e30f729ade51a04822fb83c0911bb31c.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/gpu-operator:payload-fee93850b48b46199d1d4e4cf2d85e61e30f729ade51a04822fb83c0911bb31c"
       },
       {
         "component": "grove",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "883bb4865db740e6d74e5027f5cbbec323b7c88781b8719a52b271646d226d4a",
-        "payloadPath": "payloads/grove-883bb4865db740e6d74e5027f5cbbec323b7c88781b8719a52b271646d226d4a.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/grove:payload-883bb4865db740e6d74e5027f5cbbec323b7c88781b8719a52b271646d226d4a"
+        "payloadSha256": "68b0657c8b42e978684e4cd7239ffb3b0f6ef83763acbf4ac8710e6905784ebd",
+        "payloadPath": "payloads/grove-68b0657c8b42e978684e4cd7239ffb3b0f6ef83763acbf4ac8710e6905784ebd.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/grove:payload-68b0657c8b42e978684e4cd7239ffb3b0f6ef83763acbf4ac8710e6905784ebd"
       },
       {
         "component": "k8s-ephemeral-storage-metrics",
         "role": "component-application",
         "syncWave": 9,
-        "payloadSha256": "b9e899e02546935f28cb4f42730cf9926fa01a83efeb09b1af1629ce19d8dd4b",
-        "payloadPath": "payloads/k8s-ephemeral-storage-metrics-b9e899e02546935f28cb4f42730cf9926fa01a83efeb09b1af1629ce19d8dd4b.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/k8s-ephemeral-storage-metrics:payload-b9e899e02546935f28cb4f42730cf9926fa01a83efeb09b1af1629ce19d8dd4b"
+        "payloadSha256": "a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329",
+        "payloadPath": "payloads/k8s-ephemeral-storage-metrics-a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/k8s-ephemeral-storage-metrics:payload-a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329"
       },
       {
         "component": "kai-scheduler",
         "role": "component-application",
         "syncWave": 13,
-        "payloadSha256": "4c81aeff832397aa3fea86a7b65197a725c1d6684da3e92d928f79170192de2a",
-        "payloadPath": "payloads/kai-scheduler-4c81aeff832397aa3fea86a7b65197a725c1d6684da3e92d928f79170192de2a.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/kai-scheduler:payload-4c81aeff832397aa3fea86a7b65197a725c1d6684da3e92d928f79170192de2a"
+        "payloadSha256": "500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc",
+        "payloadPath": "payloads/kai-scheduler-500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/kai-scheduler:payload-500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc"
       },
       {
         "component": "kube-prometheus-stack",
         "role": "component-application",
         "syncWave": 5,
-        "payloadSha256": "ddfead9a700a1eea1d4c7d4491ceb3dc59d637deb89e1f3c4b49f89c0eb1e35a",
-        "payloadPath": "payloads/kube-prometheus-stack-ddfead9a700a1eea1d4c7d4491ceb3dc59d637deb89e1f3c4b49f89c0eb1e35a.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/kube-prometheus-stack:payload-ddfead9a700a1eea1d4c7d4491ceb3dc59d637deb89e1f3c4b49f89c0eb1e35a"
+        "payloadSha256": "e37a6c96c9a67d0e8578070629a87d982741c5a9d63428125aea5cb79f1515cb",
+        "payloadPath": "payloads/kube-prometheus-stack-e37a6c96c9a67d0e8578070629a87d982741c5a9d63428125aea5cb79f1515cb.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/kube-prometheus-stack:payload-e37a6c96c9a67d0e8578070629a87d982741c5a9d63428125aea5cb79f1515cb"
       },
       {
         "component": "nfd",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "b93fe28be9215058fe7822b5c5ee65be793ae7b76c56406cfc1c207a2df758dd",
-        "payloadPath": "payloads/nfd-b93fe28be9215058fe7822b5c5ee65be793ae7b76c56406cfc1c207a2df758dd.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/nfd:payload-b93fe28be9215058fe7822b5c5ee65be793ae7b76c56406cfc1c207a2df758dd"
+        "payloadSha256": "a03aa7c43df5768513ddeefc281823832f745db837e6f48101ea97e20b5b17b4",
+        "payloadPath": "payloads/nfd-a03aa7c43df5768513ddeefc281823832f745db837e6f48101ea97e20b5b17b4.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/nfd:payload-a03aa7c43df5768513ddeefc281823832f745db837e6f48101ea97e20b5b17b4"
       },
       {
         "component": "nodewright-customizations",
         "role": "component-application",
         "syncWave": 5,
-        "payloadSha256": "6550c8cf83ac3cb4f13ccf73bd128883401dadb20b6680f0616c1284cbc54e7b",
-        "payloadPath": "payloads/nodewright-customizations-6550c8cf83ac3cb4f13ccf73bd128883401dadb20b6680f0616c1284cbc54e7b.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/nodewright-customizations:payload-6550c8cf83ac3cb4f13ccf73bd128883401dadb20b6680f0616c1284cbc54e7b"
+        "payloadSha256": "701e408e3b62d1eae8e352c47c042fa559385ba5716108a9306c985814496c96",
+        "payloadPath": "payloads/nodewright-customizations-701e408e3b62d1eae8e352c47c042fa559385ba5716108a9306c985814496c96.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/nodewright-customizations:payload-701e408e3b62d1eae8e352c47c042fa559385ba5716108a9306c985814496c96"
       },
       {
         "component": "nodewright-operator",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "e1fe9bb880b2c82d67900d7d4db9239cd7e322de4912889ab89ce2e25c08aaa9",
-        "payloadPath": "payloads/nodewright-operator-e1fe9bb880b2c82d67900d7d4db9239cd7e322de4912889ab89ce2e25c08aaa9.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/nodewright-operator:payload-e1fe9bb880b2c82d67900d7d4db9239cd7e322de4912889ab89ce2e25c08aaa9"
+        "payloadSha256": "7a9a5eafd255d38a6a665f984a267bc94a44e1ff70fc6f20af634df2912870ce",
+        "payloadPath": "payloads/nodewright-operator-7a9a5eafd255d38a6a665f984a267bc94a44e1ff70fc6f20af634df2912870ce.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/nodewright-operator:payload-7a9a5eafd255d38a6a665f984a267bc94a44e1ff70fc6f20af634df2912870ce"
       },
       {
         "component": "nvidia-dra-driver-gpu",
         "role": "component-application",
         "syncWave": 13,
-        "payloadSha256": "3096cd41db3f076875eef4236916d3e1cdc394fad2e48f48ec4bf70cc5bcda60",
-        "payloadPath": "payloads/nvidia-dra-driver-gpu-3096cd41db3f076875eef4236916d3e1cdc394fad2e48f48ec4bf70cc5bcda60.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/nvidia-dra-driver-gpu:payload-3096cd41db3f076875eef4236916d3e1cdc394fad2e48f48ec4bf70cc5bcda60"
+        "payloadSha256": "68ff78d7cee090e6cbcb9a9fd4426cd04c24e9efeb446ae0778ed6d1a02095db",
+        "payloadPath": "payloads/nvidia-dra-driver-gpu-68ff78d7cee090e6cbcb9a9fd4426cd04c24e9efeb446ae0778ed6d1a02095db.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/nvidia-dra-driver-gpu:payload-68ff78d7cee090e6cbcb9a9fd4426cd04c24e9efeb446ae0778ed6d1a02095db"
       },
       {
         "component": "nvsentinel",
         "role": "component-application",
         "syncWave": 13,
-        "payloadSha256": "4cbd4803d0a331f4f108030334f42313aea92537f82657c25eba3cc19bbbe612",
-        "payloadPath": "payloads/nvsentinel-4cbd4803d0a331f4f108030334f42313aea92537f82657c25eba3cc19bbbe612.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/nvsentinel:payload-4cbd4803d0a331f4f108030334f42313aea92537f82657c25eba3cc19bbbe612"
+        "payloadSha256": "759855ef19f57f25d3c1b4acc3a0993c0b5f9db6a3d350d070098af8be2694eb",
+        "payloadPath": "payloads/nvsentinel-759855ef19f57f25d3c1b4acc3a0993c0b5f9db6a3d350d070098af8be2694eb.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/nvsentinel:payload-759855ef19f57f25d3c1b4acc3a0993c0b5f9db6a3d350d070098af8be2694eb"
       },
       {
         "component": "prometheus-adapter",
         "role": "component-application",
         "syncWave": 9,
-        "payloadSha256": "983d0316d0ca4146e8c0c6416448ccecc5f650a3837457a7e81724fb679f1406",
-        "payloadPath": "payloads/prometheus-adapter-983d0316d0ca4146e8c0c6416448ccecc5f650a3837457a7e81724fb679f1406.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/prometheus-adapter:payload-983d0316d0ca4146e8c0c6416448ccecc5f650a3837457a7e81724fb679f1406"
+        "payloadSha256": "5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3",
+        "payloadPath": "payloads/prometheus-adapter-5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/prometheus-adapter:payload-5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3"
       },
       {
         "component": "prometheus-operator-crds",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "8f9b2c296e5f7509c7a4ddf5f41d94b05f1a2d40318fa94846647af4105c941d",
-        "payloadPath": "payloads/prometheus-operator-crds-8f9b2c296e5f7509c7a4ddf5f41d94b05f1a2d40318fa94846647af4105c941d.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/prometheus-operator-crds:payload-8f9b2c296e5f7509c7a4ddf5f41d94b05f1a2d40318fa94846647af4105c941d"
+        "payloadSha256": "110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb",
+        "payloadPath": "payloads/prometheus-operator-crds-110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-components/prometheus-operator-crds:payload-110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb"
       }
     ],
     "aggregate": {
-      "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-digest-index:platform-ba467f53f01ecb5ba574f1b82a7dd8f29772f8e69a1a3b282530e73e1ef73e94",
+      "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference-dynamo-digest-index:platform-7f619045a8b773b41633629da594efcdbe4d2de3eeeb0ce69cf4a702a7a7a911",
       "type": "target-neutral-index-published-only-after-member-manifest-digests-are-observed"
     },
     "boundary": {
       "configPlaneOnly": true,
-      "published": false,
+      "publication": "not-recorded-in-this-index",
+      "publicationReceipts": "runs/aicr-mirror-artifacts/b200-gke-cos-inference-dynamo",
       "gpuWorkloadsProven": false,
       "secretValuesIncluded": false,
       "liveRegistryPublicationClaimed": false,

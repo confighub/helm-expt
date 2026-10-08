@@ -1,4 +1,4 @@
-apiVersion: aicr.run/v1alpha2
+apiVersion: aicr.run/v1
 componentRefs:
   - chart: cert-manager
     healthCheckAsserts: |
@@ -159,6 +159,118 @@ componentRefs:
     type: Helm
     valuesFile: components/cert-manager/values.yaml
     version: v1.20.2
+  - dependencyRefs:
+      - gpu-operator
+    healthCheckAsserts: |
+      # Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+      #
+      # Licensed under the Apache License, Version 2.0 (the "License");
+      # you may not use this file except in compliance with the License.
+      # You may obtain a copy of the License at
+      #
+      #     http://www.apache.org/licenses/LICENSE-2.0
+      #
+      # Unless required by applicable law or agreed to in writing, software
+      # distributed under the License is distributed on an "AS IS" BASIS,
+      # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      # See the License for the specific language governing permissions and
+      # limitations under the License.
+
+      # dra-node-labeler health check.
+      #
+      # The labeler mirrors nvidia.com/gpu.present onto the DRA eviction label the
+      # kubelet plugin selects on. A labeler that never starts takes the kubelet
+      # plugin to DESIRED=0 and removes every ResourceSlice, so the DaemonSet must
+      # roll out fully: updatedNumberScheduled == desiredNumberScheduled, with
+      # desiredNumberScheduled > 0 as a guard against a vacuous pass when no node
+      # carries gpu.present yet. A pod that restarts (RunContainerError, a script
+      # that exits non-zero) fails the pod assertion.
+      apiVersion: chainsaw.kyverno.io/v1alpha1
+      kind: Test
+      metadata:
+        name: dra-node-labeler-health-check
+      spec:
+        timeouts:
+          assert: 5m
+        steps:
+          - name: validate-daemonset-fully-rolled-out
+            try:
+              - assert:
+                  resource:
+                    apiVersion: apps/v1
+                    kind: DaemonSet
+                    metadata:
+                      name: dra-node-labeler
+                      namespace: gpu-operator
+                    status:
+                      (desiredNumberScheduled > `0`): true
+                      (updatedNumberScheduled == desiredNumberScheduled): true
+                      (numberReady == desiredNumberScheduled): true
+          # Negative (error) form, not assert: a list assert passes when ANY pod
+          # matches, so one healthy pod would mask a restarting sibling. The
+          # DaemonSet step above is the existence guard, so an empty pod list
+          # cannot pass vacuously here.
+          - name: validate-pods-healthy
+            try:
+              - error:
+                  resource:
+                    apiVersion: v1
+                    kind: Pod
+                    metadata:
+                      namespace: gpu-operator
+                      labels:
+                        app: dra-node-labeler
+                    status:
+                      phase: Pending
+              - error:
+                  resource:
+                    apiVersion: v1
+                    kind: Pod
+                    metadata:
+                      namespace: gpu-operator
+                      labels:
+                        app: dra-node-labeler
+                    status:
+                      phase: Failed
+              - error:
+                  resource:
+                    apiVersion: v1
+                    kind: Pod
+                    metadata:
+                      namespace: gpu-operator
+                      labels:
+                        app: dra-node-labeler
+                    status:
+                      phase: Unknown
+              # The labeler retries in place; a restart means its script exited,
+              # which the readiness probe cannot see once the pod is Running again.
+              - error:
+                  resource:
+                    apiVersion: v1
+                    kind: Pod
+                    metadata:
+                      namespace: gpu-operator
+                      labels:
+                        app: dra-node-labeler
+                    status:
+                      ((containerStatuses || `[]`)[?restartCount > `0`] | length(@) > `0`): true
+              - error:
+                  resource:
+                    apiVersion: v1
+                    kind: Pod
+                    metadata:
+                      namespace: gpu-operator
+                      labels:
+                        app: dra-node-labeler
+                    status:
+                      ((containerStatuses || `[]`)[?state.waiting.reason == 'CrashLoopBackOff' || state.waiting.reason == 'ImagePullBackOff' || state.waiting.reason == 'ErrImagePull' || state.waiting.reason == 'CreateContainerConfigError'] | length(@) > `0`): true
+    manifestFiles:
+      - components/dra-node-labeler/manifests/dra-node-labeler.yaml
+    name: dra-node-labeler
+    namespace: gpu-operator
+    source: ""
+    type: Helm
+    valuesFile: components/dra-node-labeler/values.yaml
   - healthCheckAsserts: |
       # Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
       #
@@ -176,10 +288,8 @@ componentRefs:
 
       # DraNet DRA network driver health check.
       #
-      # Validates that DraNet is running and healthy in kube-system and has published
-      # its DeviceClass. The DaemonSet must roll out fully — numberReady ==
-      # desiredNumberScheduled (with desiredNumberScheduled > 0 to guard against a
-      # vacuous pass on a 0-node selector). Container-state errors are label-scoped
+      # Validates that DraNet is running and healthy in kube-system and has
+      # published its DeviceClass. Container-state errors are label-scoped
       # because kube-system is a shared namespace.
       apiVersion: chainsaw.kyverno.io/v1alpha1
       kind: Test
@@ -198,9 +308,15 @@ componentRefs:
                     metadata:
                       name: dranet
                       namespace: kube-system
-                    status:
-                      (desiredNumberScheduled > `0`): true
-                      (numberReady == desiredNumberScheduled): true
+                    # numberReady alone accepts a stale rollout. A node still
+                    # running the previous revision's pod counts as ready too,
+                    # so updatedNumberScheduled must also match. observedGeneration
+                    # confirms status reflects the current spec, not a reconcile
+                    # from before the latest update.
+                    ((status.desiredNumberScheduled || `0`) > `0`): true
+                    ((status.numberReady || `0`) == status.desiredNumberScheduled): true
+                    ((status.updatedNumberScheduled || `0`) == status.desiredNumberScheduled): true
+                    ((status.observedGeneration || `0`) == metadata.generation): true
           - name: validate-deviceclass-exists
             try:
               - assert:
@@ -416,7 +532,7 @@ componentRefs:
     source: https://helm.ngc.nvidia.com/nvidia
     type: Helm
     valuesFile: components/gpu-operator/values.yaml
-    version: v26.7.0
+    version: v26.7.1
   - chart: k8s-ephemeral-storage-metrics
     dependencyRefs:
       - kube-prometheus-stack
@@ -645,7 +761,7 @@ componentRefs:
     source: oci://ghcr.io/kai-scheduler/kai-scheduler
     type: Helm
     valuesFile: components/kai-scheduler/values.yaml
-    version: v0.14.1
+    version: v0.16.9
   - chart: kube-prometheus-stack
     dependencyRefs:
       - prometheus-operator-crds
@@ -1041,19 +1157,33 @@ componentRefs:
 
       # Nodewright Customizations Health Check
       #
-      # Validates that the Skyhook custom resource(s) deployed by the nodewright-customizations
-      # component have completed successfully. The Skyhook CR status.status (see
-      # github.com/NVIDIA/nodewright/chart/templates/skyhook-crd.yaml) is one of: unknown,
+      # Validates that the NodeWright custom resource(s) deployed by the nodewright-customizations
+      # component have completed successfully. The NodeWright CR status.status (see
+      # github.com/NVIDIA/nodewright/chart/templates/nodewright-crd.yaml) is one of: unknown,
       # complete, blocked, waiting, disabled, paused, in_progress, erroring. This check
       # asserts status.status is "complete" so that node-level customizations (e.g. tuning)
       # have been applied to all matching nodes.
       #
+      # Kind (#2593): nodewright-operator v0.18.0 renamed
+      # skyhook.nvidia.com Skyhook to nodewright.nvidia.com NodeWright. The operator
+      # mirrors each legacy Skyhook into a NodeWright and writes status ONLY on the
+      # NodeWright, so asserting the legacy kind never sees "complete" even on a fully
+      # tuned cluster. The manifests may still declare Skyhook; the mirrored NodeWright
+      # of the same name is what carries the status. A static assert cannot fall back,
+      # so this check follows the pinned operator. When the recipe pins the operator
+      # below v0.18.0 and the cluster serves only skyhook.nvidia.com, the deployment
+      # validator skips this assert (gatedHealthCheckSuppressed) and the Go readiness
+      # check verifies the Skyhook CRs by name instead, so a healthy legacy cluster
+      # still passes. A v0.18.0+ pin on a cluster that does not serve
+      # nodewright.nvidia.com fails closed: that is a broken operator install, and a
+      # stale legacy Skyhook must not stand in for the missing NodeWright.
+      #
       # Value-gate awareness (#1844): this static assert cannot see the component's
-      # effective Helm values, so it would fail when the whole `tuning` Skyhook CR is
+      # effective Helm values, so it would fail when the whole `tuning` CR is
       # deliberately suppressed — e.g. `--set nodewrightcustomizations:tuningEnabled=false`
       # on a single-package tuning manifest (tuning-gke.yaml / tuning-generic.yaml). The
       # deployment validator therefore renders the component's manifests with the
-      # effective values and skips this assert when they yield no Skyhook CR (see
+      # effective values and skips this assert when they yield no Nodewright CR (see
       # nodewrightHealthCheckSuppressed in validators/deployment/expected_resources.go).
       # The skip is fail-closed: whenever the values keep the CR, the render still lists
       # it and this assert runs — only an intentionally-absent CR is tolerated. The
@@ -1075,10 +1205,10 @@ componentRefs:
         timeouts:
           assert: 5m
         steps:
-          - name: validate-skyhook-cr-complete
+          - name: validate-nodewright-cr-complete
             try:
-              # Assert a Skyhook CR has status.status == "complete" per the Skyhook
-              # CRD schema. Skyhook is cluster-scoped.
+              # Assert a NodeWright CR has status.status == "complete" per the
+              # NodeWright CRD schema. NodeWright is cluster-scoped.
               #
               # Deliberately name-agnostic. The manifests do not agree on a name —
               # tuning.yaml / tuning-gke.yaml / tuning-generic.yaml render "tuning"
@@ -1087,7 +1217,7 @@ componentRefs:
               # manifest. A nameless assert uses the executor's list-and-match path
               # (pkg/chainsaw/inprocess.go): it fails closed when the collection is
               # empty (ErrCodeNotFound, not a vacuous pass) and passes when a live,
-              # non-terminating Skyhook reports complete.
+              # non-terminating NodeWright reports complete.
               #
               # Per-CR completeness is not weakened by this: the render-aware Go
               # readiness check (verifyNodewrightReady) derives the expected CR names
@@ -1095,20 +1225,21 @@ componentRefs:
               # them to be live (not Terminating) and complete, reporting each failure
               # by name. That per-name gate is what binds readiness to the CRs the
               # recipe declared — this assert alone would accept a stale or unrelated
-              # complete Skyhook.
+              # complete NodeWright.
               - assert:
                   resource:
-                    apiVersion: skyhook.nvidia.com/v1alpha1
-                    kind: Skyhook
+                    apiVersion: nodewright.nvidia.com/v1alpha1
+                    kind: NodeWright
                     status:
                       status: complete
     manifestFiles:
       - components/nodewright-customizations/manifests/tuning-rke2.yaml
     name: nodewright-customizations
-    namespace: skyhook
+    namespace: nodewright
     overrides:
       accelerator: vr200
       intent: multiNodeTraining
+      rdmaNetnsExclusive: true
       service: rke2
     source: ""
     type: Helm
@@ -1140,7 +1271,7 @@ componentRefs:
                     apiVersion: apps/v1
                     kind: Deployment
                     metadata:
-                      namespace: skyhook
+                      namespace: nodewright
                     status:
                       (availableReplicas > `0`): true
           - name: validate-all-pods-healthy
@@ -1150,7 +1281,7 @@ componentRefs:
                     apiVersion: v1
                     kind: Pod
                     metadata:
-                      namespace: skyhook
+                      namespace: nodewright
                     status:
                       phase: Pending
               - error:
@@ -1158,7 +1289,7 @@ componentRefs:
                     apiVersion: v1
                     kind: Pod
                     metadata:
-                      namespace: skyhook
+                      namespace: nodewright
                     status:
                       phase: Failed
               - error:
@@ -1166,7 +1297,7 @@ componentRefs:
                     apiVersion: v1
                     kind: Pod
                     metadata:
-                      namespace: skyhook
+                      namespace: nodewright
                     status:
                       phase: Unknown
               - error:
@@ -1174,7 +1305,7 @@ componentRefs:
                     apiVersion: v1
                     kind: Pod
                     metadata:
-                      namespace: skyhook
+                      namespace: nodewright
                     status:
                       ((containerStatuses || `[]`)[?state.waiting.reason == 'CrashLoopBackOff' || state.waiting.reason == 'ImagePullBackOff' || state.waiting.reason == 'ErrImagePull' || state.waiting.reason == 'CreateContainerConfigError'] | length(@) > `0`): true
               - error:
@@ -1182,18 +1313,19 @@ componentRefs:
                     apiVersion: v1
                     kind: Pod
                     metadata:
-                      namespace: skyhook
+                      namespace: nodewright
                     status:
                       ((initContainerStatuses || `[]`)[?state.waiting.reason == 'CrashLoopBackOff' || state.waiting.reason == 'ImagePullBackOff' || state.waiting.reason == 'ErrImagePull' || state.waiting.reason == 'CreateContainerConfigError'] | length(@) > `0`): true
     name: nodewright-operator
-    namespace: skyhook
+    namespace: nodewright
     source: oci://ghcr.io/nvidia/nodewright/charts
     type: Helm
     valuesFile: components/nodewright-operator/values.yaml
-    version: v0.17.1
+    version: v0.19.0
   - chart: dra-driver-nvidia-gpu
     dependencyRefs:
       - gpu-operator
+      - dra-node-labeler
     healthCheckAsserts: |
       # Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
       #
@@ -1507,6 +1639,45 @@ componentRefs:
                       name: syslog-health-monitor-regular
                       namespace: nvsentinel
                     ((status.observedGeneration || `0`) < metadata.generation): true
+              # nic-health-monitor: same negative form again. Its chart
+              # condition (global.nicHealthMonitor.enabled) is off in every
+              # recipe except those composing the nvsentinel-nic-health-monitor
+              # mixin, so on the other platforms these four ops pass vacuously
+              # on a 404 and only bite where the mixin is applied.
+              - error:
+                  resource:
+                    apiVersion: apps/v1
+                    kind: DaemonSet
+                    metadata:
+                      name: nic-health-monitor
+                      namespace: nvsentinel
+                    status:
+                      (desiredNumberScheduled > `0`): false
+              - error:
+                  resource:
+                    apiVersion: apps/v1
+                    kind: DaemonSet
+                    metadata:
+                      name: nic-health-monitor
+                      namespace: nvsentinel
+                    status:
+                      (numberReady < desiredNumberScheduled): true
+              - error:
+                  resource:
+                    apiVersion: apps/v1
+                    kind: DaemonSet
+                    metadata:
+                      name: nic-health-monitor
+                      namespace: nvsentinel
+                    ((status.updatedNumberScheduled || `0`) < status.desiredNumberScheduled): true
+              - error:
+                  resource:
+                    apiVersion: apps/v1
+                    kind: DaemonSet
+                    metadata:
+                      name: nic-health-monitor
+                      namespace: nvsentinel
+                    ((status.observedGeneration || `0`) < metadata.generation): true
           - name: validate-all-pods-healthy
             try:
               # Assert no pods are in unhealthy phases (Pending / Failed /
@@ -1567,15 +1738,26 @@ componentRefs:
     name: nvsentinel
     namespace: nvsentinel
     overrides:
-      global:
-        metadataCollector:
-          enabled: false
       labeler:
         assumeDriverInstalled: true
+      metadata-collector:
+        additionalHostVolumes:
+          - hostPath:
+              path: /usr/lib/aarch64-linux-gnu/libnvidia-ml.so.1
+              type: File
+            name: nvidia-ml
+        additionalVolumeMounts:
+          - mountPath: /usr/local/nvidia/lib/libnvidia-ml.so.1
+            name: nvidia-ml
+            readOnly: true
+        extraEnv:
+          - name: LD_LIBRARY_PATH
+            value: /usr/local/nvidia/lib
+        runtimeClassName: ""
     source: oci://ghcr.io/nvidia
     type: Helm
     valuesFile: components/nvsentinel/values.yaml
-    version: v1.20.0
+    version: v1.25.0
   - chart: prometheus-adapter
     dependencyRefs:
       - kube-prometheus-stack
@@ -1813,80 +1995,6 @@ componentRefs:
     type: Helm
     valuesFile: components/prometheus-operator-crds/values.yaml
     version: 28.0.1
-  - dependencyRefs:
-      - nodewright-operator
-    healthCheckAsserts: |
-      # Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
-      #
-      # Licensed under the Apache License, Version 2.0 (the "License");
-      # you may not use this file except in compliance with the License.
-      # You may obtain a copy of the License at
-      #
-      #     http://www.apache.org/licenses/LICENSE-2.0
-      #
-      # Unless required by applicable law or agreed to in writing, software
-      # distributed under the License is distributed on an "AS IS" BASIS,
-      # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-      # See the License for the specific language governing permissions and
-      # limitations under the License.
-
-      # rdma-netns-exclusive Health Check
-      #
-      # Validates that the Skyhook custom resource deployed by this component has
-      # completed successfully. The Skyhook CR status.status (see
-      # github.com/NVIDIA/nodewright/chart/templates/skyhook-crd.yaml) is one of:
-      # unknown, complete, blocked, waiting, disabled, paused, in_progress,
-      # erroring. This check asserts status.status is "complete" so that the
-      # ib_core netns_mode=0 modprobe.d change (and the reboot that applies it)
-      # has finished on all matching nodes.
-      #
-      # Unlike nodewright-customizations, this component has no value-gate that
-      # suppresses the CR entirely (it is always applied when the component is
-      # enabled), so no render-aware suppression logic is needed here — a static
-      # assert against the CR name is sufficient.
-      apiVersion: chainsaw.kyverno.io/v1alpha1
-      kind: Test
-      metadata:
-        name: rdma-netns-exclusive-health-check
-      spec:
-        timeouts:
-          # 6m: exactly the caller's budget, which is the largest value that
-          # actually takes effect here. An authored value can only SHORTEN the
-          # caller's budget, never extend it — pkg/chainsaw/inprocess.go sets
-          # effectiveTimeout to defaults.ChainsawAssertTimeout (6m) and lowers it
-          # only when the authored value is strictly smaller, capping anything
-          # larger with a Debug log. So the previous 15m was dead text reading as
-          # if 15 minutes were available, while anything below 6m would silently
-          # give this check LESS time than it has today. The enclosing deployment
-          # validator job is itself 8m (recipes/validators/catalog.yaml).
-          #
-          # Consequence, deliberately not papered over: this CR reboots matching
-          # workers one at a time (interruptionBudget), so on a COLD cluster whose
-          # nodes have not yet converged, real convergence can exceed this 6m
-          # ceiling and the check can time out even though the rollout is healthy.
-          # Re-running once converged passes. Lifting the ceiling means raising
-          # defaults.ChainsawAssertTimeout (shared by every component) and the
-          # deployment job envelope together, or moving this component to the
-          # longer readiness-poll path — infrastructure work outside this recipe
-          # port, tracked in #2473.
-          assert: 6m
-        steps:
-          - name: validate-skyhook-complete
-            try:
-              - assert:
-                  resource:
-                    apiVersion: skyhook.nvidia.com/v1alpha1
-                    kind: Skyhook
-                    metadata:
-                      name: rdma-netns-exclusive
-                    status:
-                      status: complete
-    manifestFiles:
-      - components/rdma-netns-exclusive/manifests/skyhook.yaml
-    name: rdma-netns-exclusive
-    namespace: skyhook
-    source: ""
-    type: Helm
 constraints:
   - name: K8s.server.version
     value: '>= 1.34.1'
@@ -1911,12 +2019,12 @@ deploymentOrder:
   - prometheus-operator-crds
   - kube-prometheus-stack
   - gpu-operator
+  - dra-node-labeler
   - k8s-ephemeral-storage-metrics
   - kai-scheduler
   - nvidia-dra-driver-gpu
   - nvsentinel
   - prometheus-adapter
-  - rdma-netns-exclusive
 kind: RecipeResult
 metadata:
   appliedOverlays:
@@ -1925,7 +2033,7 @@ metadata:
     - rke2
     - rke2-training
     - vr200-rke2-ubuntu-training
-  version: 0.21.0
+  version: 1.0.0
 validation:
   conformance:
     checks:

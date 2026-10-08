@@ -27,6 +27,8 @@ spec:
                   ephemeral_storage_node_capacity: true
                   ephemeral_storage_node_percentage: true
                   ephemeral_storage_pod_usage: true
+                nodeSelector:
+                  nodeGroup: system-worker
                 prometheus:
                   enable: true
                   release: kube-prometheus-stack

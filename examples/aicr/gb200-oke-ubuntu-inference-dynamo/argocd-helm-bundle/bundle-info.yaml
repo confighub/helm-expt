@@ -1,0 +1,117 @@
+apiVersion: aicr.run/v1
+build:
+  deployer: argocd-helm
+  recipe:
+    digest: sha256:cc39e4dcf9c7c171e313abe816cc70af97b6aadf76197408cc3f52cf2ebd5a3b
+    path: recipe.yaml
+    version: 1.0.0
+  settings:
+    appName: aicr-stack
+    attested: false
+    checksums: true
+    nodeScheduling:
+      accelerated:
+        selector:
+          nvidia.com/gpu.present: "true"
+        tolerations:
+          - operator: Exists
+      system:
+        selector:
+          nodeGroup: system-worker
+        tolerations:
+          - operator: Exists
+    readinessHooks: false
+    serial: false
+    storageClass: gp3
+    vendorCharts: false
+kind: BundleInfo
+layout:
+  entrypoint: Chart.yaml
+  releases:
+    - component: agentgateway-crds
+      manifest: templates/agentgateway-crds.yaml
+      name: agentgateway-crds
+      namespace: agentgateway-system
+      path: 001-agentgateway-crds
+    - component: agentgateway-crds
+      manifest: templates/agentgateway-crds-post.yaml
+      name: agentgateway-crds-post
+      namespace: agentgateway-system
+      path: 002-agentgateway-crds-post
+    - component: cert-manager
+      manifest: templates/cert-manager.yaml
+      name: cert-manager
+      namespace: cert-manager
+      path: 003-cert-manager
+    - component: agentgateway
+      manifest: templates/agentgateway.yaml
+      name: agentgateway
+      namespace: agentgateway-system
+      path: 004-agentgateway
+    - component: agentgateway
+      manifest: templates/agentgateway-post.yaml
+      name: agentgateway-post
+      namespace: agentgateway-system
+      path: 005-agentgateway-post
+    - component: grove
+      manifest: templates/grove.yaml
+      name: grove
+      namespace: dynamo-system
+      path: 006-grove
+    - component: nfd
+      manifest: templates/nfd.yaml
+      name: nfd
+      namespace: node-feature-discovery
+      path: 007-nfd
+    - component: nodewright-operator
+      manifest: templates/nodewright-operator.yaml
+      name: nodewright-operator
+      namespace: nodewright
+      path: 008-nodewright-operator
+    - component: prometheus-operator-crds
+      manifest: templates/prometheus-operator-crds.yaml
+      name: prometheus-operator-crds
+      namespace: monitoring
+      path: 009-prometheus-operator-crds
+    - component: kube-prometheus-stack
+      manifest: templates/kube-prometheus-stack.yaml
+      name: kube-prometheus-stack
+      namespace: monitoring
+      path: 010-kube-prometheus-stack
+    - component: gpu-operator
+      manifest: templates/gpu-operator.yaml
+      name: gpu-operator
+      namespace: gpu-operator
+      path: 011-gpu-operator
+    - component: k8s-ephemeral-storage-metrics
+      manifest: templates/k8s-ephemeral-storage-metrics.yaml
+      name: k8s-ephemeral-storage-metrics
+      namespace: monitoring
+      path: 012-k8s-ephemeral-storage-metrics
+    - component: kai-scheduler
+      manifest: templates/kai-scheduler.yaml
+      name: kai-scheduler
+      namespace: kai-scheduler
+      path: 013-kai-scheduler
+    - component: dynamo-platform
+      manifest: templates/dynamo-platform.yaml
+      name: dynamo-platform
+      namespace: dynamo-system
+      path: 014-dynamo-platform
+    - component: nvidia-dra-driver-gpu
+      manifest: templates/nvidia-dra-driver-gpu.yaml
+      name: nvidia-dra-driver-gpu
+      namespace: nvidia-dra-driver
+      path: 015-nvidia-dra-driver-gpu
+    - component: nvsentinel
+      manifest: templates/nvsentinel.yaml
+      name: nvsentinel
+      namespace: nvsentinel
+      path: 016-nvsentinel
+    - component: prometheus-adapter
+      manifest: templates/prometheus-adapter.yaml
+      name: prometheus-adapter
+      namespace: monitoring
+      path: 017-prometheus-adapter
+metadata:
+  version: 1.0.0

@@ -17,6 +17,8 @@ spec:
         helm:
             values: |-
                 controller:
+                  podAnnotations:
+                    aicr.run/gpu-operator-chart-version: v26.7
                   priorityClassName: ""
                   tolerations:
                   - operator: Exists
@@ -25,6 +27,8 @@ spec:
                 kubeletPlugin:
                   nodeSelector:
                     nvidia.com/gpu.present: "true"
+                  podAnnotations:
+                    aicr.run/gpu-operator-chart-version: v26.7
                   priorityClassName: ""
                   tolerations:
                   - operator: Exists

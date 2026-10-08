@@ -1,0 +1,126 @@
+{{- /* AICR profile install-time ownership guard. */ -}}
+{{- if hasKey .Values "gpuoperator" -}}
+{{- $aicrProfile0_0_3 := index .Values "gpuoperator" -}}
+{{- if kindIs "map" $aicrProfile0_0_3 -}}
+{{- if hasKey $aicrProfile0_0_3 "driver" -}}
+{{- $aicrProfile0_0_2 := index $aicrProfile0_0_3 "driver" -}}
+{{- if kindIs "map" $aicrProfile0_0_2 -}}
+{{- if hasKey $aicrProfile0_0_2 "enabled" -}}
+{{- fail "install-time value intersects profile-owned path gpu-operator.driver.enabled" -}}
+{{- end -}}
+{{- else -}}
+{{- fail "install-time value intersects profile-owned path gpu-operator.driver.enabled" -}}
+{{- end -}}
+{{- end -}}
+{{- else -}}
+{{- fail "install-time value intersects profile-owned path gpu-operator.driver.enabled" -}}
+{{- end -}}
+{{- end -}}
+{{- if hasKey .Values "gpuoperator" -}}
+{{- $aicrProfile0_1_2 := index .Values "gpuoperator" -}}
+{{- if kindIs "map" $aicrProfile0_1_2 -}}
+{{- if hasKey $aicrProfile0_1_2 "enabled" -}}
+{{- fail "install-time value intersects profile-owned path gpu-operator.enabled" -}}
+{{- end -}}
+{{- else -}}
+{{- fail "install-time value intersects profile-owned path gpu-operator.enabled" -}}
+{{- end -}}
+{{- end -}}
+{{- if hasKey .Values "gpuoperator" -}}
+{{- $aicrProfile0_2_3 := index .Values "gpuoperator" -}}
+{{- if kindIs "map" $aicrProfile0_2_3 -}}
+{{- if hasKey $aicrProfile0_2_3 "operator" -}}
+{{- $aicrProfile0_2_2 := index $aicrProfile0_2_3 "operator" -}}
+{{- if kindIs "map" $aicrProfile0_2_2 -}}
+{{- if hasKey $aicrProfile0_2_2 "runtimeClass" -}}
+{{- fail "install-time value intersects profile-owned path gpu-operator.operator.runtimeClass" -}}
+{{- end -}}
+{{- else -}}
+{{- fail "install-time value intersects profile-owned path gpu-operator.operator.runtimeClass" -}}
+{{- end -}}
+{{- end -}}
+{{- else -}}
+{{- fail "install-time value intersects profile-owned path gpu-operator.operator.runtimeClass" -}}
+{{- end -}}
+{{- end -}}
+{{- if hasKey .Values "gpuoperator" -}}
+{{- $aicrProfile0_3_3 := index .Values "gpuoperator" -}}
+{{- if kindIs "map" $aicrProfile0_3_3 -}}
+{{- if hasKey $aicrProfile0_3_3 "toolkit" -}}
+{{- $aicrProfile0_3_2 := index $aicrProfile0_3_3 "toolkit" -}}
+{{- if kindIs "map" $aicrProfile0_3_2 -}}
+{{- if hasKey $aicrProfile0_3_2 "enabled" -}}
+{{- fail "install-time value intersects profile-owned path gpu-operator.toolkit.enabled" -}}
+{{- end -}}
+{{- else -}}
+{{- fail "install-time value intersects profile-owned path gpu-operator.toolkit.enabled" -}}
+{{- end -}}
+{{- end -}}
+{{- else -}}
+{{- fail "install-time value intersects profile-owned path gpu-operator.toolkit.enabled" -}}
+{{- end -}}
+{{- end -}}
+{{- if hasKey .Values "dradriver" -}}
+{{- $aicrProfile1_0_2 := index .Values "dradriver" -}}
+{{- if kindIs "map" $aicrProfile1_0_2 -}}
+{{- if hasKey $aicrProfile1_0_2 "enabled" -}}
+{{- fail "install-time value intersects profile-owned path nvidia-dra-driver-gpu.enabled" -}}
+{{- end -}}
+{{- else -}}
+{{- fail "install-time value intersects profile-owned path nvidia-dra-driver-gpu.enabled" -}}
+{{- end -}}
+{{- end -}}
+{{- if hasKey .Values "dradriver" -}}
+{{- $aicrProfile1_1_2 := index .Values "dradriver" -}}
+{{- if kindIs "map" $aicrProfile1_1_2 -}}
+{{- if hasKey $aicrProfile1_1_2 "nvidiaDriverRoot" -}}
+{{- fail "install-time value intersects profile-owned path nvidia-dra-driver-gpu.nvidiaDriverRoot" -}}
+{{- end -}}
+{{- else -}}
+{{- fail "install-time value intersects profile-owned path nvidia-dra-driver-gpu.nvidiaDriverRoot" -}}
+{{- end -}}
+{{- end -}}
+{{- if hasKey .Values "nv-sentinel" -}}
+{{- $aicrProfile2_0_2 := index .Values "nv-sentinel" -}}
+{{- if kindIs "map" $aicrProfile2_0_2 -}}
+{{- if hasKey $aicrProfile2_0_2 "enabled" -}}
+{{- fail "install-time value intersects profile-owned path nvsentinel.enabled" -}}
+{{- end -}}
+{{- else -}}
+{{- fail "install-time value intersects profile-owned path nvsentinel.enabled" -}}
+{{- end -}}
+{{- end -}}
+{{- if hasKey .Values "nv-sentinel" -}}
+{{- $aicrProfile2_1_3 := index .Values "nv-sentinel" -}}
+{{- if kindIs "map" $aicrProfile2_1_3 -}}
+{{- if hasKey $aicrProfile2_1_3 "labeler" -}}
+{{- $aicrProfile2_1_2 := index $aicrProfile2_1_3 "labeler" -}}
+{{- if kindIs "map" $aicrProfile2_1_2 -}}
+{{- if hasKey $aicrProfile2_1_2 "assumeDriverInstalled" -}}
+{{- fail "install-time value intersects profile-owned path nvsentinel.labeler.assumeDriverInstalled" -}}
+{{- end -}}
+{{- else -}}
+{{- fail "install-time value intersects profile-owned path nvsentinel.labeler.assumeDriverInstalled" -}}
+{{- end -}}
+{{- end -}}
+{{- else -}}
+{{- fail "install-time value intersects profile-owned path nvsentinel.labeler.assumeDriverInstalled" -}}
+{{- end -}}
+{{- end -}}
+{{- if hasKey .Values "nv-sentinel" -}}
+{{- $aicrProfile2_2_3 := index .Values "nv-sentinel" -}}
+{{- if kindIs "map" $aicrProfile2_2_3 -}}
+{{- if hasKey $aicrProfile2_2_3 "metadata-collector" -}}
+{{- $aicrProfile2_2_2 := index $aicrProfile2_2_3 "metadata-collector" -}}
+{{- if kindIs "map" $aicrProfile2_2_2 -}}
+{{- if hasKey $aicrProfile2_2_2 "runtimeClassName" -}}
+{{- fail "install-time value intersects profile-owned path nvsentinel.metadata-collector.runtimeClassName" -}}
+{{- end -}}
+{{- else -}}
+{{- fail "install-time value intersects profile-owned path nvsentinel.metadata-collector.runtimeClassName" -}}
+{{- end -}}
+{{- end -}}
+{{- else -}}
+{{- fail "install-time value intersects profile-owned path nvsentinel.metadata-collector.runtimeClassName" -}}
+{{- end -}}
+{{- end -}}

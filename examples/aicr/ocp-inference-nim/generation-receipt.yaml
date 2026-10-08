@@ -1,19 +1,27 @@
 apiVersion: "catalog.confighub.com/v1alpha1"
 kind: "SourceGenerationReceipt"
 metadata:
-  name: "aicr-ocp-inference-nim-v0-21-0"
+  name: "aicr-ocp-inference-nim-v1-0-0"
 spec:
-  purpose: "The ocp-inference-nim overlay from NVIDIA AICR's recipe catalog, mirrored into a first-class catalog entry by scripts/generate-aicr-from-overlay.mjs so it can be reviewed the same way a Helm variant is: pinned source, checked render, one digest."
+  purpose: "The ocp-inference-nim overlay from NVIDIA AICR's recipe catalog, mirrored into a Catalog entry by scripts/generate-aicr-from-overlay.mjs so it can be reviewed the same way a Helm variant is: pinned source, retained bundle, checked render, one digest."
   source:
     name: "NVIDIA AICR"
-    version: "v0.21.0"
-    commit: "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe"
+    version: "v1.0.0"
+    commit: "82bccef69855c70e151f8b5e6ed9d04d70a30f81"
     repository: "https://github.com/NVIDIA/aicr"
     releaseAsset:
-      name: "aicr_0.21.0_darwin_arm64.tar.gz"
-      sha256: "5dbe88fc8c5b8c937ca87c624f8f01c29eaefbfb3ced8f556a0136c47ff6be63"
-    binarySha256: "1a4bea881a45480b1761f7e01670f02a61f5d02a4c0fdae3d93da65a47e51afb"
-    binaryVerifiedBeforeUse: "The release tarball and the binary it extracts to were both checked against the sha256 values pinned in scripts/generate-aicr-from-overlay.mjs before the binary ran."
+      name: "aicr_1.0.0_darwin_arm64.tar.gz"
+      sha256: "cb85cce54a82deb88e826c3e735c26e11a0863173b8aa5ff3ba4ebc2dc6af8b2"
+    binarySha256: "972da08e016b3ea779cc5f51eafa3a0024a4f052fbdfbc5ea55cd6524766b8fc"
+    binaryVerifiedBeforeUse: "The binary was checked against the sha256 pinned in scripts/generate-aicr-from-overlay.mjs before it ran. The pin is the binary NVIDIA's v1.0.0 attestation names, and runs/aicr-provenance-v1-0-0/receipt.yaml records the offline check of that attestation and of the release archive checksum."
+    provenance:
+      receipt: "runs/aicr-provenance-v1-0-0/receipt.yaml"
+      checksumList: "examples/aicr/upstream-signatures/v1.0.0/aicr_checksums.txt"
+      binaryAttestation: "examples/aicr/upstream-signatures/v1.0.0/aicr-attestation.sigstore.json"
+      recipeCatalogSignature: "examples/aicr/upstream-signatures/v1.0.0/recipe-catalog.sigstore.json"
+  overlay:
+    name: "ocp-inference-nim"
+    leaf: true
   criteria:
     accelerator: "any"
     intent: "inference"
@@ -24,10 +32,12 @@ spec:
     storageClass: "gp3"
     acceleratedNodeSelector: "nvidia.com/gpu.present=true"
     workloadSelector: "app.kubernetes.io/part-of=inference"
-    repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt"
+    repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-nim"
   commands:
     recipe:
+      - "aicr"
       - "recipe"
+      - "--criteria-strict"
       - "--service"
       - "ocp"
       - "--intent"
@@ -35,15 +45,16 @@ spec:
       - "--platform"
       - "nim"
       - "--output"
-      - "<tmp>"
+      - "recipe.yaml"
     bundle:
+      - "aicr"
       - "bundle"
       - "--recipe"
-      - "<tmp>"
+      - "recipe.yaml"
       - "--deployer"
       - "argocd-helm"
       - "--output"
-      - "<tmp>"
+      - "./argocd-helm-bundle"
       - "--storage-class"
       - "gp3"
       - "--accelerated-node-selector"
@@ -51,24 +62,86 @@ spec:
       - "--workload-selector"
       - "app.kubernetes.io/part-of=inference"
     render:
+      - "helm"
       - "template"
       - "aicr-argocd"
-      - "<tmp>"
+      - "./argocd-helm-bundle"
       - "--namespace"
       - "argocd"
       - "--set"
-      - "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt"
+      - "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-nim"
       - "--output-dir"
-      - "<tmp>"
+      - "rendered"
+  toolchain:
+    helm: "v4.1.4+g05fa379"
   result:
-    componentCount: 11
+    recipeApiVersion: "aicr.run/v1"
+    componentCount: 12
+    bundledComponentCount: 11
+    componentsLeftOutOfBundle:
+      -
+        name: "cert-manager"
+        reason: "AICR logged this component as disabled in the recipe and skipped it."
+      -
+        name: "dra-node-labeler"
+        reason: "AICR skipped it and logged the reason: DRA eviction is not opted in (--dra-eviction-node-label unset), so the eviction label it would apply is not selected on"
+      -
+        name: "gpu-operator"
+        reason: "AICR logged this component as disabled in the recipe and skipped it."
+      -
+        name: "k8s-ephemeral-storage-metrics"
+        reason: "AICR logged this component as disabled in the recipe and skipped it."
+      -
+        name: "kai-scheduler"
+        reason: "AICR logged this component as disabled in the recipe and skipped it."
+      -
+        name: "kube-prometheus-stack"
+        reason: "AICR logged this component as disabled in the recipe and skipped it."
+      -
+        name: "nfd"
+        reason: "AICR logged this component as disabled in the recipe and skipped it."
+      -
+        name: "nodewright-operator"
+        reason: "AICR logged this component as disabled in the recipe and skipped it."
+      -
+        name: "nvidia-dra-driver-gpu"
+        reason: "AICR logged this component as disabled in the recipe and skipped it."
+      -
+        name: "nvsentinel"
+        reason: "AICR logged this component as disabled in the recipe and skipped it."
+      -
+        name: "prometheus-adapter"
+        reason: "AICR logged this component as disabled in the recipe and skipped it."
+      -
+        name: "prometheus-operator-crds"
+        reason: "AICR logged this component as disabled in the recipe and skipped it."
     overlaysResolved: 5
     renderedApplications: 16
+    argocdBundleFiles: 71
+    recipeDigests:
+      selectedRecipe: "sha256:f5aaf1da50a39594d3baf6321cafb00521c108049751d6f9cbec8654c194d764"
+      bundledRecipe: "sha256:3fa871658ee478b7c4167344aa94ff1fd185b903904ac6a581fca48dc5e42765"
+      note: "The bundled recipe is the selected recipe without the components the bundle leaves out. bundle-info.yaml records its digest, and the rendered sync-waves are compared with it."
+    bundleNotes:
+      - "Warning: AICR did not configure automatic eviction for nvidia-dra-driver-gpu-ocp: no DRA eviction node label is set, so the kubelet plugin is not descheduled before a GPU driver container restart. The plugin runs on every accelerated node and needs no extra node label. On a driver upgrade the module unload can fail with \"failed to uninstall nvidia driver components\"; on an unchanged-config restart the stale driver rootfs is unmounted underneath the running plugin, which upstream documents as leaving NodePrepareResources unable to build CDI specs for full-GPU allocation, with no error at restart time. Set --dra-eviction-node-label (or scheduling.draEvictionNodeLabel) to opt in; the bundle then carries dra-node-labeler, which applies the label from GFD's nvidia.com/gpu.present, so no node-pool labeling is needed (pass --set dra-node-labeler:enabled=false to provision it yourself)"
+      - "Warning: gpu-operator-ocp installs a GPU-managed driver with driver.enabled=true and driver.rdma.enabled=true while network-operator-ocp installs OFED/DOCA, but component readiness gating is disabled. dependencyRefs only orders manifest submission; it does not wait for NicClusterPolicy.status.state=ready before deploying gpu-operator-ocp. Use --readiness-hooks with Helm or Argo CD, or provide an equivalent external barrier; Flux, Helmfile, and the bundle REST API cannot request this gate yet (#2499)."
+  retained:
+    recipe: "examples/aicr/ocp-inference-nim/recipe.yaml"
+    sourceBundle: "examples/aicr/ocp-inference-nim/argocd-helm-bundle"
+    sourceBundleInventory:
+      path: "examples/aicr/ocp-inference-nim/argocd-helm-bundle-checksums.txt"
+      sha256: "22f42fe60cbb1d6833bf025572514d005041f11c726c060efef09611ca69cd50"
+      files: 71
+    renderedApplications: "examples/aicr/ocp-inference-nim/argocd-rendered"
+  plannedArtifacts:
+    sourcePackage:
+      role: "source-package"
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-nim/aicr-bundle:1.0.0"
+      statement: "The rendered Applications name this reference. It is the address a publication of the retained bundle uses."
+    publication: "This receipt records generation and retention. It does not say whether the source package or the literal configuration bundle of this entry is published. Each one counts as published only when a tracked receipt under runs/aicr-mirror-artifacts/ocp-inference-nim/ records a push and an anonymous pull of the digest planned for it."
   boundary:
     configPlaneOnly: true
     gpuWorkloadsProven: false
-    published: false
-    publishedStatement: "This entry is generated, retained, and rendered. It has not been published to any registry, so it carries no public digest and no OCI transport receipts. The repoURL in its rendered Applications is the reference a publication would use, not a claim that one happened."
     ngcContacted: false
     imagesPulled: false
     statement: "Config-plane only. No GPU workload ran, no container started, and no model was fetched to produce or verify this entry."

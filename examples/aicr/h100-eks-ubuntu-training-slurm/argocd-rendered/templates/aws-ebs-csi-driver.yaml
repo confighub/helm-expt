@@ -18,7 +18,7 @@ spec:
             values: |-
                 controller:
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   replicaCount: 2
                   resources:
                     limits:
