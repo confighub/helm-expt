@@ -16780,6 +16780,23 @@
       "decided_lanes": "aicr-eks-training:flatten-with-routes; default:flatten-with-routes; gpu-resources:flatten-with-routes"
     },
     {
+      "repository": "eks",
+      "chart": "aws-efa-k8s-device-plugin",
+      "version": "v0.5.29",
+      "hooks": "0",
+      "keep_policy": "0",
+      "lookup": "0",
+      "webhooks": "0",
+      "capabilities": "0",
+      "generated_secrets": "0",
+      "test_hooks": "0",
+      "namespace": "0",
+      "crd_documents": "0",
+      "gated_subcharts": "0",
+      "scanned_files": "5",
+      "decided_lanes": "aicr-eks-training:safe-to-flatten; default:safe-to-flatten"
+    },
+    {
       "repository": "elastic",
       "chart": "eck-operator",
       "version": "3.4.0",
@@ -17934,6 +17951,23 @@
       "gated_subcharts": "0",
       "scanned_files": "15",
       "decided_lanes": "default:safe-to-flatten"
+    },
+    {
+      "repository": "node-feature-discovery",
+      "chart": "node-feature-discovery",
+      "version": "0.19.0",
+      "hooks": "4",
+      "keep_policy": "0",
+      "lookup": "0",
+      "webhooks": "0",
+      "capabilities": "0",
+      "generated_secrets": "0",
+      "test_hooks": "0",
+      "namespace": "0",
+      "crd_documents": "4",
+      "gated_subcharts": "0",
+      "scanned_files": "26",
+      "decided_lanes": "aicr-eks-training-v0-20-0:flatten-with-routes; aicr-eks-training-v1-0-0:flatten-with-routes; default:flatten-with-routes"
     },
     {
       "repository": "nvidia",
@@ -19365,6 +19399,15 @@
       "witness": "data/flattening-safety/witnesses/dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0.yaml"
     },
     {
+      "recipe": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29",
+      "repository": "eks",
+      "chart": "aws-efa-k8s-device-plugin",
+      "version": "v0.5.29",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
+      "witness": "data/flattening-safety/witnesses/eks-aws-efa-k8s-device-plugin-v0.5.29.yaml"
+    },
+    {
       "recipe": "recipes/elastic/eck-operator/3.4.0",
       "repository": "elastic",
       "chart": "eck-operator",
@@ -19993,6 +20036,15 @@
       "status": "current",
       "detail": "witness already matches the locked hash",
       "witness": "data/flattening-safety/witnesses/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18.yaml"
+    },
+    {
+      "recipe": "recipes/node-feature-discovery/node-feature-discovery/0.19.0",
+      "repository": "node-feature-discovery",
+      "chart": "node-feature-discovery",
+      "version": "0.19.0",
+      "status": "current",
+      "detail": "witness already matches the locked hash",
+      "witness": "data/flattening-safety/witnesses/node-feature-discovery-node-feature-discovery-0.19.0.yaml"
     },
     {
       "recipe": "recipes/nvidia/cluster-readiness-engine/v0.6.0",
@@ -90322,6 +90374,19 @@
       "universal_caveats": "customize;prune;ssa-conflict"
     },
     {
+      "chart": "eks/aws-efa-k8s-device-plugin",
+      "version": "v0.5.29",
+      "default_base": "default",
+      "bakes_shared_password": "no",
+      "password_keys": "",
+      "password_fix_base": "",
+      "password_fix_command": "",
+      "ships_crds": "no",
+      "crd_count": "0",
+      "crd_separable_base": "",
+      "universal_caveats": "customize;prune;ssa-conflict"
+    },
+    {
       "chart": "elastic/eck-operator",
       "version": "3.4.0",
       "default_base": "default",
@@ -90994,6 +91059,19 @@
       "password_fix_command": "",
       "ships_crds": "no",
       "crd_count": "0",
+      "crd_separable_base": "",
+      "universal_caveats": "customize;prune;ssa-conflict"
+    },
+    {
+      "chart": "node-feature-discovery/node-feature-discovery",
+      "version": "0.19.0",
+      "default_base": "default",
+      "bakes_shared_password": "no",
+      "password_keys": "",
+      "password_fix_base": "",
+      "password_fix_command": "",
+      "ships_crds": "yes",
+      "crd_count": "3",
       "crd_separable_base": "",
       "universal_caveats": "customize;prune;ssa-conflict"
     },
