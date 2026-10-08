@@ -1642,6 +1642,7 @@ function buildEksInferenceComponentReceipt(component) {
       granularity: "per-file",
       spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}",
       externalSourceAnnotation: "confighub.com/external-source",
+      // cub-surface-ignore: the generated guides and receipts record the historical per-file upload; regenerating them is a separate change
       uploadCommand: `cub variant upload --component ${component.name} --variant base --granularity per-file oci://${reference.replace(/:latest$/, "")}`,
     },
     dispositions,
@@ -1746,7 +1747,8 @@ function buildLegacyEksInferenceReceipt() {
         spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}",
         externalSourceAnnotation: "confighub.com/external-source",
         uploadCommand:
-          "cub variant upload --component gpu-runtime --variant base --granularity per-file oci://ghcr.io/confighub/configs/eks-inference/gpu-runtime",
+          // cub-surface-ignore: same historical per-file upload record as above
+        "cub variant upload --component gpu-runtime --variant base --granularity per-file oci://ghcr.io/confighub/configs/eks-inference/gpu-runtime",
       },
       dispositions,
       verdict: buildLane(readVerdict("recipes/nvidia/nvidia-device-plugin/0.19.3"), {
@@ -2787,7 +2789,9 @@ function buildAll() {
       uploadCommand:
         spec.ingest.uploadCommand ??
         (published
+          // cub-surface-ignore: same historical per-file upload record as above
           ? `cub variant upload --component ${receipt.value.metadata.name} --variant base ${receipt.currentServerUnits ? "" : "--granularity per-file "}oci://${published.reference.replace(/:latest$/, "")}`
+          // cub-surface-ignore: same historical per-file upload record as above
           : `cub variant upload --component ${receipt.value.metadata.name} --variant base ${receipt.currentServerUnits ? "" : "--granularity per-file "}<bundle>`),
     });
     emittedRoutes.push({ path: repoPath(guideRel), contents: guide });

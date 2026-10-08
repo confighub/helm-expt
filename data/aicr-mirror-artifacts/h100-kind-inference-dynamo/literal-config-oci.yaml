@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-kind-inference-dynamo-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:3e0ce4a6a986b2caffb8ad55181c6f141c9b59ae5be080333a353e6bde3fcd3c"
-    layerDigest: "sha256:cd84d8d115d7c8c470b0ea589c044de0e243fa355452754a0ca066f1ea0d615b"
+    manifestDigest: "sha256:e944021e321f952d753065dd2224ceb5a27ebef99005db9e64165ebf081cad0d"
+    layerDigest: "sha256:2d06753a4415fafb277a82a4a579f8743b8c6daf8942408f5e09714d8345ba55"
     layerBytes: 76316
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 19
@@ -142,8 +142,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-kind-inference-dynamo/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "7ba5b7f2669e66644fff248fec6c56eee26c83a157d091bcfaa1e3defc073f09"
-        bytes: 3933
+        sha256: "ec2aafeab6125f95de899b89fb066b5af959b39f982041399ca1b12c7fdccd71"
+        bytes: 4068
       -
         path: "data/aicr-mirror-artifacts/h100-kind-inference-dynamo/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"

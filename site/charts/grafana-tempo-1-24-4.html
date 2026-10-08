@@ -700,12 +700,13 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
-      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.56</code> adds. This page covers 2 entries, so open the one you want. A <a href="../d/docs/user/live-run-log-2026-10-08.html">live run on 2026-10-08</a> used these <code>cub variant</code> commands on other configuration, with no Target. It is not a run for this entry.</p>
+      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.56</code> adds. This page covers 2 entries, so open the one you want. A <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">live walk on 2026-10-08</a> ran steps 3 to 5 for <code>bitnami-nginx-24-0-2-http-clusterip</code> and <code>nvidia-gpu-operator-v26-3-3-default</code>. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it.</p>
       <details class="entry-steps-base" data-entry-steps="grafana-tempo-1-24-4-local-persistent" open>
         <summary>Helm chart, base <strong>local-persistent</strong>, version 1.24.4</summary>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 4 objects in one file.</p>
+          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an <code>installer-record</code> Unit.</p>
           <pre class="terminal-body"><code><span class="term-comment"># fetch the retained objects for this entry</span>
 <span class="term-prompt">$</span> curl -fsSL -o grafana-tempo-1-24-4-local-persistent.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml
 
@@ -727,33 +728,55 @@ df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905  grafana-tempo-
         </div>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
-          <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-tempo-1-24-4-local-persistent.yaml">Read the record that states this</a>.</p>
+          <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-tempo-1-24-4-local-persistent.yaml">Read the record that states this</a>.</p>
+          <p>Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
+          <p>In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The <code>--component</code> flag sets the Component label the upload writes on the Space, which is the package name when you omit it.</p>
+          <p>The cub installer plugin reads your organization from <code>CUB_CONTEXT</code> and ignores <code>--context</code>. If you use a context other than your default, export <code>CUB_CONTEXT</code> first, or the plugin works in your default organization.</p>
           <pre class="terminal-body"><code><span class="term-comment"># sign in; steps 3 to 5 write to your ConfigHub organization</span>
 <span class="term-prompt">$</span> cub auth login
 
-<span class="term-comment"># upload the directory rendered in step 1 as a Space of Units</span>
-<span class="term-prompt">$</span> cub installer upload --work-dir ./grafana-tempo-1-24-4-local-persistent --space grafana-tempo-1-24-4-local-persistent
+<span class="term-comment"># upload step 1's directory as a Space of Units, under names you choose</span>
+<span class="term-prompt">$</span> cub installer upload --work-dir ./grafana-tempo-1-24-4-local-persistent --space &lt;your-space&gt; --component &lt;your-component&gt;
 
 <span class="term-comment"># list the Units the upload created</span>
-<span class="term-prompt">$</span> cub unit list --space grafana-tempo-1-24-4-local-persistent</code></pre>
+<span class="term-prompt">$</span> cub unit list --space &lt;your-space&gt;</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
-          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The coverage lanes record a local Kubernetes run and a GitOps OCI run for this base. They are separate from the delivery record this step reads.</p>
+          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The coverage lanes record a local Kubernetes run and a GitOps OCI run for this base. They are separate from the delivery record this step reads. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a>.</p>
+          <p>Use the Space name you chose in step 3. The delete command is needed because the cloned <code>installer-record</code> Unit carries the Target and Argo CD v3.5.4 cannot read it, a defect seen on cub v0.8.7 and server v0.8.9.</p>
+          <p>Without that line the walk deployed nothing and Argo CD showed Unknown, while every cub command exited 0. The walk ran the four commands in this order and did not try them without the first publish.</p>
+          <p>ConfigHub shows nothing when Argo CD fails to read a Release. Run <code>kubectl -n argocd get applications.argoproj.io</code> and read the Sync column, because Healthy alone is not a pass. Argo CD took between 18 seconds and about 5 minutes to read a Release on a cluster made without argobot.</p>
+          <p>The walk made its cluster with <code>cub cluster up --no-argobot</code>. That command creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.</p>
+          <p>Removing the ConfigHub side does not remove the workload. In the walk, deleting the Application Unit and the Spaces left the Application and its pods running, because the root Application does not prune.</p>
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
-<span class="term-prompt">$</span> cub variant create dev grafana-tempo-1-24-4-local-persistent --target workshop/target --space-pattern &quot;template:grafana-tempo-1-24-4-local-persistent-dev&quot;
+<span class="term-prompt">$</span> cub variant create dev &lt;your-space&gt; --target workshop/target --space-pattern &quot;template:&lt;your-space&gt;-dev&quot;
 
-<span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
-<span class="term-prompt">$</span> cub release publish grafana-tempo-1-24-4-local-persistent-dev</code></pre>
+<span class="term-comment"># publish the Release that the cluster's Argo CD pulls</span>
+<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev
+
+<span class="term-comment"># delete the installer record, which Argo CD cannot read</span>
+<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
+
+<span class="term-comment"># publish again without it</span>
+<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
         <div class="entry-step" data-step="promote" data-state="run-for-this-entry">
           <h3>5. Promote a change <span class="status good">Run for this entry</span></h3>
-          <p>A promotion ran for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-tempo-1-24-4-local-persistent.yaml">Read the record that states this</a>.</p>
+          <p>A promotion ran for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-tempo-1-24-4-local-persistent.yaml">Read the record that states this</a>.</p>
+          <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
+          <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
-<span class="term-prompt">$</span> cub variant promote grafana-tempo-1-24-4-local-persistent-dev --dry-run -o mutations
+<span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --dry-run -o mutations
 
 <span class="term-comment"># promote once you have read the preview</span>
-<span class="term-prompt">$</span> cub variant promote grafana-tempo-1-24-4-local-persistent-dev --change-desc &quot;Pull the reviewed base forward&quot;</code></pre>
+<span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># delete the installer record that the promotion adds back</span>
+<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
+
+<span class="term-comment"># publish the Release that carries the change</span>
+<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
       </details>
       <details class="entry-steps-base" data-entry-steps="grafana-tempo-1-24-4-s3-query-observability">
@@ -761,6 +784,7 @@ df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905  grafana-tempo-
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 8 objects in one file.</p>
+          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an <code>installer-record</code> Unit.</p>
           <pre class="terminal-body"><code><span class="term-comment"># fetch the retained objects for this entry</span>
 <span class="term-prompt">$</span> curl -fsSL -o grafana-tempo-1-24-4-s3-query-observability.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml
 
@@ -782,36 +806,58 @@ df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905  grafana-tempo-
         </div>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
-          <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-tempo-1-24-4-s3-query-observability.yaml">Read the record that states this</a>.</p>
+          <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-tempo-1-24-4-s3-query-observability.yaml">Read the record that states this</a>.</p>
+          <p>Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
+          <p>In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The <code>--component</code> flag sets the Component label the upload writes on the Space, which is the package name when you omit it.</p>
+          <p>The cub installer plugin reads your organization from <code>CUB_CONTEXT</code> and ignores <code>--context</code>. If you use a context other than your default, export <code>CUB_CONTEXT</code> first, or the plugin works in your default organization.</p>
           <pre class="terminal-body"><code><span class="term-comment"># sign in; steps 3 to 5 write to your ConfigHub organization</span>
 <span class="term-prompt">$</span> cub auth login
 
-<span class="term-comment"># upload the directory rendered in step 1 as a Space of Units</span>
-<span class="term-prompt">$</span> cub installer upload --work-dir ./grafana-tempo-1-24-4-s3-query-observability --space grafana-tempo-1-24-4-s3-query-observability
+<span class="term-comment"># upload step 1's directory as a Space of Units, under names you choose</span>
+<span class="term-prompt">$</span> cub installer upload --work-dir ./grafana-tempo-1-24-4-s3-query-observability --space &lt;your-space&gt; --component &lt;your-component&gt;
 
 <span class="term-comment"># list the Units the upload created</span>
-<span class="term-prompt">$</span> cub unit list --space grafana-tempo-1-24-4-s3-query-observability</code></pre>
+<span class="term-prompt">$</span> cub unit list --space &lt;your-space&gt;</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
-          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The listing records 6 inputs that the destination must supply, so read them before you deploy.</p>
+          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The listing records 6 inputs that the destination must supply, so read them before you deploy. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a>.</p>
+          <p>Use the Space name you chose in step 3. The delete command is needed because the cloned <code>installer-record</code> Unit carries the Target and Argo CD v3.5.4 cannot read it, a defect seen on cub v0.8.7 and server v0.8.9.</p>
+          <p>Without that line the walk deployed nothing and Argo CD showed Unknown, while every cub command exited 0. The walk ran the four commands in this order and did not try them without the first publish.</p>
+          <p>ConfigHub shows nothing when Argo CD fails to read a Release. Run <code>kubectl -n argocd get applications.argoproj.io</code> and read the Sync column, because Healthy alone is not a pass. Argo CD took between 18 seconds and about 5 minutes to read a Release on a cluster made without argobot.</p>
+          <p>The walk made its cluster with <code>cub cluster up --no-argobot</code>. That command creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.</p>
+          <p>Removing the ConfigHub side does not remove the workload. In the walk, deleting the Application Unit and the Spaces left the Application and its pods running, because the root Application does not prune.</p>
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
-<span class="term-prompt">$</span> cub variant create dev grafana-tempo-1-24-4-s3-query-observability --target workshop/target --space-pattern &quot;template:grafana-tempo-1-24-4-s3-query-observability-dev&quot;
+<span class="term-prompt">$</span> cub variant create dev &lt;your-space&gt; --target workshop/target --space-pattern &quot;template:&lt;your-space&gt;-dev&quot;
 
-<span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
-<span class="term-prompt">$</span> cub release publish grafana-tempo-1-24-4-s3-query-observability-dev</code></pre>
+<span class="term-comment"># publish the Release that the cluster's Argo CD pulls</span>
+<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev
+
+<span class="term-comment"># delete the installer record, which Argo CD cannot read</span>
+<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
+
+<span class="term-comment"># publish again without it</span>
+<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
         <div class="entry-step" data-step="promote" data-state="run-for-this-entry">
           <h3>5. Promote a change <span class="status good">Run for this entry</span></h3>
-          <p>A promotion ran for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-tempo-1-24-4-s3-query-observability.yaml">Read the record that states this</a>.</p>
+          <p>A promotion ran for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-tempo-1-24-4-s3-query-observability.yaml">Read the record that states this</a>.</p>
+          <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
+          <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
-<span class="term-prompt">$</span> cub variant promote grafana-tempo-1-24-4-s3-query-observability-dev --dry-run -o mutations
+<span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --dry-run -o mutations
 
 <span class="term-comment"># promote once you have read the preview</span>
-<span class="term-prompt">$</span> cub variant promote grafana-tempo-1-24-4-s3-query-observability-dev --change-desc &quot;Pull the reviewed base forward&quot;</code></pre>
+<span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># delete the installer record that the promotion adds back</span>
+<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
+
+<span class="term-comment"># publish the Release that carries the change</span>
+<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
       </details>
-      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../listings/grafana-tempo-1-24-4-local-persistent.json">grafana-tempo-1-24-4-local-persistent.json</a>, <a href="../listings/grafana-tempo-1-24-4-s3-query-observability.json">grafana-tempo-1-24-4-s3-query-observability.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub.</aside>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../listings/grafana-tempo-1-24-4-local-persistent.json">grafana-tempo-1-24-4-local-persistent.json</a>, <a href="../listings/grafana-tempo-1-24-4-s3-query-observability.json">grafana-tempo-1-24-4-s3-query-observability.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
 
     <section aria-labelledby="after-render">

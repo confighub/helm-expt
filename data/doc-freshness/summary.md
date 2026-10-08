@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-08 (commit `101a6904a7`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-08 (commit `0d29ebd8b5`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 478 |
+| Authored docs tracked | 479 |
 | Fresh (no linked source newer than the doc) | 64 |
 | **Review-due** | 96 |
-| No linked evidence sources (cannot auto-trigger) | 318 |
+| No linked evidence sources (cannot auto-trigger) | 319 |
 
 ## Review queue
 
@@ -39,11 +39,11 @@ most recently changed triggers.
 | [docs/user/why-this-does-not-collapse.md](../../docs/user/why-this-does-not-collapse.md) | user | 2026-06-10 | 121 | `data/quirk-coverage/summary.md (2026-10-08)`<br>`data/top100-coverage/summary.md (2026-10-08)`<br>`data/live-e2e/normalization-rules.md (2026-06-30)` |
 | [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 120 | `data/outcome-coverage/summary.md (2026-10-08)` |
 | [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 120 | `data/top100-user-readiness/summary.md (2026-10-08)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 120 | `data/README.md (2026-10-08)`<br>`data/csv-index.csv (2026-10-08)`<br>`CATALOG.md (2026-10-08)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 120 | `data/chart-use-guide/summary.md (2026-10-08)`<br>`data/outcome-coverage/base-outcomes.csv (2026-10-08)`<br>`data/outcome-coverage/feature-outcomes.csv (2026-10-08)` |
 | [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 120 | `data/outcome-coverage/summary.md (2026-10-08)`<br>`tests/npm-scripts.md (2026-10-07)` |
 | [docs/reference/quirk-coverage.md](../../docs/reference/quirk-coverage.md) | reference | 2026-06-11 | 119 | `data/quirk-coverage/coverage.csv (2026-10-08)`<br>`data/quirk-coverage/summary.md (2026-10-08)`<br>`data/extension-slots/summary.md (2026-10-01)` |
 | [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 119 | `data/chart-facts/chart-facts.csv (2026-10-08)`<br>`data/outcome-coverage/base-outcomes.csv (2026-10-08)`<br>`data/top100-coverage/summary.md (2026-10-08)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 119 | `data/README.md (2026-10-08)`<br>`data/csv-index.csv (2026-10-08)`<br>`CATALOG.md (2026-10-08)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 118 | `data/top100-readiness/summary.md (2026-10-08)`<br>`data/top100-user-readiness/summary.md (2026-10-08)`<br>`data/top20-base-readiness/start-here.md (2026-08-26)` |
 | [docs/reference/secret-lifecycle.md](../../docs/reference/secret-lifecycle.md) | reference | 2026-06-13 | 117 | `data/secret-lifecycle/summary.md (2026-10-08)`<br>`data/secret-lifecycle/variant-summary.csv (2026-10-08)`<br>`data/secret-lifecycle/secrets.csv (2026-10-01)` |
 | [docs/user/remote-images-and-supported-bases.md](../../docs/user/remote-images-and-supported-bases.md) | user | 2026-06-16 | 115 | `data/image-digest-workdown/summary.md (2026-10-08)`<br>`data/remote-image-runtime-workdown/summary.md (2026-06-24)` |
@@ -433,6 +433,7 @@ into this freshness model.
 - [docs/user/introduction-to-the-harness.md](../../docs/user/introduction-to-the-harness.md)
 - [docs/user/large-config-operations.md](../../docs/user/large-config-operations.md)
 - [docs/user/live-run-log-2026-10-08.md](../../docs/user/live-run-log-2026-10-08.md)
+- [docs/user/live-walk-entry-steps-2026-10-08.md](../../docs/user/live-walk-entry-steps-2026-10-08.md)
 - [docs/user/maintenance-sla.md](../../docs/user/maintenance-sla.md)
 - [docs/user/nim-coverage.md](../../docs/user/nim-coverage.md)
 - [docs/user/prometheus-overlay-promotion-example.md](../../docs/user/prometheus-overlay-promotion-example.md)

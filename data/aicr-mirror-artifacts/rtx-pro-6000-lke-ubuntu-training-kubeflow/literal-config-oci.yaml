@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-lke-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:6e049032249ef0c2872f535e7a78ed937ee12602bf70001dd7deeacc579f0ba1"
-    layerDigest: "sha256:498aee03be2fd9ac0fce4a9feac7bc5d4df96c7b5b0ee39162f1affec213571a"
+    manifestDigest: "sha256:19144733b499f351c661075c606274c4a3eccb790544f96b7d4bfb6f60958581"
+    layerDigest: "sha256:8f327adadf08811ab26ca21d3a2de2bb2642df2045cc5c5a67f4526ab7a2ef0a"
     layerBytes: 71196
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 14
@@ -112,8 +112,8 @@ spec:
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training-kubeflow/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "4d6626fe5a75ff9773dd1dfce0d464bb9ac0692c601455b9c61fe0c482df9633"
-        bytes: 3431
+        sha256: "c9220e05f138eef53922897146a37e2933b242b6e1f754558a3e5d6680d3a135"
+        bytes: 3566
       -
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training-kubeflow/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"

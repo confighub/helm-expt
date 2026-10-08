@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:6cc8871a4fccb0a78119eba9b4efab84bc4ee971ba1b033e0b2610dcb5a29206"
-    layerDigest: "sha256:7c8eb0f760cbf3e07a818b64b5aa096225d7f915875b0e7abdf14ed98e533176"
+    manifestDigest: "sha256:c2be8ce771a752eb09d731eefb0d58d39afe7246658ce0c3258ccf0d9da73ea4"
+    layerDigest: "sha256:70fbe17a55bce2b946347880ef1c05e36cfa6376ca2b6c597c87de5aca591c2b"
     layerBytes: 82972
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 19
@@ -142,8 +142,8 @@ spec:
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-inference/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "70e9a32f9b503862a533e2a9649ba0aae90ef9614432b95bbb12f0d2dd7e6ac7"
-        bytes: 3761
+        sha256: "7767b11869d87c76379dad42c72d8114cbf96969edc64096a5dad034404b538d"
+        bytes: 3896
       -
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"

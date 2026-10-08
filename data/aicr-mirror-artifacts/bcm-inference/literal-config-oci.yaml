@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-bcm-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:7171b2d03905cd2b365fa80c0463afbaba35f94f9b0bf39de36378fc965bd23f"
-    layerDigest: "sha256:b2d6202339487690e267eb3fa3a39ee03360a1aa8263efcea1f1014ad1663a5b"
+    manifestDigest: "sha256:fc9bc4fa19ff03d9cfaae5967116274a9e11c65ca4581a831811f9b653dfda5a"
+    layerDigest: "sha256:c8038d555911a09b66a433c7ed476029141e3df903a26597697358433e4a6ab6"
     layerBytes: 76316
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 17
@@ -130,8 +130,8 @@ spec:
         path: "data/aicr-mirror-artifacts/bcm-inference/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "6a33dec79947be983a56b63f13c60dac0baf783844fc6666db8f11c5cb67b57d"
-        bytes: 3663
+        sha256: "cfe838040b1335b6b021ec4394d6fbaf1605315257e3b816eeb024fc17b55b9d"
+        bytes: 3798
       -
         path: "data/aicr-mirror-artifacts/bcm-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"

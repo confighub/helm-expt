@@ -184,11 +184,13 @@ npm run aicr-version-diff:verify
 ```
 
 The command reprints `verified 5 retained AICR versions; latest transition
-v0.20.0 -> v0.21.0 changes 5 of 17 component Applications`. That printed line
+v0.20.0 -> v1.0.0 changes 8 of 17 component Applications`. That printed line
 covers the newest retained pair, a fourth entry beyond the three this Guide
-walks; the v0.19.0-to-v0.20.0 numbers above come from the same underlying
+walks. The v0.19.0-to-v0.20.0 numbers above come from the same underlying
 `data/aicr-version-diff/diff.json` record, which retains every adjacent
-transition, not only the latest one.
+transition, not only the latest one. The gate compares retained files and
+nothing more, so the newest figure says what changed between the two
+recorded bundles and says nothing about how either one behaves on a cluster.
 
 **What this does not prove.** A version/wave-unchanged component can still
 carry a changed values block the classifier does not itemize; the record's

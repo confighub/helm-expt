@@ -73,7 +73,7 @@ spec:
       -
         id: "materialization"
         question: "What will it produce?"
-        answer: "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration."
+        answer: "The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler and the bundle does not deploy it, and nothing here shows who provides it."
         requiredInputs:
           - "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
         catalogMatchRequired: false
@@ -81,11 +81,11 @@ spec:
         destinationAccessRequired: false
         deploymentRequired: false
         evidenceState: "completed"
-        resultState: "pass"
+        resultState: "watch"
         records:
           - "examples/aicr/l40-any/generation-receipt.yaml"
           - "examples/aicr/l40-any/argocd-rendered/checksums.txt"
-        nextAction: "Review the exact object set and its digest."
+        nextAction: "Review the exact object set and its digest, and settle the open question before relying on the recorded order."
       -
         id: "destination"
         question: "Can this destination accept it?"
@@ -148,9 +148,9 @@ spec:
       -
         category: "generation-input"
         name: "systemNodeSelector"
-        purpose: "systemNodeSelector=nodeGroup=system-worker is a placeholder, confirmed as one on 2026-10-08. Change it to the label on your own cluster's system node group. It is written into spec.source.helm.values of 10 rendered Applications at 21 field paths, which are cert-manager at cainjector.nodeSelector and nodeSelector and startupapicheck.nodeSelector and webhook.nodeSelector; gpu-operator at operator.nodeSelector; k8s-ephemeral-storage-metrics at nodeSelector; kai-scheduler at global.nodeSelector; kube-prometheus-stack at alertmanager.alertmanagerSpec.nodeSelector and grafana.nodeSelector and kube-state-metrics.nodeSelector and prometheus-node-exporter.nodeSelector and prometheus.prometheusSpec.nodeSelector and prometheusOperator.admissionWebhooks.patch.nodeSelector and prometheusOperator.nodeSelector and thanosRuler.thanosRulerSpec.nodeSelector; nfd at gc.nodeSelector and master.nodeSelector; nodewright-operator at controllerManager.selectors; nvidia-dra-driver-gpu at controller.nodeSelector; nvsentinel at global.systemNodeSelector; prometheus-adapter at nodeSelector. A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it."
+        purpose: "systemNodeSelector=nodeGroup=system-worker is a placeholder, confirmed as one on 2026-10-07. Change it to the label on your own cluster's system node group. It is written into spec.source.helm.values of 10 rendered Applications at 21 field paths, which are cert-manager at cainjector.nodeSelector and nodeSelector and startupapicheck.nodeSelector and webhook.nodeSelector; gpu-operator at operator.nodeSelector; k8s-ephemeral-storage-metrics at nodeSelector; kai-scheduler at global.nodeSelector; kube-prometheus-stack at alertmanager.alertmanagerSpec.nodeSelector and grafana.nodeSelector and kube-state-metrics.nodeSelector and prometheus-node-exporter.nodeSelector and prometheus.prometheusSpec.nodeSelector and prometheusOperator.admissionWebhooks.patch.nodeSelector and prometheusOperator.nodeSelector and thanosRuler.thanosRulerSpec.nodeSelector; nfd at gc.nodeSelector and master.nodeSelector; nodewright-operator at controllerManager.selectors; nvidia-dra-driver-gpu at controller.nodeSelector; nvsentinel at global.systemNodeSelector; prometheus-adapter at nodeSelector. A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it."
         status: "confirmed-placeholder"
-        confirmedOn: "2026-10-08"
+        confirmedOn: "2026-10-07"
         changeTo: "the label on your own cluster's system node group"
         route: "system-node-selector-placeholder"
         container: "spec.source.helm.values"
@@ -373,7 +373,7 @@ spec:
     literalConfigOci:
       status: "not-published"
       plannedRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-l40-any-v1-0-0-argocd:v1.0.0"
-      plannedDigest: "sha256:6a91fe3ff0163bb477568cf8962f2d45648f52f07085e4f580980b01f4d61ac4"
+      plannedDigest: "sha256:47dc0b44af8919c2a2ac00811180fb560dd374108498ca6ab65519e5d0b420f4"
       plan: "data/aicr-mirror-artifacts/l40-any/literal-config-oci.yaml"
       note: "The rendered Applications and their companion files build this digest. Nothing has been pushed."
     configHubUpload:
@@ -416,6 +416,6 @@ status:
     - "Both artifacts are built from committed bytes and planned by digest in data/aicr-mirror-artifacts/l40-any/source-package-oci.yaml and data/aicr-mirror-artifacts/l40-any/literal-config-oci.yaml. No OCI artifact is published for this entry."
     - "Nothing was uploaded to ConfigHub, and no variant, promotion or release exists for this entry."
     - "The sync-wave order is recorded as a route. No Argo CD instance has executed it."
-    - "The generation input systemNodeSelector=nodeGroup=system-worker is a placeholder, confirmed as one on 2026-10-08. It is the value upstream's own v1.0.0 EKS training demo uses for its reference clusters (demos/cuj1-training.md in NVIDIA/aicr at tag v1.0.0), and that demo says its selector values are examples to be updated to match the cluster. The demo file is not retained in this repository. The value was not chosen from a real cluster, and it is carried for every service this mirror covers because it is a placeholder and not a claim about any of them. Change it to the label on your own cluster's system node group. A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it."
-    - "The selected recipe also names 1 component the bundle leaves out (dra-node-labeler), and the generation receipt records the reason AICR logged for it. The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it, and a route records the decision a destination has to make."
+    - "The generation input systemNodeSelector=nodeGroup=system-worker is a placeholder, confirmed as one on 2026-10-07. It is the value upstream's own v1.0.0 EKS training demo uses for its reference clusters (demos/cuj1-training.md in NVIDIA/aicr at tag v1.0.0), and that demo says its selector values are examples to be updated to match the cluster. The demo file is not retained in this repository. The value was not chosen from a real cluster, and it is carried for every service this mirror covers because it is a placeholder and not a claim about any of them. Change it to the label on your own cluster's system node group. A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it."
+    - "The selected recipe also names 1 component the bundle leaves out (dra-node-labeler), and the generation receipt records the reason AICR logged for it. The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it. That edge is recorded and not checked, and no route of this entry decides it, so the entry is flagged. The route that lists the omitted components records the decision a destination has to make."
     - "The recipe criteria are accelerator=l40, intent=any, os=any, platform=any, service=any. No cluster, cloud service, accelerator, model or workload was contacted or run for this entry."

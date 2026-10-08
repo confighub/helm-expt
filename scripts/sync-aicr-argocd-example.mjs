@@ -632,22 +632,20 @@ function layoutDigest(layoutRoot) {
 }
 
 function syncBaseVariant() {
+  throw new Error("This lane was written for the minimal Unit layout of cub variant upload --granularity, which cub v0.8.7 no longer has: the server now makes one Unit per resource. Re-observe on the current CLI the slug of the Unit that holds the stack and its uploaded object count.");
   const args = [
     "variant",
     "upload",
-    "--allow-exists",
     "--component",
     componentSlug,
     "--variant",
     baseVariantSlug,
     "--space",
     spaceSlug,
-    "--granularity",
-    "minimal",
     ...(modernEntry ? ["--target", releaseTargetRef] : []),
-    "--label",
+    "--space-label",
     "SourceType=aicr",
-    "--label",
+    "--space-label",
     "ResourceClass=system-configuration",
     "--layer",
     "Platform",
@@ -739,8 +737,6 @@ function collectLiveReceipt(sourceReference) {
         baseVariantSlug,
         "--space",
         spaceSlug,
-        "--granularity",
-        "minimal",
         "--target",
         releaseTargetRef,
         sourceReference,
@@ -1448,7 +1444,7 @@ function currentApprovalSubjectsFromLive(live, uploadReceipt) {
 function readChangeOrderRevisions(changeOrder, selected) {
   return selected.map((subject) => {
     const rows = cubJson([
-      "revision", "list", "--space", spaceSlug, "--by-unit-id", subject.unitID,
+      "revision", "list", "--space", spaceSlug, subject.slug,
       "--change-order", changeOrder.ChangeOrderID, "-o", "json",
     ]).map((row) => row.Revision ?? row);
     check(rows.length === 1, `${subject.slug}: ChangeOrder must select exactly one revision`);
@@ -1687,7 +1683,7 @@ if (args[0] === "changeworkflow" && args[1] === "create") process.exit(0);
 if (args[0] === "changeworkflow" && args[1] === "get") { emit({ ChangeWorkflow: { ChangeWorkflowID: workflowID, Slug: args[4], Stages: [{ Name: "publication", WhereSpace: "SpaceID = '" + space.id + "'", ReleasePrerequisites: ["review"] }], AttestationPrerequisites: [{ Name: "review", Type: "Approval", Count: 1, AllowAuthors: true, IgnoreFail: false }] } }); process.exit(0); }
 if (args[0] === "changeorder" && args[1] === "create") process.exit(0);
 if (args[0] === "changeorder" && args[1] === "get") { emit({ ChangeOrder: { ChangeOrderID: orderID, EndTagID: endTagID, ChangeWorkflowID: workflowID, ComponentID: "00000000-0000-4000-8000-000000000100", InScopeSpaceIDs: [space.id] } }); process.exit(0); }
-if (args[0] === "revision" && args[1] === "list") { const id = args[args.indexOf("--by-unit-id") + 1]; const item = id === config.id ? config : readme; const prefix = id === config.id ? "config" : "readme"; emit([{ Revision: { UnitID: id, RevisionID: (scenario === "co-wrong" ? "wrong-" : "") + prefix + "-r" + item.headRevision, RevisionNum: item.headRevision, DataHash: item.dataHash } }]); process.exit(0); }
+if (args[0] === "revision" && args[1] === "list") { const unitArg = args[4]; const item = unitArg === configSlug ? config : readme; const prefix = unitArg === configSlug ? "config" : "readme"; emit([{ Revision: { UnitID: item.id, RevisionID: (scenario === "co-wrong" ? "wrong-" : "") + prefix + "-r" + item.headRevision, RevisionNum: item.headRevision, DataHash: item.dataHash } }]); process.exit(0); }
 if (args[0] === "revision" && args[1] === "get") { const slug = args[2]; const item = slug === configSlug ? config : readme; const prefix = slug === configSlug ? "config" : "readme"; emit({ Revision: { UnitID: item.id, RevisionID: prefix + "-r" + item.headRevision, RevisionNum: item.headRevision, DataHash: item.dataHash, Attestations: { [attestationID]: true } } }); process.exit(0); }
 if (args[0] === "release" && args[1] === "publish") { if (!approved) { process.stderr.write(scenario === "unrelated" ? "permission denied" : "requires review: 1 Approval attestation(s)"); process.exit(1); } emit({ Release: { ReleaseID: "00000000-0000-4000-8000-000000000105", ReleaseNum: 1, ManifestDigest: "sha256:" + "a".repeat(64), Digest: "sha256:" + "b".repeat(64), UnitCount: 2 } }); process.exit(0); }
 if (args[0] === "variant" && args[1] === "approve") { if (!args.includes("--dry-run")) { approved = true; writeFileSync(fixture.statePath, "approved"); } emit({ Spaces: [{ SpaceSlug: spaceSlug, SpaceID: space.id, Subjects: subjectRows(), Attestation: args.includes("--dry-run") ? undefined : { AttestationID: attestationID, Type: "Approval", Result: "Pass", ChangeOrderID: orderID } }] }); process.exit(0); }
@@ -2494,7 +2490,7 @@ function currentChangeOrderSubjects(record, changeOrderID) {
     { slug: readmeSlug, ...record.readme },
   ];
   return units.map((unit) => {
-    const rows = cubJson(["revision", "list", "--space", record.slug, "--by-unit-id", unit.id,
+    const rows = cubJson(["revision", "list", "--space", record.slug, unit.slug,
       "--change-order", changeOrderID, "-o", "json"]).map((row) => row.Revision ?? row);
     check(rows.length === 1, `${record.slug}/${unit.slug}: ChangeOrder must select exactly one revision`);
     const revision = rows[0];
@@ -2763,8 +2759,7 @@ function fakeCurrentPromotionCli({ approvalShape = "exact", refusal = null, upst
     if (group === "revision" && verb === "list") {
       if (!args.includes("--change-order")) return json([]);
       const slug = args[args.indexOf("--space") + 1];
-      const id = args[args.indexOf("--by-unit-id") + 1];
-      const unit = unitsFor(slug).find((row) => row.UnitID === id);
+      const unit = unitsFor(slug).find((row) => row.Slug === args[4]);
       return json([{ Revision: { UnitID: unit.UnitID, RevisionID: unit.HeadRevisionID,
         RevisionNum: unit.HeadRevisionNum, DataHash: unit.DataHash } }]);
     }

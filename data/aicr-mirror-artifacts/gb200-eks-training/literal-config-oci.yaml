@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-eks-training-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:ae7721f05f294f2025fe64d71ce37bbb9430537bc1b5c0b514aa9b5d834e121a"
-    layerDigest: "sha256:b00488d17c432faa93156c38aac51320dd2e14951a39e506b71f7663370b823f"
+    manifestDigest: "sha256:fc07731a56e86b27cb044a8066fdac2f1c6254cdbbda7bb3b61a592e0c4d5ee9"
+    layerDigest: "sha256:3d33e1a5100dee85c1c26b866bcaaabde887cea56f78ddbf5c79c2f05a65e7d2"
     layerBytes: 75804
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 16
@@ -124,8 +124,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb200-eks-training/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "b7bc9faa7908235da67b8568ffcc52b17ff9f9ed0d386a64c2072af325f9ab0b"
-        bytes: 3418
+        sha256: "412613c231d9dc129ccec79d52db8376cd4547beb264c5258bc64a946783d58e"
+        bytes: 3553
       -
         path: "data/aicr-mirror-artifacts/gb200-eks-training/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"

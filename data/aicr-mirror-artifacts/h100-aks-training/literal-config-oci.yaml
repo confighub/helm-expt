@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-aks-training-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:2f97b8640719b1a031ab08fd997972964d2596958071883acf491343a89940aa"
-    layerDigest: "sha256:8a349eff42ac27f97e3d2108be1e04282eae66131ce23872132cb615f0cbbb6c"
+    manifestDigest: "sha256:4f4445f2b1ac9516c13fad3591fbba5ae30ee7207fb28ff94da74d0146dbec9d"
+    layerDigest: "sha256:e263fc094aa610fa6cc8907975509d0b8c2a55c1bf6951bb116726d15e3565ef"
     layerBytes: 75804
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 16
@@ -124,8 +124,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-aks-training/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "f432f133f9f9a00a84f8a5d2c136e8cd0c8a5414628bb39fc8edd5cbd7f0324e"
-        bytes: 3645
+        sha256: "01f9d036473def88b3e6364a8b2cc67f0e02282927a2c98d245f005224e2519d"
+        bytes: 3780
       -
         path: "data/aicr-mirror-artifacts/h100-aks-training/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"

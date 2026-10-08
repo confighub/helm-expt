@@ -186,6 +186,7 @@ function run() {
     ]).Target;
     check(target?.ProviderType === "OCI", `${targetRef} is not an OCI target`);
 
+    throw new Error("This lane was written for the minimal Unit layout of cub variant upload --granularity, which cub v0.8.7 no longer has: the server now makes one Unit per resource. Re-observe on the current CLI which Unit holds the stack before this lane pulls it back.");
     cub(context, [
       "variant",
       "upload",
@@ -195,13 +196,11 @@ function run() {
       "base",
       "--space",
       space,
-      "--granularity",
-      "minimal",
       "--target",
       targetRef,
-      "--label",
+      "--space-label",
       "SourceType=aicr",
-      "--label",
+      "--space-label",
       "ResourceClass=system-configuration",
       "--layer",
       "Platform",

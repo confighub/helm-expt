@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:709809303699ea73d39d87ec83193a1e3493fe8ef71f5e8e80a33d3e0711db9c",
+      "sha256": "sha256:bc1d25a5758bb94e58577f038f7918d207984a395b5e66f18ea048d496d9d37d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aicr-a100-aks-ubuntu-training-kubeflow-v1-0-0-argocd.yaml",
-      "sha256": "sha256:24d0f35bb5b24cc38293d33846f14939cbef85c3a952532cf06658e5070b273d",
+      "sha256": "sha256:b6e2e0304ab768f4cdc9bf980055c3fd314db90564c749d8133a02e7aa5e2d69",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-a100-aks-ubuntu-training-kubeflow-v1-0-0-argocd.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -365,7 +365,7 @@
       {
         "name": "systemNodeSelector",
         "kind": "generation-input",
-        "detail": "systemNodeSelector=nodeGroup=system-worker is a placeholder, confirmed as one on 2026-10-08. Change it to the label on your own cluster's system node group. It is written into spec.source.helm.values of 12 rendered Applications at 25 field paths, which are cert-manager at cainjector.nodeSelector and nodeSelector and startupapicheck.nodeSelector and webhook.nodeSelector; gpu-operator at operator.nodeSelector; k8s-ephemeral-storage-metrics at nodeSelector; kai-scheduler at global.nodeSelector; kube-prometheus-stack at alertmanager.alertmanagerSpec.nodeSelector and grafana.nodeSelector and kube-state-metrics.nodeSelector and prometheus-node-exporter.nodeSelector and prometheus.prometheusSpec.nodeSelector and prometheusOperator.admissionWebhooks.patch.nodeSelector and prometheusOperator.nodeSelector and thanosRuler.thanosRulerSpec.nodeSelector; kubeflow-trainer at jobset.controller.nodeSelector and manager.nodeSelector; network-operator at maintenance-operator-chart.operator.nodeSelector and operator.nodeSelector; nfd at gc.nodeSelector and master.nodeSelector; nodewright-operator at controllerManager.selectors; nvidia-dra-driver-gpu at controller.nodeSelector; nvsentinel at global.systemNodeSelector; prometheus-adapter at nodeSelector. A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it.",
+        "detail": "systemNodeSelector=nodeGroup=system-worker is a placeholder, confirmed as one on 2026-10-07. Change it to the label on your own cluster's system node group. It is written into spec.source.helm.values of 12 rendered Applications at 25 field paths, which are cert-manager at cainjector.nodeSelector and nodeSelector and startupapicheck.nodeSelector and webhook.nodeSelector; gpu-operator at operator.nodeSelector; k8s-ephemeral-storage-metrics at nodeSelector; kai-scheduler at global.nodeSelector; kube-prometheus-stack at alertmanager.alertmanagerSpec.nodeSelector and grafana.nodeSelector and kube-state-metrics.nodeSelector and prometheus-node-exporter.nodeSelector and prometheus.prometheusSpec.nodeSelector and prometheusOperator.admissionWebhooks.patch.nodeSelector and prometheusOperator.nodeSelector and thanosRuler.thanosRulerSpec.nodeSelector; kubeflow-trainer at jobset.controller.nodeSelector and manager.nodeSelector; network-operator at maintenance-operator-chart.operator.nodeSelector and operator.nodeSelector; nfd at gc.nodeSelector and master.nodeSelector; nodewright-operator at controllerManager.selectors; nvidia-dra-driver-gpu at controller.nodeSelector; nvsentinel at global.systemNodeSelector; prometheus-adapter at nodeSelector. A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it.",
         "status": "confirmed-placeholder"
       },
       {
@@ -476,10 +476,10 @@
       {
         "id": "materialization",
         "question": "What will it produce?",
-        "answer": "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration.",
+        "answer": "The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler and the bundle does not deploy it, and nothing here shows who provides it.",
         "evidenceState": "completed",
-        "resultState": "pass",
-        "nextAction": "Review the exact object set and its digest.",
+        "resultState": "watch",
+        "nextAction": "Review the exact object set and its digest, and settle the open question before relying on the recorded order.",
         "destinationAccessRequired": false,
         "deploymentRequired": false,
         "requiredInputs": [

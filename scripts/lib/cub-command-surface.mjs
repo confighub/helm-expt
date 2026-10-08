@@ -168,7 +168,7 @@ function logicalLines(lines) {
   return joined;
 }
 
-export function scanText(file, text, snapshot, { groups, unknownCommands = true } = {}) {
+export function scanText(file, text, snapshot, { groups, unknownCommands = true, stats } = {}) {
   const violations = [];
   const lines = text.split(/\r?\n/);
   const isMarkdown = file.endsWith(".md");
@@ -210,6 +210,7 @@ export function scanText(file, text, snapshot, { groups, unknownCommands = true 
         continue;
       }
       if (groups && !groups.has(first)) continue;
+      if (stats) stats.invocations += 1;
       let path = first;
       let cursor = 1;
       let unknown = null;

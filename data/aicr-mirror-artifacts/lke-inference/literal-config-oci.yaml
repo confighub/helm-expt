@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-lke-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:fab10129c6e0018ab1a1225e10601cb450f66169f2e47f8b89277dbb43c65798"
-    layerDigest: "sha256:c1e2bf70b5f53e9f6e845a21e23dafd3ae3c0bdbd09770e7a6c462e81eec279d"
+    manifestDigest: "sha256:e77ce4057e089a4b8bbef662252cb202f39d2801952c54e2bb134e2dba023ecc"
+    layerDigest: "sha256:1c029b80b460dc972df94d7def922da9a8ac3b6d067cbf0970ef0e78bec0c794"
     layerBytes: 73756
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 16
@@ -124,8 +124,8 @@ spec:
         path: "data/aicr-mirror-artifacts/lke-inference/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "731551efdc54ed30f9d0c06a652a23803889e2b6a5870dca6a882487ebfed3a5"
-        bytes: 3621
+        sha256: "b822d5d67ee66874fd6f684fe73386a8d9e846b3acd03ab8de57e170c644011b"
+        bytes: 3756
       -
         path: "data/aicr-mirror-artifacts/lke-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"

@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-eks-ubuntu-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:487bb04c5e4e4329c5d30a78016cbb32d0f7b3c99ad6cf2ac925c7b264d78349"
-    layerDigest: "sha256:bbc53cc52ba9d9ad2513789c3a61356a3550e2579cc4b3d9032d8c4cff4dd36b"
+    manifestDigest: "sha256:292311568cfce12bd4bfe8ca3af9fb683e4a40b23f248cf55590db957ccd05cb"
+    layerDigest: "sha256:22358cbb429c2c5a81f670dff69d3d53d8e7bde96dd5791fde4adb033bc02351"
     layerBytes: 82972
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 19
@@ -142,8 +142,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-eks-ubuntu-inference/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "e8edd71f044d54d5305ca068eeeb3f2db48e5efe9eea8073ea97f23b977bba1e"
-        bytes: 3758
+        sha256: "46537662a21470ec048125c94217e2a1bf0e276f5b2614b32f11658e1b21f216"
+        bytes: 3893
       -
         path: "data/aicr-mirror-artifacts/h100-eks-ubuntu-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"

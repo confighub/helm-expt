@@ -256,6 +256,23 @@ Every `cub config diff` command above exits `0`, including the one that found
 command exits `1` when the files differ and `0` when they match. Neither exit
 code says the upgrade is safe to apply.
 
+### One delivery to a cluster with no GPUs
+
+On 2026-10-08 the default base of v26.3.3 was deployed through ConfigHub and
+Argo CD v3.5.4 to a kind cluster that had no GPUs. The
+[walk log](./live-walk-entry-steps-2026-10-08.md) holds every command and its
+output.
+
+Argo CD accepted all 25 objects in one sync, with the CRDs before the
+workloads. The Application ended Synced and Healthy. The ClusterPolicy
+reported `ready` with the reason `NoGPUNodes`, and the operator created none of
+its eight GPU DaemonSets. The chart's hooks are `pre-upgrade` and
+`post-delete` only, so nothing was missing at install.
+
+That run did not exercise an upgrade or a removal. It did not show the chart's
+CRD upgrade Job or its post-delete cleanup, and it did not run on a node with a
+GPU. The run does not show that the operator works on GPU hardware.
+
 ## 6. Compare the versions in ConfigHub
 
 This step needs a ConfigHub account, and it writes Spaces to your

@@ -418,6 +418,7 @@ Where to look, and how to check it yourself.
 | Document | Purpose |
 | --- | --- |
 | [live-run-log-2026-10-08.md](./user/live-run-log-2026-10-08.md) | Dated log of one live run with cub v0.8.7 against a hosted ConfigHub organization. It holds every command with its real output for upload, variants, promotion, approval, protection and diff, a gpu-operator version walk, and what went wrong. |
+| [live-walk-entry-steps-2026-10-08.md](./user/live-walk-entry-steps-2026-10-08.md) | Dated log of a live walk of steps 3 to 5 of the Catalog entry pages for two Helm entries, against a hosted ConfigHub organization, a local kind cluster and Argo CD. It holds every command with its real output and what went wrong. |
 | [live-parity.md](./user/live-parity.md) | User-facing guide to pass, watch, blocked, and rerun rows in the live parity lanes. |
 | [reading-the-matrix.md](./user/reading-the-matrix.md) | How to read the master catalog matrix: the lanes, the G/P/K shorthands, the cell states (pass/watch/blocked/n-a/blank), and where to look when a row is not green. |
 | [top100-readiness.md](./user/top100-readiness.md) | User-facing guide to the top-100 corpus buckets and generated readiness data. |

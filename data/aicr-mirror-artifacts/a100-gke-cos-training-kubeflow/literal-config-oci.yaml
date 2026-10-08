@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-gke-cos-training-kubeflow-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:319c5b97ab08cea099cefcff05509fb17a14b11985550e52367e34e4f77503f7"
-    layerDigest: "sha256:020d8c7dce6e543f724efc32260881198a4410a5afdadf450dc017ad7b188469"
+    manifestDigest: "sha256:67839680a9230bf7499dc36aede48609fcfd8640b93733cdc739aa83d32c2db3"
+    layerDigest: "sha256:bffcb33485c099af171597f1b7d6ddf564306580e6d4d6ef83ab21772a3aa9c8"
     layerBytes: 77340
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 17
@@ -130,8 +130,8 @@ spec:
         path: "data/aicr-mirror-artifacts/a100-gke-cos-training-kubeflow/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "4defec4fd318b95186cb6a6f9ce48e7d8b08ffbf2ca2ca3beb7fee211a3bab16"
-        bytes: 3719
+        sha256: "4e17f140a4c501a961f53d8e9d72a167e30aac9b2b2325a2ace5a338b105e4de"
+        bytes: 3854
       -
         path: "data/aicr-mirror-artifacts/a100-gke-cos-training-kubeflow/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"

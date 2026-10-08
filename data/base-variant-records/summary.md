@@ -16,7 +16,7 @@ The processing coverage is explicit rather than inferred:
 - Variant-and-destination route resolution: 302 awaits-variant-and-target, 2 blocked, 176 gap, 12 not-required, 3 resolved-for-recorded-targets.
 - Field ownership: 3 declared, 492 partly-declared.
 - Inspection evidence: 495 completed; results: 495 available.
-- Materialization evidence: 495 completed; results: 489 pass, 6 watch.
+- Materialization evidence: 495 completed; results: 362 pass, 133 watch.
 - Destination evidence: 2 blocked, 3 completed, 314 not-run, 176 pending; results: 2 blocked, 314 not-run, 3 pass, 176 pending.
 - Post-deployment evidence: 3 completed, 492 not-run; results: 492 not-run, 2 pass, 1 watch.
 
