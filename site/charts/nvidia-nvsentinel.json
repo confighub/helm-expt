@@ -31,7 +31,7 @@
           },
           "objectCount": 22,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nvsentinel/v1.26.0/revisions/default/r001/rendered/release-objects.yaml",
@@ -49,7 +49,7 @@
           },
           "objectCount": 21,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nvsentinel/v1.26.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
@@ -79,7 +79,7 @@
           },
           "objectCount": 22,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nvsentinel/v1.25.0/revisions/default/r001/rendered/release-objects.yaml",
@@ -97,7 +97,7 @@
           },
           "objectCount": 21,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nvsentinel/v1.25.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
@@ -115,7 +115,7 @@
           },
           "objectCount": 21,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nvsentinel/v1.25.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
@@ -145,7 +145,7 @@
           },
           "objectCount": 22,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/rendered/release-objects.yaml",
@@ -163,7 +163,7 @@
           },
           "objectCount": 21,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
@@ -181,7 +181,7 @@
           },
           "objectCount": 21,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
@@ -211,7 +211,7 @@
           },
           "objectCount": 21,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml",
@@ -229,7 +229,7 @@
           },
           "objectCount": 20,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
@@ -247,7 +247,7 @@
           },
           "objectCount": 20,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",

@@ -1,0 +1,82 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogLiteralBundlePublicationReceipt"
+metadata:
+  name: "nvidia-gpu-operator-v26-3-2-external-nfd"
+spec:
+  catalogEntry: "nvidia-gpu-operator-v26-3-2-external-nfd"
+  plan: "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/literal-config-oci.yaml"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "nvidia"
+        name: "gpu-operator"
+        version: "v26.3.2"
+    base: "external-nfd"
+    revision: "r001"
+    installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.2@sha256:866ff5d529383dcdbeb5fd28e152f2a10ab50ce9b45acebf2b5ff2dc95f19767"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "decided"
+    record: "recipes/nvidia/gpu-operator/v26.3.2/publication/flattening-safety-verdict-external-nfd.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-external-nfd:r001"
+    manifestDigest: "sha256:6369468cc5689df80ab65b154550d2ea7b98d772149546afb4d69eb25f1c7597"
+    layerDigest: "sha256:1178503283a071798cd2aa9bda7ebe8a61224adb3124b8f74c4e47389f11e8ab"
+    layerBytes: 228390
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    objectCount: 9
+    objectSetSha256: "sha256:30a949cc36999ed032f4aa18838e11f4bacc29c2840e6a2b3bce8712e9305b37"
+    files:
+      -
+        path: "packages/nvidia/gpu-operator/v26.3.2/bases/external-nfd/upstream.yaml"
+        stagedAs: "upstream.yaml"
+        role: "rendered object set"
+        sha256: "30a949cc36999ed032f4aa18838e11f4bacc29c2840e6a2b3bce8712e9305b37"
+        bytes: 213660
+      -
+        path: "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/routes/crd-ordering.yaml"
+        stagedAs: "routes/crd-ordering.yaml"
+        role: "route: crd-ordering"
+        sha256: "68407497a29bc7a68ba33ada6371c63b69891f690fed8f920f624f102c4fd304"
+        bytes: 2640
+      -
+        path: "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/routes/lifecycle-actions.yaml"
+        stagedAs: "routes/lifecycle-actions.yaml"
+        role: "route: lifecycle-actions"
+        sha256: "a6826b256aaae5351778084a24befe29312c9cadc3a1e0834302d65f06c54d0b"
+        bytes: 2737
+      -
+        path: "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/requirements/target-requirements.yaml"
+        stagedAs: "requirements/target-requirements.yaml"
+        role: "requirement: target"
+        sha256: "28798c3602db8b221c57347e3a21837280761799aaf7715dedbfaa2d4d35c1c2"
+        bytes: 2169
+      -
+        path: "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/space-guide.md"
+        stagedAs: "README.md"
+        role: "space-guide"
+        sha256: "083c62dd5a65d0a37f5e6cd60e84020edcde8b7837bd3f6593ff10d2489cac35"
+        bytes: 1584
+    reproducible: true
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-external-nfd@sha256:6369468cc5689df80ab65b154550d2ea7b98d772149546afb4d69eb25f1c7597"
+  contents:
+    containerImages: false
+    helmHookObjects: false
+    secretObjects: 0
+  push:
+    result: "pass"
+    command: "oras cp --from-oci-layout <layout>:r001 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-external-nfd:r001"
+  anonymousPull:
+    result: "pass"
+    manifestDigest: "sha256:6369468cc5689df80ab65b154550d2ea7b98d772149546afb4d69eb25f1c7597"
+    layerDigest: "sha256:1178503283a071798cd2aa9bda7ebe8a61224adb3124b8f74c4e47389f11e8ab"
+    filesMatched: 5
+    command: "oras pull --registry-config <empty config> europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-external-nfd@sha256:6369468cc5689df80ab65b154550d2ea7b98d772149546afb4d69eb25f1c7597"
+  configHubUpload: "not-run. This receipt records a registry publication and nothing else."
+  signature: "none. The Catalog does not sign literal configuration bundles."
+  observedAt: "2026-10-08T17:54:14.603Z"
+status:
+  result: "pass"

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b530fbf9e069a56a10340bf688cced4a494f941efb05e1f0228551bc5e0c1166",
+      "sha256": "sha256:933b5cdf1a1f0408d813aa473d89ad95763dea50d9fbf27e1b749547e5f12e21",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-gpu-operator-v26-3-2-external-nfd.yaml",
-      "sha256": "sha256:3179aa24ac77b2aa6ab30afaeff62cf23728e67231c706e1c71700bd58a8c1c2",
+      "sha256": "sha256:fef603ec920baee6b7c137673f2e88a8b6cf9739a1b4b9800d472d79e14446c1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-gpu-operator-v26-3-2-external-nfd.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -115,12 +115,32 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-external-nfd:r001@sha256:6369468cc5689df80ab65b154550d2ea7b98d772149546afb4d69eb25f1c7597",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:1178503283a071798cd2aa9bda7ebe8a61224adb3124b8f74c4e47389f11e8ab"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:e9a5407b402d5cc6fccdd0288e38c04a4a8cd83ae08127bf7142a6977a638158"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:6369468cc5689df80ab65b154550d2ea7b98d772149546afb4d69eb25f1c7597"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:30a949cc36999ed032f4aa18838e11f4bacc29c2840e6a2b3bce8712e9305b37"
+          }
+        ],
+        "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/publication-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/publication-receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
       },
       {
         "role": "confighub-upload",

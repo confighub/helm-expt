@@ -31,7 +31,7 @@
           },
           "objectCount": 27,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/rendered/release-objects.yaml",
@@ -49,7 +49,7 @@
           },
           "objectCount": 27,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/rendered/release-objects.yaml",
@@ -67,7 +67,7 @@
           },
           "objectCount": 27,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.126.20/r001/rendered/release-objects.yaml",
@@ -85,7 +85,7 @@
           },
           "objectCount": 27,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver/r001/rendered/release-objects.yaml",
@@ -103,7 +103,7 @@
           },
           "objectCount": 27,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml",
@@ -121,7 +121,7 @@
           },
           "objectCount": 12,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.7.1/revisions/external-nfd/r001/rendered/release-objects.yaml",
@@ -139,7 +139,7 @@
           },
           "objectCount": 13,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.7.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
@@ -169,7 +169,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.3.3/revisions/default/r001/rendered/release-objects.yaml",
@@ -187,7 +187,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.3.3/revisions/driver-580.105.08/r001/rendered/release-objects.yaml",
@@ -205,7 +205,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.3.3/revisions/driver-595.91.07/r001/rendered/release-objects.yaml",
@@ -223,7 +223,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.3.3/revisions/preinstalled-driver/r001/rendered/release-objects.yaml",
@@ -241,7 +241,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.3.3/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml",
@@ -259,7 +259,7 @@
           },
           "objectCount": 9,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.3.3/revisions/external-nfd/r001/rendered/release-objects.yaml",
@@ -277,7 +277,7 @@
           },
           "objectCount": 10,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.3.3/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
@@ -307,7 +307,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.3.2/revisions/default/r001/rendered/release-objects.yaml",
@@ -325,7 +325,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.3.2/revisions/driver-580.105.08/r001/rendered/release-objects.yaml",
@@ -343,7 +343,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.3.2/revisions/driver-595.91.07/r001/rendered/release-objects.yaml",
@@ -361,7 +361,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.3.2/revisions/preinstalled-driver/r001/rendered/release-objects.yaml",
@@ -379,7 +379,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.3.2/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml",
@@ -397,7 +397,7 @@
           },
           "objectCount": 9,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v26.3.2/revisions/external-nfd/r001/rendered/release-objects.yaml",
@@ -427,7 +427,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v25.10.1/revisions/default/r001/rendered/release-objects.yaml",
@@ -445,7 +445,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v25.10.1/revisions/driver-580.126.20/r001/rendered/release-objects.yaml",
@@ -463,7 +463,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v25.10.1/revisions/driver-595.91.07/r001/rendered/release-objects.yaml",
@@ -481,7 +481,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v25.10.1/revisions/preinstalled-driver/r001/rendered/release-objects.yaml",
@@ -499,7 +499,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v25.10.1/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml",
@@ -517,7 +517,7 @@
           },
           "objectCount": 9,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/gpu-operator/v25.10.1/revisions/external-nfd/r001/rendered/release-objects.yaml",

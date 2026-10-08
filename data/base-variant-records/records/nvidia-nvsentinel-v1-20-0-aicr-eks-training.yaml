@@ -201,8 +201,22 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-20-0-aicr-eks-training:r001@sha256:b897b4c392d90d5285393d171b14454f4ef93da72f2c86054b4e0faa8c6aa6d5"
+      manifestDigest: "sha256:b897b4c392d90d5285393d171b14454f4ef93da72f2c86054b4e0faa8c6aa6d5"
+      layerDigest: "sha256:4436bd459db5159410ed34fb2508cd91fc017602ecb312edca1a0476fca0c90c"
+      objectSetSha256: "sha256:28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee"
+      receipt: "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-20-0-aicr-eks-training/publication-receipt.yaml"
+      receiptSha256: "sha256:5778cf7e3e62c46204adb4423861c7099267397c5ef6bf00dcaf8b98c9397e53"
+      plan: "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-20-0-aicr-eks-training/literal-config-oci.yaml"
+      routes:
+        []
+      requirements:
+        -
+          path: "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-20-0-aicr-eks-training/requirements/target-requirements.yaml"
+          sha256: "sha256:834f89330bc96199ffe3f3ad2dc3e64d42d6625b240eeebdf96910eda9106af5"
+          role: "requirement: target"
+      note: "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

@@ -232,8 +232,29 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-external-nfd:r001@sha256:6369468cc5689df80ab65b154550d2ea7b98d772149546afb4d69eb25f1c7597"
+      manifestDigest: "sha256:6369468cc5689df80ab65b154550d2ea7b98d772149546afb4d69eb25f1c7597"
+      layerDigest: "sha256:1178503283a071798cd2aa9bda7ebe8a61224adb3124b8f74c4e47389f11e8ab"
+      objectSetSha256: "sha256:30a949cc36999ed032f4aa18838e11f4bacc29c2840e6a2b3bce8712e9305b37"
+      receipt: "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/publication-receipt.yaml"
+      receiptSha256: "sha256:e9a5407b402d5cc6fccdd0288e38c04a4a8cd83ae08127bf7142a6977a638158"
+      plan: "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/literal-config-oci.yaml"
+      routes:
+        -
+          path: "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/routes/crd-ordering.yaml"
+          sha256: "sha256:68407497a29bc7a68ba33ada6371c63b69891f690fed8f920f624f102c4fd304"
+          role: "route: crd-ordering"
+        -
+          path: "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/routes/lifecycle-actions.yaml"
+          sha256: "sha256:a6826b256aaae5351778084a24befe29312c9cadc3a1e0834302d65f06c54d0b"
+          role: "route: lifecycle-actions"
+      requirements:
+        -
+          path: "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/requirements/target-requirements.yaml"
+          sha256: "sha256:28798c3602db8b221c57347e3a21837280761799aaf7715dedbfaa2d4d35c1c2"
+          role: "requirement: target"
+      note: "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
