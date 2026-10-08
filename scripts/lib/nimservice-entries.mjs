@@ -583,7 +583,11 @@ function readEntry(root, fact, source, operator) {
 
 // The pure function every caller uses. It returns one entry per retained
 // NIMService sample, in slug order.
-export function loadNimServiceEntries({ root = repoRoot } = {}) {
+// `receipts: "none"` builds every entry as not published, whatever receipts are
+// tracked. The record generator's self-test uses it, so its fixtures do not
+// change when a variant is published.
+export function loadNimServiceEntries({ root = repoRoot, receipts = "tracked" } = {}) {
+  check(receipts === "tracked" || receipts === "none", `loadNimServiceEntries: receipts must be "tracked" or "none", not ${receipts}`);
   const report = buildNimOperatorModelsReport(root);
   const receipt = readYaml(repoPath(root, NIMSERVICE_RETENTION_RECEIPT));
   const source = receipt.spec?.source ?? {};
@@ -627,7 +631,9 @@ export function loadNimServiceEntries({ root = repoRoot } = {}) {
       root,
       readText: (rel) => rendered.get(rel) ?? readFileSync(repoPath(root, rel), "utf8"),
     });
-    entry.publication = loadNimServicePublication(entry, { root, artifact: entry.artifact });
+    entry.publication = receipts === "none"
+      ? { published: false, artifact: entry.artifact, receiptRel: entry.artifact.receiptRel }
+      : loadNimServicePublication(entry, { root, artifact: entry.artifact });
   }
   return entries;
 }

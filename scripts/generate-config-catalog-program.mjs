@@ -4814,7 +4814,9 @@ function runNimServiceEntrySelfTest() {
     "self-test: a field the retained definition does not declare was not reported",
   );
 
-  const entries = loadNimServiceEntries();
+  // The fixtures start not published whatever receipts are tracked, and the
+  // published cases below build their own receipt.
+  const entries = loadNimServiceEntries({ receipts: "none" });
   check(entries.length > 0, "self-test: no retained NIMService sample was discovered");
   check(
     new Set(entries.map((entry) => entry.recordName)).size === entries.length,
