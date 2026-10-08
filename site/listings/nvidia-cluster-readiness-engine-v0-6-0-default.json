@@ -49,11 +49,13 @@
     "reference": "nvidia/cluster-readiness-engine@v0.6.0",
     "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501",
     "record": "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
     "selection": {
       "name": "default",
       "kind": "catalog-preset",
       "provider": "Config Workshop",
-      "record": "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
+      "record": "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
     },
     "pin": {
       "digest": "sha256:ea093c7709d5db724427d8b38969949aee6d6deb50c153d036c163e0cbdd9321",
@@ -273,7 +275,13 @@
       }
     ],
     "routes": [],
-    "records": []
+    "records": [
+      {
+        "name": "nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
+      }
+    ]
   },
   "lifecycle": {
     "installTimeStatus": "partly-declared",
@@ -415,6 +423,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
+          },
+          {
             "name": "release-objects.yaml",
             "path": "recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/rendered/release-objects.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/rendered/release-objects.yaml"
@@ -440,6 +453,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
+          },
+          {
             "name": "variant-revision.yaml",
             "path": "recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/variant-revision.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/variant-revision.yaml"
@@ -459,7 +477,13 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": []
+        "records": [
+          {
+            "name": "nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
+          }
+        ]
       },
       {
         "id": "post-deployment",
@@ -480,6 +504,11 @@
   },
   "evidence": {
     "links": [
+      {
+        "name": "nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
+      },
       {
         "name": "flattening-safety-verdict.yaml",
         "path": "recipes/nvidia/cluster-readiness-engine/v0.6.0/publication/flattening-safety-verdict.yaml",

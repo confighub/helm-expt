@@ -49,11 +49,13 @@
     "reference": "nvidia/gpu-operator@v26.3.2",
     "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.2@sha256:866ff5d529383dcdbeb5fd28e152f2a10ab50ce9b45acebf2b5ff2dc95f19767",
     "record": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml",
     "selection": {
       "name": "default",
       "kind": "catalog-preset",
       "provider": "Config Workshop",
-      "record": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml"
+      "record": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml"
     },
     "pin": {
       "digest": "sha256:ea6e0134c12e9150502887722dfd56631794537c8790df736aa4fc638ac92622",
@@ -294,7 +296,13 @@
       }
     ],
     "routes": [],
-    "records": []
+    "records": [
+      {
+        "name": "nvidia-gpu-operator-v26-3-2-default.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml"
+      }
+    ]
   },
   "lifecycle": {
     "installTimeStatus": "partly-declared",
@@ -415,6 +423,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-gpu-operator-v26-3-2-default.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml"
+          },
+          {
             "name": "release-objects.yaml",
             "path": "recipes/nvidia/gpu-operator/v26.3.2/revisions/default/r001/rendered/release-objects.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v26.3.2/revisions/default/r001/rendered/release-objects.yaml"
@@ -440,6 +453,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-gpu-operator-v26-3-2-default.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml"
+          },
+          {
             "name": "variant-revision.yaml",
             "path": "recipes/nvidia/gpu-operator/v26.3.2/revisions/default/r001/variant-revision.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v26.3.2/revisions/default/r001/variant-revision.yaml"
@@ -459,7 +477,13 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": []
+        "records": [
+          {
+            "name": "nvidia-gpu-operator-v26-3-2-default.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml"
+          }
+        ]
       },
       {
         "id": "post-deployment",
@@ -480,6 +504,11 @@
   },
   "evidence": {
     "links": [
+      {
+        "name": "nvidia-gpu-operator-v26-3-2-default.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-default.yaml"
+      },
       {
         "name": "flattening-safety-verdict.yaml",
         "path": "recipes/nvidia/gpu-operator/v26.3.2/publication/flattening-safety-verdict.yaml",

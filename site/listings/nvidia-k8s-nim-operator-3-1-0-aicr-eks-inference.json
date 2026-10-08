@@ -49,11 +49,13 @@
     "reference": "nvidia/k8s-nim-operator@3.1.0",
     "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0@sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3",
     "record": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
     "selection": {
       "name": "aicr-eks-inference",
       "kind": "catalog-preset",
       "provider": "Config Workshop",
-      "record": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml"
+      "record": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml"
     },
     "pin": {
       "digest": "sha256:778b11a39f153d3e9d09869b495526733cbd0095cfd0824725a9bcc8f285e407",
@@ -298,7 +300,13 @@
       }
     ],
     "routes": [],
-    "records": []
+    "records": [
+      {
+        "name": "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml"
+      }
+    ]
   },
   "lifecycle": {
     "installTimeStatus": "partly-declared",
@@ -461,6 +469,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml"
+          },
+          {
             "name": "release-objects.yaml",
             "path": "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/rendered/release-objects.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/rendered/release-objects.yaml"
@@ -486,6 +499,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml"
+          },
+          {
             "name": "variant-revision.yaml",
             "path": "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/variant-revision.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/variant-revision.yaml"
@@ -505,7 +523,13 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": []
+        "records": [
+          {
+            "name": "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml"
+          }
+        ]
       },
       {
         "id": "post-deployment",
@@ -526,6 +550,11 @@
   },
   "evidence": {
     "links": [
+      {
+        "name": "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml"
+      },
       {
         "name": "flattening-safety-verdict-aicr-eks-inference.yaml",
         "path": "recipes/nvidia/k8s-nim-operator/3.1.0/publication/flattening-safety-verdict-aicr-eks-inference.yaml",

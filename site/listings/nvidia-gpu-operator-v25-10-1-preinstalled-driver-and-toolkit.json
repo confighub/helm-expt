@@ -49,11 +49,13 @@
     "reference": "nvidia/gpu-operator@v25.10.1",
     "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v25.10.1@sha256:35774151264bf1b5998330ca4290ae306e89470c7eb05a4e4c8fc18401c9e155",
     "record": "data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml",
     "selection": {
       "name": "preinstalled-driver-and-toolkit",
       "kind": "catalog-preset",
       "provider": "Config Workshop",
-      "record": "data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml"
+      "record": "data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml"
     },
     "pin": {
       "digest": "sha256:c1fe66249272dac3a288b2a26c6017e60dc6eb3af6ea2191d5b6324605b28eae",
@@ -294,7 +296,13 @@
       }
     ],
     "routes": [],
-    "records": []
+    "records": [
+      {
+        "name": "nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml"
+      }
+    ]
   },
   "lifecycle": {
     "installTimeStatus": "partly-declared",
@@ -415,6 +423,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml"
+          },
+          {
             "name": "release-objects.yaml",
             "path": "recipes/nvidia/gpu-operator/v25.10.1/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml"
@@ -440,6 +453,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml"
+          },
+          {
             "name": "variant-revision.yaml",
             "path": "recipes/nvidia/gpu-operator/v25.10.1/revisions/preinstalled-driver-and-toolkit/r001/variant-revision.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/revisions/preinstalled-driver-and-toolkit/r001/variant-revision.yaml"
@@ -459,7 +477,13 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": []
+        "records": [
+          {
+            "name": "nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml"
+          }
+        ]
       },
       {
         "id": "post-deployment",
@@ -480,6 +504,11 @@
   },
   "evidence": {
     "links": [
+      {
+        "name": "nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.yaml"
+      },
       {
         "name": "flattening-safety-verdict-preinstalled-driver-and-toolkit.yaml",
         "path": "recipes/nvidia/gpu-operator/v25.10.1/publication/flattening-safety-verdict-preinstalled-driver-and-toolkit.yaml",

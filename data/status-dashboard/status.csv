@@ -1,7 +1,7 @@
 section,metric,value,total,status,source,note
 outcome coverage,maintained chart rows with model support,162,167,good,data/outcome-coverage/chart-outcomes.csv,The broader outcome-coverage table includes top-100 rows plus retained candidate/version rows; this count is not the top-100 corpus size.
-top100,catalog-supported charts,20,111,partial,data/top100-readiness/readiness.csv,These are the current public catalog entries; production support still depends on lane status.
-top100,proof-grade non-catalog charts,91,111,partial,data/top100-readiness/readiness.csv,These charts have proof artifacts but are not promoted catalog entries.
+top100,catalog-supported charts,20,115,partial,data/top100-readiness/readiness.csv,These are the current public catalog entries; production support still depends on lane status.
+top100,proof-grade non-catalog charts,95,115,partial,data/top100-readiness/readiness.csv,These charts have proof artifacts but are not promoted catalog entries.
 outcome coverage,variant-rich maintained chart rows,106,167,partial,data/outcome-coverage/chart-outcomes.csv,"Maintained chart rows with more than one declared base variant, including retained candidate/version rows outside the top-100 corpus."
 chart use,public catalog answers,20,111,partial,data/chart-use-guide/chart-use-guide.csv,"Rows where a user can start from a public catalog entry, then choose a base and verify the lane they need."
 chart use,proof-ready but not public catalog answers,40,111,partial,data/chart-use-guide/chart-use-guide.csv,Rows with proof value and useful variants that still need catalog promotion review.

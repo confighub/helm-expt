@@ -18,8 +18,8 @@ Which detailed CSV should I open next?
 | Section | Metric | Value | Status | Source |
 | --- | --- | ---: | --- | --- |
 | outcome coverage | maintained chart rows with model support | 162/167 | good | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
-| top100 | catalog-supported charts | 20/111 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
-| top100 | proof-grade non-catalog charts | 91/111 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
+| top100 | catalog-supported charts | 20/115 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
+| top100 | proof-grade non-catalog charts | 95/115 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
 | outcome coverage | variant-rich maintained chart rows | 106/167 | partial | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
 | chart use | public catalog answers | 20/111 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | chart use | proof-ready but not public catalog answers | 40/111 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
@@ -386,16 +386,16 @@ top-100 chart and the next command or file to open.
 | Adoption bucket | Charts |
 | --- | ---: |
 | promote-after-review | 40 |
-| needs-useful-variant | 38 |
+| needs-useful-variant | 39 |
 | try-from-public-catalog | 20 |
+| not-ready | 9 |
 | limitation-decision-first | 7 |
-| not-ready | 6 |
 
 | Strongest evidence | Charts |
 | --- | ---: |
 | live-helm-vs-confighub-parity | 73 |
+| render-parity | 16 |
 | in-confighub-proof | 13 |
-| render-parity | 12 |
 | local-kubernetes-live | 8 |
 | two-cluster-kind-parity | 5 |
 

@@ -49,11 +49,13 @@
     "reference": "nvidia/nvsentinel@v1.9.0",
     "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.9.0@sha256:d13963c102f908c62a297120947532bc4101486e72d5cb36b1708a04a6e5283b",
     "record": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml",
     "selection": {
       "name": "default",
       "kind": "catalog-preset",
       "provider": "Config Workshop",
-      "record": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml"
+      "record": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml"
     },
     "pin": {
       "digest": "sha256:0369d05454ce78ae4791f376bc67f2651f48ccfaebf4a9e801fdfa83ec387199",
@@ -265,7 +267,13 @@
       }
     ],
     "routes": [],
-    "records": []
+    "records": [
+      {
+        "name": "nvidia-nvsentinel-v1-9-0-default.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml"
+      }
+    ]
   },
   "lifecycle": {
     "installTimeStatus": "partly-declared",
@@ -358,6 +366,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-nvsentinel-v1-9-0-default.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml"
+          },
+          {
             "name": "release-objects.yaml",
             "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml"
@@ -383,6 +396,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-nvsentinel-v1-9-0-default.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml"
+          },
+          {
             "name": "variant-revision.yaml",
             "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/variant-revision.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/variant-revision.yaml"
@@ -402,7 +420,13 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": []
+        "records": [
+          {
+            "name": "nvidia-nvsentinel-v1-9-0-default.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml"
+          }
+        ]
       },
       {
         "id": "post-deployment",
@@ -423,6 +447,11 @@
   },
   "evidence": {
     "links": [
+      {
+        "name": "nvidia-nvsentinel-v1-9-0-default.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml"
+      },
       {
         "name": "flattening-safety-verdict.yaml",
         "path": "recipes/nvidia/nvsentinel/v1.9.0/publication/flattening-safety-verdict.yaml",

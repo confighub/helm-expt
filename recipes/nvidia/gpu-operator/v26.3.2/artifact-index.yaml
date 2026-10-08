@@ -56,12 +56,12 @@ spec:
     userStatus: ""
     strongestEvidence: ""
     proofLanes:
-      renderParity: ""
-      inConfigHub: ""
-      localLive: ""
-      gitopsLive: ""
-      liveParity: ""
-    featureSummary: ""
+      renderParity: "6/6"
+      inConfigHub: "0/6"
+      localLive: "0/6"
+      gitopsLive: "0/6"
+      liveParity: "0/6"
+    featureSummary: "none-recorded"
     hardGap: ""
     nextAction: ""
   installerPackage:

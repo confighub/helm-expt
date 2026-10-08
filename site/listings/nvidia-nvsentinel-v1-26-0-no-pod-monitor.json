@@ -49,11 +49,13 @@
     "reference": "nvidia/nvsentinel@v1.26.0",
     "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.26.0@sha256:4046e444dbc245b6077a1f568de1139dd8bb20d59eb97ac49d6c2d85a9ded0a9",
     "record": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml",
     "selection": {
       "name": "no-pod-monitor",
       "kind": "catalog-preset",
       "provider": "Config Workshop",
-      "record": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml"
+      "record": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml"
     },
     "pin": {
       "digest": "sha256:3bc84ab4cc136b05f5cc142114ad03e6174afc0af0d856c5bda1bf79edf6cb2a",
@@ -251,7 +253,13 @@
     "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
     "requirements": [],
     "routes": [],
-    "records": []
+    "records": [
+      {
+        "name": "nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml"
+      }
+    ]
   },
   "lifecycle": {
     "installTimeStatus": "not-yet-declared",
@@ -335,6 +343,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml"
+          },
+          {
             "name": "release-objects.yaml",
             "path": "recipes/nvidia/nvsentinel/v1.26.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.26.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml"
@@ -360,6 +373,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml"
+          },
+          {
             "name": "variant-revision.yaml",
             "path": "recipes/nvidia/nvsentinel/v1.26.0/revisions/no-pod-monitor/r001/variant-revision.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.26.0/revisions/no-pod-monitor/r001/variant-revision.yaml"
@@ -379,7 +397,13 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": []
+        "records": [
+          {
+            "name": "nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml"
+          }
+        ]
       },
       {
         "id": "post-deployment",
@@ -400,6 +424,11 @@
   },
   "evidence": {
     "links": [
+      {
+        "name": "nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml"
+      },
       {
         "name": "flattening-safety-verdict-no-pod-monitor.yaml",
         "path": "recipes/nvidia/nvsentinel/v1.26.0/publication/flattening-safety-verdict-no-pod-monitor.yaml",

@@ -49,11 +49,13 @@
     "reference": "nvidia/gpu-operator@v26.3.3",
     "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3@sha256:abd8475d6bfeabe88acc2d6a319a04054a9e84046d69926dcee4717674329a8f",
     "record": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml",
     "selection": {
       "name": "external-nfd",
       "kind": "catalog-preset",
       "provider": "Config Workshop",
-      "record": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml"
+      "record": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml"
     },
     "pin": {
       "digest": "sha256:bcfd03e4531cdfbfd33e677cd39d905680d6151902bb8e4cc69412a6b31bd8b2",
@@ -279,7 +281,13 @@
       }
     ],
     "routes": [],
-    "records": []
+    "records": [
+      {
+        "name": "nvidia-gpu-operator-v26-3-3-external-nfd.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml"
+      }
+    ]
   },
   "lifecycle": {
     "installTimeStatus": "partly-declared",
@@ -379,6 +387,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-gpu-operator-v26-3-3-external-nfd.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml"
+          },
+          {
             "name": "release-objects.yaml",
             "path": "recipes/nvidia/gpu-operator/v26.3.3/revisions/external-nfd/r001/rendered/release-objects.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v26.3.3/revisions/external-nfd/r001/rendered/release-objects.yaml"
@@ -404,6 +417,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-gpu-operator-v26-3-3-external-nfd.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml"
+          },
+          {
             "name": "variant-revision.yaml",
             "path": "recipes/nvidia/gpu-operator/v26.3.3/revisions/external-nfd/r001/variant-revision.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v26.3.3/revisions/external-nfd/r001/variant-revision.yaml"
@@ -423,7 +441,13 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": []
+        "records": [
+          {
+            "name": "nvidia-gpu-operator-v26-3-3-external-nfd.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml"
+          }
+        ]
       },
       {
         "id": "post-deployment",
@@ -444,6 +468,11 @@
   },
   "evidence": {
     "links": [
+      {
+        "name": "nvidia-gpu-operator-v26-3-3-external-nfd.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-external-nfd.yaml"
+      },
       {
         "name": "flattening-safety-verdict-external-nfd.yaml",
         "path": "recipes/nvidia/gpu-operator/v26.3.3/publication/flattening-safety-verdict-external-nfd.yaml",

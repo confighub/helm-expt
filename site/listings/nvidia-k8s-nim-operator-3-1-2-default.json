@@ -49,11 +49,13 @@
     "reference": "nvidia/k8s-nim-operator@3.1.2",
     "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2@sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d",
     "record": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml",
     "selection": {
       "name": "default",
       "kind": "catalog-preset",
       "provider": "Config Workshop",
-      "record": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml"
+      "record": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml"
     },
     "pin": {
       "digest": "sha256:cc53a3838fe9cb0a80a8a61d458d3190e20f64fb43ceb973dc8c39dba5f5f131",
@@ -279,7 +281,13 @@
       }
     ],
     "routes": [],
-    "records": []
+    "records": [
+      {
+        "name": "nvidia-k8s-nim-operator-3-1-2-default.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml"
+      }
+    ]
   },
   "lifecycle": {
     "installTimeStatus": "partly-declared",
@@ -428,6 +436,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-k8s-nim-operator-3-1-2-default.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml"
+          },
+          {
             "name": "release-objects.yaml",
             "path": "recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/rendered/release-objects.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/rendered/release-objects.yaml"
@@ -453,6 +466,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-k8s-nim-operator-3-1-2-default.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml"
+          },
+          {
             "name": "variant-revision.yaml",
             "path": "recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/variant-revision.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/variant-revision.yaml"
@@ -472,7 +490,13 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": []
+        "records": [
+          {
+            "name": "nvidia-k8s-nim-operator-3-1-2-default.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml"
+          }
+        ]
       },
       {
         "id": "post-deployment",
@@ -493,6 +517,11 @@
   },
   "evidence": {
     "links": [
+      {
+        "name": "nvidia-k8s-nim-operator-3-1-2-default.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml"
+      },
       {
         "name": "flattening-safety-verdict.yaml",
         "path": "recipes/nvidia/k8s-nim-operator/3.1.2/publication/flattening-safety-verdict.yaml",

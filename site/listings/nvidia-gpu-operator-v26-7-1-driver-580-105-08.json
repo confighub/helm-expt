@@ -49,11 +49,13 @@
     "reference": "nvidia/gpu-operator@v26.7.1",
     "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71",
     "record": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml",
     "selection": {
       "name": "driver-580.105.08",
       "kind": "catalog-preset",
       "provider": "Config Workshop",
-      "record": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml"
+      "record": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml"
     },
     "pin": {
       "digest": "sha256:fbf2dfa116bb812c1d7aa553528339d713b2edcb9693f5abed8ba490548e9bb9",
@@ -319,7 +321,13 @@
       }
     ],
     "routes": [],
-    "records": []
+    "records": [
+      {
+        "name": "nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml"
+      }
+    ]
   },
   "lifecycle": {
     "installTimeStatus": "partly-declared",
@@ -461,6 +469,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml"
+          },
+          {
             "name": "release-objects.yaml",
             "path": "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/rendered/release-objects.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/rendered/release-objects.yaml"
@@ -486,6 +499,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml"
+          },
+          {
             "name": "variant-revision.yaml",
             "path": "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/variant-revision.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/variant-revision.yaml"
@@ -505,7 +523,13 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": []
+        "records": [
+          {
+            "name": "nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml"
+          }
+        ]
       },
       {
         "id": "post-deployment",
@@ -526,6 +550,11 @@
   },
   "evidence": {
     "links": [
+      {
+        "name": "nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml"
+      },
       {
         "name": "flattening-safety-verdict-driver-580.105.08.yaml",
         "path": "recipes/nvidia/gpu-operator/v26.7.1/publication/flattening-safety-verdict-driver-580.105.08.yaml",

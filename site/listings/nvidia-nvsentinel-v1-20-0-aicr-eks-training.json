@@ -49,11 +49,13 @@
     "reference": "nvidia/nvsentinel@v1.20.0",
     "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0@sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4",
     "record": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
     "selection": {
       "name": "aicr-eks-training",
       "kind": "catalog-preset",
       "provider": "Config Workshop",
-      "record": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml"
+      "record": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml"
     },
     "pin": {
       "digest": "sha256:5e71342cb8661285f7afebf808da90718855b440fdb73bc3f94aff001597dcc3",
@@ -265,7 +267,13 @@
       }
     ],
     "routes": [],
-    "records": []
+    "records": [
+      {
+        "name": "nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml"
+      }
+    ]
   },
   "lifecycle": {
     "installTimeStatus": "partly-declared",
@@ -358,6 +366,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml"
+          },
+          {
             "name": "release-objects.yaml",
             "path": "recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
@@ -383,6 +396,11 @@
         ],
         "records": [
           {
+            "name": "nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml"
+          },
+          {
             "name": "variant-revision.yaml",
             "path": "recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/variant-revision.yaml",
             "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/variant-revision.yaml"
@@ -402,7 +420,13 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": []
+        "records": [
+          {
+            "name": "nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml"
+          }
+        ]
       },
       {
         "id": "post-deployment",
@@ -423,6 +447,11 @@
   },
   "evidence": {
     "links": [
+      {
+        "name": "nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml"
+      },
       {
         "name": "flattening-safety-verdict-aicr-eks-training.yaml",
         "path": "recipes/nvidia/nvsentinel/v1.20.0/publication/flattening-safety-verdict-aicr-eks-training.yaml",
