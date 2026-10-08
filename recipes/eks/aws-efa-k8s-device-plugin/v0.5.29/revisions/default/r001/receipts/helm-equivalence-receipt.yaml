@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "aws-efa-k8s-device-plugin-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "c1ef5b2dfd1b02b944714537189ff29d7fa937dedcb2ce32b40495bebdb5b8f8"
+    objectCount: 1
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 2
+    uploadedManifestFiles: 2
+    separatedSecretFiles: 0
+    semanticObjectMatches: "1/1"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||kube-system"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run aicr-nested-charts-coverage:compare"

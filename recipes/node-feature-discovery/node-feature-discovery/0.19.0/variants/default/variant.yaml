@@ -1,0 +1,46 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "default"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "node-feature-discovery"
+  releaseName: "nfd"
+  valuesProfile: "../../effective-values.yaml"
+  capabilityProfile:
+    kubeVersion: "1.31.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "nodefeaturegroups.nfd.k8s-sigs.io"
+        sourceVariant: "default"
+        purpose: "CRD included in this base and applied before the components that use it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "nodefeaturerules.nfd.k8s-sigs.io"
+        sourceVariant: "default"
+        purpose: "CRD included in this base and applied before the components that use it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "nodefeatures.nfd.k8s-sigs.io"
+        sourceVariant: "default"
+        purpose: "CRD included in this base and applied before the components that use it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"

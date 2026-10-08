@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "eks-aws-efa-k8s-device-plugin-v0.5.29"
+spec:
+  checkedValues:
+    -
+      path: "<chart defaults>"
+      variant: "default"
+      disposition: "default-render-captured"
+      reason: "the exact chart-default render of the locked archive is captured"
+    -
+      path: "fullnameOverride"
+      disposition: "variant-axis"
+      reason: "Empty by chart default, so the default base names the DaemonSet after the release and the chart: aws-efa-aws-efa-k8s-device-plugin. The AICR values set it to aws-efa-k8s-device-plugin."
+      evidence: "templates/_helpers.tpl, templates/daemonset.yaml"
+    -
+      path: "supportedInstanceLabels / nodeSelector"
+      disposition: "variant-axis"
+      reason: "Chart defaults select nodes by a long list of EFA-capable EC2 instance types in a node affinity. The AICR values replace the label keys and values with nodeGroup and nvidia.com/gpu.present, and add a node selector on nvidia.com/gpu.present."
+      note: "the default base runs on EFA-capable instance types; the AICR base runs on nodes the GPU Operator has labelled"
+      evidence: "values.yaml supportedInstanceLabels, templates/daemonset.yaml"
+    -
+      path: "<aicr-eks-training values>"
+      variant: "aicr-eks-training"
+      disposition: "variant-axis"
+      reason: "the values the AICR v0.20.0 and AICR v1.0.0 EKS training entries supply (examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/002-aws-efa/values.yaml and examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-helm-bundle/002-aws-efa/values.yaml): the full name set to aws-efa-k8s-device-plugin, the DaemonSet selected onto nodes labelled nvidia.com/gpu.present and tolerating every taint, the image named explicitly, resource requests set, and the container security context tightened"
+      note: "differs from the default base by removing apps/v1|DaemonSet||aws-efa-aws-efa-k8s-device-plugin and adding apps/v1|DaemonSet||aws-efa-k8s-device-plugin and by the fields those values reach; the proof checks the removed and added sets"
+  unknownValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  deadValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  ignoredValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"

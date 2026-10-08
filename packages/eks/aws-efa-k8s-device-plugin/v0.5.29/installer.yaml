@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "eks-aws-efa-k8s-device-plugin"
+  version: "v0.5.29"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "aws-efa-k8s-device-plugin chart defaults variant rendered from eks/aws-efa-k8s-device-plugin@v0.5.29"
+    -
+      name: "aicr-eks-training"
+      path: "bases/aicr-eks-training"
+      description: "aws-efa-k8s-device-plugin AICR v0.20.0 and AICR v1.0.0 EKS training values variant rendered from eks/aws-efa-k8s-device-plugin@v0.5.29"

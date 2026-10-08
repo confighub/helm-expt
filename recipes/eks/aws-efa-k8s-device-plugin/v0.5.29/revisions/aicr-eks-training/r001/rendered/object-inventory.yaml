@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "eks-aws-efa-k8s-device-plugin-v0.5.29-aicr-eks-training-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71"
+  objectCount: 1
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|DaemonSet||aws-efa-k8s-device-plugin"
+      kind: "DaemonSet"
+      name: "aws-efa-k8s-device-plugin"
+      namespace: ""

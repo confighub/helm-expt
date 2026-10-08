@@ -9,8 +9,7 @@
 // dra-driver-nvidia-gpu, kubeflow-trainer, node-feature-discovery,
 // aws-efa-k8s-device-plugin and k8s-ephemeral-storage-metrics. Three were in the
 // Catalog at another version: aws-ebs-csi-driver, kube-prometheus-stack and
-// prometheus-operator-crds. Two of the seven, node-feature-discovery and
-// aws-efa-k8s-device-plugin, are held out below until their licence is recorded.
+// prometheus-operator-crds.
 //
 // Every archive was pulled with no registry credentials on 2026-10-08. Where the
 // AICR v0.20.0 entry retains a nested-render receipt for the chart, the SHA-256
@@ -86,6 +85,14 @@ export const AICR_NESTED_CHART_ADDITIONS = Object.freeze([
     targetFacts: true,
     ociManifestDigest: "sha256:332c2e6a31e7497af6bafa5aa44b07f17709d5555e9ee9a16a1b95e1c389d478",
   }),
+  entry("node-feature-discovery", "node-feature-discovery", "0.19.0", "https://github.com/kubernetes-sigs/node-feature-discovery/releases/download/v0.19.0/node-feature-discovery-chart-0.19.0.tgz", "9e93b360e6167b782759026de40ba9d68d44c3e8b0b53b735592ad48fd3339ad", generic, {
+    candidate: "node-feature-discovery",
+    ...hooks,
+  }),
+  // The archive's Chart.yaml names the version v0.5.29. The AICR Applications ask for 0.5.29, which Helm resolves to it.
+  entry("eks", "aws-efa-k8s-device-plugin", "v0.5.29", "https://aws.github.io/eks-charts/aws-efa-k8s-device-plugin-v0.5.29.tgz", "078610ef669714f39be77d133674c7721fb3ca123213b3d6b16938c8c0d2e034", generic, {
+    candidate: "aws-efa-k8s-device-plugin",
+  }),
   // The repository index at https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart lists this URL and this digest for 1.19.2.
   entry("k8s-ephemeral-storage-metrics", "k8s-ephemeral-storage-metrics", "1.19.2", "https://github.com/jmcgrath207/k8s-ephemeral-storage-metrics/releases/download/1.19.2/k8s-ephemeral-storage-metrics-1.19.2.tgz", "50efd37764505551f24752c3806e63458be775fc8c10fb1c68fe1f62b5ed4cf1", generic, {
     candidate: "k8s-ephemeral-storage-metrics",
@@ -107,34 +114,13 @@ export const AICR_NESTED_CHART_ADDITIONS = Object.freeze([
   }),
 ]);
 
-// Held out. A chart enters the Catalog only after its chart licence and the
-// source of that licence are recorded (data/chart-licenses/chart-licenses.yaml).
-// Neither archive below states a licence: no LICENSE file, no licence field or
-// annotation in Chart.yaml, and no licence header in any file. This change was
-// made offline apart from the chart archives, so the upstream repository
-// LICENSE was not read. Both archives pulled anonymously and both were rendered,
-// packaged and verified; the commits that added and then removed their recipes
-// and packages are in this branch's history, and the candidate declarations
-// are still in scripts/lib/aicr-nested-chart-candidates.mjs. To bring one back,
-// read the LICENSE at the release tag, add its licence row, move its entry
-// into the list above, and run --generate --only <chart>.
-export const AICR_NESTED_CHART_HELD = Object.freeze([
-  {
-    ...entry("node-feature-discovery", "node-feature-discovery", "0.19.0", "https://github.com/kubernetes-sigs/node-feature-discovery/releases/download/v0.19.0/node-feature-discovery-chart-0.19.0.tgz", "9e93b360e6167b782759026de40ba9d68d44c3e8b0b53b735592ad48fd3339ad", generic, {
-      candidate: "node-feature-discovery",
-      ...hooks,
-    }),
-    reason:
-      "the chart licence is not recorded: the archive states none, and the LICENSE of kubernetes-sigs/node-feature-discovery at tag v0.19.0 was not read",
-  },
-  {
-    // The archive's Chart.yaml names the version v0.5.29. The AICR Applications ask for 0.5.29, which Helm resolves to it.
-    ...entry("eks", "aws-efa-k8s-device-plugin", "v0.5.29", "https://aws.github.io/eks-charts/aws-efa-k8s-device-plugin-v0.5.29.tgz", "078610ef669714f39be77d133674c7721fb3ca123213b3d6b16938c8c0d2e034", generic, {
-      candidate: "aws-efa-k8s-device-plugin",
-    }),
-    reason: "the chart licence is not recorded: the archive states none, and the LICENSE of aws/eks-charts was not read",
-  },
-]);
+// Held out. A chart version that was prepared and is not in the list above is
+// named here with the reason, and --list prints it as held out. A chart enters
+// the Catalog only after its chart licence and the source of that licence are
+// recorded (data/chart-licenses/chart-licenses.yaml). Nothing is held today:
+// node-feature-discovery 0.19.0 and aws-efa-k8s-device-plugin v0.5.29 were held
+// until their licences were read, and both are in the list above.
+export const AICR_NESTED_CHART_HELD = Object.freeze([]);
 
 // Discovery roles, in the vocabulary of scripts/lib/catalog-roles.mjs (cache,
 // database, ingress, certificates, metrics, logs, secrets, queue, gpu), only
