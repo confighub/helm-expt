@@ -27,7 +27,10 @@ const retained = [
   "eks-h100-training-kubeflow-v0-18-0",
   "eks-h100-training-kubeflow-v0-19-0",
   "eks-h100-training-kubeflow-v0-20-0",
-  "h100-eks-ubuntu-training-kubeflow",
+  // The newest pair ends at the hand-retained v1.0.0 entry. The overlay mirror
+  // was regenerated at v1.0.0 in place, so the repository no longer holds
+  // v0.21.0 bytes to compare, and this record does not describe that version.
+  "eks-h100-training-kubeflow-v1-0-0",
 ];
 const entryCache = new Map();
 const summaryPath = join(repoRoot, "data", "aicr-version-diff", "summary.md");
@@ -311,14 +314,16 @@ function renderSummary(diff) {
   const historical = diff.transitions[0];
   const nvsentinelHealth = diff.transitions.find((transition) => transition.from.version === "v0.19.0" && transition.to.version === "v0.20.0")?.recipe.healthCheckChanges.find((row) => row.component === "nvsentinel");
   check(nvsentinelHealth, "the v0.19.0 to v0.20.0 comparison must retain the NVSentinel health-check change");
-  const v021Inputs = diff.inputComparisons.find((comparison) => comparison.from.version === "v0.20.0" && comparison.to.version === "v0.21.0");
-  check(v021Inputs, "the v0.20.0 to v0.21.0 input comparison is required");
-  const v021Objects = diff.objectComparisons.find((comparison) => comparison.from.version === "v0.20.0" && comparison.to.version === "v0.21.0");
-  const v021Changed = v021Objects.review.objects.filter((object) => object.changeType !== "unchanged").length;
+  const v100Inputs = diff.inputComparisons.find((comparison) => comparison.from.version === "v0.20.0" && comparison.to.version === "v1.0.0");
+  check(v100Inputs, "the v0.20.0 to v1.0.0 input comparison is required");
+  const v100Objects = diff.objectComparisons.find((comparison) => comparison.from.version === "v0.20.0" && comparison.to.version === "v1.0.0");
+  const v100Changed = v100Objects.review.objects.filter((object) => object.changeType !== "unchanged").length;
+  const v100Transition = diff.transitions.find((transition) => transition.from.version === "v0.20.0" && transition.to.version === "v1.0.0");
+  const addedInputs = Object.keys(v100Inputs.to.generationInputs ?? {}).filter((key) => !(key in (v100Inputs.from.generationInputs ?? {}))).sort();
   const notes = new Map([
     ["v0.14.0->v0.18.0", `The sync-wave count fell from ${historical.shape.distinctWavesBefore} to ${historical.shape.distinctWavesAfter}. v0.18.0 began grouping independent components into parallel waves. That change is why the ordering verifier checks dependency edges instead of requiring one unique wave per component.`],
     ["v0.19.0->v0.20.0", `NVSentinel moves from v1.9.0 to v1.20.0. Its check now tests the driver-labelled DaemonSets as well as the labeler Deployment and pods. The overall assert timeout changes from ${nvsentinelHealth.from.assertTimeout} to ${nvsentinelHealth.to.assertTimeout}, so a stalled DaemonSet reports its failure sooner. The optional zero-desired cases remain excluded. These are retained source changes; this comparison does not claim that the check ran on EKS.`],
-    ["v0.20.0->v0.21.0", `The full-object comparison finds ${v021Changed} changed Application objects, including changes outside chart versions and waves. The v0.21.0 entry is an existing overlay-generator output with its own pinned source receipt and generation inputs. The local generation repoURL changes from ${v021Inputs.from.generationInputs.repoURL} to ${v021Inputs.to.generationInputs.repoURL}; this is an input difference, not an upstream AICR change. This comparison uses the committed recipe and rendered Application bytes; it does not claim identical local generation inputs, downstream chart rerenders, publication, or runtime behavior.`],
+    ["v0.20.0->v1.0.0", `This transition spans more than one upstream minor release. The catalog retains no v0.21.0 entry, so the intermediate version is not compared. The full-object comparison finds ${v100Changed} changed Application objects, including changes outside chart versions and waves. The recipe apiVersion moves from ${v100Transition.recipe.apiVersionBefore} to ${v100Transition.recipe.apiVersionAfter}. The v1.0.0 entry was generated with ${addedInputs.length === 1 ? "one input" : `${addedInputs.length} inputs`} the v0.20.0 entry did not have (${addedInputs.join(", ")}), because AICR v1.0.0 refuses the bundle without a system node selector. Its value ${v100Inputs.to.generationInputs.systemNodeSelector} is a recorded placeholder, so part of the difference between the two entries is that input and not an upstream change. This comparison uses the committed recipe and rendered Application bytes; it does not claim downstream chart rerenders, publication, or runtime behavior.`],
   ]);
 
   return `# What changed across retained AICR versions

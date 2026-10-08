@@ -22,6 +22,7 @@ import {
   repoRoot,
   write,
 } from "./lib/proof-common.mjs";
+import { aicrMirrorDelivery, LITERAL_CONFIG, loadAicrMirrorEntries, SOURCE_PACKAGE } from "./lib/aicr-mirror-artifacts.mjs";
 import { loadAicrRecipeEntries } from "./lib/aicr-recipe-entries.mjs";
 
 const outputJson = join(repoRoot, "data", "aicr-platform-evidence", "platform-evidence.json");
@@ -166,6 +167,9 @@ const retainedRecipeEntries = loadAicrRecipeEntries();
 const mirroredOverlayIds = new Set(
   retainedRecipeEntries.filter((entry) => entry.origin === "mirrored-overlay").map((entry) => entry.id),
 );
+// A mirrored overlay plans two OCI artifacts, and a tracked receipt says when
+// one is published. The record carries that state for each entry.
+const mirrorEntries = new Map(loadAicrMirrorEntries().map((entry) => [entry.id, entry]));
 const handWrittenIds = new Set(entries.map((entry) => entry.id));
 for (const entry of retainedRecipeEntries) {
   if (handWrittenIds.has(entry.id)) continue;
@@ -179,9 +183,10 @@ for (const entry of retainedRecipeEntries) {
     ladder: [],
   });
 }
-// A mirrored overlay's own receipt says it was retained and never published,
-// uploaded or delivered. A rung on its ladder would contradict that receipt,
-// so the receipt has to change before a rung can be listed.
+// A mirrored overlay's own receipt says it was retained, and records no upload
+// and no delivery. A rung on its ladder would contradict that receipt, so the
+// receipt has to change before a rung can be listed. Publication of its two
+// artifacts is not a rung. It is carried beside the ladder, from receipts.
 for (const entry of entries) {
   check(
     !mirroredOverlayIds.has(entry.id) || entry.ladder.length === 0,
@@ -273,6 +278,12 @@ function buildRecord() {
     });
 
     const boundary = index.spec?.boundary ?? {};
+    const mirror = mirrorEntries.get(entry.id);
+    check(
+      Boolean(mirror) === mirroredOverlayIds.has(entry.id),
+      `${entry.id}: a mirrored overlay must have a planned source package and literal bundle, and no other entry may`,
+    );
+    const delivery = mirror ? aicrMirrorDelivery(mirror) : null;
     return {
       id: entry.id,
       title: entry.title,
@@ -293,10 +304,35 @@ function buildRecord() {
         sourceReceipt: relativeRepo(sourceReceiptPath),
       },
       ladder: { climbed, climbedCount: climbed.length },
+      // The two artifacts a mirrored overlay needs before it can be delivered,
+      // each with the digest its plan records and the state its receipt allows.
+      ...(mirror
+        ? {
+            artifacts: {
+              state: delivery.retention,
+              deliverable: delivery.deliverable,
+              sourcePackage: {
+                status: delivery.sourcePackageOci.status,
+                reference: `oci://${mirror.artifacts[SOURCE_PACKAGE].reference}`,
+                manifestDigest: mirror.artifacts[SOURCE_PACKAGE].manifestDigest,
+                plan: mirror.artifacts[SOURCE_PACKAGE].planRel,
+                ...(mirror.publications[SOURCE_PACKAGE].published ? { receipt: mirror.publications[SOURCE_PACKAGE].receiptRel } : {}),
+              },
+              literalConfig: {
+                status: delivery.literalConfigOci.status,
+                reference: `oci://${mirror.artifacts[LITERAL_CONFIG].reference}`,
+                manifestDigest: mirror.artifacts[LITERAL_CONFIG].manifestDigest,
+                plan: mirror.artifacts[LITERAL_CONFIG].planRel,
+                ...(mirror.publications[LITERAL_CONFIG].published ? { receipt: mirror.publications[LITERAL_CONFIG].receiptRel } : {}),
+              },
+            },
+          }
+        : {}),
       boundary: {
         configPlaneOnly: boundary.configPlaneOnly ?? true,
         gpuWorkloadsProven: boundary.gpuWorkloadsProven ?? false,
-        published: boundary.published ?? null,
+        // For a mirrored overlay, published means both artifacts are.
+        published: mirror ? delivery.deliverable : boundary.published ?? null,
       },
     };
   });
@@ -377,5 +413,11 @@ function mirroredSentence(record) {
   const mirrored = record.spec.entries.filter((entry) => entry.provenance === "mirrored-upstream-overlay");
   const climbed = mirrored.filter((entry) => entry.ladder.climbedCount > 0).length;
   check(climbed === 0, "a mirrored overlay is listed with a climbed ladder rung");
-  return `${mirrored.length} of the ${record.spec.entries.length} entries are mirrored overlays. Each one is retained and rendered and has no receipt for any later step, so its ladder is empty. None of them is published or deployed.`;
+  const both = mirrored.filter((entry) => entry.artifacts.deliverable).length;
+  const sourceOnly = mirrored.filter((entry) => entry.artifacts.sourcePackage.status === "published-with-receipt" && !entry.artifacts.deliverable).length;
+  const literalOnly = mirrored.filter((entry) => entry.artifacts.literalConfig.status === "published-with-receipt" && entry.artifacts.sourcePackage.status !== "published-with-receipt").length;
+  const published = both + sourceOnly + literalOnly === 0
+    ? "None of them is published or deployed."
+    : `${both} of them have both artifacts published with a receipt. ${sourceOnly} have only the source package published, and ${literalOnly} have a literal bundle published while the source package it points at is missing, which cannot be delivered. None of them is deployed.`;
+  return `${mirrored.length} of the ${record.spec.entries.length} entries are mirrored overlays. Each one retains its recipe, its bundle and its rendered Applications, and plans a source package and a literal configuration bundle by digest. No later step has a receipt, so each ladder is empty. ${published}`;
 }

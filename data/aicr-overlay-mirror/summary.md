@@ -10,6 +10,8 @@ The mirror is generated from AICR v1.0.0, commit `82bccef69855c70e151f8b5e6ed9d0
 
 This page does not say whether any entry is published. [overlays.csv](./overlays.csv) lists every overlay with its counts and its planned source package reference.
 
+On 2026-10-08, on darwin-arm64, the whole mirror was generated three times with all network access denied to the generator, the AICR binary and Helm. `aicr recipe list`, `aicr recipe`, `aicr bundle --deployer argocd-helm` and `helm template` completed for every mirrored overlay, and the runs produced the same bytes. No AICR command needed the network. Other platforms and other AICR commands were not observed.
+
 ## Overlays that are not mirrored
 
 | Overlay | Stage | Why | What AICR said |

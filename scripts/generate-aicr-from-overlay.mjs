@@ -47,6 +47,12 @@
 // contacted by this script or by anything it generates. The one network use
 // this script can make is the pinned release download in step 1, and only
 // when no verified binary is given or cached.
+//
+// Whether the AICR commands themselves use the network was not observed for
+// v0.21.0. It was observed for v1.0.0, and NETWORK_OBSERVATION below records
+// what was seen. To repeat it on macOS, run this script under
+// `sandbox-exec -f <profile>` with a profile of `(version 1)`,
+// `(allow default)` and `(deny network*)`, and pass --binary.
 
 import { execFileSync, spawnSync } from "node:child_process";
 import {
@@ -116,6 +122,12 @@ const PLATFORM_PINS = {
     binarySha256: "972da08e016b3ea779cc5f51eafa3a0024a4f052fbdfbc5ea55cd6524766b8fc",
   },
 };
+
+// What was seen when the pinned release was run with the network denied. It is
+// a dated observation of one platform, and it is written into the mirror's
+// summary so the claim travels with the data.
+const NETWORK_OBSERVATION =
+  "On 2026-10-08, on darwin-arm64, the whole mirror was generated three times with all network access denied to the generator, the AICR binary and Helm. `aicr recipe list`, `aicr recipe`, `aicr bundle --deployer argocd-helm` and `helm template` completed for every mirrored overlay, and the runs produced the same bytes. No AICR command needed the network. Other platforms and other AICR commands were not observed.";
 
 const PLANNED_OCI_BASE = "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt";
 const BUNDLE_CHART_NAME = "aicr-bundle";
@@ -834,6 +846,8 @@ function writeMirrorInventory({ outcomes, listing }) {
       `${placeholders} entries carry the placeholder system node selector \`${SYSTEM_NODE_SELECTOR.value}\`, because AICR refuses their bundle without a system node selector. Each of those entries records the refusal and every place the placeholder lands. ${tolerations} entries carry the keyed toleration \`${KEYED_TOLERATION.value}\`, which AICR's own refusal names for AKS.`,
       "",
       "This page does not say whether any entry is published. [overlays.csv](./overlays.csv) lists every overlay with its counts and its planned source package reference.",
+      "",
+      NETWORK_OBSERVATION,
       "",
       "## Overlays that are not mirrored",
       "",
