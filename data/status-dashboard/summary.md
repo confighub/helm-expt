@@ -44,11 +44,11 @@ Which detailed CSV should I open next?
 | refresh | update candidates with proof-complete root paths | 7/7 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | latest refresh p0 action rows | 0/7 | partial | [data/latest-top20-refresh/action-queue/queue.csv](../../data/latest-top20-refresh/action-queue/queue.csv) |
 | top500 | source rows scanned | 495/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| top500 | rows with current recipe proof | 97/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
+| top500 | rows with current recipe proof | 98/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | catalog-supported rows | 20/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| top500 | proof-grade rows | 76/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| top500 | rows with no current recipe proof | 403/500 | gap | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| top500 | version-drift review rows | 27/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
+| top500 | proof-grade rows | 74/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
+| top500 | rows with no current recipe proof | 402/500 | gap | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
+| top500 | version-drift review rows | 30/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | proof lanes | render parity rows | 344/344 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | in-ConfigHub proof rows | 198/344 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live rows | 148/344 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
@@ -413,16 +413,16 @@ version differs from the maintained recipe version.
 
 | Catalog status | Rows |
 | --- | ---: |
-| not-in-catalog | 403 |
-| proof-grade | 76 |
+| not-in-catalog | 402 |
+| proof-grade | 74 |
 | catalog-supported | 20 |
-| catalog-candidate | 1 |
+| catalog-candidate | 4 |
 
 | Recipe status | Rows |
 | --- | ---: |
-| no-current-recipe | 403 |
-| current-recipe-exact-version | 70 |
-| current-recipe-different-version | 27 |
+| no-current-recipe | 402 |
+| current-recipe-exact-version | 68 |
+| current-recipe-different-version | 30 |
 
 Use [top500-catalog-analysis/summary.md](../top500-catalog-analysis/summary.md)
 for the narrative and [top500-catalog-analysis/review.csv](../top500-catalog-analysis/review.csv)

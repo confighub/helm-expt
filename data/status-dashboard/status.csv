@@ -26,11 +26,11 @@ refresh,top20 upstream update candidates,7,20,partial,data/refresh-survival/refr
 refresh,update candidates with proof-complete root paths,7,7,partial,data/refresh-survival/refreshes.csv,"Latest-version candidates that have root recipe/package paths and proof-complete evidence, but are not replacement catalog rows."
 refresh,latest refresh p0 action rows,0,7,partial,data/latest-top20-refresh/action-queue/queue.csv,"Upstream movement rows whose next action is replacement decision, candidate refresh, or new candidate creation before support changes."
 top500,source rows scanned,495,500,partial,data/top500-catalog-analysis/review.csv,Retained source-scan rows with source feature data.
-top500,rows with current recipe proof,97,500,partial,data/top500-catalog-analysis/review.csv,Retained source-scan rows matched to current recipe/package proof.
+top500,rows with current recipe proof,98,500,partial,data/top500-catalog-analysis/review.csv,Retained source-scan rows matched to current recipe/package proof.
 top500,catalog-supported rows,20,500,partial,data/top500-catalog-analysis/review.csv,Rows promoted to the current public catalog; production gates still matter.
-top500,proof-grade rows,76,500,partial,data/top500-catalog-analysis/review.csv,Rows with deterministic proof that are not public catalog entries.
-top500,rows with no current recipe proof,403,500,gap,data/top500-catalog-analysis/review.csv,Source reconnaissance rows with no current recipe/package proof yet.
-top500,version-drift review rows,27,500,partial,data/top500-catalog-analysis/review.csv,Current recipe exists but the retained source-scan version differs.
+top500,proof-grade rows,74,500,partial,data/top500-catalog-analysis/review.csv,Rows with deterministic proof that are not public catalog entries.
+top500,rows with no current recipe proof,402,500,gap,data/top500-catalog-analysis/review.csv,Source reconnaissance rows with no current recipe/package proof yet.
+top500,version-drift review rows,30,500,partial,data/top500-catalog-analysis/review.csv,Current recipe exists but the retained source-scan version differs.
 proof lanes,render parity rows,344,344,good,data/outcome-coverage/base-outcomes.csv,Every chart/base row has render parity under recorded inputs.
 proof lanes,in-ConfigHub proof rows,198,344,partial,data/outcome-coverage/base-outcomes.csv,"Rows with upload, scan, or safe-operation proof receipts."
 proof lanes,local live rows,148,344,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
