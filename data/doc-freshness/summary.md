@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-08 (commit `d93434f522`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-08 (commit `e0a0b5bdcc`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 465 |
+| Authored docs tracked | 466 |
 | Fresh (no linked source newer than the doc) | 64 |
 | **Review-due** | 96 |
-| No linked evidence sources (cannot auto-trigger) | 305 |
+| No linked evidence sources (cannot auto-trigger) | 306 |
 
 ## Review queue
 
@@ -441,6 +441,7 @@ into this freshness model.
 - [docs/user/workshop-gpu-operator-upgrade-guide.md](../../docs/user/workshop-gpu-operator-upgrade-guide.md)
 - [docs/user/workshop-lifecycle-guide.md](../../docs/user/workshop-lifecycle-guide.md)
 - [docs/user/workshop-match-guide.md](../../docs/user/workshop-match-guide.md)
+- [docs/user/workshop-stack-from-catalog-guide.md](../../docs/user/workshop-stack-from-catalog-guide.md)
 - [docs/user/workshop-upgrade-guide.md](../../docs/user/workshop-upgrade-guide.md)
 - [docs/user/workshop-values-guide.md](../../docs/user/workshop-values-guide.md)
 

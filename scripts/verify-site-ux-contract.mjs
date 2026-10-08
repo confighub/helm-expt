@@ -78,6 +78,13 @@ const checks = [
     file: "site/d/docs/user/workshop-gpu-operator-upgrade-guide.html",
     terms: ["See what a gpu-operator upgrade changes", "cub plugin install confighub/cub-workshop@v0.6.56", "https://helm.ngc.nvidia.com/nvidia", "cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary", "cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml --summary", "--set driver.version=580.126.20", "/spec/driver/version replace", "The Catalog holds this chart", "Hooks appear as ordinary objects", "--include-crds", "Exit 0 is not approval", "A task for an assistant", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html"],
   },
+  // The stack Guide composes public Catalog entries and nothing more, so it
+  // must keep the pinned plugin, the three entry ids, the compose and check
+  // commands, the swapped entry, and the limits of a static check.
+  {
+    file: "site/d/docs/user/workshop-stack-from-catalog-guide.html",
+    terms: ["Make a stack from Catalog entries", "cub plugin install confighub/cub-workshop@v0.6.57", "cub config list --role gpu", "nvidia-gpu-operator-v26-3-3-default", "nvidia-nvsentinel-v1-25-0-default", "nvidia-cluster-readiness-engine-v0-6-0-default", "cub stack compose --entry", "cub stack check ./gpu-node/stack.yaml", "nvidia-nvsentinel-v1-25-0-no-pod-monitor", "A passing composition is not runtime compatibility", "Routes are recorded and not executed", "The stack is not in ConfigHub", "The stack of three has not been deployed", "live-walk-entry-steps-2026-10-08.html", "A task for an assistant", "workshop-compose-guide.html", "compose-a-stack.html"],
+  },
   {
     file: "site/index.html",
     terms: ["AICR recipes rendered as Argo CD Applications, and they have not been published or run", "Configuration catalog for Agents and Kubernetes", "Helm, AICR, OCI, YAML, Argo, Flux, Sveltos and more", "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "I have an existing app", "Check my charts and values", "Build a platform or fleet", "Set up my AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],

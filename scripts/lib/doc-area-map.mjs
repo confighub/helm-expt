@@ -51,6 +51,7 @@ const DOC_AREA = {
   // docs/user/ -----------------------------------------------------------
   "docs/user/README.md": "docs",
   "docs/user/workshop-compose-guide.md": "stacks",
+  "docs/user/workshop-stack-from-catalog-guide.md": "stacks",
   "docs/user/workshop-adapt-guide.md": "config",
   "docs/user/workshop-values-guide.md": "config",
   "docs/user/workshop-argocd-hardening-guide.md": "config",
