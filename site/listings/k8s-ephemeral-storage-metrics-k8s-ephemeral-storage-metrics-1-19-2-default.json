@@ -27,8 +27,19 @@
     "page": "https://confighub.github.io/helm-expt/site/charts/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2.html"
   },
   "discovery": {
-    "status": "not-classified",
-    "roles": [],
+    "status": "classified",
+    "roles": [
+      {
+        "role": "metrics",
+        "componentType": "agent"
+      }
+    ],
+    "rationale": "The Deployment exports each pod's ephemeral storage use as Prometheus metrics; it stores and queries nothing, and needs a Prometheus that scrapes its ServiceMonitor.",
+    "assignment": {
+      "path": "data/catalog-roles/assignments.json",
+      "sha256": "sha256:449399bbc13680cf84b065b95c1aad4b014aff48376180864c81ba9346c2f8e5",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/catalog-roles/assignments.json"
+    },
     "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
   },
   "source": {

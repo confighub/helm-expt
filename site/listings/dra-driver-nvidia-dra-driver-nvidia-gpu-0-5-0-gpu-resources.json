@@ -27,8 +27,19 @@
     "page": "https://confighub.github.io/helm-expt/site/charts/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0.html"
   },
   "discovery": {
-    "status": "not-classified",
-    "roles": [],
+    "status": "classified",
+    "roles": [
+      {
+        "role": "gpu",
+        "componentType": "agent"
+      }
+    ],
+    "rationale": "The kubelet plugin DaemonSet publishes NVIDIA devices to Kubernetes through Dynamic Resource Allocation; with GPU allocation off, as in the default and AICR bases, it publishes ComputeDomain devices only; it supplies no GPU hardware and no driver.",
+    "assignment": {
+      "path": "data/catalog-roles/assignments.json",
+      "sha256": "sha256:449399bbc13680cf84b065b95c1aad4b014aff48376180864c81ba9346c2f8e5",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/catalog-roles/assignments.json"
+    },
     "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
   },
   "source": {

@@ -697,6 +697,39 @@
       "rationale": "The retained prometheus-server Deployment provides metrics storage and querying; retention and persistence depend on the base."
     },
     {
+      "id": "prometheus-community-kube-prometheus-stack-84-4-0-default",
+      "configurationDigest": "c5dc2d69b5f9d0163166cd07485ee067e96702856fbdb5e0af3de88df0a348db",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The retained operator and Prometheus custom resource describe an operator-managed monitoring stack; the operator cannot start until the admission Secret exists, and the CRDs and target readiness still require checks."
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0",
+      "configurationDigest": "6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The retained operator and Prometheus custom resource describe an operator-managed monitoring stack; the operator cannot start until the admission Secret exists, and the CRDs and target readiness still require checks."
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0",
+      "configurationDigest": "55c31cf72066a59e0c7f1e67c453e9487160ab7683b7320ce4ea280b00cd194a",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The retained operator and Prometheus custom resource describe an operator-managed monitoring stack; the operator cannot start until the admission Secret exists, and the CRDs and target readiness still require checks."
+    },
+    {
       "id": "traefik-traefik-41-0-2-default",
       "configurationDigest": "460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac",
       "roles": [
@@ -706,6 +739,105 @@
         }
       ],
       "rationale": "The retained Deployment runs the ingress controller; target networking and application routes remain prerequisites."
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default",
+      "configurationDigest": "00102cc2a1a5a1e73778e326dc7774090347379c52fe73c68551602d1b26f3df",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The kubelet plugin DaemonSet publishes NVIDIA devices to Kubernetes through Dynamic Resource Allocation; with GPU allocation off, as in the default and AICR bases, it publishes ComputeDomain devices only; it supplies no GPU hardware and no driver."
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources",
+      "configurationDigest": "8a6d869284830a33e801c4b782c12f193a497b7563d84acaf2c370c8be8a0183",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The kubelet plugin DaemonSet publishes NVIDIA devices to Kubernetes through Dynamic Resource Allocation; with GPU allocation off, as in the default and AICR bases, it publishes ComputeDomain devices only; it supplies no GPU hardware and no driver."
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training",
+      "configurationDigest": "c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The kubelet plugin DaemonSet publishes NVIDIA devices to Kubernetes through Dynamic Resource Allocation; with GPU allocation off, as in the default and AICR bases, it publishes ComputeDomain devices only; it supplies no GPU hardware and no driver."
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default",
+      "configurationDigest": "982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The kubelet plugin DaemonSet publishes NVIDIA devices to Kubernetes through Dynamic Resource Allocation; with GPU allocation off, as in the default and AICR bases, it publishes ComputeDomain devices only; it supplies no GPU hardware and no driver."
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources",
+      "configurationDigest": "29aaf2e6ba3dce216ef70bcb1cd14afcd8dbcbe4e30cec982c48f36befe6e93d",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The kubelet plugin DaemonSet publishes NVIDIA devices to Kubernetes through Dynamic Resource Allocation; with GPU allocation off, as in the default and AICR bases, it publishes ComputeDomain devices only; it supplies no GPU hardware and no driver."
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training",
+      "configurationDigest": "282e9c2dd1946fe677c2b7a9ee7d1a8d65f109f2a302ab628e2ffe1bddc3c932",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The kubelet plugin DaemonSet publishes NVIDIA devices to Kubernetes through Dynamic Resource Allocation; with GPU allocation off, as in the default and AICR bases, it publishes ComputeDomain devices only; it supplies no GPU hardware and no driver."
+    },
+    {
+      "id": "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default",
+      "configurationDigest": "80ef333ecea7833761b828a1da0e0301efc0e1a399a8a03fd31fdbd4af638da8",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The Deployment exports each pod's ephemeral storage use as Prometheus metrics; it stores and queries nothing, and needs a Prometheus that scrapes its ServiceMonitor."
+    },
+    {
+      "id": "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0",
+      "configurationDigest": "6ff74d2f9205569c76a953a1bc1b09ddcf9341e9a9c72c8a53e5805c59f403bd",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The Deployment exports each pod's ephemeral storage use as Prometheus metrics; it stores and queries nothing, and needs a Prometheus that scrapes its ServiceMonitor."
+    },
+    {
+      "id": "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0",
+      "configurationDigest": "9f9f4bda22ad0886fe05c25a16a747c6020fc98151906bdcbe116c2177622a92",
+      "roles": [
+        {
+          "role": "metrics",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The Deployment exports each pod's ephemeral storage use as Prometheus metrics; it stores and queries nothing, and needs a Prometheus that scrapes its ServiceMonitor."
     }
   ]
 }
