@@ -147,6 +147,21 @@
       }
     ]
   },
+  "images": {
+    "count": 1,
+    "pinnedByDigest": 1,
+    "namedByTag": 0,
+    "references": [
+      {
+        "reference": "ghcr.io/nvidia/nodewright/operator:v0.19.0@sha256:38e9a79125633aa633f8e499306b2219c582c6f62a7bfe4083928212e70f74a7",
+        "pinned": true
+      }
+    ],
+    "readFrom": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
   "variants": {
     "base": "aicr-eks-training",
     "known": [

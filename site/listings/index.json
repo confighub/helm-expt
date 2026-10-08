@@ -2418,7 +2418,9 @@
       },
       "objectCount": 19,
       "digest": "sha256:3add2198bacb315b41fe707fe68c0aa4d71551850e31dc4757fca2b750c7c6a8",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 6,
+      "imagesNamedByTag": 6
     },
     {
       "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0",
@@ -2433,7 +2435,9 @@
       },
       "objectCount": 19,
       "digest": "sha256:d2e617adfa3bf225ed25b1ffff83ce69708b4c37129385ebaaddfa8154b52314",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 6,
+      "imagesNamedByTag": 6
     },
     {
       "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default",
@@ -2448,7 +2452,9 @@
       },
       "objectCount": 19,
       "digest": "sha256:447a8575281561228f0967028733f1aece68c338afa487091e8baa3f1eeaaec1",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 6,
+      "imagesNamedByTag": 6
     },
     {
       "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default",
@@ -3530,7 +3536,9 @@
       },
       "objectCount": 21,
       "digest": "sha256:c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default",
@@ -3550,7 +3558,9 @@
       },
       "objectCount": 21,
       "digest": "sha256:00102cc2a1a5a1e73778e326dc7774090347379c52fe73c68551602d1b26f3df",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources",
@@ -3570,7 +3580,9 @@
       },
       "objectCount": 24,
       "digest": "sha256:8a6d869284830a33e801c4b782c12f193a497b7563d84acaf2c370c8be8a0183",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training",
@@ -3590,7 +3602,9 @@
       },
       "objectCount": 21,
       "digest": "sha256:282e9c2dd1946fe677c2b7a9ee7d1a8d65f109f2a302ab628e2ffe1bddc3c932",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default",
@@ -3610,7 +3624,9 @@
       },
       "objectCount": 21,
       "digest": "sha256:982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources",
@@ -3630,7 +3646,9 @@
       },
       "objectCount": 24,
       "digest": "sha256:29aaf2e6ba3dce216ef70bcb1cd14afcd8dbcbe4e30cec982c48f36befe6e93d",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training",
@@ -3645,7 +3663,9 @@
       },
       "objectCount": 1,
       "digest": "sha256:c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "eks-aws-efa-k8s-device-plugin-v0-5-29-default",
@@ -3660,7 +3680,9 @@
       },
       "objectCount": 1,
       "digest": "sha256:c1ef5b2dfd1b02b944714537189ff29d7fa937dedcb2ce32b40495bebdb5b8f8",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "elastic-eck-operator-3-4-0-default",
@@ -4973,7 +4995,9 @@
       },
       "objectCount": 6,
       "digest": "sha256:6ff74d2f9205569c76a953a1bc1b09ddcf9341e9a9c72c8a53e5805c59f403bd",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0",
@@ -4993,7 +5017,9 @@
       },
       "objectCount": 6,
       "digest": "sha256:9f9f4bda22ad0886fe05c25a16a747c6020fc98151906bdcbe116c2177622a92",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default",
@@ -5013,7 +5039,9 @@
       },
       "objectCount": 6,
       "digest": "sha256:80ef333ecea7833761b828a1da0e0301efc0e1a399a8a03fd31fdbd4af638da8",
-      "flatteningVerdict": "safe-to-flatten"
+      "flatteningVerdict": "safe-to-flatten",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training",
@@ -5028,7 +5056,9 @@
       },
       "objectCount": 37,
       "digest": "sha256:f5b5383ffa1072925cd6d639d4aa69cbdefa1b34ba4eaf75b33a698fd210a9c5",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "kai-scheduler-kai-scheduler-v0-14-1-default",
@@ -5043,7 +5073,9 @@
       },
       "objectCount": 37,
       "digest": "sha256:a0cf177775ec0bf2532012da868de07c070a4fb6d6f792a9518089c5b0bc7b46",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training",
@@ -5058,7 +5090,9 @@
       },
       "objectCount": 37,
       "digest": "sha256:47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "kai-scheduler-kai-scheduler-v0-16-9-default",
@@ -5073,7 +5107,9 @@
       },
       "objectCount": 37,
       "digest": "sha256:7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "karpenter-karpenter-1-14-0-crds-managed",
@@ -5190,7 +5226,9 @@
       },
       "objectCount": 28,
       "digest": "sha256:9dd7efd3ae87560f2a396d4ed3a13db830d8a5b0856da5992e377026a92f2fcc",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0",
@@ -5205,7 +5243,9 @@
       },
       "objectCount": 28,
       "digest": "sha256:6d3b2103eec83a3ae10f1ced2dc4b30178068013ee0b688527581d2abe5619aa",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "kubeflow-kubeflow-trainer-2-2-0-default",
@@ -5220,7 +5260,9 @@
       },
       "objectCount": 28,
       "digest": "sha256:517fb09d2f16a0a4c83b9859ec82b4fddc8ce4c74eb552608c1789df0252b616",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
     },
     {
       "id": "kubernetes-yaml-acme-web-base",
@@ -6394,7 +6436,9 @@
       },
       "objectCount": 23,
       "digest": "sha256:371a599fbb959c71f232f4cfbe5a37aedfb70a17fe9205793440c73b2d7c3b93",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0",
@@ -6409,7 +6453,9 @@
       },
       "objectCount": 23,
       "digest": "sha256:2329b2fca9e54b4e5b5ba90308c4769c1e919eebffcaa4b756266d63a64de0ff",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "node-feature-discovery-node-feature-discovery-0-19-0-default",
@@ -6424,7 +6470,9 @@
       },
       "objectCount": 17,
       "digest": "sha256:cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
     },
     {
       "id": "nvidia-cluster-readiness-engine-v0-6-0-default",
@@ -7099,7 +7147,9 @@
       },
       "objectCount": 18,
       "digest": "sha256:6b25ebafd5569b97caf3dab889873641f69ec5595fa7d2ff5262042d8927b3ed",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 0
     },
     {
       "id": "nvidia-nodewright-v0-17-1-default",
@@ -7114,7 +7164,9 @@
       },
       "objectCount": 18,
       "digest": "sha256:95a732cc71f8c56371fe119f8727c2c4053891dbb59d6cbbc5fbcbc378412210",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 0
     },
     {
       "id": "nvidia-nodewright-v0-19-0-aicr-eks-training",
@@ -7129,7 +7181,9 @@
       },
       "objectCount": 20,
       "digest": "sha256:c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "nvidia-nodewright-v0-19-0-default",
@@ -7144,7 +7198,9 @@
       },
       "objectCount": 20,
       "digest": "sha256:4d5e785228886b5681a54f46eb442bb8983d6b908d95e625c0c9ceb045b39430",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 0
     },
     {
       "id": "nvidia-nvidia-device-plugin-0-19-3-default",
@@ -7744,7 +7800,9 @@
       },
       "objectCount": 116,
       "digest": "sha256:6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 7,
+      "imagesNamedByTag": 7
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0",
@@ -7764,7 +7822,9 @@
       },
       "objectCount": 116,
       "digest": "sha256:55c31cf72066a59e0c7f1e67c453e9487160ab7683b7320ce4ea280b00cd194a",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 7,
+      "imagesNamedByTag": 7
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-84-4-0-default",
@@ -7784,7 +7844,9 @@
       },
       "objectCount": 126,
       "digest": "sha256:c5dc2d69b5f9d0163166cd07485ee067e96702856fbdb5e0af3de88df0a348db",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 7,
+      "imagesNamedByTag": 7
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-85-3-3-default",
@@ -8322,7 +8384,9 @@
       },
       "objectCount": 10,
       "digest": "sha256:c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 0,
+      "imagesNamedByTag": 0
     },
     {
       "id": "prometheus-community-prometheus-operator-crds-28-0-1-default",
@@ -8337,7 +8401,9 @@
       },
       "objectCount": 10,
       "digest": "sha256:c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123",
-      "flatteningVerdict": "flatten-with-routes"
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 0,
+      "imagesNamedByTag": 0
     },
     {
       "id": "prometheus-community-prometheus-operator-crds-29-0-0-default",
