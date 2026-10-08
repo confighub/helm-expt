@@ -1,0 +1,341 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "aicr-ocp-inference-nim-v1-0-0-argocd"
+  labels:
+    sourceType: "aicr"
+    component: "aicr-ocp-inference-nim"
+    sourceVersion: "v1.0.0"
+    base: "argocd"
+spec:
+  source:
+    type: "aicr"
+    name: "ocp-inference-nim"
+    version: "v1.0.0"
+    record: "examples/aicr/ocp-inference-nim/generation-receipt.yaml"
+    packageOciRef: ""
+    selection:
+      name: "ocp-inference-nim"
+      kind: "source-variant"
+      provider: "NVIDIA AICR"
+      record: "examples/aicr/ocp-inference-nim/generation-receipt.yaml"
+  baseVariant:
+    name: "argocd"
+    revision: "generated-v1.0.0"
+    digest: "86f87ce335aba1e0f3a866e069bd4dce029a5defd803345bc05c759e27670826"
+    digestRole: "aicr-platform-index"
+    digestRecord: "examples/aicr/ocp-inference-nim/digest-index/platform-index.json"
+  configuration:
+    format: "argocd-application-yaml"
+    objects: "examples/aicr/ocp-inference-nim/argocd-rendered"
+    inventory: "examples/aicr/ocp-inference-nim/argocd-rendered/checksums.txt"
+    objectCount: 16
+    digest: "4d4c79882cc42d648d353068a9814dd8ac4a5344ad31e46a75654c6cfc38a34c"
+    digestRole: "inventory-file"
+    digestRecord: "examples/aicr/ocp-inference-nim/argocd-rendered/checksums.txt"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "examples/aicr/ocp-inference-nim/generation-receipt.yaml"
+    materialization:
+      method: "aicr-compose-then-helm-render"
+      status: "captured"
+      outputDigest: "4d4c79882cc42d648d353068a9814dd8ac4a5344ad31e46a75654c6cfc38a34c"
+      record: "examples/aicr/ocp-inference-nim/argocd-rendered/checksums.txt"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "ocp-inference-nim@v1.0.0/argocd; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "data/aicr-flattening-verdicts/aicr-ocp-inference-nim/flattening-safety-verdict.yaml"
+    boundaries:
+      - "AICR composed the platform and generated an Argo CD app-of-apps chart; Helm rendered that wrapper into exact Application objects."
+      - "The component Applications still reference their own sources, so those nested sources are processed later by Argo CD."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect or compare AICR snapshots without selecting a recipe. The diff reports observed differences; select the intended provider-curated source variant before deciding whether a difference is a fault."
+        requiredInputs:
+          - "An AICR snapshot, recipe, generated bundle, or exact generated output"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "examples/aicr/ocp-inference-nim/generation-receipt.yaml"
+          - "examples/aicr/ocp-inference-nim/argocd-rendered"
+          - "examples/aicr/ocp-inference-nim/argocd-rendered/checksums.txt"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "examples/aicr/ocp-inference-nim/generation-receipt.yaml"
+          - "examples/aicr/ocp-inference-nim/argocd-rendered/checksums.txt"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          - "data/aicr-flattening-verdicts/aicr-ocp-inference-nim/sync-wave-ordering.yaml"
+        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "accelerator=any"
+      - "intent=inference"
+      - "os=any"
+      - "platform=nim"
+      - "service=ocp"
+      - "acceleratedNodeSelector=nvidia.com/gpu.present=true"
+      - "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-nim"
+      - "storageClass=gp3"
+      - "workloadSelector=app.kubernetes.io/part-of=inference"
+      - "deployer=argocd-helm"
+      - "selectedOverlay=ocp-inference-nim"
+      - "appliedOverlays=base>monitoring-hpa>ocp>ocp-inference>ocp-inference-nim"
+    installTime:
+      -
+        category: "delivery-runtime"
+        name: "argo-cd-application-api"
+        purpose: "Argo CD and its Application API must exist on the destination, with the argocd namespace, because every object in this base is an Argo CD Application in that namespace."
+      -
+        category: "source-package-oci"
+        name: "aicr-bundle-source-package"
+        purpose: "13 of the 16 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-nim/aicr-bundle at 1.0.0. That package is not published, so a destination needs a reachable copy before Argo CD can resolve them."
+      -
+        category: "target-fact"
+        name: "recipe-criteria"
+        purpose: "AICR generated this recipe for accelerator=any, intent=inference, os=any, platform=nim, service=ocp. A destination has to match those criteria, and nothing here has checked one."
+    installTimeStatus: "destination-facts-recorded-not-run"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "argocd-sync-wave-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Apply the 15 component Applications in the 10 sync-waves they carry, from wave 0 to wave 22. The order is recorded as a route beside the bundle and no runtime has executed it."
+        -
+          id: "nested-source-lifecycle"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Argo CD renders 3 upstream charts and 13 AICR bundle paths at sync time. Their CRDs, hooks, certificates and operators are handled there, and this entry has not rendered or assessed them."
+        -
+          id: "components-left-out-of-bundle"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Decide whether the destination needs cert-manager, dra-node-labeler, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kube-prometheus-stack, nfd, nodewright-operator, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, prometheus-operator-crds, which the selected recipe names and the bundle does not deploy. Including one means regenerating the bundle with the input AICR names for it."
+        -
+          id: "argo-cd-application-api"
+          origin: "base"
+          type: "target-fact"
+          detail: "Argo CD and its Application API must exist on the destination, with the argocd namespace, because every object in this base is an Argo CD Application in that namespace."
+        -
+          id: "aicr-bundle-source-package"
+          origin: "base"
+          type: "target-fact"
+          detail: "13 of the 16 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-nim/aicr-bundle at 1.0.0. That package is not published, so a destination needs a reachable copy before Argo CD can resolve them."
+        -
+          id: "recipe-criteria"
+          origin: "base"
+          type: "target-fact"
+          detail: "AICR generated this recipe for accelerator=any, intent=inference, os=any, platform=nim, service=ocp. A destination has to match those criteria, and nothing here has checked one."
+      records:
+        - "data/aicr-flattening-verdicts/aicr-ocp-inference-nim/sync-wave-ordering.yaml"
+    routeIntent:
+      status: "recorded"
+      routes:
+        -
+          id: "argocd-sync-wave-ordering"
+          requirementRefs:
+            - "argocd-sync-wave-ordering"
+          phase: "destination-resolution"
+          proposedActor: "Argo CD on the selected destination"
+          proposedMechanism: "Apply the 15 component Applications in the 10 sync-waves they carry, from wave 0 to wave 22. The order is recorded as a route beside the bundle and no runtime has executed it."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "generated-not-live"
+          supportedRuntimes:
+            - "Argo CD"
+          checks:
+            - "A recorded Argo CD sync of this exact Application set on a named destination."
+          evidence:
+            - "data/aicr-flattening-verdicts/aicr-ocp-inference-nim/sync-wave-ordering.yaml"
+          orderHint: 1
+        -
+          id: "nested-source-lifecycle"
+          requirementRefs:
+            - "nested-source-lifecycle"
+          phase: "destination-resolution"
+          proposedActor: "Argo CD on the selected destination"
+          proposedMechanism: "Argo CD renders 3 upstream charts and 13 AICR bundle paths at sync time. Their CRDs, hooks, certificates and operators are handled there, and this entry has not rendered or assessed them."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "not-evaluated"
+          supportedRuntimes:
+            - "Argo CD"
+          checks:
+            - "A flattening verdict or a recorded sync for each nested source on the selected destination."
+          evidence:
+            - "data/aicr-flattening-verdicts/aicr-ocp-inference-nim/flattening-safety-verdict.yaml"
+          orderHint: 2
+        -
+          id: "components-left-out-of-bundle"
+          requirementRefs:
+            - "components-left-out-of-bundle"
+          phase: "destination-resolution"
+          proposedActor: "platform operator"
+          proposedMechanism: "Decide whether the destination needs cert-manager, dra-node-labeler, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kube-prometheus-stack, nfd, nodewright-operator, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, prometheus-operator-crds, which the selected recipe names and the bundle does not deploy. Including one means regenerating the bundle with the input AICR names for it."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            - "A recorded decision for each component, and a regenerated bundle with its new digests when one is included."
+          evidence:
+            - "data/aicr-mirror-artifacts/ocp-inference-nim/routes/components-left-out-of-bundle.yaml"
+            - "examples/aicr/ocp-inference-nim/generation-receipt.yaml"
+          orderHint: 3
+      records:
+        - "data/aicr-flattening-verdicts/aicr-ocp-inference-nim/sync-wave-ordering.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        recipeCriteria:
+          accelerator: "any"
+          intent: "inference"
+          os: "any"
+          platform: "nim"
+          service: "ocp"
+        argoCd:
+          required: true
+          applicationNamespace: "argocd"
+          ociHelmSourceRequired: true
+      requirementRefs:
+        - "argo-cd-application-api"
+        - "aicr-bundle-source-package"
+        - "recipe-criteria"
+      records:
+        - "data/aicr-flattening-verdicts/aicr-ocp-inference-nim/sync-wave-ordering.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Choices fixed by the recorded source configuration"
+    variantControlled:
+      - "Exact object changes retained after the base"
+    targetSupplied:
+      - "argo-cd-application-api"
+      - "aicr-bundle-source-package"
+      - "recipe-criteria"
+    deliveryProtected:
+      []
+    records:
+      - "examples/aicr/ocp-inference-nim/generation-receipt.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    sourcePackageOci:
+      status: "not-published"
+      plannedRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-nim/aicr-bundle:1.0.0"
+      plannedDigest: "sha256:cf6e2e4b5f58db65d6f903ddff2a2479ed8bc347a97ae4e7a0bd879e70799b1a"
+      plan: "data/aicr-mirror-artifacts/ocp-inference-nim/source-package-oci.yaml"
+      retainedBundle: "examples/aicr/ocp-inference-nim/argocd-helm-bundle"
+      note: "The retained bundle builds this digest. Nothing has been pushed to the reference, which 13 of the 16 Applications name."
+    literalConfigOci:
+      status: "not-published"
+      plannedRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-ocp-inference-nim-v1-0-0-argocd:v1.0.0"
+      plannedDigest: "sha256:6fa9624bc16700fb1ad1251d1fac629595287960c01e35a9d1e3fd7fb6c85ec8"
+      plan: "data/aicr-mirror-artifacts/ocp-inference-nim/literal-config-oci.yaml"
+      note: "The rendered Applications and their companion files build this digest. Nothing has been pushed."
+    configHubUpload:
+      status: "not-run"
+    configHubReleaseOci:
+      status: "not-run"
+    argoCd: "not-run"
+    flux: "not-run-for-argo-application-wrapper"
+    direct: "not-run"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "workflow-approval"
+    normalSet: "approvalRequired"
+    approvalReason: "system-configuration"
+  evidence:
+    sourceGenerationReceipt: "examples/aicr/ocp-inference-nim/generation-receipt.yaml"
+    recipe: "examples/aicr/ocp-inference-nim/recipe.yaml"
+    digestIndex: "examples/aicr/ocp-inference-nim/digest-index/platform-index.json"
+    flatteningVerdict: "data/aicr-flattening-verdicts/aicr-ocp-inference-nim/flattening-safety-verdict.yaml"
+    orderingRoute: "data/aicr-flattening-verdicts/aicr-ocp-inference-nim/sync-wave-ordering.yaml"
+    entryPage: "docs/demo/aicr/ocp-inference-nim.md"
+    sourceBundle: "examples/aicr/ocp-inference-nim/argocd-helm-bundle"
+    sourceBundleInventory: "examples/aicr/ocp-inference-nim/argocd-helm-bundle-checksums.txt"
+    sourcePackagePlan: "data/aicr-mirror-artifacts/ocp-inference-nim/source-package-oci.yaml"
+    literalConfigPlan: "data/aicr-mirror-artifacts/ocp-inference-nim/literal-config-oci.yaml"
+    retention: "retained-and-rendered-not-published-not-deployed"
+    overlayRole: "leaf-overlay"
+    appliedOverlays: "base > monitoring-hpa > ocp > ocp-inference > ocp-inference-nim"
+    overlayParentEntries: "aicr-ocp-v1-0-0-argocd, aicr-ocp-inference-v1-0-0-argocd"
+    attachedMembers: "data/aicr-nim-model-profiles/platform-members.csv"
+    attachedMemberRows: "38 model profiles joined by criteria; none was executed"
+  operations:
+    resourceClass: "system-configuration"
+    ownerClass: "platform-team"
+    changeCadence: "planned-platform-release"
+status:
+  level: "partial"
+  claim: "AICR v1.0.0 generated the ocp-inference-nim overlay as 16 Argo CD Applications. It is a leaf overlay. No other retained entry builds on it. They are retained and rendered with the bundle AICR generated, not published, not deployed."
+  limits:
+    - "Flattened covers the Application wrapper only. Argo CD renders the nested charts at sync time, and their flattening verdicts are outside this record."
+    - "13 of the 16 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-nim/aicr-bundle, which is not published. This entry cannot be delivered until that package and its literal configuration bundle are."
+    - "Both artifacts are built from committed bytes and planned by digest in data/aicr-mirror-artifacts/ocp-inference-nim/source-package-oci.yaml and data/aicr-mirror-artifacts/ocp-inference-nim/literal-config-oci.yaml. No OCI artifact is published for this entry."
+    - "Nothing was uploaded to ConfigHub, and no variant, promotion or release exists for this entry."
+    - "The sync-wave order is recorded as a route. No Argo CD instance has executed it."
+    - "The selected recipe also names 12 components the bundle leaves out (cert-manager, dra-node-labeler, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kube-prometheus-stack, nfd, nodewright-operator, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, prometheus-operator-crds), and the generation receipt records the reason AICR logged for each. No component the bundle deploys depends on one of them in the selected recipe."
+    - "4 waved Applications render without appearing in the recipe's deployment order (prometheus-adapter-ocp-pre, prometheus-adapter-ocp-post, nvidia-dra-driver-gpu-ocp-pre, k8s-nim-operator-ocp-post). They are companions of a component, and they are named here so the comparison does not drop them silently."
+    - "The recipe criteria are accelerator=any, intent=inference, os=any, platform=nim, service=ocp. No cluster, cloud service, accelerator, model or workload was contacted or run for this entry."
+    - "38 model profiles are joined to this platform by criteria in data/aicr-nim-model-profiles/platform-members.csv. None of them was executed here."

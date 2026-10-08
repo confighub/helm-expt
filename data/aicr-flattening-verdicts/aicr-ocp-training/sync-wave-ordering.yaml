@@ -110,15 +110,14 @@ spec:
         proven: false
     automatic: false
   boundedness:
-    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 13 rendered Applications, which fall into 9 waves. The retained recipe deploys 10 components, and 9 of the 9 dependency edges between them hold in those waves."
-    - "12 further dependency edges in the recipe name a component the recipe does not deploy (cert-manager, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kube-prometheus-stack, nfd, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, prometheus-operator-crds). No sync-wave exists for those components, so these edges are recorded and not checked."
-    - "None of them has a deployed component on the depending side, so no deployed component waits on something absent."
+    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 13 rendered Applications, which fall into 9 waves. The recipe the bundle carries deploys 10 components, and 9 of the 9 dependency edges between them hold in those waves."
+    - "The selected recipe also names 12 components the bundle leaves out (cert-manager, dra-node-labeler, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kube-prometheus-stack, nfd, nodewright-operator, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, prometheus-operator-crds), and the generation receipt records the reason AICR logged for each. No component the bundle deploys depends on one of them in the selected recipe."
     - "3 waved Applications render without appearing in the recipe's deployment order (prometheus-adapter-ocp-pre, prometheus-adapter-ocp-post, nvidia-dra-driver-gpu-ocp-pre). They are companions of a component, and they are named here so the comparison does not drop them silently."
     - "The ordering-parity lane in data/aicr-ordering-parity/summary.md covers four hand-retained entries and does not cover this one. The comparison above applies the same dependency-edge rule to this entry's own recipe."
     - "No runtime has executed this route. Nothing in this repository has synced this Application set on any cluster."
-    - "12 of the 14 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package has not been published, and this entry does not retain it, so Argo CD could not resolve those sources today."
+    - "12 of the 14 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-training/aicr-bundle at 1.0.0. The entry retains that bundle at examples/aicr/ocp-training/argocd-helm-bundle, and the entry's Catalog record says whether the package is in the registry. Argo CD can resolve those sources only when it is."
   provenance:
     emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
     generatedFrom:
       - "examples/aicr/ocp-training/argocd-rendered/templates"
-      - "examples/aicr/ocp-training/recipe.yaml"
+      - "examples/aicr/ocp-training/argocd-helm-bundle/recipe.yaml"

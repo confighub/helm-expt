@@ -9,7 +9,7 @@
 // cluster. Spec: docs/reference/certified-bundle-spec.md, schema:
 // schemas/certified-bundle-receipt.schema.json.
 
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 
 import {
@@ -25,6 +25,7 @@ import {
 } from "./lib/proof-common.mjs";
 import {
   assertOrderingSupportsRoute,
+  AICR_BUNDLE_PATH_SOURCE,
   loadAicrRecipeEntries,
   orderingSentences,
 } from "./lib/aicr-recipe-entries.mjs";
@@ -2094,7 +2095,7 @@ function buildAicrRecipeEntryReceipt(entry) {
   const uniqueCharts = [...new Set(entry.nestedSources.map((row) => row.chart).filter(Boolean))].sort();
   const chartApplications = entry.nestedSources.filter((row) => row.chart).length;
   const bundlePathApplications = entry.nestedSources.filter(
-    (row) => row.kind === "path-in-unpublished-aicr-bundle",
+    (row) => row.kind === AICR_BUNDLE_PATH_SOURCE,
   ).length;
   check(
     chartApplications + bundlePathApplications === entry.applications.length,
@@ -2107,7 +2108,19 @@ function buildAicrRecipeEntryReceipt(entry) {
   const paritySummary = readFileSync(repoPath(AICR_ORDERING_PARITY_SUMMARY), "utf8");
   const parityCovers = paritySummary.includes(`| \`${entry.id}\` |`);
   const orderingText = orderingSentences(entry);
-  const sourcePackageSentence = `${bundlePathApplications} of the ${entry.applications.length} Applications ${bundlePathApplications === 1 ? "takes its" : "take their"} source from ${entry.sourcePackageRepository} at ${entry.sourcePackageRevision}. That package has not been published${bundleRetained ? "" : ", and this entry does not retain it"}, so Argo CD could not resolve ${bundlePathApplications === 1 ? "that source" : "those sources"} today.`;
+  // A mirrored overlay retains its bundle and has a planned source package
+  // whose publication is recorded by a receipt. This verdict and its route do
+  // not repeat that state, so they do not move when a receipt lands. The two
+  // older directories retain no bundle and plan no package, and say so.
+  const mirrored = entry.origin === "mirrored-overlay";
+  check(!mirrored || bundleRetained, `${entryRel}: a mirrored overlay must retain its argocd-helm bundle`);
+  const takes = `${bundlePathApplications} of the ${entry.applications.length} Applications ${bundlePathApplications === 1 ? "takes its" : "take their"} source from ${entry.sourcePackageRepository} at ${entry.sourcePackageRevision}.`;
+  const sourcePackageSentence = mirrored
+    ? `${takes} The entry retains that bundle at ${entry.bundleRel}, and the entry's Catalog record says whether the package is in the registry. Argo CD can resolve ${bundlePathApplications === 1 ? "that source" : "those sources"} only when it is.`
+    : `${takes} That package has not been published${bundleRetained ? "" : ", and this entry does not retain it"}, so Argo CD could not resolve ${bundlePathApplications === 1 ? "that source" : "those sources"} today.`;
+  const retentionSentence = mirrored
+    ? "This verdict says nothing about publication. The entry's Catalog record carries that state from tracked receipts. No ConfigHub Space holds the entry, and no cluster has synced it."
+    : "This entry is retained and rendered. It is not published and not deployed. No registry holds it, no ConfigHub Space holds it, and no cluster has synced it.";
   const automated = entry.applications.every((application) => application.automatedSync);
 
   const waves = [...new Set(entry.applications
@@ -2160,7 +2173,7 @@ function buildAicrRecipeEntryReceipt(entry) {
         ],
         provenance: {
           emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
-          generatedFrom: [renderedRel, entry.recipeRel],
+          generatedFrom: [renderedRel, entry.orderingRecipeRel],
         },
       },
     })}\n`;
@@ -2241,12 +2254,12 @@ function buildAicrRecipeEntryReceipt(entry) {
             ? ["Every Application carries an automated sync policy. That is a delivery decision a destination has to accept, not a flattening hazard."]
             : []),
           sourcePackageSentence,
-          "This entry is retained and rendered. It is not published and not deployed. No registry holds it, no ConfigHub Space holds it, and no cluster has synced it.",
+          retentionSentence,
           "No workload ran. This verdict is config-plane only and says nothing about any cloud, accelerator or model.",
         ],
         provenance: {
           emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
-          generatedFrom: [renderedRel, entry.indexRel, entry.recipeRel],
+          generatedFrom: [renderedRel, entry.indexRel, entry.orderingRecipeRel],
         },
       },
     })}\n`,
@@ -2813,10 +2826,25 @@ function buildAll() {
 }
 
 const outputs = buildAll();
+// The platform-shape verdicts and routes of the discovered AICR directories
+// live in one tree this generator owns. A file left there for a directory that
+// no longer exists would keep deciding an entry nobody retains, so it is
+// removed on generate and refused on verify.
+const AICR_VERDICT_TREE = repoPath("data/aicr-flattening-verdicts");
+const ownedPaths = new Set(outputs.map((output) => output.path));
+const orphanedVerdictFiles = listFiles(AICR_VERDICT_TREE).filter((path) => !ownedPaths.has(path));
 if (mode === "--generate") {
   for (const output of outputs) write(output.path, output.contents);
-  console.log(`wrote ${outputs.length} certified-bundle file(s)`);
+  for (const path of orphanedVerdictFiles) rmSync(path);
+  for (const dir of new Set(orphanedVerdictFiles.map((path) => dirname(path)))) {
+    if (existsSync(dir) && readdirSync(dir).length === 0) rmSync(dir, { recursive: true });
+  }
+  console.log(`wrote ${outputs.length} certified-bundle file(s)${orphanedVerdictFiles.length > 0 ? ` and removed ${orphanedVerdictFiles.length} file(s) for AICR directories that no longer exist` : ""}`);
 } else if (mode === "--verify") {
+  check(
+    orphanedVerdictFiles.length === 0,
+    `${relativeRepo(orphanedVerdictFiles[0] ?? "")} is not a file this generator writes; run npm run certified-bundles`,
+  );
   for (const output of outputs) {
     const rel = relativeRepo(output.path);
     check(existsSync(output.path), `${rel} is missing; run npm run certified-bundles`);
