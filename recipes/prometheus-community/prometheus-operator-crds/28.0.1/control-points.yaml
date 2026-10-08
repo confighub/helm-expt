@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "prometheus-community-prometheus-operator-crds-28.0.1"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      dependencyCount: 1
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.31.0"
+    -
+      category: "lifecycle-policy"
+      status: "handled"
+      policy: "no-hooks"
+      note: "no base's render contains a Helm hook object, with or without --no-hooks"
+    -
+      category: "crd-lifecycle"
+      status: "review-required"
+      count: 10
+    -
+      category: "target-facts"
+      status: "review-required"
+      note: "the ten CRDs are the whole base; they are large, so they need server-side apply, and a cluster that already has these CRDs from another source gets them replaced"
+    -
+      category: "catalog-coverage"
+      status: "packaged-with-controls"
+      note: "exact source and deterministic package are retained; publication, live qualification and production support remain separate gates"

@@ -1,0 +1,77 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0-aicr-eks-training-v1-0-0"
+spec:
+  files:
+    -
+      path: "effective-values-aicr-eks-training-v1-0-0.yaml"
+      source: "inline-proof"
+      sha256: "843ba469b39e2c7b16db81ebbc2d5a5aa52e8193f48ab2ebc97e5d2664beafd4"
+  mergedValuesCaptured: false
+  values:
+    controller:
+      nodeSelector:
+        nodeGroup: "system-worker"
+      replicaCount: 2
+      resources:
+        limits:
+          memory: "256Mi"
+        requests:
+          cpu: "10m"
+          memory: "40Mi"
+      serviceAccount:
+        automountServiceAccountToken: true
+        create: true
+        name: "ebs-csi-controller-sa"
+      tolerations:
+        -
+          operator: "Exists"
+    defaultStorageClass:
+      enabled: true
+    fullnameOverride: "aws-ebs-csi-driver"
+    helmTester:
+      enabled: false
+    image:
+      pullPolicy: "IfNotPresent"
+      repository: "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver"
+    node:
+      enableLinux: true
+      enableWindows: false
+      resources:
+        limits:
+          memory: "256Mi"
+        requests:
+          cpu: "10m"
+          memory: "40Mi"
+      serviceAccount:
+        automountServiceAccountToken: true
+        create: true
+        name: "ebs-csi-node-sa"
+      tolerateAllTaints: true
+      tolerations:
+        -
+          operator: "Exists"
+      updateStrategy:
+        rollingUpdate:
+          maxUnavailable: "10%"
+        type: "RollingUpdate"
+    sidecars:
+      livenessProbe:
+        resources:
+          limits:
+            memory: "128Mi"
+          requests:
+            cpu: "10m"
+            memory: "40Mi"
+      nodeDriverRegistrar:
+        resources:
+          limits:
+            memory: "128Mi"
+          requests:
+            cpu: "10m"
+            memory: "40Mi"
+    storageClasses:
+      []
+    volumeSnapshotClasses:
+      []

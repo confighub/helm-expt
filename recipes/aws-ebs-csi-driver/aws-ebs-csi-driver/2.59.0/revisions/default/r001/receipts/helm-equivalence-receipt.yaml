@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "aws-ebs-csi-driver-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "447a8575281561228f0967028733f1aece68c338afa487091e8baa3f1eeaaec1"
+    objectCount: 19
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 20
+    uploadedManifestFiles: 20
+    separatedSecretFiles: 0
+    semanticObjectMatches: "19/19"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||kube-system"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run aicr-nested-charts-coverage:compare"

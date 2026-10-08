@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "prometheus-community-prometheus-operator-crds-28.0.1-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "794b4161c8eef8b6cc14a7269d086e7cb596810c4b9d74ec6949b122b3a6220a"
+  mergedValuesCaptured: false
+  values:
+    {}

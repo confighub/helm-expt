@@ -1,0 +1,13 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "prometheus-community-prometheus-operator-crds-28.0.1-aicr-eks-training"
+spec:
+  files:
+    -
+      path: "effective-values-aicr-eks-training.yaml"
+      source: "inline-proof"
+      sha256: "f6ded79ccc11132cec0b9dbbf1248ba5862248b9e4daea35c21e60e28c078b12"
+  mergedValuesCaptured: false
+  values:
+    enabled: true

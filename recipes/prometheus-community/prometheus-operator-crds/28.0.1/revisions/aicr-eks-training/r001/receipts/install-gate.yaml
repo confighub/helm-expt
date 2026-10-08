@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "prometheus-operator-crds-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for aicr-eks-training"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the ten CRDs are the whole base; they are large, so they need server-side apply, and a cluster that already has these CRDs from another source gets them replaced"

@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "prometheus-operator-crds-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "df27f5db0e6236e17f63c3ad58331069a13bd5aaedc65e96447acf5b332ede10"
+    dependencyLockSHA256: "400bcbcdacb93425238ed0a7bafe6bea0d3ae7d48bd08721890e7dbb3f5810c5"
+    effectiveValuesSHA256: "1fe8e3f2fe637d7681276025d822f083ea4f70b8aec96a85d97837495146d087"
+  outputs:
+    renderedObjectSetSHA256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+    renderedObjectInventorySHA256: "1ffcb8db961c30e71e8d1feba9a20e05c2e95f77515637c9f101baf75094bd24"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 10
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

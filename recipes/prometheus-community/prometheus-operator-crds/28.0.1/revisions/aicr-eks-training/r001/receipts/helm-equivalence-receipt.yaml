@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "prometheus-operator-crds-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+    objectCount: 10
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 11
+    uploadedManifestFiles: 11
+    separatedSecretFiles: 0
+    semanticObjectMatches: "10/10"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||monitoring"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run aicr-nested-charts-coverage:compare"

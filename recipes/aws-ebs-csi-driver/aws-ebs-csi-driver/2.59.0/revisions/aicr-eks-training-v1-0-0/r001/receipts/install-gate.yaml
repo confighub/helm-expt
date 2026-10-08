@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "aws-ebs-csi-driver-aicr-eks-training-v1-0-0-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "d2e617adfa3bf225ed25b1ffff83ce69708b4c37129385ebaaddfa8154b52314"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for aicr-eks-training-v1-0-0"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "this base needs no CRD on the target; it is rendered for Kubernetes 1.33 or later, and the controller needs AWS permissions to manage EBS volumes, which the chart does not grant"

@@ -1,0 +1,123 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "prometheus-community-prometheus-operator-crds"
+  version: "28.0.1"
+spec:
+  bases:
+    -
+      default: true
+      description: "prometheus-operator-crds chart defaults variant rendered from prometheus-community/prometheus-operator-crds@28.0.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD alertmanagerconfigs.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD alertmanagers.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD podmonitors.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD probes.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD prometheusagents.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD prometheuses.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD prometheusrules.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD scrapeconfigs.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD servicemonitors.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD thanosrulers.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+      name: "default"
+      path: "bases/default"
+    -
+      description: "prometheus-operator-crds AICR v0.20.0 and AICR v1.0.0 EKS training values variant rendered from prometheus-community/prometheus-operator-crds@28.0.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD alertmanagerconfigs.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD alertmanagers.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD podmonitors.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD probes.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD prometheusagents.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD prometheuses.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD prometheusrules.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD scrapeconfigs.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD servicemonitors.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD thanosrulers.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+      name: "aicr-eks-training"
+      path: "bases/aicr-eks-training"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

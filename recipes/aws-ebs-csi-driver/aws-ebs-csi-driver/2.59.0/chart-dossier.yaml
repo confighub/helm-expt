@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0"
+spec:
+  chart: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+  version: "2.59.0"
+  caveats:
+    - "The controller needs AWS credentials with permission to create, attach and delete EBS volumes, usually through IAM Roles for Service Accounts or EKS Pod Identity. Nothing in this entry provides them."
+    - "The AICR bases make ebs-csi-default-sc the default StorageClass. On a cluster that already has a default, two defaults exist until one is changed."
+    - "A CSIDriver object's spec is largely immutable. Moving between chart versions that change it means deleting and recreating the object, which this entry does not do."
+  maintainedNotes:
+    - "This package is the exact aws-ebs-csi-driver@2.59.0 chart, locked by archive URL and SHA-256."
+    - "With chart defaults aws-ebs-csi-driver@2.59.0 renders 19 objects as release aws-ebs-csi-driver in namespace kube-system, the names the AICR entries use: the controller Deployment, a Linux and a Windows node DaemonSet, the CSIDriver object, two ServiceAccounts, five ClusterRoles, five ClusterRoleBindings, a Role, a RoleBinding and a PodDisruptionBudget. It renders no CRD and no Secret, and no Helm hook once the chart's helm test Pod is left out."
+    - "The bases are rendered for Kubernetes 1.33.0, not the 1.30.0 that the 2.60.1 entry of this chart uses. The chart renders two more fields from 1.33, and the AICR nested render of this archive has them."
+    - "The aicr-eks-training-v0-20-0 base renders 19 objects with the values the AICR v0.20.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/001-aws-ebs-csi-driver/values.yaml): a default StorageClass on, the Windows node DaemonSet off, the controller and node pods tolerating every taint, service account names and resource requests and limits set. Its objects equal the AICR v0.20.0 nested render of the same archive, object for object."
+    - "The aicr-eks-training-v1-0-0 base renders 19 objects with the values the AICR v1.0.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-helm-bundle/001-aws-ebs-csi-driver/values.yaml): the v0.20.0 values with the controller also selected onto the system-worker node group. The AICR v1.0.0 entry retains these values and no render of this component, so this base is bound to the bundle's checksum list and its Application pin and is not compared with an AICR render."
+    - "The chart's snapshot sidecar and its VolumeSnapshotClass objects render only when the capability set reports the snapshot.storage.k8s.io API. An offline render does not, so no base holds them."
+    - "The chart contains no lookup, no generated credential, no keep annotation, no webhook, no Namespace template and no subchart. Its one Helm hook is a helm test Pod, which the bases leave out."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, or production support."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "target-facts"
+    - "production-readiness-review"

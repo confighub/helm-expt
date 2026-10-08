@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "prometheus-community-prometheus-operator-crds"
+  version: "28.0.1"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/prometheus-community/prometheus-operator-crds/28.0.1"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/prometheus-community/prometheus-operator-crds/28.0.1"
+      - "--non-interactive"
+      - "--namespace"
+      - "monitoring"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/aicr-eks-training/variant.yaml"

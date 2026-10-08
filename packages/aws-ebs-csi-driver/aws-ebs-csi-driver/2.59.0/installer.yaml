@@ -1,0 +1,20 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver"
+  version: "2.59.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "aws-ebs-csi-driver chart defaults variant rendered from aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0"
+    -
+      name: "aicr-eks-training-v0-20-0"
+      path: "bases/aicr-eks-training-v0-20-0"
+      description: "aws-ebs-csi-driver AICR v0.20.0 EKS training values variant rendered from aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0"
+    -
+      name: "aicr-eks-training-v1-0-0"
+      path: "bases/aicr-eks-training-v1-0-0"
+      description: "aws-ebs-csi-driver AICR v1.0.0 EKS training values variant rendered from aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0"
