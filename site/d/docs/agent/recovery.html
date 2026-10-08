@@ -532,6 +532,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/agent/recovery.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <p class="generated"><b>Generated at:</b> 2026-10-06T13:45:42.258Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
@@ -549,6 +550,7 @@
 <tr><td>Matrix output is stale</td><td>The master matrix no longer matches source data.</td><td>Run <code>npm run master-matrix</code>, then <code>npm run master-matrix:verify</code>.</td></tr>
 <tr><td>Command-surface verifier rejects an example</td><td>A doc uses stale <code>cub</code> syntax or planned syntax without saying it is planned.</td><td>Fix the example or mark planned/future syntax clearly; re-run the command-surface verifier.</td></tr>
 <tr><td>Command-surface verifier names a command the help snapshot does not have</td><td>A reader-facing source shows a subcommand or flag that <code>tests/cub-help-surface.json</code> does not list.</td><td>Fix the source. If the CLI itself changed, run <code>npm run variant:command-surface:snapshot</code> on a machine with that CLI, commit the snapshot, and fix what the two verifiers then report. Never edit the snapshot by hand.</td></tr>
+<tr><td><code>deterministic bundle SHA mismatch</code> on a package nobody changed</td><td>The installer that packaged it locally was not built the way CI builds it. CI builds one commit (<code>INSTALLER_COMMIT</code> in <code>.github/workflows/full-verify.yml</code>) with one Go release line (<code>go-version</code> in the same file). A package is a gzip archive, and the compressed bytes change with the Go line that built the installer, even when the installer source and the files inside the archive are identical. A newer local Go is enough to cause this.</td><td>Do not record a digest from an installer you built with the local Go. Run the step through <code>node scripts/run-with-pinned-installer.mjs -- &lt;command&gt;</code>. It builds the pinned commit with the Go line CI uses, refuses a build made with another line, and routes <code>cub installer</code> to it. To re-record NVIDIA package digests without re-rendering, run <code>nvidia-gpu-stack-coverage.mjs --repackage</code> the same way.</td></tr>
 <tr><td><code>git diff --check</code> reports trailing whitespace</td><td>A generated or manual file has whitespace errors.</td><td>Fix the source generator if many generated files are affected; fix the manual file directly if only manual docs changed.</td></tr></tbody></table>
 <h2 id="when-not-to-regenerate">When Not To Regenerate</h2>
 <p>Do not regenerate a broad surface just because it is nearby. Examples:</p>
