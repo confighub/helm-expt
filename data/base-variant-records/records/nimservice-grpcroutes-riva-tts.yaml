@@ -335,8 +335,24 @@ spec:
       status: "not-published"
       note: "A plain-YAML sample has no source package, and nothing was pushed."
     literalConfigOci:
-      status: "not-published"
-      note: "This variant has not been packaged or pushed as a literal configuration OCI."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9"
+      manifestDigest: "sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9"
+      layerDigest: "sha256:99a7580587e8751758622b4b9f5ba19b9172323cfa6ef582d32009af2ab4bb22"
+      objectSetSha256: "sha256:521b278642e743b0c7233c8da8cc9238397ffae08ebbbc3632ad4e5fea0706c7"
+      receipt: "runs/nimservice-variants/nimservice-grpcroutes-riva-tts/publication-receipt.yaml"
+      receiptSha256: "sha256:d7937c45229e8763dca789edec66219c51406164135b498a5c31ed7869654fb7"
+      plan: "data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/literal-config-oci.yaml"
+      routes:
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/operator-first-ordering.yaml"
+          sha256: "sha256:ac1c8d34d8c755506b479814d440d3d2677bb713477c3154d3b39a75f26e5d0e"
+          role: "route: operator-first ordering"
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/user-supplied-secrets.yaml"
+          sha256: "sha256:8b6448a2dc47a5e0e221660c041371d340d3d98ee5817cf86e28f35eae796828"
+          role: "route: user-supplied Secrets"
+      note: "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
     configHubUpload:
       status: "not-run"
     configHubReleaseOci:
@@ -360,7 +376,7 @@ spec:
     secretRoute: "data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/user-supplied-secrets.yaml"
     upstreamLicense: "data/aicr-nim-operator-models/upstream/LICENSE"
     licenseRead: "docs/planning/nim-ngc-license-read.md"
-    retention: "retained-not-published-not-uploaded-not-deployed"
+    retention: "retained-published-not-uploaded-not-deployed"
     literalConfigPlan: "data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/literal-config-oci.yaml"
     variantFamily: "nimservice, 38 variants at upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
     scenario: "grpcroutes"
@@ -381,9 +397,9 @@ spec:
     changeCadence: "application-release"
 status:
   level: "partial"
-  claim: "NVIDIA's grpcroutes NIMService sample riva-tts is retained as 2 exact Kubernetes objects from upstream commit 5d5f66ee0e2e, including its NIMCache. It is one variant of the nimservice entry. It is not published, not uploaded to ConfigHub and not deployed."
+  claim: "NVIDIA's grpcroutes NIMService sample riva-tts is retained as 2 exact Kubernetes objects from upstream commit 5d5f66ee0e2e, including its NIMCache. It is one variant of the nimservice entry. It is published as a literal configuration OCI with its route files. It is not uploaded to ConfigHub and not deployed."
   limits:
-    - "This variant is not published. No OCI artifact exists for it, and nothing was uploaded to ConfigHub."
+    - "This variant is published as a literal configuration OCI at oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9, with its two route files. Nothing was uploaded to ConfigHub."
     - "This variant is not deployed. No operator reconciled it, no model was run, and no cluster or GPU was contacted."
     - "The container image nvcr.io/nim/nvidia/riva-tts:1.3.0 and the model weights are gated by NVIDIA. This entry did not pull them, does not hold them and will never redistribute them."
     - "The image reference is nvcr.io/nim/nvidia/riva-tts:1.3.0, pinned by tag. A tag can answer to different bytes later, and nothing here resolved it."

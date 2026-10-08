@@ -94,8 +94,10 @@ spec:
     openQuestions:
       - "The sample carries the placeholder /model-store/<lora-directory> in spec.env[NIM_PEFT_SOURCE].value, so what value should a published variant carry?"
 status:
-  result: "retained-not-published"
-  published: false
+  result: "retained-published"
+  published: true
+  publicationReceipt: "runs/nimservice-variants/nimservice-lora-meta-llama-3-2-1b-instruct-llm/publication-receipt.yaml"
+  publishedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-lora-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:865c27dafbcbae5abecf7e2d119be6521206fda0d997b6f516d554607192b531"
   uploadedToConfigHub: false
   deployed: false
   imagePulled: false

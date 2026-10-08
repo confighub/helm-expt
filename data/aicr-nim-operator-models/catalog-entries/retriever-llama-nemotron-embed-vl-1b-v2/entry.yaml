@@ -108,8 +108,10 @@ spec:
     openQuestions:
       []
 status:
-  result: "retained-not-published"
-  published: false
+  result: "retained-published"
+  published: true
+  publicationReceipt: "runs/nimservice-variants/nimservice-retriever-llama-nemotron-embed-vl-1b-v2/publication-receipt.yaml"
+  publishedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-retriever-llama-nemotron-embed-vl-1b-v2:upstream-5d5f66ee0e2e@sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f"
   uploadedToConfigHub: false
   deployed: false
   imagePulled: false

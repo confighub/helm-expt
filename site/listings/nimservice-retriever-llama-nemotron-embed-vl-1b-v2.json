@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:ec8396163a013ccefe0738aec88354fa239a205ccbedc23d7b05dfe2d4e5d35d",
+      "sha256": "sha256:76e1ca2fa4f2dabcce9f2200e649edf6c3407b8be27f2c4d0f5594a5753c56a4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nimservice-retriever-llama-nemotron-embed-vl-1b-v2.yaml",
-      "sha256": "sha256:7c499bdcb30930805323357469f7850578887c136516aca9e8f7dc8c08fbf6ba",
+      "sha256": "sha256:499898c2b06586f8854acac489bd24325914125161d1a59544999b104b586cd1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nimservice-retriever-llama-nemotron-embed-vl-1b-v2.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -102,12 +102,32 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "This variant has not been packaged or pushed as a literal configuration OCI."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-retriever-llama-nemotron-embed-vl-1b-v2:upstream-5d5f66ee0e2e@sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:4802a291e2d0d1a71d02893dd893c509ab73d32a888007f9b0d13393a1d34140"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:0aa21dcf5cea78f7acfc61eb70f966230d2ea77a7a682500d9de5229a157b12f"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:1aafdea7ffa3795ddbeb645b82d0f526af40645390f78d2b9d415e29d5ec364a"
+          }
+        ],
+        "receipt": "runs/nimservice-variants/nimservice-retriever-llama-nemotron-embed-vl-1b-v2/publication-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/nimservice-variants/nimservice-retriever-llama-nemotron-embed-vl-1b-v2/publication-receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
       },
       {
         "role": "confighub-upload",
@@ -441,12 +461,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component nimservice --variant retriever-llama-nemotron-embed-vl-1b-v2 --space nimservice-retriever-llama-nemotron-embed-vl-1b-v2 --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:1aafdea7ffa3795ddbeb645b82d0f526af40645390f78d2b9d415e29d5ec364a ./rendered",
+          "command": "cub variant upload --dry-run --component nimservice --variant retriever-llama-nemotron-embed-vl-1b-v2 --space nimservice-retriever-llama-nemotron-embed-vl-1b-v2 --unit-annotation workshop.confighub.com/object-set-sha256=sha256:1aafdea7ffa3795ddbeb645b82d0f526af40645390f78d2b9d415e29d5ec364a ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component nimservice --variant retriever-llama-nemotron-embed-vl-1b-v2 --space nimservice-retriever-llama-nemotron-embed-vl-1b-v2 --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:1aafdea7ffa3795ddbeb645b82d0f526af40645390f78d2b9d415e29d5ec364a ./rendered",
+          "command": "cub variant upload --component nimservice --variant retriever-llama-nemotron-embed-vl-1b-v2 --space nimservice-retriever-llama-nemotron-embed-vl-1b-v2 --unit-annotation workshop.confighub.com/object-set-sha256=sha256:1aafdea7ffa3795ddbeb645b82d0f526af40645390f78d2b9d415e29d5ec364a ./rendered",
           "writes": true
         },
         {
@@ -888,7 +908,7 @@
       },
       {
         "name": "retention",
-        "value": "retained-not-published-not-uploaded-not-deployed"
+        "value": "retained-published-not-uploaded-not-deployed"
       },
       {
         "name": "scenario",
@@ -1217,8 +1237,8 @@
     {
       "id": "upload",
       "label": "Upload it as a variant",
-      "state": "not-available",
-      "summary": "This entry is not published, so there is no public artifact to upload.",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.",
       "basis": [
         "source.ociRef",
         "oci.bundles[literal-config]",
@@ -1226,20 +1246,48 @@
         "oci.bundles[confighub-release]",
         "lifecycle.coverage.confighub_scan_ops"
       ],
-      "commands": [],
-      "unblock": "The listing records its literal configuration bundle as not published. Publishing the retained objects as that bundle, with a receipt, would make this step available."
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "preview the upload of the published bundle; nothing is written",
+          "command": "cub variant upload --dry-run --component nimservice --variant retriever-llama-nemotron-embed-vl-1b-v2 --space nimservice-retriever-llama-nemotron-embed-vl-1b-v2 oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-retriever-llama-nemotron-embed-vl-1b-v2:upstream-5d5f66ee0e2e@sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the bundle as a base Space of Units",
+          "command": "cub variant upload --component nimservice --variant retriever-llama-nemotron-embed-vl-1b-v2 --space nimservice-retriever-llama-nemotron-embed-vl-1b-v2 oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-retriever-llama-nemotron-embed-vl-1b-v2:upstream-5d5f66ee0e2e@sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
     },
     {
       "id": "deploy",
       "label": "Deploy it",
-      "state": "not-available",
-      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
       "basis": [
         "oci.runtimes",
         "lifecycle.installTimeInputs"
       ],
-      "commands": [],
-      "unblock": "A published artifact for this entry, with a receipt, would make this step available.",
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev nimservice-retriever-llama-nemotron-embed-vl-1b-v2 --target workshop/target --space-pattern \"template:nimservice-retriever-llama-nemotron-embed-vl-1b-v2-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish nimservice-retriever-llama-nemotron-embed-vl-1b-v2-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
       "needs": [
         "k8s-nim-operator",
         "ngc-secret",
@@ -1251,13 +1299,24 @@
     {
       "id": "promote",
       "label": "Promote a change",
-      "state": "not-available",
-      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
       "basis": [
         "lifecycle.promotion"
       ],
-      "commands": [],
-      "unblock": "A published artifact for this entry, with a receipt, would make this step available."
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote nimservice-retriever-llama-nemotron-embed-vl-1b-v2-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote nimservice-retriever-llama-nemotron-embed-vl-1b-v2-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
     }
   ]
 }

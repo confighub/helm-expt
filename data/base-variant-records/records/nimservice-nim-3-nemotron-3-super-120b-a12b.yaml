@@ -313,8 +313,24 @@ spec:
       status: "not-published"
       note: "A plain-YAML sample has no source package, and nothing was pushed."
     literalConfigOci:
-      status: "not-published"
-      note: "This variant has not been packaged or pushed as a literal configuration OCI."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-nim-3-nemotron-3-super-120b-a12b:upstream-5d5f66ee0e2e@sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35"
+      manifestDigest: "sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35"
+      layerDigest: "sha256:8cb5e62b712e183ea273c0dca791cb44eafd514075e760274e2df9fca8fc7d66"
+      objectSetSha256: "sha256:c72d8fb61e0f8d4df55ce4e0d1f08f51f580561539af2aad16f1035c0e52221c"
+      receipt: "runs/nimservice-variants/nimservice-nim-3-nemotron-3-super-120b-a12b/publication-receipt.yaml"
+      receiptSha256: "sha256:77a9c5406f412cbe5c61860b59b0c7beb5aeeb7a40911011c882ebe30ef9d8b8"
+      plan: "data/aicr-nim-operator-models/catalog-entries/nim-3-nemotron-3-super-120b-a12b/literal-config-oci.yaml"
+      routes:
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/nim-3-nemotron-3-super-120b-a12b/operator-first-ordering.yaml"
+          sha256: "sha256:5916a28fad6ab590db8fe5cfc5b212bbed3d2dfb3c1cad226d2cbf1c68efb4d6"
+          role: "route: operator-first ordering"
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/nim-3-nemotron-3-super-120b-a12b/user-supplied-secrets.yaml"
+          sha256: "sha256:5f2b9d221a9e740d193141e010ab739a7e6887179528f7771e72b5fc1daae214"
+          role: "route: user-supplied Secrets"
+      note: "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
     configHubUpload:
       status: "not-run"
     configHubReleaseOci:
@@ -338,7 +354,7 @@ spec:
     secretRoute: "data/aicr-nim-operator-models/catalog-entries/nim-3-nemotron-3-super-120b-a12b/user-supplied-secrets.yaml"
     upstreamLicense: "data/aicr-nim-operator-models/upstream/LICENSE"
     licenseRead: "docs/planning/nim-ngc-license-read.md"
-    retention: "retained-not-published-not-uploaded-not-deployed"
+    retention: "retained-published-not-uploaded-not-deployed"
     literalConfigPlan: "data/aicr-nim-operator-models/catalog-entries/nim-3-nemotron-3-super-120b-a12b/literal-config-oci.yaml"
     variantFamily: "nimservice, 38 variants at upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
     scenario: "nim-3"
@@ -359,9 +375,9 @@ spec:
     changeCadence: "application-release"
 status:
   level: "partial"
-  claim: "NVIDIA's nim-3 NIMService sample nemotron-3-super-120b-a12b is retained as 2 exact Kubernetes objects from upstream commit 5d5f66ee0e2e, including its NIMCache. It is one variant of the nimservice entry. It is not published, not uploaded to ConfigHub and not deployed."
+  claim: "NVIDIA's nim-3 NIMService sample nemotron-3-super-120b-a12b is retained as 2 exact Kubernetes objects from upstream commit 5d5f66ee0e2e, including its NIMCache. It is one variant of the nimservice entry. It is published as a literal configuration OCI with its route files. It is not uploaded to ConfigHub and not deployed."
   limits:
-    - "This variant is not published. No OCI artifact exists for it, and nothing was uploaded to ConfigHub."
+    - "This variant is published as a literal configuration OCI at oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-nim-3-nemotron-3-super-120b-a12b:upstream-5d5f66ee0e2e@sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35, with its two route files. Nothing was uploaded to ConfigHub."
     - "This variant is not deployed. No operator reconciled it, no model was run, and no cluster or GPU was contacted."
     - "The container image nvcr.io/nim/nvidia/nemotron-3-super-120b-a12b:3.0.0 and the model weights are gated by NVIDIA. This entry did not pull them, does not hold them and will never redistribute them."
     - "The image reference is nvcr.io/nim/nvidia/nemotron-3-super-120b-a12b:3.0.0, pinned by tag. A tag can answer to different bytes later, and nothing here resolved it."

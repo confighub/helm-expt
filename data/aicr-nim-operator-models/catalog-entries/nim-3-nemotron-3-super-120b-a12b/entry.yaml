@@ -108,8 +108,10 @@ spec:
     openQuestions:
       []
 status:
-  result: "retained-not-published"
-  published: false
+  result: "retained-published"
+  published: true
+  publicationReceipt: "runs/nimservice-variants/nimservice-nim-3-nemotron-3-super-120b-a12b/publication-receipt.yaml"
+  publishedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-nim-3-nemotron-3-super-120b-a12b:upstream-5d5f66ee0e2e@sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35"
   uploadedToConfigHub: false
   deployed: false
   imagePulled: false

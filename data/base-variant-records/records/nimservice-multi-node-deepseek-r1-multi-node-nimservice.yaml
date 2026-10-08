@@ -324,8 +324,24 @@ spec:
       status: "not-published"
       note: "A plain-YAML sample has no source package, and nothing was pushed."
     literalConfigOci:
-      status: "not-published"
-      note: "This variant has not been packaged or pushed as a literal configuration OCI."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-multi-node-deepseek-r1-multi-node-nimservice:upstream-5d5f66ee0e2e@sha256:29ffffbb5fa5f61e5827003437a2221e17ec245916f74702310633b4792e39a0"
+      manifestDigest: "sha256:29ffffbb5fa5f61e5827003437a2221e17ec245916f74702310633b4792e39a0"
+      layerDigest: "sha256:3ba2d7050f00d7bc2ee5b8316e405480194c3292315ab4c3dc5cebb97b9a72f1"
+      objectSetSha256: "sha256:62a86e115f6282d79fc2f58b0b3bae264a679e9e3fce49e714959cbd9e644218"
+      receipt: "runs/nimservice-variants/nimservice-multi-node-deepseek-r1-multi-node-nimservice/publication-receipt.yaml"
+      receiptSha256: "sha256:ca136eb071e06f3668f2d3fab08cc3b1ce8e8defd81cf7043c18d9669c4c8fb1"
+      plan: "data/aicr-nim-operator-models/catalog-entries/multi-node-deepseek-r1-multi-node-nimservice/literal-config-oci.yaml"
+      routes:
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/multi-node-deepseek-r1-multi-node-nimservice/operator-first-ordering.yaml"
+          sha256: "sha256:7f7d1b070cfeac7bfe2b9a66d5b05580b6ce850aa5ca740a3c52cce8a738cabb"
+          role: "route: operator-first ordering"
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/multi-node-deepseek-r1-multi-node-nimservice/user-supplied-secrets.yaml"
+          sha256: "sha256:69a9b1a83b3d7a23dfe0c18d3f95794ebc2706fa767828a4b329ee72f1565c9e"
+          role: "route: user-supplied Secrets"
+      note: "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
     configHubUpload:
       status: "not-run"
     configHubReleaseOci:
@@ -349,7 +365,7 @@ spec:
     secretRoute: "data/aicr-nim-operator-models/catalog-entries/multi-node-deepseek-r1-multi-node-nimservice/user-supplied-secrets.yaml"
     upstreamLicense: "data/aicr-nim-operator-models/upstream/LICENSE"
     licenseRead: "docs/planning/nim-ngc-license-read.md"
-    retention: "retained-not-published-not-uploaded-not-deployed"
+    retention: "retained-published-not-uploaded-not-deployed"
     literalConfigPlan: "data/aicr-nim-operator-models/catalog-entries/multi-node-deepseek-r1-multi-node-nimservice/literal-config-oci.yaml"
     variantFamily: "nimservice, 38 variants at upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
     scenario: "multi-node"
@@ -370,9 +386,9 @@ spec:
     changeCadence: "application-release"
 status:
   level: "partial"
-  claim: "NVIDIA's multi-node NIMService sample deepseek-r1 is retained as 2 exact Kubernetes objects from upstream commit 5d5f66ee0e2e, including its NIMCache. It is one variant of the nimservice entry. It is not published, not uploaded to ConfigHub and not deployed."
+  claim: "NVIDIA's multi-node NIMService sample deepseek-r1 is retained as 2 exact Kubernetes objects from upstream commit 5d5f66ee0e2e, including its NIMCache. It is one variant of the nimservice entry. It is published as a literal configuration OCI with its route files. It is not uploaded to ConfigHub and not deployed."
   limits:
-    - "This variant is not published. No OCI artifact exists for it, and nothing was uploaded to ConfigHub."
+    - "This variant is published as a literal configuration OCI at oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-multi-node-deepseek-r1-multi-node-nimservice:upstream-5d5f66ee0e2e@sha256:29ffffbb5fa5f61e5827003437a2221e17ec245916f74702310633b4792e39a0, with its two route files. Nothing was uploaded to ConfigHub."
     - "This variant is not deployed. No operator reconciled it, no model was run, and no cluster or GPU was contacted."
     - "The container image nvcr.io/nim/deepseek-ai/deepseek-r1:1.7.3 and the model weights are gated by NVIDIA. This entry did not pull them, does not hold them and will never redistribute them."
     - "The image reference is nvcr.io/nim/deepseek-ai/deepseek-r1:1.7.3, pinned by tag. A tag can answer to different bytes later, and nothing here resolved it."

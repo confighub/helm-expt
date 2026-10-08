@@ -115,8 +115,10 @@ spec:
     openQuestions:
       []
 status:
-  result: "retained-not-published"
-  published: false
+  result: "retained-published"
+  published: true
+  publicationReceipt: "runs/nimservice-variants/nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm/publication-receipt.yaml"
+  publishedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e@sha256:b56046d5518c443284a858363b9cb83a1f30f59dfe35dacfc2bc58c9f8c8f1d2"
   uploadedToConfigHub: false
   deployed: false
   imagePulled: false

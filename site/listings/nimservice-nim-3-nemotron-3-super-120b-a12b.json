@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:ec8396163a013ccefe0738aec88354fa239a205ccbedc23d7b05dfe2d4e5d35d",
+      "sha256": "sha256:76e1ca2fa4f2dabcce9f2200e649edf6c3407b8be27f2c4d0f5594a5753c56a4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nimservice-nim-3-nemotron-3-super-120b-a12b.yaml",
-      "sha256": "sha256:27eceec9fdf71ce2225a4574cebd8e8196671ede39a7b2447d203dd56567e4fa",
+      "sha256": "sha256:71663c565b673ffcc8049ba682130daa2bb24bbb006264f6e9596895ece48887",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nimservice-nim-3-nemotron-3-super-120b-a12b.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -102,12 +102,32 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "This variant has not been packaged or pushed as a literal configuration OCI."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-nim-3-nemotron-3-super-120b-a12b:upstream-5d5f66ee0e2e@sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:8cb5e62b712e183ea273c0dca791cb44eafd514075e760274e2df9fca8fc7d66"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:77a9c5406f412cbe5c61860b59b0c7beb5aeeb7a40911011c882ebe30ef9d8b8"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:c72d8fb61e0f8d4df55ce4e0d1f08f51f580561539af2aad16f1035c0e52221c"
+          }
+        ],
+        "receipt": "runs/nimservice-variants/nimservice-nim-3-nemotron-3-super-120b-a12b/publication-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/nimservice-variants/nimservice-nim-3-nemotron-3-super-120b-a12b/publication-receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
       },
       {
         "role": "confighub-upload",
@@ -441,12 +461,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component nimservice --variant nim-3-nemotron-3-super-120b-a12b --space nimservice-nim-3-nemotron-3-super-120b-a12b --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c72d8fb61e0f8d4df55ce4e0d1f08f51f580561539af2aad16f1035c0e52221c ./rendered",
+          "command": "cub variant upload --dry-run --component nimservice --variant nim-3-nemotron-3-super-120b-a12b --space nimservice-nim-3-nemotron-3-super-120b-a12b --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c72d8fb61e0f8d4df55ce4e0d1f08f51f580561539af2aad16f1035c0e52221c ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component nimservice --variant nim-3-nemotron-3-super-120b-a12b --space nimservice-nim-3-nemotron-3-super-120b-a12b --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:c72d8fb61e0f8d4df55ce4e0d1f08f51f580561539af2aad16f1035c0e52221c ./rendered",
+          "command": "cub variant upload --component nimservice --variant nim-3-nemotron-3-super-120b-a12b --space nimservice-nim-3-nemotron-3-super-120b-a12b --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c72d8fb61e0f8d4df55ce4e0d1f08f51f580561539af2aad16f1035c0e52221c ./rendered",
           "writes": true
         },
         {
@@ -888,7 +908,7 @@
       },
       {
         "name": "retention",
-        "value": "retained-not-published-not-uploaded-not-deployed"
+        "value": "retained-published-not-uploaded-not-deployed"
       },
       {
         "name": "scenario",
@@ -1217,8 +1237,8 @@
     {
       "id": "upload",
       "label": "Upload it as a variant",
-      "state": "not-available",
-      "summary": "This entry is not published, so there is no public artifact to upload.",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.",
       "basis": [
         "source.ociRef",
         "oci.bundles[literal-config]",
@@ -1226,20 +1246,48 @@
         "oci.bundles[confighub-release]",
         "lifecycle.coverage.confighub_scan_ops"
       ],
-      "commands": [],
-      "unblock": "The listing records its literal configuration bundle as not published. Publishing the retained objects as that bundle, with a receipt, would make this step available."
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "preview the upload of the published bundle; nothing is written",
+          "command": "cub variant upload --dry-run --component nimservice --variant nim-3-nemotron-3-super-120b-a12b --space nimservice-nim-3-nemotron-3-super-120b-a12b oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-nim-3-nemotron-3-super-120b-a12b:upstream-5d5f66ee0e2e@sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the bundle as a base Space of Units",
+          "command": "cub variant upload --component nimservice --variant nim-3-nemotron-3-super-120b-a12b --space nimservice-nim-3-nemotron-3-super-120b-a12b oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-nim-3-nemotron-3-super-120b-a12b:upstream-5d5f66ee0e2e@sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
     },
     {
       "id": "deploy",
       "label": "Deploy it",
-      "state": "not-available",
-      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
       "basis": [
         "oci.runtimes",
         "lifecycle.installTimeInputs"
       ],
-      "commands": [],
-      "unblock": "A published artifact for this entry, with a receipt, would make this step available.",
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev nimservice-nim-3-nemotron-3-super-120b-a12b --target workshop/target --space-pattern \"template:nimservice-nim-3-nemotron-3-super-120b-a12b-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish nimservice-nim-3-nemotron-3-super-120b-a12b-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
       "needs": [
         "k8s-nim-operator",
         "ngc-secret",
@@ -1251,13 +1299,24 @@
     {
       "id": "promote",
       "label": "Promote a change",
-      "state": "not-available",
-      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
       "basis": [
         "lifecycle.promotion"
       ],
-      "commands": [],
-      "unblock": "A published artifact for this entry, with a receipt, would make this step available."
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote nimservice-nim-3-nemotron-3-super-120b-a12b-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote nimservice-nim-3-nemotron-3-super-120b-a12b-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
     }
   ]
 }

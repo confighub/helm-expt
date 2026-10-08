@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:ec8396163a013ccefe0738aec88354fa239a205ccbedc23d7b05dfe2d4e5d35d",
+      "sha256": "sha256:76e1ca2fa4f2dabcce9f2200e649edf6c3407b8be27f2c4d0f5594a5753c56a4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling.yaml",
-      "sha256": "sha256:e02e3db36cc5036f91f547e8e6360d76e36c269ba5f6bed734458d321aaa1234",
+      "sha256": "sha256:8ae88693fd78df6c43f4dfa279a16a408dc0bdc26ac72e15c24bd9397512e75a",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -102,12 +102,32 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "This variant has not been packaged or pushed as a literal configuration OCI."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling:upstream-5d5f66ee0e2e@sha256:842c90182eb637abddc5be190afa89fe673a350321332ddd0f4f418a35a39b73",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:69083d86fdb3bb1c69dda4e464760ab4a51f280f070060a1b1a7ca8c7d304e77"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:0702664cf75742ae8f9f414045ef8e44d83dea3282e48bd987911ec8292cf1e2"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:842c90182eb637abddc5be190afa89fe673a350321332ddd0f4f418a35a39b73"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:d9b5b69bce17711febcb3531ed5f642e12c0e61043cf60b0074a4e1636bd3f6f"
+          }
+        ],
+        "receipt": "runs/nimservice-variants/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling/publication-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/nimservice-variants/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling/publication-receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
       },
       {
         "role": "confighub-upload",
@@ -441,12 +461,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component nimservice --variant scheduling-meta-llama-3-2-1b-instruct-scheduling --space nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:d9b5b69bce17711febcb3531ed5f642e12c0e61043cf60b0074a4e1636bd3f6f ./rendered",
+          "command": "cub variant upload --dry-run --component nimservice --variant scheduling-meta-llama-3-2-1b-instruct-scheduling --space nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling --unit-annotation workshop.confighub.com/object-set-sha256=sha256:d9b5b69bce17711febcb3531ed5f642e12c0e61043cf60b0074a4e1636bd3f6f ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component nimservice --variant scheduling-meta-llama-3-2-1b-instruct-scheduling --space nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:d9b5b69bce17711febcb3531ed5f642e12c0e61043cf60b0074a4e1636bd3f6f ./rendered",
+          "command": "cub variant upload --component nimservice --variant scheduling-meta-llama-3-2-1b-instruct-scheduling --space nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling --unit-annotation workshop.confighub.com/object-set-sha256=sha256:d9b5b69bce17711febcb3531ed5f642e12c0e61043cf60b0074a4e1636bd3f6f ./rendered",
           "writes": true
         },
         {
@@ -922,7 +942,7 @@
       },
       {
         "name": "retention",
-        "value": "retained-not-published-not-uploaded-not-deployed"
+        "value": "retained-published-not-uploaded-not-deployed"
       },
       {
         "name": "scenario",
@@ -1251,8 +1271,8 @@
     {
       "id": "upload",
       "label": "Upload it as a variant",
-      "state": "not-available",
-      "summary": "This entry is not published, so there is no public artifact to upload.",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.",
       "basis": [
         "source.ociRef",
         "oci.bundles[literal-config]",
@@ -1260,20 +1280,48 @@
         "oci.bundles[confighub-release]",
         "lifecycle.coverage.confighub_scan_ops"
       ],
-      "commands": [],
-      "unblock": "The listing records its literal configuration bundle as not published. Publishing the retained objects as that bundle, with a receipt, would make this step available."
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "preview the upload of the published bundle; nothing is written",
+          "command": "cub variant upload --dry-run --component nimservice --variant scheduling-meta-llama-3-2-1b-instruct-scheduling --space nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling:upstream-5d5f66ee0e2e@sha256:842c90182eb637abddc5be190afa89fe673a350321332ddd0f4f418a35a39b73",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the bundle as a base Space of Units",
+          "command": "cub variant upload --component nimservice --variant scheduling-meta-llama-3-2-1b-instruct-scheduling --space nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling:upstream-5d5f66ee0e2e@sha256:842c90182eb637abddc5be190afa89fe673a350321332ddd0f4f418a35a39b73",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
     },
     {
       "id": "deploy",
       "label": "Deploy it",
-      "state": "not-available",
-      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
       "basis": [
         "oci.runtimes",
         "lifecycle.installTimeInputs"
       ],
-      "commands": [],
-      "unblock": "A published artifact for this entry, with a receipt, would make this step available.",
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling --target workshop/target --space-pattern \"template:nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
       "needs": [
         "k8s-nim-operator",
         "ngc-secret",
@@ -1287,13 +1335,24 @@
     {
       "id": "promote",
       "label": "Promote a change",
-      "state": "not-available",
-      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
       "basis": [
         "lifecycle.promotion"
       ],
-      "commands": [],
-      "unblock": "A published artifact for this entry, with a receipt, would make this step available."
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
     }
   ]
 }

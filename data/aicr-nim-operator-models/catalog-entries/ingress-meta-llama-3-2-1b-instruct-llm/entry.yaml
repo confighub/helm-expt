@@ -114,8 +114,10 @@ spec:
     openQuestions:
       - "The sample sets NIMService spec.router, which the definition retained from operator v3.1.0 does not declare, so which operator release accepts it?"
 status:
-  result: "retained-not-published"
-  published: false
+  result: "retained-published"
+  published: true
+  publicationReceipt: "runs/nimservice-variants/nimservice-ingress-meta-llama-3-2-1b-instruct-llm/publication-receipt.yaml"
+  publishedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-ingress-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:4eb91b4d4c0f8d2cf517a01425ca6d0b3a416f5ca9bd7956c931aeb9b80b7a32"
   uploadedToConfigHub: false
   deployed: false
   imagePulled: false

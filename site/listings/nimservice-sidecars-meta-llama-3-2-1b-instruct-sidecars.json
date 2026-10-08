@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:ec8396163a013ccefe0738aec88354fa239a205ccbedc23d7b05dfe2d4e5d35d",
+      "sha256": "sha256:76e1ca2fa4f2dabcce9f2200e649edf6c3407b8be27f2c4d0f5594a5753c56a4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars.yaml",
-      "sha256": "sha256:394ef3df0190c7581846061e0db361c9df9fc82bd995968a3d3796b0d4526ed5",
+      "sha256": "sha256:6288e24981ee73f0c74e9a359d043cda50ae0256c676c33e13200ccca841f4c1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -102,12 +102,32 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "This variant has not been packaged or pushed as a literal configuration OCI."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars:upstream-5d5f66ee0e2e@sha256:5660005ce6568f6d6a145ede5b0511bb8095ec86fa12324bcc2b55700fe9d0a8",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:eb5667ffd071df235127b9d0253631096a42e47860c03b29ffdce413c71de80e"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:a41794a3beac9136b61e34e96436b00b11c4e667491194ae10d39e82485d132c"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:5660005ce6568f6d6a145ede5b0511bb8095ec86fa12324bcc2b55700fe9d0a8"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:4a865b472acd71864c994a9ba280a2f4713f47f3274cfbb62f0b1e8f0b5eec3c"
+          }
+        ],
+        "receipt": "runs/nimservice-variants/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars/publication-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/nimservice-variants/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars/publication-receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
       },
       {
         "role": "confighub-upload",
@@ -445,12 +465,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component nimservice --variant sidecars-meta-llama-3-2-1b-instruct-sidecars --space nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4a865b472acd71864c994a9ba280a2f4713f47f3274cfbb62f0b1e8f0b5eec3c ./rendered",
+          "command": "cub variant upload --dry-run --component nimservice --variant sidecars-meta-llama-3-2-1b-instruct-sidecars --space nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4a865b472acd71864c994a9ba280a2f4713f47f3274cfbb62f0b1e8f0b5eec3c ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component nimservice --variant sidecars-meta-llama-3-2-1b-instruct-sidecars --space nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4a865b472acd71864c994a9ba280a2f4713f47f3274cfbb62f0b1e8f0b5eec3c ./rendered",
+          "command": "cub variant upload --component nimservice --variant sidecars-meta-llama-3-2-1b-instruct-sidecars --space nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4a865b472acd71864c994a9ba280a2f4713f47f3274cfbb62f0b1e8f0b5eec3c ./rendered",
           "writes": true
         },
         {
@@ -892,7 +912,7 @@
       },
       {
         "name": "retention",
-        "value": "retained-not-published-not-uploaded-not-deployed"
+        "value": "retained-published-not-uploaded-not-deployed"
       },
       {
         "name": "scenario",
@@ -1221,8 +1241,8 @@
     {
       "id": "upload",
       "label": "Upload it as a variant",
-      "state": "not-available",
-      "summary": "This entry is not published, so there is no public artifact to upload.",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.",
       "basis": [
         "source.ociRef",
         "oci.bundles[literal-config]",
@@ -1230,20 +1250,48 @@
         "oci.bundles[confighub-release]",
         "lifecycle.coverage.confighub_scan_ops"
       ],
-      "commands": [],
-      "unblock": "The listing records its literal configuration bundle as not published. Publishing the retained objects as that bundle, with a receipt, would make this step available."
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "preview the upload of the published bundle; nothing is written",
+          "command": "cub variant upload --dry-run --component nimservice --variant sidecars-meta-llama-3-2-1b-instruct-sidecars --space nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars:upstream-5d5f66ee0e2e@sha256:5660005ce6568f6d6a145ede5b0511bb8095ec86fa12324bcc2b55700fe9d0a8",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the bundle as a base Space of Units",
+          "command": "cub variant upload --component nimservice --variant sidecars-meta-llama-3-2-1b-instruct-sidecars --space nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars:upstream-5d5f66ee0e2e@sha256:5660005ce6568f6d6a145ede5b0511bb8095ec86fa12324bcc2b55700fe9d0a8",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
     },
     {
       "id": "deploy",
       "label": "Deploy it",
-      "state": "not-available",
-      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
       "basis": [
         "oci.runtimes",
         "lifecycle.installTimeInputs"
       ],
-      "commands": [],
-      "unblock": "A published artifact for this entry, with a receipt, would make this step available.",
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars --target workshop/target --space-pattern \"template:nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
       "needs": [
         "k8s-nim-operator",
         "ngc-secret",
@@ -1255,13 +1303,24 @@
     {
       "id": "promote",
       "label": "Promote a change",
-      "state": "not-available",
-      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
       "basis": [
         "lifecycle.promotion"
       ],
-      "commands": [],
-      "unblock": "A published artifact for this entry, with a receipt, would make this step available."
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
     }
   ]
 }

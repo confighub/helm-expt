@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:ec8396163a013ccefe0738aec88354fa239a205ccbedc23d7b05dfe2d4e5d35d",
+      "sha256": "sha256:76e1ca2fa4f2dabcce9f2200e649edf6c3407b8be27f2c4d0f5594a5753c56a4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.yaml",
-      "sha256": "sha256:62842e589c5de8611842a317ce7ab877a80a4f1553cd7aac86c1d2cd25db1be3",
+      "sha256": "sha256:b77aad9a52fb8d4ef49ad51e69e26b095adbad4cb71f37dcef04ea6801b63206",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -102,12 +102,32 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "This variant has not been packaged or pushed as a literal configuration OCI."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox:upstream-5d5f66ee0e2e@sha256:8d2a87632008cd4b8844d4856e9aeb85631aef78d806a977ea3eeb4bf2b03cf4",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:8197107315541f790fdd0e383641eb8654cb4acdaf18ec8de8e59476bb0e4d15"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:04d5c5d8a9788960a231695716a63b86e1d65fa8a919f4539a213bd64feb36bb"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:8d2a87632008cd4b8844d4856e9aeb85631aef78d806a977ea3eeb4bf2b03cf4"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:4582a67b8e5bcff226b91319a744823e84308d81f05fa5827b3e225641012354"
+          }
+        ],
+        "receipt": "runs/nimservice-variants/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox/publication-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/nimservice-variants/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox/publication-receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
       },
       {
         "role": "confighub-upload",
@@ -441,12 +461,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component nimservice --variant confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --space nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4582a67b8e5bcff226b91319a744823e84308d81f05fa5827b3e225641012354 ./rendered",
+          "command": "cub variant upload --dry-run --component nimservice --variant confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --space nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4582a67b8e5bcff226b91319a744823e84308d81f05fa5827b3e225641012354 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component nimservice --variant confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --space nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4582a67b8e5bcff226b91319a744823e84308d81f05fa5827b3e225641012354 ./rendered",
+          "command": "cub variant upload --component nimservice --variant confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --space nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4582a67b8e5bcff226b91319a744823e84308d81f05fa5827b3e225641012354 ./rendered",
           "writes": true
         },
         {
@@ -901,7 +921,7 @@
       },
       {
         "name": "retention",
-        "value": "retained-not-published-not-uploaded-not-deployed"
+        "value": "retained-published-not-uploaded-not-deployed"
       },
       {
         "name": "scenario",
@@ -1230,8 +1250,8 @@
     {
       "id": "upload",
       "label": "Upload it as a variant",
-      "state": "not-available",
-      "summary": "This entry is not published, so there is no public artifact to upload.",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.",
       "basis": [
         "source.ociRef",
         "oci.bundles[literal-config]",
@@ -1239,20 +1259,48 @@
         "oci.bundles[confighub-release]",
         "lifecycle.coverage.confighub_scan_ops"
       ],
-      "commands": [],
-      "unblock": "The listing records its literal configuration bundle as not published. Publishing the retained objects as that bundle, with a receipt, would make this step available."
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "preview the upload of the published bundle; nothing is written",
+          "command": "cub variant upload --dry-run --component nimservice --variant confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --space nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox:upstream-5d5f66ee0e2e@sha256:8d2a87632008cd4b8844d4856e9aeb85631aef78d806a977ea3eeb4bf2b03cf4",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the bundle as a base Space of Units",
+          "command": "cub variant upload --component nimservice --variant confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --space nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox:upstream-5d5f66ee0e2e@sha256:8d2a87632008cd4b8844d4856e9aeb85631aef78d806a977ea3eeb4bf2b03cf4",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
     },
     {
       "id": "deploy",
       "label": "Deploy it",
-      "state": "not-available",
-      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
       "basis": [
         "oci.runtimes",
         "lifecycle.installTimeInputs"
       ],
-      "commands": [],
-      "unblock": "A published artifact for this entry, with a receipt, would make this step available.",
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox --target workshop/target --space-pattern \"template:nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
       "needs": [
         "k8s-nim-operator",
         "ngc-secret",
@@ -1265,13 +1313,24 @@
     {
       "id": "promote",
       "label": "Promote a change",
-      "state": "not-available",
-      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
       "basis": [
         "lifecycle.promotion"
       ],
-      "commands": [],
-      "unblock": "A published artifact for this entry, with a receipt, would make this step available."
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
     }
   ]
 }

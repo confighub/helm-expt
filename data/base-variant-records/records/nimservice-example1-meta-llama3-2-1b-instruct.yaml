@@ -324,8 +324,24 @@ spec:
       status: "not-published"
       note: "A plain-YAML sample has no source package, and nothing was pushed."
     literalConfigOci:
-      status: "not-published"
-      note: "This variant has not been packaged or pushed as a literal configuration OCI."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-example1-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:c3eddfb7edfff84131c09179685ceed3238fa5dacb70df98ae4b79fc52fcb666"
+      manifestDigest: "sha256:c3eddfb7edfff84131c09179685ceed3238fa5dacb70df98ae4b79fc52fcb666"
+      layerDigest: "sha256:6b793a3dc1d51112fc37a3d3e430068e78f9f85ab4a8150cbe539313595075a1"
+      objectSetSha256: "sha256:d2e5aaa047a10663926a0d8fe3d83add1e2170d16c87c6305da4db2e6ea7154f"
+      receipt: "runs/nimservice-variants/nimservice-example1-meta-llama3-2-1b-instruct/publication-receipt.yaml"
+      receiptSha256: "sha256:2b26152f0fb1b45f1dc1f1f99b8cc36662372488e8a839e7611461e7658c2fe7"
+      plan: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/literal-config-oci.yaml"
+      routes:
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/operator-first-ordering.yaml"
+          sha256: "sha256:21188945a5988976681540528a5bb2c2b3d83482c55aa5382afa6996a06c04ae"
+          role: "route: operator-first ordering"
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/user-supplied-secrets.yaml"
+          sha256: "sha256:7dbc4dbd26983e4d26847a7f2a1b969b81bd100f5ca12b58402506ec544d8a14"
+          role: "route: user-supplied Secrets"
+      note: "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
     configHubUpload:
       status: "not-run"
     configHubReleaseOci:
@@ -349,7 +365,7 @@ spec:
     secretRoute: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/user-supplied-secrets.yaml"
     upstreamLicense: "data/aicr-nim-operator-models/upstream/LICENSE"
     licenseRead: "docs/planning/nim-ngc-license-read.md"
-    retention: "retained-not-published-not-uploaded-not-deployed"
+    retention: "retained-published-not-uploaded-not-deployed"
     literalConfigPlan: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/literal-config-oci.yaml"
     variantFamily: "nimservice, 38 variants at upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
     scenario: "example1"
@@ -370,9 +386,9 @@ spec:
     changeCadence: "application-release"
 status:
   level: "partial"
-  claim: "NVIDIA's example1 NIMService sample meta-llama3-2-1b-instruct is retained as 2 exact Kubernetes objects from upstream commit 5d5f66ee0e2e, including its NIMCache. It is one variant of the nimservice entry. It is not published, not uploaded to ConfigHub and not deployed."
+  claim: "NVIDIA's example1 NIMService sample meta-llama3-2-1b-instruct is retained as 2 exact Kubernetes objects from upstream commit 5d5f66ee0e2e, including its NIMCache. It is one variant of the nimservice entry. It is published as a literal configuration OCI with its route files. It is not uploaded to ConfigHub and not deployed."
   limits:
-    - "This variant is not published. No OCI artifact exists for it, and nothing was uploaded to ConfigHub."
+    - "This variant is published as a literal configuration OCI at oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-example1-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:c3eddfb7edfff84131c09179685ceed3238fa5dacb70df98ae4b79fc52fcb666, with its two route files. Nothing was uploaded to ConfigHub."
     - "This variant is not deployed. No operator reconciled it, no model was run, and no cluster or GPU was contacted."
     - "The container image nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 and the model weights are gated by NVIDIA. This entry did not pull them, does not hold them and will never redistribute them."
     - "The image reference is nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0, pinned by tag. A tag can answer to different bytes later, and nothing here resolved it."

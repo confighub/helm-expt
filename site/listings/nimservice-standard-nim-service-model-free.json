@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:ec8396163a013ccefe0738aec88354fa239a205ccbedc23d7b05dfe2d4e5d35d",
+      "sha256": "sha256:76e1ca2fa4f2dabcce9f2200e649edf6c3407b8be27f2c4d0f5594a5753c56a4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nimservice-standard-nim-service-model-free.yaml",
-      "sha256": "sha256:361d9ac053cb773163b4fc15d3250d78c45f3f3f9250c978fcc83145bc164864",
+      "sha256": "sha256:16a966f14ebbe97af06562db2d6bc1790f55447022d6048d1fc2b04b4889f077",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nimservice-standard-nim-service-model-free.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -102,12 +102,32 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "This variant has not been packaged or pushed as a literal configuration OCI."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:4a41231c95d84d258c93069fbfbcb35150ba45e721a519e3eec1595fef7dc50a"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:bf4130bd3fd84c3afb5b19bfc1a9f997fef576c40dc0346102f6561e2c973ee1"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:41e2cd864f8bd9bf13dfa1acd1a201342561144b06e52d5d9050042174858609"
+          }
+        ],
+        "receipt": "runs/nimservice-variants/nimservice-standard-nim-service-model-free/publication-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/nimservice-variants/nimservice-standard-nim-service-model-free/publication-receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
       },
       {
         "role": "confighub-upload",
@@ -441,12 +461,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component nimservice --variant standard-nim-service-model-free --space nimservice-standard-nim-service-model-free --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:41e2cd864f8bd9bf13dfa1acd1a201342561144b06e52d5d9050042174858609 ./rendered",
+          "command": "cub variant upload --dry-run --component nimservice --variant standard-nim-service-model-free --space nimservice-standard-nim-service-model-free --unit-annotation workshop.confighub.com/object-set-sha256=sha256:41e2cd864f8bd9bf13dfa1acd1a201342561144b06e52d5d9050042174858609 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component nimservice --variant standard-nim-service-model-free --space nimservice-standard-nim-service-model-free --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:41e2cd864f8bd9bf13dfa1acd1a201342561144b06e52d5d9050042174858609 ./rendered",
+          "command": "cub variant upload --component nimservice --variant standard-nim-service-model-free --space nimservice-standard-nim-service-model-free --unit-annotation workshop.confighub.com/object-set-sha256=sha256:41e2cd864f8bd9bf13dfa1acd1a201342561144b06e52d5d9050042174858609 ./rendered",
           "writes": true
         },
         {
@@ -914,7 +934,7 @@
       },
       {
         "name": "retention",
-        "value": "retained-not-published-not-uploaded-not-deployed"
+        "value": "retained-published-not-uploaded-not-deployed"
       },
       {
         "name": "scenario",
@@ -1243,8 +1263,8 @@
     {
       "id": "upload",
       "label": "Upload it as a variant",
-      "state": "not-available",
-      "summary": "This entry is not published, so there is no public artifact to upload.",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.",
       "basis": [
         "source.ociRef",
         "oci.bundles[literal-config]",
@@ -1252,20 +1272,48 @@
         "oci.bundles[confighub-release]",
         "lifecycle.coverage.confighub_scan_ops"
       ],
-      "commands": [],
-      "unblock": "The listing records its literal configuration bundle as not published. Publishing the retained objects as that bundle, with a receipt, would make this step available."
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "preview the upload of the published bundle; nothing is written",
+          "command": "cub variant upload --dry-run --component nimservice --variant standard-nim-service-model-free --space nimservice-standard-nim-service-model-free oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the bundle as a base Space of Units",
+          "command": "cub variant upload --component nimservice --variant standard-nim-service-model-free --space nimservice-standard-nim-service-model-free oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
     },
     {
       "id": "deploy",
       "label": "Deploy it",
-      "state": "not-available",
-      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
       "basis": [
         "oci.runtimes",
         "lifecycle.installTimeInputs"
       ],
-      "commands": [],
-      "unblock": "A published artifact for this entry, with a receipt, would make this step available.",
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev nimservice-standard-nim-service-model-free --target workshop/target --space-pattern \"template:nimservice-standard-nim-service-model-free-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish nimservice-standard-nim-service-model-free-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
       "needs": [
         "k8s-nim-operator",
         "ngc-secret",
@@ -1279,13 +1327,24 @@
     {
       "id": "promote",
       "label": "Promote a change",
-      "state": "not-available",
-      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
       "basis": [
         "lifecycle.promotion"
       ],
-      "commands": [],
-      "unblock": "A published artifact for this entry, with a receipt, would make this step available."
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote nimservice-standard-nim-service-model-free-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote nimservice-standard-nim-service-model-free-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
     }
   ]
 }

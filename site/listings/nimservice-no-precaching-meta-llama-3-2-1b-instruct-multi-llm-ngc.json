@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:ec8396163a013ccefe0738aec88354fa239a205ccbedc23d7b05dfe2d4e5d35d",
+      "sha256": "sha256:76e1ca2fa4f2dabcce9f2200e649edf6c3407b8be27f2c4d0f5594a5753c56a4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc.yaml",
-      "sha256": "sha256:c4ef09ffcfc88ad163b63a786ba36ad95f2295e0cb725e3012fcaa804fe20fd7",
+      "sha256": "sha256:728a83edef96a62d610c16199ba2d74899f25d9e657659556dd7181e0fc7f396",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -102,12 +102,32 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "This variant has not been packaged or pushed as a literal configuration OCI."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc:upstream-5d5f66ee0e2e@sha256:9b0e888890e5d62f8f1c2d466c3fb696b3087ffd40a7a08765e6be5ab897e852",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:7f0ce8c637973100adfc20ba46d938e29e432a9c13b007538fe4737bc1eec27f"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:95edca0583c6ed3e91b0fcd95a6b0050546a01e1541ccfb05f418c2cc750a52d"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:9b0e888890e5d62f8f1c2d466c3fb696b3087ffd40a7a08765e6be5ab897e852"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:e4d032885ab3d2e87043560d8f3f6f58f2c02c6353ff1bf4cafdb1f938e6c6a0"
+          }
+        ],
+        "receipt": "runs/nimservice-variants/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc/publication-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/nimservice-variants/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc/publication-receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
       },
       {
         "role": "confighub-upload",
@@ -441,12 +461,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:e4d032885ab3d2e87043560d8f3f6f58f2c02c6353ff1bf4cafdb1f938e6c6a0 ./rendered",
+          "command": "cub variant upload --dry-run --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --unit-annotation workshop.confighub.com/object-set-sha256=sha256:e4d032885ab3d2e87043560d8f3f6f58f2c02c6353ff1bf4cafdb1f938e6c6a0 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:e4d032885ab3d2e87043560d8f3f6f58f2c02c6353ff1bf4cafdb1f938e6c6a0 ./rendered",
+          "command": "cub variant upload --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --unit-annotation workshop.confighub.com/object-set-sha256=sha256:e4d032885ab3d2e87043560d8f3f6f58f2c02c6353ff1bf4cafdb1f938e6c6a0 ./rendered",
           "writes": true
         },
         {
@@ -888,7 +908,7 @@
       },
       {
         "name": "retention",
-        "value": "retained-not-published-not-uploaded-not-deployed"
+        "value": "retained-published-not-uploaded-not-deployed"
       },
       {
         "name": "scenario",
@@ -1217,8 +1237,8 @@
     {
       "id": "upload",
       "label": "Upload it as a variant",
-      "state": "not-available",
-      "summary": "This entry is not published, so there is no public artifact to upload.",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.",
       "basis": [
         "source.ociRef",
         "oci.bundles[literal-config]",
@@ -1226,20 +1246,48 @@
         "oci.bundles[confighub-release]",
         "lifecycle.coverage.confighub_scan_ops"
       ],
-      "commands": [],
-      "unblock": "The listing records its literal configuration bundle as not published. Publishing the retained objects as that bundle, with a receipt, would make this step available."
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "preview the upload of the published bundle; nothing is written",
+          "command": "cub variant upload --dry-run --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc:upstream-5d5f66ee0e2e@sha256:9b0e888890e5d62f8f1c2d466c3fb696b3087ffd40a7a08765e6be5ab897e852",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the bundle as a base Space of Units",
+          "command": "cub variant upload --component nimservice --variant no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --space nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc:upstream-5d5f66ee0e2e@sha256:9b0e888890e5d62f8f1c2d466c3fb696b3087ffd40a7a08765e6be5ab897e852",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
     },
     {
       "id": "deploy",
       "label": "Deploy it",
-      "state": "not-available",
-      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
       "basis": [
         "oci.runtimes",
         "lifecycle.installTimeInputs"
       ],
-      "commands": [],
-      "unblock": "A published artifact for this entry, with a receipt, would make this step available.",
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc --target workshop/target --space-pattern \"template:nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
       "needs": [
         "k8s-nim-operator",
         "ngc-secret",
@@ -1251,13 +1299,24 @@
     {
       "id": "promote",
       "label": "Promote a change",
-      "state": "not-available",
-      "summary": "This step needs an upload command from step 3, and this entry has none.",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
       "basis": [
         "lifecycle.promotion"
       ],
-      "commands": [],
-      "unblock": "A published artifact for this entry, with a receipt, would make this step available."
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
     }
   ]
 }

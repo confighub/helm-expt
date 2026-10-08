@@ -95,8 +95,10 @@ spec:
     openQuestions:
       - "The sample sets NIMService spec.priorityClassName, which the definition retained from operator v3.1.0 does not declare, so which operator release accepts it?"
 status:
-  result: "retained-not-published"
-  published: false
+  result: "retained-published"
+  published: true
+  publicationReceipt: "runs/nimservice-variants/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling/publication-receipt.yaml"
+  publishedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling:upstream-5d5f66ee0e2e@sha256:842c90182eb637abddc5be190afa89fe673a350321332ddd0f4f418a35a39b73"
   uploadedToConfigHub: false
   deployed: false
   imagePulled: false

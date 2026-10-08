@@ -322,8 +322,24 @@ spec:
       status: "not-published"
       note: "A plain-YAML sample has no source package, and nothing was pushed."
     literalConfigOci:
-      status: "not-published"
-      note: "This variant has not been packaged or pushed as a literal configuration OCI."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-model-free-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:4419673308bdd7eb83f8e9bde16edc57c3e643a2630a15f65ba8d522e783eac0"
+      manifestDigest: "sha256:4419673308bdd7eb83f8e9bde16edc57c3e643a2630a15f65ba8d522e783eac0"
+      layerDigest: "sha256:5f30c330db9ed810f4642366ea39a3818cead365ad02fca6f731ea4ca18dadf3"
+      objectSetSha256: "sha256:1f3a2cacc484ae7e67bf8206ded6a4ba24f7aaa548c796622e3e2864b60fab2b"
+      receipt: "runs/nimservice-variants/nimservice-no-precaching-model-free-llama-3-2-1b-instruct/publication-receipt.yaml"
+      receiptSha256: "sha256:64ce4860650d10646b9842da0d499ff240e2a47c649281e4c954a9d6f5e0e572"
+      plan: "data/aicr-nim-operator-models/catalog-entries/no-precaching-model-free-llama-3-2-1b-instruct/literal-config-oci.yaml"
+      routes:
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/no-precaching-model-free-llama-3-2-1b-instruct/operator-first-ordering.yaml"
+          sha256: "sha256:03cfe9d1d94ba69bbc472d439d2c5f5012ef86486588702019dbb603199ad357"
+          role: "route: operator-first ordering"
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/no-precaching-model-free-llama-3-2-1b-instruct/user-supplied-secrets.yaml"
+          sha256: "sha256:8d4db6bcfd9d505858192ca6c006aea0c5c825fa2838a4b51f1a2958fe173a66"
+          role: "route: user-supplied Secrets"
+      note: "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
     configHubUpload:
       status: "not-run"
     configHubReleaseOci:
@@ -347,7 +363,7 @@ spec:
     secretRoute: "data/aicr-nim-operator-models/catalog-entries/no-precaching-model-free-llama-3-2-1b-instruct/user-supplied-secrets.yaml"
     upstreamLicense: "data/aicr-nim-operator-models/upstream/LICENSE"
     licenseRead: "docs/planning/nim-ngc-license-read.md"
-    retention: "retained-not-published-not-uploaded-not-deployed"
+    retention: "retained-published-not-uploaded-not-deployed"
     literalConfigPlan: "data/aicr-nim-operator-models/catalog-entries/no-precaching-model-free-llama-3-2-1b-instruct/literal-config-oci.yaml"
     variantFamily: "nimservice, 38 variants at upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
     scenario: "no-precaching"
@@ -368,9 +384,9 @@ spec:
     changeCadence: "application-release"
 status:
   level: "partial"
-  claim: "NVIDIA's no-precaching NIMService sample model-free-llama-3-2-1b-instruct is retained as 1 exact Kubernetes object from upstream commit 5d5f66ee0e2e. It is one variant of the nimservice entry. It is not published, not uploaded to ConfigHub and not deployed."
+  claim: "NVIDIA's no-precaching NIMService sample model-free-llama-3-2-1b-instruct is retained as 1 exact Kubernetes object from upstream commit 5d5f66ee0e2e. It is one variant of the nimservice entry. It is published as a literal configuration OCI with its route files. It is not uploaded to ConfigHub and not deployed."
   limits:
-    - "This variant is not published. No OCI artifact exists for it, and nothing was uploaded to ConfigHub."
+    - "This variant is published as a literal configuration OCI at oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-model-free-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:4419673308bdd7eb83f8e9bde16edc57c3e643a2630a15f65ba8d522e783eac0, with its two route files. Nothing was uploaded to ConfigHub."
     - "This variant is not deployed. No operator reconciled it, no model was run, and no cluster or GPU was contacted."
     - "The container image nvcr.io/nim/nvidia/model-free-nim:3.0.0 and the model weights are gated by NVIDIA. This entry did not pull them, does not hold them and will never redistribute them."
     - "The image reference is nvcr.io/nim/nvidia/model-free-nim:3.0.0, pinned by tag. A tag can answer to different bytes later, and nothing here resolved it."

@@ -114,8 +114,10 @@ spec:
     openQuestions:
       []
 status:
-  result: "retained-not-published"
-  published: false
+  result: "retained-published"
+  published: true
+  publicationReceipt: "runs/nimservice-variants/nimservice-grpcroutes-riva-tts/publication-receipt.yaml"
+  publishedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9"
   uploadedToConfigHub: false
   deployed: false
   imagePulled: false

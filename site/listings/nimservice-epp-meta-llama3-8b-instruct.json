@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:ec8396163a013ccefe0738aec88354fa239a205ccbedc23d7b05dfe2d4e5d35d",
+      "sha256": "sha256:76e1ca2fa4f2dabcce9f2200e649edf6c3407b8be27f2c4d0f5594a5753c56a4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -445,12 +445,12 @@
       "commands": [
         {
           "step": "Preview the retention",
-          "command": "cub variant upload --dry-run --component nimservice --variant epp-meta-llama3-8b-instruct --space nimservice-epp-meta-llama3-8b-instruct --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b8940509a487ac76e3ed2e4f5f619e28d0ed51814f6b187ce8a7fde0202b06a6 ./rendered",
+          "command": "cub variant upload --dry-run --component nimservice --variant epp-meta-llama3-8b-instruct --space nimservice-epp-meta-llama3-8b-instruct --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b8940509a487ac76e3ed2e4f5f619e28d0ed51814f6b187ce8a7fde0202b06a6 ./rendered",
           "writes": false
         },
         {
           "step": "Retain this base",
-          "command": "cub variant upload --component nimservice --variant epp-meta-llama3-8b-instruct --space nimservice-epp-meta-llama3-8b-instruct --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:b8940509a487ac76e3ed2e4f5f619e28d0ed51814f6b187ce8a7fde0202b06a6 ./rendered",
+          "command": "cub variant upload --component nimservice --variant epp-meta-llama3-8b-instruct --space nimservice-epp-meta-llama3-8b-instruct --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b8940509a487ac76e3ed2e4f5f619e28d0ed51814f6b187ce8a7fde0202b06a6 ./rendered",
           "writes": true
         },
         {

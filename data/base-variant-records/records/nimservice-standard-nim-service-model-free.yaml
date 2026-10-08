@@ -335,8 +335,24 @@ spec:
       status: "not-published"
       note: "A plain-YAML sample has no source package, and nothing was pushed."
     literalConfigOci:
-      status: "not-published"
-      note: "This variant has not been packaged or pushed as a literal configuration OCI."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44"
+      manifestDigest: "sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44"
+      layerDigest: "sha256:4a41231c95d84d258c93069fbfbcb35150ba45e721a519e3eec1595fef7dc50a"
+      objectSetSha256: "sha256:41e2cd864f8bd9bf13dfa1acd1a201342561144b06e52d5d9050042174858609"
+      receipt: "runs/nimservice-variants/nimservice-standard-nim-service-model-free/publication-receipt.yaml"
+      receiptSha256: "sha256:bf4130bd3fd84c3afb5b19bfc1a9f997fef576c40dc0346102f6561e2c973ee1"
+      plan: "data/aicr-nim-operator-models/catalog-entries/standard-nim-service-model-free/literal-config-oci.yaml"
+      routes:
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/standard-nim-service-model-free/operator-first-ordering.yaml"
+          sha256: "sha256:434dedfb6de3ddfcf6ba8c25267febf69dff62340ca1c3f3596429ae05bdd556"
+          role: "route: operator-first ordering"
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/standard-nim-service-model-free/user-supplied-secrets.yaml"
+          sha256: "sha256:29a03c4a7cba42796b6ae8b230ede94a483566c11ef1512415fb8c4c21c84bab"
+          role: "route: user-supplied Secrets"
+      note: "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
     configHubUpload:
       status: "not-run"
     configHubReleaseOci:
@@ -360,7 +376,7 @@ spec:
     secretRoute: "data/aicr-nim-operator-models/catalog-entries/standard-nim-service-model-free/user-supplied-secrets.yaml"
     upstreamLicense: "data/aicr-nim-operator-models/upstream/LICENSE"
     licenseRead: "docs/planning/nim-ngc-license-read.md"
-    retention: "retained-not-published-not-uploaded-not-deployed"
+    retention: "retained-published-not-uploaded-not-deployed"
     literalConfigPlan: "data/aicr-nim-operator-models/catalog-entries/standard-nim-service-model-free/literal-config-oci.yaml"
     variantFamily: "nimservice, 38 variants at upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
     scenario: "standard"
@@ -381,9 +397,9 @@ spec:
     changeCadence: "application-release"
 status:
   level: "partial"
-  claim: "NVIDIA's standard NIMService sample nim-service-model-free is retained as 2 exact Kubernetes objects from upstream commit 5d5f66ee0e2e, including its NIMCache. It is one variant of the nimservice entry. It is not published, not uploaded to ConfigHub and not deployed."
+  claim: "NVIDIA's standard NIMService sample nim-service-model-free is retained as 2 exact Kubernetes objects from upstream commit 5d5f66ee0e2e, including its NIMCache. It is one variant of the nimservice entry. It is published as a literal configuration OCI with its route files. It is not uploaded to ConfigHub and not deployed."
   limits:
-    - "This variant is not published. No OCI artifact exists for it, and nothing was uploaded to ConfigHub."
+    - "This variant is published as a literal configuration OCI at oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44, with its two route files. Nothing was uploaded to ConfigHub."
     - "This variant is not deployed. No operator reconciled it, no model was run, and no cluster or GPU was contacted."
     - "The container image nvcr.io/nim/nvidia/model-free-nim:3.0.0 and the model weights are gated by NVIDIA. This entry did not pull them, does not hold them and will never redistribute them."
     - "The image reference is nvcr.io/nim/nvidia/model-free-nim:3.0.0, pinned by tag. A tag can answer to different bytes later, and nothing here resolved it."

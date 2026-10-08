@@ -79,7 +79,7 @@ spec:
       - "operator-first ordering, recorded at data/aicr-nim-operator-models/catalog-entries/ingress-meta-llama-3-2-1b-instruct-llm/operator-first-ordering.yaml and not executed"
       - "user-supplied Secrets by name, recorded at data/aicr-nim-operator-models/catalog-entries/ingress-meta-llama-3-2-1b-instruct-llm/user-supplied-secrets.yaml and not executed"
   boundedness:
-    - "This variant is not published. No OCI artifact exists for it, and nothing was uploaded to ConfigHub."
+    - "This variant is published as a literal configuration OCI at oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-ingress-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:4eb91b4d4c0f8d2cf517a01425ca6d0b3a416f5ca9bd7956c931aeb9b80b7a32, with its two route files. Nothing was uploaded to ConfigHub."
     - "This variant is not deployed. No operator reconciled it, no model was run, and no cluster or GPU was contacted."
     - "The container image nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 and the model weights are gated by NVIDIA. This entry did not pull them, does not hold them and will never redistribute them."
     - "The sample sets NIMService spec.router, which the apps.nvidia.com/v1alpha1 definitions retained from operator v3.1.0 under examples/aicr/eks-h100-inference-nim/operator-crds do not declare."

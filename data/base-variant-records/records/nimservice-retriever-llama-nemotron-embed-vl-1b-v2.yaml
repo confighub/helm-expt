@@ -313,8 +313,24 @@ spec:
       status: "not-published"
       note: "A plain-YAML sample has no source package, and nothing was pushed."
     literalConfigOci:
-      status: "not-published"
-      note: "This variant has not been packaged or pushed as a literal configuration OCI."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-retriever-llama-nemotron-embed-vl-1b-v2:upstream-5d5f66ee0e2e@sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f"
+      manifestDigest: "sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f"
+      layerDigest: "sha256:4802a291e2d0d1a71d02893dd893c509ab73d32a888007f9b0d13393a1d34140"
+      objectSetSha256: "sha256:1aafdea7ffa3795ddbeb645b82d0f526af40645390f78d2b9d415e29d5ec364a"
+      receipt: "runs/nimservice-variants/nimservice-retriever-llama-nemotron-embed-vl-1b-v2/publication-receipt.yaml"
+      receiptSha256: "sha256:0aa21dcf5cea78f7acfc61eb70f966230d2ea77a7a682500d9de5229a157b12f"
+      plan: "data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/literal-config-oci.yaml"
+      routes:
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/operator-first-ordering.yaml"
+          sha256: "sha256:4b866704bf1d844c6a89e8c7b1197c9a206938e10d45913156e4677a11fb381d"
+          role: "route: operator-first ordering"
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/user-supplied-secrets.yaml"
+          sha256: "sha256:3ef5140296d08451af2474bdb41da7fa266fc326a74807cd7ee25764ad80fa30"
+          role: "route: user-supplied Secrets"
+      note: "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
     configHubUpload:
       status: "not-run"
     configHubReleaseOci:
@@ -338,7 +354,7 @@ spec:
     secretRoute: "data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/user-supplied-secrets.yaml"
     upstreamLicense: "data/aicr-nim-operator-models/upstream/LICENSE"
     licenseRead: "docs/planning/nim-ngc-license-read.md"
-    retention: "retained-not-published-not-uploaded-not-deployed"
+    retention: "retained-published-not-uploaded-not-deployed"
     literalConfigPlan: "data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/literal-config-oci.yaml"
     variantFamily: "nimservice, 38 variants at upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
     scenario: "retriever"
@@ -359,9 +375,9 @@ spec:
     changeCadence: "application-release"
 status:
   level: "partial"
-  claim: "NVIDIA's retriever NIMService sample llama-nemotron-embed-vl-1b-v2 is retained as 2 exact Kubernetes objects from upstream commit 5d5f66ee0e2e, including its NIMCache. It is one variant of the nimservice entry. It is not published, not uploaded to ConfigHub and not deployed."
+  claim: "NVIDIA's retriever NIMService sample llama-nemotron-embed-vl-1b-v2 is retained as 2 exact Kubernetes objects from upstream commit 5d5f66ee0e2e, including its NIMCache. It is one variant of the nimservice entry. It is published as a literal configuration OCI with its route files. It is not uploaded to ConfigHub and not deployed."
   limits:
-    - "This variant is not published. No OCI artifact exists for it, and nothing was uploaded to ConfigHub."
+    - "This variant is published as a literal configuration OCI at oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-retriever-llama-nemotron-embed-vl-1b-v2:upstream-5d5f66ee0e2e@sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f, with its two route files. Nothing was uploaded to ConfigHub."
     - "This variant is not deployed. No operator reconciled it, no model was run, and no cluster or GPU was contacted."
     - "The container image nvcr.io/nim/nvidia/llama-nemotron-embed-vl-1b-v2:2.3.0 and the model weights are gated by NVIDIA. This entry did not pull them, does not hold them and will never redistribute them."
     - "The image reference is nvcr.io/nim/nvidia/llama-nemotron-embed-vl-1b-v2:2.3.0, pinned by tag. A tag can answer to different bytes later, and nothing here resolved it."

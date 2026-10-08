@@ -92,8 +92,10 @@ spec:
     openQuestions:
       []
 status:
-  result: "retained-not-published"
-  published: false
+  result: "retained-published"
+  published: true
+  publicationReceipt: "runs/nimservice-variants/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox/publication-receipt.yaml"
+  publishedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox:upstream-5d5f66ee0e2e@sha256:8d2a87632008cd4b8844d4856e9aeb85631aef78d806a977ea3eeb4bf2b03cf4"
   uploadedToConfigHub: false
   deployed: false
   imagePulled: false

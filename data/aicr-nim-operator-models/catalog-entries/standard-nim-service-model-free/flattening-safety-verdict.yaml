@@ -79,7 +79,7 @@ spec:
       - "operator-first ordering, recorded at data/aicr-nim-operator-models/catalog-entries/standard-nim-service-model-free/operator-first-ordering.yaml and not executed"
       - "user-supplied Secrets by name, recorded at data/aicr-nim-operator-models/catalog-entries/standard-nim-service-model-free/user-supplied-secrets.yaml and not executed"
   boundedness:
-    - "This variant is not published. No OCI artifact exists for it, and nothing was uploaded to ConfigHub."
+    - "This variant is published as a literal configuration OCI at oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e@sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44, with its two route files. Nothing was uploaded to ConfigHub."
     - "This variant is not deployed. No operator reconciled it, no model was run, and no cluster or GPU was contacted."
     - "The container image nvcr.io/nim/nvidia/model-free-nim:3.0.0 and the model weights are gated by NVIDIA. This entry did not pull them, does not hold them and will never redistribute them."
     - "Every field this sample sets is declared by the apps.nvidia.com/v1alpha1 definitions retained from operator v3.1.0 under examples/aicr/eks-h100-inference-nim/operator-crds."

@@ -93,8 +93,10 @@ spec:
     openQuestions:
       []
 status:
-  result: "retained-not-published"
-  published: false
+  result: "retained-published"
+  published: true
+  publicationReceipt: "runs/nimservice-variants/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc/publication-receipt.yaml"
+  publishedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc:upstream-5d5f66ee0e2e@sha256:9b0e888890e5d62f8f1c2d466c3fb696b3087ffd40a7a08765e6be5ab897e852"
   uploadedToConfigHub: false
   deployed: false
   imagePulled: false
