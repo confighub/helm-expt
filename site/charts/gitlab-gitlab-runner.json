@@ -1,0 +1,63 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "gitlab/gitlab-runner",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/gitlab-gitlab-runner.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/gitlab-gitlab-runner.html",
+  "counts": {
+    "versions": 1,
+    "bases": 1
+  },
+  "versions": [
+    {
+      "version": "0.89.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/gitlab-gitlab-runner-0-89-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:859e448412141120ea26e90c4d80fb772755dd6bc5f579a70ddd3c321da5fa7a"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "gitlab-gitlab-runner-0-89-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/gitlab-gitlab-runner-0-89-0-default.json"
+          },
+          "objectCount": 2,
+          "verdict": "safe-to-flatten",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e",
+            "objectSetDigest": "sha256:ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

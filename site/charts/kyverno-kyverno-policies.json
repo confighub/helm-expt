@@ -1,0 +1,158 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "kyverno/kyverno-policies",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-policies.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-policies.html",
+  "counts": {
+    "versions": 3,
+    "bases": 3
+  },
+  "versions": [
+    {
+      "version": "3.9.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-policies-3-9-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.9.0@sha256:64effafc30ac1a1d0f702bd52ec8acf5b858ee4f2d3eba5978b718adfec55751"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "kyverno-kyverno-policies-3-9-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/kyverno-kyverno-policies-3-9-0-default.json"
+          },
+          "objectCount": 11,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/kyverno/kyverno-policies/3.9.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kyverno/kyverno-policies/3.9.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:eae1a47312f3ecdf88eaabd4eff1d17e3259140694e265d3dbb5c71fc6f39278",
+            "objectSetDigest": "sha256:eae1a47312f3ecdf88eaabd4eff1d17e3259140694e265d3dbb5c71fc6f39278"
+          }
+        }
+      ]
+    },
+    {
+      "version": "3.8.2",
+      "page": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-policies-3-8-2.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.2@sha256:4a26a388203645a841908db9bd558183fe169764033f5042d56bd5d598ba49d3"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "kyverno-kyverno-policies-3-8-2-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/kyverno-kyverno-policies-3-8-2-default.json"
+          },
+          "objectCount": 11,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/kyverno/kyverno-policies/3.8.2/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kyverno/kyverno-policies/3.8.2/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:5049b2e9cb54b8d2fa8e70cdf606a3be6ce9d13f081354067ff877c3174454f1",
+            "objectSetDigest": "sha256:5049b2e9cb54b8d2fa8e70cdf606a3be6ce9d13f081354067ff877c3174454f1"
+          }
+        }
+      ]
+    },
+    {
+      "version": "3.8.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-policies-3-8-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0@sha256:0c781c6839fbfa001648593f415386716ce425483b491593b2338196c93988b4"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "kyverno-kyverno-policies-3-8-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/kyverno-kyverno-policies-3-8-0-default.json"
+          },
+          "objectCount": 11,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:e486d983f614fe17b5eb85b4a8e9088242c2b94ca3694d1e11294c44a4bc9ef9",
+            "objectSetDigest": "sha256:e486d983f614fe17b5eb85b4a8e9088242c2b94ca3694d1e11294c44a4bc9ef9"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "3.8.2",
+        "base": "default",
+        "listing": "kyverno-kyverno-policies-3-8-2-default"
+      },
+      "to": {
+        "version": "3.9.0",
+        "base": "default",
+        "listing": "kyverno-kyverno-policies-3-9-0-default"
+      },
+      "added": 11,
+      "removed": 11,
+      "changed": 0,
+      "unchanged": 0,
+      "line": "From 3.8.2 to 3.9.0 on the default base, none of the 11 objects changes, 11 are added and 11 are removed."
+    },
+    {
+      "from": {
+        "version": "3.8.0",
+        "base": "default",
+        "listing": "kyverno-kyverno-policies-3-8-0-default"
+      },
+      "to": {
+        "version": "3.8.2",
+        "base": "default",
+        "listing": "kyverno-kyverno-policies-3-8-2-default"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 11,
+      "unchanged": 0,
+      "line": "From 3.8.0 to 3.8.2 on the default base, 11 of 11 objects change."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

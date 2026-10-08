@@ -1,0 +1,99 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "prometheus-community/prometheus-adapter",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter.html",
+  "counts": {
+    "versions": 1,
+    "bases": 3
+  },
+  "versions": [
+    {
+      "version": "5.3.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter-5-3-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0@sha256:75c59e28e1813899bb3be664effb72a52b7e61b066998854e9cce718e045020d"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "prometheus-community-prometheus-adapter-5-3-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-adapter-5-3-0-default.json"
+          },
+          "objectCount": 11,
+          "verdict": "safe-to-flatten",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a",
+            "objectSetDigest": "sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"
+          }
+        },
+        {
+          "base": "apiservice-v1-capability",
+          "default": false,
+          "listing": {
+            "id": "prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability",
+            "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.json"
+          },
+          "objectCount": 11,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23",
+            "objectSetDigest": "sha256:b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23"
+          }
+        },
+        {
+          "base": "cluster-metrics-readonly",
+          "default": false,
+          "listing": {
+            "id": "prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly",
+            "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly.json"
+          },
+          "objectCount": 11,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a",
+            "objectSetDigest": "sha256:50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

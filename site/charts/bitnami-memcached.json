@@ -1,0 +1,63 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "bitnami/memcached",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/bitnami-memcached.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-memcached.html",
+  "counts": {
+    "versions": 1,
+    "bases": 1
+  },
+  "versions": [
+    {
+      "version": "8.5.5",
+      "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-memcached-8-5-5.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5@sha256:52e3841ddc88cb3b0577c50d7f87bb8b6727c3193d5da524472732df205476b4"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "bitnami-memcached-8-5-5-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-memcached-8-5-5-default.json"
+          },
+          "objectCount": 5,
+          "verdict": "safe-to-flatten",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/memcached/8.5.5/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/memcached/8.5.5/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558",
+            "objectSetDigest": "sha256:8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

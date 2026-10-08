@@ -1,0 +1,342 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "argo-cd/argo-cd",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd.html",
+  "counts": {
+    "versions": 5,
+    "bases": 10
+  },
+  "versions": [
+    {
+      "version": "10.7.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-7-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.7.0@sha256:0e75c12f38108e3606fd8fa410232e89c02858ac466414f361a6599295cb6c24"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "argo-cd-argo-cd-10-7-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-7-0-default.json"
+          },
+          "objectCount": 55,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:5642d162c6718874a310acebeaaa75dbd1f0825e6188418b36d8b06357fdface",
+            "objectSetDigest": "sha256:5642d162c6718874a310acebeaaa75dbd1f0825e6188418b36d8b06357fdface"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "argo-cd-argo-cd-10-7-0-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-7-0-no-crds.json"
+          },
+          "objectCount": 52,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-cd/10.7.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.7.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:9e7f272f1f39d5c4911a02de8b72e2901ad25163f5308080b7fabb748c6e2532",
+            "objectSetDigest": "sha256:9e7f272f1f39d5c4911a02de8b72e2901ad25163f5308080b7fabb748c6e2532"
+          }
+        }
+      ]
+    },
+    {
+      "version": "10.2.1",
+      "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-2-1.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1@sha256:b933436ed879e10c1b684a2d5f89670a35e759264849ec7bfd7c2f2cec1dd5f8"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "argo-cd-argo-cd-10-2-1-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-2-1-default.json"
+          },
+          "objectCount": 55,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780",
+            "objectSetDigest": "sha256:a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "argo-cd-argo-cd-10-2-1-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-2-1-no-crds.json"
+          },
+          "objectCount": 52,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:51d717634a2d0098d0791629aad974dc79b1ec0de68e4adfe00005de2003ca14",
+            "objectSetDigest": "sha256:51d717634a2d0098d0791629aad974dc79b1ec0de68e4adfe00005de2003ca14"
+          }
+        }
+      ]
+    },
+    {
+      "version": "10.1.3",
+      "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-1-3.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.1.3@sha256:33eee3ec734e11dad3a95f8a4cba5999106a54b0dcc51a477b5cebe7e0d45a4e"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "argo-cd-argo-cd-10-1-3-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-1-3-default.json"
+          },
+          "objectCount": 55,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:b2cbe21e58abbf285edb7710df9df299c93bb288293eed091ef7e24f83f850b5",
+            "objectSetDigest": "sha256:b2cbe21e58abbf285edb7710df9df299c93bb288293eed091ef7e24f83f850b5"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "argo-cd-argo-cd-10-1-3-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-1-3-no-crds.json"
+          },
+          "objectCount": 52,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-cd/10.1.3/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.1.3/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:813fb156368c0a1588c666c9870f07e5441347d11af65a9d349161109ae1a5da",
+            "objectSetDigest": "sha256:813fb156368c0a1588c666c9870f07e5441347d11af65a9d349161109ae1a5da"
+          }
+        }
+      ]
+    },
+    {
+      "version": "9.5.17",
+      "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-9-5-17.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "argo-cd-argo-cd-9-5-17-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-9-5-17-default.json"
+          },
+          "objectCount": 49,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-cd/9.5.17/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/9.5.17/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:e79d4daf30498e893d2dc41c736de2de1fe3ff3a4dc396212a86336143f80fa7",
+            "objectSetDigest": "sha256:e79d4daf30498e893d2dc41c736de2de1fe3ff3a4dc396212a86336143f80fa7"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "argo-cd-argo-cd-9-5-17-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-9-5-17-no-crds.json"
+          },
+          "objectCount": 46,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:58d54d31b7e52f80c4a352f48a8828fc62fc31b8e2c8aea497f756ae5ce0f9ec",
+            "objectSetDigest": "sha256:58d54d31b7e52f80c4a352f48a8828fc62fc31b8e2c8aea497f756ae5ce0f9ec"
+          }
+        }
+      ]
+    },
+    {
+      "version": "9.5.15",
+      "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-9-5-15.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "argo-cd-argo-cd-9-5-15-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-9-5-15-default.json"
+          },
+          "objectCount": 49,
+          "verdict": "flatten-with-routes",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0",
+            "objectSetDigest": "sha256:e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "argo-cd-argo-cd-9-5-15-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-9-5-15-no-crds.json"
+          },
+          "objectCount": 46,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71",
+            "objectSetDigest": "sha256:23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "10.2.1",
+        "base": "default",
+        "listing": "argo-cd-argo-cd-10-2-1-default"
+      },
+      "to": {
+        "version": "10.7.0",
+        "base": "default",
+        "listing": "argo-cd-argo-cd-10-7-0-default"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 55,
+      "unchanged": 0,
+      "line": "From 10.2.1 to 10.7.0 on the default base, 55 of 55 objects change."
+    },
+    {
+      "from": {
+        "version": "10.1.3",
+        "base": "default",
+        "listing": "argo-cd-argo-cd-10-1-3-default"
+      },
+      "to": {
+        "version": "10.2.1",
+        "base": "default",
+        "listing": "argo-cd-argo-cd-10-2-1-default"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 52,
+      "unchanged": 3,
+      "line": "From 10.1.3 to 10.2.1 on the default base, 52 of 55 objects change."
+    },
+    {
+      "from": {
+        "version": "9.5.17",
+        "base": "default",
+        "listing": "argo-cd-argo-cd-9-5-17-default"
+      },
+      "to": {
+        "version": "10.1.3",
+        "base": "default",
+        "listing": "argo-cd-argo-cd-10-1-3-default"
+      },
+      "added": 6,
+      "removed": 0,
+      "changed": 46,
+      "unchanged": 3,
+      "line": "From 9.5.17 to 10.1.3 on the default base, 46 of 49 objects change and 6 are added."
+    },
+    {
+      "from": {
+        "version": "9.5.15",
+        "base": "default",
+        "listing": "argo-cd-argo-cd-9-5-15-default"
+      },
+      "to": {
+        "version": "9.5.17",
+        "base": "default",
+        "listing": "argo-cd-argo-cd-9-5-17-default"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 46,
+      "unchanged": 3,
+      "line": "From 9.5.15 to 9.5.17 on the default base, 46 of 49 objects change."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

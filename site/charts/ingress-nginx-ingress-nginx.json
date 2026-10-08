@@ -1,0 +1,99 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "ingress-nginx/ingress-nginx",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx.html",
+  "counts": {
+    "versions": 1,
+    "bases": 3
+  },
+  "versions": [
+    {
+      "version": "4.15.1",
+      "page": "https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx-4-15-1.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "ingress-nginx-ingress-nginx-4-15-1-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/ingress-nginx-ingress-nginx-4-15-1-default.json"
+          },
+          "objectCount": 11,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d",
+            "objectSetDigest": "sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
+          }
+        },
+        {
+          "base": "admission-disabled",
+          "default": false,
+          "listing": {
+            "id": "ingress-nginx-ingress-nginx-4-15-1-admission-disabled",
+            "url": "https://confighub.github.io/helm-expt/site/listings/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.json"
+          },
+          "objectCount": 9,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e",
+            "objectSetDigest": "sha256:ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"
+          }
+        },
+        {
+          "base": "internal-clusterip",
+          "default": false,
+          "listing": {
+            "id": "ingress-nginx-ingress-nginx-4-15-1-internal-clusterip",
+            "url": "https://confighub.github.io/helm-expt/site/listings/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.json"
+          },
+          "objectCount": 9,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a",
+            "objectSetDigest": "sha256:a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

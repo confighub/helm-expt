@@ -1,0 +1,81 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "nats/nack",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/nats-nack.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/nats-nack.html",
+  "counts": {
+    "versions": 1,
+    "bases": 2
+  },
+  "versions": [
+    {
+      "version": "0.34.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/nats-nack-0-34-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0@sha256:0deaa253cfd253e37f1611bceb58425c20ec02f374ea285736b3d31be394028a"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "nats-nack-0-34-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nats-nack-0-34-0-default.json"
+          },
+          "objectCount": 10,
+          "verdict": "flatten-with-routes",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nats/nack/0.34.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nats/nack/0.34.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9",
+            "objectSetDigest": "sha256:3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "nats-nack-0-34-0-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nats-nack-0-34-0-no-crds.json"
+          },
+          "objectCount": 0,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nats/nack/0.34.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nats/nack/0.34.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:2a0e96ea4834808a0b66545eb50b94c4dc773572f699c3acad3ef2d6649a152d",
+            "objectSetDigest": "sha256:2a0e96ea4834808a0b66545eb50b94c4dc773572f699c3acad3ef2d6649a152d"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}
