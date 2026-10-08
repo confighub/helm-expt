@@ -1,0 +1,412 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0-16-9-default"
+  labels:
+    sourceType: "helm"
+    component: "kai-scheduler/kai-scheduler"
+    sourceVersion: "v0.16.9"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "kai-scheduler/kai-scheduler"
+    version: "v0.16.9"
+    record: "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab"
+    selection:
+      name: "default"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "f9eb3133dc4da7fe4703dd9f4fd02568044f7880192008e824eb2cc82e02894c"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/variant-revision.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 37
+    digest: "7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76"
+      record: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "kai-scheduler/kai-scheduler@v0.16.9/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
+          - "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/release-objects.yaml"
+          - "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "The kai-config object that tells the operator which scheduler services to run is delivered by a Helm hook, and no base holds it, so should it be part of the base instead of a lifecycle action that nothing runs automatically?"
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "watch"
+        records:
+          - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
+          - "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest, and settle the open question before relying on this base."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
+        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "chart=kai-scheduler/kai-scheduler"
+      - "version=v0.16.9"
+      - "base=default"
+      - "valuesProfile=recipes/kai-scheduler/kai-scheduler/v0.16.9/effective-values.yaml"
+      - "namespace=kai-scheduler"
+      - "releaseName=kai-scheduler"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.31.0\"}"
+    installTime:
+      -
+        name: "bindrequests.scheduling.run.ai"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "bindrequests.scheduling.run.ai"
+          purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml"
+      -
+        name: "configs.kai.scheduler"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "configs.kai.scheduler"
+          purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml"
+      -
+        name: "podgroups.scheduling.run.ai"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "podgroups.scheduling.run.ai"
+          purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml"
+      -
+        name: "queues.scheduling.run.ai"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "queues.scheduling.run.ai"
+          purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml"
+      -
+        name: "schedulingshards.kai.scheduler"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "schedulingshards.kai.scheduler"
+          purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml"
+      -
+        name: "topologies.kai.scheduler"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "topologies.kai.scheduler"
+          purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml"
+    installTimeStatus: "partly-declared"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "bindrequests.scheduling.run.ai"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        -
+          id: "configs.kai.scheduler"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        -
+          id: "podgroups.scheduling.run.ai"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        -
+          id: "queues.scheduling.run.ai"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        -
+          id: "schedulingshards.kai.scheduler"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        -
+          id: "topologies.kai.scheduler"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+      records:
+        - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "bindrequests.scheduling.run.ai"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "configs.kai.scheduler"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "podgroups.scheduling.run.ai"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "queues.scheduling.run.ai"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "schedulingshards.kai.scheduler"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "topologies.kai.scheduler"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml"
+      requirementRefs:
+        - "bindrequests.scheduling.run.ai"
+        - "configs.kai.scheduler"
+        - "podgroups.scheduling.run.ai"
+        - "queues.scheduling.run.ai"
+        - "schedulingshards.kai.scheduler"
+        - "topologies.kai.scheduler"
+      records:
+        - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "bindrequests.scheduling.run.ai"
+      - "configs.kai.scheduler"
+      - "podgroups.scheduling.run.ai"
+      - "queues.scheduling.run.ai"
+      - "schedulingshards.kai.scheduler"
+      - "topologies.kai.scheduler"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "todo"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "workflow-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The inputs still required at installation are not yet fully recorded for every Helm configuration."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."
+    - "Open question, marked watch. The kai-config object that tells the operator which scheduler services to run is delivered by a Helm hook, and no base holds it, so should it be part of the base instead of a lifecycle action that nothing runs automatically?"

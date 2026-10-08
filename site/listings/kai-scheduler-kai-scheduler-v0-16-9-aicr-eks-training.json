@@ -1,0 +1,656 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:32ecfa8e0766e6c69cc244f2218d5d417c7d305dede9ddcae4396abb32534b10",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+      "sha256": "sha256:1bdd03008328f866f3c47241d614a0caaea893b1da390845bc767bbf8f6846fe",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training",
+    "url": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.json",
+    "name": "kai-scheduler/kai-scheduler",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "v0.16.9",
+    "base": "aicr-eks-training",
+    "page": "https://confighub.github.io/helm-expt/site/charts/kai-scheduler-kai-scheduler-v0-16-9.html"
+  },
+  "discovery": {
+    "status": "not-classified",
+    "roles": [],
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
+  "source": {
+    "format": "helm",
+    "name": "kai-scheduler/kai-scheduler",
+    "version": "v0.16.9",
+    "reference": "kai-scheduler/kai-scheduler@v0.16.9",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab",
+    "record": "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+    "selection": {
+      "name": "aicr-eks-training",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml"
+    },
+    "pin": {
+      "digest": "sha256:5c4ead6d2864484b5e7b411ec148e89421c72dcd6ad3852a45cc72e66442d5c1",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=kai-scheduler/kai-scheduler",
+      "version=v0.16.9",
+      "base=aicr-eks-training",
+      "valuesProfile=recipes/kai-scheduler/kai-scheduler/v0.16.9/effective-values-aicr-eks-training.yaml",
+      "namespace=kai-scheduler",
+      "releaseName=kai-scheduler",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.31.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 37,
+    "digest": "sha256:47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25",
+    "digestRole": "canonical-object-set",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
+    "scope": "kai-scheduler/kai-scheduler@v0.16.9/aicr-eks-training; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict-aicr-eks-training.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict-aicr-eks-training.yaml",
+    "retainedObjects": {
+      "path": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25"
+    }
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "aicr-eks-training",
+    "known": [
+      {
+        "id": "kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training",
+        "base": "aicr-eks-training",
+        "url": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.json",
+        "self": true,
+        "digest": "sha256:47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25"
+      },
+      {
+        "id": "kai-scheduler-kai-scheduler-v0-16-9-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-16-9-default.json",
+        "self": false,
+        "digest": "sha256:7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25. The exact objects are recorded at recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component kai-scheduler-kai-scheduler --variant aicr-eks-training --space kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training --unit-annotation workshop.confighub.com/object-set-sha256=sha256:47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component kai-scheduler-kai-scheduler --variant aicr-eks-training --space kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training --unit-annotation workshop.confighub.com/object-set-sha256=sha256:47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training --space-pattern template:kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "required-at-destination",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "bindrequests.scheduling.run.ai",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+      },
+      {
+        "id": "configs.kai.scheduler",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+      },
+      {
+        "id": "podgroups.scheduling.run.ai",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+      },
+      {
+        "id": "queues.scheduling.run.ai",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+      },
+      {
+        "id": "schedulingshards.kai.scheduler",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+      },
+      {
+        "id": "topologies.kai.scheduler",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+      }
+    ],
+    "routes": [],
+    "records": [
+      {
+        "name": "kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+        "path": "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "bindrequests.scheduling.run.ai",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "configs.kai.scheduler",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "podgroups.scheduling.run.ai",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "queues.scheduling.run.ai",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "schedulingshards.kai.scheduler",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "topologies.kai.scheduler",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded",
+      "status": "missing-confighub-proof"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "lifecycle_observation": {
+        "status": "not_applicable",
+        "declared": "n/a"
+      },
+      "gitops_oci_live": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "live_dual_parity": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "two_cluster_kind": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "variant_promotion": {
+        "status": "not_checked",
+        "declared": "missing-confighub-proof"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "workflow-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "bindrequests.scheduling.run.ai",
+        "configs.kai.scheduler",
+        "podgroups.scheduling.run.ai",
+        "queues.scheduling.run.ai",
+        "schedulingshards.kai.scheduler",
+        "topologies.kai.scheduler"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+            "path": "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "The kai-config object that tells the operator which scheduler services to run is delivered by a Helm hook, and no base holds it, so should it be part of the base instead of a lifecycle action that nothing runs automatically?",
+        "evidenceState": "completed",
+        "resultState": "watch",
+        "nextAction": "Review the exact object set and its digest, and settle the open question before relying on this base.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+            "path": "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+            "path": "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+        "path": "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-aicr-eks-training.yaml",
+        "path": "recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict-aicr-eks-training.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict-aicr-eks-training.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 37 objects in one file.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
+          "expect": "47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25  kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml"
+        },
+        {
+          "comment": "render this base from the signed package; step 3 uploads this directory",
+          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab --base aicr-eks-training --work-dir ./kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training --non-interactive --namespace kai-scheduler"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the default base of the same version",
+          "command": "curl -fsSL -o kai-scheduler-kai-scheduler-v0-16-9-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what differs between the two bases",
+          "command": "cub config diff kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml kai-scheduler-kai-scheduler-v0-16-9-default.yaml --summary"
+        },
+        {
+          "comment": "fetch the aicr-eks-training base at version v0.14.1",
+          "command": "curl -fsSL -o kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what changed from v0.14.1 to v0.16.9",
+          "command": "cub config diff kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.yaml kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training",
+          "url": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.json",
+          "version": "v0.14.1",
+          "base": "aicr-eks-training",
+          "relation": "other-version"
+        },
+        {
+          "id": "kai-scheduler-kai-scheduler-v0-14-1-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-14-1-default.json",
+          "version": "v0.14.1",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "kai-scheduler-kai-scheduler-v0-16-9-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-16-9-default.json",
+          "version": "v0.16.9",
+          "base": "default",
+          "relation": "other-base"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its signed installer package.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the directory rendered in step 1 as a Space of Units",
+          "command": "cub installer upload --work-dir ./kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training --space kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "list the Units the upload created",
+          "command": "cub unit list --space kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training",
+          "needsAccount": true
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training --target workshop/target --space-pattern \"template:kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "needs": [
+        "bindrequests.scheduling.run.ai",
+        "configs.kai.scheduler",
+        "podgroups.scheduling.run.ai",
+        "queues.scheduling.run.ai",
+        "schedulingshards.kai.scheduler",
+        "topologies.kai.scheduler"
+      ]
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
+    }
+  ]
+}

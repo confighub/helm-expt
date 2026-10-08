@@ -1,0 +1,621 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:32ecfa8e0766e6c69cc244f2218d5d417c7d305dede9ddcae4396abb32534b10",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+      "sha256": "sha256:6323549361845149bff1c96d04f9b735a80245fb211c0ce1d1e3c8eccc2ef3fc",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.json",
+    "name": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "0.5.0",
+    "base": "default",
+    "page": "https://confighub.github.io/helm-expt/site/charts/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0.html"
+  },
+  "discovery": {
+    "status": "not-classified",
+    "roles": [],
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
+  "source": {
+    "format": "helm",
+    "name": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+    "version": "0.5.0",
+    "reference": "dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0@sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e",
+    "record": "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+    "selection": {
+      "name": "default",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml"
+    },
+    "pin": {
+      "digest": "sha256:ce9844e4516afb1761346039787ddb629b58e7fc59d47876762cb14dab84b649",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "version=0.5.0",
+      "base=default",
+      "valuesProfile=recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/effective-values.yaml",
+      "namespace=nvidia-dra-driver",
+      "releaseName=nvidia-dra-driver-gpu",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.34.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 21,
+    "digest": "sha256:982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8",
+    "digestRole": "canonical-object-set",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
+    "scope": "dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/publication/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8"
+    }
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0@sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "default",
+    "known": [
+      {
+        "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training",
+        "base": "aicr-eks-training",
+        "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.json",
+        "self": false,
+        "digest": "sha256:282e9c2dd1946fe677c2b7a9ee7d1a8d65f109f2a302ab628e2ffe1bddc3c932"
+      },
+      {
+        "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.json",
+        "self": true,
+        "digest": "sha256:982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8"
+      },
+      {
+        "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources",
+        "base": "gpu-resources",
+        "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources.json",
+        "self": false,
+        "digest": "sha256:29aaf2e6ba3dce216ef70bcb1cd14afcd8dbcbe4e30cec982c48f36befe6e93d"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8. The exact objects are recorded at recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component dra-driver-nvidia-dra-driver-nvidia-gpu --variant default --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component dra-driver-nvidia-dra-driver-nvidia-gpu --variant default --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default --space-pattern template:dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "required-at-destination",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "computedomaincliques.resource.nvidia.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base and applied before the controller that reconciles it"
+      },
+      {
+        "id": "computedomains.resource.nvidia.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base and applied before the controller that reconciles it"
+      }
+    ],
+    "routes": [],
+    "records": [
+      {
+        "name": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+        "path": "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "computedomaincliques.resource.nvidia.com",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base and applied before the controller that reconciles it",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "computedomains.resource.nvidia.com",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base and applied before the controller that reconciles it",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded",
+      "status": "missing-confighub-proof"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "lifecycle_observation": {
+        "status": "not_applicable",
+        "declared": "n/a"
+      },
+      "gitops_oci_live": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "live_dual_parity": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "two_cluster_kind": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "variant_promotion": {
+        "status": "not_checked",
+        "declared": "missing-confighub-proof"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "workflow-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "computedomaincliques.resource.nvidia.com",
+        "computedomains.resource.nvidia.com"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+            "path": "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "The chart refuses to render its own defaults, so the default base sets resources.gpus.enabled false: is that the right meaning of default for this entry, or should the entry have no default base? The DeviceClass objects are rendered as resource.k8s.io/v1, which Kubernetes serves from 1.34, although the chart accepts 1.32: does the Catalog need bases for clusters that serve only v1beta1 or v1beta2?",
+        "evidenceState": "completed",
+        "resultState": "watch",
+        "nextAction": "Review the exact object set and its digest, and settle the open question before relying on this base.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+            "path": "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+            "path": "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+        "path": "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/publication/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 21 objects in one file.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+          "expect": "982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8  dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml"
+        },
+        {
+          "comment": "render this base from the signed package; step 3 uploads this directory",
+          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0@sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e --base default --work-dir ./dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default --non-interactive --namespace nvidia-dra-driver"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the aicr-eks-training base of the same version",
+          "command": "curl -fsSL -o dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what differs between the two bases",
+          "command": "cub config diff dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml --summary"
+        },
+        {
+          "comment": "fetch the default base at version 0.4.1",
+          "command": "curl -fsSL -o dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what changed from 0.4.1 to 0.5.0",
+          "command": "cub config diff dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default.yaml dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training",
+          "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training.json",
+          "version": "0.4.1",
+          "base": "aicr-eks-training",
+          "relation": "other-version"
+        },
+        {
+          "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default.json",
+          "version": "0.4.1",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources",
+          "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources.json",
+          "version": "0.4.1",
+          "base": "gpu-resources",
+          "relation": "other-version"
+        },
+        {
+          "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training",
+          "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.json",
+          "version": "0.5.0",
+          "base": "aicr-eks-training",
+          "relation": "other-base"
+        },
+        {
+          "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources",
+          "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources.json",
+          "version": "0.5.0",
+          "base": "gpu-resources",
+          "relation": "other-base"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its signed installer package.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the directory rendered in step 1 as a Space of Units",
+          "command": "cub installer upload --work-dir ./dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "list the Units the upload created",
+          "command": "cub unit list --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default",
+          "needsAccount": true
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default --target workshop/target --space-pattern \"template:dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "needs": [
+        "computedomaincliques.resource.nvidia.com",
+        "computedomains.resource.nvidia.com"
+      ]
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
+    }
+  ]
+}

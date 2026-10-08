@@ -1,0 +1,606 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:32ecfa8e0766e6c69cc244f2218d5d417c7d305dede9ddcae4396abb32534b10",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+      "sha256": "sha256:0b793e65a3366ac1e96ee11e6939dbdc7e7d4aa8cbb03063b6c83f58d41062fa",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "node-feature-discovery-node-feature-discovery-0-19-0-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-default.json",
+    "name": "node-feature-discovery/node-feature-discovery",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "0.19.0",
+    "base": "default",
+    "page": "https://confighub.github.io/helm-expt/site/charts/node-feature-discovery-node-feature-discovery-0-19-0.html"
+  },
+  "discovery": {
+    "status": "not-classified",
+    "roles": [],
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
+  "source": {
+    "format": "helm",
+    "name": "node-feature-discovery/node-feature-discovery",
+    "version": "0.19.0",
+    "reference": "node-feature-discovery/node-feature-discovery@0.19.0",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63",
+    "record": "data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+    "selection": {
+      "name": "default",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml"
+    },
+    "pin": {
+      "digest": "sha256:0274ad3e9970d030864cdc1945d06769f2d161afd26d6d3c7aa2ccc53fd273a9",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=node-feature-discovery/node-feature-discovery",
+      "version=0.19.0",
+      "base=default",
+      "valuesProfile=recipes/node-feature-discovery/node-feature-discovery/0.19.0/effective-values.yaml",
+      "namespace=node-feature-discovery",
+      "releaseName=nfd",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.31.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 17,
+    "digest": "sha256:cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995",
+    "digestRole": "canonical-object-set",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
+    "scope": "node-feature-discovery/node-feature-discovery@0.19.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995"
+    }
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "variants": {
+    "base": "default",
+    "known": [
+      {
+        "id": "node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0",
+        "base": "aicr-eks-training-v0-20-0",
+        "url": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.json",
+        "self": false,
+        "digest": "sha256:371a599fbb959c71f232f4cfbe5a37aedfb70a17fe9205793440c73b2d7c3b93"
+      },
+      {
+        "id": "node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0",
+        "base": "aicr-eks-training-v1-0-0",
+        "url": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0.json",
+        "self": false,
+        "digest": "sha256:2329b2fca9e54b4e5b5ba90308c4769c1e919eebffcaa4b756266d63a64de0ff"
+      },
+      {
+        "id": "node-feature-discovery-node-feature-discovery-0-19-0-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-default.json",
+        "self": true,
+        "digest": "sha256:cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995. The exact objects are recorded at recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component node-feature-discovery-node-feature-discovery --variant default --space node-feature-discovery-node-feature-discovery-0-19-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component node-feature-discovery-node-feature-discovery --variant default --space node-feature-discovery-node-feature-discovery-0-19-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging node-feature-discovery-node-feature-discovery-0-19-0-default --space-pattern template:node-feature-discovery-node-feature-discovery-0-19-0-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote node-feature-discovery-node-feature-discovery-0-19-0-default-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "required-at-destination",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "nodefeaturegroups.nfd.k8s-sigs.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base and applied before the components that use it"
+      },
+      {
+        "id": "nodefeaturerules.nfd.k8s-sigs.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base and applied before the components that use it"
+      },
+      {
+        "id": "nodefeatures.nfd.k8s-sigs.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base and applied before the components that use it"
+      }
+    ],
+    "routes": [],
+    "records": [
+      {
+        "name": "node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+        "path": "data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "nodefeaturegroups.nfd.k8s-sigs.io",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base and applied before the components that use it",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "nodefeaturerules.nfd.k8s-sigs.io",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base and applied before the components that use it",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "nodefeatures.nfd.k8s-sigs.io",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base and applied before the components that use it",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded",
+      "status": "missing-confighub-proof"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "lifecycle_observation": {
+        "status": "not_applicable",
+        "declared": "n/a"
+      },
+      "gitops_oci_live": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "live_dual_parity": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "two_cluster_kind": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "variant_promotion": {
+        "status": "not_checked",
+        "declared": "missing-confighub-proof"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "workflow-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "nodefeaturegroups.nfd.k8s-sigs.io",
+        "nodefeaturerules.nfd.k8s-sigs.io",
+        "nodefeatures.nfd.k8s-sigs.io"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+            "path": "data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+            "path": "data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+            "path": "data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+        "path": "data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 17 objects in one file.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o node-feature-discovery-node-feature-discovery-0-19-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 node-feature-discovery-node-feature-discovery-0-19-0-default.yaml",
+          "expect": "cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995  node-feature-discovery-node-feature-discovery-0-19-0-default.yaml"
+        },
+        {
+          "comment": "render this base from the signed package; step 3 uploads this directory",
+          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63 --base default --work-dir ./node-feature-discovery-node-feature-discovery-0-19-0-default --non-interactive --namespace node-feature-discovery"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the aicr-eks-training-v0-20-0 base of the same version",
+          "command": "curl -fsSL -o node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what differs between the two bases",
+          "command": "cub config diff node-feature-discovery-node-feature-discovery-0-19-0-default.yaml node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0",
+          "url": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.json",
+          "version": "0.19.0",
+          "base": "aicr-eks-training-v0-20-0",
+          "relation": "other-base"
+        },
+        {
+          "id": "node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0",
+          "url": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0.json",
+          "version": "0.19.0",
+          "base": "aicr-eks-training-v1-0-0",
+          "relation": "other-base"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its signed installer package.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the directory rendered in step 1 as a Space of Units",
+          "command": "cub installer upload --work-dir ./node-feature-discovery-node-feature-discovery-0-19-0-default --space node-feature-discovery-node-feature-discovery-0-19-0-default",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "list the Units the upload created",
+          "command": "cub unit list --space node-feature-discovery-node-feature-discovery-0-19-0-default",
+          "needsAccount": true
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev node-feature-discovery-node-feature-discovery-0-19-0-default --target workshop/target --space-pattern \"template:node-feature-discovery-node-feature-discovery-0-19-0-default-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish node-feature-discovery-node-feature-discovery-0-19-0-default-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "needs": [
+        "nodefeaturegroups.nfd.k8s-sigs.io",
+        "nodefeaturerules.nfd.k8s-sigs.io",
+        "nodefeatures.nfd.k8s-sigs.io"
+      ]
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote node-feature-discovery-node-feature-discovery-0-19-0-default-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote node-feature-discovery-node-feature-discovery-0-19-0-default-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
+    }
+  ]
+}
