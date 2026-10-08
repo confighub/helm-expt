@@ -26,6 +26,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { repoRoot } from "./proof-common.mjs";
+import { helmOpenQuestionRows } from "./helm-open-questions.mjs";
 
 const deliveryLanes = ["regularHelm", "cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"];
 const scriptPrefix = "aicr-nested-charts-coverage";
@@ -108,8 +109,6 @@ const kaiCRDs = [
   "schedulingshards.kai.scheduler",
   "topologies.kai.scheduler",
 ];
-const kaiQuestion =
-  "The kai-config object that tells the operator which scheduler services to run is delivered by a Helm hook, and no base holds it, so should it be part of the base instead of a lifecycle action that nothing runs automatically?";
 const kaiVersions = {
   "v0.14.1": {
     hooks: { "pre-install,pre-upgrade": 10, "post-delete": 4 },
@@ -135,7 +134,7 @@ function kaiExpectations(version) {
     crds: kaiCRDs,
     dependencies: 0,
     hooks: row.hooks,
-    openQuestions: [{ bases: ["default", "aicr-eks-training"], question: kaiQuestion }],
+    openQuestions: helmOpenQuestionRows("kai-scheduler/kai-scheduler", version),
     configDelivery: row.configDelivery,
     bases: [
       aicrBase({
@@ -353,10 +352,6 @@ const nodewright = {
 // ---------------------------------------------------------------------------
 
 const draCRDs = ["computedomaincliques.resource.nvidia.com", "computedomains.resource.nvidia.com"];
-const draDefaultQuestion =
-  "The chart refuses to render its own defaults, so the default base sets resources.gpus.enabled false: is that the right meaning of default for this entry, or should the entry have no default base?";
-const draApiQuestion =
-  "The DeviceClass objects are rendered as resource.k8s.io/v1, which Kubernetes serves from 1.34, although the chart accepts 1.32: does the Catalog need bases for clusters that serve only v1beta1 or v1beta2?";
 const draVersions = {
   "0.4.1": {
     aicr: aicrBinding("v0.20.0", "014-nvidia-dra-driver-gpu", "nvidia-dra-driver-gpu"),
@@ -379,10 +374,7 @@ function draExpectations(version) {
       valuesSummary:
         "chart defaults with resources.gpus.enabled false; the chart's own defaults do not render, because the chart refuses resources.gpus.enabled true unless gpuResourcesEnabledOverride is also set",
     },
-    openQuestions: [
-      { bases: ["default"], question: draDefaultQuestion },
-      { bases: ["default", "gpu-resources", "aicr-eks-training"], question: draApiQuestion },
-    ],
+    openQuestions: helmOpenQuestionRows("dra-driver-nvidia/dra-driver-nvidia-gpu", version),
     bases: [
       {
         name: "gpu-resources",
@@ -476,8 +468,6 @@ const trainerCRDs = [
   "trainingruntimes.trainer.kubeflow.org",
   "trainjobs.trainer.kubeflow.org",
 ];
-const trainerQuestion =
-  "Two webhook certificate Secrets render with empty data and the controllers fill them in at run time, so does a delivery that applies the base again overwrite the certificates the controllers wrote?";
 const trainerUnreadKeys =
   "Several keys in the AICR values, among them crds, manager.metrics, manager.leaderElection and webhook.enabled, are not defined in the chart's values.yaml; the render differs from the default base only in the two controller Deployments";
 const kubeflowTrainer = {
@@ -497,7 +487,7 @@ const kubeflowTrainer = {
       crds: trainerCRDs,
       secrets: 2,
       dependencies: 2,
-      openQuestions: [{ bases: ["default", "aicr-eks-training-v0-20-0", "aicr-eks-training-v1-0-0"], question: trainerQuestion }],
+      openQuestions: helmOpenQuestionRows("kubeflow/kubeflow-trainer", "2.2.0"),
       bases: [
         aicrBase({
           name: "aicr-eks-training-v0-20-0",
@@ -997,10 +987,6 @@ const prometheusOperatorCRDs = {
 // recorded lifecycle actions, the way gpu-operator's are, and the entry carries
 // an open question about it.
 
-const kpsAdmissionQuestion =
-  "The other versions of this chart in the Catalog carry a packaged admission-webhook setup route with the hook image pinned by digest, and this version's hook image digest was not looked up, so should 84.4.0 get that route or keep its hooks as recorded lifecycle actions?";
-const kpsPasswordQuestion =
-  "The AICR values set the Grafana admin password to the literal value admin, and this base carries it in a Secret byte for byte: should a Catalog base ship a well-known credential?";
 const kpsHooks = {
   "pre-install,pre-upgrade,post-install,post-upgrade": 5,
   "pre-install,pre-upgrade": 1,
@@ -1069,10 +1055,7 @@ const kubePrometheusStack = {
         valuesSummary:
           "chart defaults with the Grafana admin password bound to a placeholder, as in the other Catalog versions of this chart; with no password set the chart generates a random one on every render",
       },
-      openQuestions: [
-        { bases: ["default", "aicr-eks-training-v0-20-0", "aicr-eks-training-v1-0-0"], question: kpsAdmissionQuestion },
-        { bases: ["aicr-eks-training-v0-20-0", "aicr-eks-training-v1-0-0"], question: kpsPasswordQuestion },
-      ],
+      openQuestions: helmOpenQuestionRows("prometheus-community/kube-prometheus-stack", "84.4.0"),
       bases: [
         kpsAicr(
           "aicr-eks-training-v0-20-0",
@@ -1168,15 +1151,6 @@ export const AICR_NESTED_CHART_CANDIDATES = Object.freeze({
   "prometheus-operator-crds": prometheusOperatorCRDs,
   "kube-prometheus-stack": kubePrometheusStack,
 });
-
-// The open questions an entry carries, per base. An entry with a question is
-// marked watch once its base-variant record exists.
-export function aicrNestedChartOpenQuestions(chart, version, base) {
-  const candidate = Object.values(AICR_NESTED_CHART_CANDIDATES).find((item) => item.name === chart);
-  return (candidate?.versions?.[version]?.openQuestions ?? [])
-    .filter((row) => row.bases.includes(base))
-    .map((row) => row.question);
-}
 
 // ---------------------------------------------------------------------------
 // Lifecycle profiles for scripts/generate-gpu-operator-packaged-lifecycle.mjs
