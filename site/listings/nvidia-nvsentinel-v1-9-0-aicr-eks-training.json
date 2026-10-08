@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b530fbf9e069a56a10340bf688cced4a494f941efb05e1f0228551bc5e0c1166",
+      "sha256": "sha256:933b5cdf1a1f0408d813aa473d89ad95763dea50d9fbf27e1b749547e5f12e21",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-nvsentinel-v1-9-0-aicr-eks-training.yaml",
-      "sha256": "sha256:52ec88cdcbcc5b9ae32533f8741ae18eb95d8f8ebc4e855f878f4b333bb15f83",
+      "sha256": "sha256:1c6965012e8c301d7757960b234610980f37e30b8a479ff87f8ca70e96c32c2d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-nvsentinel-v1-9-0-aicr-eks-training.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -115,12 +115,32 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-9-0-aicr-eks-training:r001@sha256:cc00867b815a5aa18c03be0aa0b62eb3fb3a9907b88be5f1419347158d92ea36",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:ca1e8454ed25a1e2be134d5d513801506b2b3ef199352c19936273b8706c9d54"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:f15a7c6d61755ef16ba7f2579eac6adcad25f6c9280f3cf4e57f60a3436e915d"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:cc00867b815a5aa18c03be0aa0b62eb3fb3a9907b88be5f1419347158d92ea36"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:108838b8b474bf4a3e5bf541af136ef74fcacfdf74cb16ed18f7d999a44f365d"
+          }
+        ],
+        "receipt": "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-9-0-aicr-eks-training/publication-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-literal-bundles/nvidia-nvsentinel-v1-9-0-aicr-eks-training/publication-receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
       },
       {
         "role": "confighub-upload",

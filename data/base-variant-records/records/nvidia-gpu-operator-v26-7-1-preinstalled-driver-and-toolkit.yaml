@@ -430,8 +430,29 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit:r001@sha256:709f91885ebb96ce1af1205fb75c4c07c697f0e0cf64ef5a8d63df81ea8de774"
+      manifestDigest: "sha256:709f91885ebb96ce1af1205fb75c4c07c697f0e0cf64ef5a8d63df81ea8de774"
+      layerDigest: "sha256:4ff5e8055b75dc035ed5bb7c304f952d0e815075b60078285e452c6a5d1114f1"
+      objectSetSha256: "sha256:2b6cb805960b912ddebd8e5ead4b9bfe5a75ec8d6e28816ebcc9173bdf5da82b"
+      receipt: "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit/publication-receipt.yaml"
+      receiptSha256: "sha256:a6ddb066423d888d67f1f196631b10f7b9dd83b054f83b6311cd51ebcb96c2a3"
+      plan: "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit/literal-config-oci.yaml"
+      routes:
+        -
+          path: "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit/routes/crd-ordering.yaml"
+          sha256: "sha256:b759e56c79964af17fb57abaf4396976ca623fb7a3822deca7ba5df0ce0bb021"
+          role: "route: crd-ordering"
+        -
+          path: "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit/routes/lifecycle-actions.yaml"
+          sha256: "sha256:139775e2628a2c41e7f7f75faad8c6a720ba310be59d17ee94c1b03b3b65ea0c"
+          role: "route: lifecycle-actions"
+      requirements:
+        -
+          path: "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit/requirements/target-requirements.yaml"
+          sha256: "sha256:ebeeac2c0064dff317468811973807104ac4ef4ff3a2b13989d7fb3068e5c4b4"
+          role: "requirement: target"
+      note: "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

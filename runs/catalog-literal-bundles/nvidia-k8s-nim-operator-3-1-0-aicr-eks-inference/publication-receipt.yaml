@@ -1,0 +1,88 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogLiteralBundlePublicationReceipt"
+metadata:
+  name: "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference"
+spec:
+  catalogEntry: "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference"
+  plan: "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/literal-config-oci.yaml"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "nvidia"
+        name: "k8s-nim-operator"
+        version: "3.1.0"
+    base: "aicr-eks-inference"
+    revision: "r001"
+    installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0@sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "decided"
+    record: "recipes/nvidia/k8s-nim-operator/3.1.0/publication/flattening-safety-verdict-aicr-eks-inference.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference:r001"
+    manifestDigest: "sha256:751de7c100863ac1f5569eb6f7f165d4dacc878aadd451b2741ea9fd1858d6ee"
+    layerDigest: "sha256:557af25cfc6622cca176b9ef31f4347464c6f589df4fd422b99d1f7d8fb8156e"
+    layerBytes: 2124471
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    objectCount: 21
+    objectSetSha256: "sha256:ef6956d9cec1d29fa5955d22d5e5df9db12fa1a122613c7da358e0edcd19dbf8"
+    files:
+      -
+        path: "packages/nvidia/k8s-nim-operator/3.1.0/bases/aicr-eks-inference/upstream.yaml"
+        stagedAs: "upstream.yaml"
+        role: "rendered object set"
+        sha256: "ef6956d9cec1d29fa5955d22d5e5df9db12fa1a122613c7da358e0edcd19dbf8"
+        bytes: 2104508
+      -
+        path: "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/crd-ordering.yaml"
+        stagedAs: "routes/crd-ordering.yaml"
+        role: "route: crd-ordering"
+        sha256: "c31a445ad3a9caad4a73753342226f75de3de05ea03116956701e2f88edadcf8"
+        bytes: 3050
+      -
+        path: "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/lifecycle-actions.yaml"
+        stagedAs: "routes/lifecycle-actions.yaml"
+        role: "route: lifecycle-actions"
+        sha256: "dfc3bd0aa9dbc55073678f2c93e300ce0be1ab66cca0bb43974d7071beefdfb1"
+        bytes: 2791
+      -
+        path: "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/webhook-certificate.yaml"
+        stagedAs: "routes/webhook-certificate.yaml"
+        role: "route: webhook-certificate"
+        sha256: "e0633dc8e9d6e81998ab80941f0b279f469a5ae72883857e544ca8f74685ed84"
+        bytes: 2144
+      -
+        path: "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/requirements/target-requirements.yaml"
+        stagedAs: "requirements/target-requirements.yaml"
+        role: "requirement: target"
+        sha256: "1e4785ed5af5cc976c5ecd0ef28b02fdb623f9cc259ca79ecd5878dac16457ee"
+        bytes: 4072
+      -
+        path: "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/space-guide.md"
+        stagedAs: "README.md"
+        role: "space-guide"
+        sha256: "a3a35a125b2db0c69c34705b80a681b0ece93b261a6bb56b14371108982f8912"
+        bytes: 2049
+    reproducible: true
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference@sha256:751de7c100863ac1f5569eb6f7f165d4dacc878aadd451b2741ea9fd1858d6ee"
+  contents:
+    containerImages: false
+    helmHookObjects: false
+    secretObjects: 0
+  push:
+    result: "pass"
+    command: "oras cp --from-oci-layout <layout>:r001 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference:r001"
+  anonymousPull:
+    result: "pass"
+    manifestDigest: "sha256:751de7c100863ac1f5569eb6f7f165d4dacc878aadd451b2741ea9fd1858d6ee"
+    layerDigest: "sha256:557af25cfc6622cca176b9ef31f4347464c6f589df4fd422b99d1f7d8fb8156e"
+    filesMatched: 6
+    command: "oras pull --registry-config <empty config> europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference@sha256:751de7c100863ac1f5569eb6f7f165d4dacc878aadd451b2741ea9fd1858d6ee"
+  configHubUpload: "not-run. This receipt records a registry publication and nothing else."
+  signature: "none. The Catalog does not sign literal configuration bundles."
+  observedAt: "2026-10-08T17:55:15.998Z"
+status:
+  result: "pass"

@@ -131083,8 +131083,29 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-cluster-readiness-engine-v0-6-0-default:r001@sha256:895c73481b565d3c05ad5be56feeb2a54452b9e0d781f7d379a154d7b9448f4d",
+            "manifestDigest": "sha256:895c73481b565d3c05ad5be56feeb2a54452b9e0d781f7d379a154d7b9448f4d",
+            "layerDigest": "sha256:7192de4e7355fd02e1a2a2de5b764820444bd11fb38fdb5833ece559d595f684",
+            "objectSetSha256": "sha256:3d7c5f88d97f8f74f84b7ced2ae32d75fceb9888aa4d2701124eb6beea713170",
+            "receipt": "runs/catalog-literal-bundles/nvidia-cluster-readiness-engine-v0-6-0-default/publication-receipt.yaml",
+            "receiptSha256": "sha256:4eda9da1a9a2fc09abba80dc64e1e5d92cb7b1c8c35c8c36a64d5f6fb3cf7627",
+            "plan": "data/nvidia-literal-bundles/nvidia-cluster-readiness-engine-v0-6-0-default/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-cluster-readiness-engine-v0-6-0-default/routes/crd-ordering.yaml",
+                "sha256": "sha256:501af6cdd4f6d6c19de59ca487ce624fa8f3364955871a14433ed61d183401d4",
+                "role": "route: crd-ordering"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-cluster-readiness-engine-v0-6-0-default/requirements/target-requirements.yaml",
+                "sha256": "sha256:15d070795f0d067f381430119c52b551549302656e9e3185ca56c9b04fc259d0",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -131531,8 +131552,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v25-10-1-default:r001@sha256:03032d8e9d7b6446c7556273a760deafbae69dd6bb2d825649f16e48cab38f11",
+            "manifestDigest": "sha256:03032d8e9d7b6446c7556273a760deafbae69dd6bb2d825649f16e48cab38f11",
+            "layerDigest": "sha256:23231acff671accc6350b5067acaa4a5adebd4b25c9064197d60f429fba4f300",
+            "objectSetSha256": "sha256:4a711392870e1063a56eaaf4ca40219d82f4acda7cae5c2ead234a9fa1384891",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v25-10-1-default/publication-receipt.yaml",
+            "receiptSha256": "sha256:886a11f2107ee6408bb19f035dc6bfac7c6abd0dc062d0907e173bb9240c46f2",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-default/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-default/routes/crd-ordering.yaml",
+                "sha256": "sha256:d53e10572f5102a05c9c024e8dc28d5c4d2411fea58cd88be505fc7177039a85",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-default/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:b352449b9af2e4dd32d415d72e4bed0794ac728123bf234d9d141578c33b3ab6",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-default/requirements/target-requirements.yaml",
+                "sha256": "sha256:9811af75b866adb0c352545c9bea32fd241c72b1b1495cd4f3c2020a0df54a62",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -131979,8 +132026,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v25-10-1-driver-580-126-20:r001@sha256:914b8057a1820e9b591dd4df766e4c65b6c42a341df2d40d0ebb38a871d41d99",
+            "manifestDigest": "sha256:914b8057a1820e9b591dd4df766e4c65b6c42a341df2d40d0ebb38a871d41d99",
+            "layerDigest": "sha256:06db2642751dba5e6865e73228ce59f6e59b82c00f0265504d83c91a82bd4280",
+            "objectSetSha256": "sha256:ac011644664f8eadcbceeb44327d0525429d2710bfc9aef90ebe6d721d6090ee",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v25-10-1-driver-580-126-20/publication-receipt.yaml",
+            "receiptSha256": "sha256:4dfad3bd1690c01b23c7c4adb55812712a0ad7fd104b95fb26999520206087ba",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-driver-580-126-20/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-driver-580-126-20/routes/crd-ordering.yaml",
+                "sha256": "sha256:9aaeda392412a3e2ff5e2b782b465edf0172b0087d82ebf546469e948a8ad8c8",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-driver-580-126-20/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:a62f01312c3bfc3fbb8c5e94b492249569abbb4d28a71a43e9931257e8494341",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-driver-580-126-20/requirements/target-requirements.yaml",
+                "sha256": "sha256:84c31df6161098b2fc2e1d7d40675037596ee04dd6ac2a3b198ae0b4a19f2a5c",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -132427,8 +132500,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v25-10-1-driver-595-91-07:r001@sha256:16389fc77dc8c0741b626762ca7a6d7d69bea209fce212b1cee72bd7f5e31652",
+            "manifestDigest": "sha256:16389fc77dc8c0741b626762ca7a6d7d69bea209fce212b1cee72bd7f5e31652",
+            "layerDigest": "sha256:f907ce1c5b5c7324ec9831b4feb265c685a0d670e212ef8f743d80363df9e9ee",
+            "objectSetSha256": "sha256:32714faffb818eaeda0f014bf562eab4942f8a1c8ce93d5a2c6613f087978cac",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v25-10-1-driver-595-91-07/publication-receipt.yaml",
+            "receiptSha256": "sha256:42461ec72cfe3b72b60d4736ffd5652678df045a0e6bd7e65588814abdc94cf5",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-driver-595-91-07/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-driver-595-91-07/routes/crd-ordering.yaml",
+                "sha256": "sha256:8f5fa904aaf36b4a886894d334b5b94a8bc7bc15d1cbb05d8ab41955c744d734",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-driver-595-91-07/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:23b0489d8afa05b928bf583e6ff28f0c2ff08b49b09c665d652ab62361ac6f6c",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-driver-595-91-07/requirements/target-requirements.yaml",
+                "sha256": "sha256:28f3099cb5ec99f5f86cf8460cd96a778137d944ac747b7b5483ce57414dc820",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -132758,8 +132857,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v25-10-1-external-nfd:r001@sha256:8d490b58390a89f1c4b01fc5ba29aa8ac92ffb50802df77b7aafa6e04295493c",
+            "manifestDigest": "sha256:8d490b58390a89f1c4b01fc5ba29aa8ac92ffb50802df77b7aafa6e04295493c",
+            "layerDigest": "sha256:7e18ddcfa3459100befa38c7b9263cd62c1f4de3cf44d1aa84011c63393beb20",
+            "objectSetSha256": "sha256:8667cb754f68c927b3d9dee8e7c4e1cb7d5141e6947f788f3e44853883df665a",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v25-10-1-external-nfd/publication-receipt.yaml",
+            "receiptSha256": "sha256:e6a63c3d0038fc5d9c4e8a43bfece0ae119059150735ad649d74c0f4af3ad922",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-external-nfd/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-external-nfd/routes/crd-ordering.yaml",
+                "sha256": "sha256:a07cd723ed6199a720d13372bf3388aa9dabdd33471e9ab13626af94d3a6734e",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-external-nfd/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:b38ed03b940aac5cd566d70267b13bad390095d39b2bdb66287b70e8ff64c886",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-external-nfd/requirements/target-requirements.yaml",
+                "sha256": "sha256:059bce4a1bfe2fae02f6b3441dc20663a2810ae626cbb67fe43fcecc2a0a13f0",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -133206,8 +133331,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v25-10-1-preinstalled-driver:r001@sha256:bd89401158eb7f9a66e080a215a96e46f8b14e2d0c8cf434cba64840ab858c2a",
+            "manifestDigest": "sha256:bd89401158eb7f9a66e080a215a96e46f8b14e2d0c8cf434cba64840ab858c2a",
+            "layerDigest": "sha256:2d668b47dcacb94464c7a23210d3be26943d3c6164fa2ab113c9b674f76efe01",
+            "objectSetSha256": "sha256:4b03d8e2d14fb9cec1bc58aad65d50f18997e2f7cb6db661d279822ce7c8d9ea",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v25-10-1-preinstalled-driver/publication-receipt.yaml",
+            "receiptSha256": "sha256:401f4fe3662dfe14e4aabee6ba036f25370adcfc2f2518842179074950ffaf53",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-preinstalled-driver/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-preinstalled-driver/routes/crd-ordering.yaml",
+                "sha256": "sha256:865561c95f3224583bc140070b0dd2f86d694153c0365346937da25da0f7baec",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-preinstalled-driver/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:85fba6b0725b82d8a5fedfef53b03bd2917cc684ea44dd9b8e3b246f3e1694f3",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-preinstalled-driver/requirements/target-requirements.yaml",
+                "sha256": "sha256:50a573132c82b2cf03fcd7cb22936863b76053a974765458bde64049e0d63afc",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -133654,8 +133805,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit:r001@sha256:62f2413e6fd9c59cfe1f611e05e9b178d28f0abe64eafe691938c2e4a186ca72",
+            "manifestDigest": "sha256:62f2413e6fd9c59cfe1f611e05e9b178d28f0abe64eafe691938c2e4a186ca72",
+            "layerDigest": "sha256:09acd396974f36327ac8cc43860f8fbe0a5b7ee3ae6622915bfab45df499770b",
+            "objectSetSha256": "sha256:ec5537100284d75523d002dcd5d4754382bb372b4087d3564ad2c966103eaac8",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit/publication-receipt.yaml",
+            "receiptSha256": "sha256:a0b2b13267bd2b150dec5cc0c4ba821ef146230a547ba12f0a5264d6942b933e",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit/routes/crd-ordering.yaml",
+                "sha256": "sha256:c9c0c952076ce6c753f5a8a3740f99c353c421cdd06f2f647694598559f022fc",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:16b8ec7aceeff7ca419105668ff72b798efbea834460146446d5c2a5be40936c",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit/requirements/target-requirements.yaml",
+                "sha256": "sha256:2a427ec473a1e066c4a6d4259f345ae9f58acca29789bd9b4d9e5de22f66edb7",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -134102,8 +134279,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-default:r001@sha256:0f6f399365cb045906854c9b568afa8dcb960d7898db5e5b47a317a3eed10484",
+            "manifestDigest": "sha256:0f6f399365cb045906854c9b568afa8dcb960d7898db5e5b47a317a3eed10484",
+            "layerDigest": "sha256:1b41f9dfac696b727c5631905cde7dc295c461a23c8da768d15540c8edb9519d",
+            "objectSetSha256": "sha256:51c7d8994a0ca9530254b46b3b6eae4fd38baeae4e0504c28f27933a4437950c",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-2-default/publication-receipt.yaml",
+            "receiptSha256": "sha256:dc4610e7db953e7d3db693738d65a828538220d8ccedddfad33f90700b85a039",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-default/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-default/routes/crd-ordering.yaml",
+                "sha256": "sha256:432df9d84aa1e198e08fa02cbd6ca9d234376108e987f0d4fb5d536bf5646690",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-default/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:edb6dc5931fe32d9e90f0fb787b149b4ce89f3c79c864f6c05bc052cd5ed7fef",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-default/requirements/target-requirements.yaml",
+                "sha256": "sha256:500b1b322140fa805dddc724ca793d3cc8ec3176fa1c3d495a688cbce3d78419",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -134550,8 +134753,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-driver-580-105-08:r001@sha256:1b6d52930ab5a436a60ca7842685b1553040d2d259a13b4a3fbcbb6cafd367c0",
+            "manifestDigest": "sha256:1b6d52930ab5a436a60ca7842685b1553040d2d259a13b4a3fbcbb6cafd367c0",
+            "layerDigest": "sha256:1063a590f30952995f65188d9ad6f121270dadf0213d2630133095370b115c6d",
+            "objectSetSha256": "sha256:70caf6e456b039cee29792410a0526c67a0f1ca6954f8b054bdd7c57b62243a0",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-2-driver-580-105-08/publication-receipt.yaml",
+            "receiptSha256": "sha256:ab55f989dd9060e8ae469ef4c455f45d8718f9568a1dcd4b0aafc11b0e600dd5",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-driver-580-105-08/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-driver-580-105-08/routes/crd-ordering.yaml",
+                "sha256": "sha256:ec3a79ce98793ff6ebb4b8e76acbf0e24afc7430ba437c71030b88709e9708d4",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-driver-580-105-08/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:c5449481585d4755d441e6284dcc96c27fb799934b1ffa94c4709fdbe10d67ec",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-driver-580-105-08/requirements/target-requirements.yaml",
+                "sha256": "sha256:b444ecb7a119bf769ec3e5c5b2387b579ff397163167b865b9d16d115b81950c",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -134998,8 +135227,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-driver-595-91-07:r001@sha256:2c9d40c14be3d710ddb857fe7a379e523a1f27150b753d2a9b1c4b17af331647",
+            "manifestDigest": "sha256:2c9d40c14be3d710ddb857fe7a379e523a1f27150b753d2a9b1c4b17af331647",
+            "layerDigest": "sha256:2bcc13ba5cc56af6c5011aa1c99c6053ea4086c6103c333df385148ae5b37b25",
+            "objectSetSha256": "sha256:523f9c0beb4eeab1b60bf8ce2438d03e85a7a4b564a80d546ad1d22932b06b9e",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-2-driver-595-91-07/publication-receipt.yaml",
+            "receiptSha256": "sha256:4be93cb0940231d25a20b4367731819df84f7058be3476f6d49f6ac44e114c55",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-driver-595-91-07/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-driver-595-91-07/routes/crd-ordering.yaml",
+                "sha256": "sha256:221149a23bfeb2e9445da33de9f85a7a44099c2f486bb25e3c981e38acddb8ed",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-driver-595-91-07/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:df96d6634353fdc07267ebb4952caefcf10ef0536fc4806275432e71993fa936",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-driver-595-91-07/requirements/target-requirements.yaml",
+                "sha256": "sha256:5ce75e664e64e28fc02a9e95af5a5684a88bb65e633acd429494ec289e01c443",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -135329,8 +135584,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-external-nfd:r001@sha256:6369468cc5689df80ab65b154550d2ea7b98d772149546afb4d69eb25f1c7597",
+            "manifestDigest": "sha256:6369468cc5689df80ab65b154550d2ea7b98d772149546afb4d69eb25f1c7597",
+            "layerDigest": "sha256:1178503283a071798cd2aa9bda7ebe8a61224adb3124b8f74c4e47389f11e8ab",
+            "objectSetSha256": "sha256:30a949cc36999ed032f4aa18838e11f4bacc29c2840e6a2b3bce8712e9305b37",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/publication-receipt.yaml",
+            "receiptSha256": "sha256:e9a5407b402d5cc6fccdd0288e38c04a4a8cd83ae08127bf7142a6977a638158",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/routes/crd-ordering.yaml",
+                "sha256": "sha256:68407497a29bc7a68ba33ada6371c63b69891f690fed8f920f624f102c4fd304",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:a6826b256aaae5351778084a24befe29312c9cadc3a1e0834302d65f06c54d0b",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-external-nfd/requirements/target-requirements.yaml",
+                "sha256": "sha256:28798c3602db8b221c57347e3a21837280761799aaf7715dedbfaa2d4d35c1c2",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -135777,8 +136058,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-preinstalled-driver:r001@sha256:65000c91e856e01616ca580ebabb79d5ad53b64bd50fbaaafb8e307a14f7aad4",
+            "manifestDigest": "sha256:65000c91e856e01616ca580ebabb79d5ad53b64bd50fbaaafb8e307a14f7aad4",
+            "layerDigest": "sha256:c9b226028a25fd42e45249fcfa565b626c5d0857865acb9b71f85ad3510c1df8",
+            "objectSetSha256": "sha256:81722ed910b8ec297ef43e02fbbe13a124c3a78cc6ddc4ea7f07f7c1bec6e8ec",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver/publication-receipt.yaml",
+            "receiptSha256": "sha256:01e4247238c1f7259c0f40765e182eae9f5f1a6fbd91ea3635c1626b19c5a316",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver/routes/crd-ordering.yaml",
+                "sha256": "sha256:b440e90668c9947336275c647095428de00d85811b734173d701fa9c00ad1adc",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:b259b425063cf64de318b1768ea0ed7f6dcba608697510ea2b6e223997ca695a",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver/requirements/target-requirements.yaml",
+                "sha256": "sha256:7cd4ff2d9ac69ce1015fa6e2e698786defbb27b9cfa2a7b8a9bf97e79250c87c",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -136225,8 +136532,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit:r001@sha256:784924eca3aab0bad0524234a1d2a8234c22d65e5f3be4199c66e4fce05cc799",
+            "manifestDigest": "sha256:784924eca3aab0bad0524234a1d2a8234c22d65e5f3be4199c66e4fce05cc799",
+            "layerDigest": "sha256:0c3685dd2d7503e58f5395a112e6d2e49fc17f1992de0ed7043a73f3dbfd7d83",
+            "objectSetSha256": "sha256:2980e91c1280647c62edc7e95bd9e1145de261022fe8d6f3a6d2ed1425f57c22",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit/publication-receipt.yaml",
+            "receiptSha256": "sha256:c0de95db469f97ace66cc1ca4ec37cbc04aff393cac6d5ae703d06a1d49eadab",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit/routes/crd-ordering.yaml",
+                "sha256": "sha256:189ed4f11cf115c6c6c3758b63ca890220d1160f9016b8292669440ef8e15d4d",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:4fe415b6dd37a69bea4bb53b35beef05c1d21f24196c9a59e8510924496995e6",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit/requirements/target-requirements.yaml",
+                "sha256": "sha256:b0a3156590e8b8dbdf148db6a5a78103f4702300fd1d809084a55744bb8ae4f4",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -136556,8 +136889,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-aicr-eks-training:r001@sha256:259937562fbc09752d1b4994d35f13a41422427f8d4fdecbb5ab5049a5da5101",
+            "manifestDigest": "sha256:259937562fbc09752d1b4994d35f13a41422427f8d4fdecbb5ab5049a5da5101",
+            "layerDigest": "sha256:dfcfb7ee8fd81f513834cd4a924a6365f49fada04e53a91df3da73b29615f9f4",
+            "objectSetSha256": "sha256:8f33a5021500891676062706330ec40b6f356e115a013df11d41943c65bf1be7",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-3-aicr-eks-training/publication-receipt.yaml",
+            "receiptSha256": "sha256:9c2c2887b3ab216523400ab4424fe62cf047e0f64342822956541a203d421fe1",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-aicr-eks-training/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-aicr-eks-training/routes/crd-ordering.yaml",
+                "sha256": "sha256:246ca0232095807606544e963c2be49551840ad09a164b5f413be8afb3b0bc8e",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-aicr-eks-training/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:de0c4ebc6d4622096d5bc9ca5222aa4f51622a18643260a6e8834d0942b100a7",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-aicr-eks-training/requirements/target-requirements.yaml",
+                "sha256": "sha256:24c82fcd4a35827b7188b9857afdfc92cc2e3362b27bdd24a005c5e4c1b0c84e",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -137004,8 +137363,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-default:r001@sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e",
+            "manifestDigest": "sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e",
+            "layerDigest": "sha256:93f1866ce66e66526f89d7442024ecf32b2aad191b17ce5aa1fe1ebcc33ab9d2",
+            "objectSetSha256": "sha256:73ebb5f6de3d1f010330d266db11b99b508be84dfc92b9d5deb01a39b66fee7c",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-3-default/publication-receipt.yaml",
+            "receiptSha256": "sha256:a7a18488cc2e741ae2d6b2f2c425cab1082ac60b0b32fcbc6f2d753d95aea783",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-default/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-default/routes/crd-ordering.yaml",
+                "sha256": "sha256:d5e98c6ace3536eddf692d34d9212c5f7b2cf4ea3d351ac1d9b76fe825db1b77",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-default/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:2edf2358a7e32955653f000d97735f94378ae28d79deaf75a8db9cd9ffc68476",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-default/requirements/target-requirements.yaml",
+                "sha256": "sha256:362ea2702d4e0ba155b4773b8b99c8d0e9101b0b45f6890c6f3913f1bf4a9942",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -137452,8 +137837,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-driver-580-105-08:r001@sha256:101ece68ddde7d6b0c4ccee0eec1adb7c64d6d5f90ff200f3d5f159417cb5f29",
+            "manifestDigest": "sha256:101ece68ddde7d6b0c4ccee0eec1adb7c64d6d5f90ff200f3d5f159417cb5f29",
+            "layerDigest": "sha256:17d018e14c035622484bb41b9cac305c37bd8b9a9f377d331e5d795d884a6612",
+            "objectSetSha256": "sha256:3e9b98ac2f1753e1e53801e271b071ee590da1c7b5ab5278e1b5dadba9f87528",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-3-driver-580-105-08/publication-receipt.yaml",
+            "receiptSha256": "sha256:c1e0c99a7990b105aa67c8c496d50f1d0e835a3a764eaf8c2e731319551ec22d",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-driver-580-105-08/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-driver-580-105-08/routes/crd-ordering.yaml",
+                "sha256": "sha256:a8613cdaf9807ade8f3f54f54c67c2c2c9c29eb44631a824b4f117f92c4cf0cb",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-driver-580-105-08/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:a8206af15f97ba35537834da93c8b0dba6c53a5eadf9bcfdc596c66320960925",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-driver-580-105-08/requirements/target-requirements.yaml",
+                "sha256": "sha256:8b79bf543ff74f802df2a44c90d0096ac9c719c7d6772c183e608473df9d56ab",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -137900,8 +138311,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-driver-595-91-07:r001@sha256:40d9e69207a27448d6c64616d19b079f5315659e971f01754a8319c370573ce3",
+            "manifestDigest": "sha256:40d9e69207a27448d6c64616d19b079f5315659e971f01754a8319c370573ce3",
+            "layerDigest": "sha256:2dfabbd5a53058c4c86d1b2782b7231e87668dc02ca13ffa755a4101539125ae",
+            "objectSetSha256": "sha256:d14f2965c55aab8f9b5503562949c16fa1f86c205af48afcc11f87bdf4606838",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-3-driver-595-91-07/publication-receipt.yaml",
+            "receiptSha256": "sha256:c99cdbc7ce322c5fdae34221a34d14e93c69be4d505fc8cc5701ecf0c85ca697",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-driver-595-91-07/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-driver-595-91-07/routes/crd-ordering.yaml",
+                "sha256": "sha256:42d4feeb5f1e0d6b6c9d15d1de89146fa535e4bc8ae59d23a77f914e23cd59de",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-driver-595-91-07/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:7bb480dec8cc9f34c63f29337d793731ce4ea5d5d4ec805295a30b021b393560",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-driver-595-91-07/requirements/target-requirements.yaml",
+                "sha256": "sha256:7c2972a9a7bc2508583f9330b808eeb2a9da2f08d6d42d736ad63f09ddbdba9c",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -138231,8 +138668,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-external-nfd:r001@sha256:eccf5cc231753db9b686fe4f37b2dbedadb066794c8b4b0d8447bd26fd7b48b7",
+            "manifestDigest": "sha256:eccf5cc231753db9b686fe4f37b2dbedadb066794c8b4b0d8447bd26fd7b48b7",
+            "layerDigest": "sha256:5b91fc59c13478cf52344c7973fc2b6532b6f88d5a42fc71cd3c4fc522f50aad",
+            "objectSetSha256": "sha256:cb21107fdf6b6e1efee9c20074ed1969f7780e81e27ac73e67eb2b3d751b241d",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-3-external-nfd/publication-receipt.yaml",
+            "receiptSha256": "sha256:9e7595f2b15a50cf54fd216c9c5cf8b65692e1d0c8db2df5adb4da2c193d7a3e",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-external-nfd/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-external-nfd/routes/crd-ordering.yaml",
+                "sha256": "sha256:36c59ad4b0211cab413e41b044a8ad10c16d1f2d3eb4412068bbc871c1e50187",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-external-nfd/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:bb02f60b53b0ac844d88bb8da5627570fe93bd93b2c96040186372037a5339bf",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-external-nfd/requirements/target-requirements.yaml",
+                "sha256": "sha256:535b6efd5e13e55cd2c47a107788e9da7988c5e0263e6e44d0119d98a2526ea4",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -138679,8 +139142,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-preinstalled-driver:r001@sha256:80b6f43e3f1b04b1780780c5ecb0a14b27f29620e6696fbabe33f80ced4a9e22",
+            "manifestDigest": "sha256:80b6f43e3f1b04b1780780c5ecb0a14b27f29620e6696fbabe33f80ced4a9e22",
+            "layerDigest": "sha256:164efc881536d6c6036b0657c4313599a17d8eb73e085913623a7bd7c3ef5089",
+            "objectSetSha256": "sha256:a683f3569297e0bec21311881018d80b25feacabc15939acef49b045b18fc627",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-3-preinstalled-driver/publication-receipt.yaml",
+            "receiptSha256": "sha256:7dbd21ddac3f23f871aa6d7c7756674c9016431b15c632f7aea70f5778bdaa4b",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-preinstalled-driver/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-preinstalled-driver/routes/crd-ordering.yaml",
+                "sha256": "sha256:7f0c278b4f7408050e9e98d313f168feb701c837bbf6fda21062aab9a0e0bc25",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-preinstalled-driver/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:ffee5fef77cef5792dfc53f2e98cffe300402a8f3bfb2fe9648df98c338622be",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-preinstalled-driver/requirements/target-requirements.yaml",
+                "sha256": "sha256:23fd8474e6948397f2da4c8fbb08eb894e9d85ae0abb6eaad1299cae07b4913e",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -139127,8 +139616,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-preinstalled-driver-and-toolkit:r001@sha256:0a2036ac501fc2b94a3d1c7ca583ff06598cbe4ebc17fbabf1a80b9d4517b4b4",
+            "manifestDigest": "sha256:0a2036ac501fc2b94a3d1c7ca583ff06598cbe4ebc17fbabf1a80b9d4517b4b4",
+            "layerDigest": "sha256:213676b435c5105e39f004f5c33830eab23fda8196d8c764ea58bb2eb8b80816",
+            "objectSetSha256": "sha256:f6db512d2f6196493b14208565922fb804bcb63c6570c960b85d4c97d7c39569",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-3-preinstalled-driver-and-toolkit/publication-receipt.yaml",
+            "receiptSha256": "sha256:249ad984ae92a68d7b4184251a413f6cc1bca6f233f18fe9db3c7e0cd523acd0",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-preinstalled-driver-and-toolkit/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-preinstalled-driver-and-toolkit/routes/crd-ordering.yaml",
+                "sha256": "sha256:32922422139d69bad040fc3b2cf0238549cd7d85d809d11f22a46c0b5a04002a",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-preinstalled-driver-and-toolkit/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:f4e2a201dbb491226c7ef407587e258100c0492378b262e3d545d18f4f5ea7d5",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-preinstalled-driver-and-toolkit/requirements/target-requirements.yaml",
+                "sha256": "sha256:a2a418c5277c0ec5ff3f2eaac79512d182b33f9c115fb489b463cec413d3efd7",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -139575,8 +140090,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-aicr-eks-training:r001@sha256:5db53fc18c8684c062b43a5c2142fa4e2137febcd7eecd486ea3709cc3741cc7",
+            "manifestDigest": "sha256:5db53fc18c8684c062b43a5c2142fa4e2137febcd7eecd486ea3709cc3741cc7",
+            "layerDigest": "sha256:0b14cced2982e9500f9c21c62f8476f6ef2664c1def205f2deac032ddc0ce5eb",
+            "objectSetSha256": "sha256:4bd9d60ec2d64a15f28d175934c33d26efd49990a5a28d36b463182b807f9a9b",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-7-1-aicr-eks-training/publication-receipt.yaml",
+            "receiptSha256": "sha256:fed4666f58b67e9ff5ab1eeacabfb9bb3523b3f590d7031559739359896c7c5a",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-aicr-eks-training/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-aicr-eks-training/routes/crd-ordering.yaml",
+                "sha256": "sha256:50763a78805bf7f761b68233c3ba716ab242377b6d6f84395b48511af3fdd27e",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-aicr-eks-training/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:4c4a80de56744d3231e5acf1ffb1802189a9226d097a0b42dbb3df3f542a85a4",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-aicr-eks-training/requirements/target-requirements.yaml",
+                "sha256": "sha256:21c53e4696e48650e940dfb80af43d976161bf696350271466d6e618a18281ad",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -140140,8 +140681,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-default:r001@sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872",
+            "manifestDigest": "sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872",
+            "layerDigest": "sha256:469e845b2bdc3b8b7b1c5656875cd5b0b6890081a557b032b98446491fc665c2",
+            "objectSetSha256": "sha256:a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-7-1-default/publication-receipt.yaml",
+            "receiptSha256": "sha256:a85720460ffce8d2c111c4183af0a18f59846132b53077149cc59c100b44f2b6",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-default/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-default/routes/crd-ordering.yaml",
+                "sha256": "sha256:f33eae06e16aa355854c29e98619b6febcb7cce6516a1dc190c3b991550c8c01",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-default/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:a9ffb81642fd829168aeb06c2280cd2d156a89e37b9ee0a40816b140c43de64d",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-default/requirements/target-requirements.yaml",
+                "sha256": "sha256:12f1ad02c2903936d9a7dd56383bc8d030e8aba16f057b6892dba85f6208c4cf",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -140705,8 +141272,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-driver-580-105-08:r001@sha256:655b69ee53a0d426899f700db453b99a05ac74d1c126ac5594752e82802359a6",
+            "manifestDigest": "sha256:655b69ee53a0d426899f700db453b99a05ac74d1c126ac5594752e82802359a6",
+            "layerDigest": "sha256:bd50dcbcf61c1634d6b20040d260785556efc1551607ce7f85e017633811ddb2",
+            "objectSetSha256": "sha256:a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-7-1-driver-580-105-08/publication-receipt.yaml",
+            "receiptSha256": "sha256:38292a23def8cf3224978dcf980563adb50c81084b8a05ed8bc2b31d2fd3ec58",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-driver-580-105-08/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-driver-580-105-08/routes/crd-ordering.yaml",
+                "sha256": "sha256:c69213eff29ad1d8972914597b4ad49f5891cdf2a0eb8d77cab42d50d73abd48",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-driver-580-105-08/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:4967dbd4e8bada506fbecd9eca0ff9474d867a36a7b6e969771c07f18d51550b",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-driver-580-105-08/requirements/target-requirements.yaml",
+                "sha256": "sha256:530542fb6b089e2dd53aec63ec8b910c912912a522fab47a8b631457e8831d74",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -141270,8 +141863,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-driver-580-126-20:r001@sha256:8c7bf2ca070058ebc6697e63cec878a52826d806bd84a817c166700ffa57b1b1",
+            "manifestDigest": "sha256:8c7bf2ca070058ebc6697e63cec878a52826d806bd84a817c166700ffa57b1b1",
+            "layerDigest": "sha256:e8764428d108525e93a00745edd77a8fb8354c028bbb965cf32177010eba8fa1",
+            "objectSetSha256": "sha256:07c886e36a064b51cc99954ae5f3e98f3ca07d3ba51e1721e7affbf6a01654aa",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-7-1-driver-580-126-20/publication-receipt.yaml",
+            "receiptSha256": "sha256:451128c0c0418720a9747fdd56f4736e191a031fd4e548a5c4f68293e1c07a95",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-driver-580-126-20/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-driver-580-126-20/routes/crd-ordering.yaml",
+                "sha256": "sha256:24a247033fc555535ce085b14b7723c4327e6e4c2b36b160658ce301f591b3aa",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-driver-580-126-20/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:18285d395a384bb0903be625e2ec0f52771e93aca38f32f61dbfbc741f6686c8",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-driver-580-126-20/requirements/target-requirements.yaml",
+                "sha256": "sha256:bc9eac5b744a56c573b7fa1ab89dab1ed813a6ea0b20959cfd0b0ffd6185a9e3",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -141718,8 +142337,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-external-nfd:r001@sha256:0f8043da91b1e4b5921e5034a8d531fb071f068460d0fddc47cd39d396551b36",
+            "manifestDigest": "sha256:0f8043da91b1e4b5921e5034a8d531fb071f068460d0fddc47cd39d396551b36",
+            "layerDigest": "sha256:a8de1c5ccf95f66188b1bddc261e15ea30f7a255066c16331cf147c9dad7cc22",
+            "objectSetSha256": "sha256:a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-7-1-external-nfd/publication-receipt.yaml",
+            "receiptSha256": "sha256:9b1838aee03cb672ddafae510b14f219758a2dff3a3dcaadef05c415bdc6e29b",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-external-nfd/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-external-nfd/routes/crd-ordering.yaml",
+                "sha256": "sha256:8072b3a171fea6b618880673a5018690ba84c402abc069268cde84398c5db534",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-external-nfd/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:1654994e1f6e71dcddc9cb894f1cde09c18f551379233ac43615208469e09402",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-external-nfd/requirements/target-requirements.yaml",
+                "sha256": "sha256:b80ebb1a2eced3a6b8a5ee7447870c7f35f31a2f1ac6172ef14f063938f40111",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -142283,8 +142928,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-preinstalled-driver:r001@sha256:31379641c19aa01c33e39ee88d67dba1968183f0815df58c59a8323fff30ecc7",
+            "manifestDigest": "sha256:31379641c19aa01c33e39ee88d67dba1968183f0815df58c59a8323fff30ecc7",
+            "layerDigest": "sha256:7f481f896111d632f35e9d740e9ebb6a9f09653bdd428765b4a7dd860c30a476",
+            "objectSetSha256": "sha256:98a886b6a43765364c65a2b93d489f430347f3fd8a02a35d5bc03015d675fe36",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver/publication-receipt.yaml",
+            "receiptSha256": "sha256:612b32e11314500351c1594fec833bfcab97a4c410c65e9470aa9855070422e3",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver/routes/crd-ordering.yaml",
+                "sha256": "sha256:3702212d2e6bb2a2ad621bf64bd0f349ce6f759105711d60d0eea0314fd15420",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:f43cd6f7ffae88265fa26026256e4d753f2177bd55e90efbde7e8e494698f529",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver/requirements/target-requirements.yaml",
+                "sha256": "sha256:681d619a7819a8e20fc99e45a70010218faadc2ed54e6efbb452f093af057a02",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -142848,8 +143519,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit:r001@sha256:709f91885ebb96ce1af1205fb75c4c07c697f0e0cf64ef5a8d63df81ea8de774",
+            "manifestDigest": "sha256:709f91885ebb96ce1af1205fb75c4c07c697f0e0cf64ef5a8d63df81ea8de774",
+            "layerDigest": "sha256:4ff5e8055b75dc035ed5bb7c304f952d0e815075b60078285e452c6a5d1114f1",
+            "objectSetSha256": "sha256:2b6cb805960b912ddebd8e5ead4b9bfe5a75ec8d6e28816ebcc9173bdf5da82b",
+            "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit/publication-receipt.yaml",
+            "receiptSha256": "sha256:a6ddb066423d888d67f1f196631b10f7b9dd83b054f83b6311cd51ebcb96c2a3",
+            "plan": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit/routes/crd-ordering.yaml",
+                "sha256": "sha256:b759e56c79964af17fb57abaf4396976ca623fb7a3822deca7ba5df0ce0bb021",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:139775e2628a2c41e7f7f75faad8c6a720ba310be59d17ee94c1b03b3b65ea0c",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit/requirements/target-requirements.yaml",
+                "sha256": "sha256:ebeeac2c0064dff317468811973807104ac4ef4ff3a2b13989d7fb3068e5c4b4",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -143556,8 +144253,39 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference:r001@sha256:751de7c100863ac1f5569eb6f7f165d4dacc878aadd451b2741ea9fd1858d6ee",
+            "manifestDigest": "sha256:751de7c100863ac1f5569eb6f7f165d4dacc878aadd451b2741ea9fd1858d6ee",
+            "layerDigest": "sha256:557af25cfc6622cca176b9ef31f4347464c6f589df4fd422b99d1f7d8fb8156e",
+            "objectSetSha256": "sha256:ef6956d9cec1d29fa5955d22d5e5df9db12fa1a122613c7da358e0edcd19dbf8",
+            "receipt": "runs/catalog-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/publication-receipt.yaml",
+            "receiptSha256": "sha256:92eb58574def9c85813fc99daa0fa0f7aea1c8c597db5df7eb71f267da1c1bdc",
+            "plan": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/crd-ordering.yaml",
+                "sha256": "sha256:c31a445ad3a9caad4a73753342226f75de3de05ea03116956701e2f88edadcf8",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:dfc3bd0aa9dbc55073678f2c93e300ce0be1ab66cca0bb43974d7071beefdfb1",
+                "role": "route: lifecycle-actions"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/webhook-certificate.yaml",
+                "sha256": "sha256:e0633dc8e9d6e81998ab80941f0b279f469a5ae72883857e544ca8f74685ed84",
+                "role": "route: webhook-certificate"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/requirements/target-requirements.yaml",
+                "sha256": "sha256:1e4785ed5af5cc976c5ecd0ef28b02fdb623f9cc259ca79ecd5878dac16457ee",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -144178,8 +144906,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-k8s-nim-operator-3-1-0-default:r001@sha256:711ada6ecf86eaaa3b5d073b4e25f65583c90e65f1f31cfbfeee7d18b993a24c",
+            "manifestDigest": "sha256:711ada6ecf86eaaa3b5d073b4e25f65583c90e65f1f31cfbfeee7d18b993a24c",
+            "layerDigest": "sha256:c8bb39047a37805787e7b9f1256086de17c0c0e495380bd2c39acf04c1a9869f",
+            "objectSetSha256": "sha256:226c148d867aff54fd40bdce6debeec6201ce90a726f09087bd438ea426e450f",
+            "receipt": "runs/catalog-literal-bundles/nvidia-k8s-nim-operator-3-1-0-default/publication-receipt.yaml",
+            "receiptSha256": "sha256:1aad10ca24790448392095887ec661aa04962d2f6c20e8369ce8ad436a00f2ba",
+            "plan": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-default/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-default/routes/crd-ordering.yaml",
+                "sha256": "sha256:fa66dfba7dc51542e224368057c28a71545231d9e273ca2eb4a4d3a344b8852f",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-default/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:5a2d2d5b1fc41543debf42b1adbfec6bad7e27c886a84051065698a3853e7d95",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-default/requirements/target-requirements.yaml",
+                "sha256": "sha256:81e0945a3f67a2114c797205c324af61fd839c08401e11ab64d7e0a4b6a24fb9",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -144800,8 +145554,34 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-k8s-nim-operator-3-1-2-default:r001@sha256:4bc981f865b68c2a454b228cdef0bb205562aab69682d080e1ba6f23ccff07e3",
+            "manifestDigest": "sha256:4bc981f865b68c2a454b228cdef0bb205562aab69682d080e1ba6f23ccff07e3",
+            "layerDigest": "sha256:725c3731639f77656fd8f9730cf47d8a9a345124c6f066e32f109bd441668275",
+            "objectSetSha256": "sha256:b152742ed9d6d23ffc731464407499cf534c2c155657052cb1f9425000f6830f",
+            "receipt": "runs/catalog-literal-bundles/nvidia-k8s-nim-operator-3-1-2-default/publication-receipt.yaml",
+            "receiptSha256": "sha256:5b0e956f4e98f9b7dbb72e4c8a2374d94d789fc63f99e550563f8392bfcdfa45",
+            "plan": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-2-default/literal-config-oci.yaml",
+            "routes": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-2-default/routes/crd-ordering.yaml",
+                "sha256": "sha256:eba515b1706bc479f124aa34a4ea9e3c5c34358c4b60c16dbe1ad09303724155",
+                "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-2-default/routes/lifecycle-actions.yaml",
+                "sha256": "sha256:3cb22c00a4ded7240f414a5138f124ba0899849a57d88fe24579187c033596e7",
+                "role": "route: lifecycle-actions"
+              }
+            ],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-2-default/requirements/target-requirements.yaml",
+                "sha256": "sha256:698e36784b86b097407268f82c740fc0f236188b6c7b8a329ec79b2c194855c7",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -145850,8 +146630,23 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-20-0-aicr-eks-training:r001@sha256:b897b4c392d90d5285393d171b14454f4ef93da72f2c86054b4e0faa8c6aa6d5",
+            "manifestDigest": "sha256:b897b4c392d90d5285393d171b14454f4ef93da72f2c86054b4e0faa8c6aa6d5",
+            "layerDigest": "sha256:4436bd459db5159410ed34fb2508cd91fc017602ecb312edca1a0476fca0c90c",
+            "objectSetSha256": "sha256:28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee",
+            "receipt": "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-20-0-aicr-eks-training/publication-receipt.yaml",
+            "receiptSha256": "sha256:5778cf7e3e62c46204adb4423861c7099267397c5ef6bf00dcaf8b98c9397e53",
+            "plan": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-20-0-aicr-eks-training/literal-config-oci.yaml",
+            "routes": [],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-20-0-aicr-eks-training/requirements/target-requirements.yaml",
+                "sha256": "sha256:834f89330bc96199ffe3f3ad2dc3e64d42d6625b240eeebdf96910eda9106af5",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -146144,8 +146939,23 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-20-0-default:r001@sha256:d157be9fa5bc944ec5c966e550385141a61b6df31ddfac9dfd4ddbe0d2b355c4",
+            "manifestDigest": "sha256:d157be9fa5bc944ec5c966e550385141a61b6df31ddfac9dfd4ddbe0d2b355c4",
+            "layerDigest": "sha256:0c64c78646a919e21779ddf554071aee0a2bff66494529295636ed3c6e66db4f",
+            "objectSetSha256": "sha256:3344e2d68968a485305ba8280ebb1676457f5552cd665c8000faa38c42841377",
+            "receipt": "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-20-0-default/publication-receipt.yaml",
+            "receiptSha256": "sha256:4af4e425f42c8db2844ffde8652e3c72638dcfbdfb6f9814a62e99bb96fc8bda",
+            "plan": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-20-0-default/literal-config-oci.yaml",
+            "routes": [],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-20-0-default/requirements/target-requirements.yaml",
+                "sha256": "sha256:3a54bad0ae77bb97f1daeb9bae6f25551d4c30ae3632bf4424184ef943de4ef1",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -146390,8 +147200,23 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-20-0-no-pod-monitor:r001@sha256:0ac231aff1feba58dafc7f92207044a6c4511d46accd4b737d51900f719ff2a4",
+            "manifestDigest": "sha256:0ac231aff1feba58dafc7f92207044a6c4511d46accd4b737d51900f719ff2a4",
+            "layerDigest": "sha256:539b3642e896b3624be63e868e8a8bfdf13a4560fc96227feec326cd51dcbd6c",
+            "objectSetSha256": "sha256:90aeac70ec22badcd205ec6a6ee66b7490a8353eb3242cde61bedce08bd4c3eb",
+            "receipt": "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-20-0-no-pod-monitor/publication-receipt.yaml",
+            "receiptSha256": "sha256:3ea2cf845f9d58d67e7e663e09cdacb53ffa66bde8c0553d9b0ea8b95161e55c",
+            "plan": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-20-0-no-pod-monitor/literal-config-oci.yaml",
+            "routes": [],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-20-0-no-pod-monitor/requirements/target-requirements.yaml",
+                "sha256": "sha256:50857181604ea059de9c2d64cce114b886213404aa64b7f7a9369d3fff4089cf",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -146684,8 +147509,23 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-25-0-aicr-eks-training:r001@sha256:33978de724fdebc0158ea6c1fc1fd5956ef60f6242e90b644baac111a0165bc1",
+            "manifestDigest": "sha256:33978de724fdebc0158ea6c1fc1fd5956ef60f6242e90b644baac111a0165bc1",
+            "layerDigest": "sha256:30278e3388b91a07f87d01ff9f9ca3641e277b5cd7d762d89e48f04605f2d451",
+            "objectSetSha256": "sha256:a0a98f57755f4be60aedae1219efb32059025921a6c5eb15f57e87d5a7776b15",
+            "receipt": "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-25-0-aicr-eks-training/publication-receipt.yaml",
+            "receiptSha256": "sha256:371cc492c5185c36e2718e813b959336ef3b5d98eb1483069d3033c0b4dcb11c",
+            "plan": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-25-0-aicr-eks-training/literal-config-oci.yaml",
+            "routes": [],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-25-0-aicr-eks-training/requirements/target-requirements.yaml",
+                "sha256": "sha256:382f5b3ef73fe1ed939713abe0aed574abb8e1407b554752749eb7e309ebbfd5",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -146978,8 +147818,23 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-25-0-default:r001@sha256:b82a55de98d9b14a8aa63f684ada15a86389aa607c4371843c55df87ff9d4368",
+            "manifestDigest": "sha256:b82a55de98d9b14a8aa63f684ada15a86389aa607c4371843c55df87ff9d4368",
+            "layerDigest": "sha256:f4b42b7487d117e4886f1e19ab1071e5f0a285361a336a5c969a577120f3145d",
+            "objectSetSha256": "sha256:f12a375c7b63cdfe02ed6eda602a22c771d43216297ab2089f374ef913a86ec2",
+            "receipt": "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-25-0-default/publication-receipt.yaml",
+            "receiptSha256": "sha256:171ecdc2b4527caccd792af13b0bc04313a3fcb38e1bc18edb9c73893ae5b873",
+            "plan": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-25-0-default/literal-config-oci.yaml",
+            "routes": [],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-25-0-default/requirements/target-requirements.yaml",
+                "sha256": "sha256:260cc773b959f18444b4188349188485025e3cd7351d881d4321a4ea87e62715",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -147224,8 +148079,23 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-25-0-no-pod-monitor:r001@sha256:b95d3112fed76a9536db6e6052ef24d8a5667635af5f1cc12ffd0b10bc054915",
+            "manifestDigest": "sha256:b95d3112fed76a9536db6e6052ef24d8a5667635af5f1cc12ffd0b10bc054915",
+            "layerDigest": "sha256:c071dd609717b0b9eb43e1c7a085aff5b997850b360470365d60d445c44cb425",
+            "objectSetSha256": "sha256:efeccf54131507abb5c6c4965ec661bcc48b5e89f609afdcdf9f299a8afbbd25",
+            "receipt": "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-25-0-no-pod-monitor/publication-receipt.yaml",
+            "receiptSha256": "sha256:9fd27258ca6052e472f3df5cdf0b9e7e9c2c58910492766a1870ec1d442cf858",
+            "plan": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-25-0-no-pod-monitor/literal-config-oci.yaml",
+            "routes": [],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-25-0-no-pod-monitor/requirements/target-requirements.yaml",
+                "sha256": "sha256:8360ca5f4273142811bf04474e06cfde6b474f92f6a49e455028cf4243c892b2",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -147518,8 +148388,23 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-26-0-default:r001@sha256:eba24a027be8108c16fec07e1c3797f1f34a17676ef3b41d4cfbce528b5a5aeb",
+            "manifestDigest": "sha256:eba24a027be8108c16fec07e1c3797f1f34a17676ef3b41d4cfbce528b5a5aeb",
+            "layerDigest": "sha256:b44a86ad3acf2ed67c9515060df5a3a3ead72c8fb1bd45b1729bd0b5b643869f",
+            "objectSetSha256": "sha256:24814ac18cb0a16ce47a9d02a6a4c01d86ad3b99c1382f47b5daf734c4bc70ae",
+            "receipt": "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-26-0-default/publication-receipt.yaml",
+            "receiptSha256": "sha256:682560fdab0c88d909a25c6204e142814d4bfe42eceede58e80d86e487b64e27",
+            "plan": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-26-0-default/literal-config-oci.yaml",
+            "routes": [],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-26-0-default/requirements/target-requirements.yaml",
+                "sha256": "sha256:247ebb590ef50ea8fcc229417e589794a9098c8977dec675c71c75c7f831a778",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -147764,8 +148649,23 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-26-0-no-pod-monitor:r001@sha256:0cdf4f40e7e14ca8d58ba9ad59d08e29cb503460de0ddbcc25258cf17acec02f",
+            "manifestDigest": "sha256:0cdf4f40e7e14ca8d58ba9ad59d08e29cb503460de0ddbcc25258cf17acec02f",
+            "layerDigest": "sha256:27a19a3bf720a92ea448307fb814cedaa7e68839369b1f341f9d2296e217fc92",
+            "objectSetSha256": "sha256:46e1eea6fdb17a85b71a8e36978dc96364ed5d65ee7951b02b22cf7de8733c00",
+            "receipt": "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-26-0-no-pod-monitor/publication-receipt.yaml",
+            "receiptSha256": "sha256:157808796475784c78eb92a69fc34eb577d9eb6bf70a7bb00e7d2e369d5aad3f",
+            "plan": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-26-0-no-pod-monitor/literal-config-oci.yaml",
+            "routes": [],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-26-0-no-pod-monitor/requirements/target-requirements.yaml",
+                "sha256": "sha256:91f796a7f8b0a6dd6fc89bea716a37e1f0032d2384a088aa59b30de2388939f8",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -148058,8 +148958,23 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-9-0-aicr-eks-training:r001@sha256:cc00867b815a5aa18c03be0aa0b62eb3fb3a9907b88be5f1419347158d92ea36",
+            "manifestDigest": "sha256:cc00867b815a5aa18c03be0aa0b62eb3fb3a9907b88be5f1419347158d92ea36",
+            "layerDigest": "sha256:ca1e8454ed25a1e2be134d5d513801506b2b3ef199352c19936273b8706c9d54",
+            "objectSetSha256": "sha256:108838b8b474bf4a3e5bf541af136ef74fcacfdf74cb16ed18f7d999a44f365d",
+            "receipt": "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-9-0-aicr-eks-training/publication-receipt.yaml",
+            "receiptSha256": "sha256:f15a7c6d61755ef16ba7f2579eac6adcad25f6c9280f3cf4e57f60a3436e915d",
+            "plan": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-9-0-aicr-eks-training/literal-config-oci.yaml",
+            "routes": [],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-9-0-aicr-eks-training/requirements/target-requirements.yaml",
+                "sha256": "sha256:1cf4d8e7483bcc462da76156782d2138460aa318f793f3b8f932d7817971e7ba",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -148352,8 +149267,23 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-9-0-default:r001@sha256:818188983c0d580901df2ae49a3b7bce774e9be976618a74710e57ea387b6c22",
+            "manifestDigest": "sha256:818188983c0d580901df2ae49a3b7bce774e9be976618a74710e57ea387b6c22",
+            "layerDigest": "sha256:3f76d21b2c064fcb7a3099508a8b4338babcbbc6e9fe2eb121a33fab3af0b276",
+            "objectSetSha256": "sha256:ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2",
+            "receipt": "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-9-0-default/publication-receipt.yaml",
+            "receiptSha256": "sha256:20d50e19836851bd6931120d2772cb2133471c42e0758ed0d30cda3a4e51691d",
+            "plan": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-9-0-default/literal-config-oci.yaml",
+            "routes": [],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-9-0-default/requirements/target-requirements.yaml",
+                "sha256": "sha256:4c73b500bcdb43201e651a4695cd708952cb876ae3445148f4f798449c56c949",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -148598,8 +149528,23 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "published-with-receipt",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-9-0-no-pod-monitor:r001@sha256:5f59e321e37298ccd48a54af3eb15514e94ea0fa5df7b9aa369efd7d07b03a88",
+            "manifestDigest": "sha256:5f59e321e37298ccd48a54af3eb15514e94ea0fa5df7b9aa369efd7d07b03a88",
+            "layerDigest": "sha256:eec5390e538b81550e8e0e30286a4a676f20b7d697eb0ad6d98302559e447854",
+            "objectSetSha256": "sha256:5319d654999e0575a5c43ab992c31af9a22a92f5d55f025e4f3ad539cb963810",
+            "receipt": "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-9-0-no-pod-monitor/publication-receipt.yaml",
+            "receiptSha256": "sha256:5d917d084de6c5dd3de2d8584e852e56050024fc84789e5ffd59fd283b028196",
+            "plan": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-9-0-no-pod-monitor/literal-config-oci.yaml",
+            "routes": [],
+            "requirements": [
+              {
+                "path": "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-9-0-no-pod-monitor/requirements/target-requirements.yaml",
+                "sha256": "sha256:5c3b246b4b3838bbf006bc1a4dd446cf300225cf7845aa81598bd559b0c05a1d",
+                "role": "requirement: target"
+              }
+            ],
+            "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",

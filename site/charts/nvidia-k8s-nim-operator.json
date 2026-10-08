@@ -31,7 +31,7 @@
           },
           "objectCount": 17,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/rendered/release-objects.yaml",
@@ -61,7 +61,7 @@
           },
           "objectCount": 17,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/default/r001/rendered/release-objects.yaml",
@@ -79,7 +79,7 @@
           },
           "objectCount": 21,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/rendered/release-objects.yaml",
