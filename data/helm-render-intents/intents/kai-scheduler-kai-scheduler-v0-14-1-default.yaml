@@ -1,0 +1,347 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0-14-1-default"
+  labels:
+    component: "kai-scheduler/kai-scheduler"
+    chart: "kai-scheduler/kai-scheduler"
+    version: "v0.14.1"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "kai-scheduler/kai-scheduler"
+  chart:
+    name: "kai-scheduler/kai-scheduler"
+    version: "v0.14.1"
+    sourceRepository: "oci://ghcr.io/kai-scheduler/kai-scheduler"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/kai-scheduler/kai-scheduler/v0.14.1"
+    variant: "recipes/kai-scheduler/kai-scheduler/v0.14.1/variants/default/variant.yaml"
+    revision: "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/kai-scheduler/kai-scheduler/v0.14.1/bases/default"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.14.1@sha256:5e7b31be9fa573c1d9eba1e990ac6ff678388be26754ab55b0fe0d4593f37510"
+    sourceLock: "recipes/kai-scheduler/kai-scheduler/v0.14.1/source-lock.yaml"
+    namespace: "kai-scheduler"
+    releaseName: "kai-scheduler"
+    valuesProfile: "recipes/kai-scheduler/kai-scheduler/v0.14.1/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/kai-scheduler/kai-scheduler/v0.14.1/bases/default"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "bindrequests.scheduling.run.ai"
+          purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "configs.kai.scheduler"
+          purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "podgroups.scheduling.run.ai"
+          purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "queues.scheduling.run.ai"
+          purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "schedulingshards.kai.scheduler"
+          purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "topologies.kai.scheduler"
+          purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+    requirements:
+      -
+        category: "crd"
+        name: "bindrequests.scheduling.run.ai"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/kai-scheduler/kai-scheduler/v0.14.1/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kai-scheduler/kai-scheduler/v0.14.1/variants/default/variant.yaml"
+          - "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "configs.kai.scheduler"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/kai-scheduler/kai-scheduler/v0.14.1/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kai-scheduler/kai-scheduler/v0.14.1/variants/default/variant.yaml"
+          - "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "podgroups.scheduling.run.ai"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/kai-scheduler/kai-scheduler/v0.14.1/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kai-scheduler/kai-scheduler/v0.14.1/variants/default/variant.yaml"
+          - "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "queues.scheduling.run.ai"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/kai-scheduler/kai-scheduler/v0.14.1/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kai-scheduler/kai-scheduler/v0.14.1/variants/default/variant.yaml"
+          - "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "schedulingshards.kai.scheduler"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/kai-scheduler/kai-scheduler/v0.14.1/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kai-scheduler/kai-scheduler/v0.14.1/variants/default/variant.yaml"
+          - "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "topologies.kai.scheduler"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/kai-scheduler/kai-scheduler/v0.14.1/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kai-scheduler/kai-scheduler/v0.14.1/variants/default/variant.yaml"
+          - "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/target-facts/default-crds.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "6 target prerequisites declared by this base."
+      declarationSource: "recipes/kai-scheduler/kai-scheduler/v0.14.1/variants/default/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/kai-scheduler/kai-scheduler/v0.14.1/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 6
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/kai-scheduler/kai-scheduler/v0.14.1"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/kai-scheduler/kai-scheduler/v0.14.1/bases/default"
+    fullModelPath:
+      - "chart/version: kai-scheduler/kai-scheduler@v0.14.1"
+      - "recipe: recipes/kai-scheduler/kai-scheduler/v0.14.1"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-14-1-default.yaml"
+      - "rendered revision: recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/rendered/release-objects.yaml"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.14.1@sha256:5e7b31be9fa573c1d9eba1e990ac6ff678388be26754ab55b0fe0d4593f37510"
+      - "package base: packages/kai-scheduler/kai-scheduler/v0.14.1/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

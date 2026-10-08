@@ -1,0 +1,491 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training"
+  labels:
+    component: "prometheus-community/prometheus-operator-crds"
+    chart: "prometheus-community/prometheus-operator-crds"
+    version: "28.0.1"
+    base: "aicr-eks-training"
+    catalogLayer: "F2b"
+spec:
+  component: "prometheus-community/prometheus-operator-crds"
+  chart:
+    name: "prometheus-community/prometheus-operator-crds"
+    version: "28.0.1"
+    sourceRepository: "https://prometheus-community.github.io/helm-charts"
+    sourceContent: ""
+  baseVariant: "aicr-eks-training"
+  renderInputs:
+    recipe: "recipes/prometheus-community/prometheus-operator-crds/28.0.1"
+    variant: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+    revision: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/variant-revision.yaml"
+    packageBase: "packages/prometheus-community/prometheus-operator-crds/28.0.1/bases/aicr-eks-training"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea"
+    sourceLock: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/source-lock.yaml"
+    namespace: "monitoring"
+    releaseName: "prometheus-operator-crds"
+    valuesProfile: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/effective-values-aicr-eks-training.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+    revision: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/variant-revision.yaml"
+    packageBase: "packages/prometheus-community/prometheus-operator-crds/28.0.1/bases/aicr-eks-training"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "alertmanagerconfigs.monitoring.coreos.com"
+          purpose: "CRD included in this base; the entry exists to install it"
+          sourceVariant: "aicr-eks-training"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "alertmanagers.monitoring.coreos.com"
+          purpose: "CRD included in this base; the entry exists to install it"
+          sourceVariant: "aicr-eks-training"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "podmonitors.monitoring.coreos.com"
+          purpose: "CRD included in this base; the entry exists to install it"
+          sourceVariant: "aicr-eks-training"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "probes.monitoring.coreos.com"
+          purpose: "CRD included in this base; the entry exists to install it"
+          sourceVariant: "aicr-eks-training"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "prometheusagents.monitoring.coreos.com"
+          purpose: "CRD included in this base; the entry exists to install it"
+          sourceVariant: "aicr-eks-training"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "prometheuses.monitoring.coreos.com"
+          purpose: "CRD included in this base; the entry exists to install it"
+          sourceVariant: "aicr-eks-training"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "prometheusrules.monitoring.coreos.com"
+          purpose: "CRD included in this base; the entry exists to install it"
+          sourceVariant: "aicr-eks-training"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "scrapeconfigs.monitoring.coreos.com"
+          purpose: "CRD included in this base; the entry exists to install it"
+          sourceVariant: "aicr-eks-training"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "servicemonitors.monitoring.coreos.com"
+          purpose: "CRD included in this base; the entry exists to install it"
+          sourceVariant: "aicr-eks-training"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "thanosrulers.monitoring.coreos.com"
+          purpose: "CRD included in this base; the entry exists to install it"
+          sourceVariant: "aicr-eks-training"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+    requirements:
+      -
+        category: "crd"
+        name: "alertmanagerconfigs.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; the entry exists to install it"
+        check: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        declarationPath: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+        sourceVariant: "aicr-eks-training"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+          - "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+      -
+        category: "crd"
+        name: "alertmanagers.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; the entry exists to install it"
+        check: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        declarationPath: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+        sourceVariant: "aicr-eks-training"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+          - "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+      -
+        category: "crd"
+        name: "podmonitors.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; the entry exists to install it"
+        check: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        declarationPath: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+        sourceVariant: "aicr-eks-training"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+          - "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+      -
+        category: "crd"
+        name: "probes.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; the entry exists to install it"
+        check: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        declarationPath: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+        sourceVariant: "aicr-eks-training"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+          - "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+      -
+        category: "crd"
+        name: "prometheusagents.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; the entry exists to install it"
+        check: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        declarationPath: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+        sourceVariant: "aicr-eks-training"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+          - "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+      -
+        category: "crd"
+        name: "prometheuses.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; the entry exists to install it"
+        check: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        declarationPath: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+        sourceVariant: "aicr-eks-training"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+          - "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+      -
+        category: "crd"
+        name: "prometheusrules.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; the entry exists to install it"
+        check: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        declarationPath: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+        sourceVariant: "aicr-eks-training"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+          - "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+      -
+        category: "crd"
+        name: "scrapeconfigs.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; the entry exists to install it"
+        check: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        declarationPath: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+        sourceVariant: "aicr-eks-training"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+          - "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+      -
+        category: "crd"
+        name: "servicemonitors.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; the entry exists to install it"
+        check: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        declarationPath: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+        sourceVariant: "aicr-eks-training"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+          - "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+      -
+        category: "crd"
+        name: "thanosrulers.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; the entry exists to install it"
+        check: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        packagePath: "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        declarationPath: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+        sourceVariant: "aicr-eks-training"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+          - "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "10 target prerequisites declared by this base."
+      declarationSource: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/effective-values-aicr-eks-training.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 10
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-operator-crds/28.0.1/bases/aicr-eks-training"
+    fullModelPath:
+      - "chart/version: prometheus-community/prometheus-operator-crds@28.0.1"
+      - "recipe: recipes/prometheus-community/prometheus-operator-crds/28.0.1"
+      - "base variant: aicr-eks-training"
+      - "render intent: data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.yaml"
+      - "rendered revision: recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea"
+      - "package base: packages/prometheus-community/prometheus-operator-crds/28.0.1/bases/aicr-eks-training"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

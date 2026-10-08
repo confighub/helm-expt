@@ -1,0 +1,275 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "kubeflow-kubeflow-trainer-2-2-0-default"
+  labels:
+    component: "kubeflow/kubeflow-trainer"
+    chart: "kubeflow/kubeflow-trainer"
+    version: "2.2.0"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "kubeflow/kubeflow-trainer"
+  chart:
+    name: "kubeflow/kubeflow-trainer"
+    version: "2.2.0"
+    sourceRepository: "oci://ghcr.io/kubeflow/charts"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/kubeflow/kubeflow-trainer/2.2.0"
+    variant: "recipes/kubeflow/kubeflow-trainer/2.2.0/variants/default/variant.yaml"
+    revision: "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/kubeflow/kubeflow-trainer/2.2.0/bases/default"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6"
+    sourceLock: "recipes/kubeflow/kubeflow-trainer/2.2.0/source-lock.yaml"
+    namespace: "kubeflow"
+    releaseName: "kubeflow-trainer"
+    valuesProfile: "recipes/kubeflow/kubeflow-trainer/2.2.0/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/kubeflow/kubeflow-trainer/2.2.0/bases/default"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clustertrainingruntimes.trainer.kubeflow.org"
+          purpose: "CRD included in this base and applied before the controllers that reconcile it"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "jobsets.jobset.x-k8s.io"
+          purpose: "CRD included in this base and applied before the controllers that reconcile it"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "trainingruntimes.trainer.kubeflow.org"
+          purpose: "CRD included in this base and applied before the controllers that reconcile it"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "trainjobs.trainer.kubeflow.org"
+          purpose: "CRD included in this base and applied before the controllers that reconcile it"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/default-crds.yaml"
+    requirements:
+      -
+        category: "crd"
+        name: "clustertrainingruntimes.trainer.kubeflow.org"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the controllers that reconcile it"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/kubeflow/kubeflow-trainer/2.2.0/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kubeflow/kubeflow-trainer/2.2.0/variants/default/variant.yaml"
+          - "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "jobsets.jobset.x-k8s.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the controllers that reconcile it"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/kubeflow/kubeflow-trainer/2.2.0/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kubeflow/kubeflow-trainer/2.2.0/variants/default/variant.yaml"
+          - "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "trainingruntimes.trainer.kubeflow.org"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the controllers that reconcile it"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/kubeflow/kubeflow-trainer/2.2.0/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kubeflow/kubeflow-trainer/2.2.0/variants/default/variant.yaml"
+          - "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "trainjobs.trainer.kubeflow.org"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the controllers that reconcile it"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/kubeflow/kubeflow-trainer/2.2.0/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kubeflow/kubeflow-trainer/2.2.0/variants/default/variant.yaml"
+          - "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/default-crds.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "4 target prerequisites declared by this base."
+      declarationSource: "recipes/kubeflow/kubeflow-trainer/2.2.0/variants/default/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/kubeflow/kubeflow-trainer/2.2.0/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 4
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/kubeflow/kubeflow-trainer/2.2.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/kubeflow/kubeflow-trainer/2.2.0/bases/default"
+    fullModelPath:
+      - "chart/version: kubeflow/kubeflow-trainer@2.2.0"
+      - "recipe: recipes/kubeflow/kubeflow-trainer/2.2.0"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/kubeflow-kubeflow-trainer-2-2-0-default.yaml"
+      - "rendered revision: recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/rendered/release-objects.yaml"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6"
+      - "package base: packages/kubeflow/kubeflow-trainer/2.2.0/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

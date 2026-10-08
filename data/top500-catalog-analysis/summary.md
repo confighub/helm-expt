@@ -20,21 +20,21 @@ that chart.
 rows: 500
 source scanned: 495
 source failed: 5
-current proof recipes in repo: 117
-retained newer candidate proof versions: 50
-current proof recipes matched to retained source-scan rows: 97
-current proof recipes not represented in retained source-scan rows: 20
-current recipe proofs: 97
-proof matched by exact chart ref: 67
+current proof recipes in repo: 124
+retained newer candidate proof versions: 56
+current proof recipes matched to retained source-scan rows: 98
+current proof recipes not represented in retained source-scan rows: 26
+current recipe proofs: 98
+proof matched by exact chart ref: 68
 proof matched by chart name and version: 16
 proof matched by chart name only: 14
-exact source/current version matches: 70
-current recipe version differs from retained source-scan row: 27
-no current recipe proof: 403
+exact source/current version matches: 68
+current recipe version differs from retained source-scan row: 30
+no current recipe proof: 402
 catalog-supported: 20
-proof-grade: 76
-multi-variant proofs: 62
-default-only proofs: 35
+proof-grade: 74
+multi-variant proofs: 65
+default-only proofs: 33
 catalog-supported production-blocked: 0
 catalog-supported production-review-ready: 20
 ```
@@ -43,18 +43,18 @@ catalog-supported production-review-ready: 20
 
 - Helm complexity is normal, not exceptional. The high-rank rows include CRDs,
   hooks, generated facts, lookup, tpl, RBAC, webhooks, and stateful storage.
-- 117 current chart recipe/package/proof artifacts exist in this repo.
-- 50 newer candidate version artifact(s) are retained separately and are not counted as additional chart coverage.
-- 97 of the top-500 source rows currently match those
+- 124 current chart recipe/package/proof artifacts exist in this repo.
+- 56 newer candidate version artifact(s) are retained separately and are not counted as additional chart coverage.
+- 98 of the top-500 source rows currently match those
   proof artifacts.
 - 20 matched rows are catalog-supported for the
   declared `local-test` scope.
-- 76 matched rows are proof-grade default installs. They
+- 74 matched rows are proof-grade default installs. They
   prove deterministic render/package behavior, but they still need
   user-shaped variants before catalog promotion.
-- 403 rows still have source reconnaissance only.
+- 402 rows still have source reconnaissance only.
   They are useful backlog data, not product proof.
-- 27 rows have a current recipe for the
+- 30 rows have a current recipe for the
   chart but at a different version than the original source-scan row. These are
   upgrade/freshness review candidates.
 - The practical next work is visible: add variants to high-rank proof-grade
@@ -66,12 +66,12 @@ catalog-supported production-review-ready: 20
 - **"Supported" means Level 2.** A chart is supported when every Helm quirk it uses is
   either modeled or explicitly disclosed (operator-decision / blocker) with zero silent
   gaps. Variant richness is an *enhancement* on top of that bar, not the bar itself — all
-  117 current proof recipes are Level-2 supported.
+  124 current proof recipes are Level-2 supported.
 - **A deterministic variant generator now promotes enhancement variants.**
   `scripts/generate-variant-proof.mjs` captures a `helm template` render as a package
   base, proves Helm-equivalence (`cub installer setup` re-emits it), and regenerates all
   bookkeeping; `scripts/run-variant-wave.mjs` drives it in resumable waves. Three waves
-  (no-crds ×2, ha) lifted multi-variant proofs in this matrix to 62.
+  (no-crds ×2, ha) lifted multi-variant proofs in this matrix to 65.
 - **Hooks are routed through lifecycle policy.** Render equivalence does not prove hook
   execution. A chart with hooks still needs a lifecycle disposition for the chosen route,
   such as plain applied resources, GitOps-controller behavior, or an operator-reviewed

@@ -1,0 +1,203 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources"
+  labels:
+    component: "dra-driver-nvidia/dra-driver-nvidia-gpu"
+    chart: "dra-driver-nvidia/dra-driver-nvidia-gpu"
+    version: "0.5.0"
+    base: "gpu-resources"
+    catalogLayer: "F2b"
+spec:
+  component: "dra-driver-nvidia/dra-driver-nvidia-gpu"
+  chart:
+    name: "dra-driver-nvidia/dra-driver-nvidia-gpu"
+    version: "0.5.0"
+    sourceRepository: "oci://registry.k8s.io/dra-driver-nvidia/charts"
+    sourceContent: ""
+  baseVariant: "gpu-resources"
+  renderInputs:
+    recipe: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0"
+    variant: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/variants/gpu-resources/variant.yaml"
+    revision: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/variant-revision.yaml"
+    packageBase: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/bases/gpu-resources"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0@sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e"
+    sourceLock: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/source-lock.yaml"
+    namespace: "nvidia-dra-driver"
+    releaseName: "nvidia-dra-driver-gpu"
+    valuesProfile: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/effective-values-gpu-resources.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.34.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/rendered/object-inventory.yaml"
+    revision: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/variant-revision.yaml"
+    packageBase: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/bases/gpu-resources"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "computedomaincliques.resource.nvidia.com"
+          purpose: "CRD included in this base and applied before the controller that reconciles it"
+          sourceVariant: "gpu-resources"
+          packageSource: "package://prerequisites/target-facts/gpu-resources-crds.yaml"
+          packagePath: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/gpu-resources-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "computedomains.resource.nvidia.com"
+          purpose: "CRD included in this base and applied before the controller that reconciles it"
+          sourceVariant: "gpu-resources"
+          packageSource: "package://prerequisites/target-facts/gpu-resources-crds.yaml"
+          packagePath: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/gpu-resources-crds.yaml"
+    requirements:
+      -
+        category: "crd"
+        name: "computedomaincliques.resource.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        check: "package://prerequisites/target-facts/gpu-resources-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/gpu-resources-crds.yaml"
+        packagePath: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/gpu-resources-crds.yaml"
+        declarationPath: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/variants/gpu-resources/variant.yaml"
+        sourceVariant: "gpu-resources"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/variants/gpu-resources/variant.yaml"
+          - "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/gpu-resources-crds.yaml"
+      -
+        category: "crd"
+        name: "computedomains.resource.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        check: "package://prerequisites/target-facts/gpu-resources-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/gpu-resources-crds.yaml"
+        packagePath: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/gpu-resources-crds.yaml"
+        declarationPath: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/variants/gpu-resources/variant.yaml"
+        sourceVariant: "gpu-resources"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/variants/gpu-resources/variant.yaml"
+          - "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/gpu-resources-crds.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "2 target prerequisites declared by this base."
+      declarationSource: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/variants/gpu-resources/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/effective-values-gpu-resources.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 2
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/bases/gpu-resources"
+    fullModelPath:
+      - "chart/version: dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0"
+      - "recipe: recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0"
+      - "base variant: gpu-resources"
+      - "render intent: data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources.yaml"
+      - "rendered revision: recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/rendered/release-objects.yaml"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0@sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e"
+      - "package base: packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/bases/gpu-resources"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
