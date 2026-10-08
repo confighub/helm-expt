@@ -1,0 +1,41 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantLiteralConfigPlan"
+metadata:
+  name: "nimservice-standard-nim-service-model-free"
+spec:
+  catalogEntry: "nimservice"
+  variant: "standard-nim-service-model-free"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  plannedReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-model-free:upstream-5d5f66ee0e2e"
+  manifestDigest: "sha256:e3f7332ae8d0ef8e5c6f30b5c1049423100e4cb8a1acb5a70f50872395bd5a44"
+  layerDigest: "sha256:4a41231c95d84d258c93069fbfbcb35150ba45e721a519e3eec1595fef7dc50a"
+  layerBytes: 10775
+  layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+  objectSetSha256: "sha256:41e2cd864f8bd9bf13dfa1acd1a201342561144b06e52d5d9050042174858609"
+  stagedFiles:
+    -
+      path: "model-free.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/kserve/standard/model-free.yaml"
+      role: "exact objects"
+      sha256: "sha256:adec6f4cb47e17dba45b40f177c7b8c206bd59607baed41bd5c7df5de6a38904"
+      bytes: 1386
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/standard-nim-service-model-free/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:434dedfb6de3ddfcf6ba8c25267febf69dff62340ca1c3f3596429ae05bdd556"
+      bytes: 4077
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/standard-nim-service-model-free/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:29a03c4a7cba42796b6ae8b230ede94a483566c11ef1512415fb8c4c21c84bab"
+      bytes: 2235
+  contents:
+    statement: "The artifact holds the retained sample file and its two route files. It holds no container image, no model weight and no Secret value."
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  publication:
+    receipt: "runs/nimservice-variants/nimservice-standard-nim-service-model-free/publication-receipt.yaml"
+    rule: "The variant is published only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-nimservice-variants.mjs"

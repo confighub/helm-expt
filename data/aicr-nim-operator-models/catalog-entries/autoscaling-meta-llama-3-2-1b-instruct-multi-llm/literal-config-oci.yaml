@@ -1,0 +1,41 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantLiteralConfigPlan"
+metadata:
+  name: "nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm"
+spec:
+  catalogEntry: "nimservice"
+  variant: "autoscaling-meta-llama-3-2-1b-instruct-multi-llm"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  plannedReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e"
+  manifestDigest: "sha256:9fb50465a3a976158ee69dadb22c2b4d5932741eec8f35341ef874e86ff59d3e"
+  layerDigest: "sha256:71e18bf837c01dffdc693b429ccf143a903be650c78a15ce11bacb07d3c3224d"
+  layerBytes: 11799
+  layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+  objectSetSha256: "sha256:d0fbdfff38eaef948494be36233d6da35694d03091b16523ccac4d5d7b48af79"
+  stagedFiles:
+    -
+      path: "multi-llm.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/standalone/autoscaling/multi-llm.yaml"
+      role: "exact objects"
+      sha256: "sha256:3c599dbaa3ea9ff7081db63134259f95174c52937b085249eeba3960015a711a"
+      bytes: 1733
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/autoscaling-meta-llama-3-2-1b-instruct-multi-llm/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:fbdf1abf5d7be0a483a046d747ccbfd7892d556c605305e0712df1525d99c786"
+      bytes: 4151
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/autoscaling-meta-llama-3-2-1b-instruct-multi-llm/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:fb0b407ca40fe1fe44cede810d7c4d50ba7a083e6148a7cf1996df46c7b478ea"
+      bytes: 2460
+  contents:
+    statement: "The artifact holds the retained sample file and its two route files. It holds no container image, no model weight and no Secret value."
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  publication:
+    receipt: "runs/nimservice-variants/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm/publication-receipt.yaml"
+    rule: "The variant is published only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-nimservice-variants.mjs"

@@ -1,0 +1,96 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf"
+spec:
+  subject:
+    kind: "nimservice-sample"
+    entry: "data/aicr-nim-operator-models/upstream/serving/standalone/no-precaching/multi-llm-hf.yaml"
+    platformDigest: "sha256:45d247854cbd173d407cc12b2ac50788d0014be73d80d67926e9ce0979fd198d"
+    upstreamVersion: "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
+    note: "The subject is one retained NIMService sample file, 1 object from scenario no-precaching. platformDigest is the object-set digest of that file."
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "the sample is plain YAML and carries no helm.sh/hook annotation"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "the sample carries no helm.sh/resource-policy annotation"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "the sample is plain YAML, so nothing is evaluated at template time"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "the sample holds no webhook configuration"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "the sample is plain YAML, so nothing is selected by cluster capabilities"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "the sample names 2 Secrets it does not ship (hf-secret, ngc-secret)"
+      disposition: "route recorded beside this verdict at data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf/user-supplied-secrets.yaml; the user supplies each Secret, and no value is held here"
+      companionRequired: "external-secret-reference"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "every object the operator owns is a custom resource of apps.nvidia.com/v1alpha1, defined by nimservices.apps.nvidia.com, which the sample does not ship"
+      disposition: "route recorded beside this verdict at data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf/operator-first-ordering.yaml; no runtime has executed it"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "absent"
+      detail: "the sample is applied as written and no retained evidence names an immutable field change"
+      disposition: "none required"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the sample; the nim-service namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "the sample is plain YAML and has no subchart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "the sample carries no test hook"
+      disposition: "none required"
+  componentScope:
+    mode: "reconciled-late-by-the-nim-operator"
+    referencedCharts:
+      - "k8s-nim-operator"
+    statement: "Flattened here means the custom resources as written. The k8s-nim-operator controller turns them into Deployments, Services and volumes on the cluster, and this verdict does not render or assess those. The chart is named as a prerequisite at >=3.1.0, and it is not a Catalog entry on this branch."
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "The sample is born as exact objects, so nothing is rendered. It is usable only after the operator's definitions and controller exist and the user has created the Secrets it names, and those are lifecycle requirements this lane records as routes."
+    routes:
+      - "operator-first ordering, recorded at data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf/operator-first-ordering.yaml and not executed"
+      - "user-supplied Secrets by name, recorded at data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf/user-supplied-secrets.yaml and not executed"
+  boundedness:
+    - "This variant is published as a literal configuration OCI at oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf:upstream-5d5f66ee0e2e@sha256:5d6249680d40c73985c06348f9da5b928e3ef08e195bc166fa9ce989664df1e8, with its two route files. Nothing was uploaded to ConfigHub."
+    - "This variant is not deployed. No operator reconciled it, no model was run, and no cluster or GPU was contacted."
+    - "The container image nvcr.io/nim/nvidia/llm-nim:1.15.0 and the model weights are gated by NVIDIA. This entry did not pull them, does not hold them and will never redistribute them."
+    - "Every field this sample sets is declared by the apps.nvidia.com/v1alpha1 definitions retained from operator v3.1.0 under examples/aicr/eks-h100-inference-nim/operator-crds."
+    - "The newest operator release this sample works with is not established. The sample was retained from upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, and this repository does not record which operator release contains that commit."
+    - "NIMService meta-llama-3-2-1b-instruct asks the operator to create a 10Gi ReadWriteOnce PersistentVolumeClaim with an empty storageClass, so the storage class is a destination choice."
+    - "The NIMService requests 1 GPU per pod as nvidia.com/gpu, with 1 replica."
+  provenance:
+    emittedBy: "scripts/generate-aicr-nim-operator-models.mjs"
+    generatedFrom:
+      - "data/aicr-nim-operator-models/upstream/serving/standalone/no-precaching/multi-llm-hf.yaml"
+      - "data/aicr-nim-operator-models/retention-receipt.yaml"
+      - "examples/aicr/eks-h100-inference-nim/operator-crds/apps.nvidia.com_nimservices.yaml"
+      - "examples/aicr/eks-h100-inference-nim/operator-crds/apps.nvidia.com_nimcaches.yaml"
+      - "examples/aicr/eks-h100-inference-nim/argocd-rendered/templates/k8s-nim-operator.yaml"

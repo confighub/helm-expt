@@ -1,0 +1,49 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantPublicationReceipt"
+metadata:
+  name: "nimservice-grpcroutes-riva-tts"
+spec:
+  plan: "data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/literal-config-oci.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e"
+  immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-grpcroutes-riva-tts@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9"
+  layerDigest: "sha256:99a7580587e8751758622b4b9f5ba19b9172323cfa6ef582d32009af2ab4bb22"
+  layerBytes: 10775
+  objectSetSha256: "sha256:521b278642e743b0c7233c8da8cc9238397ffae08ebbbc3632ad4e5fea0706c7"
+  sourceFileSha256: "sha256:daa8e038c7e4a6cb6c540094e607da9066fd23356a72c2e1d9d3a57302d281a9"
+  stagedFiles:
+    -
+      path: "llm.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/standalone/routers/grpcroutes/llm.yaml"
+      role: "exact objects"
+      sha256: "sha256:daa8e038c7e4a6cb6c540094e607da9066fd23356a72c2e1d9d3a57302d281a9"
+      bytes: 1070
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:ac1c8d34d8c755506b479814d440d3d2677bb713477c3154d3b39a75f26e5d0e"
+      bytes: 4035
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:8b6448a2dc47a5e0e221660c041371d340d3d98ee5817cf86e28f35eae796828"
+      bytes: 2215
+  contents:
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  push:
+    result: "pass"
+    command: "oras cp --from-oci-layout <layout>:upstream-5d5f66ee0e2e europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e"
+  anonymousPull:
+    result: "pass"
+    manifestDigest: "sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9"
+    layerDigest: "sha256:99a7580587e8751758622b4b9f5ba19b9172323cfa6ef582d32009af2ab4bb22"
+    filesMatched: 3
+    command: "oras pull --registry-config <empty config> europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-grpcroutes-riva-tts@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9"
+  signature: "none. The Catalog does not sign certified configuration bundles."
+  observedAt: "2026-10-08T05:48:19.765Z"
+status:
+  result: "pass"

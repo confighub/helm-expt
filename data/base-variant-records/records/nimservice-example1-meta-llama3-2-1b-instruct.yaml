@@ -1,0 +1,398 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "nimservice-example1-meta-llama3-2-1b-instruct"
+  labels:
+    sourceType: "kubernetes-yaml"
+    component: "nimservice"
+    sourceVersion: "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
+    base: "example1-meta-llama3-2-1b-instruct"
+spec:
+  source:
+    type: "kubernetes-yaml"
+    name: "nimservice"
+    version: "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
+    record: "data/aicr-nim-operator-models/retention-receipt.yaml"
+    packageOciRef: ""
+    selection:
+      name: "example1-meta-llama3-2-1b-instruct"
+      kind: "source-variant"
+      provider: "NVIDIA k8s-nim-operator sample corpus"
+      record: "data/aicr-nim-operator-models/retention-receipt.yaml"
+  baseVariant:
+    name: "example1-meta-llama3-2-1b-instruct"
+    revision: "upstream-5d5f66ee0e2e"
+    digest: "6b79a2643dcafb117cc0dc9a1a4c02b310d2a9c14e900bfedb9b6b1899fffc51"
+    digestRole: "source-file"
+    digestRecord: "data/aicr-nim-operator-models/receipts/example1-meta-llama3-2-1b-instruct.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "data/aicr-nim-operator-models/upstream/serving/advanced/dra/auto-creation/example1/llm.yaml"
+    inventory: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/entry.yaml"
+    objectCount: 2
+    digest: "d2e5aaa047a10663926a0d8fe3d83add1e2170d16c87c6305da4db2e6ea7154f"
+    digestRole: "canonical-object-set"
+    digestRecord: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/entry.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/aicr-nim-operator-models/retention-receipt.yaml"
+    materialization:
+      method: "read-literal-configuration"
+      status: "recorded-no-op"
+      outputDigest: "d2e5aaa047a10663926a0d8fe3d83add1e2170d16c87c6305da4db2e6ea7154f"
+      record: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/entry.yaml"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "nimservice@5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f/example1-meta-llama3-2-1b-instruct; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/flattening-safety-verdict.yaml"
+    boundaries:
+      - "The source already contains exact Kubernetes objects; parsing and canonicalization do not change their meaning."
+      - "The objects are custom resources. The NIM Operator turns them into Deployments, Services and volumes on the cluster, and this entry has not rendered or assessed those."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Read and compare the exact Kubernetes objects and their digest without running a source processor."
+        requiredInputs:
+          - "The Kubernetes YAML files"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/aicr-nim-operator-models/retention-receipt.yaml"
+          - "data/aicr-nim-operator-models/upstream/serving/advanced/dra/auto-creation/example1/llm.yaml"
+          - "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/entry.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "This source already contains exact Kubernetes objects. Reading and fingerprinting them is the recorded materialization step."
+        requiredInputs:
+          - "The literal Kubernetes YAML; no source processor is required"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/aicr-nim-operator-models/retention-receipt.yaml"
+          - "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/entry.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          - "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/operator-first-ordering.yaml"
+        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "source=data/aicr-nim-operator-models/upstream/serving/advanced/dra/auto-creation/example1/llm.yaml"
+      - "upstreamCommit=5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
+      - "sourceFileSha256=6b79a2643dcafb117cc0dc9a1a4c02b310d2a9c14e900bfedb9b6b1899fffc51"
+      - "objectSetSha256=d2e5aaa047a10663926a0d8fe3d83add1e2170d16c87c6305da4db2e6ea7154f"
+      - "image=nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0"
+    installTime:
+      -
+        category: "operator"
+        name: "k8s-nim-operator"
+        purpose: "The k8s-nim-operator chart at >=3.1.0 must be installed first. Every field this sample sets is declared by the apps.nvidia.com/v1alpha1 definitions retained from operator v3.1.0 under examples/aicr/eks-h100-inference-nim/operator-crds. The newest operator release this sample works with is not established. The sample was retained from upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, and this repository does not record which operator release contains that commit."
+      -
+        category: "secret"
+        name: "ngc-secret"
+        purpose: "The user supplies this image pull Secret. It is named by NIMCache spec.source.ngc.pullSecret and NIMService spec.image.pullSecrets."
+      -
+        category: "secret"
+        name: "ngc-api-secret"
+        purpose: "The user supplies this API key Secret. It is named by NIMCache spec.source.ngc.authSecret and NIMService spec.authSecret."
+      -
+        category: "target-fact"
+        name: "gpu-request"
+        purpose: "The NIMService requests 1 GPU per pod through a Dynamic Resource Allocation claim, with 1 replica. A destination needs that many allocatable GPUs of a kind the image supports, and nothing here checked one."
+      -
+        category: "target-fact"
+        name: "namespace"
+        purpose: "Every object in the sample is in the nim-service namespace. The sample ships no Namespace object, so the namespace must exist before apply."
+      -
+        category: "target-fact"
+        name: "dynamic-resource-allocation"
+        purpose: "The sample claims its GPU through Dynamic Resource Allocation with device class gpu.nvidia.com. The destination needs the resource.k8s.io API and a driver that publishes that class."
+    installTimeStatus: "destination-facts-recorded-not-run"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "nim-operator-first"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Install the k8s-nim-operator chart from https://helm.ngc.nvidia.com/nvidia at >=3.1.0 and wait for nimcaches.apps.nvidia.com and nimservices.apps.nvidia.com before applying this sample. The k8s-nim-operator chart is not yet a Catalog entry on this branch, so this requirement names the chart and does not link a record."
+        -
+          id: "image-pull-secret"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Create the image pull Secret ngc-secret (NIMCache spec.source.ngc.pullSecret, NIMService spec.image.pullSecrets) in the sample's namespace before apply. The sample carries the name only, and no credential is held here."
+        -
+          id: "model-auth-secret"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Create the API key Secret ngc-api-secret (NIMCache spec.source.ngc.authSecret, NIMService spec.authSecret) in the sample's namespace before apply. The sample carries the name only, and no key or token is held here."
+        -
+          id: "model-storage"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The NIMService reads its model from NIMCache meta-llama3-2-1b-instruct, which this sample file also defines. NIMCache meta-llama3-2-1b-instruct asks the operator to create a 50Gi ReadWriteOnce PersistentVolumeClaim with an empty storageClass, so the storage class is a destination choice. Nothing here checked that a destination can provide it."
+        -
+          id: "gpu-request"
+          origin: "base"
+          type: "target-fact"
+          detail: "The NIMService requests 1 GPU per pod through a Dynamic Resource Allocation claim, with 1 replica. A destination needs that many allocatable GPUs of a kind the image supports, and nothing here checked one."
+        -
+          id: "namespace"
+          origin: "base"
+          type: "target-fact"
+          detail: "Every object in the sample is in the nim-service namespace. The sample ships no Namespace object, so the namespace must exist before apply."
+        -
+          id: "dynamic-resource-allocation"
+          origin: "base"
+          type: "target-fact"
+          detail: "The sample claims its GPU through Dynamic Resource Allocation with device class gpu.nvidia.com. The destination needs the resource.k8s.io API and a driver that publishes that class."
+      records:
+        - "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/operator-first-ordering.yaml"
+    routeIntent:
+      status: "recorded"
+      routes:
+        -
+          id: "nim-operator-first"
+          requirementRefs:
+            - "nim-operator-first"
+          phase: "destination-resolution"
+          proposedActor: "The platform team that runs the NIM Operator on the selected destination"
+          proposedMechanism: "Install the k8s-nim-operator chart from https://helm.ngc.nvidia.com/nvidia at >=3.1.0 and wait for nimcaches.apps.nvidia.com and nimservices.apps.nvidia.com before applying this sample. The k8s-nim-operator chart is not yet a Catalog entry on this branch, so this requirement names the chart and does not link a record."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "generated-not-live"
+          supportedRuntimes:
+            []
+          checks:
+            - "A recorded install of k8s-nim-operator on a named destination, followed by a recorded apply of this exact object set."
+          evidence:
+            - "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/operator-first-ordering.yaml"
+          orderHint: 1
+        -
+          id: "image-pull-secret"
+          requirementRefs:
+            - "image-pull-secret"
+          phase: "destination-resolution"
+          proposedActor: "The user, with their own NVIDIA entitlement"
+          proposedMechanism: "Create the image pull Secret ngc-secret (NIMCache spec.source.ngc.pullSecret, NIMService spec.image.pullSecrets) in the sample's namespace before apply. The sample carries the name only, and no credential is held here."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "generated-not-live"
+          supportedRuntimes:
+            []
+          checks:
+            - "The named Secret exists on the destination. Its value is never recorded."
+          evidence:
+            - "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/user-supplied-secrets.yaml"
+          orderHint: 2
+        -
+          id: "model-auth-secret"
+          requirementRefs:
+            - "model-auth-secret"
+          phase: "destination-resolution"
+          proposedActor: "The user, with their own NVIDIA or model-hub entitlement"
+          proposedMechanism: "Create the API key Secret ngc-api-secret (NIMCache spec.source.ngc.authSecret, NIMService spec.authSecret) in the sample's namespace before apply. The sample carries the name only, and no key or token is held here."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "generated-not-live"
+          supportedRuntimes:
+            []
+          checks:
+            - "The named Secret exists on the destination. Its value is never recorded."
+          evidence:
+            - "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/user-supplied-secrets.yaml"
+          orderHint: 3
+        -
+          id: "model-storage"
+          requirementRefs:
+            - "model-storage"
+          phase: "destination-resolution"
+          proposedActor: "The storage owner on the selected destination"
+          proposedMechanism: "The NIMService reads its model from NIMCache meta-llama3-2-1b-instruct, which this sample file also defines. NIMCache meta-llama3-2-1b-instruct asks the operator to create a 50Gi ReadWriteOnce PersistentVolumeClaim with an empty storageClass, so the storage class is a destination choice. Nothing here checked that a destination can provide it."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "not-evaluated"
+          supportedRuntimes:
+            []
+          checks:
+            - "The storage the sample names is bound on the destination before the NIMService starts."
+          evidence:
+            - "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/entry.yaml"
+          orderHint: 4
+      records:
+        - "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/operator-first-ordering.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        nimOperator:
+          required: true
+          chart: "k8s-nim-operator"
+          chartRepository: "https://helm.ngc.nvidia.com/nvidia"
+          versionRange: ">=3.1.0"
+          apiVersion: "apps.nvidia.com/v1alpha1"
+          customResourceDefinitions:
+            - "nimcaches.apps.nvidia.com"
+            - "nimservices.apps.nvidia.com"
+          catalogEntry: "not-in-the-catalog-on-this-branch"
+        secrets:
+          -
+            name: "ngc-secret"
+            role: "image-pull"
+          -
+            name: "ngc-api-secret"
+            role: "model-auth"
+        gpu:
+          count: 1
+          source: "draResources"
+          resource: "a Dynamic Resource Allocation claim"
+          replicas: 1
+        storage:
+          - "The NIMService reads its model from NIMCache meta-llama3-2-1b-instruct, which this sample file also defines."
+          - "NIMCache meta-llama3-2-1b-instruct asks the operator to create a 50Gi ReadWriteOnce PersistentVolumeClaim with an empty storageClass, so the storage class is a destination choice."
+      requirementRefs:
+        - "gpu-request"
+        - "namespace"
+        - "dynamic-resource-allocation"
+      records:
+        - "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/operator-first-ordering.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Choices fixed by the recorded source configuration"
+    variantControlled:
+      - "Exact object changes retained after the base"
+    targetSupplied:
+      - "gpu-request"
+      - "namespace"
+      - "dynamic-resource-allocation"
+    deliveryProtected:
+      []
+    records:
+      - "data/aicr-nim-operator-models/retention-receipt.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    sourcePackageOci:
+      status: "not-published"
+      note: "A plain-YAML sample has no source package, and nothing was pushed."
+    literalConfigOci:
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-example1-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:c3eddfb7edfff84131c09179685ceed3238fa5dacb70df98ae4b79fc52fcb666"
+      manifestDigest: "sha256:c3eddfb7edfff84131c09179685ceed3238fa5dacb70df98ae4b79fc52fcb666"
+      layerDigest: "sha256:6b793a3dc1d51112fc37a3d3e430068e78f9f85ab4a8150cbe539313595075a1"
+      objectSetSha256: "sha256:d2e5aaa047a10663926a0d8fe3d83add1e2170d16c87c6305da4db2e6ea7154f"
+      receipt: "runs/nimservice-variants/nimservice-example1-meta-llama3-2-1b-instruct/publication-receipt.yaml"
+      receiptSha256: "sha256:2b26152f0fb1b45f1dc1f1f99b8cc36662372488e8a839e7611461e7658c2fe7"
+      plan: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/literal-config-oci.yaml"
+      routes:
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/operator-first-ordering.yaml"
+          sha256: "sha256:21188945a5988976681540528a5bb2c2b3d83482c55aa5382afa6996a06c04ae"
+          role: "route: operator-first ordering"
+        -
+          path: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/user-supplied-secrets.yaml"
+          sha256: "sha256:7dbc4dbd26983e4d26847a7f2a1b969b81bd100f5ca12b58402506ec544d8a14"
+          role: "route: user-supplied Secrets"
+      note: "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
+    configHubUpload:
+      status: "not-run"
+    configHubReleaseOci:
+      status: "not-run"
+    argoCd: "not-run"
+    flux: "not-run"
+    direct: "not-run"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "workflow-approval"
+    normalSet: "baseline"
+  evidence:
+    source: "data/aicr-nim-operator-models/upstream/serving/advanced/dra/auto-creation/example1/llm.yaml"
+    sourceRetentionReceipt: "data/aicr-nim-operator-models/retention-receipt.yaml"
+    sampleReceipt: "data/aicr-nim-operator-models/receipts/example1-meta-llama3-2-1b-instruct.yaml"
+    modelProfile: "data/aicr-nim-operator-models/profiles/example1-meta-llama3-2-1b-instruct.yaml"
+    entryInventory: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/entry.yaml"
+    flatteningVerdict: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/flattening-safety-verdict.yaml"
+    operatorRoute: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/operator-first-ordering.yaml"
+    secretRoute: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/user-supplied-secrets.yaml"
+    upstreamLicense: "data/aicr-nim-operator-models/upstream/LICENSE"
+    licenseRead: "docs/planning/nim-ngc-license-read.md"
+    retention: "retained-published-not-uploaded-not-deployed"
+    literalConfigPlan: "data/aicr-nim-operator-models/catalog-entries/example1-meta-llama3-2-1b-instruct/literal-config-oci.yaml"
+    variantFamily: "nimservice, 38 variants at upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
+    scenario: "example1"
+    image: "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0"
+    imagePinnedBy: "tag"
+    imagesNamed: "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 (tag, served-model-container); nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 (tag, model-puller)"
+    imageAndWeights: "gated by NVIDIA, not pulled, not held, never redistributed"
+    modelRun: "no"
+    gpuRequest: "The NIMService requests 1 GPU per pod through a Dynamic Resource Allocation claim, with 1 replica."
+    secretsExpected: "ngc-secret (NIMCache spec.source.ngc.pullSecret, NIMService spec.image.pullSecrets); ngc-api-secret (NIMCache spec.source.ngc.authSecret, NIMService spec.authSecret)"
+    storageRequested: "The NIMService reads its model from NIMCache meta-llama3-2-1b-instruct, which this sample file also defines. NIMCache meta-llama3-2-1b-instruct asks the operator to create a 50Gi ReadWriteOnce PersistentVolumeClaim with an empty storageClass, so the storage class is a destination choice."
+    nimCache: "included, meta-llama3-2-1b-instruct"
+    operatorRequired: "k8s-nim-operator >=3.1.0 from https://helm.ngc.nvidia.com/nvidia"
+    operatorCatalogEntry: "not-in-the-catalog-on-this-branch"
+  operations:
+    resourceClass: "user-workload"
+    ownerClass: "application-team"
+    changeCadence: "application-release"
+status:
+  level: "partial"
+  claim: "NVIDIA's example1 NIMService sample meta-llama3-2-1b-instruct is retained as 2 exact Kubernetes objects from upstream commit 5d5f66ee0e2e, including its NIMCache. It is one variant of the nimservice entry. It is published as a literal configuration OCI with its route files. It is not uploaded to ConfigHub and not deployed."
+  limits:
+    - "This variant is published as a literal configuration OCI at oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-example1-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e@sha256:c3eddfb7edfff84131c09179685ceed3238fa5dacb70df98ae4b79fc52fcb666, with its two route files. Nothing was uploaded to ConfigHub."
+    - "This variant is not deployed. No operator reconciled it, no model was run, and no cluster or GPU was contacted."
+    - "The container image nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 and the model weights are gated by NVIDIA. This entry did not pull them, does not hold them and will never redistribute them."
+    - "The image reference is nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0, pinned by tag. A tag can answer to different bytes later, and nothing here resolved it."
+    - "The sample expects these Secrets by name, and the user supplies each one. ngc-secret (NIMCache spec.source.ngc.pullSecret, NIMService spec.image.pullSecrets); ngc-api-secret (NIMCache spec.source.ngc.authSecret, NIMService spec.authSecret)."
+    - "The NIMService requests 1 GPU per pod through a Dynamic Resource Allocation claim, with 1 replica. The NIMService reads its model from NIMCache meta-llama3-2-1b-instruct, which this sample file also defines. NIMCache meta-llama3-2-1b-instruct asks the operator to create a 50Gi ReadWriteOnce PersistentVolumeClaim with an empty storageClass, so the storage class is a destination choice."
+    - "The k8s-nim-operator chart at >=3.1.0 must be installed first. Every field this sample sets is declared by the apps.nvidia.com/v1alpha1 definitions retained from operator v3.1.0 under examples/aicr/eks-h100-inference-nim/operator-crds. The newest operator release this sample works with is not established. The sample was retained from upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, and this repository does not record which operator release contains that commit. The k8s-nim-operator chart is not yet a Catalog entry on this branch, so this requirement names the chart and does not link a record."
+    - "The sample file is Apache-2.0 configuration from https://github.com/NVIDIA/k8s-nim-operator, retained with its licence at data/aicr-nim-operator-models/upstream/LICENSE. The image and the weights are governed by NVIDIA's own terms and by each artifact's terms on NGC. docs/planning/nim-ngc-license-read.md records the general read, and nobody has read the terms for this exact artifact."

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 import { readYaml } from "./lib/proof-common.mjs";
@@ -11,6 +11,16 @@ import {
   loadAicrRecipeEntries,
   uncheckedOrderingEdges,
 } from "./lib/aicr-recipe-entries.mjs";
+import {
+  loadNimServiceEntries,
+  NIMSERVICE_AUTH_SECRET_ROUTE,
+  NIMSERVICE_OPERATOR_ROUTE,
+  NIMSERVICE_PULL_SECRET_ROUTE,
+  NIMSERVICE_SERVING_ROOT,
+  NIMSERVICE_SOURCE_NAME,
+  NIMSERVICE_SOURCE_TYPE,
+} from "./lib/nimservice-entries.mjs";
+import { nimServiceLiteralConfigOciProblem } from "./lib/nimservice-publication.mjs";
 
 const root = process.cwd();
 const read = (path) => readFileSync(join(root, path), "utf8");
@@ -551,6 +561,232 @@ for (const evidence of loadAicrOrderingEvidence({ root }).values()) {
   );
 }
 
+// Every retained NIMService sample must be a variant of the one nimservice
+// Catalog entry: exactly one record and one listing, a decided
+// flatten-with-routes verdict, the operator-first route and the Secret routes
+// it needs, and nothing that reads as published, uploaded or deployed. The
+// sample files are counted here from the directory itself, so a sample the
+// entry library skipped is caught and not just a record the generator dropped.
+function nimServiceSampleFiles(dir) {
+  return readdirSync(join(root, dir)).sort().flatMap((name) => {
+    const rel = `${dir}/${name}`;
+    if (statSync(join(root, rel)).isDirectory()) return nimServiceSampleFiles(rel);
+    if (!/\.ya?ml$/.test(name)) return [];
+    return /^kind:\s*NIMService\s*$/m.test(read(rel)) ? [rel] : [];
+  });
+}
+const nimServiceFiles = nimServiceSampleFiles(NIMSERVICE_SERVING_ROOT);
+const nimServiceEntries = loadNimServiceEntries({ root });
+requireCondition(nimServiceFiles.length > 0, "no retained NIMService sample was discovered");
+requireCondition(
+  JSON.stringify(nimServiceEntries.map((entry) => entry.fileRel).sort()) === JSON.stringify(nimServiceFiles),
+  `${NIMSERVICE_SERVING_ROOT} holds ${nimServiceFiles.length} NIMService sample file(s), and the entry library describes ${nimServiceEntries.length}`,
+);
+const nimServiceRecordNames = nimServiceEntries.map((entry) => entry.recordName).sort();
+const nimServiceFamily = records.filter(
+  (record) => record.spec?.source?.name === NIMSERVICE_SOURCE_NAME || String(record.metadata?.name ?? "").startsWith("nimservice-"),
+);
+requireCondition(
+  JSON.stringify(nimServiceFamily.map((record) => record.metadata.name).sort()) === JSON.stringify(nimServiceRecordNames),
+  `the ${NIMSERVICE_SOURCE_NAME} entry holds ${nimServiceFamily.length} record(s), and ${nimServiceEntries.length} NIMService sample(s) are retained; every variant must come from a retained sample`,
+);
+let nimServiceEntriesWithRecord = 0;
+let nimServiceEntriesMarkedWatch = 0;
+let nimServiceEntriesPublished = 0;
+for (const entry of nimServiceEntries) {
+  const matching = records.filter((record) => record.spec?.configuration?.objects === entry.fileRel);
+  requireCondition(
+    matching.length === 1,
+    `${entry.fileRel}: expected exactly one Catalog record for this retained NIMService sample, found ${matching.length}`,
+  );
+  if (matching.length !== 1) continue;
+  const record = matching[0];
+  const name = record.metadata?.name ?? "unnamed-record";
+  const spec = record.spec ?? {};
+  requireCondition(
+    name === entry.recordName
+      && spec.source?.type === NIMSERVICE_SOURCE_TYPE
+      && spec.source?.name === NIMSERVICE_SOURCE_NAME
+      && spec.source?.version === entry.source.commit
+      && spec.baseVariant?.name === entry.slug,
+    `${entry.fileRel}: its record ${name} must be ${entry.recordName}, a ${entry.slug} variant of ${NIMSERVICE_SOURCE_NAME}@${entry.source.commit}`,
+  );
+  requireCondition(
+    spec.configuration?.digest === entry.objectSetSha256
+      && spec.configuration?.objectCount === entry.objectCount
+      && spec.baseVariant?.digest === entry.fileSha256,
+    `${name}: the record's digests or object count no longer match the retained sample bytes`,
+  );
+  const flattening = spec.processing?.flattening ?? {};
+  requireCondition(
+    flattening.status === "decided"
+      && flattening.verdict === "flatten-with-routes"
+      && flattening.record === entry.verdictRel
+      && existsSync(join(root, entry.verdictRel)),
+    `${name}: a NIMService variant is ${flattening.verdict ?? "missing a verdict"}, and it must carry the decided flatten-with-routes verdict at ${entry.verdictRel}`,
+  );
+  const routeIntents = spec.lifecycle?.routeIntent?.routes ?? [];
+  const operatorRoute = routeIntents.find((route) => route.id === NIMSERVICE_OPERATOR_ROUTE);
+  requireCondition(
+    spec.lifecycle?.routeIntent?.status === "recorded"
+      && Boolean(operatorRoute)
+      && String(operatorRoute?.proposedMechanism ?? "").includes(entry.operator.chart)
+      && String(operatorRoute?.proposedMechanism ?? "").includes(entry.operator.versionRange)
+      && (operatorRoute?.evidence ?? []).includes(entry.operatorRouteRel)
+      && spec.lifecycle?.targetFacts?.declared?.nimOperator?.chart === entry.operator.chart
+      && spec.lifecycle?.targetFacts?.declared?.nimOperator?.versionRange === entry.operator.versionRange,
+    `${name}: the record lost its operator route; a NIMService variant must name ${entry.operator.chart} ${entry.operator.versionRange} as the first route`,
+  );
+  requireCondition(
+    String(operatorRoute?.proposedMechanism ?? "").includes("not yet a Catalog entry on this branch")
+      && spec.lifecycle?.targetFacts?.declared?.nimOperator?.catalogEntry === entry.operator.catalogEntry,
+    `${name}: the record must say the ${entry.operator.chart} chart is not yet a Catalog entry on this branch`,
+  );
+  for (const [routeId, secrets] of [
+    [NIMSERVICE_PULL_SECRET_ROUTE, entry.pullSecrets],
+    [NIMSERVICE_AUTH_SECRET_ROUTE, entry.authSecrets],
+  ]) {
+    if (secrets.length === 0) continue;
+    const route = routeIntents.find((candidate) => candidate.id === routeId);
+    requireCondition(
+      Boolean(route) && secrets.every((secret) => String(route?.proposedMechanism ?? "").includes(secret.name)),
+      `${name}: the record lost its ${routeId} route for ${secrets.map((secret) => secret.name).join(", ")}; the user supplies that Secret and the record must say so`,
+    );
+  }
+  for (const secret of entry.secrets) {
+    requireCondition(
+      (spec.inputs?.installTime ?? []).some((item) => item.category === "secret" && item.name === secret.name)
+        && (spec.lifecycle?.targetFacts?.declared?.secrets ?? []).some((item) => item.name === secret.name)
+        && (record.status?.limits ?? []).some((limit) => limit.includes(secret.name)),
+      `${name}: the record lost its Secret requirement ${secret.name}`,
+    );
+  }
+  requireCondition(
+    routeIntents.length > 0 && routeIntents.every((route) => route.automatic === false && route.status === "requires-destination-resolution"),
+    `${name}: a NIMService route that no run has executed is marked automatic or resolved`,
+  );
+  const delivery = spec.delivery ?? {};
+  // A variant can publish one thing, its literal configuration OCI, and only
+  // with a tracked receipt for the artifact built from its committed bytes.
+  // The entry library reads that receipt. Without it the record must say not
+  // published, and with it the record must carry exactly its reference and
+  // digests. Nothing else may read as published or uploaded.
+  const published = entry.publication?.published === true;
+  const literalProblem = nimServiceLiteralConfigOciProblem(name, delivery.literalConfigOci, entry.publication);
+  requireCondition(!literalProblem, literalProblem);
+  if (published) nimServiceEntriesPublished += 1;
+  const publishedRoles = ["sourcePackageOci", "configHubUpload", "configHubReleaseOci"]
+    .filter((role) => !["not-published", "not-run"].includes(delivery[role]?.status)
+      || Object.keys(delivery[role] ?? {}).some((key) => !["status", "note"].includes(key)));
+  requireCondition(
+    publishedRoles.length === 0 && (spec.source?.packageOciRef ?? "") === "",
+    `${name}: a NIMService variant has no source package and was never uploaded, and the record claims ${publishedRoles.join(", ") || "a source package reference"}`,
+  );
+  requireCondition(
+    delivery.argoCd === "not-run" && delivery.flux === "not-run" && delivery.direct === "not-run" && !delivery.receipt,
+    `${name}: no NIMService variant is deployed, and the record claims a delivery result (argoCd=${delivery.argoCd}, flux=${delivery.flux}, direct=${delivery.direct})`,
+  );
+  const stageById = new Map((spec.assessment?.stages ?? []).map((stage) => [stage.id, stage]));
+  requireCondition(
+    ["destination", "post-deployment"].every((id) => stageById.get(id)?.evidenceState === "not-run" && stageById.get(id)?.resultState === "not-run"),
+    `${name}: a destination or post-deployment stage reads as checked for a NIMService variant no destination has seen`,
+  );
+  const claim = String(record.status?.claim ?? "");
+  requireCondition(
+    !spec.promotion && record.status?.level === "partial"
+      && claim.includes(published ? "It is published as a literal configuration OCI with its route files." : "It is not published,")
+      && claim.includes("not uploaded to ConfigHub")
+      && claim.includes("not deployed"),
+    `${name}: the record must stay partial and say the variant is ${published ? "published as a literal configuration OCI" : "not published"}, not uploaded to ConfigHub and not deployed`,
+  );
+  requireCondition(
+    (record.status?.limits ?? []).some((limit) => limit.includes("gated by NVIDIA") && limit.includes("did not pull"))
+      && (record.status?.limits ?? []).some((limit) => limit.includes("no model was run"))
+      && (record.status?.limits ?? []).some((limit) => limit.includes(entry.image) && limit.includes(`pinned by ${entry.imagePinnedBy}`)),
+    `${name}: the record must say the image and weights are gated and were not pulled, that no model was run, and how ${entry.image} is pinned`,
+  );
+  // The flag is the one every flagged entry carries: the materialization stage
+  // says watch and its answer is the open question.
+  const flagStage = stageById.get("materialization") ?? {};
+  const openQuestion = entry.openQuestions.join(" ");
+  const flaggedInRecord = flagStage.resultState === ATTENTION_STATE
+    && flagStage.answer === openQuestion
+    && spec.evidence?.attention === ATTENTION_STATE;
+  requireCondition(
+    entry.openQuestions.length > 0
+      ? flaggedInRecord && entry.openQuestions.every((question) => String(spec.evidence?.openQuestion ?? "").includes(question))
+      : flagStage.resultState === "pass" && !spec.evidence?.attention,
+    entry.openQuestions.length > 0
+      ? `${name}: the sample raises an open question, and the record must stay marked watch and name it`
+      : `${name}: the record is marked for attention, and the retained bytes raise no open question`,
+  );
+  if (entry.openQuestions.length > 0 && flaggedInRecord) nimServiceEntriesMarkedWatch += 1;
+  const listingPath = join(root, "site/listings", `${name}.json`);
+  requireCondition(existsSync(listingPath), `${name}: the variant has no listing at site/listings/${name}.json`);
+  if (!existsSync(listingPath)) continue;
+  nimServiceEntriesWithRecord += 1;
+  const listing = JSON.parse(readFileSync(listingPath, "utf8"));
+  // The listing carries the same flag as the record, or a page built from the
+  // listing would show a flagged variant as settled.
+  const listingFlagStage = (listing.assessment?.stages ?? []).find((stage) => stage.id === "materialization") ?? {};
+  requireCondition(
+    entry.openQuestions.length > 0
+      ? listingFlagStage.resultState === ATTENTION_STATE && listingFlagStage.answer === openQuestion
+      : listingFlagStage.resultState !== ATTENTION_STATE,
+    entry.openQuestions.length > 0
+      ? `${name}: the sample raises an open question, and the listing does not flag the variant as ${ATTENTION_STATE} with that question`
+      : `${name}: the listing flags the variant as ${ATTENTION_STATE}, and the retained bytes raise no open question`,
+  );
+  requireCondition(
+    listing.identity?.name === NIMSERVICE_SOURCE_NAME
+      && listing.identity?.base === entry.slug
+      && listing.flattened?.verdict === "flatten-with-routes"
+      && listing.flattened?.verdictStatus === "decided"
+      && listing.flattened?.digest === `sha256:${entry.objectSetSha256}`
+      && listing.routing?.routeStatus === "recorded",
+    `${name}: the listing does not carry the variant's identity, its decided verdict and its recorded route (found ${listing.flattened?.verdict}, ${listing.routing?.routeStatus})`,
+  );
+  const listedRoutes = new Set((listing.routing?.routes ?? []).map((route) => route.id));
+  const neededRoutes = [
+    NIMSERVICE_OPERATOR_ROUTE,
+    ...(entry.pullSecrets.length > 0 ? [NIMSERVICE_PULL_SECRET_ROUTE] : []),
+    NIMSERVICE_AUTH_SECRET_ROUTE,
+  ];
+  requireCondition(
+    neededRoutes.every((id) => listedRoutes.has(id))
+      && (listing.routing?.routes ?? []).every((route) => route.automatic === false),
+    `${name}: the listing lost a route a NIMService variant needs (${neededRoutes.filter((id) => !listedRoutes.has(id)).join(", ") || "one is marked automatic"})`,
+  );
+  const literalBundle = (listing.oci?.bundles ?? []).find((bundle) => bundle.role === "literal-config") ?? {};
+  const unpublishedBundle = (bundle) => bundle.state === "not-published" && bundle.referenceState === "none" && bundle.digests.length === 0;
+  requireCondition(
+    published
+      ? literalBundle.state === "published"
+        && literalBundle.referenceState === "published"
+        && literalBundle.reference === entry.publication.observedReference
+        && literalBundle.receipt === entry.publication.receiptRel
+        && (literalBundle.digests ?? []).some((digest) => digest.field === "manifestDigest" && digest.value === entry.publication.artifact.manifestDigest)
+      : unpublishedBundle(literalBundle),
+    published
+      ? `${name}: ${entry.publication.receiptRel} records a publication, and the listing's literal configuration bundle does not carry its reference, manifest digest and receipt`
+      : `${name}: the listing's literal configuration bundle reads as ${literalBundle.state ?? "missing"}, and no tracked publication receipt exists for this variant`,
+  );
+  requireCondition(
+    (listing.oci?.bundles ?? []).length === 4
+      && listing.oci.bundles.filter((bundle) => bundle.role !== "literal-config").every(unpublishedBundle)
+      && (listing.oci?.runtimes ?? []).length === 3
+      && listing.oci.runtimes.every((runtime) => runtime.state === "not-run")
+      && (listing.oci?.sourcePackageRef ?? "") === "",
+    `${name}: the listing reads as uploaded or deployed, or shows a source package, for a variant that has none of those`,
+  );
+  const knownVariants = (listing.variants?.known ?? []).map((variant) => variant.id).sort();
+  requireCondition(
+    JSON.stringify(knownVariants) === JSON.stringify(nimServiceRecordNames)
+      && listing.variants.known.filter((variant) => variant.self === true).length === 1,
+    `${name}: the listing shows ${knownVariants.length} variant(s) of ${NIMSERVICE_SOURCE_NAME}, and the entry has ${nimServiceRecordNames.length}`,
+  );
+}
+
 requireCondition(
   JSON.stringify(assessmentCases.stageOrder) === JSON.stringify(assessmentStageOrder),
   "cross-format assessment stage order changed",
@@ -704,5 +940,5 @@ const sourceSummary = [...sourceCounts.entries()]
   .map(([source, count]) => `${source}=${count}`)
   .join(", ");
 console.log(
-  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}; retained AICR recipe directories with their own record and listing=${aicrRecipeEntriesWithRecord}/${aicrRecipeEntries.length}; all AICR recipe directories with one record=${aicrRecipeDirectoriesWithRecord}/${aicrRecipeDirectories.length}; AICR entries flagged ${ATTENTION_STATE} for an unchecked ordering edge=${aicrEntriesFlagged}`,
+  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}; retained AICR recipe directories with their own record and listing=${aicrRecipeEntriesWithRecord}/${aicrRecipeEntries.length}; all AICR recipe directories with one record=${aicrRecipeDirectoriesWithRecord}/${aicrRecipeDirectories.length}; AICR entries flagged ${ATTENTION_STATE} for an unchecked ordering edge=${aicrEntriesFlagged}; retained NIMService samples with their own record and listing=${nimServiceEntriesWithRecord}/${nimServiceFiles.length} (${nimServiceEntriesMarkedWatch} flagged ${ATTENTION_STATE}, ${nimServiceEntriesPublished} published with a receipt)`,
 );

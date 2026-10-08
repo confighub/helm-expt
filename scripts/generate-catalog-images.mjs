@@ -58,9 +58,20 @@ export function imagesIn(node, found = new Set()) {
   if (!node || typeof node !== "object") return found;
   for (const [key, value] of Object.entries(node)) {
     if (key === "image" && isReference(value)) found.add(value.trim());
+    else if (key === "image" && isReference(splitImageReference(value))) found.add(splitImageReference(value));
+    else if (key === "modelPuller" && isReference(value)) found.add(value.trim());
     else imagesIn(value, found);
   }
   return found;
+}
+
+// Some custom resources name an image as a repository and a tag in two fields,
+// as a NIMService does, and a NIMCache names the image that pulls its model
+// under modelPuller. Both are images the cluster would run, so both are read.
+function splitImageReference(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return null;
+  if (typeof value.repository !== "string" || !["string", "number"].includes(typeof value.tag)) return null;
+  return `${value.repository.trim()}:${String(value.tag).trim()}`;
 }
 
 export function pinned(reference) {
@@ -169,7 +180,17 @@ function selfTest() {
     JSON.stringify(found) === JSON.stringify(["app:1", "busybox:1.36", "quay.io/prometheus/prometheus:v3.0.0"]),
     `walked images should be the three real ones, got ${JSON.stringify(found)}`,
   );
-  console.log("catalog image index self-test passed: reference shape, digest pinning, and the walk");
+  const split = [
+    { kind: "NIMService", spec: { image: { repository: "registry.example/team/model", tag: "1.2.3" }, initContainers: [{ image: { repository: "busybox", tag: 1.36 } }] } },
+    { kind: "NIMCache", spec: { source: { ngc: { modelPuller: "registry.example/team/model:1.2.3" } } } },
+    { kind: "Other", spec: { image: { repository: "registry.example/team/untagged" } } },
+  ];
+  const splitFound = [...imagesIn(split)].sort();
+  check(
+    JSON.stringify(splitFound) === JSON.stringify(["busybox:1.36", "registry.example/team/model:1.2.3"]),
+    `an image named as a repository and a tag, or as a modelPuller, should be read, got ${JSON.stringify(splitFound)}`,
+  );
+  console.log("catalog image index self-test passed: reference shape, digest pinning, the walk, and split repository-and-tag images");
 }
 
 if (mode === "--self-test") {
