@@ -1,0 +1,18 @@
+# A fixture for the live-examples rules. It names an organization that does not
+# exist, and no page is generated from it.
+apiVersion: catalog.confighub.com/v1alpha1
+kind: CatalogLiveExamples
+spec:
+  examples:
+    - chart: example/fixture-chart
+      organization: The example lives in a fixture organization. A reader needs access to that organization to open the links.
+      holds: It holds one component with two Spaces of three Units each.
+      observedOn: "2026-10-08"
+      done: The retained objects of the default base were uploaded as a variant.
+      notDone: Nothing was deployed to a cluster, and the example is not a run for any Catalog entry.
+      addresses:
+        - label: The Space for the default base
+          url: https://hub.example.com/spaces/fixture
+      howTo: To reach the view by hand, open the Space and then the Unit.
+      commands:
+        - cub variant upload --component fixture --variant base fixture.yaml
