@@ -47,9 +47,9 @@ spec:
         - "charts/jobset/templates/prometheus/service_monitor.yaml:18"
     -
       class: "generated-secrets"
-      finding: "absent"
-      detail: "absent from the packaged chart"
-      disposition: "none required"
+      finding: "present"
+      detail: "no template generates a value at render time, and the witness finds none. The base still renders two Secrets, kubeflow-trainer-webhook-cert and jobset-webhook-server-cert, each with the keys ca.crt, ca.key, tls.crt and tls.key present and empty. Their contents are generated at run time by the two controllers, so the Secrets are run-time state that the base only creates"
+      disposition: "named companion required: the two Secrets are created once and then owned by the controllers, so a later apply of the base must not overwrite their data; no such protection is packaged, and it was not observed"
     -
       class: "crd-ordering"
       finding: "present"

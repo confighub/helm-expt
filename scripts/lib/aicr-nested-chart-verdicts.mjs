@@ -265,6 +265,13 @@ function trainerRows() {
           disposition:
             "certificate route run by the two controllers once they start; read from the chart and not observed. The two Secrets must be created once and their data must not be overwritten by a later apply of the base",
         },
+        "generated-secrets": {
+          finding: "present",
+          detail:
+            "no template generates a value at render time, and the witness finds none. The base still renders two Secrets, kubeflow-trainer-webhook-cert and jobset-webhook-server-cert, each with the keys ca.crt, ca.key, tls.crt and tls.key present and empty. Their contents are generated at run time by the two controllers, so the Secrets are run-time state that the base only creates",
+          disposition:
+            "named companion required: the two Secrets are created once and then owned by the controllers, so a later apply of the base must not overwrite their data; no such protection is packaged, and it was not observed",
+        },
         "capabilities-api-versions": {
           finding: "present-gated",
           detail:
@@ -445,9 +452,10 @@ function kubePrometheusStackRows() {
             "certificate route is the two packaged admission lifecycle actions, recorded and not yet run. A delivery that applies the base again can strip the CA bundle, and the patch action must then run again",
         },
         "generated-secrets": {
-          finding: "present-gated",
-          detail: `both random-value calls are in the Grafana subchart's lookup-or-generate helpers, and neither is reached, for the same reasons as the lookups. The two Secrets in the base are fixed by values: the Alertmanager configuration, and the Grafana admin credentials with ${password}`,
-          disposition: "no generated value to carry; the Grafana Secret holds a fixed password that anyone who can read this repository knows",
+          finding: "present",
+          detail: `nothing is generated at render time: both random-value calls are in the Grafana subchart's lookup-or-generate helpers, and neither is reached, for the same reasons as the lookups. The base still renders two Secrets that carry data, both written from values: the Alertmanager configuration, and the Grafana admin credentials with ${password}`,
+          disposition:
+            "the two Secrets ship with the base and the installer keeps them apart from the other objects; the Grafana Secret holds a fixed password that anyone who can read this repository knows, so it must be replaced before the base is used for anything real",
         },
         "capabilities-api-versions": {
           detail:

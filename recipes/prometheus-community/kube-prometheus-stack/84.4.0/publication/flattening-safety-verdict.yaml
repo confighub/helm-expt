@@ -60,9 +60,9 @@ spec:
         - "charts/kube-state-metrics/templates/verticalpodautoscaler.yaml:1"
     -
       class: "generated-secrets"
-      finding: "present-gated"
-      detail: "both random-value calls are in the Grafana subchart's lookup-or-generate helpers, and neither is reached, for the same reasons as the lookups. The two Secrets in the base are fixed by values: the Alertmanager configuration, and the Grafana admin credentials with a placeholder password"
-      disposition: "no generated value to carry; the Grafana Secret holds a fixed password that anyone who can read this repository knows"
+      finding: "present"
+      detail: "nothing is generated at render time: both random-value calls are in the Grafana subchart's lookup-or-generate helpers, and neither is reached, for the same reasons as the lookups. The base still renders two Secrets that carry data, both written from values: the Alertmanager configuration, and the Grafana admin credentials with a placeholder password"
+      disposition: "the two Secrets ship with the base and the installer keeps them apart from the other objects; the Grafana Secret holds a fixed password that anyone who can read this repository knows, so it must be replaced before the base is used for anything real"
       evidence:
         - "charts/grafana/templates/_helpers.tpl:123"
         - "charts/grafana/templates/_helpers.tpl:136"
