@@ -66,6 +66,8 @@ spec:
       needs: [cub]
     - step: "node scripts/nvidia-device-plugin-proof.mjs --verify-package"
       needs: [cub]
+    - step: "node scripts/nvidia-gpu-stack-coverage.mjs --set aicr-nested-charts --verify"
+      needs: [cub]
     - step: "node scripts/nvidia-gpu-stack-coverage.mjs --verify"
       needs: [cub]
     - step: "node scripts/postgresql-proof.mjs --verify-package"

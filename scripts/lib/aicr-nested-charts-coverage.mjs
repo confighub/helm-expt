@@ -136,10 +136,40 @@ export const AICR_NESTED_CHART_HELD = Object.freeze([
   },
 ]);
 
-// Discovery roles, in the vocabulary of scripts/lib/catalog-roles.mjs, only where
-// that vocabulary honestly fits. A role is discovery only: it claims no
+// Discovery roles, in the vocabulary of scripts/lib/catalog-roles.mjs (cache,
+// database, ingress, certificates, metrics, logs, secrets, queue, gpu), only
+// where that vocabulary honestly fits. A role is discovery only: it claims no
 // readiness, compatibility or support. A chart with no row here gets no role.
-export const AICR_NESTED_CHART_ROLES = Object.freeze({});
+//
+// No role: kai-scheduler (a scheduler), nodewright (node configuration),
+// kubeflow-trainer (training jobs), aws-ebs-csi-driver (storage) and
+// prometheus-operator-crds (CRDs only, no workload). The vocabulary has no word
+// for any of them.
+//
+// A role assignment is keyed by a base-variant record and that record's
+// configuration digest, and base-variant records exist only after publication.
+// scripts/assign-nvidia-gpu-stack-roles.mjs --set aicr-nested-charts writes
+// these once the records exist.
+export const AICR_NESTED_CHART_ROLES = Object.freeze({
+  "kube-prometheus-stack": {
+    role: "metrics",
+    componentType: "operator",
+    rationale:
+      "The retained operator and Prometheus custom resource describe an operator-managed monitoring stack; the operator cannot start until the admission Secret exists, and the CRDs and target readiness still require checks.",
+  },
+  "k8s-ephemeral-storage-metrics": {
+    role: "metrics",
+    componentType: "agent",
+    rationale:
+      "The Deployment exports each pod's ephemeral storage use as Prometheus metrics; it stores and queries nothing, and needs a Prometheus that scrapes its ServiceMonitor.",
+  },
+  "dra-driver-nvidia-gpu": {
+    role: "gpu",
+    componentType: "agent",
+    rationale:
+      "The kubelet plugin DaemonSet publishes NVIDIA devices to Kubernetes through Dynamic Resource Allocation; with GPU allocation off, as in the default and AICR bases, it publishes ComputeDomain devices only; it supplies no GPU hardware and no driver.",
+  },
+});
 
 export function aicrNestedChartAddition(chart, version) {
   return AICR_NESTED_CHART_ADDITIONS.find((item) => item.chart === chart && item.version === version) ?? null;

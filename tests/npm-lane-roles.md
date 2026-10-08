@@ -9,9 +9,9 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 52
+lanes outside the chain: 53
 should join the chain:   3
-deliberately outside:    49
+deliberately outside:    50
 superseded:              0
 ```
 
@@ -76,6 +76,7 @@ superseded:              0
 | `timoni-redis:self-test` | The Timoni Redis publication payload contains the seven recorded Kubernetes objects and six internally consistent source, lifecycle, materialization, base, and index records without contacting a registry or ConfigHub. | offline | passes; this focused lane checks the publication payload before any external write |
 | `timoni-redis:verify` | The committed public-OCI and ConfigHub receipts retain the Timoni source identity, canonical seven-object set, six base-only companion records, seven linked development Units, policy checks, and explicit not-run delivery limits. | offline | passes; the cross-format Catalog gate checks the same base record while this lane checks both external receipts together |
 | `nvidia-gpu-stack-oci:verify` | That each NVIDIA GPU stack installer package is published as the bytes this repository committed: for every package it re-packs the local tree with `cub installer package` and compares the SHA to the digest committed in the recipe's installer-package-receipt.yaml, checks the publication receipt names that package, reference and digest, then runs `cub installer inspect <oci ref> --json` against europe-west1-docker.pkg.dev with no registry credentials and checks the remote layer digest equals the committed digest and the remote manifest digest equals the receipt's. | network | not run here, needs network; the packages are not published yet, so it refuses until the maintainer publishes |
+| `aicr-nested-charts-oci:verify` | That each installer package of the charts the retained AICR EKS training entries pin is published as the bytes this repository committed: for every package it re-packs the local tree with `cub installer package` and compares the SHA to the digest committed in the recipe's installer-package-receipt.yaml, checks the publication receipt names that package, reference and digest, then runs `cub installer inspect <oci ref> --json` against europe-west1-docker.pkg.dev with no registry credentials and checks the remote layer digest equals the committed digest and the remote manifest digest equals the receipt's. | network | not run here, needs network; the packages are not published yet, so it refuses until the maintainer publishes |
 
 ## Superseded
 

@@ -7,6 +7,12 @@
 //   node scripts/assign-nvidia-gpu-stack-roles.mjs --write
 //   node scripts/assign-nvidia-gpu-stack-roles.mjs --self-test
 //
+// Every mode takes --set <name> for another list of additions; --set
+// aicr-nested-charts handles the charts in scripts/lib/aicr-nested-charts-coverage.mjs.
+// A chart with no row in its list's role table gets no role: the script names
+// it and assigns nothing, because a role is given only where the vocabulary
+// honestly fits.
+//
 // A role assignment names one base-variant record and that record's
 // configuration digest. Base-variant records are generated from publication
 // receipts, so before publication there is nothing to assign to, and the catalog
@@ -26,6 +32,7 @@ import { join } from "node:path";
 import { readYaml, repoRoot } from "./lib/proof-common.mjs";
 import { validateAssignments } from "./lib/catalog-roles.mjs";
 import { NVIDIA_GPU_STACK_ADDITIONS, NVIDIA_GPU_STACK_ROLES } from "./lib/nvidia-gpu-stack-coverage.mjs";
+import { DEFAULT_COVERAGE_SET, coverageSetFromArgs } from "./lib/coverage-sets.mjs";
 
 const ASSIGNMENTS = "data/catalog-roles/assignments.json";
 const RECORDS = "data/base-variant-records/records";
@@ -44,10 +51,12 @@ export function recordId(canonicalIdentity, version, base) {
 }
 
 // One row per base: where its assignment goes and the digest it must carry.
-export function plannedAssignments(additions = NVIDIA_GPU_STACK_ADDITIONS, roles = NVIDIA_GPU_STACK_ROLES) {
+// `unclassified: true` lets a chart have no role; it is then left out of the plan.
+export function plannedAssignments(additions = NVIDIA_GPU_STACK_ADDITIONS, roles = NVIDIA_GPU_STACK_ROLES, { unclassified = false } = {}) {
   const rows = [];
   for (const item of additions) {
     const role = roles[item.chart];
+    if (!role && unclassified) continue;
     check(Boolean(role), `${item.canonicalIdentity} has no role in NVIDIA_GPU_STACK_ROLES`);
     const plan = readYaml(join(repoRoot, item.recipePath, "helm-plan.yaml"));
     for (const base of plan.spec.readiness.variants) {
@@ -78,12 +87,38 @@ export function mergeAssignments(document, planned) {
       continue;
     }
     let after = -1;
+    const source = row.id.split("-")[0];
     assignments.forEach((item, position) => {
-      if (item.id.startsWith("nvidia-")) after = position;
+      if (item.id.startsWith(`${source}-`)) after = position;
     });
     assignments.splice(after === -1 ? assignments.length : after + 1, 0, entry);
   }
   return { ...document, assignments };
+}
+
+// A list in which some charts have no role. The charts with a role are planned;
+// the others are named and left alone.
+function selfTestPartial(set) {
+  const planned = plannedAssignments(set.additions, set.roles, { unclassified: true });
+  const classified = new Set(Object.keys(set.roles));
+  const charts = [...new Set(set.additions.map((item) => item.chart))];
+  for (const chart of classified) check(charts.includes(chart), `self-test failed: ${set.rolesName} names ${chart}, which is not in the ${set.label} list`);
+  check(planned.every((row) => /^[0-9a-f]{64}$/.test(row.configurationDigest)), "self-test failed: a base has no render digest");
+  const records = planned.map((row) => ({ metadata: { name: row.id }, spec: { configuration: { digest: row.configurationDigest } } }));
+  const existing = { apiVersion: "catalog.confighub.com/v1alpha1", kind: "CatalogRoleAssignments", assignments: [] };
+  const merged = mergeAssignments(existing, planned);
+  check(validateAssignments(merged, records).size === planned.length, "self-test failed: planned rows are not valid assignments");
+  check(JSON.stringify(mergeAssignments(merged, planned)) === JSON.stringify(merged), "self-test failed: writing twice changes the file");
+  try {
+    plannedAssignments(set.additions, {});
+    throw new Error("self-test failed: a chart with no role was accepted without saying so");
+  } catch (error) {
+    check(/has no role/.test(error.message), error.message);
+  }
+  const without = charts.filter((chart) => !classified.has(chart));
+  console.log(
+    `assign-nvidia-gpu-stack-roles self-test passed for the ${set.label} list: ${planned.length} base(s) of ${classified.size} chart(s) have a role, and ${without.length} chart(s) have none (${without.join(", ") || "none"})`,
+  );
 }
 
 function selfTest() {
@@ -115,12 +150,21 @@ function selfTest() {
 
 const isMain = process.argv[1] && process.argv[1].endsWith("assign-nvidia-gpu-stack-roles.mjs");
 if (isMain) {
-  const mode = process.argv[2] ?? "--plan";
   try {
+    const { set, rest } = coverageSetFromArgs(process.argv.slice(2));
+    const isDefault = set.name === DEFAULT_COVERAGE_SET;
+    const mode = rest[0] ?? "--plan";
     if (mode === "--self-test") {
-      selfTest();
+      if (isDefault) selfTest();
+      else selfTestPartial(set);
     } else if (mode === "--plan" || mode === "--write") {
-      const planned = plannedAssignments();
+      const planned = isDefault ? plannedAssignments() : plannedAssignments(set.additions, set.roles, { unclassified: true });
+      const withoutRole = [...new Set(set.additions.map((item) => item.chart))].filter((chart) => !set.roles[chart]);
+      if (withoutRole.length) console.log(`no role, by decision: ${withoutRole.join(", ")}`);
+      if (planned.length === 0) {
+        console.log(`no chart in the ${set.label} list has a role; nothing to assign`);
+        process.exit(0);
+      }
       const path = join(repoRoot, ASSIGNMENTS);
       const document = JSON.parse(readFileSync(path, "utf8"));
       const current = new Map(document.assignments.map((item) => [item.id, item]));
@@ -157,9 +201,9 @@ if (isMain) {
       }
     } else {
       console.error(`Usage:
-  node scripts/assign-nvidia-gpu-stack-roles.mjs --plan
-  node scripts/assign-nvidia-gpu-stack-roles.mjs --write
-  node scripts/assign-nvidia-gpu-stack-roles.mjs --self-test`);
+  node scripts/assign-nvidia-gpu-stack-roles.mjs [--set <name>] --plan
+  node scripts/assign-nvidia-gpu-stack-roles.mjs [--set <name>] --write
+  node scripts/assign-nvidia-gpu-stack-roles.mjs [--set <name>] --self-test`);
       process.exit(2);
     }
   } catch (error) {
