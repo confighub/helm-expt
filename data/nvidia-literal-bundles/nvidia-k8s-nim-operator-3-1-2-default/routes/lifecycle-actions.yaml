@@ -1,0 +1,41 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "nvidia-k8s-nim-operator-3-1-2-default-lifecycle-actions"
+spec:
+  quirkClass: "helm-hooks"
+  routeKind: "lifecycle-action"
+  discharges: "The chart defines Helm hooks for pre-upgrade. The base was rendered without them, because a hook object applied with the other objects runs at install time. Each action below names the hook objects the installer package holds and says when they apply."
+  declaration:
+    actions:
+      -
+        order: 1
+        phase: "pre-upgrade"
+        helmHook: "pre-upgrade"
+        name: "Before an upgrade, move the CRDs to the new version"
+        detail: "Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them."
+        invokedBy: "delivery-workflow"
+        automatic: false
+        evidenceState: "not-run"
+        objects:
+          installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2@sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d"
+          path: "prerequisites/k8s-nim-operator-lifecycle/default/pre-upgrade.yaml"
+          repositoryPath: "packages/nvidia/k8s-nim-operator/3.1.2/prerequisites/k8s-nim-operator-lifecycle/default/pre-upgrade.yaml"
+          sha256: "sha256:87553c284006eacdc92265a360058bb879f687ae3cbb9758ee0b3191aad096c7"
+          bytes: 3184
+    hookObjectsInThisBundle: false
+    applyWithBase: "never"
+    onActionFailure: "stop and report; never continue past an action that did not complete"
+  executedBy:
+    invokedBy: "the delivery workflow, one action at its own phase"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "the hook objects stay in the signed installer package and are named here by path and SHA-256; this bundle does not hold them"
+    - "no action has been run on a cluster, and no receipt says an upgrade or a delete of this flattened base behaved as the chart's hooks would"
+  provenance:
+    emittedBy: "scripts/generate-nvidia-literal-bundles.mjs"
+    generatedFrom:
+      - "packages/nvidia/k8s-nim-operator/3.1.2/prerequisites/k8s-nim-operator-lifecycle/lifecycle-actions.yaml"
+      - "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml"
+    verdictRef: "recipes/nvidia/k8s-nim-operator/3.1.2/publication/flattening-safety-verdict.yaml"

@@ -1,0 +1,57 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "nvidia-nvsentinel-v1-25-0-default-target-requirements"
+spec:
+  subject:
+    catalogEntry: "nvidia-nvsentinel-v1-25-0-default"
+    chart: "nvidia/nvsentinel"
+    version: "v1.25.0"
+    base: "default"
+    revision: "r001"
+  namespace:
+    name: "nvsentinel"
+    namespaceObjectInBundle: false
+    objectsNamingThisNamespace: 0
+    otherNamespacesNamed:
+      []
+    namespacedObjectsNamingNoNamespace: 16
+    customKindObjectsNamingNoNamespace: 0
+    customKindsNamingNoNamespace:
+      []
+    statement: "The bundle holds no Namespace object, so the namespace nvsentinel must exist on the target before these objects are applied. 16 namespaced objects set no namespace and must be applied into nvsentinel."
+  customResourceDefinitions:
+    inBundle:
+      count: 0
+      names:
+        []
+      orderedBy: ""
+    requiredOnTarget:
+      -
+        name: "podmonitors.monitoring.coreos.com"
+        purpose: "Prometheus Operator PodMonitor CRD required before Kubernetes accepts the rendered PodMonitor object; the chart does not ship it"
+        packagedCopy:
+          installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0@sha256:5b6363f704e89c754c2901a85ade183312afca87a94d97aa22f55d2f4d23189e"
+          path: "prerequisites/target-facts/default-crds.yaml"
+          repositoryPath: "packages/nvidia/nvsentinel/v1.25.0/prerequisites/target-facts/default-crds.yaml"
+          sha256: "sha256:9b6f3df3d33f54926d070ed95c57f170a270c658f27c87ddc3699a6df3f41947"
+          bytes: 69222
+  applyMode: "not-recorded"
+  render:
+    renderer: "helm"
+    releaseName: "nvsentinel"
+    namespace: "nvsentinel"
+    kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+    valuesProfile: "recipes/nvidia/nvsentinel/v1.25.0/effective-values.yaml"
+  flattening:
+    lane: "safe-to-flatten"
+    verdict: "recipes/nvidia/nvsentinel/v1.25.0/publication/flattening-safety-verdict.yaml"
+  sourcePackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0@sha256:5b6363f704e89c754c2901a85ade183312afca87a94d97aa22f55d2f4d23189e"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-nvidia-literal-bundles.mjs"
+    generatedFrom:
+      - "data/helm-render-intents/intents/nvidia-nvsentinel-v1-25-0-default.yaml"
+      - "recipes/nvidia/nvsentinel/v1.25.0/revisions/default/r001/rendered/object-inventory.yaml"
+    verdictRef: "recipes/nvidia/nvsentinel/v1.25.0/publication/flattening-safety-verdict.yaml"

@@ -65,6 +65,16 @@ import {
   nimServicePublicationProblems,
   nimServicePublicationReceiptDoc,
 } from "./lib/nimservice-publication.mjs";
+import {
+  LITERAL_BUNDLE_PUBLISHED_STATUS,
+  LITERAL_BUNDLE_UNPUBLISHED_STATUS,
+  NVIDIA_LITERAL_BUNDLE_CHARTS,
+  literalBundlePublicationProblems,
+  literalBundleReceiptDoc,
+  literalConfigOciProblem,
+  loadNvidiaLiteralBundleEntries,
+  publishedLiteralConfigOci,
+} from "./lib/nvidia-literal-bundles.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 // The words a record puts after a build-time input that is a confirmed
@@ -200,6 +210,9 @@ const aicrModernGenerationReceipts = new Map();
 // held to a stricter rule: a decided flatten-with-routes verdict, a recorded
 // operator route and Secret routes, and nothing published or deployed.
 const nimServiceRecordEntries = new Map();
+// The bases of the four NVIDIA charts that have a literal configuration bundle
+// plan, by record name. Each holds its artifact and its publication state.
+const nvidiaLiteralBundleEntries = new Map();
 
 if (mode === "--self-test") {
   runSelfTest();
@@ -303,6 +316,7 @@ function buildReport() {
   );
 
   const bundleCandidates = loadCatalogBundleBindings();
+  for (const entry of loadNvidiaLiteralBundleEntries()) nvidiaLiteralBundleEntries.set(entry.recordName, entry);
   const intentByName = new Map(intents.map((intent) => [intent.metadata.name, intent]));
   const minimalProfileIntent = buildMinimalProfileIntent();
   intentByName.set(minimalProfileIntent.metadata.name, minimalProfileIntent);
@@ -335,6 +349,7 @@ function buildReport() {
       sourceCatalogImportByBase.get(record.metadata.name),
     ))
     .map((record) => attachPublishedBundle(record, bundleCandidates))
+    .map((record) => attachNvidiaLiteralBundle(record, nvidiaLiteralBundleEntries.get(record.metadata.name)))
     .sort((left, right) => left.metadata.name.localeCompare(right.metadata.name));
 
   for (const sourceCatalogImport of sourceCatalogImports) {
@@ -418,6 +433,44 @@ function attachPublishedBundle(record, candidates) {
     note: binding.boundaries.routesNotExecuted,
   };
   return record;
+}
+
+// A base of one of the four NVIDIA charts is published on its own, outside the
+// certified-bundle table, and only a tracked receipt for the exact committed
+// bytes makes its record say so. Without one the record keeps what the Helm
+// record builder wrote. Nothing but delivery.literalConfigOci changes: a
+// publication is not an upload, a delivery or a route that ran.
+function attachNvidiaLiteralBundle(record, entry) {
+  if (!entry) return record;
+  check(
+    record.spec.delivery.literalConfigOci?.status === LITERAL_BUNDLE_UNPUBLISHED_STATUS,
+    `${record.metadata.name}: the record already says ${record.spec.delivery.literalConfigOci?.status ?? "nothing"} about its literal configuration OCI, so a certified bundle and a literal bundle plan both claim this base`,
+  );
+  if (entry.publication.published) record.spec.delivery.literalConfigOci = publishedLiteralConfigOci(entry.publication);
+  return record;
+}
+
+// The record of such a base must be the record of the bytes its bundle plan
+// was built from, and may say published only beside a matching receipt.
+function validateNvidiaLiteralBundleRecord(record, entry) {
+  const name = record.metadata.name;
+  const spec = record.spec;
+  check(
+    spec.source.type === "helm" && spec.source.name === entry.chart && spec.source.version === entry.version && spec.baseVariant.name === entry.base,
+    `${name}: the record is not ${entry.chart}@${entry.version}/${entry.base}, which its literal bundle plan was built for`,
+  );
+  check(
+    spec.configuration.objects === entry.objectsRel
+      && spec.configuration.digest === entry.objectSetSha256
+      && spec.configuration.objectCount === entry.objectCount,
+    `${name}: the record's retained objects are not the ${entry.objectCount} objects at ${entry.objectsRel} that its literal bundle plan stages`,
+  );
+  check(
+    spec.processing.flattening.verdict === entry.lane && spec.processing.flattening.record === entry.verdictRel,
+    `${name}: the record's flattening verdict is ${spec.processing.flattening.verdict} from ${spec.processing.flattening.record}, and its literal bundle plan was built for ${entry.lane} from ${entry.verdictRel}`,
+  );
+  const literalProblem = literalConfigOciProblem(name, spec.delivery.literalConfigOci, entry.publication);
+  check(!literalProblem, literalProblem);
 }
 
 function buildHelmRecord(intent) {
@@ -2953,6 +3006,15 @@ function validateRecords(records) {
     if (aicrModernGeneration) validateAicrModernRecordAgainstReceipt(record, aicrModernGeneration);
     const nimServiceEntry = nimServiceRecordEntries.get(record.metadata.name);
     if (nimServiceEntry) validateNimServiceRecord(record, nimServiceEntry);
+    const nvidiaLiteralBundleEntry = nvidiaLiteralBundleEntries.get(record.metadata.name);
+    if (nvidiaLiteralBundleEntry) validateNvidiaLiteralBundleRecord(record, nvidiaLiteralBundleEntry);
+    check(
+      Boolean(nvidiaLiteralBundleEntry) === (record.spec.source.type === "helm" && NVIDIA_LITERAL_BUNDLE_CHARTS.includes(record.spec.source.name)),
+      `${record.metadata.name}: every base of ${NVIDIA_LITERAL_BUNDLE_CHARTS.join(", ")} has a literal bundle plan and no other record does; run npm run nvidia-literal-bundles:generate`,
+    );
+  }
+  for (const name of nvidiaLiteralBundleEntries.keys()) {
+    check(records.some((record) => record.metadata.name === name), `${name} has a literal bundle plan and no Catalog record`);
   }
   const exactDelivery = records.find(
     (record) => record.metadata.name === catalogOciDeliveryRecord,
@@ -4231,6 +4293,7 @@ function runSelfTest() {
   execFileSync(process.execPath, ["--test", join(repoRoot, "tests/catalog-bundle-bindings.test.mjs")], { cwd: repoRoot, stdio: "inherit" });
   runAicrRecipeEntrySelfTest();
   runNimServiceEntrySelfTest();
+  runNvidiaLiteralBundleSelfTest();
   const policy = readYaml(policySourcePath);
   validatePolicy(policy);
   const program = readYaml(programSourcePath);
@@ -5134,6 +5197,116 @@ function runNimServiceEntrySelfTest() {
     "self-test: a published record that claims a deployment was accepted",
   );
   nimServiceRecordEntries.clear();
+}
+
+// The publication rule for the bases of the four NVIDIA charts, in both
+// directions. The fixtures start not published whatever receipts are tracked,
+// and the published cases build their own receipt in memory and never write
+// it, so this test does not change the day a real receipt lands.
+function runNvidiaLiteralBundleSelfTest() {
+  const entries = loadNvidiaLiteralBundleEntries({ receipts: "none" });
+  const entry = entries.find((candidate) => candidate.lifecycleActions.length > 0);
+  const other = entries.find((candidate) => candidate.lane === "safe-to-flatten");
+  check(entry && other, "self-test: the NVIDIA corpus no longer holds both a base with lifecycle actions and a safe-to-flatten base, so these fixtures need new subjects");
+  check(entries.every((candidate) => candidate.publication.published === false), "self-test: a fixture entry started as published");
+  const recordFor = (subject) => ({
+    metadata: { name: subject.recordName },
+    spec: {
+      source: { type: "helm", name: subject.chart, version: subject.version },
+      baseVariant: { name: subject.base },
+      configuration: { objects: subject.objectsRel, digest: subject.objectSetSha256, objectCount: subject.objectCount },
+      processing: { flattening: { verdict: subject.lane, record: subject.verdictRel } },
+      delivery: { literalConfigOci: { status: LITERAL_BUNDLE_UNPUBLISHED_STATUS, note: "fixture" } },
+    },
+  });
+  const receipt = literalBundleReceiptDoc(entry, entry.artifact, {
+    observedAt: "2026-01-01T00:00:00.000Z",
+    pushCommand: "self-test fixture, nothing was pushed",
+    anonymousPull: {
+      result: "pass",
+      manifestDigest: entry.artifact.manifestDigest,
+      layerDigest: entry.artifact.layerDigest,
+      filesMatched: entry.artifact.stagedFiles.length,
+    },
+  });
+  check(literalBundlePublicationProblems(receipt, entry, entry.artifact).length === 0, "self-test: a receipt built from the artifact was refused");
+  check(literalBundlePublicationProblems(receipt, other, other.artifact).length > 0, "self-test: one base's receipt was accepted for another base's bytes");
+  const publishedEntry = {
+    ...entry,
+    publication: {
+      published: true,
+      artifact: entry.artifact,
+      receipt,
+      receiptRel: entry.artifact.receiptRel,
+      receiptSha256: `sha256:${"9".repeat(64)}`,
+      observedReference: `oci://${entry.artifact.reference}@${entry.artifact.manifestDigest}`,
+    },
+  };
+
+  // No receipt: the record stays as built and is accepted.
+  const unpublishedRecord = attachNvidiaLiteralBundle(recordFor(entry), entry);
+  check(unpublishedRecord.spec.delivery.literalConfigOci.status === LITERAL_BUNDLE_UNPUBLISHED_STATUS, "self-test: a base with no receipt was given a published state");
+  validateNvidiaLiteralBundleRecord(unpublishedRecord, entry);
+  // A valid receipt: the record carries exactly that publication.
+  const publishedRecord = attachNvidiaLiteralBundle(recordFor(entry), publishedEntry);
+  const literal = publishedRecord.spec.delivery.literalConfigOci;
+  check(
+    literal.status === LITERAL_BUNDLE_PUBLISHED_STATUS
+      && literal.manifestDigest === entry.artifact.manifestDigest
+      && literal.observedReference === `oci://${entry.artifact.reference}@${entry.artifact.manifestDigest}`
+      && literal.receipt === entry.artifact.receiptRel
+      && literal.objectSetSha256 === `sha256:${entry.objectSetSha256}`
+      && literal.routes.length === entry.generated.filter((file) => file.role.startsWith("route:")).length
+      && !Object.hasOwn(literal, "publicationReceipt"),
+    "self-test: a base with a valid publication receipt was not recorded as published with its reference, digests, receipt and routes",
+  );
+  validateNvidiaLiteralBundleRecord(publishedRecord, publishedEntry);
+  expectRefusal(
+    () => validateNvidiaLiteralBundleRecord(structuredClone(publishedRecord), entry),
+    /delivery\.literalConfigOci says published-with-receipt with sha256:[0-9a-f]{64}, and no tracked publication receipt/,
+    "self-test: a published NVIDIA record was accepted with no publication receipt",
+  );
+  expectRefusal(
+    () => {
+      const record = structuredClone(publishedRecord);
+      record.spec.delivery.literalConfigOci.manifestDigest = `sha256:${"b".repeat(64)}`;
+      validateNvidiaLiteralBundleRecord(record, publishedEntry);
+    },
+    /records a publication of sha256:[0-9a-f]{64}, and delivery\.literalConfigOci does not carry exactly that reference/,
+    "self-test: a published NVIDIA record carrying another digest was accepted",
+  );
+  expectRefusal(
+    () => validateNvidiaLiteralBundleRecord(recordFor(entry), publishedEntry),
+    /records a publication of sha256:[0-9a-f]{64}, and delivery\.literalConfigOci does not carry exactly/,
+    "self-test: an NVIDIA record that says not published was accepted beside a valid publication receipt",
+  );
+  expectRefusal(
+    () => {
+      const record = recordFor(entry);
+      record.spec.delivery.literalConfigOci.manifestDigest = entry.artifact.manifestDigest;
+      validateNvidiaLiteralBundleRecord(record, entry);
+    },
+    /delivery\.literalConfigOci says not-published-in-this-record with sha256:[0-9a-f]{64}, and no tracked publication receipt/,
+    "self-test: an unpublished NVIDIA record carrying a manifest digest was accepted",
+  );
+  expectRefusal(
+    () => {
+      const record = recordFor(entry);
+      record.spec.configuration.digest = other.objectSetSha256;
+      validateNvidiaLiteralBundleRecord(record, entry);
+    },
+    /the record's retained objects are not the \d+ objects at /,
+    "self-test: an NVIDIA record for other objects was accepted beside this base's bundle plan",
+  );
+  expectRefusal(
+    () => {
+      const record = recordFor(entry);
+      record.spec.delivery.literalConfigOci = { status: LITERAL_BUNDLE_PUBLISHED_STATUS, publicationReceipt: "runs/certified-bundles/x/publication-receipt.yaml" };
+      attachNvidiaLiteralBundle(record, entry);
+    },
+    /a certified bundle and a literal bundle plan both claim this base/,
+    "self-test: a base with a certified bundle binding was given a second publication",
+  );
 }
 
 function expectFailure(fn, message) {

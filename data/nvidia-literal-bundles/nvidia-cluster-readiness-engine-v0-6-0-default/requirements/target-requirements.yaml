@@ -1,0 +1,63 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "nvidia-cluster-readiness-engine-v0-6-0-default-target-requirements"
+spec:
+  subject:
+    catalogEntry: "nvidia-cluster-readiness-engine-v0-6-0-default"
+    chart: "nvidia/cluster-readiness-engine"
+    version: "v0.6.0"
+    base: "default"
+    revision: "r001"
+  namespace:
+    name: "nvcre"
+    namespaceObjectInBundle: false
+    objectsNamingThisNamespace: 6
+    otherNamespacesNamed:
+      []
+    namespacedObjectsNamingNoNamespace: 0
+    customKindObjectsNamingNoNamespace: 4
+    customKindsNamingNoNamespace:
+      - "LogProfile"
+    statement: "The bundle holds no Namespace object, so the namespace nvcre must exist on the target before these objects are applied. 4 objects of a custom kind set no namespace. This file does not decide whether those kinds are namespaced."
+  customResourceDefinitions:
+    inBundle:
+      count: 7
+      names:
+        - "bandwidthmeasurements.nvcre.nvidia.com"
+        - "certifications.nvcre.nvidia.com"
+        - "goodputmeasurements.nvcre.nvidia.com"
+        - "jobs.nvcre.nvidia.com"
+        - "logprofiles.nvcre.nvidia.com"
+        - "workflows.nvcre.nvidia.com"
+        - "workloadruns.nvcre.nvidia.com"
+      orderedBy: "routes/crd-ordering.yaml"
+    requiredOnTarget:
+      -
+        name: "servicemonitors.monitoring.coreos.com"
+        purpose: "Prometheus Operator ServiceMonitor CRD required before Kubernetes accepts the rendered ServiceMonitor object; the chart does not ship it"
+        packagedCopy:
+          installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501"
+          path: "prerequisites/target-facts/default-crds.yaml"
+          repositoryPath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+          sha256: "sha256:f452607a977cac358bac40b3b01ad74ca8c1044b5eb01918ed6ad23377e32b28"
+          bytes: 1517855
+  applyMode: "server-side"
+  render:
+    renderer: "helm"
+    releaseName: "nvcre"
+    namespace: "nvcre"
+    kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+    valuesProfile: "recipes/nvidia/cluster-readiness-engine/v0.6.0/effective-values.yaml"
+  flattening:
+    lane: "flatten-with-routes"
+    verdict: "recipes/nvidia/cluster-readiness-engine/v0.6.0/publication/flattening-safety-verdict.yaml"
+  sourcePackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-nvidia-literal-bundles.mjs"
+    generatedFrom:
+      - "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
+      - "recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/rendered/object-inventory.yaml"
+    verdictRef: "recipes/nvidia/cluster-readiness-engine/v0.6.0/publication/flattening-safety-verdict.yaml"

@@ -1,0 +1,56 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "nvidia-gpu-operator-v25-10-1-default-lifecycle-actions"
+spec:
+  quirkClass: "helm-hooks"
+  routeKind: "lifecycle-action"
+  discharges: "The chart defines Helm hooks for pre-upgrade and post-delete. The base was rendered without them, because a hook object applied with the other objects runs at install time. Each action below names the hook objects the installer package holds and says when they apply."
+  declaration:
+    actions:
+      -
+        order: 1
+        phase: "pre-upgrade"
+        helmHook: "pre-upgrade"
+        name: "Before an upgrade, move the CRDs to the new version"
+        detail: "Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them."
+        invokedBy: "delivery-workflow"
+        automatic: false
+        evidenceState: "not-run"
+        objects:
+          installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v25.10.1@sha256:35774151264bf1b5998330ca4290ae306e89470c7eb05a4e4c8fc18401c9e155"
+          path: "prerequisites/gpu-operator-lifecycle/default/pre-upgrade.yaml"
+          repositoryPath: "packages/nvidia/gpu-operator/v25.10.1/prerequisites/gpu-operator-lifecycle/default/pre-upgrade.yaml"
+          sha256: "sha256:6b6b61613320f8699d4bbdaa37c26835db9a67528bb76c1d34f21dfca24df3e0"
+          bytes: 3045
+      -
+        order: 2
+        phase: "post-delete"
+        helmHook: "post-delete"
+        name: "After deleting, prune node-feature-discovery labels from the nodes"
+        detail: "The Job runs nfd-master -prune, which removes node-feature-discovery labels, annotations and taints from every node, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. Apply the four objects only after the base objects are deleted, wait for the Job to complete, then delete them. Never apply them with the base: at install time the prune would run immediately."
+        invokedBy: "delivery-workflow"
+        automatic: false
+        evidenceState: "not-run"
+        objects:
+          installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v25.10.1@sha256:35774151264bf1b5998330ca4290ae306e89470c7eb05a4e4c8fc18401c9e155"
+          path: "prerequisites/gpu-operator-lifecycle/default/post-delete.yaml"
+          repositoryPath: "packages/nvidia/gpu-operator/v25.10.1/prerequisites/gpu-operator-lifecycle/default/post-delete.yaml"
+          sha256: "sha256:28134027f25bbd6ba9c195bb67db1ea36c02ca404d2a0df5c89f6c612a35d475"
+          bytes: 4046
+    hookObjectsInThisBundle: false
+    applyWithBase: "never"
+    onActionFailure: "stop and report; never continue past an action that did not complete"
+  executedBy:
+    invokedBy: "the delivery workflow, one action at its own phase"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "the hook objects stay in the signed installer package and are named here by path and SHA-256; this bundle does not hold them"
+    - "no action has been run on a cluster, and no receipt says an upgrade or a delete of this flattened base behaved as the chart's hooks would"
+  provenance:
+    emittedBy: "scripts/generate-nvidia-literal-bundles.mjs"
+    generatedFrom:
+      - "packages/nvidia/gpu-operator/v25.10.1/prerequisites/gpu-operator-lifecycle/lifecycle-actions.yaml"
+      - "data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-default.yaml"
+    verdictRef: "recipes/nvidia/gpu-operator/v25.10.1/publication/flattening-safety-verdict.yaml"

@@ -338,6 +338,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `next-ten-waves` | [next-ten-waves/summary.md](./next-ten-waves/summary.md) | compact next work queues |
 | `next80-full-proofs` | [next80-full-proofs/summary.md](./next80-full-proofs/summary.md) | 80 additional full proof-grade chart artifacts |
 | `nginx-config-checks` | [nginx-config-checks/summary.md](./nginx-config-checks/summary.md) | NGINX supported-base config extension checks |
+| `nvidia-literal-bundles` | [nvidia-literal-bundles/summary.md](./nvidia-literal-bundles/summary.md) | one literal configuration OCI bundle plan for each base of four NVIDIA charts: the route files, the requirements file, the guide and the manifest digest the committed bytes build; a plan does not say whether its bundle is published |
 | `oci-evidence-chains` | [oci-evidence-chains/summary.md](./oci-evidence-chains/summary.md) | source-neutral records linking source digest, reviewed configuration, ConfigHub record, output OCI, delivery, and observation |
 | `outcome-coverage` | [outcome-coverage/summary.md](./outcome-coverage/summary.md) | front-door outcome, test, and status map |
 | `outcome-evidence-contract` | [outcome-evidence-contract/summary.md](./outcome-evidence-contract/summary.md) | supporting generated evidence |
@@ -414,7 +415,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 233 CSV files. Each row records the path, audience,
+It includes 234 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

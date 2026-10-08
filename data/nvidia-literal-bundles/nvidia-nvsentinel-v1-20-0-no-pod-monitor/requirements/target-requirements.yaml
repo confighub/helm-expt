@@ -1,0 +1,49 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "nvidia-nvsentinel-v1-20-0-no-pod-monitor-target-requirements"
+spec:
+  subject:
+    catalogEntry: "nvidia-nvsentinel-v1-20-0-no-pod-monitor"
+    chart: "nvidia/nvsentinel"
+    version: "v1.20.0"
+    base: "no-pod-monitor"
+    revision: "r001"
+  namespace:
+    name: "nvsentinel"
+    namespaceObjectInBundle: false
+    objectsNamingThisNamespace: 0
+    otherNamespacesNamed:
+      []
+    namespacedObjectsNamingNoNamespace: 15
+    customKindObjectsNamingNoNamespace: 0
+    customKindsNamingNoNamespace:
+      []
+    statement: "The bundle holds no Namespace object, so the namespace nvsentinel must exist on the target before these objects are applied. 15 namespaced objects set no namespace and must be applied into nvsentinel."
+  customResourceDefinitions:
+    inBundle:
+      count: 0
+      names:
+        []
+      orderedBy: ""
+    requiredOnTarget:
+      []
+  applyMode: "not-recorded"
+  render:
+    renderer: "helm"
+    releaseName: "nvsentinel"
+    namespace: "nvsentinel"
+    kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+    valuesProfile: "recipes/nvidia/nvsentinel/v1.20.0/effective-values-no-pod-monitor.yaml"
+  flattening:
+    lane: "safe-to-flatten"
+    verdict: "recipes/nvidia/nvsentinel/v1.20.0/publication/flattening-safety-verdict-no-pod-monitor.yaml"
+  sourcePackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0@sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-nvidia-literal-bundles.mjs"
+    generatedFrom:
+      - "data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-no-pod-monitor.yaml"
+      - "recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/rendered/object-inventory.yaml"
+    verdictRef: "recipes/nvidia/nvsentinel/v1.20.0/publication/flattening-safety-verdict-no-pod-monitor.yaml"
