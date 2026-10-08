@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.16.9"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "kai-scheduler/kai-scheduler"
+    version: "v0.16.9"
+    variants:
+      - "default"
+      - "aicr-eks-training"
+    helmObjectsByVariant:
+      default: 37
+      aicr-eks-training: 37
+    cubInstallObjectsByVariant:
+      default: 37
+      aicr-eks-training: 37
+    helmMatchByVariant:
+      default: "37/37"
+      aicr-eks-training: "37/37"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish and sign the package, then complete target-specific live qualification before production"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/install-gate.yaml"

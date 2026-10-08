@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "nvidia-nodewright-v0.19.0"
+spec:
+  chart: "nvidia/nodewright"
+  version: "v0.19.0"
+  caveats:
+    - "Installing the operator changes no node. A node is changed only when a Skyhook or Nodewright custom resource names packages for it, and none is part of this entry."
+    - "The webhooks have failurePolicy Fail. Until the operator is running and has written its CA bundle, the API server rejects writes to the operator's custom resources."
+    - "The pre-delete hook that deletes every custom resource of the operator's kinds exists so finalizers are released while the operator still runs. A flattened delete that skips it can leave custom resources stuck on their finalizers."
+    - "The hook Jobs use a public kubectl image by tag. It is not pinned by digest here."
+    - "The AICR entries install a second component, nodewright-customizations, that creates the custom resources. It is AICR's own chart and is not part of this entry."
+  maintainedNotes:
+    - "This package is the exact nodewright@v0.19.0 chart, locked by archive URL and SHA-256."
+    - "With chart defaults nodewright@v0.19.0 renders 20 objects as release nodewright-operator in namespace nodewright, the release name and namespace the AICR entry that pins this version uses: 4 CRDs from the chart's templates directory, the controller-manager Deployment, its ServiceAccount and RBAC, a metrics Service and a webhook Service, a MutatingWebhookConfiguration and a ValidatingWebhookConfiguration, a NetworkPolicy, a LimitRange and a PodDisruptionBudget. It renders no Secret."
+    - "The same values also render six Helm hook objects that no base holds: four pre-upgrade (the selector-migration Job with its ServiceAccount, Role and RoleBinding) and two pre-delete Jobs. They are packaged under prerequisites/nodewright-lifecycle with a lifecycle-actions.yaml record. Nothing runs them automatically and none has been run on a cluster."
+    - "The aicr-eks-training base renders 20 objects with the values the AICR v1.0.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-helm-bundle/005-nodewright-operator/values.yaml): the full name overridden to skyhook-operator, the manager given CPU and memory requests and limits, selected onto the system-worker node group and tolerating every taint, and the namespace LimitRange defaults set. The AICR v1.0.0 entry retains these values and no render of this component, so this base is bound to the bundle's checksum list and its Application pin and is not compared with an AICR render."
+    - "The webhook configurations carry no CA bundle. The operator mints a self-signed serving certificate at run time, stores it in a Secret named webhook-cert and writes the CA into both configurations. That Secret is not in any base."
+    - "The two nodewright.nvidia.com CRDs carry helm.sh/resource-policy: keep, so helm uninstall leaves them and the custom resources they hold. A flattened copy has no such memory; deleting the delivered objects deletes those CRDs and every Nodewright object with them."
+    - "The PodDisruptionBudget carries no metadata.namespace, because the chart template leaves it to Helm. A flattened copy must be applied into the release namespace."
+    - "The chart contains no lookup, no .Capabilities branch, no generated credential and no subchart."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, or production support."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "helm-hook-lifecycle-actions"
+    - "target-facts"
+    - "production-readiness-review"

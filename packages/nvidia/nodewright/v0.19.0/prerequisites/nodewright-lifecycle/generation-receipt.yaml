@@ -1,0 +1,73 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "PackagedLifecycleGenerationReceipt"
+metadata:
+  name: "nvidia-nodewright-v0-19-0"
+spec:
+  chart: "nvidia/nodewright"
+  version: "v0.19.0"
+  sourceLock: "recipes/nvidia/nodewright/v0.19.0/source-lock.yaml"
+  chartArtifactURL: "oci://ghcr.io/nvidia/nodewright/charts/nodewright:v0.19.0"
+  chartPackageSha256: "24c507791b3fd10cd4fba44831e621d98a7f9faa7833a81add0357bf2d7307ff"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+  evidenceState: "rendered-not-run"
+  bases:
+    -
+      name: "default"
+      valuesSHA256: null
+      totalChartObjects: 26
+      ordinaryObjects: 20
+      hookObjects: 6
+      hookJobs: 3
+      jobImages:
+        - "docker.io/alpine/kubectl:1.36.2@sha256:01d138ce994b684abc62d9cfdff44de42a4c8996dcc12626dd0193afc3fb5a95"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-upgrade"
+          path: "default/pre-upgrade.yaml"
+          sha256: "2605394ca352d10012925323b18ea6565d06d507f099c0cc62a44d42df737ef6"
+          objects:
+            - "batch/v1|Job|nodewright|nodewright-selector-migration"
+            - "rbac.authorization.k8s.io/v1|RoleBinding|nodewright|nodewright-selector-migration"
+            - "rbac.authorization.k8s.io/v1|Role|nodewright|nodewright-selector-migration"
+            - "v1|ServiceAccount|nodewright|nodewright-selector-migration"
+        -
+          phase: "pre-delete"
+          path: "default/pre-delete.yaml"
+          sha256: "5929a2640a2904bca90f70c31551b4899fdbf6ecc10f58b7ad894d905331556a"
+          objects:
+            - "batch/v1|Job|nodewright|nodewright-skyhook-cleanup"
+            - "batch/v1|Job|nodewright|nodewright-webhook-cleanup"
+    -
+      name: "aicr-eks-training"
+      valuesSHA256: "0014b83e7c9a904e9370b9cb458d95dd2f3d8e441a358c69fdee63db6d3f5474"
+      totalChartObjects: 26
+      ordinaryObjects: 20
+      hookObjects: 6
+      hookJobs: 3
+      jobImages:
+        - "docker.io/alpine/kubectl:1.36.2@sha256:01d138ce994b684abc62d9cfdff44de42a4c8996dcc12626dd0193afc3fb5a95"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-upgrade"
+          path: "aicr-eks-training/pre-upgrade.yaml"
+          sha256: "a916a79c4af8fe17a490a5ebd196dd51293a80bbe6abf6080f15fc92c411ed33"
+          objects:
+            - "batch/v1|Job|nodewright|skyhook-operator-selector-migration"
+            - "rbac.authorization.k8s.io/v1|RoleBinding|nodewright|skyhook-operator-selector-migration"
+            - "rbac.authorization.k8s.io/v1|Role|nodewright|skyhook-operator-selector-migration"
+            - "v1|ServiceAccount|nodewright|skyhook-operator-selector-migration"
+        -
+          phase: "pre-delete"
+          path: "aicr-eks-training/pre-delete.yaml"
+          sha256: "db0c725ff8fc446c2a836dc9d51397a013023746d9b8cc817b40d5c435952220"
+          objects:
+            - "batch/v1|Job|nodewright|skyhook-operator-skyhook-cleanup"
+            - "batch/v1|Job|nodewright|skyhook-operator-webhook-cleanup"

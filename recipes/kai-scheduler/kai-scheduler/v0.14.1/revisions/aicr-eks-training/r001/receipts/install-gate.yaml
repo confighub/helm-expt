@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "kai-scheduler-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "f5b5383ffa1072925cd6d639d4aa69cbdefa1b34ba4eaf75b33a698fd210a9c5"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for aicr-eks-training"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the six CRDs must be established before the two Queue objects, the SchedulingShard and the operator; the kai-scheduler namespace must already exist, because the package creates only kai-resource-reservation; the Config object the operator needs is a packaged lifecycle action and is not part of the base"

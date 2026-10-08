@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0"
+spec:
+  files:
+    -
+      path: "effective-values-aicr-eks-training-v1-0-0.yaml"
+      source: "inline-proof"
+      sha256: "af78ff9da52d2968175c13c88856f9fed005599fc957dc6f672825f610fb9c3f"
+  mergedValuesCaptured: false
+  values:
+    gc:
+      enable: true
+      nodeSelector:
+        nodeGroup: "system-worker"
+      tolerations:
+        -
+          operator: "Exists"
+    master:
+      enable: true
+      nodeSelector:
+        nodeGroup: "system-worker"
+      tolerations:
+        -
+          operator: "Exists"
+    topologyUpdater:
+      createCRDs: true
+      enable: true
+      kubeletStateDir: ""
+      resources:
+        limits:
+          memory: "256Mi"
+        requests:
+          cpu: "50m"
+          memory: "128Mi"
+      tolerations:
+        -
+          operator: "Exists"
+    worker:
+      enable: true
+      tolerations:
+        -
+          operator: "Exists"

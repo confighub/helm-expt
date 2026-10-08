@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "nodewright-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "6b25ebafd5569b97caf3dab889873641f69ec5595fa7d2ff5262042d8927b3ed"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for aicr-eks-training"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the CRDs must be established before the operator starts; the operator mints its own webhook certificate at run time, and until it has, the webhook configurations reject writes to its custom resources; the pre-upgrade and pre-delete hook objects are packaged lifecycle actions, not part of the base"

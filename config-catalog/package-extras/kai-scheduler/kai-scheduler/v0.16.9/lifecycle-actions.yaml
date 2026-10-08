@@ -1,0 +1,76 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "PackagedLifecycleActions"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0-16-9"
+spec:
+  bases:
+    -
+      actions:
+        -
+          automatic: false
+          evidenceState: "not-run"
+          invokedBy: "packaged-requirement"
+          phase: "pre-apply"
+          name: "Install and establish the 6 CRDs before the other objects"
+          detail: "The base holds two Queue objects and a SchedulingShard, which Kubernetes rejects until their CRDs are established, and the operator watches all six kinds as soon as it starts. The bundle holds exactly the CRDs this base renders."
+          source: "prerequisites/target-facts/default-crds.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "pre-install,pre-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "pre-install,pre-upgrade"
+          name: "Before an install or an upgrade, move the CRDs forward and migrate topologies"
+          detail: "Helm runs these in hook-weight order before it applies the chart's objects. The crd-upgrader Job applies the CRD files inside its image, with the kai-scheduler-crd-manager ServiceAccount and its ClusterRole and ClusterRoleBinding. The topology-migration Job runs a script from a hook ConfigMap that copies Kueue Topology objects, where a cluster has them, to KAI Topology objects, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. The kai-config Config object is not in this file; the post-install action applies it. A workflow that applies this base's CRD bundle first does the crd-upgrader's work. Helm deletes the Jobs when they succeed; a workflow that applies them must delete them itself."
+          source: "prerequisites/kai-scheduler-lifecycle/default/pre-install-pre-upgrade.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "post-install,post-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "post-install,post-upgrade"
+          name: "After an install or an upgrade, apply the Config that tells the operator what to run"
+          detail: "In this chart version the kai-config Config object is not a chart object. This Job applies it with kubectl apply --server-side from the kai-config-manifest hook ConfigMap, using the kai-config-deployer ServiceAccount and its ClusterRole and ClusterRoleBinding. It is required on a first install: the operator deploys no scheduler until the Config exists. A workflow may instead apply the Config manifest held in that ConfigMap directly."
+          source: "prerequisites/kai-scheduler-lifecycle/default/post-install-post-upgrade.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "post-delete"
+          invokedBy: "delivery-workflow"
+          phase: "post-delete"
+          name: "After a delete, remove what the operator created"
+          detail: "The post-delete-cleanup Job deletes the Deployments the operator created in the release namespace and the kai-config Config object, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. It renders only while postCleanup.enabled is true, which is the chart default; the AICR values turn it off. A flattened delete that skips it leaves the operator-created Deployments and the Config. The keep-annotated Namespace, Queues and SchedulingShard are deleted with the base instead of kept."
+          source: "prerequisites/kai-scheduler-lifecycle/default/post-delete.yaml"
+      name: "default"
+    -
+      actions:
+        -
+          automatic: false
+          evidenceState: "not-run"
+          invokedBy: "packaged-requirement"
+          phase: "pre-apply"
+          name: "Install and establish the 6 CRDs before the other objects"
+          detail: "The base holds two Queue objects and a SchedulingShard, which Kubernetes rejects until their CRDs are established, and the operator watches all six kinds as soon as it starts. The bundle holds exactly the CRDs this base renders."
+          source: "prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "pre-install,pre-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "pre-install,pre-upgrade"
+          name: "Before an install or an upgrade, move the CRDs forward and migrate topologies"
+          detail: "Helm runs these in hook-weight order before it applies the chart's objects. The crd-upgrader Job applies the CRD files inside its image, with the kai-scheduler-crd-manager ServiceAccount and its ClusterRole and ClusterRoleBinding. The topology-migration Job runs a script from a hook ConfigMap that copies Kueue Topology objects, where a cluster has them, to KAI Topology objects, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. The kai-config Config object is not in this file; the post-install action applies it. A workflow that applies this base's CRD bundle first does the crd-upgrader's work. Helm deletes the Jobs when they succeed; a workflow that applies them must delete them itself."
+          source: "prerequisites/kai-scheduler-lifecycle/aicr-eks-training/pre-install-pre-upgrade.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "post-install,post-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "post-install,post-upgrade"
+          name: "After an install or an upgrade, apply the Config that tells the operator what to run"
+          detail: "In this chart version the kai-config Config object is not a chart object. This Job applies it with kubectl apply --server-side from the kai-config-manifest hook ConfigMap, using the kai-config-deployer ServiceAccount and its ClusterRole and ClusterRoleBinding. It is required on a first install: the operator deploys no scheduler until the Config exists. A workflow may instead apply the Config manifest held in that ConfigMap directly."
+          source: "prerequisites/kai-scheduler-lifecycle/aicr-eks-training/post-install-post-upgrade.yaml"
+      name: "aicr-eks-training"
+  chart: "kai-scheduler/kai-scheduler"
+  namespace: "kai-scheduler"
+  version: "v0.16.9"

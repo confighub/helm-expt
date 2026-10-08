@@ -1,0 +1,56 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "aicr-eks-training-v1-0-0"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "node-feature-discovery"
+  releaseName: "nfd"
+  valuesProfile: "../../effective-values-aicr-eks-training-v1-0-0.yaml"
+  capabilityProfile:
+    kubeVersion: "1.31.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "nodefeaturegroups.nfd.k8s-sigs.io"
+        sourceVariant: "aicr-eks-training-v1-0-0"
+        purpose: "CRD included in this base and applied before the components that use it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "nodefeaturerules.nfd.k8s-sigs.io"
+        sourceVariant: "aicr-eks-training-v1-0-0"
+        purpose: "CRD included in this base and applied before the components that use it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "nodefeatures.nfd.k8s-sigs.io"
+        sourceVariant: "aicr-eks-training-v1-0-0"
+        purpose: "CRD included in this base and applied before the components that use it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "noderesourcetopologies.topology.node.k8s.io"
+        sourceVariant: "aicr-eks-training-v1-0-0"
+        purpose: "CRD included in this base and applied before the components that use it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"

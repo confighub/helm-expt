@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "node-feature-discovery-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the CRDs must be established before the master and the workers start; the four post-delete hook objects are a packaged lifecycle action, not part of the base"

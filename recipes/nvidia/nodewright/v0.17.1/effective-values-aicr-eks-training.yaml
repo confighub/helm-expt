@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nvidia-nodewright-v0.17.1-aicr-eks-training"
+spec:
+  files:
+    -
+      path: "effective-values-aicr-eks-training.yaml"
+      source: "inline-proof"
+      sha256: "b27df1bdeb16b7087e9a3349bd7c54a6acad58534dcd9ec34cf5d430f52bbd9f"
+  mergedValuesCaptured: false
+  values:
+    controllerManager:
+      manager:
+        resources:
+          limits:
+            cpu: "1000m"
+            memory: "4000Mi"
+          requests:
+            cpu: "1000m"
+            memory: "2000Mi"
+      tolerations:
+        -
+          operator: "Exists"
+    fullnameOverride: "skyhook-operator"
+    limitRange:
+      default:
+        cpu: "1"
+        memory: "1Gi"
+      defaultRequest:
+        cpu: "500m"
+        memory: "512Mi"

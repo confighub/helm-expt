@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "nodewright-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "95a732cc71f8c56371fe119f8727c2c4053891dbb59d6cbbc5fbcbc378412210"
+    objectCount: 18
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 19
+    uploadedManifestFiles: 19
+    separatedSecretFiles: 0
+    semanticObjectMatches: "18/18"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||skyhook"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run aicr-nested-charts-coverage:compare"

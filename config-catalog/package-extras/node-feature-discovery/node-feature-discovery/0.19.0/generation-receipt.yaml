@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "PackagedLifecycleGenerationReceipt"
+metadata:
+  name: "node-feature-discovery-node-feature-discovery-0-19-0"
+spec:
+  chart: "node-feature-discovery/node-feature-discovery"
+  version: "0.19.0"
+  sourceLock: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/source-lock.yaml"
+  chartArtifactURL: "https://github.com/kubernetes-sigs/node-feature-discovery/releases/download/v0.19.0/node-feature-discovery-chart-0.19.0.tgz"
+  chartPackageSha256: "9e93b360e6167b782759026de40ba9d68d44c3e8b0b53b735592ad48fd3339ad"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+  evidenceState: "rendered-not-run"
+  bases:
+    -
+      name: "default"
+      valuesSHA256: null
+      totalChartObjects: 21
+      ordinaryObjects: 17
+      hookObjects: 4
+      hookJobs: 1
+      jobImages:
+        - "registry.k8s.io/nfd/node-feature-discovery:v0.19.0"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "post-delete"
+          path: "default/post-delete.yaml"
+          sha256: "50854ae41b417a71bae2c3c71fd913503443bf6cb151f9af285693d25d499687"
+          objects:
+            - "batch/v1|Job|node-feature-discovery|nfd-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||nfd-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||nfd-node-feature-discovery-prune"
+            - "v1|ServiceAccount|node-feature-discovery|nfd-node-feature-discovery-prune"
+    -
+      name: "aicr-eks-training-v0-20-0"
+      valuesSHA256: "2da5c78a5cff5e7348237ce22af0bf7c9b71a3cd1134bd17c38c94823a8e64d0"
+      totalChartObjects: 27
+      ordinaryObjects: 23
+      hookObjects: 4
+      hookJobs: 1
+      jobImages:
+        - "registry.k8s.io/nfd/node-feature-discovery:v0.19.0"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "post-delete"
+          path: "aicr-eks-training-v0-20-0/post-delete.yaml"
+          sha256: "973546e88a7644a3c9dbe393e435bd3493a0be8ad36ffb9cb0ae3141e9519505"
+          objects:
+            - "batch/v1|Job|node-feature-discovery|nfd-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||nfd-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||nfd-node-feature-discovery-prune"
+            - "v1|ServiceAccount|node-feature-discovery|nfd-node-feature-discovery-prune"
+    -
+      name: "aicr-eks-training-v1-0-0"
+      valuesSHA256: "af78ff9da52d2968175c13c88856f9fed005599fc957dc6f672825f610fb9c3f"
+      totalChartObjects: 27
+      ordinaryObjects: 23
+      hookObjects: 4
+      hookJobs: 1
+      jobImages:
+        - "registry.k8s.io/nfd/node-feature-discovery:v0.19.0"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "post-delete"
+          path: "aicr-eks-training-v1-0-0/post-delete.yaml"
+          sha256: "53b90132e0ca11721ac308f3e8408dbd80e122f8baa9153633f5399a894bfbf1"
+          objects:
+            - "batch/v1|Job|node-feature-discovery|nfd-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||nfd-node-feature-discovery-prune"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||nfd-node-feature-discovery-prune"
+            - "v1|ServiceAccount|node-feature-discovery|nfd-node-feature-discovery-prune"

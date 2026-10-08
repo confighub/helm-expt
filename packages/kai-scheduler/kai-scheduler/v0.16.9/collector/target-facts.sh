@@ -1,0 +1,252 @@
+#!/bin/sh
+set -eu
+
+base="${INSTALLER_BASE:-default}"
+check_mode="${TARGET_FACT_CHECK_MODE:-record}"
+
+emit_empty() {
+  cat <<YAML
+targetFacts:
+  requiredSecrets: []
+  requiredCRDs: []
+  requiredValues: []
+  requiredObjectStores: []
+  requiredTopology: null
+targetFactChecks:
+  base: "$base"
+  mode: not-required
+  result: pass
+YAML
+}
+
+live_check_secret() {
+  namespace="$1"
+  name="$2"
+  key="$3"
+  if ! command -v kubectl >/dev/null 2>&1; then
+    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2
+    exit 1
+  fi
+  if ! kubectl -n "$namespace" get secret "$name" >/dev/null 2>&1; then
+    echo "required Secret $namespace/$name was not found" >&2
+    exit 1
+  fi
+  if [ -z "$key" ]; then
+    return 0
+  fi
+  if ! kubectl -n "$namespace" get secret "$name" -o yaml | awk -v key="$key" '$1 == key ":" { found=1 } END { exit found ? 0 : 1 }'; then
+    echo "required Secret $namespace/$name is missing key $key" >&2
+    exit 1
+  fi
+}
+
+live_check_crd() {
+  name="$1"
+  if ! command -v kubectl >/dev/null 2>&1; then
+    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2
+    exit 1
+  fi
+  if ! kubectl get crd "$name" >/dev/null 2>&1; then
+    echo "required CRD $name was not found" >&2
+    exit 1
+  fi
+}
+
+live_check_min_schedulable_nodes() {
+  required="$1"
+  if ! command -v kubectl >/dev/null 2>&1; then
+    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2
+    exit 1
+  fi
+  count="$(kubectl get nodes -o jsonpath='{range .items[*]}{.spec.unschedulable}{"\n"}{end}' | awk '$1 != "true" { c++ } END { print c + 0 }')"
+  if [ "$count" -lt "$required" ]; then
+    echo "required at least $required schedulable node(s); found $count" >&2
+    exit 1
+  fi
+}
+
+case "$base" in
+  'default')
+    if [ "$check_mode" = "live" ]; then
+      live_check_crd 'bindrequests.scheduling.run.ai'
+      live_check_crd 'configs.kai.scheduler'
+      live_check_crd 'podgroups.scheduling.run.ai'
+      live_check_crd 'queues.scheduling.run.ai'
+      live_check_crd 'schedulingshards.kai.scheduler'
+      live_check_crd 'topologies.kai.scheduler'
+      result="pass"
+    else
+      result="recorded"
+    fi
+    cat <<YAML
+targetFacts:
+  requiredSecrets: []
+
+  requiredCRDs:
+  - applyMode: server-side
+    deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: bindrequests.scheduling.run.ai
+    purpose: CRD included in this base; it must be established before Kubernetes accepts
+      the rendered Queue and SchedulingShard objects and before the operator starts
+    sourceVariant: default
+  - applyMode: server-side
+    deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: configs.kai.scheduler
+    purpose: CRD included in this base; it must be established before Kubernetes accepts
+      the rendered Queue and SchedulingShard objects and before the operator starts
+    sourceVariant: default
+  - applyMode: server-side
+    deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: podgroups.scheduling.run.ai
+    purpose: CRD included in this base; it must be established before Kubernetes accepts
+      the rendered Queue and SchedulingShard objects and before the operator starts
+    sourceVariant: default
+  - applyMode: server-side
+    deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: queues.scheduling.run.ai
+    purpose: CRD included in this base; it must be established before Kubernetes accepts
+      the rendered Queue and SchedulingShard objects and before the operator starts
+    sourceVariant: default
+  - applyMode: server-side
+    deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: schedulingshards.kai.scheduler
+    purpose: CRD included in this base; it must be established before Kubernetes accepts
+      the rendered Queue and SchedulingShard objects and before the operator starts
+    sourceVariant: default
+  - applyMode: server-side
+    deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: topologies.kai.scheduler
+    purpose: CRD included in this base; it must be established before Kubernetes accepts
+      the rendered Queue and SchedulingShard objects and before the operator starts
+    sourceVariant: default
+
+  requiredValues: []
+
+  requiredObjectStores: []
+
+  requiredTopology: null
+
+targetFactChecks:
+  base: "default"
+  mode: "$check_mode"
+  result: "$result"
+YAML
+    ;;
+  'aicr-eks-training')
+    if [ "$check_mode" = "live" ]; then
+      live_check_crd 'bindrequests.scheduling.run.ai'
+      live_check_crd 'configs.kai.scheduler'
+      live_check_crd 'podgroups.scheduling.run.ai'
+      live_check_crd 'queues.scheduling.run.ai'
+      live_check_crd 'schedulingshards.kai.scheduler'
+      live_check_crd 'topologies.kai.scheduler'
+      result="pass"
+    else
+      result="recorded"
+    fi
+    cat <<YAML
+targetFacts:
+  requiredSecrets: []
+
+  requiredCRDs:
+  - applyMode: server-side
+    deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: bindrequests.scheduling.run.ai
+    purpose: CRD included in this base; it must be established before Kubernetes accepts
+      the rendered Queue and SchedulingShard objects and before the operator starts
+    sourceVariant: aicr-eks-training
+  - applyMode: server-side
+    deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: configs.kai.scheduler
+    purpose: CRD included in this base; it must be established before Kubernetes accepts
+      the rendered Queue and SchedulingShard objects and before the operator starts
+    sourceVariant: aicr-eks-training
+  - applyMode: server-side
+    deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: podgroups.scheduling.run.ai
+    purpose: CRD included in this base; it must be established before Kubernetes accepts
+      the rendered Queue and SchedulingShard objects and before the operator starts
+    sourceVariant: aicr-eks-training
+  - applyMode: server-side
+    deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: queues.scheduling.run.ai
+    purpose: CRD included in this base; it must be established before Kubernetes accepts
+      the rendered Queue and SchedulingShard objects and before the operator starts
+    sourceVariant: aicr-eks-training
+  - applyMode: server-side
+    deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: schedulingshards.kai.scheduler
+    purpose: CRD included in this base; it must be established before Kubernetes accepts
+      the rendered Queue and SchedulingShard objects and before the operator starts
+    sourceVariant: aicr-eks-training
+  - applyMode: server-side
+    deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    name: topologies.kai.scheduler
+    purpose: CRD included in this base; it must be established before Kubernetes accepts
+      the rendered Queue and SchedulingShard objects and before the operator starts
+    sourceVariant: aicr-eks-training
+
+  requiredValues: []
+
+  requiredObjectStores: []
+
+  requiredTopology: null
+
+targetFactChecks:
+  base: "aicr-eks-training"
+  mode: "$check_mode"
+  result: "$result"
+YAML
+    ;;
+  *)
+    emit_empty
+    ;;
+esac

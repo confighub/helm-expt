@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "node-feature-discovery-aicr-eks-training-v1-0-0-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "2329b2fca9e54b4e5b5ba90308c4769c1e919eebffcaa4b756266d63a64de0ff"
+    objectCount: 23
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 24
+    uploadedManifestFiles: 24
+    separatedSecretFiles: 0
+    semanticObjectMatches: "23/23"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||node-feature-discovery"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run aicr-nested-charts-coverage:compare"

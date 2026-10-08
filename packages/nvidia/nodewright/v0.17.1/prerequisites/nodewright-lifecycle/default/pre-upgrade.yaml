@@ -1,0 +1,165 @@
+---
+# Source: nodewright/templates/selector-migration-serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: "nodewright-selector-migration"
+  namespace: "skyhook"
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+    "helm.sh/hook-weight": "-10"
+---
+# Source: nodewright/templates/selector-migration-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: "nodewright-selector-migration"
+  namespace: "skyhook"
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+    "helm.sh/hook-weight": "-10"
+rules:
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  resourceNames:
+  - "nodewright-controller-manager"
+  verbs:
+  - get
+  - delete
+---
+# Source: nodewright/templates/selector-migration-rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: "nodewright-selector-migration"
+  namespace: "skyhook"
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+    "helm.sh/hook-weight": "-10"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: "nodewright-selector-migration"
+subjects:
+- kind: ServiceAccount
+  name: "nodewright-selector-migration"
+  namespace: "skyhook"
+---
+# Source: nodewright/templates/selector-migration-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "nodewright-selector-migration"
+  namespace: "skyhook"
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+    "helm.sh/hook-weight": "-5"
+spec:
+  activeDeadlineSeconds: 120
+  template:
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      serviceAccountName: "nodewright-selector-migration"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+      - name: kube-api-access
+        projected:
+          defaultMode: 420
+          sources:
+          - serviceAccountToken:
+              path: token
+              expirationSeconds: 3607
+          - configMap:
+              items:
+              - key: ca.crt
+                path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+              - fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+                path: namespace
+      # kubectl writes its discovery/http cache under KUBECACHEDIR; with a
+      # read-only root filesystem it needs a writable mount, else it re-discovers
+      # the API on every call.
+      - name: kube-cache
+        emptyDir: {}
+      containers:
+      - name: selector-migration
+        image: alpine/kubectl:1.36.2@sha256:01d138ce994b684abc62d9cfdff44de42a4c8996dcc12626dd0193afc3fb5a95
+        imagePullPolicy: Always
+        env:
+        - name: KUBECACHEDIR
+          value: /tmp/kubecache
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+        volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access
+          readOnly: true
+        - mountPath: /tmp/kubecache
+          name: kube-cache
+        # Guard against limitRange being disabled (set to null/false) with fallback defaults
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        command:
+        - /bin/sh
+        - -c
+        - |
+          NS="skyhook"
+          DEPLOY="nodewright-controller-manager"
+
+          if ! kubectl get deployment "$DEPLOY" -n "$NS" >/dev/null 2>&1; then
+            echo "Deployment $DEPLOY not found; nothing to migrate"
+            exit 0
+          fi
+
+          echo "live selector: $(kubectl get deployment "$DEPLOY" -n "$NS" -o jsonpath='{.spec.selector.matchLabels}')"
+
+          mismatch=0
+
+          live="$(kubectl get deployment "$DEPLOY" -n "$NS" -o jsonpath='{.spec.selector.matchLabels.app\.kubernetes\.io/instance}' 2>/dev/null || true)"
+          if [ "$live" != "nodewright-operator" ]; then
+            echo "selector label app.kubernetes.io/instance differs: live='$live' want='nodewright-operator'"
+            mismatch=1
+          fi
+          live="$(kubectl get deployment "$DEPLOY" -n "$NS" -o jsonpath='{.spec.selector.matchLabels.app\.kubernetes\.io/name}' 2>/dev/null || true)"
+          if [ "$live" != "nodewright" ]; then
+            echo "selector label app.kubernetes.io/name differs: live='$live' want='nodewright'"
+            mismatch=1
+          fi
+          live="$(kubectl get deployment "$DEPLOY" -n "$NS" -o jsonpath='{.spec.selector.matchLabels.control-plane}' 2>/dev/null || true)"
+          if [ "$live" != "controller-manager" ]; then
+            echo "selector label control-plane differs: live='$live' want='controller-manager'"
+            mismatch=1
+          fi
+
+          if [ "$mismatch" -eq 1 ]; then
+            echo "Deployment selector does not match desired; deleting so helm upgrade can recreate it"
+            kubectl delete deployment "$DEPLOY" -n "$NS" --ignore-not-found
+          else
+            echo "Deployment selector already matches desired; nothing to do"
+          fi

@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "PackagedLifecycleActions"
+metadata:
+  name: "nvidia-nodewright-v0-17-1"
+spec:
+  bases:
+    -
+      actions:
+        -
+          automatic: false
+          evidenceState: "not-run"
+          invokedBy: "packaged-requirement"
+          phase: "pre-apply"
+          name: "Install and establish the 2 CRDs before the operator starts"
+          detail: "The operator Deployment watches these custom resources as soon as it starts. The bundle holds exactly the CRDs this base renders. No object in the base is an instance of them, so nothing is rejected if they arrive late, but the operator cannot work until they are established."
+          source: "prerequisites/target-facts/default-crds.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "pre-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "pre-upgrade"
+          name: "Before an upgrade, delete the operator Deployment if its selector would change"
+          detail: "A Deployment's selector is immutable. This Job compares the live controller-manager Deployment's selector with the one the new chart renders and deletes the Deployment when they differ, so the upgrade can create it again. It runs with its own ServiceAccount, Role and RoleBinding. A workflow that applies a newer base over an older one must run these four objects first, wait for the Job to complete, then delete them; otherwise the apply fails on the immutable field."
+          source: "prerequisites/nodewright-lifecycle/default/pre-upgrade.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "pre-delete"
+          invokedBy: "delivery-workflow"
+          phase: "pre-delete"
+          name: "Before a delete, remove the custom resources and the webhook configurations"
+          detail: "Two Jobs run while the operator is still there. One deletes every custom resource of the operator's kinds, so the operator can release their finalizers. The other deletes the mutating and validating webhook configurations and the certificate Secret the operator created. Both use the controller-manager ServiceAccount. A flattened delete that skips them can leave custom resources stuck on finalizers and a webhook configuration pointing at a Service that no longer exists."
+          source: "prerequisites/nodewright-lifecycle/default/pre-delete.yaml"
+      name: "default"
+    -
+      actions:
+        -
+          automatic: false
+          evidenceState: "not-run"
+          invokedBy: "packaged-requirement"
+          phase: "pre-apply"
+          name: "Install and establish the 2 CRDs before the operator starts"
+          detail: "The operator Deployment watches these custom resources as soon as it starts. The bundle holds exactly the CRDs this base renders. No object in the base is an instance of them, so nothing is rejected if they arrive late, but the operator cannot work until they are established."
+          source: "prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "pre-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "pre-upgrade"
+          name: "Before an upgrade, delete the operator Deployment if its selector would change"
+          detail: "A Deployment's selector is immutable. This Job compares the live controller-manager Deployment's selector with the one the new chart renders and deletes the Deployment when they differ, so the upgrade can create it again. It runs with its own ServiceAccount, Role and RoleBinding. A workflow that applies a newer base over an older one must run these four objects first, wait for the Job to complete, then delete them; otherwise the apply fails on the immutable field."
+          source: "prerequisites/nodewright-lifecycle/aicr-eks-training/pre-upgrade.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "pre-delete"
+          invokedBy: "delivery-workflow"
+          phase: "pre-delete"
+          name: "Before a delete, remove the custom resources and the webhook configurations"
+          detail: "Two Jobs run while the operator is still there. One deletes every custom resource of the operator's kinds, so the operator can release their finalizers. The other deletes the mutating and validating webhook configurations and the certificate Secret the operator created. Both use the controller-manager ServiceAccount. A flattened delete that skips them can leave custom resources stuck on finalizers and a webhook configuration pointing at a Service that no longer exists."
+          source: "prerequisites/nodewright-lifecycle/aicr-eks-training/pre-delete.yaml"
+      name: "aicr-eks-training"
+  chart: "nvidia/nodewright"
+  namespace: "skyhook"
+  version: "v0.17.1"

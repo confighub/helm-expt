@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "nvidia-nodewright"
+  version: "v0.19.0"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/nvidia/nodewright/v0.19.0"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/nvidia/nodewright/v0.19.0"
+      - "--non-interactive"
+      - "--namespace"
+      - "nodewright"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/aicr-eks-training/variant.yaml"

@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.14.1-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "051fc0c9c7f39dbb5029a290229050ddc125509a73f9dc6523f9189dfe56d884"
+  mergedValuesCaptured: false
+  values:
+    {}

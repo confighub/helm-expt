@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "nodewright-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "68537abcef49d8dca3da6b04243673187ad73abaae494188ddb9de9a711b7230"
+    dependencyLockSHA256: "176fc03df698e4a0e71ed2bead87ffa9392aa51856faefabc53633cef8a74329"
+    effectiveValuesSHA256: "a4dc756d591eca241b71df00347d1bab891e81311a21f013d7374159dd01f18d"
+  outputs:
+    renderedObjectSetSHA256: "c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf"
+    renderedObjectInventorySHA256: "b0697c9f17c586796a4afebbefe125e5a0dc12c6c0ac90a7927be4324f57f800"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 20
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0
