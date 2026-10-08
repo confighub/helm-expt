@@ -3,9 +3,9 @@
   "generated_at": "2026-10-06T13:45:42.258Z",
   "retention": {
     "policy": "additive_only",
-    "retained_components": 113,
-    "retained_package_versions": 156,
-    "published_package_versions": 156,
+    "retained_components": 117,
+    "retained_package_versions": 167,
+    "published_package_versions": 167,
     "oldest_publication_receipt_at": "2026-08-26T06:59:31.658Z",
     "upstream_republished_version_pairs": 2,
     "license_gate": "evidence_required_before_listing",
@@ -7942,6 +7942,413 @@
       }
     },
     {
+      "chart": "nvidia/cluster-readiness-engine",
+      "version": "v0.6.0",
+      "aliases": [],
+      "digest": "e3068274eee9e154acce62bfeea4f2ddb523ac7099d41711fc8421d9b49c2d09",
+      "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-cluster-readiness-engine-v0-6-0.html",
+      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0",
+      "coverage": {
+        "retained_package": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-cluster-readiness-engine/v0.6.0/installer-package-publication-receipt.yaml"
+          ]
+        },
+        "chart_analysis": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "render_parity": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
+          ]
+        },
+        "values_diagnostics": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "lifecycle_observation": {
+          "status": "not_applicable",
+          "evidence_urls": []
+        },
+        "local_kubernetes": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "gitops_oci": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "live_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "two_cluster": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "promotion": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "upstream_republish": {
+          "status": "not_checked",
+          "evidence_urls": []
+        }
+      }
+    },
+    {
+      "chart": "nvidia/gpu-operator",
+      "version": "v25.10.1",
+      "aliases": [],
+      "digest": "744153b8bc1899fa4b41e893b8b21c5eca1f16781d9f1052d2dace418bc9f0e0",
+      "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v25-10-1.html",
+      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v25.10.1",
+      "coverage": {
+        "retained_package": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-gpu-operator/v25.10.1/installer-package-publication-receipt.yaml"
+          ]
+        },
+        "chart_analysis": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "render_parity": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-default.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/revisions/driver-580.126.20/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-driver-580-126-20.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/revisions/driver-595.91.07/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-driver-595-91-07.yaml"
+          ]
+        },
+        "values_diagnostics": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "lifecycle_observation": {
+          "status": "not_applicable",
+          "evidence_urls": []
+        },
+        "local_kubernetes": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "gitops_oci": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "live_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "two_cluster": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "promotion": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "upstream_republish": {
+          "status": "not_checked",
+          "evidence_urls": []
+        }
+      }
+    },
+    {
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.2",
+      "aliases": [],
+      "digest": "241c9b0f47bac7f0d4d82787105ad8b677794b5646e115e165f5314d6d158a5a",
+      "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-3-2.html",
+      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.2",
+      "coverage": {
+        "retained_package": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-gpu-operator/v26.3.2/installer-package-publication-receipt.yaml"
+          ]
+        },
+        "chart_analysis": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "render_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "values_diagnostics": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "lifecycle_observation": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "local_kubernetes": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "gitops_oci": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "live_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "two_cluster": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "promotion": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "upstream_republish": {
+          "status": "not_checked",
+          "evidence_urls": []
+        }
+      }
+    },
+    {
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.3",
+      "aliases": [],
+      "digest": "3b725c44020062d3fcc945ed790544999abfb856633b62224958f602d8d6b77d",
+      "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-3-3.html",
+      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3",
+      "coverage": {
+        "retained_package": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-gpu-operator/v26.3.3/installer-package-publication-receipt.yaml"
+          ]
+        },
+        "chart_analysis": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "render_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "values_diagnostics": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "lifecycle_observation": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "local_kubernetes": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "gitops_oci": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "live_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "two_cluster": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "promotion": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "upstream_republish": {
+          "status": "not_checked",
+          "evidence_urls": []
+        }
+      }
+    },
+    {
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.7.1",
+      "aliases": [],
+      "digest": "3a3722f1ad3ceaa7280c765c22b2f57ce7f2cd08f9911f283474a35238aa10bd",
+      "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-7-1.html",
+      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1",
+      "coverage": {
+        "retained_package": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-gpu-operator/v26.7.1/installer-package-publication-receipt.yaml"
+          ]
+        },
+        "chart_analysis": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "render_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "values_diagnostics": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "lifecycle_observation": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "local_kubernetes": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "gitops_oci": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "live_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "two_cluster": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "promotion": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "upstream_republish": {
+          "status": "not_checked",
+          "evidence_urls": []
+        }
+      }
+    },
+    {
+      "chart": "nvidia/k8s-nim-operator",
+      "version": "3.1.0",
+      "aliases": [],
+      "digest": "0d487bab6f732bb5176775d222e9006c47ed58a35d72548acece8e98ab7d1efd",
+      "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-k8s-nim-operator-3-1-0.html",
+      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0",
+      "coverage": {
+        "retained_package": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-k8s-nim-operator/3.1.0/installer-package-publication-receipt.yaml"
+          ]
+        },
+        "chart_analysis": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "render_parity": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-default.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml"
+          ]
+        },
+        "values_diagnostics": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "lifecycle_observation": {
+          "status": "not_applicable",
+          "evidence_urls": []
+        },
+        "local_kubernetes": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "gitops_oci": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "live_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "two_cluster": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "promotion": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "upstream_republish": {
+          "status": "not_checked",
+          "evidence_urls": []
+        }
+      }
+    },
+    {
+      "chart": "nvidia/k8s-nim-operator",
+      "version": "3.1.2",
+      "aliases": [],
+      "digest": "b9d16ed1c7f44ff81598337fe8935fdaf6ed550c3a0d8b5a00bf5e60c6e9ba5d",
+      "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-k8s-nim-operator-3-1-2.html",
+      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2",
+      "coverage": {
+        "retained_package": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-k8s-nim-operator/3.1.2/installer-package-publication-receipt.yaml"
+          ]
+        },
+        "chart_analysis": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "render_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "values_diagnostics": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "lifecycle_observation": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "local_kubernetes": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "gitops_oci": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "live_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "two_cluster": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "promotion": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "upstream_republish": {
+          "status": "not_checked",
+          "evidence_urls": []
+        }
+      }
+    },
+    {
       "chart": "nvidia/nvidia-device-plugin",
       "version": "0.19.3",
       "aliases": [],
@@ -7983,6 +8390,237 @@
         },
         "lifecycle_observation": {
           "status": "not_applicable",
+          "evidence_urls": []
+        },
+        "local_kubernetes": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "gitops_oci": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "live_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "two_cluster": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "promotion": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "upstream_republish": {
+          "status": "not_checked",
+          "evidence_urls": []
+        }
+      }
+    },
+    {
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.20.0",
+      "aliases": [],
+      "digest": "26435988c6f62a7a84fc05ed4e97907489627a51469d638d0ed4c44fb9e0c277",
+      "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-20-0.html",
+      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0",
+      "coverage": {
+        "retained_package": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-nvsentinel/v1.20.0/installer-package-publication-receipt.yaml"
+          ]
+        },
+        "chart_analysis": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "render_parity": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-default.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-no-pod-monitor.yaml"
+          ]
+        },
+        "values_diagnostics": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "lifecycle_observation": {
+          "status": "not_applicable",
+          "evidence_urls": []
+        },
+        "local_kubernetes": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "gitops_oci": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "live_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "two_cluster": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "promotion": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "upstream_republish": {
+          "status": "not_checked",
+          "evidence_urls": []
+        }
+      }
+    },
+    {
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.25.0",
+      "aliases": [],
+      "digest": "a4d42c70b701a4e089cde752d8f10d5eabdeee1a67caf6de03a4b42c9400687c",
+      "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-25-0.html",
+      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0",
+      "coverage": {
+        "retained_package": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-nvsentinel/v1.25.0/installer-package-publication-receipt.yaml"
+          ]
+        },
+        "chart_analysis": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "render_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "values_diagnostics": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "lifecycle_observation": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "local_kubernetes": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "gitops_oci": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "live_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "two_cluster": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "promotion": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "upstream_republish": {
+          "status": "not_checked",
+          "evidence_urls": []
+        }
+      }
+    },
+    {
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.26.0",
+      "aliases": [],
+      "digest": "0cd18b117a021659dd7203a1cb50e8c0a5aba1d1dde644225facd1a188fd6bff",
+      "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-26-0.html",
+      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.26.0",
+      "coverage": {
+        "retained_package": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-nvsentinel/v1.26.0/installer-package-publication-receipt.yaml"
+          ]
+        },
+        "chart_analysis": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "render_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "values_diagnostics": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "lifecycle_observation": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "local_kubernetes": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "gitops_oci": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "live_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "two_cluster": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "promotion": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "upstream_republish": {
+          "status": "not_checked",
+          "evidence_urls": []
+        }
+      }
+    },
+    {
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.9.0",
+      "aliases": [],
+      "digest": "af32bf805d20de0b7f34a2ecd975c1518a8983f90d7cb2ec20e0006e111cc411",
+      "canonical_url": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-9-0.html",
+      "package_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.9.0",
+      "coverage": {
+        "retained_package": {
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-nvsentinel/v1.9.0/installer-package-publication-receipt.yaml"
+          ]
+        },
+        "chart_analysis": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "render_parity": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "values_diagnostics": {
+          "status": "not_checked",
+          "evidence_urls": []
+        },
+        "lifecycle_observation": {
+          "status": "not_checked",
           "evidence_urls": []
         },
         "local_kubernetes": {

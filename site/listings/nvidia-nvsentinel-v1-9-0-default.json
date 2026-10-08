@@ -1,0 +1,659 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:2effb5b0837b7646de2d98d95a2455fe3fbf06d4c07e70de139f297e369a22e8",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/nvidia-nvsentinel-v1-9-0-default.yaml",
+      "sha256": "sha256:15333638fe2b0163563bf367d211feae89edc0bd30e8b29ce7e9a26c321502e2",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-nvsentinel-v1-9-0-default.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "nvidia-nvsentinel-v1-9-0-default",
+    "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-9-0-default.json",
+    "name": "nvidia/nvsentinel",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "v1.9.0",
+    "base": "default",
+    "page": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-9-0.html"
+  },
+  "discovery": {
+    "status": "classified",
+    "roles": [
+      {
+        "role": "gpu",
+        "componentType": "agent"
+      }
+    ],
+    "rationale": "The node DaemonSets watch GPU and system-log health and report faults; as retained they quarantine or repair nothing, and they supply no GPU capacity.",
+    "assignment": {
+      "path": "data/catalog-roles/assignments.json",
+      "sha256": "sha256:eefdfe9332f2fd59e75a2a129b0202e3b5fc417fea566f8a0af309faf93c97ab",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/catalog-roles/assignments.json"
+    },
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
+  "source": {
+    "format": "helm",
+    "name": "nvidia/nvsentinel",
+    "version": "v1.9.0",
+    "reference": "nvidia/nvsentinel@v1.9.0",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.9.0@sha256:d13963c102f908c62a297120947532bc4101486e72d5cb36b1708a04a6e5283b",
+    "record": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml",
+    "selection": {
+      "name": "default",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-default.yaml"
+    },
+    "pin": {
+      "digest": "sha256:0369d05454ce78ae4791f376bc67f2651f48ccfaebf4a9e801fdfa83ec387199",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=nvidia/nvsentinel",
+      "version=v1.9.0",
+      "base=default",
+      "valuesProfile=recipes/nvidia/nvsentinel/v1.9.0/effective-values.yaml",
+      "namespace=nvsentinel",
+      "releaseName=nvsentinel",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.31.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 21,
+    "digest": "sha256:ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2",
+    "digestRole": "canonical-object-set",
+    "verdict": "safe-to-flatten",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects",
+    "scope": "nvidia/nvsentinel@v1.9.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/nvidia/nvsentinel/v1.9.0/publication/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.9.0/publication/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2"
+    }
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.9.0@sha256:d13963c102f908c62a297120947532bc4101486e72d5cb36b1708a04a6e5283b",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "images": {
+    "count": 6,
+    "pinnedByDigest": 0,
+    "namedByTag": 6,
+    "references": [
+      {
+        "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.9.0-dcgm-3.x",
+        "pinned": false
+      },
+      {
+        "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.9.0-dcgm-4.x",
+        "pinned": false
+      },
+      {
+        "reference": "ghcr.io/nvidia/nvsentinel/labeler:v1.9.0",
+        "pinned": false
+      },
+      {
+        "reference": "ghcr.io/nvidia/nvsentinel/metadata-collector:v1.9.0",
+        "pinned": false
+      },
+      {
+        "reference": "ghcr.io/nvidia/nvsentinel/platform-connectors:v1.9.0",
+        "pinned": false
+      },
+      {
+        "reference": "ghcr.io/nvidia/nvsentinel/syslog-health-monitor:v1.9.0",
+        "pinned": false
+      }
+    ],
+    "readFrom": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
+  "variants": {
+    "base": "default",
+    "known": [
+      {
+        "id": "nvidia-nvsentinel-v1-9-0-aicr-eks-training",
+        "base": "aicr-eks-training",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-9-0-aicr-eks-training.json",
+        "self": false,
+        "digest": "sha256:108838b8b474bf4a3e5bf541af136ef74fcacfdf74cb16ed18f7d999a44f365d"
+      },
+      {
+        "id": "nvidia-nvsentinel-v1-9-0-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-9-0-default.json",
+        "self": true,
+        "digest": "sha256:ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2"
+      },
+      {
+        "id": "nvidia-nvsentinel-v1-9-0-no-pod-monitor",
+        "base": "no-pod-monitor",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-9-0-no-pod-monitor.json",
+        "self": false,
+        "digest": "sha256:5319d654999e0575a5c43ab992c31af9a22a92f5d55f025e4f3ad539cb963810"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2. The exact objects are recorded at recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component nvidia-nvsentinel --variant default --space nvidia-nvsentinel-v1-9-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component nvidia-nvsentinel --variant default --space nvidia-nvsentinel-v1-9-0-default --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging nvidia-nvsentinel-v1-9-0-default --space-pattern template:nvidia-nvsentinel-v1-9-0-default-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote nvidia-nvsentinel-v1-9-0-default-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "required-at-destination",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "podmonitors.monitoring.coreos.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Prometheus Operator PodMonitor CRD required before Kubernetes accepts the rendered PodMonitor object; the chart does not ship it"
+      }
+    ],
+    "routes": [],
+    "records": []
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "podmonitors.monitoring.coreos.com",
+        "kind": "requiredCRDs",
+        "detail": "Prometheus Operator PodMonitor CRD required before Kubernetes accepts the rendered PodMonitor object; the chart does not ship it",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded",
+      "status": "missing-confighub-proof"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "lifecycle_observation": {
+        "status": "not_applicable",
+        "declared": "n/a"
+      },
+      "gitops_oci_live": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "live_dual_parity": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "two_cluster_kind": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "variant_promotion": {
+        "status": "not_checked",
+        "declared": "missing-confighub-proof"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "workflow-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "podmonitors.monitoring.coreos.com"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": []
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/nvidia/nvsentinel/v1.9.0/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.9.0/publication/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 21 objects in one file.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o nvidia-nvsentinel-v1-9-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 nvidia-nvsentinel-v1-9-0-default.yaml",
+          "expect": "ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2  nvidia-nvsentinel-v1-9-0-default.yaml"
+        },
+        {
+          "comment": "render this base from the signed package; step 3 uploads this directory",
+          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.9.0@sha256:d13963c102f908c62a297120947532bc4101486e72d5cb36b1708a04a6e5283b --base default --work-dir ./nvidia-nvsentinel-v1-9-0-default --non-interactive --namespace nvsentinel"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the aicr-eks-training base of the same version",
+          "command": "curl -fsSL -o nvidia-nvsentinel-v1-9-0-aicr-eks-training.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what differs between the two bases",
+          "command": "cub config diff nvidia-nvsentinel-v1-9-0-default.yaml nvidia-nvsentinel-v1-9-0-aicr-eks-training.yaml --summary"
+        },
+        {
+          "comment": "fetch the default base at version v1.20.0",
+          "command": "curl -fsSL -o nvidia-nvsentinel-v1-20-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what changes from v1.9.0 to v1.20.0",
+          "command": "cub config diff nvidia-nvsentinel-v1-9-0-default.yaml nvidia-nvsentinel-v1-20-0-default.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "nvidia-nvsentinel-v1-9-0-aicr-eks-training",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-9-0-aicr-eks-training.json",
+          "version": "v1.9.0",
+          "base": "aicr-eks-training",
+          "relation": "other-base"
+        },
+        {
+          "id": "nvidia-nvsentinel-v1-9-0-no-pod-monitor",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-9-0-no-pod-monitor.json",
+          "version": "v1.9.0",
+          "base": "no-pod-monitor",
+          "relation": "other-base"
+        },
+        {
+          "id": "nvidia-nvsentinel-v1-20-0-aicr-eks-training",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-20-0-aicr-eks-training.json",
+          "version": "v1.20.0",
+          "base": "aicr-eks-training",
+          "relation": "other-version"
+        },
+        {
+          "id": "nvidia-nvsentinel-v1-20-0-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-20-0-default.json",
+          "version": "v1.20.0",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "nvidia-nvsentinel-v1-20-0-no-pod-monitor",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-20-0-no-pod-monitor.json",
+          "version": "v1.20.0",
+          "base": "no-pod-monitor",
+          "relation": "other-version"
+        },
+        {
+          "id": "nvidia-nvsentinel-v1-25-0-aicr-eks-training",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-25-0-aicr-eks-training.json",
+          "version": "v1.25.0",
+          "base": "aicr-eks-training",
+          "relation": "other-version"
+        },
+        {
+          "id": "nvidia-nvsentinel-v1-25-0-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-25-0-default.json",
+          "version": "v1.25.0",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "nvidia-nvsentinel-v1-25-0-no-pod-monitor",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-25-0-no-pod-monitor.json",
+          "version": "v1.25.0",
+          "base": "no-pod-monitor",
+          "relation": "other-version"
+        },
+        {
+          "id": "nvidia-nvsentinel-v1-26-0-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-26-0-default.json",
+          "version": "v1.26.0",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "nvidia-nvsentinel-v1-26-0-no-pod-monitor",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-26-0-no-pod-monitor.json",
+          "version": "v1.26.0",
+          "base": "no-pod-monitor",
+          "relation": "other-version"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its signed installer package.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the directory rendered in step 1 as a Space of Units",
+          "command": "cub installer upload --work-dir ./nvidia-nvsentinel-v1-9-0-default --space nvidia-nvsentinel-v1-9-0-default",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "list the Units the upload created",
+          "command": "cub unit list --space nvidia-nvsentinel-v1-9-0-default",
+          "needsAccount": true
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev nvidia-nvsentinel-v1-9-0-default --target workshop/target --space-pattern \"template:nvidia-nvsentinel-v1-9-0-default-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish nvidia-nvsentinel-v1-9-0-default-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "needs": [
+        "podmonitors.monitoring.coreos.com"
+      ]
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote nvidia-nvsentinel-v1-9-0-default-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote nvidia-nvsentinel-v1-9-0-default-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
+    }
+  ]
+}

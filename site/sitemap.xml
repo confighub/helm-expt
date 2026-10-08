@@ -127,7 +127,18 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nats-surveyor-0-20-9.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-cluster-readiness-engine-v0-6-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v25-10-1.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-3-2.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-3-3.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-7-1.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-k8s-nim-operator-3-1-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-k8s-nim-operator-3-1-2.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-nvidia-device-plugin-0-19-3.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-20-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-25-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-26-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-9-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/oauth2-proxy-oauth2-proxy-10-7-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/open-telemetry-opentelemetry-operator-0-114-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/opencost-opencost-2-5-21.html</loc></url>
