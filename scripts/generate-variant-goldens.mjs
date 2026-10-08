@@ -339,6 +339,7 @@ function derivedExpansionWave() {
         "Make derived ConfigHub variants visible across multiple proven chart bases before broadening catalog metrics.",
       commandSurface: {
         current: ["cub variant create", "cub variant promote", "cub variant upload"],
+        // cub-surface-ignore: listed as not current, on purpose
         notCurrent: ["cub variant release"],
       },
       summary: {

@@ -761,8 +761,8 @@ function approveAndReleaseChangeOrder(context, space, unit, stored, stageName) {
     cub(context, ["changeorder", "create", "--space", space, slug, "--component", source.ComponentID, "--in-scope-space", space, "--change-workflow", `${space}/${slug}`, "--quiet"]);
     const order = cubJson(context, ["changeorder", "get", "--space", space, slug, "-o", "json"]).ChangeOrder;
     check(order.ChangeWorkflowID === workflow.ChangeWorkflowID && order.EndTagID && Array.isArray(order.InScopeSpaceIDs) && order.InScopeSpaceIDs.length === 1 && order.InScopeSpaceIDs[0] === source.SpaceID, `${stageName} ChangeOrder is not exactly bound`);
-    const head = cubJson(context, ["revision", "list", "--space", space, "--by-unit-id", stored.UnitID, "--where", `RevisionNum = ${stored.HeadRevisionNum}`, "-o", "json"]).map((row) => row.Revision ?? row);
-    const chosen = cubJson(context, ["revision", "list", "--space", space, "--by-unit-id", stored.UnitID, "--change-order", order.ChangeOrderID, "-o", "json"]).map((row) => row.Revision ?? row);
+    const head = cubJson(context, ["revision", "list", "--space", space, stored.Slug, "--where", `RevisionNum = ${stored.HeadRevisionNum}`, "-o", "json"]).map((row) => row.Revision ?? row);
+    const chosen = cubJson(context, ["revision", "list", "--space", space, stored.Slug, "--change-order", order.ChangeOrderID, "-o", "json"]).map((row) => row.Revision ?? row);
     check(head.length === 1 && head[0]?.RevisionID === stored.HeadRevisionID && head[0]?.UnitID === stored.UnitID && Number(head[0]?.RevisionNum) === Number(stored.HeadRevisionNum) && head[0]?.DataHash === stored.DataHash && chosen.length === 1 && chosen[0]?.UnitID === stored.UnitID && chosen[0]?.RevisionID === head[0].RevisionID && Number(chosen[0]?.RevisionNum) === Number(head[0].RevisionNum) && chosen[0]?.DataHash === head[0].DataHash, `${stageName} ChangeOrder end tag does not select exactly the reviewed Unit revision`);
     const revision = `ChangeOrder:${order.ChangeOrderID}`; const refused = cubTry(context, ["release", "publish", "--revision", revision, space, "-o", "json"]);
     check(!refused.ok && /requires review: 1 Approval attestation\(s\)/.test(refused.error), `${stageName} release did not return the workflow prerequisite refusal`);
@@ -1503,24 +1503,6 @@ function waitForPolicy(context, space, unit, approvalExpected) {
     sleep(1000);
   }
   throw new Error(`${space}/${unit} did not reach the expected policy state`);
-}
-
-function approveHeadRevision(context, space, unit, stageName, expectedRevision) {
-  const result = cubTry(context, [
-    "unit", "approve", "--space", space, unit,
-    "--revision", "HeadRevisionNum", "--wait", "--quiet",
-  ]);
-  if (result.ok) return;
-  const current = cubJson(
-    context,
-    ["unit", "get", unit, "--space", space, "-o", "json"],
-  ).Unit;
-  check(
-    Number(current.HeadRevisionNum) === Number(expectedRevision)
-      && approvalCount(current.ApprovedBy) >= 1,
-    `ConfigHub rejected the ${stageName} approval before recording it: ${result.error}`,
-  );
-  phase(`${stageName} approval recorded; waiting for delayed trigger completion`);
 }
 
 function approvalObservation(context, space, unit) {
@@ -3166,7 +3148,7 @@ function createFakeConfigHub() {
     if (entity === "changeorder" && verb === "create") { const workflow = workflows.get(flags["change-workflow"]), space = spaces.get(flags.space); if (!workflow || !space) return refuse("workflow or space not found"); changeOrders.set(`${flags.space}/${rest[0]}`, { ChangeOrderID: `self-test-changeorder-${flags.space}-${rest[0]}`, ChangeWorkflowID: workflow.ChangeWorkflowID, EndTagID: `self-test-endtag-${flags.space}-${rest[0]}`, InScopeSpaceIDs: [space.SpaceID] }); return ok(""); }
     if (entity === "changeorder" && verb === "get") { const row = changeOrders.get(`${flags.space}/${rest[0]}`); return row ? ok(JSON.stringify({ ChangeOrder: row })) : refuse("changeorder not found"); }
     if (entity === "revision" && verb === "list") {
-      const unit = [...units.values()].find((row) => row.SpaceSlug === flags.space && row.UnitID === flags["by-unit-id"]);
+      const unit = [...units.values()].find((row) => row.SpaceSlug === flags.space && row.Slug === rest[0]);
       if (!unit) return refuse("unit revision not found");
       const revisionID = revisionIds.get(unitKey(unit.SpaceSlug, unit.Slug));
       const mismatch = flags["change-order"]

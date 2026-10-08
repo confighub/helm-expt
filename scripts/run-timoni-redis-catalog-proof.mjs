@@ -291,14 +291,12 @@ function verifyPublicReceipt(pullLive) {
 
 function syncBase(immutableReference) {
   cub([
-    "variant", "upload", "--allow-exists",
-    "--component", "timoni-redis-8-10-1",
+    "variant", "upload", "--component", "timoni-redis-8-10-1",
     "--variant", "base",
     "--space", baseSpace,
-    "--granularity", "per-resource",
-    "--label", "SourceType=timoni",
-    "--label", "InputFormat=LiteralOCI",
-    "--label", "ResourceClass=user-workload",
+    "--space-label", "SourceType=timoni",
+    "--space-label", "InputFormat=LiteralOCI",
+    "--space-label", "ResourceClass=user-workload",
     "--layer", "Application",
     "--owner", "Application",
     "--change-desc", "Retain the exact Timoni Redis objects from the public OCI",

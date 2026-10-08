@@ -850,7 +850,7 @@ function approveAndReleaseChangeOrder(context, space, unit, stored, stageName) {
     cub(context, ["changeorder", "create", "--space", space, changeOrderSlug, "--component", source.ComponentID, "--in-scope-space", space, "--change-workflow", `${space}/${workflowSlug}`, "--quiet"]);
     const changeOrder = cubJson(context, ["changeorder", "get", "--space", space, changeOrderSlug, "-o", "json"]).ChangeOrder;
     check(changeOrder.ChangeWorkflowID === workflow.ChangeWorkflowID && Array.isArray(changeOrder.InScopeSpaceIDs) && changeOrder.InScopeSpaceIDs.length === 1 && changeOrder.InScopeSpaceIDs[0] === source.SpaceID && changeOrder.EndTagID, `${stageName} ChangeOrder is not exactly bound to its workflow and source Space`);
-    const headRevisionRows = cubJson(context, ["revision", "list", "--space", space, "--by-unit-id", stored.UnitID, "--where", `RevisionNum = ${stored.HeadRevisionNum}`, "-o", "json"])
+    const headRevisionRows = cubJson(context, ["revision", "list", "--space", space, stored.Slug, "--where", `RevisionNum = ${stored.HeadRevisionNum}`, "-o", "json"])
       .map((row) => row.Revision ?? row);
     const storedRevision = headRevisionRows[0];
     check(
@@ -862,7 +862,7 @@ function approveAndReleaseChangeOrder(context, space, unit, stored, stageName) {
         && storedRevision?.DataHash === stored.DataHash,
       `${stageName} could not resolve the Unit head to one immutable RevisionID`,
     );
-    const revisionRows = cubJson(context, ["revision", "list", "--space", space, "--by-unit-id", stored.UnitID, "--change-order", changeOrder.ChangeOrderID, "-o", "json"])
+    const revisionRows = cubJson(context, ["revision", "list", "--space", space, stored.Slug, "--change-order", changeOrder.ChangeOrderID, "-o", "json"])
       .map((row) => row.Revision ?? row);
     const selectedRevision = revisionRows[0];
     check(
@@ -1789,24 +1789,6 @@ function waitForPolicy(context, space, unit, approvalExpected) {
     sleep(1000);
   }
   throw new Error(`${space}/${unit} did not reach the expected policy state`);
-}
-
-function approveHeadRevision(context, space, unit, stageName, expectedRevision) {
-  const result = cubTry(context, [
-    "unit", "approve", "--space", space, unit,
-    "--revision", "HeadRevisionNum", "--wait", "--quiet",
-  ]);
-  if (result.ok) return;
-  const current = cubJson(
-    context,
-    ["unit", "get", unit, "--space", space, "-o", "json"],
-  ).Unit;
-  check(
-    Number(current.HeadRevisionNum) === Number(expectedRevision)
-      && approvalCount(current.ApprovedBy) >= 1,
-    `ConfigHub rejected the ${stageName} approval before recording it: ${result.error}`,
-  );
-  phase(`${stageName} approval recorded; waiting for delayed trigger completion`);
 }
 
 function approvalObservation(context, space, unit) {
@@ -3600,7 +3582,7 @@ function createFakeConfigHub() {
       return row ? ok(JSON.stringify({ ChangeOrder: row })) : refuse("changeorder not found");
     }
     if (entity === "revision" && verb === "list") {
-      const unit = [...units.values()].find((row) => row.SpaceSlug === flags.space && row.UnitID === flags["by-unit-id"]);
+      const unit = [...units.values()].find((row) => row.SpaceSlug === flags.space && row.Slug === rest[0]);
       if (!unit) return refuse("unit revision not found");
       const revisionID = revisionIds.get(unitKey(unit.SpaceSlug, unit.Slug));
       check(revisionID, "self-test revision ID is missing");
