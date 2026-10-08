@@ -1,0 +1,183 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/dra-driver-nvidia-dra-driver-nvidia-gpu.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/dra-driver-nvidia-dra-driver-nvidia-gpu.html",
+  "counts": {
+    "versions": 2,
+    "bases": 6
+  },
+  "versions": [
+    {
+      "version": "0.5.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0@sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.json"
+          },
+          "objectCount": 21,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8",
+            "objectSetDigest": "sha256:982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8"
+          }
+        },
+        {
+          "base": "gpu-resources",
+          "default": false,
+          "listing": {
+            "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources",
+            "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources.json"
+          },
+          "objectCount": 24,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:29aaf2e6ba3dce216ef70bcb1cd14afcd8dbcbe4e30cec982c48f36befe6e93d",
+            "objectSetDigest": "sha256:29aaf2e6ba3dce216ef70bcb1cd14afcd8dbcbe4e30cec982c48f36befe6e93d"
+          }
+        },
+        {
+          "base": "aicr-eks-training",
+          "default": false,
+          "listing": {
+            "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training",
+            "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.json"
+          },
+          "objectCount": 21,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:282e9c2dd1946fe677c2b7a9ee7d1a8d65f109f2a302ab628e2ffe1bddc3c932",
+            "objectSetDigest": "sha256:282e9c2dd1946fe677c2b7a9ee7d1a8d65f109f2a302ab628e2ffe1bddc3c932"
+          }
+        }
+      ]
+    },
+    {
+      "version": "0.4.1",
+      "page": "https://confighub.github.io/helm-expt/site/charts/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1@sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default.json"
+          },
+          "objectCount": 21,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:00102cc2a1a5a1e73778e326dc7774090347379c52fe73c68551602d1b26f3df",
+            "objectSetDigest": "sha256:00102cc2a1a5a1e73778e326dc7774090347379c52fe73c68551602d1b26f3df"
+          }
+        },
+        {
+          "base": "gpu-resources",
+          "default": false,
+          "listing": {
+            "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources",
+            "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources.json"
+          },
+          "objectCount": 24,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:8a6d869284830a33e801c4b782c12f193a497b7563d84acaf2c370c8be8a0183",
+            "objectSetDigest": "sha256:8a6d869284830a33e801c4b782c12f193a497b7563d84acaf2c370c8be8a0183"
+          }
+        },
+        {
+          "base": "aicr-eks-training",
+          "default": false,
+          "listing": {
+            "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training",
+            "url": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training.json"
+          },
+          "objectCount": 21,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779",
+            "objectSetDigest": "sha256:c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "0.4.1",
+        "base": "default",
+        "listing": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default"
+      },
+      "to": {
+        "version": "0.5.0",
+        "base": "default",
+        "listing": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 5,
+      "unchanged": 16,
+      "line": "From 0.4.1 to 0.5.0 on the default base, 5 of 21 objects change."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

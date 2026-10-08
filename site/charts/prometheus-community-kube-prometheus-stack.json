@@ -8,8 +8,8 @@
   "url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack.json",
   "page": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack.html",
   "counts": {
-    "versions": 5,
-    "bases": 13
+    "versions": 6,
+    "bases": 16
   },
   "versions": [
     {
@@ -305,6 +305,72 @@
           }
         }
       ]
+    },
+    {
+      "version": "84.4.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-84-4-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0@sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "prometheus-community-kube-prometheus-stack-84-4-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-default.json"
+          },
+          "objectCount": 126,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:c5dc2d69b5f9d0163166cd07485ee067e96702856fbdb5e0af3de88df0a348db",
+            "objectSetDigest": "sha256:c5dc2d69b5f9d0163166cd07485ee067e96702856fbdb5e0af3de88df0a348db"
+          }
+        },
+        {
+          "base": "aicr-eks-training-v0-20-0",
+          "default": false,
+          "listing": {
+            "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0",
+            "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.json"
+          },
+          "objectCount": 116,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc",
+            "objectSetDigest": "sha256:6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc"
+          }
+        },
+        {
+          "base": "aicr-eks-training-v1-0-0",
+          "default": false,
+          "listing": {
+            "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0",
+            "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0.json"
+          },
+          "objectCount": 116,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:55c31cf72066a59e0c7f1e67c453e9487160ab7683b7320ce4ea280b00cd194a",
+            "objectSetDigest": "sha256:55c31cf72066a59e0c7f1e67c453e9487160ab7683b7320ce4ea280b00cd194a"
+          }
+        }
+      ]
     }
   ],
   "summaries": [
@@ -375,6 +441,23 @@
       "changed": 105,
       "unchanged": 19,
       "line": "From 85.3.3 to 86.1.0 on the default base, 105 of 124 objects change."
+    },
+    {
+      "from": {
+        "version": "84.4.0",
+        "base": "default",
+        "listing": "prometheus-community-kube-prometheus-stack-84-4-0-default"
+      },
+      "to": {
+        "version": "85.3.3",
+        "base": "default",
+        "listing": "prometheus-community-kube-prometheus-stack-85-3-3-default"
+      },
+      "added": 0,
+      "removed": 2,
+      "changed": 114,
+      "unchanged": 10,
+      "line": "From 84.4.0 to 85.3.3 on the default base, 114 of 126 objects change and 2 are removed."
     }
   ],
   "compare": {

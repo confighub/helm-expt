@@ -41,6 +41,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-eks-chart.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-iam-chart-1-7-3.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-iam-chart.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/aws-ebs-csi-driver-aws-ebs-csi-driver.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/bitnami-apache-11-4-29.html</loc></url>
@@ -95,6 +96,11 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/descheduler-descheduler.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/dex-dex-0-24-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/dex-dex.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/dra-driver-nvidia-dra-driver-nvidia-gpu.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/eks-aws-efa-k8s-device-plugin-v0-5-29.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/eks-aws-efa-k8s-device-plugin.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/elastic-eck-operator-3-4-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/elastic-eck-operator.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/elastic-filebeat-8-5-1.html</loc></url>
@@ -172,10 +178,17 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager-v0-22-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/kai-scheduler-kai-scheduler-v0-14-1.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/kai-scheduler-kai-scheduler-v0-16-9.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/kai-scheduler-kai-scheduler.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/karpenter-karpenter-1-14-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/karpenter-karpenter.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/kedacore-keda-2-19-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/kedacore-keda.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/kubeflow-kubeflow-trainer-2-2-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/kubeflow-kubeflow-trainer.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-2.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-9-0.html</loc></url>
@@ -210,6 +223,8 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nats-surveyor.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/node-feature-discovery-node-feature-discovery-0-19-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/node-feature-discovery-node-feature-discovery.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-cluster-readiness-engine-v0-6-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-cluster-readiness-engine.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v25-10-1.html</loc></url>
@@ -220,6 +235,9 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-k8s-nim-operator-3-1-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-k8s-nim-operator-3-1-2.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-k8s-nim-operator.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-nodewright-v0-17-1.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-nodewright-v0-19-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-nodewright.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-nvidia-device-plugin-0-19-3.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-nvidia-device-plugin.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-20-0.html</loc></url>
@@ -247,6 +265,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/projectcalico-tigera-operator.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/prometheus-community-alertmanager-1-37-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/prometheus-community-alertmanager.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-84-4-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-86-1-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-87-15-1.html</loc></url>
@@ -265,6 +284,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-node-exporter-4-55-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-node-exporter.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-28-0-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-pushgateway-3-6-0.html</loc></url>
