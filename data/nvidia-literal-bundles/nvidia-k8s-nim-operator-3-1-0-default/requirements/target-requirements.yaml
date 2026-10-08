@@ -1,0 +1,57 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "nvidia-k8s-nim-operator-3-1-0-default-target-requirements"
+spec:
+  subject:
+    catalogEntry: "nvidia-k8s-nim-operator-3-1-0-default"
+    chart: "nvidia/k8s-nim-operator"
+    version: "3.1.0"
+    base: "default"
+    revision: "r001"
+  namespace:
+    name: "nvidia-nim"
+    namespaceObjectInBundle: false
+    objectsNamingThisNamespace: 0
+    otherNamespacesNamed:
+      []
+    namespacedObjectsNamingNoNamespace: 5
+    customKindObjectsNamingNoNamespace: 0
+    customKindsNamingNoNamespace:
+      []
+    statement: "The bundle holds no Namespace object, so the namespace nvidia-nim must exist on the target before these objects are applied. 5 namespaced objects set no namespace and must be applied into nvidia-nim."
+  customResourceDefinitions:
+    inBundle:
+      count: 9
+      names:
+        - "nemocustomizers.apps.nvidia.com"
+        - "nemodatastores.apps.nvidia.com"
+        - "nemoentitystores.apps.nvidia.com"
+        - "nemoevaluators.apps.nvidia.com"
+        - "nemoguardrails.apps.nvidia.com"
+        - "nimbuilds.apps.nvidia.com"
+        - "nimcaches.apps.nvidia.com"
+        - "nimpipelines.apps.nvidia.com"
+        - "nimservices.apps.nvidia.com"
+      orderedBy: "routes/crd-ordering.yaml"
+    requiredOnTarget:
+      []
+  applyMode: "server-side"
+  render:
+    renderer: "helm"
+    releaseName: "k8s-nim-operator"
+    namespace: "nvidia-nim"
+    kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+    valuesProfile: "recipes/nvidia/k8s-nim-operator/3.1.0/effective-values.yaml"
+  flattening:
+    lane: "flatten-with-routes"
+    verdict: "recipes/nvidia/k8s-nim-operator/3.1.0/publication/flattening-safety-verdict.yaml"
+  sourcePackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0@sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-nvidia-literal-bundles.mjs"
+    generatedFrom:
+      - "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-default.yaml"
+      - "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/default/r001/rendered/object-inventory.yaml"
+    verdictRef: "recipes/nvidia/k8s-nim-operator/3.1.0/publication/flattening-safety-verdict.yaml"

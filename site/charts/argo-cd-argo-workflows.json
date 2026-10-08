@@ -1,0 +1,99 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "argo-cd/argo-workflows",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows.html",
+  "counts": {
+    "versions": 1,
+    "bases": 3
+  },
+  "versions": [
+    {
+      "version": "1.0.14",
+      "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows-1-0-14.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "argo-cd-argo-workflows-1-0-14-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-workflows-1-0-14-default.json"
+          },
+          "objectCount": 19,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc",
+            "objectSetDigest": "sha256:677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+          }
+        },
+        {
+          "base": "controller-default-reviewed",
+          "default": false,
+          "listing": {
+            "id": "argo-cd-argo-workflows-1-0-14-controller-default-reviewed",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-workflows-1-0-14-controller-default-reviewed.json"
+          },
+          "objectCount": 19,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc",
+            "objectSetDigest": "sha256:677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+          }
+        },
+        {
+          "base": "minimal-crds",
+          "default": false,
+          "listing": {
+            "id": "argo-cd-argo-workflows-1-0-14-minimal-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-workflows-1-0-14-minimal-crds.json"
+          },
+          "objectCount": 0,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b",
+            "objectSetDigest": "sha256:8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

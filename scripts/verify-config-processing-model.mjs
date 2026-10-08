@@ -22,6 +22,11 @@ import {
 } from "./lib/nimservice-entries.mjs";
 import { nimServiceLiteralConfigOciProblem } from "./lib/nimservice-publication.mjs";
 import { helmOpenQuestionFor } from "./lib/helm-open-questions.mjs";
+import {
+  NVIDIA_LITERAL_BUNDLE_CHARTS,
+  literalConfigOciProblem,
+  loadNvidiaLiteralBundleEntries,
+} from "./lib/nvidia-literal-bundles.mjs";
 
 const root = process.cwd();
 const read = (path) => readFileSync(join(root, path), "utf8");
@@ -819,6 +824,74 @@ for (const entry of nimServiceEntries) {
   );
 }
 
+// Every base of the four NVIDIA charts has one literal bundle plan, one record
+// and one listing. The record and the listing read as published only beside a
+// tracked receipt for the exact bytes the plan was built from, and a published
+// bundle changes nothing else: it is not an upload, a delivery or a run route.
+const nvidiaBundleEntries = loadNvidiaLiteralBundleEntries({ root });
+const nvidiaBundleRecords = records.filter(
+  (record) => record.spec?.source?.type === "helm" && NVIDIA_LITERAL_BUNDLE_CHARTS.includes(record.spec.source.name),
+);
+requireCondition(
+  JSON.stringify(nvidiaBundleRecords.map((record) => record.metadata.name).sort())
+    === JSON.stringify(nvidiaBundleEntries.map((entry) => entry.recordName).sort()),
+  `the four NVIDIA charts have ${nvidiaBundleRecords.length} record(s) and ${nvidiaBundleEntries.length} literal bundle plan(s); every base needs exactly one of each`,
+);
+let nvidiaBundleEntriesWithListing = 0;
+let nvidiaBundleEntriesPublished = 0;
+for (const entry of nvidiaBundleEntries) {
+  const name = entry.recordName;
+  const record = nvidiaBundleRecords.find((candidate) => candidate.metadata.name === name);
+  if (!record) continue;
+  const published = entry.publication.published === true;
+  if (published) nvidiaBundleEntriesPublished += 1;
+  const literalProblem = literalConfigOciProblem(name, record.spec.delivery?.literalConfigOci, entry.publication);
+  requireCondition(!literalProblem, literalProblem);
+  requireCondition(
+    record.spec.configuration?.digest === entry.objectSetSha256
+      && record.spec.processing?.flattening?.verdict === entry.lane
+      && record.spec.processing?.flattening?.record === entry.verdictRel,
+    `${name}: the record is not the ${entry.lane} record of the objects its literal bundle plan stages`,
+  );
+  requireCondition(
+    !record.spec.delivery?.configHubUpload && record.spec.delivery?.configHubReleaseOci?.status === "not-recorded-for-this-base",
+    `${name}: the record reads as uploaded to or released from ConfigHub, and a literal bundle publication is neither`,
+  );
+  const listingPath = join(root, "site/listings", `${name}.json`);
+  requireCondition(existsSync(listingPath), `${name}: the base has no listing at site/listings/${name}.json`);
+  if (!existsSync(listingPath)) continue;
+  nvidiaBundleEntriesWithListing += 1;
+  const listing = JSON.parse(readFileSync(listingPath, "utf8"));
+  requireCondition(
+    listing.flattened?.verdict === entry.lane
+      && listing.flattened?.digest === `sha256:${entry.objectSetSha256}`
+      && listing.flattened?.objectCount === entry.objectCount
+      && listing.flattened?.retainedObjects?.sha256 === `sha256:${entry.objectSetSha256}`,
+    `${name}: the listing does not carry the verdict, digest and object count its literal bundle plan was built for`,
+  );
+  const bundle = (listing.oci?.bundles ?? []).find((candidate) => candidate.role === "literal-config") ?? {};
+  const digestOfField = (field) => (bundle.digests ?? []).find((digest) => digest.field === field)?.value;
+  requireCondition(
+    published
+      ? bundle.state === "published"
+        && bundle.referenceState === "published"
+        && bundle.reference === entry.publication.observedReference
+        && bundle.receipt === entry.publication.receiptRel
+        && digestOfField("manifestDigest") === entry.artifact.manifestDigest
+        && digestOfField("objectSetSha256") === entry.artifact.objectSetSha256
+        && digestOfField("receiptSha256") === entry.publication.receiptSha256
+      : bundle.state === "not-published" && bundle.referenceState === "none" && (bundle.digests ?? []).length === 0 && !bundle.receipt,
+    published
+      ? `${name}: ${entry.publication.receiptRel} records a publication, and the listing's literal configuration bundle does not carry its reference, digests and receipt`
+      : `${name}: the listing's literal configuration bundle reads as ${bundle.state ?? "missing"}, and no tracked publication receipt exists for this base`,
+  );
+  requireCondition(
+    (listing.oci?.bundles ?? []).filter((candidate) => ["confighub-upload", "confighub-release"].includes(candidate.role)).every((candidate) => candidate.state !== "published")
+      && (listing.oci?.runtimes ?? []).every((runtime) => runtime.state === "not-run"),
+    `${name}: the listing reads as uploaded to ConfigHub or delivered, and a literal bundle publication is neither`,
+  );
+}
+
 requireCondition(
   JSON.stringify(assessmentCases.stageOrder) === JSON.stringify(assessmentStageOrder),
   "cross-format assessment stage order changed",
@@ -972,5 +1045,5 @@ const sourceSummary = [...sourceCounts.entries()]
   .map(([source, count]) => `${source}=${count}`)
   .join(", ");
 console.log(
-  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}; retained AICR recipe directories with their own record and listing=${aicrRecipeEntriesWithRecord}/${aicrRecipeEntries.length}; all AICR recipe directories with one record=${aicrRecipeDirectoriesWithRecord}/${aicrRecipeDirectories.length}; AICR entries flagged ${ATTENTION_STATE} for an unchecked ordering edge=${aicrEntriesFlagged}; retained NIMService samples with their own record and listing=${nimServiceEntriesWithRecord}/${nimServiceFiles.length} (${nimServiceEntriesMarkedWatch} flagged ${ATTENTION_STATE}, ${nimServiceEntriesPublished} published with a receipt)`,
+  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}; retained AICR recipe directories with their own record and listing=${aicrRecipeEntriesWithRecord}/${aicrRecipeEntries.length}; all AICR recipe directories with one record=${aicrRecipeDirectoriesWithRecord}/${aicrRecipeDirectories.length}; AICR entries flagged ${ATTENTION_STATE} for an unchecked ordering edge=${aicrEntriesFlagged}; retained NIMService samples with their own record and listing=${nimServiceEntriesWithRecord}/${nimServiceFiles.length} (${nimServiceEntriesMarkedWatch} flagged ${ATTENTION_STATE}, ${nimServiceEntriesPublished} published with a receipt); NVIDIA chart bases with a literal bundle plan, a record and a listing=${nvidiaBundleEntriesWithListing}/${nvidiaBundleEntries.length} (${nvidiaBundleEntriesPublished} published with a receipt)`,
 );

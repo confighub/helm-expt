@@ -58,7 +58,7 @@ spec:
       SchedulingShard: 1
       ServiceAccount: 4
     crdCount: 6
-    hookObjectCount: 0
+    hookObjectCount: 10
   processingBoundary:
     wrapper: "The parent Catalog entry retains the Argo CD Application object."
     nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."

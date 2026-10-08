@@ -1,0 +1,67 @@
+# Live examples of Catalog charts in ConfigHub.
+#
+# A live example is a place in ConfigHub where a reader can open a chart from
+# this Catalog that someone uploaded. The page of that chart shows the example
+# under "Open a live example in ConfigHub". A chart with no entry here shows no
+# such section. Add an entry only when the maintainer has approved it and the
+# example exists.
+#
+# An example is not evidence about a Catalog entry, and it changes no listing
+# state. Each entry therefore says what was done and what was not done.
+#
+# Fields of one entry, all required unless marked optional:
+#
+#   chart         the Helm chart as the Catalog names it, for example
+#                 nvidia/gpu-operator. One entry for each chart.
+#   organization  the ConfigHub organization, described in words, and who can
+#                 open it. Whole sentences.
+#   holds         what the example holds: components, Spaces, Units. Whole
+#                 sentences.
+#   observedOn    the date the example was observed, as YYYY-MM-DD.
+#   done          what was done to make it. Whole sentences.
+#   notDone       what was not done, such as a deployment to a cluster. Whole
+#                 sentences.
+#   addresses     one or more web addresses, each with a label that says what
+#                 the reader opens and an https url.
+#   howTo         optional. How a reader finds the same view by hand. Whole
+#                 sentences.
+#   commands      optional. The command lines that made the example.
+#
+# The site generator refuses the file when an entry lacks a date, either
+# statement or an address. scripts/lib/catalog-live-examples.mjs holds the
+# rules, and npm run site:chart-pages:self-test tampers with a fixture to
+# prove them.
+apiVersion: catalog.confighub.com/v1alpha1
+kind: CatalogLiveExamples
+spec:
+  examples:
+    - chart: nvidia/gpu-operator
+      organization: The example lives in the helm-catalog organization on hub.confighub.com. A reader needs access to that organization to open the links.
+      holds: >-
+        It holds one component, gpu-operator, with four Spaces of 24 Units each.
+        Three Spaces hold chart v25.10.1, v26.3.2 and v26.3.3.
+        The fourth Space, gpu-operator-prod, was installed at chart v26.3.2 and upgraded to v26.3.3, which changed 7 of 24 Units.
+        Its driver then changed from 580.126.20 to 595.91.07 with the Catalog base driver-595.91.07.
+        That changed 1 of 24 Units, in the ClusterPolicy field spec.driver.version.
+      observedOn: "2026-10-08"
+      done: The component was uploaded with cub v0.8.7 from the Catalog's retained objects, on the default base with hooks excluded. The uploads were then compared with cub variant diff.
+      notDone: Nothing was deployed to a cluster, and no Target is attached. The example is not a run for any Catalog entry, so it changes no listing state.
+      addresses:
+        - label: The gpu-operator component
+          url: https://hub.confighub.com/components?app=gpu-operator
+        - label: The Space gpu-operator-v25-10-1, chart v25.10.1
+          url: https://hub.confighub.com/spaces/f16f00bc-5deb-4d94-8cf6-94581d6755a3?org=bd84a856-3b16-4446-b490-56ff40db0107
+        - label: The Space gpu-operator-v26-3-2, chart v26.3.2
+          url: https://hub.confighub.com/spaces/f6b2d6ab-6f86-4565-8f61-36e8a505fe2f?org=bd84a856-3b16-4446-b490-56ff40db0107
+        - label: The Space gpu-operator-v26-3-3, chart v26.3.3
+          url: https://hub.confighub.com/spaces/2cf50a05-b78e-4629-a800-222b8e2c56cf?org=bd84a856-3b16-4446-b490-56ff40db0107
+        - label: The Space gpu-operator-prod, with the upgrade and the driver change
+          url: https://hub.confighub.com/spaces/e90aa365-f2ea-43f6-a014-dd849f8d5403?org=bd84a856-3b16-4446-b490-56ff40db0107
+        - label: The Diff panel on the ClusterPolicy Unit for the chart upgrade, revision 2 to 3, 7 changes
+          url: https://hub.confighub.com/units/e90aa365-f2ea-43f6-a014-dd849f8d5403/453e3abf-3737-454e-a5e4-23d6d84e8f72?tab=2&revisionViewer=true&revision=3&viewMode=compare&compareRev1=3&compareRev2=2
+        - label: The same panel for the driver change, revision 3 to 4, 1 change
+          url: https://hub.confighub.com/units/e90aa365-f2ea-43f6-a014-dd849f8d5403/453e3abf-3737-454e-a5e4-23d6d84e8f72?tab=2&revisionViewer=true&revision=4&viewMode=compare&compareRev1=4&compareRev2=3
+      howTo: To reach a diff by hand, open the Unit, open its Revisions tab, click a revision, then tick the one before it. The Diff panel compares the two field by field.
+      commands:
+        - cub variant upload --component gpu-operator --variant <name> --namespace gpu-operator --change-desc "<text>" <file>
+        - cub variant diff gpu-operator-prod Before:ChangeSet:<upload> ChangeSet:<upload> -o mutations

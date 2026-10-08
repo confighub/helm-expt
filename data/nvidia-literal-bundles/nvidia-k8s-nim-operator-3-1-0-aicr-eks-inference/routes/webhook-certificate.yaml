@@ -1,0 +1,46 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference-webhook-certificate"
+spec:
+  quirkClass: "webhook-ca"
+  routeKind: "target-controller"
+  discharges: "The base holds a webhook configuration with no CA bundle and the cert-manager objects that ask for its certificate. Nothing in the bundle issues that certificate. cert-manager on the target issues it and injects the CA."
+  declaration:
+    controller: "cert-manager"
+    installedByThisBundle: false
+    requiredDefinitions:
+      - "certificates.cert-manager.io"
+      - "issuers.cert-manager.io"
+    certificateObjects:
+      -
+        apiVersion: "cert-manager.io/v1"
+        kind: "Certificate"
+        name: "k8s-nim-operator-serving-cert"
+        namespace: "nvidia-nim"
+      -
+        apiVersion: "cert-manager.io/v1"
+        kind: "Issuer"
+        name: "k8s-nim-operator-selfsigned-issuer"
+        namespace: "nvidia-nim"
+    webhookObjects:
+      -
+        apiVersion: "admissionregistration.k8s.io/v1"
+        kind: "ValidatingWebhookConfiguration"
+        name: "k8s-nim-operator-validating-webhook-configuration"
+        namespace: ""
+    caInjectionAnnotationInRender: true
+    waitFor: "each Certificate reports Ready and each webhook configuration carries a CA bundle, before the webhook is relied on"
+  executedBy:
+    invokedBy: "cert-manager running on the target"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "cert-manager and its definitions are a requirement on the target; requirements/target-requirements.yaml names each definition"
+    - "no target has issued this certificate for this base, and no receipt says the webhook answered"
+  provenance:
+    emittedBy: "scripts/generate-nvidia-literal-bundles.mjs"
+    generatedFrom:
+      - "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/rendered/object-inventory.yaml"
+      - "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml"
+    verdictRef: "recipes/nvidia/k8s-nim-operator/3.1.0/publication/flattening-safety-verdict-aicr-eks-inference.yaml"

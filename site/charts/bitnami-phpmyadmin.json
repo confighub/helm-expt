@@ -1,0 +1,81 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "bitnami/phpmyadmin",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/bitnami-phpmyadmin.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-phpmyadmin.html",
+  "counts": {
+    "versions": 1,
+    "bases": 2
+  },
+  "versions": [
+    {
+      "version": "20.0.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-phpmyadmin-20-0-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b"
+      },
+      "bases": [
+        {
+          "base": "legacy",
+          "default": false,
+          "listing": {
+            "id": "bitnami-phpmyadmin-20-0-0-legacy",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-phpmyadmin-20-0-0-legacy.json"
+          },
+          "objectCount": 5,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:401bc04af284e57aba9dce87ee949cc2c2fed28b8adc4bfffd7056ef5ad70942",
+            "objectSetDigest": "sha256:401bc04af284e57aba9dce87ee949cc2c2fed28b8adc4bfffd7056ef5ad70942"
+          }
+        },
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "bitnami-phpmyadmin-20-0-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-phpmyadmin-20-0-0-default.json"
+          },
+          "objectCount": 5,
+          "verdict": "safe-to-flatten",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/phpmyadmin/20.0.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/phpmyadmin/20.0.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:41d8e5dabf8548c2965f32db8fdb6870f07b3e3fd967d641d8dc952f7569eb0a",
+            "objectSetDigest": "sha256:41d8e5dabf8548c2965f32db8fdb6870f07b3e3fd967d641d8dc952f7569eb0a"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

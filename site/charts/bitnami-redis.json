@@ -1,0 +1,147 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "bitnami/redis",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/bitnami-redis.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-redis.html",
+  "counts": {
+    "versions": 2,
+    "bases": 4
+  },
+  "versions": [
+    {
+      "version": "27.0.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-redis-27-0-0.html",
+      "defaultBase": "reuse-existing-secret",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": false,
+          "listing": {
+            "id": "bitnami-redis-27-0-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-redis-27-0-0-default.json"
+          },
+          "objectCount": 14,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/redis/27.0.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/redis/27.0.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:758467319ec109764b55ee730ba51a37a2196744f45f5c064f212bfc176178f0",
+            "objectSetDigest": "sha256:758467319ec109764b55ee730ba51a37a2196744f45f5c064f212bfc176178f0"
+          }
+        },
+        {
+          "base": "reuse-existing-secret",
+          "default": true,
+          "listing": {
+            "id": "bitnami-redis-27-0-0-reuse-existing-secret",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-redis-27-0-0-reuse-existing-secret.json"
+          },
+          "objectCount": 13,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4",
+            "objectSetDigest": "sha256:ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4"
+          }
+        }
+      ]
+    },
+    {
+      "version": "25.5.3",
+      "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-redis-25-5-3.html",
+      "defaultBase": "reuse-existing-secret",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": false,
+          "listing": {
+            "id": "bitnami-redis-25-5-3-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-redis-25-5-3-default.json"
+          },
+          "objectCount": 14,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e",
+            "objectSetDigest": "sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
+          }
+        },
+        {
+          "base": "reuse-existing-secret",
+          "default": true,
+          "listing": {
+            "id": "bitnami-redis-25-5-3-reuse-existing-secret",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-redis-25-5-3-reuse-existing-secret.json"
+          },
+          "objectCount": 13,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f",
+            "objectSetDigest": "sha256:55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "25.5.3",
+        "base": "reuse-existing-secret",
+        "listing": "bitnami-redis-25-5-3-reuse-existing-secret"
+      },
+      "to": {
+        "version": "27.0.0",
+        "base": "reuse-existing-secret",
+        "listing": "bitnami-redis-27-0-0-reuse-existing-secret"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 13,
+      "unchanged": 0,
+      "line": "From 25.5.3 to 27.0.0 on the reuse-existing-secret base, 13 of 13 objects change."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

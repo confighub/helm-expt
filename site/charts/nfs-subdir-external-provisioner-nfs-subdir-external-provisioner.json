@@ -1,0 +1,63 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner.html",
+  "counts": {
+    "versions": 1,
+    "bases": 1
+  },
+  "versions": [
+    {
+      "version": "4.0.18",
+      "page": "https://confighub.github.io/helm-expt/site/charts/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.json"
+          },
+          "objectCount": 7,
+          "verdict": "safe-to-flatten",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28",
+            "objectSetDigest": "sha256:448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

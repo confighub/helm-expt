@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "scope": "local-configuration-diff",
+  "before": {
+    "sha256": "sha256:4a711392870e1063a56eaaf4ca40219d82f4acda7cae5c2ead234a9fa1384891",
+    "objectCount": 24
+  },
+  "after": {
+    "sha256": "sha256:ac011644664f8eadcbceeb44327d0525429d2710bfc9aef90ebe6d721d6090ee",
+    "objectCount": 24
+  },
+  "equal": false,
+  "summary": {
+    "added": 0,
+    "removed": 0,
+    "changed": 1,
+    "unchanged": 23
+  },
+  "changes": [
+    {
+      "object": {
+        "apiVersion": "nvidia.com/v1",
+        "kind": "ClusterPolicy",
+        "namespace": null,
+        "name": "cluster-policy"
+      },
+      "change": "changed",
+      "fields": [
+        {
+          "path": "/spec/driver/version",
+          "operation": "replace",
+          "before": "580.105.08",
+          "after": "580.126.20"
+        }
+      ]
+    }
+  ],
+  "comparison": "Object identity includes API version and explicit namespace; mapping and document order ignored, lists of uniquely named items compared item by item by name, every other list compared as a whole value, missing and null distinct. No Kubernetes defaulting or schema interpretation. Secret data and stringData values are replaced by a short hash of each value.",
+  "notChecked": [
+    "Kubernetes schema or admission validity",
+    "upstream merge and protected-field preservation",
+    "target readiness or live drift",
+    "application availability"
+  ],
+  "kindSummary": [
+    {
+      "apiVersion": "apiextensions.k8s.io/v1",
+      "kind": "CustomResourceDefinition",
+      "before": 5,
+      "after": 5,
+      "delta": 0
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "DaemonSet",
+      "before": 1,
+      "after": 1,
+      "delta": 0
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "before": 3,
+      "after": 3,
+      "delta": 0
+    },
+    {
+      "apiVersion": "nvidia.com/v1",
+      "kind": "ClusterPolicy",
+      "before": 1,
+      "after": 1,
+      "delta": 0
+    },
+    {
+      "apiVersion": "rbac.authorization.k8s.io/v1",
+      "kind": "ClusterRole",
+      "before": 3,
+      "after": 3,
+      "delta": 0
+    },
+    {
+      "apiVersion": "rbac.authorization.k8s.io/v1",
+      "kind": "ClusterRoleBinding",
+      "before": 3,
+      "after": 3,
+      "delta": 0
+    },
+    {
+      "apiVersion": "rbac.authorization.k8s.io/v1",
+      "kind": "Role",
+      "before": 2,
+      "after": 2,
+      "delta": 0
+    },
+    {
+      "apiVersion": "rbac.authorization.k8s.io/v1",
+      "kind": "RoleBinding",
+      "before": 2,
+      "after": 2,
+      "delta": 0
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "before": 2,
+      "after": 2,
+      "delta": 0
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ServiceAccount",
+      "before": 2,
+      "after": 2,
+      "delta": 0
+    }
+  ]
+}

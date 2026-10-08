@@ -1,0 +1,129 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "percona/psmdb-operator",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator.html",
+  "counts": {
+    "versions": 2,
+    "bases": 3
+  },
+  "versions": [
+    {
+      "version": "1.23.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-23-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "percona-psmdb-operator-1-23-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/percona-psmdb-operator-1-23-0-default.json"
+          },
+          "objectCount": 8,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:3a78993717302f1bae0a460466174a9211d04eb873f105a45e39b8fc49535bab",
+            "objectSetDigest": "sha256:3a78993717302f1bae0a460466174a9211d04eb873f105a45e39b8fc49535bab"
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.22.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-22-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "percona-psmdb-operator-1-22-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/percona-psmdb-operator-1-22-0-default.json"
+          },
+          "objectCount": 7,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936",
+            "objectSetDigest": "sha256:a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "percona-psmdb-operator-1-22-0-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/percona-psmdb-operator-1-22-0-no-crds.json"
+          },
+          "objectCount": 0,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb",
+            "objectSetDigest": "sha256:583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "1.22.0",
+        "base": "default",
+        "listing": "percona-psmdb-operator-1-22-0-default"
+      },
+      "to": {
+        "version": "1.23.0",
+        "base": "default",
+        "listing": "percona-psmdb-operator-1-23-0-default"
+      },
+      "added": 1,
+      "removed": 0,
+      "changed": 6,
+      "unchanged": 1,
+      "line": "From 1.22.0 to 1.23.0 on the default base, 6 of 7 objects change and 1 is added."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

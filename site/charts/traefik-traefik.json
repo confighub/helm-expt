@@ -1,0 +1,176 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "traefik/traefik",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/traefik-traefik.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/traefik-traefik.html",
+  "counts": {
+    "versions": 3,
+    "bases": 4
+  },
+  "versions": [
+    {
+      "version": "41.4.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-41-4-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.4.0@sha256:90bc2edf8dbea78d770b7917c7bc80c796cfcd603a02e90f3d9969a219377272"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "traefik-traefik-41-4-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/traefik-traefik-41-4-0-default.json"
+          },
+          "objectCount": 31,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/traefik/traefik/41.4.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/traefik/traefik/41.4.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b",
+            "objectSetDigest": "sha256:8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b"
+          }
+        }
+      ]
+    },
+    {
+      "version": "41.0.2",
+      "page": "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-41-0-2.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:1eaa111b935f026954acd370b50b9d560c546c992ce14babb581650c295a7cd9"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "traefik-traefik-41-0-2-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/traefik-traefik-41-0-2-default.json"
+          },
+          "objectCount": 31,
+          "verdict": "flatten-with-routes",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac",
+            "objectSetDigest": "sha256:460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac"
+          }
+        }
+      ]
+    },
+    {
+      "version": "40.2.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:b127b8df699116a6e6252bcf5a1199c2a32640b7e99de2e45fd507dd29022535"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "traefik-traefik-40-2-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/traefik-traefik-40-2-0-default.json"
+          },
+          "objectCount": 31,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/traefik/traefik/40.2.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/traefik/traefik/40.2.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:84b1e950901024fda7bb0be73aba239015712ae0c3d4cb0ecabcb091abc53c09",
+            "objectSetDigest": "sha256:84b1e950901024fda7bb0be73aba239015712ae0c3d4cb0ecabcb091abc53c09"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "traefik-traefik-40-2-0-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/traefik-traefik-40-2-0-no-crds.json"
+          },
+          "objectCount": 0,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce",
+            "objectSetDigest": "sha256:9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "41.0.2",
+        "base": "default",
+        "listing": "traefik-traefik-41-0-2-default"
+      },
+      "to": {
+        "version": "41.4.0",
+        "base": "default",
+        "listing": "traefik-traefik-41-4-0-default"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 13,
+      "unchanged": 18,
+      "line": "From 41.0.2 to 41.4.0 on the default base, 13 of 31 objects change."
+    },
+    {
+      "from": {
+        "version": "40.2.0",
+        "base": "default",
+        "listing": "traefik-traefik-40-2-0-default"
+      },
+      "to": {
+        "version": "41.0.2",
+        "base": "default",
+        "listing": "traefik-traefik-41-0-2-default"
+      },
+      "added": 5,
+      "removed": 5,
+      "changed": 6,
+      "unchanged": 20,
+      "line": "From 40.2.0 to 41.0.2 on the default base, 6 of 31 objects change, 5 are added and 5 are removed."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

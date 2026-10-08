@@ -1,0 +1,212 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "jetstack/cert-manager",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager.html",
+  "counts": {
+    "versions": 3,
+    "bases": 6
+  },
+  "versions": [
+    {
+      "version": "v1.21.1",
+      "page": "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-21-1.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.1@sha256:830d0dfee2531c05cb48f3328abd1858b97bacf050208e583ab2dd2214d2cba5"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "jetstack-cert-manager-v1-21-1-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/jetstack-cert-manager-v1-21-1-default.json"
+          },
+          "objectCount": 40,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:e07b13b5b7f193be263181e405388fc362e7850dc1bac9561cad4bb8f4609ad3",
+            "objectSetDigest": "sha256:e07b13b5b7f193be263181e405388fc362e7850dc1bac9561cad4bb8f4609ad3"
+          }
+        },
+        {
+          "base": "crds-enabled",
+          "default": false,
+          "listing": {
+            "id": "jetstack-cert-manager-v1-21-1-crds-enabled",
+            "url": "https://confighub.github.io/helm-expt/site/listings/jetstack-cert-manager-v1-21-1-crds-enabled.json"
+          },
+          "objectCount": 46,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db",
+            "objectSetDigest": "sha256:b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db"
+          }
+        }
+      ]
+    },
+    {
+      "version": "v1.21.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-21-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "jetstack-cert-manager-v1-21-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/jetstack-cert-manager-v1-21-0-default.json"
+          },
+          "objectCount": 40,
+          "verdict": "flatten-with-routes",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09",
+            "objectSetDigest": "sha256:9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09"
+          }
+        },
+        {
+          "base": "crds-enabled",
+          "default": false,
+          "listing": {
+            "id": "jetstack-cert-manager-v1-21-0-crds-enabled",
+            "url": "https://confighub.github.io/helm-expt/site/listings/jetstack-cert-manager-v1-21-0-crds-enabled.json"
+          },
+          "objectCount": 46,
+          "verdict": "flatten-with-routes",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967",
+            "objectSetDigest": "sha256:ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967"
+          }
+        }
+      ]
+    },
+    {
+      "version": "v1.20.2",
+      "page": "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "jetstack-cert-manager-v1-20-2-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/jetstack-cert-manager-v1-20-2-default.json"
+          },
+          "objectCount": 42,
+          "verdict": "flatten-with-routes",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce",
+            "objectSetDigest": "sha256:45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce"
+          }
+        },
+        {
+          "base": "crds-enabled",
+          "default": false,
+          "listing": {
+            "id": "jetstack-cert-manager-v1-20-2-crds-enabled",
+            "url": "https://confighub.github.io/helm-expt/site/listings/jetstack-cert-manager-v1-20-2-crds-enabled.json"
+          },
+          "objectCount": 48,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0",
+            "objectSetDigest": "sha256:e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "v1.21.0",
+        "base": "default",
+        "listing": "jetstack-cert-manager-v1-21-0-default"
+      },
+      "to": {
+        "version": "v1.21.1",
+        "base": "default",
+        "listing": "jetstack-cert-manager-v1-21-1-default"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 40,
+      "unchanged": 0,
+      "line": "From v1.21.0 to v1.21.1 on the default base, 40 of 40 objects change."
+    },
+    {
+      "from": {
+        "version": "v1.20.2",
+        "base": "default",
+        "listing": "jetstack-cert-manager-v1-20-2-default"
+      },
+      "to": {
+        "version": "v1.21.0",
+        "base": "default",
+        "listing": "jetstack-cert-manager-v1-21-0-default"
+      },
+      "added": 0,
+      "removed": 2,
+      "changed": 40,
+      "unchanged": 0,
+      "line": "From v1.20.2 to v1.21.0 on the default base, 40 of 42 objects change and 2 are removed."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

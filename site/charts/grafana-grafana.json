@@ -1,0 +1,81 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "grafana/grafana",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/grafana-grafana.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/grafana-grafana.html",
+  "counts": {
+    "versions": 1,
+    "bases": 2
+  },
+  "versions": [
+    {
+      "version": "10.5.15",
+      "page": "https://confighub.github.io/helm-expt/site/charts/grafana-grafana-10-5-15.html",
+      "defaultBase": "existing-secret-ingress",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3"
+      },
+      "bases": [
+        {
+          "base": "static-passwords",
+          "default": false,
+          "listing": {
+            "id": "grafana-grafana-10-5-15-static-passwords",
+            "url": "https://confighub.github.io/helm-expt/site/listings/grafana-grafana-10-5-15-static-passwords.json"
+          },
+          "objectCount": 9,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d",
+            "objectSetDigest": "sha256:893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d"
+          }
+        },
+        {
+          "base": "existing-secret-ingress",
+          "default": true,
+          "listing": {
+            "id": "grafana-grafana-10-5-15-existing-secret-ingress",
+            "url": "https://confighub.github.io/helm-expt/site/listings/grafana-grafana-10-5-15-existing-secret-ingress.json"
+          },
+          "objectCount": 9,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60",
+            "objectSetDigest": "sha256:04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

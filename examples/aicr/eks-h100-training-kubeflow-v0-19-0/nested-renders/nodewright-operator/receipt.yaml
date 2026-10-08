@@ -59,7 +59,7 @@ spec:
       ServiceAccount: 2
       ValidatingWebhookConfiguration: 1
     crdCount: 2
-    hookObjectCount: 0
+    hookObjectCount: 6
   processingBoundary:
     wrapper: "The parent Catalog entry retains the Argo CD Application object."
     nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."

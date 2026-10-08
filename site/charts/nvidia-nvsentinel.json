@@ -1,0 +1,331 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "nvidia/nvsentinel",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel.html",
+  "counts": {
+    "versions": 4,
+    "bases": 11
+  },
+  "versions": [
+    {
+      "version": "v1.26.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-26-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.26.0@sha256:4046e444dbc245b6077a1f568de1139dd8bb20d59eb97ac49d6c2d85a9ded0a9"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "nvidia-nvsentinel-v1-26-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-26-0-default.json"
+          },
+          "objectCount": 22,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nvsentinel/v1.26.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.26.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:24814ac18cb0a16ce47a9d02a6a4c01d86ad3b99c1382f47b5daf734c4bc70ae",
+            "objectSetDigest": "sha256:24814ac18cb0a16ce47a9d02a6a4c01d86ad3b99c1382f47b5daf734c4bc70ae"
+          }
+        },
+        {
+          "base": "no-pod-monitor",
+          "default": false,
+          "listing": {
+            "id": "nvidia-nvsentinel-v1-26-0-no-pod-monitor",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-26-0-no-pod-monitor.json"
+          },
+          "objectCount": 21,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nvsentinel/v1.26.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.26.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:46e1eea6fdb17a85b71a8e36978dc96364ed5d65ee7951b02b22cf7de8733c00",
+            "objectSetDigest": "sha256:46e1eea6fdb17a85b71a8e36978dc96364ed5d65ee7951b02b22cf7de8733c00"
+          }
+        }
+      ]
+    },
+    {
+      "version": "v1.25.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-25-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0@sha256:5b6363f704e89c754c2901a85ade183312afca87a94d97aa22f55d2f4d23189e"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "nvidia-nvsentinel-v1-25-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-25-0-default.json"
+          },
+          "objectCount": 22,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nvsentinel/v1.25.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.25.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:f12a375c7b63cdfe02ed6eda602a22c771d43216297ab2089f374ef913a86ec2",
+            "objectSetDigest": "sha256:f12a375c7b63cdfe02ed6eda602a22c771d43216297ab2089f374ef913a86ec2"
+          }
+        },
+        {
+          "base": "no-pod-monitor",
+          "default": false,
+          "listing": {
+            "id": "nvidia-nvsentinel-v1-25-0-no-pod-monitor",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-25-0-no-pod-monitor.json"
+          },
+          "objectCount": 21,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nvsentinel/v1.25.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.25.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:efeccf54131507abb5c6c4965ec661bcc48b5e89f609afdcdf9f299a8afbbd25",
+            "objectSetDigest": "sha256:efeccf54131507abb5c6c4965ec661bcc48b5e89f609afdcdf9f299a8afbbd25"
+          }
+        },
+        {
+          "base": "aicr-eks-training",
+          "default": false,
+          "listing": {
+            "id": "nvidia-nvsentinel-v1-25-0-aicr-eks-training",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-25-0-aicr-eks-training.json"
+          },
+          "objectCount": 21,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nvsentinel/v1.25.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.25.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:a0a98f57755f4be60aedae1219efb32059025921a6c5eb15f57e87d5a7776b15",
+            "objectSetDigest": "sha256:a0a98f57755f4be60aedae1219efb32059025921a6c5eb15f57e87d5a7776b15"
+          }
+        }
+      ]
+    },
+    {
+      "version": "v1.20.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-20-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0@sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "nvidia-nvsentinel-v1-20-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-20-0-default.json"
+          },
+          "objectCount": 22,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:3344e2d68968a485305ba8280ebb1676457f5552cd665c8000faa38c42841377",
+            "objectSetDigest": "sha256:3344e2d68968a485305ba8280ebb1676457f5552cd665c8000faa38c42841377"
+          }
+        },
+        {
+          "base": "no-pod-monitor",
+          "default": false,
+          "listing": {
+            "id": "nvidia-nvsentinel-v1-20-0-no-pod-monitor",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-20-0-no-pod-monitor.json"
+          },
+          "objectCount": 21,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:90aeac70ec22badcd205ec6a6ee66b7490a8353eb3242cde61bedce08bd4c3eb",
+            "objectSetDigest": "sha256:90aeac70ec22badcd205ec6a6ee66b7490a8353eb3242cde61bedce08bd4c3eb"
+          }
+        },
+        {
+          "base": "aicr-eks-training",
+          "default": false,
+          "listing": {
+            "id": "nvidia-nvsentinel-v1-20-0-aicr-eks-training",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-20-0-aicr-eks-training.json"
+          },
+          "objectCount": 21,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee",
+            "objectSetDigest": "sha256:28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee"
+          }
+        }
+      ]
+    },
+    {
+      "version": "v1.9.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel-v1-9-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.9.0@sha256:d13963c102f908c62a297120947532bc4101486e72d5cb36b1708a04a6e5283b"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "nvidia-nvsentinel-v1-9-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-9-0-default.json"
+          },
+          "objectCount": 21,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2",
+            "objectSetDigest": "sha256:ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2"
+          }
+        },
+        {
+          "base": "no-pod-monitor",
+          "default": false,
+          "listing": {
+            "id": "nvidia-nvsentinel-v1-9-0-no-pod-monitor",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-9-0-no-pod-monitor.json"
+          },
+          "objectCount": 20,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:5319d654999e0575a5c43ab992c31af9a22a92f5d55f025e4f3ad539cb963810",
+            "objectSetDigest": "sha256:5319d654999e0575a5c43ab992c31af9a22a92f5d55f025e4f3ad539cb963810"
+          }
+        },
+        {
+          "base": "aicr-eks-training",
+          "default": false,
+          "listing": {
+            "id": "nvidia-nvsentinel-v1-9-0-aicr-eks-training",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-9-0-aicr-eks-training.json"
+          },
+          "objectCount": 20,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nvsentinel/v1.9.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvsentinel/v1.9.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:108838b8b474bf4a3e5bf541af136ef74fcacfdf74cb16ed18f7d999a44f365d",
+            "objectSetDigest": "sha256:108838b8b474bf4a3e5bf541af136ef74fcacfdf74cb16ed18f7d999a44f365d"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "v1.25.0",
+        "base": "default",
+        "listing": "nvidia-nvsentinel-v1-25-0-default"
+      },
+      "to": {
+        "version": "v1.26.0",
+        "base": "default",
+        "listing": "nvidia-nvsentinel-v1-26-0-default"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 13,
+      "unchanged": 9,
+      "line": "From v1.25.0 to v1.26.0 on the default base, 13 of 22 objects change."
+    },
+    {
+      "from": {
+        "version": "v1.20.0",
+        "base": "default",
+        "listing": "nvidia-nvsentinel-v1-20-0-default"
+      },
+      "to": {
+        "version": "v1.25.0",
+        "base": "default",
+        "listing": "nvidia-nvsentinel-v1-25-0-default"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 14,
+      "unchanged": 8,
+      "line": "From v1.20.0 to v1.25.0 on the default base, 14 of 22 objects change."
+    },
+    {
+      "from": {
+        "version": "v1.9.0",
+        "base": "default",
+        "listing": "nvidia-nvsentinel-v1-9-0-default"
+      },
+      "to": {
+        "version": "v1.20.0",
+        "base": "default",
+        "listing": "nvidia-nvsentinel-v1-20-0-default"
+      },
+      "added": 1,
+      "removed": 0,
+      "changed": 15,
+      "unchanged": 6,
+      "line": "From v1.9.0 to v1.20.0 on the default base, 15 of 21 objects change and 1 is added."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

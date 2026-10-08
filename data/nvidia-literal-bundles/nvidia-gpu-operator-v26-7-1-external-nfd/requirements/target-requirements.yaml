@@ -1,0 +1,53 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "nvidia-gpu-operator-v26-7-1-external-nfd-target-requirements"
+spec:
+  subject:
+    catalogEntry: "nvidia-gpu-operator-v26-7-1-external-nfd"
+    chart: "nvidia/gpu-operator"
+    version: "v26.7.1"
+    base: "external-nfd"
+    revision: "r001"
+  namespace:
+    name: "gpu-operator"
+    namespaceObjectInBundle: false
+    objectsNamingThisNamespace: 4
+    otherNamespacesNamed:
+      []
+    namespacedObjectsNamingNoNamespace: 0
+    customKindObjectsNamingNoNamespace: 1
+    customKindsNamingNoNamespace:
+      - "ClusterPolicy"
+    statement: "The bundle holds no Namespace object, so the namespace gpu-operator must exist on the target before these objects are applied. 1 object of a custom kind sets no namespace. This file does not decide whether those kinds are namespaced."
+  customResourceDefinitions:
+    inBundle:
+      count: 5
+      names:
+        - "clusterpolicies.nvidia.com"
+        - "computedomaincliques.resource.nvidia.com"
+        - "computedomains.resource.nvidia.com"
+        - "gpuclusters.nvidia.com"
+        - "nvidiadrivers.nvidia.com"
+      orderedBy: "routes/crd-ordering.yaml"
+    requiredOnTarget:
+      []
+  applyMode: "not-recorded"
+  render:
+    renderer: "helm"
+    releaseName: "gpu-operator"
+    namespace: "gpu-operator"
+    kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+    valuesProfile: "recipes/nvidia/gpu-operator/v26.7.1/effective-values-external-nfd.yaml"
+  flattening:
+    lane: "flatten-with-routes"
+    verdict: "recipes/nvidia/gpu-operator/v26.7.1/publication/flattening-safety-verdict-external-nfd.yaml"
+  sourcePackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-nvidia-literal-bundles.mjs"
+    generatedFrom:
+      - "data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-external-nfd.yaml"
+      - "recipes/nvidia/gpu-operator/v26.7.1/revisions/external-nfd/r001/rendered/object-inventory.yaml"
+    verdictRef: "recipes/nvidia/gpu-operator/v26.7.1/publication/flattening-safety-verdict-external-nfd.yaml"

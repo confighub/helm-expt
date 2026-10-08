@@ -621,6 +621,7 @@ function familyRole(family) {
     "variant-goldens": "golden work orders for derived-variant examples",
     "certified-bundles": "shared certified-bundle receipts: one reference bundle per producer with quirk dispositions and flattening-safety verdict lanes",
     "catalog-images": "the container images each catalog entry's retained objects name, and whether each is pinned by digest; read offline from the committed renders and resolving nothing",
+    "nvidia-literal-bundles": "one literal configuration OCI bundle plan for each base of four NVIDIA charts: the route files, the requirements file, the guide and the manifest digest the committed bytes build; a plan does not say whether its bundle is published",
     "flattening-safety": "per-chart flattening-safety verdicts: template-level witness scans and the receipted lane deciding render-early vs render-late",
     "receipt-aging": "how old every committed receipt is, measured against the newest one, with the count that carry no date at all",
   };
@@ -669,6 +670,7 @@ function commandMap() {
     "outcome-coverage": { generate: "npm run outcomes:generate", verify: "npm run outcomes:verify" },
     "certified-bundles": { generate: "npm run certified-bundles", verify: "npm run certified-bundles:verify" },
     "catalog-images": { generate: "npm run catalog:images", verify: "npm run catalog:images:verify" },
+    "nvidia-literal-bundles": { generate: "npm run nvidia-literal-bundles:generate", verify: "npm run nvidia-literal-bundles:verify" },
     "flattening-safety": { generate: "npm run flattening-safety", verify: "npm run flattening-safety:verify" },
     "chart-use-guide": { generate: "npm run chart-use:guide", verify: "npm run chart-use:guide:verify" },
     "chart-evidence-router": { generate: "npm run chart:evidence-router", verify: "npm run chart:evidence-router:verify" },

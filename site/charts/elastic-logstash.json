@@ -1,0 +1,81 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "elastic/logstash",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/elastic-logstash.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/elastic-logstash.html",
+  "counts": {
+    "versions": 1,
+    "bases": 2
+  },
+  "versions": [
+    {
+      "version": "8.5.1",
+      "page": "https://confighub.github.io/helm-expt/site/charts/elastic-logstash-8-5-1.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "elastic-logstash-8-5-1-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/elastic-logstash-8-5-1-default.json"
+          },
+          "objectCount": 3,
+          "verdict": "safe-to-flatten",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/elastic/logstash/8.5.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/elastic/logstash/8.5.1/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd",
+            "objectSetDigest": "sha256:1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd"
+          }
+        },
+        {
+          "base": "ha",
+          "default": false,
+          "listing": {
+            "id": "elastic-logstash-8-5-1-ha",
+            "url": "https://confighub.github.io/helm-expt/site/listings/elastic-logstash-8-5-1-ha.json"
+          },
+          "objectCount": 0,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70",
+            "objectSetDigest": "sha256:d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

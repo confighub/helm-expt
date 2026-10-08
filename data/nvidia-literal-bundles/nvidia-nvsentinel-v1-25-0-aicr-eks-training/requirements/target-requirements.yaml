@@ -1,0 +1,57 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "nvidia-nvsentinel-v1-25-0-aicr-eks-training-target-requirements"
+spec:
+  subject:
+    catalogEntry: "nvidia-nvsentinel-v1-25-0-aicr-eks-training"
+    chart: "nvidia/nvsentinel"
+    version: "v1.25.0"
+    base: "aicr-eks-training"
+    revision: "r001"
+  namespace:
+    name: "nvsentinel"
+    namespaceObjectInBundle: false
+    objectsNamingThisNamespace: 0
+    otherNamespacesNamed:
+      []
+    namespacedObjectsNamingNoNamespace: 15
+    customKindObjectsNamingNoNamespace: 0
+    customKindsNamingNoNamespace:
+      []
+    statement: "The bundle holds no Namespace object, so the namespace nvsentinel must exist on the target before these objects are applied. 15 namespaced objects set no namespace and must be applied into nvsentinel."
+  customResourceDefinitions:
+    inBundle:
+      count: 0
+      names:
+        []
+      orderedBy: ""
+    requiredOnTarget:
+      -
+        name: "podmonitors.monitoring.coreos.com"
+        purpose: "Prometheus Operator PodMonitor CRD required before Kubernetes accepts the rendered PodMonitor object; the chart does not ship it"
+        packagedCopy:
+          installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0@sha256:5b6363f704e89c754c2901a85ade183312afca87a94d97aa22f55d2f4d23189e"
+          path: "prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          repositoryPath: "packages/nvidia/nvsentinel/v1.25.0/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          sha256: "sha256:0b44ab2dd68859d1cc1a17d429bf04947832f1b036882d49a203873db627368f"
+          bytes: 69232
+  applyMode: "not-recorded"
+  render:
+    renderer: "helm"
+    releaseName: "nvsentinel"
+    namespace: "nvsentinel"
+    kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+    valuesProfile: "recipes/nvidia/nvsentinel/v1.25.0/effective-values-aicr-eks-training.yaml"
+  flattening:
+    lane: "safe-to-flatten"
+    verdict: "recipes/nvidia/nvsentinel/v1.25.0/publication/flattening-safety-verdict-aicr-eks-training.yaml"
+  sourcePackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0@sha256:5b6363f704e89c754c2901a85ade183312afca87a94d97aa22f55d2f4d23189e"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-nvidia-literal-bundles.mjs"
+    generatedFrom:
+      - "data/helm-render-intents/intents/nvidia-nvsentinel-v1-25-0-aicr-eks-training.yaml"
+      - "recipes/nvidia/nvsentinel/v1.25.0/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+    verdictRef: "recipes/nvidia/nvsentinel/v1.25.0/publication/flattening-safety-verdict-aicr-eks-training.yaml"

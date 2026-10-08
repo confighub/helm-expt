@@ -1,0 +1,63 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "fairwinds-stable/goldilocks",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-goldilocks.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-goldilocks.html",
+  "counts": {
+    "versions": 1,
+    "bases": 1
+  },
+  "versions": [
+    {
+      "version": "10.3.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-goldilocks-10-3-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0@sha256:b16c4fca4bf8fa04db89891d03a0e4122715e3cfdc9356ef4bed6cd191199852"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "fairwinds-stable-goldilocks-10-3-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/fairwinds-stable-goldilocks-10-3-0-default.json"
+          },
+          "objectCount": 9,
+          "verdict": "not-assessed",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5",
+            "objectSetDigest": "sha256:5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

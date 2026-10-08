@@ -1,0 +1,81 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "hashicorp/terraform",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/hashicorp-terraform.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/hashicorp-terraform.html",
+  "counts": {
+    "versions": 1,
+    "bases": 2
+  },
+  "versions": [
+    {
+      "version": "1.1.2",
+      "page": "https://confighub.github.io/helm-expt/site/charts/hashicorp-terraform-1-1-2.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2@sha256:0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "hashicorp-terraform-1-1-2-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/hashicorp-terraform-1-1-2-default.json"
+          },
+          "objectCount": 5,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b",
+            "objectSetDigest": "sha256:5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "hashicorp-terraform-1-1-2-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/hashicorp-terraform-1-1-2-no-crds.json"
+          },
+          "objectCount": 0,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a",
+            "objectSetDigest": "sha256:a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

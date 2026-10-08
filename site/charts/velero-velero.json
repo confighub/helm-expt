@@ -1,0 +1,129 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "velero/velero",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/velero-velero.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/velero-velero.html",
+  "counts": {
+    "versions": 2,
+    "bases": 3
+  },
+  "versions": [
+    {
+      "version": "12.1.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/velero-velero-12-1-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0@sha256:4f79e7fbd3e4a3564746dcfdc45091f43cb8faeb1a569e5cd6825576fcdd3882"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "velero-velero-12-1-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/velero-velero-12-1-0-default.json"
+          },
+          "objectCount": 23,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/velero/velero/12.1.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/velero/velero/12.1.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:98ae56afed33da670906bb8ea003f7abd1ec19e4bbc42244590bc2e97f772d3f",
+            "objectSetDigest": "sha256:98ae56afed33da670906bb8ea003f7abd1ec19e4bbc42244590bc2e97f772d3f"
+          }
+        }
+      ]
+    },
+    {
+      "version": "12.0.1",
+      "page": "https://confighub.github.io/helm-expt/site/charts/velero-velero-12-0-1.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1@sha256:8ef67eb54e2a8457c08fdaa97ad41edea5b85c5f7e0b600fa157f3e64f19017e"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "velero-velero-12-0-1-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/velero-velero-12-0-1-default.json"
+          },
+          "objectCount": 23,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/velero/velero/12.0.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/velero/velero/12.0.1/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:3fc8afa5a2077710e8e9a49df435b234925b373cdaf2209e66fada0044ef2c1b",
+            "objectSetDigest": "sha256:3fc8afa5a2077710e8e9a49df435b234925b373cdaf2209e66fada0044ef2c1b"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "velero-velero-12-0-1-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/velero-velero-12-0-1-no-crds.json"
+          },
+          "objectCount": 0,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/velero/velero/12.0.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/velero/velero/12.0.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:8ae294dd0418f586f2ea4ba66660384f28cacb0ceed6124ac0a0b1c8b4c1d933",
+            "objectSetDigest": "sha256:8ae294dd0418f586f2ea4ba66660384f28cacb0ceed6124ac0a0b1c8b4c1d933"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "12.0.1",
+        "base": "default",
+        "listing": "velero-velero-12-0-1-default"
+      },
+      "to": {
+        "version": "12.1.0",
+        "base": "default",
+        "listing": "velero-velero-12-1-0-default"
+      },
+      "added": 9,
+      "removed": 9,
+      "changed": 1,
+      "unchanged": 13,
+      "line": "From 12.0.1 to 12.1.0 on the default base, 1 of 23 objects changes, 9 are added and 9 are removed."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

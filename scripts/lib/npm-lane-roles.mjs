@@ -228,6 +228,12 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "green: runs as its own job so a hiccup reaching hub.confighub.com cannot mask an offline gate failing",
   },
+  "site:config-diff:cub:verify": {
+    proves: "The browser build of the cub config diff core returns, field for field, what the installed `cub config diff --summary --json` returns for the four fixed pairs of retained files in tests/fixtures/config-diff. The chain runs the same comparison against committed fixtures in site:config-diff:fixtures:verify, which needs no tool.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes on 2026-10-08 with the cub-workshop plugin at 55c51a6; it needs that plugin installed, and CI carries an older one, so the fixtures stand in for it there",
+  },
   "site:published:verify": {
     proves: "That readers can actually see what main holds: the last GitHub Pages deployment of main concluded in success, and every page the top navigation links is served byte-identical to the committed file. `site:verify` proves neither, and the difference cost thirteen consecutive silent deploy failures (#1465, #1466).",
     requires: "network",
