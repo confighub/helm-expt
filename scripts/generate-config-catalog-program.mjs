@@ -4704,6 +4704,34 @@ function runAicrRecipeEntrySelfTest() {
     "self-test: an edge to a component the recipe does not deploy must be recorded, not dropped and not failed",
   );
 
+  // A selected recipe can hold an edge from a deployed component to one the
+  // bundle leaves out. It raises the flag unless the entry names a route of its
+  // own for that component. The generic list of omitted components never counts.
+  const omittedShape = (namedRoutes) => orderingEvidenceFor({
+    applications: [["root", null], ["alpha", "1"], ["beta", "5"]].map(([name, syncWave]) => ({ name, syncWave })),
+    recipe: { deploymentOrder: ["alpha", "beta"], components: [["alpha", []], ["beta", ["alpha"]]].map(([name, dependencyRefs]) => ({ name, dependencyRefs })) },
+    selectedComponents: [["alpha", ["omitted-one"]], ["beta", ["alpha"]], ["omitted-one", []]].map(([name, dependencyRefs]) => ({ name, dependencyRefs })),
+    namedRoutes,
+  });
+  const undecidedOmission = omittedShape([{ id: "unrelated-route", text: "replace the placeholder node selector" }]);
+  check(
+    uncheckedOrderingEdges(undecidedOmission) === 1
+      && undecidedOmission.edgesToAnOmittedComponent[0].dependsOn === "omitted-one"
+      && /nothing here shows who provides it\.$/.test(orderingOpenQuestion(undecidedOmission)),
+    "self-test: an edge from a deployed component to one the bundle leaves out was not flagged",
+  );
+  const decidedOmission = omittedShape([{ id: "omitted-one-decision", text: "decide whether omitted-one is wanted" }]);
+  check(
+    uncheckedOrderingEdges(decidedOmission) === 0
+      && decidedOmission.edgesToAnOmittedComponentDecidedByARoute[0].decidedBy === "omitted-one-decision"
+      && orderingOpenQuestion(decidedOmission) === "",
+    "self-test: an omission that a route of the entry decides was flagged",
+  );
+  check(
+    uncheckedOrderingEdges(omittedShape([{ id: "other", text: "decide whether omitted-one-extra is wanted" }])) === 1,
+    "self-test: a route that names a different component decided the omission",
+  );
+
   const subject = {
     entry: "examples/aicr/self-test",
     upstreamVersion: "v9.9.9",

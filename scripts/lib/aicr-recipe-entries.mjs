@@ -23,6 +23,8 @@ export const AICR_MEMBERS_CSV = "data/aicr-nim-model-profiles/platform-members.c
 export const SYNC_WAVE_ANNOTATION = "argocd.argoproj.io/sync-wave";
 // Where a bundle keeps the recipe it was generated from, when it keeps one.
 export const BUNDLED_RECIPE = "argocd-helm-bundle/recipe.yaml";
+// The routes an entry names for itself, when it keeps them by hand.
+export const ROUTE_INTENT = "route-intent.yaml";
 // The kind of nested source an Application has when it takes a path inside the
 // entry's own AICR bundle package.
 export const AICR_BUNDLE_PATH_SOURCE = "path-in-aicr-source-package";
@@ -95,6 +97,14 @@ for entry in request["entries"]:
             })
         applications.append(row)
     verdict = load_one(entry["verdict"]) if entry.get("verdict") else None
+    intent = load_one(entry["routeIntent"]) if entry.get("routeIntent") else None
+    named_routes = []
+    for route in ((intent or {}).get("spec") or intent or {}).get("routes") or []:
+        if isinstance(route, dict) and route.get("id"):
+            named_routes.append({
+                "id": str(route.get("id")),
+                "text": " ".join(str(route.get(key, "")) for key in ("lifecycleWork", "evidenceRequired", "observed")),
+            })
     bundled = load_one(entry["bundledRecipe"]) if entry.get("bundledRecipe") else None
     bundled_components = []
     for component in (bundled or {}).get("componentRefs") or []:
@@ -126,6 +136,7 @@ for entry in request["entries"]:
             "components": components,
         },
         "applications": applications,
+        "namedRoutes": named_routes,
         "bundledRecipe": None if bundled is None else {
             "deploymentOrder": list(bundled.get("deploymentOrder") or (bundled.get("spec") or {}).get("deploymentOrder") or []),
             "components": bundled_components,
@@ -253,6 +264,28 @@ export function orderingEvidenceFor(entry) {
       }
     }
   }
+  // The selected recipe can hold an edge that the bundled recipe does not: a
+  // component the bundle deploys depending on one the bundle leaves out. The
+  // bundled recipe declares no such edge, so nothing above could see it. It is
+  // an open question, who provides the omitted component, unless the entry
+  // already names a route that decides that omission. A route decides it only
+  // when it is the entry's own route for that component. The generic route
+  // that lists every omitted component hands the decision to a destination and
+  // does not make it, so it never counts.
+  const bundledNames = new Set((entry.recipe.components ?? []).map((component) => component.name));
+  const omittedUndecided = [];
+  const omittedDecided = [];
+  for (const component of entry.selectedComponents ?? []) {
+    if (!bundledNames.has(component.name)) continue;
+    for (const dependency of component.dependencyRefs) {
+      if (bundledNames.has(dependency)) continue;
+      const edge = { component: component.name, dependsOn: dependency };
+      const mention = new RegExp(`(?<![A-Za-z0-9_-])${dependency.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![A-Za-z0-9_-])`);
+      const route = (entry.namedRoutes ?? []).find((candidate) => mention.test(candidate.text));
+      if (route) omittedDecided.push({ ...edge, decidedBy: route.id });
+      else omittedUndecided.push(edge);
+    }
+  }
   const order = [...waved.entries()].sort((left, right) => left[1] - right[1] || (left[0] < right[0] ? -1 : 1));
   const distinctWaves = new Set(waved.values()).size;
   return {
@@ -270,6 +303,10 @@ export function orderingEvidenceFor(entry) {
     // The subset that matters to a destination: something the recipe does
     // deploy, depending on something it does not.
     deployedDependsOnUndeployed: undeployed.filter((edge) => !edge.notDeployed.includes(edge.component)),
+    // Selected-recipe edges from a deployed component to one the bundle leaves
+    // out. The first list has no route that decides it and raises the flag.
+    edgesToAnOmittedComponent: omittedUndecided,
+    edgesToAnOmittedComponentDecidedByARoute: omittedDecided,
     companions: order.map(([name]) => name).filter((name) => !deployed.has(name)),
     platformRoots: roots,
   };
@@ -321,7 +358,9 @@ export function orderingSentences(entry) {
     const edges = entry.leftOutEdges ?? [];
     sentences.push(
       `The selected recipe also names ${names.length} component${names.length === 1 ? "" : "s"} the bundle leaves out (${names.join(", ")}), and the generation receipt records the reason AICR logged for ${names.length === 1 ? "it" : "each"}. ${edges.length > 0
-        ? `The selected recipe makes ${joinNames(edges.map((edge) => `${edge.component} depend on ${edge.dependsOn}`), "and")}. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it, and a route records the decision a destination has to make.`
+        ? `The selected recipe makes ${joinNames(edges.map((edge) => `${edge.component} depend on ${edge.dependsOn}`), "and")}. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it. ${(ordering.edgesToAnOmittedComponent ?? []).length > 0
+          ? `${(ordering.edgesToAnOmittedComponent ?? []).length === 1 ? "That edge is" : `${ordering.edgesToAnOmittedComponent.length} of those edges are`} recorded and not checked, and no route of this entry decides ${ordering.edgesToAnOmittedComponent.length === 1 ? "it" : "them"}, so the entry is flagged. The route that lists the omitted components records the decision a destination has to make.`
+          : "A route records the decision a destination has to make."}`
         : "No component the bundle deploys depends on one of them in the selected recipe."}`,
     );
   }
@@ -355,7 +394,9 @@ export const ATTENTION_STATE = "watch";
 // either it names a component the recipe does not deploy, or one side renders
 // without a wave.
 export function uncheckedOrderingEdges(ordering) {
-  return ordering.edgesNamingAnUndeployedComponent.length + ordering.edgesViolated.length;
+  return ordering.edgesNamingAnUndeployedComponent.length
+    + ordering.edgesViolated.length
+    + (ordering.edgesToAnOmittedComponent ?? []).length;
 }
 
 function joinNames(names, word) {
@@ -371,12 +412,23 @@ function joinNames(names, word) {
 export function orderingOpenQuestion(ordering) {
   if (uncheckedOrderingEdges(ordering) === 0) return "";
   const affecting = ordering.deployedDependsOnUndeployed;
-  if (affecting.length > 0) {
-    const missing = [...new Set(affecting.map((edge) => edge.dependsOn))].sort();
-    const dependers = [...new Set(affecting.map((edge) => edge.component))].sort();
-    const pairs = affecting.map((edge) => `${edge.component} depend on ${edge.dependsOn}`);
-    const it = missing.length === 1 ? "it" : "them";
-    return `The recipe makes ${joinNames(pairs, "and")} and does not deploy ${it}, and nothing here shows whether ${joinNames(dependers, "or")} work${dependers.length === 1 ? "s" : ""} without ${it}.`;
+  const omitted = ordering.edgesToAnOmittedComponent ?? [];
+  if (affecting.length > 0 || omitted.length > 0) {
+    const sentences = [];
+    if (affecting.length > 0) {
+      const missing = [...new Set(affecting.map((edge) => edge.dependsOn))].sort();
+      const dependers = [...new Set(affecting.map((edge) => edge.component))].sort();
+      const pairs = affecting.map((edge) => `${edge.component} depend on ${edge.dependsOn}`);
+      const it = missing.length === 1 ? "it" : "them";
+      sentences.push(`The recipe makes ${joinNames(pairs, "and")} and does not deploy ${it}, and nothing here shows whether ${joinNames(dependers, "or")} work${dependers.length === 1 ? "s" : ""} without ${it}.`);
+    }
+    if (omitted.length > 0) {
+      const missing = [...new Set(omitted.map((edge) => edge.dependsOn))].sort();
+      const pairs = omitted.map((edge) => `${edge.component} depend on ${edge.dependsOn}`);
+      const it = missing.length === 1 ? "it" : "them";
+      sentences.push(`The selected recipe makes ${joinNames(pairs, "and")} and the bundle does not deploy ${it}, and nothing here shows who provides ${it}.`);
+    }
+    return sentences.join(" ");
   }
   const undeployed = ordering.edgesNamingAnUndeployedComponent;
   if (undeployed.length > 0) {
@@ -431,6 +483,7 @@ function extractAicrDirectories(root, verdictRoot) {
         recipe: existsSync(join(root, entryRel, "recipe.yaml")) ? join(root, entryRel, "recipe.yaml") : join(root, entryRel, "generation-receipt.yaml"),
         bundledRecipe: existsSync(bundledRecipe) ? bundledRecipe : "",
         applications: listApplicationFiles(root, entryRel),
+        routeIntent: existsSync(join(root, entryRel, ROUTE_INTENT)) ? join(root, entryRel, ROUTE_INTENT) : "",
         verdict: verdictRel && existsSync(join(root, verdictRel)) ? join(root, verdictRel) : "",
       };
     }),
@@ -456,6 +509,8 @@ export function loadAicrOrderingEvidence({ root = repoRoot, verdictRoot = "" } =
     const ordering = orderingEvidenceFor({
       applications: facts.applications,
       recipe: facts.bundledRecipe ?? facts.recipe,
+      selectedComponents: facts.bundledRecipe ? facts.recipe.components : null,
+      namedRoutes: facts.namedRoutes,
     });
     evidence.set(id, {
       id,
@@ -561,7 +616,12 @@ export function loadAicrRecipeEntries({ root = repoRoot, verdictRoot = "" } = {}
     entry.bundledRecipeRel = bundled ? `${entryRel}/${BUNDLED_RECIPE}` : "";
     entry.bundleRel = bundled ? `${entryRel}/${BUNDLED_RECIPE.split("/")[0]}` : "";
     entry.orderingRecipeRel = entry.bundledRecipeRel || entry.recipeRel;
-    entry.ordering = orderingEvidenceFor({ applications: entry.applications, recipe: bundled ?? facts.recipe });
+    entry.ordering = orderingEvidenceFor({
+      applications: entry.applications,
+      recipe: bundled ?? facts.recipe,
+      selectedComponents: bundled ? facts.recipe.components : null,
+      namedRoutes: facts.namedRoutes,
+    });
     const bundledNames = new Set((bundled?.components ?? []).map((component) => component.name));
     const loggedReasons = new Map((facts.receipt.result?.componentsLeftOutOfBundle ?? []).map((row) => [String(row.name), String(row.reason ?? "")]));
     entry.leftOutOfBundle = bundled

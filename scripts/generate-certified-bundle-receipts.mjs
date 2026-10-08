@@ -2218,6 +2218,15 @@ function buildAicrRecipeEntryReceipt(entry) {
       `The recipe makes ${edge.component} depend on ${edge.dependsOn}, and the recipe does not deploy ${edge.dependsOn}. Whether ${edge.component} needs it on a destination is not answered by these bytes.`,
   );
 
+  // The same question the record carries for an edge from a deployed component
+  // to one the bundle leaves out and no route of the entry decides.
+  openQuestions.push(
+    ...ordering.edgesToAnOmittedComponent.map(
+      (edge) =>
+        `The selected recipe makes ${edge.component} depend on ${edge.dependsOn}, and the bundle does not deploy ${edge.dependsOn}. Who provides it on a destination is not answered by these bytes.`,
+    ),
+  );
+
   const verdictRel = `data/aicr-flattening-verdicts/${name}/flattening-safety-verdict.yaml`;
   emittedRoutes.push({
     path: repoPath(verdictRel),
