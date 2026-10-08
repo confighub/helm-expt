@@ -21,6 +21,29 @@
 
 export const NEXT_STEPS_HEADING = "Use this entry in ConfigHub";
 
+// The dated log of the one live walk of steps 3 to 5. It ran the command forms
+// below for the two entries named here, with cub v0.8.7, a ConfigHub server at
+// v0.8.9, installer plugin 0.1.0, kind v0.31.0 and Argo CD v3.5.4. It is a log,
+// not a receipt, so no state in this module reads from it. A step carries it as
+// liveWalk so a reader can see which forms were run. The delete line in steps 4
+// and 5 and the placeholder names in steps 3 to 5 come from what it found.
+export const ENTRY_STEPS_WALK = {
+  date: "2026-10-08",
+  path: "docs/user/live-walk-entry-steps-2026-10-08.md",
+  url: "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-steps-2026-10-08.md",
+  versions: "cub v0.8.7, ConfigHub server v0.8.9, installer plugin 0.1.0 and Argo CD v3.5.4",
+  entries: ["bitnami-nginx-24-0-2-http-clusterip", "nvidia-gpu-operator-v26-3-3-default"],
+};
+
+// The names a reader chooses. The page cannot use the entry id as a Space name,
+// because the walk found that name already taken in an organization.
+export const SPACE_PLACEHOLDER = "<your-space>";
+export const COMPONENT_PLACEHOLDER = "<your-component>";
+
+// A step that carries liveWalk, for an installer package.
+const WALKED_STEPS = ["upload", "deploy", "promote"];
+const INSTALLER_RECORD = "installer-record";
+
 export const NEXT_STEPS = [
   { id: "get-objects", label: "Get the exact objects" },
   { id: "compare", label: "Compare with another version or base" },
@@ -99,6 +122,24 @@ export function uploadPath(listing) {
   return { kind: "none" };
 }
 
+// True when the listing records a passed delivery and the deploy step shows
+// commands for the entry. The recorded delivery proofs ran other commands than
+// the ones shown, so the step may not read as run for the commands it shows.
+export function deliveryRanOtherCommands(listing) {
+  return uploadPath(listing).kind !== "none" && (listing.oci?.runtimes ?? []).some((runtime) => runtime.state === "pass");
+}
+
+// CRDs the base itself carries are not inputs the destination supplies. The
+// listing records both under installTimeInputs, so the detail text decides.
+function splitInstallInputs(listing) {
+  const inputs = (listing.lifecycle?.installTimeInputs ?? []).filter((input) => input.name);
+  const carried = (input) => input.kind === "requiredCRDs" && /\bincluded in this (base|preset)\b/i.test(input.detail ?? "");
+  return {
+    needs: inputs.filter((input) => !carried(input)).map((input) => input.name),
+    carries: inputs.filter(carried).map((input) => input.name),
+  };
+}
+
 // The state each step may claim, read from the listing alone. `plan` is the
 // fetch plan for this entry's retained objects and `comparable` says whether a
 // sibling with the same object shape exists; both are facts about committed
@@ -133,7 +174,12 @@ export function deriveStepState(listing, stepId, { hasObjects, siblingCount, com
   if (stepId === "deploy") {
     const states = (listing.oci?.runtimes ?? []).map((runtime) => runtime.state);
     const basis = ["oci.runtimes", "lifecycle.installTimeInputs"];
-    if (states.includes("pass")) return { state: "run-for-this-entry", basis };
+    // A passed delivery is a run of the commands it ran. The recorded proofs
+    // upload with a Target, set the Space's release Target and publish. The
+    // commands this step shows clone the base with cub variant create, which no
+    // proof recorded, so a passed delivery reads as partly run when the step
+    // shows commands.
+    if (states.includes("pass")) return { state: deliveryRanOtherCommands(listing) ? "partly-run-for-this-entry" : "run-for-this-entry", basis };
     if (states.includes("partial") || states.includes("recorded-elsewhere")) return { state: "partly-run-for-this-entry", basis };
     return { state: path.kind === "none" ? "not-available" : "not-run-for-this-entry", basis };
   }
@@ -216,6 +262,17 @@ function receiptOf(source) {
   return source?.receipt && source?.receiptUrl ? { receipt: source.receipt, receiptUrl: source.receiptUrl } : {};
 }
 
+function walkOf() {
+  return { liveWalk: { date: ENTRY_STEPS_WALK.date, path: ENTRY_STEPS_WALK.path, url: ENTRY_STEPS_WALK.url, versions: ENTRY_STEPS_WALK.versions } };
+}
+
+// Plain sentences that follow a step's summary. Only an installer package has
+// them today, because only that path was walked. A backtick pair marks a span
+// of code on the page.
+function noteList(...notes) {
+  return notes.length > 0 ? { notes } : {};
+}
+
 // related: every other maintained entry for the same source, as
 // { id, url, version, base, format, plan }. plan: this entry's own fetch plan.
 export function buildNextSteps(listing, { plan, related = [] }) {
@@ -261,7 +318,10 @@ export function buildNextSteps(listing, { plan, related = [] }) {
       : plan.kind === "inventory"
         ? `The Catalog ${supplied ? "retains" : "rendered this entry and retains"} its ${objectNoun(listing)} as files that one inventory lists.`
         : `The Catalog retains this entry's ${objectNoun(listing)} as files in the repository, with no single file or inventory to fetch.`;
-    return { summary, commands, ...(plan.kind === "none" ? { link: listing.flattened.objectsUrl } : {}) };
+    const countNote = path.kind === "installer-package"
+      ? noteList("An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an `installer-record` Unit.")
+      : {};
+    return { summary, commands, ...countNote, ...(plan.kind === "none" ? { link: listing.flattened.objectsUrl } : {}) };
   }));
 
   // 2. Compare with another version or base.
@@ -323,8 +383,8 @@ export function buildNextSteps(listing, { plan, related = [] }) {
     if (path.kind === "installer-package") {
       commands.push(
         { comment: "sign in; steps 3 to 5 write to your ConfigHub organization", command: "cub auth login", needsAccount: true },
-        { comment: "upload the directory rendered in step 1 as a Space of Units", command: `cub installer upload --work-dir ./${id} --space ${id}`, needsAccount: true, writes: true },
-        { comment: "list the Units the upload created", command: `cub unit list --space ${id}`, needsAccount: true },
+        { comment: "upload step 1's directory as a Space of Units, under names you choose", command: `cub installer upload --work-dir ./${id} --space ${SPACE_PLACEHOLDER} --component ${COMPONENT_PLACEHOLDER}`, needsAccount: true, writes: true },
+        { comment: "list the Units the upload created", command: `cub unit list --space ${SPACE_PLACEHOLDER}`, needsAccount: true },
       );
     } else if (path.kind === "literal-bundle") {
       const args = `--component ${slug(name)} --variant ${base} --space ${id} ${path.reference}`;
@@ -339,16 +399,26 @@ export function buildNextSteps(listing, { plan, related = [] }) {
       : path.kind === "literal-bundle"
         ? "The commands use its published literal configuration bundle."
         : "The listing names no public artifact for it, so no upload command is given.";
+    const uploadNotes = path.kind === "installer-package"
+      ? {
+          ...noteList(
+            "Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.",
+            "In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The `--component` flag sets the Component label the upload writes on the Space, which is the package name when you omit it.",
+            "The cub installer plugin reads your organization from `CUB_CONTEXT` and ignores `--context`. If you use a context other than your default, export `CUB_CONTEXT` first, or the plugin works in your default organization.",
+          ),
+          ...walkOf(),
+        }
+      : {};
     if (state === "run-for-this-entry") {
       const evidence = upload.state === "published" ? receiptOf(upload) : release.state === "published" ? receiptOf(release) : {};
-      return { summary: `The Catalog saved this entry in ConfigHub. ${source}`, commands, ...evidence };
+      return { summary: `The Catalog saved this entry in ConfigHub. ${source}`, commands, ...uploadNotes, ...evidence };
     }
     if (state === "partly-run-for-this-entry") {
       const partial = ["local", "recorded-elsewhere"].includes(upload.state) ? upload : release;
-      return { summary: `The record holds a local, temporary or separately recorded upload for this entry, and no retained one. ${source}`, commands, ...receiptOf(partial) };
+      return { summary: `The record holds a local, temporary or separately recorded upload for this entry, and no retained one. ${source}`, commands, ...uploadNotes, ...receiptOf(partial) };
     }
     if (state === "not-run-for-this-entry") {
-      return { summary: `The Catalog has not uploaded this entry. ${source}`, commands };
+      return { summary: `The Catalog has not uploaded this entry. ${source}`, commands, ...uploadNotes };
     }
     return {
       summary: "This entry is not published, so there is no public artifact to upload.",
@@ -358,10 +428,16 @@ export function buildNextSteps(listing, { plan, related = [] }) {
 
   // 4. Deploy it.
   steps.push(step("deploy", (state) => {
-    const needs = (listing.lifecycle?.installTimeInputs ?? []).map((input) => input.name).filter(Boolean);
+    const { needs, carries } = splitInstallInputs(listing);
+    const installer = path.kind === "installer-package";
+    const spaceArg = installer ? SPACE_PLACEHOLDER : id;
     const commands = path.kind === "none" ? [] : [
-      { comment: "clone the base onto a Target as a dev variant", command: `cub variant create dev ${id} --target ${NEXT_STEPS_TARGET} --space-pattern "template:${id}-dev"`, needsAccount: true, writes: true },
-      { comment: "publish the Release that Argo CD or Flux pulls", command: `cub release publish ${id}-dev`, needsAccount: true, writes: true },
+      { comment: "clone the base onto a Target as a dev variant", command: `cub variant create dev ${spaceArg} --target ${NEXT_STEPS_TARGET} --space-pattern "template:${spaceArg}-dev"`, needsAccount: true, writes: true },
+      { comment: installer ? "publish the Release that the cluster's Argo CD pulls" : "publish the Release that Argo CD or Flux pulls", command: `cub release publish ${spaceArg}-dev`, needsAccount: true, writes: true },
+      ...(installer ? [
+        { comment: "delete the installer record, which Argo CD cannot read", command: `cub unit delete --space ${spaceArg}-dev ${INSTALLER_RECORD}`, needsAccount: true, writes: true },
+        { comment: "publish again without it", command: `cub release publish ${spaceArg}-dev`, needsAccount: true, writes: true },
+      ] : []),
     ];
     const runtimes = runtimeSentence(listing);
     const earlier = [
@@ -374,29 +450,62 @@ export function buildNextSteps(listing, { plan, related = [] }) {
     // The delivery receipt when the record has one, and otherwise the receipt
     // of the ConfigHub release a delivery would have pulled.
     const evidence = listing.oci?.receiptUrl ? receiptOf(listing.oci) : state === "not-run-for-this-entry" ? {} : receiptOf(bundle(listing, "confighub-release"));
-    const common = { ...(needs.length > 0 ? { needs } : {}), ...(alsoRecorded ? { alsoRecorded } : {}), ...evidence };
+    const inputs = { ...(needs.length > 0 ? { needs } : {}), ...(carries.length > 0 ? { carries } : {}) };
+    const common = { ...inputs, ...(alsoRecorded ? { alsoRecorded } : {}), ...evidence };
     if (state === "not-available") {
       return {
         summary: "This step needs an upload command from step 3, and this entry has none.",
         unblock: "A published artifact for this entry, with a receipt, would make this step available.",
-        ...(needs.length > 0 ? { needs } : {}),
+        ...inputs,
       };
     }
+    const passed = (listing.oci?.runtimes ?? []).some((runtime) => runtime.state === "pass");
     const lead = state === "run-for-this-entry"
       ? "A delivery run passed for this entry."
-      : state === "partly-run-for-this-entry"
-        ? "A delivery is partly recorded for this entry, and no run has passed."
-        : "No delivery run is recorded for this entry.";
-    return { summary: `${lead} ${runtimes}`.trim(), commands, ...common };
+      : passed
+        ? installer
+          ? "A delivery run passed for this entry, but it ran other commands than the ones below. It uploaded with the Target in the upload command, set the Space's release Target and published the Release. The commands below have no recorded run for this entry."
+          : "A delivery run passed for this entry, but it ran other commands than the ones below, which have no recorded run for this entry."
+        : state === "partly-run-for-this-entry"
+          ? "A delivery is partly recorded for this entry, and no run has passed."
+          : "No delivery run is recorded for this entry.";
+    const deployNotes = installer && commands.length > 0
+      ? {
+          ...noteList(
+            "Use the Space name you chose in step 3. The delete command is needed because the cloned `installer-record` Unit carries the Target and Argo CD v3.5.4 cannot read it, a defect seen on cub v0.8.7 and server v0.8.9.",
+            "Without that line the walk deployed nothing and Argo CD showed Unknown, while every cub command exited 0. The walk ran the four commands in this order and did not try them without the first publish.",
+            "ConfigHub shows nothing when Argo CD fails to read a Release. Run `kubectl -n argocd get applications.argoproj.io` and read the Sync column, because Healthy alone is not a pass. Argo CD took between 18 seconds and about 5 minutes to read a Release on a cluster made without argobot.",
+            "The walk made its cluster with `cub cluster up --no-argobot`. That command creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.",
+            "Removing the ConfigHub side does not remove the workload. In the walk, deleting the Application Unit and the Spaces left the Application and its pods running, because the root Application does not prune.",
+          ),
+          ...walkOf(),
+        }
+      : {};
+    return { summary: `${lead} ${runtimes}`.trim(), commands, ...deployNotes, ...common };
   }));
 
   // 5. Promote a change.
   steps.push(step("promote", (state) => {
     const promotion = listing.lifecycle?.promotion ?? {};
+    const installer = path.kind === "installer-package";
+    const spaceArg = installer ? SPACE_PLACEHOLDER : id;
     const commands = path.kind === "none" || state === "blocked-for-this-entry" ? [] : [
-      { comment: "preview what the dev variant would take from the base", command: `cub variant promote ${id}-dev --dry-run -o mutations`, needsAccount: true },
-      { comment: "promote once you have read the preview", command: `cub variant promote ${id}-dev --change-desc "Pull the reviewed base forward"`, needsAccount: true, writes: true },
+      { comment: "preview what the dev variant would take from the base", command: `cub variant promote ${spaceArg}-dev --dry-run -o mutations`, needsAccount: true },
+      { comment: "promote once you have read the preview", command: `cub variant promote ${spaceArg}-dev --change-desc "Pull the reviewed base forward"`, needsAccount: true, writes: true },
+      ...(installer ? [
+        { comment: "delete the installer record that the promotion adds back", command: `cub unit delete --space ${spaceArg}-dev ${INSTALLER_RECORD}`, needsAccount: true, writes: true },
+        { comment: "publish the Release that carries the change", command: `cub release publish ${spaceArg}-dev`, needsAccount: true, writes: true },
+      ] : []),
     ];
+    const promoteNotes = installer && commands.length > 0
+      ? {
+          ...noteList(
+            "The promotion changes the dev Space and publishes nothing. It also adds the `installer-record` Unit back with the Target. The change reaches the cluster only after the delete and the publish.",
+            "The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.",
+          ),
+          ...walkOf(),
+        }
+      : {};
     if (state === "not-available") {
       return {
         summary: "This step needs an upload command from step 3, and this entry has none.",
@@ -412,7 +521,7 @@ export function buildNextSteps(listing, { plan, related = [] }) {
       : state === "partly-run-for-this-entry"
         ? "A promotion ran for this entry and left a limit to review."
         : "No promotion is recorded for this entry.";
-    return { summary: lead, commands, ...receiptOf(promotion) };
+    return { summary: lead, commands, ...promoteNotes, ...receiptOf(promotion) };
   }));
 
   return steps.map((entry) => {
@@ -473,6 +582,24 @@ export function nextStepClaimErrors(listing, { plan, related = [] }) {
       if (/\bcub installer upload\b/.test(command) && path.kind !== "installer-package") {
         errors.push(`${id}: step ${step.id} uploads an installer work directory, and the entry has no pinned installer package`);
       }
+    }
+    if (path.kind === "installer-package" && WALKED_STEPS.includes(step.id) && commands.length > 0) {
+      // Commands the live walk ran. The Space and Component names are the
+      // reader's, the deploy and promote steps delete the cloned record before
+      // they publish, and the step links the log that ran those forms.
+      for (const { command } of commands) {
+        if (command.replace(`./${id}`, "").includes(id)) errors.push(`${id}: step ${step.id} uses the entry id as a Space name, and the walk found that name already taken`);
+      }
+      const uploadCommand = commands.find(({ command }) => /\bcub installer upload\b/.test(command));
+      if (uploadCommand && !/ --component \S/.test(uploadCommand.command)) errors.push(`${id}: step ${step.id} uploads without --component`);
+      if (["deploy", "promote"].includes(step.id)) {
+        const removal = commands.findIndex(({ command }) => /^cub unit delete .*\binstaller-record$/.test(command));
+        if (removal < 0) errors.push(`${id}: step ${step.id} does not delete the cloned installer-record Unit, and Argo CD cannot read a Release that carries it`);
+        else if (!commands.slice(removal + 1).some(({ command }) => /^cub release publish /.test(command))) errors.push(`${id}: step ${step.id} does not publish after it deletes the installer-record Unit`);
+      }
+      if (JSON.stringify(step.liveWalk ?? null) !== JSON.stringify(walkOf().liveWalk)) errors.push(`${id}: step ${step.id} does not link the live walk that ran its commands`);
+    } else if (step.liveWalk) {
+      errors.push(`${id}: step ${step.id} links the live walk, and the walk ran no command of this step for this kind of entry`);
     }
     if (step.receiptUrl && !receipts.has(step.receiptUrl)) {
       errors.push(`${id}: step ${step.id} links a receipt the listing does not record`);

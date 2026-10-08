@@ -23,7 +23,7 @@ import { join } from "node:path";
 import { check, relativeRepo, repoRoot, sha256, trackedExists, write } from "./lib/proof-common.mjs";
 
 import { loadRoleAssignments, discoveryFor, testRoleAssignments } from "./lib/catalog-roles.mjs";
-import { NEXT_STEPS, NEXT_STEP_STATES, buildNextSteps, compareVersions, deriveStepState, nextStepClaimErrors, uploadPath } from "./lib/entry-next-steps.mjs";
+import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEP_STATES, buildNextSteps, compareVersions, deliveryRanOtherCommands, deriveStepState, nextStepClaimErrors, uploadPath } from "./lib/entry-next-steps.mjs";
 
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
@@ -1319,6 +1319,61 @@ function runNextStepSelfTest(loaded) {
   const receipted = structuredClone(published);
   receipted.nextSteps[4].receiptUrl = "https://example.test/receipt.yaml";
   check(refuses(receipted, withSibling, "links a receipt the listing does not record"), "self-test: an invented receipt must be refused");
+
+  // Tamper 9: the commands the live walk found to need a change. Each case
+  // takes a correct installer-package entry and undoes one change.
+  const commandsOf = (listing, stepId) => listing.nextSteps.find((step) => step.id === stepId).commands;
+  check(
+    commandsOf(published, "upload").some(({ command }) => /--space <your-space> --component <your-component>$/.test(command)),
+    "self-test: the upload command must name a Space and a Component the reader chooses",
+  );
+  const sameName = structuredClone(published);
+  commandsOf(sameName, "upload").find(({ command }) => command.startsWith("cub installer upload")).command = "cub installer upload --work-dir ./example-1-0-0-default --space example-1-0-0-default --component <your-component>";
+  check(refuses(sameName, withSibling, "uses the entry id as a Space name"), "self-test: an upload under the entry id must be refused");
+  const noComponent = structuredClone(published);
+  commandsOf(noComponent, "upload").find(({ command }) => command.startsWith("cub installer upload")).command = "cub installer upload --work-dir ./example-1-0-0-default --space <your-space>";
+  check(refuses(noComponent, withSibling, "uploads without --component"), "self-test: an upload without --component must be refused");
+  for (const stepId of ["deploy", "promote"]) {
+    const kept = commandsOf(published, stepId);
+    check(kept.some(({ command }) => command === "cub unit delete --space <your-space>-dev installer-record"), `self-test: step ${stepId} must delete the cloned installer-record Unit`);
+    check(/^cub release publish /.test(kept.at(-1).command), `self-test: step ${stepId} must end with a publish`);
+    const undeleted = structuredClone(published);
+    undeleted.nextSteps.find((step) => step.id === stepId).commands = kept.filter(({ command }) => !command.includes("installer-record"));
+    check(refuses(undeleted, withSibling, "does not delete the cloned installer-record Unit"), `self-test: step ${stepId} without the delete line must be refused`);
+    const unpublished2 = structuredClone(published);
+    unpublished2.nextSteps.find((step) => step.id === stepId).commands = kept.slice(0, -1);
+    check(refuses(unpublished2, withSibling, "does not publish after it deletes"), `self-test: step ${stepId} that stops after the delete must be refused`);
+    const unlinked = structuredClone(published);
+    delete unlinked.nextSteps.find((step) => step.id === stepId).liveWalk;
+    check(refuses(unlinked, withSibling, "does not link the live walk"), `self-test: step ${stepId} without its walk link must be refused`);
+  }
+  check(published.nextSteps[2].liveWalk.path === ENTRY_STEPS_WALK.path, "self-test: the upload step must link the live walk log");
+  const walkOnAnyStep = structuredClone(published);
+  walkOnAnyStep.nextSteps[1].liveWalk = structuredClone(published.nextSteps[2].liveWalk);
+  check(refuses(walkOnAnyStep, withSibling, "links the live walk, and the walk ran no command of this step"), "self-test: a walk link on a step it did not run must be refused");
+  check(validate(loaded.properties.nextSteps, published.nextSteps, "nextSteps", loaded).length === 0, "self-test: steps with notes and a walk link must fit the published schema");
+
+  // A passed delivery ran other commands than the ones an installer-package
+  // entry shows, so it reads as partly run. Without a public artifact there
+  // are no commands to differ from, and a pass keeps its word.
+  const passedPinned = built({ ociRef: pinned, runtime: "pass" }, withSibling);
+  check(deliveryRanOtherCommands(passedPinned) && passedPinned.nextSteps[3].state === "partly-run-for-this-entry", "self-test: a passed delivery must not read as run for commands it did not run");
+  check(/ran other commands than the ones below/.test(passedPinned.nextSteps[3].summary), "self-test: the deploy summary must say the recorded delivery ran other commands");
+  const roundedDelivery = structuredClone(passedPinned);
+  roundedDelivery.nextSteps[3].state = "run-for-this-entry";
+  check(refuses(roundedDelivery, withSibling, "step deploy claims run-for-this-entry, and its record supports partly-run-for-this-entry"), "self-test: a passed delivery of other commands must not be rounded up to run");
+
+  // CRDs the base carries are not inputs the destination supplies.
+  const crdListing = fixture({ ociRef: pinned });
+  crdListing.lifecycle.installTimeInputs = [
+    { name: "widgets.example.com", kind: "requiredCRDs", detail: "CRD included in this base and applied before the workloads that use it" },
+    { name: "gadgets.example.com", kind: "requiredCRDs", detail: "Example CRD managed outside this no-crds base" },
+  ];
+  crdListing.nextSteps = buildNextSteps(crdListing, withSibling);
+  check(
+    JSON.stringify(crdListing.nextSteps[3].carries) === JSON.stringify(["widgets.example.com"]) && JSON.stringify(crdListing.nextSteps[3].needs) === JSON.stringify(["gadgets.example.com"]),
+    "self-test: a CRD the base carries must be listed apart from an input the destination supplies",
+  );
 
   // The state table, one row at a time.
   const facts = { hasObjects: true, siblingCount: 0, comparableCount: 0 };
