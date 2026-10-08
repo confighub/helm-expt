@@ -67,7 +67,7 @@ spec:
       - "nodewright-operator"
       - "nvidia-dra-driver-gpu"
       - "prometheus-operator-crds"
-    helmHookObjectCount: 0
+    helmHookObjectCount: 35
     components:
       -
         name: "aws-ebs-csi-driver"
@@ -109,7 +109,7 @@ spec:
         objectSetSha256: "4b95e55d8a1a87aab84facea6c8a7117a0f5dee0ea197c82f1819dd21a830ce2"
         objectCount: 52
         crdCount: 6
-        helmHookObjectCount: 0
+        helmHookObjectCount: 4
         receipt: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/cert-manager/receipt.yaml"
       -
         name: "gpu-operator"
@@ -123,7 +123,7 @@ spec:
         objectSetSha256: "2c5088278089a6b97ac7f601663f74c797d1fa7af61573222ebf1af2bb115c91"
         objectCount: 14
         crdCount: 2
-        helmHookObjectCount: 0
+        helmHookObjectCount: 4
         receipt: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/gpu-operator/receipt.yaml"
       -
         name: "k8s-ephemeral-storage-metrics"
@@ -151,7 +151,7 @@ spec:
         objectSetSha256: "20bd6ca9c9ab40073c0a716a664cf070bfc3e53bb9ae1ffbfde4079f1a515623"
         objectCount: 47
         crdCount: 6
-        helmHookObjectCount: 0
+        helmHookObjectCount: 10
         receipt: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/kai-scheduler/receipt.yaml"
       -
         name: "kube-prometheus-stack"
@@ -165,7 +165,7 @@ spec:
         objectSetSha256: "f5efe9738c249853fe247eaf83955cf570228ea7f4d3c6f729eabeda927045e1"
         objectCount: 123
         crdCount: 0
-        helmHookObjectCount: 0
+        helmHookObjectCount: 7
         receipt: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/kube-prometheus-stack/receipt.yaml"
       -
         name: "kubeflow-trainer-post"
@@ -207,7 +207,7 @@ spec:
         objectSetSha256: "b647162b461d3239971217754bcbd89fbaca8a806cd3ccf453a63b15e897a201"
         objectCount: 27
         crdCount: 4
-        helmHookObjectCount: 0
+        helmHookObjectCount: 4
         receipt: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/nfd/receipt.yaml"
       -
         name: "nodewright-customizations"
@@ -235,7 +235,7 @@ spec:
         objectSetSha256: "d2f73724e73bbb8b40bcef34159393e3cb89618be3b8e451b5d936e75010544f"
         objectCount: 24
         crdCount: 2
-        helmHookObjectCount: 0
+        helmHookObjectCount: 6
         receipt: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/nodewright-operator/receipt.yaml"
       -
         name: "nvidia-dra-driver-gpu"

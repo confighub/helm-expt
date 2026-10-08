@@ -5,8 +5,8 @@
     "objectCount": 409,
     "componentsWithCrds": 8,
     "crdCount": 36,
-    "componentsWithHookObjects": 0,
-    "hookObjectCount": 0
+    "componentsWithHookObjects": 6,
+    "hookObjectCount": 35
   },
   "entries": [
     {
@@ -103,7 +103,7 @@
         "objectCount": 52,
         "objectSha256": "4b95e55d8a1a87aab84facea6c8a7117a0f5dee0ea197c82f1819dd21a830ce2",
         "crdCount": 6,
-        "hookObjectCount": 0,
+        "hookObjectCount": 4,
         "error": ""
       },
       "flattening": "not-assessed",
@@ -137,7 +137,7 @@
         "objectCount": 14,
         "objectSha256": "2c5088278089a6b97ac7f601663f74c797d1fa7af61573222ebf1af2bb115c91",
         "crdCount": 2,
-        "hookObjectCount": 0,
+        "hookObjectCount": 4,
         "error": ""
       },
       "flattening": "not-assessed",
@@ -205,7 +205,7 @@
         "objectCount": 47,
         "objectSha256": "20bd6ca9c9ab40073c0a716a664cf070bfc3e53bb9ae1ffbfde4079f1a515623",
         "crdCount": 6,
-        "hookObjectCount": 0,
+        "hookObjectCount": 10,
         "error": ""
       },
       "flattening": "not-assessed",
@@ -239,11 +239,11 @@
         "objectCount": 123,
         "objectSha256": "f5efe9738c249853fe247eaf83955cf570228ea7f4d3c6f729eabeda927045e1",
         "crdCount": 0,
-        "hookObjectCount": 0,
+        "hookObjectCount": 7,
         "error": ""
       },
       "flattening": "not-assessed",
-      "lifecycle": "not-yet-reviewed",
+      "lifecycle": "requires-review",
       "delivery": "not-run",
       "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/kube-prometheus-stack/receipt.yaml"
     },
@@ -341,7 +341,7 @@
         "objectCount": 27,
         "objectSha256": "b647162b461d3239971217754bcbd89fbaca8a806cd3ccf453a63b15e897a201",
         "crdCount": 4,
-        "hookObjectCount": 0,
+        "hookObjectCount": 4,
         "error": ""
       },
       "flattening": "not-assessed",
@@ -409,7 +409,7 @@
         "objectCount": 24,
         "objectSha256": "d2f73724e73bbb8b40bcef34159393e3cb89618be3b8e451b5d936e75010544f",
         "crdCount": 2,
-        "hookObjectCount": 0,
+        "hookObjectCount": 6,
         "error": ""
       },
       "flattening": "not-assessed",

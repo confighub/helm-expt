@@ -199,7 +199,7 @@ enough to claim production-complete promotion for every row.
 | Gap | Why it matters | Tracking |
 | --- | --- | --- |
 | Changeset-bound promotion fails and falls back | Production promotion should flow through changesets and approvals. | [#682](https://github.com/confighub/helm-expt/issues/682) |
-| Local field ownership needs broader exercise | Downstream variants may intentionally own fields differently from upstream. | Use `cub unit set-predicates` and managed-field work in future receipts. |
+| Local field ownership needs broader exercise | Downstream variants may intentionally own fields differently from upstream. | Run `cub unit set-protection --space <space> <unit> --protect "<apiVersion>/<Kind>:<namespace>/<name>:<path>"` on more Units and record each promotion. The 2026-10-08 live run protected `spec.replicas` on one StatefulSet, and the protected path survived one promotion ([run log](../user/live-run-log-2026-10-08.md), check 7). It did not run `--unprotect`. |
 | Deletion semantics need explicit examples | Removing upstream Units must be safe and reviewable. | Add deletion promotion receipts before claiming broad deletion support. |
 | UX/AX/fleet surfaces are still partly proposals | Users should not have to assemble commands from reference docs. | Creator and promotion UI/CLI work. |
 | Top-100 rows need promotion receipts | Top-20 primary rows are covered; most top-100 rows are still `todo`. | `data/variant-promotion/summary.md` |

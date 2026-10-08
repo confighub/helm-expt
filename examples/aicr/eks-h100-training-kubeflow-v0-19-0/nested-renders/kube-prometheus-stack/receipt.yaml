@@ -64,7 +64,7 @@ spec:
       ServiceMonitor: 13
       ValidatingWebhookConfiguration: 1
     crdCount: 0
-    hookObjectCount: 0
+    hookObjectCount: 7
   processingBoundary:
     wrapper: "The parent Catalog entry retains the Argo CD Application object."
     nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
@@ -73,6 +73,6 @@ status:
   result: "pass"
   materialization: "captured"
   flattening: "not-assessed"
-  lifecycle: "not-yet-reviewed"
+  lifecycle: "requires-review"
   delivery: "not-run"
   error: ""
