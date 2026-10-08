@@ -8,7 +8,7 @@
 // scoped publisher accepts as an exact package path for the list.
 
 import { NVIDIA_GPU_STACK_ADDITIONS, NVIDIA_GPU_STACK_ROLES } from "./nvidia-gpu-stack-coverage.mjs";
-import { AICR_NESTED_CHART_ADDITIONS, AICR_NESTED_CHART_ROLES } from "./aicr-nested-charts-coverage.mjs";
+import { AICR_NESTED_CHART_ADDITIONS, AICR_NESTED_CHART_HELD, AICR_NESTED_CHART_ROLES } from "./aicr-nested-charts-coverage.mjs";
 
 export const DEFAULT_COVERAGE_SET = "nvidia-gpu-stack";
 
@@ -28,6 +28,8 @@ export const COVERAGE_SETS = Object.freeze({
     name: "aicr-nested-charts",
     label: "AICR nested chart",
     additions: AICR_NESTED_CHART_ADDITIONS,
+    // Chart versions that were prepared and are not in the list, each with the reason.
+    held: AICR_NESTED_CHART_HELD,
     roles: AICR_NESTED_CHART_ROLES,
     rolesName: "AICR_NESTED_CHART_ROLES",
     npmPrefix: "aicr-nested-charts-coverage",

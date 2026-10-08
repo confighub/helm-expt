@@ -1,9 +1,0 @@
-apiVersion: "helm-expt.confighub.com/v1alpha1"
-kind: "DependencyLock"
-metadata:
-  name: "node-feature-discovery-node-feature-discovery-0.19.0"
-spec:
-  chart: "node-feature-discovery/node-feature-discovery"
-  version: "0.19.0"
-  dependencies:
-    []

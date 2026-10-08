@@ -63,6 +63,8 @@ if (mode === "--diff") {
 
   if (mode === "--list") {
     for (const item of items) console.log(`${item.canonicalIdentity}@${item.version}\t${item.script}\t${item.url}\t${item.sha256}`);
+    // A list may hold chart versions out; they are named so the gap is not silent.
+    for (const item of only ? [] : (set.held ?? [])) console.log(`held out: ${item.canonicalIdentity}@${item.version}\t${item.reason}`);
   } else if (mode === "--generate") {
     for (const item of items) {
       console.log(`generating ${item.canonicalIdentity}@${item.version}`);
