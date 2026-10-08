@@ -1,0 +1,60 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "nvidia-gpu-operator-v25-10-1-external-nfd-crd-ordering"
+spec:
+  quirkClass: "crd-ordering"
+  routeKind: "apply-ordering"
+  discharges: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning."
+  declaration:
+    stages:
+      -
+        order: 1
+        name: "custom-resource-definitions"
+        selector:
+          kinds:
+            - "CustomResourceDefinition"
+          names:
+            - "clusterpolicies.nvidia.com"
+            - "nvidiadrivers.nvidia.com"
+        waitFor: "every named definition reports the Established condition"
+        objectCount: 2
+      -
+        order: 2
+        name: "everything-else"
+        selector:
+          kinds:
+            - "*"
+        objectCount: 7
+    packagedCopy:
+      installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v25.10.1@sha256:35774151264bf1b5998330ca4290ae306e89470c7eb05a4e4c8fc18401c9e155"
+      path: "prerequisites/target-facts/external-nfd-crds.yaml"
+      repositoryPath: "packages/nvidia/gpu-operator/v25.10.1/prerequisites/target-facts/external-nfd-crds.yaml"
+      sha256: "sha256:a9e913c0e031fd2d94a0d3e6f1dbef1646a48525139a8135ec49176aa44e28b4"
+      bytes: 152711
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "sync waves, the earlier stage at the lower wave number"
+        proven: false
+      -
+        name: "Flux"
+        mechanism: "dependsOn between the definitions Kustomization and the rest"
+        proven: false
+      -
+        name: "cub-direct applier"
+        mechanism: "apply stage one and wait for establishment before stage two"
+        proven: false
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "the route orders what the bundle contains; a definition this bundle does not ship must already exist on the target, and requirements/target-requirements.yaml names each one"
+    - "establishment is observed by the delivery runtime, so this route declares the wait and does not prove it happened"
+    - "no runtime has run this ordering for this base"
+  provenance:
+    emittedBy: "scripts/generate-nvidia-literal-bundles.mjs"
+    generatedFrom:
+      - "recipes/nvidia/gpu-operator/v25.10.1/revisions/external-nfd/r001/rendered/object-inventory.yaml"
+      - "data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-external-nfd.yaml"
+    verdictRef: "recipes/nvidia/gpu-operator/v25.10.1/publication/flattening-safety-verdict-external-nfd.yaml"

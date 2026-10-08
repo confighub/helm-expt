@@ -1,0 +1,63 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "nvidia-gpu-operator-v26-3-2-driver-580-105-08-crd-ordering"
+spec:
+  quirkClass: "crd-ordering"
+  routeKind: "apply-ordering"
+  discharges: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning."
+  declaration:
+    stages:
+      -
+        order: 1
+        name: "custom-resource-definitions"
+        selector:
+          kinds:
+            - "CustomResourceDefinition"
+          names:
+            - "clusterpolicies.nvidia.com"
+            - "nodefeaturegroups.nfd.k8s-sigs.io"
+            - "nodefeaturerules.nfd.k8s-sigs.io"
+            - "nodefeatures.nfd.k8s-sigs.io"
+            - "nvidiadrivers.nvidia.com"
+        waitFor: "every named definition reports the Established condition"
+        objectCount: 5
+      -
+        order: 2
+        name: "everything-else"
+        selector:
+          kinds:
+            - "*"
+        objectCount: 19
+    packagedCopy:
+      installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.2@sha256:866ff5d529383dcdbeb5fd28e152f2a10ab50ce9b45acebf2b5ff2dc95f19767"
+      path: "prerequisites/target-facts/driver-580-105-08-crds.yaml"
+      repositoryPath: "packages/nvidia/gpu-operator/v26.3.2/prerequisites/target-facts/driver-580-105-08-crds.yaml"
+      sha256: "sha256:78521531a77f74b6fbcd5a7b268f06a0eb8095baf1177088c053aa76f83f2727"
+      bytes: 228294
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "sync waves, the earlier stage at the lower wave number"
+        proven: false
+      -
+        name: "Flux"
+        mechanism: "dependsOn between the definitions Kustomization and the rest"
+        proven: false
+      -
+        name: "cub-direct applier"
+        mechanism: "apply stage one and wait for establishment before stage two"
+        proven: false
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "the route orders what the bundle contains; a definition this bundle does not ship must already exist on the target, and requirements/target-requirements.yaml names each one"
+    - "establishment is observed by the delivery runtime, so this route declares the wait and does not prove it happened"
+    - "no runtime has run this ordering for this base"
+  provenance:
+    emittedBy: "scripts/generate-nvidia-literal-bundles.mjs"
+    generatedFrom:
+      - "recipes/nvidia/gpu-operator/v26.3.2/revisions/driver-580.105.08/r001/rendered/object-inventory.yaml"
+      - "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-driver-580-105-08.yaml"
+    verdictRef: "recipes/nvidia/gpu-operator/v26.3.2/publication/flattening-safety-verdict-driver-580.105.08.yaml"

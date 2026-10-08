@@ -1,0 +1,68 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "nvidia-k8s-nim-operator-3-1-2-default-crd-ordering"
+spec:
+  quirkClass: "crd-ordering"
+  routeKind: "apply-ordering"
+  discharges: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning."
+  declaration:
+    stages:
+      -
+        order: 1
+        name: "custom-resource-definitions"
+        selector:
+          kinds:
+            - "CustomResourceDefinition"
+          names:
+            - "nemocustomizers.apps.nvidia.com"
+            - "nemodatastores.apps.nvidia.com"
+            - "nemoentitystores.apps.nvidia.com"
+            - "nemoevaluators.apps.nvidia.com"
+            - "nemoguardrails.apps.nvidia.com"
+            - "nimbuilds.apps.nvidia.com"
+            - "nimcaches.apps.nvidia.com"
+            - "nimpipelines.apps.nvidia.com"
+            - "nimservices.apps.nvidia.com"
+        waitFor: "every named definition reports the Established condition"
+        applyMode: "server-side"
+        objectCount: 9
+      -
+        order: 2
+        name: "everything-else"
+        selector:
+          kinds:
+            - "*"
+        objectCount: 8
+    packagedCopy:
+      installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2@sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d"
+      path: "prerequisites/target-facts/default-crds.yaml"
+      repositoryPath: "packages/nvidia/k8s-nim-operator/3.1.2/prerequisites/target-facts/default-crds.yaml"
+      sha256: "sha256:7d4dbdb191b781a34e15c8c414028989cbf9f842f3b06a5bf6008f3407b04c0f"
+      bytes: 1935315
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "sync waves, the earlier stage at the lower wave number"
+        proven: false
+      -
+        name: "Flux"
+        mechanism: "dependsOn between the definitions Kustomization and the rest"
+        proven: false
+      -
+        name: "cub-direct applier"
+        mechanism: "apply stage one and wait for establishment before stage two"
+        proven: false
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "the route orders what the bundle contains; a definition this bundle does not ship must already exist on the target, and requirements/target-requirements.yaml names each one"
+    - "establishment is observed by the delivery runtime, so this route declares the wait and does not prove it happened"
+    - "no runtime has run this ordering for this base"
+  provenance:
+    emittedBy: "scripts/generate-nvidia-literal-bundles.mjs"
+    generatedFrom:
+      - "recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/rendered/object-inventory.yaml"
+      - "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml"
+    verdictRef: "recipes/nvidia/k8s-nim-operator/3.1.2/publication/flattening-safety-verdict.yaml"

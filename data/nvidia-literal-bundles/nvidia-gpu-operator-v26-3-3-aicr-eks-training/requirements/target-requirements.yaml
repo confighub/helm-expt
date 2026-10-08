@@ -1,0 +1,50 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "nvidia-gpu-operator-v26-3-3-aicr-eks-training-target-requirements"
+spec:
+  subject:
+    catalogEntry: "nvidia-gpu-operator-v26-3-3-aicr-eks-training"
+    chart: "nvidia/gpu-operator"
+    version: "v26.3.3"
+    base: "aicr-eks-training"
+    revision: "r001"
+  namespace:
+    name: "gpu-operator"
+    namespaceObjectInBundle: false
+    objectsNamingThisNamespace: 5
+    otherNamespacesNamed:
+      []
+    namespacedObjectsNamingNoNamespace: 0
+    customKindObjectsNamingNoNamespace: 1
+    customKindsNamingNoNamespace:
+      - "ClusterPolicy"
+    statement: "The bundle holds no Namespace object, so the namespace gpu-operator must exist on the target before these objects are applied. 1 object of a custom kind sets no namespace. This file does not decide whether those kinds are namespaced."
+  customResourceDefinitions:
+    inBundle:
+      count: 2
+      names:
+        - "clusterpolicies.nvidia.com"
+        - "nvidiadrivers.nvidia.com"
+      orderedBy: "routes/crd-ordering.yaml"
+    requiredOnTarget:
+      []
+  applyMode: "not-recorded"
+  render:
+    renderer: "helm"
+    releaseName: "gpu-operator"
+    namespace: "gpu-operator"
+    kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+    valuesProfile: "recipes/nvidia/gpu-operator/v26.3.3/effective-values-aicr-eks-training.yaml"
+  flattening:
+    lane: "flatten-with-routes"
+    verdict: "recipes/nvidia/gpu-operator/v26.3.3/publication/flattening-safety-verdict-aicr-eks-training.yaml"
+  sourcePackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3@sha256:abd8475d6bfeabe88acc2d6a319a04054a9e84046d69926dcee4717674329a8f"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-nvidia-literal-bundles.mjs"
+    generatedFrom:
+      - "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-aicr-eks-training.yaml"
+      - "recipes/nvidia/gpu-operator/v26.3.3/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+    verdictRef: "recipes/nvidia/gpu-operator/v26.3.3/publication/flattening-safety-verdict-aicr-eks-training.yaml"

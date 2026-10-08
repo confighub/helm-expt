@@ -1,0 +1,74 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference-target-requirements"
+spec:
+  subject:
+    catalogEntry: "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference"
+    chart: "nvidia/k8s-nim-operator"
+    version: "3.1.0"
+    base: "aicr-eks-inference"
+    revision: "r001"
+  namespace:
+    name: "nvidia-nim"
+    namespaceObjectInBundle: false
+    objectsNamingThisNamespace: 3
+    otherNamespacesNamed:
+      []
+    namespacedObjectsNamingNoNamespace: 5
+    customKindObjectsNamingNoNamespace: 0
+    customKindsNamingNoNamespace:
+      []
+    statement: "The bundle holds no Namespace object, so the namespace nvidia-nim must exist on the target before these objects are applied. 5 namespaced objects set no namespace and must be applied into nvidia-nim."
+  customResourceDefinitions:
+    inBundle:
+      count: 9
+      names:
+        - "nemocustomizers.apps.nvidia.com"
+        - "nemodatastores.apps.nvidia.com"
+        - "nemoentitystores.apps.nvidia.com"
+        - "nemoevaluators.apps.nvidia.com"
+        - "nemoguardrails.apps.nvidia.com"
+        - "nimbuilds.apps.nvidia.com"
+        - "nimcaches.apps.nvidia.com"
+        - "nimpipelines.apps.nvidia.com"
+        - "nimservices.apps.nvidia.com"
+      orderedBy: "routes/crd-ordering.yaml"
+    requiredOnTarget:
+      -
+        name: "certificates.cert-manager.io"
+        purpose: "cert-manager CRD required before Kubernetes accepts the rendered Certificate and Issuer objects; the chart does not ship it, and cert-manager itself must be running to issue the webhook certificate"
+        packagedCopy:
+          installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0@sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3"
+          path: "prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          repositoryPath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          sha256: "sha256:6d840eb95b0b06cdb9d623645a42a1469565a3d321f93d04fe9ed3c4f5852640"
+          bytes: 2276796
+      -
+        name: "issuers.cert-manager.io"
+        purpose: "cert-manager CRD required before Kubernetes accepts the rendered Certificate and Issuer objects; the chart does not ship it, and cert-manager itself must be running to issue the webhook certificate"
+        packagedCopy:
+          installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0@sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3"
+          path: "prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          repositoryPath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          sha256: "sha256:6d840eb95b0b06cdb9d623645a42a1469565a3d321f93d04fe9ed3c4f5852640"
+          bytes: 2276796
+  applyMode: "server-side"
+  render:
+    renderer: "helm"
+    releaseName: "k8s-nim-operator"
+    namespace: "nvidia-nim"
+    kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+    valuesProfile: "recipes/nvidia/k8s-nim-operator/3.1.0/effective-values-aicr-eks-inference.yaml"
+  flattening:
+    lane: "flatten-with-routes"
+    verdict: "recipes/nvidia/k8s-nim-operator/3.1.0/publication/flattening-safety-verdict-aicr-eks-inference.yaml"
+  sourcePackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0@sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-nvidia-literal-bundles.mjs"
+    generatedFrom:
+      - "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml"
+      - "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/rendered/object-inventory.yaml"
+    verdictRef: "recipes/nvidia/k8s-nim-operator/3.1.0/publication/flattening-safety-verdict-aicr-eks-inference.yaml"
