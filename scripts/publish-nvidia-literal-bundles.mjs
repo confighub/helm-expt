@@ -211,7 +211,7 @@ function publish(entry) {
   }
   console.log(`published ${entry.recordName} at ${artifact.immutableReference}`);
   console.log(`wrote ${artifact.receiptRel}. Add it with: git add -f ${artifact.receiptRel}`);
-  console.log("then regenerate: npm run config-catalog && npm run catalog:images && npm run workshop-catalog-guide:generate && npm run receipt-aging && npm run data:index");
+  console.log("then regenerate: npm run config-catalog && npm run workshop-catalog-guide:generate && npm run receipt-aging:generate");
   console.log('and the site: HELM_EXPT_SITE_GENERATED_AT="$(cat site/generated-at.txt)" npm run site:generate');
 }
 
