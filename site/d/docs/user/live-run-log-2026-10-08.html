@@ -1,0 +1,1168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live run of ConfigHub commands, 2026-10-08 · ConfigHub Workshop</title>
+  <meta name="description" content="Live run of ConfigHub commands, 2026-10-08: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/live-run-log-2026-10-08.html">
+  <meta property="og:title" content="Live run of ConfigHub commands, 2026-10-08 · ConfigHub Workshop">
+  <meta property="og:description" content="Live run of ConfigHub commands, 2026-10-08: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/live-run-log-2026-10-08.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .app-learning-cards { display: grid; gap: 20px; margin: 26px 0; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  :root { --cw-body: .9375rem; --cw-nav: .875rem; --cw-meta: .8125rem; --cw-lead: 1rem; }
+  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--sans, Inter, system-ui, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 700; }
+  h2, h3 { font-weight: 600; }
+  .cw-content h1 { font-size: clamp(1.75rem, 2.8vw, 2.25rem); line-height: 1.2; }
+  .cw-content h2 { font-size: 1.375rem; line-height: 1.35; }
+  .cw-content h3 { font-size: 1.0625rem; line-height: 1.4; }
+  .cw-content .lead, .cw-content .tagline { font-size: var(--cw-lead); line-height: 1.65; }
+  .cw-content { font-size: var(--cw-body); line-height: 1.65; }
+  .topbar { font-size: var(--cw-nav); }
+  .topbar .site-purpose { font-family: var(--sans); font-size: var(--cw-meta); text-transform: none; }
+  .topbar .brand, .navlinks a.nav-cta { border-color: transparent; background: transparent; }
+  .cw-nav-title a { color: var(--ink); text-decoration: none; }
+  .cw-nav-title a:hover { text-decoration: underline; }
+  .cw-content :is(.eyebrow, .kicker, .generated), .site-footer .sf-h { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; }
+  .cw-content :is(.button, .route-help > summary, details.deep > summary) { font-size: var(--cw-body); }
+  .cw-content :is(p, li, td) > code { border: 0; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  .cw-guide .cw-content { max-width: 880px; }
+  .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
+  .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
+  .cw-content pre { max-width: 100%; overflow-x: auto; }
+  .cw-content summary { cursor: pointer; padding: 10px 0; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cw-skip { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 6px; }
+  .cw-skip:focus { top: 12px; }
+  @media (max-width: 600px) {
+    .cw-layout { padding: 0 16px; }
+    .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 200px; }
+    .cw-guide .cw-content h1 { overflow-wrap: anywhere; }
+  }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: var(--cw-nav); }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; line-height: 1.5; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { min-height: 44px; cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<a class="cw-skip" href="#cw-content">Skip to content</a>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="../../../charts/index.html">Configs</a><a href="../../../stack.html">Stacks</a><a href="../../../apps.html">Apps</a><a href="../../../plugins.html">Plugins</a><a href="../../../guides.html">Guides</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Every stack</a></li><li><a href="../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="../../../apps.html">Every app</a></li><li><a href="../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="../../../plugins.html">Every cub plugin</a></li><li><a href="../../../bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="../../../guides.html">Every Guide</a></li><li><a href="../../../journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="../../../journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="../../../journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="../../../journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="../../../journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="../../../see-what-is-running.html">See what is running with cub scout</a></li><li><a href="../../../view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="../../../bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="../../../bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="../../../bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="../../../choose-a-tool.html">Choose a tool and start</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></nav>
+<div class="cw-content" id="cw-content" tabindex="-1">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Every stack</a></li><li><a href="../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="../../../apps.html">Every app</a></li><li><a href="../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="../../../plugins.html">Every cub plugin</a></li><li><a href="../../../bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="../../../guides.html">Every Guide</a></li><li><a href="../../../journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="../../../journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="../../../journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="../../../journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="../../../journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="../../../see-what-is-running.html">See what is running with cub scout</a></li><li><a href="../../../view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="../../../bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="../../../bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="../../../bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="../../../choose-a-tool.html">Choose a tool and start</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>Live run of ConfigHub commands, 2026-10-08</h1>
+    <p class="lead">This log records one serial session against a hosted ConfigHub organization. It confirms or corrects commands that the site and the user docs show. It also walks one gpu-operator component with a variant for each chart version and a diff between versions inside ConfigHub. <a href="../../../../docs/user/live-run-log-2026-10-08.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
+
+<p>This is a dated record of one run. It is not a Guide, and it is not a run for any Catalog entry. The inputs were locally rendered files, and no cluster, Worker or Target was involved. Every line that starts with <code>$</code> is a command that was run, and the text under it is the output it printed.</p>
+<h2 id="versions-and-setting">Versions and setting</h2>
+<ul><li>The client is cub v0.8.7 (commit 072585f2, built 2026-10-07).</li><li>The server is v0.8.8 (commit 1bbdb335, built 2026-10-07).</li><li>Fifteen cub plugins are installed and <code>cub plugin list</code> prints no versions. No plugin command was used in this run.</li><li>The organization is a hosted ConfigHub organization. It held 44 Spaces and 12 Components before the run, and none of them was changed.</li><li>No cluster, Worker or Target was created or used. Nothing was applied, published or pushed.</li><li>Every object created here had a name that starts with <code>cwlive-1008-</code>.</li><li>The account address is written <code>&lt;user&gt;</code>, the user identifier is written <code>&lt;user-id&gt;</code>, the organization name is written <code>&lt;a hosted ConfigHub organization&gt;</code>, the token expiry time is written <code>&lt;time&gt;</code>, and one server request identifier is written <code>&lt;request-id&gt;</code>.</li><li>Colour codes are stripped from diff output. Long output is trimmed where the text says so.</li></ul>
+<h2 id="check-1-version-login-and-starting-count">Check 1. Version, login and starting count</h2>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <pre><code>$ cub version
+Client Version:
+  Version:    v0.8.7
+  Commit:     072585f257783af26f03e70b338d9ea96ea28055
+  Build Date: 2026-10-07T02:31:58Z
+Server Version:
+  URL:        https://hub.confighub.com
+  Version:    v0.8.8
+  Commit:     1bbdb3357a68298e988a39b4fb457b94d33c30bc
+  Build Date: 2026-10-07T18:20:50Z
+  Client ID:  cub
+
+$ cub auth status
+Status               Authenticated
+User                 &lt;user&gt;
+Organization Name    &lt;a hosted ConfigHub organization&gt;
+Server URL           https://hub.confighub.com
+Token Expires        &lt;time&gt; (in 23h58m9s)
+Client Version       v0.8.7
+Server Version       v0.8.8
+
+$ cub space list --no-headers -o jq='.[].Space.Slug' | wc -l
+      44</code></pre>
+<h2 id="check-2-upload-a-local-file-as-a-variant">Check 2. Upload a local file as a variant</h2>
+<p>The input is the rendered redis 25.5.3 file. It holds 14 objects, and one of them is a Secret.</p>
+<pre><code>$ cub variant upload --dry-run --component cwlive-1008-redis --variant base \
+    --space-pattern 'template:{{.Component.Slug}}-{{.Labels.Variant}}' \
+    --namespace redis --unit-annotation cwlive/check=upload-1008 redis.yaml
+Dry run: nothing was written.
+Space cwlive-1008-redis-base (Create)
+  Create    redis-networkpolicy
+  Create    redis-master-pdb
+  Create    redis-replicas-pdb
+  Create    redis-master-serviceaccount
+  Create    redis-replica-serviceaccount
+  Create    redis-configuration-configmap
+  Create    redis-health-configmap
+  Create    redis-scripts-configmap
+  Create    redis-headless-service
+  Create    redis-master-service
+  Create    redis-replicas-service
+  Create    redis-master
+  Create    redis-replicas
+  linked    redis-master -&gt; redis-configuration-configmap (reference:v1/ConfigMap)
+  ... (15 more &quot;linked&quot; lines trimmed)
+broke selector link redis-headless-service -&gt; redis-master to resolve cycle: redis-master -&gt; redis-headless-service
+broke selector link redis-headless-service -&gt; redis-replicas to resolve cycle: redis-headless-service -&gt; redis-replicas
+
+Note: 1 Secret(s) were NOT uploaded. Apply them out-of-band:
+  - Secret/redis/redis
+
+Note: the following references didn't resolve to any uploaded Unit (expected when the
+target lives in the cluster, e.g. a Secret created out-of-band):
+  - redis-master -&gt; v1/Namespace &quot;redis&quot;
+  - redis-master -&gt; v1/Secret &quot;redis&quot;
+  ... (13 more lines trimmed)</code></pre>
+<p>The real upload printed the same plan without the &quot;Dry run&quot; line, and it ended with a revert command.</p>
+<pre><code>$ cub variant upload --component cwlive-1008-redis --variant base \
+    --space-pattern 'template:{{.Component.Slug}}-{{.Labels.Variant}}' \
+    --namespace redis --unit-annotation cwlive/check=upload-1008 redis.yaml
+Space cwlive-1008-redis-base (Create)
+  Create    redis-networkpolicy
+  ... (same 13 Create lines and 16 linked lines, trimmed)
+
+Revert this upload of cwlive-1008-redis-base with:
+  cub unit update --patch --space cwlive-1008-redis-base --restore Before:ChangeSet:upload-20261008-051433 --where &quot;Labels.UploadSource = 'cwlive-1008-redis'&quot;</code></pre>
+<pre><code>$ cub space list --component cwlive-1008-redis -o wide
+NAME                      COMPONENT            OWNER    VARIANT    ...    #UNITS    #LINKS    #TAGS    #CHANGESETS    ...    #TRIGGERS    #WORKERS    #TARGETS
+cwlive-1008-redis-base    cwlive-1008-redis             base       ...    13        16        2        1              ...    0            0           0</code></pre>
+<pre><code>$ cub unit list --space cwlive-1008-redis-base \
+    -o jq='.[] | [.Unit.Slug, (.Unit.Annotations|tostring), (.Unit.Labels|tostring), (.Unit.HeadRevisionNum|tostring)] | join(&quot;  &quot;)'
+redis-headless-service  {&quot;UploadDigest&quot;:&quot;sha256:b377...2568&quot;,&quot;UploadFile&quot;:&quot;redis/templates/headless-svc.yaml&quot;,&quot;UploadResource&quot;:&quot;/Service/redis/redis-headless&quot;,&quot;cwlive/check&quot;:&quot;upload-1008&quot;}  {&quot;UploadSource&quot;:&quot;cwlive-1008-redis&quot;}  2
+redis-replicas  {&quot;UploadDigest&quot;:&quot;sha256:73a0...8837&quot;,&quot;UploadFile&quot;:&quot;redis/templates/replicas/application.yaml&quot;,&quot;UploadResource&quot;:&quot;apps/StatefulSet/redis/redis-replicas&quot;,&quot;cwlive/check&quot;:&quot;upload-1008&quot;}  {&quot;UploadSource&quot;:&quot;cwlive-1008-redis&quot;}  2
+... (11 more rows trimmed; every row carries &quot;cwlive/check&quot;:&quot;upload-1008&quot;)</code></pre>
+<p>What this shows.</p>
+<ul><li>The upload created the Space <code>cwlive-1008-redis-base</code> and the Component <code>cwlive-1008-redis</code>.</li><li>Each of the 13 non-Secret objects became its own Unit. The Secret was not uploaded and the output says so.</li><li>A workload keeps its bare name (<code>redis-master</code>, <code>redis-replicas</code>). Every other Unit takes its kind as a suffix (<code>redis-master-service</code>, <code>redis-health-configmap</code>, <code>redis-master-pdb</code>).</li><li>The <code>--unit-annotation</code> value is on all 13 Units. The upload also writes <code>UploadDigest</code>, <code>UploadFile</code> and <code>UploadResource</code> annotations and an <code>UploadSource</code> label.</li><li>The Space carries the labels <code>Variant=base</code> and <code>Namespace=redis</code>, and the annotation <code>ExternalSourceRef=redis.yaml</code>.</li><li>Each Unit starts at revision 2. Revision 1 is an empty revision that precedes the first content.</li><li>The upload records one ChangeSet and two Tags (<code>upload-&lt;time&gt;-start</code> and <code>upload-&lt;time&gt;-end</code>).</li></ul>
+<h2 id="check-3-upload-the-same-file-again">Check 3. Upload the same file again</h2>
+<pre><code>$ cub variant upload --component cwlive-1008-redis --variant base \
+    --space-pattern 'template:{{.Component.Slug}}-{{.Labels.Variant}}' \
+    --namespace redis --unit-annotation cwlive/check=upload-1008 redis.yaml
+Space cwlive-1008-redis-base (Unchanged)
+  Unchanged 13 Unit(s)
+broke selector link redis-headless-redis-service -&gt; redis-master-statefulset to resolve cycle: redis-master-statefulset -&gt; redis-headless-redis-service
+broke selector link redis-headless-redis-service -&gt; redis-replicas-statefulset to resolve cycle: redis-headless-redis-service -&gt; redis-replicas-statefulset
+... (Secret and unresolved-reference notes trimmed)</code></pre>
+<p>The Space still held 13 Units, 16 Links, 2 Tags and 1 ChangeSet, and every Unit was still at revision 2. An upload creates or updates, and an unchanged upload writes nothing.</p>
+<h2 id="check-4-create-variants-and-see-what-is-copied">Check 4. Create variants and see what is copied</h2>
+<p>A validating Trigger was created in the base Space first, so that copying could be observed.</p>
+<pre><code>$ cub trigger create --space cwlive-1008-redis-base cwlive-1008-complete Mutation Kubernetes/YAML vet-placeholders
+Successfully created trigger cwlive-1008-complete (17ca4ec1-7a56-42dd-bfb5-8af27489954b)
+
+$ cub variant create dev cwlive-1008-redis-base
+Created variant space cwlive-1008-redis-dev (ID: bd602121-1ec7-40c8-bbcf-e78743725105)
+Awaiting triggers...
+
+Bulk create operation completed:
+  Success: 13 unit(s)
+
+$ cub variant create qa cwlive-1008-redis-base \
+    --space-pattern 'template:cwlive-1008-pattern-{{.Labels.Variant}}-{{.SourceEntitySlug}}'
+Created variant space cwlive-1008-pattern-qa-cwlive-1008-redis-base (ID: 5c88b313-f303-4b72-940b-41d5866ac17e)
+Awaiting triggers...
+
+Bulk create operation completed:
+  Success: 13 unit(s)</code></pre>
+<p>The default Space name is <code>&lt;component&gt;-&lt;variant&gt;</code>, which gave <code>cwlive-1008-redis-dev</code>. <code>cub variant create</code> has no <code>--dry-run</code> flag in v0.8.7. The default name already carried the session prefix, so the command was run for real.</p>
+<pre><code>$ cub trigger list --space cwlive-1008-redis-base
+NAME                    SPACE                     WORKER    EVENT       VALIDATING    DISABLED    WARN     TOOLCHAIN-TYPE     FUNCTION-NAME       NUM-ARGS    INVOCATION
+cwlive-1008-complete    cwlive-1008-redis-base              Mutation    true          false       false    Kubernetes/YAML    vet-placeholders    0
+
+$ cub trigger list --space cwlive-1008-redis-dev
+NAME    SPACE    WORKER    EVENT    VALIDATING    DISABLED    WARN    TOOLCHAIN-TYPE    FUNCTION-NAME    NUM-ARGS    INVOCATION
+
+$ cub space get cwlive-1008-redis-base -o jq='.Space | {Slug, SpaceID, Labels, WhereTrigger, TriggerFilterID, Permissions}'
+{
+  &quot;Labels&quot;: { &quot;Namespace&quot;: &quot;redis&quot;, &quot;Variant&quot;: &quot;base&quot; },
+  &quot;Permissions&quot;: {
+    &quot;Manage&quot;: { &quot;UserIDs&quot;: { &quot;&lt;user-id&gt;&quot;: true } },
+    &quot;ManageChildren&quot;: { &quot;UserIDs&quot;: { &quot;&lt;user-id&gt;&quot;: true } }
+  },
+  &quot;Slug&quot;: &quot;cwlive-1008-redis-base&quot;,
+  &quot;SpaceID&quot;: &quot;ccf72467-aced-4c06-b505-437128bd569a&quot;,
+  &quot;TriggerFilterID&quot;: null,
+  &quot;WhereTrigger&quot;: null
+}
+
+$ cub space get cwlive-1008-redis-dev -o jq='.Space | {Slug, SpaceID, Labels, WhereTrigger, TriggerFilterID, Permissions}'
+{
+  &quot;Labels&quot;: { &quot;Namespace&quot;: &quot;redis&quot;, &quot;Variant&quot;: &quot;dev&quot; },
+  &quot;Permissions&quot;: {
+    &quot;Manage&quot;: { &quot;UserIDs&quot;: { &quot;&lt;user-id&gt;&quot;: true } },
+    &quot;ManageChildren&quot;: { &quot;UserIDs&quot;: { &quot;&lt;user-id&gt;&quot;: true } }
+  },
+  &quot;Slug&quot;: &quot;cwlive-1008-redis-dev&quot;,
+  &quot;SpaceID&quot;: &quot;bd602121-1ec7-40c8-bbcf-e78743725105&quot;,
+  &quot;TriggerFilterID&quot;: null,
+  &quot;WhereTrigger&quot;: &quot;SpaceID = 'ccf72467-aced-4c06-b505-437128bd569a'&quot;
+}</code></pre>
+<p>The second clone printed the same result, with the same <code>WhereTrigger</code>.</p>
+<p>What this shows.</p>
+<ul><li>Triggers are not copied. Both clones list no Triggers of their own.</li><li>The trigger selection is carried over. The base had no <code>WhereTrigger</code> and no <code>TriggerFilterID</code>, so each clone received a <code>WhereTrigger</code> that selects the Triggers in the base Space by its SpaceID. The help says this, and the server did it.</li><li>Permissions are copied unchanged.</li><li>Each clone held 13 Units and 29 Links. Sixteen are the copied links between Units and thirteen are the UpgradeUnit links to the base Units.</li></ul>
+<h2 id="check-5-change-the-base-preview-the-promotion-promote">Check 5. Change the base, preview the promotion, promote</h2>
+<pre><code>$ cub function get --space cwlive-1008-redis-base --unit redis-replicas --quiet --show output get-replicas
+  Value: 3  Path: spec.replicas  Resource: redis/redis-replicas  Type: apps/v1/StatefulSet
+
+$ cub function set --space cwlive-1008-redis-base --unit redis-replicas \
+    --change-desc &quot;cwlive check 5: base replicas 3 to 4&quot; set-replicas 4
+Function(s) succeeded on unit cwlive-1008-redis-base/redis-replicas (4595e2b8-c4db-4077-aa00-093932004a16)
+Config data changed
+Awaiting triggers...
+
+$ cub variant promote cwlive-1008-redis-dev --dry-run -o mutations
+Changes to unit redis-replicas from promote:
+Resource: apps/v1/StatefulSet redis/redis-replicas
+  ~ [Update] spec.replicas
+      3 → 4
+
+$ cub variant promote cwlive-1008-redis-dev --dry-run
+Would upgrade 1 unit(s) behind their upstream
+Would add 0 unit(s) from upstream
+
+$ cub variant promote cwlive-1008-redis-dev --change-desc &quot;cwlive check 5: promote replicas 4 to dev&quot;
+Upgraded 1 unit(s) behind their upstream
+Adding 0 unit(s) from upstream
+
+$ cub function get --space cwlive-1008-redis-dev --unit redis-replicas --quiet --show output get-replicas
+  Value: 4  Path: spec.replicas  Resource: redis/redis-replicas  Type: apps/v1/StatefulSet
+
+$ cub revision list --space cwlive-1008-redis-dev redis-replicas
+NUM    UNIT              SOURCE         CHANGESET    CHANGEORDERS    TAGS    DESCRIPTION
+3      redis-replicas    UpgradeUnit                                         cwlive check 5: promote replicas 4 to dev
+2      redis-replicas    CloneUnit                                           Cloned from ccf72467-aced-4c06-b505-437128bd569...
+1      redis-replicas    CloneUnit                                           Empty revision preceding the unit's first content</code></pre>
+<p>The dry run with <code>-o mutations</code> prints the one changed path. The real promotion wrote one new revision on one Unit in dev, and the other 12 Units did not change.</p>
+<h2 id="check-6-cub-variant-approve">Check 6. <code>cub variant approve</code></h2>
+<pre><code>$ cub variant approve cwlive-1008-redis-dev --dry-run
+Nothing to record in cwlive-1008-redis-dev: no unit has the selected revision
+
+$ cub variant approve cwlive-1008-redis-dev
+Nothing to record in cwlive-1008-redis-dev: no unit has the selected revision
+
+$ cub variant approve cwlive-1008-redis-dev --all --dry-run
+Would record pass Approval attestation in cwlive-1008-redis-dev, covering 13 revision(s)
+
+$ cub variant approve cwlive-1008-redis-dev --all --note &quot;cwlive-1008 live check 6&quot;
+Recorded pass Approval attestation d8c12c1b-c057-4f86-a2ab-7987afb4cf75 in cwlive-1008-redis-dev, covering 13 revision(s)
+
+$ cub attestation list --space cwlive-1008-redis-dev
+ATTESTATION-ID                          TYPE        RESULT    REVOKES    USER-ID      CREATED
+d8c12c1b-c057-4f86-a2ab-7987afb4cf75    Approval    Pass                 &lt;user-id&gt;    2026-10-08 05:16:49.278122 +0000 UTC</code></pre>
+<p>Without <code>--all</code> the command approves only Units that have a Target. A Space with no Target therefore records nothing, and the command exits 0. With <code>--all</code> it records one Approval attestation for the Space that covers the head revision of every Unit.</p>
+<p>A later follow-up Space confirmed the <code>--revision ChangeSet:&lt;slug&gt;</code> form in a dry run.</p>
+<pre><code>$ cub variant approve cwlive-1008-redis2-base --all --revision ChangeSet:upload-20261008-052647 --dry-run
+Would record pass Approval attestation in cwlive-1008-redis2-base, covering 13 revision(s)</code></pre>
+<h2 id="check-7-cub-unit-set-protection-and-a-protected-path-under-promotion">Check 7. <code>cub unit set-protection</code> and a protected path under promotion</h2>
+<pre><code>$ cub unit set-protection --space cwlive-1008-redis-dev redis-replicas \
+    --protect &quot;apps/v1/StatefulSet:redis/redis-replicas:spec.replicas&quot;
+Protection set on unit redis-replicas (3639e511-36c9-4c22-bfcd-d7fb44eed08d)
+[
+  {
+    ...
+    &quot;PathMutationMap&quot;: {
+      &quot;spec.replicas&quot;: {
+        &quot;Index&quot;: 2,
+        &quot;MutationType&quot;: &quot;Update&quot;,
+        &quot;Protected&quot;: true,
+        &quot;Value&quot;: &quot;4\n&quot;
+      }
+    },
+    &quot;Resource&quot;: {
+      &quot;ResourceCategory&quot;: &quot;Resource&quot;,
+      &quot;ResourceName&quot;: &quot;redis/redis-replicas&quot;,
+      &quot;ResourceNameWithoutScope&quot;: &quot;redis-replicas&quot;,
+      &quot;ResourceType&quot;: &quot;apps/v1/StatefulSet&quot;
+    },
+    ... (the whole resource body is printed as well, trimmed here)
+  }
+]</code></pre>
+<p>The base then received two changes on the same Unit. One touches the protected path and one touches an unprotected path.</p>
+<pre><code>$ cub function set --space cwlive-1008-redis-base --unit redis-replicas \
+    --change-desc &quot;cwlive check 7: base replicas 4 to 5&quot; set-replicas 5
+Function(s) succeeded on unit cwlive-1008-redis-base/redis-replicas (4595e2b8-c4db-4077-aa00-093932004a16)
+Config data changed
+Awaiting triggers...
+
+$ cub function set --space cwlive-1008-redis-base --unit redis-replicas \
+    --change-desc &quot;cwlive check 7: base revisionHistoryLimit 10 to 7&quot; \
+    set-int-path apps/v1/StatefulSet spec.revisionHistoryLimit 7
+Function(s) succeeded on unit cwlive-1008-redis-base/redis-replicas (4595e2b8-c4db-4077-aa00-093932004a16)
+Config data changed
+Awaiting triggers...
+
+$ cub variant promote cwlive-1008-redis-dev --dry-run -o mutations
+Changes to unit redis-replicas from promote:
+Resource: apps/v1/StatefulSet redis/redis-replicas
+  ~ [Update] spec.revisionHistoryLimit
+      10 → 7
+
+$ cub variant promote cwlive-1008-redis-dev --change-desc &quot;cwlive check 7: promote with replicas protected&quot;
+Upgraded 1 unit(s) behind their upstream
+Adding 0 unit(s) from upstream
+
+$ cub function get --space cwlive-1008-redis-dev --unit redis-replicas --show output get-yq '.spec.replicas, .spec.revisionHistoryLimit'
+4 7
+
+$ cub function get --space cwlive-1008-redis-base --unit redis-replicas --show output get-yq '.spec.replicas, .spec.revisionHistoryLimit'
+5 7</code></pre>
+<p>The protected path survived. Dev kept <code>spec.replicas: 4</code> while the base moved to 5, and the unprotected change to <code>spec.revisionHistoryLimit</code> arrived. The dry run already left the protected path out of its preview.</p>
+<p><code>cub unit --help</code> lists <code>set-protection</code> and <code>set-guard</code>. It lists no <code>set-predicates</code>.</p>
+<h2 id="check-8-cub-unit-diff-revision-names">Check 8. <code>cub unit diff</code> revision names</h2>
+<p>The base Unit <code>redis-replicas</code> had five revisions at this point.</p>
+<pre><code>$ cub revision list --space cwlive-1008-redis-base redis-replicas
+NUM    UNIT              SOURCE           CHANGESET                 CHANGEORDERS    TAGS                            DESCRIPTION
+5      redis-replicas    Invoke                                                                                     cwlive check 7: base revisionHistoryLimit 10 to...
+4      redis-replicas    Invoke                                                                                     cwlive check 7: base replicas 4 to 5| Functions...
+3      redis-replicas    Invoke                                                                                     cwlive check 5: base replicas 3 to 4| Functions...
+2      redis-replicas    MergeExternal    upload-20261008-051433                    upload-20261008-051433-end      MergeExternal; from redis.yaml
+1      redis-replicas    MergeExternal    upload-20261008-051433                    upload-20261008-051433-start    Empty revision preceding the unit's first conte...</code></pre>
+<pre><code>$ cub unit diff --space cwlive-1008-redis-base redis-replicas -u
+Failed: revision LastReleasedRevisionNum not found or is invalid
+
+$ cub unit diff --space cwlive-1008-redis-base redis-replicas --from=LastReleasedRevisionNum --to=2
+Failed: revision LastReleasedRevisionNum not found or is invalid
+
+$ cub unit diff --space cwlive-1008-redis-base redis-replicas --from=2 --to=HeadRevisionNum -u
+--- cwlive-1008-redis-base/redis-replicas/2
++++ cwlive-1008-redis-base/redis-replicas/5
+@@ -12,8 +16,2 @@
+     helm.sh/chart: redis-25.5.3
+     app.kubernetes.io/component: replica
+ spec:
+-  replicas: 3
+-  revisionHistoryLimit: 10
++  replicas: 5
++  revisionHistoryLimit: 7
+   selector:
+     matchLabels:
+       app.kubernetes.io/instance: redis
+
+$ cub unit diff --space cwlive-1008-redis-base redis-replicas 3 4 -o mutations
+Resource: apps/v1/StatefulSet redis/redis-replicas
+  ~ [Update] spec.replicas
+      4 → 5
+
+$ cub unit diff --space cwlive-1008-redis-base redis-replicas --from=-2 --to=-1 -o mutations
+Resource: apps/v1/StatefulSet redis/redis-replicas
+  ~ [Update] spec.replicas
+      4 → 5
+
+$ cub unit diff --space cwlive-1008-redis-base redis-replicas --from=-1 -o mutations
+Resource: apps/v1/StatefulSet redis/redis-replicas
+  ~ [Update] spec.revisionHistoryLimit
+      10 → 7
+
+$ cub unit diff --space cwlive-1008-redis-base redis-replicas --from=Tag:upload-20261008-051433-end --to=HeadRevisionNum -o mutations
+Failed: invalid revision reference 'Tag:9e77f50a-313b-4545-88ee-10dc8a7e5234': must be a revision number, -N (relative to head), or one of HeadRevisionNum/LastReleasedRevisionNum
+
+$ cub unit diff --space cwlive-1008-redis-base redis-replicas --from=ChangeSet:upload-20261008-051433 --to=HeadRevisionNum -o mutations
+Failed: invalid revision reference 'ChangeSet:1a744d8a-efec-4a2c-a492-19c7e8536baa': must be a revision number, -N (relative to head), or one of HeadRevisionNum/LastReleasedRevisionNum
+
+$ cub unit diff --space cwlive-1008-redis-base redis-replicas --with-unit cwlive-1008-redis-dev/redis-replicas -o mutations
+Resource: apps/v1/StatefulSet redis/redis-replicas
+  ~ [Update] spec.replicas
+      5 → 4</code></pre>
+<p>The follow-up Space checked two more forms the site shows.</p>
+<pre><code>$ cub unit diff cwlive-1008-redis2-base/redis-replicas --from=1 --to=2 -o mutations
+Resource: apps/v1/StatefulSet redis/redis-replicas  (added)
+    ... (the whole resource follows, trimmed)
+
+$ cub unit diff --space cwlive-1008-redis2-base
+Failed: accepts between 1 and 3 arg(s), received 0</code></pre>
+<p>Which names work.</p>
+<table><thead><tr><th>Reference</th><th>Result</th></tr></thead><tbody><tr><td>A revision number, as <code>--from=2</code> or as a positional argument</td><td>Works.</td></tr>
+<tr><td><code>HeadRevisionNum</code></td><td>Works.</td></tr>
+<tr><td><code>-1</code>, <code>-2</code> relative to head</td><td>Works. <code>-1</code> is one revision before head.</td></tr>
+<tr><td><code>LastReleasedRevisionNum</code></td><td>The name is accepted, and it fails on a Unit that has never been released. It is also the default <code>--from</code>, so a bare <code>cub unit diff &lt;unit&gt;</code> fails on a never-released Unit.</td></tr>
+<tr><td><code>Tag:&lt;slug&gt;</code></td><td>Refused by the server, although the help lists it.</td></tr>
+<tr><td><code>ChangeSet:&lt;slug&gt;</code></td><td>Refused by the server, although the help lists it.</td></tr>
+<tr><td><code>--with-unit &lt;space&gt;/&lt;unit&gt;</code></td><td>Works across Spaces.</td></tr>
+<tr><td><code>&lt;space&gt;/&lt;unit&gt;</code> as the positional name with no <code>--space</code></td><td>Works.</td></tr>
+<tr><td><code>--space &lt;space&gt;</code> with no Unit name</td><td>Refused. A Unit name is required.</td></tr></tbody></table>
+<h2 id="check-9-release-publish-with-no-release-target-release-list-live-state">Check 9. Release publish with no release Target, release list, live state</h2>
+<pre><code>$ cub release publish cwlive-1008-redis-dev
+Failed: HTTP 400 for req &lt;request-id&gt;: cannot release a Space without a ReleaseTargetID
+
+$ cub release list --space cwlive-1008-redis-dev
+NUM    TAG    PUBLISHED    DIGEST    LIVE    CREATED</code></pre>
+<p><code>cub unit --help</code> lists these subcommands in v0.8.7.</p>
+<pre><code>blame, cancel, conflicts, create, data, data-edit, delete, diff, explain, get, list,
+move, mutation-sources, open, set-guard, set-protection, set-target, tag, tree, update</code></pre>
+<p>There is no <code>cub unit livestate</code>, no <code>cub unit apply</code> and no <code>cub unit set-predicates</code>. No option in <code>cub unit data</code> or <code>cub unit get</code> help mentions live state. The top-level command list has <code>unit-action</code>, <code>unit-event</code>, <code>resource</code> and <code>release</code>. None of them could be exercised without a Target, so this run names no replacement for live state.</p>
+<pre><code>$ cub unit livestate --space cwlive-1008-redis-dev redis-replicas
+The unit subcommands are used to manage units.
+... (the group help follows, and the exit status is 0)</code></pre>
+<h2 id="check-10-the-gpu-operator-walk">Check 10. The gpu-operator walk</h2>
+<h3 id="three-chart-versions-as-three-variants-of-one-component">Three chart versions as three variants of one component</h3>
+<p>Each input file holds 24 objects and no Secret.</p>
+<pre><code>$ cub variant upload --component cwlive-1008-gpu-operator --variant v25-10-1 \
+    --namespace gpu-operator --unit-annotation chart-version=v25.10.1 gpu-v25.10.1.yaml
+Space cwlive-1008-gpu-operator-v25-10-1 (Create)
+  Create    clusterpolicies.nvidia.com-crd
+  Create    nvidiadrivers.nvidia.com-crd
+  Create    nodefeatures.nfd.k8s-sigs.io-crd
+  Create    nodefeaturegroups.nfd.k8s-sigs.io-crd
+  Create    nodefeaturerules.nfd.k8s-sigs.io-crd
+  Create    node-feature-discovery-serviceaccount
+  Create    gpu-operator-serviceaccount
+  ... (14 more Create lines trimmed)
+  Create    gpu-operator
+  Create    cluster-policy-clusterpolicy
+  linked    cluster-policy-clusterpolicy -&gt; clusterpolicies.nvidia.com-crd (crd)
+  ... (16 more linked lines and the unresolved-reference notes trimmed)
+
+$ cub variant upload --component cwlive-1008-gpu-operator --variant v26-3-2 \
+    --namespace gpu-operator --unit-annotation chart-version=v26.3.2 gpu-v26.3.2.yaml
+Space cwlive-1008-gpu-operator-v26-3-2 (Create)
+  ... (24 Create lines, 17 linked lines, trimmed)
+
+$ cub variant upload --component cwlive-1008-gpu-operator --variant v26-3-3 \
+    --namespace gpu-operator --unit-annotation chart-version=v26.3.3 gpu-v26.3.3.yaml
+Space cwlive-1008-gpu-operator-v26-3-3 (Create)
+  ... (24 Create lines, 17 linked lines, trimmed)
+
+$ cub space list --component cwlive-1008-gpu-operator
+NAME                                 COMPONENT                   OWNER    VARIANT     STAGE    ENVIRONMENT    REGION    LAYER    #UNITS
+cwlive-1008-gpu-operator-v25-10-1    cwlive-1008-gpu-operator             v25-10-1                                               24
+cwlive-1008-gpu-operator-v26-3-3     cwlive-1008-gpu-operator             v26-3-3                                                24
+cwlive-1008-gpu-operator-v26-3-2     cwlive-1008-gpu-operator             v26-3-2                                                24</code></pre>
+<p>A second upload with the same <code>--component</code> and a different <code>--variant</code> creates a second Space in the same Component. The Space name is <code>&lt;component&gt;-&lt;variant&gt;</code>. The three Spaces held the same 24 Unit names.</p>
+<h3 id="the-clusterpolicy-unit-between-versions">The ClusterPolicy Unit between versions</h3>
+<p><code>cub unit diff --with-unit &lt;space&gt;/&lt;unit&gt;</code> compares the same Unit in two Spaces.</p>
+<pre><code>$ cub unit diff --space cwlive-1008-gpu-operator-v26-3-2 cluster-policy-clusterpolicy \
+    --with-unit cwlive-1008-gpu-operator-v26-3-3/cluster-policy-clusterpolicy -o mutations
+Resource: nvidia.com/v1/ClusterPolicy /cluster-policy
+  ~ [Update] metadata.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] metadata.labels.app~1kubernetes~1io/version
+      v26.3.2 → v26.3.3
+  ~ [Update] spec.daemonsets.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] spec.validator.version
+      v26.3.2 → v26.3.3
+  ~ [Update] spec.devicePlugin.version
+      v0.19.2 → v0.19.3
+  ~ [Update] spec.gfd.version
+      v0.19.2 → v0.19.3
+  ~ [Update] spec.nodeStatusExporter.version
+      v26.3.2 → v26.3.3</code></pre>
+<pre><code>$ cub unit diff --space cwlive-1008-gpu-operator-v25-10-1 cluster-policy-clusterpolicy \
+    --with-unit cwlive-1008-gpu-operator-v26-3-2/cluster-policy-clusterpolicy -o mutations
+Resource: nvidia.com/v1/ClusterPolicy /cluster-policy
+  ~ [Update] metadata.labels.helm~1sh/chart
+      gpu-operator-v25.10.1 → gpu-operator-v26.3.2
+  - [Delete] spec.operator.initContainer
+      repository: nvcr.io/nvidia
+      image: cuda
+      version: &quot;13.0.1-base-ubi9&quot;
+      imagePullPolicy: IfNotPresent
+  ~ [Update] spec.validator.version
+      v25.10.1 → v26.3.2
+  ~ [Update] spec.driver.version
+      580.105.08 → 580.126.20
+  ~ [Update] spec.driver.manager.version
+      v0.9.1 → v0.11.0
+  ~ [Update] spec.ccManager.enabled
+      false → true
+  ~ [Update] spec.ccManager.defaultMode
+      off → on
+  ~ [Update] spec.toolkit.version
+      v1.18.1 → v1.19.1
+  ~ [Update] spec.devicePlugin.version
+      v0.18.1 → v0.19.2
+  + [Add] spec.sandboxWorkloads.mode
+      kubevirt
+  + [Add] spec.kataSandboxDevicePlugin
+      enabled: true
+      repository: nvcr.io/nvidia/cloud-native
+      image: nvidia-sandbox-device-plugin
+      version: &quot;v0.0.3&quot;
+      imagePullPolicy: IfNotPresent
+  ... (24 more changed paths trimmed; the full diff has 35)</code></pre>
+<h3 id="the-whole-version-across-two-spaces">The whole version, across two Spaces</h3>
+<p>No single command compares two Spaces in v0.8.7. <code>cub space</code> has no <code>diff</code>, and <code>cub variant diff</code> compares one Space at two points in its own history. A serial loop over the Unit names does the whole comparison with the command above.</p>
+<pre><code>$ A=cwlive-1008-gpu-operator-v26-3-2; B=cwlive-1008-gpu-operator-v26-3-3
+$ cub unit list --space $A --no-headers -o jq='.[].Unit.Slug' | sort &gt; slugs.txt
+$ while read -r u; do cub unit diff --space $A &quot;$u&quot; --with-unit &quot;$B/$u&quot; -o mutations; done &lt; slugs.txt</code></pre>
+<p>Changed paths per Unit, v26.3.2 to v26.3.3 (7 Units, 22 paths, and 17 Units print &quot;No changes&quot;).</p>
+<pre><code>7  cluster-policy-clusterpolicy
+5  gpu-operator
+2  gpu-operator-clusterrole
+2  gpu-operator-clusterrolebinding
+2  gpu-operator-role
+2  gpu-operator-rolebinding
+2  gpu-operator-serviceaccount</code></pre>
+<p>Changed paths per Unit, v25.10.1 to v26.3.2 (21 Units, 132 paths).</p>
+<pre><code>35  cluster-policy-clusterpolicy
+42  clusterpolicies.nvidia.com-crd
+10  gpu-operator
+5   gpu-operator-node-feature-discovery-worker
+5   nvidiadrivers.nvidia.com-crd
+4   gpu-operator-node-feature-discovery-master
+3   gpu-operator-node-feature-discovery-gc
+2   each of 14 more Units (labels only)
+0   nodefeaturegroups, nodefeaturerules and nodefeatures CRDs</code></pre>
+<h3 id="the-driver-base-as-a-fourth-variant">The driver base as a fourth variant</h3>
+<pre><code>$ cub variant upload --component cwlive-1008-gpu-operator --variant v25-10-1-driver-580-126-20 \
+    --namespace gpu-operator --unit-annotation chart-version=v25.10.1 gpu-v25.10.1-driver.yaml
+Space cwlive-1008-gpu-operator-v25-10-1-driver-580-126-20 (Create)
+  ... (24 Create lines, 16 linked lines, trimmed)
+  link FAILED gpu-operator-rolebinding -&gt; gpu-operator-serviceaccount: exceeded maximum quota for entity type Link</code></pre>
+<p>The loop over all 24 Units printed one change and 23 &quot;No changes&quot; lines.</p>
+<pre><code>$ cub unit diff --space cwlive-1008-gpu-operator-v25-10-1 cluster-policy-clusterpolicy \
+    --with-unit cwlive-1008-gpu-operator-v25-10-1-driver-580-126-20/cluster-policy-clusterpolicy -o mutations
+Resource: nvidia.com/v1/ClusterPolicy /cluster-policy
+  ~ [Update] spec.driver.version
+      580.105.08 → 580.126.20
+
+$ cub unit diff -u --space cwlive-1008-gpu-operator-v25-10-1 cluster-policy-clusterpolicy \
+    --with-unit cwlive-1008-gpu-operator-v25-10-1-driver-580-126-20/cluster-policy-clusterpolicy
+--- cwlive-1008-gpu-operator-v25-10-1/cluster-policy-clusterpolicy/2
++++ cwlive-1008-gpu-operator-v25-10-1-driver-580-126-20/cluster-policy-clusterpolicy/2
+@@ -53,7 +57,1 @@
+     usePrecompiled: false
+     repository: nvcr.io/nvidia
+     image: driver
+-    version: &quot;580.105.08&quot;
++    version: &quot;580.126.20&quot;
+     imagePullPolicy: IfNotPresent
+     startupProbe:
+       failureThreshold: 120</code></pre>
+<h3 id="the-driver-base-as-a-change-to-the-v25101-variant">The driver base as a change to the v25.10.1 variant</h3>
+<p>Uploading a different file into an existing variant updates only the Units whose content changed. <code>cub variant diff</code> then shows the whole Space between the upload's tags in one command.</p>
+<pre><code>$ cub variant upload --dry-run --component cwlive-1008-gpu-operator --variant v25-10-1 \
+    --namespace gpu-operator --unit-annotation chart-version=v25.10.1 \
+    --change-desc &quot;driver 580.126.20 base&quot; gpu-v25.10.1-driver.yaml
+Dry run: nothing was written.
+Space cwlive-1008-gpu-operator-v25-10-1 (Update)
+  Update    cluster-policy-clusterpolicy
+  Unchanged 23 Unit(s)
+
+$ cub variant upload --component cwlive-1008-gpu-operator --variant v25-10-1 \
+    --namespace gpu-operator --unit-annotation chart-version=v25.10.1 \
+    --change-desc &quot;driver 580.126.20 base&quot; gpu-v25.10.1-driver.yaml
+Space cwlive-1008-gpu-operator-v25-10-1 (Update)
+  Update    cluster-policy-clusterpolicy
+  Unchanged 23 Unit(s)
+...
+Revert this upload of cwlive-1008-gpu-operator-v25-10-1 with:
+  cub unit update --patch --space cwlive-1008-gpu-operator-v25-10-1 --restore Before:ChangeSet:upload-20261008-052324 --where &quot;Labels.UploadSource = 'cwlive-1008-gpu-operator'&quot;
+
+$ cub changeset list --space cwlive-1008-gpu-operator-v25-10-1
+NAME                      SPACE                                STATE     DESCRIPTION
+upload-20261008-052324    cwlive-1008-gpu-operator-v25-10-1    Closed    Upload from gpu-v25.10.1-driver.yaml
+upload-20261008-051941    cwlive-1008-gpu-operator-v25-10-1    Closed    Upload from gpu-v25.10.1.yaml
+
+$ cub variant diff cwlive-1008-gpu-operator-v25-10-1 upload-20261008-051941-end -o mutations
+=== cwlive-1008-gpu-operator-v25-10-1/cluster-policy-clusterpolicy/2 -&gt; cwlive-1008-gpu-operator-v25-10-1/cluster-policy-clusterpolicy/3
+Resource: nvidia.com/v1/ClusterPolicy /cluster-policy
+  ~ [Update] spec.driver.version
+      580.105.08 → 580.126.20
+1 of 24 unit(s) changed between upload-20261008-051941-end and HeadRevisionNum in cwlive-1008-gpu-operator-v25-10-1 (23 unchanged, 0 at neither)
+
+$ cub variant diff -u cwlive-1008-gpu-operator-v25-10-1 Before:ChangeSet:upload-20261008-052324 ChangeSet:upload-20261008-052324
+--- cwlive-1008-gpu-operator-v25-10-1/cluster-policy-clusterpolicy/2
++++ cwlive-1008-gpu-operator-v25-10-1/cluster-policy-clusterpolicy/3
+@@ -53,7 +57,1 @@
+     usePrecompiled: false
+     repository: nvcr.io/nvidia
+     image: driver
+-    version: &quot;580.105.08&quot;
++    version: &quot;580.126.20&quot;
+     imagePullPolicy: IfNotPresent
+     startupProbe:
+       failureThreshold: 120
+1 of 24 unit(s) changed between Before:ChangeSet:upload-20261008-052324 and ChangeSet:upload-20261008-052324 in cwlive-1008-gpu-operator-v25-10-1 (0 unchanged, 23 at neither)</code></pre>
+<h3 id="one-space-that-takes-each-version-in-turn">One Space that takes each version in turn</h3>
+<p>A single variant named <code>rolling</code> received v25.10.1, then v26.3.2, then v26.3.3. Each upload is one ChangeSet, and <code>cub variant diff</code> shows a whole version step in one command.</p>
+<pre><code>$ cub variant upload --component cwlive-1008-gpu-operator --variant rolling --namespace gpu-operator --change-desc &quot;chart v25.10.1&quot; gpu-v25.10.1.yaml
+Space cwlive-1008-gpu-operator-rolling (Create)
+  ... (24 Create lines, then 17 &quot;link FAILED ... exceeded maximum quota for entity type Link&quot; lines)
+
+$ cub variant upload --component cwlive-1008-gpu-operator --variant rolling --namespace gpu-operator --change-desc &quot;chart v26.3.2&quot; gpu-v26.3.2.yaml
+Space cwlive-1008-gpu-operator-rolling (Update)
+  ... (21 Update lines)
+  Unchanged 3 Unit(s)
+  ... (17 link FAILED lines)
+
+$ cub variant upload --component cwlive-1008-gpu-operator --variant rolling --namespace gpu-operator --change-desc &quot;chart v26.3.3&quot; gpu-v26.3.3.yaml
+Space cwlive-1008-gpu-operator-rolling (Update)
+  Update    gpu-operator-serviceaccount
+  Update    gpu-operator-clusterrole
+  Update    gpu-operator-clusterrolebinding
+  Update    gpu-operator-role
+  Update    gpu-operator-rolebinding
+  Update    gpu-operator
+  Update    cluster-policy-clusterpolicy
+  Unchanged 17 Unit(s)
+  ... (17 link FAILED lines)
+
+$ cub changeset list --space cwlive-1008-gpu-operator-rolling
+NAME                      SPACE                               STATE     DESCRIPTION
+upload-20261008-052433    cwlive-1008-gpu-operator-rolling    Closed    Upload from gpu-v26.3.3.yaml
+upload-20261008-052401    cwlive-1008-gpu-operator-rolling    Closed    Upload from gpu-v26.3.2.yaml
+upload-20261008-052352    cwlive-1008-gpu-operator-rolling    Closed    Upload from gpu-v25.10.1.yaml
+
+$ cub variant diff cwlive-1008-gpu-operator-rolling Before:ChangeSet:upload-20261008-052433 ChangeSet:upload-20261008-052433 -o mutations
+=== cwlive-1008-gpu-operator-rolling/cluster-policy-clusterpolicy/3 -&gt; cwlive-1008-gpu-operator-rolling/cluster-policy-clusterpolicy/4
+=== cwlive-1008-gpu-operator-rolling/gpu-operator/3 -&gt; cwlive-1008-gpu-operator-rolling/gpu-operator/4
+=== cwlive-1008-gpu-operator-rolling/gpu-operator-clusterrole/3 -&gt; cwlive-1008-gpu-operator-rolling/gpu-operator-clusterrole/4
+=== cwlive-1008-gpu-operator-rolling/gpu-operator-clusterrolebinding/3 -&gt; cwlive-1008-gpu-operator-rolling/gpu-operator-clusterrolebinding/4
+=== cwlive-1008-gpu-operator-rolling/gpu-operator-role/3 -&gt; cwlive-1008-gpu-operator-rolling/gpu-operator-role/4
+=== cwlive-1008-gpu-operator-rolling/gpu-operator-rolebinding/3 -&gt; cwlive-1008-gpu-operator-rolling/gpu-operator-rolebinding/4
+=== cwlive-1008-gpu-operator-rolling/gpu-operator-serviceaccount/3 -&gt; cwlive-1008-gpu-operator-rolling/gpu-operator-serviceaccount/4
+7 of 24 unit(s) changed between Before:ChangeSet:upload-20261008-052433 and ChangeSet:upload-20261008-052433 in cwlive-1008-gpu-operator-rolling (0 unchanged, 17 at neither)
+(the per-path lines are trimmed; the output holds 22 changed paths, the same 7 Units and 22 paths as the loop across two Spaces)
+
+$ cub variant diff cwlive-1008-gpu-operator-rolling upload-20261008-052352-end -o mutations
+... (trimmed)
+21 of 24 unit(s) changed between upload-20261008-052352-end and HeadRevisionNum in cwlive-1008-gpu-operator-rolling (3 unchanged, 0 at neither)
+
+$ cub variant diff cwlive-1008-gpu-operator-rolling upload-20261008-052352-end upload-20261008-052433-end -o mutations
+=== cwlive-1008-gpu-operator-rolling/cluster-policy-clusterpolicy/2 -&gt; cwlive-1008-gpu-operator-rolling/cluster-policy-clusterpolicy/4
+=== cwlive-1008-gpu-operator-rolling/clusterpolicies.nvidia.com-crd/2 -&gt; cwlive-1008-gpu-operator-rolling/clusterpolicies.nvidia.com-crd/absent
+... (trimmed; 17 Units show &quot;absent&quot; on the right side)
+24 of 24 unit(s) changed between upload-20261008-052352-end and upload-20261008-052433-end in cwlive-1008-gpu-operator-rolling (0 unchanged, 0 at neither)</code></pre>
+<h3 id="what-is-and-is-not-available-for-a-diff-between-versions">What is and is not available for a diff between versions</h3>
+<ul><li>A diff of one Unit across two variant Spaces is available with <code>cub unit diff --space &lt;A&gt; &lt;unit&gt; --with-unit &lt;B&gt;/&lt;unit&gt;</code>, as text, unified text or <code>-o mutations</code>.</li><li>A diff of two whole variant Spaces in one command is not available. A loop over the Unit names with the command above covers it when the Unit names match.</li><li>A diff of one whole Space between two uploads is available with <code>cub variant diff &lt;space&gt; Before:ChangeSet:&lt;upload&gt; ChangeSet:&lt;upload&gt;</code>, or with <code>cub variant diff &lt;space&gt; &lt;earlier-upload&gt;-end</code> to compare an earlier upload with the head.</li><li>A diff between the end tags of two different uploads is misleading. An upload tags only the Units it writes, so a Unit the later upload left unchanged shows as &quot;absent&quot; and reads as a whole removal.</li></ul>
+<h2 id="check-11-clean-up">Check 11. Clean up</h2>
+<p>The clones were deleted before their base, and each delete named one Space.</p>
+<pre><code>$ cub space delete --recursive cwlive-1008-redis-dev
+Successfully deleted space cwlive-1008-redis-dev (bd602121-1ec7-40c8-bbcf-e78743725105)
+$ cub space delete --recursive cwlive-1008-pattern-qa-cwlive-1008-redis-base
+Successfully deleted space cwlive-1008-pattern-qa-cwlive-1008-redis-base (5c88b313-f303-4b72-940b-41d5866ac17e)
+$ cub space delete --recursive cwlive-1008-redis-base
+Successfully deleted space cwlive-1008-redis-base (ccf72467-aced-4c06-b505-437128bd569a)
+$ cub space delete --recursive cwlive-1008-gpu-operator-rolling
+Successfully deleted space cwlive-1008-gpu-operator-rolling (dde654c5-c1c0-4aae-94ac-5d8b6b0ee71a)
+$ cub space delete --recursive cwlive-1008-gpu-operator-v25-10-1-driver-580-126-20
+Successfully deleted space cwlive-1008-gpu-operator-v25-10-1-driver-580-126-20 (ba955841-6d0d-40ce-901f-7e4dd31b4225)
+$ cub space delete --recursive cwlive-1008-gpu-operator-v25-10-1
+Successfully deleted space cwlive-1008-gpu-operator-v25-10-1 (5d53eaf0-b46b-434f-a7ba-80475a349525)
+$ cub space delete --recursive cwlive-1008-gpu-operator-v26-3-2
+Successfully deleted space cwlive-1008-gpu-operator-v26-3-2 (9cb9d2a7-ea6a-4e72-913e-533739ebffb5)
+$ cub space delete --recursive cwlive-1008-gpu-operator-v26-3-3
+Successfully deleted space cwlive-1008-gpu-operator-v26-3-3 (823a77e4-8ac3-4ec3-ab74-7aa952845822)
+$ cub component delete cwlive-1008-redis
+Successfully deleted component cwlive-1008-redis (092a71d5-250e-474e-9b00-c124ddd302bd)
+$ cub component delete cwlive-1008-gpu-operator
+Successfully deleted component cwlive-1008-gpu-operator (30aba121-dbd4-4caf-80ed-7d36b8c8e59e)</code></pre>
+<p>A ninth Space, <code>cwlive-1008-redis2-base</code> in the Component <code>cwlive-1008-redis2</code>, was created afterwards for the three follow-up commands in checks 6 and 8. It was then deleted the same way.</p>
+<pre><code>$ cub space delete --recursive cwlive-1008-redis2-base
+Successfully deleted space cwlive-1008-redis2-base (d22424f8-be77-4b4a-b13b-1c25d93927ef)
+$ cub component delete cwlive-1008-redis2
+Successfully deleted component cwlive-1008-redis2 (9f205984-1029-4d98-97bb-55a56ae5a870)</code></pre>
+<p>Final verification.</p>
+<pre><code>$ cub space list --include-hidden --where &quot;Slug LIKE 'cwlive-1008-%'&quot; --no-headers | wc -l
+       0
+$ cub component list --where &quot;Slug LIKE 'cwlive-1008-%'&quot; --no-headers | wc -l
+       0
+$ cub unit list --space '*' --include-hidden --where &quot;Labels.UploadSource LIKE 'cwlive-1008-%'&quot; --no-headers | wc -l
+       0
+$ cub trigger list --space '*' --where &quot;Slug LIKE 'cwlive-1008-%'&quot; --no-headers | wc -l
+       0
+$ cub attestation list --where &quot;AttestationID = 'd8c12c1b-c057-4f86-a2ab-7987afb4cf75'&quot;
+ATTESTATION-ID    TYPE    RESULT    REVOKES    USER-ID    CREATED
+$ cub space list --no-headers -o jq='.[].Space.Slug' | wc -l
+      44
+$ cub component list --no-headers | wc -l
+      12</code></pre>
+<p>The sorted list of Space names after the run is identical to the list taken before it, and so is the list of Component names.</p>
+<p>Everything created in the session, all of it now deleted.</p>
+<ul><li>Nine Spaces. They were <code>cwlive-1008-redis-base</code>, <code>cwlive-1008-redis-dev</code>, <code>cwlive-1008-pattern-qa-cwlive-1008-redis-base</code>, <code>cwlive-1008-gpu-operator-v25-10-1</code>, <code>cwlive-1008-gpu-operator-v26-3-2</code>, <code>cwlive-1008-gpu-operator-v26-3-3</code>, <code>cwlive-1008-gpu-operator-v25-10-1-driver-580-126-20</code>, <code>cwlive-1008-gpu-operator-rolling</code> and <code>cwlive-1008-redis2-base</code>.</li><li>Three Components. They were <code>cwlive-1008-redis</code>, <code>cwlive-1008-gpu-operator</code> and <code>cwlive-1008-redis2</code>.</li><li>One Trigger, <code>cwlive-1008-complete</code>, in the redis base Space.</li><li>One Approval attestation in the redis dev Space. It went with the Space.</li><li>The Units, Links, Tags and ChangeSets inside those Spaces.</li></ul>
+<h2 id="what-went-wrong">What went wrong</h2>
+<ol><li>The session used up the organization's Link quota. The first seven Spaces held 141 Links between them, and the upload of the driver variant then reported <code>link FAILED gpu-operator-rolebinding -&gt; gpu-operator-serviceaccount: exceeded maximum quota for entity type Link</code>. The three uploads into the rolling Space created no Links at all. The quota was exhausted for a few minutes, from the driver variant upload until cleanup began, and any other work in the organization that created a Link in that window would have been refused. A walk of this size needs Link headroom checked first, or fewer Spaces alive at once.</li><li><code>cub variant upload</code> exits 0 when Links fail on quota. The Units were written and only the <code>link FAILED</code> lines say that something is missing. The failure was first missed here because only the first and last lines of the output were being read.</li><li><code>cub unit diff</code> help lists <code>Tag:&lt;slug&gt;</code> and <code>ChangeSet:&lt;slug&gt;</code> as revision references. The server refuses both and says a reference must be a revision number, <code>-N</code>, <code>HeadRevisionNum</code> or <code>LastReleasedRevisionNum</code>. <code>cub variant diff</code> does accept Tags and ChangeSets.</li><li>A bare <code>cub unit diff &lt;unit&gt;</code> fails on a Unit that has never been released, because the default <code>--from</code> is <code>LastReleasedRevisionNum</code>. The message is <code>Failed: revision LastReleasedRevisionNum not found or is invalid</code>. In a Space with no release Target, every example that relies on that default or names <code>LastReleasedRevisionNum</code> fails this way.</li><li><code>cub unit diff --space &lt;space&gt;</code> with no Unit name is refused with <code>Failed: accepts between 1 and 3 arg(s), received 0</code>. One user doc showed that form at the time of the run.</li><li><code>cub variant approve &lt;space&gt;</code> without <code>--all</code> prints <code>Nothing to record in &lt;space&gt;: no unit has the selected revision</code> when the real reason is that no Unit has a Target. It exits 0.</li><li>A subcommand that does not exist, such as <code>cub unit livestate</code> or <code>cub unit set-predicates</code>, prints the group help and exits 0. There is no &quot;unknown command&quot; error, so a script that calls a removed command does not fail.</li><li><code>cub variant create</code> has no <code>--dry-run</code> flag. The default Space name could only be observed by creating the Space.</li><li>When the base Space has no trigger selection, the clone is given a <code>WhereTrigger</code> that points at the base Space. &quot;The selection is copied&quot; is therefore true only in the sense the help gives. A clone of a base that has its own Triggers ends up running the base's Triggers, with a <code>WhereTrigger</code> the base itself does not have.</li><li>On an unchanged repeat upload, the &quot;broke selector link&quot; lines name Units as <code>redis-headless-redis-service</code> and <code>redis-master-statefulset</code>. Those are not the Unit names. The first upload printed the real names, <code>redis-headless-service</code> and <code>redis-master</code>.</li><li><code>cub variant diff</code> between the end tags of two different uploads shows every Unit the later upload left unchanged as &quot;absent&quot;. The ChangeSet form, or an earlier tag against the head, gives the true diff.</li><li>With <code>--change-desc</code>, a promotion records that description on the new revision in the variant. The description of the upstream change is not carried, which differs from the default the help describes.</li><li><code>cub unit set-protection</code> prints the Unit's whole mutation record, including the full resource body, on success. <code>--quiet</code> is advisable in a guide.</li><li><code>cub function get --quiet --show values get-yq '&lt;expr&gt;'</code> printed nothing, while the same command with <code>--show output</code> and no <code>--quiet</code> printed the values.</li><li>Rendered Secrets are skipped by design. The redis file has 14 objects and the Space has 13 Units, so &quot;every resource becomes its own Unit&quot; needs the words &quot;except Secrets&quot;.</li><li>The top-level help tells AI agents to set <code>CONFIGHUB_AGENT=1</code> for help output. This run did not set it, so the help quoted here is the help a person sees.</li><li>Two commands in this session were run in one shell call, each to completion before the next started (the plain dry run and the real promotion in check 5). Nothing ran in parallel or in the background.</li></ol>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/live-run-log-2026-10-08.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions-and-setting">Versions and setting</a></li><li><a href="#check-1-version-login-and-starting-count">Check 1. Version, login and starting count</a></li><li><a href="#check-2-upload-a-local-file-as-a-variant">Check 2. Upload a local file as a variant</a></li><li><a href="#check-3-upload-the-same-file-again">Check 3. Upload the same file again</a></li><li><a href="#check-4-create-variants-and-see-what-is-copied">Check 4. Create variants and see what is copied</a></li><li><a href="#check-5-change-the-base-preview-the-promotion-promote">Check 5. Change the base, preview the promotion, promote</a></li><li><a href="#check-6-cub-variant-approve">Check 6. cub variant approve</a></li><li><a href="#check-7-cub-unit-set-protection-and-a-protected-path-under-promotion">Check 7. cub unit set-protection and a protected path under promotion</a></li><li><a href="#check-8-cub-unit-diff-revision-names">Check 8. cub unit diff revision names</a></li><li><a href="#check-9-release-publish-with-no-release-target-release-list-live-state">Check 9. Release publish with no release Target, release list, live state</a></li><li><a href="#check-10-the-gpu-operator-walk">Check 10. The gpu-operator walk</a></li><li><a href="#check-11-clean-up">Check 11. Clean up</a></li><li><a href="#what-went-wrong">What went wrong</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+</div>
+</body>
+</html>

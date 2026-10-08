@@ -553,7 +553,8 @@ cub unit tree --space &lt;space&gt;</code></pre>
 cub release list --space &lt;space&gt;
 kubectl --kubeconfig &lt;kubeconfig&gt; get applications -n argocd
 kubectl --kubeconfig &lt;kubeconfig&gt; get pods -A</code></pre>
-<p>The current CLI no longer has <code>cub unit apply</code> or <code>cub unit livestate</code>, which this page named before. The two <code>cub release</code> commands are taken from the help of cub v0.8.7 and have not been re-run here. That help names no command that reads one Unit's live state, so that step is not documented yet.</p>
+<p>The current CLI no longer has <code>cub unit apply</code> or <code>cub unit livestate</code>, which this page named before. A live run on 2026-10-08 with cub v0.8.7 ran both <code>cub release</code> commands in a Space with no release Target, and the <a href="live-run-log-2026-10-08.html">run log</a> holds the output. <code>cub release list --space &lt;space&gt;</code> printed an empty list. <code>cub release publish &lt;space&gt;</code> was refused with &quot;cannot release a Space without a ReleaseTargetID&quot;. A publish with a release Target was not run, and neither were the <code>kubectl</code> lines. The run found no command that reads one Unit's live state, so that step is not documented yet.</p>
+<p><code>cub variant upload</code> exits 0 when a Link fails on a quota. The same run saw <code>link FAILED</code> lines for a Space whose Units were all written. Read the whole upload output on a large component, and check the Link quota first.</p>
 <p>For GitOps/OCI, check both the root application and the child resources:</p>
 <pre><code>kubectl --kubeconfig &lt;kubeconfig&gt; get applications -n argocd
 kubectl --kubeconfig &lt;kubeconfig&gt; describe application &lt;app&gt; -n argocd

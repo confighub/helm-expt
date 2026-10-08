@@ -543,7 +543,7 @@
 <p>The fixture is three CI-rendered files taken verbatim from this catalog's committed renders, a Redis, a metrics-server, and a Traefik, standing in for a private repo of rendered charts. Each file gets the free look first, <code>cub check</code>, which names its advisory findings with stable identifiers. Then each lands with one command:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>cub variant upload --component redis --variant base redis.yaml</code></pre>
-<p>Current <code>cub</code> splits the rendered input into one Unit per Kubernetes resource server-side. The earlier <code>--granularity per-resource</code> spelling has been removed; omitting it now expresses the same resource-oriented import.</p>
+<p>Current <code>cub</code> splits the rendered input into one Unit per Kubernetes resource server-side. It skips Secrets and names each one in its output. The earlier <code>--granularity per-resource</code> spelling has been removed; omitting it now expresses the same resource-oriented import.</p>
 <p>The receipt carries the claim that matters: the objects in ConfigHub are canonically equal to the files CI rendered. Nothing is lost in the move, so there is nothing to re-review.</p>
 <h2 id="what-data-adds-over-text">What data adds over text</h2>
 <p>Four things happened next in the recorded run, none of which a repo of YAML text can do.</p>
