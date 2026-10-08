@@ -1,0 +1,101 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0"
+spec:
+  chart:
+    name: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+    version: "2.59.0"
+    source: "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
+    digest: "adb1961abcced2b66c49d4f64885d63b2fd824310c8d4f99c52c7d2c0193b118"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    []
+  supportedVariants:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  notes:
+    - "This package is the exact aws-ebs-csi-driver@2.59.0 chart, locked by archive URL and SHA-256."
+    - "With chart defaults aws-ebs-csi-driver@2.59.0 renders 19 objects as release aws-ebs-csi-driver in namespace kube-system, the names the AICR entries use: the controller Deployment, a Linux and a Windows node DaemonSet, the CSIDriver object, two ServiceAccounts, five ClusterRoles, five ClusterRoleBindings, a Role, a RoleBinding and a PodDisruptionBudget. It renders no CRD and no Secret, and no Helm hook once the chart's helm test Pod is left out."
+    - "The bases are rendered for Kubernetes 1.33.0, not the 1.30.0 that the 2.60.1 entry of this chart uses. The chart renders two more fields from 1.33, and the AICR nested render of this archive has them."
+    - "The aicr-eks-training-v0-20-0 base renders 19 objects with the values the AICR v0.20.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/001-aws-ebs-csi-driver/values.yaml): a default StorageClass on, the Windows node DaemonSet off, the controller and node pods tolerating every taint, service account names and resource requests and limits set. Its objects equal the AICR v0.20.0 nested render of the same archive, object for object."
+    - "The aicr-eks-training-v1-0-0 base renders 19 objects with the values the AICR v1.0.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-helm-bundle/001-aws-ebs-csi-driver/values.yaml): the v0.20.0 values with the controller also selected onto the system-worker node group. The AICR v1.0.0 entry retains these values and no render of this component, so this base is bound to the bundle's checksum list and its Application pin and is not compared with an AICR render."
+    - "The chart's snapshot sidecar renders only when the capability set reports the snapshot.storage.k8s.io API, and the provisioner and resizer sidecars get --feature-gates=VolumeAttributesClass=false unless it reports the VolumeAttributesClass API. An offline render reports neither, so every base has no snapshot sidecar and turns VolumeAttributesClass support off."
+    - "The chart contains no lookup, no generated credential, no keep annotation, no webhook, no Namespace template and no subchart. Its one Helm hook is a helm test Pod, which the bases leave out."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, or production support."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "dependency-lock requires dependency-lock.yaml"
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "capability-profile is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "lifecycle-policy"
+      detectedPainPoint: "no base's render contains a Helm hook object, with or without --no-hooks"
+      evidence:
+        - "no-hooks"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "target-facts"
+      detectedPainPoint: "this base needs no CRD on the target; it is rendered for Kubernetes 1.33 or later, and the controller needs AWS permissions to manage EBS volumes, which the chart does not grant"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "review-required"
+    -
+      id: "catalog-coverage"
+      detectedPainPoint: "exact source and deterministic package are retained; publication, live qualification and production support remain separate gates"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "packaged-with-controls"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof; dead=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof; ignored=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  answerForSkepticalHelmUser: "aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, target-fact-requirement, recipe, scan-gate, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."

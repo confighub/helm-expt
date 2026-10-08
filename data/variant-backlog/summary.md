@@ -8,16 +8,16 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 ## Headline
 
 ```text
-charts: 167
-charts needing variant work: 105
-charts already variant-complete: 62
-total variants to build: 128
+charts: 178
+charts needing variant work: 114
+charts already variant-complete: 64
+total variants to build: 137
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
 - `existing-secret`: 71 charts
-- `no-crds`: 33 charts
+- `no-crds`: 42 charts
 - `ha`: 20 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
@@ -60,6 +60,8 @@ total variants to build: 128
 | `coredns/coredns@1.45.2` | 1 | existing-secret |
 | `crossplane-stable/crossplane@2.3.1` | 1 | existing-secret |
 | `dex/dex@0.24.0` | 1 | existing-secret |
+| `dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1` | 3 | no-crds |
+| `dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0` | 3 | no-crds |
 | `elastic/eck-operator@3.4.0` | 3 | existing-secret |
 | `external-dns/external-dns@1.21.1` | 3 | existing-secret |
 | `external-secrets/external-secrets@2.10.0` | 2 | existing-secret |
@@ -82,7 +84,10 @@ total variants to build: 128
 | `istio/istiod@1.30.0` | 1 | existing-secret |
 | `jaegertracing/jaeger@4.8.0` | 1 | existing-secret |
 | `jetstack/trust-manager@v0.22.1` | 2 | existing-secret |
+| `kai-scheduler/kai-scheduler@v0.14.1` | 2 | no-crds |
+| `kai-scheduler/kai-scheduler@v0.16.9` | 2 | no-crds |
 | `karpenter/karpenter@1.14.0` | 3 | existing-secret |
+| `kubeflow/kubeflow-trainer@2.2.0` | 3 | no-crds |
 | `kyverno/kyverno@3.8.1` | 2 | existing-secret |
 | `kyverno/kyverno@3.8.2` | 1 | no-crds |
 | `kyverno/kyverno@3.9.0` | 1 | no-crds |
@@ -106,16 +111,20 @@ total variants to build: 128
 | `nvidia/gpu-operator@v26.7.1` | 7 | no-crds |
 | `nvidia/k8s-nim-operator@3.1.0` | 2 | no-crds |
 | `nvidia/k8s-nim-operator@3.1.2` | 1 | no-crds |
+| `nvidia/nodewright@v0.17.1` | 2 | no-crds |
+| `nvidia/nodewright@v0.19.0` | 2 | no-crds |
 | `nvidia/nvidia-device-plugin@0.19.3` | 3 | existing-secret, no-crds |
 | `oauth2-proxy/oauth2-proxy@10.7.0` | 1 | existing-secret |
 | `open-telemetry/opentelemetry-operator@0.114.0` | 2 | existing-secret |
 | `percona/psmdb-operator@1.23.0` | 1 | no-crds |
 | `policy-reporter/policy-reporter@3.10.0` | 1 | existing-secret |
 | `policy-reporter/policy-reporter@3.9.1` | 1 | existing-secret |
+| `prometheus-community/kube-prometheus-stack@84.4.0` | 3 | no-crds |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | 2 | existing-secret |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | 2 | existing-secret |
 | `prometheus-community/kube-state-metrics@7.4.0` | 2 | existing-secret |
 | `prometheus-community/prometheus-node-exporter@4.55.0` | 2 | existing-secret |
+| `prometheus-community/prometheus-operator-crds@28.0.1` | 2 | no-crds |
 | `prometheus-community/prometheus-operator-crds@29.0.0` | 1 | existing-secret, no-crds |
 | `prometheus-community/prometheus@29.8.0` | 2 | ha |
 | `prometheus-community/prometheus@29.9.0` | 2 | ha |

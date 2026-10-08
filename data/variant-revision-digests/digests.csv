@@ -29,6 +29,9 @@ recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/variant-revi
 recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/variant-revision.yaml,aws-controllers-k8s/eks-chart/1.16.3,eks-inference,r001,attached,matches,
 recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/variant-revision.yaml,aws-controllers-k8s/iam-chart/1.7.3,default,r001,attached,matches,
 recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/variant-revision.yaml,aws-controllers-k8s/iam-chart/1.7.3,eks-inference,r001,attached,matches,
+recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml,aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0,aicr-eks-training-v0-20-0,r001,attached,matches,
+recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml,aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0,aicr-eks-training-v1-0-0,r001,attached,matches,
+recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/default/r001/variant-revision.yaml,aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0,default,r001,attached,matches,
 recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/variant-revision.yaml,aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1,default,r001,attached,matches,
 recipes/bitnami/apache/11.4.29/revisions/default/r001/variant-revision.yaml,bitnami/apache/11.4.29,default,r001,attached,matches,
 recipes/bitnami/apache/11.4.29/revisions/legacy/r001/variant-revision.yaml,bitnami/apache/11.4.29,legacy,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
@@ -88,6 +91,12 @@ recipes/coredns/coredns/1.45.2/revisions/default/r001/variant-revision.yaml,core
 recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/variant-revision.yaml,crossplane-stable/crossplane/2.3.1,default,r001,attached,matches,
 recipes/descheduler/descheduler/0.36.0/revisions/default/r001/variant-revision.yaml,descheduler/descheduler/0.36.0,default,r001,attached,matches,
 recipes/dex/dex/0.24.0/revisions/default/r001/variant-revision.yaml,dex/dex/0.24.0,default,r001,attached,matches,
+recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/variant-revision.yaml,dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1,aicr-eks-training,r001,attached,matches,
+recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/variant-revision.yaml,dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1,default,r001,attached,matches,
+recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/variant-revision.yaml,dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1,gpu-resources,r001,attached,matches,
+recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/variant-revision.yaml,dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0,aicr-eks-training,r001,attached,matches,
+recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/variant-revision.yaml,dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0,default,r001,attached,matches,
+recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/variant-revision.yaml,dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0,gpu-resources,r001,attached,matches,
 recipes/elastic/eck-operator/3.4.0/revisions/default/r001/variant-revision.yaml,elastic/eck-operator/3.4.0,default,r001,attached,matches,
 recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/variant-revision.yaml,elastic/eck-operator/3.4.0,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/variant-revision.yaml,elastic/eck-operator/3.4.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
@@ -162,11 +171,21 @@ recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/variant-revisi
 recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/variant-revision.yaml,jetstack/cert-manager/v1.21.1,default,r001,attached,matches,
 recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml,jetstack/trust-manager/v0.22.1,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
 recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/variant-revision.yaml,jetstack/trust-manager/v0.22.1,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml,k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2,aicr-eks-training-v0-20-0,r001,attached,matches,
+recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml,k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2,aicr-eks-training-v1-0-0,r001,attached,matches,
+recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/variant-revision.yaml,k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2,default,r001,attached,matches,
+recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/variant-revision.yaml,kai-scheduler/kai-scheduler/v0.14.1,aicr-eks-training,r001,attached,matches,
+recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/variant-revision.yaml,kai-scheduler/kai-scheduler/v0.14.1,default,r001,attached,matches,
+recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/variant-revision.yaml,kai-scheduler/kai-scheduler/v0.16.9,aicr-eks-training,r001,attached,matches,
+recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/variant-revision.yaml,kai-scheduler/kai-scheduler/v0.16.9,default,r001,attached,matches,
 recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml,karpenter/karpenter/1.14.0,crds-managed,r001,attached,matches,
 recipes/karpenter/karpenter/1.14.0/revisions/default/r001/variant-revision.yaml,karpenter/karpenter/1.14.0,default,r001,attached,matches,
 recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/variant-revision.yaml,karpenter/karpenter/1.14.0,eks-inference,r001,attached,matches,
 recipes/kedacore/keda/2.19.0/revisions/default/r001/variant-revision.yaml,kedacore/keda/2.19.0,default,r001,attached,matches,
 recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml,kedacore/keda/2.19.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml,kubeflow/kubeflow-trainer/2.2.0,aicr-eks-training-v0-20-0,r001,attached,matches,
+recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml,kubeflow/kubeflow-trainer/2.2.0,aicr-eks-training-v1-0-0,r001,attached,matches,
+recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/variant-revision.yaml,kubeflow/kubeflow-trainer/2.2.0,default,r001,attached,matches,
 recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/variant-revision.yaml,kyverno/kyverno-policies/3.8.0,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
 recipes/kyverno/kyverno-policies/3.8.2/revisions/default/r001/variant-revision.yaml,kyverno/kyverno-policies/3.8.2,default,r001,attached,matches,
 recipes/kyverno/kyverno-policies/3.9.0/revisions/default/r001/variant-revision.yaml,kyverno/kyverno-policies/3.9.0,default,r001,attached,matches,
@@ -226,6 +245,10 @@ recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver/r001/variant-r
 recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/variant-revision.yaml,nvidia/k8s-nim-operator/3.1.0,aicr-eks-inference,r001,attached,matches,
 recipes/nvidia/k8s-nim-operator/3.1.0/revisions/default/r001/variant-revision.yaml,nvidia/k8s-nim-operator/3.1.0,default,r001,attached,matches,
 recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/variant-revision.yaml,nvidia/k8s-nim-operator/3.1.2,default,r001,attached,matches,
+recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/variant-revision.yaml,nvidia/nodewright/v0.17.1,aicr-eks-training,r001,attached,matches,
+recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/variant-revision.yaml,nvidia/nodewright/v0.17.1,default,r001,attached,matches,
+recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/variant-revision.yaml,nvidia/nodewright/v0.19.0,aicr-eks-training,r001,attached,matches,
+recipes/nvidia/nodewright/v0.19.0/revisions/default/r001/variant-revision.yaml,nvidia/nodewright/v0.19.0,default,r001,attached,matches,
 recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/variant-revision.yaml,nvidia/nvidia-device-plugin/0.19.3,default,r001,attached,matches,
 recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/variant-revision.yaml,nvidia/nvidia-device-plugin/0.19.3,eks-inference,r001,attached,matches,
 recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/variant-revision.yaml,nvidia/nvidia-device-plugin/0.19.3,nfd-enabled,r001,attached,matches,
@@ -256,6 +279,9 @@ recipes/policy-reporter/policy-reporter/3.9.1/revisions/default/r001/variant-rev
 recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml,projectcalico/tigera-operator/v3.32.0,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
 recipes/prometheus-community/alertmanager/1.37.0/revisions/default/r001/variant-revision.yaml,prometheus-community/alertmanager/1.37.0,default,r001,attached,matches,
 recipes/prometheus-community/alertmanager/1.37.0/revisions/ha/r001/variant-revision.yaml,prometheus-community/alertmanager/1.37.0,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/84.4.0,aicr-eks-training-v0-20-0,r001,attached,matches,
+recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/84.4.0,aicr-eks-training-v1-0-0,r001,attached,matches,
+recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/default/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/84.4.0,default,r001,attached,matches,
 recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/85.3.3,default,r001,attached,matches,
 recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/85.3.3,no-crds,r001,attached,matches,
 recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/86.1.0,default,r001,attached,matches,
@@ -280,6 +306,8 @@ recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/revisions/defa
 recipes/prometheus-community/prometheus-blackbox-exporter/11.18.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-blackbox-exporter/11.18.0,default,r001,attached,matches,
 recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml,prometheus-community/prometheus-node-exporter/4.55.0,cluster-metrics-readonly,r001,attached,matches,
 recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-node-exporter/4.55.0,default,r001,attached,matches,
+recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/variant-revision.yaml,prometheus-community/prometheus-operator-crds/28.0.1,aicr-eks-training,r001,attached,matches,
+recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-operator-crds/28.0.1,default,r001,attached,matches,
 recipes/prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-operator-crds/29.0.0,default,r001,attached,matches,
 recipes/prometheus-community/prometheus-pushgateway/3.6.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-pushgateway/3.6.0,default,r001,attached,matches,
 recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus/29.8.0,default,r001,attached,matches,
