@@ -1,6 +1,6 @@
 {
   "schemaVersion": "catalog-shared-check-index-v1",
-  "generatedAt": "2026-10-08T06:40:22Z",
+  "generatedAt": "2026-10-08T21:07:53Z",
   "scope": "Exact rendered Kubernetes objects for every maintained Helm base revision under recipes/.",
   "authority": "advisory-local-check",
   "scanner": {
@@ -13,136 +13,136 @@
     "catalogSHA256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
   },
   "summary": {
-    "configurations": 311,
-    "configurationsWithFindings": 300,
-    "configurationsWithoutFindings": 11,
-    "findings": 3325,
+    "configurations": 344,
+    "configurationsWithFindings": 331,
+    "configurationsWithoutFindings": 13,
+    "findings": 3639,
     "severityCounts": {
-      "critical": 906,
-      "warning": 1878,
-      "info": 541
+      "critical": 970,
+      "warning": 2080,
+      "info": 589
     },
-    "distinctControls": 47
+    "distinctControls": 48
   },
   "controlCounts": [
     {
       "id": "CCVE-2025-3746",
       "name": "Deployment does not disable automountServiceAccountToken",
       "severity": "warning",
-      "configurationCount": 217,
-      "findingCount": 410
+      "configurationCount": 242,
+      "findingCount": 447
     },
     {
       "id": "CCVE-2025-3740",
       "name": "Deployment explicitly sets replicas to 1",
       "severity": "info",
-      "configurationCount": 219,
-      "findingCount": 388
+      "configurationCount": 241,
+      "findingCount": 422
     },
     {
       "id": "CCVE-2025-3728",
       "name": "Deployment containers omit resource limits",
       "severity": "warning",
-      "configurationCount": 144,
-      "findingCount": 270
+      "configurationCount": 161,
+      "findingCount": 291
     },
     {
       "id": "CCVE-2025-3732",
       "name": "Deployment containers omit resource requests",
       "severity": "warning",
-      "configurationCount": 129,
-      "findingCount": 250
+      "configurationCount": 146,
+      "findingCount": 271
     },
     {
       "id": "CCVE-2025-4078",
       "name": "ClusterRole grants secrets read permissions",
       "severity": "critical",
-      "configurationCount": 119,
-      "findingCount": 232
-    },
-    {
-      "id": "CCVE-2025-3745",
-      "name": "emptyDir volume has no sizeLimit",
-      "severity": "info",
-      "configurationCount": 100,
-      "findingCount": 137
-    },
-    {
-      "id": "CCVE-2025-3735",
-      "name": "Container does not enforce readOnlyRootFilesystem",
-      "severity": "warning",
-      "configurationCount": 120,
-      "findingCount": 131
-    },
-    {
-      "id": "CCVE-2025-3758",
-      "name": "DaemonSet does not disable automountServiceAccountToken",
-      "severity": "warning",
-      "configurationCount": 58,
-      "findingCount": 119
+      "configurationCount": 131,
+      "findingCount": 250
     },
     {
       "id": "CCVE-2025-4005",
       "name": "Volume argocd-repo-server-tls references Secret argocd/argocd-repo-server-tls which is not present in scanned documents",
       "severity": "warning",
-      "configurationCount": 52,
-      "findingCount": 118
+      "configurationCount": 59,
+      "findingCount": 153
     },
     {
-      "id": "CCVE-2025-3734",
-      "name": "Container does not disable allowPrivilegeEscalation",
-      "severity": "critical",
-      "configurationCount": 89,
-      "findingCount": 100
+      "id": "CCVE-2025-3735",
+      "name": "Container does not enforce readOnlyRootFilesystem",
+      "severity": "warning",
+      "configurationCount": 137,
+      "findingCount": 148
+    },
+    {
+      "id": "CCVE-2025-3745",
+      "name": "emptyDir volume has no sizeLimit",
+      "severity": "info",
+      "configurationCount": 110,
+      "findingCount": 147
+    },
+    {
+      "id": "CCVE-2025-3758",
+      "name": "DaemonSet does not disable automountServiceAccountToken",
+      "severity": "warning",
+      "configurationCount": 70,
+      "findingCount": 134
     },
     {
       "id": "CCVE-2025-3736",
       "name": "Container does not drop ALL capabilities",
       "severity": "warning",
-      "configurationCount": 88,
-      "findingCount": 100
+      "configurationCount": 101,
+      "findingCount": 113
+    },
+    {
+      "id": "CCVE-2025-3734",
+      "name": "Container does not disable allowPrivilegeEscalation",
+      "severity": "critical",
+      "configurationCount": 99,
+      "findingCount": 110
     },
     {
       "id": "CCVE-2025-3755",
       "name": "DaemonSet container does not set runAsNonRoot",
       "severity": "critical",
-      "configurationCount": 34,
-      "findingCount": 94
+      "configurationCount": 47,
+      "findingCount": 108
     },
     {
       "id": "CCVE-2025-3733",
       "name": "Container does not set runAsNonRoot",
       "severity": "critical",
-      "configurationCount": 79,
-      "findingCount": 85
-    },
-    {
-      "id": "CCVE-2025-4075",
-      "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
-      "severity": "critical",
-      "configurationCount": 58,
-      "findingCount": 74
+      "configurationCount": 89,
+      "findingCount": 95
     },
     {
       "id": "CCVE-2025-3726",
       "name": "Deployment omits pod and container securityContext baseline",
       "severity": "warning",
-      "configurationCount": 70,
-      "findingCount": 70
+      "configurationCount": 80,
+      "findingCount": 80
     },
     {
-      "id": "CCVE-2025-4076",
-      "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+      "id": "CCVE-2025-4075",
+      "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
       "severity": "critical",
-      "configurationCount": 57,
-      "findingCount": 69
+      "configurationCount": 61,
+      "findingCount": 77
     },
     {
       "id": "CCVE-2025-4001",
       "name": "Service selector matches no Deployment or StatefulSet in namespace default",
       "severity": "warning",
-      "configurationCount": 28,
-      "findingCount": 63
+      "configurationCount": 31,
+      "findingCount": 72
+    },
+    {
+      "id": "CCVE-2025-4076",
+      "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+      "severity": "critical",
+      "configurationCount": 60,
+      "findingCount": 72
     },
     {
       "id": "CCVE-2025-3752",
@@ -152,6 +152,13 @@
       "findingCount": 53
     },
     {
+      "id": "CCVE-2025-3756",
+      "name": "DaemonSet containers omit resource limits",
+      "severity": "warning",
+      "configurationCount": 48,
+      "findingCount": 52
+    },
+    {
       "id": "CCVE-2025-5013",
       "name": "Helm-managed StatefulSet may orphan PVCs on release lifecycle operations",
       "severity": "warning",
@@ -159,11 +166,11 @@
       "findingCount": 51
     },
     {
-      "id": "CCVE-2025-3756",
-      "name": "DaemonSet containers omit resource limits",
+      "id": "CCVE-2025-3757",
+      "name": "DaemonSet containers omit resource requests",
       "severity": "warning",
-      "configurationCount": 37,
-      "findingCount": 41
+      "configurationCount": 42,
+      "findingCount": 46
     },
     {
       "id": "CCVE-2025-3749",
@@ -187,13 +194,6 @@
       "findingCount": 38
     },
     {
-      "id": "CCVE-2025-3757",
-      "name": "DaemonSet containers omit resource requests",
-      "severity": "warning",
-      "configurationCount": 33,
-      "findingCount": 37
-    },
-    {
       "id": "CCVE-2025-3750",
       "name": "StatefulSet containers omit resource requests",
       "severity": "warning",
@@ -208,6 +208,13 @@
       "findingCount": 35
     },
     {
+      "id": "CCVE-2025-0043",
+      "name": "Thanos sidecar not uploading blocks",
+      "severity": "critical",
+      "configurationCount": 16,
+      "findingCount": 32
+    },
+    {
       "id": "CCVE-2025-4080",
       "name": "ClusterRole grants CSR approval update permissions",
       "severity": "critical",
@@ -220,13 +227,6 @@
       "severity": "critical",
       "configurationCount": 27,
       "findingCount": 29
-    },
-    {
-      "id": "CCVE-2025-0043",
-      "name": "Thanos sidecar not uploading blocks",
-      "severity": "critical",
-      "configurationCount": 13,
-      "findingCount": 26
     },
     {
       "id": "CCVE-2025-2704",
@@ -262,6 +262,13 @@
       "severity": "info",
       "configurationCount": 11,
       "findingCount": 11
+    },
+    {
+      "id": "CCVE-2025-3744",
+      "name": "Multi-replica Deployment has no pod anti-affinity",
+      "severity": "info",
+      "configurationCount": 9,
+      "findingCount": 9
     },
     {
       "id": "CCVE-2025-3748",
@@ -306,18 +313,18 @@
       "findingCount": 6
     },
     {
-      "id": "CCVE-2025-3744",
-      "name": "Multi-replica Deployment has no pod anti-affinity",
-      "severity": "info",
-      "configurationCount": 5,
-      "findingCount": 5
-    },
-    {
       "id": "CCVE-2025-3754",
       "name": "DaemonSet omits security context settings",
       "severity": "critical",
       "configurationCount": 5,
       "findingCount": 5
+    },
+    {
+      "id": "CCVE-2025-3763",
+      "name": "Namespace lacks Pod Security Standards enforcement labels",
+      "severity": "warning",
+      "configurationCount": 4,
+      "findingCount": 4
     },
     {
       "id": "CCVE-2025-3765",
@@ -2971,6 +2978,162 @@
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.json"
     },
     {
+      "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0",
+      "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+      "version": "2.59.0",
+      "base": "aicr-eks-training-v0-20-0",
+      "outcome": "findings",
+      "findingCount": 5,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 3,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 19,
+      "objectSetSHA256": "sha256:cb7b4fe70803d4abc5973aa2728dce8922b044c02cf4cca16ecc2363af3de665",
+      "renderFileSHA256": "sha256:3add2198bacb315b41fe707fe68c0aa4d71551850e31dc4757fca2b750c7c6a8",
+      "scanTime": "2026-10-08T21:07:02Z",
+      "renderPath": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v0-20-0/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0.json"
+    },
+    {
+      "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0",
+      "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+      "version": "2.59.0",
+      "base": "aicr-eks-training-v1-0-0",
+      "outcome": "findings",
+      "findingCount": 5,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 3,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 19,
+      "objectSetSHA256": "sha256:5bfa47f20acfc838a13b096a44a255b43f08cd5e959488e5d2e9d8a28ac12b66",
+      "renderFileSHA256": "sha256:d2e617adfa3bf225ed25b1ffff83ce69708b4c37129385ebaaddfa8154b52314",
+      "scanTime": "2026-10-08T21:07:03Z",
+      "renderPath": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v1-0-0/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0.json"
+    },
+    {
+      "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default",
+      "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+      "version": "2.59.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 7,
+      "severityCounts": {
+        "critical": 2,
+        "warning": 4,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 19,
+      "objectSetSHA256": "sha256:bd7d0f16329dcc9e0b0cb8bfd8c2119eb5b38e3eb5bf82a95dc3f07985113e2e",
+      "renderFileSHA256": "sha256:447a8575281561228f0967028733f1aece68c338afa487091e8baa3f1eeaaec1",
+      "scanTime": "2026-10-08T21:07:03Z",
+      "renderPath": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default.json"
+    },
+    {
       "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default",
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
       "version": "2.60.1",
@@ -5223,6 +5386,674 @@
       "renderPath": "recipes/dex/dex/0.24.0/revisions/default/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/dex/dex/0.24.0/revisions/default/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/dex-dex-0-24-0-default.json"
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training",
+      "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "version": "0.4.1",
+      "base": "aicr-eks-training",
+      "outcome": "findings",
+      "findingCount": 13,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 9,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3757",
+          "name": "DaemonSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 21,
+      "objectSetSHA256": "sha256:c5588455f64099a171e39f4c9c45f3eb17e86b51be77d36b5fac17e98b4ce05c",
+      "renderFileSHA256": "sha256:c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779",
+      "scanTime": "2026-10-08T21:07:12Z",
+      "renderPath": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training.json"
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default",
+      "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "version": "0.4.1",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 13,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 9,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3757",
+          "name": "DaemonSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 21,
+      "objectSetSHA256": "sha256:83ee90a0b16b7e2451aef27a71639a75db756abcf9774f0ebc8e07cf69149fbf",
+      "renderFileSHA256": "sha256:00102cc2a1a5a1e73778e326dc7774090347379c52fe73c68551602d1b26f3df",
+      "scanTime": "2026-10-08T21:07:12Z",
+      "renderPath": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default.json"
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources",
+      "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "version": "0.4.1",
+      "base": "gpu-resources",
+      "outcome": "findings",
+      "findingCount": 13,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 9,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3757",
+          "name": "DaemonSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:4916b7446ab3fd3264d39c93e239a7fe71c6d4a5f2413bce549cedf28f4cd1bb",
+      "renderFileSHA256": "sha256:8a6d869284830a33e801c4b782c12f193a497b7563d84acaf2c370c8be8a0183",
+      "scanTime": "2026-10-08T21:07:13Z",
+      "renderPath": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources.json"
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training",
+      "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "version": "0.5.0",
+      "base": "aicr-eks-training",
+      "outcome": "findings",
+      "findingCount": 13,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 9,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3757",
+          "name": "DaemonSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 21,
+      "objectSetSHA256": "sha256:bf8cdfb0232297caac62f7617a4f115768fc18c997d8cab59b5bdb110aaedb2e",
+      "renderFileSHA256": "sha256:282e9c2dd1946fe677c2b7a9ee7d1a8d65f109f2a302ab628e2ffe1bddc3c932",
+      "scanTime": "2026-10-08T21:07:13Z",
+      "renderPath": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.json"
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default",
+      "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "version": "0.5.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 13,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 9,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3757",
+          "name": "DaemonSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 21,
+      "objectSetSHA256": "sha256:8652d001d4568f8df98218bfe78f4463326713b715198a70a722454b3b14947e",
+      "renderFileSHA256": "sha256:982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8",
+      "scanTime": "2026-10-08T21:07:13Z",
+      "renderPath": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.json"
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources",
+      "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "version": "0.5.0",
+      "base": "gpu-resources",
+      "outcome": "findings",
+      "findingCount": 13,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 9,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3757",
+          "name": "DaemonSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:652f8dbf0af6f5dfe3bfa83d6c1c479315d51a9b4ec0d380392a26564714a1dd",
+      "renderFileSHA256": "sha256:29aaf2e6ba3dce216ef70bcb1cd14afcd8dbcbe4e30cec982c48f36befe6e93d",
+      "scanTime": "2026-10-08T21:07:13Z",
+      "renderPath": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources.json"
+    },
+    {
+      "id": "eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training",
+      "chart": "eks/aws-efa-k8s-device-plugin",
+      "version": "v0.5.29",
+      "base": "aicr-eks-training",
+      "outcome": "findings",
+      "findingCount": 2,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 1,
+        "info": 0
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        }
+      ],
+      "objectCount": 1,
+      "objectSetSHA256": "sha256:4c76e63a955ece072d0a121cd93f468832d68efd9fb3f5bd6a384f7e5944d256",
+      "renderFileSHA256": "sha256:c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71",
+      "scanTime": "2026-10-08T21:07:13Z",
+      "renderPath": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training.json"
+    },
+    {
+      "id": "eks-aws-efa-k8s-device-plugin-v0-5-29-default",
+      "chart": "eks/aws-efa-k8s-device-plugin",
+      "version": "v0.5.29",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 2,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 1,
+        "info": 0
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        }
+      ],
+      "objectCount": 1,
+      "objectSetSHA256": "sha256:642bba1855054541f1ea67ccb23c1afec795e7e7ca5906136823267245b421d6",
+      "renderFileSHA256": "sha256:c1ef5b2dfd1b02b944714537189ff29d7fa937dedcb2ce32b40495bebdb5b8f8",
+      "scanTime": "2026-10-08T21:07:13Z",
+      "renderPath": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/eks-aws-efa-k8s-device-plugin-v0-5-29-default.json"
     },
     {
       "id": "elastic-eck-operator-3-4-0-default",
@@ -9673,6 +10504,574 @@
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/jetstack-trust-manager-v0-22-1-no-crds.json"
     },
     {
+      "id": "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0",
+      "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
+      "version": "1.19.2",
+      "base": "aicr-eks-training-v0-20-0",
+      "outcome": "findings",
+      "findingCount": 7,
+      "severityCounts": {
+        "critical": 2,
+        "warning": 4,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 6,
+      "objectSetSHA256": "sha256:1875828e4e57b9d12c6a0bcf02fdff696848ad84b46a9be40a60bb6d3996dd1c",
+      "renderFileSHA256": "sha256:6ff74d2f9205569c76a953a1bc1b09ddcf9341e9a9c72c8a53e5805c59f403bd",
+      "scanTime": "2026-10-08T21:07:27Z",
+      "renderPath": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0.json"
+    },
+    {
+      "id": "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0",
+      "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
+      "version": "1.19.2",
+      "base": "aicr-eks-training-v1-0-0",
+      "outcome": "findings",
+      "findingCount": 7,
+      "severityCounts": {
+        "critical": 2,
+        "warning": 4,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 6,
+      "objectSetSHA256": "sha256:bc1fef93e998b6a4ed2bc43f48c5b3d16c08f07edcec6ec4f1ab4a119320dd5a",
+      "renderFileSHA256": "sha256:9f9f4bda22ad0886fe05c25a16a747c6020fc98151906bdcbe116c2177622a92",
+      "scanTime": "2026-10-08T21:07:27Z",
+      "renderPath": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0.json"
+    },
+    {
+      "id": "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default",
+      "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
+      "version": "1.19.2",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 7,
+      "severityCounts": {
+        "critical": 2,
+        "warning": 4,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 6,
+      "objectSetSHA256": "sha256:8f2e147f676f489b8e71a68d7373ab7fb2fff9a1e6997040b7684da4564e0040",
+      "renderFileSHA256": "sha256:80ef333ecea7833761b828a1da0e0301efc0e1a399a8a03fd31fdbd4af638da8",
+      "scanTime": "2026-10-08T21:07:27Z",
+      "renderPath": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default.json"
+    },
+    {
+      "id": "kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training",
+      "chart": "kai-scheduler/kai-scheduler",
+      "version": "v0.14.1",
+      "base": "aicr-eks-training",
+      "outcome": "findings",
+      "findingCount": 19,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 15,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount kai-scheduler/admission is not present in scanned documents",
+          "severity": "warning",
+          "count": 8
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3763",
+          "name": "Namespace lacks Pod Security Standards enforcement labels",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 37,
+      "objectSetSHA256": "sha256:0c958734fd09025ebc416f28c64425ab9448c643878233ced201881eaa521659",
+      "renderFileSHA256": "sha256:f5b5383ffa1072925cd6d639d4aa69cbdefa1b34ba4eaf75b33a698fd210a9c5",
+      "scanTime": "2026-10-08T21:07:28Z",
+      "renderPath": "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.json"
+    },
+    {
+      "id": "kai-scheduler-kai-scheduler-v0-14-1-default",
+      "chart": "kai-scheduler/kai-scheduler",
+      "version": "v0.14.1",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 19,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 15,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount kai-scheduler/admission is not present in scanned documents",
+          "severity": "warning",
+          "count": 8
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3763",
+          "name": "Namespace lacks Pod Security Standards enforcement labels",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 37,
+      "objectSetSHA256": "sha256:fb2317196c988a6dce0b443274766df096ba3929dd50175f2f74c320019e568a",
+      "renderFileSHA256": "sha256:a0cf177775ec0bf2532012da868de07c070a4fb6d6f792a9518089c5b0bc7b46",
+      "scanTime": "2026-10-08T21:07:28Z",
+      "renderPath": "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/kai-scheduler-kai-scheduler-v0-14-1-default.json"
+    },
+    {
+      "id": "kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training",
+      "chart": "kai-scheduler/kai-scheduler",
+      "version": "v0.16.9",
+      "base": "aicr-eks-training",
+      "outcome": "findings",
+      "findingCount": 19,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 15,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount kai-scheduler/admission is not present in scanned documents",
+          "severity": "warning",
+          "count": 8
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3763",
+          "name": "Namespace lacks Pod Security Standards enforcement labels",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 37,
+      "objectSetSHA256": "sha256:ce67136ec9e98ee04f43e8a2d475f24c809def4ddf6100d64e257c0f02093631",
+      "renderFileSHA256": "sha256:47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25",
+      "scanTime": "2026-10-08T21:07:28Z",
+      "renderPath": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.json"
+    },
+    {
+      "id": "kai-scheduler-kai-scheduler-v0-16-9-default",
+      "chart": "kai-scheduler/kai-scheduler",
+      "version": "v0.16.9",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 19,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 15,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount kai-scheduler/admission is not present in scanned documents",
+          "severity": "warning",
+          "count": 8
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3763",
+          "name": "Namespace lacks Pod Security Standards enforcement labels",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 37,
+      "objectSetSHA256": "sha256:fbedbb82f9c425235852aa27e42539d8d49c34c494437e052fffca8ffe06c2ab",
+      "renderFileSHA256": "sha256:7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76",
+      "scanTime": "2026-10-08T21:07:28Z",
+      "renderPath": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/kai-scheduler-kai-scheduler-v0-16-9-default.json"
+    },
+    {
       "id": "karpenter-karpenter-1-14-0-crds-managed",
       "chart": "karpenter/karpenter",
       "version": "1.14.0",
@@ -9919,6 +11318,144 @@
       "renderPath": "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/kedacore-keda-2-19-0-no-crds.json"
+    },
+    {
+      "id": "kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v0-20-0",
+      "chart": "kubeflow/kubeflow-trainer",
+      "version": "2.2.0",
+      "base": "aicr-eks-training-v0-20-0",
+      "outcome": "findings",
+      "findingCount": 5,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 2,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 2
+        }
+      ],
+      "objectCount": 28,
+      "objectSetSHA256": "sha256:faea6d858feeb9ad0470f719207b43e0cc6907206fadebd02745c2f7e06ad533",
+      "renderFileSHA256": "sha256:9dd7efd3ae87560f2a396d4ed3a13db830d8a5b0856da5992e377026a92f2fcc",
+      "scanTime": "2026-10-08T21:07:29Z",
+      "renderPath": "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v0-20-0/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v0-20-0.json"
+    },
+    {
+      "id": "kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0",
+      "chart": "kubeflow/kubeflow-trainer",
+      "version": "2.2.0",
+      "base": "aicr-eks-training-v1-0-0",
+      "outcome": "findings",
+      "findingCount": 5,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 2,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 2
+        }
+      ],
+      "objectCount": 28,
+      "objectSetSHA256": "sha256:d606939475bd280310198bba2da9dceed8ed163ce73111c850a0f70a538553de",
+      "renderFileSHA256": "sha256:6d3b2103eec83a3ae10f1ced2dc4b30178068013ee0b688527581d2abe5619aa",
+      "scanTime": "2026-10-08T21:07:29Z",
+      "renderPath": "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.json"
+    },
+    {
+      "id": "kubeflow-kubeflow-trainer-2-2-0-default",
+      "chart": "kubeflow/kubeflow-trainer",
+      "version": "2.2.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 8,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 5,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 2
+        }
+      ],
+      "objectCount": 28,
+      "objectSetSHA256": "sha256:3d5586ae8df2cd39ceb2e6ff5326e7400f317db23fb16e42f41bbb176898b58d",
+      "renderFileSHA256": "sha256:517fb09d2f16a0a4c83b9859ec82b4fddc8ce4c74eb552608c1789df0252b616",
+      "scanTime": "2026-10-08T21:07:30Z",
+      "renderPath": "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/kubeflow-kubeflow-trainer-2-2-0-default.json"
     },
     {
       "id": "kyverno-kyverno-3-8-1-default",
@@ -11902,6 +13439,138 @@
       "renderPath": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.json"
+    },
+    {
+      "id": "node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0",
+      "chart": "node-feature-discovery/node-feature-discovery",
+      "version": "0.19.0",
+      "base": "aicr-eks-training-v0-20-0",
+      "outcome": "findings",
+      "findingCount": 7,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 4,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 2
+        }
+      ],
+      "objectCount": 23,
+      "objectSetSHA256": "sha256:c7a41b50ddb0688510483995e3d5c301dfa2ad336a391a8a67716f8ff1288816",
+      "renderFileSHA256": "sha256:371a599fbb959c71f232f4cfbe5a37aedfb70a17fe9205793440c73b2d7c3b93",
+      "scanTime": "2026-10-08T21:07:35Z",
+      "renderPath": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.json"
+    },
+    {
+      "id": "node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0",
+      "chart": "node-feature-discovery/node-feature-discovery",
+      "version": "0.19.0",
+      "base": "aicr-eks-training-v1-0-0",
+      "outcome": "findings",
+      "findingCount": 7,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 4,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 2
+        }
+      ],
+      "objectCount": 23,
+      "objectSetSHA256": "sha256:b08f26a71d6d4e5b3ceb9fba8e968f328fb02cd2cd0a3671166ddf6300cc6181",
+      "renderFileSHA256": "sha256:2329b2fca9e54b4e5b5ba90308c4769c1e919eebffcaa4b756266d63a64de0ff",
+      "scanTime": "2026-10-08T21:07:35Z",
+      "renderPath": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0.json"
+    },
+    {
+      "id": "node-feature-discovery-node-feature-discovery-0-19-0-default",
+      "chart": "node-feature-discovery/node-feature-discovery",
+      "version": "0.19.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 5,
+      "severityCounts": {
+        "critical": 0,
+        "warning": 3,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 2
+        }
+      ],
+      "objectCount": 17,
+      "objectSetSHA256": "sha256:6091101d6848d807a20d29ad8dfcfc50ce710d4cf8ea2db503c98986544888b9",
+      "renderFileSHA256": "sha256:cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995",
+      "scanTime": "2026-10-08T21:07:35Z",
+      "renderPath": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/node-feature-discovery-node-feature-discovery-0-19-0-default.json"
     },
     {
       "id": "nvidia-cluster-readiness-engine-v0-6-0-default",
@@ -14250,6 +15919,154 @@
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-k8s-nim-operator-3-1-2-default.json"
     },
     {
+      "id": "nvidia-nodewright-v0-17-1-aicr-eks-training",
+      "chart": "nvidia/nodewright",
+      "version": "v0.17.1",
+      "base": "aicr-eks-training",
+      "outcome": "findings",
+      "findingCount": 3,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 0,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3744",
+          "name": "Multi-replica Deployment has no pod anti-affinity",
+          "severity": "info",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 18,
+      "objectSetSHA256": "sha256:4a38681cb73e12c0241726a52530ab59c9b39d8dbe21c273d50e3ba15cc8ca08",
+      "renderFileSHA256": "sha256:6b25ebafd5569b97caf3dab889873641f69ec5595fa7d2ff5262042d8927b3ed",
+      "scanTime": "2026-10-08T21:07:41Z",
+      "renderPath": "recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nodewright-v0-17-1-aicr-eks-training.json"
+    },
+    {
+      "id": "nvidia-nodewright-v0-17-1-default",
+      "chart": "nvidia/nodewright",
+      "version": "v0.17.1",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 3,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 0,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3744",
+          "name": "Multi-replica Deployment has no pod anti-affinity",
+          "severity": "info",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 18,
+      "objectSetSHA256": "sha256:f031005ba57db7e649ac3a0005f4a9d992e197d2e7f2be5104d0c2937b618ad6",
+      "renderFileSHA256": "sha256:95a732cc71f8c56371fe119f8727c2c4053891dbb59d6cbbc5fbcbc378412210",
+      "scanTime": "2026-10-08T21:07:41Z",
+      "renderPath": "recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nodewright-v0-17-1-default.json"
+    },
+    {
+      "id": "nvidia-nodewright-v0-19-0-aicr-eks-training",
+      "chart": "nvidia/nodewright",
+      "version": "v0.19.0",
+      "base": "aicr-eks-training",
+      "outcome": "findings",
+      "findingCount": 2,
+      "severityCounts": {
+        "critical": 0,
+        "warning": 0,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3744",
+          "name": "Multi-replica Deployment has no pod anti-affinity",
+          "severity": "info",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 20,
+      "objectSetSHA256": "sha256:3a6744d965a6902e6c0f8d3da20656f40d1aaeedbb3718e2cb62c21f290f2330",
+      "renderFileSHA256": "sha256:c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf",
+      "scanTime": "2026-10-08T21:07:41Z",
+      "renderPath": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nodewright-v0-19-0-aicr-eks-training.json"
+    },
+    {
+      "id": "nvidia-nodewright-v0-19-0-default",
+      "chart": "nvidia/nodewright",
+      "version": "v0.19.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 2,
+      "severityCounts": {
+        "critical": 0,
+        "warning": 0,
+        "info": 2
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3744",
+          "name": "Multi-replica Deployment has no pod anti-affinity",
+          "severity": "info",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 20,
+      "objectSetSHA256": "sha256:06b0928a6f8e0062df443361c03335eaee9869f27398bec82680076c0dd7de26",
+      "renderFileSHA256": "sha256:4d5e785228886b5681a54f46eb442bb8983d6b908d95e625c0c9ceb045b39430",
+      "scanTime": "2026-10-08T21:07:41Z",
+      "renderPath": "recipes/nvidia/nodewright/v0.19.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nodewright/v0.19.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nodewright-v0-19-0-default.json"
+    },
+    {
       "id": "nvidia-nvidia-device-plugin-0-19-3-default",
       "chart": "nvidia/nvidia-device-plugin",
       "version": "0.19.3",
@@ -16450,6 +18267,288 @@
       "renderPath": "recipes/prometheus-community/alertmanager/1.37.0/revisions/ha/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/prometheus-community/alertmanager/1.37.0/revisions/ha/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/prometheus-community-alertmanager-1-37-0-ha.json"
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0",
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "84.4.0",
+      "base": "aicr-eks-training-v0-20-0",
+      "outcome": "findings",
+      "findingCount": 23,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 14,
+        "info": 4
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-0043",
+          "name": "Thanos sidecar not uploading blocks",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-4001",
+          "name": "Service selector matches no Deployment or StatefulSet in namespace monitoring",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3757",
+          "name": "DaemonSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "Volume tls-secret references Secret monitoring/kube-prometheus-admission which is not present in scanned documents",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 116,
+      "objectSetSHA256": "sha256:d8fec67a455a33b3eb6af50823cdf61034168f21a8564cabc331f5941528df63",
+      "renderFileSHA256": "sha256:6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc",
+      "scanTime": "2026-10-08T21:07:46Z",
+      "renderPath": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.json"
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0",
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "84.4.0",
+      "base": "aicr-eks-training-v1-0-0",
+      "outcome": "findings",
+      "findingCount": 23,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 14,
+        "info": 4
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-0043",
+          "name": "Thanos sidecar not uploading blocks",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-4001",
+          "name": "Service selector matches no Deployment or StatefulSet in namespace monitoring",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3757",
+          "name": "DaemonSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "Volume tls-secret references Secret monitoring/kube-prometheus-admission which is not present in scanned documents",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 116,
+      "objectSetSHA256": "sha256:242693640e564d83d905060e03e416f5e9d308169746fe3470a3f164e79ae451",
+      "renderFileSHA256": "sha256:55c31cf72066a59e0c7f1e67c453e9487160ab7683b7320ce4ea280b00cd194a",
+      "scanTime": "2026-10-08T21:07:47Z",
+      "renderPath": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v1-0-0/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0.json"
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-84-4-0-default",
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "84.4.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 25,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 16,
+        "info": 4
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-0043",
+          "name": "Thanos sidecar not uploading blocks",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-4001",
+          "name": "Service selector matches no Deployment or StatefulSet in namespace monitoring",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3756",
+          "name": "DaemonSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3757",
+          "name": "DaemonSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "Volume tls-secret references Secret monitoring/kube-prometheus-stack-admission which is not present in scanned documents",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 126,
+      "objectSetSHA256": "sha256:21a35769979c6ae94694d6c021906502d2cd5a26c5bbfb0c00e258b8d9957dd5",
+      "renderFileSHA256": "sha256:c5dc2d69b5f9d0163166cd07485ee067e96702856fbdb5e0af3de88df0a348db",
+      "scanTime": "2026-10-08T21:07:47Z",
+      "renderPath": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/prometheus-community-kube-prometheus-stack-84-4-0-default.json"
     },
     {
       "id": "prometheus-community-kube-prometheus-stack-85-3-3-default",
@@ -18704,6 +20803,48 @@
       "renderPath": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/default/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/default/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/prometheus-community-prometheus-node-exporter-4-55-0-default.json"
+    },
+    {
+      "id": "prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training",
+      "chart": "prometheus-community/prometheus-operator-crds",
+      "version": "28.0.1",
+      "base": "aicr-eks-training",
+      "outcome": "no-findings",
+      "findingCount": 0,
+      "severityCounts": {
+        "critical": 0,
+        "warning": 0,
+        "info": 0
+      },
+      "findings": [],
+      "objectCount": 10,
+      "objectSetSHA256": "sha256:90e400083d360bbc260f421906a671d6dff2f4dddc344b557f64519957045c94",
+      "renderFileSHA256": "sha256:c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123",
+      "scanTime": "2026-10-08T21:07:53Z",
+      "renderPath": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.json"
+    },
+    {
+      "id": "prometheus-community-prometheus-operator-crds-28-0-1-default",
+      "chart": "prometheus-community/prometheus-operator-crds",
+      "version": "28.0.1",
+      "base": "default",
+      "outcome": "no-findings",
+      "findingCount": 0,
+      "severityCounts": {
+        "critical": 0,
+        "warning": 0,
+        "info": 0
+      },
+      "findings": [],
+      "objectCount": 10,
+      "objectSetSHA256": "sha256:90e400083d360bbc260f421906a671d6dff2f4dddc344b557f64519957045c94",
+      "renderFileSHA256": "sha256:c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123",
+      "scanTime": "2026-10-08T21:07:53Z",
+      "renderPath": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/prometheus-community-prometheus-operator-crds-28-0-1-default.json"
     },
     {
       "id": "prometheus-community-prometheus-operator-crds-29-0-0-default",

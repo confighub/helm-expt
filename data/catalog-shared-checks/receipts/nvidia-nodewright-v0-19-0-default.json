@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "nvidia-nodewright-v0-19-0-default",
+    "chart": "nvidia/nodewright",
+    "version": "v0.19.0",
+    "base": "default",
+    "renderPath": "recipes/nvidia/nodewright/v0.19.0/revisions/default/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:4d5e785228886b5681a54f46eb442bb8983d6b908d95e625c0c9ceb045b39430"
+  },
+  "catalogReview": {
+    "path": "recipes/nvidia/nodewright/v0.19.0/revisions/default/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 2,
+    "findings": [
+      {
+        "id": "CCVE-2025-3744",
+        "name": "Multi-replica Deployment has no pod anti-affinity",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "nodewright-controller-manager",
+          "namespace": "nodewright"
+        },
+        "message": "Multi-replica Deployment has no podAntiAffinity; replicas may land on same node",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Add podAntiAffinity with preferredDuringSchedulingIgnoredDuringExecution",
+            "Use topologyKey kubernetes.io/hostname to spread across nodes",
+            "For strict HA use requiredDuringSchedulingIgnoredDuringExecution"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.affinity}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Add podAntiAffinity with preferredDuringSchedulingIgnoredDuringExecution",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.affinity}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3744"
+        }
+      },
+      {
+        "id": "CCVE-2025-3745",
+        "name": "emptyDir volume has no sizeLimit",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "nodewright-controller-manager",
+          "namespace": "nodewright"
+        },
+        "message": "Volume webhook-certs uses emptyDir without sizeLimit; may exhaust node disk",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set sizeLimit on all emptyDir volumes",
+            "Size the limit based on expected usage with headroom",
+            "{'Consider using memory-backed emptyDir (medium': 'Memory) for small caches'}"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.volumes}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set sizeLimit on all emptyDir volumes",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.volumes}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3745"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-10-08T21:07:41Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 20,
+      "object_set_sha256": "sha256:06b0928a6f8e0062df443361c03335eaee9869f27398bec82680076c0dd7de26"
+    }
+  }
+}
