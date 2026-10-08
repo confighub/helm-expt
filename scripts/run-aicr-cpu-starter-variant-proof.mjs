@@ -193,6 +193,7 @@ function run() {
     const pushedDigest = command("oras", ["resolve", "--plain-http", registryRef]).trim();
     check(/^sha256:[0-9a-f]{64}$/.test(pushedDigest), `oras resolve returned no digest: ${pushedDigest}`);
 
+    throw new Error("This lane was written for the minimal Unit layout of cub variant upload --granularity, which cub v0.8.7 no longer has: the server now makes one Unit per resource. Re-observe on the current CLI which Unit holds the stack and what the promotion dry run reports.");
     cub(context, [
       "variant",
       "upload",
@@ -202,11 +203,9 @@ function run() {
       "base",
       "--space",
       spaces.base,
-      "--granularity",
-      "minimal",
-      "--label",
+      "--space-label",
       "SourceType=aicr-derived",
-      "--label",
+      "--space-label",
       "ResourceClass=system-configuration",
       "--layer",
       "Platform",

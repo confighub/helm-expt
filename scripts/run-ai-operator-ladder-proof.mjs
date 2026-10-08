@@ -459,7 +459,7 @@ function readReviewedHead(space, unit) {
 }
 
 function readChangeOrderRevision(space, changeOrderID, unit) {
-  const rows = cubJson("revision", "list", "--space", space, "--by-unit-id", unit.UnitID ?? unit.unitID,
+  const rows = cubJson("revision", "list", "--space", space, unit.Slug ?? unit.slug,
     "--change-order", changeOrderID, "-o", "json");
   const observed = assertChangeOrderRevisionCoverage(rows, {
     unitID: unit.UnitID ?? unit.unitID,
@@ -747,7 +747,8 @@ function fakeHub({ approvalShape = "good", refusalMessage = "" } = {}) {
     }
     if (entity === "changeorder" && verb === "get") return ok(JSON.stringify({ ChangeOrder: state.orders.get(rest[0]) }));
     if (entity === "revision" && verb === "list") {
-      const unit = (state.units.get(value("space")) ?? []).find((item) => item.UnitID === value("by-unit-id"));
+      const unitArg = args.slice(2).find((token, at, list) => !token.startsWith("-") && !list[at - 1]?.startsWith("-"));
+      const unit = (state.units.get(value("space")) ?? []).find((item) => item.Slug === unitArg);
       if (!unit) refuse("revision not found");
       return ok(JSON.stringify([{ Revision: { UnitID: unit.UnitID, RevisionID: unit.HeadRevisionID, RevisionNum: unit.HeadRevisionNum, DataHash: unit.DataHash } }]));
     }

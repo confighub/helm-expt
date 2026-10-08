@@ -54,7 +54,10 @@ if (verifyOnly) {
 }
 
 const cub = (cubArgs) => execFileSync("cub", cubArgs, { encoding: "utf8", maxBuffer: 64 * 1024 * 1024, stdio: ["ignore", "pipe", "pipe"] });
-const uploadMode = serverResources ? "server-resources" : "historical-per-file";
+// The historical mode uploaded with --granularity per-file. The current cub has
+// no such flag: the server splits every resource into its own Unit.
+check(serverResources, "the historical per-file upload mode needed --granularity, which the current cub no longer has; re-run the lane with --server-resources, whose Unit counts must be re-observed");
+const uploadMode = "server-resources";
 const clientServer = cubVersionProvenance(cub(["version"]));
 
 function cubVersionProvenance(output) {
@@ -105,7 +108,6 @@ function uploadOne({ name, producer, source, spaceSlug, describeSource }) {
   const entry = { name, producer, source: describeSource, space: spaceSlug, uploadMode, clientServer, units: 0, status: "pass", message: "" };
   try {
     const uploadArgs = ["variant", "upload", "--component", spaceSlug.replace(/-base$/, ""), "--variant", "base"];
-    if (!serverResources) uploadArgs.push("--granularity", "per-file");
     uploadArgs.push("--owner", "confighub-ready", source);
     cub(uploadArgs);
     entry.units = cub(["unit", "list", "--space", spaceSlug, "-o", "name"]).trim().split("\n").filter(Boolean).length;

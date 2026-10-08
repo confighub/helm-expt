@@ -329,10 +329,8 @@ function runProof({ current = false } = {}) {
       workRoot,
     });
     applicationConfig.namespaceHandling = namespaceCheck;
-    const currentApproval = current
-      ? approveAndReleaseChangeOrder(deliverySpace, "current", "Record approval for the exact checked 85.3.3 starting release")
-      : (approveDeployableUnits(deliverySpace, "Approve the checked 85.3.3 starting configuration"), null);
-    const currentRelease = currentApproval?.release ?? publishRelease(deliverySpace);
+    const currentApproval = approveAndReleaseChangeOrder(deliverySpace, "current", "Record approval for the exact checked 85.3.3 starting release");
+    const currentRelease = currentApproval.release;
     const currentRuntime = waitForApplication({
       clusterName,
       applicationName,
@@ -345,12 +343,12 @@ function runProof({ current = false } = {}) {
       runtime: currentRuntime,
     };
 
+    throw new Error("This lane was written for the minimal Unit layout of cub variant upload --granularity, which cub v0.8.7 no longer has: the server now makes one Unit per resource. Re-observe on the current CLI the Unit count, the configuration Units and the four-Unit check.");
     const baseDryRun = cub([
       "variant", "upload", "--dry-run",
       "--component", "kube-prometheus-stack",
       "--variant", "no-crds-upgrade-base",
       "--space", baseSpace,
-      "--granularity", "minimal",
       candidate.flatPath,
     ], { timeout: 600_000 });
     check(baseDryRun.trim(), "candidate upload dry run returned no plan");
@@ -388,9 +386,7 @@ function runProof({ current = false } = {}) {
       "--label", `Proof=${proofLabel}`,
       "--change-desc", "Record the destination-specific 86.1.0 lifecycle route",
     ], { timeout: 300_000 });
-    const stagingRouteApproval = current
-      ? { space: stagingSpace, unit: routeSlug, result: "recorded-as-lifecycle-evidence-only" }
-      : approveExactUnit(stagingSpace, routeSlug);
+    const stagingRouteApproval = { space: stagingSpace, unit: routeSlug, result: "recorded-as-lifecycle-evidence-only" };
 
     const deliveryPreview = cub([
       "variant", "promote", deliverySpace,
@@ -407,15 +403,9 @@ function runProof({ current = false } = {}) {
       "delivery does not match the promoted candidate",
     );
     checkSourceNamespaces(deliveryAfterPromotion.docs);
-    const deliveryRouteApproval = current
-      ? { space: deliverySpace, unit: routeSlug, result: "covered-by-whole-space-changeorder" }
-      : approveExactUnit(deliverySpace, routeSlug);
-    const candidateApproval = current
-      ? approveAndReleaseChangeOrder(deliverySpace, "candidate", "Record approval for the exact checked 86.1.0 candidate release")
-      : null;
-    const candidateApprovals = current
-      ? candidateApproval.approval
-      : approveDeployableUnits(deliverySpace, "Approve the exact 86.1.0 candidate after route review");
+    const deliveryRouteApproval = { space: deliverySpace, unit: routeSlug, result: "covered-by-whole-space-changeorder" };
+    const candidateApproval = approveAndReleaseChangeOrder(deliverySpace, "candidate", "Record approval for the exact checked 86.1.0 candidate release");
+    const candidateApprovals = candidateApproval.approval;
 
     const hookReplacement = replaceCompletedHookResources({
       clusterName,
@@ -610,20 +600,20 @@ function compareObjectSets(currentDocs, candidateDocs) {
 }
 
 function uploadBase(path, artifact, description) {
+  throw new Error("This lane was written for the minimal Unit layout of cub variant upload --granularity, which cub v0.8.7 no longer has: the server now makes one Unit per resource. Re-observe on the current CLI the Unit count, the configuration Units and the four-Unit check.");
   cub([
     "variant", "upload",
     "--component", "kube-prometheus-stack",
     "--variant", "no-crds-upgrade-base",
     "--space", baseSpace,
-    "--granularity", "minimal",
-    "--label", "ApplyPolicyProfile=catalog-standard",
-    "--label", "SourceType=helm",
-    "--label", "ResourceClass=system-configuration",
-    "--label", `Proof=${proofLabel}`,
+    "--space-label", "ApplyPolicyProfile=catalog-standard",
+    "--space-label", "SourceType=helm",
+    "--space-label", "ResourceClass=system-configuration",
+    "--space-label", `Proof=${proofLabel}`,
     "--layer", "Platform",
     "--owner", "Platform",
-    "--annotation", `config-workshop.confighub.com/source-oci=${artifact.reference}`,
-    "--annotation", `config-workshop.confighub.com/source-digest=${artifact.digest}`,
+    "--unit-annotation", `config-workshop.confighub.com/source-oci=${artifact.reference}`,
+    "--unit-annotation", `config-workshop.confighub.com/source-digest=${artifact.digest}`,
     "--change-desc", description,
     path,
   ], { timeout: 600_000, inherit: true });
@@ -856,7 +846,7 @@ function approveAndReleaseChangeOrder(space, label, note) {
     && changeOrder.InScopeSpaceIDs[0] === source.SpaceID,
   "ChangeOrder scope is not exactly the one reviewed delivery Space");
   const selected = reviewed.map((unit) => {
-    const rows = cubJson(["revision", "list", "--space", space, "--by-unit-id", unit.unitID,
+    const rows = cubJson(["revision", "list", "--space", space, unit.slug,
       "--change-order", changeOrder.ChangeOrderID, "-o", "json"]);
     check(Array.isArray(rows) && rows.length === 1, `ChangeOrder ${changeOrder.ChangeOrderID} did not select exactly one revision for ${unit.slug}`);
     const row = rows[0]?.Revision ?? rows[0];
@@ -1013,75 +1003,6 @@ function fakeCurrentApprovalHub({ approvalShape = "good", refusal = "" } = {}) {
     return result(false, "", `unhandled fake command: cub ${args.join(" ")}`);
   };
   return { calls, run, get approved() { return state.approved; } };
-}
-
-function approveDeployableUnits(space, description) {
-  const units = listUnits(space).filter((unit) => ![readmeSlug, routeSlug].includes(unit.Slug));
-  check(
-    units.length === 4,
-    `${space} must have namespace, CRD, ConfigMap, and workload Units`,
-  );
-  const approvals = [];
-  for (const unit of units) {
-    waitForChecks(space, unit.Slug, { allowApproval: true });
-    const before = readUnit(space, unit.Slug);
-    const approvalOutput = cub([
-      "unit", "approve", "--space", space,
-      unit.Slug,
-    ], { timeout: 300_000 });
-    check(approvalOutput.includes("has been approved"), `${space}/${unit.Slug} approval was not recorded`);
-    waitForChecks(space, unit.Slug, { allowApproval: false });
-    const after = readUnit(space, unit.Slug);
-    approvals.push({
-      unit: unit.Slug,
-      revision: Number(after.HeadRevisionNum),
-      dataHash: after.DataHash,
-      approvalGateCleared: true,
-      description,
-    });
-  }
-  return approvals;
-}
-
-function approveExactUnit(space, slug) {
-  const before = readUnit(space, slug);
-  const approvalOutput = cub([
-    "unit", "approve", "--space", space,
-    slug,
-  ], { timeout: 300_000 });
-  check(approvalOutput.includes("has been approved"), `${space}/${slug} approval was not recorded`);
-  const after = readUnit(space, slug);
-  return {
-    space,
-    unit: slug,
-    revision: Number(after.HeadRevisionNum),
-    dataHash: after.DataHash,
-    approved: true,
-  };
-}
-
-function waitForChecks(space, slug, { allowApproval }) {
-  for (let attempt = 0; attempt < 120; attempt += 1) {
-    const unit = readUnit(space, slug);
-    const gates = Object.entries(unit.ApplyGates ?? {})
-      .filter(([key, value]) => key !== "awaiting/triggers" && value === true)
-      .map(([key]) => key)
-      .sort();
-    if (unit.ApplyGates?.["awaiting/triggers"] !== true) {
-      const unexpected = gates.filter((gate) =>
-        !(allowApproval && gate.includes("require-approval")));
-      check(
-        unexpected.length === 0,
-        `${space}/${slug} has blocking checks: ${unexpected.join(", ")}`,
-      );
-      if (!allowApproval) {
-        check(gates.length === 0, `${space}/${slug} still has an approval gate`);
-      }
-      return;
-    }
-    sleep(1000);
-  }
-  throw new Error(`${space}/${slug} checks did not finish`);
 }
 
 function publishRelease(space, revision = "") {

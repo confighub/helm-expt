@@ -621,7 +621,7 @@ function validateCurrentResume({ context, space, unit }, {
   assertWorkflowBoundary(workflow, space.SpaceID);
   check(workflow.ChangeWorkflowID === approval.workflowID && order?.ChangeOrderID === approval.changeOrderID, "current Kubara workflow or ChangeOrder identity changed");
   check(order?.ChangeWorkflowID === workflow?.ChangeWorkflowID && order.EndTagID === approval.endTagID && Array.isArray(order.InScopeSpaceIDs) && order.InScopeSpaceIDs.length === 1 && order.InScopeSpaceIDs[0] === space.SpaceID, "current Kubara ChangeOrder no longer has the recorded exact boundary");
-  const rows = read(["revision", "list", "--space", kubaraSpace, "--by-unit-id", unit.UnitID, "--change-order", approval.changeOrderID, "-o", "json"]).map((row) => row.Revision ?? row);
+  const rows = read(["revision", "list", "--space", kubaraSpace, unit.Slug, "--change-order", approval.changeOrderID, "-o", "json"]).map((row) => row.Revision ?? row);
   check(rows.length === 1 && rows[0]?.RevisionID === unit.HeadRevisionID && rows[0]?.UnitID === unit.UnitID && Number(rows[0]?.RevisionNum) === Number(unit.HeadRevisionNum) && rows[0]?.DataHash === unit.DataHash, "current Kubara ChangeOrder no longer covers the recorded source revision");
   const attestations = read(["attestation", "list", "--space", kubaraSpace, "-o", "json"]);
   const observation = observeApprovalAttestations(unit, rows[0], attestations);
@@ -1509,8 +1509,8 @@ function approveAndReleaseChangeOrder(context, space, unit, stored, stageName) {
     cub(context, ["changeorder", "create", "--space", space, slug, "--component", source.ComponentID, "--in-scope-space", space, "--change-workflow", `${space}/${slug}`, "--quiet"]);
     const order = cubJson(context, ["changeorder", "get", "--space", space, slug, "-o", "json"]).ChangeOrder;
     check(order.ChangeWorkflowID === workflow.ChangeWorkflowID && order.EndTagID && Array.isArray(order.InScopeSpaceIDs) && order.InScopeSpaceIDs.length === 1 && order.InScopeSpaceIDs[0] === source.SpaceID, `${stageName} ChangeOrder is not exactly bound`);
-    const head = cubJson(context, ["revision", "list", "--space", space, "--by-unit-id", stored.UnitID, "--where", `RevisionNum = ${stored.HeadRevisionNum}`, "-o", "json"]).map((row) => row.Revision ?? row);
-    const chosen = cubJson(context, ["revision", "list", "--space", space, "--by-unit-id", stored.UnitID, "--change-order", order.ChangeOrderID, "-o", "json"]).map((row) => row.Revision ?? row);
+    const head = cubJson(context, ["revision", "list", "--space", space, stored.Slug, "--where", `RevisionNum = ${stored.HeadRevisionNum}`, "-o", "json"]).map((row) => row.Revision ?? row);
+    const chosen = cubJson(context, ["revision", "list", "--space", space, stored.Slug, "--change-order", order.ChangeOrderID, "-o", "json"]).map((row) => row.Revision ?? row);
     check(
       head.length === 1 && head[0]?.RevisionID === stored.HeadRevisionID && head[0]?.UnitID === stored.UnitID && Number(head[0]?.RevisionNum) === Number(stored.HeadRevisionNum) && head[0]?.DataHash === stored.DataHash
         && chosen.length === 1 && chosen[0]?.UnitID === stored.UnitID && chosen[0]?.RevisionID === head[0].RevisionID && Number(chosen[0]?.RevisionNum) === Number(head[0].RevisionNum) && chosen[0]?.DataHash === head[0].DataHash,
