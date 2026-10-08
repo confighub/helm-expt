@@ -446,6 +446,26 @@ spec:
       source repository was not read and there was no second pass through another source; verifiedIndependently
       is false for that reason. This is the chart license. It is separate from the licenses of the driver
       image and of the NVIDIA software the driver uses on a node.'
+  - chart: eks/aws-efa-k8s-device-plugin
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/aws/eks-charts/2a58b2dbcca80d6edae9b22ed42e39024be907cc/LICENSE
+      quote: Apache License / Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Read 2026-10-08. The chart lives in the aws/eks-charts monorepo under stable/aws-efa-k8s-device-plugin.
+      Its Chart.yaml at commit 2a58b2dbcca80d6edae9b22ed42e39024be907cc (2026-06-15, "Adding efa release
+      0.5.20", the commit that carries chart version v0.5.29) says version: v0.5.29. The repository''s tags
+      are a separate v0.0.N series that does not name the chart version, so this is the exact commit and
+      not the default branch. The repository-root LICENSE
+      at that commit (git blob 67db8588217f266eb561f75fae738656325deac9, identical on the default branch)
+      is the Apache License, Version 2.0, and GitHub''s repository licence detection reports Apache-2.0.
+      The chart directory holds no LICENSE of its own (Chart.yaml, README.md, templates, values.yaml,
+      .helmignore), so the root LICENSE governs. The chart archive itself (SHA-256 078610ef669714f39be77d133674c7721fb3ca123213b3d6b16938c8c0d2e034)
+      states no licence: no LICENSE file, no licence field or annotation in Chart.yaml, no licence header.
+      This is the chart licence only; the device-plugin image is separate.'
   - chart: elastic/eck-operator
     spdx: Elastic-2.0
     evidence:
@@ -1183,6 +1203,23 @@ spec:
       the kubernetes-sigs monorepo that contains the chart under charts/; the root LICENSE governs the
       whole repo. Chart.yaml at that tag (fetched) has no license field; Artifact Hub (same repository
       URL) reports license: null for 4.0.18.'
+  - chart: node-feature-discovery/node-feature-discovery
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/v0.19.0/LICENSE
+      quote: Apache License / Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Read 2026-10-08 at the release tag v0.19.0 (tag object 46e042e22190ef3f7b6307f26097f87185572e82).
+      The chart lives in the kubernetes-sigs/node-feature-discovery repository under deployment/helm/node-feature-discovery,
+      and the repository-root LICENSE at that tag (git blob d9a10c0d8e868ebf8da0b3dc95bb0be634c34bfe, 176
+      lines) is the Apache License, Version 2.0. GitHub''s repository licence detection reports Apache-2.0.
+      The chart directory holds no LICENSE of its own, so the root LICENSE governs. The release archive
+      (SHA-256 9e93b360e6167b782759026de40ba9d68d44c3e8b0b53b735592ad48fd3339ad, the release asset node-feature-discovery-chart-0.19.0.tgz)
+      states no licence: no LICENSE file, no licence field or annotation in Chart.yaml, no licence header.
+      This is the chart licence only; the container image is separate.'
   - chart: nvidia/cluster-readiness-engine
     spdx: Apache-2.0
     evidence:
