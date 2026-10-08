@@ -1,0 +1,49 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantPublicationReceipt"
+metadata:
+  name: "nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath"
+spec:
+  plan: "data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-hostpath/literal-config-oci.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath:upstream-5d5f66ee0e2e"
+  immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath@sha256:029449ff21c36c0248ffb89b6f7dbead136f3e7ff8c3a0db7c3314ce178087cb"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:029449ff21c36c0248ffb89b6f7dbead136f3e7ff8c3a0db7c3314ce178087cb"
+  layerDigest: "sha256:8b37990d6077944b8292d10885f50e8f960dafc0b84e1e726624730bc70ca538"
+  layerBytes: 10263
+  objectSetSha256: "sha256:4095730535defb640cbc93e67a813d7706c625638995a60dbd0f9b0ac9ac0a8a"
+  sourceFileSha256: "sha256:da0727a0adbe8f036fca448fee699e2d6b25a48398b940ee7b66bda955e0ec1e"
+  stagedFiles:
+    -
+      path: "llm-hostpath.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/standalone/no-precaching/llm-hostpath.yaml"
+      role: "exact objects"
+      sha256: "sha256:da0727a0adbe8f036fca448fee699e2d6b25a48398b940ee7b66bda955e0ec1e"
+      bytes: 821
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-hostpath/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:c394791b5cd92d758a441afbbcfd9751528a7ee4614a1bf7cbd74965946e442d"
+      bytes: 3740
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-hostpath/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:e7e8fa34e939ff85e2e6ed76a08a5c34766feb6602f8095df47a1d95d5541f67"
+      bytes: 2191
+  contents:
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  push:
+    result: "pass"
+    command: "oras cp --from-oci-layout <layout>:upstream-5d5f66ee0e2e europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath:upstream-5d5f66ee0e2e"
+  anonymousPull:
+    result: "pass"
+    manifestDigest: "sha256:029449ff21c36c0248ffb89b6f7dbead136f3e7ff8c3a0db7c3314ce178087cb"
+    layerDigest: "sha256:8b37990d6077944b8292d10885f50e8f960dafc0b84e1e726624730bc70ca538"
+    filesMatched: 3
+    command: "oras pull --registry-config <empty config> europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath@sha256:029449ff21c36c0248ffb89b6f7dbead136f3e7ff8c3a0db7c3314ce178087cb"
+  signature: "none. The Catalog does not sign certified configuration bundles."
+  observedAt: "2026-10-08T05:49:23.567Z"
+status:
+  result: "pass"

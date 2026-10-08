@@ -1,0 +1,49 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantPublicationReceipt"
+metadata:
+  name: "nimservice-standard-nim-service-multi-llm"
+spec:
+  plan: "data/aicr-nim-operator-models/catalog-entries/standard-nim-service-multi-llm/literal-config-oci.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-multi-llm:upstream-5d5f66ee0e2e"
+  immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-multi-llm@sha256:1253e0ecce618f2292529a47aba7a0cce1fce25a0442186c34d1a1d3282de3d0"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:1253e0ecce618f2292529a47aba7a0cce1fce25a0442186c34d1a1d3282de3d0"
+  layerDigest: "sha256:1915b27c4540ea9358db219e02f49406f777323a3be41e8b354d8cfe025797ed"
+  layerBytes: 11287
+  objectSetSha256: "sha256:1de00b1cf1d89ca3a6488a801b445abacea27fe32f814c193a88b46df4b35a93"
+  sourceFileSha256: "sha256:ff06cecd94d3e6e2fc8e7c59718a617b2915efdca60c6bc154a4cc1cd3631b68"
+  stagedFiles:
+    -
+      path: "multi-llm.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/kserve/standard/multi-llm.yaml"
+      role: "exact objects"
+      sha256: "sha256:ff06cecd94d3e6e2fc8e7c59718a617b2915efdca60c6bc154a4cc1cd3631b68"
+      bytes: 1307
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/standard-nim-service-multi-llm/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:3ff564d6ef82e900042549f1bace552473a53fc8df344a5f74202de509292359"
+      bytes: 4103
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/standard-nim-service-multi-llm/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:58fc3640c7d33a121bdb01f2f075ee7be31391e9a8639fbeea377daa4a3aaf7e"
+      bytes: 2417
+  contents:
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  push:
+    result: "pass"
+    command: "oras cp --from-oci-layout <layout>:upstream-5d5f66ee0e2e europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-multi-llm:upstream-5d5f66ee0e2e"
+  anonymousPull:
+    result: "pass"
+    manifestDigest: "sha256:1253e0ecce618f2292529a47aba7a0cce1fce25a0442186c34d1a1d3282de3d0"
+    layerDigest: "sha256:1915b27c4540ea9358db219e02f49406f777323a3be41e8b354d8cfe025797ed"
+    filesMatched: 3
+    command: "oras pull --registry-config <empty config> europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-standard-nim-service-multi-llm@sha256:1253e0ecce618f2292529a47aba7a0cce1fce25a0442186c34d1a1d3282de3d0"
+  signature: "none. The Catalog does not sign certified configuration bundles."
+  observedAt: "2026-10-08T05:50:04.048Z"
+status:
+  result: "pass"

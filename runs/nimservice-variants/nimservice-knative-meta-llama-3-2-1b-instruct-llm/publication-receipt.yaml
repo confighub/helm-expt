@@ -1,0 +1,49 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantPublicationReceipt"
+metadata:
+  name: "nimservice-knative-meta-llama-3-2-1b-instruct-llm"
+spec:
+  plan: "data/aicr-nim-operator-models/catalog-entries/knative-meta-llama-3-2-1b-instruct-llm/literal-config-oci.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-knative-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e"
+  immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-knative-meta-llama-3-2-1b-instruct-llm@sha256:84f9cc2f3864594dc048355f60800e5df66d55f852130f295797f8e18a6cb31e"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:84f9cc2f3864594dc048355f60800e5df66d55f852130f295797f8e18a6cb31e"
+  layerDigest: "sha256:2469e7f87eec8ff913ed372b6c2a029426320d847f1b08e63709dbeeede880c7"
+  layerBytes: 11287
+  objectSetSha256: "sha256:db534c939adf26e2dc9a7e927e4c4b2f19f9cac1af91bf9178282156bf786670"
+  sourceFileSha256: "sha256:e260f8b3941ea74d3611923473d9c76da0d073b8faffa83fd8c04a381778d90b"
+  stagedFiles:
+    -
+      path: "llm.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/kserve/knative/llm.yaml"
+      role: "exact objects"
+      sha256: "sha256:e260f8b3941ea74d3611923473d9c76da0d073b8faffa83fd8c04a381778d90b"
+      bytes: 1649
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/knative-meta-llama-3-2-1b-instruct-llm/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:809216aeb2e98e0cd22b4daed52ac0b3ad88f353bb18bbe15578157388ffaf62"
+      bytes: 4094
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/knative-meta-llama-3-2-1b-instruct-llm/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:17c7d6ae48e5ad041b6afe49c3a1284ae900fad377afb4822a5a0a65998c26b1"
+      bytes: 2250
+  contents:
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  push:
+    result: "pass"
+    command: "oras cp --from-oci-layout <layout>:upstream-5d5f66ee0e2e europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-knative-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e"
+  anonymousPull:
+    result: "pass"
+    manifestDigest: "sha256:84f9cc2f3864594dc048355f60800e5df66d55f852130f295797f8e18a6cb31e"
+    layerDigest: "sha256:2469e7f87eec8ff913ed372b6c2a029426320d847f1b08e63709dbeeede880c7"
+    filesMatched: 3
+    command: "oras pull --registry-config <empty config> europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-knative-meta-llama-3-2-1b-instruct-llm@sha256:84f9cc2f3864594dc048355f60800e5df66d55f852130f295797f8e18a6cb31e"
+  signature: "none. The Catalog does not sign certified configuration bundles."
+  observedAt: "2026-10-08T05:48:41.300Z"
+status:
+  result: "pass"
