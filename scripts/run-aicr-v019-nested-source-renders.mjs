@@ -15,6 +15,7 @@ import { basename, join } from "node:path";
 import {
   check,
   listFiles,
+  parseDocs,
   parseObjects,
   readYaml,
   relativeRepo,
@@ -25,7 +26,7 @@ import {
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--verify";
-check(["--run", "--verify"].includes(mode), "use --run or --verify");
+check(["--run", "--recount", "--verify"].includes(mode), "use --run, --recount, or --verify");
 
 const version = process.env.AICR_NESTED_VERSION ?? "0.19.0";
 check(/^0\.(19|20)\.0$/.test(version), "AICR_NESTED_VERSION must be 0.19.0 or 0.20.0");
@@ -57,6 +58,8 @@ if (mode === "--run") {
   const passed = entries.filter((entry) => entry.render.status === "pass").length;
   console.log(`rendered ${passed}/${entries.length} AICR v${version} nested sources`);
   if (passed !== entries.length) process.exitCode = 1;
+} else if (mode === "--recount") {
+  recountFromRetainedBytes();
 } else {
   verifyRetainedCatalog();
 }
@@ -123,7 +126,7 @@ function renderApplication(application) {
   const objects = exitCode === 0 ? parseObjects(normalizedOutput) : [];
   if (exitCode === 0) write(objectsPath, normalizedOutput);
   const objectKinds = countBy(objects, (object) => object.kind ?? "Unknown");
-  const hooks = objects.filter((object) => object.metadata?.annotations?.["helm.sh/hook"]);
+  const hooks = exitCode === 0 ? hookDocuments(normalizedOutput) : [];
   const crds = objects.filter((object) => object.kind === "CustomResourceDefinition");
   const receipt = {
     apiVersion: "catalog.confighub.com/v1alpha1",
@@ -173,13 +176,53 @@ function renderApplication(application) {
       result: exitCode === 0 ? "pass" : "blocked",
       materialization: exitCode === 0 ? "captured" : "not-captured",
       flattening: "not-assessed",
-      lifecycle: hooks.length || crds.length ? "requires-review" : "not-yet-reviewed",
+      lifecycle: lifecycleFor(hooks.length, crds.length),
       delivery: "not-run",
       error: exitCode === 0 ? "" : conciseError(stderr),
     },
   };
   writeYaml(receiptPath, receipt);
   return catalogEntry(receipt, receiptPath);
+}
+
+// parseObjects keeps only identity fields, so hooks must be found in the full
+// documents. Counting them on parseObjects output always yields zero.
+function hookDocuments(text) {
+  return parseDocs(text).filter((doc) => doc.metadata?.annotations?.["helm.sh/hook"]);
+}
+
+function lifecycleFor(hookCount, crdCount) {
+  return hookCount || crdCount ? "requires-review" : "not-yet-reviewed";
+}
+
+// Rewrites the hook count and the lifecycle status in each retained receipt
+// and Catalog record from the retained objects.yaml, without fetching or
+// rendering anything.
+function recountFromRetainedBytes() {
+  const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
+  for (const entry of catalog.entries) {
+    const receiptPath = join(repoRoot, entry.receipt);
+    const receipt = readYaml(receiptPath);
+    if (!receipt.spec.output) continue;
+    const bytes = readFileSync(join(repoRoot, receipt.spec.output.path));
+    check(
+      sha256(bytes) === receipt.spec.output.sha256,
+      `${entry.name}: retained objects.yaml no longer matches its receipt digest`,
+    );
+    const hookCount = hookDocuments(bytes.toString("utf8")).length;
+    const lifecycle = lifecycleFor(hookCount, receipt.spec.output.crdCount);
+    // Patch the two receipt lines in place so the receipt keeps its written layout.
+    const text = readFileSync(receiptPath, "utf8")
+      .replace(/^(    hookObjectCount: )\d+$/m, `$1${hookCount}`)
+      .replace(/^(  lifecycle: )"[^"]*"$/m, `$1"${lifecycle}"`);
+    write(receiptPath, text);
+    entry.render.hookObjectCount = hookCount;
+    entry.lifecycle = lifecycle;
+  }
+  catalog.summary = summarizeEntries(catalog.entries);
+  write(catalogPath, `${JSON.stringify(catalog, null, 2)}\n`);
+  write(summaryPath, renderSummary(catalog.entries));
+  console.log(`recounted hook objects for ${catalog.entries.length} AICR v${version} nested sources`);
 }
 
 function helmArgs(application, chartPath) {
@@ -331,6 +374,19 @@ function verifyRetainedCatalog() {
       const objects = parseObjects(output.toString("utf8"));
       check(sha256(output) === entry.render.objectSha256, `${entry.name}: output digest changed`);
       check(objects.length === entry.render.objectCount, `${entry.name}: object count changed`);
+      const hookCount = hookDocuments(output.toString("utf8")).length;
+      check(
+        receipt.spec.output.hookObjectCount === hookCount,
+        `${entry.name}: receipt records ${receipt.spec.output.hookObjectCount} hook objects but objects.yaml holds ${hookCount}`,
+      );
+      check(
+        entry.render.hookObjectCount === hookCount,
+        `${entry.name}: Catalog records ${entry.render.hookObjectCount} hook objects but objects.yaml holds ${hookCount}`,
+      );
+      check(
+        receipt.status.lifecycle === lifecycleFor(hookCount, receipt.spec.output.crdCount),
+        `${entry.name}: lifecycle status disagrees with the hook and CRD counts`,
+      );
     }
   }
   console.log(`verified ${catalog.entries.length} retained AICR v${version} nested-source records`);

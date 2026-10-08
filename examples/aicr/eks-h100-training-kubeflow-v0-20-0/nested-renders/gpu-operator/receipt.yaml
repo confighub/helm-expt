@@ -57,7 +57,7 @@ spec:
       RoleBinding: 1
       ServiceAccount: 2
     crdCount: 2
-    hookObjectCount: 0
+    hookObjectCount: 4
   processingBoundary:
     wrapper: "The parent Catalog entry retains the Argo CD Application object."
     nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
