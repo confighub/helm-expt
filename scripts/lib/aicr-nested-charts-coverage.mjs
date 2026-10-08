@@ -102,6 +102,12 @@ export const AICR_NESTED_CHART_ADDITIONS = Object.freeze([
   entry("aws-ebs-csi-driver", "aws-ebs-csi-driver", "2.59.0", "https://github.com/kubernetes-sigs/aws-ebs-csi-driver/releases/download/helm-chart-aws-ebs-csi-driver-2.59.0/aws-ebs-csi-driver-2.59.0.tgz", "adb1961abcced2b66c49d4f64885d63b2fd824310c8d4f99c52c7d2c0193b118", generic, {
     candidate: "aws-ebs-csi-driver",
   }),
+  // kube-prometheus-stack 84.4.0 is declared with the generic proof, not with kube-prometheus-stack-proof.mjs; the
+  // candidate says why. Its AICR bases take their CRD bundle from the prometheus-operator-crds 28.0.1 entry below.
+  entry("prometheus-community", "kube-prometheus-stack", "84.4.0", "https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-84.4.0/kube-prometheus-stack-84.4.0.tgz", "87bac65f32a358eeb52bda426cff20dd2fe3f1b61babe0b35866392bdd2721dd", generic, {
+    candidate: "kube-prometheus-stack",
+    ...hooks,
+  }),
   entry("prometheus-community", "prometheus-operator-crds", "28.0.1", "https://github.com/prometheus-community/helm-charts/releases/download/prometheus-operator-crds-28.0.1/prometheus-operator-crds-28.0.1.tgz", "bc011e24c1e053955c11b0648cf73a4204bf0f8883d9427d7c50f4553dfd0129", generic, {
     candidate: "prometheus-operator-crds",
     targetFacts: true,

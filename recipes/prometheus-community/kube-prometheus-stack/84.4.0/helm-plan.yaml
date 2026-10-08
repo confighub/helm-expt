@@ -1,0 +1,40 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-84.4.0"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "prometheus-community/kube-prometheus-stack"
+    version: "84.4.0"
+    variants:
+      - "default"
+      - "aicr-eks-training-v0-20-0"
+      - "aicr-eks-training-v1-0-0"
+    helmObjectsByVariant:
+      default: 126
+      aicr-eks-training-v0-20-0: 116
+      aicr-eks-training-v1-0-0: 116
+    cubInstallObjectsByVariant:
+      default: 127
+      aicr-eks-training-v0-20-0: 117
+      aicr-eks-training-v1-0-0: 117
+    helmMatchByVariant:
+      default: "126/126"
+      aicr-eks-training-v0-20-0: "116/116"
+      aicr-eks-training-v1-0-0: "116/116"
+    scanGate: "warn-production-blocked"
+    nextAction: "settle the open questions, publish and sign the package, then complete target-specific live qualification before production"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/install-gate.yaml"

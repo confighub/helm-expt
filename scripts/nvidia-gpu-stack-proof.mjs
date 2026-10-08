@@ -402,11 +402,17 @@ const defaultVariant = {
   crds: expected.crds,
   podMonitor: true,
   // A base that renders no custom resource and no CRD needs no CRD on the target.
-  ...(selected.requiredCRDs("default", chartVersion).length ? { targetFacts: { requiredCRDs: selected.requiredCRDs("default", chartVersion) } } : {}),
+  ...targetFactsFor(selected.requiredCRDs("default", chartVersion), selected.requiredSecrets?.("default", chartVersion)),
   targetFactNote: selected.targetFactNote,
 };
 
 const requiredCRDsFor = (base) => base.requiredCRDs ?? selected.requiredCRDs(base.name, chartVersion);
+
+// A base may also need a Secret that something outside the base creates.
+function targetFactsFor(requiredCRDs, requiredSecrets) {
+  if (!requiredCRDs.length && !requiredSecrets?.length) return {};
+  return { targetFacts: { requiredCRDs, ...(requiredSecrets?.length ? { requiredSecrets } : {}) } };
+}
 
 const variants = [
   defaultVariant,
@@ -430,7 +436,7 @@ const variants = [
     deltaNote: base.deltaNote ?? null,
     aicr: base.aicr ?? null,
     // A base that renders no custom resource and no CRD needs no CRD on the target.
-    ...(requiredCRDsFor(base).length ? { targetFacts: { requiredCRDs: requiredCRDsFor(base) } } : {}),
+    ...targetFactsFor(requiredCRDsFor(base), base.requiredSecrets ?? selected.requiredSecrets?.(base.name, chartVersion)),
     targetFactNote: base.targetFactNote ?? selected.targetFactNote,
   })),
 ];
@@ -469,6 +475,8 @@ runProofCli({
   scanPolicy,
   scriptPrefix,
   receiptSlug: selected.name,
+  // A chart whose other Catalog versions carry a historical package name keeps it.
+  ...(selected.packageName ? { packageName: selected.packageName } : {}),
   // The installer adds a Namespace object for the release namespace unless the base already holds a Namespace.
   ...(selected.supportObjects ? { supportObjects: selected.supportObjects } : {}),
   ...(selected.lifecycle

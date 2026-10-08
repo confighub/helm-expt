@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "kube-prometheus-stack-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "c5dc2d69b5f9d0163166cd07485ee067e96702856fbdb5e0af3de88df0a348db"
+    objectCount: 126
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 127
+    uploadedManifestFiles: 127
+    separatedSecretFiles: 2
+    semanticObjectMatches: "126/126"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||monitoring"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run aicr-nested-charts-coverage:compare"

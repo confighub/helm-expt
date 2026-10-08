@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-84.4.0"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      dependencyCount: 5
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+    -
+      category: "lifecycle-policy"
+      status: "attention-required"
+      policy: "no-hooks"
+      note: "the bases are rendered with --no-hooks; every base's values also render 7 Helm hook objects: an admission-create Job that runs before install and upgrade, an admission-patch Job that runs after, and the ServiceAccount, ClusterRole, ClusterRoleBinding, Role and RoleBinding both use. They are packaged under prerequisites/kube-prometheus-stack-lifecycle with a lifecycle-actions.yaml record, and nothing runs them automatically. The operator Deployment mounts the Secret the first Job creates, so it cannot start until that Job has run. No hook has been run on a cluster for this entry."
+    -
+      category: "crd-lifecycle"
+      status: "review-required"
+      count: 10
+    -
+      category: "target-facts"
+      status: "review-required"
+      note: "the ten Prometheus Operator CRDs must be established before the custom resources in the base; the admission webhook Secret must exist before the operator can start, and the packaged pre-install lifecycle action is what creates it"
+    -
+      category: "catalog-coverage"
+      status: "packaged-with-controls"
+      note: "exact source and deterministic package are retained; publication, live qualification and production support remain separate gates"

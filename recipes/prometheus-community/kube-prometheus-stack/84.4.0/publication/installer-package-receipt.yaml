@@ -1,0 +1,151 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-84.4.0"
+spec:
+  chart:
+    name: "kube-prometheus-stack"
+    repository: "prometheus-community"
+    version: "84.4.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/prometheus-community/kube-prometheus-stack/84.4.0 -o <tmp>/kube-prometheus-stack-84.4.0.tgz"
+    sha256: "1b53563ba1e4eda376ff8b49093d1fe49855d6f94c76b1c346636ad1abdaf2f4"
+  package:
+    name: "kube-prometheus-stack-kube-prometheus-stack"
+    path: "packages/prometheus-community/kube-prometheus-stack/84.4.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "2a4db3d8aa533293be1a5876fe2fee2b2252938ac8db0db854ecfd578b8f6890"
+        bytes: 322
+      -
+        path: "bases/aicr-eks-training-v0-20-0/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-training-v0-20-0/upstream.yaml"
+        sha256: "6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc"
+        bytes: 646821
+      -
+        path: "bases/aicr-eks-training-v1-0-0/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-training-v1-0-0/upstream.yaml"
+        sha256: "55c31cf72066a59e0c7f1e67c453e9487160ab7683b7320ce4ea280b00cd194a"
+        bytes: 647103
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "c5dc2d69b5f9d0163166cd07485ee067e96702856fbdb5e0af3de88df0a348db"
+        bytes: 5127018
+      -
+        path: "collector/target-facts.sh"
+        sha256: "0b54d5dd3c966daba04c6fd47b1df0cceaafcea2fcedb4012ea830c72a93d4bc"
+        bytes: 23524
+      -
+        path: "installer.yaml"
+        sha256: "f27b52d9143741834901055aa7c26b3fddbe685a78cb70b564f47ddc20fbe0fe"
+        bytes: 8948
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/README.md"
+        sha256: "346d2bcd44c61ba24d53a6377b5d221536cd47d441463ed0f0aad7d00d133556"
+        bytes: 1905
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v0-20-0/post-install-post-upgrade.yaml"
+        sha256: "2700f401108e8dde6dfdb0e54edda89c82a0e2b5ddb4266a650743e608d66a2b"
+        bytes: 2320
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v0-20-0/pre-install-pre-upgrade-post-install-post-upgrade.yaml"
+        sha256: "f1e9a29ad30909485633e41b29061e8293dcd23a5a3ee4ed860f3f23f6b91f6d"
+        bytes: 4972
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v0-20-0/pre-install-pre-upgrade.yaml"
+        sha256: "ba074f9c2072648c2c1996eacca0f594c5d0e924d8b47d14bded0813592942a9"
+        bytes: 2317
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v1-0-0/post-install-post-upgrade.yaml"
+        sha256: "c33d4fd69f94ac662d11d4c4808f535f67275942fd5b9613da98c8db5b1cfe90"
+        bytes: 2373
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v1-0-0/pre-install-pre-upgrade-post-install-post-upgrade.yaml"
+        sha256: "f1e9a29ad30909485633e41b29061e8293dcd23a5a3ee4ed860f3f23f6b91f6d"
+        bytes: 4972
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v1-0-0/pre-install-pre-upgrade.yaml"
+        sha256: "8e3437fa573f95055eb4f443de09618190643804b37a61de1832e70c673f9e13"
+        bytes: 2370
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/default/post-install-post-upgrade.yaml"
+        sha256: "a22f6dc8304717b1eba739b5319fc386bdcc522cf0ceba0dcd78742398ce5d54"
+        bytes: 2304
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/default/pre-install-pre-upgrade-post-install-post-upgrade.yaml"
+        sha256: "243eba6bc261f4d073fa333ceaa777162c9735d546bc49529e84cfd327d972ce"
+        bytes: 5026
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/default/pre-install-pre-upgrade.yaml"
+        sha256: "2b9224eac08687f199faea257f97215ae33fcacbc9dd0b4bb5e84bba4efa348c"
+        bytes: 2307
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+        sha256: "bd9dcdbd698c6f795d2804411fb3a1172b8bfa19e3da776a5dbb31ed300aebf6"
+        bytes: 5737
+      -
+        path: "prerequisites/kube-prometheus-stack-lifecycle/lifecycle-actions.yaml"
+        sha256: "2b205189876ed16b3358b45954f534fcc1588a5fbccb4910c00701e568472f2c"
+        bytes: 9763
+      -
+        path: "prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        sha256: "6a9878f2495d5ec672dbdb11d478326f67a24dc0b3ccaa840254eefe35e8dec4"
+        bytes: 4140527
+      -
+        path: "prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+        sha256: "6036055da60684bdadbcc15d1a69f983991e4bf91ede36f601e929799cda3899"
+        bytes: 4140526
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "f55f43d2d686adc5f237f9ee0b303cedcb6c4727280e4809f11849cf97339995"
+        bytes: 4140509
+    version: "84.4.0"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"
+      base: "default"
+      command: "cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/84.4.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+      cubInstallObjectCountIncludingSupport: 127
+      helmReleaseObjectCount: 126
+      semanticObjectMatches: "126/126"
+      separatedSecretCount: 2
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"
+      base: "aicr-eks-training-v0-20-0"
+      command: "cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/84.4.0 --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace monitoring"
+      cubInstallObjectCountIncludingSupport: 117
+      helmReleaseObjectCount: 116
+      semanticObjectMatches: "116/116"
+      separatedSecretCount: 2
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "aicr-eks-training-v0-20-0"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"
+      base: "aicr-eks-training-v1-0-0"
+      command: "cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/84.4.0 --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace monitoring"
+      cubInstallObjectCountIncludingSupport: 117
+      helmReleaseObjectCount: 116
+      semanticObjectMatches: "116/116"
+      separatedSecretCount: 2
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "aicr-eks-training-v1-0-0"

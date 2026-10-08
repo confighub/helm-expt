@@ -1,0 +1,130 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "default"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "monitoring"
+  releaseName: "kube-prometheus-stack"
+  valuesProfile: "../../effective-values.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "alertmanagerconfigs.monitoring.coreos.com"
+        sourceVariant: "default"
+        purpose: "Prometheus Operator CRD included in this base; it must be established before Kubernetes accepts the rendered Prometheus, Alertmanager, PrometheusRule and ServiceMonitor objects"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "alertmanagers.monitoring.coreos.com"
+        sourceVariant: "default"
+        purpose: "Prometheus Operator CRD included in this base; it must be established before Kubernetes accepts the rendered Prometheus, Alertmanager, PrometheusRule and ServiceMonitor objects"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "podmonitors.monitoring.coreos.com"
+        sourceVariant: "default"
+        purpose: "Prometheus Operator CRD included in this base; it must be established before Kubernetes accepts the rendered Prometheus, Alertmanager, PrometheusRule and ServiceMonitor objects"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "probes.monitoring.coreos.com"
+        sourceVariant: "default"
+        purpose: "Prometheus Operator CRD included in this base; it must be established before Kubernetes accepts the rendered Prometheus, Alertmanager, PrometheusRule and ServiceMonitor objects"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "prometheusagents.monitoring.coreos.com"
+        sourceVariant: "default"
+        purpose: "Prometheus Operator CRD included in this base; it must be established before Kubernetes accepts the rendered Prometheus, Alertmanager, PrometheusRule and ServiceMonitor objects"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "prometheuses.monitoring.coreos.com"
+        sourceVariant: "default"
+        purpose: "Prometheus Operator CRD included in this base; it must be established before Kubernetes accepts the rendered Prometheus, Alertmanager, PrometheusRule and ServiceMonitor objects"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "prometheusrules.monitoring.coreos.com"
+        sourceVariant: "default"
+        purpose: "Prometheus Operator CRD included in this base; it must be established before Kubernetes accepts the rendered Prometheus, Alertmanager, PrometheusRule and ServiceMonitor objects"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "scrapeconfigs.monitoring.coreos.com"
+        sourceVariant: "default"
+        purpose: "Prometheus Operator CRD included in this base; it must be established before Kubernetes accepts the rendered Prometheus, Alertmanager, PrometheusRule and ServiceMonitor objects"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "servicemonitors.monitoring.coreos.com"
+        sourceVariant: "default"
+        purpose: "Prometheus Operator CRD included in this base; it must be established before Kubernetes accepts the rendered Prometheus, Alertmanager, PrometheusRule and ServiceMonitor objects"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "thanosrulers.monitoring.coreos.com"
+        sourceVariant: "default"
+        purpose: "Prometheus Operator CRD included in this base; it must be established before Kubernetes accepts the rendered Prometheus, Alertmanager, PrometheusRule and ServiceMonitor objects"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+    requiredSecrets:
+      -
+        namespace: "monitoring"
+        name: "kube-prometheus-stack-admission"
+        keys:
+          - "ca"
+          - "cert"
+          - "key"
+        purpose: "Prometheus Operator admission webhook TLS material. The chart's pre-install hook Job creates it; the operator Deployment mounts it and cannot start without it"
+        deliveryLanes:
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default/pre-install-pre-upgrade.yaml"

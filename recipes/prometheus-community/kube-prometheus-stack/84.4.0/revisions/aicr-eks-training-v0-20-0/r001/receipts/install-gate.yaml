@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "kube-prometheus-stack-aicr-eks-training-v0-20-0-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for aicr-eks-training-v0-20-0"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the ten Prometheus Operator CRDs must be established before the custom resources in the base; the admission webhook Secret must exist before the operator can start, and the packaged pre-install lifecycle action is what creates it"
