@@ -23,7 +23,7 @@ Status values:
 | Status | Rows |
 | --- | ---: |
 | blocked | 2 |
-| missing-confighub-proof | 113 |
+| missing-confighub-proof | 141 |
 | proven | 179 |
 | proven-with-watch | 17 |
 
@@ -32,7 +32,7 @@ Matrix values:
 | Matrix value | Rows |
 | --- | ---: |
 | no | 2 |
-| todo | 113 |
+| todo | 141 |
 | watch | 17 |
 | yes | 179 |
 
@@ -77,13 +77,13 @@ show the changeset-bound path passing.
 | `aws-controllers-k8s/eks-chart@1.16.3/eks-inference` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `aws-controllers-k8s/iam-chart@1.7.3/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `aws-controllers-k8s/iam-chart@1.7.3/eks-inference` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0/aicr-eks-training-v0-20-0` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0/aicr-eks-training-v1-0-0` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `cloudnative-pg/cloudnative-pg@0.29.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `cloudpirates/nginx@0.16.1/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `cloudpirates/rabbitmq@0.21.13/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `cloudpirates/rabbitmq@0.21.13/existing-secret` | missing-confighub-proof | run the ConfigHub proof lane first |
-| `cloudpirates/redis@0.34.11/default` | missing-confighub-proof | run the ConfigHub proof lane first |
-| `cloudpirates/redis@0.34.11/reuse-existing-secret` | missing-confighub-proof | run the ConfigHub proof lane first |
-| `external-secrets/external-secrets@2.10.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 
 ## Regenerate
 

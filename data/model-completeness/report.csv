@@ -14,6 +14,7 @@ autoscaler/vertical-pod-autoscaler@0.9.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,p
 aws-controllers-k8s/ec2-chart@1.18.4,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/aws-controllers-k8s/ec2-chart/1.18.4
 aws-controllers-k8s/eks-chart@1.16.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/aws-controllers-k8s/eks-chart/1.16.3
 aws-controllers-k8s/iam-chart@1.7.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/aws-controllers-k8s/iam-chart/1.7.3
+aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0,no,5/6,yes,yes,no,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,readable,recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0
 aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
 bitnami/apache@11.4.29,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/bitnami/apache/11.4.29
 bitnami/contour@21.1.4,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,proof-grade,not-reviewed-for-production,none,recipes/bitnami/contour/21.1.4
@@ -45,6 +46,8 @@ coredns/coredns@1.45.2,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-revi
 crossplane-stable/crossplane@2.3.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/crossplane-stable/crossplane/2.3.1
 descheduler/descheduler@0.36.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/descheduler/descheduler/0.36.0
 dex/dex@0.24.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/dex/dex/0.24.0
+dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1,no,5/6,yes,yes,no,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,readable,recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1
+dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0,no,5/6,yes,yes,no,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,readable,recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0
 elastic/eck-operator@3.4.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,proof-grade,not-reviewed-for-production,none,recipes/elastic/eck-operator/3.4.0
 elastic/filebeat@8.5.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/elastic/filebeat/8.5.1
 elastic/kibana@8.5.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/elastic/kibana/8.5.1
@@ -88,8 +91,12 @@ jetstack/cert-manager@v1.20.2,no,5/6,yes,no,yes,yes,yes,yes,yes,2,catalog-suppor
 jetstack/cert-manager@v1.21.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/jetstack/cert-manager/v1.21.0
 jetstack/cert-manager@v1.21.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/jetstack/cert-manager/v1.21.1
 jetstack/trust-manager@v0.22.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/jetstack/trust-manager/v0.22.1
+k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2,no,5/6,yes,yes,no,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,readable,recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2
+kai-scheduler/kai-scheduler@v0.14.1,no,5/6,yes,yes,no,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,readable,recipes/kai-scheduler/kai-scheduler/v0.14.1
+kai-scheduler/kai-scheduler@v0.16.9,no,5/6,yes,yes,no,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,readable,recipes/kai-scheduler/kai-scheduler/v0.16.9
 karpenter/karpenter@1.14.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,none,recipes/karpenter/karpenter/1.14.0
 kedacore/keda@2.19.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/kedacore/keda/2.19.0
+kubeflow/kubeflow-trainer@2.2.0,no,5/6,yes,yes,no,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,readable,recipes/kubeflow/kubeflow-trainer/2.2.0
 kyverno/kyverno-policies@3.8.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/kyverno/kyverno-policies/3.8.0
 kyverno/kyverno-policies@3.8.2,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/kyverno/kyverno-policies/3.8.2
 kyverno/kyverno-policies@3.9.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/kyverno/kyverno-policies/3.9.0
@@ -118,6 +125,8 @@ nvidia/gpu-operator@v26.3.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,7,catalog-candid
 nvidia/gpu-operator@v26.7.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,7,catalog-candidate,not-reviewed-for-production,none,recipes/nvidia/gpu-operator/v26.7.1
 nvidia/k8s-nim-operator@3.1.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/nvidia/k8s-nim-operator/3.1.0
 nvidia/k8s-nim-operator@3.1.2,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/nvidia/k8s-nim-operator/3.1.2
+nvidia/nodewright@v0.17.1,no,5/6,yes,yes,no,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,readable,recipes/nvidia/nodewright/v0.17.1
+nvidia/nodewright@v0.19.0,no,5/6,yes,yes,no,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,readable,recipes/nvidia/nodewright/v0.19.0
 nvidia/nvidia-device-plugin@0.19.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,none,recipes/nvidia/nvidia-device-plugin/0.19.3
 nvidia/nvsentinel@v1.20.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,none,recipes/nvidia/nvsentinel/v1.20.0
 nvidia/nvsentinel@v1.25.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,none,recipes/nvidia/nvsentinel/v1.25.0
@@ -134,6 +143,7 @@ policy-reporter/policy-reporter@3.10.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proo
 policy-reporter/policy-reporter@3.9.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/policy-reporter/policy-reporter/3.9.1
 projectcalico/tigera-operator@v3.32.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/projectcalico/tigera-operator/v3.32.0
 prometheus-community/alertmanager@1.37.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/alertmanager/1.37.0
+prometheus-community/kube-prometheus-stack@84.4.0,no,5/6,yes,yes,no,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,readable,recipes/prometheus-community/kube-prometheus-stack/84.4.0
 prometheus-community/kube-prometheus-stack@85.3.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/prometheus-community/kube-prometheus-stack/85.3.3
 prometheus-community/kube-prometheus-stack@86.1.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/prometheus-community/kube-prometheus-stack/86.1.0
 prometheus-community/kube-prometheus-stack@87.15.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,none,recipes/prometheus-community/kube-prometheus-stack/87.15.1
@@ -145,6 +155,7 @@ prometheus-community/prometheus-blackbox-exporter@11.10.0,yes,6/6,yes,yes,yes,ye
 prometheus-community/prometheus-blackbox-exporter@11.15.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1
 prometheus-community/prometheus-blackbox-exporter@11.18.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-blackbox-exporter/11.18.0
 prometheus-community/prometheus-node-exporter@4.55.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-node-exporter/4.55.0
+prometheus-community/prometheus-operator-crds@28.0.1,no,5/6,yes,yes,no,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,readable,recipes/prometheus-community/prometheus-operator-crds/28.0.1
 prometheus-community/prometheus-operator-crds@29.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-operator-crds/29.0.0
 prometheus-community/prometheus-pushgateway@3.6.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/prometheus-community/prometheus-pushgateway/3.6.0
 prometheus-community/prometheus@29.8.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/prometheus-community/prometheus/29.8.0
