@@ -1561,6 +1561,30 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
         if (commandLines !== (recorded.commands ?? []).length) {
           failures.push(`${file}: ${id} step ${stepId} shows ${commandLines} command(s), and its listing records ${(recorded.commands ?? []).length}`);
         }
+        // The live walk of 2026-10-08 changed the installer-package commands:
+        // the reader names the Space and Component, the deploy and promote
+        // steps delete the cloned installer-record Unit before they publish,
+        // and a step links the log that ran them. The page must show each of
+        // those, and a delivery that ran other commands may not read as run.
+        const shown = decodeBasicHtml(body.replace(/<[^>]+>/g, ""));
+        const installerListing = (listing.nextSteps ?? []).some((other) => (other.commands ?? []).some(({ command }) => /^cub installer upload /.test(command)));
+        if (installerListing && stepId === "upload" && !/cub installer upload [^\n]*--space <your-space> --component <your-component>/.test(shown)) {
+          failures.push(`${file}: ${id} step upload does not show the Space and Component placeholders the reader replaces`);
+        }
+        if (installerListing && ["deploy", "promote"].includes(stepId) && (recorded.commands ?? []).length > 0) {
+          if (!/\$ cub unit delete --space <your-space>-dev installer-record\n[\s\S]*\$ cub release publish <your-space>-dev\s*$/.test(shown.replace(/\n\s*\n/g, "\n"))) {
+            failures.push(`${file}: ${id} step ${stepId} does not end with the installer-record delete and a publish`);
+          }
+        }
+        if (recorded.liveWalk && !body.includes(`d/${recorded.liveWalk.path.replace(/\.md$/, ".html")}`)) {
+          failures.push(`${file}: ${id} step ${stepId} records a live walk and does not link its log`);
+        }
+        for (const note of recorded.notes ?? []) {
+          if (!shown.includes(note.replaceAll("`", ""))) failures.push(`${file}: ${id} step ${stepId} does not show its note: ${JSON.stringify(note.slice(0, 60))}`);
+        }
+        if (stepId === "deploy" && state === "run-for-this-entry" && (recorded.commands ?? []).length > 0) {
+          failures.push(`${file}: ${id} step deploy reads Run for this entry, and the recorded delivery ran other commands than the ones it shows`);
+        }
         if (["not-available", "blocked-for-this-entry"].includes(state) && body.includes("<pre")) {
           failures.push(`${file}: ${id} step ${stepId} is ${state} and still shows a command`);
         }
