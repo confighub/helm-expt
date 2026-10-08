@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-07 (commit `d60dd45a7a`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-08 (commit `7f95197d34`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 463 |
-| Fresh (no linked source newer than the doc) | 64 |
-| **Review-due** | 96 |
-| No linked evidence sources (cannot auto-trigger) | 303 |
+| Authored docs tracked | 464 |
+| Fresh (no linked source newer than the doc) | 65 |
+| **Review-due** | 95 |
+| No linked evidence sources (cannot auto-trigger) | 304 |
 
 ## Review queue
 
@@ -124,13 +124,12 @@ most recently changed triggers.
 | [docs/user/helm-presets-and-values.md](../../docs/user/helm-presets-and-values.md) | user | 2026-09-29 | 2 | `data/confighub-example-guides/summary.md (2026-10-01)` |
 | [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-09-29 | 2 | `data/chart-use-guide/summary.md (2026-10-01)` |
 | [docs/user/serious-chart-proof.md](../../docs/user/serious-chart-proof.md) | user | 2026-08-24 | 2 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-10-07 | 1 | `tests/npm-scripts.md (2026-10-07)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md) | planning | 2026-08-21 | 1 | `data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
-| [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md) | user | 2026-10-07 | 1 | `tests/npm-scripts.md (2026-10-07)` |
 | [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-08-26 | 1 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
+| [docs/user/workshop-byo-charts-guide.md](../../docs/user/workshop-byo-charts-guide.md) | user | 2026-10-08 | 1 | `data/config-workshop-command-contract/command-map.json (2026-10-08)` |
 
 ## Docs with no linked evidence sources
 
@@ -418,6 +417,7 @@ into this freshness model.
 - [docs/user/how-the-harness-works.md](../../docs/user/how-the-harness-works.md)
 - [docs/user/introduction-to-the-harness.md](../../docs/user/introduction-to-the-harness.md)
 - [docs/user/large-config-operations.md](../../docs/user/large-config-operations.md)
+- [docs/user/live-run-log-2026-10-08.md](../../docs/user/live-run-log-2026-10-08.md)
 - [docs/user/maintenance-sla.md](../../docs/user/maintenance-sla.md)
 - [docs/user/nim-coverage.md](../../docs/user/nim-coverage.md)
 - [docs/user/prometheus-overlay-promotion-example.md](../../docs/user/prometheus-overlay-promotion-example.md)
