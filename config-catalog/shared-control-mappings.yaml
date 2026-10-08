@@ -113,6 +113,7 @@ spec:
         - "admission-webhook-review"
         - "lifecycle-policy"
         - "sync-secret-rotation-review"
+        - "operator-managed-operands"
       reason: "These checks depend on install order, controller behavior, target state, or observations. A static rendered-object scan cannot replace them."
     - catalogRules:
         - "extension-slot-review"
@@ -131,6 +132,7 @@ spec:
         - "storage-retention-review"
         - "csi-driver-review"
         - "ui-ingress-policy"
+        - "privileged-workload-review"
       reason: "These are broader operating and ownership decisions. Shared field checks can inform the review but do not answer it."
     - catalogRules:
         - "workload-service-account-exists"
