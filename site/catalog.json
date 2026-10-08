@@ -109,7 +109,7 @@
     "top500MatchedProofs": 97,
     "latestCandidates": 7,
     "runtimeGitopsWave": 11,
-    "imageSubjectsNeedingResolution": 293,
+    "imageSubjectsNeedingResolution": 298,
     "nextTenGapRows": 9,
     "baseVariants": 42,
     "startHereBaseVariants": 26,
@@ -143,7 +143,7 @@
       "section": "outcome coverage",
       "metric": "maintained chart rows with model support",
       "value": "162",
-      "total": "178",
+      "total": "180",
       "status": "good",
       "source": "data/outcome-coverage/chart-outcomes.csv",
       "note": "The broader outcome-coverage table includes top-100 rows plus retained candidate/version rows; this count is not the top-100 corpus size."
@@ -169,8 +169,8 @@
     {
       "section": "outcome coverage",
       "metric": "variant-rich maintained chart rows",
-      "value": "117",
-      "total": "178",
+      "value": "119",
+      "total": "180",
       "status": "partial",
       "source": "data/outcome-coverage/chart-outcomes.csv",
       "note": "Maintained chart rows with more than one declared base variant, including retained candidate/version rows outside the top-100 corpus."
@@ -430,8 +430,8 @@
     {
       "section": "proof lanes",
       "metric": "render parity rows",
-      "value": "339",
-      "total": "339",
+      "value": "344",
+      "total": "344",
       "status": "good",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Every chart/base row has render parity under recorded inputs."
@@ -440,7 +440,7 @@
       "section": "proof lanes",
       "metric": "in-ConfigHub proof rows",
       "value": "198",
-      "total": "339",
+      "total": "344",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with upload, scan, or safe-operation proof receipts."
@@ -449,7 +449,7 @@
       "section": "proof lanes",
       "metric": "local live rows",
       "value": "148",
-      "total": "339",
+      "total": "344",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with committed local Kubernetes observation receipts."
@@ -476,7 +476,7 @@
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
       "value": "139",
-      "total": "339",
+      "total": "344",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "60 rows have non-pass GitOps/OCI receipts."
@@ -485,7 +485,7 @@
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
       "value": "139",
-      "total": "339",
+      "total": "344",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "60 rows have non-pass live parity receipts."
@@ -512,7 +512,7 @@
       "section": "proof lanes",
       "metric": "complete core lane rows",
       "value": "126",
-      "total": "339",
+      "total": "344",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
@@ -566,7 +566,7 @@
       "section": "graph bridge",
       "metric": "charts with recovered graph fragments",
       "value": "20",
-      "total": "178",
+      "total": "180",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Catalog-supported recipe artifacts converted into desired-state graph fragments."
@@ -664,7 +664,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix commands remaining",
-      "value": "422",
+      "value": "432",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",
@@ -673,7 +673,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix GitOps/OCI parity commands remaining",
-      "value": "213",
+      "value": "218",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",
@@ -682,7 +682,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix two-cluster kind commands remaining",
-      "value": "209",
+      "value": "214",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",
@@ -83567,13 +83567,13 @@
     }
   ],
   "matrixDisposition": {
-    "pass": 1136,
+    "pass": 1141,
     "watch": 107,
     "blocked": 128,
-    "todo": 772,
-    "na": 2036,
+    "todo": 797,
+    "na": 2055,
     "blank": 0,
-    "total": 4179
+    "total": 4228
   },
   "chartSkills": [
     {
