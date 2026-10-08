@@ -1,0 +1,103 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2"
+spec:
+  chart:
+    name: "k8s-ephemeral-storage-metrics"
+    repository: "k8s-ephemeral-storage-metrics"
+    version: "1.19.2"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 -o <tmp>/k8s-ephemeral-storage-metrics-1.19.2.tgz"
+    sha256: "70fe17878cfba5380dfa145c35f07eaf3f0a911213b45d1c4d7be39a9ff2bbfe"
+  package:
+    name: "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics"
+    path: "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "4a12a4fbe472f2fd73e808f9a4f60a5f6e01a34badd16dd2d1a866080211b62c"
+        bytes: 363
+      -
+        path: "bases/aicr-eks-training-v0-20-0/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-training-v0-20-0/upstream.yaml"
+        sha256: "6ff74d2f9205569c76a953a1bc1b09ddcf9341e9a9c72c8a53e5805c59f403bd"
+        bytes: 6662
+      -
+        path: "bases/aicr-eks-training-v1-0-0/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-training-v1-0-0/upstream.yaml"
+        sha256: "9f9f4bda22ad0886fe05c25a16a747c6020fc98151906bdcbe116c2177622a92"
+        bytes: 6684
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "80ef333ecea7833761b828a1da0e0301efc0e1a399a8a03fd31fdbd4af638da8"
+        bytes: 6616
+      -
+        path: "collector/target-facts.sh"
+        sha256: "29eca85ea2f613f0d8b6265617cbfceed0c959bce4be3fa2185907ebaa5235ba"
+        bytes: 4678
+      -
+        path: "installer.yaml"
+        sha256: "59567f45fc7b96bc5151274cd85e1fcd9051c231722cde7e2fe15f795958e93c"
+        bytes: 1888
+      -
+        path: "prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        sha256: "03956b8710e0fd9c2f2841a35ff3507493d0f11d5c52de619e1e09cc7de307a6"
+        bytes: 70119
+      -
+        path: "prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+        sha256: "bab5e6478c1d9714639be0f458fbeb115ba31c89c0976b1502caf30bdf467b78"
+        bytes: 70118
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "adfc3229000d58d14b8840beae308db6ccc2c3a30547052d5aaadcf07f66f730"
+        bytes: 70101
+    version: "1.19.2"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"
+      base: "default"
+      command: "cub installer setup --pull packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+      cubInstallObjectCountIncludingSupport: 7
+      helmReleaseObjectCount: 6
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"
+      base: "aicr-eks-training-v0-20-0"
+      command: "cub installer setup --pull packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace monitoring"
+      cubInstallObjectCountIncludingSupport: 7
+      helmReleaseObjectCount: 6
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "aicr-eks-training-v0-20-0"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"
+      base: "aicr-eks-training-v1-0-0"
+      command: "cub installer setup --pull packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace monitoring"
+      cubInstallObjectCountIncludingSupport: 7
+      helmReleaseObjectCount: 6
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "aicr-eks-training-v1-0-0"

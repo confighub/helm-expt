@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2"
+spec:
+  chart: "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics"
+  version: "1.19.2"
+  dependencies:
+    []

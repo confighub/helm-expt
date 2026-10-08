@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "kubeflow-trainer-aicr-eks-training-v1-0-0-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "1588a153433b7c5e746dd3d8966c619883147158aef6b2f2ad22f571718f993c"
+    dependencyLockSHA256: "b1180e599117726c09a2904ae0f27fcecd5a4b8541319afe9839ffacb3e4c040"
+    effectiveValuesSHA256: "987b92e58e3d7e920521b10d9f8113fd4bf11be77cb9f33582eb38e541d2fb2f"
+  outputs:
+    renderedObjectSetSHA256: "6d3b2103eec83a3ae10f1ced2dc4b30178068013ee0b688527581d2abe5619aa"
+    renderedObjectInventorySHA256: "d3adc1d4a4c29dbe498ddc9f7ce740562f07509e11685ab2b74cef2f41fd81a6"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 28
+    renderedSecretCount: 2
+    secretCountSeparatedByCubInstall: 2

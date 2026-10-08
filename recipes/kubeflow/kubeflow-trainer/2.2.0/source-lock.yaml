@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "kubeflow-kubeflow-trainer-2.2.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "kubeflow"
+  repositoryURL: "oci://ghcr.io/kubeflow/charts"
+  chart: "kubeflow-trainer"
+  version: "2.2.0"
+  packageSHA256: "34191da2886a91d9effb0543087ef0ad19b870b094c336c2ca34f474cba0030e"
+  packageBytes: 489573
+  exactArtifact:
+    url: "oci://ghcr.io/kubeflow/charts/kubeflow-trainer:2.2.0"
+    sha256: "34191da2886a91d9effb0543087ef0ad19b870b094c336c2ca34f474cba0030e"
+    resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

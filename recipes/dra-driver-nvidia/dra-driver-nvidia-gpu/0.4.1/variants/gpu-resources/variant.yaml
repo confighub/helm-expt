@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "gpu-resources"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "nvidia-dra-driver"
+  releaseName: "nvidia-dra-driver-gpu"
+  valuesProfile: "../../effective-values-gpu-resources.yaml"
+  capabilityProfile:
+    kubeVersion: "1.34.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "computedomaincliques.resource.nvidia.com"
+        sourceVariant: "gpu-resources"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "computedomains.resource.nvidia.com"
+        sourceVariant: "gpu-resources"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"

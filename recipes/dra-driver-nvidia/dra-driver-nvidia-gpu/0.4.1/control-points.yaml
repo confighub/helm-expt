@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      dependencyCount: 0
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.34.0"
+    -
+      category: "lifecycle-policy"
+      status: "handled"
+      policy: "no-hooks"
+      note: "no base's render contains a Helm hook object, with or without --no-hooks"
+    -
+      category: "crd-lifecycle"
+      status: "review-required"
+      count: 2
+    -
+      category: "target-facts"
+      status: "review-required"
+      note: "the two resource.nvidia.com CRDs must be established before the controller starts; the target must serve resource.k8s.io/v1, which Kubernetes does from 1.34, or it rejects the DeviceClass objects"
+    -
+      category: "catalog-coverage"
+      status: "packaged-with-controls"
+      note: "exact source and deterministic package are retained; publication, live qualification and production support remain separate gates"

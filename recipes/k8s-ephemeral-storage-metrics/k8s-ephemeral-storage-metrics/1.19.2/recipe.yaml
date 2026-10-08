@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics"
+  version: "1.19.2"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2"
+      - "--non-interactive"
+      - "--namespace"
+      - "monitoring"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/aicr-eks-training-v0-20-0/variant.yaml"
+    - "variants/aicr-eks-training-v1-0-0/variant.yaml"

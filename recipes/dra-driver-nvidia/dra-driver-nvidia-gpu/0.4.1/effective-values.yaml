@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-default"
+spec:
+  files:
+    -
+      path: "effective-values.yaml"
+      source: "inline-proof"
+      sha256: "93116c5261fc8267099d8243166d81fad8e375a4073bb60bf9bf22480566b903"
+  mergedValuesCaptured: false
+  values:
+    resources:
+      gpus:
+        enabled: false

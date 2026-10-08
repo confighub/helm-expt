@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "f587e81a843dd404b643ed138b90216247d8b324bf78d53acdf845782dfbddf2"
+  mergedValuesCaptured: false
+  values:
+    {}

@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "kubeflow-trainer-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "517fb09d2f16a0a4c83b9859ec82b4fddc8ce4c74eb552608c1789df0252b616"
+    objectCount: 28
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 29
+    uploadedManifestFiles: 29
+    separatedSecretFiles: 2
+    semanticObjectMatches: "28/28"
+  semanticNormalizations:
+    - "prune-null-fields"
+    - "configmap-leading-blank-line-pruned-by-kustomize"
+  classifications:
+    -
+      identity: "v1|Namespace||kubeflow"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run aicr-nested-charts-coverage:compare"

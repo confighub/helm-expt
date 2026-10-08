@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu"
+  version: "0.5.0"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0"
+      - "--non-interactive"
+      - "--namespace"
+      - "nvidia-dra-driver"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/gpu-resources/variant.yaml"
+    - "variants/aicr-eks-training/variant.yaml"

@@ -1,0 +1,43 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics"
+  version: "1.19.2"
+spec:
+  bases:
+    -
+      default: true
+      description: "k8s-ephemeral-storage-metrics chart defaults variant rendered from k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD servicemonitors.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+      name: "default"
+      path: "bases/default"
+    -
+      description: "k8s-ephemeral-storage-metrics AICR v0.20.0 EKS training values variant rendered from k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD servicemonitors.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          applyMode: "server-side"
+      name: "aicr-eks-training-v0-20-0"
+      path: "bases/aicr-eks-training-v0-20-0"
+    -
+      description: "k8s-ephemeral-storage-metrics AICR v1.0.0 EKS training values variant rendered from k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD servicemonitors.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+          applyMode: "server-side"
+      name: "aicr-eks-training-v1-0-0"
+      path: "bases/aicr-eks-training-v1-0-0"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

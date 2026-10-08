@@ -1,0 +1,40 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "kubeflow-kubeflow-trainer-2.2.0"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "kubeflow/kubeflow-trainer"
+    version: "2.2.0"
+    variants:
+      - "default"
+      - "aicr-eks-training-v0-20-0"
+      - "aicr-eks-training-v1-0-0"
+    helmObjectsByVariant:
+      default: 28
+      aicr-eks-training-v0-20-0: 28
+      aicr-eks-training-v1-0-0: 28
+    cubInstallObjectsByVariant:
+      default: 29
+      aicr-eks-training-v0-20-0: 29
+      aicr-eks-training-v1-0-0: 29
+    helmMatchByVariant:
+      default: "28/28"
+      aicr-eks-training-v0-20-0: "28/28"
+      aicr-eks-training-v1-0-0: "28/28"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish and sign the package, then complete target-specific live qualification before production"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/install-gate.yaml"

@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "kubeflow-kubeflow-trainer-2.2.0-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "b2a98ec17d3d46833aa9564f6d01a4903490cc5742fa2887a6a6343961517623"
+  mergedValuesCaptured: false
+  values:
+    {}

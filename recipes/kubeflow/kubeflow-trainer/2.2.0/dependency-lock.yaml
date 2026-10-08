@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "kubeflow-kubeflow-trainer-2.2.0"
+spec:
+  chart: "kubeflow/kubeflow-trainer"
+  version: "2.2.0"
+  dependencies:
+    -
+      condition: "jobset.install"
+      name: "jobset"
+      repository: "oci://registry.k8s.io/jobset/charts"
+      version: "0.11.0"
+    -
+      condition: "dataCache.enabled,dataCache.lws.install"
+      name: "lws"
+      repository: "oci://registry.k8s.io/lws/charts"
+      version: "0.8.0"
+  chartLockDigest: null
+  chartLockProvenance:
+    status: "source-derived-from-packaged-chart-yaml"
+    packageSHA256: "34191da2886a91d9effb0543087ef0ad19b870b094c336c2ca34f474cba0030e"
+    packageContainsChartLock: false
+    dependencySource: "Chart.yaml dependencies from the chart package recorded in source-lock.yaml"

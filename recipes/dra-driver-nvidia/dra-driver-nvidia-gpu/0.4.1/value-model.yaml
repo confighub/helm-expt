@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1"
+spec:
+  checkedValues:
+    -
+      path: "<chart defaults>"
+      variant: "default"
+      disposition: "default-render-captured"
+      reason: "the exact chart-default render of the locked archive is captured"
+    -
+      path: "resources.gpus.enabled / gpuResourcesEnabledOverride"
+      disposition: "variant-axis"
+      reason: "resources.gpus.enabled is true by chart default and the chart then fails to render unless gpuResourcesEnabledOverride is also true. The default base sets resources.gpus.enabled false; the gpu-resources base sets the override."
+      note: "with GPU allocation on, the chart says this driver must not share a node with the standard GPU device plugin"
+      evidence: "templates/validation.yaml, values.yaml resources.gpus and gpuResourcesEnabledOverride"
+    -
+      path: "resourceApiVersion"
+      disposition: "left-at-default"
+      reason: "Empty by chart default and in every base, so the chart picks the newest resource.k8s.io version the render's capability set reports. An offline Helm render reports v1, so the DeviceClass objects are resource.k8s.io/v1."
+      note: "a cluster that serves only v1beta1 or v1beta2 rejects these objects; Helm against that cluster would have rendered the older version"
+      evidence: "templates/_helpers.tpl, values.yaml resourceApiVersion"
+    -
+      path: "webhook.enabled"
+      disposition: "left-at-default"
+      reason: "False by chart default and in every base, so no ValidatingWebhookConfiguration renders and no webhook certificate is needed."
+      evidence: "templates/validatingwebhookconfiguration.yaml, templates/validation.yaml"
+    -
+      path: "<gpu-resources values>"
+      variant: "gpu-resources"
+      disposition: "variant-axis"
+      reason: "chart defaults with gpuResourcesEnabledOverride true, which the chart requires before it will render resources.gpus.enabled true; the chart's values.yaml and its refusal message say this driver must then not share a node with the standard GPU device plugin"
+      note: "differs from the default base by adding resource.k8s.io/v1|DeviceClass||gpu.nvidia.com, resource.k8s.io/v1|DeviceClass||mig.nvidia.com, resource.k8s.io/v1|DeviceClass||vfio.gpu.nvidia.com and by the fields those values reach; the proof checks the removed and added sets"
+    -
+      path: "<aicr-eks-training values>"
+      variant: "aicr-eks-training"
+      disposition: "variant-axis"
+      reason: "the values the AICR v0.20.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/014-nvidia-dra-driver-gpu/values.yaml): GPU allocation off and ComputeDomains on, the name overridden to nvidia-dra-driver-gpu, the driver root set to /run/nvidia/driver, the kubelet plugin selected onto nodes labelled nvidia.com/gpu.present, every pod tolerating every taint and annotated with gpu-operator chart version v26.3.3"
+      note: "the AICR values set nameOverride and fullnameOverride, which rename most objects, so this base is not described as objects added to or removed from the default base; like the default base it has resources.gpus.enabled false, the same number of objects and the same CRDs"
+  unknownValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  deadValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  ignoredValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"

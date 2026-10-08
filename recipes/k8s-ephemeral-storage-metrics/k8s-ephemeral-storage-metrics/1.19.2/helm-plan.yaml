@@ -1,0 +1,40 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics"
+    version: "1.19.2"
+    variants:
+      - "default"
+      - "aicr-eks-training-v0-20-0"
+      - "aicr-eks-training-v1-0-0"
+    helmObjectsByVariant:
+      default: 6
+      aicr-eks-training-v0-20-0: 6
+      aicr-eks-training-v1-0-0: 6
+    cubInstallObjectsByVariant:
+      default: 7
+      aicr-eks-training-v0-20-0: 7
+      aicr-eks-training-v1-0-0: 7
+    helmMatchByVariant:
+      default: "6/6"
+      aicr-eks-training-v0-20-0: "6/6"
+      aicr-eks-training-v1-0-0: "6/6"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish and sign the package, then complete target-specific live qualification before production"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/install-gate.yaml"

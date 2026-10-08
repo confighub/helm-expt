@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "kubeflow-trainer-aicr-eks-training-v0-20-0-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "9dd7efd3ae87560f2a396d4ed3a13db830d8a5b0856da5992e377026a92f2fcc"
+    objectCount: 28
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 29
+    uploadedManifestFiles: 29
+    separatedSecretFiles: 2
+    semanticObjectMatches: "28/28"
+  semanticNormalizations:
+    - "prune-null-fields"
+    - "configmap-leading-blank-line-pruned-by-kustomize"
+  classifications:
+    -
+      identity: "v1|Namespace||kubeflow"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run aicr-nested-charts-coverage:compare"

@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "aicr-eks-training-r001"
+spec:
+  variant: "../../../variants/aicr-eks-training/variant.yaml"
+  revision: "r001"
+  digest: "83fb522ac8113e25ebe958a644d099e153e4f8267d3cf0181aa3472b6e25a3b5"
+  digestInputs:
+    recipeSHA256: "5d4e9cc04e51353380fdfa7c6f732bbd6fcbdb66312f7f8de6b14f458662d2d5"
+    variantSHA256: "65c8f1631864ec34eca3450071adbee0cc5023624ec9435856c3367713375259"
+    effectiveValuesSHA256: "6cd0f1fb30413aac92088dcbcfc14c86e587f8a3957ae392729fe9dbec8e196b"
+    rendererSHA256: "ef9c36e43b56cb98411c1f8d6c280791f61948a3b385f86ad1e9e904e7a6694c"
+    renderedObjectSetSHA256: "282e9c2dd1946fe677c2b7a9ee7d1a8d65f109f2a302ab628e2ffe1bddc3c932"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 21

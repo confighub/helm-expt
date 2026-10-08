@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "aicr-eks-training-v0-20-0"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "monitoring"
+  releaseName: "k8s-ephemeral-storage-metrics"
+  valuesProfile: "../../effective-values-aicr-eks-training-v0-20-0.yaml"
+  capabilityProfile:
+    kubeVersion: "1.31.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "servicemonitors.monitoring.coreos.com"
+        sourcePath: "../../../prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/kube-prometheus-stack@88.6.3/default"
+        purpose: "Prometheus Operator ServiceMonitor CRD required before Kubernetes accepts the rendered ServiceMonitor object; the chart does not ship it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"

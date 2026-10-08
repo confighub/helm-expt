@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "aws-efa-k8s-device-plugin-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "93037b3ddc5220610ee1d784aaf15213bb2d908963c039a0db84fa423b35b60f"
+    dependencyLockSHA256: "608a329c3cc4ba0041d7c38d6640c122b8eaf5ab4e2775bb8aabb94bc9e8181c"
+    effectiveValuesSHA256: "c6bdf131d1f7c5f98041c3ff8804f40f5885dfa243556a54eb85c7a500820e12"
+  outputs:
+    renderedObjectSetSHA256: "c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71"
+    renderedObjectInventorySHA256: "82f33c151e6de73b9f92e0cccec576773d7732b065296e6a89390e44aaccce19"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 1
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

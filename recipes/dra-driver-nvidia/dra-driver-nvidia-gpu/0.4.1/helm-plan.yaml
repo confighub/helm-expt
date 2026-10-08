@@ -1,0 +1,40 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "dra-driver-nvidia/dra-driver-nvidia-gpu"
+    version: "0.4.1"
+    variants:
+      - "default"
+      - "gpu-resources"
+      - "aicr-eks-training"
+    helmObjectsByVariant:
+      default: 21
+      gpu-resources: 24
+      aicr-eks-training: 21
+    cubInstallObjectsByVariant:
+      default: 22
+      gpu-resources: 25
+      aicr-eks-training: 22
+    helmMatchByVariant:
+      default: "21/21"
+      gpu-resources: "24/24"
+      aicr-eks-training: "21/21"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish and sign the package, then complete target-specific live qualification on a GPU target that serves resource.k8s.io/v1 before production"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/gpu-resources/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/gpu-resources/r001/receipts/render-receipt.yaml"
+    - "revisions/gpu-resources/r001/receipts/scan-receipt.yaml"
+    - "revisions/gpu-resources/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/install-gate.yaml"

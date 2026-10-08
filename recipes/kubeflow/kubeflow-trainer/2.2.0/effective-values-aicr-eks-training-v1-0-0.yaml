@@ -1,0 +1,65 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "kubeflow-kubeflow-trainer-2.2.0-aicr-eks-training-v1-0-0"
+spec:
+  files:
+    -
+      path: "effective-values-aicr-eks-training-v1-0-0.yaml"
+      source: "inline-proof"
+      sha256: "5f6826e1cccbb551055fdfd78bdd4d553484b80834c7eb9f8d688685e6902863"
+  mergedValuesCaptured: false
+  values:
+    acceleratedNodeSelector:
+      nvidia.com/gpu.present: "true"
+    acceleratedTolerations:
+      -
+        operator: "Exists"
+    crds:
+      install: true
+    fullnameOverride: "kubeflow-trainer"
+    jobset:
+      controller:
+        nodeSelector:
+          nodeGroup: "system-worker"
+        tolerations:
+          -
+            operator: "Exists"
+      install: true
+    manager:
+      leaderElection:
+        enabled: true
+      logging:
+        verbosity: 0
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+      nodeSelector:
+        nodeGroup: "system-worker"
+      podSecurityContext:
+        runAsNonRoot: true
+      resources:
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
+        requests:
+          cpu: "100m"
+          memory: "256Mi"
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+            - "ALL"
+        readOnlyRootFilesystem: true
+      serviceAccount:
+        annotations:
+          {}
+        create: true
+        name: ""
+      tolerations:
+        -
+          operator: "Exists"
+    webhook:
+      enabled: true
+      port: 9443

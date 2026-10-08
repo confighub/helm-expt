@@ -1,0 +1,103 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0"
+spec:
+  chart:
+    name: "dra-driver-nvidia-gpu"
+    repository: "dra-driver-nvidia"
+    version: "0.5.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0 -o <tmp>/dra-driver-nvidia-gpu-0.5.0.tgz"
+    sha256: "3a5cd56f37e0408ef8856252c9c22911e0095249d9ee9216283ee9916159572e"
+  package:
+    name: "dra-driver-nvidia-dra-driver-nvidia-gpu"
+    path: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "bed6a8036fabd56d524f1e2ed7ea2ad32150be75affe8e4a5f184f62c7612cf8"
+        bytes: 316
+      -
+        path: "bases/aicr-eks-training/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-training/upstream.yaml"
+        sha256: "282e9c2dd1946fe677c2b7a9ee7d1a8d65f109f2a302ab628e2ffe1bddc3c932"
+        bytes: 33289
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8"
+        bytes: 33295
+      -
+        path: "bases/gpu-resources/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/gpu-resources/upstream.yaml"
+        sha256: "29aaf2e6ba3dce216ef70bcb1cd14afcd8dbcbe4e30cec982c48f36befe6e93d"
+        bytes: 37450
+      -
+        path: "collector/target-facts.sh"
+        sha256: "74bd0ae74e45a65a88cb45d3f97e255c429262d918185e6bc2362a750fe184b9"
+        bytes: 5083
+      -
+        path: "installer.yaml"
+        sha256: "7e34fd71f7179206edbb9dcce0e6ca4978bfd3f221b09a807dca4d3c0897dd68"
+        bytes: 2507
+      -
+        path: "prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        sha256: "46305eacc96b7fbae928a7b83652a9fed22895699f278edb70ffe20b7f75a8d2"
+        bytes: 10694
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "ef99898c4b2973509e4cc33f169fa9c564bd2e6e46f4e757a5a11c3f1b2f06ec"
+        bytes: 10684
+      -
+        path: "prerequisites/target-facts/gpu-resources-crds.yaml"
+        sha256: "46f0115cc4d27ec9526056b95d61f1e052cdc43fc74d291706d5300432f8eb33"
+        bytes: 10690
+    version: "0.5.0"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nvidia-dra-driver"
+      base: "default"
+      command: "cub installer setup --pull packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0 --base default --work-dir <tmp> --non-interactive --namespace nvidia-dra-driver"
+      cubInstallObjectCountIncludingSupport: 22
+      helmReleaseObjectCount: 21
+      semanticObjectMatches: "21/21"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nvidia-dra-driver"
+      base: "gpu-resources"
+      command: "cub installer setup --pull packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0 --base gpu-resources --work-dir <tmp> --non-interactive --namespace nvidia-dra-driver"
+      cubInstallObjectCountIncludingSupport: 25
+      helmReleaseObjectCount: 24
+      semanticObjectMatches: "24/24"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "gpu-resources"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nvidia-dra-driver"
+      base: "aicr-eks-training"
+      command: "cub installer setup --pull packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace nvidia-dra-driver"
+      cubInstallObjectCountIncludingSupport: 22
+      helmReleaseObjectCount: 21
+      semanticObjectMatches: "21/21"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "aicr-eks-training"
