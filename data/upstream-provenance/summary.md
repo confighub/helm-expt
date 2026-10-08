@@ -15,8 +15,8 @@ Surveyed **2026-10-08**. For each retained chart, the upstream repository index 
 
 ## The answer
 
-**40 of 167 retained charts** publish a Helm provenance file, which is
-24% of the catalog. 89 publish none, and 38 could not be asked, mostly
+**43 of 180 retained charts** publish a Helm provenance file, which is
+24% of the catalog. 92 publish none, and 45 could not be asked, mostly
 because their charts are hosted in a way this convention does not cover.
 
 That number is the ceiling on any provenance claim the catalog could make by
@@ -26,12 +26,13 @@ never done it.
 
 ## By upstream repository
 
-9 of 61 upstream repositories sign at least one retained chart.
+10 of 68 upstream repositories sign at least one retained chart.
 
 | Repository | Retained charts | Signed | Verdict |
 | --- | --- | --- | --- |
 | https://aquasecurity.github.io/helm-charts | 1 | 0 | publishes none |
 | https://argoproj.github.io/argo-helm | 9 | 9 | signs every retained chart |
+| https://aws.github.io/eks-charts | 1 | 0 | publishes none |
 | https://bitnami-labs.github.io/sealed-secrets | 1 | 0 | could not be asked |
 | https://charts.bitnami.com/bitnami | 21 | 0 | OCI-hosted, no provenance convention |
 | https://charts.crossplane.io/stable | 1 | 0 | publishes none |
@@ -56,12 +57,14 @@ never done it.
 | https://helm.runix.net | 1 | 0 | publishes none |
 | https://istio-release.storage.googleapis.com/charts | 2 | 0 | publishes none |
 | https://jaegertracing.github.io/helm-charts | 2 | 0 | publishes none |
+| https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart | 1 | 0 | publishes none |
 | https://kedacore.github.io/charts | 1 | 0 | publishes none |
-| https://kubernetes-sigs.github.io/aws-ebs-csi-driver | 1 | 0 | publishes none |
+| https://kubernetes-sigs.github.io/aws-ebs-csi-driver | 2 | 0 | publishes none |
 | https://kubernetes-sigs.github.io/descheduler | 1 | 0 | publishes none |
 | https://kubernetes-sigs.github.io/external-dns | 1 | 0 | publishes none |
 | https://kubernetes-sigs.github.io/metrics-server | 3 | 0 | publishes none |
 | https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner | 1 | 0 | publishes none |
+| https://kubernetes-sigs.github.io/node-feature-discovery/charts | 1 | 1 | signs every retained chart |
 | https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts | 1 | 0 | publishes none |
 | https://kubernetes.github.io/autoscaler | 2 | 0 | publishes none |
 | https://kubernetes.github.io/ingress-nginx | 1 | 0 | publishes none |
@@ -77,20 +80,24 @@ never done it.
 | https://opencost.github.io/opencost-helm-chart | 1 | 0 | publishes none |
 | https://operator.min.io | 2 | 0 | publishes none |
 | https://percona.github.io/percona-helm-charts | 4 | 0 | publishes none |
-| https://prometheus-community.github.io/helm-charts | 16 | 15 | signs some |
+| https://prometheus-community.github.io/helm-charts | 18 | 17 | signs some |
 | https://stakater.github.io/stakater-charts | 3 | 0 | publishes none |
 | https://strimzi.io/charts | 1 | 0 | publishes none |
 | https://traefik.github.io/charts | 1 | 1 | signs every retained chart |
 | https://valkey.io/valkey-helm | 1 | 0 | publishes none |
 | https://victoriametrics.github.io/helm-charts | 2 | 0 | publishes none |
 | https://vmware-tanzu.github.io/helm-charts | 2 | 0 | publishes none |
+| oci://ghcr.io/kai-scheduler/kai-scheduler | 2 | 0 | OCI-hosted, no provenance convention |
+| oci://ghcr.io/kubeflow/charts | 1 | 0 | OCI-hosted, no provenance convention |
 | oci://ghcr.io/nvidia | 5 | 0 | OCI-hosted, no provenance convention |
+| oci://ghcr.io/nvidia/nodewright/charts | 2 | 0 | OCI-hosted, no provenance convention |
 | oci://ghcr.io/traefik/helm | 2 | 0 | OCI-hosted, no provenance convention |
 | oci://public.ecr.aws/aws-controllers-k8s | 3 | 0 | OCI-hosted, no provenance convention |
 | oci://public.ecr.aws/karpenter | 1 | 0 | OCI-hosted, no provenance convention |
 | oci://registry-1.docker.io/cloudpirates/nginx | 1 | 0 | OCI-hosted, no provenance convention |
 | oci://registry-1.docker.io/cloudpirates/rabbitmq | 1 | 0 | OCI-hosted, no provenance convention |
 | oci://registry-1.docker.io/cloudpirates/redis | 1 | 0 | OCI-hosted, no provenance convention |
+| oci://registry.k8s.io/dra-driver-nvidia/charts | 2 | 0 | OCI-hosted, no provenance convention |
 
 ## The charts that could carry a provenance claim today
 
@@ -115,12 +122,14 @@ never done it.
 | `external-secrets` | 2.7.0 | https://charts.external-secrets.io |
 | `external-secrets` | 2.8.0 | https://charts.external-secrets.io |
 | `gitlab-runner` | 0.89.0 | https://charts.gitlab.io |
+| `kube-prometheus-stack` | 84.4.0 | https://prometheus-community.github.io/helm-charts |
 | `kube-prometheus-stack` | 85.3.3 | https://prometheus-community.github.io/helm-charts |
 | `kube-prometheus-stack` | 86.1.0 | https://prometheus-community.github.io/helm-charts |
 | `kube-prometheus-stack` | 87.15.1 | https://prometheus-community.github.io/helm-charts |
 | `kube-prometheus-stack` | 87.19.2 | https://prometheus-community.github.io/helm-charts |
 | `kube-prometheus-stack` | 88.6.3 | https://prometheus-community.github.io/helm-charts |
 | `kube-state-metrics` | 7.4.0 | https://prometheus-community.github.io/helm-charts |
+| `node-feature-discovery` | 0.19.0 | https://kubernetes-sigs.github.io/node-feature-discovery/charts |
 | `policy-reporter` | 3.10.0 | https://kyverno.github.io/policy-reporter |
 | `policy-reporter` | 3.9.1 | https://kyverno.github.io/policy-reporter |
 | `prometheus` | 29.8.0 | https://prometheus-community.github.io/helm-charts |
@@ -130,6 +139,7 @@ never done it.
 | `prometheus-blackbox-exporter` | 11.15.1 | https://prometheus-community.github.io/helm-charts |
 | `prometheus-blackbox-exporter` | 11.18.0 | https://prometheus-community.github.io/helm-charts |
 | `prometheus-node-exporter` | 4.55.0 | https://prometheus-community.github.io/helm-charts |
+| `prometheus-operator-crds` | 28.0.1 | https://prometheus-community.github.io/helm-charts |
 | `prometheus-operator-crds` | 29.0.0 | https://prometheus-community.github.io/helm-charts |
 | `terraform` | 1.1.2 | https://helm.releases.hashicorp.com |
 | `traefik` | 40.2.0 | https://traefik.github.io/charts |
@@ -150,7 +160,7 @@ check at the point they pull the chart.
 ## Why the rest could not be asked
 
 - **21** are listed in an HTTP index that points at an OCI reference rather than a tarball, which is the migration that followed one publisher's repricing.
-- **14** sit in an OCI repository, which has no index and no provenance convention.
+- **21** sit in an OCI repository, which has no index and no provenance convention.
 - **2** answered with a refusal rather than an answer.
 - **1** sit in a repository whose index could not be read.
 
