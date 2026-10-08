@@ -303,6 +303,9 @@ const ENTRY_STEP_STATE_CLASS = new Map([
   ["blocked-for-this-entry", "bad"],
   ["not-available", "none"],
 ]);
+// The dated run log in which the variant commands of the entry steps were
+// run once on other content. It is a user doc, so a page links its HTML copy.
+const ENTRY_STEPS_RUN_LOG = "live-run-log-2026-10-08.html";
 
 function entryStepsListings() {
   return (listingsIndexData.listings ?? []).map((listing) => readListingFile(listing.id));
@@ -4800,7 +4803,7 @@ function configHtml(catalog) {
     ], { rawSecondColumn: true })}
     <p>A configuration that is <strong>unsafe to flatten</strong> does not fall out of this model. Its source stays authoritative and its processor runs late, at install time. But the result rejoins at the base step. The render-late objects are retained, derived, promoted, and released like any other base, and only where the objects are produced differs.</p>
     <h3 id="confighub-role">Where ConfigHub fits</h3>
-    <p>ConfigHub is where a reviewed base becomes shared, governed configuration. <code>cub variant upload</code> creates the base variant: a Space labelled <code>Component=&lt;name&gt;, Variant=base</code> that holds the configuration as one Unit per resource, with no target. A component is the set of Spaces that share a <code>Component</code> label, so the base is the component's first Space. From there ConfigHub's own verbs release, promote, gate, approve, and roll back.</p>
+    <p>ConfigHub is where a reviewed base becomes shared, governed configuration. <code>cub variant upload</code> creates the base variant: a Space labelled <code>Component=&lt;name&gt;, Variant=base</code> that holds the configuration as one Unit per resource, with no target. Secrets are the exception, because the upload skips them. A component is the set of Spaces that share a <code>Component</code> label, so the base is the component's first Space. From there ConfigHub's own verbs release, promote, gate, approve, and roll back.</p>
     <p>So one uploaded configuration is one component's base variant held in one Space: the same thing named from four sides. <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines what comes next. Several components compose into a stack, which becomes a platform once it runs under governance with your apps on it. The handoff runs base, then stack, then platform, with an <a href="./apps.html#what-an-app-is">app</a> placed on either.</p>
     <p>The full record is in <a href="./d/docs/user/confighub-data-model.html">the ConfigHub data model</a>, and <a href="./d/docs/reference/config-catalog-doctrine.html">the catalog doctrine</a> gives the same lifecycle for every source in more detail.</p>
   </section>
@@ -4965,7 +4968,7 @@ function howItWorksHtml() {
     ${markdownLikeTable([
       ["Level", "Do this", "Command", "What you get"],
       ["Advanced", "Review how to configure the approval gate", "<code>cub changeworkflow create --help</code>", "Declare AttestationPrerequisites in the workflow file and reference them from stage Prerequisites or ReleasePrerequisites. Bind the reviewed workflow to the ChangeOrder before relying on enforcement."],
-      ["Advanced", "Record the reviewed approval", "<code>cub variant approve cart-demo-dev</code>", "Records Approval attestations for the current revisions of Units with Targets in this Space. Review that whole selection first. Identical-content later revisions can remain covered; a changed-content revision needs a qualifying approval. The configured workflow decides whether the gate is satisfied."],
+      ["Advanced", "Record the reviewed approval", "<code>cub variant approve cart-demo-dev</code>", "Records Approval attestations for the current revisions of Units with Targets in this Space. A Space with no Targets records nothing unless you add <code>--all</code>. Review that whole selection first. Identical-content later revisions can remain covered; a changed-content revision needs a qualifying approval. The configured workflow decides whether the gate is satisfied."],
     ], { rawThirdColumn: true, rawFourthColumn: true })}
     <p><a href="./operate-a-fleet.html#ops">See gates and scans among the other operations</a>.</p>
   </section>
@@ -9378,7 +9381,7 @@ Variants:
         <li><strong>Base variant</strong> is the reviewed starting configuration. For a Helm source, it matches a supported render shape such as <code>no-crds</code> or <code>reuse-existing-secret</code>.</li>
         <li><strong>Derived variant</strong> is a ConfigHub clone for a specific environment, region, customer, or target. Its changes are exact object changes; Helm is not rendered again.</li>
       </ul>
-      <p>A base Space has no Target. <code>cub variant upload</code> creates it labeled <code>Variant=base</code>, and it holds one Unit per rendered object until you choose to deliver it.</p>
+      <p>A base Space has no Target. <code>cub variant upload</code> creates it labeled <code>Variant=base</code>, and it holds one Unit per rendered object until you choose to deliver it. The upload skips Secrets, so a Secret gets no Unit.</p>
 
       <h3 id="package-contents">What the package contains</h3>
       <p>An installer package is the catalog artifact for one chart version.</p>
@@ -9473,7 +9476,7 @@ function ociHtml(catalog) {
     <h3 id="layouts">Which consumer needs which layout</h3>
     <ul>
       <li><code>cub installer setup --pull</code> and <code>cub installer inspect</code> need the installer-package layout, row one above.</li>
-      <li><code>cub variant upload oci://…</code> needs the literal-configuration-bundle layout, row two, or a certified bundle, row five. Every resource becomes its own Unit.</li>
+      <li><code>cub variant upload oci://…</code> needs the literal-configuration-bundle layout, row two, or a certified bundle, row five. Every resource becomes its own Unit, except Secrets, which the upload skips.</li>
       <li>Argo CD, Flux, an anonymous pull, or <code>oras</code> and <code>kubectl</code> need the portable-deployment-bundle layout, row three.</li>
       <li><code>cub config verify</code> needs the certified-bundle layout with its receipt attached as a referrer, rows five and six.</li>
       <li>A reconciler that pulls one manifest for a whole stack needs the flattened stack-release layout, row eight.</li>
@@ -10910,9 +10913,9 @@ function operationsTables(catalog) {
       status: "watch",
       boundary: "ConfigHub revisions and a live check",
       action: "compare live state with a previous approved revision",
-      code: "cub unit diff <space>/<unit> --from=<earlier-revision-number> --to=LastReleasedRevisionNum\ncub-scout compare three-way --dry-from <previous-render.yaml>",
-      get: "You see the difference between the last released revision and an earlier approved one. The diff command is taken from the help of cub v0.8.7 and has not been re-run here. Today this is a rehearse-and-review path, because exact rollback automation depends on the app, the target, and any lifecycle step that cannot be undone.",
-      see: ["day2-upgrade-story.md", "day2-upgrade-rollback.md", "cub-scout-diff-design.md"],
+      code: "cub unit diff <space>/<unit> --from=<earlier-revision-number> --to=HeadRevisionNum\ncub-scout compare three-way --dry-from <previous-render.yaml>",
+      get: "You see the difference between an earlier approved revision and the head revision. A live run on 2026-10-08 with cub v0.8.7 used each part of this diff command. <code>--to=LastReleasedRevisionNum</code> names the last released revision, so it needs a Unit that has been released. That run saw it fail on a Unit that was never released. The <code>cub-scout</code> line was not run. Today this is a rehearse-and-review path, because exact rollback automation depends on the app, the target, and any lifecycle step that cannot be undone.",
+      see: ["day2-upgrade-story.md", "day2-upgrade-rollback.md", "cub-scout-diff-design.md", "live-run-log-2026-10-08.md"],
     },
   ];
   const seeLabels = new Map([
@@ -10927,6 +10930,7 @@ function operationsTables(catalog) {
     ["day2-upgrade-story.md", "The day-2 upgrade story"],
     ["day2-upgrade-rollback.md", "Upgrade and rollback guide"],
     ["cub-scout-diff-design.md", "Three-way comparison design"],
+    ["live-run-log-2026-10-08.md", "Live run log, 2026-10-08"],
     ["gitops-adopter-guide.md", "Argo CD and Flux guide"],
     ["./does-cluster-match-approved-config.html", "What each path can prove"],
   ]);
@@ -14978,6 +14982,9 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
   const allCommands = listings.flatMap((listing) => (listing.nextSteps ?? []).flatMap((step) => step.commands ?? []));
   const usesCub = allCommands.some(({ command }) => /^cub /.test(command));
   const compares = allCommands.some(({ command }) => /^cub config diff /.test(command));
+  // The dated log shows these command forms run once on other content. It is
+  // evidence for the forms only, so the sentence says it is no run for the entry.
+  const usesVariant = allCommands.some(({ command }) => /^cub variant /.test(command));
   const listingLinks = listings
     .map((listing) => `<a href="${listingsHref}/${escapeHtml(listing.identity.id)}.json">${escapeHtml(listing.identity.id)}.json</a>`)
     .join(", ");
@@ -14989,6 +14996,7 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
         usesCub ? `<a href="${siteHref}/try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command.` : "",
         compares ? `Step 2 uses <code>cub config diff</code>, which <code>${escapeHtml(WORKSHOP_PLUGIN_INSTALL)}</code> adds.` : "",
         listings.length > 1 ? `This page covers ${listings.length} entries, so open the one you want.` : "",
+        usesVariant ? `A <a href="${siteHref}/d/docs/user/${ENTRY_STEPS_RUN_LOG}">live run on 2026-10-08</a> used these <code>cub variant</code> commands on other configuration, with no Target. It is not a run for this entry.` : "",
         note,
       ].filter(Boolean).join(" ")}</p>
       ${body}

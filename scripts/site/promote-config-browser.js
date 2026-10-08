@@ -133,7 +133,8 @@
       "",
       "# Run these writes only after the preview and destination checks pass.",
       `cub variant upload --component ${component} --variant base --space ${baseSpace}${uploadShape} --unit-annotation workshop.confighub.com/object-set-sha256=${review.spec.candidate.objectSetSha256} --change-desc \"Reviewed ${review.spec.candidate.objectSetSha256}\" candidate.yaml`,
-      "# The upload sets that annotation on every Unit it writes. This is read from the help of cub v0.8.7 and has not been re-run.",
+      "# The upload sets that annotation on every Unit it writes. A live run on 2026-10-08 with cub v0.8.7 showed this.",
+      "# The upload skips Secrets. Read its whole output, because a failed Link prints \"link FAILED\" and the exit status is still 0.",
     ];
     if (!destinations.length) preview.push("", "# Add one existing downstream Space above to preview its promotion.");
     for (const destination of destinations) {
