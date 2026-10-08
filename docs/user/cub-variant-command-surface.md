@@ -17,7 +17,13 @@ cub variant promote
 cub variant upload
 ```
 
-That list is the one the help of cub v0.8.7 prints.
+That list is the one the help of cub v0.8.7 prints. An unknown subcommand
+prints the group help and exits 0, so an exit status does not show that a
+command exists.
+
+A live run on 2026-10-08 with cub v0.8.7 used `approve`, `create`, `diff`,
+`promote` and `upload`. The [run log](./live-run-log-2026-10-08.md) holds each
+command and its output. `cub variant demote` was not run.
 
 Not current local command:
 
@@ -56,6 +62,13 @@ cub variant create prod-us-east helm-prometheus-server-only \
 
 This creates a derived ConfigHub variant. It does not run Helm again and it
 does not create a new `cub installer` base.
+
+The run on 2026-10-08 showed what a clone carries. Without `--space-pattern`
+the new Space is named `<component>-<variant>`. Triggers are not copied, and
+permissions are copied. When the upstream Space has no trigger selection, the
+clone gets a selection that points at the upstream Space, so the upstream
+Space's Triggers still run for the clone. `cub variant create` has no
+`--dry-run` flag.
 
 The clone should preserve the reviewed Unit data. Any post-clone data change
 needs an explicit allowed mutation path and receipt. If decoded Kubernetes data
@@ -130,12 +143,15 @@ ownership, and any deletion or refusal case relevant to that base.
 Use `cub unit set-protection` for explicit field ownership when a downstream
 variant should keep a local override during future promotion. For example, a
 production variant can protect one workload's `spec.replicas` field with
-`--protect`, then reopen that path later with `--unprotect`. The command is
-taken from the help of cub v0.8.7 and has not been re-run here. It replaces
+`--protect`, then reopen that path later with `--unprotect`. The `--protect`
+form was run on 2026-10-08 with cub v0.8.7, and the protected path kept its
+value through a promotion. The [run log](./live-run-log-2026-10-08.md) shows
+it. `--unprotect` was not run. The command replaces
 `cub unit set-predicates`, which the CLI no longer has.
 
 Use `cub variant upload` for already-rendered manifests that you want to ingest
-directly as a ConfigHub variant Space. In helm-expt's curated catalog path,
+directly as a ConfigHub variant Space. Every resource becomes its own Unit,
+except Secrets, which the upload skips and names in its output. In helm-expt's curated catalog path,
 `cub installer upload` remains the preferred upload step because the package
 receipt, base, and recipe proof are part of the contract.
 

@@ -565,7 +565,7 @@ maintained cub installer recipe.</code></pre>
 <tr><td>Public Helm chart with no existing app</td><td><code>helm template</code> or the <code>cub installer</code> catalog path</td><td>local Helm render or maintained catalog package depending on intent</td></tr></tbody></table>
 <h2 id="a-small-plain-yaml-example">A Small Plain YAML Example</h2>
 <p>The repository includes a four-object application under <a href="../../examples/plain-yaml/acme-web/README.html"><code>examples/plain-yaml/acme-web</code></a>. It has one Namespace, ConfigMap, Deployment, and Service. There is no chart and no render step.</p>
-<p>Upload the files as one Unit per Kubernetes object:</p>
+<p>Upload the files as one Unit per Kubernetes object. The upload skips Secrets, and this example has none:</p>
 <pre><code>cub variant upload \
   --component plain-yaml-acme-web \
   --variant base \
@@ -573,7 +573,7 @@ maintained cub installer recipe.</code></pre>
   examples/plain-yaml/acme-web</code></pre>
 <p>The <a href="../../../../runs/literal-yaml-upload-proof/receipt.yaml">focused receipt</a> reads the four Units back and compares them with the four files. The source and stored object-set hashes match. The separate README Unit explains the example inside the <code>helm-catalog</code> demo organization.</p>
 <p>This proves the import boundary. No cluster apply, promotion, release, or workload observation is claimed by this receipt.</p>
-<p>The current command surface does not provide a one-step GitOps discovery/import and controller-handover command. Read the controller objects and desired Kubernetes objects first. Review their source, target, namespace, and ownership, then use <code>cub variant upload</code> for the YAML or literal OCI you chose to store. Server-side upload creates one Unit per Kubernetes resource; the retired <code>--granularity</code> flag is not needed. The upload creates ConfigHub records; it does not change the controller or cluster.</p>
+<p>The current command surface does not provide a one-step GitOps discovery/import and controller-handover command. Read the controller objects and desired Kubernetes objects first. Review their source, target, namespace, and ownership, then use <code>cub variant upload</code> for the YAML or literal OCI you chose to store. Server-side upload creates one Unit per Kubernetes resource, except Secrets, which it skips and names in its output. The retired <code>--granularity</code> flag is not needed. A live run on 2026-10-08 with cub v0.8.7 uploaded 14 objects and got 13 Units, and the <a href="live-run-log-2026-10-08.html">run log</a> shows it. The upload creates ConfigHub records; it does not change the controller or cluster.</p>
 <h2 id="adoption-levels">Adoption Levels</h2>
 <table><thead><tr><th>Level</th><th>What happens</th><th>User value</th></tr></thead><tbody><tr><td>Observe</td><td>Import or discover the existing app and record where it came from.</td><td>The team can see and search the app in ConfigHub without changing delivery.</td></tr>
 <tr><td>Explain</td><td>Add component, chart, variant, environment, region, target, and source labels; preserve links.</td><td>The app becomes understandable and comparable.</td></tr>

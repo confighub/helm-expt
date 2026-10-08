@@ -105,7 +105,7 @@ ConfigHub-managed workflow.
 
 Plain Helm is enough when the only job is to render or install once. The
 catalog adds value before install by making the selected base explicit and
-reviewable. ConfigHub adds value after upload because every object is a Unit
+reviewable. ConfigHub adds value after upload because every uploaded object is a Unit
 that can be diffed, scanned, gated, linked, approved, promoted, observed, and
 audited.
 

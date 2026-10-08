@@ -13,7 +13,7 @@ cub variant upload --component redis --variant base redis.yaml
 ```
 
 Current `cub` splits the rendered input into one Unit per Kubernetes resource
-server-side. The earlier `--granularity per-resource` spelling has been
+server-side. It skips Secrets and names each one in its output. The earlier `--granularity per-resource` spelling has been
 removed; omitting it now expresses the same resource-oriented import.
 
 The receipt carries the claim that matters: the objects in ConfigHub are canonically equal to the files CI rendered. Nothing is lost in the move, so there is nothing to re-review.

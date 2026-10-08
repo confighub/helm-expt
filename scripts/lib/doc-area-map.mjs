@@ -114,6 +114,7 @@ const DOC_AREA = {
   "docs/user/introduction-to-the-harness.md": "config",
   "docs/user/known-gaps-we-surface.md": "catalog",
   "docs/user/large-config-operations.md": "operate",
+  "docs/user/live-run-log-2026-10-08.md": "operate",
   "docs/user/live-parity.md": "catalog",
   "docs/user/maintenance-sla.md": "catalog",
   "docs/user/model-and-vocabulary.md": "config",

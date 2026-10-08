@@ -149,7 +149,8 @@ Good for:
 
 - quickly getting rendered configuration into ConfigHub;
 - seeding a base Space from a reviewed OCI bundle;
-- keeping every resource as its own Unit, named after the resource;
+- keeping every resource except Secrets as its own Unit, named after the
+  resource;
 - starting from Helm, AICR, CI output, or hand-written Kubernetes files without
   building a catalog entry first.
 

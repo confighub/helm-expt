@@ -621,8 +621,8 @@ cub unit open --space &lt;space&gt;
 # Inspect the stored config for one Unit.
 cub unit data &lt;unit&gt; --space &lt;space&gt;
 
-# Compare revisions of one Unit.
-cub unit diff &lt;unit&gt; --space &lt;space&gt;
+# Compare the head revision of one Unit with the revision before it.
+cub unit diff &lt;unit&gt; --space &lt;space&gt; --from=-1
 
 # Run a ConfigHub function scan over the uploaded Units.
 cub function vet &lt;function&gt; --space &lt;space&gt;
@@ -639,7 +639,10 @@ cub release publish &lt;space&gt;
 
 # Clone a reviewed ConfigHub space into an environment/region variant.
 cub variant create staging &lt;upstream-space&gt; --environment Staging --region us-east2</code></pre>
-<p>The current CLI no longer has <code>cub unit apply</code>. A Space is delivered by publishing a Release for its release Target, which Argo CD or Flux then pulls. The <code>cub release publish</code>, <code>cub space open</code>, and <code>cub unit open</code> lines above are taken from the help of cub v0.8.7 and have not been re-run here.</p>
+<p>The current CLI no longer has <code>cub unit apply</code>. A Space is delivered by publishing a Release for its release Target, which Argo CD or Flux then pulls.</p>
+<p>A live run on 2026-10-08 with cub v0.8.7 checked several lines above. The <a href="../user/live-run-log-2026-10-08.html">run log</a> holds each command and its output.</p>
+<ul><li><code>cub unit diff</code> needs a Unit name. Its default <code>--from</code> is <code>LastReleasedRevisionNum</code>, which fails on a Unit that was never released, so the line above names <code>--from=-1</code>. Revision numbers, <code>HeadRevisionNum</code>, <code>-N</code> and <code>--with-unit &lt;space&gt;/&lt;unit&gt;</code> all worked. The help also lists <code>Tag:</code> and <code>ChangeSet:</code> references, and the server refused both.</li><li><code>cub variant approve &lt;space&gt;</code> records nothing in a Space with no Targets. With <code>--all</code> it recorded one Approval attestation for the Space.</li><li><code>cub release publish &lt;space&gt;</code> was refused for a Space with no release Target. A publish with a release Target was not run.</li><li>An unknown subcommand prints the group help and exits 0, so an exit status does not show that a command exists. Read the help instead.</li><li><code>cub variant upload</code> exits 0 when a Link fails on a quota. Read the whole output for <code>link FAILED</code> lines.</li></ul>
+<p>The <code>cub space open</code> and <code>cub unit open</code> lines are taken from the help of cub v0.8.7 and were not run.</p>
 <p>The retained <code>verify-bulk-ops:nginx</code> verifier still reads legacy <code>ApprovedBy</code> state. It has not been migrated to attestations, so do not use its approval count as proof that a current <code>cub variant approve</code> command succeeded.</p>
 <p>The expected label model is visible in the Redis demo:</p>
 <pre><code>Component=Redis

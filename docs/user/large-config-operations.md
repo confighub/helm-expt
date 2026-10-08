@@ -38,9 +38,18 @@ kubectl --kubeconfig <kubeconfig> get pods -A
 ```
 
 The current CLI no longer has `cub unit apply` or `cub unit livestate`, which
-this page named before. The two `cub release` commands are taken from the help
-of cub v0.8.7 and have not been re-run here. That help names no command that
-reads one Unit's live state, so that step is not documented yet.
+this page named before. A live run on 2026-10-08 with cub v0.8.7 ran both
+`cub release` commands in a Space with no release Target, and the
+[run log](./live-run-log-2026-10-08.md) holds the output.
+`cub release list --space <space>` printed an empty list.
+`cub release publish <space>` was refused with "cannot release a Space without
+a ReleaseTargetID". A publish with a release Target was not run, and neither
+were the `kubectl` lines. The run found no command that reads one Unit's live
+state, so that step is not documented yet.
+
+`cub variant upload` exits 0 when a Link fails on a quota. The same run saw
+`link FAILED` lines for a Space whose Units were all written. Read the whole
+upload output on a large component, and check the Link quota first.
 
 For GitOps/OCI, check both the root application and the child resources:
 

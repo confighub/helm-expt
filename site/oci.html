@@ -660,7 +660,7 @@
     <h3 id="layouts">Which consumer needs which layout</h3>
     <ul>
       <li><code>cub installer setup --pull</code> and <code>cub installer inspect</code> need the installer-package layout, row one above.</li>
-      <li><code>cub variant upload oci://…</code> needs the literal-configuration-bundle layout, row two, or a certified bundle, row five. Every resource becomes its own Unit.</li>
+      <li><code>cub variant upload oci://…</code> needs the literal-configuration-bundle layout, row two, or a certified bundle, row five. Every resource becomes its own Unit, except Secrets, which the upload skips.</li>
       <li>Argo CD, Flux, an anonymous pull, or <code>oras</code> and <code>kubectl</code> need the portable-deployment-bundle layout, row three.</li>
       <li><code>cub config verify</code> needs the certified-bundle layout with its receipt attached as a referrer, rows five and six.</li>
       <li>A reconciler that pulls one manifest for a whole stack needs the flattened stack-release layout, row eight.</li>

@@ -786,7 +786,7 @@ Variants:
         <li><strong>Base variant</strong> is the reviewed starting configuration. For a Helm source, it matches a supported render shape such as <code>no-crds</code> or <code>reuse-existing-secret</code>.</li>
         <li><strong>Derived variant</strong> is a ConfigHub clone for a specific environment, region, customer, or target. Its changes are exact object changes; Helm is not rendered again.</li>
       </ul>
-      <p>A base Space has no Target. <code>cub variant upload</code> creates it labeled <code>Variant=base</code>, and it holds one Unit per rendered object until you choose to deliver it.</p>
+      <p>A base Space has no Target. <code>cub variant upload</code> creates it labeled <code>Variant=base</code>, and it holds one Unit per rendered object until you choose to deliver it. The upload skips Secrets, so a Secret gets no Unit.</p>
 
       <h3 id="package-contents">What the package contains</h3>
       <p>An installer package is the catalog artifact for one chart version.</p>

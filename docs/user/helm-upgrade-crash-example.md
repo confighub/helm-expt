@@ -121,22 +121,32 @@ then becomes a reviewed change, not a blind upgrade:
 
 ```sh
 # Pseudo-command shape. Use the current cub commands for your space and target.
-cub unit diff --space <candidate-space>
+cub unit diff --space <candidate-space> <unit> --from=<earlier-revision-number> --to=HeadRevisionNum
 cub changeset create --space <candidate-space> <upgrade-review>
 cub function vet --space <candidate-space>
 cub variant approve <candidate-space> --revision ChangeSet:<upgrade-review>
 cub release publish --revision ChangeSet:<upgrade-review> <candidate-space>
 ```
 
-The last line is taken from the help of cub v0.8.7 and has not been re-run
-here. The CLI no longer has `cub unit apply`. A Space that has a release
-Target is delivered by publishing a Release, and the help says a ChangeSet
-must be closed before `--revision` can name it.
+A live run on 2026-10-08 with cub v0.8.7 checked three of these lines, and the
+[run log](./live-run-log-2026-10-08.md) holds the output. `cub unit diff`
+needs a Unit name, and it compared a revision number with `HeadRevisionNum`.
+Its default `--from` is `LastReleasedRevisionNum`, which needs a Unit that has
+been released. The run saw it fail on a Unit that was never released. `cub variant approve` accepted
+`--revision ChangeSet:<slug>` in a dry run with `--all`. `cub release publish`
+was refused for a Space with no release Target.
+
+The `cub changeset create` and `cub function vet` lines were not run, and no
+Release was published with `--revision`. The CLI no longer has
+`cub unit apply`. A Space that has a release Target is delivered by publishing
+a Release, and the help says a ChangeSet must be closed before `--revision`
+can name it.
 
 `cub variant approve` records Approval attestations for the selected revisions,
 which also cover later revisions of the same Unit with identical content. A
 named Space selects Target-bearing Units unless `--all` is supplied, and
-`--where` can narrow that selection. A ChangeWorkflow stage is gated only when
+`--where` can narrow that selection. In a Space with no Targets the command
+records nothing and still exits 0, so add `--all` there. A ChangeWorkflow stage is gated only when
 its configured attestation prerequisite checks those revisions; recording an
 attestation does not create or migrate that prerequisite.
 
