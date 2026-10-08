@@ -1,0 +1,110 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "kubeflow-kubeflow-trainer-2.2.0"
+spec:
+  chart:
+    repository: "kubeflow"
+    name: "kubeflow-trainer"
+    version: "2.2.0"
+    packageSHA256: "34191da2886a91d9effb0543087ef0ad19b870b094c336c2ca34f474cba0030e"
+  witnessRef: "data/flattening-safety/witnesses/kubeflow-kubeflow-trainer-2.2.0.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "four webhook configurations render in this base, a mutating and a validating one for the trainer and for JobSet, with no caBundle. Two Secrets, kubeflow-trainer-webhook-cert and jobset-webhook-server-cert, render with four empty data keys each. Each controller generates its certificate at run time, writes it into its Secret and writes the CA into its configurations. Nothing is generated at render time. The other two webhook configurations in the archive belong to the lws subchart, which is off"
+      disposition: "certificate route run by the two controllers once they start; read from the chart and not observed. The two Secrets must be created once and their data must not be overwritten by a later apply of the base"
+      evidence:
+        - "charts/jobset/templates/webhook/mutating_webhook_configuration.yaml:18"
+        - "charts/jobset/templates/webhook/validating_webhook_configuration.yaml:18"
+        - "charts/lws/templates/webhook/webhook.yaml:2"
+        - "charts/lws/templates/webhook/webhook.yaml:51"
+        - "templates/webhook/mutating_webhook_configuration.yaml:18"
+        - "templates/webhook/validating_webhook_configuration.yaml:18"
+    -
+      class: "capabilities-api-versions"
+      finding: "present-gated"
+      detail: "the one capability check is in the JobSet subchart's ServiceMonitor template, which renders only when jobset.prometheus.enable is true; these values leave it false"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/jobset/templates/prometheus/service_monitor.yaml:18"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "four CRDs render in this base, three from the chart's crds directory and the JobSet CRD from its subchart; no object in the base is an instance of them. The fifth CRD in the archive belongs to the lws subchart, which is off"
+      disposition: "ordering declaration ships with the bundle: the base's target facts name the CRDs and the package carries them as a CRD bundle"
+      evidence:
+        - "5 crds-directory file(s), 5 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "present"
+      detail: "2 occurrence(s) in the packaged chart"
+      disposition: "the flatten step must render with the audited base's condition set: jobset.install true, which brings in the JobSet controller, and dataCache.enabled false, which leaves lws out"
+      evidence:
+        - "jobset gated by jobset.install"
+        - "lws gated by dataCache.enabled,dataCache.lws.install"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "jobset.install false"
+      effect: "the JobSet controller, its CRD, webhooks and certificate Secret leave the render; the target must then run JobSet itself"
+    -
+      values: "dataCache.enabled true"
+      effect: "brings in the lws subchart with its own CRD and webhooks, and the data cache runtime; that base needs its own verdict"
+    -
+      values: "runtimes.defaultEnabled true"
+      effect: "adds ClusterTrainingRuntime objects, instances of a CRD in the base, which strengthens the CRD ordering requirement"
+    -
+      values: "jobset.prometheus.enable true"
+      effect: "the JobSet subchart fails the render unless the capability set reports the ServiceMonitor API, which an offline render does not"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Hand read of the chart against this base's render. The chart has no hook, no lookup, no generated value, no keep annotation and no Namespace template. What flattening needs is the four CRDs before the two controllers, and the controllers' own certificates: the base creates two Secrets empty and four webhook configurations with no CA, and each controller fills them in after it starts. The trainer webhooks fail closed, so until then TrainJob and runtime writes are rejected. The hazard a flattened delivery adds is the second apply: the Secrets are in the base with empty data, and a delivery that overwrites them erases the certificates. Whether a given delivery path does that was not observed, and it is recorded as an open question on the entry."
+    routes:
+      - "CRD ordering declaration: the four CRDs are established before the two controllers start, from the packaged CRD bundle"
+      - "webhook certificate route run by the trainer and JobSet controllers at run time, into two Secrets the base creates empty; not observed"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/kubeflow-kubeflow-trainer-2.2.0.yaml"
+      - "recipes/kubeflow/kubeflow-trainer/2.2.0/source-lock.yaml"

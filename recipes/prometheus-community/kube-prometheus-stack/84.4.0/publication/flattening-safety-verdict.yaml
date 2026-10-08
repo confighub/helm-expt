@@ -1,0 +1,133 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-84.4.0"
+spec:
+  chart:
+    repository: "prometheus-community"
+    name: "kube-prometheus-stack"
+    version: "84.4.0"
+    packageSHA256: "87bac65f32a358eeb52bda426cff20dd2fe3f1b61babe0b35866392bdd2721dd"
+  witnessRef: "data/flattening-safety/witnesses/prometheus-community-kube-prometheus-stack-84.4.0.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "this base's values render seven hook objects and none is in the base: an admission-create Job that runs before an install or upgrade and writes a self-signed certificate into the Secret kube-prometheus-stack-admission, an admission-patch Job that runs afterwards and writes the CA into the two webhook configurations, and the ServiceAccount, ClusterRole, ClusterRoleBinding, Role and RoleBinding both use. They are not maintenance only: the operator Deployment mounts that Secret and cannot start without it. The hooks of the crds subchart's upgrade Job sit behind crds.upgradeJob.enabled, which is false"
+      disposition: "packaged lifecycle actions under prerequisites/kube-prometheus-stack-lifecycle, each marked not automatic; none has been run on a cluster. The hook image is referenced by tag, not by digest"
+      evidence:
+        - "charts/crds/templates/upgrade/clusterrole.yaml:8"
+        - "charts/crds/templates/upgrade/clusterrolebinding.yaml:8"
+        - "charts/crds/templates/upgrade/crds.yaml:8"
+        - "charts/crds/templates/upgrade/job.yaml:8"
+        - "charts/crds/templates/upgrade/serviceaccount.yaml:9"
+        - "templates/prometheus-operator/admission-webhooks/job-patch/ciliumnetworkpolicy-createSecret.yaml:9"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "present-gated"
+      detail: "all four lookup calls are in the Grafana subchart and none is reached: the admin-password lookup runs only when grafana.adminPassword is empty, and this base sets it; the volume lookup needs persistence.lookupVolumeName, and the image-renderer lookup needs the image renderer, both off"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/grafana/templates/_helpers.tpl:119"
+        - "charts/grafana/templates/_helpers.tpl:132"
+        - "charts/grafana/templates/pvc.yaml:30"
+        - "charts/grafana/templates/pvc.yaml:31"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "a MutatingWebhookConfiguration and a ValidatingWebhookConfiguration render in this base with failurePolicy Ignore and no caBundle. The admission-patch hook Job is what writes the CA. Until it runs the API server cannot call the webhooks and admits PrometheusRule and AlertmanagerConfig objects unvalidated"
+      disposition: "certificate route is the two packaged admission lifecycle actions, recorded and not yet run. A delivery that applies the base again can strip the CA bundle, and the patch action must then run again"
+      evidence:
+        - "templates/prometheus-operator/admission-webhooks/mutatingWebhookConfiguration.yaml:3"
+        - "templates/prometheus-operator/admission-webhooks/validatingWebhookConfiguration.yaml:3"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "the chart and its subcharts read the Kubernetes version and the capability set in many templates, mostly to choose which dashboards and rules render and which API versions optional objects use. This base is rendered for Kubernetes 1.30.0, the version every other Catalog version of this chart uses"
+      disposition: "render inputs pin Kubernetes 1.30.0; recorded in the base"
+      evidence:
+        - "charts/crds/templates/upgrade/job.yaml:79"
+        - "charts/grafana/templates/_helpers.tpl:144"
+        - "charts/grafana/templates/podsecuritypolicy.yaml:1"
+        - "charts/grafana/templates/role.yaml:15"
+        - "charts/grafana/templates/vpa.yaml:1"
+        - "charts/kube-state-metrics/templates/verticalpodautoscaler.yaml:1"
+    -
+      class: "generated-secrets"
+      finding: "present-gated"
+      detail: "both random-value calls are in the Grafana subchart's lookup-or-generate helpers, and neither is reached, for the same reasons as the lookups. The two Secrets in the base are fixed by values: the Alertmanager configuration, and the Grafana admin credentials with a placeholder password"
+      disposition: "no generated value to carry; the Grafana Secret holds a fixed password that anyone who can read this repository knows"
+      evidence:
+        - "charts/grafana/templates/_helpers.tpl:123"
+        - "charts/grafana/templates/_helpers.tpl:136"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "ten Prometheus Operator CRDs render in this base beside 50 objects that are instances of four of them: a Prometheus, an Alertmanager, 35 PrometheusRule objects and 13 ServiceMonitors"
+      disposition: "ordering declaration ships with the bundle: the base's target facts name the CRDs and the package carries them as a CRD bundle"
+      evidence:
+        - "18 crds-directory file(s), 18 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "present"
+      detail: "5 occurrence(s) in the packaged chart"
+      disposition: "the flatten step must render with the audited base's condition set: crds, kube-state-metrics, the node exporter and Grafana on, the Windows exporter off"
+      evidence:
+        - "crds gated by crds.enabled"
+        - "kube-state-metrics gated by kubeStateMetrics.enabled"
+        - "prometheus-node-exporter gated by nodeExporter.enabled"
+        - "grafana gated by grafana.enabled"
+        - "prometheus-windows-exporter gated by windowsMonitoring.enabled"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "grafana.adminPassword empty"
+      effect: "the Grafana subchart looks the Secret up and otherwise generates a random password, so the render is no longer repeatable; that base is unsafe to flatten"
+    -
+      values: "grafana.admin.existingSecret set"
+      effect: "the Grafana Secret leaves the render and the credentials come from a Secret the target owns; the later Catalog versions of this chart offer that as the existing-secret base"
+    -
+      values: "crds.enabled false"
+      effect: "the ten CRDs leave the render and must already be on the target; the AICR bases set this"
+    -
+      values: "prometheusOperator.admissionWebhooks.certManager.enabled true"
+      effect: "cert-manager issues the webhook certificate and injects the CA, and the seven hook objects leave the render; that base needs its own verdict"
+    -
+      values: "prometheusOperator.admissionWebhooks.enabled false"
+      effect: "both webhook configurations and the seven hook objects leave the render; that base needs its own verdict"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Hand read of the chart against this base's render. The other Catalog versions of this chart carry a mechanical verdict of unsafe to flatten, because the archive calls lookup and no base was read against it. This read finds every lookup and every random value in the Grafana subchart, behind switches this base does not set, so nothing is looked up or generated at render time. What flattening drops is the seven admission hook objects, and they matter at install: the operator cannot start until the first Job has created its Secret. What it needs besides is the ten CRDs before the 50 custom resources. The hook objects are packaged as lifecycle actions and the CRDs as a bundle, so the lane names companions that exist in the package. No lifecycle action has been run on a cluster, and no receipt says a flattened install, upgrade or delete behaves like the Helm one. The later versions carry a packaged, scripted admission route with the hook image pinned by digest; this version does not, and whether it should is recorded as an open question on the entry. The Grafana admin password is bound to a placeholder, as in the other Catalog versions, because chart defaults generate a random one on every render."
+    routes:
+      - "CRD ordering declaration: the ten Prometheus Operator CRDs are established before the 50 custom resources in the base, from the packaged CRD bundle"
+      - "pre-install and pre-upgrade lifecycle action that creates the admission Secret kube-prometheus-stack-admission, with the RBAC it runs under; required on a first install, recorded in the package and not yet run"
+      - "post-install and post-upgrade lifecycle action that writes the CA into the two webhook configurations, recorded in the package and not yet run"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/prometheus-community-kube-prometheus-stack-84.4.0.yaml"
+      - "recipes/prometheus-community/kube-prometheus-stack/84.4.0/source-lock.yaml"

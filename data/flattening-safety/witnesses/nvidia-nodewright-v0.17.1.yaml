@@ -1,0 +1,63 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "nvidia-nodewright-v0.17.1"
+spec:
+  chart:
+    repository: "nvidia"
+    name: "nodewright"
+    version: "v0.17.1"
+  package:
+    sha256: "a75b0b3183e091e13207cd9b7693e0e612ea178bac8970398e101c7b9f2b4854"
+    observedAt: "2026-10-08T13:44:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 26
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 2
+  hookValues:
+    - "pre-delete"
+    - "pre-upgrade"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 6
+      files:
+        - "templates/cleanup-skyhooks-job.yaml:8"
+        - "templates/cleanup-webhook-job.yaml:8"
+        - "templates/selector-migration-job.yaml:20"
+        - "templates/selector-migration-role.yaml:11"
+        - "templates/selector-migration-rolebinding.yaml:10"
+        - "templates/selector-migration-serviceaccount.yaml:11"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 2
+      files:
+        - "templates/mutating-webhook.yaml:3"
+        - "templates/validating-webhook.yaml:3"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

@@ -861,9 +861,17 @@ const awsEbsCsiDriver = {
       path: "<Kubernetes version>",
       disposition: "default-render-captured",
       reason:
-        "From Kubernetes 1.33 the chart adds the MutableCSINodeAllocatableCount feature gate to the controller and nodeAllocatableUpdatePeriodSeconds to the CSIDriver. The bases are rendered for 1.33.0 and hold both.",
+        "From Kubernetes 1.33 the chart adds the MutableCSINodeAllocatableCount feature gate to the attacher sidecar and nodeAllocatableUpdatePeriodSeconds to the CSIDriver. The bases are rendered for 1.33.0 and hold both.",
       note: "a render for 1.32 or earlier differs at those two fields; the AICR nested render, made with Helm's own default version, has both",
       evidence: "templates/controller.yaml, templates/csidriver.yaml",
+    },
+    {
+      path: "<capability set>",
+      disposition: "default-render-captured",
+      reason:
+        "The chart reads the capability set twice. The snapshot sidecar renders only when it reports the snapshot.storage.k8s.io API, and the provisioner and resizer sidecars get --feature-gates=VolumeAttributesClass=false unless it reports the VolumeAttributesClass API. An offline render reports neither, so the bases have no snapshot sidecar and turn VolumeAttributesClass support off.",
+      note: "Helm run against a cluster that serves those APIs renders differently; the AICR nested render is an offline render too and agrees with the bases",
+      evidence: "templates/controller.yaml, templates/volumesnapshotclass.yaml",
     },
     {
       path: "defaultStorageClass.enabled",
@@ -883,7 +891,7 @@ const awsEbsCsiDriver = {
     `With chart defaults aws-ebs-csi-driver@${version} renders ${expected.objects} objects as release aws-ebs-csi-driver in namespace kube-system, the names the AICR entries use: the controller Deployment, a Linux and a Windows node DaemonSet, the CSIDriver object, two ServiceAccounts, five ClusterRoles, five ClusterRoleBindings, a Role, a RoleBinding and a PodDisruptionBudget. It renders no CRD and no Secret, and no Helm hook once the chart's helm test Pod is left out.`,
     "The bases are rendered for Kubernetes 1.33.0, not the 1.30.0 that the 2.60.1 entry of this chart uses. The chart renders two more fields from 1.33, and the AICR nested render of this archive has them.",
     ...expected.bases.map(baseNote),
-    "The chart's snapshot sidecar and its VolumeSnapshotClass objects render only when the capability set reports the snapshot.storage.k8s.io API. An offline render does not, so no base holds them.",
+    "The chart's snapshot sidecar renders only when the capability set reports the snapshot.storage.k8s.io API, and the provisioner and resizer sidecars get --feature-gates=VolumeAttributesClass=false unless it reports the VolumeAttributesClass API. An offline render reports neither, so every base has no snapshot sidecar and turns VolumeAttributesClass support off.",
     "The chart contains no lookup, no generated credential, no keep annotation, no webhook, no Namespace template and no subchart. Its one Helm hook is a helm test Pod, which the bases leave out.",
   ],
   caveats: [

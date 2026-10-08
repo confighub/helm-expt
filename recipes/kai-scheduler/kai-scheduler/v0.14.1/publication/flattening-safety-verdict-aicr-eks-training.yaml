@@ -1,0 +1,118 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training"
+spec:
+  chart:
+    repository: "kai-scheduler"
+    name: "kai-scheduler"
+    version: "v0.14.1"
+    packageSHA256: "7ae052b56e752975eeac0ebb5de381f5eadf51207872c95f98eefd2901c4be4e"
+  witnessRef: "data/flattening-safety/witnesses/kai-scheduler-kai-scheduler-v0.14.1.yaml"
+  auditedBase: "aicr-eks-training"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "with these values the chart renders ten pre-install and pre-upgrade hook objects, and none is in the base. They are not maintenance only: the kai.scheduler/v1 Config object named kai-config is one of the pre-install and pre-upgrade hook objects, and until that object exists the operator deploys no scheduler. The post-delete cleanup set does not render because postCleanup.enabled is false"
+      disposition: "packaged lifecycle actions under prerequisites/kai-scheduler-lifecycle, each marked not automatic; none has been run on a cluster"
+      evidence:
+        - "templates/hooks/post/post-delete-job.yaml:10"
+        - "templates/hooks/pre/crd-upgrader.yaml:10"
+        - "templates/hooks/pre/topology-migration/configmap.yaml:11"
+        - "templates/hooks/pre/topology-migration/job.yaml:11"
+        - "templates/hooks/pre/topology-migration/rbac.yaml:10"
+        - "templates/hooks/pre/topology-migration/rbac.yaml:34"
+    -
+      class: "resource-policy-keep"
+      finding: "present"
+      detail: "four objects in the base carry helm.sh/resource-policy: keep: the kai-resource-reservation Namespace, the two default Queue objects and the default SchedulingShard. Helm leaves them on uninstall; a flattened delete removes them with everything else"
+      disposition: "named companion required: prune protection for the four keep-annotated objects; none is packaged"
+      evidence:
+        - "templates/default-queue.yaml:10"
+        - "templates/default-queue.yaml:31"
+        - "templates/default-shard.yaml:9"
+        - "templates/services/resourcereservation-namespace.yaml:11"
+    -
+      class: "lookup"
+      finding: "present"
+      detail: "the base's own templates call lookup, and the calls are reached. The kai-resource-reservation Namespace and ServiceAccount render only when the cluster does not already have them, and OpenShift settings render when the cluster has the ClusterVersion CRD. An offline render answers no to all three, so the base holds the Namespace and the ServiceAccount, which is safe to apply over existing ones, and holds no OpenShift SecurityContextConstraints, which is wrong on OpenShift. The remaining lookups are inside the hook templates"
+      disposition: "the base is the fresh-install, non-OpenShift answer; an OpenShift target needs its own render"
+      evidence:
+        - "templates/hooks/post/post-delete-job.yaml:23"
+        - "templates/hooks/pre/crd-upgrader.yaml:16"
+        - "templates/hooks/pre/crd-upgrader.yaml:29"
+        - "templates/hooks/pre/crd-upgrader.yaml:39"
+        - "templates/hooks/pre/topology-migration/job.yaml:17"
+        - "templates/hooks/pre/topology-migration/job.yaml:30"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "six CRDs render in this base beside two Queue objects and one SchedulingShard, which are instances of three of them"
+      disposition: "ordering declaration ships with the bundle: the base's target facts name the CRDs and the package carries them as a CRD bundle"
+      evidence:
+        - "6 crds-directory file(s), 6 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "present"
+      detail: "one Namespace object, kai-resource-reservation, is in the base. The second Namespace template, for the scaling pod, renders only when global.clusterAutoscaling is true, which these values leave false. Because the base holds a Namespace, the installer package adds none for the release namespace"
+      disposition: "the kai-resource-reservation Namespace ships in the base; the kai-scheduler namespace must already exist on the target"
+      evidence:
+        - "templates/services/resourcereservation-namespace.yaml:7"
+        - "templates/services/scalingpod-namespace.yaml:6"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "postCleanup.enabled true (the default base)"
+      effect: "adds the post-delete cleanup Job with its ServiceAccount, ClusterRole and ClusterRoleBinding"
+    -
+      values: "global.clusterAutoscaling true"
+      effect: "adds a second lookup-gated Namespace for the scaling pod; that base needs a fresh verdict"
+    -
+      values: "a render against a live cluster, or on OpenShift"
+      effect: "the lookups answer differently: an existing kai-resource-reservation Namespace and ServiceAccount leave the render, and OpenShift adds SecurityContextConstraints and changes the hook Jobs' security contexts"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Hand read of the chart against this base's render. No Secret and no webhook configuration renders, and nothing is generated at render time. Three things make this a flatten with routes and not a plain flatten. The operator does nothing until a Config object exists, and the kai.scheduler/v1 Config object named kai-config is one of the pre-install and pre-upgrade hook objects, so a base alone installs an operator that deploys no scheduler. The chart asks the cluster three questions with lookup, and the base holds the offline answers. And four objects are keep-annotated, which a flattened delete does not honour. The hook objects are packaged as lifecycle actions and the CRDs as a bundle, so the lane names companions that exist in the package, except prune protection, which does not. No lifecycle action has been run on a cluster, and no receipt says a flattened install, upgrade or delete behaves like the Helm one. Whether the Config belongs in the base instead is recorded as an open question on the entry. This base uses the values the AICR v0.20.0 EKS training entry supplies. Against the default base it adds no object and removes none, and changes only the kai-operator Deployment; the values turn the post-delete cleanup hook off. The objects equal the AICR nested render of the same archive once its ten hook objects are set aside."
+    routes:
+      - "CRD ordering declaration: the six CRDs are established before the two Queue objects, the SchedulingShard and the operator, from the packaged CRD bundle"
+      - "pre-install and pre-upgrade lifecycle action that holds the Config object the operator needs, the CRD upgrader Job and the topology migration Job; required on a first install, recorded in the package and not yet run"
+      - "prune protection for the keep-annotated Namespace, Queues and SchedulingShard; not packaged"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/kai-scheduler-kai-scheduler-v0.14.1.yaml"
+      - "recipes/kai-scheduler/kai-scheduler/v0.14.1/source-lock.yaml"

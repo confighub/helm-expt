@@ -12,9 +12,15 @@ spec:
     -
       path: "<Kubernetes version>"
       disposition: "default-render-captured"
-      reason: "From Kubernetes 1.33 the chart adds the MutableCSINodeAllocatableCount feature gate to the controller and nodeAllocatableUpdatePeriodSeconds to the CSIDriver. The bases are rendered for 1.33.0 and hold both."
+      reason: "From Kubernetes 1.33 the chart adds the MutableCSINodeAllocatableCount feature gate to the attacher sidecar and nodeAllocatableUpdatePeriodSeconds to the CSIDriver. The bases are rendered for 1.33.0 and hold both."
       note: "a render for 1.32 or earlier differs at those two fields; the AICR nested render, made with Helm's own default version, has both"
       evidence: "templates/controller.yaml, templates/csidriver.yaml"
+    -
+      path: "<capability set>"
+      disposition: "default-render-captured"
+      reason: "The chart reads the capability set twice. The snapshot sidecar renders only when it reports the snapshot.storage.k8s.io API, and the provisioner and resizer sidecars get --feature-gates=VolumeAttributesClass=false unless it reports the VolumeAttributesClass API. An offline render reports neither, so the bases have no snapshot sidecar and turn VolumeAttributesClass support off."
+      note: "Helm run against a cluster that serves those APIs renders differently; the AICR nested render is an offline render too and agrees with the bases"
+      evidence: "templates/controller.yaml, templates/volumesnapshotclass.yaml"
     -
       path: "defaultStorageClass.enabled"
       disposition: "variant-axis"

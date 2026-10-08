@@ -1,0 +1,61 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1"
+spec:
+  chart:
+    repository: "dra-driver-nvidia"
+    name: "dra-driver-nvidia-gpu"
+    version: "0.4.1"
+  package:
+    sha256: "c1c316f6bdcfe5fed3ff649cff1b43be50d27d0cb1aaf9d29e7bdca1eaa331ce"
+    observedAt: "2026-10-08T13:44:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 26
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 2
+    documents: 2
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 6
+      files:
+        - "templates/_helpers.tpl:190"
+        - "templates/_helpers.tpl:192"
+        - "templates/_helpers.tpl:194"
+        - "templates/rbac-compute-domain-daemon.yaml:41"
+        - "templates/rbac-kubeletplugin.yaml:80"
+        - "values.yaml:48"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 1
+      files:
+        - "templates/validatingwebhookconfiguration.yaml:3"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

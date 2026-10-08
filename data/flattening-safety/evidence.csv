@@ -14,6 +14,7 @@ autoscaler,vertical-pod-autoscaler,0.9.0,7,0,0,1,0,1,0,0,2,0,33,default:flatten-
 aws-controllers-k8s,ec2-chart,1.18.4,0,0,0,0,0,0,0,0,22,0,37,default:flatten-with-routes; eks-inference:flatten-with-routes
 aws-controllers-k8s,eks-chart,1.16.3,0,0,0,0,0,0,0,0,10,0,25,default:flatten-with-routes; eks-inference:flatten-with-routes
 aws-controllers-k8s,iam-chart,1.7.3,0,0,0,0,0,0,0,0,9,0,24,default:flatten-with-routes; eks-inference:flatten-with-routes
+aws-ebs-csi-driver,aws-ebs-csi-driver,2.59.0,5,0,0,0,9,0,5,0,0,0,33,aicr-eks-training-v0-20-0:safe-to-flatten; aicr-eks-training-v1-0-0:safe-to-flatten; default:safe-to-flatten
 aws-ebs-csi-driver,aws-ebs-csi-driver,2.60.1,5,0,0,0,9,0,5,0,0,0,33,default:safe-to-flatten
 bitnami,apache,11.4.29,0,0,3,0,5,7,0,0,0,0,41,default:safe-to-flatten; legacy:unsafe-to-flatten
 bitnami,contour,21.1.4,4,0,3,0,5,7,0,0,15,0,63,default:unsafe-to-flatten; legacy:unsafe-to-flatten; no-crds:unsafe-to-flatten
@@ -45,6 +46,8 @@ coredns,coredns,1.45.2,0,0,0,0,1,0,0,0,0,0,34,default:safe-to-flatten
 crossplane-stable,crossplane,2.3.1,0,0,0,0,1,0,0,0,0,0,17,default:safe-to-flatten
 descheduler,descheduler,0.36.0,0,0,0,0,0,0,0,0,0,0,16,default:safe-to-flatten
 dex,dex,0.24.0,1,0,0,0,15,0,1,0,0,0,19,default:unsafe-to-flatten
+dra-driver-nvidia,dra-driver-nvidia-gpu,0.4.1,0,0,0,1,6,0,0,0,2,0,26,aicr-eks-training:flatten-with-routes; default:flatten-with-routes; gpu-resources:flatten-with-routes
+dra-driver-nvidia,dra-driver-nvidia-gpu,0.5.0,0,0,0,1,6,0,0,0,2,0,26,aicr-eks-training:flatten-with-routes; default:flatten-with-routes; gpu-resources:flatten-with-routes
 elastic,eck-operator,3.4.0,0,12,0,1,2,0,0,2,12,1,30,default:flatten-with-routes; ha:flatten-with-routes; no-crds:flatten-with-routes
 elastic,filebeat,8.5.1,0,0,0,0,0,0,0,0,0,0,21,default:safe-to-flatten; node-or-cluster-collector:safe-to-flatten
 elastic,kibana,8.5.1,9,0,0,0,0,0,0,0,0,0,24,default:unsafe-to-flatten
@@ -86,8 +89,12 @@ jetstack,cert-manager,v1.20.2,3,7,0,2,0,0,0,0,6,0,51,crds-enabled:flatten-with-r
 jetstack,cert-manager,v1.21.0,3,7,0,2,0,0,0,0,6,0,51,crds-enabled:flatten-with-routes; default:flatten-with-routes
 jetstack,cert-manager,v1.21.1,3,7,0,2,0,0,0,0,6,0,51,crds-enabled:flatten-with-routes; default:flatten-with-routes
 jetstack,trust-manager,v0.22.1,0,2,0,1,0,5,0,0,1,0,18,default:flatten-with-routes; no-crds:flatten-with-routes
+k8s-ephemeral-storage-metrics,k8s-ephemeral-storage-metrics,1.19.2,0,0,0,0,0,0,0,0,0,0,10,aicr-eks-training-v0-20-0:safe-to-flatten; aicr-eks-training-v1-0-0:safe-to-flatten; default:safe-to-flatten
+kai-scheduler,kai-scheduler,v0.14.1,17,4,9,0,0,0,0,2,6,0,51,aicr-eks-training:flatten-with-routes; default:flatten-with-routes
+kai-scheduler,kai-scheduler,v0.16.9,21,4,14,0,0,0,0,2,6,0,57,aicr-eks-training:flatten-with-routes; default:flatten-with-routes
 karpenter,karpenter,1.14.0,0,0,0,0,2,0,0,0,5,0,19,crds-managed:safe-to-flatten; default:flatten-with-routes; eks-inference:flatten-with-routes
 kedacore,keda,2.19.0,0,0,0,1,2,0,0,0,6,0,49,default:flatten-with-routes; no-crds:flatten-with-routes
+kubeflow,kubeflow-trainer,2.2.0,0,0,0,6,1,0,0,0,5,2,78,aicr-eks-training-v0-20-0:flatten-with-routes; aicr-eks-training-v1-0-0:flatten-with-routes; default:flatten-with-routes
 kyverno,kyverno,3.8.1,8,2,4,0,10,14,1,2,27,5,195,default:unsafe-to-flatten; no-crds:unsafe-to-flatten
 kyverno,kyverno,3.8.2,8,2,4,0,10,14,1,2,27,5,195,default:unsafe-to-flatten
 kyverno,kyverno,3.9.0,8,2,4,0,10,14,1,2,27,5,196,default:unsafe-to-flatten
@@ -116,6 +123,8 @@ nvidia,gpu-operator,v26.3.3,9,1,0,0,0,0,0,0,6,1,43,aicr-eks-training:flatten-wit
 nvidia,gpu-operator,v26.7.1,10,2,0,0,1,0,0,0,9,1,53,aicr-eks-training:flatten-with-routes; default:flatten-with-routes; driver-580.105.08:flatten-with-routes; driver-580.126.20:flatten-with-routes; external-nfd:flatten-with-routes; preinstalled-driver-and-toolkit:flatten-with-routes; preinstalled-driver:flatten-with-routes
 nvidia,k8s-nim-operator,3.1.0,24,7,11,5,8,7,0,2,24,2,212,aicr-eks-inference:flatten-with-routes; default:flatten-with-routes
 nvidia,k8s-nim-operator,3.1.2,24,7,11,5,8,7,0,2,24,2,212,default:flatten-with-routes
+nvidia,nodewright,v0.17.1,6,0,0,2,0,0,0,0,2,0,26,aicr-eks-training:flatten-with-routes; default:flatten-with-routes
+nvidia,nodewright,v0.19.0,6,2,0,2,0,0,0,0,4,0,27,aicr-eks-training:flatten-with-routes; default:flatten-with-routes
 nvidia,nvidia-device-plugin,0.19.3,4,0,0,0,0,0,0,0,4,1,30,default:safe-to-flatten; eks-inference:safe-to-flatten; nfd-enabled:flatten-with-routes
 nvidia,nvsentinel,v1.20.0,5,7,8,3,11,21,0,1,10,21,353,aicr-eks-training:safe-to-flatten; default:safe-to-flatten; no-pod-monitor:safe-to-flatten
 nvidia,nvsentinel,v1.25.0,5,7,8,4,11,21,0,1,12,22,388,aicr-eks-training:safe-to-flatten; default:safe-to-flatten; no-pod-monitor:safe-to-flatten
@@ -132,6 +141,7 @@ policy-reporter,policy-reporter,3.10.0,0,0,0,0,26,0,0,0,4,0,73,default:safe-to-f
 policy-reporter,policy-reporter,3.9.1,0,0,0,0,26,0,0,0,3,0,72,default:safe-to-flatten
 projectcalico,tigera-operator,v3.32.0,1,0,1,0,0,0,0,0,0,0,17,default:flatten-with-routes
 prometheus-community,alertmanager,1.37.0,1,0,0,0,0,0,1,0,0,0,15,default:safe-to-flatten; ha:safe-to-flatten
+prometheus-community,kube-prometheus-stack,84.4.0,16,0,4,2,86,2,0,0,18,5,283,aicr-eks-training-v0-20-0:flatten-with-routes; aicr-eks-training-v1-0-0:flatten-with-routes; default:flatten-with-routes
 prometheus-community,kube-prometheus-stack,85.3.3,16,0,4,2,85,2,0,0,18,5,283,default:unsafe-to-flatten; no-crds:unsafe-to-flatten
 prometheus-community,kube-prometheus-stack,86.1.0,16,0,4,2,85,2,0,0,18,5,283,default:unsafe-to-flatten; no-crds:unsafe-to-flatten
 prometheus-community,kube-prometheus-stack,87.15.1,16,0,4,2,86,2,0,0,18,5,287,default:unsafe-to-flatten; existing-secret:unsafe-to-flatten; no-crds:unsafe-to-flatten
@@ -145,6 +155,7 @@ prometheus-community,prometheus-blackbox-exporter,11.10.0,0,0,0,0,1,0,0,0,0,0,27
 prometheus-community,prometheus-blackbox-exporter,11.15.1,0,0,0,0,1,0,0,0,0,0,29,default:safe-to-flatten
 prometheus-community,prometheus-blackbox-exporter,11.18.0,0,0,0,0,1,0,0,0,0,0,30,default:safe-to-flatten
 prometheus-community,prometheus-node-exporter,4.55.0,0,0,0,0,1,0,0,0,0,0,16,cluster-metrics-readonly:safe-to-flatten; default:safe-to-flatten
+prometheus-community,prometheus-operator-crds,28.0.1,0,0,0,0,0,0,0,0,11,0,13,aicr-eks-training:flatten-with-routes; default:flatten-with-routes
 prometheus-community,prometheus-operator-crds,29.0.0,0,0,0,0,0,0,0,0,11,0,13,default:flatten-with-routes
 prometheus-community,prometheus-pushgateway,3.6.0,0,0,0,0,0,0,0,0,0,0,16,default:safe-to-flatten
 rook-release,rook-ceph-cluster,v1.19.5,0,0,0,0,2,0,0,0,0,0,31,default:safe-to-flatten

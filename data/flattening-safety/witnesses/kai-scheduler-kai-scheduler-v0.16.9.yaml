@@ -1,0 +1,84 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.16.9"
+spec:
+  chart:
+    repository: "kai-scheduler"
+    name: "kai-scheduler"
+    version: "v0.16.9"
+  package:
+    sha256: "2f2f8080729c530fab41c5bc24717dfb29c9d5b39963c5eb9d82d10e96f8ab9d"
+    observedAt: "2026-10-08T13:44:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 57
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 6
+    documents: 6
+  hookValues:
+    - "post-delete"
+    - "post-install,post-upgrade"
+    - "pre-install,pre-upgrade"
+  findings:
+    lookup:
+      count: 14
+      files:
+        - "templates/hooks/post/kai-config-deployer/job.yaml:17"
+        - "templates/hooks/post/kai-config-deployer/job.yaml:31"
+        - "templates/hooks/post/kai-config-deployer/job.yaml:57"
+        - "templates/hooks/post/post-delete-job.yaml:23"
+        - "templates/hooks/pre/crd-upgrader.yaml:16"
+        - "templates/hooks/pre/crd-upgrader.yaml:29"
+        - "templates/hooks/pre/crd-upgrader.yaml:48"
+        - "templates/hooks/pre/topology-migration/job.yaml:17"
+        - "templates/hooks/pre/topology-migration/job.yaml:30"
+        - "templates/hooks/pre/topology-migration/job.yaml:49"
+        - "templates/rbac/scc.yaml:4"
+        - "templates/services/resourcereservation-namespace.yaml:5"
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 21
+      files:
+        - "templates/hooks/post/kai-config-deployer/configmap.yaml:11"
+        - "templates/hooks/post/kai-config-deployer/job.yaml:11"
+        - "templates/hooks/post/kai-config-deployer/rbac.yaml:11"
+        - "templates/hooks/post/kai-config-deployer/rbac.yaml:20"
+        - "templates/hooks/post/kai-config-deployer/rbac.yaml:33"
+        - "templates/hooks/post/post-delete-job.yaml:10"
+        - "templates/hooks/pre/crd-upgrader.yaml:10"
+        - "templates/hooks/pre/topology-migration/configmap.yaml:11"
+        - "templates/hooks/pre/topology-migration/job.yaml:11"
+        - "templates/hooks/pre/topology-migration/rbac.yaml:10"
+        - "templates/hooks/pre/topology-migration/rbac.yaml:34"
+        - "templates/hooks/pre/topology-migration/rbac.yaml:43"
+    resource-policy-keep:
+      count: 4
+      files:
+        - "templates/default-queue.yaml:10"
+        - "templates/default-queue.yaml:31"
+        - "templates/default-shard.yaml:10"
+        - "templates/services/resourcereservation-namespace.yaml:11"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 2
+      files:
+        - "templates/services/resourcereservation-namespace.yaml:7"
+        - "templates/services/scalingpod-namespace.yaml:7"
+    test-hooks:
+      count: 0
+      files:
+        []

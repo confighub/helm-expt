@@ -1,0 +1,109 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0-aicr-eks-training-v1-0-0"
+spec:
+  chart:
+    repository: "aws-ebs-csi-driver"
+    name: "aws-ebs-csi-driver"
+    version: "2.59.0"
+    packageSHA256: "adb1961abcced2b66c49d4f64885d63b2fd824310c8d4f99c52c7d2c0193b118"
+  witnessRef: "data/flattening-safety/witnesses/aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0.yaml"
+  auditedBase: "aicr-eks-training-v1-0-0"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "5 hook occurrence(s) in the packaged chart, all test hooks (values: test)"
+      disposition: "pruned from any bundle"
+      evidence:
+        - "templates/tests/helm-tester.yaml:8"
+        - "templates/tests/helm-tester.yaml:16"
+        - "templates/tests/helm-tester.yaml:133"
+        - "templates/tests/helm-tester.yaml:186"
+        - "templates/tests/helm-tester.yaml:194"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "three branches are reached. From Kubernetes 1.33 the chart adds the MutableCSINodeAllocatableCount feature gate to the attacher sidecar and nodeAllocatableUpdatePeriodSeconds to the CSIDriver object; this base is rendered for 1.33.0 and holds both. The snapshot sidecar renders only when the capability set reports the snapshot.storage.k8s.io API, which an offline render does not, so the base has no snapshot sidecar. And the provisioner and resizer sidecars get --feature-gates=VolumeAttributesClass=false unless the capability set reports the VolumeAttributesClass API, which an offline render also does not, so the base turns that feature off"
+      disposition: "render inputs pin Kubernetes 1.33.0 and an offline capability set; a target older than 1.33, or one that wants the snapshot sidecar or VolumeAttributesClass support, needs its own render"
+      evidence:
+        - "templates/_metrics.tpl:26"
+        - "templates/controller.yaml:252"
+        - "templates/controller.yaml:327"
+        - "templates/controller.yaml:367"
+        - "templates/controller.yaml:574"
+        - "templates/csidriver.yaml:2"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness. The base holds a CSIDriver object, whose spec is largely immutable, so moving between chart versions that change it means deleting and recreating that object"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "present"
+      detail: "5 occurrence(s) in the packaged chart"
+      disposition: "pruned from any bundle"
+      evidence:
+        - "templates/tests/helm-tester.yaml:8"
+        - "templates/tests/helm-tester.yaml:16"
+        - "templates/tests/helm-tester.yaml:133"
+        - "templates/tests/helm-tester.yaml:186"
+        - "templates/tests/helm-tester.yaml:194"
+  variantScope:
+    -
+      values: "defaultStorageClass.enabled false (the default base)"
+      effect: "the default StorageClass leaves the render"
+    -
+      values: "node.enableWindows true (the default base)"
+      effect: "adds the Windows node DaemonSet"
+    -
+      values: "sidecars.snapshotter.forceEnable true"
+      effect: "adds the snapshot sidecar without asking the capability set, and with it a dependency on the external snapshot CRDs"
+  verdict:
+    lane: "safe-to-flatten"
+    rationale: "Hand read of the chart against this base's render. The packaged chart has no lookup, no generated value, no keep annotation, no webhook, no CRD, no Namespace template and no subchart, and its only hooks are helm test Pods, which no base holds. No Secret renders. What is decided at render time is the Kubernetes version and the capability set: the base is the render for 1.33.0 and later with no snapshot sidecar and with VolumeAttributesClass support turned off, as the AICR nested render also is. That is a render input, recorded in the base, not something a companion has to supply. The controller needs AWS permissions the chart does not grant; that is a precondition, not a route. This base uses the values the AICR v1.0.0 EKS training entry supplies. Against the default base it adds a default StorageClass, removes the Windows node DaemonSet and changes the controller Deployment and the Linux node DaemonSet; the proof checks the added and removed sets. A cluster that already has a default StorageClass then has two. The AICR v1.0.0 entry retains these values and no render of this component, so this base was not compared with an AICR render."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0.yaml"
+      - "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/source-lock.yaml"
