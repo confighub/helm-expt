@@ -14,6 +14,7 @@ autoscaler/vertical-pod-autoscaler,0.9.0,live-parity,1,live-parity,live,docs/ski
 aws-controllers-k8s/ec2-chart,1.18.4,,0,none,,
 aws-controllers-k8s/eks-chart,1.16.3,,0,none,,
 aws-controllers-k8s/iam-chart,1.7.3,,0,none,,
+aws-ebs-csi-driver/aws-ebs-csi-driver,2.59.0,,0,none,,
 aws-ebs-csi-driver/aws-ebs-csi-driver,2.60.1,,0,none,,
 bitnami/apache,11.4.29,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 bitnami/contour,21.1.4,hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,4,hook-and-secret-lifecycle,hooks:1; generated-facts; crds; lookup; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
@@ -45,6 +46,8 @@ coredns/coredns,1.45.2,hook-and-secret-lifecycle; target-facts-and-lifecycle; li
 crossplane-stable/crossplane,2.3.1,live-parity,1,live-parity,live,docs/skills/live-parity.md
 descheduler/descheduler,0.36.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 dex/dex,0.24.0,,0,none,,
+dra-driver-nvidia/dra-driver-nvidia-gpu,0.4.1,,0,none,,
+dra-driver-nvidia/dra-driver-nvidia-gpu,0.5.0,,0,none,,
 elastic/eck-operator,3.4.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,webhooks; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 elastic/filebeat,8.5.1,,0,none,,
 elastic/kibana,8.5.1,,0,none,,
@@ -88,8 +91,12 @@ jetstack/cert-manager,v1.20.2,serious-chart-playbooks; large-app-evidence-funnel
 jetstack/cert-manager,v1.21.0,serious-chart-playbooks; large-app-evidence-funnel,2,serious-chart-playbooks,named-serious,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md
 jetstack/cert-manager,v1.21.1,serious-chart-playbooks; large-app-evidence-funnel,2,serious-chart-playbooks,named-serious,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md
 jetstack/trust-manager,v0.22.1,live-parity,1,live-parity,live,docs/skills/live-parity.md
+k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics,1.19.2,,0,none,,
+kai-scheduler/kai-scheduler,v0.14.1,,0,none,,
+kai-scheduler/kai-scheduler,v0.16.9,,0,none,,
 karpenter/karpenter,1.14.0,serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel,4,serious-chart-playbooks,crds+webhooks; webhooks; crds,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md
 kedacore/keda,2.19.0,serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,5,serious-chart-playbooks,crds+webhooks; hooks:1; webhooks; crds; live,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
+kubeflow/kubeflow-trainer,2.2.0,,0,none,,
 kyverno/kyverno-policies,3.8.0,target-facts-and-lifecycle; live-parity,2,target-facts-and-lifecycle,lookup; live,docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 kyverno/kyverno-policies,3.8.2,,0,none,,
 kyverno/kyverno-policies,3.9.0,,0,none,,
@@ -118,6 +125,8 @@ nvidia/gpu-operator,v26.3.3,,0,none,,
 nvidia/gpu-operator,v26.7.1,,0,none,,
 nvidia/k8s-nim-operator,3.1.0,,0,none,,
 nvidia/k8s-nim-operator,3.1.2,,0,none,,
+nvidia/nodewright,v0.17.1,,0,none,,
+nvidia/nodewright,v0.19.0,,0,none,,
 nvidia/nvidia-device-plugin,0.19.3,,0,none,,
 nvidia/nvsentinel,v1.20.0,,0,none,,
 nvidia/nvsentinel,v1.25.0,,0,none,,
@@ -134,6 +143,7 @@ policy-reporter/policy-reporter,3.10.0,hook-and-secret-lifecycle; target-facts-a
 policy-reporter/policy-reporter,3.9.1,,0,none,,
 projectcalico/tigera-operator,v3.32.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,hooks:1; lookup; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 prometheus-community/alertmanager,1.37.0,target-facts-and-lifecycle; live-parity,2,target-facts-and-lifecycle,stateful-storage; live,docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
+prometheus-community/kube-prometheus-stack,84.4.0,serious-chart-playbooks; hook-and-secret-lifecycle; large-app-evidence-funnel,3,serious-chart-playbooks,named-serious; hooks:2,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/large-app-evidence-funnel.md
 prometheus-community/kube-prometheus-stack,85.3.3,serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,5,serious-chart-playbooks,named-serious; hooks:2; generated-facts; webhooks; crds; lookup; stateful-storage; live,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 prometheus-community/kube-prometheus-stack,86.1.0,serious-chart-playbooks; hook-and-secret-lifecycle; large-app-evidence-funnel; live-parity,4,serious-chart-playbooks,named-serious; hooks:2; live,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 prometheus-community/kube-prometheus-stack,87.15.1,serious-chart-playbooks; hook-and-secret-lifecycle; large-app-evidence-funnel,3,serious-chart-playbooks,named-serious; hooks:2,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/large-app-evidence-funnel.md
@@ -145,6 +155,7 @@ prometheus-community/prometheus-blackbox-exporter,11.10.0,live-parity,1,live-par
 prometheus-community/prometheus-blackbox-exporter,11.15.1,,0,none,,
 prometheus-community/prometheus-blackbox-exporter,11.18.0,,0,none,,
 prometheus-community/prometheus-node-exporter,4.55.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
+prometheus-community/prometheus-operator-crds,28.0.1,,0,none,,
 prometheus-community/prometheus-operator-crds,29.0.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,4,hook-and-secret-lifecycle,generated-facts; crds; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 prometheus-community/prometheus-pushgateway,3.6.0,target-facts-and-lifecycle; live-parity,2,target-facts-and-lifecycle,stateful-storage; live,docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 prometheus-community/prometheus,29.8.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md

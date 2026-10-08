@@ -16,16 +16,16 @@ Two forms: [skills.csv](./skills.csv) (spreadsheet) and
 
 ## Coverage
 
-118 of 167 charts have at least one applicable skill. A chart
+119 of 178 charts have at least one applicable skill. A chart
 with none is a plain chart that needs no special playbook.
 
 | Skill | Charts |
 | --- | ---: |
 | [Live Parity](../../docs/skills/live-parity.md) | 97 |
 | [Target Facts And Lifecycle](../../docs/skills/target-facts-and-lifecycle.md) | 57 |
-| [Hook And Secret Lifecycle](../../docs/skills/hook-and-secret-lifecycle.md) | 48 |
-| [Large App Evidence Funnel](../../docs/skills/large-app-evidence-funnel.md) | 33 |
-| [Serious Chart Playbooks](../../docs/skills/serious-chart-playbooks.md) | 24 |
+| [Hook And Secret Lifecycle](../../docs/skills/hook-and-secret-lifecycle.md) | 49 |
+| [Large App Evidence Funnel](../../docs/skills/large-app-evidence-funnel.md) | 34 |
+| [Serious Chart Playbooks](../../docs/skills/serious-chart-playbooks.md) | 25 |
 
 ## How To Read One Row
 
@@ -54,6 +54,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | aws-controllers-k8s/ec2-chart@1.18.4 | 0 | none | — |
 | aws-controllers-k8s/eks-chart@1.16.3 | 0 | none | — |
 | aws-controllers-k8s/iam-chart@1.7.3 | 0 | none | — |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | 0 | none | — |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | 0 | none | — |
 | bitnami/apache@11.4.29 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; live |
 | bitnami/contour@21.1.4 | 4 | hook-and-secret-lifecycle | hooks:1; generated-facts; crds; lookup; live |
@@ -85,6 +86,8 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | crossplane-stable/crossplane@2.3.1 | 1 | live-parity | live |
 | descheduler/descheduler@0.36.0 | 1 | live-parity | live |
 | dex/dex@0.24.0 | 0 | none | — |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | 0 | none | — |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | 0 | none | — |
 | elastic/eck-operator@3.4.0 | 3 | hook-and-secret-lifecycle | webhooks; stateful-storage; live |
 | elastic/filebeat@8.5.1 | 0 | none | — |
 | elastic/kibana@8.5.1 | 0 | none | — |
@@ -128,8 +131,12 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | jetstack/cert-manager@v1.21.0 | 2 | serious-chart-playbooks | named-serious |
 | jetstack/cert-manager@v1.21.1 | 2 | serious-chart-playbooks | named-serious |
 | jetstack/trust-manager@v0.22.1 | 1 | live-parity | live |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | 0 | none | — |
+| kai-scheduler/kai-scheduler@v0.14.1 | 0 | none | — |
+| kai-scheduler/kai-scheduler@v0.16.9 | 0 | none | — |
 | karpenter/karpenter@1.14.0 | 4 | serious-chart-playbooks | crds+webhooks; webhooks; crds |
 | kedacore/keda@2.19.0 | 5 | serious-chart-playbooks | crds+webhooks; hooks:1; webhooks; crds; live |
+| kubeflow/kubeflow-trainer@2.2.0 | 0 | none | — |
 | kyverno/kyverno-policies@3.8.0 | 2 | target-facts-and-lifecycle | lookup; live |
 | kyverno/kyverno-policies@3.8.2 | 0 | none | — |
 | kyverno/kyverno-policies@3.9.0 | 0 | none | — |
@@ -158,6 +165,8 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | nvidia/gpu-operator@v26.7.1 | 0 | none | — |
 | nvidia/k8s-nim-operator@3.1.0 | 0 | none | — |
 | nvidia/k8s-nim-operator@3.1.2 | 0 | none | — |
+| nvidia/nodewright@v0.17.1 | 0 | none | — |
+| nvidia/nodewright@v0.19.0 | 0 | none | — |
 | nvidia/nvidia-device-plugin@0.19.3 | 0 | none | — |
 | nvidia/nvsentinel@v1.20.0 | 0 | none | — |
 | nvidia/nvsentinel@v1.25.0 | 0 | none | — |
@@ -174,6 +183,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | policy-reporter/policy-reporter@3.9.1 | 0 | none | — |
 | projectcalico/tigera-operator@v3.32.0 | 3 | hook-and-secret-lifecycle | hooks:1; lookup; live |
 | prometheus-community/alertmanager@1.37.0 | 2 | target-facts-and-lifecycle | stateful-storage; live |
+| prometheus-community/kube-prometheus-stack@84.4.0 | 3 | serious-chart-playbooks | named-serious; hooks:2 |
 | prometheus-community/kube-prometheus-stack@85.3.3 | 5 | serious-chart-playbooks | named-serious; hooks:2; generated-facts; webhooks; crds; lookup; stateful-storage; live |
 | prometheus-community/kube-prometheus-stack@86.1.0 | 4 | serious-chart-playbooks | named-serious; hooks:2; live |
 | prometheus-community/kube-prometheus-stack@87.15.1 | 3 | serious-chart-playbooks | named-serious; hooks:2 |
@@ -185,6 +195,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | prometheus-community/prometheus-blackbox-exporter@11.15.1 | 0 | none | — |
 | prometheus-community/prometheus-blackbox-exporter@11.18.0 | 0 | none | — |
 | prometheus-community/prometheus-node-exporter@4.55.0 | 3 | hook-and-secret-lifecycle | generated-facts; live |
+| prometheus-community/prometheus-operator-crds@28.0.1 | 0 | none | — |
 | prometheus-community/prometheus-operator-crds@29.0.0 | 4 | hook-and-secret-lifecycle | generated-facts; crds; live |
 | prometheus-community/prometheus-pushgateway@3.6.0 | 2 | target-facts-and-lifecycle | stateful-storage; live |
 | prometheus-community/prometheus@29.8.0 | 3 | hook-and-secret-lifecycle | generated-facts; stateful-storage; live |

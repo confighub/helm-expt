@@ -7,8 +7,8 @@ the status per chart, base variant, derived variant, and Helm feature.
 ## Aggregate Status
 
 ```text
-charts with model support:           162/167
-variant-rich charts:                 106/167
+charts with model support:           162/178
+variant-rich charts:                 117/178
 chart/base rows:                     339
 complete core lane rows:             126/339
 render parity rows:                  339/339

@@ -232,6 +232,13 @@
     },
     {
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+      "version": "2.59.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
       "version": "2.60.1",
       "top_skill": "none",
       "matched_signals": [],
@@ -909,6 +916,20 @@
     {
       "chart": "dex/dex",
       "version": "0.24.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "version": "0.4.1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "version": "0.5.0",
       "top_skill": "none",
       "matched_signals": [],
       "applicable": []
@@ -1939,6 +1960,27 @@
       ]
     },
     {
+      "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
+      "version": "1.19.2",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "kai-scheduler/kai-scheduler",
+      "version": "v0.14.1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "kai-scheduler/kai-scheduler",
+      "version": "v0.16.9",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "karpenter/karpenter",
       "version": "1.14.0",
       "top_skill": "serious-chart-playbooks",
@@ -2017,6 +2059,13 @@
           "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
+    },
+    {
+      "chart": "kubeflow/kubeflow-trainer",
+      "version": "2.2.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
     },
     {
       "chart": "kyverno/kyverno-policies",
@@ -2380,6 +2429,20 @@
       "applicable": []
     },
     {
+      "chart": "nvidia/nodewright",
+      "version": "v0.17.1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "nvidia/nodewright",
+      "version": "v0.19.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "nvidia/nvidia-device-plugin",
       "version": "0.19.3",
       "top_skill": "none",
@@ -2601,6 +2664,35 @@
           "title": "Live Parity",
           "doc": "docs/skills/live-parity.md",
           "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "84.4.0",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "named-serious",
+        "hooks:2"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
         }
       ]
     },
@@ -2878,6 +2970,13 @@
           "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
+    },
+    {
+      "chart": "prometheus-community/prometheus-operator-crds",
+      "version": "28.0.1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
     },
     {
       "chart": "prometheus-community/prometheus-operator-crds",

@@ -17,10 +17,10 @@ Which detailed CSV should I open next?
 
 | Section | Metric | Value | Status | Source |
 | --- | --- | ---: | --- | --- |
-| outcome coverage | maintained chart rows with model support | 162/167 | good | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
+| outcome coverage | maintained chart rows with model support | 162/178 | good | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
 | top100 | catalog-supported charts | 20/115 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
 | top100 | proof-grade non-catalog charts | 95/115 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
-| outcome coverage | variant-rich maintained chart rows | 106/167 | partial | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
+| outcome coverage | variant-rich maintained chart rows | 117/178 | partial | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
 | chart use | public catalog answers | 20/115 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | chart use | proof-ready but not public catalog answers | 40/115 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | chart use | better base variant needed answers | 39/115 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
@@ -64,7 +64,7 @@ Which detailed CSV should I open next?
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
-| graph bridge | charts with recovered graph fragments | 20/167 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | charts with recovered graph fragments | 20/178 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | recovered graph edge rows | 118/118 | good | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | target-fact graph edges | 75/118 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | generated-fact graph edges | 1/118 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
@@ -75,9 +75,9 @@ Which detailed CSV should I open next?
 | live evidence | live parity rerun rows needing decisions | 108/108 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live parity rows needing model or staging first | 51/108 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live parity rows needing target review first | 39/108 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live matrix commands remaining | 366 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
-| live evidence | live matrix GitOps/OCI parity commands remaining | 185 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
-| live evidence | live matrix two-cluster kind commands remaining | 181 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
+| live evidence | live matrix commands remaining | 422 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
+| live evidence | live matrix GitOps/OCI parity commands remaining | 213 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
+| live evidence | live matrix two-cluster kind commands remaining | 209 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | GitOps aggregate health residue rows | 49/199 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/199 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 16/179 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
