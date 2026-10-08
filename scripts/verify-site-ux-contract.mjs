@@ -505,6 +505,10 @@ for (const check of checks) {
 // Keep common internal phrases and the old one-letter check legend out of all
 // generated version pages, not only the Redis page used by the positive check.
 const chartPagesRoot = path.join(root, "site/charts");
+// A chart page is the landing page for a whole chart, and it has a JSON file of
+// the same name beside it. The rules for one version's page do not apply to
+// it. Its own rules are near the end of this file.
+const isChartLandingPage = (name) => fs.existsSync(path.join(chartPagesRoot, name.replace(/\.html$/, ".json")));
 for (const name of fs.readdirSync(chartPagesRoot)) {
   if (name === "index.html" || !name.endsWith(".html")) continue;
   const file = `site/charts/${name}`;
@@ -981,7 +985,7 @@ if (fs.existsSync(catalogIndexPath)) {
 const chartPagesDir = path.join(root, "site/charts");
 if (fs.existsSync(chartPagesDir)) {
   const chartPages = fs.readdirSync(chartPagesDir)
-    .filter((name) => name.endsWith(".html") && name !== "index.html")
+    .filter((name) => name.endsWith(".html") && name !== "index.html" && !isChartLandingPage(name))
     .map((name) => path.join(chartPagesDir, name));
   if (chartPages.length !== catalogCounts.retainedVersions) failures.push(`site/charts: the catalog index lists ${catalogCounts.retainedVersions} retained versions but ${chartPages.length} package-version pages exist`);
   let retainedOnlyPages = 0;
@@ -1368,7 +1372,7 @@ if (fs.existsSync(chartCardsDir)) {
     if (/class="tagline">(?:catalog-supported|proof-grade \/ machine-proof-only) page/.test(text)) {
       failures.push(`site/charts/${name}: exposes an internal catalog readiness label in the header`);
     }
-    if (name !== "index.html" && !text.includes("id=\"setting-sources\"")) {
+    if (name !== "index.html" && !isChartLandingPage(name) && !text.includes("id=\"setting-sources\"")) {
       failures.push(`site/charts/${name}: missing the Helm values, ConfigHub changes, install work, and live state provenance view`);
     }
   }
@@ -1460,6 +1464,11 @@ for (const asset of downloadableGuideAssets) {
 // checks the pages against the listings, which is what keeps the block honest:
 // every entry has exactly one block, the block shows the states its listing
 // records, and a step with a missing precondition shows no command.
+// A chart page repeats the block of one entry, the newest version's default
+// base, so a reader who lands there can act. That entry's own page still
+// carries the block. The repeat is counted apart from the one-page rule and
+// checked against the chart's file further down.
+const chartPageBlocks = new Map();
 const ENTRY_STEPS_HEADING = '<h2 id="use-in-confighub">Use this entry in ConfigHub</h2>';
 const ENTRY_STEP_LABELS = ["Get the exact objects", "Compare with another version or base", "Upload it as a variant", "Deploy it", "Promote a change"];
 const ENTRY_STEP_STATE_TEXT = {
@@ -1501,6 +1510,7 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
   for (const fullPath of htmlFiles) {
     const html = fs.readFileSync(fullPath, "utf8");
     const file = path.relative(root, fullPath);
+    const isChartPage = /<body data-chart-page="/.test(html);
     const isEntryPage = (file.startsWith("site/charts/") && file !== "site/charts/index.html") || entrySitePages.includes(file);
     const section = html.match(/<section class="entry-steps"[\s\S]*?<\/section>/)?.[0] ?? "";
     if (!section) {
@@ -1527,8 +1537,13 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
         failures.push(`${file}: the entry-steps block names ${id}, which has no listing`);
         continue;
       }
-      if (!blocksById.has(id)) blocksById.set(id, []);
-      blocksById.get(id).push(file);
+      if (isChartPage) {
+        if (!chartPageBlocks.has(file)) chartPageBlocks.set(file, []);
+        chartPageBlocks.get(file).push(id);
+      } else {
+        if (!blocksById.has(id)) blocksById.set(id, []);
+        blocksById.get(id).push(file);
+      }
       const steps = [...chunk.matchAll(/<div class="entry-step" data-step="([^"]+)" data-state="([^"]+)">([\s\S]*?)<\/div>/g)];
       if (steps.length !== ENTRY_STEP_LABELS.length) {
         failures.push(`${file}: ${id} shows ${steps.length} steps, and every entry shows ${ENTRY_STEP_LABELS.length}`);
@@ -1652,6 +1667,231 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
     if (catalogRows[0] && !catalogRows[0].includes(`<td>flatten-with-routes, route recorded, ${publishedText}</td>`)) {
       failures.push(`site/charts/index.html: the nimservice row does not read ${JSON.stringify(`flatten-with-routes, route recorded, ${publishedText}`)}`);
     }
+  }
+}
+
+// A chart page is the landing page for one Helm chart, and its JSON file holds
+// the same content as data. This checks each page against its file, and each
+// file against the listings, with a version order computed here and not taken
+// from the generator. It also holds the page to its one design rule: a diff is
+// computed when the reader asks, so the page stores one summary line for each
+// version step and no other diff content.
+{
+  const chartsDir = path.join(root, "site/charts");
+  const readJson = (file) => JSON.parse(fs.readFileSync(path.join(root, file), "utf8"));
+  const chartFiles = fs.readdirSync(chartsDir).filter((name) => name.endsWith(".json")).sort();
+  const catalogIndexHtml = fs.readFileSync(path.join(chartsDir, "index.html"), "utf8");
+  if (chartFiles.length !== catalogCounts.components) {
+    failures.push(`site/charts: ${chartFiles.length} chart file(s) for ${catalogCounts.components} Helm chart row(s) on the Catalog page`);
+  }
+  // Numbers compare as numbers, so 1.9.0 is older than 1.20.0.
+  const versionNumbers = (version) => String(version).replace(/^v/, "").split(/[-+]/)[0].split(".").map(Number);
+  const isNewer = (left, right) => {
+    const [a, b] = [versionNumbers(left), versionNumbers(right)];
+    for (let index = 0; index < Math.max(a.length, b.length); index += 1) {
+      if ((a[index] ?? 0) !== (b[index] ?? 0)) return (a[index] ?? 0) > (b[index] ?? 0);
+    }
+    return false;
+  };
+  const liveExamplesText = fs.readFileSync(path.join(root, "data/catalog-live-examples/examples.yaml"), "utf8");
+  const liveExampleCharts = new Set([...liveExamplesText.matchAll(/^\s*- chart:\s*(\S+)\s*$/gm)].map((match) => match[1]));
+  const schema = readJson("site/chart.schema.json");
+  const vendored = readJson("scripts/site/vendor/config-diff.source.json");
+  let pagesWithLiveExample = 0;
+  for (const name of chartFiles) {
+    const jsonFile = `site/charts/${name}`;
+    const file = jsonFile.replace(/\.json$/, ".html");
+    const chart = readJson(jsonFile);
+    if (!fs.existsSync(path.join(root, file))) { failures.push(`${jsonFile}: the chart file has no page beside it`); continue; }
+    const html = fs.readFileSync(path.join(root, file), "utf8");
+    const fail = (message) => failures.push(`${file}: ${message}`);
+    for (const key of schema.required) if (!(key in chart)) failures.push(`${jsonFile}: missing the field ${key} that chart.schema.json requires`);
+    for (const key of Object.keys(chart)) if (!(key in schema.properties)) failures.push(`${jsonFile}: carries a field ${key} that chart.schema.json does not define`);
+    if (!html.includes(`<body data-chart-page="${chart.chart}"`)) fail("the page does not name its chart");
+    if ([...html.matchAll(/<h1\b/g)].length !== 1 || !html.includes(`<h1>Find, compare and use ${chart.chart}</h1>`)) fail("the heading does not say what the reader can do with the chart");
+    const header = html.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "";
+    if (!/<p class="lead">The Catalog holds [^<]* of the Helm chart /.test(header)) fail("the opening does not say how many versions and bases the Catalog holds");
+    if (!header.includes("data-chart-what") || !header.includes("data-chart-run-state")) fail("the opening does not say what the chart is and what has been run");
+
+    // Versions, newest first, in the file and on the page.
+    const versions = chart.versions.map((version) => version.version);
+    for (let index = 0; index + 1 < versions.length; index += 1) {
+      if (!isNewer(versions[index], versions[index + 1])) failures.push(`${jsonFile}: ${versions[index]} is listed before ${versions[index + 1]}, and versions go newest first`);
+    }
+    const shown = [...html.matchAll(/<article class="chart-version" data-chart-version="([^"]+)"/g)].map((match) => match[1]);
+    if (JSON.stringify(shown) !== JSON.stringify(versions)) fail(`the page lists versions as ${shown.join(", ")}, and its file lists ${versions.join(", ")}`);
+    if (chart.counts.versions !== versions.length || chart.counts.bases !== chart.versions.reduce((sum, version) => sum + version.bases.length, 0)) failures.push(`${jsonFile}: the counts differ from the versions and bases listed`);
+
+    // Every base repeats its listing and claims nothing more.
+    let comparable = 0;
+    for (const version of chart.versions) {
+      const pageName = version.page.split("/").pop();
+      if (!fs.existsSync(path.join(chartsDir, pageName)) || !html.includes(`href="./${pageName}"`)) fail(`version ${version.version} does not link its version page`);
+      for (const base of version.bases) {
+        if (!base.listing) continue;
+        const listingPath = `site/listings/${base.listing.id}.json`;
+        if (!fs.existsSync(path.join(root, listingPath))) { failures.push(`${jsonFile}: ${base.listing.id} has no listing`); continue; }
+        const listing = readJson(listingPath);
+        const flagged = (listing.assessment?.stages ?? []).some((stage) => stage.id === "materialization" && stage.resultState === "watch");
+        const published = (listing.oci?.bundles ?? []).some((bundle) => bundle.referenceState === "published");
+        if (listing.identity.name !== chart.chart || listing.identity.version !== version.version || listing.identity.base !== base.base) failures.push(`${jsonFile}: ${base.listing.id} is the listing of another entry`);
+        if (base.objectCount !== listing.flattened?.objectCount || base.verdict !== listing.flattened?.verdict || base.published !== published || base.flagged !== flagged) {
+          failures.push(`${jsonFile}: ${base.listing.id} states an object count, verdict, publication or flag its listing does not record`);
+        }
+        if (base.objects) {
+          comparable += 1;
+          if (base.objects.path !== listing.flattened?.retainedObjects?.path || base.objects.sha256 !== (listing.flattened?.retainedObjects?.sha256 ?? null)) {
+            failures.push(`${jsonFile}: ${base.listing.id} names an object file or a SHA-256 its listing does not record`);
+          }
+          if (!fs.existsSync(path.join(root, base.objects.path))) failures.push(`${jsonFile}: ${base.objects.path} is not in the repository, so the compare control cannot fetch it`);
+        }
+        if (!html.includes(`href="../listings/${base.listing.id}.json"`)) fail(`base ${base.base} of ${version.version} does not link its listing`);
+        if (flagged && !new RegExp(`data-chart-version="${version.version.replace(/[.]/g, "\\.")}"[\\s\\S]*?class="status warn"`).test(html)) fail(`${base.listing.id} is flagged watch and the page does not show it`);
+      }
+    }
+
+    // The compare control computes on demand, and says so.
+    const compare = html.match(/<section aria-labelledby="see-what-changes"[\s\S]*?<\/section>/)?.[0] ?? "";
+    if (!compare) fail("the page has no See what changes section");
+    if (comparable >= 2) {
+      for (const term of [
+        "computes the diff on demand",
+        "Nothing is precomputed or stored.",
+        "checks each file's SHA-256 against the digest its listing records",
+        `data-chart-json="./${name}"`,
+        "data-compare-control hidden",
+        'name="from-version"',
+        'name="to-base"',
+        "Run the same diff yourself",
+        "--summary",
+      ]) {
+        if (!compare.includes(term)) fail(`the compare control is missing ${JSON.stringify(term)}`);
+      }
+      const noscript = compare.match(/<noscript>[\s\S]*?<\/noscript>/)?.[0] ?? "";
+      if (!noscript.includes("cub config diff")) fail("with JavaScript off, the compare control does not name the command that gives the same diff");
+      const commands = decodeBasicHtml((compare.match(/<div data-compare-command>[\s\S]*?<\/pre>/)?.[0] ?? "").replace(/<[^>]+>/g, ""));
+      if ([...commands.matchAll(/^\$ curl -fsSL -o \S+\.yaml https:\/\/\S+$/gm)].length !== 2 || !/^\$ cub config diff \S+\.yaml \S+\.yaml --summary$/m.test(commands)) {
+        fail("the fallback does not fetch both files with curl and compare them with cub config diff --summary");
+      }
+      if (!html.includes('<script type="module" src="../chart-compare.js"></script>') || !html.includes('<script src="../js-yaml-4.1.0.min.js"></script>')) fail("the page does not load the compare script and its YAML parser");
+    } else if (!compare.includes("nothing to compare")) {
+      fail("the chart has one base, and the page does not say there is nothing to compare");
+    }
+    // Phone width: the pickers stack and stay inside the page, a long field
+    // path breaks, and a command block scrolls inside itself.
+    if (compare.includes("<table")) fail("the compare section holds a table, which does not fit a phone-width page");
+    for (const rule of [
+      ".chart-compare-control select { max-width: 100%;",
+      ".chart-compare-result { overflow-wrap: anywhere;",
+      ".chart-compare pre { max-width: 100%; }",
+      ".chart-compare-control, .chart-compare-control fieldset { flex-direction: column; align-items: stretch; }",
+      "table { display: block; overflow-x: auto; white-space: nowrap; }",
+    ]) {
+      if (!html.includes(rule)) fail(`the phone-width rule ${JSON.stringify(rule)} is missing`);
+    }
+
+    // One stored line for each version step, and no other diff content.
+    const lines = [...compare.matchAll(/<li data-chart-summary="[^"]*">([\s\S]*?)<\/li>/g)].map((match) => decodeBasicHtml(match[1].replace(/<a\b[\s\S]*$/, "")).trim());
+    if (JSON.stringify(lines) !== JSON.stringify(chart.summaries.map((summary) => summary.line))) fail("the stored summary lines differ from the lines in the chart file");
+    if (chart.summaries.length > Math.max(0, versions.length - 1)) failures.push(`${jsonFile}: holds ${chart.summaries.length} summary lines for ${versions.length} versions, and it may hold one for each version step`);
+    chart.summaries.forEach((summary, index) => {
+      if (summary.to.version !== versions[index] || summary.from.version !== versions[index + 1]) failures.push(`${jsonFile}: summary ${index + 1} does not join two adjacent versions`);
+      if (sentences(summary.line).length !== 1 || !/ objects? (change|changes|are the same)\b/.test(summary.line)) failures.push(`${jsonFile}: summary ${index + 1} is not one sentence with a verb`);
+      if (summary.changed + summary.unchanged + summary.removed < 1) failures.push(`${jsonFile}: summary ${index + 1} counts no objects`);
+    });
+    if (/chart-compare-change|data-compare-summary=|"changes":/.test(html) || "changes" in chart) fail("the page or its file stores a computed diff, and a diff is computed on demand");
+    if (chart.compare?.computedOnDemand !== true || chart.compare.core.commit !== vendored.source.commit || chart.compare.core.sha256 !== vendored.core.sha256) {
+      failures.push(`${jsonFile}: the compare recipe does not name the vendored cub config diff core`);
+    }
+    if (chart.compare.recipe.filter((command) => command.startsWith("curl ")).length !== 2 || !chart.compare.recipe.some((command) => command.startsWith("cub config diff "))) {
+      failures.push(`${jsonFile}: the compare recipe is not two fetches and one cub config diff`);
+    }
+
+    // The five steps are those of the newest version's default base.
+    const newest = chart.versions[0];
+    const firstBase = newest.bases.find((base) => base.default && base.listing) ?? newest.bases.find((base) => base.listing);
+    const blocks = chartPageBlocks.get(file) ?? [];
+    if (blocks.length !== 1 || blocks[0] !== firstBase?.listing.id) fail(`the five steps are for ${blocks.join(", ") || "no entry"}, and they must be for ${firstBase?.listing.id}`);
+    for (const version of chart.versions) {
+      const others = version.bases.filter((base) => base.listing && base !== firstBase);
+      if (others.length && !html.includes(`href="./${version.page.split("/").pop()}#use-in-confighub"`)) fail(`the page does not link the five steps of the other bases of ${version.version}`);
+    }
+
+    // A live example shows only when the data file names one for the chart.
+    const live = html.match(/<section aria-labelledby="live-example"[\s\S]*?<\/section>/)?.[0] ?? "";
+    const expectsLive = liveExampleCharts.has(chart.chart);
+    if (Boolean(live) !== expectsLive || Boolean(chart.liveExample) !== expectsLive) {
+      fail(expectsLive ? "the live examples file names this chart, and the page or its file shows no example" : "the page or its file shows a live example the live examples file does not name");
+    }
+    if (live) {
+      pagesWithLiveExample += 1;
+      const example = chart.liveExample ?? {};
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(example.observedOn ?? "") || !live.includes(`It was observed on ${example.observedOn}.`)) fail("the live example does not show the date it was observed");
+      if (!example.done || !live.includes("data-live-example-done") || !example.notDone || !live.includes("data-live-example-not-done")) fail("the live example does not say what was done and what was not done");
+      if (!(example.addresses ?? []).length || (example.addresses ?? []).some((address) => !/^https:\/\//.test(address.url) || !live.includes(`href="${address.url.replaceAll("&", "&amp;")}"`))) fail("the live example does not link each of its addresses");
+      if (!/access to that organization/.test(live)) fail("the live example does not say who can open its links");
+    }
+
+    // The file is named in an agent box, and nowhere in prose for people.
+    if (!new RegExp(`<aside class="agent-note"[^>]*>[\\s\\S]*?href="\\./${name.replace(/[.]/g, "\\.")}"[\\s\\S]*?<\\/aside>`).test(html)) fail("no agent box names the chart file");
+    const outsideAgentBoxes = html.replace(/<aside class="agent-note"[\s\S]*?<\/aside>/g, " ").replace(/<section aria-labelledby="see-what-changes"[^>]*>/, " ");
+    if (outsideAgentBoxes.includes(name)) fail("the chart file is named outside an agent box");
+
+    // House style on the page's own prose. The five-step block is checked with
+    // the other entry pages, and the listing's reason is a record's words.
+    const own = html
+      .replace(/<nav\b[\s\S]*?<\/nav>/g, " ")
+      .replace(/<section class="entry-steps"[\s\S]*?<\/section>/, " ")
+      .replace(/<span data-chart-rationale>[\s\S]*?<\/span>/, " ")
+      .replace(/<aside[\s\S]*?<\/aside>/g, " ");
+    const ownBody = own.slice(own.indexOf("<header"), own.lastIndexOf("</main>"));
+    for (const block of proseBlocks(ownBody)) {
+      for (const sentence of sentences(block)) {
+        if (wordCount(sentence) > 32) fail(`a sentence has ${wordCount(sentence)} words: ${JSON.stringify(sentence.slice(0, 140))}`);
+      }
+      if (/\u2014/.test(block)) fail(`a sentence uses an em dash: ${JSON.stringify(block.slice(0, 100))}`);
+      if (/^(No|Not|Nothing|None|Never|Neither)[ .,:]/.test(block)) fail(`a paragraph opens with a denial: ${JSON.stringify(block.slice(0, 100))}`);
+    }
+    for (const heading of ownBody.matchAll(/<h[123][^>]*>([\s\S]*?)<\/h[123]>/g)) {
+      if (/:/.test(heading[1].replace(/<[^>]+>/g, ""))) fail(`a heading uses a colon: ${JSON.stringify(heading[1].slice(0, 80))}`);
+    }
+
+    // Findability: the Catalog row's main link is this page.
+    if (!catalogIndexHtml.includes(`<td><a data-chart-page-link="${chart.chart}" href="./${name.replace(/\.json$/, ".html")}">`)) {
+      failures.push(`site/charts/index.html: the row for ${chart.chart} does not open its chart page`);
+    }
+  }
+  if (pagesWithLiveExample !== liveExampleCharts.size) failures.push(`site/charts: ${pagesWithLiveExample} page(s) show a live example, and the live examples file names ${liveExampleCharts.size}`);
+
+  // A version page links back to the page of its chart.
+  const chartPageNames = new Set(chartFiles.map((name) => name.replace(/\.json$/, ".html")));
+  for (const name of fs.readdirSync(chartsDir)) {
+    if (!name.endsWith(".html") || name === "index.html" || chartPageNames.has(name)) continue;
+    const back = fs.readFileSync(path.join(chartsDir, name), "utf8").match(/<p class="chart-page-link"><a href="\.\/([^"]+)">/)?.[1] ?? "";
+    if (!chartPageNames.has(back) || !name.startsWith(back.replace(/\.html$/, "-"))) failures.push(`site/charts/${name}: the version page does not link back to the page of its chart`);
+  }
+
+  // A search that arrives with a query lands on its results, with the count of
+  // matches directly above the rows.
+  const resultsAt = catalogIndexHtml.indexOf('<p id="chart-results"');
+  const tableAt = catalogIndexHtml.indexOf('<table id="chart-table"');
+  if (resultsAt < 0 || resultsAt > tableAt || tableAt - resultsAt > 400) failures.push("site/charts/index.html: the count of matches does not sit directly above the rows");
+  for (const term of ["results.scrollIntoView", "scroll-margin-top", "Change the search"]) {
+    if (!catalogIndexHtml.includes(term)) failures.push(`site/charts/index.html: a search that arrives with a query does not land on its results (${term})`);
+  }
+
+  // The home page's Catalog search sits in the hero head, above the fold. The
+  // hero head keeps its headline, one typeface, and no code.
+  const home = fs.readFileSync(path.join(root, "site/index.html"), "utf8");
+  const heroHead = home.match(/<div class="hero-head">[\s\S]*?<\/div>/)?.[0] ?? "";
+  if (!/<form class="hero-search"[^>]*action="\.\/charts\/index\.html"[^>]*method="get"><input type="search" name="q"/.test(heroHead)) failures.push("site/index.html: the Catalog search is not in the hero head");
+  if ([...home.matchAll(/<form[^>]*action="\.\/charts\/index\.html"/g)].length !== 1) failures.push("site/index.html: the home page must carry the Catalog search once");
+  if (/<code\b/.test(heroHead)) failures.push("site/index.html: the hero head holds code, and its prose keeps one typeface");
+  if (!home.includes(".hero-search input { flex: 1; min-width: 0;") || !/\.hero-search input \{[^}]*font: inherit;/.test(home)) failures.push("site/index.html: the hero search does not take the page's typeface or can widen a phone-width page");
+
+  const llms = fs.readFileSync(path.join(root, "site/llms.txt"), "utf8");
+  for (const term of ["charts/{chart-slug}.json", "chart.schema.json", "A diff between two versions or two bases is not stored."]) {
+    if (!llms.includes(term)) failures.push(`site/llms.txt: missing ${JSON.stringify(term)}`);
   }
 }
 

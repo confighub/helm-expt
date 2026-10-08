@@ -23,6 +23,9 @@ import { appLearningPathsHtml } from "./lib/app-learning-paths.mjs";
 import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
 import { NEXT_STEPS, NEXT_STEPS_HEADING, NEXT_STEPS_TARGET, NEXT_STEP_STATES } from "./lib/entry-next-steps.mjs";
+import { chartCompareCommands, chartDiffSummaryLine, chartPageSlug, compareChartVersions } from "./lib/catalog-chart-pages.mjs";
+import { LIVE_EXAMPLES_PATH, liveExampleSectionHtml, validateLiveExamples } from "./lib/catalog-live-examples.mjs";
+import { VENDORED_DIFF_SOURCE, diffConfigFiles, vendoredDiffRecord } from "./lib/vendored-config-diff.mjs";
 
 // Spells small counts (stack.html's "the stacks that ship" prose) so a count
 // read from data reads the way the surrounding hand-written numbers already
@@ -136,6 +139,12 @@ const jsYamlScriptPath = join(siteRoot, "js-yaml-4.1.0.min.js");
 const jsYamlScriptSourcePath = join(repoRoot, "scripts", "site", "vendor", "js-yaml-4.1.0.min.js");
 const jsYamlLicensePath = join(siteRoot, "js-yaml-4.1.0.LICENSE.txt");
 const jsYamlLicenseSourcePath = join(repoRoot, "scripts", "site", "vendor", "js-yaml-4.1.0.LICENSE.txt");
+const chartSchemaPath = join(siteRoot, "chart.schema.json");
+const chartSchemaSourcePath = join(repoRoot, "schemas", "catalog-chart.schema.json");
+const configDiffScriptPath = join(siteRoot, "config-diff.js");
+const configDiffScriptSourcePath = join(repoRoot, VENDORED_DIFF_SOURCE);
+const chartCompareScriptPath = join(siteRoot, "chart-compare.js");
+const chartCompareScriptSourcePath = join(repoRoot, "scripts", "site", "chart-compare-browser.js");
 const baseVariantRecordsJsonPath = join(siteRoot, "base-variant-records.json");
 const inspectionRecordName = "bitnami-redis-25-5-3-default";
 const inspectionRecordPath = join(siteRoot, "records", `${inspectionRecordName}.json`);
@@ -946,6 +955,17 @@ const PAGE_DESCRIPTIONS = {
   "d/docs/demo/kubara/gui-tour.html": "Follow a receipt-bound GUI walkthrough of the Kubara topology, component Catalog, applications, wiring, approvals, releases, matrix, and orphan audit.",
 };
 let guidePagePaths;
+// The three later steps of an entry, as a chart page names them in a sentence.
+const CHART_STEP_NOUNS = new Map([
+  ["upload", "an upload as a variant"],
+  ["deploy", "a deployment"],
+  ["promote", "a promoted change"],
+]);
+// The chart pages are built from this, once, before any page. The stored
+// summary lines need the diff, which hashes with Web Crypto and so is awaited
+// here, at the top level, while every page builder stays synchronous.
+const chartPageModels = await addChartDiffSummaries(buildChartPageModels());
+const catalogLiveExamples = loadCatalogLiveExamples(chartPageModels);
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -1018,6 +1038,10 @@ if (mode === "--generate") {
   write(chartIndexPath, site.chartIndexHtml);
   write(demoOrgPath, site.demoOrgHtml);
   for (const page of site.chartPages) write(page.path, page.html);
+  for (const page of site.chartOverviewPages) {
+    write(page.path, page.html);
+    write(page.jsonPath, page.json);
+  }
   for (const page of site.docPages) write(page.path, page.html);
   for (const script of site.presetScripts) write(script.path, script.content);
   write(catalogJsonPath, site.catalogJson);
@@ -1029,6 +1053,9 @@ if (mode === "--generate") {
   write(promotionReviewSchemaPath, site.promotionReviewSchemaJson);
   write(configurationDecisionSchemaPath, site.configurationDecisionSchemaJson);
   write(listingSchemaPath, site.listingSchemaJson);
+  write(chartSchemaPath, site.chartSchemaJson);
+  write(configDiffScriptPath, site.configDiffScript);
+  write(chartCompareScriptPath, site.chartCompareScript);
   write(stackSchemaPath, site.stackSchemaJson);
   write(checkConfigScriptPath, site.checkConfigScript);
   write(promoteConfigScriptPath, site.promoteConfigScript);
@@ -1053,7 +1080,7 @@ if (mode === "--generate") {
     console.log(`markdown targets linked but not found in the repo (left as raw links): ${site.missingMdTargets.length}`);
     for (const target of site.missingMdTargets) console.log(`  - ${target}`);
   }
-  console.log(`wrote public site outputs, ${site.chartPages.length} Catalog version page(s), ${site.docPages.length} rendered doc page(s), and ${site.presetScripts.length} base variant script(s)`);
+  console.log(`wrote public site outputs, ${site.chartOverviewPages.length} chart page(s), ${site.chartPages.length} Catalog version page(s), ${site.docPages.length} rendered doc page(s), and ${site.presetScripts.length} base variant script(s)`);
   console.log(`catalog rows with no matching listing (link omitted): ${unmatchedCatalogListingLookups}`);
   console.log(`catalog entries with no page to carry their five steps: ${entryStepsDocPlan().unplaced.length}${entryStepsDocPlan().unplaced.length ? ` (${entryStepsDocPlan().unplaced.join(", ")})` : ""}`);
 } else if (mode === "--verify") {
@@ -1184,13 +1211,28 @@ if (mode === "--generate") {
   check(readFileSync(chartIndexPath, "utf8") === site.chartIndexHtml, "site/charts/index.html is stale");
   check(existsSync(demoOrgPath), "site/demo-org.html is missing; run npm run site:generate");
   check(readFileSync(demoOrgPath, "utf8") === site.demoOrgHtml, "site/demo-org.html is stale");
-  const expectedChartPages = new Map(site.chartPages.map((page) => [page.fileName, page]));
+  const expectedChartPages = new Map([...site.chartPages, ...site.chartOverviewPages].map((page) => [page.fileName, page]));
   const actualChartPages = readdirSync(chartPagesRoot).filter((name) => name.endsWith(".html") && name !== "index.html").sort();
   check(actualChartPages.length === expectedChartPages.size, `expected ${expectedChartPages.size} generated chart page(s), found ${actualChartPages.length}`);
   for (const name of actualChartPages) check(expectedChartPages.has(name), `unexpected generated chart page ${name}`);
   for (const [name, page] of expectedChartPages) {
     check(existsSync(page.path), `site/charts/${name} is missing; run npm run site:generate`);
     check(readFileSync(page.path, "utf8") === page.html, `site/charts/${name} is stale`);
+  }
+  // A chart page and its JSON are the only files a chart adds to site/charts.
+  const actualChartJson = readdirSync(chartPagesRoot).filter((name) => name.endsWith(".json")).sort();
+  check(
+    JSON.stringify(actualChartJson) === JSON.stringify(site.chartOverviewPages.map((page) => page.jsonName).sort()),
+    `site/charts holds ${actualChartJson.length} chart file(s), and the Catalog has ${site.chartOverviewPages.length} chart(s); run npm run site:generate`,
+  );
+  for (const page of site.chartOverviewPages) check(readFileSync(page.jsonPath, "utf8") === page.json, `site/charts/${page.jsonName} is stale`);
+  for (const [path, expected, name] of [
+    [chartSchemaPath, site.chartSchemaJson, "chart.schema.json"],
+    [configDiffScriptPath, site.configDiffScript, "config-diff.js"],
+    [chartCompareScriptPath, site.chartCompareScript, "chart-compare.js"],
+  ]) {
+    check(existsSync(path), `site/${name} is missing; run npm run site:generate`);
+    check(readFileSync(path, "utf8") === expected, `site/${name} is stale`);
   }
   check(readFileSync(catalogJsonPath, "utf8") === site.catalogJson, "site/catalog.json is stale");
   check(readFileSync(changesJsonPath, "utf8") === site.changesJson, "site/changes.json is stale");
@@ -1723,6 +1765,26 @@ function buildSite(generatedAt) {
       && new Set(chartPages.map((page) => page.fileName)).size === chartPages.length,
     "the public Catalog must generate one unique local detail page per retained package version",
   );
+  // One page and one JSON file for each chart, beside the version pages.
+  check(
+    JSON.stringify(chartPageModels.map((model) => model.chart)) === JSON.stringify(catalogComponents.map((entry) => entry.chart).sort()),
+    "the chart pages must cover exactly the charts the Catalog lists",
+  );
+  const versionPageNames = new Set(chartPages.map((page) => page.fileName));
+  const chartOverviewPages = chartPageModels.map((model) => {
+    check(!versionPageNames.has(model.fileName), `${model.chart}: its chart page would take the address of the version page ${model.fileName}`);
+    const liveExample = catalogLiveExamples.get(model.chart);
+    return {
+      chart: model.chart,
+      fileName: model.fileName,
+      path: join(chartPagesRoot, model.fileName),
+      html: chartOverviewPageHtml(model, liveExample),
+      jsonName: model.jsonName,
+      jsonPath: join(chartPagesRoot, model.jsonName),
+      json: chartOverviewJson(model, liveExample),
+    };
+  });
+  check(new Set(chartOverviewPages.map((page) => page.fileName)).size === chartOverviewPages.length, "two charts would share one chart page");
   const site = {
     catalogJson: `${JSON.stringify(siteSafe({ schema_version: "1", generatedBy: catalog.generatedBy, generatedAt: catalog.generatedAt, installerAvailability: INSTALLER_COMMAND_NOTE, ...catalog }), null, 2)}\n`,
     changesJson: buildChangesFeed(catalog, changesEntries),
@@ -1734,6 +1796,9 @@ function buildSite(generatedAt) {
     configurationDecisionSchemaJson: readFileSync(configurationDecisionSchemaSourcePath, "utf8"),
     stackSchemaJson: readFileSync(stackSchemaSourcePath, "utf8"),
     listingSchemaJson: readFileSync(listingSchemaSourcePath, "utf8"),
+    chartSchemaJson: readFileSync(chartSchemaSourcePath, "utf8"),
+    configDiffScript: readFileSync(configDiffScriptSourcePath, "utf8"),
+    chartCompareScript: readFileSync(chartCompareScriptSourcePath, "utf8"),
     checkConfigScript: readFileSync(checkConfigScriptSourcePath, "utf8"),
     promoteConfigScript: readFileSync(promoteConfigScriptSourcePath, "utf8"),
     workshopYamlScript: readFileSync(workshopYamlScriptSourcePath, "utf8"),
@@ -1801,6 +1866,7 @@ function buildSite(generatedAt) {
     chartIndexHtml: chartIndexHtml(catalog),
     demoOrgHtml: demoOrgHtml(),
     chartPages,
+    chartOverviewPages,
     matrixHtml: rebaseRelativeLinks(
       readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.html"), "utf8"),
       "data/master-catalog-matrix",
@@ -1811,7 +1877,7 @@ function buildSite(generatedAt) {
   site.robotsTxt = buildRobotsTxt();
   site.llmsTxt = buildLlmsTxt();
   const finalized = finalizeSite(site, catalog);
-  finalized.sitemapXml = buildSitemapXml(finalized.chartPages, finalized.docPages);
+  finalized.sitemapXml = buildSitemapXml([...finalized.chartPages, ...finalized.chartOverviewPages], finalized.docPages);
   finalized.presetScripts = buildPresetScripts(catalog);
   return finalized;
 }
@@ -2173,6 +2239,8 @@ function pageDescription(html, relPath) {
   const fromMap = PAGE_DESCRIPTIONS[relPath];
   if (fromMap) return fromMap;
   const subject = pageTitle(html).replace(/\s*·\s*ConfigHub Workshop$/, "");
+  const chartDescriptionMatch = html.match(/<body data-chart-page="[^"]*" data-chart-description="([^"]*)"/);
+  if (chartDescriptionMatch) return chartDescriptionMatch[1].replaceAll("&amp;", "&").replaceAll("&quot;", '"').replaceAll("&lt;", "<").replaceAll("&gt;", ">");
   if (html.includes("data-retained-only-version=")) {
     return `${subject}: retained package configurations, exact OCI publication receipt, and an explicit boundary that publication proof is not runtime proof.`;
   }
@@ -2265,6 +2333,7 @@ function buildLlmsTxt() {
 - [Completed NGINX decision chain](${SITE_BASE_URL}d/data/config-review-decision-chain/summary.html): six accepted fixes, one narrow exception, a retained ConfigHub decision Unit, development-to-staging promotion, and two Argo CD test results.
 - [Base variant records](${SITE_BASE_URL}base-variant-records.json): source-neutral Catalog records joining each maintained base to its exact source, objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status.
 - [Catalog listing index](${SITE_BASE_URL}listings/index.json): every maintained entry with its listing URL, format, version, base, object count, exact digest, and flattening verdict.
+- [Chart files](${SITE_BASE_URL}charts/nvidia-gpu-operator.json): one file for each Helm chart at charts/{chart-slug}.json, with its versions newest first, each base's listing, object file and SHA-256, one stored summary line for each version step, and the commands that compute any other diff. Schema: ${SITE_BASE_URL}chart.schema.json.
 - [Stack manifest schema](${SITE_BASE_URL}stack-manifest.schema.json): the existing Stack YAML contract used by \`cub stack check\`, with one explicit source per component, optional receipt discovery, planes and ordering.
 - [Compose and check a stack](${SITE_BASE_URL}d/docs/reference/stack-manifest-contract.html): select parts, write a manifest, check it, and render locally. Roles are discovery hints, not readiness; an operator is not a running database.
 - [Catalog listing schema](${SITE_BASE_URL}listing.schema.json): the versioned schema every per-listing file follows, whatever format the configuration came from.
@@ -2272,7 +2341,7 @@ function buildLlmsTxt() {
 - [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key. \`cub config values <chart> --values my-values.yaml\` does this for every key in one run, locally and with no account. Add \`--repo <url>\` for a chart in a Helm repository, and \`--out values-report.json --render-out candidate.yaml\` to keep the report and the rendered objects for the next change; the [Values Guide](${SITE_BASE_URL}d/docs/user/workshop-values-guide.html#check-your-own-chart) walks it on your own chart.
 - [Did this chart version change?](${SITE_BASE_URL}did-this-chart-version-change.html): compare current package bytes with retained digests.
 - [Did your Bitnami chart stop pulling?](${SITE_BASE_URL}did-your-bitnami-chart-stop-pulling.html): find a tested, verified successor for a Bitnami chart that no longer pulls anonymously.
-- [See what a gpu-operator upgrade changes](${SITE_BASE_URL}d/docs/user/workshop-gpu-operator-upgrade-guide.html): render two versions of NVIDIA's public gpu-operator chart with \`helm template\` and compare them with \`cub config diff\`, for a version upgrade, a patch upgrade and a driver version change. The chart is not a Catalog entry.
+- [See what a gpu-operator upgrade changes](${SITE_BASE_URL}d/docs/user/workshop-gpu-operator-upgrade-guide.html): render two versions of NVIDIA's public gpu-operator chart with \`helm template\` and compare them with \`cub config diff\`, for a version upgrade, a patch upgrade and a driver version change. The Catalog holds this chart, and [its chart page](${SITE_BASE_URL}charts/nvidia-gpu-operator.html) compares the retained versions.
 - [Harden Argo CD before production](${SITE_BASE_URL}d/docs/user/workshop-argocd-hardening-guide.html): turn security advice into a checked values variant of the Catalog's argo-cd base with \`cub config values\`, compare it with \`cub config diff\`, and keep it as a variant with a staging and production path.
 - [Deploy with Flux or Argo CD](${SITE_BASE_URL}deploy-with-flux-or-argo.html): render any catalog chart to a controller-native OCI with one command and no account.
 - [Why do development and production differ?](${SITE_BASE_URL}why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
@@ -2312,6 +2381,10 @@ A listing is a projection of the BaseVariantRecord it names in generatedFrom. Th
 Read a listing's coverage before citing a verdict. Only checked counts as evidence. A lane that reads not_declared was never declared, so it is not a pass, and a partial lane left a recorded caveat behind.
 
 Every listing carries nextSteps, the same five steps in the same order: get the exact objects, compare with another version or base, upload it as a variant, deploy it, promote a change. Each step has a state read from that listing and the commands that entry supports. A step whose state is not-available carries no command and says what would unblock it. A command marked needsAccount contacts ConfigHub, and one marked writes changes data there.
+
+Every Helm chart has one page at charts/{chart-slug}.html and the same content as data at charts/{chart-slug}.json. The slug is the chart name in lower case, with each run of other characters replaced by one hyphen. chart.schema.json defines the fields and chartVersion pins their meanings.
+
+A diff between two versions or two bases is not stored. Compute it from the two object files the chart file names: fetch both, check each file's SHA-256 against objects.sha256, then run cub config diff on the pair. The summaries array holds one line for each adjacent pair of versions, and it is the only diff content the site stores.
 
 A lifecycle route is a proposal until a destination resolves it, so automatic stays false until a run proves otherwise. A planned OCI reference names where a bundle would go and has not been pushed.
 
@@ -2693,7 +2766,7 @@ function collectMdTargets(site) {
     }
   };
   for (const [key, relPath] of Object.entries(SITE_PAGE_RELPATHS)) scan(site[key], relPath);
-  for (const page of site.chartPages) scan(page.html, `charts/${page.fileName}`);
+  for (const page of [...site.chartPages, ...site.chartOverviewPages]) scan(page.html, `charts/${page.fileName}`);
   return [...targets].sort();
 }
 
@@ -3120,6 +3193,10 @@ function finalizeSite(site, catalog) {
     ...page,
     html: finalizePage(page.html, `charts/${page.fileName}`, docs.rendered),
   }));
+  finalized.chartOverviewPages = site.chartOverviewPages.map((page) => ({
+    ...page,
+    html: finalizePage(page.html, `charts/${page.fileName}`, docs.rendered),
+  }));
   finalized.docPages = docs.pages.map((page) => ({
     ...page,
     html: finalizePage(page.html, page.relPath, docs.rendered),
@@ -3401,6 +3478,12 @@ ${bannerCss()}
   .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: start; padding: 32px 0 44px; }
   .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 700; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
   .hero-head .lead { font-size: 1rem; line-height: 1.65; margin: 22px 0 0; max-width: 78ch; }
+  /* The Catalog search sits in the hero head, so it shows without scrolling.
+     It takes the page's one typeface. */
+  .hero-search { display: flex; gap: 8px; max-width: 600px; margin: 18px 0 0; }
+  .hero-search input { flex: 1; min-width: 0; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; font-size: .95rem; }
+  .hero-search .btn { cursor: pointer; white-space: nowrap; font-family: var(--sans); }
+  @media (max-width: 560px) { .hero-search { flex-direction: column; } }
   .hero > div:first-child > p { color: var(--muted); font-size: .95rem; line-height: 1.65; margin: 0 0 22px; }
   .hero .lead { font-size: .95rem; color: var(--muted); margin: 0 0 22px; max-width: 48ch; }
   /* The hero says one thing and offers three verbs. The four explainer
@@ -3754,6 +3837,7 @@ ${homeJourneyLinks()}
           <span class="eyebrow">Helm, AICR, OCI, YAML, Argo, Flux, Sveltos and more</span>
           <h1>Configuration catalog for Agents and Kubernetes</h1>
           <p class="lead">ConfigHub Workshop lets an AI get Kubernetes configuration right on your behalf. It gives agents, and the people working with them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.</p>
+          <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Find a chart, such as gpu-operator"><button class="btn primary" type="submit">Search the Catalog</button></form>
         </div>
         <div class="hero">
           <div>
@@ -3813,7 +3897,6 @@ ${homeJourneyLinks()}
             <li><a href="./guides.html">Guides</a>: ${sectionCount("guides")} known paths an agent walks with you, the five journeys first.</li>
             <li><a href="./docs.html">Docs</a>: how it works, why you can trust it, and every reference.</li>
           </ul>
-          <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:16px 0"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
         </section>
         <section class="section" id="what-is-the-workshop">
           <span class="eyebrow">The short version</span>
@@ -11432,7 +11515,7 @@ function chartIndexHtml(catalog) {
         successionNote = `<br><span style="color:var(--muted);font-size:.85rem">Successor to <a href="${componentPageHref(catalog, successorRole.replaces)}">${escapeHtml(successorRole.replaces)}</a></span>`;
       }
       return `<tr data-chart-row data-kind="helm-chart" data-evidence-surface="${evidenceSurface}" data-readiness="${escapeHtml(readiness.id)}" data-category="${escapeHtml(category.id)}" data-status="${escapeHtml(status)}" data-hooks="${hasHooks ? "yes" : "no"}" data-crds="${hasCrds ? "yes" : "no"}" data-search="${escapeHtml(featureText)}">
-        <td><a href="./${chartPageFileName(entry)}">${escapeHtml(entry.chart)}</a><br><span style="color:var(--muted);font-size:.85rem">${escapeHtml(category.label)}</span>${successionNote}</td>
+        <td><a data-chart-page-link="${escapeHtml(entry.chart)}" href="./${chartOverviewFileName(entry.chart)}">${escapeHtml(entry.chart)}</a><br><span style="color:var(--muted);font-size:.85rem">${escapeHtml(category.label)}</span>${successionNote}</td>
         <td>${retainedCatalogVersionCell(catalog, entry)}</td>
         <td>${firstPathCell(catalog, entry, firstRow)}</td>
         <td>${catalogUseCell(entry, firstRow)}</td>
@@ -11616,6 +11699,7 @@ function aicrCatalogRows() {
         <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Check one question about the result</a>, then choose whether to report a public finding for Catalog review.</p>
         <p id="entry-steps-everywhere">Every entry page carries the same five steps under <strong>${escapeHtml(NEXT_STEPS_HEADING)}</strong>, and each step says what the Catalog has run for that entry.</p>
       </div>
+      <p id="chart-results" class="chart-results" role="status" hidden></p>
       <div class="card"><table id="chart-table">
         <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Base variants by version</th></tr></thead>
         <tbody>
@@ -11634,6 +11718,7 @@ ${nonHelmCatalogRowsHtml}
           const hooks = document.getElementById("hook-filter");
           const crds = document.getElementById("crd-filter");
           const count = document.getElementById("chart-filter-count");
+          const results = document.getElementById("chart-results");
           const update = () => {
             const query = text.value.trim().toLowerCase();
             let visible = 0;
@@ -11654,6 +11739,22 @@ ${nonHelmCatalogRowsHtml}
             } else {
               count.textContent = visible + " of " + rows.length + " entries shown; ${catalog.summary.retainedPackageVersions} retained package versions remain available";
             }
+            // The same count sits directly above the rows, so a reader who
+            // arrives with a search sees how many entries match and the first
+            // of them without scrolling.
+            const filtered = query || [format, level, category, status, hooks, crds].some((node) => node.value);
+            results.hidden = !filtered;
+            if (filtered) {
+              const matches = visible === 1 ? "1 entry matches" : visible + " entries match";
+              const edit = document.createElement("a");
+              edit.href = "#search";
+              edit.textContent = "Change the search";
+              results.replaceChildren(
+                (visible === 0 ? "No entry matches" : matches) + (query ? " \u201c" + text.value.trim() + "\u201d" : " these filters") + ", of " + rows.length + " in the Catalog. ",
+                edit,
+                ".",
+              );
+            }
           };
           // A filtered view is worth sharing, so the query lives in the URL:
           // charts/index.html?q=eks-inference lands on those rows directly.
@@ -11673,8 +11774,10 @@ ${nonHelmCatalogRowsHtml}
             const query = next.toString();
             history.replaceState(null, "", query ? "?" + query + window.location.hash : window.location.pathname + window.location.hash);
           };
-          [text, level, category, status, hooks, crds].forEach((node) => node.addEventListener("input", () => { update(); remember(); }));
+          [text, format, level, category, status, hooks, crds].forEach((node) => node.addEventListener("input", () => { update(); remember(); }));
           update();
+          // An address that carries a search or a filter opens at its results.
+          if (!results.hidden && !window.location.hash) results.scrollIntoView({ block: "start" });
         })();
       </script>`;
   return `<!doctype html>
@@ -11685,6 +11788,11 @@ ${nonHelmCatalogRowsHtml}
   <title>Configs · ConfigHub Workshop</title>
   <style>${siteCss()}
     #chart-table { table-layout: fixed; }
+    /* The count of matches, directly above the rows. The margin keeps it clear
+       of the sticky site header when the page scrolls to it. */
+    .chart-results { margin: 14px 0 8px; padding: 8px 12px; border-left: 3px solid var(--accent); background: var(--surface); font-weight: 600; scroll-margin-top: 120px; }
+    .chart-results a { font-weight: 400; }
+    @media (max-width: 860px) { .chart-results { scroll-margin-top: 210px; } }
     #chart-table th, #chart-table td { width: 16.6667%; white-space: normal; }
     /* The formats-and-patterns panel: one glance shows the catalog is not
        Helm-only. Every chip links to that format's filtered view or its page. */
@@ -12581,7 +12689,7 @@ function chartLicenseLineHtml(catalog, chart, version) {
 // Canonical catalog page for a component, for cross-linking successions.
 function componentPageHref(catalog, chart) {
   const component = catalog.catalogComponents?.find((entry) => entry.chart === chart);
-  return component ? `./${chartPageFileName(component)}` : "./index.html";
+  return component ? `./${chartOverviewFileName(component.chart)}` : "./index.html";
 }
 
 // Succession callout for a chart page header. Both directions render: a
@@ -12825,6 +12933,7 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
     ${successionCalloutHtml(catalog, row.chart)}
     <p><a class="button primary" href="../promote.html?chart=${encodeURIComponent(row.chart)}&current=${encodeURIComponent(row.version)}&base=${encodeURIComponent(row.default_base)}">Plan an upgrade or promotion</a></p>
     ${entryStepsTopLinkHtml()}
+    ${chartOverviewLinkHtml(row.chart)}
     <p><a href="./index.html">Back to the Component Catalog</a> · component versions: ${versionLinks}</p>
   </header>
   <main>
@@ -13295,6 +13404,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     <p><a class="button primary" href="../ask.html?question_code=install-shape&amp;chart=${encodeURIComponent(entry.chart)}&amp;version=${encodeURIComponent(entry.version)}">Check this chart and version</a> <a class="button secondary" href="#run-this">Try the package</a> <a class="button secondary" href="../promote.html?chart=${encodeURIComponent(entry.chart)}&amp;current=${encodeURIComponent(entry.version)}&amp;base=${encodeURIComponent(entry.start_variant)}">Plan an upgrade or promotion</a></p>
     <p>Already reviewed the result? <a href="../confighub.html">Keep it in ConfigHub</a> when you need history, variants, approvals, or delivery.</p>
     ${entryStepsTopLinkHtml()}
+    ${chartOverviewLinkHtml(entry.chart)}
   </header>
   <main>
     <section aria-labelledby="pillars-here">
@@ -14205,6 +14315,427 @@ function chartCard(entry) {
             <dt>Chart proof</dt><dd><a href="../${escapeHtml(entry.catalog_path)}">CATALOG.md</a></dd>
           </dl>
         </article>`;
+}
+
+// A chart page is the landing page for one Helm chart: every version the
+// Catalog holds, newest first, what changes between them, and how to use the
+// newest one in ConfigHub. A version page holds one version, and it stays as it
+// was. The chart page's file name is the chart slug alone, and a version page
+// is the chart slug, a hyphen and a version, so one chart cannot collide with
+// itself. buildSite refuses a chart page whose name is another chart's
+// version page.
+function chartOverviewFileName(chart) {
+  return `${chartPageSlug(chart)}.html`;
+}
+
+// Read once, before any page is built, from the retained package inventory and
+// the listing of each base. Nothing about a base is stated that its listing
+// does not record.
+function buildChartPageModels() {
+  const rows = parseCsv(readFileSync(installerOciCatalogPath, "utf8"));
+  const byChart = new Map();
+  for (const row of rows) {
+    if (!byChart.has(row.chart)) byChart.set(row.chart, []);
+    byChart.get(row.chart).push(row);
+  }
+  return [...byChart.entries()].sort(([left], [right]) => (left < right ? -1 : 1)).map(([chart, chartRows]) => {
+    const versions = chartRows
+      .sort((left, right) => compareChartVersions(right.version, left.version))
+      .map((row) => ({
+        version: row.version,
+        row,
+        defaultBase: row.default_base,
+        pageFile: chartPageFileName(row),
+        bases: String(row.bases ?? "").split(";").filter(Boolean).map((base) => {
+          const indexed = listingByCatalogKey.get(`${chart}|${row.version}|${base}`);
+          if (!indexed) unmatchedCatalogListingLookups += 1;
+          return {
+            base,
+            isDefault: base === row.default_base,
+            listing: indexed ? readListingFile(indexed.id) : null,
+            facts: indexed ? listingFacts(indexed.id) : null,
+          };
+        }),
+      }));
+    return {
+      chart,
+      slug: chartPageSlug(chart),
+      fileName: chartOverviewFileName(chart),
+      jsonName: `${chartPageSlug(chart)}.json`,
+      versions,
+      baseCount: versions.reduce((sum, version) => sum + version.bases.length, 0),
+      summaries: [],
+    };
+  });
+}
+
+// One summary line for each adjacent pair of versions, on the default base of
+// each. This is the only diff content the site stores. Any other diff is
+// computed when a reader asks for it, from the same two kinds of file.
+async function addChartDiffSummaries(models) {
+  for (const model of models) {
+    for (let index = 0; index + 1 < model.versions.length; index += 1) {
+      const [to, from] = [model.versions[index], model.versions[index + 1]].map((version) => ({
+        version: version.version,
+        base: version.defaultBase,
+        listing: version.bases.find((base) => base.isDefault)?.listing ?? null,
+      }));
+      const paths = [from, to].map((side) => side.listing?.flattened?.retainedObjects?.path ?? "");
+      if (paths.some((path) => !path || !existsSync(join(repoRoot, path)))) continue;
+      const [before, after] = paths.map((path) => readFileSync(join(repoRoot, path)));
+      for (const [side, bytes] of [[from, before], [to, after]]) {
+        const recorded = side.listing.flattened.retainedObjects.sha256;
+        check(!recorded || recorded === `sha256:${sha256(bytes)}`, `${side.listing.identity.id}: the retained file differs from the digest its listing records`);
+      }
+      const { summary } = await diffConfigFiles(before, after);
+      const pair = {
+        from: { version: from.version, base: from.base, listing: from.listing.identity.id },
+        to: { version: to.version, base: to.base, listing: to.listing.identity.id },
+      };
+      model.summaries.push({ ...pair, ...summary, line: chartDiffSummaryLine({ ...pair, summary }) });
+    }
+  }
+  return models;
+}
+
+function loadCatalogLiveExamples(models) {
+  const { examples, problems } = validateLiveExamples(readYaml(join(repoRoot, LIVE_EXAMPLES_PATH)), {
+    knownCharts: new Set(models.map((model) => model.chart)),
+  });
+  check(problems.length === 0, `${LIVE_EXAMPLES_PATH} is refused:\n${problems.map((problem) => `  - ${problem}`).join("\n")}`);
+  return new Map(examples.map((example) => [example.chart, example]));
+}
+
+function chartPageCss() {
+  return `
+    .chart-version { border-top: 1px solid var(--line); padding: 14px 0 4px; }
+    .chart-version h3 { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; margin: 0 0 6px; }
+    .chart-version .status { font-weight: 400; white-space: nowrap; }
+    .chart-version { margin-top: 18px; }
+    .chart-version th { white-space: nowrap; }
+    .chart-version td { overflow-wrap: normal; }
+    .chart-version td:first-child { overflow-wrap: anywhere; }
+    .chart-compare-control { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin: 14px 0; }
+    .chart-compare-control fieldset { display: flex; flex-wrap: wrap; gap: 8px 12px; min-width: 0; margin: 0; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; }
+    .chart-compare-control label { display: grid; gap: 4px; min-width: 0; font-size: .9rem; color: var(--muted); }
+    .chart-compare-control select { max-width: 100%; padding: 8px; font: inherit; }
+    .chart-compare-control button { font: inherit; cursor: pointer; }
+    .chart-compare pre { max-width: 100%; }
+    .chart-compare-result { overflow-wrap: anywhere; border-top: 1px solid var(--line); margin: 14px 0; padding-top: 6px; }
+    .chart-compare-result pre { white-space: pre-wrap; }
+    .chart-compare-result details { border-top: 1px solid var(--line); padding: 8px 0; }
+    .chart-compare-result details.chart-compare-value { display: inline-block; border: 0; padding: 0; vertical-align: top; max-width: 100%; }
+    .chart-compare-result summary { cursor: pointer; }
+    .chart-compare-error { border-left: 3px solid var(--bad); padding: 2px 0 2px 12px; }
+    .chart-compare-limits { color: var(--muted); font-size: .9rem; }
+    .chart-compare .term-comment { color: #7f8b96; }
+    .chart-compare .term-prompt { color: #78d99d; font-weight: 700; user-select: none; }
+    .chart-summaries li, .chart-other-bases li { overflow-wrap: anywhere; }
+    @media (max-width: 640px) {
+      .chart-compare-control, .chart-compare-control fieldset { flex-direction: column; align-items: stretch; }
+      .chart-compare-control select { width: 100%; }
+    }
+  `;
+}
+
+// What has and has not been run for a chart, from the step states its listings
+// record. The sentences count bases and claim nothing the states do not say.
+function chartRunStateSentences(model) {
+  const listings = model.versions.flatMap((version) => version.bases).map((base) => base.listing).filter(Boolean);
+  const total = listings.length;
+  const basesWord = (count) => `${count} ${count === 1 ? "base" : "bases"}`;
+  const count = (stepId, state) => listings.filter((listing) => (listing.nextSteps ?? []).some((step) => step.id === stepId && step.state === state)).length;
+  const list = (items, joiner = "and") => (items.length <= 1 ? items.join("") : `${items.slice(0, -1).join(", ")} ${joiner} ${items.at(-1)}`);
+  const rendered = count("get-objects", "run-for-this-entry");
+  const sentences = [rendered === total
+    ? `The Catalog rendered ${total === 1 ? "its one base" : `all ${total} bases`} and retains the exact objects of each.`
+    : `The Catalog rendered ${rendered} of ${basesWord(total)} and retains their exact objects.`];
+  const steps = [...CHART_STEP_NOUNS.keys()];
+  const ran = steps.filter((id) => count(id, "run-for-this-entry") > 0);
+  const untouched = steps.filter((id) => ["run-for-this-entry", "partly-run-for-this-entry", "blocked-for-this-entry"].every((state) => count(id, state) === 0));
+  const bare = (id) => CHART_STEP_NOUNS.get(id).replace(/^an? /, "");
+  if (ran.length) sentences.push(`The listings record ${list(ran.map((id) => `${CHART_STEP_NOUNS.get(id)} for ${basesWord(count(id, "run-for-this-entry"))}`))}.`);
+  if (untouched.length) sentences.push(`${ran.length ? "They record" : "The listings record"} no ${list(untouched.map(bare), "or")} for any base.`);
+  for (const [state, words] of [["partly-run-for-this-entry", "partly recorded"], ["blocked-for-this-entry", "blocked"]]) {
+    const hit = steps.filter((id) => count(id, state) > 0);
+    if (hit.length) sentences.push(`${list(hit.map((id) => `${CHART_STEP_NOUNS.get(id)} is ${words} for ${basesWord(count(id, state))}`))}.`.replace(/^a/, "A"));
+  }
+  return sentences;
+}
+
+// What the chart is, from Catalog data only: the category the Catalog files it
+// under, and the role and reason its newest listing records where it has one.
+function chartWhatItIsSentences(model) {
+  const category = catalogComponentCategory(model.chart);
+  const newest = model.versions[0];
+  const listing = (newest.bases.find((base) => base.isDefault) ?? newest.bases[0])?.listing;
+  const sentences = [`The Catalog files this chart under ${escapeHtml(category.label)}.`];
+  const roles = listing?.discovery?.roles ?? [];
+  if (listing?.discovery?.status === "classified" && roles.length && listing.discovery.rationale) {
+    const role = roles.map((entry) => `${entry.role} ${entry.componentType}`).join(" and ");
+    sentences.push(`Its newest listing records the role ${escapeHtml(role)}.`);
+    sentences.push(`<span data-chart-rationale>${escapeHtml(listing.discovery.rationale)}</span>`);
+  } else {
+    sentences.push("Its listings do not yet describe what it does, so read the objects before you rely on the name.");
+  }
+  return sentences;
+}
+
+function chartCountWords(model) {
+  const versions = model.versions.length;
+  const versionWord = versions === 1 ? "one version" : `${versions <= 20 ? SMALL_NUMBER_WORDS[versions] : versions} versions`;
+  const baseWord = model.baseCount === 1 ? "one base" : `${model.baseCount} bases`;
+  return { versionWord, baseWord };
+}
+
+// One sentence for search engines and for agents that read a page's
+// description. It carries counts only.
+function chartDescription(model) {
+  const { versionWord, baseWord } = chartCountWords(model);
+  return `The ConfigHub Workshop Catalog holds ${versionWord} and ${baseWord} of the Helm chart ${model.chart}. See what changes between them, then use one in ConfigHub.`;
+}
+
+function chartCompareSide(base, version) {
+  const retained = base.listing.flattened?.retainedObjects ?? {};
+  return {
+    id: base.listing.identity.id,
+    version,
+    base: base.base,
+    url: retained.url ?? base.listing.flattened?.objectsUrl ?? "",
+    sha256: retained.sha256 ?? "",
+  };
+}
+
+// The pair the compare control opens on: the newest version against the one
+// before it, or two bases of the only version.
+function chartDefaultPair(model) {
+  const usable = (version) => version.bases.filter((base) => base.listing?.flattened?.retainedObjects?.path);
+  const pick = (version) => usable(version).find((base) => base.isDefault) ?? usable(version)[0];
+  const versions = model.versions.filter((version) => usable(version).length > 0);
+  if (versions.length >= 2) return { from: [versions[1], pick(versions[1])], to: [versions[0], pick(versions[0])] };
+  if (versions.length === 1 && usable(versions[0]).length >= 2) {
+    const first = pick(versions[0]);
+    return { from: [versions[0], first], to: [versions[0], usable(versions[0]).find((base) => base !== first)] };
+  }
+  return null;
+}
+
+function chartVersionsSectionHtml(model) {
+  const articles = model.versions.map((version, index) => {
+    const row = version.row;
+    const published = row.publication_status === "published-receipt";
+    const packageSentence = published
+      ? `The installer package is published${row.signature_status === "signed-receipt" ? " and signed" : ""}.`
+      : "The installer package has a reserved reference and is not published yet.";
+    const rows = version.bases.map((base) => {
+      if (!base.facts) return [escapeHtml(base.base), "", "No listing yet", "", "", ""];
+      const facts = base.facts;
+      return [
+        `${escapeHtml(base.base)}${base.isDefault ? ` <span class="status">default</span>` : ""}`,
+        String(facts.objectCount),
+        escapeHtml(listingVerdictText(facts)),
+        escapeHtml(listingPublishedText(facts)),
+        facts.flagged ? `<span class="status warn" title="${escapeHtml(facts.flagQuestion)}">watch</span>` : "None",
+        `<a href="${escapeHtml(facts.objectsUrl)}">exact objects</a> · <a href="../listings/${escapeHtml(facts.id)}.json">listing</a>`,
+      ];
+    });
+    return `<article class="chart-version" data-chart-version="${escapeHtml(version.version)}">
+        <h3 id="version-${escapeHtml(chartPageSlug(version.version))}">${escapeHtml(version.version)}${index === 0 ? ` <span class="status good">newest</span>` : ""}</h3>
+        <p>${version.bases.length === 1 ? "One base" : `${version.bases.length} bases`}. ${packageSentence} <a href="./${escapeHtml(version.pageFile)}">Open the page for ${escapeHtml(version.version)}</a>.</p>
+        ${markdownLikeTable([["Base", "Objects", "Flattening verdict", "Published as OCI", "Flag", "Open"], ...rows], { rawColumns: [0, 1, 2, 3, 4, 5] })}
+      </article>`;
+  }).join("\n      ");
+  return `<section aria-labelledby="versions">
+      <h2 id="versions">Pick a version and a base</h2>
+      <p>Versions are listed newest first. Each row is one base, and every cell is read from that base's listing. A base marked watch has a checked result with a limit to review.</p>
+      ${articles}
+    </section>`;
+}
+
+function chartCompareSectionHtml(model) {
+  const pair = chartDefaultPair(model);
+  if (!pair) {
+    return `<section aria-labelledby="see-what-changes" class="chart-compare">
+      <h2 id="see-what-changes">See what changes</h2>
+      <p>The Catalog holds one version and one base of this chart, so there is nothing to compare it with yet. A second version or base adds a compare control here.</p>
+    </section>`;
+  }
+  const side = ([version, base]) => chartCompareSide(base, version.version);
+  const versionOptions = (selected) => model.versions
+    .filter((version) => version.bases.some((base) => base.listing))
+    .map((version) => `<option value="${escapeHtml(version.version)}"${version === selected ? " selected" : ""}>${escapeHtml(version.version)}</option>`)
+    .join("");
+  const baseOptions = ([version, selected]) => version.bases
+    .filter((base) => base.listing)
+    .map((base) => `<option value="${escapeHtml(base.base)}"${base === selected ? " selected" : ""}>${escapeHtml(base.base)}${base.isDefault ? " (default)" : ""}</option>`)
+    .join("");
+  const picker = (name, legend, chosen) => `<fieldset>
+          <legend>${legend}</legend>
+          <label>Version <select name="${name}-version">${versionOptions(chosen[0])}</select></label>
+          <label>Base <select name="${name}-base">${baseOptions(chosen)}</select></label>
+        </fieldset>`;
+  const summaries = model.summaries.length
+    ? `<h3 id="stored-summaries">Read one line for each version step</h3>
+      <p>These lines are the only diff content this page stores. Each one was computed when the site was generated, by the same code, on the default base of both versions.</p>
+      <ul class="chart-summaries">
+        ${model.summaries.map((summary) => `<li data-chart-summary="${escapeHtml(`${summary.from.version}/${summary.from.base} ${summary.to.version}/${summary.to.base}`)}">${escapeHtml(summary.line)} <a href="?from=${encodeURIComponent(`${summary.from.version}/${summary.from.base}`)}&amp;to=${encodeURIComponent(`${summary.to.version}/${summary.to.base}`)}#see-what-changes" data-compare-from="${escapeHtml(`${summary.from.version}/${summary.from.base}`)}" data-compare-to="${escapeHtml(`${summary.to.version}/${summary.to.base}`)}">Compute this diff</a>.</li>`).join("\n        ")}
+      </ul>`
+    : "";
+  return `<section aria-labelledby="see-what-changes" class="chart-compare" data-chart-compare data-chart-json="./${escapeHtml(model.jsonName)}" data-repository-root="../../">
+      <h2 id="see-what-changes">See what changes</h2>
+      <p>Choose two versions or two bases, then press Compare. The page fetches the two retained files and checks each file's SHA-256 against the digest its listing records. It then computes the diff on demand, in your browser, with the code that <code>cub config diff</code> runs. Nothing is precomputed or stored.</p>
+      <form class="chart-compare-control" data-compare-control hidden>
+        ${picker("from", "Before", pair.from)}
+        ${picker("to", "After", pair.to)}
+        <button class="button primary" type="submit">Compare</button>
+      </form>
+      <noscript><p>The compare control needs JavaScript. With JavaScript off, the commands below produce the same diff with <code>cub config diff</code>.</p></noscript>
+      <div class="chart-compare-result" data-compare-result aria-live="polite" hidden></div>
+      <h3 id="compare-command">Run the same diff yourself</h3>
+      <p>These commands fetch the same two files and compare them on your machine, with no account. They follow the pair you choose above. <code>${escapeHtml(WORKSHOP_PLUGIN_INSTALL)}</code> adds <code>cub config diff</code>.</p>
+      <div data-compare-command>${commandBlock(chartCompareCommands(side(pair.from), side(pair.to)))}</div>
+      ${summaries}
+    </section>
+    <script src="../js-yaml-4.1.0.min.js"></script>
+    <script type="module" src="../chart-compare.js"></script>`;
+}
+
+// The five steps for the newest version's default base, laid out by the same
+// function every entry page uses, then a link to the block of every other base.
+function chartUseSectionHtml(model) {
+  const newest = model.versions[0];
+  const first = newest.bases.find((base) => base.isDefault && base.listing) ?? newest.bases.find((base) => base.listing);
+  check(first, `${model.chart}: the newest version has no listing to carry the five steps`);
+  const others = model.versions.map((version) => {
+    const bases = version.bases.filter((base) => base.listing && base !== first);
+    if (!bases.length) return "";
+    const names = bases.map((base) => escapeHtml(base.base)).join(", ");
+    return `<li><a href="./${escapeHtml(version.pageFile)}#${ENTRY_STEPS_ANCHOR}">The same five steps on the page for ${escapeHtml(version.version)}</a> cover ${bases.length === 1 ? "the base" : "the bases"} ${names}.</li>`;
+  }).filter(Boolean);
+  const otherBases = others.length
+    ? `<section aria-labelledby="other-bases" class="chart-other-bases">
+      <h2 id="other-bases">Use another version or base</h2>
+      <p>Every other base carries the same five steps, with its own states and commands, on the page of its version.</p>
+      <ul>
+        ${others.join("\n        ")}
+      </ul>
+    </section>`
+    : "";
+  return `${entryStepsSectionHtml([first.listing], {
+    siteHref: "..",
+    note: `These are the steps for ${escapeHtml(newest.version)}, the newest version, on its ${escapeHtml(first.base)} base.`,
+  })}
+    ${otherBases}`;
+}
+
+function chartOverviewPageHtml(model, liveExample) {
+  const { versionWord, baseWord } = chartCountWords(model);
+  const newest = model.versions[0];
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(model.chart)} Helm chart · ConfigHub Workshop</title>
+  <style>${siteCss()}${entryStepsCss()}${chartPageCss()}</style>
+</head>
+<body data-chart-page="${escapeHtml(model.chart)}" data-chart-description="${escapeHtml(chartDescription(model))}">
+  <header>
+    ${topNav("..")}
+    <h1>Find, compare and use ${escapeHtml(model.chart)}</h1>
+    <p class="lead">The Catalog holds ${versionWord} of the Helm chart ${escapeHtml(model.chart)}, with ${baseWord}${model.versions.length === 1 ? "" : " across them"}. ${model.versions.length === 1 ? `That version is ${escapeHtml(newest.version)}.` : `The newest is ${escapeHtml(newest.version)}.`}</p>
+    <p data-chart-what>${chartWhatItIsSentences(model).join(" ")}</p>
+    <p data-chart-run-state>${chartRunStateSentences(model).map(escapeHtml).join(" ")}</p>
+    ${entryStepsTopLinkHtml()}
+    <p><a href="#versions">Pick a version</a> · <a href="#see-what-changes">See what changes</a> · <a href="./index.html">Back to the Catalog</a></p>
+  </header>
+  <main>
+    ${chartVersionsSectionHtml(model)}
+
+    ${chartCompareSectionHtml(model)}
+
+    ${chartUseSectionHtml(model)}
+
+    ${liveExampleSectionHtml(liveExample, { escapeHtml, commandBlock })}
+
+    <section aria-labelledby="chart-as-data">
+      <h2 id="chart-as-data">Read this page as data</h2>
+      <p>One file holds everything on this page in a form a program can read.</p>
+      ${agentNote(`This page as data is <a href="./${escapeHtml(model.jsonName)}">${escapeHtml(model.jsonName)}</a>, and <a href="../chart.schema.json">chart.schema.json</a> defines its fields. It lists versions newest first, with each base's listing, object file and SHA-256. It also holds the stored summary lines and the commands that compute any other diff. Read a base's listing before you cite a fact about it.`)}
+    </section>
+  </main>
+  <footer>Generated from the Catalog listings of ${escapeHtml(model.chart)}. Do not edit by hand.</footer>
+</body>
+</html>
+`;
+}
+
+// The same page as data. Every fact about a base repeats its listing.
+function chartOverviewJson(model, liveExample) {
+  const record = vendoredDiffRecord();
+  return `${JSON.stringify(siteSafe({
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "CatalogChart",
+    chartVersion: "1",
+    schema: `${SITE_BASE_URL}chart.schema.json`,
+    chart: model.chart,
+    format: "helm",
+    url: `${SITE_BASE_URL}charts/${model.jsonName}`,
+    page: `${SITE_BASE_URL}charts/${model.fileName}`,
+    counts: { versions: model.versions.length, bases: model.baseCount },
+    versions: model.versions.map((version) => ({
+      version: version.version,
+      page: `${SITE_BASE_URL}charts/${version.pageFile}`,
+      defaultBase: version.defaultBase,
+      package: {
+        published: version.row.publication_status === "published-receipt",
+        signed: version.row.signature_status === "signed-receipt",
+        ociRef: version.row.digest_pinned_ref || version.row.installer_oci_ref,
+      },
+      bases: version.bases.map((base) => {
+        const retained = base.listing?.flattened?.retainedObjects ?? null;
+        return {
+          base: base.base,
+          default: base.isDefault,
+          listing: base.listing ? { id: base.listing.identity.id, url: base.listing.identity.url } : null,
+          objectCount: base.facts?.objectCount ?? null,
+          verdict: base.facts?.verdict ?? null,
+          published: base.facts ? base.facts.published : null,
+          flagged: base.facts ? base.facts.flagged : null,
+          objects: retained?.path ? {
+            path: retained.path,
+            url: retained.url,
+            sha256: retained.sha256 ?? null,
+            objectSetDigest: base.listing.flattened.digest ?? null,
+          } : null,
+        };
+      }),
+    })),
+    summaries: model.summaries,
+    compare: {
+      computedOnDemand: true,
+      core: {
+        command: "cub config diff",
+        repository: record.source.repository,
+        commit: record.source.commit,
+        path: record.source.path,
+        sha256: record.core.sha256,
+      },
+      recipe: [
+        "curl -fsSL -o before.yaml <objects.url of the first base>",
+        "curl -fsSL -o after.yaml <objects.url of the second base>",
+        "cub config diff before.yaml after.yaml --summary",
+      ],
+    },
+    liveExample: liveExample
+      ? { organization: liveExample.organization, holds: liveExample.holds, observedOn: liveExample.observedOn, done: liveExample.done, notDone: liveExample.notDone, addresses: liveExample.addresses, commands: liveExample.commands }
+      : null,
+  }), null, 2)}\n`;
+}
+
+// A link from a version page back to the page of its chart.
+function chartOverviewLinkHtml(chart) {
+  return `<p class="chart-page-link"><a href="./${escapeHtml(chartOverviewFileName(chart))}">See every version of ${escapeHtml(chart)} and what changes between them</a>.</p>`;
 }
 
 function chartPageFileName(entry) {
