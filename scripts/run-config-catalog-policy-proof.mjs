@@ -202,7 +202,7 @@ function runCurrentBody(options = {}) {
     cub(context, ["changeorder", "create", "--space", stored.SpaceID, orderSlug, "--component", component.ComponentID, "--change-workflow", workflow.ChangeWorkflowID, "--in-scope-space", stored.SpaceID, "-o", "json"]);
     const order = entity(cubJson(context, ["changeorder", "get", "--space", stored.SpaceID, orderSlug, "-o", "json"]), "ChangeOrder");
     check(uuid(order.ChangeOrderID) && order.ChangeWorkflowID === workflow.ChangeWorkflowID && uuid(order.EndTagID) && sameSet(order.InScopeSpaceIDs ?? [], [stored.SpaceID]), "current proof ChangeOrder contract drifted");
-    const coverage = rows(cubJson(context, ["revision", "list", "--space", stored.SpaceID, "--by-unit-id", unit.UnitID, "--change-order", order.ChangeOrderID, "-o", "json"]));
+    const coverage = rows(cubJson(context, ["revision", "list", "--space", stored.SpaceID, unit.Slug, "--change-order", order.ChangeOrderID, "-o", "json"]));
     const covered = entity(coverage[0], "Revision");
     check(coverage.length === 1 && covered.UnitID === unit.UnitID && covered.RevisionID === revision.RevisionID && Number(covered.RevisionNum) === Number(revision.RevisionNum) && covered.DataHash === revision.DataHash, "ChangeOrder does not cover the exact proof revision");
     const refusal = cubTry(context, ["release", "publish", stored.SpaceID, "--revision", `ChangeOrder:${order.ChangeOrderID}`, "-o", "json"]);
@@ -646,14 +646,9 @@ function runFunctionalProof(options = {}) {
         evidence: nativeApproval,
       };
     } else {
-      const approvalGate = blockedGateObservation(approval, gates.approval);
-      const approvalAfterReview = approveAndObserveGateClear(context, spaces.approval, "approval-fixture");
-      approvalRecord = checkRecord(approval, approvalGate, {
-        effect: "block",
-        gate: gates.approval,
-        finding: "system configuration has no recorded approval",
-      });
-      approvalRecord.afterApproval = approvalAfterReview;
+      // The legacy functional proof approved a Unit with cub unit approve,
+      // which cub v0.8.7 no longer has. Only the currentFull proof runs.
+      throw new Error("the legacy functional proof approved a Unit with cub unit approve, which the current cub no longer has; run the currentFull proof, which approves through a ChangeOrder");
     }
 
     receipt = {
@@ -1196,64 +1191,6 @@ function allowedGateObservation(fixture, expectedGate = undefined) {
     applyGates: gateKeys.sort(),
     applicationAttempted: false,
   };
-}
-
-function approveAndObserveGateClear(context, space, slug) {
-  const before = cubJson(
-    context,
-    ["unit", "get", slug, "--space", space, "-o", "json"],
-  ).Unit;
-  const revision = before.HeadRevisionNum;
-  check(
-    Number.isInteger(revision) && revision > 0,
-    `${space}/${slug} has no revision to approve`,
-  );
-  cub(context, [
-    "unit",
-    "approve",
-    "--space",
-    space,
-    slug,
-    "--revision",
-    "HeadRevisionNum",
-    "--wait",
-    "--quiet",
-  ]);
-  const approved = waitForGateToClear(context, {
-    space,
-    slug,
-    gate: gates.approval,
-  });
-  return {
-    result: "eligible",
-    revisionSelector: "HeadRevisionNum",
-    headRevisionBefore: revision,
-    headRevisionAfter: approved.HeadRevisionNum,
-    recordedApprovals: approvalCount(approved.ApprovedBy),
-    gateCleared: approved.ApplyGates?.[gates.approval] !== true,
-    gateObservation: {
-      result: "eligible",
-      source: "Unit.ApplyGates",
-      gatePresent: approved.ApplyGates?.[gates.approval] === true,
-      applicationAttempted: false,
-    },
-  };
-}
-
-function approvalCount(value) {
-  if (Array.isArray(value)) return value.length;
-  if (value && typeof value === "object") return Object.keys(value).length;
-  return value ? 1 : 0;
-}
-
-function waitForGateToClear(context, { space, slug, gate }) {
-  for (let attempt = 0; attempt < 60; attempt += 1) {
-    const unit = cubJson(context, ["unit", "get", slug, "--space", space, "-o", "json"]).Unit;
-    const waiting = unit.ApplyGates?.["awaiting/triggers"] === true;
-    if (unit.ApplyGates?.[gate] !== true && !waiting) return unit;
-    execFileSync("sleep", ["1"]);
-  }
-  throw new Error(`${space}/${slug} still had ${gate} after approval`);
 }
 
 function checkRecord(fixture, gateObservation, { effect, gate, finding }) {

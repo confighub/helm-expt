@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { execFileSync, spawnSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
   existsSync,
@@ -184,6 +184,16 @@ function upsertUnit({
   console.log(`${exists ? "updated" : "created"} ${space}/${slug}`);
 }
 
+// This test ran cub unit apply --dry-run against the invalid route. The current
+// cub has no such command, and an unknown subcommand prints help and exits 0,
+// so the test could pass or fail for the wrong reason. Stop instead.
+function applyBoundaryMoved() {
+  check(
+    false,
+    "the negative gate test used cub unit apply, which the current cub no longer has: the apply step moved to cub release publish <space> with a release Target, and this test has not been re-observed there",
+  );
+}
+
 function runNegativeGateTest() {
   const space = spaces.find((item) => item.role === "kps");
   const source = routeSources(space).find((item) => item.unitSlug === "route-crds-first");
@@ -226,17 +236,7 @@ function runNegativeGateTest() {
       `the invalid route did not receive ${gateKey}`,
     );
     cub(["unit", "set-target", "--space", space.slug, fixtureSlug, targetRef, "--quiet"]);
-    const applyResult = spawnCub([
-      "unit",
-      "apply",
-      "--space",
-      space.slug,
-      fixtureSlug,
-      "--dry-run",
-      "--wait",
-      "-o",
-      "json",
-    ]);
+    const applyResult = applyBoundaryMoved();
     check(applyResult.status !== 0, "the invalid lifecycle route passed the apply boundary");
     const applyOutput = `${applyResult.stderr ?? ""}\n${applyResult.stdout ?? ""}`.trim();
     check(
@@ -552,16 +552,6 @@ function cub(args) {
     cwd: repoRoot,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"],
-    maxBuffer: 1024 * 1024 * 200,
-  });
-}
-
-function spawnCub(args) {
-  const contextArgs = cubContext ? ["--context", cubContext] : [];
-  return spawnSync("cub", [...contextArgs, ...args], {
-    cwd: repoRoot,
-    encoding: "utf8",
-    env: { ...process.env, CONFIGHUB_AGENT: "1" },
     maxBuffer: 1024 * 1024 * 200,
   });
 }
