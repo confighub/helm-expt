@@ -117,7 +117,7 @@
     "top100ChartsWithExtensionSlots": 91,
     "top100CoveragePromotionQueue": 40,
     "top100PromotionWaveRows": 32,
-    "top100CoverageUserVariantQueue": 38,
+    "top100CoverageUserVariantQueue": 39,
     "top100CoverageDecisionQueue": 7,
     "refreshCurrentRows": 13,
     "refreshUpdateCandidates": 7,
@@ -179,7 +179,7 @@
       "section": "chart use",
       "metric": "public catalog answers",
       "value": "20",
-      "total": "111",
+      "total": "115",
       "status": "partial",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows where a user can start from a public catalog entry, then choose a base and verify the lane they need."
@@ -188,7 +188,7 @@
       "section": "chart use",
       "metric": "proof-ready but not public catalog answers",
       "value": "40",
-      "total": "111",
+      "total": "115",
       "status": "partial",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows with proof value and useful variants that still need catalog promotion review."
@@ -196,8 +196,8 @@
     {
       "section": "chart use",
       "metric": "better base variant needed answers",
-      "value": "38",
-      "total": "111",
+      "value": "39",
+      "total": "115",
       "status": "gap",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows where the current proof is too default-shaped to be a good user offer."
@@ -206,7 +206,7 @@
       "section": "chart use",
       "metric": "limitation decision needed answers",
       "value": "7",
-      "total": "111",
+      "total": "115",
       "status": "gap",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows where a named capability gap must be supported, disclosed, deferred, or blocked before promotion."
@@ -215,7 +215,7 @@
       "section": "top100",
       "metric": "covered by top100 contract",
       "value": "20",
-      "total": "111",
+      "total": "115",
       "status": "partial",
       "source": "data/top100-coverage/coverage.csv",
       "note": "Rows satisfying all top100 coverage contract items, including disposition and live witness route."
@@ -223,8 +223,8 @@
     {
       "section": "top100",
       "metric": "partial by top100 contract",
-      "value": "91",
-      "total": "111",
+      "value": "95",
+      "total": "115",
       "status": "partial",
       "source": "data/top100-coverage/coverage.csv",
       "note": "Rows with at least one coverage contract item still todo."
@@ -242,7 +242,7 @@
       "section": "top100",
       "metric": "top100 promotion-review queue",
       "value": "40",
-      "total": "91",
+      "total": "95",
       "status": "partial",
       "source": "data/top100-coverage/work-queue.csv",
       "note": "Partial top100 rows ready for catalog promotion review under the strict coverage contract."
@@ -286,8 +286,8 @@
     {
       "section": "top100",
       "metric": "top100 user-shaped variant queue",
-      "value": "38",
-      "total": "91",
+      "value": "39",
+      "total": "95",
       "status": "partial",
       "source": "data/top100-coverage/work-queue.csv",
       "note": "Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer."
@@ -332,7 +332,7 @@
       "section": "top100",
       "metric": "top100 limitation-decision queue",
       "value": "7",
-      "total": "91",
+      "total": "95",
       "status": "partial",
       "source": "data/top100-coverage/work-queue.csv",
       "note": "Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."
@@ -916,8 +916,8 @@
     {
       "section": "secrets",
       "metric": "top100 variants with explicit Secret disposition",
-      "value": "198",
-      "total": "198",
+      "value": "210",
+      "total": "210",
       "status": "good",
       "source": "data/secret-lifecycle/variant-summary.csv",
       "note": "Every surveyed top-100 variant has an explicit Secret stance: delivered, staged, observed, needs lane support, or not applicable."
@@ -6550,7 +6550,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/cluster-readiness-engine/v0.6.0",
       "recipe_path": "recipes/nvidia/cluster-readiness-engine/v0.6.0/recipe.yaml",
       "catalog_path": "recipes/nvidia/cluster-readiness-engine/v0.6.0/CATALOG.md",
@@ -6593,7 +6593,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/gpu-operator/v25.10.1",
       "recipe_path": "recipes/nvidia/gpu-operator/v25.10.1/recipe.yaml",
       "catalog_path": "recipes/nvidia/gpu-operator/v25.10.1/CATALOG.md",
@@ -6636,7 +6636,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/k8s-nim-operator/3.1.0",
       "recipe_path": "recipes/nvidia/k8s-nim-operator/3.1.0/recipe.yaml",
       "catalog_path": "recipes/nvidia/k8s-nim-operator/3.1.0/CATALOG.md",
@@ -6722,7 +6722,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/nvsentinel/v1.20.0",
       "recipe_path": "recipes/nvidia/nvsentinel/v1.20.0/recipe.yaml",
       "catalog_path": "recipes/nvidia/nvsentinel/v1.20.0/CATALOG.md",
@@ -10729,7 +10729,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/cluster-readiness-engine/v0.6.0",
       "recipe_path": "recipes/nvidia/cluster-readiness-engine/v0.6.0/recipe.yaml",
       "catalog_path": "recipes/nvidia/cluster-readiness-engine/v0.6.0/CATALOG.md",
@@ -10772,7 +10772,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/gpu-operator/v25.10.1",
       "recipe_path": "recipes/nvidia/gpu-operator/v25.10.1/recipe.yaml",
       "catalog_path": "recipes/nvidia/gpu-operator/v25.10.1/CATALOG.md",
@@ -10815,7 +10815,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/k8s-nim-operator/3.1.0",
       "recipe_path": "recipes/nvidia/k8s-nim-operator/3.1.0/recipe.yaml",
       "catalog_path": "recipes/nvidia/k8s-nim-operator/3.1.0/CATALOG.md",
@@ -10901,7 +10901,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/nvsentinel/v1.20.0",
       "recipe_path": "recipes/nvidia/nvsentinel/v1.20.0/recipe.yaml",
       "catalog_path": "recipes/nvidia/nvsentinel/v1.20.0/CATALOG.md",
@@ -14379,7 +14379,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/cluster-readiness-engine/v0.6.0",
       "recipe_path": "recipes/nvidia/cluster-readiness-engine/v0.6.0/recipe.yaml",
       "catalog_path": "recipes/nvidia/cluster-readiness-engine/v0.6.0/CATALOG.md",
@@ -14406,7 +14406,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/gpu-operator/v25.10.1",
       "recipe_path": "recipes/nvidia/gpu-operator/v25.10.1/recipe.yaml",
       "catalog_path": "recipes/nvidia/gpu-operator/v25.10.1/CATALOG.md",
@@ -14433,7 +14433,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/k8s-nim-operator/3.1.0",
       "recipe_path": "recipes/nvidia/k8s-nim-operator/3.1.0/recipe.yaml",
       "catalog_path": "recipes/nvidia/k8s-nim-operator/3.1.0/CATALOG.md",
@@ -14487,7 +14487,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/nvsentinel/v1.20.0",
       "recipe_path": "recipes/nvidia/nvsentinel/v1.20.0/recipe.yaml",
       "catalog_path": "recipes/nvidia/nvsentinel/v1.20.0/CATALOG.md",
@@ -23074,6 +23074,63 @@
     },
     {
       "proof_surface_rank": "102",
+      "chart": "nvidia/cluster-readiness-engine@v0.6.0",
+      "answer": "not-yet-user-ready",
+      "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
+      "first_action": "Design at least one useful base variant before catalog promotion.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/nvidia/cluster-readiness-engine/v0.6.0/CATALOG.md",
+      "strongest_evidence": "render-parity",
+      "render_parity": "1/1",
+      "live_summary": "local:0/1 gitops:0/1 live-parity:0/1 two-cluster:0/1",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "Render parity alone is useful evidence, not a production or catalog recommendation.",
+      "catalog_path": "recipes/nvidia/cluster-readiness-engine/v0.6.0/CATALOG.md",
+      "helm_pain_report": "recipes/nvidia/cluster-readiness-engine/v0.6.0/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface_rank": "103",
+      "chart": "nvidia/gpu-operator@v25.10.1",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/nvidia/gpu-operator/v25.10.1/CATALOG.md",
+      "strongest_evidence": "render-parity",
+      "render_parity": "6/6",
+      "live_summary": "local:0/6 gitops:0/6 live-parity:0/6 two-cluster:0/6",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/nvidia/gpu-operator/v25.10.1/CATALOG.md",
+      "helm_pain_report": "recipes/nvidia/gpu-operator/v25.10.1/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface_rank": "104",
+      "chart": "nvidia/k8s-nim-operator@3.1.0",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/nvidia/k8s-nim-operator/3.1.0/CATALOG.md",
+      "strongest_evidence": "render-parity",
+      "render_parity": "2/2",
+      "live_summary": "local:0/2 gitops:0/2 live-parity:0/2 two-cluster:0/2",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/nvidia/k8s-nim-operator/3.1.0/CATALOG.md",
+      "helm_pain_report": "recipes/nvidia/k8s-nim-operator/3.1.0/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface_rank": "105",
       "chart": "nvidia/nvidia-device-plugin@0.19.3",
       "answer": "review-needed",
       "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
@@ -23092,7 +23149,26 @@
       "helm_pain_report": "recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "103",
+      "proof_surface_rank": "106",
+      "chart": "nvidia/nvsentinel@v1.20.0",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/nvidia/nvsentinel/v1.20.0/CATALOG.md",
+      "strongest_evidence": "render-parity",
+      "render_parity": "3/3",
+      "live_summary": "local:0/3 gitops:0/3 live-parity:0/3 two-cluster:0/3",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/nvidia/nvsentinel/v1.20.0/CATALOG.md",
+      "helm_pain_report": "recipes/nvidia/nvsentinel/v1.20.0/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface_rank": "107",
       "chart": "open-telemetry/opentelemetry-operator@0.114.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -23111,7 +23187,7 @@
       "helm_pain_report": "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "104",
+      "proof_surface_rank": "108",
       "chart": "percona/pg-operator@3.0.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -23130,7 +23206,7 @@
       "helm_pain_report": "recipes/percona/pg-operator/3.0.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "105",
+      "proof_surface_rank": "109",
       "chart": "percona/psmdb-operator@1.22.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -23149,7 +23225,7 @@
       "helm_pain_report": "recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "106",
+      "proof_surface_rank": "110",
       "chart": "rook-release/rook-ceph@v1.19.5",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -23168,7 +23244,7 @@
       "helm_pain_report": "recipes/rook-release/rook-ceph/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "107",
+      "proof_surface_rank": "111",
       "chart": "rook-release/rook-ceph-cluster@v1.19.5",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -23187,7 +23263,7 @@
       "helm_pain_report": "recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "108",
+      "proof_surface_rank": "112",
       "chart": "sealed-secrets/sealed-secrets@2.18.6",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -23206,7 +23282,7 @@
       "helm_pain_report": "recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "109",
+      "proof_surface_rank": "113",
       "chart": "velero/velero@12.0.1",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -23225,7 +23301,7 @@
       "helm_pain_report": "recipes/velero/velero/12.0.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "110",
+      "proof_surface_rank": "114",
       "chart": "vm/victoria-logs-single@0.12.5",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -23244,7 +23320,7 @@
       "helm_pain_report": "recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "111",
+      "proof_surface_rank": "115",
       "chart": "vm/victoria-metrics-single@0.39.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -28333,6 +28409,45 @@
     },
     {
       "rank": "102",
+      "chart": "nvidia/cluster-readiness-engine",
+      "version": "v0.6.0",
+      "bucket": "needs-better-base-variant",
+      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "none-flagged",
+      "user_must_provide": "your wanted install shape, until a reviewed base exists",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "add at least one user-shaped variant before catalog promotion",
+      "pain_report": "recipes/nvidia/cluster-readiness-engine/v0.6.0/helm-pain-report.yaml"
+    },
+    {
+      "rank": "103",
+      "chart": "nvidia/gpu-operator",
+      "version": "v25.10.1",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 6/6, local live 0/6, live parity 0/6)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "none-flagged",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate",
+      "pain_report": "recipes/nvidia/gpu-operator/v25.10.1/helm-pain-report.yaml"
+    },
+    {
+      "rank": "104",
+      "chart": "nvidia/k8s-nim-operator",
+      "version": "3.1.0",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "none-flagged",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate",
+      "pain_report": "recipes/nvidia/k8s-nim-operator/3.1.0/helm-pain-report.yaml"
+    },
+    {
+      "rank": "105",
       "chart": "nvidia/nvidia-device-plugin",
       "version": "0.19.3",
       "bucket": "works-with-operator-review",
@@ -28345,7 +28460,20 @@
       "pain_report": "recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml"
     },
     {
-      "rank": "103",
+      "rank": "106",
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.20.0",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "none-flagged",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate",
+      "pain_report": "recipes/nvidia/nvsentinel/v1.20.0/helm-pain-report.yaml"
+    },
+    {
+      "rank": "107",
       "chart": "open-telemetry/opentelemetry-operator",
       "version": "0.114.0",
       "bucket": "works-with-target-prerequisites",
@@ -28358,7 +28486,7 @@
       "pain_report": "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml"
     },
     {
-      "rank": "104",
+      "rank": "108",
       "chart": "percona/pg-operator",
       "version": "3.0.0",
       "bucket": "works-with-operator-review",
@@ -28371,7 +28499,7 @@
       "pain_report": "recipes/percona/pg-operator/3.0.0/helm-pain-report.yaml"
     },
     {
-      "rank": "105",
+      "rank": "109",
       "chart": "percona/psmdb-operator",
       "version": "1.22.0",
       "bucket": "works-with-operator-review",
@@ -28384,7 +28512,7 @@
       "pain_report": "recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml"
     },
     {
-      "rank": "106",
+      "rank": "110",
       "chart": "rook-release/rook-ceph",
       "version": "v1.19.5",
       "bucket": "needs-better-base-variant",
@@ -28397,7 +28525,7 @@
       "pain_report": "recipes/rook-release/rook-ceph/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "rank": "107",
+      "rank": "111",
       "chart": "rook-release/rook-ceph-cluster",
       "version": "v1.19.5",
       "bucket": "needs-better-base-variant",
@@ -28410,7 +28538,7 @@
       "pain_report": "recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "rank": "108",
+      "rank": "112",
       "chart": "sealed-secrets/sealed-secrets",
       "version": "2.18.6",
       "bucket": "works-with-target-prerequisites",
@@ -28423,7 +28551,7 @@
       "pain_report": "recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml"
     },
     {
-      "rank": "109",
+      "rank": "113",
       "chart": "velero/velero",
       "version": "12.0.1",
       "bucket": "works-with-target-prerequisites",
@@ -28436,7 +28564,7 @@
       "pain_report": "recipes/velero/velero/12.0.1/helm-pain-report.yaml"
     },
     {
-      "rank": "110",
+      "rank": "114",
       "chart": "vm/victoria-logs-single",
       "version": "0.12.5",
       "bucket": "needs-better-base-variant",
@@ -28449,7 +28577,7 @@
       "pain_report": "recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml"
     },
     {
-      "rank": "111",
+      "rank": "115",
       "chart": "vm/victoria-metrics-single",
       "version": "0.39.0",
       "bucket": "works-with-operator-review",
