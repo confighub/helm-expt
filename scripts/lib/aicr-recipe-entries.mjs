@@ -23,6 +23,9 @@ export const AICR_MEMBERS_CSV = "data/aicr-nim-model-profiles/platform-members.c
 export const SYNC_WAVE_ANNOTATION = "argocd.argoproj.io/sync-wave";
 // Where a bundle keeps the recipe it was generated from, when it keeps one.
 export const BUNDLED_RECIPE = "argocd-helm-bundle/recipe.yaml";
+// The kind of nested source an Application has when it takes a path inside the
+// entry's own AICR bundle package.
+export const AICR_BUNDLE_PATH_SOURCE = "path-in-aicr-source-package";
 
 // The files a retained-and-rendered recipe directory must hold. A directory
 // that is missing one is refused rather than given a thinner record.
@@ -109,6 +112,11 @@ for entry in request["entries"]:
             "generationInputs": (receipt.get("spec") or {}).get("generationInputs") or {},
             "result": (receipt.get("spec") or {}).get("result") or {},
             "boundary": (receipt.get("spec") or {}).get("boundary") or {},
+            "overlay": (receipt.get("spec") or {}).get("overlay") or {},
+            "newRequiredInputs": (receipt.get("spec") or {}).get("newRequiredInputs") or [],
+            "answeredRefusals": (receipt.get("spec") or {}).get("answeredRefusals") or [],
+            "retained": (receipt.get("spec") or {}).get("retained") or {},
+            "plannedArtifacts": (receipt.get("spec") or {}).get("plannedArtifacts") or {},
         },
         "recipe": {
             "version": str((recipe.get("metadata") or {}).get("version", "")),
@@ -302,8 +310,21 @@ export function orderingSentences(entry) {
   const ordering = entry.ordering;
   const checkable = ordering.edgesHeld + ordering.edgesViolated.length;
   const sentences = [
-    `The order is AICR's and not this project's. It is read from the sync-wave annotations on ${ordering.wavedApplications} rendered Applications, which fall into ${ordering.distinctWaves} waves. The retained recipe deploys ${ordering.declaredComponents} components, and ${ordering.edgesHeld} of the ${checkable} dependency edges between them hold in those waves.`,
+    `The order is AICR's and not this project's. It is read from the sync-wave annotations on ${ordering.wavedApplications} rendered Applications, which fall into ${ordering.distinctWaves} waves. ${entry.bundledRecipeRel ? "The recipe the bundle carries" : "The retained recipe"} deploys ${ordering.declaredComponents} components, and ${ordering.edgesHeld} of the ${checkable} dependency edges between them hold in those waves.`,
   ];
+  // A selected component the bundle leaves out has no Application and no
+  // sync-wave. The bundled recipe declares no edge to it, so nothing above
+  // could check one. The selected recipe's edges to such a component are named
+  // here, so the comparison does not drop them silently.
+  if ((entry.leftOutOfBundle ?? []).length > 0) {
+    const names = entry.leftOutOfBundle.map((row) => row.name);
+    const edges = entry.leftOutEdges ?? [];
+    sentences.push(
+      `The selected recipe also names ${names.length} component${names.length === 1 ? "" : "s"} the bundle leaves out (${names.join(", ")}), and the generation receipt records the reason AICR logged for ${names.length === 1 ? "it" : "each"}. ${edges.length > 0
+        ? `The selected recipe makes ${joinNames(edges.map((edge) => `${edge.component} depend on ${edge.dependsOn}`), "and")}. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it, and a route records the decision a destination has to make.`
+        : "No component the bundle deploys depends on one of them in the selected recipe."}`,
+    );
+  }
   const undeployed = ordering.edgesNamingAnUndeployedComponent;
   if (undeployed.length > 0) {
     const names = [...new Set(undeployed.flatMap((edge) => edge.notDeployed))].sort();
@@ -375,7 +396,7 @@ export function nestedSourcesFor(entry, sourcePackageRepository) {
     return {
       application: application.name,
       kind: fromBundle
-        ? "path-in-unpublished-aicr-bundle"
+        ? AICR_BUNDLE_PATH_SOURCE
         : source.repoURL.startsWith("oci://")
           ? "oci-chart"
           : "helm-repository-chart",
@@ -533,7 +554,34 @@ export function loadAicrRecipeEntries({ root = repoRoot, verdictRoot = "" } = {}
     const root0 = entry.applications.find((application) => application.syncWave === null || application.syncWave === undefined);
     entry.sourcePackageRepository = root0?.source?.repoURL ?? "";
     entry.sourcePackageRevision = root0?.source?.targetRevision ?? "";
-    entry.ordering = orderingEvidenceFor(entry);
+    // The sync-waves are compared with the recipe the bundle carries when the
+    // entry retains its bundle, because AICR computed the waves from that
+    // recipe and can leave a selected component out of it.
+    const bundled = facts.bundledRecipe;
+    entry.bundledRecipeRel = bundled ? `${entryRel}/${BUNDLED_RECIPE}` : "";
+    entry.bundleRel = bundled ? `${entryRel}/${BUNDLED_RECIPE.split("/")[0]}` : "";
+    entry.orderingRecipeRel = entry.bundledRecipeRel || entry.recipeRel;
+    entry.ordering = orderingEvidenceFor({ applications: entry.applications, recipe: bundled ?? facts.recipe });
+    const bundledNames = new Set((bundled?.components ?? []).map((component) => component.name));
+    const loggedReasons = new Map((facts.receipt.result?.componentsLeftOutOfBundle ?? []).map((row) => [String(row.name), String(row.reason ?? "")]));
+    entry.leftOutOfBundle = bundled
+      ? facts.recipe.components
+          .map((component) => component.name)
+          .filter((name) => !bundledNames.has(name))
+          .sort()
+          .map((name) => ({ name, reason: loggedReasons.get(name) ?? "" }))
+      : [];
+    check(
+      !bundled || JSON.stringify(entry.leftOutOfBundle.map((row) => row.name)) === JSON.stringify([...loggedReasons.keys()].sort()),
+      `${entryRel}/generation-receipt.yaml does not name exactly the components the retained bundle leaves out`,
+    );
+    entry.leftOutEdges = bundled
+      ? facts.recipe.components
+          .filter((component) => bundledNames.has(component.name))
+          .flatMap((component) => component.dependencyRefs
+            .filter((dependency) => !bundledNames.has(dependency))
+            .map((dependency) => ({ component: component.name, dependsOn: dependency })))
+      : [];
     entry.nestedSources = nestedSourcesFor(entry, entry.sourcePackageRepository);
     entries.push(entry);
   }

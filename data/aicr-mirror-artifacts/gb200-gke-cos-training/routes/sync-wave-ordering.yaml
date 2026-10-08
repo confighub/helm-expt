@@ -1,0 +1,92 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "aicr-gb200-gke-cos-training-v1-0-0-argocd-sync-wave-ordering"
+spec:
+  quirkClass: "crd-ordering"
+  routeKind: "apply-ordering"
+  discharges: "The components of a platform install in a dependency order. Without an ordering declaration the Applications would apply in no guaranteed order, and a component would reach the cluster before the one it depends on."
+  declaration:
+    platformRoot:
+      name: "aicr-stack"
+      file: "aicr-stack.yaml"
+      syncWave: "none"
+    stages:
+      -
+        order: 1
+        name: "sync-wave-1"
+        observedSyncWave: 1
+        objectCount: 6
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "cert-manager"
+            - "gcp-driver-installer"
+            - "gke-gb200-rdma"
+            - "nfd"
+            - "nodewright-operator"
+            - "prometheus-operator-crds"
+      -
+        order: 2
+        name: "sync-wave-5"
+        observedSyncWave: 5
+        objectCount: 2
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "kube-prometheus-stack"
+            - "nodewright-customizations"
+      -
+        order: 3
+        name: "sync-wave-8"
+        observedSyncWave: 8
+        objectCount: 1
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "gpu-operator-pre"
+      -
+        order: 4
+        name: "sync-wave-9"
+        observedSyncWave: 9
+        objectCount: 3
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "gpu-operator"
+            - "k8s-ephemeral-storage-metrics"
+            - "prometheus-adapter"
+      -
+        order: 5
+        name: "sync-wave-13"
+        observedSyncWave: 13
+        objectCount: 3
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "kai-scheduler"
+            - "nvidia-dra-driver-gpu"
+            - "nvsentinel"
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "the sync-wave annotation each Application carries"
+        proven: false
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 15 rendered Applications, which fall into 5 waves. The recipe the bundle carries deploys 14 components, and 15 of the 15 dependency edges between them hold in those waves."
+    - "The selected recipe also names 1 component the bundle leaves out (dra-node-labeler), and the generation receipt records the reason AICR logged for it. The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it, and a route records the decision a destination has to make."
+    - "1 waved Application renders without appearing in the recipe's deployment order (gpu-operator-pre). It is a companion of a component, and it is named here so the comparison does not drop it silently."
+    - "No runtime has executed this route. Nothing in the Catalog has synced this Application set on any cluster."
+  provenance:
+    emittedBy: "scripts/generate-aicr-mirror-artifacts.mjs"
+    generatedFrom:
+      - "examples/aicr/gb200-gke-cos-training/argocd-rendered/templates"
+      - "examples/aicr/gb200-gke-cos-training/argocd-helm-bundle/recipe.yaml"

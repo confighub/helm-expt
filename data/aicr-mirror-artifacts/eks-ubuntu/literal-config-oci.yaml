@@ -1,0 +1,154 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-eks-ubuntu-v1-0-0-argocd-literal-config"
+spec:
+  catalogEntry: "aicr-eks-ubuntu-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "eks-ubuntu"
+    entry: "examples/aicr/eks-ubuntu"
+    generationReceipt: "examples/aicr/eks-ubuntu/generation-receipt.yaml"
+    platformDigest: "sha256:8f415fb1c49e934548bee4c7f912d5e69600ddd2762eca011ff0cb5547f3a679"
+  artifact:
+    role: "literal-config"
+    format: "config-bundle-oci"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-eks-ubuntu-v1-0-0-argocd:v1.0.0"
+    manifestDigest: "sha256:6f2e1c4e41813dc3fd5d37184e0b4ff9539187781d4174d619730d5f91b4f865"
+    layerDigest: "sha256:e4ab5e1b138d0a24e401254cd34e021dcfce2d4aa138b6cda3250f902d326532"
+    layerBytes: 71708
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    objectCount: 14
+    fileCount: 19
+    files:
+      -
+        path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/aicr-stack.yaml"
+        stagedAs: "aicr-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "186048b988220e2c3542e1b1ce3a85edeaa44de4576036ff25639efa2fd4d304"
+        bytes: 1085
+      -
+        path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/aws-ebs-csi-driver.yaml"
+        stagedAs: "aws-ebs-csi-driver.yaml"
+        role: "argo-cd-application"
+        sha256: "e2f467b63c526cdd434f64e561bd3a33e5d7531feaddbb3508f4694ea40f5295"
+        bytes: 2902
+      -
+        path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/aws-efa.yaml"
+        stagedAs: "aws-efa.yaml"
+        role: "argo-cd-application"
+        sha256: "28cae6cca3926cfcda3d5845673b5aa52167acc7c4a70f55b0b074f81656a688"
+        bytes: 1837
+      -
+        path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/cert-manager.yaml"
+        stagedAs: "cert-manager.yaml"
+        role: "argo-cd-application"
+        sha256: "f914e71520fa6035733258504500e2d5113ab598bec88223b16fadef07324e24"
+        bytes: 2210
+      -
+        path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/gpu-operator.yaml"
+        stagedAs: "gpu-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "5c21f3e1b6e43c17452e5744a5b278743830e16d8872f0d7051df5afa0fe1755"
+        bytes: 8824
+      -
+        path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml"
+        stagedAs: "k8s-ephemeral-storage-metrics.yaml"
+        role: "argo-cd-application"
+        sha256: "cab5b4fa521c9717a2308e4514bf619b8b0e28e71835219c41e4fac0bbc1c444"
+        bytes: 1587
+      -
+        path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/kai-scheduler.yaml"
+        stagedAs: "kai-scheduler.yaml"
+        role: "argo-cd-application"
+        sha256: "8ec1e2779f8d04bfc036c9bdee9d3804fc6ff1f73e4cb5dbbf19dc2c11b1c316"
+        bytes: 1110
+      -
+        path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/kube-prometheus-stack.yaml"
+        stagedAs: "kube-prometheus-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "f172a2f871b5a5af81ed96526c70550532d6511154f7582b50f7cff509b425b5"
+        bytes: 3953
+      -
+        path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/nfd.yaml"
+        stagedAs: "nfd.yaml"
+        role: "argo-cd-application"
+        sha256: "1a80a5ef3669bed2d015e622068d8096541d2bc0edb317aa20025853943b872f"
+        bytes: 1631
+      -
+        path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/nodewright-operator.yaml"
+        stagedAs: "nodewright-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "b71910aec41ec6bce183dcaa602f8617683396600031b992c963be1bb22c2cc0"
+        bytes: 1421
+      -
+        path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml"
+        stagedAs: "nvidia-dra-driver-gpu.yaml"
+        role: "argo-cd-application"
+        sha256: "e05caa4abbf313cfc2853c1c8fb1434ffcdcb4113958e1b088bcf5f75b7e163f"
+        bytes: 1817
+      -
+        path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/nvsentinel.yaml"
+        stagedAs: "nvsentinel.yaml"
+        role: "argo-cd-application"
+        sha256: "512a45907869fa0a583c0b079c63ad42b8296c71112f461e83b4aba267548df4"
+        bytes: 3479
+      -
+        path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/prometheus-adapter.yaml"
+        stagedAs: "prometheus-adapter.yaml"
+        role: "argo-cd-application"
+        sha256: "9230caef29fd5778532a2f8bfc0e4a735d3202b6902236a64f376b14dc5f0fe9"
+        bytes: 4867
+      -
+        path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/prometheus-operator-crds.yaml"
+        stagedAs: "prometheus-operator-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+        bytes: 765
+      -
+        path: "data/aicr-mirror-artifacts/eks-ubuntu/routes/sync-wave-ordering.yaml"
+        stagedAs: "routes/sync-wave-ordering.yaml"
+        role: "route: sync-wave-ordering"
+        sha256: "dd8b1c156ef49449682350d996538540adf160ef374970866f91169e10e3e8de"
+        bytes: 2928
+      -
+        path: "data/aicr-mirror-artifacts/eks-ubuntu/routes/system-node-selector-placeholder.yaml"
+        stagedAs: "routes/system-node-selector-placeholder.yaml"
+        role: "route: system-node-selector-placeholder"
+        sha256: "78b11cf9cdcc84399d3cb72aff17f7dae849840fc3b2ff97ad0068a7521bd7d5"
+        bytes: 5372
+      -
+        path: "data/aicr-mirror-artifacts/eks-ubuntu/routes/components-left-out-of-bundle.yaml"
+        stagedAs: "routes/components-left-out-of-bundle.yaml"
+        role: "route: components-left-out-of-bundle"
+        sha256: "3235c22fa1592ed073882275d01bbf25a33735d478b342f81f0f5ecff68ae956"
+        bytes: 1392
+      -
+        path: "data/aicr-mirror-artifacts/eks-ubuntu/requirements/target-requirements.yaml"
+        stagedAs: "requirements/target-requirements.yaml"
+        role: "requirement: target"
+        sha256: "eeb81afff7e5389135f3f0a3a7f7d8cb372ec359bc3efa159f916c5642dcd173"
+        bytes: 5014
+      -
+        path: "data/aicr-mirror-artifacts/eks-ubuntu/space-guide.md"
+        stagedAs: "README.md"
+        role: "space-guide"
+        sha256: "43588990188a88885f62932ac3077927f063ac2f93a5f826f53afa56db8daddd"
+        bytes: 3749
+    reproducible: true
+  needs:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-ubuntu/aicr-bundle:1.0.0"
+      manifestDigest: "sha256:d3431bf9dc4901e5e3350692c7c8bb17fb8e0d8d323b32776131bcb6c97acb54"
+      plan: "data/aicr-mirror-artifacts/eks-ubuntu/source-package-oci.yaml"
+  contents:
+    statement: "The artifact holds the retained Argo CD Applications of one entry, its route files, its requirements file and its guide. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/eks-ubuntu/literal-config-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

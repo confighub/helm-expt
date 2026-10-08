@@ -1,0 +1,154 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-a100-oke-ubuntu-training-kubeflow-v1-0-0-argocd-literal-config"
+spec:
+  catalogEntry: "aicr-a100-oke-ubuntu-training-kubeflow-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "a100-oke-ubuntu-training-kubeflow"
+    entry: "examples/aicr/a100-oke-ubuntu-training-kubeflow"
+    generationReceipt: "examples/aicr/a100-oke-ubuntu-training-kubeflow/generation-receipt.yaml"
+    platformDigest: "sha256:6924e76e3e575fb3973f661e8ceccdc52d162bb52bbbf02b2a5a35fe25668566"
+  artifact:
+    role: "literal-config"
+    format: "config-bundle-oci"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-oke-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0"
+    manifestDigest: "sha256:ad5d6e6a5e8badb51b6351df0dd7c7dce178c72bd66a92345365be8110da530d"
+    layerDigest: "sha256:350319daaae45604ba0b4881a7d8ef4f85e1f40c0c7015bef571199d8b0d2a46"
+    layerBytes: 71708
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    objectCount: 14
+    fileCount: 19
+    files:
+      -
+        path: "examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates/aicr-stack.yaml"
+        stagedAs: "aicr-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "6ee16e8854245bc0095628695e22ad546cef4642e40f5b8f2efea9c6e5bdce40"
+        bytes: 1131
+      -
+        path: "examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates/cert-manager.yaml"
+        stagedAs: "cert-manager.yaml"
+        role: "argo-cd-application"
+        sha256: "f914e71520fa6035733258504500e2d5113ab598bec88223b16fadef07324e24"
+        bytes: 2210
+      -
+        path: "examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates/gpu-operator.yaml"
+        stagedAs: "gpu-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "ec39e48d0e9b781e88dd60fc42d982fe57e6e8436736d08ec824d82a8261d1d6"
+        bytes: 9034
+      -
+        path: "examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml"
+        stagedAs: "k8s-ephemeral-storage-metrics.yaml"
+        role: "argo-cd-application"
+        sha256: "cab5b4fa521c9717a2308e4514bf619b8b0e28e71835219c41e4fac0bbc1c444"
+        bytes: 1587
+      -
+        path: "examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates/kai-scheduler.yaml"
+        stagedAs: "kai-scheduler.yaml"
+        role: "argo-cd-application"
+        sha256: "8ec1e2779f8d04bfc036c9bdee9d3804fc6ff1f73e4cb5dbbf19dc2c11b1c316"
+        bytes: 1110
+      -
+        path: "examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates/kube-prometheus-stack.yaml"
+        stagedAs: "kube-prometheus-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "f172a2f871b5a5af81ed96526c70550532d6511154f7582b50f7cff509b425b5"
+        bytes: 3953
+      -
+        path: "examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates/kubeflow-trainer-post.yaml"
+        stagedAs: "kubeflow-trainer-post.yaml"
+        role: "argo-cd-application"
+        sha256: "42e723c83a1e349f884be1fdeac900af5fd97d98048c45c886b685cfce5ccd5a"
+        bytes: 813
+      -
+        path: "examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates/kubeflow-trainer.yaml"
+        stagedAs: "kubeflow-trainer.yaml"
+        role: "argo-cd-application"
+        sha256: "75fb206e91a3dbeb928c8fa5fe6ef00450e80dc1b8315cd2a5575a47a3dae6fe"
+        bytes: 2389
+      -
+        path: "examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates/nfd.yaml"
+        stagedAs: "nfd.yaml"
+        role: "argo-cd-application"
+        sha256: "647155f8ee8ade656bc60fd824ab8189eb76b4fc51d10e1cb904ddda8cbe64e2"
+        bytes: 1630
+      -
+        path: "examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates/nodewright-operator.yaml"
+        stagedAs: "nodewright-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "b71910aec41ec6bce183dcaa602f8617683396600031b992c963be1bb22c2cc0"
+        bytes: 1421
+      -
+        path: "examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml"
+        stagedAs: "nvidia-dra-driver-gpu.yaml"
+        role: "argo-cd-application"
+        sha256: "7296ef00ceb1514db3cfdc3ed590c1544f4ef336faee6be2f2e3dfa9f27076a2"
+        bytes: 1800
+      -
+        path: "examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates/nvsentinel.yaml"
+        stagedAs: "nvsentinel.yaml"
+        role: "argo-cd-application"
+        sha256: "5211cd80d7412879dd50331e6a504a0ba6da703910e27145bf775072ed7e5cf0"
+        bytes: 3705
+      -
+        path: "examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates/prometheus-adapter.yaml"
+        stagedAs: "prometheus-adapter.yaml"
+        role: "argo-cd-application"
+        sha256: "9230caef29fd5778532a2f8bfc0e4a735d3202b6902236a64f376b14dc5f0fe9"
+        bytes: 4867
+      -
+        path: "examples/aicr/a100-oke-ubuntu-training-kubeflow/argocd-rendered/templates/prometheus-operator-crds.yaml"
+        stagedAs: "prometheus-operator-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+        bytes: 765
+      -
+        path: "data/aicr-mirror-artifacts/a100-oke-ubuntu-training-kubeflow/routes/sync-wave-ordering.yaml"
+        stagedAs: "routes/sync-wave-ordering.yaml"
+        role: "route: sync-wave-ordering"
+        sha256: "ecb1d10df5fce3741ae085de68d2de581bec95ed9a110a9e6fd6b2fff5d3111e"
+        bytes: 3407
+      -
+        path: "data/aicr-mirror-artifacts/a100-oke-ubuntu-training-kubeflow/routes/system-node-selector-placeholder.yaml"
+        stagedAs: "routes/system-node-selector-placeholder.yaml"
+        role: "route: system-node-selector-placeholder"
+        sha256: "eb977406ec47070ded54f32253bd521a9e077c59bcdb7b7c8ac9e0d8a8638ef1"
+        bytes: 5542
+      -
+        path: "data/aicr-mirror-artifacts/a100-oke-ubuntu-training-kubeflow/routes/components-left-out-of-bundle.yaml"
+        stagedAs: "routes/components-left-out-of-bundle.yaml"
+        role: "route: components-left-out-of-bundle"
+        sha256: "7bd173e2d53926561d3bf9ced11f37bd285a57b36c8b61c905e2f8049bb02885"
+        bytes: 1461
+      -
+        path: "data/aicr-mirror-artifacts/a100-oke-ubuntu-training-kubeflow/requirements/target-requirements.yaml"
+        stagedAs: "requirements/target-requirements.yaml"
+        role: "requirement: target"
+        sha256: "0231557f387c216c3c18c36f04ea42eecf7f25bb6c34e95b5e085e9225e03544"
+        bytes: 5133
+      -
+        path: "data/aicr-mirror-artifacts/a100-oke-ubuntu-training-kubeflow/space-guide.md"
+        stagedAs: "README.md"
+        role: "space-guide"
+        sha256: "2a0a4b19ef693282937f7d218bca5cc4cfd7c0684601bbd000557d9ff8d46ffe"
+        bytes: 3855
+    reproducible: true
+  needs:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow/aicr-bundle:1.0.0"
+      manifestDigest: "sha256:f70e303ea0fd5d72695bf139a40f4fe0c2e8519438142adb44e806e35346824e"
+      plan: "data/aicr-mirror-artifacts/a100-oke-ubuntu-training-kubeflow/source-package-oci.yaml"
+  contents:
+    statement: "The artifact holds the retained Argo CD Applications of one entry, its route files, its requirements file and its guide. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/a100-oke-ubuntu-training-kubeflow/literal-config-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

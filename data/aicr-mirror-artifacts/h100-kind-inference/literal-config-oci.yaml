@@ -1,0 +1,172 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-h100-kind-inference-v1-0-0-argocd-literal-config"
+spec:
+  catalogEntry: "aicr-h100-kind-inference-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "h100-kind-inference"
+    entry: "examples/aicr/h100-kind-inference"
+    generationReceipt: "examples/aicr/h100-kind-inference/generation-receipt.yaml"
+    platformDigest: "sha256:08e113d51efe1b32072ad9e1583536fb437d085c2cf553b7265d0ae73b672c68"
+  artifact:
+    role: "literal-config"
+    format: "config-bundle-oci"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-kind-inference-v1-0-0-argocd:v1.0.0"
+    manifestDigest: "sha256:ece5838266e9c08bbfe577879da406e742bba301284f820cdba5bb4b6ba31677"
+    layerDigest: "sha256:c04c3dcb5411d6eb8d7e8945835323ba326f748eb71e05c7850a01af77571684"
+    layerBytes: 71708
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    objectCount: 17
+    fileCount: 22
+    files:
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/agentgateway-crds-post.yaml"
+        stagedAs: "agentgateway-crds-post.yaml"
+        role: "argo-cd-application"
+        sha256: "454cc8b233942192785eb6015ab6dcfe02c7699d94f419dc9734f04eb1f3167d"
+        bytes: 812
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/agentgateway-crds.yaml"
+        stagedAs: "agentgateway-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "c9fe17c9daefff5bd6f6ebf6170e5b4097d1542e1338678853ad61c9e6f5cda6"
+        bytes: 753
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/agentgateway-post.yaml"
+        stagedAs: "agentgateway-post.yaml"
+        role: "argo-cd-application"
+        sha256: "fbc53bb8c702bd06bad0d94e03d794a86370b9cb058ae361605ac3521e2c5cb3"
+        bytes: 797
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/agentgateway.yaml"
+        stagedAs: "agentgateway.yaml"
+        role: "argo-cd-application"
+        sha256: "9fc1f144cc5f9c4c41284ae99a62ae6e73212c39145e1f16db304594180bd7fd"
+        bytes: 1394
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/aicr-stack.yaml"
+        stagedAs: "aicr-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "9d3f4f7c159962a2121ad7e569a094d2eb8f7588f6624d4d23a1f0d1f9a5b093"
+        bytes: 1103
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/cert-manager.yaml"
+        stagedAs: "cert-manager.yaml"
+        role: "argo-cd-application"
+        sha256: "f914e71520fa6035733258504500e2d5113ab598bec88223b16fadef07324e24"
+        bytes: 2210
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/gpu-operator.yaml"
+        stagedAs: "gpu-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "d6cc6bb05a241de558fa7aa387b76caf2412f7c29005e1f22129767853399350"
+        bytes: 2547
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml"
+        stagedAs: "k8s-ephemeral-storage-metrics.yaml"
+        role: "argo-cd-application"
+        sha256: "cab5b4fa521c9717a2308e4514bf619b8b0e28e71835219c41e4fac0bbc1c444"
+        bytes: 1587
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/kai-scheduler.yaml"
+        stagedAs: "kai-scheduler.yaml"
+        role: "argo-cd-application"
+        sha256: "8ec1e2779f8d04bfc036c9bdee9d3804fc6ff1f73e4cb5dbbf19dc2c11b1c316"
+        bytes: 1110
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/kube-prometheus-stack.yaml"
+        stagedAs: "kube-prometheus-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "66ede44a2b535736000094c565204aa2b8396d80546d6a513cfedbbce10833f1"
+        bytes: 4689
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/network-operator.yaml"
+        stagedAs: "network-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "10ecdf16c68a32257dc587c514700552b6142969ff126d0635e93d30a1d67424"
+        bytes: 1547
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/nfd.yaml"
+        stagedAs: "nfd.yaml"
+        role: "argo-cd-application"
+        sha256: "1a80a5ef3669bed2d015e622068d8096541d2bc0edb317aa20025853943b872f"
+        bytes: 1631
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/nodewright-operator.yaml"
+        stagedAs: "nodewright-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "c05ec28fc74a809a75d0425817a5cd891a5a09fb2ab81766fe54eb105f349cd0"
+        bytes: 1415
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml"
+        stagedAs: "nvidia-dra-driver-gpu.yaml"
+        role: "argo-cd-application"
+        sha256: "9beab928cffc883b88b06a6e6911a923187c04161409d1ade1a7e0e7b1f0f00e"
+        bytes: 1733
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/nvsentinel.yaml"
+        stagedAs: "nvsentinel.yaml"
+        role: "argo-cd-application"
+        sha256: "92bdaae378c8e2a9330a50be5adeb16ca1d6b195f3aaf936f32779121ce9f8c1"
+        bytes: 3550
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/prometheus-adapter.yaml"
+        stagedAs: "prometheus-adapter.yaml"
+        role: "argo-cd-application"
+        sha256: "9230caef29fd5778532a2f8bfc0e4a735d3202b6902236a64f376b14dc5f0fe9"
+        bytes: 4867
+      -
+        path: "examples/aicr/h100-kind-inference/argocd-rendered/templates/prometheus-operator-crds.yaml"
+        stagedAs: "prometheus-operator-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+        bytes: 765
+      -
+        path: "data/aicr-mirror-artifacts/h100-kind-inference/routes/sync-wave-ordering.yaml"
+        stagedAs: "routes/sync-wave-ordering.yaml"
+        role: "route: sync-wave-ordering"
+        sha256: "7988cfcb23ec3eebd546ab3e1c2a0caeb6aa33465017377174c948b959e8eee9"
+        bytes: 3672
+      -
+        path: "data/aicr-mirror-artifacts/h100-kind-inference/routes/system-node-selector-placeholder.yaml"
+        stagedAs: "routes/system-node-selector-placeholder.yaml"
+        role: "route: system-node-selector-placeholder"
+        sha256: "a4f7a85422758ace7fba97a9579fa8346f1c33c772f5d99cce483a8a95fce8f2"
+        bytes: 5837
+      -
+        path: "data/aicr-mirror-artifacts/h100-kind-inference/routes/components-left-out-of-bundle.yaml"
+        stagedAs: "routes/components-left-out-of-bundle.yaml"
+        role: "route: components-left-out-of-bundle"
+        sha256: "248a463e8b0314532dc085cb1bcda10aa36e4acd51af58ffdf4e6eb39a913d76"
+        bytes: 1419
+      -
+        path: "data/aicr-mirror-artifacts/h100-kind-inference/requirements/target-requirements.yaml"
+        stagedAs: "requirements/target-requirements.yaml"
+        role: "requirement: target"
+        sha256: "bcbd1fdec19d77281b2312f6cf3451233e561469e91d4bbfd71b821f09885559"
+        bytes: 5373
+      -
+        path: "data/aicr-mirror-artifacts/h100-kind-inference/space-guide.md"
+        stagedAs: "README.md"
+        role: "space-guide"
+        sha256: "5043945097554bd5b6f95a29919f2aebe6340890c1723b65e03ff085b4068560"
+        bytes: 4120
+    reproducible: true
+  needs:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-h100-kind-inference/aicr-bundle:1.0.0"
+      manifestDigest: "sha256:98f70641b78ce6faee104331b7035b69d96f90c790132f16dc074a3352afe8ba"
+      plan: "data/aicr-mirror-artifacts/h100-kind-inference/source-package-oci.yaml"
+  contents:
+    statement: "The artifact holds the retained Argo CD Applications of one entry, its route files, its requirements file and its guide. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/h100-kind-inference/literal-config-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

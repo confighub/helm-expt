@@ -1,0 +1,36 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-a100-aks-ubuntu-training-kubeflow-v1-0-0-argocd-source-package"
+spec:
+  catalogEntry: "aicr-a100-aks-ubuntu-training-kubeflow-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "a100-aks-ubuntu-training-kubeflow"
+    entry: "examples/aicr/a100-aks-ubuntu-training-kubeflow"
+    generationReceipt: "examples/aicr/a100-aks-ubuntu-training-kubeflow/generation-receipt.yaml"
+    platformDigest: "sha256:9714af3a4b08ca6042c57f76b95794853181c77e71c45b05bdd9ab368fe5fa46"
+  artifact:
+    role: "source-package"
+    format: "helm-chart-oci"
+    artifactType: "application/vnd.cncf.helm.config.v1+json"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-aks-ubuntu-training-kubeflow/aicr-bundle:1.0.0"
+    manifestDigest: "sha256:80ffe47728fe386266fb93bd0254c3e82c41864a5f283d9b4b3489e7614472c6"
+    layerDigest: "sha256:0e08a0ca913a66fd0efe630bb0ea2a4bb6f24a573eaea09c0dd0fa5ce4a19e76"
+    layerBytes: 291371
+    layerMediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    fileCount: 67
+    files:
+      inventory: "examples/aicr/a100-aks-ubuntu-training-kubeflow/argocd-helm-bundle-checksums.txt"
+      inventorySha256: "48f1326b372b4ef6aaddae5d6480997970920602e056cbe786351bd59a2fcfb5"
+    reproducible: true
+  contents:
+    statement: "The artifact is the Helm chart AICR generated for this overlay, file for file as the entry retains it. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/a100-aks-ubuntu-training-kubeflow/source-package-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

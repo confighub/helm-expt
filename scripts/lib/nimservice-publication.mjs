@@ -88,10 +88,13 @@ function tarHeader(name, size) {
 }
 
 // A ustar archive of the given files, in path order, owned by 0:0 at time 0.
-export function deterministicTar(files) {
+// The prefix is "./" for a bundle whose files sit at the archive root. A Helm
+// chart archive needs its files under the chart name with no leading "./", so
+// a caller that packages a chart passes "<chart>/".
+export function deterministicTar(files, { prefix = "./" } = {}) {
   const parts = [];
   for (const file of [...files].sort((left, right) => (left.path < right.path ? -1 : 1))) {
-    parts.push(tarHeader(`./${file.path}`, file.data.length), file.data);
+    parts.push(tarHeader(`${prefix}${file.path}`, file.data.length), file.data);
     const padding = (512 - (file.data.length % 512)) % 512;
     if (padding > 0) parts.push(Buffer.alloc(padding, 0));
   }
@@ -266,7 +269,8 @@ export function nimServicePublicationPlanDoc(entry, artifact) {
 export function writeNimServiceOciLayout(artifact, dir) {
   mkdirSync(join(dir, "blobs", "sha256"), { recursive: true });
   const blob = (data) => writeFileSync(join(dir, "blobs", "sha256", sha256Hex(data)), data);
-  blob(OCI_EMPTY_CONFIG);
+  // An artifact with a config blob of its own, such as a Helm chart, brings it.
+  blob(artifact.config ?? OCI_EMPTY_CONFIG);
   blob(artifact.layer);
   blob(artifact.manifest);
   writeFileSync(join(dir, "oci-layout"), JSON.stringify({ imageLayoutVersion: "1.0.0" }));

@@ -1,0 +1,178 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-h100-kind-training-slurm-v1-0-0-argocd-literal-config"
+spec:
+  catalogEntry: "aicr-h100-kind-training-slurm-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "h100-kind-training-slurm"
+    entry: "examples/aicr/h100-kind-training-slurm"
+    generationReceipt: "examples/aicr/h100-kind-training-slurm/generation-receipt.yaml"
+    platformDigest: "sha256:a7e12e6e4177654f9290d8adb3e02bbcc991d9d65c48e83136ee4fba0b8f302e"
+  artifact:
+    role: "literal-config"
+    format: "config-bundle-oci"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-kind-training-slurm-v1-0-0-argocd:v1.0.0"
+    manifestDigest: "sha256:9c52d4e590ef4fe5ffac258fdbd30d38911b8aea3898c5bfc563967910cfe99a"
+    layerDigest: "sha256:9a216863e3cd5f19c135dad8838d5fa47b8cd1fb86551f9df8d0f0379eb51139"
+    layerBytes: 82972
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    objectCount: 18
+    fileCount: 23
+    files:
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/aicr-stack.yaml"
+        stagedAs: "aicr-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "549cc2ffdc03c316b68790b2f5437b136cfa139361ed345fd455a1853e4b1c70"
+        bytes: 1113
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/cert-manager.yaml"
+        stagedAs: "cert-manager.yaml"
+        role: "argo-cd-application"
+        sha256: "f914e71520fa6035733258504500e2d5113ab598bec88223b16fadef07324e24"
+        bytes: 2210
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/gpu-operator.yaml"
+        stagedAs: "gpu-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "d6cc6bb05a241de558fa7aa387b76caf2412f7c29005e1f22129767853399350"
+        bytes: 2547
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml"
+        stagedAs: "k8s-ephemeral-storage-metrics.yaml"
+        role: "argo-cd-application"
+        sha256: "cab5b4fa521c9717a2308e4514bf619b8b0e28e71835219c41e4fac0bbc1c444"
+        bytes: 1587
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/kai-scheduler.yaml"
+        stagedAs: "kai-scheduler.yaml"
+        role: "argo-cd-application"
+        sha256: "8ec1e2779f8d04bfc036c9bdee9d3804fc6ff1f73e4cb5dbbf19dc2c11b1c316"
+        bytes: 1110
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/kube-prometheus-stack.yaml"
+        stagedAs: "kube-prometheus-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "66ede44a2b535736000094c565204aa2b8396d80546d6a513cfedbbce10833f1"
+        bytes: 4689
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/network-operator.yaml"
+        stagedAs: "network-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "10ecdf16c68a32257dc587c514700552b6142969ff126d0635e93d30a1d67424"
+        bytes: 1547
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/nfd.yaml"
+        stagedAs: "nfd.yaml"
+        role: "argo-cd-application"
+        sha256: "1a80a5ef3669bed2d015e622068d8096541d2bc0edb317aa20025853943b872f"
+        bytes: 1631
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/nodewright-operator.yaml"
+        stagedAs: "nodewright-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "c05ec28fc74a809a75d0425817a5cd891a5a09fb2ab81766fe54eb105f349cd0"
+        bytes: 1415
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml"
+        stagedAs: "nvidia-dra-driver-gpu.yaml"
+        role: "argo-cd-application"
+        sha256: "9beab928cffc883b88b06a6e6911a923187c04161409d1ade1a7e0e7b1f0f00e"
+        bytes: 1733
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/nvsentinel.yaml"
+        stagedAs: "nvsentinel.yaml"
+        role: "argo-cd-application"
+        sha256: "92bdaae378c8e2a9330a50be5adeb16ca1d6b195f3aaf936f32779121ce9f8c1"
+        bytes: 3550
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/prometheus-adapter.yaml"
+        stagedAs: "prometheus-adapter.yaml"
+        role: "argo-cd-application"
+        sha256: "9230caef29fd5778532a2f8bfc0e4a735d3202b6902236a64f376b14dc5f0fe9"
+        bytes: 4867
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/prometheus-operator-crds.yaml"
+        stagedAs: "prometheus-operator-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+        bytes: 765
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/slinky-slurm-operator-crds.yaml"
+        stagedAs: "slinky-slurm-operator-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "f63e6e1f60875a9c601ba0881005e98777af3b067165a0ffd023e9d3a7b49f07"
+        bytes: 763
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/slinky-slurm-operator.yaml"
+        stagedAs: "slinky-slurm-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "e97a95ab2df5a4fa00428e654f4e9372925a82ec300d6a7e5325994f2e2c0522"
+        bytes: 1170
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/slinky-slurm-pre.yaml"
+        stagedAs: "slinky-slurm-pre.yaml"
+        role: "argo-cd-application"
+        sha256: "f36e9cc534381518b0cadba9d2b9a8e01d232db50c601dd77dc913043e9bf9ed"
+        bytes: 785
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/slinky-slurm.yaml"
+        stagedAs: "slinky-slurm.yaml"
+        role: "argo-cd-application"
+        sha256: "15a190086cf31736d5477c8be97f164ddf4a536f6b364af9f66064285cf7a550"
+        bytes: 7614
+      -
+        path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/slinky-topograph.yaml"
+        stagedAs: "slinky-topograph.yaml"
+        role: "argo-cd-application"
+        sha256: "630a66953391c816814dce4b038bf73dd84cec26447104701ece443951808510"
+        bytes: 2630
+      -
+        path: "data/aicr-mirror-artifacts/h100-kind-training-slurm/routes/sync-wave-ordering.yaml"
+        stagedAs: "routes/sync-wave-ordering.yaml"
+        role: "route: sync-wave-ordering"
+        sha256: "860195927c6c90618304b0be1a23a36d0a8865aa3de804b4e14b09c17cd8d0f9"
+        bytes: 3633
+      -
+        path: "data/aicr-mirror-artifacts/h100-kind-training-slurm/routes/system-node-selector-placeholder.yaml"
+        stagedAs: "routes/system-node-selector-placeholder.yaml"
+        role: "route: system-node-selector-placeholder"
+        sha256: "25322e966b5f832d678ac52cc1820e2dfc08c93c0d8c0f201a6e79a410df09d7"
+        bytes: 6079
+      -
+        path: "data/aicr-mirror-artifacts/h100-kind-training-slurm/routes/components-left-out-of-bundle.yaml"
+        stagedAs: "routes/components-left-out-of-bundle.yaml"
+        role: "route: components-left-out-of-bundle"
+        sha256: "39b58f4319d4b4349ae7363fefb9ca71fcd93c1cb675ec36d277b57863ed73af"
+        bytes: 1954
+      -
+        path: "data/aicr-mirror-artifacts/h100-kind-training-slurm/requirements/target-requirements.yaml"
+        stagedAs: "requirements/target-requirements.yaml"
+        role: "requirement: target"
+        sha256: "1da487282436fcf2dcf386de09e0baeb1e66630b54f05521092b95e3f71ffcfb"
+        bytes: 5809
+      -
+        path: "data/aicr-mirror-artifacts/h100-kind-training-slurm/space-guide.md"
+        stagedAs: "README.md"
+        role: "space-guide"
+        sha256: "02aa8b4dc0a5fa57efb8b324cffce4e208366f127c4c781a985a82db898aeec5"
+        bytes: 4324
+    reproducible: true
+  needs:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-h100-kind-training-slurm/aicr-bundle:1.0.0"
+      manifestDigest: "sha256:2b75fd6777f54bda3ba0c62e86df21483057bcfdea2305615862034f33b761b5"
+      plan: "data/aicr-mirror-artifacts/h100-kind-training-slurm/source-package-oci.yaml"
+  contents:
+    statement: "The artifact holds the retained Argo CD Applications of one entry, its route files, its requirements file and its guide. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/h100-kind-training-slurm/literal-config-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

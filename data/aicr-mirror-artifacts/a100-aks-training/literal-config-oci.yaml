@@ -1,0 +1,166 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-a100-aks-training-v1-0-0-argocd-literal-config"
+spec:
+  catalogEntry: "aicr-a100-aks-training-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "a100-aks-training"
+    entry: "examples/aicr/a100-aks-training"
+    generationReceipt: "examples/aicr/a100-aks-training/generation-receipt.yaml"
+    platformDigest: "sha256:50fe9bd638e610b75101cd26ad96a89272fbb9e96f9cd43fbb2a6d7721f27c62"
+  artifact:
+    role: "literal-config"
+    format: "config-bundle-oci"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-aks-training-v1-0-0-argocd:v1.0.0"
+    manifestDigest: "sha256:b0146f1e8f2af25ae1b82835136abaeae9656a0edcfc09ffb6f1fda22a40ef78"
+    layerDigest: "sha256:86d8aed921667df5cfb062589d7846a47107cdeb4ac9e563cc13c4b2214ff969"
+    layerBytes: 75804
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    objectCount: 16
+    fileCount: 21
+    files:
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/aicr-stack.yaml"
+        stagedAs: "aicr-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "6ea2777118f49b8d6cf3f6bd695ced5dbeeeecf4ff707a08bc270ab6396068e8"
+        bytes: 1099
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/cert-manager.yaml"
+        stagedAs: "cert-manager.yaml"
+        role: "argo-cd-application"
+        sha256: "f914e71520fa6035733258504500e2d5113ab598bec88223b16fadef07324e24"
+        bytes: 2210
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/gpu-operator-post.yaml"
+        stagedAs: "gpu-operator-post.yaml"
+        role: "argo-cd-application"
+        sha256: "2ddc5d49bd995c8c5d197ec43c5b020459a0832097df2acfdebe0a0964b48997"
+        bytes: 789
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/gpu-operator.yaml"
+        stagedAs: "gpu-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "752c561742f331265d55043b690638c5c8e58606a95517414b86b451a30c22a8"
+        bytes: 9414
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml"
+        stagedAs: "k8s-ephemeral-storage-metrics.yaml"
+        role: "argo-cd-application"
+        sha256: "cab5b4fa521c9717a2308e4514bf619b8b0e28e71835219c41e4fac0bbc1c444"
+        bytes: 1587
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/kai-scheduler.yaml"
+        stagedAs: "kai-scheduler.yaml"
+        role: "argo-cd-application"
+        sha256: "8ec1e2779f8d04bfc036c9bdee9d3804fc6ff1f73e4cb5dbbf19dc2c11b1c316"
+        bytes: 1110
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/kube-prometheus-stack.yaml"
+        stagedAs: "kube-prometheus-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "4134a3490e424d796288ab2181dca1f04bec9f7ff2e5af1ef983b6bf5a48a227"
+        bytes: 3953
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/network-operator-post.yaml"
+        stagedAs: "network-operator-post.yaml"
+        role: "argo-cd-application"
+        sha256: "94043081a49ebb55dfc28d03110d2ebec106b4ac1321ae90f49c02f7d42113a7"
+        bytes: 811
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/network-operator.yaml"
+        stagedAs: "network-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "ded3cffd4420fcf1db3442b349610b2bc86855b30077384f697aea32ce16b477"
+        bytes: 1548
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/nfd.yaml"
+        stagedAs: "nfd.yaml"
+        role: "argo-cd-application"
+        sha256: "0f96da510bab1ed048bb9b4c79bf00e5b24d26a74ac1a5336dd31f4af3b53de5"
+        bytes: 1788
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/nodewright-customizations.yaml"
+        stagedAs: "nodewright-customizations.yaml"
+        role: "argo-cd-application"
+        sha256: "d8e4699648b19a3e1105fde4d5b9efa044de9a8dd65c80852385f3b3995d6609"
+        bytes: 810
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/nodewright-operator.yaml"
+        stagedAs: "nodewright-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "b71910aec41ec6bce183dcaa602f8617683396600031b992c963be1bb22c2cc0"
+        bytes: 1421
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml"
+        stagedAs: "nvidia-dra-driver-gpu.yaml"
+        role: "argo-cd-application"
+        sha256: "35304cfa4ee5506aadb8a2b5ae9f0a1fa39886aa8776f45d7e0566195cfecec6"
+        bytes: 1879
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/nvsentinel.yaml"
+        stagedAs: "nvsentinel.yaml"
+        role: "argo-cd-application"
+        sha256: "68b8b7cd9d0a553b67438490b02cd4602e5c9877446ff67597744a674fc19aea"
+        bytes: 3802
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/prometheus-adapter.yaml"
+        stagedAs: "prometheus-adapter.yaml"
+        role: "argo-cd-application"
+        sha256: "9230caef29fd5778532a2f8bfc0e4a735d3202b6902236a64f376b14dc5f0fe9"
+        bytes: 4867
+      -
+        path: "examples/aicr/a100-aks-training/argocd-rendered/templates/prometheus-operator-crds.yaml"
+        stagedAs: "prometheus-operator-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+        bytes: 765
+      -
+        path: "data/aicr-mirror-artifacts/a100-aks-training/routes/sync-wave-ordering.yaml"
+        stagedAs: "routes/sync-wave-ordering.yaml"
+        role: "route: sync-wave-ordering"
+        sha256: "fa45166318a0f44bf3d7171c5ac0a177f8e7e946027b3e0ca603b2b94f364a4d"
+        bytes: 3645
+      -
+        path: "data/aicr-mirror-artifacts/a100-aks-training/routes/system-node-selector-placeholder.yaml"
+        stagedAs: "routes/system-node-selector-placeholder.yaml"
+        role: "route: system-node-selector-placeholder"
+        sha256: "503b304f58d62e6d8bb310ebc2f4ebb1401bbb6066fb53ba3bce7c4186e1d6fa"
+        bytes: 5576
+      -
+        path: "data/aicr-mirror-artifacts/a100-aks-training/routes/components-left-out-of-bundle.yaml"
+        stagedAs: "routes/components-left-out-of-bundle.yaml"
+        role: "route: components-left-out-of-bundle"
+        sha256: "7d145f615858fd3f59f25a3d0170486368c0c36757e7387764c02643f011ecd5"
+        bytes: 1413
+      -
+        path: "data/aicr-mirror-artifacts/a100-aks-training/requirements/target-requirements.yaml"
+        stagedAs: "requirements/target-requirements.yaml"
+        role: "requirement: target"
+        sha256: "b65ce821e83f4e3b49938566740ff84c848f71014f9d0563314ab6326ba5a69a"
+        bytes: 5443
+      -
+        path: "data/aicr-mirror-artifacts/a100-aks-training/space-guide.md"
+        stagedAs: "README.md"
+        role: "space-guide"
+        sha256: "3f32c41e9249d7fdfbbdced84ea997e84407d1cd0acba8b76607d3d4588d32ba"
+        bytes: 4191
+    reproducible: true
+  needs:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-aks-training/aicr-bundle:1.0.0"
+      manifestDigest: "sha256:9ab215795a154f8dd68bc7449cc0200ff9979bbea57210a36962bf7ea12e2b03"
+      plan: "data/aicr-mirror-artifacts/a100-aks-training/source-package-oci.yaml"
+  contents:
+    statement: "The artifact holds the retained Argo CD Applications of one entry, its route files, its requirements file and its guide. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/a100-aks-training/literal-config-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

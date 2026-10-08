@@ -1,0 +1,190 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-gb200-eks-ubuntu-training-slurm-v1-0-0-argocd-literal-config"
+spec:
+  catalogEntry: "aicr-gb200-eks-ubuntu-training-slurm-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "gb200-eks-ubuntu-training-slurm"
+    entry: "examples/aicr/gb200-eks-ubuntu-training-slurm"
+    generationReceipt: "examples/aicr/gb200-eks-ubuntu-training-slurm/generation-receipt.yaml"
+    platformDigest: "sha256:317aab37f5996ca54fd6c1abf280b9043d46d6606bfb2ad6845bb71a587d925f"
+  artifact:
+    role: "literal-config"
+    format: "config-bundle-oci"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-eks-ubuntu-training-slurm-v1-0-0-argocd:v1.0.0"
+    manifestDigest: "sha256:3d9708aa9afb9ad2f515c720cfbf7d5dbd8aaf1f2cad2c64e2ed9e5846a6238d"
+    layerDigest: "sha256:0f21821fe0cb123efd48d7744d01c9a7a8e8197a80194de4672ac08b1f1b72a1"
+    layerBytes: 93212
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    objectCount: 20
+    fileCount: 25
+    files:
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/aicr-stack.yaml"
+        stagedAs: "aicr-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "60b233f320e893044c309e6bd53de6c7d2fb9bae28fdb468f833eeef18581bf9"
+        bytes: 1127
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/aws-ebs-csi-driver.yaml"
+        stagedAs: "aws-ebs-csi-driver.yaml"
+        role: "argo-cd-application"
+        sha256: "e2f467b63c526cdd434f64e561bd3a33e5d7531feaddbb3508f4694ea40f5295"
+        bytes: 2902
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/aws-efa.yaml"
+        stagedAs: "aws-efa.yaml"
+        role: "argo-cd-application"
+        sha256: "28cae6cca3926cfcda3d5845673b5aa52167acc7c4a70f55b0b074f81656a688"
+        bytes: 1837
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/cert-manager.yaml"
+        stagedAs: "cert-manager.yaml"
+        role: "argo-cd-application"
+        sha256: "f914e71520fa6035733258504500e2d5113ab598bec88223b16fadef07324e24"
+        bytes: 2210
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/gpu-operator-pre.yaml"
+        stagedAs: "gpu-operator-pre.yaml"
+        role: "argo-cd-application"
+        sha256: "c6f49294673b803309fc3ff40fb0db05d2efdca6a0ac03bd87c61adef21b1c4a"
+        bytes: 799
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/gpu-operator.yaml"
+        stagedAs: "gpu-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "f694229ce7f748139d9f9400b574bea143c1dafb18e75cb109fddb5b432eb420"
+        bytes: 9002
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml"
+        stagedAs: "k8s-ephemeral-storage-metrics.yaml"
+        role: "argo-cd-application"
+        sha256: "cab5b4fa521c9717a2308e4514bf619b8b0e28e71835219c41e4fac0bbc1c444"
+        bytes: 1587
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/kai-scheduler.yaml"
+        stagedAs: "kai-scheduler.yaml"
+        role: "argo-cd-application"
+        sha256: "8ec1e2779f8d04bfc036c9bdee9d3804fc6ff1f73e4cb5dbbf19dc2c11b1c316"
+        bytes: 1110
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/kube-prometheus-stack.yaml"
+        stagedAs: "kube-prometheus-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "f172a2f871b5a5af81ed96526c70550532d6511154f7582b50f7cff509b425b5"
+        bytes: 3953
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/nfd.yaml"
+        stagedAs: "nfd.yaml"
+        role: "argo-cd-application"
+        sha256: "647155f8ee8ade656bc60fd824ab8189eb76b4fc51d10e1cb904ddda8cbe64e2"
+        bytes: 1630
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/nodewright-customizations.yaml"
+        stagedAs: "nodewright-customizations.yaml"
+        role: "argo-cd-application"
+        sha256: "245eea0aea3b14de2f4938b334bd9adc45c74e34893d28cbb570ac3c9e9181de"
+        bytes: 824
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/nodewright-operator.yaml"
+        stagedAs: "nodewright-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "b71910aec41ec6bce183dcaa602f8617683396600031b992c963be1bb22c2cc0"
+        bytes: 1421
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml"
+        stagedAs: "nvidia-dra-driver-gpu.yaml"
+        role: "argo-cd-application"
+        sha256: "e05caa4abbf313cfc2853c1c8fb1434ffcdcb4113958e1b088bcf5f75b7e163f"
+        bytes: 1817
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/nvsentinel.yaml"
+        stagedAs: "nvsentinel.yaml"
+        role: "argo-cd-application"
+        sha256: "512a45907869fa0a583c0b079c63ad42b8296c71112f461e83b4aba267548df4"
+        bytes: 3479
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/prometheus-adapter.yaml"
+        stagedAs: "prometheus-adapter.yaml"
+        role: "argo-cd-application"
+        sha256: "9230caef29fd5778532a2f8bfc0e4a735d3202b6902236a64f376b14dc5f0fe9"
+        bytes: 4867
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/prometheus-operator-crds.yaml"
+        stagedAs: "prometheus-operator-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+        bytes: 765
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/slinky-slurm-operator-crds.yaml"
+        stagedAs: "slinky-slurm-operator-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "f63e6e1f60875a9c601ba0881005e98777af3b067165a0ffd023e9d3a7b49f07"
+        bytes: 763
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/slinky-slurm-operator.yaml"
+        stagedAs: "slinky-slurm-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "e97a95ab2df5a4fa00428e654f4e9372925a82ec300d6a7e5325994f2e2c0522"
+        bytes: 1170
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/slinky-slurm-pre.yaml"
+        stagedAs: "slinky-slurm-pre.yaml"
+        role: "argo-cd-application"
+        sha256: "2fba03d9deac7daec5278eae8e4c4a4ac250b0840847f3005f51357ebbf0401a"
+        bytes: 793
+      -
+        path: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-rendered/templates/slinky-slurm.yaml"
+        stagedAs: "slinky-slurm.yaml"
+        role: "argo-cd-application"
+        sha256: "3422350da40840b6ab1f9ba6cabdd27337630ee04e46b2c5012c17692cb9e471"
+        bytes: 8091
+      -
+        path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-training-slurm/routes/sync-wave-ordering.yaml"
+        stagedAs: "routes/sync-wave-ordering.yaml"
+        role: "route: sync-wave-ordering"
+        sha256: "02d428868f9586a922583ebc799f22038a49e6e101093f7ea7bd42eba4aaf111"
+        bytes: 4119
+      -
+        path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-training-slurm/routes/system-node-selector-placeholder.yaml"
+        stagedAs: "routes/system-node-selector-placeholder.yaml"
+        role: "route: system-node-selector-placeholder"
+        sha256: "2a0ea0a3613464972ae64e1b05f5b2e1497716f2debb328d4603be90783ec662"
+        bytes: 6275
+      -
+        path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-training-slurm/routes/components-left-out-of-bundle.yaml"
+        stagedAs: "routes/components-left-out-of-bundle.yaml"
+        role: "route: components-left-out-of-bundle"
+        sha256: "fb570dde7434f122481182e03a3a09bcee1660cdd0df272380df0d41047c8ca9"
+        bytes: 1975
+      -
+        path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-training-slurm/requirements/target-requirements.yaml"
+        stagedAs: "requirements/target-requirements.yaml"
+        role: "requirement: target"
+        sha256: "5880413fe259dccc7dc19c99a9b914a2e23cf4a280bf3d80a7eb2cb207d8017f"
+        bytes: 5951
+      -
+        path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-training-slurm/space-guide.md"
+        stagedAs: "README.md"
+        role: "space-guide"
+        sha256: "c649ab1d4f1d64dd4b50cb745ae0d233bc2216d9a5c8d60b9f980e42317fe2e0"
+        bytes: 4562
+    reproducible: true
+  needs:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm/aicr-bundle:1.0.0"
+      manifestDigest: "sha256:bccf33d47e612ab8d486ebae8fe2790c736a5418df2b87ebc4b89e83e764924a"
+      plan: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-training-slurm/source-package-oci.yaml"
+  contents:
+    statement: "The artifact holds the retained Argo CD Applications of one entry, its route files, its requirements file and its guide. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/gb200-eks-ubuntu-training-slurm/literal-config-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

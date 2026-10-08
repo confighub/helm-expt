@@ -1,0 +1,36 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-rtx-pro-6000-lke-ubuntu-training-kubeflow-v1-0-0-argocd-source-package"
+spec:
+  catalogEntry: "aicr-rtx-pro-6000-lke-ubuntu-training-kubeflow-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "rtx-pro-6000-lke-ubuntu-training-kubeflow"
+    entry: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow"
+    generationReceipt: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/generation-receipt.yaml"
+    platformDigest: "sha256:339197cb206a936564e1d14642556b0b8491f62dbd93b10441b53f34af47ec54"
+  artifact:
+    role: "source-package"
+    format: "helm-chart-oci"
+    artifactType: "application/vnd.cncf.helm.config.v1+json"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-rtx-pro-6000-lke-ubuntu-training-kubeflow/aicr-bundle:1.0.0"
+    manifestDigest: "sha256:8c98e5c98cb5129570d89d2f5a335f8466f3985a2f88863715537037d9be17eb"
+    layerDigest: "sha256:d8de686e720d5644343a261dd2f61b4f5fd3c2d8aa4c34918377e7ea7a8c48be"
+    layerBytes: 210982
+    layerMediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    fileCount: 49
+    files:
+      inventory: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-helm-bundle-checksums.txt"
+      inventorySha256: "d2cf8bb58341180871263a5ce0d1d353c5d53dabeb824b3eb4caf6f2c7fe6856"
+    reproducible: true
+  contents:
+    statement: "The artifact is the Helm chart AICR generated for this overlay, file for file as the entry retains it. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training-kubeflow/source-package-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

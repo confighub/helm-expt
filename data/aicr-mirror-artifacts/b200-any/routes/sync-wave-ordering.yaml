@@ -1,0 +1,78 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "aicr-b200-any-v1-0-0-argocd-sync-wave-ordering"
+spec:
+  quirkClass: "crd-ordering"
+  routeKind: "apply-ordering"
+  discharges: "The components of a platform install in a dependency order. Without an ordering declaration the Applications would apply in no guaranteed order, and a component would reach the cluster before the one it depends on."
+  declaration:
+    platformRoot:
+      name: "aicr-stack"
+      file: "aicr-stack.yaml"
+      syncWave: "none"
+    stages:
+      -
+        order: 1
+        name: "sync-wave-1"
+        observedSyncWave: 1
+        objectCount: 4
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "cert-manager"
+            - "nfd"
+            - "nodewright-operator"
+            - "prometheus-operator-crds"
+      -
+        order: 2
+        name: "sync-wave-5"
+        observedSyncWave: 5
+        objectCount: 1
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "kube-prometheus-stack"
+      -
+        order: 3
+        name: "sync-wave-9"
+        observedSyncWave: 9
+        objectCount: 3
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "gpu-operator"
+            - "k8s-ephemeral-storage-metrics"
+            - "prometheus-adapter"
+      -
+        order: 4
+        name: "sync-wave-13"
+        observedSyncWave: 13
+        objectCount: 3
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "kai-scheduler"
+            - "nvidia-dra-driver-gpu"
+            - "nvsentinel"
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "the sync-wave annotation each Application carries"
+        proven: false
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 11 rendered Applications, which fall into 4 waves. The recipe the bundle carries deploys 11 components, and 12 of the 12 dependency edges between them hold in those waves."
+    - "The selected recipe also names 1 component the bundle leaves out (dra-node-labeler), and the generation receipt records the reason AICR logged for it. The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it, and a route records the decision a destination has to make."
+    - "No runtime has executed this route. Nothing in the Catalog has synced this Application set on any cluster."
+  provenance:
+    emittedBy: "scripts/generate-aicr-mirror-artifacts.mjs"
+    generatedFrom:
+      - "examples/aicr/b200-any/argocd-rendered/templates"
+      - "examples/aicr/b200-any/argocd-helm-bundle/recipe.yaml"

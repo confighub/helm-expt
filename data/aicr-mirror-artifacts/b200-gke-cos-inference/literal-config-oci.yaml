@@ -1,0 +1,184 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-b200-gke-cos-inference-v1-0-0-argocd-literal-config"
+spec:
+  catalogEntry: "aicr-b200-gke-cos-inference-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "b200-gke-cos-inference"
+    entry: "examples/aicr/b200-gke-cos-inference"
+    generationReceipt: "examples/aicr/b200-gke-cos-inference/generation-receipt.yaml"
+    platformDigest: "sha256:31a66bc3246e9ff9405380a5965d74d772771a64b30c47c7555ec0242a086dfa"
+  artifact:
+    role: "literal-config"
+    format: "config-bundle-oci"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-b200-gke-cos-inference-v1-0-0-argocd:v1.0.0"
+    manifestDigest: "sha256:1c40f475dde711087221408d52ec1b0101259391a5e9454d28437b1ccacfe380"
+    layerDigest: "sha256:c95211b93c7711962ec0af44a703a2d442dc544fd182414139b52335b4e3dc9d"
+    layerBytes: 79388
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    objectCount: 19
+    fileCount: 24
+    files:
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/agentgateway-crds-post.yaml"
+        stagedAs: "agentgateway-crds-post.yaml"
+        role: "argo-cd-application"
+        sha256: "c648ea00402f7d02b6c1aab199c86d227be89fa80264e036c80401c08ad1e759"
+        bytes: 815
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/agentgateway-crds.yaml"
+        stagedAs: "agentgateway-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "c9fe17c9daefff5bd6f6ebf6170e5b4097d1542e1338678853ad61c9e6f5cda6"
+        bytes: 753
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/agentgateway-post.yaml"
+        stagedAs: "agentgateway-post.yaml"
+        role: "argo-cd-application"
+        sha256: "1bb8e0c846830d4e5b06a3b7c795820f419778c1db3cd445f51ea79975cba9ff"
+        bytes: 800
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/agentgateway.yaml"
+        stagedAs: "agentgateway.yaml"
+        role: "argo-cd-application"
+        sha256: "9fc1f144cc5f9c4c41284ae99a62ae6e73212c39145e1f16db304594180bd7fd"
+        bytes: 1394
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/aicr-stack.yaml"
+        stagedAs: "aicr-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "14a0b87d9e98766d6235a66eb5e63f327399a90ff85cb7a991c3d6080d8a7420"
+        bytes: 1109
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/cert-manager.yaml"
+        stagedAs: "cert-manager.yaml"
+        role: "argo-cd-application"
+        sha256: "f914e71520fa6035733258504500e2d5113ab598bec88223b16fadef07324e24"
+        bytes: 2210
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/gcp-driver-installer.yaml"
+        stagedAs: "gcp-driver-installer.yaml"
+        role: "argo-cd-application"
+        sha256: "43b2f473e27c9e2b84efde9c27667a2154ec52afd919388315ebd823f7ad6384"
+        bytes: 801
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/gpu-operator-pre.yaml"
+        stagedAs: "gpu-operator-pre.yaml"
+        role: "argo-cd-application"
+        sha256: "1820494a0797fd895fbc75cfa58a62ac6d9edcb2c6aec1f3edaee2bd692b11d7"
+        bytes: 790
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/gpu-operator.yaml"
+        stagedAs: "gpu-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "5c67a6495047dbaf572bb125c2cc43388c91a51f6889bc8d994dc172d38d9518"
+        bytes: 9077
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml"
+        stagedAs: "k8s-ephemeral-storage-metrics.yaml"
+        role: "argo-cd-application"
+        sha256: "cab5b4fa521c9717a2308e4514bf619b8b0e28e71835219c41e4fac0bbc1c444"
+        bytes: 1587
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/kai-scheduler.yaml"
+        stagedAs: "kai-scheduler.yaml"
+        role: "argo-cd-application"
+        sha256: "8ec1e2779f8d04bfc036c9bdee9d3804fc6ff1f73e4cb5dbbf19dc2c11b1c316"
+        bytes: 1110
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/kube-prometheus-stack.yaml"
+        stagedAs: "kube-prometheus-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "f172a2f871b5a5af81ed96526c70550532d6511154f7582b50f7cff509b425b5"
+        bytes: 3953
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/nfd.yaml"
+        stagedAs: "nfd.yaml"
+        role: "argo-cd-application"
+        sha256: "647155f8ee8ade656bc60fd824ab8189eb76b4fc51d10e1cb904ddda8cbe64e2"
+        bytes: 1630
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/nodewright-customizations.yaml"
+        stagedAs: "nodewright-customizations.yaml"
+        role: "argo-cd-application"
+        sha256: "d0de9b3e9595141d7ebaeef52816b55be6d5b20887c258a7d54955acc609792d"
+        bytes: 815
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/nodewright-operator.yaml"
+        stagedAs: "nodewright-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "2e52210442896eb3c1f34131e419fee82cb41934ae0c3918956991b0e55a21fb"
+        bytes: 1543
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml"
+        stagedAs: "nvidia-dra-driver-gpu.yaml"
+        role: "argo-cd-application"
+        sha256: "acb0d23afc8dac22ff1a3927254baa7f745a704a9af1e29a062310940de74c9d"
+        bytes: 1826
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/nvsentinel.yaml"
+        stagedAs: "nvsentinel.yaml"
+        role: "argo-cd-application"
+        sha256: "8968a6ae6eccb07e71d45f53566aa367c248bfeceb59d36281ac776dfe1e26d3"
+        bytes: 3550
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/prometheus-adapter.yaml"
+        stagedAs: "prometheus-adapter.yaml"
+        role: "argo-cd-application"
+        sha256: "9230caef29fd5778532a2f8bfc0e4a735d3202b6902236a64f376b14dc5f0fe9"
+        bytes: 4867
+      -
+        path: "examples/aicr/b200-gke-cos-inference/argocd-rendered/templates/prometheus-operator-crds.yaml"
+        stagedAs: "prometheus-operator-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+        bytes: 765
+      -
+        path: "data/aicr-mirror-artifacts/b200-gke-cos-inference/routes/sync-wave-ordering.yaml"
+        stagedAs: "routes/sync-wave-ordering.yaml"
+        role: "route: sync-wave-ordering"
+        sha256: "714adf2017a672fe2b924310eadb3814e418d7845551c1bd79bd0f20bd524402"
+        bytes: 3962
+      -
+        path: "data/aicr-mirror-artifacts/b200-gke-cos-inference/routes/system-node-selector-placeholder.yaml"
+        stagedAs: "routes/system-node-selector-placeholder.yaml"
+        role: "route: system-node-selector-placeholder"
+        sha256: "b571b4169d823c48634a3af2450a299f72dedbd1f7fc59e0dc42708c8160ae37"
+        bytes: 5582
+      -
+        path: "data/aicr-mirror-artifacts/b200-gke-cos-inference/routes/components-left-out-of-bundle.yaml"
+        stagedAs: "routes/components-left-out-of-bundle.yaml"
+        role: "route: components-left-out-of-bundle"
+        sha256: "9722bd76876712ad6d97250762b34d9ab46b7b5f67adca1671d12bbf686f6ec1"
+        bytes: 1428
+      -
+        path: "data/aicr-mirror-artifacts/b200-gke-cos-inference/requirements/target-requirements.yaml"
+        stagedAs: "requirements/target-requirements.yaml"
+        role: "requirement: target"
+        sha256: "b3964bc9c6a29f157903ef8e0d8a243483a8516e1b894d50eaec0ea60b0980f0"
+        bytes: 5331
+      -
+        path: "data/aicr-mirror-artifacts/b200-gke-cos-inference/space-guide.md"
+        stagedAs: "README.md"
+        role: "space-guide"
+        sha256: "6663df7fc8f04d453d153923f80cd3cf5ad96a5b03e63f87ab227373215cc8a3"
+        bytes: 4364
+    reproducible: true
+  needs:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-inference/aicr-bundle:1.0.0"
+      manifestDigest: "sha256:189e4662808154bd82fbac0e5e79c742c0de9f9ba2cba221797ffc19d7b8a486"
+      plan: "data/aicr-mirror-artifacts/b200-gke-cos-inference/source-package-oci.yaml"
+  contents:
+    statement: "The artifact holds the retained Argo CD Applications of one entry, its route files, its requirements file and its guide. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/b200-gke-cos-inference/literal-config-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

@@ -1,0 +1,36 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-h100-aks-ubuntu-inference-v1-0-0-argocd-source-package"
+spec:
+  catalogEntry: "aicr-h100-aks-ubuntu-inference-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "h100-aks-ubuntu-inference"
+    entry: "examples/aicr/h100-aks-ubuntu-inference"
+    generationReceipt: "examples/aicr/h100-aks-ubuntu-inference/generation-receipt.yaml"
+    platformDigest: "sha256:afc2feb82b4a29b0bb6d5db2991eddae9ca11a27060ea5edb8658b3fcf09cdc7"
+  artifact:
+    role: "source-package"
+    format: "helm-chart-oci"
+    artifactType: "application/vnd.cncf.helm.config.v1+json"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-h100-aks-ubuntu-inference/aicr-bundle:1.0.0"
+    manifestDigest: "sha256:2496486d838e647772ee6d1b546f8ad07fc9bd92dd57aeea66aadd9cb5b1a70b"
+    layerDigest: "sha256:70b9cfbecab9a953615c551847ff46477625f24d3d274039ef048c90ec17e3a2"
+    layerBytes: 985186
+    layerMediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    fileCount: 75
+    files:
+      inventory: "examples/aicr/h100-aks-ubuntu-inference/argocd-helm-bundle-checksums.txt"
+      inventorySha256: "f2b15b33d8f71290f346d29fd051894989b23cdb67071f5e3a65bd5f98a4db14"
+    reproducible: true
+  contents:
+    statement: "The artifact is the Helm chart AICR generated for this overlay, file for file as the entry retains it. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/h100-aks-ubuntu-inference/source-package-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

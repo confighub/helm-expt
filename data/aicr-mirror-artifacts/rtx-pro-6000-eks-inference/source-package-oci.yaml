@@ -1,0 +1,36 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd-source-package"
+spec:
+  catalogEntry: "aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "rtx-pro-6000-eks-inference"
+    entry: "examples/aicr/rtx-pro-6000-eks-inference"
+    generationReceipt: "examples/aicr/rtx-pro-6000-eks-inference/generation-receipt.yaml"
+    platformDigest: "sha256:4206d49f569c02ea8f5273eee822b427532f89fda30d0e0e500eabe2f12cddbc"
+  artifact:
+    role: "source-package"
+    format: "helm-chart-oci"
+    artifactType: "application/vnd.cncf.helm.config.v1+json"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-rtx-pro-6000-eks-inference/aicr-bundle:1.0.0"
+    manifestDigest: "sha256:d81ac51f30046e65586e504c7faae26d40e4ece336f8f203ad09dbd1dfe25b43"
+    layerDigest: "sha256:c27bc89c7243a8ee2e5a6bdff8fc2514d87154eee6a786394a927d349bff77c0"
+    layerBytes: 946269
+    layerMediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    fileCount: 67
+    files:
+      inventory: "examples/aicr/rtx-pro-6000-eks-inference/argocd-helm-bundle-checksums.txt"
+      inventorySha256: "bb4ab69cabf87041e3a99c1c09287ac3032ca2a93bebc8a6ae3a0f908c2a09b3"
+    reproducible: true
+  contents:
+    statement: "The artifact is the Helm chart AICR generated for this overlay, file for file as the entry retains it. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/rtx-pro-6000-eks-inference/source-package-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"
