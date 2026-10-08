@@ -329,6 +329,100 @@ function trainerRows() {
 }
 
 // ---------------------------------------------------------------------------
+// node-feature-discovery
+// ---------------------------------------------------------------------------
+
+function nodeFeatureDiscoveryRows() {
+  const one = (base, { crds, rationale }) =>
+    row("node-feature-discovery", "node-feature-discovery", "0.19.0", base, {
+      overrides: {
+        "helm-hooks": {
+          detail:
+            "four post-delete hook objects render with this base's values and none is in the base: the prune Job, which runs nfd-master -prune, with its ServiceAccount, ClusterRole and ClusterRoleBinding. The Job removes the labels, annotations, taints and extended resources NFD put on every node",
+          disposition:
+            "packaged lifecycle action under prerequisites/node-feature-discovery-lifecycle, marked not automatic; it has not been run on a cluster. A delete that skips it leaves the node labels in place",
+        },
+        "crd-ordering": {
+          detail: `${crds} CRDs render in this base and no object in the base is an instance of them. The master reads NodeFeatureRule objects and the workers write NodeFeature objects as soon as they start`,
+          disposition: crdBundle,
+        },
+      },
+      lane: "flatten-with-routes",
+      routes: [
+        `CRD ordering declaration: the ${crds} CRDs are established before the master and the workers start, from the packaged CRD bundle`,
+        "post-delete lifecycle action that runs the prune Job, recorded in the package and not yet run",
+      ],
+      rationale,
+      variantScope: [
+        {
+          values: "postDeleteCleanup false",
+          effect: "the four prune hook objects leave the render and with them the post-delete route; node labels then stay on a delete",
+        },
+        {
+          values: "topologyUpdater.enable and topologyUpdater.createCRDs",
+          effect: "add the topology updater DaemonSet with its ServiceAccount, ClusterRole, ClusterRoleBinding and ConfigMap, and the fourth CRD, noderesourcetopologies.topology.node.k8s.io",
+        },
+        {
+          values: "master.nodeSelector, gc.nodeSelector and tolerations",
+          effect: "change where the pods run and move no finding",
+        },
+      ],
+    });
+  const lead =
+    "Hand read of the chart against this base's render, as release nfd in namespace node-feature-discovery. The packaged chart has no lookup, no capability branch, no generated value, no keep annotation, no webhook, no Namespace template and no subchart, and the render agrees: no Secret and no Job. Nothing is decided at render time. What flattening drops is the four post-delete hook objects, and what it needs is the CRDs applied before the master and the workers start. The namespace is named on the namespaced objects and no Namespace object is rendered, so it must exist before the base is applied. The worker (and the topology updater, where it renders) reads the host through hostPath mounts; that is the chart's design and moves no flattening finding.";
+  const aicr = (old) =>
+    `${lead} This base uses the values the AICR ${old ? "v0.20.0" : "v1.0.0"} EKS training entry supplies. Against the default base it adds the topology updater (a DaemonSet, a ServiceAccount, a ClusterRole, a ClusterRoleBinding, a ConfigMap and the noderesourcetopologies CRD, which comes from a chart template and not from the crds directory), gives the worker and the garbage collector a tolerate-everything toleration and gives the master the same in place of the control-plane toleration. ${
+      old
+        ? "The base renders 23 objects."
+        : "It renders the same 23 objects as the v0.20.0 base and adds a nodeGroup: system-worker node selector to the master and the garbage collector."
+    }`;
+  return [
+    one("default", {
+      crds: "three",
+      rationale: `${lead} The base renders 17 objects: 3 CustomResourceDefinitions, 3 ServiceAccounts, 2 ConfigMaps, 2 ClusterRoles, 2 ClusterRoleBindings, 1 Role, 1 RoleBinding, 1 DaemonSet and 2 Deployments.`,
+    }),
+    one("aicr-eks-training-v0-20-0", { crds: "four", rationale: aicr(true) }),
+    one("aicr-eks-training-v1-0-0", { crds: "four", rationale: aicr(false) }),
+  ];
+}
+
+// ---------------------------------------------------------------------------
+// aws-efa-k8s-device-plugin
+// ---------------------------------------------------------------------------
+
+function awsEfaRows() {
+  const one = (base, rationale) =>
+    row("eks", "aws-efa-k8s-device-plugin", "v0.5.29", base, {
+      overrides: {},
+      lane: "safe-to-flatten",
+      routes: [],
+      rationale,
+      variantScope: [
+        {
+          values: "securityContext, nodeSelector, tolerations and supportedInstanceLabels",
+          effect: "change how privileged the pod is and which nodes it lands on; the finding set does not move",
+        },
+        {
+          values: "image.repository and image.tag",
+          effect: "the image is in a regional Amazon ECR registry; another region or another cloud needs the reference changed",
+        },
+      ],
+    });
+  const lead =
+    "Hand read of the chart against this base's render. The packaged chart has one template that renders an object, a DaemonSet, and it has no hook, no lookup, no capability branch, no generated value, no keep annotation, no webhook, no CRD, no Namespace template and no subchart. The render agrees: one DaemonSet, no Secret, no Job and no RBAC. Nothing is decided at render time. The DaemonSet carries no metadata.namespace because the template leaves it to Helm, so the delivery must apply it into kube-system; that is recorded as a precondition, not a route. The pod runs on the host network and mounts the kubelet device plugin directory, /dev/infiniband and /opt/aws/neuron from the host, which is the chart's design.";
+  return [
+    one(
+      "default",
+      `${lead} This base uses the chart defaults, which run the container privileged as user 0 and allow node affinity over the long list of EFA instance types in the chart.`,
+    ),
+    one(
+      "aicr-eks-training",
+      `${lead} This base uses the values both retained AICR EKS training entries supply. They set fullnameOverride to aws-efa-k8s-device-plugin, select the DaemonSet onto nodes labelled nvidia.com/gpu.present, tolerate every taint, match nodes by the nodeGroup and nvidia.com/gpu.present labels instead of the instance type list, and run the container unprivileged with all capabilities dropped. The base has the same one object as the default base.`,
+    ),
+  ];
+}
+
+// ---------------------------------------------------------------------------
 // k8s-ephemeral-storage-metrics
 // ---------------------------------------------------------------------------
 
@@ -580,6 +674,8 @@ export function aicrNestedChartVerdicts() {
     ...draRows("0.4.1"),
     ...draRows("0.5.0"),
     ...trainerRows(),
+    ...nodeFeatureDiscoveryRows(),
+    ...awsEfaRows(),
     ...ephemeralStorageRows(),
     ...ebsRows(),
     ...kubePrometheusStackRows(),

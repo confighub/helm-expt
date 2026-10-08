@@ -48,6 +48,7 @@ recipes/descheduler/descheduler/0.36.0,descheduler,descheduler,0.36.0,current,wi
 recipes/dex/dex/0.24.0,dex,dex,0.24.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/dex-dex-0.24.0.yaml
 recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1,dra-driver-nvidia,dra-driver-nvidia-gpu,0.4.1,current,witness already matches the locked hash,data/flattening-safety/witnesses/dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1.yaml
 recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0,dra-driver-nvidia,dra-driver-nvidia-gpu,0.5.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0.yaml
+recipes/eks/aws-efa-k8s-device-plugin/v0.5.29,eks,aws-efa-k8s-device-plugin,v0.5.29,current,witness already matches the locked hash,data/flattening-safety/witnesses/eks-aws-efa-k8s-device-plugin-v0.5.29.yaml
 recipes/elastic/eck-operator/3.4.0,elastic,eck-operator,3.4.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/elastic-eck-operator-3.4.0.yaml
 recipes/elastic/filebeat/8.5.1,elastic,filebeat,8.5.1,current,witness already matches the locked hash,data/flattening-safety/witnesses/elastic-filebeat-8.5.1.yaml
 recipes/elastic/kibana/8.5.1,elastic,kibana,8.5.1,current,witness already matches the locked hash,data/flattening-safety/witnesses/elastic-kibana-8.5.1.yaml
@@ -118,6 +119,7 @@ recipes/nats/nack/0.34.0,nats,nack,0.34.0,current,witness already matches the lo
 recipes/nats/nats/2.14.0,nats,nats,2.14.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/nats-nats-2.14.0.yaml
 recipes/nats/surveyor/0.20.9,nats,surveyor,0.20.9,current,witness already matches the locked hash,data/flattening-safety/witnesses/nats-surveyor-0.20.9.yaml
 recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18,nfs-subdir-external-provisioner,nfs-subdir-external-provisioner,4.0.18,current,witness already matches the locked hash,data/flattening-safety/witnesses/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18.yaml
+recipes/node-feature-discovery/node-feature-discovery/0.19.0,node-feature-discovery,node-feature-discovery,0.19.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/node-feature-discovery-node-feature-discovery-0.19.0.yaml
 recipes/nvidia/cluster-readiness-engine/v0.6.0,nvidia,cluster-readiness-engine,v0.6.0,current,witness already matches the locked hash,data/flattening-safety/witnesses/nvidia-cluster-readiness-engine-v0.6.0.yaml
 recipes/nvidia/gpu-operator/v25.10.1,nvidia,gpu-operator,v25.10.1,current,witness already matches the locked hash,data/flattening-safety/witnesses/nvidia-gpu-operator-v25.10.1.yaml
 recipes/nvidia/gpu-operator/v26.3.2,nvidia,gpu-operator,v26.3.2,current,witness already matches the locked hash,data/flattening-safety/witnesses/nvidia-gpu-operator-v26.3.2.yaml

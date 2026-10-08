@@ -337,6 +337,11 @@ Each audited chart version gets one receipted answer to one question: what happe
 | kubeflow/kubeflow-trainer | 2.2.0 | default | flatten-with-routes | recipes/kubeflow/kubeflow-trainer/2.2.0/publication/flattening-safety-verdict.yaml |
 | kubeflow/kubeflow-trainer | 2.2.0 | aicr-eks-training-v0-20-0 | flatten-with-routes | recipes/kubeflow/kubeflow-trainer/2.2.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml |
 | kubeflow/kubeflow-trainer | 2.2.0 | aicr-eks-training-v1-0-0 | flatten-with-routes | recipes/kubeflow/kubeflow-trainer/2.2.0/publication/flattening-safety-verdict-aicr-eks-training-v1-0-0.yaml |
+| node-feature-discovery/node-feature-discovery | 0.19.0 | default | flatten-with-routes | recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict.yaml |
+| node-feature-discovery/node-feature-discovery | 0.19.0 | aicr-eks-training-v0-20-0 | flatten-with-routes | recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml |
+| node-feature-discovery/node-feature-discovery | 0.19.0 | aicr-eks-training-v1-0-0 | flatten-with-routes | recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict-aicr-eks-training-v1-0-0.yaml |
+| eks/aws-efa-k8s-device-plugin | v0.5.29 | default | safe-to-flatten | recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/publication/flattening-safety-verdict.yaml |
+| eks/aws-efa-k8s-device-plugin | v0.5.29 | aicr-eks-training | safe-to-flatten | recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/publication/flattening-safety-verdict-aicr-eks-training.yaml |
 | k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics | 1.19.2 | default | safe-to-flatten | recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/flattening-safety-verdict.yaml |
 | k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics | 1.19.2 | aicr-eks-training-v0-20-0 | safe-to-flatten | recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml |
 | k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics | 1.19.2 | aicr-eks-training-v1-0-0 | safe-to-flatten | recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/flattening-safety-verdict-aicr-eks-training-v1-0-0.yaml |
@@ -351,6 +356,6 @@ Each audited chart version gets one receipted answer to one question: what happe
 
 A lane holds for the audited base named in the verdict. The variantScope block records how other values move the finding set; a different base deserves its own verdict, which is why certified bundles key on chart version and recipe variant together.
 
-This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 119 charts here now have that axis answered from source, across 344 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.
+This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 121 charts here now have that axis answered from source, across 349 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.
 
 Witnesses are recorded once per pinned package by scripts/scan-flattening-witness.mjs, which needs the chart tarball and so runs outside the verify chain. Every witness hash is checked against the recipe source-lock here. Regenerate with `npm run flattening-safety`. Verify with `npm run flattening-safety:verify`.

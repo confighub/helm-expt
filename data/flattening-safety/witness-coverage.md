@@ -2,11 +2,11 @@
 
 A witness is a static scan of a packaged chart: what hook annotations, keep policies, lookup calls, capability branches, credential generation, webhook configurations, CRDs, and subchart condition gates it actually contains, each with file-and-line evidence. It states what is in the chart and stops there. Deciding whether the chart may ship as flattened YAML is the flattening-safety verdict's job, and those are recorded separately.
 
-175 of 178 catalog entries have a witness.
+177 of 180 catalog entries have a witness.
 
 | status | entries | meaning |
 | --- | --- | --- |
-| current | 175 | a committed witness already described the locked bytes |
+| current | 177 | a committed witness already described the locked bytes |
 | hash-mismatch | 2 | upstream republished this version under different bytes, so scanning it would describe something the catalog never locked |
 | unavailable | 1 | the pinned artifact could not be fetched |
 
