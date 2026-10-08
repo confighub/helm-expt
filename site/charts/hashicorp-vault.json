@@ -1,0 +1,99 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "hashicorp/vault",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/hashicorp-vault.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/hashicorp-vault.html",
+  "counts": {
+    "versions": 1,
+    "bases": 3
+  },
+  "versions": [
+    {
+      "version": "0.32.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html",
+      "defaultBase": "dev-mode",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292"
+      },
+      "bases": [
+        {
+          "base": "dev-mode",
+          "default": true,
+          "listing": {
+            "id": "hashicorp-vault-0-32-0-dev-mode",
+            "url": "https://confighub.github.io/helm-expt/site/listings/hashicorp-vault-0-32-0-dev-mode.json"
+          },
+          "objectCount": 11,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955",
+            "objectSetDigest": "sha256:f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955"
+          }
+        },
+        {
+          "base": "default",
+          "default": false,
+          "listing": {
+            "id": "hashicorp-vault-0-32-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/hashicorp-vault-0-32-0-default.json"
+          },
+          "objectCount": 12,
+          "verdict": "safe-to-flatten",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978",
+            "objectSetDigest": "sha256:6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978"
+          }
+        },
+        {
+          "base": "ha-raft-ui",
+          "default": false,
+          "listing": {
+            "id": "hashicorp-vault-0-32-0-ha-raft-ui",
+            "url": "https://confighub.github.io/helm-expt/site/listings/hashicorp-vault-0-32-0-ha-raft-ui.json"
+          },
+          "objectCount": 18,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f",
+            "objectSetDigest": "sha256:734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

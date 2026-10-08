@@ -1,0 +1,99 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "external-dns/external-dns",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns.html",
+  "counts": {
+    "versions": 1,
+    "bases": 3
+  },
+  "versions": [
+    {
+      "version": "1.21.1",
+      "page": "https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns-1-21-1.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "external-dns-external-dns-1-21-1-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/external-dns-external-dns-1-21-1-default.json"
+          },
+          "objectCount": 6,
+          "verdict": "flatten-with-routes",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/external-dns/external-dns/1.21.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/external-dns/external-dns/1.21.1/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74",
+            "objectSetDigest": "sha256:764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "external-dns-external-dns-1-21-1-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/external-dns-external-dns-1-21-1-no-crds.json"
+          },
+          "objectCount": 0,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf",
+            "objectSetDigest": "sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf"
+          }
+        },
+        {
+          "base": "dry-run-txt-registry",
+          "default": false,
+          "listing": {
+            "id": "external-dns-external-dns-1-21-1-dry-run-txt-registry",
+            "url": "https://confighub.github.io/helm-expt/site/listings/external-dns-external-dns-1-21-1-dry-run-txt-registry.json"
+          },
+          "objectCount": 0,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:8e3b831abefa8ca2b8754e4beb16fbc1e369965dc95b8f83e1de76cd8f2a3e62",
+            "objectSetDigest": "sha256:8e3b831abefa8ca2b8754e4beb16fbc1e369965dc95b8f83e1de76cd8f2a3e62"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

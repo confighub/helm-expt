@@ -1,0 +1,33 @@
+{
+  "about": "Fixed pairs of retained Catalog files. Each fixture is the output of cub config diff --summary --json for its pair, from cub-workshop 55c51a6. Rewrite them with node scripts/test-vendored-config-diff.mjs --write-fixtures.",
+  "pairs": [
+    {
+      "name": "gpu-operator v25.10.1 to v26.3.3, default base",
+      "before": "recipes/nvidia/gpu-operator/v25.10.1/revisions/default/r001/rendered/release-objects.yaml",
+      "after": "recipes/nvidia/gpu-operator/v26.3.3/revisions/default/r001/rendered/release-objects.yaml",
+      "fixture": "gpu-operator-v25-10-1-to-v26-3-3-default.json",
+      "summary": "0 added, 0 removed, 21 changed, 3 unchanged"
+    },
+    {
+      "name": "gpu-operator v26.3.2 to v26.3.3, default base",
+      "before": "recipes/nvidia/gpu-operator/v26.3.2/revisions/default/r001/rendered/release-objects.yaml",
+      "after": "recipes/nvidia/gpu-operator/v26.3.3/revisions/default/r001/rendered/release-objects.yaml",
+      "fixture": "gpu-operator-v26-3-2-to-v26-3-3-default.json",
+      "summary": "0 added, 0 removed, 7 changed, 17 unchanged"
+    },
+    {
+      "name": "gpu-operator v25.10.1, default base to driver-580.126.20",
+      "before": "recipes/nvidia/gpu-operator/v25.10.1/revisions/default/r001/rendered/release-objects.yaml",
+      "after": "recipes/nvidia/gpu-operator/v25.10.1/revisions/driver-580.126.20/r001/rendered/release-objects.yaml",
+      "fixture": "gpu-operator-v25-10-1-default-to-driver-580-126-20.json",
+      "summary": "0 added, 0 removed, 1 changed, 23 unchanged"
+    },
+    {
+      "name": "redis 25.5.3, default base to reuse-existing-secret",
+      "before": "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml",
+      "after": "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml",
+      "fixture": "redis-25-5-3-default-to-reuse-existing-secret.json",
+      "summary": "0 added, 1 removed, 2 changed, 11 unchanged"
+    }
+  ]
+}

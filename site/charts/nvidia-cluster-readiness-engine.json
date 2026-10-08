@@ -1,0 +1,63 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "nvidia/cluster-readiness-engine",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/nvidia-cluster-readiness-engine.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/nvidia-cluster-readiness-engine.html",
+  "counts": {
+    "versions": 1,
+    "bases": 1
+  },
+  "versions": [
+    {
+      "version": "v0.6.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/nvidia-cluster-readiness-engine-v0-6-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "nvidia-cluster-readiness-engine-v0-6-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-cluster-readiness-engine-v0-6-0-default.json"
+          },
+          "objectCount": 43,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:3d7c5f88d97f8f74f84b7ced2ae32d75fceb9888aa4d2701124eb6beea713170",
+            "objectSetDigest": "sha256:3d7c5f88d97f8f74f84b7ced2ae32d75fceb9888aa4d2701124eb6beea713170"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

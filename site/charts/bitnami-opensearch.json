@@ -1,0 +1,99 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "bitnami/opensearch",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/bitnami-opensearch.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-opensearch.html",
+  "counts": {
+    "versions": 1,
+    "bases": 3
+  },
+  "versions": [
+    {
+      "version": "2.0.10",
+      "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-opensearch-2-0-10.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0"
+      },
+      "bases": [
+        {
+          "base": "legacy",
+          "default": false,
+          "listing": {
+            "id": "bitnami-opensearch-2-0-10-legacy",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-opensearch-2-0-10-legacy.json"
+          },
+          "objectCount": 18,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc",
+            "objectSetDigest": "sha256:ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc"
+          }
+        },
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "bitnami-opensearch-2-0-10-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-opensearch-2-0-10-default.json"
+          },
+          "objectCount": 18,
+          "verdict": "safe-to-flatten",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/opensearch/2.0.10/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/opensearch/2.0.10/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd",
+            "objectSetDigest": "sha256:99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd"
+          }
+        },
+        {
+          "base": "ha",
+          "default": false,
+          "listing": {
+            "id": "bitnami-opensearch-2-0-10-ha",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-opensearch-2-0-10-ha.json"
+          },
+          "objectCount": 0,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564",
+            "objectSetDigest": "sha256:c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

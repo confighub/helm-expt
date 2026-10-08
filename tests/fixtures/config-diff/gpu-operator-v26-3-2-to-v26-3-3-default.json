@@ -1,0 +1,309 @@
+{
+  "schemaVersion": 1,
+  "scope": "local-configuration-diff",
+  "before": {
+    "sha256": "sha256:51c7d8994a0ca9530254b46b3b6eae4fd38baeae4e0504c28f27933a4437950c",
+    "objectCount": 24
+  },
+  "after": {
+    "sha256": "sha256:73ebb5f6de3d1f010330d266db11b99b508be84dfc92b9d5deb01a39b66fee7c",
+    "objectCount": 24
+  },
+  "equal": false,
+  "summary": {
+    "added": 0,
+    "removed": 0,
+    "changed": 7,
+    "unchanged": 17
+  },
+  "changes": [
+    {
+      "object": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "namespace": "gpu-operator",
+        "name": "gpu-operator"
+      },
+      "change": "changed",
+      "fields": [
+        {
+          "path": "/metadata/labels/app.kubernetes.io~1version",
+          "operation": "replace",
+          "before": "v26.3.2",
+          "after": "v26.3.3"
+        },
+        {
+          "path": "/metadata/labels/helm.sh~1chart",
+          "operation": "replace",
+          "before": "gpu-operator-v26.3.2",
+          "after": "gpu-operator-v26.3.3"
+        },
+        {
+          "path": "/spec/template/metadata/labels/app.kubernetes.io~1version",
+          "operation": "replace",
+          "before": "v26.3.2",
+          "after": "v26.3.3"
+        },
+        {
+          "path": "/spec/template/metadata/labels/helm.sh~1chart",
+          "operation": "replace",
+          "before": "gpu-operator-v26.3.2",
+          "after": "gpu-operator-v26.3.3"
+        },
+        {
+          "path": "/spec/template/spec/containers/gpu-operator/image",
+          "operation": "replace",
+          "before": "nvcr.io/nvidia/gpu-operator:v26.3.2",
+          "after": "nvcr.io/nvidia/gpu-operator:v26.3.3"
+        }
+      ]
+    },
+    {
+      "object": {
+        "apiVersion": "nvidia.com/v1",
+        "kind": "ClusterPolicy",
+        "namespace": null,
+        "name": "cluster-policy"
+      },
+      "change": "changed",
+      "fields": [
+        {
+          "path": "/metadata/labels/app.kubernetes.io~1version",
+          "operation": "replace",
+          "before": "v26.3.2",
+          "after": "v26.3.3"
+        },
+        {
+          "path": "/metadata/labels/helm.sh~1chart",
+          "operation": "replace",
+          "before": "gpu-operator-v26.3.2",
+          "after": "gpu-operator-v26.3.3"
+        },
+        {
+          "path": "/spec/daemonsets/labels/helm.sh~1chart",
+          "operation": "replace",
+          "before": "gpu-operator-v26.3.2",
+          "after": "gpu-operator-v26.3.3"
+        },
+        {
+          "path": "/spec/devicePlugin/version",
+          "operation": "replace",
+          "before": "v0.19.2",
+          "after": "v0.19.3"
+        },
+        {
+          "path": "/spec/gfd/version",
+          "operation": "replace",
+          "before": "v0.19.2",
+          "after": "v0.19.3"
+        },
+        {
+          "path": "/spec/nodeStatusExporter/version",
+          "operation": "replace",
+          "before": "v26.3.2",
+          "after": "v26.3.3"
+        },
+        {
+          "path": "/spec/validator/version",
+          "operation": "replace",
+          "before": "v26.3.2",
+          "after": "v26.3.3"
+        }
+      ]
+    },
+    {
+      "object": {
+        "apiVersion": "rbac.authorization.k8s.io/v1",
+        "kind": "ClusterRole",
+        "namespace": null,
+        "name": "gpu-operator"
+      },
+      "change": "changed",
+      "fields": [
+        {
+          "path": "/metadata/labels/app.kubernetes.io~1version",
+          "operation": "replace",
+          "before": "v26.3.2",
+          "after": "v26.3.3"
+        },
+        {
+          "path": "/metadata/labels/helm.sh~1chart",
+          "operation": "replace",
+          "before": "gpu-operator-v26.3.2",
+          "after": "gpu-operator-v26.3.3"
+        }
+      ]
+    },
+    {
+      "object": {
+        "apiVersion": "rbac.authorization.k8s.io/v1",
+        "kind": "ClusterRoleBinding",
+        "namespace": null,
+        "name": "gpu-operator"
+      },
+      "change": "changed",
+      "fields": [
+        {
+          "path": "/metadata/labels/app.kubernetes.io~1version",
+          "operation": "replace",
+          "before": "v26.3.2",
+          "after": "v26.3.3"
+        },
+        {
+          "path": "/metadata/labels/helm.sh~1chart",
+          "operation": "replace",
+          "before": "gpu-operator-v26.3.2",
+          "after": "gpu-operator-v26.3.3"
+        }
+      ]
+    },
+    {
+      "object": {
+        "apiVersion": "rbac.authorization.k8s.io/v1",
+        "kind": "Role",
+        "namespace": "gpu-operator",
+        "name": "gpu-operator"
+      },
+      "change": "changed",
+      "fields": [
+        {
+          "path": "/metadata/labels/app.kubernetes.io~1version",
+          "operation": "replace",
+          "before": "v26.3.2",
+          "after": "v26.3.3"
+        },
+        {
+          "path": "/metadata/labels/helm.sh~1chart",
+          "operation": "replace",
+          "before": "gpu-operator-v26.3.2",
+          "after": "gpu-operator-v26.3.3"
+        }
+      ]
+    },
+    {
+      "object": {
+        "apiVersion": "rbac.authorization.k8s.io/v1",
+        "kind": "RoleBinding",
+        "namespace": "gpu-operator",
+        "name": "gpu-operator"
+      },
+      "change": "changed",
+      "fields": [
+        {
+          "path": "/metadata/labels/app.kubernetes.io~1version",
+          "operation": "replace",
+          "before": "v26.3.2",
+          "after": "v26.3.3"
+        },
+        {
+          "path": "/metadata/labels/helm.sh~1chart",
+          "operation": "replace",
+          "before": "gpu-operator-v26.3.2",
+          "after": "gpu-operator-v26.3.3"
+        }
+      ]
+    },
+    {
+      "object": {
+        "apiVersion": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "gpu-operator",
+        "name": "gpu-operator"
+      },
+      "change": "changed",
+      "fields": [
+        {
+          "path": "/metadata/labels/app.kubernetes.io~1version",
+          "operation": "replace",
+          "before": "v26.3.2",
+          "after": "v26.3.3"
+        },
+        {
+          "path": "/metadata/labels/helm.sh~1chart",
+          "operation": "replace",
+          "before": "gpu-operator-v26.3.2",
+          "after": "gpu-operator-v26.3.3"
+        }
+      ]
+    }
+  ],
+  "comparison": "Object identity includes API version and explicit namespace; mapping and document order ignored, lists of uniquely named items compared item by item by name, every other list compared as a whole value, missing and null distinct. No Kubernetes defaulting or schema interpretation. Secret data and stringData values are replaced by a short hash of each value.",
+  "notChecked": [
+    "Kubernetes schema or admission validity",
+    "upstream merge and protected-field preservation",
+    "target readiness or live drift",
+    "application availability"
+  ],
+  "kindSummary": [
+    {
+      "apiVersion": "apiextensions.k8s.io/v1",
+      "kind": "CustomResourceDefinition",
+      "before": 5,
+      "after": 5,
+      "delta": 0
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "DaemonSet",
+      "before": 1,
+      "after": 1,
+      "delta": 0
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "before": 3,
+      "after": 3,
+      "delta": 0
+    },
+    {
+      "apiVersion": "nvidia.com/v1",
+      "kind": "ClusterPolicy",
+      "before": 1,
+      "after": 1,
+      "delta": 0
+    },
+    {
+      "apiVersion": "rbac.authorization.k8s.io/v1",
+      "kind": "ClusterRole",
+      "before": 3,
+      "after": 3,
+      "delta": 0
+    },
+    {
+      "apiVersion": "rbac.authorization.k8s.io/v1",
+      "kind": "ClusterRoleBinding",
+      "before": 3,
+      "after": 3,
+      "delta": 0
+    },
+    {
+      "apiVersion": "rbac.authorization.k8s.io/v1",
+      "kind": "Role",
+      "before": 2,
+      "after": 2,
+      "delta": 0
+    },
+    {
+      "apiVersion": "rbac.authorization.k8s.io/v1",
+      "kind": "RoleBinding",
+      "before": 2,
+      "after": 2,
+      "delta": 0
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "before": 2,
+      "after": 2,
+      "delta": 0
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ServiceAccount",
+      "before": 2,
+      "after": 2,
+      "delta": 0
+    }
+  ]
+}

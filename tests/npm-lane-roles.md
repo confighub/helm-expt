@@ -9,9 +9,9 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 52
+lanes outside the chain: 53
 should join the chain:   3
-deliberately outside:    49
+deliberately outside:    50
 superseded:              0
 ```
 
@@ -58,6 +58,7 @@ superseded:              0
 | `installer-oci:commands:self-test` | The public command verifier rejects mutable setup and inspect examples while accepting the readable tag-plus-digest form. | offline | the production verifier runs in the full verify chain; this focused lane exercises its refusal cases |
 | `installer-oci:signatures:self-test` | The package-signature verifier rejects changed digests, signer identities, bundles, and transparency-log material. | offline | focused negative test; the production consistency verifier runs in the full chain |
 | `installer-oci:index-signature:self-test` | The signed-index verifier rejects changed index bytes, signer identity, bundle bytes, and missing transparency-log material. | offline | focused negative test; the production consistency verifier runs in the full chain |
+| `site:config-diff:cub:verify` | The browser build of the cub config diff core returns, field for field, what the installed `cub config diff --summary --json` returns for the four fixed pairs of retained files in tests/fixtures/config-diff. The chain runs the same comparison against committed fixtures in site:config-diff:fixtures:verify, which needs no tool. | offline | passes on 2026-10-08 with the cub-workshop plugin at 55c51a6; it needs that plugin installed, and CI carries an older one, so the fixtures stand in for it there |
 | `site:published:verify` | That readers can actually see what main holds: the last GitHub Pages deployment of main concluded in success, and every page the top navigation links is served byte-identical to the committed file. `site:verify` proves neither, and the difference cost thirteen consecutive silent deploy failures (#1465, #1466). | network | green: runs in its own workflow after every push to main and once a day, because it fetches the live site and reads the Actions API |
 | `skills:verify` | The six internal helm-expt operating guides and the public ConfigHub Workshop agent skill satisfy their required content, terminology, task-contract, publication, and discovery checks. | offline | passes; this focused lane checks all repository skills together |
 | `agent-skill:verify` | The ConfigHub Workshop agent skill, cross-format processing reference, task playbook, seven task contracts, published copies, and discovery index remain complete and internally consistent; it does not claim that an agent completed those tasks successfully. | offline | passes; this focused lane checks the public agent contract and its published copy directly |

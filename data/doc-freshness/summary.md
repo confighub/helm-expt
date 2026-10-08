@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-08 (commit `12040dc5c1`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-08 (commit `ccfb390d81`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 464 |
-| Fresh (no linked source newer than the doc) | 62 |
-| **Review-due** | 98 |
+| Fresh (no linked source newer than the doc) | 63 |
+| **Review-due** | 97 |
 | No linked evidence sources (cannot auto-trigger) | 304 |
 
 ## Review queue
@@ -46,13 +46,13 @@ most recently changed triggers.
 | [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 119 | `CATALOG.md (2026-10-08)`<br>`data/attack-plan-workdown/summary.md (2026-10-08)`<br>`data/image-digest-workdown/summary.md (2026-10-08)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 118 | `data/top100-readiness/summary.md (2026-10-08)`<br>`data/top100-user-readiness/summary.md (2026-10-08)`<br>`data/top20-base-readiness/start-here.md (2026-08-26)` |
 | [docs/reference/secret-lifecycle.md](../../docs/reference/secret-lifecycle.md) | reference | 2026-06-13 | 117 | `data/secret-lifecycle/summary.md (2026-10-08)`<br>`data/secret-lifecycle/variant-summary.csv (2026-10-08)`<br>`data/secret-lifecycle/secrets.csv (2026-10-01)` |
-| [docs/reference/variant-promotion-model.md](../../docs/reference/variant-promotion-model.md) | reference | 2026-06-14 | 117 | `data/variant-promotion/summary.md (2026-10-08)` |
 | [docs/user/remote-images-and-supported-bases.md](../../docs/user/remote-images-and-supported-bases.md) | user | 2026-06-16 | 115 | `data/image-digest-workdown/summary.md (2026-10-08)`<br>`data/remote-image-runtime-workdown/summary.md (2026-06-24)` |
 | [docs/planning/next-20-tasks.md](../../docs/planning/next-20-tasks.md) | planning | 2026-06-16 | 114 | `data/outcome-coverage/summary.md (2026-10-08)`<br>`data/claims-register/summary.md (2026-08-24)`<br>`data/variant-goldens/derived-expansion-wave/README.md (2026-06-30)` |
 | [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-18 | 113 | `data/master-catalog-matrix/matrix.csv (2026-10-08)`<br>`data/master-catalog-matrix/matrix.html (2026-10-08)`<br>`data/master-catalog-matrix/summary.md (2026-10-08)` |
 | [docs/user/reading-the-matrix.md](../../docs/user/reading-the-matrix.md) | user | 2026-06-18 | 113 | `data/live-matrix-burndown/summary.md (2026-10-08)`<br>`data/master-catalog-matrix/matrix.html (2026-10-08)`<br>`data/lifecycle-route-actions/summary.md (2026-10-01)` |
 | [docs/user/extension-slots.md](../../docs/user/extension-slots.md) | user | 2026-06-11 | 112 | `data/extension-slots/extension-slots.csv (2026-10-01)`<br>`data/extension-slots/summary.md (2026-10-01)` |
 | [docs/user/nginx-configuration-files.md](../../docs/user/nginx-configuration-files.md) | user | 2026-06-11 | 112 | `data/extension-slots/summary.md (2026-10-01)` |
+| [docs/planning/chart-claim-integrity-audit-2026-06-22.md](../../docs/planning/chart-claim-integrity-audit-2026-06-22.md) | planning | 2026-06-23 | 108 | `scripts/verify-chart-claim-integrity.mjs (2026-10-08)`<br>`tests/persona-ux-strategy.md (2026-08-21)`<br>`data/chart-claim-integrity-audit-2026-06-22/summary.md (2026-07-02)` |
 | [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-23 | 108 | `CATALOG.md (2026-10-08)`<br>`data/attack-plan-workdown/summary.md (2026-10-08)`<br>`data/chart-facts/summary.md (2026-10-08)` |
 | [docs/planning/user-journey-test-pathways-plan.md](../../docs/planning/user-journey-test-pathways-plan.md) | planning | 2026-06-21 | 104 | `tests/README.md (2026-10-02)` |
 | [docs/user/pathway-route-hooks-transparently.md](../../docs/user/pathway-route-hooks-transparently.md) | user | 2026-06-21 | 104 | `tests/README.md (2026-10-02)` |
@@ -73,7 +73,6 @@ most recently changed triggers.
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md) | demo | 2026-08-08 | 61 | `data/aicr-platform-evidence/summary.md (2026-10-07)`<br>`data/aicr-version-diff/summary.md (2026-09-10)`<br>`data/aicr-ordering-parity/summary.md (2026-08-22)` |
 | [docs/planning/dedicated-website-plan.md](../../docs/planning/dedicated-website-plan.md) | planning | 2026-06-22 | 61 | `tests/persona-ux-strategy.md (2026-08-21)` |
 | [docs/planning/persona-ux-rerun-2026-06-22.md](../../docs/planning/persona-ux-rerun-2026-06-22.md) | planning | 2026-06-22 | 61 | `tests/persona-ux-strategy.md (2026-08-21)` |
-| [docs/planning/chart-claim-integrity-audit-2026-06-22.md](../../docs/planning/chart-claim-integrity-audit-2026-06-22.md) | planning | 2026-06-23 | 60 | `tests/persona-ux-strategy.md (2026-08-21)`<br>`scripts/verify-chart-claim-integrity.mjs (2026-08-09)`<br>`data/chart-claim-integrity-audit-2026-06-22/summary.md (2026-07-02)` |
 | [docs/reference/certified-bundle-spec.md](../../docs/reference/certified-bundle-spec.md) | reference | 2026-08-09 | 60 | `data/certified-bundles/summary.md (2026-10-07)`<br>`tests/doctrine.md (2026-09-02)` |
 | [docs/reference/residue-families.md](../../docs/reference/residue-families.md) | reference | 2026-08-02 | 60 | `data/lifecycle-route-actions/summary.md (2026-10-01)` |
 | [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) | user | 2026-08-02 | 60 | `data/lifecycle-route-actions/summary.md (2026-10-01)`<br>`data/kps-lifecycle-route-proof/summary.md (2026-08-25)`<br>`data/lifecycle-routes/summary.md (2026-08-25)` |

@@ -1,0 +1,81 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "jetstack/trust-manager",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager.html",
+  "counts": {
+    "versions": 1,
+    "bases": 2
+  },
+  "versions": [
+    {
+      "version": "v0.22.1",
+      "page": "https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager-v0-22-1.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1@sha256:dbdd2e3fbce82f520467f23eb6e0f10d745fd608b3f3a1e117f3238ea41f104e"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "jetstack-trust-manager-v0-22-1-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/jetstack-trust-manager-v0-22-1-default.json"
+          },
+          "objectCount": 14,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683",
+            "objectSetDigest": "sha256:50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "jetstack-trust-manager-v0-22-1-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/jetstack-trust-manager-v0-22-1-no-crds.json"
+          },
+          "objectCount": 0,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250",
+            "objectSetDigest": "sha256:5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

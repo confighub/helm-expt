@@ -1,0 +1,212 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "bitnami/postgresql",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql.html",
+  "counts": {
+    "versions": 3,
+    "bases": 6
+  },
+  "versions": [
+    {
+      "version": "18.7.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-7-0.html",
+      "defaultBase": "existing-secret",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0@sha256:cf2cfeae128c4ede5cfa9ac65bdf241b557d59a1badacdd107e044caadb0d353"
+      },
+      "bases": [
+        {
+          "base": "static-passwords",
+          "default": false,
+          "listing": {
+            "id": "bitnami-postgresql-18-7-0-static-passwords",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-postgresql-18-7-0-static-passwords.json"
+          },
+          "objectCount": 7,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:e640101bb1c3c9ee519e04bfb6e28254f7a894c6f49b394e73756b351e5b57d1",
+            "objectSetDigest": "sha256:e640101bb1c3c9ee519e04bfb6e28254f7a894c6f49b394e73756b351e5b57d1"
+          }
+        },
+        {
+          "base": "existing-secret",
+          "default": true,
+          "listing": {
+            "id": "bitnami-postgresql-18-7-0-existing-secret",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-postgresql-18-7-0-existing-secret.json"
+          },
+          "objectCount": 6,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/postgresql/18.7.0/revisions/existing-secret/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/postgresql/18.7.0/revisions/existing-secret/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:bdcfa750a9553ede16f5718d0189d3616820e3ba1422eb82a8217f54c3c70dd2",
+            "objectSetDigest": "sha256:bdcfa750a9553ede16f5718d0189d3616820e3ba1422eb82a8217f54c3c70dd2"
+          }
+        }
+      ]
+    },
+    {
+      "version": "18.6.10",
+      "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-6-10.html",
+      "defaultBase": "existing-secret",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.10@sha256:5ae84bf8515f296f114547dc6e66c326593b7bdb93b0bafc77bdeb278831129c"
+      },
+      "bases": [
+        {
+          "base": "static-passwords",
+          "default": false,
+          "listing": {
+            "id": "bitnami-postgresql-18-6-10-static-passwords",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-postgresql-18-6-10-static-passwords.json"
+          },
+          "objectCount": 7,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:3813cd50ce20e68fab8ac09137d36e9164c718df62da7eb0b3df35ede0ce7f69",
+            "objectSetDigest": "sha256:3813cd50ce20e68fab8ac09137d36e9164c718df62da7eb0b3df35ede0ce7f69"
+          }
+        },
+        {
+          "base": "existing-secret",
+          "default": true,
+          "listing": {
+            "id": "bitnami-postgresql-18-6-10-existing-secret",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-postgresql-18-6-10-existing-secret.json"
+          },
+          "objectCount": 6,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:dfbd333f2a1842ca8af06c501cf0b9719fd1b121fc5ee87b78a1cd3253f9497a",
+            "objectSetDigest": "sha256:dfbd333f2a1842ca8af06c501cf0b9719fd1b121fc5ee87b78a1cd3253f9497a"
+          }
+        }
+      ]
+    },
+    {
+      "version": "18.6.7",
+      "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-6-7.html",
+      "defaultBase": "existing-secret",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:fccd0da443cb3d0360e6a15f6ada67162f04261da38a071eaad2e97786b307d8"
+      },
+      "bases": [
+        {
+          "base": "static-passwords",
+          "default": false,
+          "listing": {
+            "id": "bitnami-postgresql-18-6-7-static-passwords",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-postgresql-18-6-7-static-passwords.json"
+          },
+          "objectCount": 7,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:db49bd6d27e0deaed0b9e314f0527bc2d9468b7be10f9bbdaad14593f0b65a6b",
+            "objectSetDigest": "sha256:db49bd6d27e0deaed0b9e314f0527bc2d9468b7be10f9bbdaad14593f0b65a6b"
+          }
+        },
+        {
+          "base": "existing-secret",
+          "default": true,
+          "listing": {
+            "id": "bitnami-postgresql-18-6-7-existing-secret",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-postgresql-18-6-7-existing-secret.json"
+          },
+          "objectCount": 6,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:595ce44f8c11b10ad1817bf57141529864efd48318a6a97a6e914d3669bb90dd",
+            "objectSetDigest": "sha256:595ce44f8c11b10ad1817bf57141529864efd48318a6a97a6e914d3669bb90dd"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "18.6.10",
+        "base": "existing-secret",
+        "listing": "bitnami-postgresql-18-6-10-existing-secret"
+      },
+      "to": {
+        "version": "18.7.0",
+        "base": "existing-secret",
+        "listing": "bitnami-postgresql-18-7-0-existing-secret"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 6,
+      "unchanged": 0,
+      "line": "From 18.6.10 to 18.7.0 on the existing-secret base, 6 of 6 objects change."
+    },
+    {
+      "from": {
+        "version": "18.6.7",
+        "base": "existing-secret",
+        "listing": "bitnami-postgresql-18-6-7-existing-secret"
+      },
+      "to": {
+        "version": "18.6.10",
+        "base": "existing-secret",
+        "listing": "bitnami-postgresql-18-6-10-existing-secret"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 6,
+      "unchanged": 0,
+      "line": "From 18.6.7 to 18.6.10 on the existing-secret base, 6 of 6 objects change."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}
