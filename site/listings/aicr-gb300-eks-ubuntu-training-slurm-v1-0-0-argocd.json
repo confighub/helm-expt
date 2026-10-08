@@ -542,6 +542,16 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb300-eks-ubuntu-training-slurm/sync-wave-ordering.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-slurm/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-slurm/literal-config-oci.yaml"
+      },
+      {
+        "name": "sourcePackagePlan",
+        "path": "data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-slurm/source-package-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-slurm/source-package-oci.yaml"
+      },
+      {
         "name": "entryPage",
         "path": "docs/demo/aicr/gb300-eks-ubuntu-training-slurm.md",
         "url": "https://github.com/confighub/helm-expt/blob/main/docs/demo/aicr/gb300-eks-ubuntu-training-slurm.md"
@@ -588,10 +598,6 @@
         "value": "base > monitoring-hpa > gb300-any > eks > eks-ubuntu > eks-training > gb300-eks-training > gb300-eks-ubuntu-training > gb300-eks-ubuntu-training-slurm"
       },
       {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-slurm/literal-config-oci.yaml"
-      },
-      {
         "name": "overlayParentEntries",
         "value": "aicr-gb300-any-v1-0-0-argocd, aicr-eks-v1-0-0-argocd, aicr-eks-ubuntu-v1-0-0-argocd, aicr-eks-training-v1-0-0-argocd, aicr-gb300-eks-training-v1-0-0-argocd, aicr-gb300-eks-ubuntu-training-v1-0-0-argocd"
       },
@@ -602,10 +608,6 @@
       {
         "name": "retention",
         "value": "retained-and-rendered-not-published-not-deployed"
-      },
-      {
-        "name": "sourcePackagePlan",
-        "value": "data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-slurm/source-package-oci.yaml"
       }
     ]
   },

@@ -542,6 +542,16 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb300-eks-training/sync-wave-ordering.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-mirror-artifacts/gb300-eks-training/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/gb300-eks-training/literal-config-oci.yaml"
+      },
+      {
+        "name": "sourcePackagePlan",
+        "path": "data/aicr-mirror-artifacts/gb300-eks-training/source-package-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/gb300-eks-training/source-package-oci.yaml"
+      },
+      {
         "name": "entryPage",
         "path": "docs/demo/aicr/gb300-eks-training.md",
         "url": "https://github.com/confighub/helm-expt/blob/main/docs/demo/aicr/gb300-eks-training.md"
@@ -588,10 +598,6 @@
         "value": "base > monitoring-hpa > gb300-any > eks > eks-training > gb300-eks-training"
       },
       {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-mirror-artifacts/gb300-eks-training/literal-config-oci.yaml"
-      },
-      {
         "name": "overlayDependentEntryCount",
         "value": "3"
       },
@@ -606,10 +612,6 @@
       {
         "name": "retention",
         "value": "retained-and-rendered-not-published-not-deployed"
-      },
-      {
-        "name": "sourcePackagePlan",
-        "value": "data/aicr-mirror-artifacts/gb300-eks-training/source-package-oci.yaml"
       }
     ]
   },

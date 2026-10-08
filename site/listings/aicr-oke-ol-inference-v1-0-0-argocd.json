@@ -542,6 +542,16 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-oke-ol-inference/sync-wave-ordering.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-mirror-artifacts/oke-ol-inference/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/oke-ol-inference/literal-config-oci.yaml"
+      },
+      {
+        "name": "sourcePackagePlan",
+        "path": "data/aicr-mirror-artifacts/oke-ol-inference/source-package-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/oke-ol-inference/source-package-oci.yaml"
+      },
+      {
         "name": "entryPage",
         "path": "docs/demo/aicr/oke-ol-inference.md",
         "url": "https://github.com/confighub/helm-expt/blob/main/docs/demo/aicr/oke-ol-inference.md"
@@ -588,10 +598,6 @@
         "value": "base > monitoring-hpa > oke-ol > oke-ol-inference"
       },
       {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-mirror-artifacts/oke-ol-inference/literal-config-oci.yaml"
-      },
-      {
         "name": "overlayDependentEntryCount",
         "value": "4"
       },
@@ -606,10 +612,6 @@
       {
         "name": "retention",
         "value": "retained-and-rendered-not-published-not-deployed"
-      },
-      {
-        "name": "sourcePackagePlan",
-        "value": "data/aicr-mirror-artifacts/oke-ol-inference/source-package-oci.yaml"
       }
     ]
   },

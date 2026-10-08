@@ -547,53 +547,60 @@
   <header class="hero human-hero">
     
     <h1>The rtx-pro-6000-eks-inference overlay, mirrored as a catalog entry</h1>
-    <p class="lead">Criteria <code>--service eks --accelerator rtx-pro-6000 --intent inference</code> resolves six overlays into 16 components, and the Argo CD bundle renders into 19 Applications (one platform root plus one Application per rendered component, and some components render more than one Application for their own pre- or post-install step). <a href="../../../../../docs/demo/aicr/rtx-pro-6000-eks-inference.md">View source markdown</a>.</p>
+    <p class="lead">Criteria <code>--service eks --accelerator rtx-pro-6000 --intent inference</code> resolves six overlays into 17 components, and the Argo CD bundle renders into 19 Applications (one platform root plus one Application per rendered component, and some components render more than one Application for their own pre- or post-install step). <a href="../../../../../docs/demo/aicr/rtx-pro-6000-eks-inference.md">View source markdown</a>.</p>
     <p class="entry-steps-link"><a href="#use-in-confighub">Use this entry in ConfigHub</a> in five steps, from fetching its exact objects to promoting a change.</p>
   </header>
   <main>
     <article class="doc-body">
-<p>UNOFFICIAL/EXPERIMENTAL. This entry belongs to <a href="index.html">the AICR catalog overview</a>. It was produced by <code>scripts/generate-aicr-from-overlay.mjs rtx-pro-6000-eks-inference</code>, which mirrors an overlay from NVIDIA's AICR recipe catalog into a Catalog entry. Its source is pinned by digest, its render is checked, and one digest covers the whole rendered shape. That shape is the Argo CD wrapper only. The charts its Applications point at are not rendered or assessed here, the entry is not published, and it has never run on a cluster.</p>
+<p>UNOFFICIAL/EXPERIMENTAL. This entry belongs to <a href="index.html">the AICR catalog overview</a>. It was produced by <code>scripts/generate-aicr-from-overlay.mjs rtx-pro-6000-eks-inference</code>, which mirrors an overlay from NVIDIA's AICR recipe catalog into a Catalog entry. Its source is pinned by digest, its bundle is retained, its render is checked, and one digest covers the whole rendered shape. That shape is the Argo CD wrapper only. The charts its Applications point at are not rendered or assessed here, and the entry has never run on a cluster.</p>
 <h2 id="what-it-is">What it is</h2>
 
-<pre><code>aicr recipe --service eks --accelerator rtx-pro-6000 --intent inference --output recipe.yaml
+<p>The bundle leaves out dra-node-labeler, which the recipe selects, and the generation receipt records the reason AICR logged for it.</p>
+<pre><code>aicr recipe --criteria-strict --service eks --accelerator rtx-pro-6000 --intent inference --output recipe.yaml
 aicr bundle --recipe recipe.yaml --deployer argocd-helm --output ./argocd-helm-bundle \
-  --storage-class gp3 --accelerated-node-selector nvidia.com/gpu.present=true \
-  --workload-selector app.kubernetes.io/part-of=inference
+  --storage-class gp3 \
+  --accelerated-node-selector nvidia.com/gpu.present=true \
+  --workload-selector app.kubernetes.io/part-of=inference \
+  --system-node-selector nodeGroup=system-worker
 helm template aicr-argocd ./argocd-helm-bundle --namespace argocd \
-  --set repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt --output-dir rendered</code></pre>
-<p>The <a href="../../../../../examples/aicr/rtx-pro-6000-eks-inference/generation-receipt.yaml">generation receipt</a> records the exact commands, the criteria, and the release binary this entry was built with: AICR v0.21.0, verified against the checksum published in that release before it ran.</p>
+  --set repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-rtx-pro-6000-eks-inference --output-dir rendered</code></pre>
+<p>The <a href="../../../../../examples/aicr/rtx-pro-6000-eks-inference/generation-receipt.yaml">generation receipt</a> records the exact commands, the criteria, and the release binary this entry was built with. That binary is AICR v1.0.0, and it was checked against a pinned SHA-256 before it ran.</p>
+<h2 id="inputs-you-have-to-check">Inputs you have to check</h2>
+<p>AICR v1.0.0 refuses to write this bundle without a system node selector. The entry carries <code>nodeGroup=system-worker</code> as a placeholder. It stands in for the label on your own cluster's system node group, and it is not a claim about any cluster. The <a href="../../../../../examples/aicr/rtx-pro-6000-eks-inference/generation-receipt.yaml">generation receipt</a> lists every place it lands in the rendered Applications and in the bundle. A different value changes the bundle bytes and every digest in this entry, so the entry has to be regenerated with your value, or a variant has to be made from it.</p>
+<h2 id="what-the-entry-retains">What the entry retains</h2>
+<p>The <a href="../../../../../examples/aicr/rtx-pro-6000-eks-inference/argocd-helm-bundle">retained bundle</a> is the Helm chart AICR generated, byte for byte, and <a href="../../../../../examples/aicr/rtx-pro-6000-eks-inference/argocd-helm-bundle-checksums.txt">its checksum list</a> names every file in it. The rendered Applications take their source from <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-rtx-pro-6000-eks-inference/aicr-bundle:1.0.0</code>, which is the address a publication of that bundle uses.</p>
 <h2 id="one-digest-pins-this-entry-too">One digest pins this entry too</h2>
 <pre><code>node scripts/generate-aicr-digest-index.mjs --verify --example rtx-pro-6000-eks-inference</code></pre>
 <p>The <a href="../../../examples/aicr/rtx-pro-6000-eks-inference/digest-index/README.html">digest index</a> pins the upstream source, the recipe criteria, and all 19 Applications under one platform digest. The compiler is a generic one shared by every entry in this catalog, not something built new for this one.</p>
 <h2 id="what-is-proven-and-what-is-not">What is proven and what is not</h2>
-<p>Proven: the entry was generated by a binary verified against a checksum pinned before it ran, the recipe and every rendered Application are retained byte for byte, and one digest pins the shape.</p>
-<p>Not proven, and stated rather than implied: this entry was never published, so it carries no public digest and no OCI transport receipts, and the repository reference in its Applications is what a publication would use rather than a record that one happened. No ConfigHub import or promotion exists for it, no cluster ever ran it, and no NGC surface was contacted.</p>
+<p>The entry was generated by a binary checked against a pinned SHA-256 before it ran. The recipe, the bundle and every rendered Application are retained byte for byte, and one digest pins the shape.</p>
+<p>This page does not say whether the entry's source package or its literal configuration bundle is published. Each counts as published only when a tracked receipt records a push and an anonymous pull of the planned digest, and the entry's Catalog record carries that state. No ConfigHub import or promotion exists for this entry, no cluster ever ran it, and no NGC surface was contacted.</p>
     </article>
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
       <p>Steps 1 and 2 need no account.</p>
-      <div data-entry-steps="aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd">
+      <div data-entry-steps="aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd">
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 19 Argo CD Applications as files that one inventory lists.</p>
           <pre class="terminal-body"><code><span class="term-comment"># make the directories the inventory names</span>
-<span class="term-prompt">$</span> mkdir -p aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd/templates
+<span class="term-prompt">$</span> mkdir -p aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd/templates
 
 <span class="term-comment"># fetch the inventory, then every file it lists</span>
-<span class="term-prompt">$</span> curl -fsSL -o aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd/checksums.txt https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/rtx-pro-6000-eks-inference/argocd-rendered/checksums.txt
+<span class="term-prompt">$</span> curl -fsSL -o aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd/checksums.txt https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/rtx-pro-6000-eks-inference/argocd-rendered/checksums.txt
 
-<span class="term-prompt">$</span> cut -c67- aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd/checksums.txt | xargs -I{} curl -fsSL -o aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd/{} https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/rtx-pro-6000-eks-inference/argocd-rendered/{}
+<span class="term-prompt">$</span> cut -c67- aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd/checksums.txt | xargs -I{} curl -fsSL -o aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd/{} https://raw.githubusercontent.com/confighub/helm-expt/main/examples/aicr/rtx-pro-6000-eks-inference/argocd-rendered/{}
 
 <span class="term-comment"># check every file against the inventory</span>
-<span class="term-prompt">$</span> (cd aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd &amp;&amp; shasum -a 256 -c checksums.txt)
+<span class="term-prompt">$</span> (cd aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd &amp;&amp; shasum -a 256 -c checksums.txt)
 
 <span class="term-comment"># check the inventory against the listing digest</span>
-<span class="term-prompt">$</span> shasum -a 256 aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd/checksums.txt
-dd8a92b805b5d6c878e28bab46fd2525482d5227bbb142005ed91776e5cb7c91  aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd/checksums.txt
+<span class="term-prompt">$</span> shasum -a 256 aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd/checksums.txt
+d76d004a152d2e0879043b6a6a18c4427e237a9d1804bb921425cc0fb301a9ba  aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd/checksums.txt
 
 <span class="term-comment"># join the files into one for step 2</span>
-<span class="term-prompt">$</span> cat aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd/templates/*.yaml &gt; aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd.yaml</code></pre>
+<span class="term-prompt">$</span> cat aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd/templates/*.yaml &gt; aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd.yaml</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-available">
           <h3>2. Compare with another version or base <span class="status none">Not available yet</span></h3>
@@ -612,12 +619,12 @@ dd8a92b805b5d6c878e28bab46fd2525482d5227bbb142005ed91776e5cb7c91  aicr-rtx-pro-6
           <p>This step needs an upload command from step 3, and this entry has none. A published artifact for this entry, with a receipt, would make this step available.</p>
         </div>
       </div>
-      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../../../../listings/aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd.json">aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub.</aside>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../../../../listings/aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd.json">aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub.</aside>
     </section>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/demo/aicr/rtx-pro-6000-eks-inference.md</code>. The source file is the authoritative version.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#what-it-is">What it is</a></li><li><a href="#one-digest-pins-this-entry-too">One digest pins this entry too</a></li><li><a href="#what-is-proven-and-what-is-not">What is proven and what is not</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#what-it-is">What it is</a></li><li><a href="#inputs-you-have-to-check">Inputs you have to check</a></li><li><a href="#what-the-entry-retains">What the entry retains</a></li><li><a href="#one-digest-pins-this-entry-too">One digest pins this entry too</a></li><li><a href="#what-is-proven-and-what-is-not">What is proven and what is not</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>

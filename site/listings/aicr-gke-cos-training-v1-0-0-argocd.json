@@ -542,6 +542,16 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gke-cos-training/sync-wave-ordering.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-mirror-artifacts/gke-cos-training/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/gke-cos-training/literal-config-oci.yaml"
+      },
+      {
+        "name": "sourcePackagePlan",
+        "path": "data/aicr-mirror-artifacts/gke-cos-training/source-package-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/gke-cos-training/source-package-oci.yaml"
+      },
+      {
         "name": "entryPage",
         "path": "docs/demo/aicr/gke-cos-training.md",
         "url": "https://github.com/confighub/helm-expt/blob/main/docs/demo/aicr/gke-cos-training.md"
@@ -588,10 +598,6 @@
         "value": "base > monitoring-hpa > gke-cos > gke-cos-training"
       },
       {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-mirror-artifacts/gke-cos-training/literal-config-oci.yaml"
-      },
-      {
         "name": "overlayDependentEntryCount",
         "value": "9"
       },
@@ -606,10 +612,6 @@
       {
         "name": "retention",
         "value": "retained-and-rendered-not-published-not-deployed"
-      },
-      {
-        "name": "sourcePackagePlan",
-        "value": "data/aicr-mirror-artifacts/gke-cos-training/source-package-oci.yaml"
       }
     ]
   },

@@ -88,7 +88,8 @@
     "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/checksums.txt",
     "digestRecord": "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/checksums.txt",
     "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/checksums.txt",
-    "verdictRecord": "data/aicr-flattening-verdicts/aicr-gb200-gke-cos-training-kubeflow/flattening-safety-verdict.yaml"
+    "verdictRecord": "data/aicr-flattening-verdicts/aicr-gb200-gke-cos-training-kubeflow/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-gke-cos-training-kubeflow/flattening-safety-verdict.yaml"
   },
   "oci": {
     "sourcePackageRef": "",
@@ -331,7 +332,13 @@
         "orderHint": 4
       }
     ],
-    "records": []
+    "records": [
+      {
+        "name": "sync-wave-ordering.yaml",
+        "path": "data/aicr-flattening-verdicts/aicr-gb200-gke-cos-training-kubeflow/sync-wave-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-gke-cos-training-kubeflow/sync-wave-ordering.yaml"
+      }
+    ]
   },
   "lifecycle": {
     "installTimeStatus": "destination-facts-recorded-not-run-placeholder-input-recorded",
@@ -497,7 +504,13 @@
           "The exact candidate configuration",
           "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
         ],
-        "records": []
+        "records": [
+          {
+            "name": "sync-wave-ordering.yaml",
+            "path": "data/aicr-flattening-verdicts/aicr-gb200-gke-cos-training-kubeflow/sync-wave-ordering.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-gke-cos-training-kubeflow/sync-wave-ordering.yaml"
+          }
+        ]
       },
       {
         "id": "post-deployment",
@@ -518,6 +531,26 @@
   },
   "evidence": {
     "links": [
+      {
+        "name": "flatteningVerdict",
+        "path": "data/aicr-flattening-verdicts/aicr-gb200-gke-cos-training-kubeflow/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-gke-cos-training-kubeflow/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "orderingRoute",
+        "path": "data/aicr-flattening-verdicts/aicr-gb200-gke-cos-training-kubeflow/sync-wave-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-gke-cos-training-kubeflow/sync-wave-ordering.yaml"
+      },
+      {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/literal-config-oci.yaml"
+      },
+      {
+        "name": "sourcePackagePlan",
+        "path": "data/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/source-package-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/source-package-oci.yaml"
+      },
       {
         "name": "entryPage",
         "path": "docs/demo/aicr/gb200-gke-cos-training-kubeflow.md",
@@ -565,18 +598,6 @@
         "value": "base > monitoring-hpa > gb200-any > gke-cos > gke-cos-training > gb200-gke-cos-training > gb200-gke-cos-training-kubeflow"
       },
       {
-        "name": "flatteningVerdict",
-        "value": "data/aicr-flattening-verdicts/aicr-gb200-gke-cos-training-kubeflow/flattening-safety-verdict.yaml"
-      },
-      {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/literal-config-oci.yaml"
-      },
-      {
-        "name": "orderingRoute",
-        "value": "data/aicr-flattening-verdicts/aicr-gb200-gke-cos-training-kubeflow/sync-wave-ordering.yaml"
-      },
-      {
         "name": "overlayParentEntries",
         "value": "aicr-gb200-any-v1-0-0-argocd, aicr-gke-cos-v1-0-0-argocd, aicr-gke-cos-training-v1-0-0-argocd, aicr-gb200-gke-cos-training-v1-0-0-argocd"
       },
@@ -587,10 +608,6 @@
       {
         "name": "retention",
         "value": "retained-and-rendered-not-published-not-deployed"
-      },
-      {
-        "name": "sourcePackagePlan",
-        "value": "data/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/source-package-oci.yaml"
       }
     ]
   },

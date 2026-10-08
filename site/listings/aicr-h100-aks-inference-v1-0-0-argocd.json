@@ -549,6 +549,16 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-h100-aks-inference/sync-wave-ordering.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-mirror-artifacts/h100-aks-inference/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/h100-aks-inference/literal-config-oci.yaml"
+      },
+      {
+        "name": "sourcePackagePlan",
+        "path": "data/aicr-mirror-artifacts/h100-aks-inference/source-package-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/h100-aks-inference/source-package-oci.yaml"
+      },
+      {
         "name": "entryPage",
         "path": "docs/demo/aicr/h100-aks-inference.md",
         "url": "https://github.com/confighub/helm-expt/blob/main/docs/demo/aicr/h100-aks-inference.md"
@@ -595,10 +605,6 @@
         "value": "base > monitoring-hpa > h100-any > aks > aks-inference > h100-aks-inference"
       },
       {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-mirror-artifacts/h100-aks-inference/literal-config-oci.yaml"
-      },
-      {
         "name": "overlayDependentEntryCount",
         "value": "2"
       },
@@ -613,10 +619,6 @@
       {
         "name": "retention",
         "value": "retained-and-rendered-not-published-not-deployed"
-      },
-      {
-        "name": "sourcePackagePlan",
-        "value": "data/aicr-mirror-artifacts/h100-aks-inference/source-package-oci.yaml"
       }
     ]
   },

@@ -542,6 +542,16 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-rtx-pro-6000-eks-ubuntu-inference-dynamo/sync-wave-ordering.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-dynamo/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-dynamo/literal-config-oci.yaml"
+      },
+      {
+        "name": "sourcePackagePlan",
+        "path": "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-dynamo/source-package-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-dynamo/source-package-oci.yaml"
+      },
+      {
         "name": "attachedMembers",
         "path": "data/aicr-nim-model-profiles/platform-members.csv",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-model-profiles/platform-members.csv"
@@ -597,10 +607,6 @@
         "value": "54 model profiles joined by criteria; none was executed"
       },
       {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-dynamo/literal-config-oci.yaml"
-      },
-      {
         "name": "overlayParentEntries",
         "value": "aicr-rtx-pro-6000-any-v1-0-0-argocd, aicr-eks-v1-0-0-argocd, aicr-eks-ubuntu-v1-0-0-argocd, aicr-eks-inference-v1-0-0-argocd, aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd, aicr-rtx-pro-6000-eks-ubuntu-inference-v1-0-0-argocd"
       },
@@ -611,10 +617,6 @@
       {
         "name": "retention",
         "value": "retained-and-rendered-not-published-not-deployed"
-      },
-      {
-        "name": "sourcePackagePlan",
-        "value": "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-dynamo/source-package-oci.yaml"
       }
     ]
   },

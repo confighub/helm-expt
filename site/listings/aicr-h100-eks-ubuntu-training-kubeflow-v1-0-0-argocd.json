@@ -542,6 +542,16 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-h100-eks-ubuntu-training-kubeflow/sync-wave-ordering.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-mirror-artifacts/h100-eks-ubuntu-training-kubeflow/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/h100-eks-ubuntu-training-kubeflow/literal-config-oci.yaml"
+      },
+      {
+        "name": "sourcePackagePlan",
+        "path": "data/aicr-mirror-artifacts/h100-eks-ubuntu-training-kubeflow/source-package-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/h100-eks-ubuntu-training-kubeflow/source-package-oci.yaml"
+      },
+      {
         "name": "entryPage",
         "path": "docs/demo/aicr/h100-eks-ubuntu-training-kubeflow.md",
         "url": "https://github.com/confighub/helm-expt/blob/main/docs/demo/aicr/h100-eks-ubuntu-training-kubeflow.md"
@@ -588,10 +598,6 @@
         "value": "base > monitoring-hpa > h100-any > eks > eks-ubuntu > eks-training > h100-eks-training > h100-eks-ubuntu-training > h100-eks-ubuntu-training-kubeflow"
       },
       {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-mirror-artifacts/h100-eks-ubuntu-training-kubeflow/literal-config-oci.yaml"
-      },
-      {
         "name": "overlayParentEntries",
         "value": "aicr-h100-any-v1-0-0-argocd, aicr-eks-v1-0-0-argocd, aicr-eks-ubuntu-v1-0-0-argocd, aicr-eks-training-v1-0-0-argocd, aicr-h100-eks-training-v1-0-0-argocd, aicr-h100-eks-ubuntu-training-v1-0-0-argocd"
       },
@@ -602,10 +608,6 @@
       {
         "name": "retention",
         "value": "retained-and-rendered-not-published-not-deployed"
-      },
-      {
-        "name": "sourcePackagePlan",
-        "value": "data/aicr-mirror-artifacts/h100-eks-ubuntu-training-kubeflow/source-package-oci.yaml"
       }
     ]
   },

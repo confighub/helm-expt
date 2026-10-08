@@ -542,6 +542,16 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-bcm-inference/sync-wave-ordering.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-mirror-artifacts/bcm-inference/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/bcm-inference/literal-config-oci.yaml"
+      },
+      {
+        "name": "sourcePackagePlan",
+        "path": "data/aicr-mirror-artifacts/bcm-inference/source-package-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/bcm-inference/source-package-oci.yaml"
+      },
+      {
         "name": "entryPage",
         "path": "docs/demo/aicr/bcm-inference.md",
         "url": "https://github.com/confighub/helm-expt/blob/main/docs/demo/aicr/bcm-inference.md"
@@ -588,10 +598,6 @@
         "value": "base > monitoring-hpa > bcm > bcm-inference"
       },
       {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-mirror-artifacts/bcm-inference/literal-config-oci.yaml"
-      },
-      {
         "name": "overlayParentEntries",
         "value": "aicr-bcm-v1-0-0-argocd"
       },
@@ -602,10 +608,6 @@
       {
         "name": "retention",
         "value": "retained-and-rendered-not-published-not-deployed"
-      },
-      {
-        "name": "sourcePackagePlan",
-        "value": "data/aicr-mirror-artifacts/bcm-inference/source-package-oci.yaml"
       }
     ]
   },

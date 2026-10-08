@@ -542,6 +542,16 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-flattening-verdicts/aicr-gb200-oke-ubuntu-training-kubeflow/sync-wave-ordering.yaml"
       },
       {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-mirror-artifacts/gb200-oke-ubuntu-training-kubeflow/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/gb200-oke-ubuntu-training-kubeflow/literal-config-oci.yaml"
+      },
+      {
+        "name": "sourcePackagePlan",
+        "path": "data/aicr-mirror-artifacts/gb200-oke-ubuntu-training-kubeflow/source-package-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-mirror-artifacts/gb200-oke-ubuntu-training-kubeflow/source-package-oci.yaml"
+      },
+      {
         "name": "entryPage",
         "path": "docs/demo/aicr/gb200-oke-ubuntu-training-kubeflow.md",
         "url": "https://github.com/confighub/helm-expt/blob/main/docs/demo/aicr/gb200-oke-ubuntu-training-kubeflow.md"
@@ -588,10 +598,6 @@
         "value": "base > monitoring-hpa > gb200-any > oke-ol > oke-ol-training > gb200-oke-training > gb200-oke-ubuntu-training > gb200-oke-ubuntu-training-kubeflow"
       },
       {
-        "name": "literalConfigPlan",
-        "value": "data/aicr-mirror-artifacts/gb200-oke-ubuntu-training-kubeflow/literal-config-oci.yaml"
-      },
-      {
         "name": "overlayParentEntries",
         "value": "aicr-gb200-any-v1-0-0-argocd, aicr-oke-ol-v1-0-0-argocd, aicr-oke-ol-training-v1-0-0-argocd, aicr-gb200-oke-training-v1-0-0-argocd, aicr-gb200-oke-ubuntu-training-v1-0-0-argocd"
       },
@@ -602,10 +608,6 @@
       {
         "name": "retention",
         "value": "retained-and-rendered-not-published-not-deployed"
-      },
-      {
-        "name": "sourcePackagePlan",
-        "value": "data/aicr-mirror-artifacts/gb200-oke-ubuntu-training-kubeflow/source-package-oci.yaml"
       }
     ]
   },

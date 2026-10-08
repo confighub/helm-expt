@@ -257,7 +257,9 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | Family | Main summary | Primary use |
 | --- | --- | --- |
 | `adversarial10` | [adversarial10/summary.md](./adversarial10/summary.md) | hard-chart readiness and control-point analysis |
+| `aicr-mirror-artifacts` | [aicr-mirror-artifacts/summary.md](./aicr-mirror-artifacts/summary.md) | supporting generated evidence |
 | `aicr-nim-model-profiles` | [aicr-nim-model-profiles/summary.md](./aicr-nim-model-profiles/summary.md) | supporting generated evidence |
+| `aicr-overlay-mirror` | [aicr-overlay-mirror/summary.md](./aicr-overlay-mirror/summary.md) | supporting generated evidence |
 | `apiservice-coverage` | [apiservice-coverage/summary.md](./apiservice-coverage/summary.md) | top-100 APIService coverage joined across source scan, modeled recipe rows, parity evidence, and runtime observations |
 | `app-readiness` | [app-readiness/summary.md](./app-readiness/summary.md) | supporting generated evidence |
 | `attack-plan-workdown` | [attack-plan-workdown/summary.md](./attack-plan-workdown/summary.md) | execution workdown across gaps and proof lanes |
@@ -415,7 +417,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 234 CSV files. Each row records the path, audience,
+It includes 236 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
