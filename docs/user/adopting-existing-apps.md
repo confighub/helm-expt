@@ -62,7 +62,8 @@ The repository includes a four-object application under
 It has one Namespace, ConfigMap, Deployment, and Service. There is no chart and
 no render step.
 
-Upload the files as one Unit per Kubernetes object:
+Upload the files as one Unit per Kubernetes object. The upload skips Secrets,
+and this example has none:
 
 ```sh
 cub variant upload \
@@ -84,8 +85,11 @@ The current command surface does not provide a one-step GitOps
 discovery/import and controller-handover command. Read the controller objects
 and desired Kubernetes objects first. Review their source, target, namespace,
 and ownership, then use `cub variant upload` for the YAML or literal OCI you
-chose to store. Server-side upload creates one Unit per Kubernetes resource;
-the retired `--granularity` flag is not needed. The upload creates ConfigHub
+chose to store. Server-side upload creates one Unit per Kubernetes resource,
+except Secrets, which it skips and names in its output. The retired
+`--granularity` flag is not needed. A live run on 2026-10-08 with cub v0.8.7
+uploaded 14 objects and got 13 Units, and the
+[run log](./live-run-log-2026-10-08.md) shows it. The upload creates ConfigHub
 records; it does not change the controller or cluster.
 
 ## Adoption Levels

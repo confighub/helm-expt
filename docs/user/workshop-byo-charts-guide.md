@@ -24,9 +24,13 @@ You need Node.js, Git, and `cub` on your `PATH`. Install
 and the [cub CLI](https://docs.confighub.com/get-started/setup/#install-the-cli).
 For the CLI version used in the retained local trials, choose the matching
 [cub v0.4.4 release binary](https://github.com/confighub/sdk/releases/tag/v0.4.4).
-The `cub` commands this Guide names also match the help of cub v0.8.7. They
-have not been re-run with that release. The managed move near the end uses
-`--unit-annotation`, so it needs a CLI whose help lists that flag.
+The `cub` commands this Guide names also match the help of cub v0.8.7. The
+local moves have not been re-run with that release. The managed move near the
+end uses `--unit-annotation`, so it needs a CLI whose help lists that flag.
+A live run on 2026-10-08 with cub v0.8.7 used the same upload, variant and
+promotion commands on other content, and the
+[run log](./live-run-log-2026-10-08.md) holds the output. That run did not
+use `cub server install`, `--space` or `--environment`.
 
 Install the pinned Workshop plugin as described in the
 [Adapt setup](./workshop-adapt-guide.md#prerequisites-and-setup). That gives
@@ -285,8 +289,13 @@ cub variant upload --component byo-nginx-ai-values --variant reviewed --space by
 ```
 
 The upload sets the annotation on every Unit it writes, so the accepted
-identity travels with them and no separate binding command follows. That is
-read from the help of cub v0.8.7 and has not been re-run here.
+identity travels with them and no separate binding command follows. A live
+run on 2026-10-08 with cub v0.8.7 found the annotation on every Unit of
+another upload, and the [run log](./live-run-log-2026-10-08.md) shows it. That
+run named its Space with `--space-pattern`, so the `--space` flag above is
+still taken from the help. The upload skips Secrets and names each one in its
+output. Read the whole output, because a Link that fails on a quota prints
+`link FAILED` and the command still exits 0.
 
 Derive a variant for another environment the same way, then preview a
 promotion before running it:

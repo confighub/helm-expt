@@ -310,7 +310,14 @@ cub variant approve argocd-staging
 ```
 
 The approval command records an attestation for the current revisions of
-Units with Targets in the staging Space. Review that selection first. These
+Units with Targets in the staging Space. Review that selection first. In a
+Space with no Targets it records nothing, and `--all` includes every Unit.
+The upload skips Secrets and names each one in its output.
+
+A live run on 2026-10-08 with cub v0.8.7 used the same upload, promotion
+preview and approval commands on other content with no Target. The
+[run log](./live-run-log-2026-10-08.md) holds the output. The `--target` form
+of `cub variant create` was not run. These
 commands do not create a ChangeWorkflow, bind a ChangeOrder, or configure an
 approval prerequisite. Recording an attestation alone does not gate delivery.
 

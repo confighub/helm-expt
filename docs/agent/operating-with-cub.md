@@ -196,8 +196,8 @@ cub unit open --space <space>
 # Inspect the stored config for one Unit.
 cub unit data <unit> --space <space>
 
-# Compare revisions of one Unit.
-cub unit diff <unit> --space <space>
+# Compare the head revision of one Unit with the revision before it.
+cub unit diff <unit> --space <space> --from=-1
 
 # Run a ConfigHub function scan over the uploaded Units.
 cub function vet <function> --space <space>
@@ -218,8 +218,27 @@ cub variant create staging <upstream-space> --environment Staging --region us-ea
 
 The current CLI no longer has `cub unit apply`. A Space is delivered by
 publishing a Release for its release Target, which Argo CD or Flux then pulls.
-The `cub release publish`, `cub space open`, and `cub unit open` lines above
-are taken from the help of cub v0.8.7 and have not been re-run here.
+
+A live run on 2026-10-08 with cub v0.8.7 checked several lines above. The
+[run log](../user/live-run-log-2026-10-08.md) holds each command and its
+output.
+
+- `cub unit diff` needs a Unit name. Its default `--from` is
+  `LastReleasedRevisionNum`, which fails on a Unit that was never released, so
+  the line above names `--from=-1`. Revision numbers, `HeadRevisionNum`, `-N`
+  and `--with-unit <space>/<unit>` all worked. The help also lists `Tag:` and
+  `ChangeSet:` references, and the server refused both.
+- `cub variant approve <space>` records nothing in a Space with no Targets.
+  With `--all` it recorded one Approval attestation for the Space.
+- `cub release publish <space>` was refused for a Space with no release
+  Target. A publish with a release Target was not run.
+- An unknown subcommand prints the group help and exits 0, so an exit status
+  does not show that a command exists. Read the help instead.
+- `cub variant upload` exits 0 when a Link fails on a quota. Read the whole
+  output for `link FAILED` lines.
+
+The `cub space open` and `cub unit open` lines are taken from the help of cub
+v0.8.7 and were not run.
 
 The retained `verify-bulk-ops:nginx` verifier still reads legacy `ApprovedBy`
 state. It has not been migrated to attestations, so do not use its approval
