@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "nvsentinel-no-pod-monitor-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "5319d654999e0575a5c43ab992c31af9a22a92f5d55f025e4f3ad539cb963810"
+    objectCount: 20
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 21
+    uploadedManifestFiles: 21
+    separatedSecretFiles: 0
+    semanticObjectMatches: "20/20"
+  semanticNormalizations:
+    - "prune-null-fields"
+    - "nvsentinel-configmap-leading-blank-line-pruned-by-kustomize"
+  classifications:
+    -
+      identity: "v1|Namespace||nvsentinel"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run nvidia-gpu-stack-coverage:compare"

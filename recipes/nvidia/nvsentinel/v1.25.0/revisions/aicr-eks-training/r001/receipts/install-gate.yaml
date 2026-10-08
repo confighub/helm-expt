@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "nvsentinel-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "a0a98f57755f4be60aedae1219efb32059025921a6c5eb15f57e87d5a7776b15"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for aicr-eks-training"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the target must already have the Prometheus Operator PodMonitor CRD; the rendered objects carry no namespace, so they must be applied into the nvsentinel namespace"

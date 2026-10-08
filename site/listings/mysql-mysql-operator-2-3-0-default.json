@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:76e1ca2fa4f2dabcce9f2200e649edf6c3407b8be27f2c4d0f5594a5753c56a4",
+      "sha256": "sha256:b530fbf9e069a56a10340bf688cced4a494f941efb05e1f0228551bc5e0c1166",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -37,7 +37,7 @@
     "rationale": "The Deployment installs the MySQL operator, not a database. An InnoDBCluster custom resource and credentials are still required.",
     "assignment": {
       "path": "data/catalog-roles/assignments.json",
-      "sha256": "sha256:03504fe6cb18ad4caafaa9366c9c483c3554c298ecacea8411069adf253d5363",
+      "sha256": "sha256:eefdfe9332f2fd59e75a2a129b0202e3b5fc417fea566f8a0af309faf93c97ab",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/catalog-roles/assignments.json"
     },
     "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."

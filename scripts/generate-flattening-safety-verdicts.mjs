@@ -6544,7 +6544,521 @@ const CHARTS = [
       "Mechanical, evidence-based assessment (not a hand read of the chart): the packaged chart's committed flattening witness and this base's own committed render were compared, and a hazard the witness finds that this base's render does not produce is recorded present-gated for this base. Neither source shows a hazard for this base: no lookup call, no non-test lifecycle hook, and this base's render carries no CRD, keep annotation, webhook configuration, or Secret with data. Nothing this base renders is discharged at render time.",
     variantScope: [],
   },
+  ...nvidiaGpuStackVerdicts(),
 ];
+
+// The NVIDIA GPU stack entries (scripts/lib/nvidia-gpu-stack-coverage.mjs). Each
+// verdict is a hand read of the locked chart against the base's own render, and
+// the same judgment holds across the reviewed versions of a chart wherever the
+// witness finds the same classes, so one builder writes each chart's rows and the
+// version-specific facts are spelled out where they differ. A base that differs
+// from its default base at named fields only, which its proof checks, takes the
+// default base's findings and says what the difference is. No hook named here
+// has been run on a cluster: the gpu-operator and k8s-nim-operator routes are
+// packaged lifecycle actions and a CRD bundle, recorded and not observed.
+function nvidiaGpuStackVerdicts() {
+  const verdictFile = (base) => (base === "default" ? {} : { verdictFile: `flattening-safety-verdict-${base}.yaml` });
+
+  // gpu-operator. `nfd` says whether the bundled node-feature-discovery renders;
+  // `gpuCluster` marks v26.7.1, which adds the GPUCluster CRDs and a pre-delete
+  // hook. `values` names the base's values in a sentence. `rationale` and
+  // `variantScope` are written per kind of base below.
+  const gpuOperatorRow = ({ version, base, crds, gpuCluster, nfd, values, nfdOffReason, rationale, variantScope }) => {
+    const preUpgrade =
+      "a pre-upgrade Job that applies the CRD files inside the operator image";
+    const cleanupTail = "A pre-delete CRD cleanup Job sits behind operator.cleanupCRD, which is off";
+    let hookDetail;
+    if (nfd && gpuCluster) {
+      hookDetail = `three hook sets render with ${values} and none is in the base: ${preUpgrade}, a pre-delete Job that removes a chart-managed GPUCluster, and the node-feature-discovery post-delete prune Job; the pre-upgrade and post-delete Jobs each bring a ServiceAccount, ClusterRole and ClusterRoleBinding. A second pre-delete Job, the CRD cleanup, sits behind operator.cleanupCRD, which is off`;
+    } else if (nfd) {
+      hookDetail = `two hook sets render with ${values} and neither is in the base: ${preUpgrade}, and the node-feature-discovery post-delete prune Job, each with a ServiceAccount, ClusterRole and ClusterRoleBinding. ${cleanupTail}`;
+    } else if (gpuCluster) {
+      hookDetail = `two hook sets render with these values and neither is in the base: ${preUpgrade}, with its ServiceAccount, ClusterRole and ClusterRoleBinding, and a pre-delete Job that removes a chart-managed GPUCluster; the node-feature-discovery post-delete prune set does not render because nfd.enabled is false. A second pre-delete Job, the CRD cleanup, sits behind operator.cleanupCRD, which is off`;
+    } else {
+      hookDetail =
+        "the pre-upgrade Job that applies the CRD files inside the operator image renders with these values, with its ServiceAccount, ClusterRole and ClusterRoleBinding, and is not in the base; the node-feature-discovery post-delete prune set does not render because nfd.enabled is false";
+    }
+    const hookSets = 1 + (gpuCluster ? 1 : 0) + (nfd ? 1 : 0);
+    const cleanupValues = base === "default" ? "chart defaults leave false" : "these values leave false";
+    return {
+      repo: "nvidia",
+      chart: "gpu-operator",
+      version,
+      recipe: `recipes/nvidia/gpu-operator/${version}`,
+      auditedBase: base,
+      ...verdictFile(base),
+      overrides: {
+        "helm-hooks": {
+          detail: hookDetail,
+          disposition:
+            hookSets === 1
+              ? "packaged lifecycle action under prerequisites/gpu-operator-lifecycle, marked not automatic; it has not been run on a cluster"
+              : "packaged lifecycle actions under prerequisites/gpu-operator-lifecycle, each marked not automatic; none has been run on a cluster",
+        },
+        "resource-policy-keep": {
+          finding: "present-gated",
+          detail: gpuCluster
+            ? `the keep annotation is on the ClusterPolicy only when operator.cleanupCRD is true, and on the GPUCluster only when gpuCluster.deployCR is true; ${base === "default" ? "chart defaults set" : "these values set"} neither`
+            : `the keep annotation is on the ClusterPolicy only when operator.cleanupCRD is true, which ${cleanupValues}`,
+          disposition: "no route needed for the audited base",
+        },
+        ...(gpuCluster
+          ? {
+              "capabilities-api-versions": {
+                finding: "present-gated",
+                detail: `the one capability check, in templates/validations.yaml, runs only when gpuCluster.deployCR is true; ${base === "default" ? "chart defaults leave" : "these values leave"} it false`,
+                disposition: "no route needed for the audited base",
+              },
+            }
+          : {}),
+        "crd-ordering": {
+          detail: `${crds} CRDs render in this base beside a ClusterPolicy object of one of them`,
+          disposition:
+            "ordering declaration ships with the bundle: the base's target facts name the CRDs and the package carries them as a CRD bundle",
+        },
+        "subchart-conditions": {
+          disposition: nfd
+            ? `the flatten step must render with the audited base's condition set; ${base === "default" ? "chart defaults leave" : "this base leaves"} node-feature-discovery on`
+            : `the flatten step must render with this base's condition set; ${nfdOffReason}`,
+        },
+      },
+      lane: "flatten-with-routes",
+      routes: [
+        `CRD ordering declaration: the ${crds} CRDs are established before the ClusterPolicy object, from the packaged CRD bundle`,
+        "pre-upgrade lifecycle action that moves the CRDs to the new version, recorded in the package and not yet run",
+        ...(gpuCluster
+          ? ["pre-delete lifecycle action for the GPUCluster cleanup Job, recorded in the package and not yet run"]
+          : []),
+        ...(nfd
+          ? ["post-delete lifecycle action for the node-feature-discovery prune Job, recorded in the package and not yet run"]
+          : []),
+      ],
+      rationale,
+      variantScope,
+    };
+  };
+
+  const companionsNote =
+    "The hook objects are packaged as lifecycle actions and the CRDs as a bundle, so the lane names companions that exist in the package. None of them has been run on a cluster, and no receipt says a flattened install, upgrade or delete behaves like the Helm one.";
+  const defaultScope = (gpuCluster) => [
+    {
+      values: "nfd.enabled false",
+      effect:
+        "the node-feature-discovery objects, its three CRDs and the post-delete prune hook leave the render; the target must then run node-feature-discovery itself",
+    },
+    {
+      values: "operator.cleanupCRD true",
+      effect:
+        "adds a pre-delete Job that deletes the CRDs and a keep annotation on the ClusterPolicy; that base needs a fresh verdict",
+    },
+    {
+      values: "operator.upgradeCRD false",
+      effect: "the pre-upgrade hook leaves the render and moving the CRDs forward becomes entirely the delivery workflow's job",
+    },
+    {
+      values: "driver.version",
+      effect: "changes one field, ClusterPolicy /spec/driver/version, and does not move the finding set",
+    },
+    ...(gpuCluster
+      ? [
+          {
+            values: "gpuCluster.deployCR true",
+            effect:
+              "a keep-annotated GPUCluster object renders, the pre-delete cleanup Job has real work, and the chart refuses a target that does not serve the resource.k8s.io DeviceClass API; that base needs a fresh verdict",
+          },
+        ]
+      : []),
+  ];
+  const nfdOffScope = (gpuCluster) => [
+    {
+      values: "nfd.enabled true (the default base)",
+      effect: "node-feature-discovery, three more CRDs and the post-delete prune hook enter the render",
+    },
+    {
+      values: "driver.version",
+      effect: "changes one field, ClusterPolicy /spec/driver/version, and does not move the finding set",
+    },
+    ...(gpuCluster
+      ? [
+          {
+            values: "gpuCluster.deployCR true",
+            effect:
+              "a keep-annotated GPUCluster object renders, the pre-delete cleanup Job has real work, and the chart refuses a target that does not serve the resource.k8s.io DeviceClass API; that base needs a fresh verdict",
+          },
+        ]
+      : []),
+  ];
+
+  // The driver versions that are the chart default of a held chart version.
+  const gpuOperatorVersions = [
+    { version: "v25.10.1", crds: "five", nfdOffCrds: "two", gpuCluster: false, driver: "580.105.08" },
+    { version: "v26.3.2", crds: "five", nfdOffCrds: "two", gpuCluster: false, driver: "580.126.20" },
+    { version: "v26.3.3", crds: "five", nfdOffCrds: "two", gpuCluster: false, driver: "580.126.20", aicr: "v0.20.0" },
+    { version: "v26.7.1", crds: "eight", nfdOffCrds: "five", gpuCluster: true, driver: "595.91.07", aicr: "v1.0.0" },
+  ];
+  const heldDrivers = [...new Set(gpuOperatorVersions.map((row) => row.driver))].sort();
+
+  const gpuOperatorRows = gpuOperatorVersions.flatMap(({ version, crds, nfdOffCrds, gpuCluster, driver, aicr }) => {
+    const shared = { version, crds, gpuCluster, nfd: true };
+    const hooksLeft = gpuCluster ? "the pre-upgrade CRD Job and the pre-delete GPUCluster cleanup Job" : "the pre-upgrade CRD Job";
+    return [
+      gpuOperatorRow({
+        ...shared,
+        base: "default",
+        values: "chart defaults",
+        rationale: `Hand read of the chart against this base's render. Nothing here is decided at render time: no lookup, no generated value, no webhook certificate. What flattening drops is the chart's Helm hooks, and what it needs is the CRDs before the ClusterPolicy. ${companionsNote}`,
+        variantScope: defaultScope(gpuCluster),
+      }),
+      ...heldDrivers
+        .filter((other) => other !== driver)
+        .map((other) =>
+          gpuOperatorRow({
+            ...shared,
+            base: `driver-${other}`,
+            values: "this base's values",
+            rationale: `Hand read of the chart against this base's render. This base is the default base with driver.version set to ${other} instead of ${driver}. The two renders differ at one field, ClusterPolicy /spec/driver/version, and the proof checks that, so the default base's reading carries over: nothing is decided at render time, flattening drops the chart's Helm hooks, and it needs the CRDs before the ClusterPolicy. ${companionsNote} Driver support for this chart version and for any operating system was not checked. This verdict is about flattening; it does not say the operator can install or run driver ${other}.`,
+            variantScope: defaultScope(gpuCluster),
+          }),
+        ),
+      gpuOperatorRow({
+        ...shared,
+        base: "preinstalled-driver",
+        values: "this base's values",
+        rationale: `Hand read of the chart against this base's render. This base is the default base with driver.enabled false, for nodes that already have the NVIDIA driver. The two renders differ at one field, ClusterPolicy /spec/driver/enabled, and the proof checks that, so the default base's reading carries over: nothing is decided at render time, flattening drops the chart's Helm hooks, and it needs the CRDs before the ClusterPolicy. ${companionsNote} Whether the nodes really carry a working driver is a fact about the target that no render shows. It is a precondition, not a route.`,
+        variantScope: [
+          ...defaultScope(gpuCluster),
+          { values: "driver.enabled true (the default base)", effect: "the operator deploys the driver itself; one ClusterPolicy field changes and the finding set does not move" },
+        ],
+      }),
+      gpuOperatorRow({
+        ...shared,
+        base: "preinstalled-driver-and-toolkit",
+        values: "this base's values",
+        rationale: `Hand read of the chart against this base's render. This base is the default base with driver.enabled and toolkit.enabled false, for nodes that already have the NVIDIA driver and the NVIDIA Container Toolkit. The two renders differ at two fields of one object, ClusterPolicy /spec/driver/enabled and /spec/toolkit/enabled, and the proof checks that, so the default base's reading carries over: nothing is decided at render time, flattening drops the chart's Helm hooks, and it needs the CRDs before the ClusterPolicy. ${companionsNote} Whether the nodes really carry a working driver and toolkit is a fact about the target that no render shows. It is a precondition, not a route.`,
+        variantScope: [
+          ...defaultScope(gpuCluster),
+          { values: "driver.enabled or toolkit.enabled true", effect: "the operator deploys that component itself; one ClusterPolicy field changes each and the finding set does not move" },
+        ],
+      }),
+      gpuOperatorRow({
+        ...shared,
+        nfd: false,
+        crds: nfdOffCrds,
+        base: "external-nfd",
+        nfdOffReason: "these values turn node-feature-discovery off",
+        rationale: `Hand read of the chart against this base's render. This base is the default base with nfd.enabled false, for a cluster that already runs Node Feature Discovery. Fifteen node-feature-discovery objects leave the render, three of them CRDs, no object that stays changes, and the proof checks both. Nothing is decided at render time. What is left for a companion is ${hooksLeft} and the ${nfdOffCrds} CRDs before the ClusterPolicy, and all of them are in the package. The packaged pre-upgrade Job is the one these values render, which no longer applies the node-feature-discovery CRD files. None has been run on a cluster, and the target must already run Node Feature Discovery, which this base does not install.`,
+        variantScope: nfdOffScope(gpuCluster),
+      }),
+      ...(aicr
+        ? [
+            gpuOperatorRow({
+              ...shared,
+              nfd: false,
+              crds: nfdOffCrds,
+              base: "aicr-eks-training",
+              nfdOffReason: "the AICR values turn node-feature-discovery off",
+              rationale: gpuCluster
+                ? `Hand read of the chart against this base's render, which uses the values the AICR ${aicr} EKS training recipe supplies. Nothing is decided at render time. With node-feature-discovery off, the hooks left are ${hooksLeft}, and the only ordering need is the ${nfdOffCrds} CRDs before the ClusterPolicy. All of those companions are in the package. None has been run on a cluster, and the target must already run node-feature-discovery, which this base does not install. The AICR ${aicr} example retains these values and no render of this component, so this base was not compared with an AICR render.`
+                : "Hand read of the chart against this base's render, which uses the values the AICR EKS training recipe supplies. Nothing is decided at render time. With node-feature-discovery off, the only hook left is the pre-upgrade CRD Job, and the only ordering need is the two CRDs before the ClusterPolicy. Both companions are in the package. Neither has been run on a cluster, and the target must already run node-feature-discovery, which this base does not install.",
+              variantScope: nfdOffScope(gpuCluster),
+            }),
+          ]
+        : []),
+    ];
+  });
+
+  // nvsentinel. Every base leaves the hazardous subcharts off, so one set of
+  // findings serves all of them; the rationale and scope say what each base is.
+  const nvsentinelRow = ({ version, lifecycleManager, externalMongoHook, base, valuesPhrase, rationale, variantScope }) => ({
+    repo: "nvidia",
+    chart: "nvsentinel",
+    version,
+    recipe: `recipes/nvidia/nvsentinel/${version}`,
+    auditedBase: base,
+    ...verdictFile(base),
+    overrides: {
+      "helm-hooks": {
+        finding: "present-gated",
+        detail: externalMongoHook
+          ? `the post-upgrade node-condition cleanup Job renders only when nodeConditionCleanup.enabled is true, and the external MongoDB setup Job only when an external datastore is configured; ${valuesPhrase.set} neither, and this base's render contains no hook object`
+          : `the post-upgrade node-condition cleanup Job renders only when nodeConditionCleanup.enabled is true; ${valuesPhrase.leave} it false, and this base's render contains no hook object`,
+        disposition: "no route needed for the audited base",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: `every keep annotation sits in the mongodb-store and postgresql subcharts, which ${valuesPhrase.leave} off`,
+        disposition: "no route needed for the audited base",
+      },
+      lookup: {
+        finding: "present-gated",
+        detail: `every lookup call sits in the mongodb-store and postgresql subcharts, which ${valuesPhrase.leave} off`,
+        disposition: "no route needed for the audited base",
+      },
+      "webhook-ca": {
+        finding: "present-gated",
+        detail: lifecycleManager
+          ? `the webhook configurations belong to the janitor, lifecycle-manager and preflight subcharts, all off ${valuesPhrase.by}`
+          : `the webhook configurations belong to the janitor and preflight subcharts, both off ${valuesPhrase.by}`,
+        disposition: "no route needed for the audited base",
+      },
+      "capabilities-api-versions": {
+        finding: "present-gated",
+        detail: `the branches sit in the mongodb-store and postgresql subcharts, which are off, and in a syslog-health-monitor helper reached only when xidSideCar.enabled is true, which is false ${valuesPhrase.by === "by chart default" ? "by default" : "in these values"}`,
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: `every generated credential sits in the mongodb-store and postgresql subcharts, which ${valuesPhrase.leave} off; this base renders no Secret`,
+        disposition: "no route needed for the audited base",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail: `the CRDs ship in the crds directories of subcharts that ${valuesPhrase.leave} off; this base renders none`,
+        disposition: "no route needed for the audited base",
+      },
+      "namespace-creation": {
+        finding: "present-gated",
+        detail: "the Namespace template belongs to the psmdb-operator subchart inside mongodb-store, which is off",
+        disposition: "no route needed for the audited base",
+      },
+      "subchart-conditions": {
+        disposition: `the flatten step must render with the audited base's condition set; every subchart has its own flag and ${valuesPhrase.turn} most of them off`,
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale,
+    variantScope,
+  });
+  const chartDefaults = { set: "chart defaults set", leave: "chart defaults leave", by: "by chart default", turn: "chart defaults turn" };
+  const theseValues = { set: "these values set", leave: "these values leave", by: "in these values", turn: "these values leave" };
+  const nvsentinelScope = (lifecycleManager, podMonitorEntry) => [
+    {
+      values: "global.mongodbStore.enabled or postgresql.enabled",
+      effect:
+        "brings in lookup-or-generate credentials, keep-annotated volumes, setup Jobs and operator CRDs; that base needs its own verdict",
+    },
+    {
+      values: lifecycleManager
+        ? "global.janitor.enabled, global.lifecycleManager.enabled or global.preflight.enabled"
+        : "global.janitor.enabled or global.preflight.enabled",
+      effect: "adds admission webhooks and CRDs; that base needs a certificate route and an ordering declaration",
+    },
+    {
+      values: "nodeConditionCleanup.enabled true",
+      effect: "adds a post-upgrade hook Job with its own RBAC; that base needs a recorded lifecycle action",
+    },
+    podMonitorEntry,
+  ];
+  const podMonitorOff = {
+    values: "podMonitor.enabled false",
+    effect: "removes the PodMonitor and with it the Prometheus Operator CRD precondition",
+  };
+  const nvsentinelVersions = [
+    { version: "v1.9.0", lifecycleManager: false, externalMongoHook: true, aicr: "v0.19.0", aicrCompared: true },
+    { version: "v1.20.0", lifecycleManager: true, externalMongoHook: true, aicr: "v0.20.0", aicrCompared: true },
+    {
+      version: "v1.25.0",
+      lifecycleManager: true,
+      externalMongoHook: true,
+      aicr: "v1.0.0",
+      aicrCompared: false,
+      aicrExtra: ", two syslog health monitor DaemonSets and the syslog health monitor ConfigMap",
+    },
+    { version: "v1.26.0", lifecycleManager: true, externalMongoHook: false },
+  ];
+  const nvsentinelRows = nvsentinelVersions.flatMap(({ version, lifecycleManager, externalMongoHook, aicr, aicrCompared, aicrExtra }) => {
+    const shared = { version, lifecycleManager, externalMongoHook };
+    return [
+      nvsentinelRow({
+        ...shared,
+        base: "default",
+        valuesPhrase: chartDefaults,
+        rationale:
+          "Hand read of the chart against this base's render. Every hazard the packaged chart contains sits in a subchart or template that chart defaults leave off, and the render agrees: no hook, no CRD, no Secret, no webhook, no Namespace. Two things stay outside the bundle and are recorded as preconditions, not routes: the Prometheus Operator PodMonitor CRD must exist on the target, and the objects carry no namespace, so they must be applied into nvsentinel.",
+        variantScope: nvsentinelScope(lifecycleManager, podMonitorOff),
+      }),
+      nvsentinelRow({
+        ...shared,
+        base: "no-pod-monitor",
+        valuesPhrase: theseValues,
+        rationale:
+          "Hand read of the chart against this base's render. This base is the default base with podMonitor.enabled false: the two renders differ by one object, the PodMonitor, and the proof checks that. Every hazard the packaged chart contains sits in a subchart or template these values leave off, and the render agrees: no hook, no CRD, no Secret, no webhook, no Namespace, and no custom resource, so nothing has to exist on the target first. One thing stays outside the bundle and is recorded as a precondition, not a route: the objects carry no namespace, so they must be applied into nvsentinel.",
+        variantScope: nvsentinelScope(lifecycleManager, {
+          values: "podMonitor.enabled true (the default base)",
+          effect: "adds the PodMonitor and with it the Prometheus Operator CRD precondition",
+        }),
+      }),
+      ...(aicr
+        ? [
+            nvsentinelRow({
+              ...shared,
+              base: "aicr-eks-training",
+              valuesPhrase: theseValues,
+              rationale: `Hand read of the chart against this base's render, which uses the values the AICR ${aicr} EKS training recipe supplies. Those values turn on no subchart that chart defaults leave off. Against the default base the render drops the metrics-access NetworkPolicy and changes the labeler Deployment${aicrExtra ?? ""}; it adds nothing. So every hazard still sits in a subchart or template that stays off, and the render agrees: no hook, no CRD, no Secret, no webhook, no Namespace. ${aicrCompared ? "The objects equal the AICR nested render of the same archive." : `The AICR ${aicr} example retains these values and no render of this component, so this base was not compared with an AICR render.`} Two things stay outside the bundle and are recorded as preconditions, not routes: the Prometheus Operator PodMonitor CRD must exist on the target, and the objects carry no namespace, so they must be applied into nvsentinel.`,
+              variantScope: nvsentinelScope(lifecycleManager, podMonitorOff),
+            }),
+          ]
+        : []),
+    ];
+  });
+
+  // k8s-nim-operator. Everything hazardous in the archive outside the operator's
+  // own templates belongs to the two Dynamo subcharts, which every base leaves off.
+  const nimOperatorRow = ({ version, base, admission, rationale, variantScope }) => ({
+    repo: "nvidia",
+    chart: "k8s-nim-operator",
+    version,
+    recipe: `recipes/nvidia/k8s-nim-operator/${version}`,
+    auditedBase: base,
+    ...verdictFile(base),
+    overrides: {
+      "helm-hooks": {
+        detail:
+          "one hook set renders with this base's values and is not in the base: a pre-upgrade Job that applies the CRD files inside the operator image, with its ServiceAccount, ClusterRole and ClusterRoleBinding. Every other hook in the packaged archive belongs to the dynamo-platform subchart, which dynamo.enabled leaves off",
+        disposition:
+          "packaged lifecycle action under prerequisites/k8s-nim-operator-lifecycle, marked not automatic; it has not been run on a cluster",
+      },
+      "resource-policy-keep": {
+        finding: "present-gated",
+        detail: "every keep annotation sits in the dynamo-crds and dynamo-platform subcharts, which dynamo.enabled leaves off",
+        disposition: "no route needed for the audited base",
+      },
+      lookup: {
+        finding: "present-gated",
+        detail: "every lookup call sits in the dynamo-platform subchart, which dynamo.enabled leaves off",
+        disposition: "no route needed for the audited base",
+      },
+      "webhook-ca": admission
+        ? {
+            detail:
+              "one ValidatingWebhookConfiguration renders in this base, with two webhooks whose failurePolicy is Fail. It carries no caBundle: its cert-manager.io/inject-ca-from annotation names the Certificate this base also renders, so cert-manager supplies the CA at run time and nothing is generated at render time. The other webhook configurations in the archive belong to the dynamo-platform subchart, which is off",
+            disposition:
+              "the certificate route ships as objects in the base, a Certificate and a self-signed Issuer; cert-manager on the target issues the Secret and injects the CA. Recorded as a target fact, and not yet run",
+          }
+        : {
+            finding: "present-gated",
+            detail:
+              "the operator's own ValidatingWebhookConfiguration renders only when operator.admissionController.enabled is true, which chart defaults leave false; the other webhook configurations belong to the dynamo-platform subchart, which is off",
+            disposition: "no route needed for the audited base",
+          },
+      "capabilities-api-versions": {
+        finding: "present-gated",
+        detail: "every capability branch sits in the dynamo-platform subchart, which dynamo.enabled leaves off",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "every generated credential sits in the etcd subchart inside dynamo-platform, which is off; this base renders no Secret",
+        disposition: "no route needed for the audited base",
+      },
+      "crd-ordering": {
+        detail:
+          "nine CRDs render in this base, from the chart's own crds directory; no object in the base is an instance of them. The other CRDs in the archive belong to the Dynamo subcharts, which are off",
+        disposition:
+          "ordering declaration ships with the bundle: the base's target facts name the CRDs and the package carries them as a CRD bundle",
+      },
+      "namespace-creation": {
+        finding: "present-gated",
+        detail: "the Namespace templates belong to the kai-scheduler subchart inside dynamo-platform, which is off",
+        disposition: "no route needed for the audited base",
+      },
+      "subchart-conditions": {
+        disposition:
+          "the flatten step must render with the audited base's condition set; dynamo.enabled is false, which leaves both Dynamo subcharts out",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration: the nine CRDs are established before the operator starts, from the packaged CRD bundle",
+      "pre-upgrade lifecycle action that moves the CRDs to the new version, recorded in the package and not yet run",
+      ...(admission
+        ? ["certificate route: the Certificate and Issuer in the base, issued and injected by cert-manager on the target, recorded as a target fact and not yet run"]
+        : []),
+    ],
+    rationale,
+    variantScope,
+  });
+  const nimScope = (admission) => [
+    admission
+      ? {
+          values: "operator.admissionController.enabled false (the default base)",
+          effect: "the webhook, its Service, the Certificate and the Issuer leave the render, and with them the cert-manager precondition",
+        }
+      : {
+          values: "operator.admissionController.enabled true",
+          effect:
+            "adds a ValidatingWebhookConfiguration, a webhook Service and, in cert-manager mode, a Certificate and an Issuer; the target must then run cert-manager, and that base needs its own verdict",
+        },
+    {
+      values: "operator.admissionController.tls.mode secret",
+      effect: "the webhook takes its CA bundle from values and its certificate from a Secret the user supplies; that base needs its own verdict",
+    },
+    {
+      values: "dynamo.enabled true",
+      effect:
+        "brings in both Dynamo subcharts with their lookups, generated credentials, hooks, webhooks, Namespaces and CRDs; that base needs its own verdict",
+    },
+    {
+      values: "operator.upgradeCRD false",
+      effect: "the pre-upgrade hook leaves the render and moving the CRDs forward becomes entirely the delivery workflow's job",
+    },
+    {
+      values: "nfd.nodeFeatureRules.deviceID true",
+      effect: "adds a NodeFeatureRule and with it a Node Feature Discovery CRD precondition",
+    },
+  ];
+  const nimDefault = (version) =>
+    nimOperatorRow({
+      version,
+      base: "default",
+      admission: false,
+      rationale:
+        "Hand read of the chart against this base's render. Nothing here is decided at render time: the operator's own templates hold no lookup, no generated value and no capability branch, and everything of that kind in the archive belongs to the Dynamo subcharts, which stay off. What flattening drops is the pre-upgrade hook, and what it needs is the nine CRDs before the operator starts. The hook objects are packaged as a lifecycle action and the CRDs as a bundle, so the lane names companions that exist in the package. Neither has been run on a cluster. Five namespaced objects carry no namespace, so a flattened copy must be applied into nvidia-nim; that is a precondition, not a route.",
+      variantScope: nimScope(false),
+    });
+
+  return [
+    ...gpuOperatorRows,
+    ...nvsentinelRows,
+    {
+      repo: "nvidia",
+      chart: "cluster-readiness-engine",
+      version: "v0.6.0",
+      recipe: "recipes/nvidia/cluster-readiness-engine/v0.6.0",
+      auditedBase: "default",
+      overrides: {
+        "crd-ordering": {
+          detail: "seven nvcre.nvidia.com CRDs render in this base beside four LogProfile objects of one of them",
+          disposition:
+            "ordering declaration ships with the bundle: the base's target facts name the CRDs and the package carries them as a CRD bundle",
+        },
+      },
+      lane: "flatten-with-routes",
+      routes: [
+        "CRD ordering declaration: the seven nvcre.nvidia.com CRDs are established before the four LogProfile objects, from the packaged CRD bundle",
+      ],
+      rationale:
+        "Hand read of the chart against this base's render. The packaged chart has no hook, lookup, capability branch, generated value, webhook or subchart. The definitions are the only construct needing a companion: per-file Units can otherwise apply a LogProfile before the definition that gives it meaning. The Prometheus Operator ServiceMonitor CRD is a precondition on the target, recorded as a target fact.",
+      variantScope: [
+        {
+          values: "metrics.serviceMonitor.enabled false",
+          effect: "removes the ServiceMonitor and with it the Prometheus Operator CRD precondition",
+        },
+      ],
+    },
+    nimDefault("3.1.0"),
+    nimOperatorRow({
+      version: "3.1.0",
+      base: "aicr-eks-inference",
+      admission: true,
+      rationale:
+        "Hand read of the chart against this base's render, which uses the values the AICR v0.14.0 NIM inference recipes carry inline in their Application. Against the default base it adds four objects, a ValidatingWebhookConfiguration, a webhook Service, a Certificate and a self-signed Issuer, and changes the operator Deployment; the proof checks the added set. Nothing is decided at render time: the webhook carries no CA bundle and cert-manager injects one on the target. So the companions are the nine CRDs before the operator, the pre-upgrade hook as a packaged lifecycle action, and cert-manager on the target, which this base does not install. None has been run on a cluster. The AICR example retains these values and no render of this component, so this base was not compared with an AICR render.",
+      variantScope: nimScope(true),
+    }),
+    nimDefault("3.1.2"),
+  ];
+}
 
 function witnessPath(entry) {
   return `data/flattening-safety/witnesses/${entry.repo}-${entry.chart}-${entry.version}.yaml`;

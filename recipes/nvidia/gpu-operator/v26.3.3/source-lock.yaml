@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "nvidia-gpu-operator-v26.3.3"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "nvidia"
+  repositoryURL: "https://helm.ngc.nvidia.com/nvidia"
+  chart: "gpu-operator"
+  version: "v26.3.3"
+  appVersion: "v26.3.3"
+  packageSHA256: "59abb5852a24b3ae0ef757bfea3051f419acbf559ee5efd72f0672d28af56a68"
+  packageBytes: 50616
+  exactArtifact:
+    url: "https://helm.ngc.nvidia.com/nvidia/charts/gpu-operator-v26.3.3.tgz"
+    sha256: "59abb5852a24b3ae0ef757bfea3051f419acbf559ee5efd72f0672d28af56a68"
+    resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

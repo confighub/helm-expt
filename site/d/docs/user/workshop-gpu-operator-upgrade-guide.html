@@ -532,7 +532,7 @@
   <main>
     <article class="doc-body">
 
-<p>Steps 1 to 5 run on your machine with Helm and <code>cub</code>, with no account and no cluster. The comparison reads configuration only. This chart is not a Catalog entry, and the Guide does not test it on a cluster or say an upgrade is safe. Step 6 is optional. It makes the same comparisons inside ConfigHub, and it needs an account.</p>
+<p>Steps 1 to 5 run on your machine with Helm and <code>cub</code>, with no account and no cluster. The comparison reads configuration only. The Catalog holds this chart at four versions, each with several bases. This Guide renders the chart itself, so you can pass your own values. It does not test the chart on a cluster or say an upgrade is safe. Step 6 is optional. It makes the same comparisons inside ConfigHub, and it needs an account.</p>
 <p>You can run the steps yourself or <a href="#a-task-for-an-assistant">give an assistant the task</a>.</p>
 <h2 id="set-up-the-tools">Set up the tools</h2>
 <p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://helm.sh/docs/intro/install/">Helm</a>. Then install the Workshop plugin release this Guide was checked with (version 0.6.56).</p>
@@ -688,7 +688,7 @@ ConfigHub, and do not install, publish, approve or upgrade anything.</code></pre
 <h2 id="where-the-next-step-belongs">Where the next step belongs</h2>
 <p>You now hold the renders and a JSON comparison for each case. Steps 1 to 5 upgraded, approved and sent nothing.</p>
 <p>To turn a comparison into a review packet, follow <a href="workshop-upgrade-guide.html">Review a chart upgrade before promoting it</a>. It adds the preconditions, the decision and the recovery plan that a diff cannot supply. Use the <a href="workshop-lifecycle-guide.html">hooks and CRDs Guide</a> to decide who runs the <code>pre-upgrade</code> Job and the CRD changes.</p>
-<p>To ask for this chart as a Catalog entry, use <a href="https://confighub.github.io/helm-expt/site/send-a-public-chart.html">Send a missing or broken public chart</a>.</p>
+<p>The Catalog holds this chart as an entry. Open <a href="https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-3-3.html">gpu-operator v26.3.3</a> for its retained objects, its driver bases and the five ConfigHub steps.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/workshop-gpu-operator-upgrade-guide.md</code>. The source file is the authoritative version.</p></footer>

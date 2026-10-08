@@ -2331,8 +2331,85 @@
       ]
     },
     {
+      "chart": "nvidia/cluster-readiness-engine",
+      "version": "v0.6.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "nvidia/gpu-operator",
+      "version": "v25.10.1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.2",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.3",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.7.1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "nvidia/k8s-nim-operator",
+      "version": "3.1.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "nvidia/k8s-nim-operator",
+      "version": "3.1.2",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "nvidia/nvidia-device-plugin",
       "version": "0.19.3",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.20.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.25.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.26.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.9.0",
       "top_skill": "none",
       "matched_signals": [],
       "applicable": []

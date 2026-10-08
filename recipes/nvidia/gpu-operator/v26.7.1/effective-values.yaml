@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nvidia-gpu-operator-v26.7.1-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "c66a7f035f0f7ddb45ee45dff4fb88ebf8104925fefe09f607c95e583339fff6"
+  mergedValuesCaptured: false
+  values:
+    {}

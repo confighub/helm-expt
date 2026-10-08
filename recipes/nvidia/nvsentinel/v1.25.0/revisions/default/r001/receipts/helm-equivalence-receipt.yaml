@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "nvsentinel-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "f12a375c7b63cdfe02ed6eda602a22c771d43216297ab2089f374ef913a86ec2"
+    objectCount: 22
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 23
+    uploadedManifestFiles: 23
+    separatedSecretFiles: 0
+    semanticObjectMatches: "22/22"
+  semanticNormalizations:
+    - "prune-null-fields"
+    - "nvsentinel-configmap-leading-blank-line-pruned-by-kustomize"
+  classifications:
+    -
+      identity: "v1|Namespace||nvsentinel"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run nvidia-gpu-stack-coverage:compare"

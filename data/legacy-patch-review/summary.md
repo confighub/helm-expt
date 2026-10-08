@@ -6,7 +6,7 @@ It does not claim old-version support yet.
 ## Summary
 
 ```text
-recipes reviewed: 156
+recipes reviewed: 167
 legacy patch lanes open: 20
 old versions selected: 0
 ```

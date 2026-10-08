@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/nvidia/nvsentinel/v1.20.0",
+        "confighub.com/package-sha256": "26435988c6f62a7a84fc05ed4e97907489627a51469d638d0ed4c44fb9e0c277"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

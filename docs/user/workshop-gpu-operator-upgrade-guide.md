@@ -6,8 +6,10 @@ a patch upgrade and a driver version change. Each comparison names every
 changed field.
 
 Steps 1 to 5 run on your machine with Helm and `cub`, with no account and no
-cluster. The comparison reads configuration only. This chart is not a Catalog
-entry, and the Guide does not test it on a cluster or say an upgrade is safe.
+cluster. The comparison reads configuration only. The Catalog holds this chart
+at four versions, each with several bases. This Guide renders the chart
+itself, so you can pass your own values. It does not test the chart on a
+cluster or say an upgrade is safe.
 Step 6 is optional. It makes the same comparisons inside ConfigHub, and it
 needs an account.
 
@@ -391,5 +393,6 @@ adds the preconditions, the decision and the recovery plan that a diff cannot
 supply. Use the [hooks and CRDs Guide](./workshop-lifecycle-guide.md) to
 decide who runs the `pre-upgrade` Job and the CRD changes.
 
-To ask for this chart as a Catalog entry, use
-[Send a missing or broken public chart](https://confighub.github.io/helm-expt/site/send-a-public-chart.html).
+The Catalog holds this chart as an entry. Open
+[gpu-operator v26.3.3](https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-3-3.html)
+for its retained objects, its driver bases and the five ConfigHub steps.

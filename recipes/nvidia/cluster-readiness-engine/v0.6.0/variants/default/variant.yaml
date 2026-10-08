@@ -1,0 +1,97 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "default"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "nvcre"
+  releaseName: "nvcre"
+  valuesProfile: "../../effective-values.yaml"
+  capabilityProfile:
+    kubeVersion: "1.31.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "bandwidthmeasurements.nvcre.nvidia.com"
+        sourceVariant: "default"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "certifications.nvcre.nvidia.com"
+        sourceVariant: "default"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "goodputmeasurements.nvcre.nvidia.com"
+        sourceVariant: "default"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "jobs.nvcre.nvidia.com"
+        sourceVariant: "default"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "logprofiles.nvcre.nvidia.com"
+        sourceVariant: "default"
+        purpose: "CRD included in this base; it must be established before Kubernetes accepts the four rendered LogProfile objects"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "workflows.nvcre.nvidia.com"
+        sourceVariant: "default"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "workloadruns.nvcre.nvidia.com"
+        sourceVariant: "default"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "servicemonitors.monitoring.coreos.com"
+        sourcePath: "../../../prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/kube-prometheus-stack@88.6.3/default"
+        purpose: "Prometheus Operator ServiceMonitor CRD required before Kubernetes accepts the rendered ServiceMonitor object; the chart does not ship it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"

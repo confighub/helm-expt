@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "gpu-operator-driver-595.91.07-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "ad7d30baaa909598340cc0f89aab46b222a894c95823dc9df19ca9c766ad8d6f"
+    dependencyLockSHA256: "0a9261b0aa66231bffbec55241e49f853b2c72a5cc1ece849d593041f00219e9"
+    effectiveValuesSHA256: "25cac487b38612836d7c05a9787f5ddd129b65805711a9b6c38d3ab2255d64a2"
+  outputs:
+    renderedObjectSetSHA256: "523f9c0beb4eeab1b60bf8ce2438d03e85a7a4b564a80d546ad1d22932b06b9e"
+    renderedObjectInventorySHA256: "8cb6e834571fcbade4cac1a6123b77d6e6c05a5fbe6ffaa524b78645f4e3cdb7"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 24
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

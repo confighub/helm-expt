@@ -18,21 +18,21 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 91 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
+| `run-proof` | 132 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
 | `not-applicable-if-any` | 179 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
 | `promotion-proven` | 179 |
-| `blocked-needs-confighub-proof` | 72 |
+| `blocked-needs-confighub-proof` | 113 |
 | `watch-grade` | 17 |
 | `blocked-proof-failed` | 2 |
 
 | Promotion state | Variants |
 | --- | ---: |
 | `yes` | 179 |
-| `todo` | 72 |
+| `todo` | 113 |
 | `watch` | 17 |
 | `no` | 2 |
 
@@ -74,7 +74,7 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | bitnami/redis@27.0.0 | reuse-existing-secret | runs/cl-redis-27-0-0-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | grafana/grafana@10.5.15 | static-passwords | runs/grafana-confighub-proof/latest/variant-promotion-receipt.yaml |
 
-## Blocked — needs the ConfigHub proof first (72)
+## Blocked — needs the ConfigHub proof first (113)
 
 No ConfigHub upload proof exists yet, so there is no clone to promote.
 
@@ -128,9 +128,50 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | metrics-server/metrics-server@3.14.0 | default | run the ConfigHub proof lane first |
 | metrics-server/metrics-server@3.14.0 | external-tls-ca | run the ConfigHub proof lane first |
 | mysql/mysql-operator@2.3.0 | default | run the ConfigHub proof lane first |
+| nvidia/cluster-readiness-engine@v0.6.0 | default | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v25.10.1 | default | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v25.10.1 | driver-580.126.20 | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v25.10.1 | driver-595.91.07 | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v25.10.1 | external-nfd | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver-and-toolkit | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.2 | default | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.2 | driver-580.105.08 | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.2 | driver-595.91.07 | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.2 | external-nfd | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver-and-toolkit | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.3 | aicr-eks-training | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.3 | default | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.3 | driver-580.105.08 | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.3 | driver-595.91.07 | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.3 | external-nfd | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver-and-toolkit | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.7.1 | aicr-eks-training | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.7.1 | default | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.7.1 | driver-580.105.08 | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.7.1 | driver-580.126.20 | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.7.1 | external-nfd | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver-and-toolkit | run the ConfigHub proof lane first |
+| nvidia/k8s-nim-operator@3.1.0 | aicr-eks-inference | run the ConfigHub proof lane first |
+| nvidia/k8s-nim-operator@3.1.0 | default | run the ConfigHub proof lane first |
+| nvidia/k8s-nim-operator@3.1.2 | default | run the ConfigHub proof lane first |
 | nvidia/nvidia-device-plugin@0.19.3 | default | run the ConfigHub proof lane first |
 | nvidia/nvidia-device-plugin@0.19.3 | eks-inference | run the ConfigHub proof lane first |
 | nvidia/nvidia-device-plugin@0.19.3 | nfd-enabled | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.20.0 | aicr-eks-training | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.20.0 | default | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.20.0 | no-pod-monitor | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.25.0 | aicr-eks-training | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.25.0 | default | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.25.0 | no-pod-monitor | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.26.0 | default | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.26.0 | no-pod-monitor | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.9.0 | aicr-eks-training | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.9.0 | default | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.9.0 | no-pod-monitor | run the ConfigHub proof lane first |
 | oauth2-proxy/oauth2-proxy@10.7.0 | default | run the ConfigHub proof lane first |
 | percona/psmdb-operator@1.23.0 | default | run the ConfigHub proof lane first |
 | policy-reporter/policy-reporter@3.10.0 | default | run the ConfigHub proof lane first |

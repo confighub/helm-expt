@@ -1,0 +1,231 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "nvidia-gpu-operator-v26.3.2"
+spec:
+  chart:
+    name: "gpu-operator"
+    repository: "nvidia"
+    version: "v26.3.2"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/nvidia/gpu-operator/v26.3.2 -o <tmp>/gpu-operator-v26.3.2.tgz"
+    sha256: "241c9b0f47bac7f0d4d82787105ad8b677794b5646e115e165f5314d6d158a5a"
+  package:
+    name: "nvidia-gpu-operator"
+    path: "packages/nvidia/gpu-operator/v26.3.2"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "ae07e58f84c9815f9abfc24ae90d54760b5b903b97fa2adddfcc25fc7cdb61f8"
+        bytes: 2041
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "51c7d8994a0ca9530254b46b3b6eae4fd38baeae4e0504c28f27933a4437950c"
+        bytes: 269235
+      -
+        path: "bases/driver-580.105.08/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/driver-580.105.08/upstream.yaml"
+        sha256: "70caf6e456b039cee29792410a0526c67a0f1ca6954f8b054bdd7c57b62243a0"
+        bytes: 269235
+      -
+        path: "bases/driver-595.91.07/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/driver-595.91.07/upstream.yaml"
+        sha256: "523f9c0beb4eeab1b60bf8ce2438d03e85a7a4b564a80d546ad1d22932b06b9e"
+        bytes: 269234
+      -
+        path: "bases/external-nfd/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/external-nfd/upstream.yaml"
+        sha256: "30a949cc36999ed032f4aa18838e11f4bacc29c2840e6a2b3bce8712e9305b37"
+        bytes: 213660
+      -
+        path: "bases/preinstalled-driver-and-toolkit/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/preinstalled-driver-and-toolkit/upstream.yaml"
+        sha256: "2980e91c1280647c62edc7e95bd9e1145de261022fe8d6f3a6d2ed1425f57c22"
+        bytes: 269237
+      -
+        path: "bases/preinstalled-driver/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/preinstalled-driver/upstream.yaml"
+        sha256: "81722ed910b8ec297ef43e02fbbe13a124c3a78cc6ddc4ea7f07f7c1bec6e8ec"
+        bytes: 269236
+      -
+        path: "collector/target-facts.sh"
+        sha256: "53e9781bee08136a77fd3658eb1b6a0d8d70d6b24edb97e7dee062a9c672b2b6"
+        bytes: 13071
+      -
+        path: "installer.yaml"
+        sha256: "8d98c0d2284e2cd3ac01a66bf03b288cc369d572dd3621902b042a0da185ca43"
+        bytes: 6886
+      -
+        path: "prerequisites/gpu-operator-lifecycle/README.md"
+        sha256: "b3ce70296f47221cef8ed38f7ec4ae55e2937128c44d53067063276afecef568"
+        bytes: 1798
+      -
+        path: "prerequisites/gpu-operator-lifecycle/default/post-delete.yaml"
+        sha256: "edb00362cbfe100cddae4da49a999fcf36e34d8243a9968d8173fa2b04b58b9a"
+        bytes: 4046
+      -
+        path: "prerequisites/gpu-operator-lifecycle/default/pre-upgrade.yaml"
+        sha256: "b8194342bd0a6f4fe4826478a8f574ba76a0fbb9c450fc1e5696acd222a58383"
+        bytes: 2957
+      -
+        path: "prerequisites/gpu-operator-lifecycle/driver-580.105.08/post-delete.yaml"
+        sha256: "edb00362cbfe100cddae4da49a999fcf36e34d8243a9968d8173fa2b04b58b9a"
+        bytes: 4046
+      -
+        path: "prerequisites/gpu-operator-lifecycle/driver-580.105.08/pre-upgrade.yaml"
+        sha256: "b8194342bd0a6f4fe4826478a8f574ba76a0fbb9c450fc1e5696acd222a58383"
+        bytes: 2957
+      -
+        path: "prerequisites/gpu-operator-lifecycle/driver-595.91.07/post-delete.yaml"
+        sha256: "edb00362cbfe100cddae4da49a999fcf36e34d8243a9968d8173fa2b04b58b9a"
+        bytes: 4046
+      -
+        path: "prerequisites/gpu-operator-lifecycle/driver-595.91.07/pre-upgrade.yaml"
+        sha256: "b8194342bd0a6f4fe4826478a8f574ba76a0fbb9c450fc1e5696acd222a58383"
+        bytes: 2957
+      -
+        path: "prerequisites/gpu-operator-lifecycle/external-nfd/pre-upgrade.yaml"
+        sha256: "ad39b2f00074930c9732ff4277511355fbf7067966fa80a71a2ee41a463de7da"
+        bytes: 2896
+      -
+        path: "prerequisites/gpu-operator-lifecycle/generation-receipt.yaml"
+        sha256: "26bb62619b95cb1f44a2b151064e8d547d87a7ab2eab1c3408ea02496f7a6401"
+        bytes: 9024
+      -
+        path: "prerequisites/gpu-operator-lifecycle/lifecycle-actions.yaml"
+        sha256: "0131ed5f4694a3f9041f158582d4b7eb658f87b86a5ca41762d9df770e84426d"
+        bytes: 11928
+      -
+        path: "prerequisites/gpu-operator-lifecycle/preinstalled-driver-and-toolkit/post-delete.yaml"
+        sha256: "edb00362cbfe100cddae4da49a999fcf36e34d8243a9968d8173fa2b04b58b9a"
+        bytes: 4046
+      -
+        path: "prerequisites/gpu-operator-lifecycle/preinstalled-driver-and-toolkit/pre-upgrade.yaml"
+        sha256: "b8194342bd0a6f4fe4826478a8f574ba76a0fbb9c450fc1e5696acd222a58383"
+        bytes: 2957
+      -
+        path: "prerequisites/gpu-operator-lifecycle/preinstalled-driver/post-delete.yaml"
+        sha256: "edb00362cbfe100cddae4da49a999fcf36e34d8243a9968d8173fa2b04b58b9a"
+        bytes: 4046
+      -
+        path: "prerequisites/gpu-operator-lifecycle/preinstalled-driver/pre-upgrade.yaml"
+        sha256: "b8194342bd0a6f4fe4826478a8f574ba76a0fbb9c450fc1e5696acd222a58383"
+        bytes: 2957
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "5acb5405e8c0c675b22e97b7a75a61cab25e05fea36bb2537b0df96de3beae7a"
+        bytes: 228284
+      -
+        path: "prerequisites/target-facts/driver-580-105-08-crds.yaml"
+        sha256: "78521531a77f74b6fbcd5a7b268f06a0eb8095baf1177088c053aa76f83f2727"
+        bytes: 228294
+      -
+        path: "prerequisites/target-facts/driver-595-91-07-crds.yaml"
+        sha256: "649cfc4dd0a03abe4104affa16d07f8fcfeb0b7fba921a5a96c191ae7b91235d"
+        bytes: 228293
+      -
+        path: "prerequisites/target-facts/external-nfd-crds.yaml"
+        sha256: "22ea12b89b0d5d224b7a4d24b9d4ffb930557cfe3281ecb0c6122c40742427f8"
+        bytes: 190594
+      -
+        path: "prerequisites/target-facts/preinstalled-driver-and-toolkit-crds.yaml"
+        sha256: "cb868e4f194ffba3d3b42d4d216cbcc5e8353b0fa58db8366c2981607497cf37"
+        bytes: 228308
+      -
+        path: "prerequisites/target-facts/preinstalled-driver-crds.yaml"
+        sha256: "f0f3584ad7b4a245d3fd180aa3e4c0495938181c1dfe999b4eefa40e77aa7a72"
+        bytes: 228296
+    version: "v26.3.2"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||gpu-operator"
+      base: "default"
+      command: "cub installer setup --pull packages/nvidia/gpu-operator/v26.3.2 --base default --work-dir <tmp> --non-interactive --namespace gpu-operator"
+      cubInstallObjectCountIncludingSupport: 25
+      helmReleaseObjectCount: 24
+      semanticObjectMatches: "24/24"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||gpu-operator"
+      base: "driver-580.105.08"
+      command: "cub installer setup --pull packages/nvidia/gpu-operator/v26.3.2 --base driver-580.105.08 --work-dir <tmp> --non-interactive --namespace gpu-operator"
+      cubInstallObjectCountIncludingSupport: 25
+      helmReleaseObjectCount: 24
+      semanticObjectMatches: "24/24"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "driver-580.105.08"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||gpu-operator"
+      base: "driver-595.91.07"
+      command: "cub installer setup --pull packages/nvidia/gpu-operator/v26.3.2 --base driver-595.91.07 --work-dir <tmp> --non-interactive --namespace gpu-operator"
+      cubInstallObjectCountIncludingSupport: 25
+      helmReleaseObjectCount: 24
+      semanticObjectMatches: "24/24"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "driver-595.91.07"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||gpu-operator"
+      base: "preinstalled-driver"
+      command: "cub installer setup --pull packages/nvidia/gpu-operator/v26.3.2 --base preinstalled-driver --work-dir <tmp> --non-interactive --namespace gpu-operator"
+      cubInstallObjectCountIncludingSupport: 25
+      helmReleaseObjectCount: 24
+      semanticObjectMatches: "24/24"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "preinstalled-driver"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||gpu-operator"
+      base: "preinstalled-driver-and-toolkit"
+      command: "cub installer setup --pull packages/nvidia/gpu-operator/v26.3.2 --base preinstalled-driver-and-toolkit --work-dir <tmp> --non-interactive --namespace gpu-operator"
+      cubInstallObjectCountIncludingSupport: 25
+      helmReleaseObjectCount: 24
+      semanticObjectMatches: "24/24"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "preinstalled-driver-and-toolkit"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||gpu-operator"
+      base: "external-nfd"
+      command: "cub installer setup --pull packages/nvidia/gpu-operator/v26.3.2 --base external-nfd --work-dir <tmp> --non-interactive --namespace gpu-operator"
+      cubInstallObjectCountIncludingSupport: 10
+      helmReleaseObjectCount: 9
+      semanticObjectMatches: "9/9"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "external-nfd"

@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "k8s-nim-operator-aicr-eks-inference-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "ce00b840499febc8e8145f6076bac6c6ba6d4dcd402cb603c6cc95745ee40e8f"
+    dependencyLockSHA256: "8920e7a2c52d3f935238a61fcbea033bf3f68836231dd410b3fb27aa3377a164"
+    effectiveValuesSHA256: "eacd3d2716ef4e5c92cc44f45c9dcb364ba3385d8a88bb7b01c968ae2f082171"
+  outputs:
+    renderedObjectSetSHA256: "ef6956d9cec1d29fa5955d22d5e5df9db12fa1a122613c7da358e0edcd19dbf8"
+    renderedObjectInventorySHA256: "d85c44da1293100d3c0e3cba2ecc1ce8f6b836b221d0b90e98eea5fc710dd684"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 21
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

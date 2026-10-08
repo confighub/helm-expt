@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel@sha256:4046e444dbc245b6077a1f568de1139dd8bb20d59eb97ac49d6c2d85a9ded0a9"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:4046e444dbc245b6077a1f568de1139dd8bb20d59eb97ac49d6c2d85a9ded0a9"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/nvidia/nvsentinel/v1.26.0",
+      "confighub.com/package-sha256": "0cd18b117a021659dd7203a1cb50e8c0a5aba1d1dde644225facd1a188fd6bff"
+    }
+  }
+]

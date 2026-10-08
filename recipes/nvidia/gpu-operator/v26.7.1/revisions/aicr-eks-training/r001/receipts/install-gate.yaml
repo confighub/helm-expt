@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "gpu-operator-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "4bd9d60ec2d64a15f28d175934c33d26efd49990a5a28d36b463182b807f9a9b"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for aicr-eks-training"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the ClusterPolicy makes the operator create privileged operand workloads that no render shows"
+    - "the 5 CRDs must be established before the ClusterPolicy object; the target must already run Node Feature Discovery; the 5 Helm hook objects (4 pre-upgrade, 1 pre-delete) are packaged lifecycle actions, not part of the base"

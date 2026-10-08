@@ -1,0 +1,99 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "nvidia-nvsentinel-v1.25.0"
+spec:
+  chart:
+    name: "nvsentinel"
+    repository: "nvidia"
+    version: "v1.25.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/nvidia/nvsentinel/v1.25.0 -o <tmp>/nvsentinel-v1.25.0.tgz"
+    sha256: "a4d42c70b701a4e089cde752d8f10d5eabdeee1a67caf6de03a4b42c9400687c"
+  package:
+    name: "nvidia-nvsentinel"
+    path: "packages/nvidia/nvsentinel/v1.25.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "7010cdb65ebed405d75a3c7913a92f3280703f3ee0d275e34e54fd8faaf530f7"
+        bytes: 263
+      -
+        path: "bases/aicr-eks-training/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-training/upstream.yaml"
+        sha256: "a0a98f57755f4be60aedae1219efb32059025921a6c5eb15f57e87d5a7776b15"
+        bytes: 62623
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "f12a375c7b63cdfe02ed6eda602a22c771d43216297ab2089f374ef913a86ec2"
+        bytes: 62677
+      -
+        path: "bases/no-pod-monitor/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-pod-monitor/upstream.yaml"
+        sha256: "efeccf54131507abb5c6c4965ec661bcc48b5e89f609afdcdf9f299a8afbbd25"
+        bytes: 62051
+      -
+        path: "collector/target-facts.sh"
+        sha256: "28253ffef28454d82ceecb2d4f697d15296caca3f2ca580a736f1a753e51d4f0"
+        bytes: 3586
+      -
+        path: "installer.yaml"
+        sha256: "b71ceda73dd42d49060a5bcc29917fe6d97ab848ed806c504295505b8a6dea1a"
+        bytes: 1303
+      -
+        path: "prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        sha256: "0b44ab2dd68859d1cc1a17d429bf04947832f1b036882d49a203873db627368f"
+        bytes: 69232
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "9b6f3df3d33f54926d070ed95c57f170a270c658f27c87ddc3699a6df3f41947"
+        bytes: 69222
+    version: "v1.25.0"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nvsentinel"
+      base: "default"
+      command: "cub installer setup --pull packages/nvidia/nvsentinel/v1.25.0 --base default --work-dir <tmp> --non-interactive --namespace nvsentinel"
+      cubInstallObjectCountIncludingSupport: 23
+      helmReleaseObjectCount: 22
+      semanticObjectMatches: "22/22"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nvsentinel"
+      base: "no-pod-monitor"
+      command: "cub installer setup --pull packages/nvidia/nvsentinel/v1.25.0 --base no-pod-monitor --work-dir <tmp> --non-interactive --namespace nvsentinel"
+      cubInstallObjectCountIncludingSupport: 22
+      helmReleaseObjectCount: 21
+      semanticObjectMatches: "21/21"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      variant: "no-pod-monitor"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nvsentinel"
+      base: "aicr-eks-training"
+      command: "cub installer setup --pull packages/nvidia/nvsentinel/v1.25.0 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace nvsentinel"
+      cubInstallObjectCountIncludingSupport: 22
+      helmReleaseObjectCount: 21
+      semanticObjectMatches: "21/21"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "aicr-eks-training"

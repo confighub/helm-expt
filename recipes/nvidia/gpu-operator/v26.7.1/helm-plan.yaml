@@ -1,0 +1,72 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "nvidia-gpu-operator-v26.7.1"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "nvidia/gpu-operator"
+    version: "v26.7.1"
+    variants:
+      - "default"
+      - "driver-580.105.08"
+      - "driver-580.126.20"
+      - "preinstalled-driver"
+      - "preinstalled-driver-and-toolkit"
+      - "external-nfd"
+      - "aicr-eks-training"
+    helmObjectsByVariant:
+      default: 27
+      driver-580.105.08: 27
+      driver-580.126.20: 27
+      preinstalled-driver: 27
+      preinstalled-driver-and-toolkit: 27
+      external-nfd: 12
+      aicr-eks-training: 13
+    cubInstallObjectsByVariant:
+      default: 28
+      driver-580.105.08: 28
+      driver-580.126.20: 28
+      preinstalled-driver: 28
+      preinstalled-driver-and-toolkit: 28
+      external-nfd: 13
+      aicr-eks-training: 14
+    helmMatchByVariant:
+      default: "27/27"
+      driver-580.105.08: "27/27"
+      driver-580.126.20: "27/27"
+      preinstalled-driver: "27/27"
+      preinstalled-driver-and-toolkit: "27/27"
+      external-nfd: "12/12"
+      aicr-eks-training: "13/13"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish and sign the package, then run the CRD-first install, the upgrade action and the delete action on a GPU target before recording any lifecycle route as observed"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/driver-580.105.08/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/driver-580.105.08/r001/receipts/render-receipt.yaml"
+    - "revisions/driver-580.105.08/r001/receipts/scan-receipt.yaml"
+    - "revisions/driver-580.105.08/r001/receipts/install-gate.yaml"
+    - "revisions/driver-580.126.20/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/driver-580.126.20/r001/receipts/render-receipt.yaml"
+    - "revisions/driver-580.126.20/r001/receipts/scan-receipt.yaml"
+    - "revisions/driver-580.126.20/r001/receipts/install-gate.yaml"
+    - "revisions/preinstalled-driver/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/preinstalled-driver/r001/receipts/render-receipt.yaml"
+    - "revisions/preinstalled-driver/r001/receipts/scan-receipt.yaml"
+    - "revisions/preinstalled-driver/r001/receipts/install-gate.yaml"
+    - "revisions/preinstalled-driver-and-toolkit/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/preinstalled-driver-and-toolkit/r001/receipts/render-receipt.yaml"
+    - "revisions/preinstalled-driver-and-toolkit/r001/receipts/scan-receipt.yaml"
+    - "revisions/preinstalled-driver-and-toolkit/r001/receipts/install-gate.yaml"
+    - "revisions/external-nfd/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/external-nfd/r001/receipts/render-receipt.yaml"
+    - "revisions/external-nfd/r001/receipts/scan-receipt.yaml"
+    - "revisions/external-nfd/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/install-gate.yaml"

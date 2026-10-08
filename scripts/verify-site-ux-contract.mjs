@@ -71,12 +71,12 @@ const checks = [
     file: `site/d/docs/user/workshop-${guide}-guide.html`,
     terms: ["56e261a87dc3b060a86474bc796d379dd9bb7f3d", ...terms],
   })),
-  // The gpu-operator Guide renders a public chart that is not a Catalog entry,
-  // so it must keep saying so, keep the one-field driver result, and keep the
+  // The gpu-operator Guide renders a public chart that the Catalog also holds,
+  // so it must say so, keep the one-field driver result, and keep the
   // limits of a file comparison beside the commands.
   {
     file: "site/d/docs/user/workshop-gpu-operator-upgrade-guide.html",
-    terms: ["See what a gpu-operator upgrade changes", "cub plugin install confighub/cub-workshop@v0.6.56", "https://helm.ngc.nvidia.com/nvidia", "cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary", "cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml --summary", "--set driver.version=580.126.20", "/spec/driver/version replace", "This chart is not a Catalog", "Hooks appear as ordinary objects", "--include-crds", "Exit 0 is not approval", "A task for an assistant", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html"],
+    terms: ["See what a gpu-operator upgrade changes", "cub plugin install confighub/cub-workshop@v0.6.56", "https://helm.ngc.nvidia.com/nvidia", "cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary", "cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml --summary", "--set driver.version=580.126.20", "/spec/driver/version replace", "The Catalog holds this chart", "Hooks appear as ordinary objects", "--include-crds", "Exit 0 is not approval", "A task for an assistant", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html"],
   },
   {
     file: "site/index.html",

@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "no-pod-monitor"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "nvsentinel"
+  releaseName: "nvsentinel"
+  valuesProfile: "../../effective-values-no-pod-monitor.yaml"
+  capabilityProfile:
+    kubeVersion: "1.31.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

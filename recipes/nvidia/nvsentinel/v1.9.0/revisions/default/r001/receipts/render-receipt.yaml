@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "nvsentinel-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "c080276f5ce671c9f0633c4bb8de152bf76f9ded37ba0178ed97faafad73c0d8"
+    dependencyLockSHA256: "d3eb3dd536008ca24c3e8e0e1af88608aaf650441f5a54f47612e1acb92a606c"
+    effectiveValuesSHA256: "1eadbea6f692299c056dab0a4a6ba77722e00d2e276b77b89f21ef10d443d97b"
+  outputs:
+    renderedObjectSetSHA256: "ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2"
+    renderedObjectInventorySHA256: "fbf1e527b6c384811f0d1316f4a55e1a368967794759f4e6be4eb9c753216439"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 21
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

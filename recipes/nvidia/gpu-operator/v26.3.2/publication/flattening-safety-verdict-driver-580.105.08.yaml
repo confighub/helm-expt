@@ -1,0 +1,110 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "nvidia-gpu-operator-v26.3.2-driver-580.105.08"
+spec:
+  chart:
+    repository: "nvidia"
+    name: "gpu-operator"
+    version: "v26.3.2"
+    packageSHA256: "b6b7b7a6d40bb8420d50e46c1169c097028ad19a0457d32156568db8214af77f"
+  witnessRef: "data/flattening-safety/witnesses/nvidia-gpu-operator-v26.3.2.yaml"
+  auditedBase: "driver-580.105.08"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "two hook sets render with this base's values and neither is in the base: a pre-upgrade Job that applies the CRD files inside the operator image, and the node-feature-discovery post-delete prune Job, each with a ServiceAccount, ClusterRole and ClusterRoleBinding. A pre-delete CRD cleanup Job sits behind operator.cleanupCRD, which is off"
+      disposition: "packaged lifecycle actions under prerequisites/gpu-operator-lifecycle, each marked not automatic; none has been run on a cluster"
+      evidence:
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:10"
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:20"
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:41"
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:60"
+        - "templates/cleanup_crd.yaml:8"
+        - "templates/upgrade_crd.yaml:9"
+    -
+      class: "resource-policy-keep"
+      finding: "present-gated"
+      detail: "the keep annotation is on the ClusterPolicy only when operator.cleanupCRD is true, which these values leave false"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/clusterpolicy.yaml:12"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "five CRDs render in this base beside a ClusterPolicy object of one of them"
+      disposition: "ordering declaration ships with the bundle: the base's target facts name the CRDs and the package carries them as a CRD bundle"
+      evidence:
+        - "3 crds-directory file(s), 6 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "present"
+      detail: "1 occurrence(s) in the packaged chart"
+      disposition: "the flatten step must render with the audited base's condition set; this base leaves node-feature-discovery on"
+      evidence:
+        - "node-feature-discovery gated by nfd.enabled"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "nfd.enabled false"
+      effect: "the node-feature-discovery objects, its three CRDs and the post-delete prune hook leave the render; the target must then run node-feature-discovery itself"
+    -
+      values: "operator.cleanupCRD true"
+      effect: "adds a pre-delete Job that deletes the CRDs and a keep annotation on the ClusterPolicy; that base needs a fresh verdict"
+    -
+      values: "operator.upgradeCRD false"
+      effect: "the pre-upgrade hook leaves the render and moving the CRDs forward becomes entirely the delivery workflow's job"
+    -
+      values: "driver.version"
+      effect: "changes one field, ClusterPolicy /spec/driver/version, and does not move the finding set"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Hand read of the chart against this base's render. This base is the default base with driver.version set to 580.105.08 instead of 580.126.20. The two renders differ at one field, ClusterPolicy /spec/driver/version, and the proof checks that, so the default base's reading carries over: nothing is decided at render time, flattening drops the chart's Helm hooks, and it needs the CRDs before the ClusterPolicy. The hook objects are packaged as lifecycle actions and the CRDs as a bundle, so the lane names companions that exist in the package. None of them has been run on a cluster, and no receipt says a flattened install, upgrade or delete behaves like the Helm one. Driver support for this chart version and for any operating system was not checked. This verdict is about flattening; it does not say the operator can install or run driver 580.105.08."
+    routes:
+      - "CRD ordering declaration: the five CRDs are established before the ClusterPolicy object, from the packaged CRD bundle"
+      - "pre-upgrade lifecycle action that moves the CRDs to the new version, recorded in the package and not yet run"
+      - "post-delete lifecycle action for the node-feature-discovery prune Job, recorded in the package and not yet run"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/nvidia-gpu-operator-v26.3.2.yaml"
+      - "recipes/nvidia/gpu-operator/v26.3.2/source-lock.yaml"

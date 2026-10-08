@@ -1,0 +1,35 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "nvidia-nvsentinel"
+  version: "v1.25.0"
+spec:
+  bases:
+    -
+      default: true
+      description: "nvsentinel chart defaults variant rendered from nvidia/nvsentinel@v1.25.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD podmonitors.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+      name: "default"
+      path: "bases/default"
+    -
+      description: "nvsentinel no PodMonitor, for a cluster without the Prometheus Operator variant rendered from nvidia/nvsentinel@v1.25.0"
+      name: "no-pod-monitor"
+      path: "bases/no-pod-monitor"
+    -
+      description: "nvsentinel AICR EKS training values variant rendered from nvidia/nvsentinel@v1.25.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD podmonitors.monitoring.coreos.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+      name: "aicr-eks-training"
+      path: "bases/aicr-eks-training"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

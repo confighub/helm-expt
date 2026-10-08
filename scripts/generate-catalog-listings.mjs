@@ -126,6 +126,9 @@ const recordRoot = join(repoRoot, "data", "base-variant-records", "records");
 const listingRoot = join(repoRoot, "site", "listings");
 const schemaPath = join(repoRoot, "schemas", "catalog-listing.schema.json");
 const chartPageRoot = join(repoRoot, "site", "charts");
+const packageIndexPath = join(repoRoot, "data", "installer-oci-packages", "packages.json");
+// Page names the package index guarantees, read once by chartPagesInPackageIndex().
+let indexedChartPages = null;
 
 // The catalog records these lanes under their own names. The listing publishes
 // them under stable snake_case keys so a consumer reads the same eight lanes on
@@ -520,10 +523,26 @@ function buildIdentity(id, labels, spec, format) {
 }
 
 // A listing links the human page only when the site actually publishes one, so
-// the link is never a guess derived from the entry's name.
+// the link is never a guess derived from the entry's name. The site writes one
+// page for every package version in the installer OCI package index, so a
+// version in that index has a page even before the site has been regenerated.
+// Without that, a newly published version could never get its first page: the
+// page is built from the listings that name it, and the listings named it only
+// once it existed.
+function chartPagesInPackageIndex() {
+  if (indexedChartPages) return indexedChartPages;
+  indexedChartPages = new Set();
+  if (existsSync(packageIndexPath)) {
+    for (const row of JSON.parse(readFileSync(packageIndexPath, "utf8")).packages ?? []) {
+      indexedChartPages.add(`${slug(row.chart ?? "")}-${slug(row.version ?? "")}.html`);
+    }
+  }
+  return indexedChartPages;
+}
+
 function chartPageName(spec) {
   const name = `${slug(spec.source?.name ?? "")}-${slug(spec.source?.version ?? "")}.html`;
-  return existsSync(join(chartPageRoot, name)) ? name : "";
+  return existsSync(join(chartPageRoot, name)) || chartPagesInPackageIndex().has(name) ? name : "";
 }
 
 function buildSource(spec) {

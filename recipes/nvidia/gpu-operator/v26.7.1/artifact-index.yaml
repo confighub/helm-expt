@@ -1,0 +1,999 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "nvidia-gpu-operator-v26.7.1"
+  chart: "nvidia/gpu-operator"
+  version: "v26.7.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "nvidia/gpu-operator"
+    version: "v26.7.1"
+    appVersion: "v26.7.1"
+    sourceLock: "recipes/nvidia/gpu-operator/v26.7.1/source-lock.yaml"
+    dependencyLock: "recipes/nvidia/gpu-operator/v26.7.1/dependency-lock.yaml"
+    repository: "https://helm.ngc.nvidia.com/nvidia"
+    packageSHA256: "fdce4cba07db5ddb6dfd0bdf61276a44c24136f2b193bc6ebc81dd1b0f049777"
+  recipe:
+    path: "recipes/nvidia/gpu-operator/v26.7.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/nvidia/gpu-operator/v26.7.1/helm-plan.yaml"
+    chartDossier: "recipes/nvidia/gpu-operator/v26.7.1/chart-dossier.yaml"
+    controlPoints: "recipes/nvidia/gpu-operator/v26.7.1/control-points.yaml"
+    valueModel: "recipes/nvidia/gpu-operator/v26.7.1/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/nvidia/gpu-operator/v26.7.1/helm-pain-report.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "catalog-coverage"
+      - "crd-lifecycle"
+      - "dependency-lock"
+      - "installer-support-object"
+      - "lifecycle-policy"
+      - "operator-managed-operands"
+      - "source-lock"
+  catalogStatus:
+    path: "recipes/nvidia/gpu-operator/v26.7.1/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "driver-580.105.08"
+      - "driver-580.126.20"
+      - "preinstalled-driver"
+      - "preinstalled-driver-and-toolkit"
+      - "external-nfd"
+      - "aicr-eks-training"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: "7/7"
+      inConfigHub: "0/7"
+      localLive: "0/7"
+      gitopsLive: "0/7"
+      liveParity: "0/7"
+    featureSummary: "none-recorded"
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/nvidia/gpu-operator/v26.7.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1"
+    manifestDigest: "sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71"
+    layerDigest: "sha256:3a3722f1ad3ceaa7280c765c22b2f57ce7f2cd08f9911f283474a35238aa10bd"
+    publicationReceipt: "runs/installer-oci/nvidia-gpu-operator/v26.7.1/installer-package-publication-receipt.yaml"
+    installer: "packages/nvidia/gpu-operator/v26.7.1/installer.yaml"
+    receipt: "recipes/nvidia/gpu-operator/v26.7.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "3a3722f1ad3ceaa7280c765c22b2f57ce7f2cd08f9911f283474a35238aa10bd"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/nvidia/gpu-operator/v26.7.1/bases/default"
+        default: true
+        description: "gpu-operator chart defaults variant rendered from nvidia/gpu-operator@v26.7.1"
+      -
+        name: "driver-580.105.08"
+        path: "packages/nvidia/gpu-operator/v26.7.1/bases/driver-580.105.08"
+        default: false
+        description: "gpu-operator driver 580.105.08 (driver support for this chart version and for any operating system was not checked) variant rendered from nvidia/gpu-operator@v26.7.1"
+      -
+        name: "driver-580.126.20"
+        path: "packages/nvidia/gpu-operator/v26.7.1/bases/driver-580.126.20"
+        default: false
+        description: "gpu-operator driver 580.126.20 (driver support for this chart version and for any operating system was not checked) variant rendered from nvidia/gpu-operator@v26.7.1"
+      -
+        name: "preinstalled-driver"
+        path: "packages/nvidia/gpu-operator/v26.7.1/bases/preinstalled-driver"
+        default: false
+        description: "gpu-operator pre-installed NVIDIA driver variant rendered from nvidia/gpu-operator@v26.7.1"
+      -
+        name: "preinstalled-driver-and-toolkit"
+        path: "packages/nvidia/gpu-operator/v26.7.1/bases/preinstalled-driver-and-toolkit"
+        default: false
+        description: "gpu-operator pre-installed NVIDIA driver and container toolkit variant rendered from nvidia/gpu-operator@v26.7.1"
+      -
+        name: "external-nfd"
+        path: "packages/nvidia/gpu-operator/v26.7.1/bases/external-nfd"
+        default: false
+        description: "gpu-operator Node Feature Discovery already in the cluster variant rendered from nvidia/gpu-operator@v26.7.1"
+      -
+        name: "aicr-eks-training"
+        path: "packages/nvidia/gpu-operator/v26.7.1/bases/aicr-eks-training"
+        default: false
+        description: "gpu-operator AICR EKS training values variant rendered from nvidia/gpu-operator@v26.7.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/nvidia/gpu-operator/v26.7.1/variants/default/variant.yaml"
+      namespace: "gpu-operator"
+      releaseName: "gpu-operator"
+      valuesProfile: "recipes/nvidia/gpu-operator/v26.7.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusterpolicies.nvidia.com"
+            purpose: "gpu-operator CRD included in this base; it must be established before Kubernetes accepts the rendered ClusterPolicy object"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomaincliques.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomains.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "gpuclusters.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturegroups.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturerules.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeatures.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nvidiadrivers.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "default"
+      targetFactSummary: "required CRD clusterpolicies.nvidia.com; required CRD computedomaincliques.resource.nvidia.com; required CRD computedomains.resource.nvidia.com; required CRD gpuclusters.nvidia.com; required CRD nodefeaturegroups.nfd.k8s-sigs.io; required CRD nodefeaturerules.nfd.k8s-sigs.io; required CRD nodefeatures.nfd.k8s-sigs.io; required CRD nvidiadrivers.nvidia.com"
+      packageBase:
+        name: "default"
+        path: "packages/nvidia/gpu-operator/v26.7.1/bases/default"
+        default: true
+        description: "gpu-operator chart defaults variant rendered from nvidia/gpu-operator@v26.7.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base default --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        helmReleaseObjectCount: 27
+        cubInstallObjectCountIncludingSupport: 28
+        semanticObjectMatches: "27/27"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||gpu-operator"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/variant-revision.yaml"
+          digest: "49a49662639427199568ecf38345325f0bc1962d1250b9a16b870fbc4e55c225"
+          renderedObjectSetSHA256: "a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd"
+          renderedObjects: "recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 27
+          helmObjectCount: 27
+          cubInstallObjectCountIncludingSupport: 28
+          semanticObjectMatches: "27/27"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd"
+    -
+      name: "driver-580.105.08"
+      variant: "recipes/nvidia/gpu-operator/v26.7.1/variants/driver-580.105.08/variant.yaml"
+      namespace: "gpu-operator"
+      releaseName: "gpu-operator"
+      valuesProfile: "recipes/nvidia/gpu-operator/v26.7.1/effective-values-driver-580.105.08.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusterpolicies.nvidia.com"
+            purpose: "gpu-operator CRD included in this base; it must be established before Kubernetes accepts the rendered ClusterPolicy object"
+            sourceVariant: "driver-580.105.08"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomaincliques.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "driver-580.105.08"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomains.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "driver-580.105.08"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "gpuclusters.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "driver-580.105.08"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturegroups.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "driver-580.105.08"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturerules.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "driver-580.105.08"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeatures.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "driver-580.105.08"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nvidiadrivers.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "driver-580.105.08"
+      targetFactSummary: "required CRD clusterpolicies.nvidia.com; required CRD computedomaincliques.resource.nvidia.com; required CRD computedomains.resource.nvidia.com; required CRD gpuclusters.nvidia.com; required CRD nodefeaturegroups.nfd.k8s-sigs.io; required CRD nodefeaturerules.nfd.k8s-sigs.io; required CRD nodefeatures.nfd.k8s-sigs.io; required CRD nvidiadrivers.nvidia.com"
+      packageBase:
+        name: "driver-580.105.08"
+        path: "packages/nvidia/gpu-operator/v26.7.1/bases/driver-580.105.08"
+        default: false
+        description: "gpu-operator driver 580.105.08 (driver support for this chart version and for any operating system was not checked) variant rendered from nvidia/gpu-operator@v26.7.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base driver-580.105.08 --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        helmReleaseObjectCount: 27
+        cubInstallObjectCountIncludingSupport: 28
+        semanticObjectMatches: "27/27"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||gpu-operator"
+      revisions:
+        -
+          name: "driver-580.105.08-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/variant-revision.yaml"
+          digest: "fbf2dfa116bb812c1d7aa553528339d713b2edcb9693f5abed8ba490548e9bb9"
+          renderedObjectSetSHA256: "a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6"
+          renderedObjects: "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/rendered/object-inventory.yaml"
+          objectCount: 27
+          helmObjectCount: 27
+          cubInstallObjectCountIncludingSupport: 28
+          semanticObjectMatches: "27/27"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6"
+    -
+      name: "driver-580.126.20"
+      variant: "recipes/nvidia/gpu-operator/v26.7.1/variants/driver-580.126.20/variant.yaml"
+      namespace: "gpu-operator"
+      releaseName: "gpu-operator"
+      valuesProfile: "recipes/nvidia/gpu-operator/v26.7.1/effective-values-driver-580.126.20.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusterpolicies.nvidia.com"
+            purpose: "gpu-operator CRD included in this base; it must be established before Kubernetes accepts the rendered ClusterPolicy object"
+            sourceVariant: "driver-580.126.20"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomaincliques.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "driver-580.126.20"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomains.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "driver-580.126.20"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "gpuclusters.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "driver-580.126.20"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturegroups.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "driver-580.126.20"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturerules.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "driver-580.126.20"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeatures.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "driver-580.126.20"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nvidiadrivers.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "driver-580.126.20"
+      targetFactSummary: "required CRD clusterpolicies.nvidia.com; required CRD computedomaincliques.resource.nvidia.com; required CRD computedomains.resource.nvidia.com; required CRD gpuclusters.nvidia.com; required CRD nodefeaturegroups.nfd.k8s-sigs.io; required CRD nodefeaturerules.nfd.k8s-sigs.io; required CRD nodefeatures.nfd.k8s-sigs.io; required CRD nvidiadrivers.nvidia.com"
+      packageBase:
+        name: "driver-580.126.20"
+        path: "packages/nvidia/gpu-operator/v26.7.1/bases/driver-580.126.20"
+        default: false
+        description: "gpu-operator driver 580.126.20 (driver support for this chart version and for any operating system was not checked) variant rendered from nvidia/gpu-operator@v26.7.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base driver-580.126.20 --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        helmReleaseObjectCount: 27
+        cubInstallObjectCountIncludingSupport: 28
+        semanticObjectMatches: "27/27"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||gpu-operator"
+      revisions:
+        -
+          name: "driver-580.126.20-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.126.20/r001/variant-revision.yaml"
+          digest: "ebbb69454c9e9242a809e0befd3bbf311f8374df42b6def7851ddf7b41368626"
+          renderedObjectSetSHA256: "07c886e36a064b51cc99954ae5f3e98f3ca07d3ba51e1721e7affbf6a01654aa"
+          renderedObjects: "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.126.20/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.126.20/r001/rendered/object-inventory.yaml"
+          objectCount: 27
+          helmObjectCount: 27
+          cubInstallObjectCountIncludingSupport: 28
+          semanticObjectMatches: "27/27"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.126.20/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "07c886e36a064b51cc99954ae5f3e98f3ca07d3ba51e1721e7affbf6a01654aa"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.126.20/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "07c886e36a064b51cc99954ae5f3e98f3ca07d3ba51e1721e7affbf6a01654aa"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.126.20/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "07c886e36a064b51cc99954ae5f3e98f3ca07d3ba51e1721e7affbf6a01654aa"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.126.20/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "07c886e36a064b51cc99954ae5f3e98f3ca07d3ba51e1721e7affbf6a01654aa"
+    -
+      name: "preinstalled-driver"
+      variant: "recipes/nvidia/gpu-operator/v26.7.1/variants/preinstalled-driver/variant.yaml"
+      namespace: "gpu-operator"
+      releaseName: "gpu-operator"
+      valuesProfile: "recipes/nvidia/gpu-operator/v26.7.1/effective-values-preinstalled-driver.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusterpolicies.nvidia.com"
+            purpose: "gpu-operator CRD included in this base; it must be established before Kubernetes accepts the rendered ClusterPolicy object"
+            sourceVariant: "preinstalled-driver"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomaincliques.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "preinstalled-driver"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomains.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "preinstalled-driver"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "gpuclusters.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "preinstalled-driver"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturegroups.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "preinstalled-driver"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturerules.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "preinstalled-driver"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeatures.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "preinstalled-driver"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nvidiadrivers.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "preinstalled-driver"
+      targetFactSummary: "required CRD clusterpolicies.nvidia.com; required CRD computedomaincliques.resource.nvidia.com; required CRD computedomains.resource.nvidia.com; required CRD gpuclusters.nvidia.com; required CRD nodefeaturegroups.nfd.k8s-sigs.io; required CRD nodefeaturerules.nfd.k8s-sigs.io; required CRD nodefeatures.nfd.k8s-sigs.io; required CRD nvidiadrivers.nvidia.com"
+      packageBase:
+        name: "preinstalled-driver"
+        path: "packages/nvidia/gpu-operator/v26.7.1/bases/preinstalled-driver"
+        default: false
+        description: "gpu-operator pre-installed NVIDIA driver variant rendered from nvidia/gpu-operator@v26.7.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base preinstalled-driver --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        helmReleaseObjectCount: 27
+        cubInstallObjectCountIncludingSupport: 28
+        semanticObjectMatches: "27/27"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||gpu-operator"
+      revisions:
+        -
+          name: "preinstalled-driver-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver/r001/variant-revision.yaml"
+          digest: "f6dab71b095d1e4e825c655fd5b4b0171f4f46e85888e99f771068c6dd1a9372"
+          renderedObjectSetSHA256: "98a886b6a43765364c65a2b93d489f430347f3fd8a02a35d5bc03015d675fe36"
+          renderedObjects: "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver/r001/rendered/object-inventory.yaml"
+          objectCount: 27
+          helmObjectCount: 27
+          cubInstallObjectCountIncludingSupport: 28
+          semanticObjectMatches: "27/27"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "98a886b6a43765364c65a2b93d489f430347f3fd8a02a35d5bc03015d675fe36"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "98a886b6a43765364c65a2b93d489f430347f3fd8a02a35d5bc03015d675fe36"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "98a886b6a43765364c65a2b93d489f430347f3fd8a02a35d5bc03015d675fe36"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "98a886b6a43765364c65a2b93d489f430347f3fd8a02a35d5bc03015d675fe36"
+    -
+      name: "preinstalled-driver-and-toolkit"
+      variant: "recipes/nvidia/gpu-operator/v26.7.1/variants/preinstalled-driver-and-toolkit/variant.yaml"
+      namespace: "gpu-operator"
+      releaseName: "gpu-operator"
+      valuesProfile: "recipes/nvidia/gpu-operator/v26.7.1/effective-values-preinstalled-driver-and-toolkit.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusterpolicies.nvidia.com"
+            purpose: "gpu-operator CRD included in this base; it must be established before Kubernetes accepts the rendered ClusterPolicy object"
+            sourceVariant: "preinstalled-driver-and-toolkit"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomaincliques.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "preinstalled-driver-and-toolkit"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomains.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "preinstalled-driver-and-toolkit"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "gpuclusters.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "preinstalled-driver-and-toolkit"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturegroups.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "preinstalled-driver-and-toolkit"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturerules.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "preinstalled-driver-and-toolkit"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeatures.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "preinstalled-driver-and-toolkit"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nvidiadrivers.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "preinstalled-driver-and-toolkit"
+      targetFactSummary: "required CRD clusterpolicies.nvidia.com; required CRD computedomaincliques.resource.nvidia.com; required CRD computedomains.resource.nvidia.com; required CRD gpuclusters.nvidia.com; required CRD nodefeaturegroups.nfd.k8s-sigs.io; required CRD nodefeaturerules.nfd.k8s-sigs.io; required CRD nodefeatures.nfd.k8s-sigs.io; required CRD nvidiadrivers.nvidia.com"
+      packageBase:
+        name: "preinstalled-driver-and-toolkit"
+        path: "packages/nvidia/gpu-operator/v26.7.1/bases/preinstalled-driver-and-toolkit"
+        default: false
+        description: "gpu-operator pre-installed NVIDIA driver and container toolkit variant rendered from nvidia/gpu-operator@v26.7.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base preinstalled-driver-and-toolkit --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        helmReleaseObjectCount: 27
+        cubInstallObjectCountIncludingSupport: 28
+        semanticObjectMatches: "27/27"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||gpu-operator"
+      revisions:
+        -
+          name: "preinstalled-driver-and-toolkit-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver-and-toolkit/r001/variant-revision.yaml"
+          digest: "b5aecba458f779e486c6c4056e05a88f1b4e9f0436f265a76163db54a0898dfb"
+          renderedObjectSetSHA256: "2b6cb805960b912ddebd8e5ead4b9bfe5a75ec8d6e28816ebcc9173bdf5da82b"
+          renderedObjects: "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver-and-toolkit/r001/rendered/object-inventory.yaml"
+          objectCount: 27
+          helmObjectCount: 27
+          cubInstallObjectCountIncludingSupport: 28
+          semanticObjectMatches: "27/27"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver-and-toolkit/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "2b6cb805960b912ddebd8e5ead4b9bfe5a75ec8d6e28816ebcc9173bdf5da82b"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver-and-toolkit/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "2b6cb805960b912ddebd8e5ead4b9bfe5a75ec8d6e28816ebcc9173bdf5da82b"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver-and-toolkit/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "2b6cb805960b912ddebd8e5ead4b9bfe5a75ec8d6e28816ebcc9173bdf5da82b"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver-and-toolkit/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "2b6cb805960b912ddebd8e5ead4b9bfe5a75ec8d6e28816ebcc9173bdf5da82b"
+    -
+      name: "external-nfd"
+      variant: "recipes/nvidia/gpu-operator/v26.7.1/variants/external-nfd/variant.yaml"
+      namespace: "gpu-operator"
+      releaseName: "gpu-operator"
+      valuesProfile: "recipes/nvidia/gpu-operator/v26.7.1/effective-values-external-nfd.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusterpolicies.nvidia.com"
+            purpose: "gpu-operator CRD included in this base; it must be established before Kubernetes accepts the rendered ClusterPolicy object"
+            sourceVariant: "external-nfd"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomaincliques.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "external-nfd"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomains.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "external-nfd"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "gpuclusters.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "external-nfd"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nvidiadrivers.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "external-nfd"
+      targetFactSummary: "required CRD clusterpolicies.nvidia.com; required CRD computedomaincliques.resource.nvidia.com; required CRD computedomains.resource.nvidia.com; required CRD gpuclusters.nvidia.com; required CRD nvidiadrivers.nvidia.com"
+      packageBase:
+        name: "external-nfd"
+        path: "packages/nvidia/gpu-operator/v26.7.1/bases/external-nfd"
+        default: false
+        description: "gpu-operator Node Feature Discovery already in the cluster variant rendered from nvidia/gpu-operator@v26.7.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base external-nfd --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        helmReleaseObjectCount: 12
+        cubInstallObjectCountIncludingSupport: 13
+        semanticObjectMatches: "12/12"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||gpu-operator"
+      revisions:
+        -
+          name: "external-nfd-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/gpu-operator/v26.7.1/revisions/external-nfd/r001/variant-revision.yaml"
+          digest: "9ff222d4ef6ae4132cf8c258b5a46953aeecf4b67ae4dfca0d2d72938509ff7c"
+          renderedObjectSetSHA256: "a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489"
+          renderedObjects: "recipes/nvidia/gpu-operator/v26.7.1/revisions/external-nfd/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/gpu-operator/v26.7.1/revisions/external-nfd/r001/rendered/object-inventory.yaml"
+          objectCount: 12
+          helmObjectCount: 12
+          cubInstallObjectCountIncludingSupport: 13
+          semanticObjectMatches: "12/12"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/external-nfd/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/external-nfd/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/external-nfd/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/external-nfd/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489"
+    -
+      name: "aicr-eks-training"
+      variant: "recipes/nvidia/gpu-operator/v26.7.1/variants/aicr-eks-training/variant.yaml"
+      namespace: "gpu-operator"
+      releaseName: "gpu-operator"
+      valuesProfile: "recipes/nvidia/gpu-operator/v26.7.1/effective-values-aicr-eks-training.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusterpolicies.nvidia.com"
+            purpose: "gpu-operator CRD included in this base; it must be established before Kubernetes accepts the rendered ClusterPolicy object"
+            sourceVariant: "aicr-eks-training"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomaincliques.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "aicr-eks-training"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomains.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "aicr-eks-training"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "gpuclusters.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "aicr-eks-training"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nvidiadrivers.nvidia.com"
+            purpose: "CRD included in this base and applied before the workloads that use it"
+            sourceVariant: "aicr-eks-training"
+      targetFactSummary: "required CRD clusterpolicies.nvidia.com; required CRD computedomaincliques.resource.nvidia.com; required CRD computedomains.resource.nvidia.com; required CRD gpuclusters.nvidia.com; required CRD nvidiadrivers.nvidia.com"
+      packageBase:
+        name: "aicr-eks-training"
+        path: "packages/nvidia/gpu-operator/v26.7.1/bases/aicr-eks-training"
+        default: false
+        description: "gpu-operator AICR EKS training values variant rendered from nvidia/gpu-operator@v26.7.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        helmReleaseObjectCount: 13
+        cubInstallObjectCountIncludingSupport: 14
+        semanticObjectMatches: "13/13"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||gpu-operator"
+      revisions:
+        -
+          name: "aicr-eks-training-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/gpu-operator/v26.7.1/revisions/aicr-eks-training/r001/variant-revision.yaml"
+          digest: "3f48c5db2a301d36525006258ffe44d592a4f149adad09786d53de4305c5955b"
+          renderedObjectSetSHA256: "4bd9d60ec2d64a15f28d175934c33d26efd49990a5a28d36b463182b807f9a9b"
+          renderedObjects: "recipes/nvidia/gpu-operator/v26.7.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/gpu-operator/v26.7.1/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+          objectCount: 13
+          helmObjectCount: 13
+          cubInstallObjectCountIncludingSupport: 14
+          semanticObjectMatches: "13/13"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/aicr-eks-training/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "4bd9d60ec2d64a15f28d175934c33d26efd49990a5a28d36b463182b807f9a9b"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/aicr-eks-training/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "4bd9d60ec2d64a15f28d175934c33d26efd49990a5a28d36b463182b807f9a9b"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "4bd9d60ec2d64a15f28d175934c33d26efd49990a5a28d36b463182b807f9a9b"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/gpu-operator/v26.7.1/revisions/aicr-eks-training/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "4bd9d60ec2d64a15f28d175934c33d26efd49990a5a28d36b463182b807f9a9b"

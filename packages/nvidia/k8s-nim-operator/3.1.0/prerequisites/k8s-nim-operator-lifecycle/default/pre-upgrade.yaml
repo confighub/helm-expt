@@ -1,0 +1,110 @@
+---
+# Source: k8s-nim-operator/templates/upgrade_crd.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nim-operator-upgrade-crd-hook-sa
+  annotations:
+    helm.sh/hook: pre-upgrade
+    helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
+    helm.sh/hook-weight: "0"
+---
+# Source: k8s-nim-operator/templates/upgrade_crd.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: nim-operator-upgrade-crd-hook-role
+  annotations:
+    helm.sh/hook: pre-upgrade
+    helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
+    helm.sh/hook-weight: "0"
+rules:
+  - apiGroups:
+      - apiextensions.k8s.io
+    resources:
+      - customresourcedefinitions
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+      - patch
+      - update
+---
+# Source: k8s-nim-operator/templates/upgrade_crd.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: nim-operator-upgrade-crd-hook-binding
+  annotations:
+    helm.sh/hook: pre-upgrade
+    helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
+    helm.sh/hook-weight: "0"
+subjects:
+  - kind: ServiceAccount
+    name: nim-operator-upgrade-crd-hook-sa
+    namespace: nvidia-nim
+roleRef:
+  kind: ClusterRole
+  name: nim-operator-upgrade-crd-hook-role
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: k8s-nim-operator/templates/upgrade_crd.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nim-operator-upgrade-crd
+  namespace: nvidia-nim
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+  labels:
+    helm.sh/chart: k8s-nim-operator-3.1.0
+    app.kubernetes.io/name: k8s-nim-operator
+    app.kubernetes.io/instance: k8s-nim-operator
+    app.kubernetes.io/version: "3.1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: "nim-operator"
+spec:
+  template:
+    metadata:
+      name: nim-operator-upgrade-crd
+      labels:
+        helm.sh/chart: k8s-nim-operator-3.1.0
+        app.kubernetes.io/name: k8s-nim-operator
+        app.kubernetes.io/instance: k8s-nim-operator
+        app.kubernetes.io/version: "3.1.0"
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/component: "nim-operator"
+    spec:
+      serviceAccountName: nim-operator-upgrade-crd-hook-sa
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        runAsNonRoot: true
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Equal
+          value: ""
+      containers:
+        - name: upgrade-crd
+          image: nvcr.io/nvidia/cloud-native/k8s-nim-operator:v3.1.0
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "1"
+              memory: 256Mi
+            requests:
+              cpu: 500m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          command: ["crd-apply-tool"]
+          args:
+            - "--crds-dir=/opt/nim-operator/crds/"
+      restartPolicy: OnFailure

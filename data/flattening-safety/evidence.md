@@ -1,19 +1,19 @@
 # What the catalog's charts actually contain
 
-Every catalog entry with a recorded witness is scanned for the constructs that render-time flattening loses. This view reports what 153 packaged charts contain. It does not decide whether any of them may ship as flattened YAML: that is a flattening-safety verdict, which weighs values gating, the audited base, and the routes available to discharge each construct. 153 of these chart versions have a decided lane today; the rest read "not yet decided" rather than reading as safe by omission.
+Every catalog entry with a recorded witness is scanned for the constructs that render-time flattening loses. This view reports what 164 packaged charts contain. It does not decide whether any of them may ship as flattened YAML: that is a flattening-safety verdict, which weighs values gating, the audited base, and the routes available to discharge each construct. 164 of these chart versions have a decided lane today; the rest read "not yet decided" rather than reading as safe by omission.
 
 | construct | charts | share | what it costs a flattened bundle |
 | --- | --- | --- | --- |
-| capabilities | 111 | 73% | the wrong apiVersion for the target cluster |
-| crds | 74 | 48% | per-file Units race the CRDs they depend on |
-| lookup | 61 | 40% | renders valid but wrong, because it read a cluster that was not there |
-| hooks | 55 | 36% | Hook Jobs never fire, or fire under a different hook dialect |
-| generated-secrets | 47 | 31% | one credential draw frozen into a shared artifact |
-| keep-policy | 39 | 25% | a reconciler prunes what Helm promised to keep |
-| gated-subcharts | 38 | 25% | the flatten step must render with the audited base's condition set |
-| webhooks | 33 | 22% | an empty caBundle makes admission fail closed |
-| test-hooks | 28 | 18% | stray test resources shipped to a cluster |
-| namespace | 10 | 7% | the namespace ships, or must exist first |
+| capabilities | 118 | 72% | the wrong apiVersion for the target cluster |
+| crds | 85 | 52% | per-file Units race the CRDs they depend on |
+| lookup | 67 | 41% | renders valid but wrong, because it read a cluster that was not there |
+| hooks | 65 | 40% | Hook Jobs never fire, or fire under a different hook dialect |
+| generated-secrets | 53 | 32% | one credential draw frozen into a shared artifact |
+| keep-policy | 49 | 30% | a reconciler prunes what Helm promised to keep |
+| gated-subcharts | 48 | 29% | the flatten step must render with the audited base's condition set |
+| webhooks | 39 | 24% | an empty caBundle makes admission fail closed |
+| test-hooks | 28 | 17% | stray test resources shipped to a cluster |
+| namespace | 16 | 10% | the namespace ships, or must exist first |
 
 Two readings are worth keeping in view. A construct being present does not mean a chart is unflattenable: most are values-gated, and a verdict records which ones the audited base actually reaches. And a construct being absent from the packaged chart is a real finding, because it is exactly what makes a chart cheap to certify.
 

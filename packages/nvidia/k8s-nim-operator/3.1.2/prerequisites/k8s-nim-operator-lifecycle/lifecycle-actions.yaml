@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "PackagedLifecycleActions"
+metadata:
+  name: "nvidia-k8s-nim-operator-3-1-2"
+spec:
+  bases:
+    -
+      actions:
+        -
+          automatic: false
+          evidenceState: "not-run"
+          invokedBy: "packaged-requirement"
+          phase: "pre-apply"
+          name: "Install and establish the 9 CRDs before the operator starts"
+          detail: "The operator Deployment watches these custom resources as soon as it starts. The bundle holds exactly the CRDs this base renders. No object in the base is an instance of them, so nothing is rejected if they arrive late, but the operator cannot work until they are established."
+          source: "prerequisites/target-facts/default-crds.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "pre-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "pre-upgrade"
+          name: "Before an upgrade, move the CRDs to the new version"
+          detail: "Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them."
+          source: "prerequisites/k8s-nim-operator-lifecycle/default/pre-upgrade.yaml"
+      name: "default"
+  chart: "nvidia/k8s-nim-operator"
+  namespace: "nvidia-nim"
+  version: "3.1.2"

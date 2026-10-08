@@ -1,0 +1,51 @@
+---
+# Source: gpu-operator/templates/cleanup_gpucluster.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gpu-operator-cleanup-gpucluster
+  namespace: gpu-operator
+  annotations:
+    # Delete the chart-managed GPUCluster CR and wait for it to be gone before helm
+    # removes the operator (and, with operator.cleanupCRD, before the CRD cleanup
+    # hook runs). The operator drains ResourceClaim-consuming operands under a
+    # finalizer on CR deletion, so it must stay alive until the CR has disappeared.
+    # Unconditional because the CR outlives a gpuCluster.deployCR flip (resource
+    # policy keep); a no-op when the CRD or the CR does not exist.
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+  labels:
+    app.kubernetes.io/name: gpu-operator
+    helm.sh/chart: gpu-operator-v26.7.1
+    app.kubernetes.io/instance: gpu-operator
+    app.kubernetes.io/version: "v26.7.1"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: "gpu-operator"
+spec:
+  template:
+    metadata:
+      name: gpu-operator-cleanup-gpucluster
+      labels:
+        app.kubernetes.io/name: gpu-operator
+        helm.sh/chart: gpu-operator-v26.7.1
+        app.kubernetes.io/instance: gpu-operator
+        app.kubernetes.io/version: "v26.7.1"
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/component: "gpu-operator"
+    spec:
+      serviceAccountName: gpu-operator
+      tolerations:
+        - operator: Exists
+      nodeSelector:
+        kubernetes.io/os: linux
+        nodeGroup: system-worker
+      containers:
+        - name: cleanup-gpucluster
+          image: nvcr.io/nvidia/gpu-operator:v26.7.1
+          imagePullPolicy: IfNotPresent
+          command:
+            - /usr/bin/cleanup-gpuclusters
+            - --gpucluster-name
+            - gpu-cluster
+      restartPolicy: OnFailure

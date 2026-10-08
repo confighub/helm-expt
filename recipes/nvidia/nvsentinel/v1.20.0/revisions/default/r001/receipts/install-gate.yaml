@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "nvsentinel-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "3344e2d68968a485305ba8280ebb1676457f5552cd665c8000faa38c42841377"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the target must already have the Prometheus Operator PodMonitor CRD; the rendered objects carry no namespace, so they must be applied into the nvsentinel namespace"

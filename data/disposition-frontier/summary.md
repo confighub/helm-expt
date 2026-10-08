@@ -18,29 +18,29 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 ## Headline
 
 ```text
-lane cells:                 1620
-recorded disposition:       1244  (76.8%)
+lane cells:                 1866
+recorded disposition:       1285  (68.9%)
 + derived blocked:          7
 + derived n/a (K covered):  56
-= verified disposition:     1307  (80.7%)
-genuine todo (named next):  72
-un-dispositioned gap:       241
+= verified disposition:     1348  (72.2%)
+genuine todo (named next):  113
+un-dispositioned gap:       405
 ```
 
-**Distance to 99%:** 313 cells are not yet a
-non-todo verified disposition (19.3% of cells).
+**Distance to 99%:** 518 cells are not yet a
+non-todo verified disposition (27.8% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
 
 | Lane | Cells | Verified disposition | Genuine todo | Un-dispositioned |
 | --- | ---: | ---: | ---: | ---: |
-| R render_parity | 270 | 270 | 0 | 0 |
-| C in_confighub | 270 | 198 | 72 | 0 |
-| L local_live | 270 | 199 | 0 | 71 |
-| G gitops_oci_live | 270 | 199 | 0 | 71 |
-| P live_helm_vs_confighub_parity | 270 | 199 | 0 | 71 |
-| K two_cluster_kind_parity | 270 | 242 | 0 | 28 |
+| R render_parity | 311 | 311 | 0 | 0 |
+| C in_confighub | 311 | 198 | 113 | 0 |
+| L local_live | 311 | 199 | 0 | 112 |
+| G gitops_oci_live | 311 | 199 | 0 | 112 |
+| P live_helm_vs_confighub_parity | 311 | 199 | 0 | 112 |
+| K two_cluster_kind_parity | 311 | 242 | 0 | 69 |
 
 ## The work to 99%, by next action
 
@@ -96,9 +96,50 @@ Each genuine `todo` cell, grouped by what closes it.
 | 1 | run scripts/run-top20-confighub-proof.mjs for metrics-server/metrics-server@3.14.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for metrics-server/metrics-server@3.14.0 external-tls-ca (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for mysql/mysql-operator@2.3.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/cluster-readiness-engine@v0.6.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v25.10.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v25.10.1 driver-580.126.20 (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v25.10.1 driver-595.91.07 (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v25.10.1 external-nfd (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v25.10.1 preinstalled-driver (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v25.10.1 preinstalled-driver-and-toolkit (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.3.2 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.3.2 driver-580.105.08 (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.3.2 driver-595.91.07 (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.3.2 external-nfd (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.3.2 preinstalled-driver (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.3.2 preinstalled-driver-and-toolkit (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.3.3 aicr-eks-training (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.3.3 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.3.3 driver-580.105.08 (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.3.3 driver-595.91.07 (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.3.3 external-nfd (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.3.3 preinstalled-driver (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.3.3 preinstalled-driver-and-toolkit (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.7.1 aicr-eks-training (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.7.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.7.1 driver-580.105.08 (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.7.1 driver-580.126.20 (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.7.1 external-nfd (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.7.1 preinstalled-driver (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/gpu-operator@v26.7.1 preinstalled-driver-and-toolkit (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/k8s-nim-operator@3.1.0 aicr-eks-inference (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/k8s-nim-operator@3.1.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/k8s-nim-operator@3.1.2 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvidia-device-plugin@0.19.3 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvidia-device-plugin@0.19.3 eks-inference (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvidia-device-plugin@0.19.3 nfd-enabled (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvsentinel@v1.20.0 aicr-eks-training (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvsentinel@v1.20.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvsentinel@v1.20.0 no-pod-monitor (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvsentinel@v1.25.0 aicr-eks-training (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvsentinel@v1.25.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvsentinel@v1.25.0 no-pod-monitor (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvsentinel@v1.26.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvsentinel@v1.26.0 no-pod-monitor (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvsentinel@v1.9.0 aicr-eks-training (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvsentinel@v1.9.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for nvidia/nvsentinel@v1.9.0 no-pod-monitor (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for oauth2-proxy/oauth2-proxy@10.7.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for percona/psmdb-operator@1.23.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for policy-reporter/policy-reporter@3.10.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |

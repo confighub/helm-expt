@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nvidia-k8s-nim-operator-3.1.0-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "2c0ae868dcce31487e86ac9631a95ec75e18e1c2092a99d44f6f0af17610e6de"
+  mergedValuesCaptured: false
+  values:
+    {}

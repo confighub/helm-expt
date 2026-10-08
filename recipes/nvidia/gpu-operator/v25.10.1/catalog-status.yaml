@@ -1,0 +1,28 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: CatalogStatus
+metadata:
+  name: "nvidia-gpu-operator-v25.10.1"
+spec:
+  chart: "nvidia/gpu-operator"
+  version: "v25.10.1"
+  status: "catalog-candidate"
+  supportLevel: "promotion-review-needed"
+  supportedScopes:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  supportedVariants:
+    []
+  candidateVariants:
+    - "default"
+    - "driver-580.126.20"
+    - "driver-595.91.07"
+    - "preinstalled-driver"
+    - "preinstalled-driver-and-toolkit"
+    - "external-nfd"
+  deferredVariants: []
+  review:
+    lastReviewed: null
+    humanReviewRequired: true
+    productReviewRequired: true
+  notes:
+    - "Machine proof exists; human product review must confirm the supported variants and production dispositions."

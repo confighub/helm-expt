@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "k8s-nim-operator-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "226c148d867aff54fd40bdce6debeec6201ce90a726f09087bd438ea426e450f"
+    objectCount: 17
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 18
+    uploadedManifestFiles: 18
+    separatedSecretFiles: 0
+    semanticObjectMatches: "17/17"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||nvidia-nim"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run nvidia-gpu-stack-coverage:compare"

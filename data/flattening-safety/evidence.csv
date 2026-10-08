@@ -109,7 +109,18 @@ nats,nack,0.34.0,0,0,0,0,0,0,0,0,6,0,7,default:flatten-with-routes; no-crds:safe
 nats,nats,2.14.0,0,0,0,0,0,0,0,0,0,0,51,default:safe-to-flatten; ha:unsafe-to-flatten
 nats,surveyor,0.20.9,0,0,0,0,1,0,0,0,0,0,11,default-reviewed:safe-to-flatten; default:safe-to-flatten
 nfs-subdir-external-provisioner,nfs-subdir-external-provisioner,4.0.18,0,0,0,0,4,0,0,0,0,0,15,default:safe-to-flatten
+nvidia,cluster-readiness-engine,v0.6.0,0,0,0,0,0,0,0,0,7,0,48,default:flatten-with-routes
+nvidia,gpu-operator,v25.10.1,9,1,0,0,0,0,0,0,6,1,41,default:flatten-with-routes; driver-580.126.20:flatten-with-routes; driver-595.91.07:flatten-with-routes; external-nfd:flatten-with-routes; preinstalled-driver-and-toolkit:flatten-with-routes; preinstalled-driver:flatten-with-routes
+nvidia,gpu-operator,v26.3.2,9,1,0,0,0,0,0,0,6,1,43,default:flatten-with-routes; driver-580.105.08:flatten-with-routes; driver-595.91.07:flatten-with-routes; external-nfd:flatten-with-routes; preinstalled-driver-and-toolkit:flatten-with-routes; preinstalled-driver:flatten-with-routes
+nvidia,gpu-operator,v26.3.3,9,1,0,0,0,0,0,0,6,1,43,aicr-eks-training:flatten-with-routes; default:flatten-with-routes; driver-580.105.08:flatten-with-routes; driver-595.91.07:flatten-with-routes; external-nfd:flatten-with-routes; preinstalled-driver-and-toolkit:flatten-with-routes; preinstalled-driver:flatten-with-routes
+nvidia,gpu-operator,v26.7.1,10,2,0,0,1,0,0,0,9,1,53,aicr-eks-training:flatten-with-routes; default:flatten-with-routes; driver-580.105.08:flatten-with-routes; driver-580.126.20:flatten-with-routes; external-nfd:flatten-with-routes; preinstalled-driver-and-toolkit:flatten-with-routes; preinstalled-driver:flatten-with-routes
+nvidia,k8s-nim-operator,3.1.0,24,7,11,5,8,7,0,2,24,2,212,aicr-eks-inference:flatten-with-routes; default:flatten-with-routes
+nvidia,k8s-nim-operator,3.1.2,24,7,11,5,8,7,0,2,24,2,212,default:flatten-with-routes
 nvidia,nvidia-device-plugin,0.19.3,4,0,0,0,0,0,0,0,4,1,30,default:safe-to-flatten; eks-inference:safe-to-flatten; nfd-enabled:flatten-with-routes
+nvidia,nvsentinel,v1.20.0,5,7,8,3,11,21,0,1,10,21,353,aicr-eks-training:safe-to-flatten; default:safe-to-flatten; no-pod-monitor:safe-to-flatten
+nvidia,nvsentinel,v1.25.0,5,7,8,4,11,21,0,1,12,22,388,aicr-eks-training:safe-to-flatten; default:safe-to-flatten; no-pod-monitor:safe-to-flatten
+nvidia,nvsentinel,v1.26.0,4,7,8,4,11,21,0,1,12,22,421,default:safe-to-flatten; no-pod-monitor:safe-to-flatten
+nvidia,nvsentinel,v1.9.0,5,7,8,2,11,21,0,1,7,20,325,aicr-eks-training:safe-to-flatten; default:safe-to-flatten; no-pod-monitor:safe-to-flatten
 oauth2-proxy,oauth2-proxy,10.7.0,2,1,0,0,13,0,2,0,0,1,84,default:unsafe-to-flatten
 open-telemetry,opentelemetry-operator,0.114.0,4,0,2,4,3,3,3,0,4,0,31,default:unsafe-to-flatten; no-crds:unsafe-to-flatten
 opencost,opencost,2.5.21,0,0,0,0,3,0,0,0,0,0,34,default:safe-to-flatten

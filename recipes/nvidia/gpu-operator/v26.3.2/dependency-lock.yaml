@@ -1,0 +1,13 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "nvidia-gpu-operator-v26.3.2"
+spec:
+  chart: "nvidia/gpu-operator"
+  version: "v26.3.2"
+  dependencies:
+    -
+      name: "node-feature-discovery"
+      repository: "oci://registry.k8s.io/nfd/charts"
+      version: "0.18.3"
+  chartLockDigest: "sha256:1bce3b80da1e6d47a0befbaa6a2f758aeac6d20382e900f0c301f45020afbebc"

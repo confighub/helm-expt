@@ -1115,6 +1115,60 @@ spec:
       the kubernetes-sigs monorepo that contains the chart under charts/; the root LICENSE governs the
       whole repo. Chart.yaml at that tag (fetched) has no license field; Artifact Hub (same repository
       URL) reports license: null for 4.0.18.'
+  - chart: nvidia/cluster-readiness-engine
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/NVIDIA/cluster-readiness-engine/v0.6.0/LICENSE
+      quote: Apache License / Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Read 2026-10-07. Chart source is NVIDIA/cluster-readiness-engine at helm/cluster-readiness-engine.
+      Chart.yaml at tag v0.6.0 carries the header SPDX-License-Identifier: Apache-2.0 and a placeholder
+      version 0.0.0; the released chart is stamped v0.6.0 and published at oci://ghcr.io/nvidia/cluster-readiness-engine
+      (the v0.6.0 release notes name its manifest digest). Repo-root LICENSE fetched at the exact v0.6.0
+      tag is Apache-2.0 under an NVIDIA copyright line. Second pass: the GitHub license API at ref v0.6.0
+      reports Apache-2.0. The packaged chart ships no LICENSE file and no license field. This is the
+      chart license; the workload images the controller launches carry their own terms.'
+  - chart: nvidia/gpu-operator
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/NVIDIA/gpu-operator/v26.7.1/LICENSE
+      quote: Apache License / Version 2.0, January 2004
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: Read 2026-10-07. Chart source is NVIDIA/gpu-operator at deployments/gpu-operator;
+      Chart.yaml in git carries a development placeholder version at every tag and no license field,
+      and the released chart is published at https://helm.ngc.nvidia.com/nvidia. Repo-root LICENSE fetched
+      at each retained tag (v25.10.1, v26.3.2, v26.3.3, v26.7.1) is byte-identical Apache-2.0. Second
+      pass, the GitHub license API at each of those refs, reports Apache-2.0. The packaged chart ships
+      no LICENSE file. Confidence is medium because the chart is distributed through NGC, whose own
+      terms of use were not read here. The chart license is separate from the NVIDIA driver and container
+      EULAs the deployed images carry, and from the license of the vendored node-feature-discovery subchart,
+      which was not read here.
+  - chart: nvidia/k8s-nim-operator
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/NVIDIA/k8s-nim-operator/5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f/LICENSE.md
+      quote: Apache License / Version 2.0, January 2004
+    confidence: medium
+    verifiedIndependently: false
+    researchNote: Read 2026-10-07 from the copy this repository already retains, data/aicr-nim-operator-models/upstream/LICENSE,
+      which data/aicr-nim-operator-models/retention-receipt.yaml records as the repository-root LICENSE.md
+      of NVIDIA/k8s-nim-operator at commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f (2026-08-31), retrieved
+      2026-09-09. It was not fetched again for this row, and there was no second pass, so verifiedIndependently
+      is false. That commit is not the 3.1.0 or 3.1.2 release tag; the LICENSE at those tags was not read.
+      The packaged chart at 3.1.0 and 3.1.2, pulled anonymously from https://helm.ngc.nvidia.com/nvidia,
+      ships no LICENSE file and no license field, and its Chart.yaml names NVIDIA/k8s-nim-operator as
+      its source. Confidence is medium for those reasons and because NGC's own terms of use were not
+      read here. This is the chart license. It is separate from the licenses of the vendored dynamo-platform
+      and dynamo-crds subcharts (dynamo-platform's values.yaml carries an Apache-2.0 SPDX header; nothing
+      else of theirs was read), and from the NVIDIA terms the NIM model images carry.
   - chart: nvidia/nvidia-device-plugin
     spdx: Apache-2.0
     evidence:
@@ -1131,6 +1185,23 @@ spec:
       at the exact v0.19.3 tag governs and is Apache-2.0. This is the device-plugin chart, not NVIDIA's
       gpu-operator chart from helm.ngc.nvidia.com, and the chart license is separate from NVIDIA driver/container-runtime
       EULAs the deployed images carry.
+  - chart: nvidia/nvsentinel
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/NVIDIA/NVSentinel/v1.26.0/LICENSE
+      quote: Apache License / Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Read 2026-10-07. Chart source is NVIDIA/NVSentinel at distros/kubernetes/nvsentinel;
+      Chart.yaml there carries an Apache-2.0 license header at tags v1.9.0 and v1.25.0, and the released
+      chart is published at oci://ghcr.io/nvidia/nvsentinel. Repo-root LICENSE fetched at each retained
+      tag (v1.9.0, v1.20.0, v1.25.0, v1.26.0) is byte-identical Apache-2.0. Second pass, the GitHub
+      license API at each of those refs, reports Apache-2.0. The packaged chart vendors third-party
+      subcharts (a MongoDB chart, a PostgreSQL chart and the Percona MongoDB operator chart) that carry
+      their own licenses; chart defaults leave all of them off and the retained base renders nothing
+      from them.
   - chart: oauth2-proxy/oauth2-proxy
     spdx: Apache-2.0
     evidence:

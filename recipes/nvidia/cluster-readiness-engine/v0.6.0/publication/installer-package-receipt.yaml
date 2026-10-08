@@ -1,0 +1,55 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "nvidia-cluster-readiness-engine-v0.6.0"
+spec:
+  chart:
+    name: "cluster-readiness-engine"
+    repository: "nvidia"
+    version: "v0.6.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/nvidia/cluster-readiness-engine/v0.6.0 -o <tmp>/cluster-readiness-engine-v0.6.0.tgz"
+    sha256: "e3068274eee9e154acce62bfeea4f2ddb523ac7099d41711fc8421d9b49c2d09"
+  package:
+    name: "nvidia-cluster-readiness-engine"
+    path: "packages/nvidia/cluster-readiness-engine/v0.6.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "00c6f13dff44471dc9451d0608b734f681dcf577aa26e977273a39f4e420dc4c"
+        bytes: 316
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "3d7c5f88d97f8f74f84b7ced2ae32d75fceb9888aa4d2701124eb6beea713170"
+        bytes: 1880902
+      -
+        path: "collector/target-facts.sh"
+        sha256: "f629df181d8a73d03821200e6ab49b4737a9509a3030fa415d27c004294c703c"
+        bytes: 5241
+      -
+        path: "installer.yaml"
+        sha256: "1d94d1e92d231255f4c9aa8740182aa6243b67e908f7956543add7fa8627516c"
+        bytes: 2277
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "f452607a977cac358bac40b3b01ad74ca8c1044b5eb01918ed6ad23377e32b28"
+        bytes: 1517855
+    version: "v0.6.0"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nvcre"
+      base: "default"
+      command: "cub installer setup --pull packages/nvidia/cluster-readiness-engine/v0.6.0 --base default --work-dir <tmp> --non-interactive --namespace nvcre"
+      cubInstallObjectCountIncludingSupport: 44
+      helmReleaseObjectCount: 43
+      semanticObjectMatches: "43/43"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"

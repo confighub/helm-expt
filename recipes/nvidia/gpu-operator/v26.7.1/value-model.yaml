@@ -1,0 +1,57 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "nvidia-gpu-operator-v26.7.1"
+spec:
+  checkedValues:
+    -
+      path: "driver.version"
+      disposition: "variant-axis"
+      reason: "The NVIDIA driver version. It lands at exactly one place in the rendered objects: ClusterPolicy cluster-policy, field /spec/driver/version."
+      note: "this chart version defaults to 595.91.07; driver-580.105.08 sets 580.105.08, driver-580.126.20 sets 580.126.20, and aicr-eks-training sets 580.173.02. The proof asserts the rendered value for every base, and that each driver base differs from the default base at this one field only. Driver support for this chart version and for any operating system was not checked."
+      evidence: "templates/clusterpolicy.yaml (spec.driver.version from .Values.driver.version); templates/nvidiadriver.yaml reads the same value but renders only when driver.nvidiaDriverCRD.enabled is true, which no base sets"
+    -
+      path: "driver.enabled"
+      disposition: "variant-axis"
+      reason: "Whether the operator deploys the NVIDIA driver. True by chart default. It lands at exactly one place in the rendered objects: ClusterPolicy cluster-policy, field /spec/driver/enabled."
+      note: "the preinstalled-driver and preinstalled-driver-and-toolkit bases set it false, for nodes that already have the driver; the operator then deploys no driver DaemonSet, which no render shows either way"
+      evidence: "templates/clusterpolicy.yaml (spec.driver.enabled from .Values.driver.enabled)"
+    -
+      path: "toolkit.enabled"
+      disposition: "variant-axis"
+      reason: "Whether the operator deploys the NVIDIA Container Toolkit. True by chart default. It lands at exactly one place in the rendered objects: ClusterPolicy cluster-policy, field /spec/toolkit/enabled."
+      note: "the preinstalled-driver-and-toolkit base sets it false, for nodes that already have the toolkit"
+      evidence: "templates/clusterpolicy.yaml (spec.toolkit.enabled from .Values.toolkit.enabled)"
+    -
+      path: "nfd.enabled"
+      disposition: "variant-axis"
+      reason: "Gates the vendored node-feature-discovery subchart. On by chart default. It adds the NFD workloads, their RBAC, three NodeFeature CRDs and the post-delete prune hook."
+      note: "the external-nfd base turns it off for a cluster that already runs Node Feature Discovery; the aicr-eks-training base turns it off because the AICR recipe installs node-feature-discovery as its own component. With it off the pre-upgrade Job no longer applies the node-feature-discovery CRD files"
+      evidence: "Chart.yaml dependencies (condition nfd.enabled), charts/node-feature-discovery/templates/post-delete-job.yaml"
+    -
+      path: "operator.upgradeCRD"
+      disposition: "left-at-default"
+      reason: "True by chart default and in every base. It renders a pre-upgrade hook: a Job that applies the CRD files inside the operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding."
+      note: "Helm does not upgrade CRDs from a chart's crds directory, so this hook is how the chart moves its CRDs forward on helm upgrade"
+      evidence: "templates/upgrade_crd.yaml"
+    -
+      path: "operator.cleanupCRD"
+      disposition: "left-at-default"
+      reason: "False by chart default and in every base. When true it renders a pre-delete Job that deletes the CRDs and adds helm.sh/resource-policy: keep to the ClusterPolicy."
+      note: "no base renders the cleanup Job or the keep annotation"
+      evidence: "templates/cleanup_crd.yaml, templates/clusterpolicy.yaml"
+    -
+      path: "driver.nvidiaDriverCRD.enabled"
+      disposition: "left-at-default"
+      reason: "False in every base, so no NVIDIADriver object renders and the ClusterPolicy alone carries the driver settings."
+      note: "turning it on moves the driver settings, including driver.version, into an NVIDIADriver object"
+      evidence: "templates/nvidiadriver.yaml"
+    -
+      path: "gpuCluster.deployCR"
+      disposition: "left-at-default"
+      reason: "False by chart default, so no GPUCluster object renders. The chart still renders the gpuclusters.nvidia.com CRD, two compute-domain CRDs and an unconditional pre-delete Job that removes a chart-managed GPUCluster if one exists."
+      note: "the pre-delete Job runs with the chart's ordinary gpu-operator ServiceAccount, so it must run before the base objects are deleted"
+      evidence: "templates/gpucluster.yaml, templates/cleanup_gpucluster.yaml"
+  unknownValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"
+  deadValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"
+  ignoredValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"

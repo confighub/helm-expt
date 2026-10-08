@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nvidia-gpu-operator-v26.3.3-driver-595.91.07"
+spec:
+  files:
+    -
+      path: "effective-values-driver-595.91.07.yaml"
+      source: "inline-proof"
+      sha256: "bc7a57d2a59992bcf26ac23cb091a2ab897d8eec60e5b31f9689998ecb117896"
+  mergedValuesCaptured: false
+  values:
+    driver:
+      version: "595.91.07"

@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "nvidia-k8s-nim-operator-3.1.0"
+spec:
+  checkedValues:
+    -
+      path: "<chart defaults>"
+      variant: "default"
+      disposition: "default-render-captured"
+      reason: "the exact chart-default render of the locked archive is captured"
+    -
+      path: "operator.upgradeCRD"
+      disposition: "left-at-default"
+      reason: "True by chart default and in every base. It renders a pre-upgrade hook: a Job that applies the CRD files inside the operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding."
+      note: "Helm does not upgrade CRDs from a chart's crds directory, so this hook is how the chart moves its CRDs forward on helm upgrade; the four objects are packaged as a recorded lifecycle action"
+      evidence: "templates/upgrade_crd.yaml"
+    -
+      path: "operator.admissionController.enabled"
+      disposition: "variant-axis"
+      reason: "False by chart default. When true it renders a ValidatingWebhookConfiguration, a webhook Service and, in cert-manager mode, a Certificate and an Issuer, and it mounts the certificate Secret into the operator."
+      note: "the aicr-eks-inference base of 3.1.0 turns it on; the chart's values.yaml says cert-manager must be installed beforehand"
+      evidence: "templates/admission-controller.yaml, templates/deployment.yaml, values.yaml operator.admissionController"
+    -
+      path: "dynamo.enabled"
+      disposition: "left-at-default"
+      reason: "False by chart default and in every base. It gates both vendored subcharts, dynamo-platform and dynamo-crds, so no Dynamo object and no Dynamo CRD renders."
+      note: "every lookup, generated credential, keep annotation, webhook and extra CRD the packaged archive contains outside the operator's own templates sits in those subcharts"
+      evidence: "Chart.yaml dependencies (both with condition dynamo.enabled), Chart.lock"
+    -
+      path: "nfd.nodeFeatureRules.deviceID"
+      disposition: "left-at-default"
+      reason: "False by chart default, so no NodeFeatureRule renders and the base needs no Node Feature Discovery CRD."
+      note: "turning it on adds an nfd.k8s-sigs.io custom resource and with it a CRD precondition"
+      evidence: "templates/node-feature-rule.yaml"
+    -
+      path: "<aicr-eks-inference values>"
+      variant: "aicr-eks-inference"
+      disposition: "variant-axis"
+      reason: "the values the AICR v0.14.0 NIM inference recipes supply inline (examples/aicr/eks-h100-inference-nim/argocd-rendered/templates/k8s-nim-operator.yaml): the admission controller on with a cert-manager self-signed issuer, the operator tolerating every taint with no node affinity, Dynamo off"
+      note: "differs from the default base by adding admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||k8s-nim-operator-validating-webhook-configuration, cert-manager.io/v1|Certificate|nvidia-nim|k8s-nim-operator-serving-cert, cert-manager.io/v1|Issuer|nvidia-nim|k8s-nim-operator-selfsigned-issuer, v1|Service|nvidia-nim|k8s-nim-operator-webhook-service and by the fields those values reach; the proof checks the removed and added sets"
+  unknownValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"
+  deadValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"
+  ignoredValues: "not-exhaustively-checked-by-nvidia-gpu-stack-coverage-proof"

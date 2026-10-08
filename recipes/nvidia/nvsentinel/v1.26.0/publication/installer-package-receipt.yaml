@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "nvidia-nvsentinel-v1.26.0"
+spec:
+  chart:
+    name: "nvsentinel"
+    repository: "nvidia"
+    version: "v1.26.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/nvidia/nvsentinel/v1.26.0 -o <tmp>/nvsentinel-v1.26.0.tgz"
+    sha256: "0cd18b117a021659dd7203a1cb50e8c0a5aba1d1dde644225facd1a188fd6bff"
+  package:
+    name: "nvidia-nvsentinel"
+    path: "packages/nvidia/nvsentinel/v1.26.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "a841b0eb60d5f1fc84f280a8b7b501097dac7a7321aa62aabdd875d0840772f0"
+        bytes: 263
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "24814ac18cb0a16ce47a9d02a6a4c01d86ad3b99c1382f47b5daf734c4bc70ae"
+        bytes: 70035
+      -
+        path: "bases/no-pod-monitor/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-pod-monitor/upstream.yaml"
+        sha256: "46e1eea6fdb17a85b71a8e36978dc96364ed5d65ee7951b02b22cf7de8733c00"
+        bytes: 69409
+      -
+        path: "collector/target-facts.sh"
+        sha256: "4a5a13cfc0a277dd10e1491d1a93d7ac56d8ec0dbbb937f4bf1024d4f4892656"
+        bytes: 2653
+      -
+        path: "installer.yaml"
+        sha256: "1fa484667b6b1e6230945d1d040fffece15e2be8191659d76dff2084dbffd089"
+        bytes: 905
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "3374a6d1aacabbc0c77bfef7f174b8ca7ff443af6cb2fbb46b565d4f01691312"
+        bytes: 69222
+    version: "v1.26.0"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nvsentinel"
+      base: "default"
+      command: "cub installer setup --pull packages/nvidia/nvsentinel/v1.26.0 --base default --work-dir <tmp> --non-interactive --namespace nvsentinel"
+      cubInstallObjectCountIncludingSupport: 23
+      helmReleaseObjectCount: 22
+      semanticObjectMatches: "22/22"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nvsentinel"
+      base: "no-pod-monitor"
+      command: "cub installer setup --pull packages/nvidia/nvsentinel/v1.26.0 --base no-pod-monitor --work-dir <tmp> --non-interactive --namespace nvsentinel"
+      cubInstallObjectCountIncludingSupport: 22
+      helmReleaseObjectCount: 21
+      semanticObjectMatches: "21/21"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      variant: "no-pod-monitor"

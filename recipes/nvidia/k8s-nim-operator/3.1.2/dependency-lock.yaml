@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "nvidia-k8s-nim-operator-3.1.2"
+spec:
+  chart: "nvidia/k8s-nim-operator"
+  version: "3.1.2"
+  dependencies:
+    -
+      name: "dynamo-platform"
+      repository: "https://helm.ngc.nvidia.com/nvidia/ai-dynamo"
+      version: "0.9.0-post1"
+    -
+      name: "dynamo-crds"
+      repository: "https://helm.ngc.nvidia.com/nvidia/ai-dynamo"
+      version: "0.9.0"
+  chartLockDigest: "sha256:847623aa2214bfd0432db867cf0a4004032af5d632c15537327c775281f730b7"

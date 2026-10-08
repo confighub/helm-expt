@@ -1,0 +1,40 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "nvidia-nvsentinel-v1.25.0"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "nvidia/nvsentinel"
+    version: "v1.25.0"
+    variants:
+      - "default"
+      - "no-pod-monitor"
+      - "aicr-eks-training"
+    helmObjectsByVariant:
+      default: 22
+      no-pod-monitor: 21
+      aicr-eks-training: 21
+    cubInstallObjectsByVariant:
+      default: 23
+      no-pod-monitor: 22
+      aicr-eks-training: 22
+    helmMatchByVariant:
+      default: "22/22"
+      no-pod-monitor: "21/21"
+      aicr-eks-training: "21/21"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish and sign the package, then complete target-specific live qualification on a GPU target before production"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/no-pod-monitor/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/no-pod-monitor/r001/receipts/render-receipt.yaml"
+    - "revisions/no-pod-monitor/r001/receipts/scan-receipt.yaml"
+    - "revisions/no-pod-monitor/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/install-gate.yaml"

@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "nvidia-gpu-operator"
+  version: "v26.7.1"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/nvidia/gpu-operator/v26.7.1"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/nvidia/gpu-operator/v26.7.1"
+      - "--non-interactive"
+      - "--namespace"
+      - "gpu-operator"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/driver-580.105.08/variant.yaml"
+    - "variants/driver-580.126.20/variant.yaml"
+    - "variants/preinstalled-driver/variant.yaml"
+    - "variants/preinstalled-driver-and-toolkit/variant.yaml"
+    - "variants/external-nfd/variant.yaml"
+    - "variants/aicr-eks-training/variant.yaml"

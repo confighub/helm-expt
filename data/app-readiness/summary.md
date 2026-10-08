@@ -4,14 +4,14 @@ This report checks the rendered default configuration for every catalog chart an
 
 Broad permissions are sometimes necessary, especially for operators and platform services. The purpose of this report is to show where those permissions occur so a team can decide whether each one is appropriate for its use.
 
-Scanned **141** default renders; **106** ship RBAC; **83** contain at least one broad/risky rule by these conservative heuristics.
+Scanned **152** default renders; **117** ship RBAC; **89** contain at least one broad/risky rule by these conservative heuristics.
 
 Findings across the catalog:
 
 | Finding | Charts | Meaning |
 | --- | ---: | --- |
 | `full-wildcard` | 13 | a rule grants `*` verbs on `*` resources (admin-like) |
-| `secret-read` | 78 | a rule can read Secrets (`get`/`list`/`watch` or `*`) |
+| `secret-read` | 84 | a rule can read Secrets (`get`/`list`/`watch` or `*`) |
 | `priv-escalation` | 2 | a rule has `escalate`/`bind`/`impersonate` |
 | `all-resources` | 12 | a rule targets `*` resources (non-wildcard verbs) |
 
@@ -44,7 +44,7 @@ Findings across the catalog:
 | `prometheus-community/kube-prometheus-stack/87.15.1` | 4 | 0 | 3 | `secret-read` |
 | `prometheus-community/kube-prometheus-stack/87.19.2` | 4 | 0 | 3 | `secret-read` |
 | `prometheus-community/kube-prometheus-stack/88.6.3` | 4 | 0 | 3 | `secret-read` |
-| _… and 58 more_ | | | | |
+| _… and 64 more_ | | | | |
 
 ## What happens after a finding
 

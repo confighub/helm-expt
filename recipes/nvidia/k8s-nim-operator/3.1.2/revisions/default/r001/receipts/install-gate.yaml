@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "k8s-nim-operator-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "b152742ed9d6d23ffc731464407499cf534c2c155657052cb1f9425000f6830f"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the nine apps.nvidia.com CRDs must be established before the operator starts; the four pre-upgrade hook objects are a packaged lifecycle action, not part of the base"

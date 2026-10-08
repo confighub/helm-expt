@@ -18,30 +18,30 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-1033 non-green cells:
+1249 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 805 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-target-or-prereq-fix` | 1021 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 124 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
 | `needs-run` | 59 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 45 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 506 |
-| `G` | 131 |
-| `P` | 131 |
-| `L` | 122 |
-| `K` | 84 |
+| `promotion` | 558 |
+| `G` | 172 |
+| `P` | 172 |
+| `L` | 163 |
+| `K` | 125 |
 | `lifecycle` | 59 |
 
 | State | Cells |
 | --- | ---: |
-| `missing` | 241 |
+| `missing` | 405 |
+| `blocked` | 217 |
 | `proven` | 179 |
-| `blocked` | 176 |
-| `not-applicable-source` | 156 |
+| `not-applicable-source` | 167 |
 | `watch` | 124 |
 | `not-applicable-candidate` | 67 |
 | `todo` | 59 |
@@ -114,7 +114,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (805)
+## needs-target-or-prereq-fix (1021)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -686,6 +686,163 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default + review | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | storage-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
+| nvidia/cluster-readiness-engine@v0.6.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| nvidia/cluster-readiness-engine@v0.6.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/cluster-readiness-engine@v0.6.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/cluster-readiness-engine@v0.6.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/cluster-readiness-engine@v0.6.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/cluster-readiness-engine@v0.6.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v25.10.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| nvidia/gpu-operator@v25.10.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v25.10.1 | driver-580.126.20 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | driver-580.126.20 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | driver-580.126.20 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | driver-580.126.20 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | driver-580.126.20 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v25.10.1 | driver-595.91.07 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | driver-595.91.07 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | driver-595.91.07 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | driver-595.91.07 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | driver-595.91.07 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v25.10.1 | external-nfd | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | external-nfd | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | external-nfd | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | external-nfd | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | external-nfd | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver-and-toolkit | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver-and-toolkit | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver-and-toolkit | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver-and-toolkit | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver-and-toolkit | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v25.10.1 | preinstalled-driver | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| nvidia/gpu-operator@v26.3.2 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.2 | driver-580.105.08 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | driver-580.105.08 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | driver-580.105.08 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | driver-580.105.08 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | driver-580.105.08 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.2 | driver-595.91.07 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | driver-595.91.07 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | driver-595.91.07 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | driver-595.91.07 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | driver-595.91.07 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.2 | external-nfd | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | external-nfd | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | external-nfd | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | external-nfd | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | external-nfd | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver-and-toolkit | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver-and-toolkit | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver-and-toolkit | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver-and-toolkit | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver-and-toolkit | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.2 | preinstalled-driver | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.3 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| nvidia/gpu-operator@v26.3.3 | aicr-eks-training | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | aicr-eks-training | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | aicr-eks-training | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | aicr-eks-training | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | aicr-eks-training | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.3 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.3 | driver-580.105.08 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | driver-580.105.08 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | driver-580.105.08 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | driver-580.105.08 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | driver-580.105.08 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.3 | driver-595.91.07 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | driver-595.91.07 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | driver-595.91.07 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | driver-595.91.07 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | driver-595.91.07 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.3 | external-nfd | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | external-nfd | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | external-nfd | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | external-nfd | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | external-nfd | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver-and-toolkit | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver-and-toolkit | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver-and-toolkit | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver-and-toolkit | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver-and-toolkit | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.3.3 | preinstalled-driver | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.7.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| nvidia/gpu-operator@v26.7.1 | aicr-eks-training | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | aicr-eks-training | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | aicr-eks-training | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | aicr-eks-training | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | aicr-eks-training | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.7.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.7.1 | driver-580.105.08 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | driver-580.105.08 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | driver-580.105.08 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | driver-580.105.08 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | driver-580.105.08 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.7.1 | driver-580.126.20 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | driver-580.126.20 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | driver-580.126.20 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | driver-580.126.20 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | driver-580.126.20 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.7.1 | external-nfd | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | external-nfd | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | external-nfd | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | external-nfd | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | external-nfd | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver-and-toolkit | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver-and-toolkit | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver-and-toolkit | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver-and-toolkit | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver-and-toolkit | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/gpu-operator@v26.7.1 | preinstalled-driver | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/k8s-nim-operator@3.1.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| nvidia/k8s-nim-operator@3.1.0 | aicr-eks-inference | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/k8s-nim-operator@3.1.0 | aicr-eks-inference | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/k8s-nim-operator@3.1.0 | aicr-eks-inference | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/k8s-nim-operator@3.1.0 | aicr-eks-inference | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/k8s-nim-operator@3.1.0 | aicr-eks-inference | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/k8s-nim-operator@3.1.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/k8s-nim-operator@3.1.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/k8s-nim-operator@3.1.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/k8s-nim-operator@3.1.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/k8s-nim-operator@3.1.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/k8s-nim-operator@3.1.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| nvidia/k8s-nim-operator@3.1.2 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/k8s-nim-operator@3.1.2 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/k8s-nim-operator@3.1.2 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/k8s-nim-operator@3.1.2 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/k8s-nim-operator@3.1.2 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | nvidia/nvidia-device-plugin@0.19.3 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | nvidia/nvidia-device-plugin@0.19.3 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | nvidia/nvidia-device-plugin@0.19.3 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
@@ -702,6 +859,65 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | nvidia/nvidia-device-plugin@0.19.3 | nfd-enabled | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | nvidia/nvidia-device-plugin@0.19.3 | nfd-enabled | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | nvidia/nvidia-device-plugin@0.19.3 | nfd-enabled | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.20.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| nvidia/nvsentinel@v1.20.0 | aicr-eks-training | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.20.0 | aicr-eks-training | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.20.0 | aicr-eks-training | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.20.0 | aicr-eks-training | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.20.0 | aicr-eks-training | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.20.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.20.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.20.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.20.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.20.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.20.0 | no-pod-monitor | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.20.0 | no-pod-monitor | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.20.0 | no-pod-monitor | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.20.0 | no-pod-monitor | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.20.0 | no-pod-monitor | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.25.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| nvidia/nvsentinel@v1.25.0 | aicr-eks-training | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.25.0 | aicr-eks-training | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.25.0 | aicr-eks-training | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.25.0 | aicr-eks-training | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.25.0 | aicr-eks-training | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.25.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.25.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.25.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.25.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.25.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.25.0 | no-pod-monitor | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.25.0 | no-pod-monitor | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.25.0 | no-pod-monitor | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.25.0 | no-pod-monitor | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.25.0 | no-pod-monitor | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.26.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| nvidia/nvsentinel@v1.26.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.26.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.26.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.26.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.26.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.26.0 | no-pod-monitor | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.26.0 | no-pod-monitor | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.26.0 | no-pod-monitor | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.26.0 | no-pod-monitor | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.26.0 | no-pod-monitor | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.9.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| nvidia/nvsentinel@v1.9.0 | aicr-eks-training | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.9.0 | aicr-eks-training | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.9.0 | aicr-eks-training | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.9.0 | aicr-eks-training | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.9.0 | aicr-eks-training | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.9.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.9.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.9.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.9.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.9.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nvsentinel@v1.9.0 | no-pod-monitor | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.9.0 | no-pod-monitor | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.9.0 | no-pod-monitor | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.9.0 | no-pod-monitor | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nvsentinel@v1.9.0 | no-pod-monitor | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | oauth2-proxy/oauth2-proxy@10.7.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | oauth2-proxy/oauth2-proxy@10.7.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | oauth2-proxy/oauth2-proxy@10.7.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |

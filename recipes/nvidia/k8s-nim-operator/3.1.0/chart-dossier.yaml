@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "nvidia-k8s-nim-operator-3.1.0"
+spec:
+  chart: "nvidia/k8s-nim-operator"
+  version: "3.1.0"
+  caveats:
+    - "Installing the operator deploys no NIM. A NIMService or NIMCache needs GPU nodes, an NGC key for the model image, and storage, and none of those is part of this entry."
+    - "No NIMService sample, NIM model chart or NGC-gated artifact is packaged here."
+    - "The CRDs are large. Client-side kubectl apply can exceed the last-applied annotation limit, so the target facts ask for server-side apply."
+    - "With the admission controller on, the two validating webhooks have failurePolicy Fail and the operator mounts the certificate Secret that cert-manager issues. Until that Secret exists the operator pod cannot start, and until the operator answers, NIMCache and NIMService writes are rejected."
+  maintainedNotes:
+    - "This package is the exact k8s-nim-operator@3.1.0 chart, locked by archive URL and SHA-256."
+    - "With chart defaults k8s-nim-operator@3.1.0 renders 17 objects as release k8s-nim-operator in namespace nvidia-nim: nine CRDs from the chart's crds directory, the operator Deployment, its ServiceAccount, RBAC and a metrics Service. It renders no Secret and no instance of its own custom resources."
+    - "The same values also render four Helm hook objects, all pre-upgrade: a Job that applies the CRD files inside the operator image, with its ServiceAccount, ClusterRole and ClusterRoleBinding. The bases are rendered with --no-hooks, and the four objects are packaged under prerequisites/k8s-nim-operator-lifecycle with a lifecycle-actions.yaml record. Nothing runs them automatically and none has been run on a cluster."
+    - "The release name and namespace are the ones the AICR NIM inference recipes use. NVIDIA's own install instructions name both nim-operator."
+    - "The operator Deployment, ServiceAccount, Role, RoleBinding and metrics Service carry no metadata.namespace, because the chart templates leave it to Helm. A flattened copy must be applied into the nvidia-nim namespace."
+    - "The packaged Chart.lock lists 2 dependencies, dynamo-platform and dynamo-crds, both gated by dynamo.enabled, which every base leaves false."
+    - "The chart archive was pulled anonymously from the NGC Helm repository. The operator image is nvcr.io/nvidia/cloud-native/k8s-nim-operator, with imagePullPolicy Always. The NIM model images the operator later pulls need an NGC key; nothing in this entry deploys one."
+    - "The aicr-eks-inference base renders 21 objects with the values the AICR v0.14.0 NIM inference recipes carry inline in examples/aicr/eks-h100-inference-nim/argocd-rendered/templates/k8s-nim-operator.yaml, which pins this chart version. It adds the admission webhook, its Service, a cert-manager Certificate and a self-signed Issuer to the default base, and changes the operator Deployment. That example retains no nested render of this component, so this base is not compared with an AICR render."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, or production support."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "helm-hook-lifecycle-actions"
+    - "target-facts"
+    - "production-readiness-review"

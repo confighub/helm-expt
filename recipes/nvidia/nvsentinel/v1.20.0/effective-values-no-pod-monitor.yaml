@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nvidia-nvsentinel-v1.20.0-no-pod-monitor"
+spec:
+  files:
+    -
+      path: "effective-values-no-pod-monitor.yaml"
+      source: "inline-proof"
+      sha256: "57586313251ab0f18af962ed3ca2b64b6e1020aa06d6a01a77a16fe5002cb2bc"
+  mergedValuesCaptured: false
+  values:
+    podMonitor:
+      enabled: false

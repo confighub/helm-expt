@@ -5,13 +5,13 @@
   "method": "Read from each entry's committed rendered objects: every image key whose value is a registry reference, under containers, initContainers, ephemeralContainers or a custom resource.",
   "boundary": "What the objects name, not what a registry holds. A tag can answer to different bytes later, and this index resolves nothing; cub config check --images asks the registry.",
   "summary": {
-    "entries": 440,
-    "entriesRead": 315,
+    "entries": 481,
+    "entriesRead": 356,
     "entriesWithoutRetainedObjects": 125,
-    "imageReferences": 549,
-    "distinctImages": 254,
+    "imageReferences": 665,
+    "distinctImages": 288,
     "pinnedByDigest": 44,
-    "namedByTag": 505
+    "namedByTag": 621
   },
   "entries": [
     {
@@ -3911,6 +3911,416 @@
       ]
     },
     {
+      "id": "nvidia-cluster-readiness-engine-v0-6-0-default",
+      "objects": "recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/nvidia/cluster-readiness-engine/manager:v0.6.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-default",
+      "objects": "recipes/nvidia/gpu-operator/v25.10.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v25.10.1",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-driver-580-126-20",
+      "objects": "recipes/nvidia/gpu-operator/v25.10.1/revisions/driver-580.126.20/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v25.10.1",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-driver-595-91-07",
+      "objects": "recipes/nvidia/gpu-operator/v25.10.1/revisions/driver-595.91.07/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v25.10.1",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-external-nfd",
+      "objects": "recipes/nvidia/gpu-operator/v25.10.1/revisions/external-nfd/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v25.10.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-preinstalled-driver",
+      "objects": "recipes/nvidia/gpu-operator/v25.10.1/revisions/preinstalled-driver/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v25.10.1",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit",
+      "objects": "recipes/nvidia/gpu-operator/v25.10.1/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v25.10.1",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-default",
+      "objects": "recipes/nvidia/gpu-operator/v26.3.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.3.2",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-driver-580-105-08",
+      "objects": "recipes/nvidia/gpu-operator/v26.3.2/revisions/driver-580.105.08/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.3.2",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-driver-595-91-07",
+      "objects": "recipes/nvidia/gpu-operator/v26.3.2/revisions/driver-595.91.07/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.3.2",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-external-nfd",
+      "objects": "recipes/nvidia/gpu-operator/v26.3.2/revisions/external-nfd/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.3.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-preinstalled-driver",
+      "objects": "recipes/nvidia/gpu-operator/v26.3.2/revisions/preinstalled-driver/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.3.2",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit",
+      "objects": "recipes/nvidia/gpu-operator/v26.3.2/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.3.2",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-aicr-eks-training",
+      "objects": "recipes/nvidia/gpu-operator/v26.3.3/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.3.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-default",
+      "objects": "recipes/nvidia/gpu-operator/v26.3.3/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.3.3",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-driver-580-105-08",
+      "objects": "recipes/nvidia/gpu-operator/v26.3.3/revisions/driver-580.105.08/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.3.3",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-driver-595-91-07",
+      "objects": "recipes/nvidia/gpu-operator/v26.3.3/revisions/driver-595.91.07/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.3.3",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-external-nfd",
+      "objects": "recipes/nvidia/gpu-operator/v26.3.3/revisions/external-nfd/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.3.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-preinstalled-driver",
+      "objects": "recipes/nvidia/gpu-operator/v26.3.3/revisions/preinstalled-driver/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.3.3",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-preinstalled-driver-and-toolkit",
+      "objects": "recipes/nvidia/gpu-operator/v26.3.3/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.3.3",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-aicr-eks-training",
+      "objects": "recipes/nvidia/gpu-operator/v26.7.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.7.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-default",
+      "objects": "recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.7.1",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-driver-580-105-08",
+      "objects": "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.7.1",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-driver-580-126-20",
+      "objects": "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.126.20/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.7.1",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-external-nfd",
+      "objects": "recipes/nvidia/gpu-operator/v26.7.1/revisions/external-nfd/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.7.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-preinstalled-driver",
+      "objects": "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.7.1",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit",
+      "objects": "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/gpu-operator:v26.7.1",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.19.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference",
+      "objects": "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/cloud-native/k8s-nim-operator:v3.1.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-k8s-nim-operator-3-1-0-default",
+      "objects": "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/cloud-native/k8s-nim-operator:v3.1.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-k8s-nim-operator-3-1-2-default",
+      "objects": "recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvidia/cloud-native/k8s-nim-operator:v3.1.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
       "id": "nvidia-nvidia-device-plugin-0-19-3-default",
       "objects": "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/rendered/release-objects.yaml",
       "read": true,
@@ -3943,6 +4353,347 @@
         },
         {
           "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.17.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-20-0-aicr-eks-training",
+      "objects": "recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.20.0-dcgm-3.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.20.0-dcgm-4.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/labeler:v1.20.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/metadata-collector:v1.20.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/platform-connectors:v1.20.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/syslog-health-monitor:v1.20.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-20-0-default",
+      "objects": "recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.20.0-dcgm-3.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.20.0-dcgm-4.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/labeler:v1.20.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/metadata-collector:v1.20.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/platform-connectors:v1.20.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/syslog-health-monitor:v1.20.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-20-0-no-pod-monitor",
+      "objects": "recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.20.0-dcgm-3.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.20.0-dcgm-4.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/labeler:v1.20.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/metadata-collector:v1.20.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/platform-connectors:v1.20.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/syslog-health-monitor:v1.20.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-25-0-aicr-eks-training",
+      "objects": "recipes/nvidia/nvsentinel/v1.25.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.25.0-dcgm-3.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.25.0-dcgm-4.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/labeler:v1.25.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/metadata-collector:v1.25.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/platform-connectors:v1.25.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/syslog-health-monitor:v1.25.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-25-0-default",
+      "objects": "recipes/nvidia/nvsentinel/v1.25.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.25.0-dcgm-3.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.25.0-dcgm-4.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/labeler:v1.25.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/metadata-collector:v1.25.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/platform-connectors:v1.25.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/syslog-health-monitor:v1.25.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-25-0-no-pod-monitor",
+      "objects": "recipes/nvidia/nvsentinel/v1.25.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.25.0-dcgm-3.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.25.0-dcgm-4.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/labeler:v1.25.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/metadata-collector:v1.25.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/platform-connectors:v1.25.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/syslog-health-monitor:v1.25.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-26-0-default",
+      "objects": "recipes/nvidia/nvsentinel/v1.26.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.26.0-dcgm-3.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.26.0-dcgm-4.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/labeler:v1.26.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/metadata-collector:v1.26.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/platform-connectors:v1.26.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/syslog-health-monitor:v1.26.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-26-0-no-pod-monitor",
+      "objects": "recipes/nvidia/nvsentinel/v1.26.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.26.0-dcgm-3.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.26.0-dcgm-4.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/labeler:v1.26.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/metadata-collector:v1.26.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/platform-connectors:v1.26.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/syslog-health-monitor:v1.26.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-9-0-aicr-eks-training",
+      "objects": "recipes/nvidia/nvsentinel/v1.9.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.9.0-dcgm-3.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.9.0-dcgm-4.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/labeler:v1.9.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/metadata-collector:v1.9.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/platform-connectors:v1.9.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/syslog-health-monitor:v1.9.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-9-0-default",
+      "objects": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.9.0-dcgm-3.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.9.0-dcgm-4.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/labeler:v1.9.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/metadata-collector:v1.9.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/platform-connectors:v1.9.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/syslog-health-monitor:v1.9.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-9-0-no-pod-monitor",
+      "objects": "recipes/nvidia/nvsentinel/v1.9.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.9.0-dcgm-3.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.9.0-dcgm-4.x",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/labeler:v1.9.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/metadata-collector:v1.9.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/platform-connectors:v1.9.0",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/nvidia/nvsentinel/syslog-health-monitor:v1.9.0",
           "pinned": false
         }
       ]

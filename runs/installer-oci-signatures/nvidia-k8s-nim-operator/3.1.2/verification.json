@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator@sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/nvidia/k8s-nim-operator/3.1.2",
+      "confighub.com/package-sha256": "b9d16ed1c7f44ff81598337fe8935fdaf6ed550c3a0d8b5a00bf5e60c6e9ba5d"
+    }
+  }
+]

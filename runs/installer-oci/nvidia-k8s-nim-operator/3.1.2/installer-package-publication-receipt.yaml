@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: nvidia-k8s-nim-operator-3.1.2
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2
+  observedAt: "2026-10-08T05:43:18.889Z"
+  package:
+    path: packages/nvidia/k8s-nim-operator/3.1.2
+    sha256: b9d16ed1c7f44ff81598337fe8935fdaf6ed550c3a0d8b5a00bf5e60c6e9ba5d
+    sourceTreeSHA256: b3979a955e68b7035e08127e450882846203b75a12250bf1629e506059b5428a
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/nvidia/k8s-nim-operator/3.1.2 -o <tmp>/nvidia-k8s-nim-operator-3.1.2.tgz"
+    push: "cub installer push <tmp>/nvidia-k8s-nim-operator-3.1.2.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2 --json"
+  outputs:
+    manifestDigest: sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d
+    layerDigest: sha256:b9d16ed1c7f44ff81598337fe8935fdaf6ed550c3a0d8b5a00bf5e60c6e9ba5d
+    package: |
+      Bundled nvidia-k8s-nim-operator@
+        output: <tmp>
+        files:  10
+        size:   398384 bytes
+        digest: sha256:b9d16ed1c7f44ff81598337fe8935fdaf6ed550c3a0d8b5a00bf5e60c6e9ba5d
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2
+        manifest: sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d
+        layer:    sha256:b9d16ed1c7f44ff81598337fe8935fdaf6ed550c3a0d8b5a00bf5e60c6e9ba5d (398384 bytes, 10 files)
+    inspectJSONSHA256: 005d2c290db8bd36bfb33e7c0c9d8f3b99fd32798ba2209daeab5308b3ee7701
+    inspectJSONCanonicalSHA256: ec3bb4adad3dd6d77d7a28559875d1b5be4620baa722b49f6b6f470e908c7ced

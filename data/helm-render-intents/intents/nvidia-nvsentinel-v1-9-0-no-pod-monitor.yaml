@@ -1,0 +1,132 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "nvidia-nvsentinel-v1-9-0-no-pod-monitor"
+  labels:
+    component: "nvidia/nvsentinel"
+    chart: "nvidia/nvsentinel"
+    version: "v1.9.0"
+    base: "no-pod-monitor"
+    catalogLayer: "F2b"
+spec:
+  component: "nvidia/nvsentinel"
+  chart:
+    name: "nvidia/nvsentinel"
+    version: "v1.9.0"
+    sourceRepository: "oci://ghcr.io/nvidia"
+    sourceContent: ""
+  baseVariant: "no-pod-monitor"
+  renderInputs:
+    recipe: "recipes/nvidia/nvsentinel/v1.9.0"
+    variant: "recipes/nvidia/nvsentinel/v1.9.0/variants/no-pod-monitor/variant.yaml"
+    revision: "recipes/nvidia/nvsentinel/v1.9.0/revisions/no-pod-monitor/r001/variant-revision.yaml"
+    packageBase: "packages/nvidia/nvsentinel/v1.9.0/bases/no-pod-monitor"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.9.0@sha256:d13963c102f908c62a297120947532bc4101486e72d5cb36b1708a04a6e5283b"
+    sourceLock: "recipes/nvidia/nvsentinel/v1.9.0/source-lock.yaml"
+    namespace: "nvsentinel"
+    releaseName: "nvsentinel"
+    valuesProfile: "recipes/nvidia/nvsentinel/v1.9.0/effective-values-no-pod-monitor.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/nvidia/nvsentinel/v1.9.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/nvidia/nvsentinel/v1.9.0/revisions/no-pod-monitor/r001/rendered/object-inventory.yaml"
+    revision: "recipes/nvidia/nvsentinel/v1.9.0/revisions/no-pod-monitor/r001/variant-revision.yaml"
+    packageBase: "packages/nvidia/nvsentinel/v1.9.0/bases/no-pod-monitor"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "none-declared-or-observed"
+    declared:
+      {}
+    requirements:
+      []
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "actionable-gap"
+      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+      declarationSource: ""
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/nvidia/nvsentinel/v1.9.0/effective-values-no-pod-monitor.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "review-required"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 0
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/nvidia/nvsentinel/v1.9.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/nvidia/nvsentinel/v1.9.0/bases/no-pod-monitor"
+    fullModelPath:
+      - "chart/version: nvidia/nvsentinel@v1.9.0"
+      - "recipe: recipes/nvidia/nvsentinel/v1.9.0"
+      - "base variant: no-pod-monitor"
+      - "render intent: data/helm-render-intents/intents/nvidia-nvsentinel-v1-9-0-no-pod-monitor.yaml"
+      - "rendered revision: recipes/nvidia/nvsentinel/v1.9.0/revisions/no-pod-monitor/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/nvidia/nvsentinel/v1.9.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.9.0@sha256:d13963c102f908c62a297120947532bc4101486e72d5cb36b1708a04a6e5283b"
+      - "package base: packages/nvidia/nvsentinel/v1.9.0/bases/no-pod-monitor"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

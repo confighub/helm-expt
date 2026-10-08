@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: nvidia-gpu-operator-v26.7.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1
+  observedAt: "2026-10-08T05:42:54.013Z"
+  package:
+    path: packages/nvidia/gpu-operator/v26.7.1
+    sha256: 3a3722f1ad3ceaa7280c765c22b2f57ce7f2cd08f9911f283474a35238aa10bd
+    sourceTreeSHA256: fd7da8fdbee3e80acee038acfc4488a2a9a0a6aef9217525559db655a8aa184a
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/nvidia/gpu-operator/v26.7.1 -o <tmp>/nvidia-gpu-operator-v26.7.1.tgz"
+    push: "cub installer push <tmp>/nvidia-gpu-operator-v26.7.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1 --json"
+  outputs:
+    manifestDigest: sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71
+    layerDigest: sha256:3a3722f1ad3ceaa7280c765c22b2f57ce7f2cd08f9911f283474a35238aa10bd
+    package: |
+      Bundled nvidia-gpu-operator@
+        output: <tmp>
+        files:  46
+        size:   542024 bytes
+        digest: sha256:3a3722f1ad3ceaa7280c765c22b2f57ce7f2cd08f9911f283474a35238aa10bd
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1
+        manifest: sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71
+        layer:    sha256:3a3722f1ad3ceaa7280c765c22b2f57ce7f2cd08f9911f283474a35238aa10bd (542024 bytes, 46 files)
+    inspectJSONSHA256: 40956a90de13a9f18d2bed516d6b1c08c06991407a665803d0d105f724bfd11b
+    inspectJSONCanonicalSHA256: ce287f01cc37917fba29235ea52d1efd4b623c572a4ceccec8d8de8fa937292c

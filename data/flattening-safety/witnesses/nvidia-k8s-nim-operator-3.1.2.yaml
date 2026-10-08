@@ -1,0 +1,108 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "nvidia-k8s-nim-operator-3.1.2"
+spec:
+  chart:
+    repository: "nvidia"
+    name: "k8s-nim-operator"
+    version: "3.1.2"
+  package:
+    sha256: "ebb31e27b4a62d22ac10a24083ff21a340e48030b1ac4c1e7b99b24318f8f92a"
+    observedAt: "2026-10-07T19:05:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 212
+  subcharts:
+    count: 8
+    conditions:
+      -
+        dependency: "dynamo-platform"
+        condition: "dynamo.enabled"
+      -
+        dependency: "dynamo-crds"
+        condition: "dynamo.enabled"
+  crds:
+    files: 18
+    documents: 24
+  hookValues:
+    - "post-install,post-upgrade"
+    - "pre-install,pre-upgrade"
+    - "pre-upgrade"
+  findings:
+    lookup:
+      count: 11
+      files:
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/_helpers.tpl:96"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/_helpers.tpl:128"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/_validation.tpl:29"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/_validation.tpl:51"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:103"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:166"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:188"
+        - "charts/dynamo-platform/charts/etcd/templates/_helpers.tpl:206"
+        - "charts/dynamo-platform/charts/kai-scheduler/templates/services/resourcereservation-namespace.yaml:5"
+        - "charts/dynamo-platform/templates/kai.yaml:19"
+        - "charts/dynamo-platform/templates/kai.yaml:47"
+    capabilities:
+      count: 8
+      files:
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/operator-servicemonitor.yaml:15"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/prometheus.yaml:15"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_capabilities.tpl:12"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_capabilities.tpl:22"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_capabilities.tpl:170"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_capabilities.tpl:171"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_compatibility.tpl:14"
+        - "charts/dynamo-platform/templates/kai.yaml:16"
+    helm-hooks:
+      count: 24
+      files:
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/mpi-run-ssh-keygen-job.yaml:23"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/mpi-run-ssh-keygen-job.yaml:106"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/mpi-run-ssh-keygen-job.yaml:116"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/mpi-run-ssh-keygen-job.yaml:130"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/webhook-ca-inject-job.yaml:30"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/webhook-ca-inject-job.yaml:46"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/webhook-ca-inject-job.yaml:66"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/webhook-ca-inject-job.yaml:89"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/webhook-ca-inject-job.yaml:112"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/webhook-ca-inject-job.yaml:136"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/webhook-cert-gen-job.yaml:30"
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/webhook-cert-gen-job.yaml:46"
+    resource-policy-keep:
+      count: 7
+      files:
+        - "charts/dynamo-crds/templates/nvidia.com_dynamocomponentdeployments.yaml:22"
+        - "charts/dynamo-crds/templates/nvidia.com_dynamographdeploymentrequests.yaml:22"
+        - "charts/dynamo-crds/templates/nvidia.com_dynamographdeployments.yaml:22"
+        - "charts/dynamo-crds/templates/nvidia.com_dynamographdeploymentscalingadapters.yaml:22"
+        - "charts/dynamo-crds/templates/nvidia.com_dynamomodels.yaml:22"
+        - "charts/dynamo-platform/charts/etcd/templates/snapshot-pvc.yaml:14"
+        - "charts/dynamo-platform/charts/kai-scheduler/templates/services/resourcereservation-namespace.yaml:11"
+    generated-secrets:
+      count: 7
+      files:
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:70"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:95"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:132"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:133"
+        - "charts/dynamo-platform/charts/etcd/charts/common/templates/_secrets.tpl:137"
+        - "charts/dynamo-platform/charts/etcd/templates/_helpers.tpl:210"
+        - "charts/dynamo-platform/charts/etcd/templates/secrets.yaml:19"
+    webhook-config:
+      count: 5
+      files:
+        - "charts/dynamo-platform/charts/dynamo-operator/templates/webhook-configuration.yaml:19"
+        - "charts/dynamo-platform/charts/grove-charts/templates/authorizer-webhook-config.yaml:4"
+        - "charts/dynamo-platform/charts/grove-charts/templates/pcs-defaulting-webhook-config.yaml:3"
+        - "charts/dynamo-platform/charts/grove-charts/templates/pcs-validating-webhook-config.yaml:3"
+        - "templates/admission-controller.yaml:61"
+    namespace-creation:
+      count: 2
+      files:
+        - "charts/dynamo-platform/charts/kai-scheduler/templates/services/resourcereservation-namespace.yaml:7"
+        - "charts/dynamo-platform/charts/kai-scheduler/templates/services/scalingpod-namespace.yaml:6"
+    test-hooks:
+      count: 0
+      files:
+        []

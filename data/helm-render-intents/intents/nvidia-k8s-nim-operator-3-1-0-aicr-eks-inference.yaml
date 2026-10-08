@@ -1,0 +1,529 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference"
+  labels:
+    component: "nvidia/k8s-nim-operator"
+    chart: "nvidia/k8s-nim-operator"
+    version: "3.1.0"
+    base: "aicr-eks-inference"
+    catalogLayer: "F2b"
+spec:
+  component: "nvidia/k8s-nim-operator"
+  chart:
+    name: "nvidia/k8s-nim-operator"
+    version: "3.1.0"
+    sourceRepository: "https://helm.ngc.nvidia.com/nvidia"
+    sourceContent: ""
+  baseVariant: "aicr-eks-inference"
+  renderInputs:
+    recipe: "recipes/nvidia/k8s-nim-operator/3.1.0"
+    variant: "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+    revision: "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/variant-revision.yaml"
+    packageBase: "packages/nvidia/k8s-nim-operator/3.1.0/bases/aicr-eks-inference"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0@sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3"
+    sourceLock: "recipes/nvidia/k8s-nim-operator/3.1.0/source-lock.yaml"
+    namespace: "nvidia-nim"
+    releaseName: "k8s-nim-operator"
+    valuesProfile: "recipes/nvidia/k8s-nim-operator/3.1.0/effective-values-aicr-eks-inference.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/rendered/object-inventory.yaml"
+    revision: "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/variant-revision.yaml"
+    packageBase: "packages/nvidia/k8s-nim-operator/3.1.0/bases/aicr-eks-inference"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "nemocustomizers.apps.nvidia.com"
+          purpose: "CRD included in this base and applied before the operator that reconciles it"
+          sourceVariant: "aicr-eks-inference"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "nemodatastores.apps.nvidia.com"
+          purpose: "CRD included in this base and applied before the operator that reconciles it"
+          sourceVariant: "aicr-eks-inference"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "nemoentitystores.apps.nvidia.com"
+          purpose: "CRD included in this base and applied before the operator that reconciles it"
+          sourceVariant: "aicr-eks-inference"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "nemoevaluators.apps.nvidia.com"
+          purpose: "CRD included in this base and applied before the operator that reconciles it"
+          sourceVariant: "aicr-eks-inference"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "nemoguardrails.apps.nvidia.com"
+          purpose: "CRD included in this base and applied before the operator that reconciles it"
+          sourceVariant: "aicr-eks-inference"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "nimbuilds.apps.nvidia.com"
+          purpose: "CRD included in this base and applied before the operator that reconciles it"
+          sourceVariant: "aicr-eks-inference"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "nimcaches.apps.nvidia.com"
+          purpose: "CRD included in this base and applied before the operator that reconciles it"
+          sourceVariant: "aicr-eks-inference"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "nimpipelines.apps.nvidia.com"
+          purpose: "CRD included in this base and applied before the operator that reconciles it"
+          sourceVariant: "aicr-eks-inference"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "nimservices.apps.nvidia.com"
+          purpose: "CRD included in this base and applied before the operator that reconciles it"
+          sourceVariant: "aicr-eks-inference"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "certificates.cert-manager.io"
+          purpose: "cert-manager CRD required before Kubernetes accepts the rendered Certificate and Issuer objects; the chart does not ship it, and cert-manager itself must be running to issue the webhook certificate"
+          sourcePath: "../../../jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          sourceVariant: "jetstack/cert-manager@v1.21.1/crds-enabled"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "issuers.cert-manager.io"
+          purpose: "cert-manager CRD required before Kubernetes accepts the rendered Certificate and Issuer objects; the chart does not ship it, and cert-manager itself must be running to issue the webhook certificate"
+          sourcePath: "../../../jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          sourceVariant: "jetstack/cert-manager@v1.21.1/crds-enabled"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+          packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+    requirements:
+      -
+        category: "crd"
+        name: "nemocustomizers.apps.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        check: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        declarationPath: "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+        sourceVariant: "aicr-eks-inference"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+          - "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+      -
+        category: "crd"
+        name: "nemodatastores.apps.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        check: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        declarationPath: "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+        sourceVariant: "aicr-eks-inference"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+          - "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+      -
+        category: "crd"
+        name: "nemoentitystores.apps.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        check: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        declarationPath: "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+        sourceVariant: "aicr-eks-inference"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+          - "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+      -
+        category: "crd"
+        name: "nemoevaluators.apps.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        check: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        declarationPath: "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+        sourceVariant: "aicr-eks-inference"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+          - "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+      -
+        category: "crd"
+        name: "nemoguardrails.apps.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        check: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        declarationPath: "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+        sourceVariant: "aicr-eks-inference"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+          - "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+      -
+        category: "crd"
+        name: "nimbuilds.apps.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        check: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        declarationPath: "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+        sourceVariant: "aicr-eks-inference"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+          - "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+      -
+        category: "crd"
+        name: "nimcaches.apps.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        check: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        declarationPath: "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+        sourceVariant: "aicr-eks-inference"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+          - "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+      -
+        category: "crd"
+        name: "nimpipelines.apps.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        check: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        declarationPath: "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+        sourceVariant: "aicr-eks-inference"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+          - "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+      -
+        category: "crd"
+        name: "nimservices.apps.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        check: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        declarationPath: "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+        sourceVariant: "aicr-eks-inference"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+          - "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+      -
+        category: "crd"
+        name: "certificates.cert-manager.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "cert-manager CRD required before Kubernetes accepts the rendered Certificate and Issuer objects; the chart does not ship it, and cert-manager itself must be running to issue the webhook certificate"
+        check: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        declarationPath: "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.21.1/crds-enabled"
+        sourcePath: "../../../jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+          - "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+      -
+        category: "crd"
+        name: "issuers.cert-manager.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "cert-manager CRD required before Kubernetes accepts the rendered Certificate and Issuer objects; the chart does not ship it, and cert-manager itself must be running to issue the webhook certificate"
+        check: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        packagePath: "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        declarationPath: "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.21.1/crds-enabled"
+        sourcePath: "../../../jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+          - "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "11 target prerequisites declared by this base."
+      declarationSource: "recipes/nvidia/k8s-nim-operator/3.1.0/variants/aicr-eks-inference/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/nvidia/k8s-nim-operator/3.1.0/effective-values-aicr-eks-inference.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 11
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/nvidia/k8s-nim-operator/3.1.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/nvidia/k8s-nim-operator/3.1.0/bases/aicr-eks-inference"
+    fullModelPath:
+      - "chart/version: nvidia/k8s-nim-operator@3.1.0"
+      - "recipe: recipes/nvidia/k8s-nim-operator/3.1.0"
+      - "base variant: aicr-eks-inference"
+      - "render intent: data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml"
+      - "rendered revision: recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/rendered/release-objects.yaml"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0@sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3"
+      - "package base: packages/nvidia/k8s-nim-operator/3.1.0/bases/aicr-eks-inference"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
