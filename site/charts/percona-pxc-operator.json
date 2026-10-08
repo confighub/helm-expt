@@ -1,0 +1,81 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "percona/pxc-operator",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/percona-pxc-operator.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/percona-pxc-operator.html",
+  "counts": {
+    "versions": 1,
+    "bases": 2
+  },
+  "versions": [
+    {
+      "version": "1.19.1",
+      "page": "https://confighub.github.io/helm-expt/site/charts/percona-pxc-operator-1-19-1.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1@sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "percona-pxc-operator-1-19-1-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/percona-pxc-operator-1-19-1-default.json"
+          },
+          "objectCount": 7,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/percona/pxc-operator/1.19.1/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6",
+            "objectSetDigest": "sha256:769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "percona-pxc-operator-1-19-1-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/percona-pxc-operator-1-19-1-no-crds.json"
+          },
+          "objectCount": 0,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488",
+            "objectSetDigest": "sha256:ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

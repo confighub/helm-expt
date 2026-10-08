@@ -1,0 +1,176 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "stakater/reloader",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/stakater-reloader.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/stakater-reloader.html",
+  "counts": {
+    "versions": 3,
+    "bases": 4
+  },
+  "versions": [
+    {
+      "version": "2.2.16",
+      "page": "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-16.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.16@sha256:66bffd7fc23fea77b8ce4682734e6850457bbb16743e324c371cbc1798677052"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "stakater-reloader-2-2-16-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/stakater-reloader-2-2-16-default.json"
+          },
+          "objectCount": 6,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/stakater/reloader/2.2.16/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/stakater/reloader/2.2.16/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:64a45378bc0d60bf4cb4fb5094cf8c58aeb5c337934d0f9df3273fcaa04b2a3b",
+            "objectSetDigest": "sha256:64a45378bc0d60bf4cb4fb5094cf8c58aeb5c337934d0f9df3273fcaa04b2a3b"
+          }
+        }
+      ]
+    },
+    {
+      "version": "2.2.14",
+      "page": "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-14.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14@sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "stakater-reloader-2-2-14-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/stakater-reloader-2-2-14-default.json"
+          },
+          "objectCount": 6,
+          "verdict": "safe-to-flatten",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/stakater/reloader/2.2.14/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/stakater/reloader/2.2.14/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:206dcaad71b6f825e834c5b1c0a3dc6799927de8344f4f5d58ed8f6a8bded049",
+            "objectSetDigest": "sha256:206dcaad71b6f825e834c5b1c0a3dc6799927de8344f4f5d58ed8f6a8bded049"
+          }
+        }
+      ]
+    },
+    {
+      "version": "2.2.12",
+      "page": "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "stakater-reloader-2-2-12-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/stakater-reloader-2-2-12-default.json"
+          },
+          "objectCount": 6,
+          "verdict": "safe-to-flatten",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e",
+            "objectSetDigest": "sha256:d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+          }
+        },
+        {
+          "base": "controller-default-reviewed",
+          "default": false,
+          "listing": {
+            "id": "stakater-reloader-2-2-12-controller-default-reviewed",
+            "url": "https://confighub.github.io/helm-expt/site/listings/stakater-reloader-2-2-12-controller-default-reviewed.json"
+          },
+          "objectCount": 6,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e",
+            "objectSetDigest": "sha256:d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "2.2.14",
+        "base": "default",
+        "listing": "stakater-reloader-2-2-14-default"
+      },
+      "to": {
+        "version": "2.2.16",
+        "base": "default",
+        "listing": "stakater-reloader-2-2-16-default"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 6,
+      "unchanged": 0,
+      "line": "From 2.2.14 to 2.2.16 on the default base, 6 of 6 objects change."
+    },
+    {
+      "from": {
+        "version": "2.2.12",
+        "base": "default",
+        "listing": "stakater-reloader-2-2-12-default"
+      },
+      "to": {
+        "version": "2.2.14",
+        "base": "default",
+        "listing": "stakater-reloader-2-2-14-default"
+      },
+      "added": 4,
+      "removed": 4,
+      "changed": 2,
+      "unchanged": 0,
+      "line": "From 2.2.12 to 2.2.14 on the default base, 2 of 6 objects change, 4 are added and 4 are removed."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

@@ -1,0 +1,176 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "longhorn/longhorn",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn.html",
+  "counts": {
+    "versions": 3,
+    "bases": 4
+  },
+  "versions": [
+    {
+      "version": "1.12.1",
+      "page": "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-12-1.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.1@sha256:88c9a55f464591c7288cf4794ec3473ffc589d81a0851bef5616cb25693640ad"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "longhorn-longhorn-1-12-1-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/longhorn-longhorn-1-12-1-default.json"
+          },
+          "objectCount": 50,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/longhorn/longhorn/1.12.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/longhorn/longhorn/1.12.1/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:1e1c0981fa9e52c72e1e6adac0a981b809532f423a8f095a362501a7bf77e5b8",
+            "objectSetDigest": "sha256:1e1c0981fa9e52c72e1e6adac0a981b809532f423a8f095a362501a7bf77e5b8"
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.12.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-12-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "longhorn-longhorn-1-12-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/longhorn-longhorn-1-12-0-default.json"
+          },
+          "objectCount": 42,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/longhorn/longhorn/1.12.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/longhorn/longhorn/1.12.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:5297ce7e4c7d1dcbae7404f2b3348efcb4c2d4e1b11a140de98c81eb99fe07c7",
+            "objectSetDigest": "sha256:5297ce7e4c7d1dcbae7404f2b3348efcb4c2d4e1b11a140de98c81eb99fe07c7"
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.11.2",
+      "page": "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-11-2.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "longhorn-longhorn-1-11-2-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/longhorn-longhorn-1-11-2-default.json"
+          },
+          "objectCount": 41,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90",
+            "objectSetDigest": "sha256:4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90"
+          }
+        },
+        {
+          "base": "ui-ingress",
+          "default": false,
+          "listing": {
+            "id": "longhorn-longhorn-1-11-2-ui-ingress",
+            "url": "https://confighub.github.io/helm-expt/site/listings/longhorn-longhorn-1-11-2-ui-ingress.json"
+          },
+          "objectCount": 42,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298",
+            "objectSetDigest": "sha256:2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "1.12.0",
+        "base": "default",
+        "listing": "longhorn-longhorn-1-12-0-default"
+      },
+      "to": {
+        "version": "1.12.1",
+        "base": "default",
+        "listing": "longhorn-longhorn-1-12-1-default"
+      },
+      "added": 8,
+      "removed": 0,
+      "changed": 41,
+      "unchanged": 1,
+      "line": "From 1.12.0 to 1.12.1 on the default base, 41 of 42 objects change and 8 are added."
+    },
+    {
+      "from": {
+        "version": "1.11.2",
+        "base": "default",
+        "listing": "longhorn-longhorn-1-11-2-default"
+      },
+      "to": {
+        "version": "1.12.0",
+        "base": "default",
+        "listing": "longhorn-longhorn-1-12-0-default"
+      },
+      "added": 1,
+      "removed": 0,
+      "changed": 40,
+      "unchanged": 1,
+      "line": "From 1.11.2 to 1.12.0 on the default base, 40 of 41 objects change and 1 is added."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

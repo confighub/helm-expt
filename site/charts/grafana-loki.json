@@ -1,0 +1,176 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "grafana/loki",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/grafana-loki.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/grafana-loki.html",
+  "counts": {
+    "versions": 3,
+    "bases": 4
+  },
+  "versions": [
+    {
+      "version": "7.3.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-3-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.3.0@sha256:4f07ad7b36c9d4b8cf3ced158c24d031684279800889766941afbd33c46e799b"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "grafana-loki-7-3-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/grafana-loki-7-3-0-default.json"
+          },
+          "objectCount": 19,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/grafana/loki/7.3.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/loki/7.3.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:748a9b3329ec784fc8eeba2bc023fd9f42af37816a0e3a40fa02a4e44ae8afaa",
+            "objectSetDigest": "sha256:748a9b3329ec784fc8eeba2bc023fd9f42af37816a0e3a40fa02a4e44ae8afaa"
+          }
+        }
+      ]
+    },
+    {
+      "version": "7.1.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-1-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0@sha256:339ccdc3af897709b0749b5d5e197dec640081870b4f369fd3a5ca0617bd7ce6"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "grafana-loki-7-1-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/grafana-loki-7-1-0-default.json"
+          },
+          "objectCount": 19,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/grafana/loki/7.1.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/loki/7.1.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:2e25c21e656867877b5211bfb1914d335806e76df455a78f72e7ec7f8bd8b9ff",
+            "objectSetDigest": "sha256:2e25c21e656867877b5211bfb1914d335806e76df455a78f72e7ec7f8bd8b9ff"
+          }
+        }
+      ]
+    },
+    {
+      "version": "7.0.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-0-0.html",
+      "defaultBase": "single-binary-filesystem",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da"
+      },
+      "bases": [
+        {
+          "base": "single-binary-filesystem",
+          "default": true,
+          "listing": {
+            "id": "grafana-loki-7-0-0-single-binary-filesystem",
+            "url": "https://confighub.github.io/helm-expt/site/listings/grafana-loki-7-0-0-single-binary-filesystem.json"
+          },
+          "objectCount": 19,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30",
+            "objectSetDigest": "sha256:6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30"
+          }
+        },
+        {
+          "base": "simple-scalable-minio",
+          "default": false,
+          "listing": {
+            "id": "grafana-loki-7-0-0-simple-scalable-minio",
+            "url": "https://confighub.github.io/helm-expt/site/listings/grafana-loki-7-0-0-simple-scalable-minio.json"
+          },
+          "objectCount": 33,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207",
+            "objectSetDigest": "sha256:91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "7.1.0",
+        "base": "default",
+        "listing": "grafana-loki-7-1-0-default"
+      },
+      "to": {
+        "version": "7.3.0",
+        "base": "default",
+        "listing": "grafana-loki-7-3-0-default"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 19,
+      "unchanged": 0,
+      "line": "From 7.1.0 to 7.3.0 on the default base, 19 of 19 objects change."
+    },
+    {
+      "from": {
+        "version": "7.0.0",
+        "base": "single-binary-filesystem",
+        "listing": "grafana-loki-7-0-0-single-binary-filesystem"
+      },
+      "to": {
+        "version": "7.1.0",
+        "base": "default",
+        "listing": "grafana-loki-7-1-0-default"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 19,
+      "unchanged": 0,
+      "line": "From 7.0.0 on the single-binary-filesystem base to 7.1.0 on the default base, 19 of 19 objects change."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

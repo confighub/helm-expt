@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-08 (commit `12040dc5c1`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-08 (commit `5e19acad1e`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 464 |
-| Fresh (no linked source newer than the doc) | 62 |
-| **Review-due** | 98 |
+| Fresh (no linked source newer than the doc) | 63 |
+| **Review-due** | 97 |
 | No linked evidence sources (cannot auto-trigger) | 304 |
 
 ## Review queue
@@ -43,10 +43,9 @@ most recently changed triggers.
 | [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 120 | `data/outcome-coverage/summary.md (2026-10-08)`<br>`tests/npm-scripts.md (2026-10-07)` |
 | [docs/reference/quirk-coverage.md](../../docs/reference/quirk-coverage.md) | reference | 2026-06-11 | 119 | `data/quirk-coverage/coverage.csv (2026-10-08)`<br>`data/quirk-coverage/summary.md (2026-10-08)`<br>`data/extension-slots/summary.md (2026-10-01)` |
 | [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 119 | `data/chart-facts/chart-facts.csv (2026-10-08)`<br>`data/outcome-coverage/base-outcomes.csv (2026-10-08)`<br>`data/top100-coverage/summary.md (2026-10-08)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 119 | `CATALOG.md (2026-10-08)`<br>`data/attack-plan-workdown/summary.md (2026-10-08)`<br>`data/image-digest-workdown/summary.md (2026-10-08)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 119 | `data/README.md (2026-10-08)`<br>`data/csv-index.csv (2026-10-08)`<br>`CATALOG.md (2026-10-08)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 118 | `data/top100-readiness/summary.md (2026-10-08)`<br>`data/top100-user-readiness/summary.md (2026-10-08)`<br>`data/top20-base-readiness/start-here.md (2026-08-26)` |
 | [docs/reference/secret-lifecycle.md](../../docs/reference/secret-lifecycle.md) | reference | 2026-06-13 | 117 | `data/secret-lifecycle/summary.md (2026-10-08)`<br>`data/secret-lifecycle/variant-summary.csv (2026-10-08)`<br>`data/secret-lifecycle/secrets.csv (2026-10-01)` |
-| [docs/reference/variant-promotion-model.md](../../docs/reference/variant-promotion-model.md) | reference | 2026-06-14 | 117 | `data/variant-promotion/summary.md (2026-10-08)` |
 | [docs/user/remote-images-and-supported-bases.md](../../docs/user/remote-images-and-supported-bases.md) | user | 2026-06-16 | 115 | `data/image-digest-workdown/summary.md (2026-10-08)`<br>`data/remote-image-runtime-workdown/summary.md (2026-06-24)` |
 | [docs/planning/next-20-tasks.md](../../docs/planning/next-20-tasks.md) | planning | 2026-06-16 | 114 | `data/outcome-coverage/summary.md (2026-10-08)`<br>`data/claims-register/summary.md (2026-08-24)`<br>`data/variant-goldens/derived-expansion-wave/README.md (2026-06-30)` |
 | [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-18 | 113 | `data/master-catalog-matrix/matrix.csv (2026-10-08)`<br>`data/master-catalog-matrix/matrix.html (2026-10-08)`<br>`data/master-catalog-matrix/summary.md (2026-10-08)` |

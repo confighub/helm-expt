@@ -1,0 +1,99 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "bitnami/elasticsearch",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/bitnami-elasticsearch.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-elasticsearch.html",
+  "counts": {
+    "versions": 1,
+    "bases": 3
+  },
+  "versions": [
+    {
+      "version": "22.1.6",
+      "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-elasticsearch-22-1-6.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719"
+      },
+      "bases": [
+        {
+          "base": "legacy",
+          "default": false,
+          "listing": {
+            "id": "bitnami-elasticsearch-22-1-6-legacy",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-elasticsearch-22-1-6-legacy.json"
+          },
+          "objectCount": 21,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/elasticsearch/22.1.6/revisions/legacy/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/elasticsearch/22.1.6/revisions/legacy/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:84bdbaf1a905f282a240ad1a5d355a257dd11617d4921411b1a7397738923e60",
+            "objectSetDigest": "sha256:84bdbaf1a905f282a240ad1a5d355a257dd11617d4921411b1a7397738923e60"
+          }
+        },
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "bitnami-elasticsearch-22-1-6-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-elasticsearch-22-1-6-default.json"
+          },
+          "objectCount": 21,
+          "verdict": "safe-to-flatten",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217",
+            "objectSetDigest": "sha256:2dea059172595f3477271eadd1aea69c4274d15a8029a55afb176cb5ffd66217"
+          }
+        },
+        {
+          "base": "ha",
+          "default": false,
+          "listing": {
+            "id": "bitnami-elasticsearch-22-1-6-ha",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-elasticsearch-22-1-6-ha.json"
+          },
+          "objectCount": 0,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:9ae3685e24863d4a3e6b8af8a7c2613d6123c927f9518be12d68370e2d0c3db4",
+            "objectSetDigest": "sha256:9ae3685e24863d4a3e6b8af8a7c2613d6123c927f9518be12d68370e2d0c3db4"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

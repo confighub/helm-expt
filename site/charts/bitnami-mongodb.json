@@ -1,0 +1,212 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "bitnami/mongodb",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb.html",
+  "counts": {
+    "versions": 3,
+    "bases": 6
+  },
+  "versions": [
+    {
+      "version": "19.1.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-1-0.html",
+      "defaultBase": "existing-secret-replicaset",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0@sha256:1804b3a7dbfcdb7879564e9961eddc7c5e15e6020358332f20be9927ea7f8406"
+      },
+      "bases": [
+        {
+          "base": "static-passwords",
+          "default": false,
+          "listing": {
+            "id": "bitnami-mongodb-19-1-0-static-passwords",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-mongodb-19-1-0-static-passwords.json"
+          },
+          "objectCount": 8,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:2753c6bfaf61d7e60135c7a52e1e05bd4fde979c5796b4e2b54ffa2cb64c6911",
+            "objectSetDigest": "sha256:2753c6bfaf61d7e60135c7a52e1e05bd4fde979c5796b4e2b54ffa2cb64c6911"
+          }
+        },
+        {
+          "base": "existing-secret-replicaset",
+          "default": true,
+          "listing": {
+            "id": "bitnami-mongodb-19-1-0-existing-secret-replicaset",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-mongodb-19-1-0-existing-secret-replicaset.json"
+          },
+          "objectCount": 10,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd",
+            "objectSetDigest": "sha256:b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd"
+          }
+        }
+      ]
+    },
+    {
+      "version": "19.0.9",
+      "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-0-9.html",
+      "defaultBase": "existing-secret-replicaset",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9@sha256:37930a411e8fbd975677a68a10a1790bacfbd20d4661848d4cbbec3d728061a1"
+      },
+      "bases": [
+        {
+          "base": "static-passwords",
+          "default": false,
+          "listing": {
+            "id": "bitnami-mongodb-19-0-9-static-passwords",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-mongodb-19-0-9-static-passwords.json"
+          },
+          "objectCount": 8,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68",
+            "objectSetDigest": "sha256:4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68"
+          }
+        },
+        {
+          "base": "existing-secret-replicaset",
+          "default": true,
+          "listing": {
+            "id": "bitnami-mongodb-19-0-9-existing-secret-replicaset",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-mongodb-19-0-9-existing-secret-replicaset.json"
+          },
+          "objectCount": 10,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/mongodb/19.0.9/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/mongodb/19.0.9/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2",
+            "objectSetDigest": "sha256:ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2"
+          }
+        }
+      ]
+    },
+    {
+      "version": "19.0.7",
+      "page": "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-0-7.html",
+      "defaultBase": "existing-secret-replicaset",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35"
+      },
+      "bases": [
+        {
+          "base": "static-passwords",
+          "default": false,
+          "listing": {
+            "id": "bitnami-mongodb-19-0-7-static-passwords",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-mongodb-19-0-7-static-passwords.json"
+          },
+          "objectCount": 8,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:ce99d9a7867d5cb7ea0f0f983d092600ec1bb24ce50e969d1032bdbf937e8fdf",
+            "objectSetDigest": "sha256:ce99d9a7867d5cb7ea0f0f983d092600ec1bb24ce50e969d1032bdbf937e8fdf"
+          }
+        },
+        {
+          "base": "existing-secret-replicaset",
+          "default": true,
+          "listing": {
+            "id": "bitnami-mongodb-19-0-7-existing-secret-replicaset",
+            "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-mongodb-19-0-7-existing-secret-replicaset.json"
+          },
+          "objectCount": 10,
+          "verdict": "unsafe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231",
+            "objectSetDigest": "sha256:3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "19.0.9",
+        "base": "existing-secret-replicaset",
+        "listing": "bitnami-mongodb-19-0-9-existing-secret-replicaset"
+      },
+      "to": {
+        "version": "19.1.0",
+        "base": "existing-secret-replicaset",
+        "listing": "bitnami-mongodb-19-1-0-existing-secret-replicaset"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 10,
+      "unchanged": 0,
+      "line": "From 19.0.9 to 19.1.0 on the existing-secret-replicaset base, 10 of 10 objects change."
+    },
+    {
+      "from": {
+        "version": "19.0.7",
+        "base": "existing-secret-replicaset",
+        "listing": "bitnami-mongodb-19-0-7-existing-secret-replicaset"
+      },
+      "to": {
+        "version": "19.0.9",
+        "base": "existing-secret-replicaset",
+        "listing": "bitnami-mongodb-19-0-9-existing-secret-replicaset"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 10,
+      "unchanged": 0,
+      "line": "From 19.0.7 to 19.0.9 on the existing-secret-replicaset base, 10 of 10 objects change."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

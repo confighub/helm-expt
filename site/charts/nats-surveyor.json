@@ -1,0 +1,81 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "nats/surveyor",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/nats-surveyor.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/nats-surveyor.html",
+  "counts": {
+    "versions": 1,
+    "bases": 2
+  },
+  "versions": [
+    {
+      "version": "0.20.9",
+      "page": "https://confighub.github.io/helm-expt/site/charts/nats-surveyor-0-20-9.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "nats-surveyor-0-20-9-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nats-surveyor-0-20-9-default.json"
+          },
+          "objectCount": 3,
+          "verdict": "safe-to-flatten",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nats/surveyor/0.20.9/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nats/surveyor/0.20.9/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1",
+            "objectSetDigest": "sha256:c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+          }
+        },
+        {
+          "base": "default-reviewed",
+          "default": false,
+          "listing": {
+            "id": "nats-surveyor-0-20-9-default-reviewed",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nats-surveyor-0-20-9-default-reviewed.json"
+          },
+          "objectCount": 3,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1",
+            "objectSetDigest": "sha256:c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

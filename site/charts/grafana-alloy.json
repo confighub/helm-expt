@@ -1,0 +1,176 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "grafana/alloy",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/grafana-alloy.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/grafana-alloy.html",
+  "counts": {
+    "versions": 3,
+    "bases": 4
+  },
+  "versions": [
+    {
+      "version": "1.12.1",
+      "page": "https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-12-1.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.12.1@sha256:ccce74fea2d96aa240eeb109cc8e4d15d8636c16fea3e3eddc0f1571937505f3"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "grafana-alloy-1-12-1-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/grafana-alloy-1-12-1-default.json"
+          },
+          "objectCount": 7,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/grafana/alloy/1.12.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/alloy/1.12.1/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:e3b30c75c9a0bc3241f42a8dde5d4b05371091c319ab5712fe30685234d17549",
+            "objectSetDigest": "sha256:e3b30c75c9a0bc3241f42a8dde5d4b05371091c319ab5712fe30685234d17549"
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.11.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-11-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0@sha256:01110b6ce36bc7f75b9c638d85b49ffc86fe7989016966092b19f3bd04ae8808"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "grafana-alloy-1-11-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/grafana-alloy-1-11-0-default.json"
+          },
+          "objectCount": 7,
+          "verdict": "flatten-with-routes",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/grafana/alloy/1.11.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/alloy/1.11.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:d6e75fca48c764892e27664e0137148e30e34428763f411ef4eca669720e2ba6",
+            "objectSetDigest": "sha256:d6e75fca48c764892e27664e0137148e30e34428763f411ef4eca669720e2ba6"
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.8.2",
+      "page": "https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-8-2.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "grafana-alloy-1-8-2-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/grafana-alloy-1-8-2-default.json"
+          },
+          "objectCount": 7,
+          "verdict": "flatten-with-routes",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/grafana/alloy/1.8.2/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/alloy/1.8.2/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:984319325f620b099f091df4c45ef851f0dd7593526f146d5271dbf477f7f37b",
+            "objectSetDigest": "sha256:984319325f620b099f091df4c45ef851f0dd7593526f146d5271dbf477f7f37b"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "grafana-alloy-1-8-2-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/grafana-alloy-1-8-2-no-crds.json"
+          },
+          "objectCount": 0,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22",
+            "objectSetDigest": "sha256:3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "1.11.0",
+        "base": "default",
+        "listing": "grafana-alloy-1-11-0-default"
+      },
+      "to": {
+        "version": "1.12.1",
+        "base": "default",
+        "listing": "grafana-alloy-1-12-1-default"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 6,
+      "unchanged": 1,
+      "line": "From 1.11.0 to 1.12.1 on the default base, 6 of 7 objects change."
+    },
+    {
+      "from": {
+        "version": "1.8.2",
+        "base": "default",
+        "listing": "grafana-alloy-1-8-2-default"
+      },
+      "to": {
+        "version": "1.11.0",
+        "base": "default",
+        "listing": "grafana-alloy-1-11-0-default"
+      },
+      "added": 4,
+      "removed": 4,
+      "changed": 2,
+      "unchanged": 1,
+      "line": "From 1.8.2 to 1.11.0 on the default base, 2 of 7 objects change, 4 are added and 4 are removed."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

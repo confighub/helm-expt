@@ -1,0 +1,81 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "argo-cd/argo-events",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-events.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-events.html",
+  "counts": {
+    "versions": 1,
+    "bases": 2
+  },
+  "versions": [
+    {
+      "version": "2.4.21",
+      "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-events-2-4-21.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "argo-cd-argo-events-2-4-21-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-events-2-4-21-default.json"
+          },
+          "objectCount": 9,
+          "verdict": "flatten-with-routes",
+          "published": true,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b",
+            "objectSetDigest": "sha256:fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "argo-cd-argo-events-2-4-21-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-events-2-4-21-no-crds.json"
+          },
+          "objectCount": 0,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49",
+            "objectSetDigest": "sha256:4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}
