@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-b200-gke-cos-inference-dynamo-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:67900e2af01995e1bcde7898abad58ac770ce0dc5ee43750072fe74a3eeecc86"
-    layerDigest: "sha256:b60a45419cb510d9b094517ff441987e85379939a46ca483fae10ab41482457b"
+    manifestDigest: "sha256:8d280d0ca1bd53fcbfd8d9c34733de4587f9d07fdbc951d5063270ec8f3f756a"
+    layerDigest: "sha256:77549d7bec9d3499a4edd499ef8b9117b43bfc2a186284714cdbfdeabfd27f06"
     layerBytes: 85020
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 21
@@ -160,7 +160,7 @@ spec:
         path: "data/aicr-mirror-artifacts/b200-gke-cos-inference-dynamo/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
         role: "route: system-node-selector-placeholder"
-        sha256: "33db8bd820fac87c37bb79b50f4e5994afd2b5e126cb3aad078fa44d3b73eccd"
+        sha256: "bcc11c9e12054813b2cf84b5790ca749daf211a82be0178ffa6ec025d34ba76b"
         bytes: 6097
       -
         path: "data/aicr-mirror-artifacts/b200-gke-cos-inference-dynamo/routes/components-left-out-of-bundle.yaml"

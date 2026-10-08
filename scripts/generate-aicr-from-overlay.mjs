@@ -147,7 +147,10 @@ const SYSTEM_NODE_SELECTOR = {
   input: "systemNodeSelector",
   flag: "--system-node-selector",
   value: "nodeGroup=system-worker",
-  confirmedOn: "2026-10-08",
+  // The maintainer confirmed the placeholder on 2026-10-07. The hand-retained
+  // v1.0.0 entry records the same date. The later choice to carry it in every
+  // mirrored entry is dated inside the confirmation text, not here.
+  confirmedOn: "2026-10-07",
   route: "system-node-selector-placeholder",
   refusal: /requires --system-node-selector to be set/,
 };
@@ -185,12 +188,48 @@ function usage() {
   console.error(`Usage:
   node scripts/generate-aicr-from-overlay.mjs <overlay-name> [--id <id>] [--binary <path>]
   node scripts/generate-aicr-from-overlay.mjs --all [--binary <path>]
+  node scripts/generate-aicr-from-overlay.mjs --redate-placeholder-confirmation
 
 <overlay-name> must be a name from \`aicr recipe list\`. --id overrides the
 entry id (directory name and register id); it defaults to <overlay-name>.
 --all mirrors every overlay and removes mirrored directories that no longer
 have one. --binary, or AICR_MIRROR_BINARY, names an AICR binary already on
-disk. It is checked against the pinned SHA-256 before it runs.`);
+disk. It is checked against the pinned SHA-256 before it runs.
+--redate-placeholder-confirmation runs no AICR command and needs no binary. It
+rewrites only the confirmedOn line of the system-node-selector placeholder in
+each mirrored entry's generation receipt, to the date in SYSTEM_NODE_SELECTOR.`);
+}
+
+// One-off, non-rendering correction. The first v1.0.0 mirror recorded the
+// placeholder's confirmation as 2026-10-08, the day it was chosen for every
+// entry, while the maintainer confirmed it on 2026-10-07. Moving the constant
+// changes what a full run writes. This mode brings the retained receipts to the
+// same date without running AICR or Helm, so the bundles and Applications keep
+// their bytes. It touches the one line, and refuses a receipt where that line
+// is not exactly one match. Rerun the digest index and mirror artifacts
+// generators afterwards, because both read the receipt.
+function redatePlaceholderConfirmation() {
+  const wanted = SYSTEM_NODE_SELECTOR.confirmedOn;
+  let rewritten = 0;
+  let unchanged = 0;
+  for (const id of mirroredDirectories()) {
+    const path = join(repoRoot, "examples", "aicr", id, "generation-receipt.yaml");
+    const text = readFileSync(path, "utf8");
+    const pattern = /^(\s*)confirmedOn: "(\d{4}-\d{2}-\d{2})"$/gm;
+    const matches = [...text.matchAll(pattern)];
+    if (!text.includes('valueStatus: "confirmed-placeholder"')) {
+      check(matches.length === 0, `${relativeRepo(path)} has a confirmedOn line but no confirmed placeholder`);
+      continue;
+    }
+    check(matches.length === 1, `${relativeRepo(path)} must have exactly one confirmedOn line, found ${matches.length}`);
+    if (matches[0][2] === wanted) {
+      unchanged += 1;
+      continue;
+    }
+    write(path, text.replace(pattern, `$1confirmedOn: "${wanted}"`));
+    rewritten += 1;
+  }
+  console.log(`placeholder confirmation is ${wanted}: ${rewritten} receipts rewritten, ${unchanged} already carried it`);
 }
 
 function flagValue(argv, flag) {
@@ -202,6 +241,10 @@ function flagValue(argv, flag) {
 
 function main() {
   const argv = process.argv.slice(2);
+  if (argv.includes("--redate-placeholder-confirmation")) {
+    redatePlaceholderConfirmation();
+    return;
+  }
   const all = argv.includes("--all");
   const overlayName = all ? "" : argv[0];
   if (!all && (!overlayName || overlayName.startsWith("--"))) {

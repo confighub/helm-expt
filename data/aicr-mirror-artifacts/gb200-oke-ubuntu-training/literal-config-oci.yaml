@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-oke-ubuntu-training-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:8e8f52410d4be2eb1881ff0886b6acc2dd90979549cba2e899756cb2c305ac4e"
-    layerDigest: "sha256:583c7e390cc1623def3d396e949486f0013ea2f1d436b56be02531494af6f9ed"
+    manifestDigest: "sha256:9a5cdc42f8f4378560f16ef00d7b03f60cfda9efdd195a8c345f028e7e48d90b"
+    layerDigest: "sha256:c043e84928a85faeb3962aa1962bcf2d21483a20c7d737ebaf2dee59e25b1eed"
     layerBytes: 72732
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 15
@@ -124,7 +124,7 @@ spec:
         path: "data/aicr-mirror-artifacts/gb200-oke-ubuntu-training/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
         role: "route: system-node-selector-placeholder"
-        sha256: "cf4e18dd0417cec5a8d0103df760ba0215c6bad2652d72d5646686bd85798a4a"
+        sha256: "1489cdb4c40d0d8bc593351012711a630a8852c62fe031dd427cb3aaea7f77ab"
         bytes: 5599
       -
         path: "data/aicr-mirror-artifacts/gb200-oke-ubuntu-training/routes/components-left-out-of-bundle.yaml"

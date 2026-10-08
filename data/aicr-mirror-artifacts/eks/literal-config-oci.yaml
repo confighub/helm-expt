@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-eks-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:b06dd6b117a304671188d6773c61093d2117e2a23e32b84bcba1efb20e214eda"
-    layerDigest: "sha256:40440dfd813fc35dcaaf9c1fccd450c64a5c435483d7e714963500a38cdfbff1"
+    manifestDigest: "sha256:6d96408ffdea70291ab6f12b28694ca15b81d3d734f7b3579c80dc076b764c84"
+    layerDigest: "sha256:e6538b9772fdb28d6ef379210f15aa0535f77b33d146ec1857bca8a1bfc17965"
     layerBytes: 71708
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 14
@@ -118,7 +118,7 @@ spec:
         path: "data/aicr-mirror-artifacts/eks/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
         role: "route: system-node-selector-placeholder"
-        sha256: "f961567c65f658695c6d4b7e4c442e366be6bdd6affc09ac4d4872106b808673"
+        sha256: "d5767bfabf7c17203bf635b4b6a36e3f60dea4084cbe847a679a78a97b9016e6"
         bytes: 5351
       -
         path: "data/aicr-mirror-artifacts/eks/routes/components-left-out-of-bundle.yaml"

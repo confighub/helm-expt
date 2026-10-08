@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-lke-ubuntu-training-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:18e5d91dfa121898426830a8d4ed08d505610af5a25fbebf416b14b5046c83fc"
-    layerDigest: "sha256:7406f9e4c7463cba2f87c7ee7d9508c93178360dea7aa5b28365464bb44c3844"
+    manifestDigest: "sha256:0775537eb29ae9da5e533e68d458c333e7a23890b91d3e28f3672e5af4da0a35"
+    layerDigest: "sha256:ebd5a5d9197583cf19a3a7df2afabd79dfb69d14a5f2f8443dbe61866f358cac"
     layerBytes: 65564
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 12
@@ -106,7 +106,7 @@ spec:
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
         role: "route: system-node-selector-placeholder"
-        sha256: "9c9a6075bc57fa28912529d2b51df0ca661a751ed2542b0e8de3c0226841067c"
+        sha256: "6d069e9299fc6d8e6cd49a19977a08350b91e5ddb19ce5a7f55cb8e04bddba76"
         bytes: 5165
       -
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training/routes/components-left-out-of-bundle.yaml"

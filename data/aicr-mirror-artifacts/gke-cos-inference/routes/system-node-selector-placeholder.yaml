@@ -11,7 +11,7 @@ spec:
     flag: "--system-node-selector"
     value: "nodeGroup=system-worker"
     valueStatus: "confirmed-placeholder"
-    confirmedOn: "2026-10-08"
+    confirmedOn: "2026-10-07"
     changeTo: "the label on your own cluster's system node group"
     changeEffect: "A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it."
     container: "spec.source.helm.values"

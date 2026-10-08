@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-lke-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:32ec8724945b856ae7019eaa0930dc7f7e7b0b8d9f73320f17ece9dd63e735f7"
-    layerDigest: "sha256:d6e4dda5e78908cfb45a130031a63050e0ab2dcdda4e40b0a8405de20f9ffd0f"
+    manifestDigest: "sha256:abcd6d8bcc578065f7844005f860a5d559ca6af6fa2f3120c9f60acbbb74a45a"
+    layerDigest: "sha256:8cf98bfef02247a4337119b907ba970c21f810099a0ee9a5b0f6d8598fbb2cb4"
     layerBytes: 73756
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 16
@@ -130,7 +130,7 @@ spec:
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
         role: "route: system-node-selector-placeholder"
-        sha256: "4cce6907455aa661f9d6e5782a4b0d705c1e097e6a7817e761f252016a861332"
+        sha256: "c86ee179190e3741679c49e7a0e53ee54b488c4a959033e5be69a9445ce8d580"
         bytes: 5532
       -
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-inference/routes/components-left-out-of-bundle.yaml"

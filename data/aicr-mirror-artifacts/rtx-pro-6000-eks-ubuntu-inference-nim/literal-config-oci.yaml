@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-eks-ubuntu-inference-nim-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:02258bad281778922c36c13fe24ec8056b400eebc4ea61446c10af17770319a5"
-    layerDigest: "sha256:8bd5195a7d7b60508cdd3eac2146075a5f6695013f146d0e42ba773004a6a5a2"
+    manifestDigest: "sha256:402081be3c9c4d242187bf5b90f8242af66602f153afcd5d679312beb6066771"
+    layerDigest: "sha256:ee7660deb205a1c7fcc6f1040f91d7e36ba7aca8c831bdf2364edda08a4ee7bd"
     layerBytes: 85020
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 20
@@ -154,7 +154,7 @@ spec:
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-nim/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
         role: "route: system-node-selector-placeholder"
-        sha256: "3a969a9dbc80b3f8a33ccb0ab355abcf6ed2c5749bd58c31965b11f1921bd87b"
+        sha256: "955df3f78f2f00664071048251d0c936ee4bab8306fafb429b978bcce3458382"
         bytes: 6101
       -
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-nim/routes/components-left-out-of-bundle.yaml"

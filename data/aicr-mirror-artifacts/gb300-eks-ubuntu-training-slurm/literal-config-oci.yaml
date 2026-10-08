@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb300-eks-ubuntu-training-slurm-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:f54261e7b3fc021812a0605aac92e7e9472ef5842a2146e640a954fd594304bd"
-    layerDigest: "sha256:b9f249a182b765f9bf0c0e9e874a468ff878e277f5deade1cf3152e401bbef3f"
+    manifestDigest: "sha256:be544c70786cccbcc9eb053a1f0d9a7547402f6e40754acde607e33e2e1283dd"
+    layerDigest: "sha256:268afb7bcd0a8632ed9a512901389d134ba1511305b240c9ca99e2ff8d884c12"
     layerBytes: 93212
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 20
@@ -154,7 +154,7 @@ spec:
         path: "data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-slurm/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
         role: "route: system-node-selector-placeholder"
-        sha256: "19679425865f3353c217a5e4e3a46e9d2a92980b81c33b9961502740c8abc236"
+        sha256: "ad4439634c507b5b0b498fd155da62d51de794f7d295716fb0d834d04d54d1ed"
         bytes: 6275
       -
         path: "data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-slurm/routes/components-left-out-of-bundle.yaml"

@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-vr200-rke2-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:78dfd260accecc46607db4ac7264f601f426a812579e9cb78e70731da0f2e6b0"
-    layerDigest: "sha256:af77eab74fd64e735150ae2a6b803c1e7f884ec91624997350bef7ff925f1ed3"
+    manifestDigest: "sha256:72847f280cde5cfbca506dab2050710c9aad4f974e6d14e3c889219eea867ca0"
+    layerDigest: "sha256:5d7e68ead50fc6fbc58ff5d3926e5e569b364168aaca5e5fa5f12a6de8b5e88d"
     layerBytes: 75292
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 16
@@ -130,7 +130,7 @@ spec:
         path: "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-training-kubeflow/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
         role: "route: system-node-selector-placeholder"
-        sha256: "cd51783d220ddb9311ed704a99835f1488c52feda680120e27c39a315128e409"
+        sha256: "9d7406f00cfd60413605f766db3dd7ff3ddf0629742d27abac4968e3d9c1ac94"
         bytes: 5548
       -
         path: "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-training-kubeflow/routes/components-left-out-of-bundle.yaml"

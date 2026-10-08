@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-aks-ubuntu-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:928d84c1eb073758535ed804f1fa4a30666c0ed524b44b0c92902f43a41752d4"
-    layerDigest: "sha256:02939e382605dec89bec377783e4a0c2b9b7fe9bf67d045551b0dfff947886a8"
+    manifestDigest: "sha256:27571eeba67cf7ddded3760afa99a97093fc327f12f69bcf03f57f0b371f8237"
+    layerDigest: "sha256:a9bcb043ce3580d4ce1576f8bad8a360f3ea7147ade908a5ae6b692bf6b8d7f7"
     layerBytes: 83996
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 20
@@ -154,7 +154,7 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
         role: "route: system-node-selector-placeholder"
-        sha256: "64a673d48eb54c981fc011ed90148b1eaaedc2c2f3d0e407209c45cc02010658"
+        sha256: "8f187ead4e9c1fd2a827a993cc30a2f0a587cfb4affcea94812c92a8bb2054b9"
         bytes: 5985
       -
         path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-inference/routes/components-left-out-of-bundle.yaml"

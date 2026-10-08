@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb300-eks-ubuntu-inference-dynamo-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:eda2d2b26b427cb042e3ced08075993c22727bdbd512fd34103f6d229c20c514"
-    layerDigest: "sha256:e8803b2b7d33f0e35a186a4b37736150041d9abd1c95cb512902816e28f97f21"
+    manifestDigest: "sha256:f0d68b086ae4c2a78d997a80f6f2260a08fd45f8d20dc116798c5def8937f8e0"
+    layerDigest: "sha256:9e9d8e320685bbb1adcd3662bf75680e6922b92de2458f0fc76c335bab0ba4d1"
     layerBytes: 89628
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 22
@@ -166,7 +166,7 @@ spec:
         path: "data/aicr-mirror-artifacts/gb300-eks-ubuntu-inference-dynamo/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
         role: "route: system-node-selector-placeholder"
-        sha256: "1bdd19cc74e25c614841363934e8266da235b06a4dbe9f64c356433b2af62bb9"
+        sha256: "dfed3d3270b3e78e1d4608d1ec85a3503a197f5fa670781fad89b1c7f0a314be"
         bytes: 6382
       -
         path: "data/aicr-mirror-artifacts/gb300-eks-ubuntu-inference-dynamo/routes/components-left-out-of-bundle.yaml"

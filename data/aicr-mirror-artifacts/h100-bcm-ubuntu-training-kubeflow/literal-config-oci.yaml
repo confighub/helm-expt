@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-bcm-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:64465a2286fb0ad6f7a9f332b338428eb9712fd6f5fcb64c02324eaac5e48cda"
-    layerDigest: "sha256:94540bcf87d58d3a4692d2f810e3f0a4be07c7f6cb4976411d0df0881c780878"
+    manifestDigest: "sha256:026952f122822aee135d34ec9ad3bd2cc90c7912605cb02c2ee75e69be4e0933"
+    layerDigest: "sha256:057e6c83657c062a9b1ce01580551bfcd661e9e29aa00cd3dbcc8fd66b8dba3c"
     layerBytes: 73244
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 15
@@ -124,7 +124,7 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-bcm-ubuntu-training-kubeflow/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
         role: "route: system-node-selector-placeholder"
-        sha256: "8836f57291d0964ddd3107b968276b82429bab322363f00e10559755775c9361"
+        sha256: "ff31121fff365e96339d5bd6428e7a4e3c1278e529748ee9da66e78033b8576b"
         bytes: 5542
       -
         path: "data/aicr-mirror-artifacts/h100-bcm-ubuntu-training-kubeflow/routes/components-left-out-of-bundle.yaml"

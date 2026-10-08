@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rke2-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:03ebe76aa06596ee882e630aed847ee5799346249245e55c6ce4ffe1d0fe823c"
-    layerDigest: "sha256:679648cf4ac4d11ab3274121a65ebe77af7ae90b66c8feac467a31eee3ce3eca"
+    manifestDigest: "sha256:0ea178a3d5d7c26c61a3b866dabf517d7fc4c62f3b0f144d10dc9c0f73f30190"
+    layerDigest: "sha256:7a95efee0327415034fedfcedf379343eb04d9900c12610ca3a129b35dedeaa4"
     layerBytes: 73756
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 16
@@ -130,7 +130,7 @@ spec:
         path: "data/aicr-mirror-artifacts/rke2-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
         role: "route: system-node-selector-placeholder"
-        sha256: "f3dec47761c9b07aa3c9cb3ae8689e85c4b9511bfef0e5627c4e43d67b6ded1e"
+        sha256: "488e0f61dbbc0c2a2c2abe55938818480e649ba5b91f7936fb9f4567fb639675"
         bytes: 5496
       -
         path: "data/aicr-mirror-artifacts/rke2-inference/routes/components-left-out-of-bundle.yaml"

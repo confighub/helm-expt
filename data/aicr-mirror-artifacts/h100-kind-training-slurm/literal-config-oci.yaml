@@ -17,8 +17,8 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-kind-training-slurm-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:9c52d4e590ef4fe5ffac258fdbd30d38911b8aea3898c5bfc563967910cfe99a"
-    layerDigest: "sha256:9a216863e3cd5f19c135dad8838d5fa47b8cd1fb86551f9df8d0f0379eb51139"
+    manifestDigest: "sha256:4d512403ae9e1c01b3a7131f27cc82c4ef28abfaf68809eb6476cc7c318b8557"
+    layerDigest: "sha256:406f7dcb6921725ba2ff6844afe87edaffe7c6013e00e1825900f000838d475b"
     layerBytes: 82972
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 18
@@ -142,7 +142,7 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-kind-training-slurm/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
         role: "route: system-node-selector-placeholder"
-        sha256: "25322e966b5f832d678ac52cc1820e2dfc08c93c0d8c0f201a6e79a410df09d7"
+        sha256: "89719445b01cef30d5737e0b62be8498c1574f9d702ce267452a395f9f843fcb"
         bytes: 6079
       -
         path: "data/aicr-mirror-artifacts/h100-kind-training-slurm/routes/components-left-out-of-bundle.yaml"
