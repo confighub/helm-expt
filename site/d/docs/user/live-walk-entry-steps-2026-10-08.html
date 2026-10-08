@@ -1,0 +1,1159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live walk of the entry steps, 2026-10-08 · ConfigHub Workshop</title>
+  <meta name="description" content="Live walk of the entry steps, 2026-10-08: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/live-walk-entry-steps-2026-10-08.html">
+  <meta property="og:title" content="Live walk of the entry steps, 2026-10-08 · ConfigHub Workshop">
+  <meta property="og:description" content="Live walk of the entry steps, 2026-10-08: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/live-walk-entry-steps-2026-10-08.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .app-learning-cards { display: grid; gap: 20px; margin: 26px 0; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  :root { --cw-body: .9375rem; --cw-nav: .875rem; --cw-meta: .8125rem; --cw-lead: 1rem; }
+  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--sans, Inter, system-ui, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 700; }
+  h2, h3 { font-weight: 600; }
+  .cw-content h1 { font-size: clamp(1.75rem, 2.8vw, 2.25rem); line-height: 1.2; }
+  .cw-content h2 { font-size: 1.375rem; line-height: 1.35; }
+  .cw-content h3 { font-size: 1.0625rem; line-height: 1.4; }
+  .cw-content .lead, .cw-content .tagline { font-size: var(--cw-lead); line-height: 1.65; }
+  .cw-content { font-size: var(--cw-body); line-height: 1.65; }
+  .topbar { font-size: var(--cw-nav); }
+  .topbar .site-purpose { font-family: var(--sans); font-size: var(--cw-meta); text-transform: none; }
+  .topbar .brand, .navlinks a.nav-cta { border-color: transparent; background: transparent; }
+  .cw-nav-title a { color: var(--ink); text-decoration: none; }
+  .cw-nav-title a:hover { text-decoration: underline; }
+  .cw-content :is(.eyebrow, .kicker, .generated), .site-footer .sf-h { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; }
+  .cw-content :is(.button, .route-help > summary, details.deep > summary) { font-size: var(--cw-body); }
+  .cw-content :is(p, li, td) > code { border: 0; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  .cw-guide .cw-content { max-width: 880px; }
+  .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
+  .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
+  .cw-content pre { max-width: 100%; overflow-x: auto; }
+  .cw-content summary { cursor: pointer; padding: 10px 0; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cw-skip { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 6px; }
+  .cw-skip:focus { top: 12px; }
+  @media (max-width: 600px) {
+    .cw-layout { padding: 0 16px; }
+    .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 200px; }
+    .cw-guide .cw-content h1 { overflow-wrap: anywhere; }
+  }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: var(--cw-nav); }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; line-height: 1.5; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { min-height: 44px; cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<a class="cw-skip" href="#cw-content">Skip to content</a>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="../../../charts/index.html">Configs</a><a href="../../../stack.html">Stacks</a><a href="../../../apps.html">Apps</a><a href="../../../plugins.html">Plugins</a><a href="../../../guides.html">Guides</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Every stack</a></li><li><a href="../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="../../../apps.html">Every app</a></li><li><a href="../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="../../../plugins.html">Every cub plugin</a></li><li><a href="../../../bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="../../../guides.html">Every Guide</a></li><li><a href="../../../journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="../../../journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="../../../journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="../../../journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="../../../journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="../../../see-what-is-running.html">See what is running with cub scout</a></li><li><a href="../../../view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="../../../bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="../../../bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="../../../bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="../../../choose-a-tool.html">Choose a tool and start</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></nav>
+<div class="cw-content" id="cw-content" tabindex="-1">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Every stack</a></li><li><a href="../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="../../../apps.html">Every app</a></li><li><a href="../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="../../../plugins.html">Every cub plugin</a></li><li><a href="../../../bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="../../../guides.html">Every Guide</a></li><li><a href="../../../journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="../../../journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="../../../journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="../../../journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="../../../journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="../../../see-what-is-running.html">See what is running with cub scout</a></li><li><a href="../../../view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="../../../bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="../../../bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="../../../bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="../../../choose-a-tool.html">Choose a tool and start</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>Live walk of the entry steps, 2026-10-08</h1>
+    <p class="lead">This log records one serial session that walked the five steps under &quot;Use this entry in ConfigHub&quot; for two Catalog entries. Steps 3, 4 and 5 ran against a hosted ConfigHub organization and one disposable local kind cluster with Argo CD. The entries were <code>bitnami-nginx-24-0-2-http-clusterip</code> and <code>nvidia-gpu-operator-v26-3-3-default</code>. The steps came from each entry's <code>nextSteps</code> in <code>site/listings/&lt;id&gt;.json</code> on <code>main</code> at commit 831c29e1ec. <a href="../../../../docs/user/live-walk-entry-steps-2026-10-08.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
+
+<p>This is a dated record of one run. It is not a Guide and it is not a receipt for either entry. Every line that starts with <code>$</code> is a command that was run, and the text under it is the output it printed. Times are local wall-clock times.</p>
+<h2 id="versions-and-setting">Versions and setting</h2>
+<ul><li>The client is cub v0.8.7 (commit 072585f2, built 2026-10-07).</li><li>The server is v0.8.9 (commit 984c0a51, built 2026-10-08).</li><li>The installer plugin is 0.1.0 and the workshop plugin is 0.6.56.</li><li>The cluster tools are kind v0.31.0 with node image <code>kindest/node:v1.35.0</code>, kubectl client v1.36.0 and Docker 29.4.0.</li><li><code>cub cluster up</code> installed Argo CD from the upstream <code>stable</code> manifest. The image it ran was <code>quay.io/argoproj/argocd:v3.5.4</code>.</li><li>The organization is a hosted ConfigHub organization. Before the run it held 85 Spaces, 38 Components, 15 Targets, 4 Workers, 711 Units, 783 Links and 11 Triggers. None of them was changed.</li><li>The machine held 16 kind clusters and 19 Docker containers before the run. None of them was touched.</li><li>The account address is written <code>&lt;user&gt;</code>, identifiers are written <code>&lt;id&gt;</code>, the machine name is written <code>&lt;host&gt;</code>, the scratch directory is written <code>&lt;work&gt;</code>, and the Argo CD admin password that <code>cub cluster up</code> prints is removed from the output and written <code>&lt;argo-password&gt;</code>. The log holds no other secret, token or account address.</li><li>Colour codes are stripped from output. Long output is trimmed where the text says so.</li></ul>
+<h2 id="what-was-substituted-and-why">What was substituted, and why</h2>
+<p>The commands below are the page's commands with these changes and no others.</p>
+<table><thead><tr><th>The page says</th><th>This run used</th><th>Why</th></tr></thead><tbody><tr><td><code>cub auth login</code></td><td>not run</td><td>The session used an existing login. The rules of the run forbade a new one.</td></tr>
+<tr><td>plain <code>cub ...</code></td><td><code>cub --context &lt;ctx&gt; ...</code> with <code>CUB_CONTEXT=&lt;ctx&gt;</code> exported</td><td>The machine's default context is a different organization. The log leaves both out of the command lines. Finding 7 says why the flag alone was not enough.</td></tr>
+<tr><td><code>--space bitnami-nginx-24-0-2-http-clusterip</code></td><td><code>--space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip</code></td><td>Every object had to carry the session prefix. A Space with the page's name already existed in the organization.</td></tr>
+<tr><td><code>--space nvidia-gpu-operator-v26-3-3-default</code></td><td><code>--space cwwalk-1008-nvidia-gpu-operator-v26-3-3-default</code></td><td>The session prefix.</td></tr>
+<tr><td>no <code>--component</code> flag on <code>cub installer upload</code></td><td><code>--component cwwalk-1008-bitnami-nginx</code> and <code>--component cwwalk-1008-nvidia-gpu-operator</code></td><td>The default Component label is the package name, and a Component named <code>bitnami-nginx</code> already existed.</td></tr>
+<tr><td><code>cub cluster up --name workshop</code></td><td><code>cub cluster up --name cwwalk-1008-kind --no-argobot</code></td><td>The session prefix. Argobot was left out because it installs into a shared <code>argobot-base</code> Space that already existed and belongs to other work, and it creates a Space named <code>argobot-&lt;cluster&gt;</code>, which cannot carry the prefix.</td></tr>
+<tr><td><code>--target workshop/target</code></td><td><code>--target cwwalk-1008-kind/target</code></td><td>The Target is named after the cluster.</td></tr>
+<tr><td><code>--space-pattern &quot;template:&lt;entry&gt;-dev&quot;</code></td><td><code>--space-pattern &quot;template:cwwalk-1008-&lt;entry&gt;-dev&quot;</code></td><td>The session prefix.</td></tr></tbody></table>
+<p><code>cub cluster up</code> fixes three names inside the cluster Space. They are the Worker <code>worker</code>, the Target <code>target</code> and the Trigger <code>no-placeholders</code>. They could not be given the prefix. They lived inside <code>cwwalk-1008-kind</code> and went with it.</p>
+<h2 id="starting-counts">Starting counts</h2>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <pre><code>$ cub version
+Client Version:
+  Version:    v0.8.7
+  Commit:     072585f257783af26f03e70b338d9ea96ea28055
+  Build Date: 2026-10-07T02:31:58Z
+Server Version:
+  URL:        https://hub.confighub.com
+  Version:    v0.8.9
+  Commit:     984c0a51c7f49ddd5f18f79f02840461bddb6b8b
+  Build Date: 2026-10-08T20:02:08Z
+  Client ID:  cub
+
+$ cub auth status
+Status               Authenticated
+User                 &lt;user&gt;
+Organization Name    &lt;a hosted ConfigHub organization&gt;
+Server URL           https://hub.confighub.com
+Client Version       v0.8.7
+Server Version       v0.8.9
+
+$ cub space list --no-headers -o jq='.[].Space.Slug' | wc -l
+      85
+$ cub component list --no-headers -o jq='.[].Component.Slug' | wc -l
+      38
+$ cub target list --space '*' --no-headers | wc -l
+      15
+$ cub worker list --space '*' --no-headers | wc -l
+       4
+$ cub link list --space '*' --no-headers | wc -l
+     783
+$ cub unit list --space '*' --no-headers | wc -l
+     711
+$ kind get clusters | wc -l
+      16
+$ kubectl config current-context
+error: current-context is not set</code></pre>
+<h2 id="entry-a-bitnami-nginx-24-0-2-http-clusterip">Entry A. bitnami-nginx-24-0-2-http-clusterip</h2>
+<p>The listing gives commands for all five steps, so this entry was used as asked.</p>
+<h3 id="step-1-get-the-exact-objects">Step 1. Get the exact objects</h3>
+<p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+  <pre><code>$ curl -fsSL -o bitnami-nginx-24-0-2-http-clusterip.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml
+$ shasum -a 256 bitnami-nginx-24-0-2-http-clusterip.yaml
+7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba  bitnami-nginx-24-0-2-http-clusterip.yaml
+
+$ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 --base http-clusterip --work-dir ./bitnami-nginx-24-0-2-http-clusterip --non-interactive --namespace nginx
+Wizard wrote &lt;work&gt;/a/bitnami-nginx-24-0-2-http-clusterip/out/spec/selection.yaml and inputs.yaml
+Collector produced 2 fact(s) in &lt;work&gt;/a/bitnami-nginx-24-0-2-http-clusterip/out/spec/facts.yaml
+Base: http-clusterip; components: []
+Namespace: nginx
+Rendered 6 manifest(s) to &lt;work&gt;/a/bitnami-nginx-24-0-2-http-clusterip/out/manifests
+Next: cub installer upload --work-dir &lt;work&gt;/a/bitnami-nginx-24-0-2-http-clusterip --space &lt;slug&gt;</code></pre>
+<p>The digest matches the listing. The retained file holds 5 objects. The installer rendered 6, because it adds a Namespace.</p>
+<h3 id="step-2-compare-with-another-version-or-base">Step 2. Compare with another version or base</h3>
+<pre><code>$ cub config diff bitnami-nginx-24-0-2-http-clusterip.yaml bitnami-nginx-24-0-2-existing-tls-ingress.yaml --summary
+Configuration diff: 1 added, 0 removed, 1 changed, 4 unchanged
+... (kind summary trimmed)
+
+$ cub config diff bitnami-nginx-24-0-2-http-clusterip.yaml bitnami-nginx-24-0-4-http-clusterip.yaml --summary
+Configuration diff: 0 added, 0 removed, 5 changed, 0 unchanged
+... (kind summary trimmed)</code></pre>
+<p>Both <code>curl</code> fetches and both diffs worked as written.</p>
+<h3 id="step-3-upload-it-as-a-variant">Step 3. Upload it as a variant</h3>
+<pre><code>$ cub installer upload --work-dir ./bitnami-nginx-24-0-2-http-clusterip --space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip --component cwwalk-1008-bitnami-nginx
+== bitnami-nginx@24.0.2 → Space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip ==
+Successfully created unit deployment-nginx-nginx (&lt;id&gt;)
+Successfully created unit namespace-nginx (&lt;id&gt;)
+Successfully created unit networkpolicy-nginx-nginx (&lt;id&gt;)
+Successfully created unit poddisruptionbudget-nginx-nginx (&lt;id&gt;)
+Successfully created unit service-nginx-nginx (&lt;id&gt;)
+Successfully created unit serviceaccount-nginx-nginx (&lt;id&gt;)
+Successfully created unit installer-record (&lt;id&gt;)
+Linked deployment-nginx-nginx -&gt; namespace-nginx (reference:v1/Namespace)
+... (8 more &quot;Linked&quot; lines trimmed)
+
+$ cub unit list --space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip
+NAME                               SPACE                                              ...    TARGET    ...    LAST-CHANGE-DESCRIPTION
+deployment-nginx-nginx             cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip                            MergeExternal; from deployment-nginx-nginx.yaml
+poddisruptionbudget-nginx-nginx    cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip                            MergeExternal; from poddisruptionbudget-nginx-nginx.yaml
+serviceaccount-nginx-nginx         cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip                            MergeExternal; from serviceaccount-nginx-nginx.yaml
+installer-record                   cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip                            MergeExternal; from &lt;temp&gt;/installer-record-1357784852.yaml
+namespace-nginx                    cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip                            MergeExternal; from namespace-nginx.yaml
+service-nginx-nginx                cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip                            MergeExternal; from service-nginx-nginx.yaml
+networkpolicy-nginx-nginx          cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip                            MergeExternal; from networkpolicy-nginx-nginx.yaml
+
+$ cub space get cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip -o jq='.Space | {Slug, Labels, ComponentID, ReleaseTargetID}'
+{
+  &quot;ComponentID&quot;: null,
+  &quot;Labels&quot;: { &quot;Component&quot;: &quot;cwwalk-1008-bitnami-nginx&quot; },
+  &quot;ReleaseTargetID&quot;: null,
+  &quot;Slug&quot;: &quot;cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip&quot;
+}
+
+$ cub component list --where &quot;Slug LIKE 'cwwalk-1008-%'&quot;
+NAME    WORKFLOW-REQUIRED    #ALLOWED-WORKFLOWS    OWNER    VARIANTS</code></pre>
+<p>The upload took 22 seconds and printed no <code>FAILED</code> and no <code>quota</code>. It created one Space with 7 Units and 9 Links. Six Units are the rendered objects and the seventh is <code>installer-record</code>, which holds seven <code>installer.confighub.com/v1alpha1</code> documents. The upload wrote a <code>Component</code> label on the Space. It did not create a Component, and the Space has no <code>ComponentID</code>.</p>
+<h3 id="the-local-cluster-for-step-4">The local cluster for step 4</h3>
+<p>The page names the Target <code>workshop/target</code> and says that <code>cub cluster up --name workshop</code> creates it. The help for <code>cub cluster up</code> was read first.</p>
+<pre><code>$ cub cluster up --name cwwalk-1008-kind --no-argobot
+Creating kind cluster &quot;cwwalk-1008-kind&quot; (kubeconfig: $HOME/.confighub/clusters/cwwalk-1008-kind.kubeconfig)...
+ ✓ Ensuring node image (kindest/node:v1.35.0)
+ ... (kind output trimmed)
+Installing Argo CD...
+Applying Argo CD install manifest from https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml...
+ ... (about 60 &quot;serverside-applied&quot; lines trimmed)
+Patching argocd-cmd-params-cm (server.insecure=true)...
+Patching argocd-cm (ignoreDifferences for self-referencing root Application)...
+Patching argocd-server Service to NodePort 30010...
+Creating ConfigHub space &quot;cwwalk-1008-kind&quot; (worker + target)...
+Creating server-hosted OCI worker &quot;worker&quot; (OrgRole=none)...
+Creating placeholder gate trigger &quot;no-placeholders&quot; (vet-placeholders on every Mutation)...
+Creating OCI target &quot;target&quot; pulled by worker &quot;worker&quot;...
+Creating ConfigHub space &quot;cwwalk-1008-kind-argo-apps&quot; (Argo Application Units)...
+Setting the apps space's release target to &quot;cwwalk-1008-kind/target&quot;...
+Creating root Application Unit &quot;root&quot; in apps space &quot;cwwalk-1008-kind-argo-apps&quot;...
+Publishing the apps space's release (populates the OCI bundle Argo pulls)...
+Bootstrapping root Application via kubectl (the only kubectl-apply moment)...
+application.argoproj.io/cwwalk-1008-kind-argo-apps created
+
+Done.
+  cluster:    cwwalk-1008-kind
+  kubeconfig: $HOME/.confighub/clusters/cwwalk-1008-kind.kubeconfig
+  env file:   $HOME/.confighub/clusters/cwwalk-1008-kind.env
+  space:      cwwalk-1008-kind
+  apps space: cwwalk-1008-kind-argo-apps
+  worker:     cwwalk-1008-kind/worker
+  target:     cwwalk-1008-kind/target
+  root app:   cwwalk-1008-kind-argo-apps/root
+  gates:      cwwalk-1008-kind/no-placeholders (vet-placeholders) - blocks publishing a Release with
+              unfilled confighubplaceholder values to this cluster
+
+Argo CD: http://localhost:30010  (admin / &lt;argo-password&gt;)
+User NodePort window: 30010-30019 (argo uses 30010; rest are open)
+... (the &quot;Deploy an app to this cluster&quot; hint is trimmed)</code></pre>
+<p>The command took 2 minutes 5 seconds. This is what it created.</p>
+<p>In ConfigHub:</p>
+<ul><li>The Space <code>cwwalk-1008-kind</code>, with the label <code>confighub.com/cluster=true</code> and annotations for the cluster name, the machine name <code>&lt;host&gt;</code>, the Argo CD port and the port range. It holds no Units. It holds the Worker <code>worker</code> (Ready), the Target <code>target</code> and the validating Trigger <code>no-placeholders</code>.</li><li>The Space <code>cwwalk-1008-kind-argo-apps</code>, whose release Target is <code>cwwalk-1008-kind/target</code>. It holds one Unit, <code>root</code>, and one Release, <code>release-1</code>.</li><li>The Target carries the annotation <code>confighub.com/argo-apps-space: cwwalk-1008-kind-argo-apps</code>.</li></ul>
+<p>On the machine:</p>
+<ul><li>One kind cluster, <code>cwwalk-1008-kind</code>, as one container, <code>cwwalk-1008-kind-control-plane</code>. It publishes ports 30010 to 30019 on all interfaces and the API server on a loopback port.</li><li>Two files, <code>$HOME/.confighub/clusters/cwwalk-1008-kind.kubeconfig</code> and <code>cwwalk-1008-kind.env</code>. The env file sets <code>KUBECONFIG</code>, the Argo CD address and the Argo CD admin login.</li><li>The default kubeconfig was not changed. Its checksum was the same before and after, and it still had no current context.</li></ul>
+<p>On the cluster:</p>
+<pre><code>$ kubectl -n argocd get pods
+NAME                                                READY   STATUS    RESTARTS   AGE
+argocd-application-controller-0                     1/1     Running   0          2m3s
+... (6 more Argo CD pods, all 1/1 Running, trimmed)
+
+$ kubectl -n argocd get applications.argoproj.io
+NAME                         SYNC STATUS   HEALTH STATUS
+cwwalk-1008-kind-argo-apps   Synced        Healthy</code></pre>
+<p>The <code>argocd</code> namespace also holds a Secret named <code>confighub-oci-creds</code>.</p>
+<h3 id="step-4-deploy-it-as-written">Step 4. Deploy it, as written</h3>
+<pre><code>$ cub variant create dev cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip --target cwwalk-1008-kind/target --space-pattern &quot;template:cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev&quot;
+Created variant space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev (ID: &lt;id&gt;)
+Creating Argo CD Application Unit &quot;cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev&quot; in apps space &quot;cwwalk-1008-kind-argo-apps&quot;...
+Publishing apps space &quot;cwwalk-1008-kind-argo-apps&quot; Release...
+Argo CD Application &quot;cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev&quot; created; Argo syncs it on its next reconcile.
+Awaiting triggers...
+
+Bulk create operation completed:
+  Success: 7 unit(s)
+
+$ cub unit list --space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev
+NAME                               SPACE                                                  CHANGESET    TARGET    UPGRADE-NEEDED    UNRELEASED-CHANGES
+deployment-nginx-nginx             cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev                 target    No                Yes
+service-nginx-nginx                cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev                 target    No                Yes
+namespace-nginx                    cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev                 target    No                Yes
+networkpolicy-nginx-nginx          cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev                 target    No                Yes
+serviceaccount-nginx-nginx         cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev                 target    No                Yes
+installer-record                   cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev                 target    No                Yes
+poddisruptionbudget-nginx-nginx    cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev                 target    No                Yes</code></pre>
+<p>All seven clones have the Target, and that includes <code>installer-record</code>. The Unit the command added to the apps Space is this Argo CD Application.</p>
+<pre><code>$ cub unit data --space cwwalk-1008-kind-argo-apps cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: oci://oci.hub.confighub.com:443/space/cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev
+    targetRevision: latest
+    path: .
+  destination:
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      allowEmpty: true</code></pre>
+<pre><code>$ cub release publish cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev        (21:25:51)
+Successfully created release &lt;id&gt; (&lt;id&gt;)
+
+$ cub release list --space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev
+NUM    TAG          PUBLISHED    DIGEST          LIVE    CREATED
+1      release-1    true         c2c69db4a7a2            2026-10-08 20:25:52</code></pre>
+<p>Both commands exited 0. The cluster was then watched with read-only commands.</p>
+<pre><code>$ kubectl -n argocd wait --for=create applications.argoproj.io/cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev --timeout=300s
+application.argoproj.io/cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev condition met        (21:28:55)
+
+$ kubectl -n argocd get applications.argoproj.io        (21:29:02)
+NAME                                                  SYNC STATUS   HEALTH STATUS
+cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev   Unknown       Healthy
+cwwalk-1008-kind-argo-apps                            Synced        Healthy
+
+$ kubectl -n argocd get applications.argoproj.io cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev -o jsonpath='{range .status.conditions[*]}{.type}: {.message}{&quot;\n&quot;}{end}'
+ComparisonError: Failed to load target state: failed to generate manifest for source 1 of 1: rpc error: code = Unknown desc = failed to set app instance tracking info on manifest: failed to get annotations for installer.confighub.com/v1alpha1, Kind=Package /bitnami-nginx: .metadata.annotations accessor error: contains non-string value in the map under key &quot;config.kubernetes.io/local-config&quot;: true is of the type bool, expected string
+
+$ kubectl get ns nginx
+Error from server (NotFound): namespaces &quot;nginx&quot; not found</code></pre>
+<p>The state was the same at 21:35:55, ten minutes after the publish. The Application was <code>Unknown</code> and <code>Healthy</code> with the same <code>ComparisonError</code>, and the <code>nginx</code> namespace did not exist. Nothing from the entry was on the cluster.</p>
+<p>ConfigHub showed no sign of this. The Units no longer showed unreleased changes, <code>cub unit-event list</code> and <code>cub unit-action list</code> for the Space were empty, and the <code>LIVE</code> column of <code>cub release list</code> was blank.</p>
+<p>Step 4 as written failed on the cluster. The cause is the <code>installer-record</code> Unit. <code>cub variant create --target</code> gives it the Target, so the Release carries its seven <code>installer.confighub.com</code> documents, and Argo CD cannot read them.</p>
+<h3 id="step-4-the-change-that-made-it-work">Step 4, the change that made it work</h3>
+<p>Three documented ways to clear the Target on one Unit were tried. Each reported success and each left the Target in place.</p>
+<pre><code>$ cub unit set-target --space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev installer-record -
+Successfully updated Unit installer-record (&lt;id&gt;)
+
+$ cub unit set-target --space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev - --unit installer-record
+Bulk set-target operation completed:
+  Success: 1 unit(s)
+  Context: target -
+
+$ echo '{&quot;TargetID&quot;: null}' | cub unit update --patch --space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev --unit installer-record --from-stdin --change-desc &quot;cwwalk: keep installer-record out of the Release&quot;
+Bulk update operation completed:
+  Success: 1 unit(s)
+
+$ cub unit get --space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev installer-record -o jq='.Unit.TargetID'
+&lt;id&gt;        (still the Target, after each of the three)
+
+$ cub release publish cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev
+No change: no changes were made since :latest bundle; no Release was created</code></pre>
+<p>Deleting the cloned Unit from the dev Space worked.</p>
+<pre><code>$ cub unit delete --space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev installer-record
+Successfully deleted unit installer-record (&lt;id&gt;)
+
+$ cub release publish cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev        (21:36:39)
+Successfully created release &lt;id&gt; (&lt;id&gt;)
+
+$ kubectl wait --for=create namespace/nginx --timeout=300s
+namespace/nginx condition met        (21:36:57)
+$ kubectl -n nginx rollout status deployment/nginx --timeout=240s
+deployment &quot;nginx&quot; successfully rolled out        (21:37:35)
+
+$ kubectl -n argocd get applications.argoproj.io        (21:37:42)
+NAME                                                  SYNC STATUS   HEALTH STATUS
+cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev   Synced        Healthy
+cwwalk-1008-kind-argo-apps                            Synced        Healthy
+
+$ kubectl -n nginx get deployment,service,pods,networkpolicy,pdb
+deployment.apps/nginx   1/1     1            1           38s
+service/nginx   ClusterIP   10.96.194.125   &lt;none&gt;        80/TCP,443/TCP   38s
+pod/nginx-d9699d4ff-ps556   1/1     Running   0          37s
+networkpolicy.networking.k8s.io/nginx   app.kubernetes.io/instance=nginx,app.kubernetes.io/name=nginx   38s
+poddisruptionbudget.policy/nginx   N/A             1                 1                     38s</code></pre>
+<p>The Application listed six resources, all <code>Synced</code>. The live Deployment carried a <code>confighub.com/origin</code> annotation that names the dev Space, the Unit and revision 2.</p>
+<h3 id="step-5-promote-a-change">Step 5. Promote a change</h3>
+<p>The change was one replica to two on the Deployment Unit in the base.</p>
+<pre><code>$ cub function set --space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip --unit deployment-nginx-nginx --change-desc &quot;cwwalk step 5: base replicas 1 to 2&quot; set-replicas 2
+Function(s) succeeded on unit cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip/deployment-nginx-nginx (&lt;id&gt;)
+Config data changed
+Awaiting triggers...
+
+$ cub variant promote cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev --dry-run -o mutations
+Changes to unit deployment-nginx-nginx from promote:
+Resource: apps/v1/Deployment nginx/nginx
+  ~ [Update] spec.replicas
+      1 → 2
+
+Changes to unit installer-record from promote:
+Resource: installer.confighub.com/v1alpha1/Package /bitnami-nginx  (added)
+    ... (the whole Package document, then Facts, FunctionChain, Inputs, ManifestIndex, Selection and Upload, all &quot;(added)&quot;; about 130 lines trimmed)
+
+$ cub variant promote cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev --change-desc &quot;Pull the reviewed base forward&quot;        (21:38:01)
+Upgraded 1 unit(s) behind their upstream
+Adding 1 unit(s) from upstream
+  + installer-record
+
+$ cub function get --space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev --unit deployment-nginx-nginx --quiet --show output get-replicas
+  Value: 2  Path: spec.replicas  Resource: nginx/nginx  Type: apps/v1/Deployment
+
+$ cub release list --space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev
+NUM    TAG          PUBLISHED    DIGEST          LIVE    CREATED
+2      release-2    true         67ac41bb2d1c            2026-10-08 20:36:40
+1      release-1    true         c2c69db4a7a2            2026-10-08 20:25:52
+
+$ kubectl -n nginx wait --for=jsonpath='{.spec.replicas}'=2 deployment/nginx --timeout=200s
+error: timed out waiting for the condition on deployments/nginx        (21:41:30)</code></pre>
+<p>Both of the page's commands worked as written. The dev Space took the change, and two Units showed unreleased changes. The promotion did not publish a Release, so the cluster still ran one replica. The promotion also put <code>installer-record</code> back into the dev Space, with the Target.</p>
+<p>A reader would publish next, so the run did.</p>
+<pre><code>$ cub release publish cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev        (21:41:38)
+Successfully created release &lt;id&gt; (&lt;id&gt;)
+
+$ kubectl -n argocd get applications.argoproj.io        (21:47:09)
+NAME                                                  SYNC STATUS   HEALTH STATUS
+cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev   Unknown       Healthy
+ComparisonError: ... failed to get annotations for installer.confighub.com/v1alpha1, Kind=Package /bitnami-nginx: ... &quot;config.kubernetes.io/local-config&quot;: true is of the type bool, expected string
+
+$ kubectl -n nginx get deployment nginx
+nginx   1/1     1            1           10m</code></pre>
+<p>Argo CD read the third Release at 21:47:00, which was 5 minutes 21 seconds after the publish, and failed in the same way. The workload kept running one replica.</p>
+<p>One test checked whether the annotation type was the whole problem. The seven <code>config.kubernetes.io/local-config: true</code> values in the dev copy of <code>installer-record</code> were changed to the string <code>&quot;true&quot;</code>, and a fourth Release was published at 21:47:25.</p>
+<pre><code>$ kubectl -n argocd get applications.argoproj.io cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev -o jsonpath='...'        (21:54:31)
+phase=Running
+msg=one or more synchronization tasks are not valid: failed to discover server resources for group version installer.confighub.com/v1alpha1: the server could not find the requested resource. Retrying attempt #5 at 8:55PM.
+Package/bitnami-nginx: SyncFailed The Kubernetes API could not find installer.confighub.com/Package for requested resource /bitnami-nginx. Make sure the &quot;Package&quot; CRD is installed on the destination cluster.
+... (six more SyncFailed lines for Facts, FunctionChain, Upload, Selection, Inputs and ManifestIndex, trimmed)</code></pre>
+<p>The comparison error went away and the sync then failed, because Argo CD 3.5.4 tried to apply the seven documents. The Deployment stayed <code>OutOfSync</code> at one replica. Quoting the annotation is not enough.</p>
+<p>Deleting the Unit again worked.</p>
+<pre><code>$ cub unit delete --space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev installer-record
+Successfully deleted unit installer-record (&lt;id&gt;)
+$ cub release publish cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev        (21:54:52)
+Successfully created release &lt;id&gt; (&lt;id&gt;)
+
+$ kubectl -n nginx wait --for=jsonpath='{.spec.replicas}'=2 deployment/nginx --timeout=420s
+deployment.apps/nginx condition met        (21:57:36)
+
+$ kubectl -n argocd get applications.argoproj.io        (21:58:00)
+NAME                                                  SYNC STATUS   HEALTH STATUS
+cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev   Synced        Healthy
+
+$ kubectl -n nginx get deployment,pods
+deployment.apps/nginx   2/2     2            2           20m
+pod/nginx-d9699d4ff-7gvlk   1/1     Running   0          15s
+pod/nginx-d9699d4ff-ps556   1/1     Running   0          20m
+
+$ cub revision list --space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev deployment-nginx-nginx
+NUM    UNIT                      SOURCE         TAGS                               DESCRIPTION
+3      deployment-nginx-nginx    UpgradeUnit    release-3, release-4, release-5    Pull the reviewed base forward
+2      deployment-nginx-nginx    CloneUnit      release-1, release-2               Cloned from &lt;id&gt;...
+1      deployment-nginx-nginx    CloneUnit                                         Empty revision preceding the unit's first content</code></pre>
+<p>The final state for entry A was <code>Synced</code> and <code>Healthy</code> with two of two replicas running, 2 minutes 44 seconds after the fifth Release.</p>
+<h3 id="entry-a-was-removed-from-confighub-before-entry-b">Entry A was removed from ConfigHub before entry B</h3>
+<pre><code>$ cub unit delete --space cwwalk-1008-kind-argo-apps cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev
+Successfully deleted unit cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev (&lt;id&gt;)
+$ cub release publish cwwalk-1008-kind-argo-apps
+Successfully created release &lt;id&gt; (&lt;id&gt;)
+$ cub space delete --recursive cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev
+Successfully deleted space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev (&lt;id&gt;)
+$ cub space delete --recursive cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip
+Successfully deleted space cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip (&lt;id&gt;)
+$ cub link list --space '*' --no-headers | wc -l
+     783</code></pre>
+<p>The cluster kept the workload. Fourteen minutes later the nginx Application and its two pods were still there, the root Application was <code>OutOfSync</code>, and the nginx Application reported that its bundle was gone.</p>
+<pre><code>$ kubectl -n argocd get applications.argoproj.io        (22:11:58)
+cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev   Unknown       Healthy
+cwwalk-1008-kind-argo-apps                            OutOfSync     Healthy
+ComparisonError: ... failed to resolve revision &quot;latest&quot;: cannot get digest for revision latest: oci.hub.confighub.com:443/space/cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev:latest: not found
+$ kubectl -n nginx get deploy nginx --no-headers
+nginx   2/2   2     2     35m</code></pre>
+<p>The root Application's sync policy is <code>{&quot;automated&quot;:{&quot;selfHeal&quot;:true}, ...}</code> with no prune, so removing an Application Unit does not remove the Application.</p>
+<h2 id="entry-b-nvidia-gpu-operator-v26-3-3-default">Entry B. nvidia-gpu-operator-v26-3-3-default</h2>
+<h3 id="steps-1-and-2">Steps 1 and 2</h3>
+<pre><code>$ curl -fsSL -o nvidia-gpu-operator-v26-3-3-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/gpu-operator/v26.3.3/revisions/default/r001/rendered/release-objects.yaml
+$ shasum -a 256 nvidia-gpu-operator-v26-3-3-default.yaml
+73ebb5f6de3d1f010330d266db11b99b508be84dfc92b9d5deb01a39b66fee7c  nvidia-gpu-operator-v26-3-3-default.yaml
+
+$ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3@sha256:abd8475d6bfeabe88acc2d6a319a04054a9e84046d69926dcee4717674329a8f --base default --work-dir ./nvidia-gpu-operator-v26-3-3-default --non-interactive --namespace gpu-operator
+Collector produced 2 fact(s) in &lt;work&gt;/b/nvidia-gpu-operator-v26-3-3-default/out/spec/facts.yaml
+Base: default; components: []
+Namespace: gpu-operator
+Rendered 25 manifest(s) to &lt;work&gt;/b/nvidia-gpu-operator-v26-3-3-default/out/manifests
+
+$ cub config diff nvidia-gpu-operator-v26-3-3-default.yaml nvidia-gpu-operator-v26-3-3-aicr-eks-training.yaml --summary
+Configuration diff: 1 added, 15 removed, 2 changed, 7 unchanged
+$ cub config diff nvidia-gpu-operator-v26-3-2-default.yaml nvidia-gpu-operator-v26-3-3-default.yaml --summary
+Configuration diff: 0 added, 0 removed, 7 changed, 17 unchanged</code></pre>
+<p>The digest matches. The retained file holds 24 objects, 5 of them CRDs and one a ClusterPolicy. The installer rendered 25, because it adds a Namespace.</p>
+<p>The pulled package keeps the chart's Helm hooks apart from the base, under <code>package/prerequisites/gpu-operator-lifecycle/default/</code>. There are two files, <code>pre-upgrade.yaml</code> and <code>post-delete.yaml</code>, with four objects each. Every action in <code>lifecycle-actions.yaml</code> says <code>automatic: false</code> and <code>evidenceState: &quot;not-run&quot;</code>. The chart has no install-time hook.</p>
+<h3 id="step-3-upload-it-as-a-variant-1">Step 3. Upload it as a variant</h3>
+<pre><code>$ cub installer upload --work-dir ./nvidia-gpu-operator-v26-3-3-default --space cwwalk-1008-nvidia-gpu-operator-v26-3-3-default --component cwwalk-1008-nvidia-gpu-operator
+== nvidia-gpu-operator@v26.3.3 → Space cwwalk-1008-nvidia-gpu-operator-v26-3-3-default ==
+Successfully created unit clusterpolicy-cluster-policy (&lt;id&gt;)
+... (24 more &quot;Successfully created unit&quot; lines trimmed, the last one installer-record)
+Linked clusterpolicy-cluster-policy -&gt; customresourcedefinition-clusterpolicies-nvidia-com (crd)
+... (31 more &quot;Linked&quot; lines trimmed)
+
+Note: the following references didn't resolve to any Unit in this Space.
+... (explanation trimmed)
+  - clusterrole-gpu-operator-node-feature-discovery -&gt; v1/ConfigMap,v1/PersistentVolume,v1/Secret &quot;nfd-master.nfd.kubernetes.io&quot;
+  - daemonset-gpu-operator-gpu-operator-node-feature-discovery-worker -&gt; scheduling.k8s.io/v1/PriorityClass &quot;system-node-critical&quot;
+  ... (3 more PriorityClass lines trimmed)
+
+$ cub unit list --space cwwalk-1008-nvidia-gpu-operator-v26-3-3-default --no-headers | wc -l
+      26</code></pre>
+<p>The upload took 73 seconds and printed no <code>FAILED</code> and no <code>quota</code>. It created 26 Units and 32 Links. Step 3 worked with the two name substitutions.</p>
+<h3 id="step-4-deploy-it-as-written-1">Step 4. Deploy it, as written</h3>
+<pre><code>$ cub variant create dev cwwalk-1008-nvidia-gpu-operator-v26-3-3-default --target cwwalk-1008-kind/target --space-pattern &quot;template:cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev&quot;
+Created variant space cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev (ID: &lt;id&gt;)
+Creating Argo CD Application Unit &quot;cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev&quot; in apps space &quot;cwwalk-1008-kind-argo-apps&quot;...
+Publishing apps space &quot;cwwalk-1008-kind-argo-apps&quot; Release...
+Argo CD Application &quot;cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev&quot; created; Argo syncs it on its next reconcile.
+Awaiting triggers...
+
+Bulk create operation completed:
+  Success: 26 unit(s)
+
+$ cub release publish cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev        (22:00:29)
+Successfully created release &lt;id&gt; (&lt;id&gt;)
+
+$ kubectl -n argocd wait --for=create applications.argoproj.io/cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev --timeout=420s
+application.argoproj.io/cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev condition met        (22:02:40)
+
+$ kubectl -n argocd get applications.argoproj.io        (22:02:56)
+cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev   Unknown       Healthy
+ComparisonError: Failed to load target state: failed to generate manifest for source 1 of 1: rpc error: code = Unknown desc = failed to set app instance tracking info on manifest: failed to get annotations for installer.confighub.com/v1alpha1, Kind=Package /nvidia-gpu-operator: .metadata.annotations accessor error: contains non-string value in the map under key &quot;config.kubernetes.io/local-config&quot;: true is of the type bool, expected string
+
+$ kubectl get ns gpu-operator
+Error from server (NotFound): namespaces &quot;gpu-operator&quot; not found</code></pre>
+<p>This is the failure entry A showed, and that one did not change in ten minutes. The run did not wait ten minutes a second time. It spent the wait on the state after the change below.</p>
+<h3 id="step-4-with-the-cloned-installer-record-deleted">Step 4, with the cloned installer-record deleted</h3>
+<pre><code>$ cub unit delete --space cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev installer-record
+Successfully deleted unit installer-record (&lt;id&gt;)
+$ cub release publish cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev        (22:03:04)
+Successfully created release &lt;id&gt; (&lt;id&gt;)
+$ kubectl wait --for=create namespace/gpu-operator --timeout=420s
+namespace/gpu-operator condition met        (22:06:48)</code></pre>
+<p>Argo CD started its sync at 22:06:35, which was 3 minutes 31 seconds after the publish, and finished it in 17 seconds.</p>
+<pre><code>$ kubectl -n argocd get applications.argoproj.io cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev -o jsonpath='...operationState...'
+phase=Succeeded
+msg=successfully synced (all tasks run)
+started=2026-10-08T21:06:35Z finished=2026-10-08T21:06:52Z
+Namespace/gpu-operator: Synced | namespace/gpu-operator created
+ServiceAccount/node-feature-discovery: Synced | serviceaccount/node-feature-discovery created
+ServiceAccount/gpu-operator: Synced | serviceaccount/gpu-operator created
+ConfigMap/gpu-operator-node-feature-discovery-master-conf: Synced | ... created
+ConfigMap/gpu-operator-node-feature-discovery-worker-conf: Synced | ... created
+CustomResourceDefinition/nodefeaturerules.nfd.k8s-sigs.io: Synced | ... created
+CustomResourceDefinition/nodefeatures.nfd.k8s-sigs.io: Synced | ... created
+CustomResourceDefinition/nodefeaturegroups.nfd.k8s-sigs.io: Synced | ... created
+CustomResourceDefinition/nvidiadrivers.nvidia.com: Synced | ... created
+CustomResourceDefinition/clusterpolicies.nvidia.com: Synced | ... created
+ClusterRole/gpu-operator-node-feature-discovery-gc: Synced | ... reconciled. reconciliation required create ...
+ClusterRole/gpu-operator: Synced | ...
+ClusterRole/gpu-operator-node-feature-discovery: Synced | ...
+ClusterRoleBinding/... (3 lines): Synced | ...
+Role/... (2 lines): Synced | ...
+RoleBinding/... (2 lines): Synced | ...
+DaemonSet/gpu-operator-node-feature-discovery-worker: Synced | daemonset.apps/gpu-operator-node-feature-discovery-worker created
+Deployment/gpu-operator: Synced | deployment.apps/gpu-operator created
+Deployment/gpu-operator-node-feature-discovery-gc: Synced | ... created
+Deployment/gpu-operator-node-feature-discovery-master: Synced | ... created
+ClusterPolicy/cluster-policy: Synced | clusterpolicy.nvidia.com/cluster-policy created
+(the RBAC rule lists and the &quot;missing the last-applied-configuration annotation&quot; warnings are trimmed)</code></pre>
+<p>All 25 objects were accepted in one sync. Argo CD ordered them by kind. The Namespace came first, then ServiceAccounts and ConfigMaps, then the five CRDs, then RBAC, then the workloads, and the ClusterPolicy came last. The CRD and the ClusterPolicy needed no separate step and nothing was applied by hand.</p>
+<pre><code>$ kubectl -n gpu-operator rollout status deployment/gpu-operator --timeout=240s
+deployment &quot;gpu-operator&quot; successfully rolled out        (22:07:48)
+
+$ kubectl -n argocd get applications.argoproj.io        (22:08:08)
+cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev   Synced        Healthy
+
+$ kubectl -n gpu-operator get pods
+gpu-operator-6f4cbc9d8f-hcr7z                                 1/1     Running   0          57s
+gpu-operator-node-feature-discovery-gc-585b876f9c-9cr9h       1/1     Running   0          57s
+gpu-operator-node-feature-discovery-master-7f6684fb45-64lhp   1/1     Running   0          57s
+gpu-operator-node-feature-discovery-worker-g8kth              1/1     Running   0          57s
+
+$ kubectl get clusterpolicy cluster-policy -o jsonpath='state={.status.state}...'
+state=ready
+Ready=True reason=NFDLabelsMissing msg=No NFD labels found
+Error=False reason=Ready msg=</code></pre>
+<p>What the operator did on a cluster with no GPU.</p>
+<pre><code>$ kubectl -n gpu-operator logs deploy/gpu-operator --tail=400 | grep ...
+&quot;msg&quot;:&quot;No GPU node in the cluster, do not create DaemonSets&quot;,&quot;DaemonSet&quot;:&quot;nvidia-driver-daemonset&quot;
+... (the same message for nvidia-container-toolkit-daemonset, nvidia-operator-validator, nvidia-device-plugin-daemonset, nvidia-device-plugin-mps-control-daemon, nvidia-dcgm-exporter, gpu-feature-discovery and nvidia-mig-manager)
+&quot;msg&quot;:&quot;No NFD label found, polling for new nodes.&quot;,&quot;requeueAfter&quot;:45
+
+$ kubectl get runtimeclass
+nvidia          nvidia          25s
+nvidia-cdi      nvidia-cdi      25s
+nvidia-legacy   nvidia-legacy   25s
+
+$ kubectl -n gpu-operator get ds
+gpu-operator-node-feature-discovery-worker   1         1         1       1            1
+
+$ kubectl get jobs -A
+No resources found</code></pre>
+<p>The operator created three RuntimeClasses, two Services (<code>gpu-operator</code> and <code>nvidia-dcgm-exporter</code>) and six ConfigMaps. It created none of its eight GPU DaemonSets. Node feature discovery created one NodeFeature object and put 54 <code>feature.node.kubernetes.io</code> labels on the node. No node label mentions nvidia.</p>
+<p>What the unrun hooks left missing. Nothing was missing at install, because the chart's hooks are <code>pre-upgrade</code> and <code>post-delete</code> only. None of the eight hook objects was on the cluster, and there was no Job. Two things follow for later. An upgrade delivered this way does not run the chart's CRD upgrade Job, so the CRDs move only because they are objects in the base. A removal does not run the post-delete prune, so the 54 node labels and the NodeFeature object stay on the node. This run did not exercise an upgrade or a removal.</p>
+<h3 id="step-5-promote-a-change-1">Step 5. Promote a change</h3>
+<p>The change was one label on a ConfigMap Unit in the base.</p>
+<pre><code>$ cub function set --space cwwalk-1008-nvidia-gpu-operator-v26-3-3-default --unit configmap-gpu-operator-gpu-operator-node-feature-discovery-worker-conf --change-desc &quot;cwwalk step 5: label the worker ConfigMap in the base&quot; set-label cwwalk-step5 promoted
+Function(s) succeeded on unit cwwalk-1008-nvidia-gpu-operator-v26-3-3-default/configmap-gpu-operator-gpu-operator-node-feature-discovery-worker-conf (&lt;id&gt;)
+Config data changed
+Awaiting triggers...
+
+$ cub variant promote cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev --dry-run -o mutations
+Changes to unit configmap-gpu-operator-gpu-operator-node-feature-discovery-worker-conf from promote:
+Resource: v1/ConfigMap gpu-operator/gpu-operator-node-feature-discovery-worker-conf
+  + [Add] metadata.labels.cwwalk-step5
+      promoted
+
+Changes to unit installer-record from promote:
+Resource: installer.confighub.com/v1alpha1/Package /nvidia-gpu-operator  (added)
+... (the output is 405 lines; about 400 of them are the seven installer-record documents, trimmed)
+
+$ cub variant promote cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev --change-desc &quot;Pull the reviewed base forward&quot;        (22:08:42)
+Upgraded 1 unit(s) behind their upstream
+Adding 1 unit(s) from upstream
+  + installer-record
+
+$ kubectl -n gpu-operator get cm gpu-operator-node-feature-discovery-worker-conf -o jsonpath='{.metadata.labels}'
+{&quot;app.kubernetes.io/instance&quot;:&quot;gpu-operator&quot;, ... ,&quot;helm.sh/chart&quot;:&quot;node-feature-discovery-0.18.3&quot;}        (no cwwalk-step5 label)</code></pre>
+<p>Both commands worked as written, and the change stopped in ConfigHub. The re-added <code>installer-record</code> was deleted again and a third Release was published.</p>
+<pre><code>$ cub unit delete --space cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev installer-record
+Successfully deleted unit installer-record (&lt;id&gt;)
+$ cub release publish cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev        (22:08:51)
+Successfully created release &lt;id&gt; (&lt;id&gt;)
+
+$ kubectl -n gpu-operator wait --for=jsonpath='{.metadata.labels.cwwalk-step5}'=promoted configmap/gpu-operator-node-feature-discovery-worker-conf --timeout=480s
+configmap/gpu-operator-node-feature-discovery-worker-conf condition met        (22:11:50)</code></pre>
+<p>The final state for entry B, at 22:11:58.</p>
+<pre><code>$ kubectl -n argocd get applications.argoproj.io
+cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev   Synced        Healthy
+
+$ kubectl -n gpu-operator get pods
+gpu-operator-6f4cbc9d8f-hcr7z                                 1/1     Running   0          5m7s
+gpu-operator-node-feature-discovery-gc-585b876f9c-9cr9h       1/1     Running   0          5m7s
+gpu-operator-node-feature-discovery-master-7f6684fb45-64lhp   1/1     Running   0          5m7s
+gpu-operator-node-feature-discovery-worker-g8kth              1/1     Running   0          5m7s
+
+$ kubectl get clusterpolicy cluster-policy -o jsonpath='state={.status.state}...'
+state=ready
+Ready=True reason=NoGPUNodes msg=No GPU node found, watching for new nodes to join the cluster.
+Error=False reason=Ready msg=
+
+$ cub release list --space cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev
+NUM    TAG          PUBLISHED    DIGEST          LIVE    CREATED
+3      release-3    true         25ac098b8b9b            2026-10-08 21:08:51
+2      release-2    true         d184485cdfb0            2026-10-08 21:03:05
+1      release-1    true         d14d621a4fe9            2026-10-08 21:00:30</code></pre>
+<p>The operator and node feature discovery were running, and the ClusterPolicy reported <code>ready</code> with the reason <code>NoGPUNodes</code>. No GPU workload existed, as expected on this cluster.</p>
+<h2 id="what-went-wrong">What went wrong</h2>
+<ol><li><b>Step 4 as written deploys nothing.</b> <code>cub variant create --target</code> gives the cloned <code>installer-record</code> Unit the Target, so the Release carries seven <code>installer.confighub.com/v1alpha1</code> documents. Argo CD 3.5.4 stops with <code>ComparisonError: ... &quot;config.kubernetes.io/local-config&quot;: true is of the type bool, expected string</code>. Both entries failed this way, and entry A was still failing ten minutes after the publish. Every cub command exited 0.</li><li><b>ConfigHub shows no sign of the failure.</b> After the publish the Units stop showing unreleased changes, <code>cub unit-event list</code> is empty and the <code>LIVE</code> column of <code>cub release list</code> is blank. This cluster ran without argobot, so the result with argobot was not observed.</li><li><b>Argo CD reports <code>Healthy</code> for an Application that deployed nothing.</b> The row read <code>Unknown</code> and <code>Healthy</code>. A reader who checks only the health column sees a pass.</li><li><b>Clearing the Target on one Unit does not work.</b> <code>cub unit set-target &lt;unit&gt; -</code>, <code>cub unit set-target - --unit &lt;unit&gt;</code> and a patch of <code>{&quot;TargetID&quot;: null}</code> each reported success and each left the Target in place. The help says <code>-</code> clears it. The Space has a release Target, which may be why.</li><li><b>Deleting the cloned <code>installer-record</code> is the change that works, and promotion undoes it.</b> <code>cub variant promote</code> adds the Unit back, with the Target. The next publish fails in the same way as finding 1. The Unit has to be deleted after every promotion and before every publish.</li><li><b>Quoting the annotation is not enough.</b> With <code>&quot;true&quot;</code> as a string the comparison error goes away, and the sync then fails with <code>The Kubernetes API could not find installer.confighub.com/Package ... Make sure the &quot;Package&quot; CRD is installed on the destination cluster.</code></li><li><b><code>cub --context &lt;ctx&gt;</code> does not reach a plugin.</b> A wrapper that logged each cub call showed that the plugin's inner calls carried <code>CUB_CONTEXT=&lt;the default context&gt;</code> when only the flag was given. <code>cub --context &lt;ctx&gt; installer plan</code> then failed with <code>cub context organization mismatch: upload.yaml recorded &lt;id&gt;, current cub context is &lt;id&gt; - run 'cub context set &lt;name&gt;' or 'cub auth login' against the recorded organization</code>. A first <code>cub installer upload</code> has no recorded organization to compare, so it would have written to the default organization. Exporting <code>CUB_CONTEXT</code> fixed it. The message also names <code>cub context set</code>, and the command is <code>cub context use</code>.</li><li><b>Step 5 ends before the change reaches the cluster.</b> The promotion updates the dev Space and publishes nothing. The page gives no <code>cub release publish</code> after it.</li><li><b>The page's Space name was already taken.</b> <code>bitnami-nginx-24-0-2-http-clusterip</code> existed in the organization, and so did a Component named <code>bitnami-nginx</code>. The page's upload command as written would have written into that Space. This run never ran it.</li><li><b>The deploy step for entry A says &quot;Run for this entry&quot;, and the recorded run used different commands.</b> <code>scripts/run-catalog-oci-delivery-proof.mjs</code> runs <code>cub installer upload --target</code>, then <code>cub space update --release-target</code>, then <code>cub release publish</code>. That path leaves <code>installer-record</code> without a Target. The page's path is <code>cub variant create --target</code>, which has no recorded run.</li><li><b>The page says the gpu-operator destination must supply five inputs, and it supplied none.</b> The five are the CRDs, and they are objects in the base. Argo CD applied them before the ClusterPolicy in the same sync.</li><li><b>The object counts on the page are not the Unit counts.</b> The page says 5 and 24 objects. The uploads created 7 and 26 Units, because the installer adds a Namespace and an <code>installer-record</code>.</li><li><b><code>cub installer upload</code> writes a <code>Component</code> label and creates no Component.</b> The Space has no <code>ComponentID</code>, <code>cub space list</code> shows an empty COMPONENT column and <code>cub component list</code> shows nothing.</li><li><b>Argo CD notices a Release slowly without argobot.</b> A new child Application took 2 minutes 23 seconds and 3 minutes 32 seconds to appear after <code>cub variant create</code>. A new Release took between 18 seconds and 5 minutes 21 seconds to be read. The page's <code>cub cluster up --name workshop</code> installs argobot, and this run did not.</li><li><b><code>cub cluster up</code> does more than the page says.</b> It creates two Spaces, a Worker, a Target and a Trigger with fixed names. With argobot it also uses a shared <code>argobot-base</code> Space and creates <code>argobot-&lt;cluster&gt;</code>. It publishes ports 30010 to 30019 on all interfaces, installs Argo CD from an unpinned <code>stable</code> manifest, and prints the Argo CD admin password to the terminal.</li><li><b>Removing the ConfigHub side leaves the workload running.</b> Deleting the Application Unit, republishing the apps Space and deleting both nginx Spaces left the Argo CD Application and two nginx pods on the cluster. The root Application does not prune. The page has no removal step.</li><li><b>The promotion preview is dominated by <code>installer-record</code>.</b> For gpu-operator it printed 405 lines for a one-label change, and about 400 of them were the re-added record. The output also carries colour codes when it is captured.</li><li><b>The upload makes one cub call for each Unit and each Link.</b> The gpu-operator upload took 73 seconds for 26 Units and 32 Links.</li><li><b>Not run.</b> <code>cub auth login</code> was not run. Flux and plain kubectl delivery were not tried. No upgrade and no removal of gpu-operator was exercised, so the two lifecycle actions were not observed in use.</li></ol>
+<h2 id="cleanup-proof">Cleanup proof</h2>
+<p>Everything created in the session, all of it now deleted.</p>
+<ul><li>Six Spaces, with at most four alive at once. They were <code>cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip</code>, <code>cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev</code>, <code>cwwalk-1008-nvidia-gpu-operator-v26-3-3-default</code>, <code>cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev</code>, <code>cwwalk-1008-kind</code> and <code>cwwalk-1008-kind-argo-apps</code>.</li><li>In <code>cwwalk-1008-kind</code>, the Worker <code>worker</code>, the Target <code>target</code> and the Trigger <code>no-placeholders</code>.</li><li>In <code>cwwalk-1008-kind-argo-apps</code>, the Units <code>root</code>, <code>cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev</code> and <code>cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev</code>, and four Releases.</li><li>Five Releases in the nginx dev Space and three in the gpu-operator dev Space.</li><li>The Units, Links and revisions inside those Spaces. No Component was created.</li><li>One kind cluster, <code>cwwalk-1008-kind</code>, and its two files under <code>$HOME/.confighub/clusters/</code>.</li></ul>
+<pre><code>$ cub space delete --recursive cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev
+Successfully deleted space cwwalk-1008-nvidia-gpu-operator-v26-3-3-default-dev (&lt;id&gt;)
+$ cub space delete --recursive cwwalk-1008-nvidia-gpu-operator-v26-3-3-default
+Successfully deleted space cwwalk-1008-nvidia-gpu-operator-v26-3-3-default (&lt;id&gt;)
+
+$ cub cluster down --name cwwalk-1008-kind --delete-config
+Deleting kind cluster &quot;cwwalk-1008-kind&quot;...
+Deleting cluster &quot;cwwalk-1008-kind&quot; ...
+Deleted nodes: [&quot;cwwalk-1008-kind-control-plane&quot;]
+
+Deleting the ConfigHub config for &quot;cwwalk-1008-kind&quot;...
+  deleting space &quot;cwwalk-1008-kind-argo-apps&quot;...
+  deleting cluster space &quot;cwwalk-1008-kind&quot; (worker + target)...
+
+Done.</code></pre>
+<p>The two nginx Spaces were deleted earlier, as shown under entry A.</p>
+<p>Final verification.</p>
+<pre><code>$ cub space list --no-headers -o jq='.[].Space.Slug' | wc -l
+      85
+$ cub space list --include-hidden --no-headers -o jq='.[].Space.Slug' | wc -l
+      85
+$ cub component list --no-headers -o jq='.[].Component.Slug' | wc -l
+      38
+$ cub target list --space '*' --no-headers | wc -l
+      15
+$ cub worker list --space '*' --no-headers | wc -l
+       4
+$ cub link list --space '*' --no-headers | wc -l
+     783
+$ cub unit list --space '*' --no-headers | wc -l
+     711
+$ cub trigger list --space '*' --no-headers | wc -l
+      11
+
+$ cub space list --include-hidden --where &quot;Slug LIKE 'cwwalk-1008-%'&quot; --no-headers | wc -l
+       0
+$ cub component list --where &quot;Slug LIKE 'cwwalk-1008-%'&quot; --no-headers | wc -l
+       0
+$ cub unit list --space '*' --include-hidden --where &quot;Slug LIKE 'cwwalk-1008-%'&quot; --no-headers | wc -l
+       0
+$ cub target list --space '*' --where &quot;Slug LIKE 'cwwalk%'&quot; --no-headers | wc -l
+       0
+
+$ kind get clusters | grep -c cwwalk
+0
+$ kind get clusters | wc -l
+      16
+$ ls $HOME/.confighub/clusters | grep -c cwwalk
+0</code></pre>
+<table><thead><tr><th>Count</th><th>Before</th><th>After</th></tr></thead><tbody><tr><td>Spaces</td><td>85</td><td>85</td></tr>
+<tr><td>Components</td><td>38</td><td>38</td></tr>
+<tr><td>Targets</td><td>15</td><td>15</td></tr>
+<tr><td>Workers</td><td>4</td><td>4</td></tr>
+<tr><td>Units</td><td>711</td><td>711</td></tr>
+<tr><td>Links</td><td>783</td><td>783</td></tr>
+<tr><td>Triggers</td><td>11</td><td>11</td></tr>
+<tr><td>kind clusters</td><td>16</td><td>16</td></tr>
+<tr><td>Docker containers</td><td>19</td><td>19</td></tr></tbody></table>
+<p>The sorted lists of Space names, Component names, Target names, Worker names, kind cluster names and Docker container names after the run are identical to the lists taken before it. The default kubeconfig has the same checksum as before, and the machine's default cub context was not changed. The node image <code>kindest/node:v1.35.0</code> is still in the Docker image cache. The run did not check whether it was there before.</p>
+<p>Nothing was published to an OCI registry by hand. The only Releases were the ones <code>cub release publish</code>, <code>cub cluster up</code> and <code>cub variant create</code> made inside the Spaces this session created. No git repository was edited.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/live-walk-entry-steps-2026-10-08.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions-and-setting">Versions and setting</a></li><li><a href="#what-was-substituted-and-why">What was substituted, and why</a></li><li><a href="#starting-counts">Starting counts</a></li><li><a href="#entry-a-bitnami-nginx-24-0-2-http-clusterip">Entry A. bitnami-nginx-24-0-2-http-clusterip</a></li><li><a href="#entry-b-nvidia-gpu-operator-v26-3-3-default">Entry B. nvidia-gpu-operator-v26-3-3-default</a></li><li><a href="#what-went-wrong">What went wrong</a></li><li><a href="#cleanup-proof">Cleanup proof</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+</div>
+</body>
+</html>
