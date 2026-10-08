@@ -219,6 +219,36 @@ function checkFlatteningClaims() {
     );
     if (claimed.length === 0) continue;
 
+    // A chart page covers every version of one chart, so it has no single
+    // identity. Each version sits in its own block, and a lane word in a block
+    // is a claim about that version. A lane word outside the blocks must be one
+    // a verdict decided for some version on the page.
+    const chartOfPage = html.match(/<body data-chart-page="([^"]+)"/)?.[1];
+    if (chartOfPage) {
+      const named = (text) => LANES.filter((lane) => new RegExp(`(^|[^a-z-])${lane}([^a-z-]|$)`).test(text));
+      const blocks = [...html.matchAll(/<article class="chart-version" data-chart-version="([^"]+)">([\s\S]*?)<\/article>/g)];
+      const anyVersion = new Set();
+      for (const [, version, block] of blocks) {
+        const identity = `${chartOfPage}@${version}`;
+        const lanes = decided.get(identity);
+        for (const lane of lanes ?? []) anyVersion.add(lane);
+        const inBlock = named(block);
+        if (inBlock.length === 0) continue;
+        if (!lanes) {
+          add("hard", chartOfPage, "flattening-claim-without-verdict", `chart page names ${inBlock.join(", ")} but no flattening-safety verdict exists for ${identity}`);
+          continue;
+        }
+        for (const lane of inBlock) {
+          if (!lanes.has(lane)) add("hard", chartOfPage, "flattening-claim-contradicts-verdict", `chart page names "${lane}" but the verdict(s) for ${identity} decided ${[...lanes].join(", ")}`);
+        }
+      }
+      const outside = named(blocks.reduce((rest, [whole]) => rest.replace(whole, " "), html));
+      for (const lane of outside) {
+        if (!anyVersion.has(lane)) add("hard", chartOfPage, "flattening-claim-contradicts-verdict", `chart page names "${lane}" outside its version blocks, and no verdict for a version on the page decided it`);
+      }
+      continue;
+    }
+
     // The page names its own identity, so read it rather than parsing the
     // filename, which flattens the separator between repository and chart.
     const identity = html.match(/data-retained-only-version="([^"]+)"/)?.[1]
