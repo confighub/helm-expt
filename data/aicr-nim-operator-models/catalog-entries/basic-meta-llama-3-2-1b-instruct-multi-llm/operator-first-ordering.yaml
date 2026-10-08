@@ -1,0 +1,89 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm-operator-first-ordering"
+spec:
+  quirkClass: "crd-ordering"
+  routeKind: "apply-ordering"
+  discharges: "Without this order the API server rejects the sample, because nimcaches.apps.nvidia.com and nimservices.apps.nvidia.com do not exist until the k8s-nim-operator chart is installed."
+  declaration:
+    stages:
+      -
+        order: 1
+        name: "nim-operator-installed"
+        selector:
+          kinds:
+            - "CustomResourceDefinition"
+          names:
+            - "nimcaches.apps.nvidia.com"
+            - "nimservices.apps.nvidia.com"
+        waitFor: "The k8s-nim-operator controller is running and the listed definitions are established. They come from the operator chart, not from this sample."
+        objectCount: 0
+      -
+        order: 2
+        name: "user-secrets-present"
+        selector:
+          kinds:
+            - "Secret"
+          names:
+            - "hf-api-secret"
+            - "ngc-api-secret"
+            - "ngc-secret"
+        waitFor: "The user has created each named Secret in the sample's namespace. No Secret ships in this sample."
+        objectCount: 0
+      -
+        order: 3
+        name: "model-cache-and-claims"
+        selector:
+          kinds:
+            - "NIMCache"
+          names:
+            - "nim-cache-multi-llm"
+        waitFor: "The operator reports the NIMCache ready, which means it pulled the model with the user's own entitlement."
+        objectCount: 1
+      -
+        order: 4
+        name: "nim-service"
+        selector:
+          kinds:
+            - "NIMService"
+          names:
+            - "meta-llama-3-2-1b-instruct"
+        objectCount: 1
+    prerequisite:
+      chart: "k8s-nim-operator"
+      chartRepository: "https://helm.ngc.nvidia.com/nvidia"
+      versionRange: ">=3.1.0"
+      versionFloorChecked: "3.1.0"
+      apiVersion: "apps.nvidia.com/v1alpha1"
+      catalogEntry: "not-in-the-catalog-on-this-branch"
+      note: "The k8s-nim-operator chart is not yet a Catalog entry on this branch, so this requirement names the chart and does not link a record."
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "a sync-wave or a separate Application for the operator chart ahead of this sample"
+        proven: false
+      -
+        name: "Flux"
+        mechanism: "a dependsOn from the Kustomization that holds this sample to the one that installs the operator"
+        proven: false
+      -
+        name: "direct apply"
+        mechanism: "install the operator chart, wait for its definitions, then apply the sample"
+        proven: false
+    automatic: false
+  boundedness:
+    - "Every field this sample sets is declared by the apps.nvidia.com/v1alpha1 definitions retained from operator v3.1.0 under examples/aicr/eks-h100-inference-nim/operator-crds."
+    - "The newest operator release this sample works with is not established. The sample was retained from upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, and this repository does not record which operator release contains that commit."
+    - "The k8s-nim-operator chart is not yet a Catalog entry on this branch, so this requirement names the chart and does not link a record."
+    - "No runtime has executed this route. Nothing in this repository has installed the operator or applied this sample on any cluster."
+  provenance:
+    emittedBy: "scripts/generate-aicr-nim-operator-models.mjs"
+    generatedFrom:
+      - "data/aicr-nim-operator-models/upstream/serving/standalone/basic/multi-llm.yaml"
+      - "examples/aicr/eks-h100-inference-nim/operator-crds/apps.nvidia.com_nimservices.yaml"
+      - "examples/aicr/eks-h100-inference-nim/operator-crds/apps.nvidia.com_nimcaches.yaml"
+      - "examples/aicr/eks-h100-inference-nim/argocd-rendered/templates/k8s-nim-operator.yaml"
+      - "examples/aicr/eks-h100-inference-nim/operator-crds-retention-receipt.yaml"
+    verdictRef: "data/aicr-nim-operator-models/catalog-entries/basic-meta-llama-3-2-1b-instruct-multi-llm/flattening-safety-verdict.yaml"

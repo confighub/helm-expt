@@ -80,7 +80,7 @@ What each part does, and why you want it:
 | `--namespace redis-prod` | Runs `set-namespace` on the cloned Units. | Each environment lands in its own namespace; the base stays neutral. |
 | `--unit-delete-gate` / `--unit-destroy-gate` | Blocks delete and destroy of the cloned Units until the gate is removed. | Prod objects should not be one bulk command away from gone. Name the gate for the reason it exists. |
 
-Name the new Space yourself with `--space-pattern` (for example `--space-pattern "template:my-redis-prod"`). When you omit it, the help of cub v0.8.7 gives the default slug as `<component>-<variant>`. That default has not been re-run here. Either way, confirm with `cub space list`. The clone does not copy Triggers. The new Space selects the Triggers the upstream Space selects, and the upstream Space's permissions are copied. Both the namespace rewrite and the gates were verified live: cloned Units carry the new namespace, and a gated Space refuses plain deletion until the gate is removed or overridden.
+Name the new Space yourself with `--space-pattern` (for example `--space-pattern "template:my-redis-prod"`). When you omit it, the default slug is `<component>-<variant>`. Either way, confirm with `cub space list`. The clone does not copy Triggers, and the upstream Space's permissions are copied. The new Space selects the Triggers the upstream Space selects. When the upstream Space has no trigger selection, the clone gets a selection that points at the upstream Space, so the upstream Space's Triggers still run for the clone. A live run on 2026-10-08 with cub v0.8.7 showed the default name, the permissions and the trigger selection, and the [run log](./live-run-log-2026-10-08.md) holds the output. `cub variant create` has no `--dry-run` flag. Both the namespace rewrite and the gates were verified live: cloned Units carry the new namespace, and a gated Space refuses plain deletion until the gate is removed or overridden.
 
 ## Step 2: Change something in the variant
 
@@ -117,6 +117,10 @@ Then promote:
 cub variant promote my-redis-prod --change-desc "Pull the reviewed base forward"
 ```
 
+The two preview forms and the promotion with `--change-desc` were run on
+2026-10-08 with cub v0.8.7, and the
+[run log](./live-run-log-2026-10-08.md) holds their output.
+
 Validation triggers run on the changed Units. A failing check attaches an
 apply gate; fix the data or the rule rather than working around the gate.
 Recorded variant changes remain when they do not overlap the new base. If the
@@ -133,7 +137,7 @@ promotion.
 
 - Only Spaces created by `cub variant create` can be promoted with `cub variant promote`. It follows the upstream link recorded at create time; a Space made any other way has no such link.
 - Rendered Secrets are not uploaded. Stage them out of band; the base variant's `try.sh` and chart page record what each base variant needs.
-- `cub variant upload` also exists, as a general way to seed a base Space from any rendered manifests. The catalog path uses `cub installer upload`, which additionally records the package.
+- `cub variant upload` also exists, as a general way to seed a base Space from any rendered manifests. Every resource becomes its own Unit, except Secrets, which it skips. The run on 2026-10-08 uploaded 14 objects and got 13 Units. The catalog path uses `cub installer upload`, which additionally records the package.
 - The committed proof for this flow is in the promotion receipts linked from
   the [master catalog matrix](../../data/master-catalog-matrix/summary.md). This
   guide explains the commands behind those receipts.

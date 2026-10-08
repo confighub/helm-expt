@@ -352,7 +352,7 @@ export function buildNextSteps(listing, { plan, related = [] }) {
     }
     return {
       summary: "This entry is not published, so there is no public artifact to upload.",
-      unblock: `The listing records its literal configuration bundle as ${BUNDLE_PHRASE.get(literal.state) ?? literal.state}. Publishing the rendered objects as that bundle, with a receipt, would make this step available.`,
+      unblock: `The listing records its literal configuration bundle as ${BUNDLE_PHRASE.get(literal.state) ?? literal.state}. Publishing the ${listing.flattened?.materializationStatus === "recorded-no-op" ? "retained" : "rendered"} objects as that bundle, with a receipt, would make this step available.`,
     };
   }));
 

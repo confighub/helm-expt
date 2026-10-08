@@ -77,7 +77,7 @@
             "status": "managed-dry-run-first",
             "dryRun": "cub variant upload --dry-run --component byo-nginx-ai-values --variant reviewed --space byo-nginx-ai-values-24-0-2-reviewed --unit-annotation workshop.confighub.com/object-set-sha256=sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397 ./rendered",
             "execute": "cub variant upload --component byo-nginx-ai-values --variant reviewed --space byo-nginx-ai-values-24-0-2-reviewed --unit-annotation workshop.confighub.com/object-set-sha256=sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397 ./rendered",
-            "acceptedIdentity": "The upload sets this annotation on every Unit it writes, so no separate binding command follows. That is read from the help of cub v0.8.7 and has not been re-run."
+            "acceptedIdentity": "The upload sets this annotation on every Unit it writes, so no separate binding command follows. A live run on 2026-10-08 with cub v0.8.7 found the annotation on every Unit of another upload, recorded in docs/user/live-run-log-2026-10-08.md. The upload skips Secrets."
           },
           "vary": {
             "status": "proved-existing-chain",
@@ -147,7 +147,7 @@
             "status": "managed-dry-run-first",
             "dryRun": "cub variant upload --dry-run --component acme-web --variant base --space plain-yaml-acme-web-base --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4c7fac59248636842c560c5fcb2076bf9ffe2ed2e4576ff754b51c8dc21fed6c examples/plain-yaml/acme-web",
             "execute": "cub variant upload --component acme-web --variant base --space plain-yaml-acme-web-base --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4c7fac59248636842c560c5fcb2076bf9ffe2ed2e4576ff754b51c8dc21fed6c examples/plain-yaml/acme-web",
-            "acceptedIdentity": "The upload sets this annotation on every Unit it writes, so no separate binding command follows. That is read from the help of cub v0.8.7 and has not been re-run."
+            "acceptedIdentity": "The upload sets this annotation on every Unit it writes, so no separate binding command follows. A live run on 2026-10-08 with cub v0.8.7 found the annotation on every Unit of another upload, recorded in docs/user/live-run-log-2026-10-08.md. The upload skips Secrets."
           },
           "vary": {
             "status": "command-contract-only",

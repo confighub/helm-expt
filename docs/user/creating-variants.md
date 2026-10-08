@@ -232,7 +232,8 @@ cub variant create prod-us-east helm-prometheus-server-only \
   --region us-east
 
 # 2. Preview what actually changed: diff a cloned Unit against its upstream.
-cub unit diff <unit> --space <derived-space>
+cub unit diff <unit> --space <upstream-space> \
+  --with-unit <derived-space>/<unit> -o mutations
 
 # 3. Check the preservation rule: same Units, same rendered shape, links intact.
 cub unit list --space <derived-space> \
@@ -242,6 +243,11 @@ cub unit list --space <derived-space> \
 The expected preview is small: labels, environment, region, and any approved
 post-render fills. If the diff shows decoded Kubernetes data changing without
 an allowed mutation receipt, stop and treat it as drift, not a variant.
+
+The `--with-unit` form was run on 2026-10-08 with cub v0.8.7, and the
+[run log](./live-run-log-2026-10-08.md) shows its output. A bare
+`cub unit diff <unit>` compares from the last released revision, so it fails
+on a Unit that was never released.
 
 A committed example receipt for exactly this path is
 `runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml`,
@@ -309,8 +315,10 @@ cub unit set-protection <unit> --space <downstream-space> \
   --protect "apps/v1/Deployment:monitoring/prometheus-server:spec.replicas"
 ```
 
-This command is taken from the help of cub v0.8.7 and has not been re-run
-here. It replaces `cub unit set-predicates`, which the CLI no longer has.
+This command form was run on 2026-10-08 with cub v0.8.7. The protected path
+kept its value through a promotion, and an unprotected change to the same Unit
+arrived. The [run log](./live-run-log-2026-10-08.md) shows both. The command
+replaces `cub unit set-predicates`, which the CLI no longer has.
 
 That makes promotion safer because local ownership is represented as ConfigHub
 data, not as an undocumented patch.

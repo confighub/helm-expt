@@ -1,0 +1,49 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantPublicationReceipt"
+metadata:
+  name: "nimservice-retriever-llama-nemotron-embed-vl-1b-v2"
+spec:
+  plan: "data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/literal-config-oci.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-retriever-llama-nemotron-embed-vl-1b-v2:upstream-5d5f66ee0e2e"
+  immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-retriever-llama-nemotron-embed-vl-1b-v2@sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f"
+  layerDigest: "sha256:4802a291e2d0d1a71d02893dd893c509ab73d32a888007f9b0d13393a1d34140"
+  layerBytes: 11287
+  objectSetSha256: "sha256:1aafdea7ffa3795ddbeb645b82d0f526af40645390f78d2b9d415e29d5ec364a"
+  sourceFileSha256: "sha256:c7058d52175464fba77c58613365c7c163034d9cd396ae3b33c87fe5ebc0fabe"
+  stagedFiles:
+    -
+      path: "embed.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/standalone/retriever/embed.yaml"
+      role: "exact objects"
+      sha256: "sha256:c7058d52175464fba77c58613365c7c163034d9cd396ae3b33c87fe5ebc0fabe"
+      bytes: 1385
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:4b866704bf1d844c6a89e8c7b1197c9a206938e10d45913156e4677a11fb381d"
+      bytes: 4109
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/retriever-llama-nemotron-embed-vl-1b-v2/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:3ef5140296d08451af2474bdb41da7fa266fc326a74807cd7ee25764ad80fa30"
+      bytes: 2268
+  contents:
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  push:
+    result: "pass"
+    command: "oras cp --from-oci-layout <layout>:upstream-5d5f66ee0e2e europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-retriever-llama-nemotron-embed-vl-1b-v2:upstream-5d5f66ee0e2e"
+  anonymousPull:
+    result: "pass"
+    manifestDigest: "sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f"
+    layerDigest: "sha256:4802a291e2d0d1a71d02893dd893c509ab73d32a888007f9b0d13393a1d34140"
+    filesMatched: 3
+    command: "oras pull --registry-config <empty config> europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-retriever-llama-nemotron-embed-vl-1b-v2@sha256:94ea6e5959b7727ac01646dcc318208f81a3ec0e37ef5e6d0d085812bada906f"
+  signature: "none. The Catalog does not sign certified configuration bundles."
+  observedAt: "2026-10-08T05:49:43.532Z"
+status:
+  result: "pass"

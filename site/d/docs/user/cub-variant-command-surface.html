@@ -547,7 +547,8 @@ cub variant demote
 cub variant diff
 cub variant promote
 cub variant upload</code></pre>
-<p>That list is the one the help of cub v0.8.7 prints.</p>
+<p>That list is the one the help of cub v0.8.7 prints. An unknown subcommand prints the group help and exits 0, so an exit status does not show that a command exists.</p>
+<p>A live run on 2026-10-08 with cub v0.8.7 used <code>approve</code>, <code>create</code>, <code>diff</code>, <code>promote</code> and <code>upload</code>. The <a href="live-run-log-2026-10-08.html">run log</a> holds each command and its output. <code>cub variant demote</code> was not run.</p>
 <p>Not current local command:</p>
 <pre><code>cub variant release</code></pre>
 <p><code>cub variant release</code> may become useful, but user docs should describe it only as planned or candidate work until the CLI exposes it.</p>
@@ -565,6 +566,7 @@ cub variant upload</code></pre>
   --unit-delete-gate production-review \
   --unit-destroy-gate production-review</code></pre>
 <p>This creates a derived ConfigHub variant. It does not run Helm again and it does not create a new <code>cub installer</code> base.</p>
+<p>The run on 2026-10-08 showed what a clone carries. Without <code>--space-pattern</code> the new Space is named <code>&lt;component&gt;-&lt;variant&gt;</code>. Triggers are not copied, and permissions are copied. When the upstream Space has no trigger selection, the clone gets a selection that points at the upstream Space, so the upstream Space's Triggers still run for the clone. <code>cub variant create</code> has no <code>--dry-run</code> flag.</p>
 <p>The clone should preserve the reviewed Unit data. Any post-clone data change needs an explicit allowed mutation path and receipt. If decoded Kubernetes data changes without that receipt, classify it as drift and repair or block the variant before promotion.</p>
 <h2 id="space-and-unit-mapping">Space And Unit Mapping</h2>
 <p>The upstream Space usually comes from <code>cub installer upload</code>.</p>
@@ -590,8 +592,8 @@ cub variant upload</code></pre>
 -&gt; changeset, approval, apply or OCI/GitOps delivery</code></pre>
 <p>This is a ConfigHub server capability, not a helm-expt-only harness trick. Any component that is represented as an upstream ConfigHub Space with downstream Spaces created by <code>cub variant create</code> can use the same staging and rollout pattern. helm-expt uses Helm charts to show the pattern, but the promotion operation belongs to ConfigHub.</p>
 <p>The command being available does not mean every chart/base is already proven safe to promote in production. A chart/base should claim promotion support only after its promotion receipt covers changed Units, added Units, local field ownership, and any deletion or refusal case relevant to that base.</p>
-<p>Use <code>cub unit set-protection</code> for explicit field ownership when a downstream variant should keep a local override during future promotion. For example, a production variant can protect one workload's <code>spec.replicas</code> field with <code>--protect</code>, then reopen that path later with <code>--unprotect</code>. The command is taken from the help of cub v0.8.7 and has not been re-run here. It replaces <code>cub unit set-predicates</code>, which the CLI no longer has.</p>
-<p>Use <code>cub variant upload</code> for already-rendered manifests that you want to ingest directly as a ConfigHub variant Space. In helm-expt's curated catalog path, <code>cub installer upload</code> remains the preferred upload step because the package receipt, base, and recipe proof are part of the contract.</p>
+<p>Use <code>cub unit set-protection</code> for explicit field ownership when a downstream variant should keep a local override during future promotion. For example, a production variant can protect one workload's <code>spec.replicas</code> field with <code>--protect</code>, then reopen that path later with <code>--unprotect</code>. The <code>--protect</code> form was run on 2026-10-08 with cub v0.8.7, and the protected path kept its value through a promotion. The <a href="live-run-log-2026-10-08.html">run log</a> shows it. <code>--unprotect</code> was not run. The command replaces <code>cub unit set-predicates</code>, which the CLI no longer has.</p>
+<p>Use <code>cub variant upload</code> for already-rendered manifests that you want to ingest directly as a ConfigHub variant Space. Every resource becomes its own Unit, except Secrets, which the upload skips and names in its output. In helm-expt's curated catalog path, <code>cub installer upload</code> remains the preferred upload step because the package receipt, base, and recipe proof are part of the contract.</p>
 <p>Use a <code>cub installer</code> base variant when Helm must render a different object set, object shape, topology, dependency set, or lifecycle behavior.</p>
 <p>Short rule:</p>
 <pre><code>Helm render or object shape changes -&gt; cub installer base variant.

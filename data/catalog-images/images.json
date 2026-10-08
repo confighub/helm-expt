@@ -5,13 +5,13 @@
   "method": "Read from each entry's committed rendered objects: every image key whose value is a registry reference, under containers, initContainers, ephemeralContainers or a custom resource.",
   "boundary": "What the objects name, not what a registry holds. A tag can answer to different bytes later, and this index resolves nothing; cub config check --images asks the registry.",
   "summary": {
-    "entries": 443,
-    "entriesRead": 318,
+    "entries": 481,
+    "entriesRead": 356,
     "entriesWithoutRetainedObjects": 125,
-    "imageReferences": 625,
-    "distinctImages": 277,
+    "imageReferences": 665,
+    "distinctImages": 288,
     "pinnedByDigest": 44,
-    "namedByTag": 581
+    "namedByTag": 621
   },
   "entries": [
     {
@@ -3480,6 +3480,432 @@
       "images": [
         {
           "reference": "registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/autoscaling/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/autoscaling/multi-llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/llm-nim:1.15.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-basic-meta-llama-3-2-1b-instruct-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/basic/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/basic/multi-llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/llm-nim:1.15.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-basic-model-free-llama-3-2-1b-instruct",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/basic/model-free.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/model-free-nim:3.0.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/confidential-computing/llm-kata-sandbox.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-epp-meta-llama3-8b-instruct",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/advanced/epp/nimservice.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nvstaging/nim-internal/vllm-oss-nim-llm-4-devel-llama3.1-8b-instruct:2.0.0-rc.20260203175658-38778af4c5e1fc45",
+          "pinned": false
+        },
+        {
+          "reference": "registry.k8s.io/gateway-api-inference-extension/epp:v1.3.1",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-example0-meta-llama3-2-1b-instruct",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/advanced/dra/auto-creation/example0/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-example1-meta-llama3-2-1b-instruct",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/advanced/dra/auto-creation/example1/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-example2-meta-llama3-2-1b-instruct",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/advanced/dra/auto-creation/example2/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-full-meta-llama-3-2-1b-instruct-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/full/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-full-meta-llama-3-2-1b-instruct-multi-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/full/multi-llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/llm-nim:1.15.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-grpcroutes-riva-tts",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/routers/grpcroutes/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/riva-tts:1.3.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-httproutes-meta-llama-3-2-1b-instruct-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/routers/httproutes/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/routers/httproutes/multi-llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/llm-nim:1.15.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-ingress-meta-llama-3-2-1b-instruct-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/routers/ingress/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/routers/ingress/multi-llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/llm-nim:1.15.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-knative-meta-llama-3-2-1b-instruct-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/kserve/knative/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/kserve/knative/multi-llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/llm-nim:1.15.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-lora-meta-llama-3-2-1b-instruct-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/lora/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/lora/multi-llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/llm-nim:1.15.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-manual-meta-llama3-2-1b-instruct",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/advanced/dra/manual/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-multi-node-deepseek-r1-multi-node-nimservice",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/advanced/multi-node/multi-node-nimservice.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/deepseek-ai/deepseek-r1:1.7.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/advanced/multi-node/multi-node-nimservice-rdma.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/deepseek-ai/deepseek-r1:1.7.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-multi-node-llama-3-1-8b-instruct-multinode",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/advanced/multi-node/multi-node-nimservice-ray.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.1-8b-instruct:2.0.10",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-nim-3-nemotron-3-super-120b-a12b",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/nim-3/nemotron-3-super.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/nemotron-3-super-120b-a12b:3.0.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/no-precaching/llm-emptydir.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/no-precaching/llm-hostpath.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/no-precaching/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/no-precaching/multi-llm-hf.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/llm-nim:1.15.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/no-precaching/multi-llm-ngc.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/llm-nim:1.15.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-no-precaching-model-free-llama-3-2-1b-instruct",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/no-precaching/model-free-hf.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/model-free-nim:3.0.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-retriever-llama-nemotron-embed-vl-1b-v2",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/retriever/embed.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/llama-nemotron-embed-vl-1b-v2:2.3.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/scheduling/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/sidecars/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "busybox:1.36",
+          "pinned": false
+        },
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-standard-meta-llama-3-2-1b-instruct",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/kserve/standard/llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-standard-nim-service-model-free",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/kserve/standard/model-free.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/model-free-nim:3.0.0",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "nimservice-standard-nim-service-multi-llm",
+      "objects": "data/aicr-nim-operator-models/upstream/serving/kserve/standard/multi-llm.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "nvcr.io/nim/nvidia/llm-nim:1.15.0",
           "pinned": false
         }
       ]

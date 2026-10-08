@@ -16,20 +16,20 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:2effb5b0837b7646de2d98d95a2455fe3fbf06d4c07e70de139f297e369a22e8",
+      "sha256": "sha256:b530fbf9e069a56a10340bf688cced4a494f941efb05e1f0228551bc5e0c1166",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "recordKind": "BaseVariantRecord"
   },
   "counts": {
-    "listings": 443,
+    "listings": 481,
     "formats": {
       "aicr": 124,
       "configuration-oci": 1,
       "cub-installer": 1,
       "helm": 312,
       "kubara": 1,
-      "kubernetes-yaml": 1,
+      "kubernetes-yaml": 39,
       "sveltos": 1,
       "timoni": 2
     }
@@ -5376,6 +5376,652 @@
       "imagesNamedByTag": 1
     },
     {
+      "id": "nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "autoscaling-meta-llama-3-2-1b-instruct-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:03f7b8ce3ff95f8b7933fda5ab373c27469717e0f8670121f9d9551cebbbac63",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "autoscaling-meta-llama-3-2-1b-instruct-multi-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:d0fbdfff38eaef948494be36233d6da35694d03091b16523ccac4d5d7b48af79",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-basic-meta-llama-3-2-1b-instruct-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-meta-llama-3-2-1b-instruct-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "basic-meta-llama-3-2-1b-instruct-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:b5943236fcd709b567a1f932a847c169a7bc6e9a40dac141e6fac4cb9a1fb797",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "basic-meta-llama-3-2-1b-instruct-multi-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:2763aee71a2ea72ece365255db4e3851eed92867d1c1e105c4a694ba7bf11989",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-basic-model-free-llama-3-2-1b-instruct",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-model-free-llama-3-2-1b-instruct.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "basic-model-free-llama-3-2-1b-instruct",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:0770f9dfbc1003416eb1e66523a9ee2a810e3692cde284249ea1049f8d9643ed",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 1,
+      "digest": "sha256:4582a67b8e5bcff226b91319a744823e84308d81f05fa5827b3e225641012354",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-epp-meta-llama3-8b-instruct",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-epp-meta-llama3-8b-instruct.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "epp-meta-llama3-8b-instruct",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 1,
+      "digest": "sha256:b8940509a487ac76e3ed2e4f5f619e28d0ed51814f6b187ce8a7fde0202b06a6",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
+    },
+    {
+      "id": "nimservice-example0-meta-llama3-2-1b-instruct",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-example0-meta-llama3-2-1b-instruct.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "example0-meta-llama3-2-1b-instruct",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:86f43ab875e8756e03fef5d9fe148b8bf79eb6634e3227cd7563718d3fb5dc26",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-example1-meta-llama3-2-1b-instruct",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-example1-meta-llama3-2-1b-instruct.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "example1-meta-llama3-2-1b-instruct",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:d2e5aaa047a10663926a0d8fe3d83add1e2170d16c87c6305da4db2e6ea7154f",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-example2-meta-llama3-2-1b-instruct",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-example2-meta-llama3-2-1b-instruct.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "example2-meta-llama3-2-1b-instruct",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:4f4bf1f156bd8621fd4706ed4b23e565dbeb229fdd05fe6034d1ad94d9075ab5",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-full-meta-llama-3-2-1b-instruct-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-full-meta-llama-3-2-1b-instruct-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "full-meta-llama-3-2-1b-instruct-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:b56d4ecd50613355fb5cd6a75b6b20b5451323bc810fac0f3a1a917ae1e8d436",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-full-meta-llama-3-2-1b-instruct-multi-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-full-meta-llama-3-2-1b-instruct-multi-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "full-meta-llama-3-2-1b-instruct-multi-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:8747029d5cbb287735564bc069b90f24333a12141e5d4bb2a7fe65203f5c3555",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-grpcroutes-riva-tts",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-grpcroutes-riva-tts.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "grpcroutes-riva-tts",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:521b278642e743b0c7233c8da8cc9238397ffae08ebbbc3632ad4e5fea0706c7",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-httproutes-meta-llama-3-2-1b-instruct-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-httproutes-meta-llama-3-2-1b-instruct-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "httproutes-meta-llama-3-2-1b-instruct-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:960b72663a10608beba584093e615248726e1e36ddce3cd880ca27a1e514c85b",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "httproutes-meta-llama-3-2-1b-instruct-multi-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:34ddfe463ffb07c596dfe62566f4942ce4daf946400d645b97aa8e6b8071bc74",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-ingress-meta-llama-3-2-1b-instruct-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-ingress-meta-llama-3-2-1b-instruct-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "ingress-meta-llama-3-2-1b-instruct-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:c41323262ec969726b69d2e4d930ee0c5007e8a969434d34781c3fd9cc1451f8",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "ingress-meta-llama-3-2-1b-instruct-multi-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:7c83ab4df35cb94d39bed54dcce7333e3ded8573db12485bb8897b128ec79dc7",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-knative-meta-llama-3-2-1b-instruct-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-knative-meta-llama-3-2-1b-instruct-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "knative-meta-llama-3-2-1b-instruct-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:db534c939adf26e2dc9a7e927e4c4b2f19f9cac1af91bf9178282156bf786670",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "knative-meta-llama-3-2-1b-instruct-multi-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:b5020b77339bf0181254255a04927e5ce4775a345fc060d48d91cb070ae278fd",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-lora-meta-llama-3-2-1b-instruct-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-lora-meta-llama-3-2-1b-instruct-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "lora-meta-llama-3-2-1b-instruct-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 1,
+      "digest": "sha256:05a65e0d30de4763bacbcb1a4e961ff1c6711955c30698e43db3d3481c654a4a",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "lora-meta-llama-3-2-1b-instruct-multi-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 1,
+      "digest": "sha256:b8b3a49f19e059947ea276ba0b9df4b691bf2df1010fb8d631de57d9c22a78e6",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-manual-meta-llama3-2-1b-instruct",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-manual-meta-llama3-2-1b-instruct.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "manual-meta-llama3-2-1b-instruct",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 3,
+      "digest": "sha256:bdf8717cd1dbe0e3f8f469bd5075fc7312fd6776e698d233e3c59a5b966ad317",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-multi-node-deepseek-r1-multi-node-nimservice",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-deepseek-r1-multi-node-nimservice.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "multi-node-deepseek-r1-multi-node-nimservice",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:62a86e115f6282d79fc2f58b0b3bae264a679e9e3fce49e714959cbd9e644218",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "multi-node-deepseek-r1-multi-node-nimservice-rdma",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:fc9589debd11f39120dfbae346a6983e546dc42950e5d0f435360c5ee9b900a2",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-multi-node-llama-3-1-8b-instruct-multinode",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-llama-3-1-8b-instruct-multinode.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "multi-node-llama-3-1-8b-instruct-multinode",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:0171b9583cea00bade0db671d012a5702e11f91154fe01efaf6bd69079caf0c9",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-nim-3-nemotron-3-super-120b-a12b",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-nim-3-nemotron-3-super-120b-a12b.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "nim-3-nemotron-3-super-120b-a12b",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:c72d8fb61e0f8d4df55ce4e0d1f08f51f580561539af2aad16f1035c0e52221c",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "no-precaching-meta-llama-3-2-1b-instruct-emptydir",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 1,
+      "digest": "sha256:342ff6df188236559b665aa632f6395f604eee910b3586e7ed1c9c3bfc246124",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "no-precaching-meta-llama-3-2-1b-instruct-hostpath",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 1,
+      "digest": "sha256:4095730535defb640cbc93e67a813d7706c625638995a60dbd0f9b0ac9ac0a8a",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "no-precaching-meta-llama-3-2-1b-instruct-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 1,
+      "digest": "sha256:b990826165eb254a9e6061d41993883d42bfb874fec899020e3a898600ea57c5",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 1,
+      "digest": "sha256:45d247854cbd173d407cc12b2ac50788d0014be73d80d67926e9ce0979fd198d",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 1,
+      "digest": "sha256:e4d032885ab3d2e87043560d8f3f6f58f2c02c6353ff1bf4cafdb1f938e6c6a0",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-no-precaching-model-free-llama-3-2-1b-instruct",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-model-free-llama-3-2-1b-instruct.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "no-precaching-model-free-llama-3-2-1b-instruct",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 1,
+      "digest": "sha256:1f3a2cacc484ae7e67bf8206ded6a4ba24f7aaa548c796622e3e2864b60fab2b",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-retriever-llama-nemotron-embed-vl-1b-v2",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-retriever-llama-nemotron-embed-vl-1b-v2.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "retriever-llama-nemotron-embed-vl-1b-v2",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:1aafdea7ffa3795ddbeb645b82d0f526af40645390f78d2b9d415e29d5ec364a",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "scheduling-meta-llama-3-2-1b-instruct-scheduling",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 1,
+      "digest": "sha256:d9b5b69bce17711febcb3531ed5f642e12c0e61043cf60b0074a4e1636bd3f6f",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "sidecars-meta-llama-3-2-1b-instruct-sidecars",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 1,
+      "digest": "sha256:4a865b472acd71864c994a9ba280a2f4713f47f3274cfbb62f0b1e8f0b5eec3c",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 2,
+      "imagesNamedByTag": 2
+    },
+    {
+      "id": "nimservice-standard-meta-llama-3-2-1b-instruct",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-meta-llama-3-2-1b-instruct.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "standard-meta-llama-3-2-1b-instruct",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:24899d2cfed44bdbbeb4d23800b381fbf75150649946de3b2da9d81d43864359",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-standard-nim-service-model-free",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-nim-service-model-free.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "standard-nim-service-model-free",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:41e2cd864f8bd9bf13dfa1acd1a201342561144b06e52d5d9050042174858609",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
+      "id": "nimservice-standard-nim-service-multi-llm",
+      "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-nim-service-multi-llm.json",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "standard-nim-service-multi-llm",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 2,
+      "digest": "sha256:1de00b1cf1d89ca3a6488a801b445abacea27fe32f814c193a88b46df4b35a93",
+      "flatteningVerdict": "flatten-with-routes",
+      "images": 1,
+      "imagesNamedByTag": 1
+    },
+    {
       "id": "nvidia-cluster-readiness-engine-v0-6-0-default",
       "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-cluster-readiness-engine-v0-6-0-default.json",
       "name": "nvidia/cluster-readiness-engine",
@@ -5393,9 +6039,7 @@
       },
       "objectCount": 43,
       "digest": "sha256:3d7c5f88d97f8f74f84b7ced2ae32d75fceb9888aa4d2701124eb6beea713170",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 1,
-      "imagesNamedByTag": 1
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v25-10-1-default",
@@ -5415,9 +6059,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:4a711392870e1063a56eaaf4ca40219d82f4acda7cae5c2ead234a9fa1384891",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v25-10-1-driver-580-126-20",
@@ -5437,9 +6079,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:ac011644664f8eadcbceeb44327d0525429d2710bfc9aef90ebe6d721d6090ee",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v25-10-1-driver-595-91-07",
@@ -5459,9 +6099,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:32714faffb818eaeda0f014bf562eab4942f8a1c8ce93d5a2c6613f087978cac",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v25-10-1-external-nfd",
@@ -5481,9 +6119,7 @@
       },
       "objectCount": 9,
       "digest": "sha256:8667cb754f68c927b3d9dee8e7c4e1cb7d5141e6947f788f3e44853883df665a",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 1,
-      "imagesNamedByTag": 1
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v25-10-1-preinstalled-driver",
@@ -5503,9 +6139,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:4b03d8e2d14fb9cec1bc58aad65d50f18997e2f7cb6db661d279822ce7c8d9ea",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit",
@@ -5525,9 +6159,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:ec5537100284d75523d002dcd5d4754382bb372b4087d3564ad2c966103eaac8",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-3-2-default",
@@ -5547,9 +6179,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:51c7d8994a0ca9530254b46b3b6eae4fd38baeae4e0504c28f27933a4437950c",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-3-2-driver-580-105-08",
@@ -5569,9 +6199,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:70caf6e456b039cee29792410a0526c67a0f1ca6954f8b054bdd7c57b62243a0",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-3-2-driver-595-91-07",
@@ -5591,9 +6219,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:523f9c0beb4eeab1b60bf8ce2438d03e85a7a4b564a80d546ad1d22932b06b9e",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-3-2-external-nfd",
@@ -5613,9 +6239,7 @@
       },
       "objectCount": 9,
       "digest": "sha256:30a949cc36999ed032f4aa18838e11f4bacc29c2840e6a2b3bce8712e9305b37",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 1,
-      "imagesNamedByTag": 1
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-3-2-preinstalled-driver",
@@ -5635,9 +6259,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:81722ed910b8ec297ef43e02fbbe13a124c3a78cc6ddc4ea7f07f7c1bec6e8ec",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit",
@@ -5657,9 +6279,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:2980e91c1280647c62edc7e95bd9e1145de261022fe8d6f3a6d2ed1425f57c22",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-3-3-aicr-eks-training",
@@ -5679,9 +6299,7 @@
       },
       "objectCount": 10,
       "digest": "sha256:8f33a5021500891676062706330ec40b6f356e115a013df11d41943c65bf1be7",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 1,
-      "imagesNamedByTag": 1
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-3-3-default",
@@ -5701,9 +6319,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:73ebb5f6de3d1f010330d266db11b99b508be84dfc92b9d5deb01a39b66fee7c",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-3-3-driver-580-105-08",
@@ -5723,9 +6339,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:3e9b98ac2f1753e1e53801e271b071ee590da1c7b5ab5278e1b5dadba9f87528",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-3-3-driver-595-91-07",
@@ -5745,9 +6359,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:d14f2965c55aab8f9b5503562949c16fa1f86c205af48afcc11f87bdf4606838",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-3-3-external-nfd",
@@ -5767,9 +6379,7 @@
       },
       "objectCount": 9,
       "digest": "sha256:cb21107fdf6b6e1efee9c20074ed1969f7780e81e27ac73e67eb2b3d751b241d",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 1,
-      "imagesNamedByTag": 1
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-3-3-preinstalled-driver",
@@ -5789,9 +6399,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:a683f3569297e0bec21311881018d80b25feacabc15939acef49b045b18fc627",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-3-3-preinstalled-driver-and-toolkit",
@@ -5811,9 +6419,7 @@
       },
       "objectCount": 24,
       "digest": "sha256:f6db512d2f6196493b14208565922fb804bcb63c6570c960b85d4c97d7c39569",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-7-1-aicr-eks-training",
@@ -5833,9 +6439,7 @@
       },
       "objectCount": 13,
       "digest": "sha256:4bd9d60ec2d64a15f28d175934c33d26efd49990a5a28d36b463182b807f9a9b",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 1,
-      "imagesNamedByTag": 1
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-7-1-default",
@@ -5855,9 +6459,7 @@
       },
       "objectCount": 27,
       "digest": "sha256:a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-7-1-driver-580-105-08",
@@ -5877,9 +6479,7 @@
       },
       "objectCount": 27,
       "digest": "sha256:a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-7-1-driver-580-126-20",
@@ -5899,9 +6499,7 @@
       },
       "objectCount": 27,
       "digest": "sha256:07c886e36a064b51cc99954ae5f3e98f3ca07d3ba51e1721e7affbf6a01654aa",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-7-1-external-nfd",
@@ -5921,9 +6519,7 @@
       },
       "objectCount": 12,
       "digest": "sha256:a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 1,
-      "imagesNamedByTag": 1
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-7-1-preinstalled-driver",
@@ -5943,9 +6539,7 @@
       },
       "objectCount": 27,
       "digest": "sha256:98a886b6a43765364c65a2b93d489f430347f3fd8a02a35d5bc03015d675fe36",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit",
@@ -5965,9 +6559,7 @@
       },
       "objectCount": 27,
       "digest": "sha256:2b6cb805960b912ddebd8e5ead4b9bfe5a75ec8d6e28816ebcc9173bdf5da82b",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 2,
-      "imagesNamedByTag": 2
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference",
@@ -5987,9 +6579,7 @@
       },
       "objectCount": 21,
       "digest": "sha256:ef6956d9cec1d29fa5955d22d5e5df9db12fa1a122613c7da358e0edcd19dbf8",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 1,
-      "imagesNamedByTag": 1
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-k8s-nim-operator-3-1-0-default",
@@ -6009,9 +6599,7 @@
       },
       "objectCount": 17,
       "digest": "sha256:226c148d867aff54fd40bdce6debeec6201ce90a726f09087bd438ea426e450f",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 1,
-      "imagesNamedByTag": 1
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-k8s-nim-operator-3-1-2-default",
@@ -6031,9 +6619,7 @@
       },
       "objectCount": 17,
       "digest": "sha256:b152742ed9d6d23ffc731464407499cf534c2c155657052cb1f9425000f6830f",
-      "flatteningVerdict": "flatten-with-routes",
-      "images": 1,
-      "imagesNamedByTag": 1
+      "flatteningVerdict": "flatten-with-routes"
     },
     {
       "id": "nvidia-nvidia-device-plugin-0-19-3-default",
@@ -6119,9 +6705,7 @@
       },
       "objectCount": 21,
       "digest": "sha256:28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee",
-      "flatteningVerdict": "safe-to-flatten",
-      "images": 6,
-      "imagesNamedByTag": 6
+      "flatteningVerdict": "safe-to-flatten"
     },
     {
       "id": "nvidia-nvsentinel-v1-20-0-default",
@@ -6141,9 +6725,7 @@
       },
       "objectCount": 22,
       "digest": "sha256:3344e2d68968a485305ba8280ebb1676457f5552cd665c8000faa38c42841377",
-      "flatteningVerdict": "safe-to-flatten",
-      "images": 6,
-      "imagesNamedByTag": 6
+      "flatteningVerdict": "safe-to-flatten"
     },
     {
       "id": "nvidia-nvsentinel-v1-20-0-no-pod-monitor",
@@ -6163,9 +6745,7 @@
       },
       "objectCount": 21,
       "digest": "sha256:90aeac70ec22badcd205ec6a6ee66b7490a8353eb3242cde61bedce08bd4c3eb",
-      "flatteningVerdict": "safe-to-flatten",
-      "images": 6,
-      "imagesNamedByTag": 6
+      "flatteningVerdict": "safe-to-flatten"
     },
     {
       "id": "nvidia-nvsentinel-v1-25-0-aicr-eks-training",
@@ -6185,9 +6765,7 @@
       },
       "objectCount": 21,
       "digest": "sha256:a0a98f57755f4be60aedae1219efb32059025921a6c5eb15f57e87d5a7776b15",
-      "flatteningVerdict": "safe-to-flatten",
-      "images": 6,
-      "imagesNamedByTag": 6
+      "flatteningVerdict": "safe-to-flatten"
     },
     {
       "id": "nvidia-nvsentinel-v1-25-0-default",
@@ -6207,9 +6785,7 @@
       },
       "objectCount": 22,
       "digest": "sha256:f12a375c7b63cdfe02ed6eda602a22c771d43216297ab2089f374ef913a86ec2",
-      "flatteningVerdict": "safe-to-flatten",
-      "images": 6,
-      "imagesNamedByTag": 6
+      "flatteningVerdict": "safe-to-flatten"
     },
     {
       "id": "nvidia-nvsentinel-v1-25-0-no-pod-monitor",
@@ -6229,9 +6805,7 @@
       },
       "objectCount": 21,
       "digest": "sha256:efeccf54131507abb5c6c4965ec661bcc48b5e89f609afdcdf9f299a8afbbd25",
-      "flatteningVerdict": "safe-to-flatten",
-      "images": 6,
-      "imagesNamedByTag": 6
+      "flatteningVerdict": "safe-to-flatten"
     },
     {
       "id": "nvidia-nvsentinel-v1-26-0-default",
@@ -6251,9 +6825,7 @@
       },
       "objectCount": 22,
       "digest": "sha256:24814ac18cb0a16ce47a9d02a6a4c01d86ad3b99c1382f47b5daf734c4bc70ae",
-      "flatteningVerdict": "safe-to-flatten",
-      "images": 6,
-      "imagesNamedByTag": 6
+      "flatteningVerdict": "safe-to-flatten"
     },
     {
       "id": "nvidia-nvsentinel-v1-26-0-no-pod-monitor",
@@ -6273,9 +6845,7 @@
       },
       "objectCount": 21,
       "digest": "sha256:46e1eea6fdb17a85b71a8e36978dc96364ed5d65ee7951b02b22cf7de8733c00",
-      "flatteningVerdict": "safe-to-flatten",
-      "images": 6,
-      "imagesNamedByTag": 6
+      "flatteningVerdict": "safe-to-flatten"
     },
     {
       "id": "nvidia-nvsentinel-v1-9-0-aicr-eks-training",
@@ -6295,9 +6865,7 @@
       },
       "objectCount": 20,
       "digest": "sha256:108838b8b474bf4a3e5bf541af136ef74fcacfdf74cb16ed18f7d999a44f365d",
-      "flatteningVerdict": "safe-to-flatten",
-      "images": 6,
-      "imagesNamedByTag": 6
+      "flatteningVerdict": "safe-to-flatten"
     },
     {
       "id": "nvidia-nvsentinel-v1-9-0-default",
@@ -6317,9 +6885,7 @@
       },
       "objectCount": 21,
       "digest": "sha256:ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2",
-      "flatteningVerdict": "safe-to-flatten",
-      "images": 6,
-      "imagesNamedByTag": 6
+      "flatteningVerdict": "safe-to-flatten"
     },
     {
       "id": "nvidia-nvsentinel-v1-9-0-no-pod-monitor",
@@ -6339,9 +6905,7 @@
       },
       "objectCount": 20,
       "digest": "sha256:5319d654999e0575a5c43ab992c31af9a22a92f5d55f025e4f3ad539cb963810",
-      "flatteningVerdict": "safe-to-flatten",
-      "images": 6,
-      "imagesNamedByTag": 6
+      "flatteningVerdict": "safe-to-flatten"
     },
     {
       "id": "oauth2-proxy-oauth2-proxy-10-7-0-default",

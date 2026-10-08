@@ -699,7 +699,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
-      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command.</p>
+      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. A <a href="../d/docs/user/live-run-log-2026-10-08.html">live run on 2026-10-08</a> used these <code>cub variant</code> commands on other configuration, with no Target. It is not a run for this entry.</p>
       <div data-entry-steps="nvidia-cluster-readiness-engine-v0-6-0-default">
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
@@ -883,7 +883,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>No special operating guide is assigned for this chart. Use the configuration status and test results on this page.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
-        <tbody><tr><td>User status</td><td>Status not recorded</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501</td></tr><tr><td>Tests completed</td><td>See the test results</td></tr><tr><td>Coverage</td><td>See coverage evidence</td></tr><tr><td>You must provide</td><td>the chart settings you need, until a reviewed base exists</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>Needs better base variant</td></tr><tr><td>Can I use it?</td><td>The current configuration is too close to the chart default; design a more useful starting configuration first.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501</td></tr><tr><td>Tests completed</td><td>The basic checks passed, but this chart still needs a useful reviewed configuration (render parity 1/1; Local live 0/1; Live parity 0/1)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>the chart settings you need, until a reviewed base exists</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -905,8 +905,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-cluster-readiness-engine/v0.6.0/installer-package-publication-receipt.yaml">Package receipt</a></td>
         </tr><tr>
           <td data-label="Question">What does this chart contain?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
+          <td data-label="Status">Partly checked</td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/cluster-readiness-engine/v0.6.0/source-lock.yaml">Source lock</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/cluster-readiness-engine/v0.6.0/CATALOG.md">Chart guide</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/variant-revision.yaml">Render result</a> · <a href="../changes.json">All 6 evidence links</a></td>
         </tr><tr>
           <td data-label="Question">Does the recorded render match Helm?</td>
           <td data-label="Status">Checked</td>

@@ -599,7 +599,7 @@
 <p>Use this when you already have rendered Kubernetes files or a literal configuration OCI and want to create ConfigHub Units from them.</p>
 <p>It does not render a Helm chart. It reads files, directories, stdin, or an <code>oci://</code> manifest bundle. It records an OCI source reference and resolved digest when OCI is used.</p>
 <p>Good for:</p>
-<ul><li>quickly getting rendered configuration into ConfigHub;</li><li>seeding a base Space from a reviewed OCI bundle;</li><li>keeping every resource as its own Unit, named after the resource;</li><li>starting from Helm, AICR, CI output, or hand-written Kubernetes files without building a catalog entry first.</li></ul>
+<ul><li>quickly getting rendered configuration into ConfigHub;</li><li>seeding a base Space from a reviewed OCI bundle;</li><li>keeping every resource except Secrets as its own Unit, named after the resource;</li><li>starting from Helm, AICR, CI output, or hand-written Kubernetes files without building a catalog entry first.</li></ul>
 <p>It does not, by itself, create the maintained catalog proof: supported base variants, source/dependency locks, effective values, control-point reports, Helm-equivalence receipts, scan/gate receipts, live parity receipts, upgrade policy, or patch support.</p>
 <h3 id="cub-installer"><code>cub installer</code></h3>
 <p>Use this when you want the maintained recipe/package path.</p>

@@ -7,7 +7,7 @@
     "site/listings/index.json",
     "site/listings/<id>.json"
   ],
-  "count": 443,
+  "count": 481,
   "rows": [
     {
       "id": "aicr-a100-aks-training-v0-21-0-argocd",
@@ -7157,6 +7157,842 @@
       "listing": "https://confighub.github.io/helm-expt/site/listings/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/listings/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.json"
+      }
+    },
+    {
+      "id": "nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "autoscaling-meta-llama-3-2-1b-instruct-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base autoscaling-meta-llama-3-2-1b-instruct-llm: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:03f7b8ce3ff95f8b7933fda5ab373c27469717e0f8670121f9d9551cebbbac63",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "autoscaling-meta-llama-3-2-1b-instruct-multi-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base autoscaling-meta-llama-3-2-1b-instruct-multi-llm: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:d0fbdfff38eaef948494be36233d6da35694d03091b16523ccac4d5d7b48af79",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-basic-meta-llama-3-2-1b-instruct-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "basic-meta-llama-3-2-1b-instruct-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base basic-meta-llama-3-2-1b-instruct-llm: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:b5943236fcd709b567a1f932a847c169a7bc6e9a40dac141e6fac4cb9a1fb797",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-meta-llama-3-2-1b-instruct-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-meta-llama-3-2-1b-instruct-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "basic-meta-llama-3-2-1b-instruct-multi-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base basic-meta-llama-3-2-1b-instruct-multi-llm: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:2763aee71a2ea72ece365255db4e3851eed92867d1c1e105c4a694ba7bf11989",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-basic-model-free-llama-3-2-1b-instruct",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "basic-model-free-llama-3-2-1b-instruct",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base basic-model-free-llama-3-2-1b-instruct: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:0770f9dfbc1003416eb1e66523a9ee2a810e3692cde284249ea1049f8d9643ed",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-model-free-llama-3-2-1b-instruct.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-model-free-llama-3-2-1b-instruct.json"
+      }
+    },
+    {
+      "id": "nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox: 1 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 1,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:4582a67b8e5bcff226b91319a744823e84308d81f05fa5827b3e225641012354",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.json"
+      }
+    },
+    {
+      "id": "nimservice-epp-meta-llama3-8b-instruct",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "epp-meta-llama3-8b-instruct",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base epp-meta-llama3-8b-instruct: 1 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 1,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:b8940509a487ac76e3ed2e4f5f619e28d0ed51814f6b187ce8a7fde0202b06a6",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-epp-meta-llama3-8b-instruct.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-epp-meta-llama3-8b-instruct.json"
+      }
+    },
+    {
+      "id": "nimservice-example0-meta-llama3-2-1b-instruct",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "example0-meta-llama3-2-1b-instruct",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base example0-meta-llama3-2-1b-instruct: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:86f43ab875e8756e03fef5d9fe148b8bf79eb6634e3227cd7563718d3fb5dc26",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-example0-meta-llama3-2-1b-instruct.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-example0-meta-llama3-2-1b-instruct.json"
+      }
+    },
+    {
+      "id": "nimservice-example1-meta-llama3-2-1b-instruct",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "example1-meta-llama3-2-1b-instruct",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base example1-meta-llama3-2-1b-instruct: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:d2e5aaa047a10663926a0d8fe3d83add1e2170d16c87c6305da4db2e6ea7154f",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-example1-meta-llama3-2-1b-instruct.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-example1-meta-llama3-2-1b-instruct.json"
+      }
+    },
+    {
+      "id": "nimservice-example2-meta-llama3-2-1b-instruct",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "example2-meta-llama3-2-1b-instruct",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base example2-meta-llama3-2-1b-instruct: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:4f4bf1f156bd8621fd4706ed4b23e565dbeb229fdd05fe6034d1ad94d9075ab5",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-example2-meta-llama3-2-1b-instruct.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-example2-meta-llama3-2-1b-instruct.json"
+      }
+    },
+    {
+      "id": "nimservice-full-meta-llama-3-2-1b-instruct-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "full-meta-llama-3-2-1b-instruct-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base full-meta-llama-3-2-1b-instruct-llm: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:b56d4ecd50613355fb5cd6a75b6b20b5451323bc810fac0f3a1a917ae1e8d436",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-full-meta-llama-3-2-1b-instruct-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-full-meta-llama-3-2-1b-instruct-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-full-meta-llama-3-2-1b-instruct-multi-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "full-meta-llama-3-2-1b-instruct-multi-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base full-meta-llama-3-2-1b-instruct-multi-llm: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:8747029d5cbb287735564bc069b90f24333a12141e5d4bb2a7fe65203f5c3555",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-full-meta-llama-3-2-1b-instruct-multi-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-full-meta-llama-3-2-1b-instruct-multi-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-grpcroutes-riva-tts",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "grpcroutes-riva-tts",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base grpcroutes-riva-tts: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:521b278642e743b0c7233c8da8cc9238397ffae08ebbbc3632ad4e5fea0706c7",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-grpcroutes-riva-tts.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-grpcroutes-riva-tts.json"
+      }
+    },
+    {
+      "id": "nimservice-httproutes-meta-llama-3-2-1b-instruct-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "httproutes-meta-llama-3-2-1b-instruct-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base httproutes-meta-llama-3-2-1b-instruct-llm: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:960b72663a10608beba584093e615248726e1e36ddce3cd880ca27a1e514c85b",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-httproutes-meta-llama-3-2-1b-instruct-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-httproutes-meta-llama-3-2-1b-instruct-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "httproutes-meta-llama-3-2-1b-instruct-multi-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base httproutes-meta-llama-3-2-1b-instruct-multi-llm: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:34ddfe463ffb07c596dfe62566f4942ce4daf946400d645b97aa8e6b8071bc74",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-ingress-meta-llama-3-2-1b-instruct-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "ingress-meta-llama-3-2-1b-instruct-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base ingress-meta-llama-3-2-1b-instruct-llm: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:c41323262ec969726b69d2e4d930ee0c5007e8a969434d34781c3fd9cc1451f8",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-ingress-meta-llama-3-2-1b-instruct-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-ingress-meta-llama-3-2-1b-instruct-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "ingress-meta-llama-3-2-1b-instruct-multi-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base ingress-meta-llama-3-2-1b-instruct-multi-llm: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:7c83ab4df35cb94d39bed54dcce7333e3ded8573db12485bb8897b128ec79dc7",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-knative-meta-llama-3-2-1b-instruct-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "knative-meta-llama-3-2-1b-instruct-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base knative-meta-llama-3-2-1b-instruct-llm: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:db534c939adf26e2dc9a7e927e4c4b2f19f9cac1af91bf9178282156bf786670",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-knative-meta-llama-3-2-1b-instruct-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-knative-meta-llama-3-2-1b-instruct-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "knative-meta-llama-3-2-1b-instruct-multi-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base knative-meta-llama-3-2-1b-instruct-multi-llm: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:b5020b77339bf0181254255a04927e5ce4775a345fc060d48d91cb070ae278fd",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-lora-meta-llama-3-2-1b-instruct-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "lora-meta-llama-3-2-1b-instruct-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base lora-meta-llama-3-2-1b-instruct-llm: 1 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 1,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:05a65e0d30de4763bacbcb1a4e961ff1c6711955c30698e43db3d3481c654a4a",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-lora-meta-llama-3-2-1b-instruct-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-lora-meta-llama-3-2-1b-instruct-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "lora-meta-llama-3-2-1b-instruct-multi-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base lora-meta-llama-3-2-1b-instruct-multi-llm: 1 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 1,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:b8b3a49f19e059947ea276ba0b9df4b691bf2df1010fb8d631de57d9c22a78e6",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-manual-meta-llama3-2-1b-instruct",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "manual-meta-llama3-2-1b-instruct",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base manual-meta-llama3-2-1b-instruct: 3 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 3,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:bdf8717cd1dbe0e3f8f469bd5075fc7312fd6776e698d233e3c59a5b966ad317",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-manual-meta-llama3-2-1b-instruct.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-manual-meta-llama3-2-1b-instruct.json"
+      }
+    },
+    {
+      "id": "nimservice-multi-node-deepseek-r1-multi-node-nimservice",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "multi-node-deepseek-r1-multi-node-nimservice",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base multi-node-deepseek-r1-multi-node-nimservice: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:62a86e115f6282d79fc2f58b0b3bae264a679e9e3fce49e714959cbd9e644218",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-deepseek-r1-multi-node-nimservice.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-deepseek-r1-multi-node-nimservice.json"
+      }
+    },
+    {
+      "id": "nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "multi-node-deepseek-r1-multi-node-nimservice-rdma",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base multi-node-deepseek-r1-multi-node-nimservice-rdma: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:fc9589debd11f39120dfbae346a6983e546dc42950e5d0f435360c5ee9b900a2",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma.json"
+      }
+    },
+    {
+      "id": "nimservice-multi-node-llama-3-1-8b-instruct-multinode",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "multi-node-llama-3-1-8b-instruct-multinode",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base multi-node-llama-3-1-8b-instruct-multinode: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:0171b9583cea00bade0db671d012a5702e11f91154fe01efaf6bd69079caf0c9",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-llama-3-1-8b-instruct-multinode.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-llama-3-1-8b-instruct-multinode.json"
+      }
+    },
+    {
+      "id": "nimservice-nim-3-nemotron-3-super-120b-a12b",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "nim-3-nemotron-3-super-120b-a12b",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base nim-3-nemotron-3-super-120b-a12b: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:c72d8fb61e0f8d4df55ce4e0d1f08f51f580561539af2aad16f1035c0e52221c",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-nim-3-nemotron-3-super-120b-a12b.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-nim-3-nemotron-3-super-120b-a12b.json"
+      }
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "no-precaching-meta-llama-3-2-1b-instruct-emptydir",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base no-precaching-meta-llama-3-2-1b-instruct-emptydir: 1 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 1,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:342ff6df188236559b665aa632f6395f604eee910b3586e7ed1c9c3bfc246124",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir.json"
+      }
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "no-precaching-meta-llama-3-2-1b-instruct-hostpath",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base no-precaching-meta-llama-3-2-1b-instruct-hostpath: 1 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 1,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:4095730535defb640cbc93e67a813d7706c625638995a60dbd0f9b0ac9ac0a8a",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath.json"
+      }
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "no-precaching-meta-llama-3-2-1b-instruct-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base no-precaching-meta-llama-3-2-1b-instruct-llm: 1 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 1,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:b990826165eb254a9e6061d41993883d42bfb874fec899020e3a898600ea57c5",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm.json"
+      }
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf: 1 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 1,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:45d247854cbd173d407cc12b2ac50788d0014be73d80d67926e9ce0979fd198d",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf.json"
+      }
+    },
+    {
+      "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc: 1 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 1,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:e4d032885ab3d2e87043560d8f3f6f58f2c02c6353ff1bf4cafdb1f938e6c6a0",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc.json"
+      }
+    },
+    {
+      "id": "nimservice-no-precaching-model-free-llama-3-2-1b-instruct",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "no-precaching-model-free-llama-3-2-1b-instruct",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base no-precaching-model-free-llama-3-2-1b-instruct: 1 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 1,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:1f3a2cacc484ae7e67bf8206ded6a4ba24f7aaa548c796622e3e2864b60fab2b",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-model-free-llama-3-2-1b-instruct.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-model-free-llama-3-2-1b-instruct.json"
+      }
+    },
+    {
+      "id": "nimservice-retriever-llama-nemotron-embed-vl-1b-v2",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "retriever-llama-nemotron-embed-vl-1b-v2",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base retriever-llama-nemotron-embed-vl-1b-v2: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:1aafdea7ffa3795ddbeb645b82d0f526af40645390f78d2b9d415e29d5ec364a",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-retriever-llama-nemotron-embed-vl-1b-v2.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-retriever-llama-nemotron-embed-vl-1b-v2.json"
+      }
+    },
+    {
+      "id": "nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "scheduling-meta-llama-3-2-1b-instruct-scheduling",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base scheduling-meta-llama-3-2-1b-instruct-scheduling: 1 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 1,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:d9b5b69bce17711febcb3531ed5f642e12c0e61043cf60b0074a4e1636bd3f6f",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling.json"
+      }
+    },
+    {
+      "id": "nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "sidecars-meta-llama-3-2-1b-instruct-sidecars",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base sidecars-meta-llama-3-2-1b-instruct-sidecars: 1 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 1,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:4a865b472acd71864c994a9ba280a2f4713f47f3274cfbb62f0b1e8f0b5eec3c",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars.json"
+      }
+    },
+    {
+      "id": "nimservice-standard-meta-llama-3-2-1b-instruct",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "standard-meta-llama-3-2-1b-instruct",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base standard-meta-llama-3-2-1b-instruct: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:24899d2cfed44bdbbeb4d23800b381fbf75150649946de3b2da9d81d43864359",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-meta-llama-3-2-1b-instruct.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-meta-llama-3-2-1b-instruct.json"
+      }
+    },
+    {
+      "id": "nimservice-standard-nim-service-model-free",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "standard-nim-service-model-free",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base standard-nim-service-model-free: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:41e2cd864f8bd9bf13dfa1acd1a201342561144b06e52d5d9050042174858609",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-nim-service-model-free.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-nim-service-model-free.json"
+      }
+    },
+    {
+      "id": "nimservice-standard-nim-service-multi-llm",
+      "name": "nimservice",
+      "format": "kubernetes-yaml",
+      "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "base": "standard-nim-service-multi-llm",
+      "summary": "nimservice 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, kubernetes-yaml, base standard-nim-service-multi-llm: 2 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 2,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:1de00b1cf1d89ca3a6488a801b445abacea27fe32f814c193a88b46df4b35a93",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-nim-service-multi-llm.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-nim-service-multi-llm.json"
       }
     },
     {

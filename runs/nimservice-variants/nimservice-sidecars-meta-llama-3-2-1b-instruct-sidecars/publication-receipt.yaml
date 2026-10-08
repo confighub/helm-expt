@@ -1,0 +1,49 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantPublicationReceipt"
+metadata:
+  name: "nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars"
+spec:
+  plan: "data/aicr-nim-operator-models/catalog-entries/sidecars-meta-llama-3-2-1b-instruct-sidecars/literal-config-oci.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars:upstream-5d5f66ee0e2e"
+  immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars@sha256:5660005ce6568f6d6a145ede5b0511bb8095ec86fa12324bcc2b55700fe9d0a8"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:5660005ce6568f6d6a145ede5b0511bb8095ec86fa12324bcc2b55700fe9d0a8"
+  layerDigest: "sha256:eb5667ffd071df235127b9d0253631096a42e47860c03b29ffdce413c71de80e"
+  layerBytes: 10775
+  objectSetSha256: "sha256:4a865b472acd71864c994a9ba280a2f4713f47f3274cfbb62f0b1e8f0b5eec3c"
+  sourceFileSha256: "sha256:a283dedc018fd5b19ad075fa1390204e6e61de22a5d22d132538305dfa43b634"
+  stagedFiles:
+    -
+      path: "llm.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/standalone/sidecars/llm.yaml"
+      role: "exact objects"
+      sha256: "sha256:a283dedc018fd5b19ad075fa1390204e6e61de22a5d22d132538305dfa43b634"
+      bytes: 1154
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/sidecars-meta-llama-3-2-1b-instruct-sidecars/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:a1c23cc7ba08fb81e1917022115b82b618447a90a91f9c614ab68d84c7351fa0"
+      bytes: 3716
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/sidecars-meta-llama-3-2-1b-instruct-sidecars/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:ddb1733f42b42a6b1d1e2f66a13a6d9e85ff076d9f063dd00b1e0a3851ddd10c"
+      bytes: 2167
+  contents:
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  push:
+    result: "pass"
+    command: "oras cp --from-oci-layout <layout>:upstream-5d5f66ee0e2e europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars:upstream-5d5f66ee0e2e"
+  anonymousPull:
+    result: "pass"
+    manifestDigest: "sha256:5660005ce6568f6d6a145ede5b0511bb8095ec86fa12324bcc2b55700fe9d0a8"
+    layerDigest: "sha256:eb5667ffd071df235127b9d0253631096a42e47860c03b29ffdce413c71de80e"
+    filesMatched: 3
+    command: "oras pull --registry-config <empty config> europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars@sha256:5660005ce6568f6d6a145ede5b0511bb8095ec86fa12324bcc2b55700fe9d0a8"
+  signature: "none. The Catalog does not sign certified configuration bundles."
+  observedAt: "2026-10-08T05:49:51.081Z"
+status:
+  result: "pass"

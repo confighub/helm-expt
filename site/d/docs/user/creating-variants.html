@@ -628,12 +628,14 @@ cub variant create prod-us-east helm-prometheus-server-only \
   --region us-east
 
 # 2. Preview what actually changed: diff a cloned Unit against its upstream.
-cub unit diff &lt;unit&gt; --space &lt;derived-space&gt;
+cub unit diff &lt;unit&gt; --space &lt;upstream-space&gt; \
+  --with-unit &lt;derived-space&gt;/&lt;unit&gt; -o mutations
 
 # 3. Check the preservation rule: same Units, same rendered shape, links intact.
 cub unit list --space &lt;derived-space&gt; \
   --columns Unit.Slug,Unit.Labels.Variant,Unit.Labels.Environment</code></pre>
 <p>The expected preview is small: labels, environment, region, and any approved post-render fills. If the diff shows decoded Kubernetes data changing without an allowed mutation receipt, stop and treat it as drift, not a variant.</p>
+<p>The <code>--with-unit</code> form was run on 2026-10-08 with cub v0.8.7, and the <a href="live-run-log-2026-10-08.html">run log</a> shows its output. A bare <code>cub unit diff &lt;unit&gt;</code> compares from the last released revision, so it fails on a Unit that was never released.</p>
 <p>A committed example receipt for exactly this path is <code>runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml</code>, created from a clean uploaded base, cloned with <code>cub variant create --target</code>, and reconciled by Argo CD. The richer guided preview screens shown later in this doc are proposals layered over these same commands.</p>
 <h2 id="promoting-a-later-base-change">Promoting A Later Base Change</h2>
 <p>Every recipe-backed chart gets the same ConfigHub promotion mechanism once it has:</p>
@@ -660,7 +662,7 @@ cub variant promote &lt;downstream-space&gt; \
 <p>When a downstream variant intentionally owns a field differently from the upstream, record that boundary explicitly. <code>cub unit set-protection</code> marks a path as protected, and its <code>--unprotect</code> flag reopens the path for future upstream merges:</p>
 <pre><code>cub unit set-protection &lt;unit&gt; --space &lt;downstream-space&gt; \
   --protect &quot;apps/v1/Deployment:monitoring/prometheus-server:spec.replicas&quot;</code></pre>
-<p>This command is taken from the help of cub v0.8.7 and has not been re-run here. It replaces <code>cub unit set-predicates</code>, which the CLI no longer has.</p>
+<p>This command form was run on 2026-10-08 with cub v0.8.7. The protected path kept its value through a promotion, and an unprotected change to the same Unit arrived. The <a href="live-run-log-2026-10-08.html">run log</a> shows both. The command replaces <code>cub unit set-predicates</code>, which the CLI no longer has.</p>
 <p>That makes promotion safer because local ownership is represented as ConfigHub data, not as an undocumented patch.</p>
 <p>The consolidated promotion model is in <a href="../reference/variant-promotion-model.html">Variant Promotion Model</a>. Current evidence shows server-side promotion mechanics for the primary top-20 rows, but those rows remain watch-grade until the changeset-bound path tracked in <a href="https://github.com/confighub/helm-expt/issues/682">#682</a> is fixed and rerun.</p>
 <h2 id="delivery-prerequisites">Delivery Prerequisites</h2>

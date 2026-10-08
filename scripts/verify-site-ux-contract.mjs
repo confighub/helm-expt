@@ -71,12 +71,12 @@ const checks = [
     file: `site/d/docs/user/workshop-${guide}-guide.html`,
     terms: ["56e261a87dc3b060a86474bc796d379dd9bb7f3d", ...terms],
   })),
-  // The gpu-operator Guide renders a public chart that is not a Catalog entry,
-  // so it must keep saying so, keep the one-field driver result, and keep the
+  // The gpu-operator Guide renders a public chart that the Catalog also holds,
+  // so it must say so, keep the one-field driver result, and keep the
   // limits of a file comparison beside the commands.
   {
     file: "site/d/docs/user/workshop-gpu-operator-upgrade-guide.html",
-    terms: ["See what a gpu-operator upgrade changes", "cub plugin install confighub/cub-workshop@v0.6.56", "https://helm.ngc.nvidia.com/nvidia", "cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary", "cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml --summary", "--set driver.version=580.126.20", "/spec/driver/version replace", "This chart is not a Catalog", "Hooks appear as ordinary objects", "--include-crds", "Exit 0 is not approval", "A task for an assistant", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html"],
+    terms: ["See what a gpu-operator upgrade changes", "cub plugin install confighub/cub-workshop@v0.6.56", "https://helm.ngc.nvidia.com/nvidia", "cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary", "cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml --summary", "--set driver.version=580.126.20", "/spec/driver/version replace", "The Catalog holds this chart", "Hooks appear as ordinary objects", "--include-crds", "Exit 0 is not approval", "A task for an assistant", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html"],
   },
   {
     file: "site/index.html",
@@ -190,8 +190,12 @@ const checks = [
     terms: ["Package and deliver it as OCI, and see what is signed", "1. Tell the OCI shapes apart, and match each to its consumer", "2. See how a certified bundle and a stack become one artifact", "3. See what a signature actually proves", "4. See how other tools already produce these shapes", "Nine shapes, side by side", "Which consumer needs which layout", "application/vnd.confighub.config.bundle.v1", "application/vnd.confighub.record.v1+json", "Every digest, and what it pins", "Where the receipt lives is still an open question", "The design center attaches it to the same digest as a referrer", "the catalog emits a receipt beside each published bundle", "What is signed today", "cub config verify", "cosign verify", "Timoni", "AICR is a manifest emitter rather than a competing format", "Kubara's own adoption step already compiles one OCI package per component"],
   },
   {
+    file: "site/nimservice.html",
+    terms: ["Choose a NIMService model variant", "<h2 id=\"variants\">Pick a model variant</h2>", "Every variant is <code>flatten-with-routes</code>", "NVIDIA gates the images and the model weights", "does not hold them and never redistributes them", "<th>Published as OCI</th>", "<th>GPU request</th>", "id=\"nimservice-publication\""],
+  },
+  {
     file: "site/formats.html",
-    terms: ["<th>Published</th>", "Not published", "published as OCI", "flatten-with-routes, wrapper only, route recorded", "flagged for review"],
+    terms: ["model variants)", "An entry that needs nothing installed first is born flattened, and an entry that needs an operator or a Secret first is flatten-with-routes.", "<th>Published</th>", "Not published", "published as OCI", "flatten-with-routes, wrapper only, route recorded", "flagged for review"],
   },
   {
     file: "site/charts/index.html",
@@ -1486,11 +1490,18 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
   for (const dir of ["site/charts", "site/d"]) {
     if (fs.existsSync(path.join(root, dir))) walk(path.join(root, dir));
   }
+  // An entry whose page is a generated site page, outside the chart pages and
+  // the rendered docs. Each one must carry the block like any other entry page.
+  const entrySitePages = ["site/nimservice.html"];
+  for (const file of entrySitePages) {
+    if (fs.existsSync(path.join(root, file))) htmlFiles.push(path.join(root, file));
+    else failures.push(`${file}: the entry page is missing`);
+  }
   const blocksById = new Map();
   for (const fullPath of htmlFiles) {
     const html = fs.readFileSync(fullPath, "utf8");
     const file = path.relative(root, fullPath);
-    const isEntryPage = file.startsWith("site/charts/") && file !== "site/charts/index.html";
+    const isEntryPage = (file.startsWith("site/charts/") && file !== "site/charts/index.html") || entrySitePages.includes(file);
     const section = html.match(/<section class="entry-steps"[\s\S]*?<\/section>/)?.[0] ?? "";
     if (!section) {
       if (isEntryPage) failures.push(`${file}: a Catalog entry page has no ${JSON.stringify("Use this entry in ConfigHub")} block`);
@@ -1574,6 +1585,72 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
     const catalogIndexHtml = fs.readFileSync(catalogIndexPath, "utf8");
     if (!/<p id="entry-steps-everywhere">Every entry page carries the same five steps under <strong>Use this entry in ConfigHub<\/strong>/.test(catalogIndexHtml)) {
       failures.push("site/charts/index.html: the Catalog page does not say that every entry page carries the five steps");
+    }
+  }
+}
+
+// The nimservice entry is one entry with one model variant per listing. The
+// pages may say about publication only what the listings record, the variants
+// may not be counted as tested and rendered, and they are never called born
+// flattened. Every number here is recomputed from the listing files.
+{
+  const indexPath = path.join(root, "site/listings/index.json");
+  const index = fs.existsSync(indexPath) ? JSON.parse(fs.readFileSync(indexPath, "utf8")) : { listings: [] };
+  const variants = (index.listings ?? [])
+    .filter((row) => row.format === "kubernetes-yaml" && row.name === "nimservice")
+    .map((row) => JSON.parse(fs.readFileSync(path.join(root, "site/listings", `${row.id}.json`), "utf8")));
+  const isPublished = (listing) => (listing.oci?.bundles ?? []).some((bundle) => bundle.role === "literal-config" && bundle.referenceState === "published");
+  const count = variants.length;
+  const published = variants.filter(isPublished).length;
+  const clause = published === 0
+    ? "none is published as OCI yet"
+    : published === count ? "all are published as OCI with their routes" : `${published} of them ${published === 1 ? "is" : "are"} published as OCI`;
+  const readSite = (file) => (fs.existsSync(path.join(root, file)) ? fs.readFileSync(path.join(root, file), "utf8") : "");
+  if (count > 0) {
+    const home = readSite("site/index.html");
+    const line = home.match(/(\d+) configurations\. (\d+) are tested and rendered to the exact objects they install\. (\d+) are AICR recipes[^<]*/)?.[0] ?? "";
+    const [total, tested, aicr] = (line.match(/\d+/g) ?? []).map(Number);
+    if (!line.includes(`${count} are NIMService model variants kept as exact objects with their routes, and ${clause}.`)) {
+      failures.push(`site/index.html: the Configs line does not say that ${count} NIMService model variants are kept as exact objects and that ${clause}`);
+    }
+    if (tested + aicr + count !== total) {
+      failures.push(`site/index.html: the Configs line counts ${tested} tested and rendered configurations, which must be ${total} less the ${aicr} AICR recipes and the ${count} NIMService model variants`);
+    }
+    const page = readSite("site/nimservice.html");
+    const visible = page.replace(/<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, " ");
+    const tableRows = [...(page.match(/<h2 id="variants">[\s\S]*?<\/table>/)?.[0] ?? "").matchAll(/<tr><td>([\s\S]*?)<\/tr>/g)].map((match) => match[1]);
+    if (tableRows.length !== count) failures.push(`site/nimservice.html: the variants table has ${tableRows.length} rows, and the entry has ${count} model variants`);
+    for (const listing of variants) {
+      const id = listing.identity.id;
+      const row = tableRows.find((candidate) => candidate.startsWith(`${listing.identity.base}</td>`)) ?? "";
+      if (!row) { failures.push(`site/nimservice.html: the variants table has no row for ${listing.identity.base}`); continue; }
+      const cells = row.split(/<\/td><td>/);
+      const expected = isPublished(listing) ? "Published" : "Not published";
+      if (cells[4] !== expected) failures.push(`site/nimservice.html: ${id} reads ${JSON.stringify(cells[4])} in the table, and its listing says ${JSON.stringify(expected)}`);
+      const flagged = (listing.assessment?.stages ?? []).some((stage) => stage.id === "materialization" && stage.resultState === "watch");
+      if ((cells[3] === "Flagged for review") !== flagged) failures.push(`site/nimservice.html: ${id} ${flagged ? "is flagged for review and its row does not say so" : "is not flagged and its row shows a flag"}`);
+      for (const image of listing.images?.references ?? []) {
+        if (!cells[1].includes(image.reference)) failures.push(`site/nimservice.html: the row for ${id} does not name the image ${image.reference}`);
+      }
+      if (!row.includes(`href="./listings/${id}.json"`) || !row.includes(`href="${listing.flattened?.objectsUrl}"`)) failures.push(`site/nimservice.html: the row for ${id} does not link its listing and its retained objects`);
+    }
+    if (published === 0 && !page.includes(`None of the ${count} variants is published as OCI yet.`)) {
+      failures.push("site/nimservice.html: no variant is published, and the top of the page does not say so");
+    }
+    if (published < count && /All \d+ variants are published as OCI/.test(page)) {
+      failures.push(`site/nimservice.html: the page says every variant is published, and ${count - published} are not`);
+    }
+    if (/born[ -]flattened/i.test(visible)) failures.push("site/nimservice.html: a NIMService variant is flatten-with-routes, and the page calls something born flattened");
+    if (/\b[0-9a-f]{40}\b/.test(visible.replace(/\$ [^\n]*/g, " "))) failures.push("site/nimservice.html: the page shows a full 40-character commit as a version");
+    const formats = readSite("site/formats.html");
+    if ([...formats.matchAll(/<td>nimservice<\/td>/g)].length !== 1) failures.push("site/formats.html: the nimservice entry must take exactly one row, with its model variants on its own page");
+    if (/href="\.\/listings\/nimservice-/.test(formats)) failures.push("site/formats.html: a NIMService model variant has a loose row of its own");
+    const catalogPage = readSite("site/charts/index.html");
+    const catalogRows = [...catalogPage.matchAll(/<tr data-chart-row data-kind="kubernetes-yaml" data-nimservice-entry[\s\S]*?<\/tr>/g)].map((match) => match[0]);
+    if (catalogRows.length !== 1) failures.push(`site/charts/index.html: the nimservice entry has ${catalogRows.length} rows, and it must have one`);
+    const publishedText = published === 0 ? "not published" : published === count ? "published" : `${published} of ${count} published`;
+    if (catalogRows[0] && !catalogRows[0].includes(`<td>flatten-with-routes, route recorded, ${publishedText}</td>`)) {
+      failures.push(`site/charts/index.html: the nimservice row does not read ${JSON.stringify(`flatten-with-routes, route recorded, ${publishedText}`)}`);
     }
   }
 }

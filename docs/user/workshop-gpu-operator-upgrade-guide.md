@@ -5,9 +5,13 @@ the Kubernetes objects each one installs. This Guide walks a version upgrade,
 a patch upgrade and a driver version change. Each comparison names every
 changed field.
 
-Everything runs on your machine with Helm and `cub`, with no account and no
-cluster. The comparison reads configuration only. This chart is not a Catalog
-entry, and the Guide does not test it on a cluster or say an upgrade is safe.
+Steps 1 to 5 run on your machine with Helm and `cub`, with no account and no
+cluster. The comparison reads configuration only. The Catalog holds this chart
+at four versions, each with several bases. This Guide renders the chart
+itself, so you can pass your own values. It does not test the chart on a
+cluster or say an upgrade is safe.
+Step 6 is optional. It makes the same comparisons inside ConfigHub, and it
+needs an account.
 
 You can run the steps yourself or
 [give an assistant the task](#a-task-for-an-assistant).
@@ -252,6 +256,112 @@ Every `cub config diff` command above exits `0`, including the one that found
 command exits `1` when the files differ and `0` when they match. Neither exit
 code says the upgrade is safe to apply.
 
+## 6. Compare the versions in ConfigHub
+
+This step needs a ConfigHub account, and it writes Spaces to your
+organization. It was run once, on 2026-10-08, with cub v0.8.7 and files
+rendered on a laptop. No cluster, Worker or Target was involved, and nothing
+was applied. The [run log](./live-run-log-2026-10-08.md) holds every command
+and its output.
+
+That run used renders of the same three chart versions that held 24 objects
+each, and five of the 24 were CRDs. The log does not record the Helm flags of
+those renders. Your files from step 1 hold 27 objects, so your counts differ
+from the counts below. Add `--dry-run` to an upload to preview it.
+
+### Upload each version as a variant of one component
+
+Sign in with `cub auth login` first.
+
+```sh
+cub variant upload --component gpu-operator --variant v25-10-1 --namespace gpu-operator --unit-annotation chart-version=v25.10.1 gpu-operator-25.10.1.yaml
+cub variant upload --component gpu-operator --variant v26-3-2 --namespace gpu-operator --unit-annotation chart-version=v26.3.2 gpu-operator-26.3.2.yaml
+cub variant upload --component gpu-operator --variant v26-3-3 --namespace gpu-operator --unit-annotation chart-version=v26.3.3 gpu-operator-26.3.3.yaml
+cub space list --component gpu-operator
+```
+
+In the run, each upload created one Space named `<component>-<variant>`. The
+three Spaces held 24 Units each, with the same Unit names. Every object
+becomes its own Unit, except Secrets, which the upload skips. The files in the
+run held no Secret.
+
+Read the whole output of each upload. A later upload in the run printed
+`link FAILED` with `exceeded maximum quota for entity type Link`, and the
+command still exited `0`. Its Units were written and its Links were missing.
+Check your Link quota before you keep several Spaces of this size.
+
+### Compare one Unit across two versions
+
+`cub unit diff` compares the same Unit in two Spaces.
+
+```sh
+cub unit diff --space gpu-operator-v26-3-2 cluster-policy-clusterpolicy --with-unit gpu-operator-v26-3-3/cluster-policy-clusterpolicy -o mutations
+```
+
+In the run, this printed seven changed paths on the ClusterPolicy. Two of them
+follow.
+
+```text
+  ~ [Update] spec.validator.version
+      v26.3.2 → v26.3.3
+  ~ [Update] spec.devicePlugin.version
+      v0.19.2 → v0.19.3
+```
+
+The same command for v25.10.1 and v26.3.2 printed 35 changed paths.
+
+cub v0.8.7 has no single command that compares two whole Spaces. A loop over
+the Unit names covers a whole version.
+
+```sh
+cub unit list --space gpu-operator-v26-3-2 --no-headers -o jq='.[].Unit.Slug' | sort > slugs.txt
+while read -r u; do cub unit diff --space gpu-operator-v26-3-2 "$u" --with-unit "gpu-operator-v26-3-3/$u" -o mutations; done < slugs.txt
+```
+
+In the run, the loop from v26.3.2 to v26.3.3 printed 22 changed paths in seven
+Units, and the other 17 Units printed "No changes". From v25.10.1 to v26.3.2
+it printed 132 changed paths in 21 Units.
+
+### See a whole version step in one command
+
+Upload the next version into the same variant. The upload updates only the
+Units whose content changed, and it records one ChangeSet. `cub variant diff`
+then compares the whole Space before and after that ChangeSet.
+
+```sh
+cub variant upload --component gpu-operator --variant rolling --namespace gpu-operator --change-desc "chart v26.3.2" gpu-operator-26.3.2.yaml
+cub variant upload --component gpu-operator --variant rolling --namespace gpu-operator --change-desc "chart v26.3.3" gpu-operator-26.3.3.yaml
+cub changeset list --space gpu-operator-rolling
+cub variant diff gpu-operator-rolling Before:ChangeSet:<upload> ChangeSet:<upload> -o mutations
+```
+
+Replace `<upload>` with the name that `cub changeset list` prints for the
+later upload. In the run, this diff reported 7 of 24 Units changed, with the
+same 22 paths as the loop. Use the ChangeSet form. A diff between the end tags
+of two different uploads shows every Unit that the later upload left unchanged
+as "absent".
+
+### See the driver version change
+
+The run uploaded a v25.10.1 render with driver `580.126.20` into the v25.10.1
+variant. The upload updated one Unit and left 23 unchanged.
+
+```sh
+cub variant upload --component gpu-operator --variant v25-10-1 --namespace gpu-operator --unit-annotation chart-version=v25.10.1 --change-desc "driver 580.126.20 base" driver-after.yaml
+cub variant diff -u gpu-operator-v25-10-1 Before:ChangeSet:<upload> ChangeSet:<upload>
+```
+
+The diff showed one changed path, `spec.driver.version`, on the ClusterPolicy
+Unit.
+
+```text
+-    version: "580.105.08"
++    version: "580.126.20"
+```
+
+The run deleted its Spaces and its Component afterwards, and the log shows
+those commands. This step deploys nothing.
+
 ## A task for an assistant
 
 Start a fresh session in an empty directory with normal approvals.
@@ -274,8 +384,8 @@ ConfigHub, and do not install, publish, approve or upgrade anything.
 
 ## Where the next step belongs
 
-You now hold the renders and a JSON comparison for each case. Nothing was
-upgraded, approved or sent anywhere.
+You now hold the renders and a JSON comparison for each case. Steps 1 to 5
+upgraded, approved and sent nothing.
 
 To turn a comparison into a review packet, follow
 [Review a chart upgrade before promoting it](./workshop-upgrade-guide.md). It
@@ -283,5 +393,6 @@ adds the preconditions, the decision and the recovery plan that a diff cannot
 supply. Use the [hooks and CRDs Guide](./workshop-lifecycle-guide.md) to
 decide who runs the `pre-upgrade` Job and the CRD changes.
 
-To ask for this chart as a Catalog entry, use
-[Send a missing or broken public chart](https://confighub.github.io/helm-expt/site/send-a-public-chart.html).
+The Catalog holds this chart as an entry. Open
+[gpu-operator v26.3.3](https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-3-3.html)
+for its retained objects, its driver bases and the five ConfigHub steps.

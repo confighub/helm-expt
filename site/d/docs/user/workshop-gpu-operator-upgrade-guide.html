@@ -518,12 +518,12 @@
 <nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="../../../guides.html">All Guides</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#set-up-the-tools">Set up the tools</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#1-render-the-three-chart-versions">1. Render the three chart versions</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#2-compare-25101-with-2633">2. Compare 25.10.1 with 26.3.3</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#3-compare-2632-with-2633">3. Compare 26.3.2 with 26.3.3</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#4-compare-a-driver-version-change">4. Compare a driver version change</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#5-know-what-the-diff-does-not-show">5. Know what the diff does not show</a></li></ul>
       <p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
-<details><summary>More in this Guide</summary><ul><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#a-task-for-an-assistant">A task for an assistant</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#where-the-next-step-belongs">Where the next step belongs</a></li></ul></details></nav>
+<details><summary>More in this Guide</summary><ul><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#6-compare-the-versions-in-confighub">6. Compare the versions in ConfigHub</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#a-task-for-an-assistant">A task for an assistant</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#where-the-next-step-belongs">Where the next step belongs</a></li></ul></details></nav>
 <div class="cw-content" id="cw-content" tabindex="-1">
 <details class="cw-mobile-nav"><summary>In this Guide</summary><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="../../../guides.html">All Guides</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#set-up-the-tools">Set up the tools</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#1-render-the-three-chart-versions">1. Render the three chart versions</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#2-compare-25101-with-2633">2. Compare 25.10.1 with 26.3.3</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#3-compare-2632-with-2633">3. Compare 26.3.2 with 26.3.3</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#4-compare-a-driver-version-change">4. Compare a driver version change</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#5-know-what-the-diff-does-not-show">5. Know what the diff does not show</a></li></ul>
       <p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
-<details><summary>More in this Guide</summary><ul><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#a-task-for-an-assistant">A task for an assistant</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#where-the-next-step-belongs">Where the next step belongs</a></li></ul></details></details>
+<details><summary>More in this Guide</summary><ul><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#6-compare-the-versions-in-confighub">6. Compare the versions in ConfigHub</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#a-task-for-an-assistant">A task for an assistant</a></li><li><a href="../../../d/docs/user/workshop-gpu-operator-upgrade-guide.html#where-the-next-step-belongs">Where the next step belongs</a></li></ul></details></details>
   <header class="hero human-hero">
     
     <h1>See what a gpu-operator upgrade changes</h1>
@@ -532,7 +532,7 @@
   <main>
     <article class="doc-body">
 
-<p>Everything runs on your machine with Helm and <code>cub</code>, with no account and no cluster. The comparison reads configuration only. This chart is not a Catalog entry, and the Guide does not test it on a cluster or say an upgrade is safe.</p>
+<p>Steps 1 to 5 run on your machine with Helm and <code>cub</code>, with no account and no cluster. The comparison reads configuration only. The Catalog holds this chart at four versions, each with several bases. This Guide renders the chart itself, so you can pass your own values. It does not test the chart on a cluster or say an upgrade is safe. Step 6 is optional. It makes the same comparisons inside ConfigHub, and it needs an account.</p>
 <p>You can run the steps yourself or <a href="#a-task-for-an-assistant">give an assistant the task</a>.</p>
 <h2 id="set-up-the-tools">Set up the tools</h2>
 <p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://helm.sh/docs/intro/install/">Helm</a>. Then install the Workshop plugin release this Guide was checked with (version 0.6.56).</p>
@@ -631,6 +631,45 @@ cub config diff with-crds-25.10.1.yaml with-crds-26.3.3.yaml --json --out crds.j
 <p>Each file now holds 32 objects, and five of them are CRDs. Two CRDs changed. <code>clusterpolicies.nvidia.com</code> has 42 changed fields and <code>nvidiadrivers.nvidia.com</code> has five. The three Node Feature Discovery CRDs did not change.</p>
 <h3 id="exit-0-is-not-approval">Exit 0 is not approval</h3>
 <p>Every <code>cub config diff</code> command above exits <code>0</code>, including the one that found 24 changed objects. Exit <code>0</code> means the comparison ran. With <code>--exit-code</code> the command exits <code>1</code> when the files differ and <code>0</code> when they match. Neither exit code says the upgrade is safe to apply.</p>
+<h2 id="6-compare-the-versions-in-confighub">6. Compare the versions in ConfigHub</h2>
+<p>This step needs a ConfigHub account, and it writes Spaces to your organization. It was run once, on 2026-10-08, with cub v0.8.7 and files rendered on a laptop. No cluster, Worker or Target was involved, and nothing was applied. The <a href="live-run-log-2026-10-08.html">run log</a> holds every command and its output.</p>
+<p>That run used renders of the same three chart versions that held 24 objects each, and five of the 24 were CRDs. The log does not record the Helm flags of those renders. Your files from step 1 hold 27 objects, so your counts differ from the counts below. Add <code>--dry-run</code> to an upload to preview it.</p>
+<h3 id="upload-each-version-as-a-variant-of-one-component">Upload each version as a variant of one component</h3>
+<p>Sign in with <code>cub auth login</code> first.</p>
+<pre><code>cub variant upload --component gpu-operator --variant v25-10-1 --namespace gpu-operator --unit-annotation chart-version=v25.10.1 gpu-operator-25.10.1.yaml
+cub variant upload --component gpu-operator --variant v26-3-2 --namespace gpu-operator --unit-annotation chart-version=v26.3.2 gpu-operator-26.3.2.yaml
+cub variant upload --component gpu-operator --variant v26-3-3 --namespace gpu-operator --unit-annotation chart-version=v26.3.3 gpu-operator-26.3.3.yaml
+cub space list --component gpu-operator</code></pre>
+<p>In the run, each upload created one Space named <code>&lt;component&gt;-&lt;variant&gt;</code>. The three Spaces held 24 Units each, with the same Unit names. Every object becomes its own Unit, except Secrets, which the upload skips. The files in the run held no Secret.</p>
+<p>Read the whole output of each upload. A later upload in the run printed <code>link FAILED</code> with <code>exceeded maximum quota for entity type Link</code>, and the command still exited <code>0</code>. Its Units were written and its Links were missing. Check your Link quota before you keep several Spaces of this size.</p>
+<h3 id="compare-one-unit-across-two-versions">Compare one Unit across two versions</h3>
+<p><code>cub unit diff</code> compares the same Unit in two Spaces.</p>
+<pre><code>cub unit diff --space gpu-operator-v26-3-2 cluster-policy-clusterpolicy --with-unit gpu-operator-v26-3-3/cluster-policy-clusterpolicy -o mutations</code></pre>
+<p>In the run, this printed seven changed paths on the ClusterPolicy. Two of them follow.</p>
+<pre><code>  ~ [Update] spec.validator.version
+      v26.3.2 → v26.3.3
+  ~ [Update] spec.devicePlugin.version
+      v0.19.2 → v0.19.3</code></pre>
+<p>The same command for v25.10.1 and v26.3.2 printed 35 changed paths.</p>
+<p>cub v0.8.7 has no single command that compares two whole Spaces. A loop over the Unit names covers a whole version.</p>
+<pre><code>cub unit list --space gpu-operator-v26-3-2 --no-headers -o jq='.[].Unit.Slug' | sort &gt; slugs.txt
+while read -r u; do cub unit diff --space gpu-operator-v26-3-2 &quot;$u&quot; --with-unit &quot;gpu-operator-v26-3-3/$u&quot; -o mutations; done &lt; slugs.txt</code></pre>
+<p>In the run, the loop from v26.3.2 to v26.3.3 printed 22 changed paths in seven Units, and the other 17 Units printed &quot;No changes&quot;. From v25.10.1 to v26.3.2 it printed 132 changed paths in 21 Units.</p>
+<h3 id="see-a-whole-version-step-in-one-command">See a whole version step in one command</h3>
+<p>Upload the next version into the same variant. The upload updates only the Units whose content changed, and it records one ChangeSet. <code>cub variant diff</code> then compares the whole Space before and after that ChangeSet.</p>
+<pre><code>cub variant upload --component gpu-operator --variant rolling --namespace gpu-operator --change-desc &quot;chart v26.3.2&quot; gpu-operator-26.3.2.yaml
+cub variant upload --component gpu-operator --variant rolling --namespace gpu-operator --change-desc &quot;chart v26.3.3&quot; gpu-operator-26.3.3.yaml
+cub changeset list --space gpu-operator-rolling
+cub variant diff gpu-operator-rolling Before:ChangeSet:&lt;upload&gt; ChangeSet:&lt;upload&gt; -o mutations</code></pre>
+<p>Replace <code>&lt;upload&gt;</code> with the name that <code>cub changeset list</code> prints for the later upload. In the run, this diff reported 7 of 24 Units changed, with the same 22 paths as the loop. Use the ChangeSet form. A diff between the end tags of two different uploads shows every Unit that the later upload left unchanged as &quot;absent&quot;.</p>
+<h3 id="see-the-driver-version-change">See the driver version change</h3>
+<p>The run uploaded a v25.10.1 render with driver <code>580.126.20</code> into the v25.10.1 variant. The upload updated one Unit and left 23 unchanged.</p>
+<pre><code>cub variant upload --component gpu-operator --variant v25-10-1 --namespace gpu-operator --unit-annotation chart-version=v25.10.1 --change-desc &quot;driver 580.126.20 base&quot; driver-after.yaml
+cub variant diff -u gpu-operator-v25-10-1 Before:ChangeSet:&lt;upload&gt; ChangeSet:&lt;upload&gt;</code></pre>
+<p>The diff showed one changed path, <code>spec.driver.version</code>, on the ClusterPolicy Unit.</p>
+<pre><code>-    version: &quot;580.105.08&quot;
++    version: &quot;580.126.20&quot;</code></pre>
+<p>The run deleted its Spaces and its Component afterwards, and the log shows those commands. This step deploys nothing.</p>
 <h2 id="a-task-for-an-assistant">A task for an assistant</h2>
 <p>Start a fresh session in an empty directory with normal approvals.</p>
 <pre><code>Render the NVIDIA gpu-operator chart from https://helm.ngc.nvidia.com/nvidia
@@ -647,9 +686,9 @@ infer a safe upgrade from exit 0 or from a short diff. Do not say a driver
 version is supported unless I give you a source. Do not contact a cluster or
 ConfigHub, and do not install, publish, approve or upgrade anything.</code></pre>
 <h2 id="where-the-next-step-belongs">Where the next step belongs</h2>
-<p>You now hold the renders and a JSON comparison for each case. Nothing was upgraded, approved or sent anywhere.</p>
+<p>You now hold the renders and a JSON comparison for each case. Steps 1 to 5 upgraded, approved and sent nothing.</p>
 <p>To turn a comparison into a review packet, follow <a href="workshop-upgrade-guide.html">Review a chart upgrade before promoting it</a>. It adds the preconditions, the decision and the recovery plan that a diff cannot supply. Use the <a href="workshop-lifecycle-guide.html">hooks and CRDs Guide</a> to decide who runs the <code>pre-upgrade</code> Job and the CRD changes.</p>
-<p>To ask for this chart as a Catalog entry, use <a href="https://confighub.github.io/helm-expt/site/send-a-public-chart.html">Send a missing or broken public chart</a>.</p>
+<p>The Catalog holds this chart as an entry. Open <a href="https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-3-3.html">gpu-operator v26.3.3</a> for its retained objects, its driver bases and the five ConfigHub steps.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/workshop-gpu-operator-upgrade-guide.md</code>. The source file is the authoritative version.</p></footer>

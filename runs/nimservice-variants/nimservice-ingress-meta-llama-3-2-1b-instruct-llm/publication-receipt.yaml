@@ -1,0 +1,49 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantPublicationReceipt"
+metadata:
+  name: "nimservice-ingress-meta-llama-3-2-1b-instruct-llm"
+spec:
+  plan: "data/aicr-nim-operator-models/catalog-entries/ingress-meta-llama-3-2-1b-instruct-llm/literal-config-oci.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-ingress-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e"
+  immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-ingress-meta-llama-3-2-1b-instruct-llm@sha256:4eb91b4d4c0f8d2cf517a01425ca6d0b3a416f5ca9bd7956c931aeb9b80b7a32"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:4eb91b4d4c0f8d2cf517a01425ca6d0b3a416f5ca9bd7956c931aeb9b80b7a32"
+  layerDigest: "sha256:9a332eeb97a152dc76210ef4d6b5e7c7ec342f8340ca0b049c1947665cab1834"
+  layerBytes: 11287
+  objectSetSha256: "sha256:c41323262ec969726b69d2e4d930ee0c5007e8a969434d34781c3fd9cc1451f8"
+  sourceFileSha256: "sha256:47f4da1567742044a469ef5a2ff398f0822b24d246307990640eee3e668e2beb"
+  stagedFiles:
+    -
+      path: "llm.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/standalone/routers/ingress/llm.yaml"
+      role: "exact objects"
+      sha256: "sha256:47f4da1567742044a469ef5a2ff398f0822b24d246307990640eee3e668e2beb"
+      bytes: 1244
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/ingress-meta-llama-3-2-1b-instruct-llm/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:d8019bcd24cfaefde7b531ae0f4f033da85404c44b7eba4d9cb918a5c2988afa"
+      bytes: 4122
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/ingress-meta-llama-3-2-1b-instruct-llm/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:afeb5e958c47631cbd65e63cfc87f8d72ae32d44a010545175baa850425e66be"
+      bytes: 2262
+  contents:
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  push:
+    result: "pass"
+    command: "oras cp --from-oci-layout <layout>:upstream-5d5f66ee0e2e europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-ingress-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e"
+  anonymousPull:
+    result: "pass"
+    manifestDigest: "sha256:4eb91b4d4c0f8d2cf517a01425ca6d0b3a416f5ca9bd7956c931aeb9b80b7a32"
+    layerDigest: "sha256:9a332eeb97a152dc76210ef4d6b5e7c7ec342f8340ca0b049c1947665cab1834"
+    filesMatched: 3
+    command: "oras pull --registry-config <empty config> europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-ingress-meta-llama-3-2-1b-instruct-llm@sha256:4eb91b4d4c0f8d2cf517a01425ca6d0b3a416f5ca9bd7956c931aeb9b80b7a32"
+  signature: "none. The Catalog does not sign certified configuration bundles."
+  observedAt: "2026-10-08T05:48:33.382Z"
+status:
+  result: "pass"

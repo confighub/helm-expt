@@ -1,0 +1,41 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantLiteralConfigPlan"
+metadata:
+  name: "nimservice-no-precaching-model-free-llama-3-2-1b-instruct"
+spec:
+  catalogEntry: "nimservice"
+  variant: "no-precaching-model-free-llama-3-2-1b-instruct"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  plannedReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-model-free-llama-3-2-1b-instruct:upstream-5d5f66ee0e2e"
+  manifestDigest: "sha256:4419673308bdd7eb83f8e9bde16edc57c3e643a2630a15f65ba8d522e783eac0"
+  layerDigest: "sha256:5f30c330db9ed810f4642366ea39a3818cead365ad02fca6f731ea4ca18dadf3"
+  layerBytes: 10775
+  layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+  objectSetSha256: "sha256:1f3a2cacc484ae7e67bf8206ded6a4ba24f7aaa548c796622e3e2864b60fab2b"
+  stagedFiles:
+    -
+      path: "model-free-hf.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/standalone/no-precaching/model-free-hf.yaml"
+      role: "exact objects"
+      sha256: "sha256:c2d3c95da50e4931b40d614e30e6750a171c4a3072a8d65995b940dbd2a3fba9"
+      bytes: 1090
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/no-precaching-model-free-llama-3-2-1b-instruct/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:03cfe9d1d94ba69bbc472d439d2c5f5012ef86486588702019dbb603199ad357"
+      bytes: 3727
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/no-precaching-model-free-llama-3-2-1b-instruct/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:8d4db6bcfd9d505858192ca6c006aea0c5c825fa2838a4b51f1a2958fe173a66"
+      bytes: 2175
+  contents:
+    statement: "The artifact holds the retained sample file and its two route files. It holds no container image, no model weight and no Secret value."
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  publication:
+    receipt: "runs/nimservice-variants/nimservice-no-precaching-model-free-llama-3-2-1b-instruct/publication-receipt.yaml"
+    rule: "The variant is published only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-nimservice-variants.mjs"

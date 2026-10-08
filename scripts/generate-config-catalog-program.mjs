@@ -43,6 +43,28 @@ import {
   receiptSaysRetainedOffline,
   recordNameFor,
 } from "./lib/aicr-recipe-entries.mjs";
+import {
+  boundarySentences,
+  loadNimServiceEntries,
+  NIMSERVICE_AUTH_SECRET_ROUTE,
+  NIMSERVICE_LICENSE_READ,
+  NIMSERVICE_OPERATOR_ROUTE,
+  NIMSERVICE_PULL_SECRET_ROUTE,
+  NIMSERVICE_RETENTION_RECEIPT,
+  NIMSERVICE_SOURCE_NAME,
+  NIMSERVICE_SOURCE_TYPE,
+  NIMSERVICE_STORAGE_ROUTE,
+  NIMSERVICE_UPSTREAM_LICENSE,
+  fieldsOutsideSchema,
+  resolveNimServiceFlattening,
+  secretNamesSentence,
+} from "./lib/nimservice-entries.mjs";
+import {
+  expectedNimServiceLiteralConfigOci,
+  nimServiceLiteralConfigOciProblem,
+  nimServicePublicationProblems,
+  nimServicePublicationReceiptDoc,
+} from "./lib/nimservice-publication.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 // The words a record puts after a build-time input that is a confirmed
@@ -50,6 +72,9 @@ const mode = process.argv[2] ?? "--generate";
 const PLACEHOLDER_INPUT_MARK = "placeholder, change it to match your cluster";
 // What a flagged entry tells its reader to do next.
 const OPEN_QUESTION_NEXT_ACTION = "Review the exact object set and its digest, and settle the open question before relying on the recorded order.";
+// The same instruction for a NIMService variant, whose question is about a
+// field and not about an order.
+const NIMSERVICE_OPEN_QUESTION_NEXT_ACTION = "Review the exact object set and its digest, and settle the open question before relying on this variant.";
 const intentIndexPath = join(repoRoot, "data", "helm-render-intents", "intents.json");
 const policySourcePath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
 const programSourcePath = join(repoRoot, "config-catalog", "program.yaml");
@@ -170,6 +195,11 @@ let aicrOrderingEvidenceByRendered = null;
 // record name, so validateRecords can hold a record to what its receipt says
 // about publication.
 const aicrModernGenerationReceipts = new Map();
+// The records built from retained NIMService samples, keyed by record name.
+// They share the kubernetes-yaml source type with literal uploads, and they are
+// held to a stricter rule: a decided flatten-with-routes verdict, a recorded
+// operator route and Secret routes, and nothing published or deployed.
+const nimServiceRecordEntries = new Map();
 
 if (mode === "--self-test") {
   runSelfTest();
@@ -294,6 +324,10 @@ function buildReport() {
     buildCubInstallerRecord(),
     buildConfigurationOciRecord(),
     buildPlainYamlRecord(),
+    // Every retained NIMService sample is a variant of the one nimservice
+    // entry. The list is discovered, so a sample cannot be retained without a
+    // record.
+    ...loadNimServiceEntries().map(buildNimServiceRecord),
   ]
     .map((record) => alignRecordWithProcessingModel(
       record,
@@ -2305,6 +2339,228 @@ function buildPlainYamlRecord() {
   };
 }
 
+// One record per retained NIMService sample. All of them share one source name
+// and one source version, the retained upstream commit, so the listing
+// generator presents them as variants of a single entry. The record id carries
+// the sample's slug and not the commit, so it survives a later re-pin.
+function buildNimServiceRecord(entry) {
+  const name = entry.recordName;
+  const boundary = boundarySentences(entry);
+  const operator = entry.operator;
+  const pullSecretNames = entry.pullSecrets.map((secret) => secret.name);
+  const authSecretNames = entry.authSecrets.map((secret) => secret.name);
+  const routes = [
+    {
+      routeName: NIMSERVICE_OPERATOR_ROUTE,
+      lifecyclePhase: "destination-resolution",
+      actionKind: "resolve-lifecycle-work",
+      executionMode: "destination-specific",
+      automatic: false,
+      owner: "The platform team that runs the NIM Operator on the selected destination",
+      operatingDetails: `Install the ${operator.chart} chart from ${operator.chartRepository} at ${operator.versionRange} and wait for ${operator.customResourceDefinitions.join(" and ")} before applying this sample. ${operator.catalogEntryNote}`,
+      disposition: "generated-not-live",
+      evidenceRequired: `A recorded install of ${operator.chart} on a named destination, followed by a recorded apply of this exact object set.`,
+      order: 1,
+      evidence: [entry.operatorRouteRel],
+    },
+    ...(pullSecretNames.length > 0
+      ? [{
+          routeName: NIMSERVICE_PULL_SECRET_ROUTE,
+          lifecyclePhase: "destination-resolution",
+          actionKind: "resolve-lifecycle-work",
+          executionMode: "user-executes",
+          automatic: false,
+          owner: "The user, with their own NVIDIA entitlement",
+          operatingDetails: `Create the image pull Secret ${secretNamesSentence(entry.pullSecrets)} in the sample's namespace before apply. The sample carries the name only, and no credential is held here.`,
+          disposition: "generated-not-live",
+          evidenceRequired: "The named Secret exists on the destination. Its value is never recorded.",
+          order: 2,
+          evidence: [entry.secretRouteRel],
+        }]
+      : []),
+    {
+      routeName: NIMSERVICE_AUTH_SECRET_ROUTE,
+      lifecyclePhase: "destination-resolution",
+      actionKind: "resolve-lifecycle-work",
+      executionMode: "user-executes",
+      automatic: false,
+      owner: "The user, with their own NVIDIA or model-hub entitlement",
+      operatingDetails: `Create the API key Secret ${secretNamesSentence(entry.authSecrets)} in the sample's namespace before apply. The sample carries the name only, and no key or token is held here.`,
+      disposition: "generated-not-live",
+      evidenceRequired: "The named Secret exists on the destination. Its value is never recorded.",
+      order: 3,
+      evidence: [entry.secretRouteRel],
+    },
+    {
+      routeName: NIMSERVICE_STORAGE_ROUTE,
+      lifecyclePhase: "destination-resolution",
+      actionKind: "resolve-lifecycle-work",
+      executionMode: "destination-specific",
+      automatic: false,
+      owner: "The storage owner on the selected destination",
+      operatingDetails: `${entry.storageSummary} Nothing here checked that a destination can provide it.`,
+      disposition: "not-evaluated",
+      evidenceRequired: "The storage the sample names is bound on the destination before the NIMService starts.",
+      order: 4,
+      evidence: [entry.entryRel],
+    },
+  ];
+  // Published is read from the tracked receipt for the artifact built from
+  // this variant's committed bytes, and from nothing else.
+  const published = entry.publication?.published === true;
+  const claim = `NVIDIA's ${entry.scenario} NIMService sample ${entry.nimService.name} is retained as ${entry.objectCount} exact Kubernetes object${entry.objectCount === 1 ? "" : "s"} from upstream commit ${entry.source.commit.slice(0, 12)}${entry.nimCacheIncluded ? ", including its NIMCache" : ""}. It is one variant of the nimservice entry. ${published ? "It is published as a literal configuration OCI with its route files. It is not uploaded to ConfigHub and not deployed." : "It is not published, not uploaded to ConfigHub and not deployed."}`;
+
+  const record = {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "BaseVariantRecord",
+    metadata: {
+      name,
+      labels: {
+        sourceType: NIMSERVICE_SOURCE_TYPE,
+        component: NIMSERVICE_SOURCE_NAME,
+        sourceVersion: entry.source.commit,
+        base: entry.slug,
+      },
+    },
+    spec: {
+      source: {
+        type: NIMSERVICE_SOURCE_TYPE,
+        name: NIMSERVICE_SOURCE_NAME,
+        version: entry.source.commit,
+        record: NIMSERVICE_RETENTION_RECEIPT,
+        packageOciRef: "",
+      },
+      baseVariant: {
+        name: entry.slug,
+        revision: `upstream-${entry.source.commit.slice(0, 12)}`,
+        digest: entry.fileSha256,
+        digestRole: "source-file",
+        digestRecord: entry.receiptRel,
+      },
+      configuration: {
+        format: "kubernetes-yaml",
+        objects: entry.fileRel,
+        inventory: entry.entryRel,
+        objectCount: entry.objectCount,
+        digest: entry.objectSetSha256,
+        digestRole: "canonical-object-set",
+        digestRecord: entry.entryRel,
+      },
+      inputs: {
+        fixedAtBuildTime: [
+          `source=${entry.fileRel}`,
+          `upstreamCommit=${entry.source.commit}`,
+          `sourceFileSha256=${entry.fileSha256}`,
+          `objectSetSha256=${entry.objectSetSha256}`,
+          `image=${entry.image}`,
+        ],
+        installTime: [
+          {
+            category: "operator",
+            name: operator.chart,
+            purpose: `The ${operator.chart} chart at ${operator.versionRange} must be installed first. ${operator.versionFloorBasis} ${operator.versionCeiling}`,
+          },
+          ...entry.secrets.map((secret) => ({
+            category: "secret",
+            name: secret.name,
+            purpose: `The user supplies this ${secret.role === "image-pull" ? "image pull" : "API key"} Secret. It is named by ${secret.namedBy.join(" and ")}.`,
+          })),
+          ...entry.requirements,
+        ],
+        installTimeStatus: "destination-facts-recorded-not-run",
+      },
+      routing: {
+        routes,
+        targetFacts: {
+          nimOperator: {
+            required: true,
+            chart: operator.chart,
+            chartRepository: operator.chartRepository,
+            versionRange: operator.versionRange,
+            apiVersion: operator.apiVersion,
+            customResourceDefinitions: operator.customResourceDefinitions,
+            catalogEntry: operator.catalogEntry,
+          },
+          secrets: entry.secrets.map((secret) => ({ name: secret.name, role: secret.role })),
+          gpu: entry.gpu,
+          storage: entry.storage.map((item) => item.detail),
+          requirements: entry.requirements,
+        },
+        sourceRecord: entry.operatorRouteRel,
+      },
+      delivery: {
+        sourcePackageOci: {
+          status: "not-published",
+          note: "A plain-YAML sample has no source package, and nothing was pushed.",
+        },
+        literalConfigOci: expectedNimServiceLiteralConfigOci(entry.publication),
+        configHubUpload: { status: "not-run" },
+        configHubReleaseOci: { status: "not-run" },
+        argoCd: "not-run",
+        flux: "not-run",
+        direct: "not-run",
+      },
+      policy: {
+        profile: "catalog-standard",
+        productionAdds: ["workflow-approval"],
+        normalSet: "baseline",
+      },
+      evidence: {
+        source: entry.fileRel,
+        sourceRetentionReceipt: NIMSERVICE_RETENTION_RECEIPT,
+        sampleReceipt: entry.receiptRel,
+        modelProfile: entry.profileRel,
+        entryInventory: entry.entryRel,
+        flatteningVerdict: entry.verdictRel,
+        operatorRoute: entry.operatorRouteRel,
+        secretRoute: entry.secretRouteRel,
+        upstreamLicense: NIMSERVICE_UPSTREAM_LICENSE,
+        licenseRead: NIMSERVICE_LICENSE_READ,
+        retention: published ? "retained-published-not-uploaded-not-deployed" : "retained-not-published-not-uploaded-not-deployed",
+        literalConfigPlan: entry.artifact.planRel,
+        variantFamily: `${NIMSERVICE_SOURCE_NAME}, ${entry.siblingRecordNames.length} variants at upstream commit ${entry.source.commit}`,
+        scenario: entry.scenario,
+        image: entry.image,
+        imagePinnedBy: entry.imagePinnedBy,
+        imagesNamed: entry.images.map((image) => `${image.reference} (${image.pinnedBy}, ${image.role})`).join("; "),
+        imageAndWeights: "gated by NVIDIA, not pulled, not held, never redistributed",
+        modelRun: "no",
+        gpuRequest: entry.gpuSentence,
+        secretsExpected: secretNamesSentence(entry.secrets),
+        storageRequested: entry.storageSummary,
+        nimCache: entry.nimCacheIncluded
+          ? `included, ${entry.nimCaches.join(", ")}`
+          : entry.nimCacheRef ? `named and not included, ${entry.nimCacheRef}` : "none named",
+        operatorRequired: `${operator.chart} ${operator.versionRange} from ${operator.chartRepository}`,
+        operatorCatalogEntry: operator.catalogEntry,
+        ...(entry.attention ? { attention: entry.attention, openQuestion: entry.openQuestions.join(" ") } : {}),
+      },
+      operations: {
+        resourceClass: "user-workload",
+        ownerClass: "application-team",
+        changeCadence: "application-release",
+      },
+    },
+    status: {
+      level: "partial",
+      claim,
+      limits: [
+        boundary.notPublished,
+        boundary.notDeployed,
+        boundary.gated,
+        `The image reference is ${entry.image}, pinned by ${entry.imagePinnedBy}. ${entry.imagePinnedBy === "tag" ? "A tag can answer to different bytes later, and nothing here resolved it." : "Nothing here resolved it."}`,
+        `The sample expects these Secrets by name, and the user supplies each one. ${secretNamesSentence(entry.secrets)}.`,
+        `${entry.gpuSentence} ${entry.storageSummary}`,
+        `The ${operator.chart} chart at ${operator.versionRange} must be installed first. ${operator.versionFloorBasis} ${operator.versionCeiling} ${operator.catalogEntryNote}`,
+        boundary.license,
+        ...entry.openQuestions.map((question) => `Open question, marked watch. ${question}`),
+      ],
+    },
+  };
+  nimServiceRecordEntries.set(name, entry);
+  return record;
+}
+
 function applyOperationalClassExamples(records, source, policy) {
   const recordsByName = new Map(
     records.map((record) => [record.metadata.name, record]),
@@ -2695,6 +2951,8 @@ function validateRecords(records) {
     validateAicrOrderingFlag(record);
     const aicrModernGeneration = aicrModernGenerationReceipts.get(record.metadata.name);
     if (aicrModernGeneration) validateAicrModernRecordAgainstReceipt(record, aicrModernGeneration);
+    const nimServiceEntry = nimServiceRecordEntries.get(record.metadata.name);
+    if (nimServiceEntry) validateNimServiceRecord(record, nimServiceEntry);
   }
   const exactDelivery = records.find(
     (record) => record.metadata.name === catalogOciDeliveryRecord,
@@ -3972,6 +4230,7 @@ function validateFleetPromotionReceipt(source, receipt) {
 function runSelfTest() {
   execFileSync(process.execPath, ["--test", join(repoRoot, "tests/catalog-bundle-bindings.test.mjs")], { cwd: repoRoot, stdio: "inherit" });
   runAicrRecipeEntrySelfTest();
+  runNimServiceEntrySelfTest();
   const policy = readYaml(policySourcePath);
   validatePolicy(policy);
   const program = readYaml(programSourcePath);
@@ -4535,6 +4794,348 @@ function runAicrRecipeEntrySelfTest() {
   aicrModernGenerationReceipts.clear();
 }
 
+function runNimServiceEntrySelfTest() {
+  // The definition walk that sets the operator version floor.
+  const schema = {
+    type: "object",
+    properties: {
+      image: { type: "object", properties: { repository: { type: "string" } } },
+      env: { type: "array", items: { type: "object", properties: { name: { type: "string" } } } },
+      labels: { type: "object", additionalProperties: { type: "string" } },
+      free: { type: "object", "x-kubernetes-preserve-unknown-fields": true },
+    },
+  };
+  check(
+    fieldsOutsideSchema(schema, { image: { repository: "r" }, env: [{ name: "a" }], labels: { any: "x" }, free: { deep: { er: 1 } } }).size === 0,
+    "self-test: a sample that sets only declared fields was read as needing a newer operator",
+  );
+  check(
+    sameJson([...fieldsOutsideSchema(schema, { image: { digest: "d" }, env: [{ value: "v" }], router: {} })].sort(), ["spec.env.value", "spec.image.digest", "spec.router"]),
+    "self-test: a field the retained definition does not declare was not reported",
+  );
+
+  // The fixtures start not published whatever receipts are tracked, and the
+  // published cases below build their own receipt.
+  const entries = loadNimServiceEntries({ receipts: "none" });
+  check(entries.length > 0, "self-test: no retained NIMService sample was discovered");
+  check(
+    new Set(entries.map((entry) => entry.recordName)).size === entries.length,
+    "self-test: two retained NIMService samples share one record name",
+  );
+  const entry = entries.find((candidate) => candidate.openQuestions.length === 0 && candidate.pullSecrets.length > 0);
+  const flagged = entries.find((candidate) => candidate.openQuestions.length > 0);
+  check(entry && flagged, "self-test: the retained corpus no longer holds both a clean sample and one with an open question, so these fixtures need new subjects");
+
+  // The verdict lookup. A NIMService variant may not fall through to the
+  // plain-YAML default.
+  const subject = { entry: entry.fileRel, upstreamVersion: entry.source.commit, platformDigest: `sha256:${entry.objectSetSha256}` };
+  const resolve = (document) => resolveNimServiceFlattening({ recordName: entry.recordName, entry, readVerdict: () => document });
+  check(
+    resolve({ spec: { subject, verdict: { lane: "flatten-with-routes" } } }).verdict === "flatten-with-routes",
+    "self-test: a matching verdict must decide the NIMService variant",
+  );
+  expectRefusal(
+    () => resolve(null),
+    /no flattening verdict at .*, so this NIMService variant would silently read as born-flattened/,
+    "self-test: a NIMService variant with no verdict fell through to the plain-YAML default",
+  );
+  expectRefusal(
+    () => resolve({ spec: { subject: { ...subject, platformDigest: `sha256:${"b".repeat(64)}` }, verdict: { lane: "flatten-with-routes" } } }),
+    /decides object set sha256:b+, and the retained sample hashes to sha256:/,
+    "self-test: a verdict for other bytes decided a NIMService variant",
+  );
+  expectRefusal(
+    () => resolve({ spec: { subject: { ...subject, upstreamVersion: "0".repeat(40) }, verdict: { lane: "flatten-with-routes" } } }),
+    /decides upstream commit 0+, and the retained commit is /,
+    "self-test: a verdict for another upstream commit decided a NIMService variant",
+  );
+  expectRefusal(
+    () => resolve({ spec: { subject, verdict: { lane: "not-assessed" } } }),
+    /may not be left not-assessed/,
+    "self-test: a verdict with no decided lane was accepted for a NIMService variant",
+  );
+  expectRefusal(
+    () => resolve({ spec: { subject, verdict: { lane: "born-flattened" } } }),
+    /says born-flattened, and a NIMService needs its operator and its Secrets first/,
+    "self-test: a NIMService variant was accepted as born-flattened",
+  );
+
+  // The record guards run against real retained samples, so the fixture is
+  // the shape the generator actually writes.
+  const build = (subjectEntry) => alignRecordWithProcessingModel(buildNimServiceRecord(subjectEntry), undefined, undefined);
+  validateNimServiceRecord(build(entry), entry);
+  validateNimServiceRecord(build(flagged), flagged);
+  const tampered = (subjectEntry, change) => {
+    const record = build(subjectEntry);
+    change(record);
+    return () => validateNimServiceRecord(record, subjectEntry);
+  };
+  const dropRoute = (record, id) => {
+    record.spec.lifecycle.routeIntent.routes = record.spec.lifecycle.routeIntent.routes.filter((route) => route.id !== id);
+  };
+  const pullSecret = entry.pullSecrets[0].name;
+  for (const [label, subjectEntry, change, pattern] of [
+    [
+      "a published literal configuration OCI",
+      entry,
+      (record) => { record.spec.delivery.literalConfigOci.status = "public-anonymous-pull-proved"; },
+      /delivery\.literalConfigOci says public-anonymous-pull-proved, and no tracked publication receipt for sha256:[0-9a-f]{64} exists at runs\/nimservice-variants\//,
+    ],
+    [
+      "an OCI digest on an unpublished leg",
+      entry,
+      (record) => { record.spec.delivery.literalConfigOci.manifestDigest = `sha256:${"c".repeat(64)}`; },
+      /delivery\.literalConfigOci says not-published with sha256:c{64}, and no tracked publication receipt/,
+    ],
+    [
+      "a source package reference",
+      entry,
+      (record) => { record.spec.source.packageOciRef = "oci://registry.example.invalid/nimservice:0.0.0"; },
+      /claims a published source package/,
+    ],
+    [
+      "a ConfigHub upload",
+      entry,
+      (record) => { record.spec.delivery.configHubUpload.status = "pass"; },
+      /delivery\.configHubUpload says pass, and nothing was uploaded to or released from ConfigHub/,
+    ],
+    [
+      "a direct delivery result",
+      entry,
+      (record) => { record.spec.delivery.direct = "pass"; },
+      /claims a delivery result \(argoCd=not-run, flux=not-run, direct=pass\)/,
+    ],
+    [
+      "a promotion",
+      entry,
+      (record) => { record.spec.promotion = { status: "pass" }; },
+      /carries a promotion for a variant that was never uploaded/,
+    ],
+    [
+      "an available status",
+      entry,
+      (record) => { record.status.level = "available"; },
+      /the status must stay partial and say the variant is not published, not uploaded to ConfigHub and not deployed/,
+    ],
+    [
+      "a claim that drops the boundary",
+      entry,
+      (record) => { record.status.claim = "This NIMService sample is ready to use."; },
+      /the status must stay partial and say the variant is not published, not uploaded to ConfigHub and not deployed/,
+    ],
+    [
+      "no limit about the gated image",
+      entry,
+      (record) => { record.status.limits = record.status.limits.filter((limit) => !limit.includes("gated by NVIDIA")); },
+      /the limits must say the image and weights are gated and were not pulled/,
+    ],
+    [
+      "a born-flattened verdict",
+      entry,
+      (record) => { record.spec.processing.flattening = { ...record.spec.processing.flattening, verdict: "born-flattened" }; },
+      /must carry the decided flatten-with-routes verdict at .*, found born-flattened/,
+    ],
+    [
+      "no operator route",
+      entry,
+      (record) => { dropRoute(record, NIMSERVICE_OPERATOR_ROUTE); },
+      /the operator-first route is missing or no longer names k8s-nim-operator/,
+    ],
+    [
+      "an operator route with no version range",
+      entry,
+      (record) => {
+        const route = record.spec.lifecycle.routeIntent.routes.find((candidate) => candidate.id === NIMSERVICE_OPERATOR_ROUTE);
+        route.proposedMechanism = route.proposedMechanism.replace(entry.operator.versionRange, "any version");
+      },
+      /the operator-first route is missing or no longer names k8s-nim-operator/,
+    ],
+    [
+      "an operator presented as a Catalog entry",
+      entry,
+      (record) => { record.spec.lifecycle.targetFacts.declared.nimOperator.catalogEntry = "k8s-nim-operator-3-1-0-default"; },
+      /must say the k8s-nim-operator chart is not yet a Catalog entry on this branch/,
+    ],
+    [
+      "no image pull Secret route",
+      entry,
+      (record) => { dropRoute(record, NIMSERVICE_PULL_SECRET_ROUTE); },
+      /the image-pull-secret route is missing or no longer names /,
+    ],
+    [
+      "no API key Secret route",
+      entry,
+      (record) => { dropRoute(record, NIMSERVICE_AUTH_SECRET_ROUTE); },
+      /the model-auth-secret route is missing or no longer names /,
+    ],
+    [
+      "a dropped Secret requirement",
+      entry,
+      (record) => { record.spec.inputs.installTime = record.spec.inputs.installTime.filter((item) => item.name !== pullSecret); },
+      /the Secret requirement .* was dropped from the install-time inputs, the target facts or the limits/,
+    ],
+    [
+      "no GPU request",
+      entry,
+      (record) => { delete record.spec.lifecycle.targetFacts.declared.gpu; },
+      /the GPU request or the storage route was dropped from the record/,
+    ],
+    [
+      "an automatic route",
+      entry,
+      (record) => { record.spec.lifecycle.routeIntent.routes[0].automatic = true; },
+      /a route nobody has executed is marked automatic or resolved/,
+    ],
+    [
+      "a passed post-deployment stage",
+      entry,
+      (record) => {
+        const stage = record.spec.assessment.stages.find((candidate) => candidate.id === "post-deployment");
+        stage.evidenceState = "completed";
+        stage.resultState = "pass";
+      },
+      /the post-deployment stage says completed\/pass for a variant no destination has seen/,
+    ],
+    [
+      "another source name",
+      entry,
+      (record) => { record.spec.source.name = "some-other-entry"; },
+      /must keep the shared source nimservice@/,
+    ],
+    [
+      "an open question cleared without an answer",
+      flagged,
+      (record) => {
+        record.spec.assessment.stages.find((candidate) => candidate.id === "materialization").resultState = "pass";
+        delete record.spec.evidence.attention;
+      },
+      /the sample raises an open question, and the record must stay marked watch and name it/,
+    ],
+    [
+      "a flag that names no question",
+      flagged,
+      (record) => {
+        record.spec.assessment.stages.find((candidate) => candidate.id === "materialization").answer = "Reading and fingerprinting the objects is the recorded step.";
+      },
+      /the sample raises an open question, and the record must stay marked watch and name it/,
+    ],
+    [
+      "a flag on a sample that raises no question",
+      entry,
+      (record) => {
+        record.spec.assessment.stages.find((candidate) => candidate.id === "materialization").resultState = ATTENTION_STATE;
+      },
+      /the record is marked for attention, and the retained bytes raise no open question/,
+    ],
+    [
+      "an attention mark the bytes do not support",
+      entry,
+      (record) => { record.spec.evidence.attention = "watch"; },
+      /the record is marked for attention, and the retained bytes raise no open question/,
+    ],
+  ]) {
+    expectRefusal(tampered(subjectEntry, change), pattern, `self-test: a NIMService record carrying ${label} was accepted`);
+  }
+
+  // Publication, in both directions. The fixture receipt is built in memory
+  // from the artifact of a real retained sample and is never written. With a
+  // valid receipt the record says published and is accepted. Without one, or
+  // with one for other bytes, a published record is refused. With one, a
+  // record that still says not published is refused too.
+  check(
+    entries.every((candidate) => candidate.artifact && candidate.publication),
+    "self-test: a retained NIMService sample has no artifact or publication state",
+  );
+  const fixtureReceipt = (subjectEntry) => nimServicePublicationReceiptDoc(subjectEntry.artifact, {
+    observedAt: "2026-01-01T00:00:00.000Z",
+    pushCommand: "self-test fixture, nothing was pushed",
+    anonymousPull: {
+      result: "pass",
+      manifestDigest: subjectEntry.artifact.manifestDigest,
+      layerDigest: subjectEntry.artifact.layerDigest,
+      filesMatched: subjectEntry.artifact.stagedFiles.length,
+    },
+  });
+  const receipt = fixtureReceipt(entry);
+  check(
+    nimServicePublicationProblems(receipt, entry.artifact).length === 0,
+    "self-test: a receipt built from the artifact was refused",
+  );
+  for (const [label, change, pattern] of [
+    ["another manifest digest", (doc) => { doc.spec.manifestDigest = `sha256:${"d".repeat(64)}`; }, /its manifest digest is sha256:d{64}, and the committed bytes build/],
+    ["another layer", (doc) => { doc.spec.layerDigest = `sha256:${"e".repeat(64)}`; }, /its layer is sha256:e{64}/],
+    ["no anonymous pull", (doc) => { doc.spec.anonymousPull.result = "not-run"; }, /records no anonymous pull of this manifest/],
+    ["an anonymous pull of another manifest", (doc) => { doc.spec.anonymousPull.manifestDigest = `sha256:${"f".repeat(64)}`; }, /records no anonymous pull of this manifest/],
+    ["an extra staged file", (doc) => { doc.spec.stagedFiles.push({ path: "weights.bin", source: "weights.bin", role: "model weights", sha256: `sha256:${"a".repeat(64)}`, bytes: 1 }); }, /its staged files are not the sample and the two route files/],
+    ["another variant's name", (doc) => { doc.metadata.name = flagged.recordName; }, /and not nimservice-/],
+    ["a claim that it holds weights", (doc) => { doc.spec.contents.nvidiaImagesOrWeights = true; }, /does not say the artifact holds no NVIDIA image/],
+  ]) {
+    const doc = structuredClone(receipt);
+    change(doc);
+    check(
+      nimServicePublicationProblems(doc, entry.artifact).some((problem) => pattern.test(problem)),
+      `self-test: a publication receipt with ${label} was accepted`,
+    );
+  }
+  check(
+    nimServicePublicationProblems(receipt, flagged.artifact).length > 0,
+    "self-test: one variant's receipt was accepted for another variant's bytes",
+  );
+  const publishedEntry = {
+    ...entry,
+    publication: {
+      published: true,
+      artifact: entry.artifact,
+      receipt,
+      receiptRel: entry.artifact.receiptRel,
+      receiptSha256: `sha256:${"9".repeat(64)}`,
+      observedReference: `oci://${entry.artifact.reference}@${entry.artifact.manifestDigest}`,
+    },
+  };
+  const publishedRecord = build(publishedEntry);
+  validateNimServiceRecord(publishedRecord, publishedEntry);
+  check(
+    publishedRecord.spec.delivery.literalConfigOci.status === "published-with-receipt"
+      && publishedRecord.spec.delivery.literalConfigOci.manifestDigest === entry.artifact.manifestDigest
+      && publishedRecord.spec.delivery.literalConfigOci.observedReference.startsWith("oci://")
+      && publishedRecord.status.claim.includes("It is published as a literal configuration OCI with its route files.")
+      && publishedRecord.spec.delivery.configHubUpload.status === "not-run",
+    "self-test: a variant with a valid publication receipt was not recorded as published, or was recorded as uploaded",
+  );
+  expectRefusal(
+    () => validateNimServiceRecord(structuredClone(publishedRecord), entry),
+    /delivery\.literalConfigOci says published-with-receipt with sha256:[0-9a-f]{64}, and no tracked publication receipt/,
+    "self-test: a published record was accepted with no publication receipt",
+  );
+  expectRefusal(
+    () => {
+      const record = structuredClone(publishedRecord);
+      record.spec.delivery.literalConfigOci.manifestDigest = `sha256:${"b".repeat(64)}`;
+      validateNimServiceRecord(record, publishedEntry);
+    },
+    /records a publication of sha256:[0-9a-f]{64}, and delivery\.literalConfigOci does not carry exactly that reference/,
+    "self-test: a published record carrying another digest was accepted",
+  );
+  expectRefusal(
+    () => {
+      nimServiceRecordEntries.set(entry.recordName, entry);
+      validateNimServiceRecord(build(entry), publishedEntry);
+    },
+    /records a publication of sha256:[0-9a-f]{64}, and delivery\.literalConfigOci does not carry exactly/,
+    "self-test: a record that says not published was accepted beside a valid publication receipt",
+  );
+  expectRefusal(
+    () => {
+      const record = structuredClone(publishedRecord);
+      record.status.claim = record.status.claim.replace("It is published as a literal configuration OCI with its route files.", "It is published and deployed.");
+      validateNimServiceRecord(record, publishedEntry);
+    },
+    /must stay partial and say the variant is published as a literal configuration OCI, not uploaded to ConfigHub and not deployed/,
+    "self-test: a published record that claims a deployment was accepted",
+  );
+  nimServiceRecordEntries.clear();
+}
+
 function expectFailure(fn, message) {
   let failed = false;
   try {
@@ -4618,6 +5219,14 @@ function sourceSelectionRecord(record, sourceCatalogImport) {
       kind: "source-variant",
       provider: "NVIDIA AICR",
       record: source.sourceCatalog || source.record,
+    };
+  }
+  if (nimServiceRecordEntries.has(record.metadata.name)) {
+    return {
+      name: base,
+      kind: "source-variant",
+      provider: "NVIDIA k8s-nim-operator sample corpus",
+      record: source.record,
     };
   }
   if (source.type === "helm" || ["timoni", "kubara", "sveltos"].includes(source.type)) {
@@ -4761,6 +5370,11 @@ function processingRecord(record, intent, identity) {
     boundaries = [
       "The source already contains exact Kubernetes objects; parsing and canonicalization do not change their meaning.",
     ];
+    if (nimServiceRecordEntries.has(record.metadata.name)) {
+      boundaries.push(
+        "The objects are custom resources. The NIM Operator turns them into Deployments, Services and volumes on the cluster, and this entry has not rendered or assessed those.",
+      );
+    }
   } else if (source.type === "source-oci" || source.type === "cub-installer") {
     method = "source-oci-processor";
     boundaries = [
@@ -4797,11 +5411,15 @@ function assessmentRecord(record, processing, lifecycle) {
   const literalSource = materialization.status === "recorded-no-op";
   const destination = destinationAssessment(lifecycle);
   const runtime = postDeploymentAssessment(record);
-  // An entry whose ordering evidence holds an unchecked edge is flagged here.
-  // The objects exist and their digest is recorded, so the evidence is
-  // complete. The result is watch, the existing word for a checked result with
-  // a limit to review, and the answer is the open question in one sentence.
-  const openQuestion = materialized ? aicrOpenQuestionFor(record) : "";
+  // An entry with an open question is flagged here, in one place for every
+  // source type. An AICR entry is flagged when its ordering evidence holds an
+  // unchecked edge. A NIMService variant is flagged when its retained bytes
+  // raise a question this repository cannot answer. The objects exist and
+  // their digest is recorded, so the evidence is complete. The result is
+  // watch, the existing word for a checked result with a limit to review, and
+  // the answer is the open question.
+  const nimServiceQuestion = nimServiceOpenQuestionFor(record);
+  const openQuestion = materialized ? aicrOpenQuestionFor(record) || nimServiceQuestion : "";
 
   return {
     stages: [
@@ -4848,7 +5466,7 @@ function assessmentRecord(record, processing, lifecycle) {
           record.spec.configuration.digestRecord,
         ]),
         nextAction: openQuestion
-          ? OPEN_QUESTION_NEXT_ACTION
+          ? nimServiceQuestion ? NIMSERVICE_OPEN_QUESTION_NEXT_ACTION : OPEN_QUESTION_NEXT_ACTION
           : materialized
             ? "Review the exact object set and its digest."
             : "Supply the named source inputs and run the source processor before reviewing or deploying anything.",
@@ -4907,6 +5525,12 @@ function aicrOrderingEvidenceFor(record) {
 
 function aicrOpenQuestionFor(record) {
   return aicrOrderingEvidenceFor(record)?.openQuestion ?? "";
+}
+
+// The open questions a NIMService variant's retained bytes raise, as one
+// answer. A variant with none returns an empty string and is not flagged.
+function nimServiceOpenQuestionFor(record) {
+  return (nimServiceRecordEntries.get(record.metadata.name)?.openQuestions ?? []).join(" ");
 }
 
 // The flag rule, checked on every AICR record. An entry whose ordering
@@ -5143,6 +5767,17 @@ function flatteningRecord(record, intent) {
       verdictPath = relativeRepo(candidatePath);
       verdict = candidate.spec?.verdict?.lane ?? "not-assessed";
     }
+  } else if (nimServiceRecordEntries.has(record.metadata.name)) {
+    // A NIMService variant is plain YAML, and the plain-YAML default below
+    // would call it born-flattened. Its verdict is generated beside it, so a
+    // missing or stale one is a broken chain and is refused.
+    const resolved = resolveNimServiceFlattening({
+      recordName: record.metadata.name,
+      entry: nimServiceRecordEntries.get(record.metadata.name),
+      readVerdict: (rel) => (existsRepo(rel) ? readYaml(join(repoRoot, rel)) : null),
+    });
+    verdictPath = resolved.verdictPath;
+    verdict = resolved.verdict;
   } else if (["configuration-oci", "kubernetes-yaml", "rendered-config", "sveltos"].includes(source.type)) {
     verdict = "born-flattened";
     verdictPath = source.record;
@@ -5306,6 +5941,170 @@ function validateAicrRecipeRecord(record, entry) {
       && spec.configuration.objectCount === entry.applications.length,
     `${name}: the record no longer matches the retained platform digest or Application count`,
   );
+}
+
+// A record built from a retained NIMService sample may only say what the
+// retained bytes support. Nothing was published, uploaded or deployed, the
+// image and weights were never pulled, and the sample is unusable without its
+// operator and its Secrets. A record that says otherwise, or that loses the
+// operator route or a Secret requirement, is refused field by field.
+function validateNimServiceRecord(record, entry) {
+  const name = record.metadata.name;
+  const spec = record.spec;
+  check(
+    spec.source.type === NIMSERVICE_SOURCE_TYPE
+      && spec.source.name === NIMSERVICE_SOURCE_NAME
+      && spec.source.version === entry.source.commit
+      && spec.baseVariant.name === entry.slug,
+    `${name}: a NIMService variant must keep the shared source ${NIMSERVICE_SOURCE_NAME}@${entry.source.commit} and its own variant name ${entry.slug}, or it stops reading as a variant of the one entry`,
+  );
+  check(
+    spec.configuration.objects === entry.fileRel
+      && spec.configuration.digest === entry.objectSetSha256
+      && spec.configuration.objectCount === entry.objectCount
+      && spec.baseVariant.digest === entry.fileSha256,
+    `${name}: the record no longer matches the retained sample bytes at ${entry.fileRel}`,
+  );
+  const flattening = spec.processing.flattening;
+  check(
+    flattening.status === "decided"
+      && flattening.verdict === "flatten-with-routes"
+      && flattening.record === entry.verdictRel
+      && existsRepo(flattening.record),
+    `${name}: a NIMService variant must carry the decided flatten-with-routes verdict at ${entry.verdictRel}, found ${flattening.verdict}`,
+  );
+  const routeIntents = spec.lifecycle.routeIntent.routes;
+  const operatorRoute = routeIntents.find((route) => route.id === NIMSERVICE_OPERATOR_ROUTE);
+  check(
+    spec.lifecycle.routeIntent.status === "recorded"
+      && operatorRoute
+      && operatorRoute.orderHint === 1
+      && operatorRoute.proposedMechanism.includes(entry.operator.chart)
+      && operatorRoute.proposedMechanism.includes(entry.operator.versionRange)
+      && operatorRoute.evidence.includes(entry.operatorRouteRel),
+    `${name}: the operator-first route is missing or no longer names ${entry.operator.chart} ${entry.operator.versionRange}; a NIMService cannot be applied before its operator`,
+  );
+  check(
+    operatorRoute.proposedMechanism.includes("not yet a Catalog entry on this branch")
+      && spec.lifecycle.targetFacts.declared?.nimOperator?.catalogEntry === entry.operator.catalogEntry,
+    `${name}: the record must say the ${entry.operator.chart} chart is not yet a Catalog entry on this branch`,
+  );
+  const requirementIds = spec.lifecycle.requirements.items.map((item) => item.id);
+  for (const [routeId, secrets] of [
+    [NIMSERVICE_PULL_SECRET_ROUTE, entry.pullSecrets],
+    [NIMSERVICE_AUTH_SECRET_ROUTE, entry.authSecrets],
+  ]) {
+    if (secrets.length === 0) continue;
+    const route = routeIntents.find((candidate) => candidate.id === routeId);
+    check(
+      route
+        && requirementIds.includes(routeId)
+        && secrets.every((secret) => route.proposedMechanism.includes(secret.name)),
+      `${name}: the ${routeId} route is missing or no longer names ${secrets.map((secret) => secret.name).join(", ")}; the user supplies that Secret and the record must say so`,
+    );
+  }
+  for (const secret of entry.secrets) {
+    check(
+      spec.inputs.installTime.some((item) => item.category === "secret" && item.name === secret.name)
+        && (spec.lifecycle.targetFacts.declared?.secrets ?? []).some((item) => item.name === secret.name)
+        && record.status.limits.some((limit) => limit.includes(secret.name)),
+      `${name}: the Secret requirement ${secret.name} was dropped from the install-time inputs, the target facts or the limits`,
+    );
+  }
+  check(
+    requirementIds.includes("gpu-request")
+      && spec.lifecycle.targetFacts.declared?.gpu?.count === entry.gpu.count
+      && routeIntents.some((route) => route.id === NIMSERVICE_STORAGE_ROUTE),
+    `${name}: the GPU request or the storage route was dropped from the record`,
+  );
+  check(
+    routeIntents.every((route) => route.automatic === false && route.status === "requires-destination-resolution"),
+    `${name}: a route nobody has executed is marked automatic or resolved`,
+  );
+  check(
+    spec.lifecycle.resolution.status === "awaits-variant-and-target",
+    `${name}: no destination has resolved these routes, and the record says ${spec.lifecycle.resolution.status}`,
+  );
+  check(
+    spec.source.packageOciRef === "",
+    `${name}: claims a published source package (${spec.source.packageOciRef}) for a variant that was never published`,
+  );
+  const delivery = spec.delivery;
+  check(
+    delivery.sourcePackageOci?.status === "not-published",
+    `${name}: delivery.sourcePackageOci says ${delivery.sourcePackageOci?.status ?? "nothing"}, and a plain-YAML sample has no source package`,
+  );
+  // The literal configuration OCI is the one thing a variant can publish. The
+  // record may say so only with the reference, digests and receipt of a
+  // tracked receipt that matches the committed bytes, and must say not
+  // published without one.
+  const literalProblem = nimServiceLiteralConfigOciProblem(name, delivery.literalConfigOci, entry.publication);
+  check(!literalProblem, literalProblem);
+  const published = entry.publication?.published === true;
+  for (const role of ["configHubUpload", "configHubReleaseOci"]) {
+    check(
+      delivery[role]?.status === "not-run",
+      `${name}: delivery.${role} says ${delivery[role]?.status ?? "nothing"}, and nothing was uploaded to or released from ConfigHub for this variant`,
+    );
+  }
+  for (const role of ["sourcePackageOci", "configHubUpload", "configHubReleaseOci"]) {
+    const claimed = Object.keys(delivery[role]).filter((key) => !["status", "note"].includes(key));
+    check(
+      claimed.length === 0,
+      `${name}: delivery.${role} carries ${claimed.join(", ")}, which only a published or uploaded artifact has`,
+    );
+  }
+  check(
+    delivery.argoCd === "not-run" && delivery.flux === "not-run" && delivery.direct === "not-run",
+    `${name}: claims a delivery result (argoCd=${delivery.argoCd}, flux=${delivery.flux}, direct=${delivery.direct}) for a variant that was never deployed`,
+  );
+  check(!delivery.receipt, `${name}: names a delivery receipt for a variant that was never deployed`);
+  check(!spec.promotion, `${name}: carries a promotion for a variant that was never uploaded`);
+  for (const id of ["destination", "post-deployment"]) {
+    const stage = spec.assessment.stages.find((candidate) => candidate.id === id);
+    check(
+      stage.evidenceState === "not-run" && stage.resultState === "not-run",
+      `${name}: the ${id} stage says ${stage.evidenceState}/${stage.resultState} for a variant no destination has seen`,
+    );
+  }
+  check(
+    record.status.level === "partial"
+      && record.status.claim.includes(published ? "It is published as a literal configuration OCI with its route files." : "It is not published,")
+      && record.status.claim.includes(published ? "It is not uploaded to ConfigHub and not deployed." : "not uploaded to ConfigHub and not deployed.")
+      && spec.evidence.retention === (published ? "retained-published-not-uploaded-not-deployed" : "retained-not-published-not-uploaded-not-deployed")
+      && record.status.limits.some((limit) => limit.startsWith(published ? "This variant is published as a literal configuration OCI at " : "This variant is not published.")),
+    published
+      ? `${name}: the status must stay partial and say the variant is published as a literal configuration OCI, not uploaded to ConfigHub and not deployed`
+      : `${name}: the status must stay partial and say the variant is not published, not uploaded to ConfigHub and not deployed`,
+  );
+  check(
+    record.status.limits.some((limit) => limit.includes("gated by NVIDIA") && limit.includes("did not pull"))
+      && record.status.limits.some((limit) => limit.includes("no model was run"))
+      && record.status.limits.some((limit) => limit.includes(entry.image) && limit.includes(`pinned by ${entry.imagePinnedBy}`))
+      && record.status.limits.some((limit) => limit.includes(NIMSERVICE_LICENSE_READ)),
+    `${name}: the limits must say the image and weights are gated and were not pulled, that no model was run, how the image ${entry.image} is pinned, and where the licence read is`,
+  );
+  // The flag sits where every flagged entry carries it, on the materialization
+  // stage, so one reader rule finds a flagged AICR entry and a flagged
+  // NIMService variant alike.
+  const flagStage = spec.assessment.stages.find((candidate) => candidate.id === "materialization");
+  if (entry.openQuestions.length > 0) {
+    check(
+      flagStage.resultState === ATTENTION_STATE
+        && flagStage.evidenceState === "completed"
+        && flagStage.answer === entry.openQuestions.join(" ")
+        && flagStage.nextAction === NIMSERVICE_OPEN_QUESTION_NEXT_ACTION
+        && spec.evidence.attention === ATTENTION_STATE
+        && entry.openQuestions.every((question) => String(spec.evidence.openQuestion ?? "").includes(question))
+        && entry.openQuestions.every((question) => record.status.limits.some((limit) => limit.includes(question))),
+      `${name}: the sample raises an open question, and the record must stay marked watch and name it`,
+    );
+  } else {
+    check(
+      flagStage.resultState === "pass" && !spec.evidence.attention && !spec.evidence.openQuestion,
+      `${name}: the record is marked for attention, and the retained bytes raise no open question`,
+    );
+  }
 }
 
 // A hand-retained modern AICR record may only claim what its generation
@@ -5936,7 +6735,8 @@ function renderBaseSummary(records) {
   const configurationOci = records.find(
     (record) => record.spec.source.type === "configuration-oci",
   );
-  const plainYaml = records.find((record) => record.spec.source.type === "kubernetes-yaml");
+  const plainYaml = records.find((record) => record.metadata.name === "kubernetes-yaml-acme-web-base");
+  const nimServiceVariants = records.filter((record) => nimServiceRecordEntries.has(record.metadata.name));
   return `# Base variant records
 
 Generated by \`scripts/generate-config-catalog-program.mjs\`. Do not edit the generated records by hand.
@@ -6007,6 +6807,7 @@ ${classifiedRecords.length} canonical records also name who owns the configurati
 - [cub installer source package](${cubInstaller ? `records/${cubInstaller.metadata.name}.yaml` : ""}) separates the public multi-preset package digest from the exact five-object output of one selected preset.
 - [Literal configuration OCI](${configurationOci ? `records/${configurationOci.metadata.name}.yaml` : ""}) records a public five-object OCI, its separate object-set digest, its required Secret, and an unchanged ConfigHub import.
 - [Plain Kubernetes YAML](${plainYaml ? `records/${plainYaml.metadata.name}.yaml` : ""}) records an unchanged four-object upload and leaves lifecycle assessment as a visible gap.
+- [NIMService](${nimServiceVariants.length > 0 ? `records/${nimServiceVariants[0].metadata.name}.yaml` : ""}) is one entry with ${nimServiceVariants.length} variants, one per retained NVIDIA sample. Each is plain YAML with a flatten-with-routes verdict, because it needs the NIM Operator and the user's own Secrets first. None is published, uploaded or deployed.
 - [Kubara local platform](${kubara ? `records/${kubara.metadata.name}.yaml` : ""}) connects Kubara's generated platform source, 77 rendered bootstrap objects, and the recorded CRD, hook, Secret, and External Secrets work.
 - [Sveltos Kyverno fleet](${sveltos ? `records/${sveltos.metadata.name}.yaml` : ""}) records a two-wave result: ConfigHub approved a pilot and one selector expansion at different OCI digests, then Sveltos installed Kyverno and repaired drift on both staging clusters.
 

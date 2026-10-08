@@ -1,0 +1,41 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantLiteralConfigPlan"
+metadata:
+  name: "nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling"
+spec:
+  catalogEntry: "nimservice"
+  variant: "scheduling-meta-llama-3-2-1b-instruct-scheduling"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  plannedReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling:upstream-5d5f66ee0e2e"
+  manifestDigest: "sha256:842c90182eb637abddc5be190afa89fe673a350321332ddd0f4f418a35a39b73"
+  layerDigest: "sha256:69083d86fdb3bb1c69dda4e464760ab4a51f280f070060a1b1a7ca8c7d304e77"
+  layerBytes: 10775
+  layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+  objectSetSha256: "sha256:d9b5b69bce17711febcb3531ed5f642e12c0e61043cf60b0074a4e1636bd3f6f"
+  stagedFiles:
+    -
+      path: "llm.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/standalone/scheduling/llm.yaml"
+      role: "exact objects"
+      sha256: "sha256:d8ce2dbe3d62044a657f18613cdf8d39e346e20b4abc4a2444238736c65aacdb"
+      bytes: 1237
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/scheduling-meta-llama-3-2-1b-instruct-scheduling/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:ae2c6190f7c85c9c79079b7e2c042c4ee8869d35027ad6955b16e6378f83b918"
+      bytes: 3755
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/scheduling-meta-llama-3-2-1b-instruct-scheduling/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:b4c9b902313cc2ae35f934081622d2019d371436b6da71d9e22c619574b8d3ea"
+      bytes: 2177
+  contents:
+    statement: "The artifact holds the retained sample file and its two route files. It holds no container image, no model weight and no Secret value."
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  publication:
+    receipt: "runs/nimservice-variants/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling/publication-receipt.yaml"
+    rule: "The variant is published only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-nimservice-variants.mjs"

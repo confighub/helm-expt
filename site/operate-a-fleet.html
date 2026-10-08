@@ -730,10 +730,10 @@ cub-scout receipt validate .tmp/object-set.receipt.json</code></pre>
           <span class="badge watch">watch</span>
         </div>
         <p class="opmeta"><code>compare live state with a previous approved revision</code> · <span class="muted">ConfigHub revisions and a live check</span></p>
-        <pre><code>cub unit diff &lt;space&gt;/&lt;unit&gt; --from=&lt;earlier-revision-number&gt; --to=LastReleasedRevisionNum
+        <pre><code>cub unit diff &lt;space&gt;/&lt;unit&gt; --from=&lt;earlier-revision-number&gt; --to=HeadRevisionNum
 cub-scout compare three-way --dry-from &lt;previous-render.yaml&gt;</code></pre>
-        <p>You see the difference between the last released revision and an earlier approved one. The diff command is taken from the help of cub v0.8.7 and has not been re-run here. Today this is a rehearse-and-review path, because exact rollback automation depends on the app, the target, and any lifecycle step that cannot be undone.</p>
-        <p class="muted">See: <a href="d/docs/user/day2-upgrade-story.html">The day-2 upgrade story</a> · <a href="d/docs/user/day2-upgrade-rollback.html">Upgrade and rollback guide</a> · <a href="d/docs/user/cub-scout-diff-design.html">Three-way comparison design</a></p>
+        <p>You see the difference between an earlier approved revision and the head revision. A live run on 2026-10-08 with cub v0.8.7 used each part of this diff command. <code>--to=LastReleasedRevisionNum</code> names the last released revision, so it needs a Unit that has been released. That run saw it fail on a Unit that was never released. The <code>cub-scout</code> line was not run. Today this is a rehearse-and-review path, because exact rollback automation depends on the app, the target, and any lifecycle step that cannot be undone.</p>
+        <p class="muted">See: <a href="d/docs/user/day2-upgrade-story.html">The day-2 upgrade story</a> · <a href="d/docs/user/day2-upgrade-rollback.html">Upgrade and rollback guide</a> · <a href="d/docs/user/cub-scout-diff-design.html">Three-way comparison design</a> · <a href="d/docs/user/live-run-log-2026-10-08.html">Live run log, 2026-10-08</a></p>
       </div>
     </section>
     <section aria-labelledby="fleet-record">

@@ -1,0 +1,1378 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:b530fbf9e069a56a10340bf688cced4a494f941efb05e1f0228551bc5e0c1166",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/nimservice-full-meta-llama-3-2-1b-instruct-llm.yaml",
+      "sha256": "sha256:5b1c9fbd06516781a81f4dabdc487a0c4cc2fbbf411c5718c80ad4a71865cd7c",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nimservice-full-meta-llama-3-2-1b-instruct-llm.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "nimservice-full-meta-llama-3-2-1b-instruct-llm",
+    "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-full-meta-llama-3-2-1b-instruct-llm.json",
+    "name": "nimservice",
+    "format": "kubernetes-yaml",
+    "formatLabel": "Plain Kubernetes YAML",
+    "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+    "base": "full-meta-llama-3-2-1b-instruct-llm"
+  },
+  "discovery": {
+    "status": "not-classified",
+    "roles": [],
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
+  "source": {
+    "format": "kubernetes-yaml",
+    "name": "nimservice",
+    "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+    "reference": "nimservice@5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+    "record": "data/aicr-nim-operator-models/retention-receipt.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/retention-receipt.yaml",
+    "selection": {
+      "name": "full-meta-llama-3-2-1b-instruct-llm",
+      "kind": "source-variant",
+      "provider": "NVIDIA k8s-nim-operator sample corpus",
+      "record": "data/aicr-nim-operator-models/retention-receipt.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/retention-receipt.yaml"
+    },
+    "pin": {
+      "digest": "sha256:48834814da4594e44f899683e1f5fb3984c42b1514d11f6c1a3dd1e4de46dc94",
+      "role": "source-file",
+      "revision": "upstream-5d5f66ee0e2e",
+      "record": "data/aicr-nim-operator-models/receipts/full-meta-llama-3-2-1b-instruct-llm.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/receipts/full-meta-llama-3-2-1b-instruct-llm.yaml"
+    },
+    "fixedAtBuildTime": [
+      "source=data/aicr-nim-operator-models/upstream/serving/standalone/full/llm.yaml",
+      "upstreamCommit=5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+      "sourceFileSha256=48834814da4594e44f899683e1f5fb3984c42b1514d11f6c1a3dd1e4de46dc94",
+      "objectSetSha256=b56d4ecd50613355fb5cd6a75b6b20b5451323bc810fac0f3a1a917ae1e8d436",
+      "image=nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0"
+    ]
+  },
+  "flattened": {
+    "method": "read-literal-configuration",
+    "materializationStatus": "recorded-no-op",
+    "format": "kubernetes-yaml",
+    "objectCount": 2,
+    "digest": "sha256:b56d4ecd50613355fb5cd6a75b6b20b5451323bc810fac0f3a1a917ae1e8d436",
+    "digestRole": "canonical-object-set",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
+    "scope": "nimservice@5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f/full-meta-llama-3-2-1b-instruct-llm; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "The source already contains exact Kubernetes objects; parsing and canonicalization do not change their meaning.",
+      "The objects are custom resources. The NIM Operator turns them into Deployments, Services and volumes on the cluster, and this entry has not rendered or assessed those."
+    ],
+    "objects": "data/aicr-nim-operator-models/upstream/serving/standalone/full/llm.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/upstream/serving/standalone/full/llm.yaml",
+    "inventory": "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/entry.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/entry.yaml",
+    "digestRecord": "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/entry.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/entry.yaml",
+    "verdictRecord": "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/flattening-safety-verdict.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/flattening-safety-verdict.yaml",
+    "retainedObjects": {
+      "path": "data/aicr-nim-operator-models/upstream/serving/standalone/full/llm.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/data/aicr-nim-operator-models/upstream/serving/standalone/full/llm.yaml",
+      "sha256": "sha256:48834814da4594e44f899683e1f5fb3984c42b1514d11f6c1a3dd1e4de46dc94"
+    }
+  },
+  "oci": {
+    "sourcePackageRef": "",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-published",
+        "status": "not-published",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "A plain-YAML sample has no source package, and nothing was pushed."
+      },
+      {
+        "role": "literal-config",
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-full-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:cfe1ea2ff03c372af8bb5e0cabd63653f0169f01b5abd9a96572ba65641f51a0",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:b257da7dd41157d07b53d1be5937f48a0e007dac3d458c3ce19eaf50259592f6"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:335e16c0bc74e07d667ec4b87cc41bb6cac541a13ff86a61c8fd5828e758bfd8"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:cfe1ea2ff03c372af8bb5e0cabd63653f0169f01b5abd9a96572ba65641f51a0"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:b56d4ecd50613355fb5cd6a75b6b20b5451323bc810fac0f3a1a917ae1e8d436"
+          }
+        ],
+        "receipt": "runs/nimservice-variants/nimservice-full-meta-llama-3-2-1b-instruct-llm/publication-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/nimservice-variants/nimservice-full-meta-llama-3-2-1b-instruct-llm/publication-receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-published",
+        "status": "not-run",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-run",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-run"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-run"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-run"
+      }
+    ]
+  },
+  "images": {
+    "count": 1,
+    "pinnedByDigest": 0,
+    "namedByTag": 1,
+    "references": [
+      {
+        "reference": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0",
+        "pinned": false
+      }
+    ],
+    "readFrom": "data/aicr-nim-operator-models/upstream/serving/standalone/full/llm.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
+  "variants": {
+    "base": "full-meta-llama-3-2-1b-instruct-llm",
+    "known": [
+      {
+        "id": "nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm",
+        "base": "autoscaling-meta-llama-3-2-1b-instruct-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm.json",
+        "self": false,
+        "digest": "sha256:03f7b8ce3ff95f8b7933fda5ab373c27469717e0f8670121f9d9551cebbbac63"
+      },
+      {
+        "id": "nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm",
+        "base": "autoscaling-meta-llama-3-2-1b-instruct-multi-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm.json",
+        "self": false,
+        "digest": "sha256:d0fbdfff38eaef948494be36233d6da35694d03091b16523ccac4d5d7b48af79"
+      },
+      {
+        "id": "nimservice-basic-meta-llama-3-2-1b-instruct-llm",
+        "base": "basic-meta-llama-3-2-1b-instruct-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-meta-llama-3-2-1b-instruct-llm.json",
+        "self": false,
+        "digest": "sha256:b5943236fcd709b567a1f932a847c169a7bc6e9a40dac141e6fac4cb9a1fb797"
+      },
+      {
+        "id": "nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm",
+        "base": "basic-meta-llama-3-2-1b-instruct-multi-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm.json",
+        "self": false,
+        "digest": "sha256:2763aee71a2ea72ece365255db4e3851eed92867d1c1e105c4a694ba7bf11989"
+      },
+      {
+        "id": "nimservice-basic-model-free-llama-3-2-1b-instruct",
+        "base": "basic-model-free-llama-3-2-1b-instruct",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-model-free-llama-3-2-1b-instruct.json",
+        "self": false,
+        "digest": "sha256:0770f9dfbc1003416eb1e66523a9ee2a810e3692cde284249ea1049f8d9643ed"
+      },
+      {
+        "id": "nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox",
+        "base": "confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.json",
+        "self": false,
+        "digest": "sha256:4582a67b8e5bcff226b91319a744823e84308d81f05fa5827b3e225641012354"
+      },
+      {
+        "id": "nimservice-epp-meta-llama3-8b-instruct",
+        "base": "epp-meta-llama3-8b-instruct",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-epp-meta-llama3-8b-instruct.json",
+        "self": false,
+        "digest": "sha256:b8940509a487ac76e3ed2e4f5f619e28d0ed51814f6b187ce8a7fde0202b06a6"
+      },
+      {
+        "id": "nimservice-example0-meta-llama3-2-1b-instruct",
+        "base": "example0-meta-llama3-2-1b-instruct",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-example0-meta-llama3-2-1b-instruct.json",
+        "self": false,
+        "digest": "sha256:86f43ab875e8756e03fef5d9fe148b8bf79eb6634e3227cd7563718d3fb5dc26"
+      },
+      {
+        "id": "nimservice-example1-meta-llama3-2-1b-instruct",
+        "base": "example1-meta-llama3-2-1b-instruct",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-example1-meta-llama3-2-1b-instruct.json",
+        "self": false,
+        "digest": "sha256:d2e5aaa047a10663926a0d8fe3d83add1e2170d16c87c6305da4db2e6ea7154f"
+      },
+      {
+        "id": "nimservice-example2-meta-llama3-2-1b-instruct",
+        "base": "example2-meta-llama3-2-1b-instruct",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-example2-meta-llama3-2-1b-instruct.json",
+        "self": false,
+        "digest": "sha256:4f4bf1f156bd8621fd4706ed4b23e565dbeb229fdd05fe6034d1ad94d9075ab5"
+      },
+      {
+        "id": "nimservice-full-meta-llama-3-2-1b-instruct-llm",
+        "base": "full-meta-llama-3-2-1b-instruct-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-full-meta-llama-3-2-1b-instruct-llm.json",
+        "self": true,
+        "digest": "sha256:b56d4ecd50613355fb5cd6a75b6b20b5451323bc810fac0f3a1a917ae1e8d436"
+      },
+      {
+        "id": "nimservice-full-meta-llama-3-2-1b-instruct-multi-llm",
+        "base": "full-meta-llama-3-2-1b-instruct-multi-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-full-meta-llama-3-2-1b-instruct-multi-llm.json",
+        "self": false,
+        "digest": "sha256:8747029d5cbb287735564bc069b90f24333a12141e5d4bb2a7fe65203f5c3555"
+      },
+      {
+        "id": "nimservice-grpcroutes-riva-tts",
+        "base": "grpcroutes-riva-tts",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-grpcroutes-riva-tts.json",
+        "self": false,
+        "digest": "sha256:521b278642e743b0c7233c8da8cc9238397ffae08ebbbc3632ad4e5fea0706c7"
+      },
+      {
+        "id": "nimservice-httproutes-meta-llama-3-2-1b-instruct-llm",
+        "base": "httproutes-meta-llama-3-2-1b-instruct-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-httproutes-meta-llama-3-2-1b-instruct-llm.json",
+        "self": false,
+        "digest": "sha256:960b72663a10608beba584093e615248726e1e36ddce3cd880ca27a1e514c85b"
+      },
+      {
+        "id": "nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm",
+        "base": "httproutes-meta-llama-3-2-1b-instruct-multi-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm.json",
+        "self": false,
+        "digest": "sha256:34ddfe463ffb07c596dfe62566f4942ce4daf946400d645b97aa8e6b8071bc74"
+      },
+      {
+        "id": "nimservice-ingress-meta-llama-3-2-1b-instruct-llm",
+        "base": "ingress-meta-llama-3-2-1b-instruct-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-ingress-meta-llama-3-2-1b-instruct-llm.json",
+        "self": false,
+        "digest": "sha256:c41323262ec969726b69d2e4d930ee0c5007e8a969434d34781c3fd9cc1451f8"
+      },
+      {
+        "id": "nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm",
+        "base": "ingress-meta-llama-3-2-1b-instruct-multi-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm.json",
+        "self": false,
+        "digest": "sha256:7c83ab4df35cb94d39bed54dcce7333e3ded8573db12485bb8897b128ec79dc7"
+      },
+      {
+        "id": "nimservice-knative-meta-llama-3-2-1b-instruct-llm",
+        "base": "knative-meta-llama-3-2-1b-instruct-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-knative-meta-llama-3-2-1b-instruct-llm.json",
+        "self": false,
+        "digest": "sha256:db534c939adf26e2dc9a7e927e4c4b2f19f9cac1af91bf9178282156bf786670"
+      },
+      {
+        "id": "nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm",
+        "base": "knative-meta-llama-3-2-1b-instruct-multi-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm.json",
+        "self": false,
+        "digest": "sha256:b5020b77339bf0181254255a04927e5ce4775a345fc060d48d91cb070ae278fd"
+      },
+      {
+        "id": "nimservice-lora-meta-llama-3-2-1b-instruct-llm",
+        "base": "lora-meta-llama-3-2-1b-instruct-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-lora-meta-llama-3-2-1b-instruct-llm.json",
+        "self": false,
+        "digest": "sha256:05a65e0d30de4763bacbcb1a4e961ff1c6711955c30698e43db3d3481c654a4a"
+      },
+      {
+        "id": "nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm",
+        "base": "lora-meta-llama-3-2-1b-instruct-multi-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm.json",
+        "self": false,
+        "digest": "sha256:b8b3a49f19e059947ea276ba0b9df4b691bf2df1010fb8d631de57d9c22a78e6"
+      },
+      {
+        "id": "nimservice-manual-meta-llama3-2-1b-instruct",
+        "base": "manual-meta-llama3-2-1b-instruct",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-manual-meta-llama3-2-1b-instruct.json",
+        "self": false,
+        "digest": "sha256:bdf8717cd1dbe0e3f8f469bd5075fc7312fd6776e698d233e3c59a5b966ad317"
+      },
+      {
+        "id": "nimservice-multi-node-deepseek-r1-multi-node-nimservice",
+        "base": "multi-node-deepseek-r1-multi-node-nimservice",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-deepseek-r1-multi-node-nimservice.json",
+        "self": false,
+        "digest": "sha256:62a86e115f6282d79fc2f58b0b3bae264a679e9e3fce49e714959cbd9e644218"
+      },
+      {
+        "id": "nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma",
+        "base": "multi-node-deepseek-r1-multi-node-nimservice-rdma",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma.json",
+        "self": false,
+        "digest": "sha256:fc9589debd11f39120dfbae346a6983e546dc42950e5d0f435360c5ee9b900a2"
+      },
+      {
+        "id": "nimservice-multi-node-llama-3-1-8b-instruct-multinode",
+        "base": "multi-node-llama-3-1-8b-instruct-multinode",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-llama-3-1-8b-instruct-multinode.json",
+        "self": false,
+        "digest": "sha256:0171b9583cea00bade0db671d012a5702e11f91154fe01efaf6bd69079caf0c9"
+      },
+      {
+        "id": "nimservice-nim-3-nemotron-3-super-120b-a12b",
+        "base": "nim-3-nemotron-3-super-120b-a12b",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-nim-3-nemotron-3-super-120b-a12b.json",
+        "self": false,
+        "digest": "sha256:c72d8fb61e0f8d4df55ce4e0d1f08f51f580561539af2aad16f1035c0e52221c"
+      },
+      {
+        "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir",
+        "base": "no-precaching-meta-llama-3-2-1b-instruct-emptydir",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir.json",
+        "self": false,
+        "digest": "sha256:342ff6df188236559b665aa632f6395f604eee910b3586e7ed1c9c3bfc246124"
+      },
+      {
+        "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath",
+        "base": "no-precaching-meta-llama-3-2-1b-instruct-hostpath",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath.json",
+        "self": false,
+        "digest": "sha256:4095730535defb640cbc93e67a813d7706c625638995a60dbd0f9b0ac9ac0a8a"
+      },
+      {
+        "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm",
+        "base": "no-precaching-meta-llama-3-2-1b-instruct-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm.json",
+        "self": false,
+        "digest": "sha256:b990826165eb254a9e6061d41993883d42bfb874fec899020e3a898600ea57c5"
+      },
+      {
+        "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf",
+        "base": "no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf.json",
+        "self": false,
+        "digest": "sha256:45d247854cbd173d407cc12b2ac50788d0014be73d80d67926e9ce0979fd198d"
+      },
+      {
+        "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc",
+        "base": "no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc.json",
+        "self": false,
+        "digest": "sha256:e4d032885ab3d2e87043560d8f3f6f58f2c02c6353ff1bf4cafdb1f938e6c6a0"
+      },
+      {
+        "id": "nimservice-no-precaching-model-free-llama-3-2-1b-instruct",
+        "base": "no-precaching-model-free-llama-3-2-1b-instruct",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-model-free-llama-3-2-1b-instruct.json",
+        "self": false,
+        "digest": "sha256:1f3a2cacc484ae7e67bf8206ded6a4ba24f7aaa548c796622e3e2864b60fab2b"
+      },
+      {
+        "id": "nimservice-retriever-llama-nemotron-embed-vl-1b-v2",
+        "base": "retriever-llama-nemotron-embed-vl-1b-v2",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-retriever-llama-nemotron-embed-vl-1b-v2.json",
+        "self": false,
+        "digest": "sha256:1aafdea7ffa3795ddbeb645b82d0f526af40645390f78d2b9d415e29d5ec364a"
+      },
+      {
+        "id": "nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling",
+        "base": "scheduling-meta-llama-3-2-1b-instruct-scheduling",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling.json",
+        "self": false,
+        "digest": "sha256:d9b5b69bce17711febcb3531ed5f642e12c0e61043cf60b0074a4e1636bd3f6f"
+      },
+      {
+        "id": "nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars",
+        "base": "sidecars-meta-llama-3-2-1b-instruct-sidecars",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars.json",
+        "self": false,
+        "digest": "sha256:4a865b472acd71864c994a9ba280a2f4713f47f3274cfbb62f0b1e8f0b5eec3c"
+      },
+      {
+        "id": "nimservice-standard-meta-llama-3-2-1b-instruct",
+        "base": "standard-meta-llama-3-2-1b-instruct",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-meta-llama-3-2-1b-instruct.json",
+        "self": false,
+        "digest": "sha256:24899d2cfed44bdbbeb4d23800b381fbf75150649946de3b2da9d81d43864359"
+      },
+      {
+        "id": "nimservice-standard-nim-service-model-free",
+        "base": "standard-nim-service-model-free",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-nim-service-model-free.json",
+        "self": false,
+        "digest": "sha256:41e2cd864f8bd9bf13dfa1acd1a201342561144b06e52d5d9050042174858609"
+      },
+      {
+        "id": "nimservice-standard-nim-service-multi-llm",
+        "base": "standard-nim-service-multi-llm",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-nim-service-multi-llm.json",
+        "self": false,
+        "digest": "sha256:1de00b1cf1d89ca3a6488a801b445abacea27fe32f814c193a88b46df4b35a93"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:b56d4ecd50613355fb5cd6a75b6b20b5451323bc810fac0f3a1a917ae1e8d436. The exact objects are recorded at data/aicr-nim-operator-models/upstream/serving/standalone/full/llm.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component nimservice --variant full-meta-llama-3-2-1b-instruct-llm --space nimservice-full-meta-llama-3-2-1b-instruct-llm --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b56d4ecd50613355fb5cd6a75b6b20b5451323bc810fac0f3a1a917ae1e8d436 ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component nimservice --variant full-meta-llama-3-2-1b-instruct-llm --space nimservice-full-meta-llama-3-2-1b-instruct-llm --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b56d4ecd50613355fb5cd6a75b6b20b5451323bc810fac0f3a1a917ae1e8d436 ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging nimservice-full-meta-llama-3-2-1b-instruct-llm --space-pattern template:nimservice-full-meta-llama-3-2-1b-instruct-llm-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:b56d4ecd50613355fb5cd6a75b6b20b5451323bc810fac0f3a1a917ae1e8d436",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote nimservice-full-meta-llama-3-2-1b-instruct-llm-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "recorded",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "nim-operator-first",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Install the k8s-nim-operator chart from https://helm.ngc.nvidia.com/nvidia at >=3.1.0 and wait for nimcaches.apps.nvidia.com and nimservices.apps.nvidia.com before applying this sample. The k8s-nim-operator chart is not yet a Catalog entry on this branch, so this requirement names the chart and does not link a record."
+      },
+      {
+        "id": "image-pull-secret",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Create the image pull Secret ngc-secret (NIMCache spec.source.ngc.pullSecret, NIMService spec.image.pullSecrets) in the sample's namespace before apply. The sample carries the name only, and no credential is held here."
+      },
+      {
+        "id": "model-auth-secret",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Create the API key Secret ngc-api-secret (NIMCache spec.source.ngc.authSecret, NIMService spec.authSecret) in the sample's namespace before apply. The sample carries the name only, and no key or token is held here."
+      },
+      {
+        "id": "model-storage",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "The NIMService reads its model from NIMCache meta-llama-3-2-1b-instruct, which this sample file also defines. NIMCache meta-llama-3-2-1b-instruct asks the operator to create a 50Gi ReadWriteOnce PersistentVolumeClaim with an empty storageClass, so the storage class is a destination choice. Nothing here checked that a destination can provide it."
+      },
+      {
+        "id": "gpu-request",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "The NIMService requests 1 GPU per pod as nvidia.com/gpu, with 1 replica. A destination needs that many allocatable GPUs of a kind the image supports, and nothing here checked one."
+      },
+      {
+        "id": "namespace",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Every object in the sample is in the nim-service namespace. The sample ships no Namespace object, so the namespace must exist before apply."
+      },
+      {
+        "id": "ingress-class",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "spec.expose.ingress names the ingress class nginx, so an ingress controller serving that class must run on the destination."
+      },
+      {
+        "id": "host-domain",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "spec.expose.ingress routes the host demo.nvidia.example.com, an example domain. A destination supplies its own."
+      },
+      {
+        "id": "service-monitor-api",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "The sample enables a ServiceMonitor labelled release=kube-prometheus-stack, so the Prometheus Operator's ServiceMonitor API must exist on the destination."
+      },
+      {
+        "id": "autoscaling",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "The sample enables a HorizontalPodAutoscaler that reads the metric gpu_cache_usage_perc, so a metrics adapter on the destination has to serve it."
+      }
+    ],
+    "routes": [
+      {
+        "id": "nim-operator-first",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "generated-not-live",
+        "automatic": false,
+        "actor": "The platform team that runs the NIM Operator on the selected destination",
+        "mechanism": "Install the k8s-nim-operator chart from https://helm.ngc.nvidia.com/nvidia at >=3.1.0 and wait for nimcaches.apps.nvidia.com and nimservices.apps.nvidia.com before applying this sample. The k8s-nim-operator chart is not yet a Catalog entry on this branch, so this requirement names the chart and does not link a record.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "nim-operator-first"
+        ],
+        "checks": [
+          "A recorded install of k8s-nim-operator on a named destination, followed by a recorded apply of this exact object set."
+        ],
+        "evidence": [
+          "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/operator-first-ordering.yaml"
+        ],
+        "orderHint": 1
+      },
+      {
+        "id": "image-pull-secret",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "generated-not-live",
+        "automatic": false,
+        "actor": "The user, with their own NVIDIA entitlement",
+        "mechanism": "Create the image pull Secret ngc-secret (NIMCache spec.source.ngc.pullSecret, NIMService spec.image.pullSecrets) in the sample's namespace before apply. The sample carries the name only, and no credential is held here.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "image-pull-secret"
+        ],
+        "checks": [
+          "The named Secret exists on the destination. Its value is never recorded."
+        ],
+        "evidence": [
+          "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/user-supplied-secrets.yaml"
+        ],
+        "orderHint": 2
+      },
+      {
+        "id": "model-auth-secret",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "generated-not-live",
+        "automatic": false,
+        "actor": "The user, with their own NVIDIA or model-hub entitlement",
+        "mechanism": "Create the API key Secret ngc-api-secret (NIMCache spec.source.ngc.authSecret, NIMService spec.authSecret) in the sample's namespace before apply. The sample carries the name only, and no key or token is held here.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "model-auth-secret"
+        ],
+        "checks": [
+          "The named Secret exists on the destination. Its value is never recorded."
+        ],
+        "evidence": [
+          "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/user-supplied-secrets.yaml"
+        ],
+        "orderHint": 3
+      },
+      {
+        "id": "model-storage",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "not-evaluated",
+        "automatic": false,
+        "actor": "The storage owner on the selected destination",
+        "mechanism": "The NIMService reads its model from NIMCache meta-llama-3-2-1b-instruct, which this sample file also defines. NIMCache meta-llama-3-2-1b-instruct asks the operator to create a 50Gi ReadWriteOnce PersistentVolumeClaim with an empty storageClass, so the storage class is a destination choice. Nothing here checked that a destination can provide it.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "model-storage"
+        ],
+        "checks": [
+          "The storage the sample names is bound on the destination before the NIMService starts."
+        ],
+        "evidence": [
+          "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/entry.yaml"
+        ],
+        "orderHint": 4
+      }
+    ],
+    "records": [
+      {
+        "name": "operator-first-ordering.yaml",
+        "path": "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/operator-first-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/operator-first-ordering.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "destination-facts-recorded-not-run",
+    "installTimeInputs": [
+      {
+        "name": "k8s-nim-operator",
+        "kind": "operator",
+        "detail": "The k8s-nim-operator chart at >=3.1.0 must be installed first. Every field this sample sets is declared by the apps.nvidia.com/v1alpha1 definitions retained from operator v3.1.0 under examples/aicr/eks-h100-inference-nim/operator-crds. The newest operator release this sample works with is not established. The sample was retained from upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f, and this repository does not record which operator release contains that commit.",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "ngc-secret",
+        "kind": "secret",
+        "detail": "The user supplies this image pull Secret. It is named by NIMCache spec.source.ngc.pullSecret and NIMService spec.image.pullSecrets.",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "ngc-api-secret",
+        "kind": "secret",
+        "detail": "The user supplies this API key Secret. It is named by NIMCache spec.source.ngc.authSecret and NIMService spec.authSecret.",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "gpu-request",
+        "kind": "target-fact",
+        "detail": "The NIMService requests 1 GPU per pod as nvidia.com/gpu, with 1 replica. A destination needs that many allocatable GPUs of a kind the image supports, and nothing here checked one.",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "namespace",
+        "kind": "target-fact",
+        "detail": "Every object in the sample is in the nim-service namespace. The sample ships no Namespace object, so the namespace must exist before apply.",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "ingress-class",
+        "kind": "target-fact",
+        "detail": "spec.expose.ingress names the ingress class nginx, so an ingress controller serving that class must run on the destination.",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "host-domain",
+        "kind": "target-fact",
+        "detail": "spec.expose.ingress routes the host demo.nvidia.example.com, an example domain. A destination supplies its own.",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "service-monitor-api",
+        "kind": "target-fact",
+        "detail": "The sample enables a ServiceMonitor labelled release=kube-prometheus-stack, so the Prometheus Operator's ServiceMonitor API must exist on the destination.",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "autoscaling",
+        "kind": "target-fact",
+        "detail": "The sample enables a HorizontalPodAutoscaler that reads the metric gpu_cache_usage_perc, so a metrics adapter on the destination has to serve it.",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "confighub_scan_ops": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "local_kubernetes": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "lifecycle_observation": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "gitops_oci_live": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "live_dual_parity": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "two_cluster_kind": {
+        "status": "not_declared",
+        "declared": null
+      },
+      "variant_promotion": {
+        "status": "not_declared",
+        "declared": null
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "workflow-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "user-workload",
+      "ownerClass": "application-team",
+      "changeCadence": "application-release"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Choices fixed by the recorded source configuration"
+      ],
+      "variantControlled": [
+        "Exact object changes retained after the base"
+      ],
+      "targetSupplied": [
+        "gpu-request",
+        "namespace",
+        "ingress-class",
+        "host-domain",
+        "service-monitor-api",
+        "autoscaling"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Read and compare the exact Kubernetes objects and their digest without running a source processor.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The Kubernetes YAML files"
+        ],
+        "records": [
+          {
+            "name": "retention-receipt.yaml",
+            "path": "data/aicr-nim-operator-models/retention-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/retention-receipt.yaml"
+          },
+          {
+            "name": "llm.yaml",
+            "path": "data/aicr-nim-operator-models/upstream/serving/standalone/full/llm.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/upstream/serving/standalone/full/llm.yaml"
+          },
+          {
+            "name": "entry.yaml",
+            "path": "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/entry.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/entry.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "This source already contains exact Kubernetes objects. Reading and fingerprinting them is the recorded materialization step.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The literal Kubernetes YAML; no source processor is required"
+        ],
+        "records": [
+          {
+            "name": "retention-receipt.yaml",
+            "path": "data/aicr-nim-operator-models/retention-receipt.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/retention-receipt.yaml"
+          },
+          {
+            "name": "entry.yaml",
+            "path": "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/entry.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/entry.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "operator-first-ordering.yaml",
+            "path": "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/operator-first-ordering.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/operator-first-ordering.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "entryInventory",
+        "path": "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/entry.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/entry.yaml"
+      },
+      {
+        "name": "flatteningVerdict",
+        "path": "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "literalConfigPlan",
+        "path": "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/literal-config-oci.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/literal-config-oci.yaml"
+      },
+      {
+        "name": "operatorRoute",
+        "path": "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/operator-first-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/operator-first-ordering.yaml"
+      },
+      {
+        "name": "secretRoute",
+        "path": "data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/user-supplied-secrets.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/catalog-entries/full-meta-llama-3-2-1b-instruct-llm/user-supplied-secrets.yaml"
+      },
+      {
+        "name": "modelProfile",
+        "path": "data/aicr-nim-operator-models/profiles/full-meta-llama-3-2-1b-instruct-llm.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/profiles/full-meta-llama-3-2-1b-instruct-llm.yaml"
+      },
+      {
+        "name": "sampleReceipt",
+        "path": "data/aicr-nim-operator-models/receipts/full-meta-llama-3-2-1b-instruct-llm.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/receipts/full-meta-llama-3-2-1b-instruct-llm.yaml"
+      },
+      {
+        "name": "sourceRetentionReceipt",
+        "path": "data/aicr-nim-operator-models/retention-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/retention-receipt.yaml"
+      },
+      {
+        "name": "upstreamLicense",
+        "path": "data/aicr-nim-operator-models/upstream/LICENSE",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/upstream/LICENSE"
+      },
+      {
+        "name": "source",
+        "path": "data/aicr-nim-operator-models/upstream/serving/standalone/full/llm.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/aicr-nim-operator-models/upstream/serving/standalone/full/llm.yaml"
+      },
+      {
+        "name": "licenseRead",
+        "path": "docs/planning/nim-ngc-license-read.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/planning/nim-ngc-license-read.md"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "gpuRequest",
+        "value": "The NIMService requests 1 GPU per pod as nvidia.com/gpu, with 1 replica."
+      },
+      {
+        "name": "image",
+        "value": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0"
+      },
+      {
+        "name": "imageAndWeights",
+        "value": "gated by NVIDIA, not pulled, not held, never redistributed"
+      },
+      {
+        "name": "imagePinnedBy",
+        "value": "tag"
+      },
+      {
+        "name": "imagesNamed",
+        "value": "nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 (tag, served-model-container); nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0 (tag, model-puller)"
+      },
+      {
+        "name": "modelRun",
+        "value": "no"
+      },
+      {
+        "name": "nimCache",
+        "value": "included, meta-llama-3-2-1b-instruct"
+      },
+      {
+        "name": "operatorCatalogEntry",
+        "value": "not-in-the-catalog-on-this-branch"
+      },
+      {
+        "name": "operatorRequired",
+        "value": "k8s-nim-operator >=3.1.0 from https://helm.ngc.nvidia.com/nvidia"
+      },
+      {
+        "name": "retention",
+        "value": "retained-published-not-uploaded-not-deployed"
+      },
+      {
+        "name": "scenario",
+        "value": "full"
+      },
+      {
+        "name": "secretsExpected",
+        "value": "ngc-secret (NIMCache spec.source.ngc.pullSecret, NIMService spec.image.pullSecrets); ngc-api-secret (NIMCache spec.source.ngc.authSecret, NIMService spec.authSecret)"
+      },
+      {
+        "name": "storageRequested",
+        "value": "The NIMService reads its model from NIMCache meta-llama-3-2-1b-instruct, which this sample file also defines. NIMCache meta-llama-3-2-1b-instruct asks the operator to create a 50Gi ReadWriteOnce PersistentVolumeClaim with an empty storageClass, so the storage class is a destination choice."
+      },
+      {
+        "name": "variantFamily",
+        "value": "nimservice, 38 variants at upstream commit 5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f"
+      }
+    ]
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog retains its 2 objects in one file, exactly as supplied.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o nimservice-full-meta-llama-3-2-1b-instruct-llm.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/data/aicr-nim-operator-models/upstream/serving/standalone/full/llm.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 nimservice-full-meta-llama-3-2-1b-instruct-llm.yaml",
+          "expect": "48834814da4594e44f899683e1f5fb3984c42b1514d11f6c1a3dd1e4de46dc94  nimservice-full-meta-llama-3-2-1b-instruct-llm.yaml"
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the autoscaling-meta-llama-3-2-1b-instruct-llm base of the same version",
+          "command": "curl -fsSL -o nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/data/aicr-nim-operator-models/upstream/serving/standalone/autoscaling/llm.yaml"
+        },
+        {
+          "comment": "list what differs between the two bases",
+          "command": "cub config diff nimservice-full-meta-llama-3-2-1b-instruct-llm.yaml nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "autoscaling-meta-llama-3-2-1b-instruct-llm",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "autoscaling-meta-llama-3-2-1b-instruct-multi-llm",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-basic-meta-llama-3-2-1b-instruct-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-meta-llama-3-2-1b-instruct-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "basic-meta-llama-3-2-1b-instruct-llm",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "basic-meta-llama-3-2-1b-instruct-multi-llm",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-basic-model-free-llama-3-2-1b-instruct",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-basic-model-free-llama-3-2-1b-instruct.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "basic-model-free-llama-3-2-1b-instruct",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-epp-meta-llama3-8b-instruct",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-epp-meta-llama3-8b-instruct.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "epp-meta-llama3-8b-instruct",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-example0-meta-llama3-2-1b-instruct",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-example0-meta-llama3-2-1b-instruct.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "example0-meta-llama3-2-1b-instruct",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-example1-meta-llama3-2-1b-instruct",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-example1-meta-llama3-2-1b-instruct.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "example1-meta-llama3-2-1b-instruct",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-example2-meta-llama3-2-1b-instruct",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-example2-meta-llama3-2-1b-instruct.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "example2-meta-llama3-2-1b-instruct",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-full-meta-llama-3-2-1b-instruct-multi-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-full-meta-llama-3-2-1b-instruct-multi-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "full-meta-llama-3-2-1b-instruct-multi-llm",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-grpcroutes-riva-tts",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-grpcroutes-riva-tts.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "grpcroutes-riva-tts",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-httproutes-meta-llama-3-2-1b-instruct-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-httproutes-meta-llama-3-2-1b-instruct-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "httproutes-meta-llama-3-2-1b-instruct-llm",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "httproutes-meta-llama-3-2-1b-instruct-multi-llm",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-ingress-meta-llama-3-2-1b-instruct-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-ingress-meta-llama-3-2-1b-instruct-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "ingress-meta-llama-3-2-1b-instruct-llm",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "ingress-meta-llama-3-2-1b-instruct-multi-llm",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-knative-meta-llama-3-2-1b-instruct-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-knative-meta-llama-3-2-1b-instruct-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "knative-meta-llama-3-2-1b-instruct-llm",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "knative-meta-llama-3-2-1b-instruct-multi-llm",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-lora-meta-llama-3-2-1b-instruct-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-lora-meta-llama-3-2-1b-instruct-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "lora-meta-llama-3-2-1b-instruct-llm",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "lora-meta-llama-3-2-1b-instruct-multi-llm",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-manual-meta-llama3-2-1b-instruct",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-manual-meta-llama3-2-1b-instruct.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "manual-meta-llama3-2-1b-instruct",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-multi-node-deepseek-r1-multi-node-nimservice",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-deepseek-r1-multi-node-nimservice.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "multi-node-deepseek-r1-multi-node-nimservice",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "multi-node-deepseek-r1-multi-node-nimservice-rdma",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-multi-node-llama-3-1-8b-instruct-multinode",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-multi-node-llama-3-1-8b-instruct-multinode.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "multi-node-llama-3-1-8b-instruct-multinode",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-nim-3-nemotron-3-super-120b-a12b",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-nim-3-nemotron-3-super-120b-a12b.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "nim-3-nemotron-3-super-120b-a12b",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "no-precaching-meta-llama-3-2-1b-instruct-emptydir",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "no-precaching-meta-llama-3-2-1b-instruct-hostpath",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "no-precaching-meta-llama-3-2-1b-instruct-llm",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-no-precaching-model-free-llama-3-2-1b-instruct",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-no-precaching-model-free-llama-3-2-1b-instruct.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "no-precaching-model-free-llama-3-2-1b-instruct",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-retriever-llama-nemotron-embed-vl-1b-v2",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-retriever-llama-nemotron-embed-vl-1b-v2.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "retriever-llama-nemotron-embed-vl-1b-v2",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "scheduling-meta-llama-3-2-1b-instruct-scheduling",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "sidecars-meta-llama-3-2-1b-instruct-sidecars",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-standard-meta-llama-3-2-1b-instruct",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-meta-llama-3-2-1b-instruct.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "standard-meta-llama-3-2-1b-instruct",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-standard-nim-service-model-free",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-nim-service-model-free.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "standard-nim-service-model-free",
+          "relation": "other-base"
+        },
+        {
+          "id": "nimservice-standard-nim-service-multi-llm",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nimservice-standard-nim-service-multi-llm.json",
+          "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
+          "base": "standard-nim-service-multi-llm",
+          "relation": "other-base"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "preview the upload of the published bundle; nothing is written",
+          "command": "cub variant upload --dry-run --component nimservice --variant full-meta-llama-3-2-1b-instruct-llm --space nimservice-full-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-full-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:cfe1ea2ff03c372af8bb5e0cabd63653f0169f01b5abd9a96572ba65641f51a0",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload the bundle as a base Space of Units",
+          "command": "cub variant upload --component nimservice --variant full-meta-llama-3-2-1b-instruct-llm --space nimservice-full-meta-llama-3-2-1b-instruct-llm oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-full-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e@sha256:cfe1ea2ff03c372af8bb5e0cabd63653f0169f01b5abd9a96572ba65641f51a0",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev nimservice-full-meta-llama-3-2-1b-instruct-llm --target workshop/target --space-pattern \"template:nimservice-full-meta-llama-3-2-1b-instruct-llm-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish nimservice-full-meta-llama-3-2-1b-instruct-llm-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "needs": [
+        "k8s-nim-operator",
+        "ngc-secret",
+        "ngc-api-secret",
+        "gpu-request",
+        "namespace",
+        "ingress-class",
+        "host-domain",
+        "service-monitor-api",
+        "autoscaling"
+      ]
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote nimservice-full-meta-llama-3-2-1b-instruct-llm-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote nimservice-full-meta-llama-3-2-1b-instruct-llm-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        }
+      ]
+    }
+  ]
+}

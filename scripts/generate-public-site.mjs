@@ -53,7 +53,10 @@ const configPath = join(siteRoot, "config.html");
 const deploymentReferencePath = join(siteRoot, "deployment-reference.html");
 const variantsPath = join(siteRoot, "variants.html");
 const ociPath = join(siteRoot, "oci.html");
+// The page of the nimservice entry, which lists its model variants.
+const NIMSERVICE_ENTRY_PAGE_FILE = "nimservice.html";
 const formatsPath = join(siteRoot, "formats.html");
+const nimServicePath = join(siteRoot, NIMSERVICE_ENTRY_PAGE_FILE);
 const customAppsPath = join(siteRoot, "custom-apps.html");
 const appsPath = join(siteRoot, "apps.html");
 const existingAppsPath = join(siteRoot, "existing-apps.html");
@@ -189,6 +192,9 @@ function listingFacts(id) {
     // Published means a public OCI reference exists. A planned reference or a
     // local layout is not one.
     published: bundles.some((bundle) => bundle.referenceState === "published"),
+    // The literal configuration bundle on its own: the exact objects, and
+    // their route files where the entry has routes, as one public artifact.
+    literalPublished: bundles.some((bundle) => bundle.role === "literal-config" && bundle.referenceState === "published"),
     uploaded: upload?.state === "published",
     delivered: runtimes.some((runtime) => runtime.state === "pass"),
     deliveryPartlyRecorded: runtimes.some((runtime) => ["partial", "recorded-elsewhere"].includes(runtime.state)),
@@ -198,7 +204,21 @@ function listingFacts(id) {
     placeholders: (listing.lifecycle?.installTimeInputs ?? []).filter((input) => input.status === "confirmed-placeholder"),
     recordPath: listing.generatedFrom?.record?.path ?? "",
     recordUrl: listing.generatedFrom?.record?.url ?? "",
+    objectsUrl: listing.flattened?.objectsUrl ?? "",
+    imageReferences: (listing.images?.references ?? []).map((image) => String(image.reference)),
+    installTimeInputs: listing.lifecycle?.installTimeInputs ?? [],
   };
+}
+
+// A version as a table cell or a sentence shows it. A source identified only
+// by a digest or by a full Git commit would otherwise print 71 or 40
+// characters. The display is shortened, and the full value stays in the
+// linked listing.
+function displayVersion(version) {
+  const text = String(version ?? "");
+  if (/^sha256:[0-9a-f]{20,}$/.test(text)) return `${text.slice(0, 19)}…`;
+  if (/^[0-9a-f]{40}$/.test(text)) return text.slice(0, 12);
+  return text;
 }
 
 function listingNeverRun(facts) {
@@ -228,6 +248,41 @@ const aicrListingFacts = (listingsIndexData.listings ?? [])
 const aicrRenderedOnlyCount = aicrListingFacts
   .filter((facts) => facts.wrapperOnly && !facts.published && listingNeverRun(facts)).length;
 
+// The nimservice entry is one Catalog entry with one model variant for every
+// retained NIMService sample. Its listings share one source name. Every word a
+// page says about a variant is read from that variant's own listing.
+const NIMSERVICE_ENTRY_NAME = "nimservice";
+const NIMSERVICE_ENTRY_PAGE = NIMSERVICE_ENTRY_PAGE_FILE;
+const nimServiceFacts = (listingsIndexData.listings ?? [])
+  .filter((listing) => listing.format === "kubernetes-yaml" && listing.name === NIMSERVICE_ENTRY_NAME)
+  .map((listing) => listingFacts(listing.id))
+  .sort((left, right) => left.base.localeCompare(right.base));
+const nimServiceVariantCount = nimServiceFacts.length;
+const nimServicePublishedCount = nimServiceFacts.filter((facts) => facts.literalPublished).length;
+const nimServiceFlaggedCount = nimServiceFacts.filter((facts) => facts.flagged).length;
+const nimServiceNeverRun = nimServiceFacts.every((facts) => listingNeverRun(facts));
+check(
+  new Set(nimServiceFacts.map((facts) => facts.version)).size <= 1,
+  "the nimservice entry holds variants from more than one upstream commit, and its pages name one",
+);
+const nimServiceVersion = displayVersion(nimServiceFacts[0]?.version ?? "");
+
+// How many of the variants are published, as the pages say it. The three
+// cases are none, all and some, and each is one plain clause.
+function nimServicePublishedClause() {
+  if (nimServicePublishedCount === 0) return "none is published as OCI yet";
+  if (nimServicePublishedCount === nimServiceVariantCount) return "all are published as OCI with their routes";
+  return `${nimServicePublishedCount} of them ${nimServicePublishedCount === 1 ? "is" : "are"} published as OCI`;
+}
+
+// The home page counts the variants on their own. A variant is kept as exact
+// objects. Nothing renders it and nothing here has run it, so it is never
+// counted as tested and rendered, whether or not it is published.
+function nimServiceCountSentence() {
+  if (nimServiceVariantCount === 0) return "";
+  return ` ${nimServiceVariantCount} are NIMService model variants kept as exact objects with their routes, and ${nimServicePublishedClause()}.`;
+}
+
 // Which page carries the five steps for which entries. A Helm entry, and the
 // cub installer entry for the same base, sit on the chart version page their
 // listing names. An AICR entry sits on the page the entry register gives it.
@@ -248,6 +303,9 @@ const ENTRY_STEP_STATE_CLASS = new Map([
   ["blocked-for-this-entry", "bad"],
   ["not-available", "none"],
 ]);
+// The dated run log in which the variant commands of the entry steps were
+// run once on other content. It is a user doc, so a page links its HTML copy.
+const ENTRY_STEPS_RUN_LOG = "live-run-log-2026-10-08.html";
 
 function entryStepsListings() {
   return (listingsIndexData.listings ?? []).map((listing) => readListingFile(listing.id));
@@ -275,6 +333,9 @@ function entryStepsDocPlan() {
   const unplaced = [];
   for (const listing of entryStepsListings()) {
     if (listing.identity.page) continue;
+    // A NIMService variant sits on the nimservice entry page, which is a
+    // generated site page and not a rendered doc.
+    if (listing.identity.format === "kubernetes-yaml" && listing.identity.name === NIMSERVICE_ENTRY_NAME) continue;
     const objects = String(listing.flattened?.objects ?? "");
     if (listing.identity.format === "aicr") {
       const directory = /^examples\/aicr\/([^/]+)\//.exec(`${objects}/`)?.[1] ?? "";
@@ -342,7 +403,7 @@ const NON_HELM_FORMAT_INFO = {
   },
   "kubernetes-yaml": {
     label: "Kubernetes YAML",
-    sentence: "Kubernetes YAML is parsed and inventoried as exact objects, and the Workshop treats it as born flattened, checking only prerequisites and delivery requirements.",
+    sentence: "Kubernetes YAML is parsed and inventoried as exact objects. An entry that needs nothing installed first is born flattened, and an entry that needs an operator or a Secret first is flatten-with-routes.",
     learnHref: "./config.html",
     learnLabel: "How configuration works",
   },
@@ -740,6 +801,7 @@ const SITE_PAGE_RELPATHS = {
   variantsHtml: "variants.html",
   ociHtml: "oci.html",
   formatsHtml: "formats.html",
+  nimServiceHtml: NIMSERVICE_ENTRY_PAGE_FILE,
   customAppsHtml: "custom-apps.html",
   appsHtml: "apps.html",
   existingAppsHtml: "existing-apps.html",
@@ -829,6 +891,7 @@ const PAGE_DESCRIPTIONS = {
   "deployment-reference.html": "Technical details for source records, base variants, routes, checks, ConfigHub changes, OCI delivery, and deployment limits.",
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
   "oci.html": "See every OCI shape this catalog produces, who produces and consumes each one, which layout each consumer needs, and which shapes are signed today.",
+  [NIMSERVICE_ENTRY_PAGE_FILE]: "Choose one of the NIMService model variants kept from NVIDIA's k8s-nim-operator samples, read what it needs first, and see whether it is published as OCI.",
   "formats.html": "Browse every non-Helm Catalog entry by format: AICR, Timoni, cub installer, Kubara, configuration OCI, Kubernetes YAML, and Sveltos, each linked to its listing record.",
   "bring-kubara-into-confighub.html": "Manage your clusters' add-ons with Kubara and approve every change in ConfigHub: plan and render offline, then hand over, check and hand back, or check them with an app as a Workshop stack.",
   "put-an-app-on-a-platform.html": "Check what an app needs, check it on a platform, take it into ConfigHub, or bring an app that already runs.",
@@ -908,6 +971,7 @@ if (mode === "--generate") {
   write(variantsPath, site.variantsHtml);
   write(ociPath, site.ociHtml);
   write(formatsPath, site.formatsHtml);
+  write(nimServicePath, site.nimServiceHtml);
   write(customAppsPath, site.customAppsHtml);
   write(appsPath, site.appsHtml);
   write(existingAppsPath, site.existingAppsHtml);
@@ -1008,6 +1072,7 @@ if (mode === "--generate") {
   check(existsSync(variantsPath), "site/variants.html is missing; run npm run site:generate");
   check(existsSync(ociPath), "site/oci.html is missing; run npm run site:generate");
   check(existsSync(formatsPath), "site/formats.html is missing; run npm run site:generate");
+  check(existsSync(nimServicePath), `site/${NIMSERVICE_ENTRY_PAGE_FILE} is missing; run npm run site:generate`);
   check(existsSync(customAppsPath), "site/custom-apps.html is missing; run npm run site:generate");
   check(existsSync(existingAppsPath), "site/existing-apps.html is missing; run npm run site:generate");
   check(existsSync(aiPath), "site/ai.html is missing; run npm run site:generate");
@@ -1061,6 +1126,7 @@ if (mode === "--generate") {
   check(readFileSync(variantsPath, "utf8") === site.variantsHtml, "site/variants.html is stale");
   check(readFileSync(ociPath, "utf8") === site.ociHtml, "site/oci.html is stale");
   check(readFileSync(formatsPath, "utf8") === site.formatsHtml, "site/formats.html is stale");
+  check(readFileSync(nimServicePath, "utf8") === site.nimServiceHtml, `site/${NIMSERVICE_ENTRY_PAGE_FILE} is stale`);
   check(readFileSync(customAppsPath, "utf8") === site.customAppsHtml, "site/custom-apps.html is stale");
   check(existsSync(appsPath), "site/apps.html is missing; run npm run site:generate");
   check(readFileSync(appsPath, "utf8") === site.appsHtml, "site/apps.html is stale");
@@ -1690,6 +1756,7 @@ function buildSite(generatedAt) {
     variantsHtml: calmPage(variantsHtml(catalog)),
     ociHtml: calmPage(ociHtml(catalog)),
     formatsHtml: calmPage(formatsHtml()),
+    nimServiceHtml: calmPage(nimServiceEntryHtml()),
     customAppsHtml: customAppsHtml(),
     appsHtml: calmPage(appsHtml()),
     appGuideHtml: calmPage(appGuideHtml(catalog)),
@@ -3739,7 +3806,7 @@ ${homeJourneyLinks()}
           <span class="eyebrow">The Catalog</span>
           <h2>What the Catalog holds</h2>
           <ul class="home-sections">
-            <li><a href="./charts/index.html">Configs</a>: ${sectionCount("configs")} configurations. ${sectionCount("configs") - aicrRenderedOnlyCount} are tested and rendered to the exact objects they install. ${aicrRenderedOnlyCount} are AICR recipes rendered as Argo CD Applications, and they have not been published or run.</li>
+            <li><a href="./charts/index.html">Configs</a>: ${sectionCount("configs")} configurations. ${sectionCount("configs") - aicrRenderedOnlyCount - nimServiceVariantCount} are tested and rendered to the exact objects they install. ${aicrRenderedOnlyCount} are AICR recipes rendered as Argo CD Applications, and they have not been published or run.${nimServiceCountSentence()}</li>
             <li><a href="./stack.html">Stacks</a>: ${sectionCount("stacks")} stacks, sets of configs checked together before anything runs.</li>
             <li><a href="./apps.html">Apps</a>: ${sectionCount("apps")} worked example apps, plain or delivered by Argo CD, Flux or a generator.</li>
             <li><a href="./plugins.html">Plugins</a>: ${sectionCount("plugins")} cub plugins, each marked by its state.</li>
@@ -4736,7 +4803,7 @@ function configHtml(catalog) {
     ], { rawSecondColumn: true })}
     <p>A configuration that is <strong>unsafe to flatten</strong> does not fall out of this model. Its source stays authoritative and its processor runs late, at install time. But the result rejoins at the base step. The render-late objects are retained, derived, promoted, and released like any other base, and only where the objects are produced differs.</p>
     <h3 id="confighub-role">Where ConfigHub fits</h3>
-    <p>ConfigHub is where a reviewed base becomes shared, governed configuration. <code>cub variant upload</code> creates the base variant: a Space labelled <code>Component=&lt;name&gt;, Variant=base</code> that holds the configuration as one Unit per resource, with no target. A component is the set of Spaces that share a <code>Component</code> label, so the base is the component's first Space. From there ConfigHub's own verbs release, promote, gate, approve, and roll back.</p>
+    <p>ConfigHub is where a reviewed base becomes shared, governed configuration. <code>cub variant upload</code> creates the base variant: a Space labelled <code>Component=&lt;name&gt;, Variant=base</code> that holds the configuration as one Unit per resource, with no target. Secrets are the exception, because the upload skips them. A component is the set of Spaces that share a <code>Component</code> label, so the base is the component's first Space. From there ConfigHub's own verbs release, promote, gate, approve, and roll back.</p>
     <p>So one uploaded configuration is one component's base variant held in one Space: the same thing named from four sides. <a href="./stack.html#what-a-stack-is">Stacks and fleets</a> defines what comes next. Several components compose into a stack, which becomes a platform once it runs under governance with your apps on it. The handoff runs base, then stack, then platform, with an <a href="./apps.html#what-an-app-is">app</a> placed on either.</p>
     <p>The full record is in <a href="./d/docs/user/confighub-data-model.html">the ConfigHub data model</a>, and <a href="./d/docs/reference/config-catalog-doctrine.html">the catalog doctrine</a> gives the same lifecycle for every source in more detail.</p>
   </section>
@@ -4753,7 +4820,7 @@ function configHtml(catalog) {
       ["Installer or source OCI", "Pull by digest, then invoke the processor it declares.", `<a href="#flatten">Decide from the produced objects; a source OCI is not automatically deployable.</a>`, "Package role, processor, selections, and receipts.", `<a href="./try.html">Try Redis</a>`],
       ["Literal configuration OCI", "Pull by digest and read the objects it already contains.", `<a href="#flatten">born-flattened; record whether routes or protected inputs travel beside it.</a>`, "Object inventory, provenance, and any prior transformation.", `<a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a>`],
       ["Sveltos", "Read the literal fleet configuration; materialize each referenced source separately.", `<a href="#flatten">born-flattened for the fleet objects; the referenced Helm stays a later boundary.</a>`, "The literal ClusterProfile objects, plus each nested source on its own.", `<a href="./stack.html">Stacks and fleets</a>`],
-      ["Plain Kubernetes YAML", "Read, parse, and canonicalize the files.", `<a href="#flatten">born-flattened; record requirements, ownership, and later packaging.</a>`, "File checksums, object inventory, and checks.", `<a href="./ask.html">Check my config</a>`],
+      ["Plain Kubernetes YAML", "Read, parse, and canonicalize the files.", `<a href="#flatten">born-flattened, or flatten-with-routes when an operator or a Secret comes first; record requirements, ownership, and later packaging.</a>`, "File checksums, object inventory, and checks.", `<a href="./ask.html">Check my config</a>`],
       ["ConfigHub Units or release OCI", "Read the retained objects and revision history.", `<a href="#flatten">Already retained as data.</a>`, "Space, revisions, approvals, release digest, and receipts.", `<a href="./confighub.html">What ConfigHub adds</a>`],
     ], { rawThirdColumn: true, rawFifthColumn: true })}
     <p>Every format above is a real catalog entry you can browse. Open the <a href="./charts/index.html">Catalog</a> and use its Format filter to list one, for example <a href="./charts/index.html?format=ai-platform">all AICR platforms</a> or <a href="./charts/index.html?format=timoni">the Timoni module</a>.</p>
@@ -4901,7 +4968,7 @@ function howItWorksHtml() {
     ${markdownLikeTable([
       ["Level", "Do this", "Command", "What you get"],
       ["Advanced", "Review how to configure the approval gate", "<code>cub changeworkflow create --help</code>", "Declare AttestationPrerequisites in the workflow file and reference them from stage Prerequisites or ReleasePrerequisites. Bind the reviewed workflow to the ChangeOrder before relying on enforcement."],
-      ["Advanced", "Record the reviewed approval", "<code>cub variant approve cart-demo-dev</code>", "Records Approval attestations for the current revisions of Units with Targets in this Space. Review that whole selection first. Identical-content later revisions can remain covered; a changed-content revision needs a qualifying approval. The configured workflow decides whether the gate is satisfied."],
+      ["Advanced", "Record the reviewed approval", "<code>cub variant approve cart-demo-dev</code>", "Records Approval attestations for the current revisions of Units with Targets in this Space. A Space with no Targets records nothing unless you add <code>--all</code>. Review that whole selection first. Identical-content later revisions can remain covered; a changed-content revision needs a qualifying approval. The configured workflow decides whether the gate is satisfied."],
     ], { rawThirdColumn: true, rawFourthColumn: true })}
     <p><a href="./operate-a-fleet.html#ops">See gates and scans among the other operations</a>.</p>
   </section>
@@ -9314,7 +9381,7 @@ Variants:
         <li><strong>Base variant</strong> is the reviewed starting configuration. For a Helm source, it matches a supported render shape such as <code>no-crds</code> or <code>reuse-existing-secret</code>.</li>
         <li><strong>Derived variant</strong> is a ConfigHub clone for a specific environment, region, customer, or target. Its changes are exact object changes; Helm is not rendered again.</li>
       </ul>
-      <p>A base Space has no Target. <code>cub variant upload</code> creates it labeled <code>Variant=base</code>, and it holds one Unit per rendered object until you choose to deliver it.</p>
+      <p>A base Space has no Target. <code>cub variant upload</code> creates it labeled <code>Variant=base</code>, and it holds one Unit per rendered object until you choose to deliver it. The upload skips Secrets, so a Secret gets no Unit.</p>
 
       <h3 id="package-contents">What the package contains</h3>
       <p>An installer package is the catalog artifact for one chart version.</p>
@@ -9409,7 +9476,7 @@ function ociHtml(catalog) {
     <h3 id="layouts">Which consumer needs which layout</h3>
     <ul>
       <li><code>cub installer setup --pull</code> and <code>cub installer inspect</code> need the installer-package layout, row one above.</li>
-      <li><code>cub variant upload oci://…</code> needs the literal-configuration-bundle layout, row two, or a certified bundle, row five. Every resource becomes its own Unit.</li>
+      <li><code>cub variant upload oci://…</code> needs the literal-configuration-bundle layout, row two, or a certified bundle, row five. Every resource becomes its own Unit, except Secrets, which the upload skips.</li>
       <li>Argo CD, Flux, an anonymous pull, or <code>oras</code> and <code>kubectl</code> need the portable-deployment-bundle layout, row three.</li>
       <li><code>cub config verify</code> needs the certified-bundle layout with its receipt attached as a referrer, rows five and six.</li>
       <li>A reconciler that pulls one manifest for a whole stack needs the flattened stack-release layout, row eight.</li>
@@ -9489,44 +9556,73 @@ function formatsHtml() {
     ...NON_HELM_FORMAT_ORDER.filter((format) => byFormat.has(format)),
     ...[...byFormat.keys()].filter((format) => !NON_HELM_FORMAT_ORDER.includes(format)).sort(),
   ];
-  const totalEntries = nonHelmListings.length;
+  // The nimservice variants are one entry, so they count once here.
+  const totalEntries = nonHelmListings.length - Math.max(nimServiceVariantCount - 1, 0);
   const jumpLinks = formatOrder.map((format) => [NON_HELM_FORMAT_INFO[format].label, `#${format}`]);
   const sections = formatOrder
     .map((format) => {
       const info = NON_HELM_FORMAT_INFO[format];
       const entries = [...byFormat.get(format)].sort((left, right) => left.id.localeCompare(right.id));
-      // A source identified only by digest (no human version tag) would
-      // otherwise print a 71-character sha256 string in a narrow table cell.
-      // Shorten the display only; the full digest still lives in the linked
-      // listing record.
-      const displayVersion = (version) => (/^sha256:[0-9a-f]{20,}$/.test(version) ? `${version.slice(0, 19)}…` : version);
       // Publication is read per entry from its listing. An entry counts as
       // published only when a public OCI reference exists for it.
       const facts = new Map(entries.map((listing) => [listing.id, listingFacts(listing.id)]));
+      // The nimservice entry is one entry with many model variants, so it
+      // takes one row here and its own page lists the variants.
+      const isVariantOfNimService = (listing) => format === "kubernetes-yaml" && listing.name === NIMSERVICE_ENTRY_NAME;
+      const ownRowEntries = entries.filter((listing) => !isVariantOfNimService(listing));
+      const variantEntries = entries.filter(isVariantOfNimService);
+      const entryCount = ownRowEntries.length + (variantEntries.length > 0 ? 1 : 0);
       const publishedCount = [...facts.values()].filter((row) => row.published).length;
-      const publishedSentence = entries.length === 1
-        ? `It is ${publishedCount === 1 ? "published" : "not published"} as OCI.`
-        : `${publishedCount} of them ${publishedCount === 1 ? "is" : "are"} published as OCI.`;
+      const variantSentence = variantEntries.length > 0
+        ? ` The ${NIMSERVICE_ENTRY_NAME} entry has ${variantEntries.length} model variants, and ${nimServicePublishedClause()}.`
+        : "";
+      const ownPublishedCount = ownRowEntries.filter((listing) => facts.get(listing.id).published).length;
+      const publishedSentence = variantEntries.length > 0
+        ? ownPublishedCount === 0
+          ? "No other entry here is published as OCI."
+          : ownPublishedCount === 1 ? "One other entry here is published as OCI." : `${ownPublishedCount} other entries here are published as OCI.`
+        : entries.length === 1
+          ? `It is ${publishedCount === 1 ? "published" : "not published"} as OCI.`
+          : `${publishedCount} of them ${publishedCount === 1 ? "is" : "are"} published as OCI.`;
       const flaggedCount = [...facts.values()].filter((row) => row.flagged).length;
       const flaggedSentence = flaggedCount > 0
         ? ` ${flaggedCount} ${flaggedCount === 1 ? "is" : "are"} flagged for review, and the Flattening column says so.`
         : "";
-      const rows = entries.map((listing) => [
-        listing.name,
-        `${displayVersion(listing.version)} (${listing.base})`,
-        String(listing.objectCount),
-        `${listingVerdictText(facts.get(listing.id))}${facts.get(listing.id).flagged ? ", flagged for review" : ""}`,
-        listingPublishedText(facts.get(listing.id)),
-        `<a href="./listings/${escapeHtml(listing.id)}.json">Listing record</a>`,
-        `<a href="${escapeHtml(info.learnHref)}">${escapeHtml(info.learnLabel)}</a>`,
-      ]);
+      const objectCounts = variantEntries.map((listing) => listing.objectCount);
+      const variantRow = variantEntries.length > 0
+        ? [[
+            NIMSERVICE_ENTRY_NAME,
+            `${nimServiceVersion} (${variantEntries.length} model variants)`,
+            Math.min(...objectCounts) === Math.max(...objectCounts)
+              ? `${objectCounts[0]} each`
+              : `${Math.min(...objectCounts)} or ${Math.max(...objectCounts)} each`,
+            `flatten-with-routes, route recorded${nimServiceFlaggedCount > 0 ? `, ${nimServiceFlaggedCount} flagged for review` : ""}`,
+            nimServicePublishedCount === 0
+              ? "Not published"
+              : nimServicePublishedCount === variantEntries.length ? "Published" : `${nimServicePublishedCount} of ${variantEntries.length} published`,
+            `<a href="./${NIMSERVICE_ENTRY_PAGE}#variants">${variantEntries.length} listing records</a>`,
+            `<a href="./${NIMSERVICE_ENTRY_PAGE}">Choose a model variant</a>`,
+          ]]
+        : [];
+      const rows = [
+        ...ownRowEntries.map((listing) => [
+          listing.name,
+          `${displayVersion(listing.version)} (${listing.base})`,
+          String(listing.objectCount),
+          `${listingVerdictText(facts.get(listing.id))}${facts.get(listing.id).flagged ? ", flagged for review" : ""}`,
+          listingPublishedText(facts.get(listing.id)),
+          `<a href="./listings/${escapeHtml(listing.id)}.json">Listing record</a>`,
+          `<a href="${escapeHtml(info.learnHref)}">${escapeHtml(info.learnLabel)}</a>`,
+        ]),
+        ...variantRow,
+      ];
       const table = markdownLikeTable(
         [["Entry", "Version (base)", "Objects", "Flattening", "Published", "Listing record", "Learn more"], ...rows],
         { rawColumns: [5, 6] },
       );
       return `<section aria-labelledby="${format}">
       <h2 id="${format}">${escapeHtml(info.label)}</h2>
-      <p>${escapeHtml(info.sentence)} The Catalog carries ${entries.length} ${entries.length === 1 ? "entry" : "entries"} today. ${publishedSentence}${flaggedSentence}</p>
+      <p>${escapeHtml(info.sentence)} The Catalog carries ${entryCount} ${entryCount === 1 ? "entry" : "entries"} today.${variantSentence} ${publishedSentence}${flaggedSentence}</p>
       ${table}
     </section>`;
     })
@@ -9551,6 +9647,124 @@ function formatsHtml() {
     ${sections}
   </main>
   <footer><p>Generated from the committed <a href="./listings/index.json">Catalog listing index</a>. Read <a href="./listing.schema.json">the listing schema</a> for the fields every listing fills, or open <a href="./config.html">how configuration works</a> for the full lifecycle model.</p></footer>
+</body>
+</html>
+`;
+}
+
+// The GPU request of one variant as a table cell, read from the gpu-request
+// input its listing records. A listing without one is refused, so the cell
+// never guesses.
+function nimServiceGpuCell(facts) {
+  const detail = String(facts.installTimeInputs.find((input) => input.name === "gpu-request")?.detail ?? "");
+  const match = /requests (\d+) GPUs? per pod (?:as (\S+?),|through a Dynamic Resource Allocation claim,) with (\d+) replicas?\./.exec(detail);
+  check(match, `${facts.id}: the listing records no gpu-request input the ${NIMSERVICE_ENTRY_NAME} page can read`);
+  const [, count, resource, replicas] = match;
+  return [
+    resource ? `${count} × ${resource}` : `${count}, by a DRA claim`,
+    Number(replicas) > 1 ? `${replicas} replicas` : "",
+  ].filter(Boolean).join(", ");
+}
+
+// What the entry page and the Catalog row say about publication, in the three
+// cases the listings can be in.
+function nimServiceStateSentences() {
+  const count = nimServiceVariantCount;
+  if (nimServicePublishedCount === 0) {
+    return [
+      `None of the ${count} variants is published as OCI yet.`,
+      "You can fetch and compare the exact objects today, and the upload, deploy and promote steps open when a variant is published.",
+    ];
+  }
+  if (nimServicePublishedCount === count) {
+    return [
+      `All ${count} variants are published as OCI, each with its exact objects and its route files.`,
+      nimServiceNeverRun ? "No variant has run on a cluster." : "",
+    ].filter(Boolean);
+  }
+  return [
+    `${nimServicePublishedCount} of the ${count} variants ${nimServicePublishedCount === 1 ? "is" : "are"} published as OCI, and the table says which.`,
+    "The upload, deploy and promote steps open for a variant when it is published.",
+  ];
+}
+
+// The one row the Catalog table gives the nimservice entry. The variants are
+// listed on the entry page, so the table gains one row and not one per variant.
+function nimServiceCatalogRow() {
+  if (nimServiceVariantCount === 0) return "";
+  const pageHref = `../${NIMSERVICE_ENTRY_PAGE}`;
+  const flag = nimServiceFlaggedCount > 0
+    ? ` ${nimServiceFlaggedCount} ${nimServiceFlaggedCount === 1 ? "is" : "are"} flagged for review, and the entry page names each open question.`
+    : "";
+  const published = nimServicePublishedCount === 0
+    ? "not published"
+    : nimServicePublishedCount === nimServiceVariantCount ? "published" : `${nimServicePublishedCount} of ${nimServiceVariantCount} published`;
+  const search = [
+    NIMSERVICE_ENTRY_NAME, "nim nvidia model variants kubernetes yaml flatten-with-routes", published,
+    ...nimServiceFacts.map((facts) => facts.base),
+  ].join(" ").toLowerCase();
+  return `<tr data-chart-row data-kind="kubernetes-yaml" data-nimservice-entry data-readiness="" data-category="" data-status="" data-hooks="" data-crds="" data-search="${escapeHtml(search)}">
+        <td><a href="${pageHref}">${NIMSERVICE_ENTRY_NAME}</a><br><span style="color:var(--muted);font-size:.85rem">NIMService model variants, kept from NVIDIA's k8s-nim-operator samples</span></td>
+        <td class="mono">${escapeHtml(nimServiceVersion)}</td>
+        <td><a href="${pageHref}">Choose a model variant</a> · <a href="${pageHref}#${ENTRY_STEPS_ANCHOR}">${escapeHtml(NEXT_STEPS_HEADING)}</a></td>
+        <td>${nimServiceVariantCount} model variants are kept as exact objects with their routes. ${escapeHtml(nimServiceStateSentences()[0])}${escapeHtml(flag)}</td>
+        <td>The NIM Operator, your own NGC Secrets and the GPU request of the variant you choose.</td>
+        <td>flatten-with-routes, route recorded, ${escapeHtml(published)}</td>
+        <td>${nimServiceVariantCount} model variants. <a href="${pageHref}#variants">See them in one table</a></td>
+      </tr>`;
+}
+
+// The page of the nimservice entry. It is one entry, so it has one page, and
+// its model variants are rows of one table. The five steps of every variant
+// follow, each read from that variant's listing.
+function nimServiceEntryHtml() {
+  check(nimServiceVariantCount > 0, `site/${NIMSERVICE_ENTRY_PAGE}: the listing index holds no ${NIMSERVICE_ENTRY_NAME} variant`);
+  const listings = nimServiceFacts.map((facts) => readListingFile(facts.id));
+  const rows = nimServiceFacts.map((facts) => [
+    escapeHtml(facts.base),
+    facts.imageReferences.length > 0
+      ? facts.imageReferences.map((reference) => `<code>${escapeHtml(reference)}</code>`).join("<br>")
+      : "None named",
+    escapeHtml(nimServiceGpuCell(facts)),
+    facts.flagged ? "Flagged for review" : "None",
+    facts.literalPublished ? "Published" : "Not published",
+    `<a href="./listings/${escapeHtml(facts.id)}.json">Listing</a> · <a href="${escapeHtml(facts.objectsUrl)}">Objects</a>`,
+  ]);
+  const table = markdownLikeTable(
+    [["Model variant", "Image the sample names", "GPU request", "Flags", "Published as OCI", "Read"], ...rows],
+    { rawColumns: [0, 1, 2, 3, 4, 5] },
+  );
+  const flagSentence = nimServiceFlaggedCount > 0
+    ? `<p>${nimServiceFlaggedCount} ${nimServiceFlaggedCount === 1 ? "variant is" : "variants are"} flagged for review. The block for each one names its open question under <a href="#${ENTRY_STEPS_ANCHOR}">${escapeHtml(NEXT_STEPS_HEADING)}</a>.</p>`
+    : "";
+  const stateSentences = nimServiceStateSentences().map((sentence) => escapeHtml(sentence)).join(" ");
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choose a NIMService model variant · ConfigHub Workshop</title>
+  <style>${siteCss()}${entryStepsCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Choose a NIMService model variant</h1>
+    <p class="lead">The ${NIMSERVICE_ENTRY_NAME} entry holds ${nimServiceVariantCount} model variants. Each one is a NIMService sample kept exactly as NVIDIA's k8s-nim-operator repository had it at commit ${escapeHtml(nimServiceVersion)}.</p>
+    <p id="nimservice-publication">${stateSentences}</p>
+    ${entryStepsTopLinkHtml()}
+  </header>
+  <main>
+    <section aria-labelledby="variants">
+      <h2 id="variants">Pick a model variant</h2>
+      <p>Every variant is <code>flatten-with-routes</code>. Its objects are kept as they are, and its routes name the NIM Operator, the image pull Secret, the model API key Secret and the model storage that come first.</p>
+      <p>NVIDIA gates the images and the model weights. The Catalog did not pull them, does not hold them and never redistributes them.</p>
+      ${flagSentence}
+      ${table}
+    </section>
+    ${entryStepsSectionHtml(listings, { siteHref: ".", note: "The table above says what each one runs and needs." })}
+  </main>
+  <footer><p>Generated from the committed <a href="./listings/index.json">Catalog listing index</a> and the listing of each variant. <a href="./formats.html#kubernetes-yaml">Browse the other Kubernetes YAML entries</a> or <a href="./charts/index.html">return to the Catalog</a>.</p></footer>
 </body>
 </html>
 `;
@@ -10699,9 +10913,9 @@ function operationsTables(catalog) {
       status: "watch",
       boundary: "ConfigHub revisions and a live check",
       action: "compare live state with a previous approved revision",
-      code: "cub unit diff <space>/<unit> --from=<earlier-revision-number> --to=LastReleasedRevisionNum\ncub-scout compare three-way --dry-from <previous-render.yaml>",
-      get: "You see the difference between the last released revision and an earlier approved one. The diff command is taken from the help of cub v0.8.7 and has not been re-run here. Today this is a rehearse-and-review path, because exact rollback automation depends on the app, the target, and any lifecycle step that cannot be undone.",
-      see: ["day2-upgrade-story.md", "day2-upgrade-rollback.md", "cub-scout-diff-design.md"],
+      code: "cub unit diff <space>/<unit> --from=<earlier-revision-number> --to=HeadRevisionNum\ncub-scout compare three-way --dry-from <previous-render.yaml>",
+      get: "You see the difference between an earlier approved revision and the head revision. A live run on 2026-10-08 with cub v0.8.7 used each part of this diff command. <code>--to=LastReleasedRevisionNum</code> names the last released revision, so it needs a Unit that has been released. That run saw it fail on a Unit that was never released. The <code>cub-scout</code> line was not run. Today this is a rehearse-and-review path, because exact rollback automation depends on the app, the target, and any lifecycle step that cannot be undone.",
+      see: ["day2-upgrade-story.md", "day2-upgrade-rollback.md", "cub-scout-diff-design.md", "live-run-log-2026-10-08.md"],
     },
   ];
   const seeLabels = new Map([
@@ -10716,6 +10930,7 @@ function operationsTables(catalog) {
     ["day2-upgrade-story.md", "The day-2 upgrade story"],
     ["day2-upgrade-rollback.md", "Upgrade and rollback guide"],
     ["cub-scout-diff-design.md", "Three-way comparison design"],
+    ["live-run-log-2026-10-08.md", "Live run log, 2026-10-08"],
     ["gitops-adopter-guide.md", "Argo CD and Flux guide"],
     ["./does-cluster-match-approved-config.html", "What each path can prove"],
   ]);
@@ -11167,7 +11382,7 @@ function chartIndexHtml(catalog) {
     ["AICR platform", "ai-platform", aicrEntryCount],
     ["Timoni module", "timoni", 1],
     ["Configuration OCI", "configuration-oci", 1],
-    ["Kubernetes YAML", "kubernetes-yaml", 1],
+    ["Kubernetes YAML", "kubernetes-yaml", 1 + (nimServiceVariantCount > 0 ? 1 : 0)],
   ];
   const chartRowsHtml = catalog.catalogComponents
     .map((entry) => {
@@ -11356,6 +11571,7 @@ function aicrCatalogRows() {
   // them, but they answer the text search and sit under the same headers.
   const nonHelmCatalogRowsHtml = [
     aicrCatalogRows(),
+    nimServiceCatalogRow(),
     `<tr data-chart-row data-kind="timoni" data-readiness="" data-category="" data-status="" data-hooks="" data-crds="" data-search="timoni redis 8.10.1 module typed oci flatten-with-routes non-helm">
         <td><a href="../d/examples/timoni/redis-8-10-1/README.html">Redis 8.10.1</a><br><span style="color:var(--muted);font-size:.85rem">Timoni module entry, built from a pinned OCI module</span></td>
         <td class="mono">8.10.1</td>
@@ -11505,7 +11721,7 @@ ${nonHelmCatalogRowsHtml}
          <a href="../bring-kubara-into-confighub.html">Kubara</a>
          <a href="../config.html#formats">Sveltos fleets</a>
          <a href="index.html?format=configuration-oci">OCI config <b>1</b></a>
-         <a href="index.html?format=kubernetes-yaml">Plain YAML <b>1</b></a>
+         <a href="index.html?format=kubernetes-yaml">Plain YAML <b>${1 + (nimServiceVariantCount > 0 ? 1 : 0)}</b></a>
        </div>
        <p class="support-group">Compose and deliver</p>
        <div class="support-chips">
@@ -11520,7 +11736,7 @@ ${nonHelmCatalogRowsHtml}
 
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
-      <p>The catalog holds ${catalog.catalogComponents.length} Helm charts and non-Helm entries in one filterable table: ${aicrEntryCount} AICR entries, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. Use the <strong>Format</strong> filter to narrow to any one, for example all ${aicrEntryCount} AICR entries; the other filters and the text search span every entry.</p>
+      <p>The catalog holds ${catalog.catalogComponents.length} Helm charts and non-Helm entries in one filterable table: ${aicrEntryCount} AICR entries, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry.${nimServiceVariantCount > 0 ? ` The ${NIMSERVICE_ENTRY_NAME} entry is one row with ${nimServiceVariantCount} model variants, and ${nimServicePublishedClause()}.` : ""} Use the <strong>Format</strong> filter to narrow to any one, for example all ${aicrEntryCount} AICR entries; the other filters and the text search span every entry.</p>
       ${agentNote(`An entry flagged for review reads <code>completed/watch</code> at <code>checks.materialization</code> in <a href="../configs.json">configs.json</a>. Its listing gives the open question as that stage's answer.`)}
       <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the provider-curated source variant intended for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       ${catalogSearchBlock}
@@ -14684,8 +14900,12 @@ function entryStepSiblingSentences(step) {
   const bases = siblings.filter((sibling) => sibling.relation === "other-base").map((sibling) => sibling.base);
   const versions = [...new Set(siblings.filter((sibling) => sibling.relation === "other-version").map((sibling) => sibling.version))];
   return [
-    bases.length ? `This version has ${bases.length === 1 ? "one other base" : `${bases.length} other bases`} in the Catalog, ${escapeHtml(list(bases))}.` : "",
-    versions.length ? `The Catalog holds ${versions.length === 1 ? "one other version" : `${versions.length} other versions`}, ${escapeHtml(list(versions))}.` : "",
+    // A long list of names is not a sentence. Past six, the count stands
+    // alone and the listing holds the names.
+    bases.length > 6
+      ? `This version has ${bases.length} other bases in the Catalog, and the listing names each one.`
+      : bases.length ? `This version has ${bases.length === 1 ? "one other base" : `${bases.length} other bases`} in the Catalog, ${escapeHtml(list(bases))}.` : "",
+    versions.length ? `The Catalog holds ${versions.length === 1 ? "one other version" : `${versions.length} other versions`}, ${escapeHtml(list(versions.map(displayVersion)))}.` : "",
   ].filter(Boolean).join(" ");
 }
 
@@ -14750,7 +14970,7 @@ function entryStepsListingHtml(listing) {
 function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
   const listingsHref = `${siteHref}/listings`;
   check(listings.length > 0, "an entry-steps block needs at least one listing");
-  const label = (listing) => `${escapeHtml(listing.identity.formatLabel)}, base <strong>${escapeHtml(listing.identity.base)}</strong>, version ${escapeHtml(listing.identity.version)}`;
+  const label = (listing) => `${escapeHtml(listing.identity.formatLabel)}, base <strong>${escapeHtml(listing.identity.base)}</strong>, version ${escapeHtml(displayVersion(listing.identity.version))}`;
   const body = listings.length === 1
     ? `<div data-entry-steps="${escapeHtml(listings[0].identity.id)}">
         ${entryStepsListingHtml(listings[0])}
@@ -14762,6 +14982,9 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
   const allCommands = listings.flatMap((listing) => (listing.nextSteps ?? []).flatMap((step) => step.commands ?? []));
   const usesCub = allCommands.some(({ command }) => /^cub /.test(command));
   const compares = allCommands.some(({ command }) => /^cub config diff /.test(command));
+  // The dated log shows these command forms run once on other content. It is
+  // evidence for the forms only, so the sentence says it is no run for the entry.
+  const usesVariant = allCommands.some(({ command }) => /^cub variant /.test(command));
   const listingLinks = listings
     .map((listing) => `<a href="${listingsHref}/${escapeHtml(listing.identity.id)}.json">${escapeHtml(listing.identity.id)}.json</a>`)
     .join(", ");
@@ -14773,6 +14996,7 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
         usesCub ? `<a href="${siteHref}/try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command.` : "",
         compares ? `Step 2 uses <code>cub config diff</code>, which <code>${escapeHtml(WORKSHOP_PLUGIN_INSTALL)}</code> adds.` : "",
         listings.length > 1 ? `This page covers ${listings.length} entries, so open the one you want.` : "",
+        usesVariant ? `A <a href="${siteHref}/d/docs/user/${ENTRY_STEPS_RUN_LOG}">live run on 2026-10-08</a> used these <code>cub variant</code> commands on other configuration, with no Target. It is not a run for this entry.` : "",
         note,
       ].filter(Boolean).join(" ")}</p>
       ${body}

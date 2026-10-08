@@ -1,0 +1,41 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantLiteralConfigPlan"
+metadata:
+  name: "nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm"
+spec:
+  catalogEntry: "nimservice"
+  variant: "knative-meta-llama-3-2-1b-instruct-multi-llm"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  plannedReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e"
+  manifestDigest: "sha256:fdd734abbade3c9cba0d52b80bb458d4097d643f045a70cd1df767dc8a538a65"
+  layerDigest: "sha256:7bb8a657e4bb484356829d65056d3a70564c74e881b58acbda845128747d709b"
+  layerBytes: 11799
+  layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+  objectSetSha256: "sha256:b5020b77339bf0181254255a04927e5ce4775a345fc060d48d91cb070ae278fd"
+  stagedFiles:
+    -
+      path: "multi-llm.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/kserve/knative/multi-llm.yaml"
+      role: "exact objects"
+      sha256: "sha256:6555417d54f00bbb0335fb4fb12cf01bbfb9682066347adbcfaad9ec51786c82"
+      bytes: 1655
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/knative-meta-llama-3-2-1b-instruct-multi-llm/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:fed843232bd999a4056ff04f884375729bba46416bae38f5f520f20ba889d9a8"
+      bytes: 4135
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/knative-meta-llama-3-2-1b-instruct-multi-llm/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:fe768a2e4a95b256b33c02ca30cd8bdab660660d8846aaf3a01f9979917e41e4"
+      bytes: 2444
+  contents:
+    statement: "The artifact holds the retained sample file and its two route files. It holds no container image, no model weight and no Secret value."
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  publication:
+    receipt: "runs/nimservice-variants/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm/publication-receipt.yaml"
+    rule: "The variant is published only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-nimservice-variants.mjs"

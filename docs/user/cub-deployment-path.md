@@ -26,7 +26,7 @@ during delivery.
 2. **Check the Kubernetes objects.** The result is ordinary Kubernetes YAML.
    You can inspect it before signing up for ConfigHub.
 3. **Upload the exact objects as a base variant.** Each object becomes a
-   ConfigHub Unit. The source record keeps the chart version, values,
+   ConfigHub Unit, except Secrets, which the upload skips. The source record keeps the chart version, values,
    assumptions, prerequisites, and lifecycle work beside those Units.
 4. **Create and review deployment variants.** Bind each deployment variant to
    a Target. ConfigHub can show diffs, run checks, require approval, and

@@ -1,0 +1,41 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "NimServiceVariantLiteralConfigPlan"
+metadata:
+  name: "nimservice-multi-node-deepseek-r1-multi-node-nimservice"
+spec:
+  catalogEntry: "nimservice"
+  variant: "multi-node-deepseek-r1-multi-node-nimservice"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  plannedReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-multi-node-deepseek-r1-multi-node-nimservice:upstream-5d5f66ee0e2e"
+  manifestDigest: "sha256:29ffffbb5fa5f61e5827003437a2221e17ec245916f74702310633b4792e39a0"
+  layerDigest: "sha256:3ba2d7050f00d7bc2ee5b8316e405480194c3292315ab4c3dc5cebb97b9a72f1"
+  layerBytes: 11799
+  layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+  objectSetSha256: "sha256:62a86e115f6282d79fc2f58b0b3bae264a679e9e3fce49e714959cbd9e644218"
+  stagedFiles:
+    -
+      path: "multi-node-nimservice.yaml"
+      source: "data/aicr-nim-operator-models/upstream/serving/advanced/multi-node/multi-node-nimservice.yaml"
+      role: "exact objects"
+      sha256: "sha256:713ddd5714069af7e5618d94650409427010819ae541590c091e15b182172607"
+      bytes: 2032
+    -
+      path: "routes/operator-first-ordering.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/multi-node-deepseek-r1-multi-node-nimservice/operator-first-ordering.yaml"
+      role: "route: operator-first ordering"
+      sha256: "sha256:7f7d1b070cfeac7bfe2b9a66d5b05580b6ce850aa5ca740a3c52cce8a738cabb"
+      bytes: 4108
+    -
+      path: "routes/user-supplied-secrets.yaml"
+      source: "data/aicr-nim-operator-models/catalog-entries/multi-node-deepseek-r1-multi-node-nimservice/user-supplied-secrets.yaml"
+      role: "route: user-supplied Secrets"
+      sha256: "sha256:69a9b1a83b3d7a23dfe0c18d3f95794ebc2706fa767828a4b329ee72f1565c9e"
+      bytes: 2281
+  contents:
+    statement: "The artifact holds the retained sample file and its two route files. It holds no container image, no model weight and no Secret value."
+    nvidiaImagesOrWeights: false
+    secretValues: false
+  publication:
+    receipt: "runs/nimservice-variants/nimservice-multi-node-deepseek-r1-multi-node-nimservice/publication-receipt.yaml"
+    rule: "The variant is published only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-nimservice-variants.mjs"

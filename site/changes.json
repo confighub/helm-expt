@@ -7956,8 +7956,15 @@
           ]
         },
         "chart_analysis": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/cluster-readiness-engine/v0.6.0/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/cluster-readiness-engine/v0.6.0/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/cluster-readiness-engine/v0.6.0/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/cluster-readiness-engine/v0.6.0/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
         },
         "render_parity": {
           "status": "checked",
@@ -8015,8 +8022,15 @@
           ]
         },
         "chart_analysis": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
         },
         "render_parity": {
           "status": "checked",
@@ -8246,8 +8260,15 @@
           ]
         },
         "chart_analysis": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
         },
         "render_parity": {
           "status": "checked",
@@ -8433,8 +8454,15 @@
           ]
         },
         "chart_analysis": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
         },
         "render_parity": {
           "status": "checked",

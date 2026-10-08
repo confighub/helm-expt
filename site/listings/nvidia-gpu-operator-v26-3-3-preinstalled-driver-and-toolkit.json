@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:2effb5b0837b7646de2d98d95a2455fe3fbf06d4c07e70de139f297e369a22e8",
+      "sha256": "sha256:b530fbf9e069a56a10340bf688cced4a494f941efb05e1f0228551bc5e0c1166",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -157,25 +157,6 @@
         "status": "not-recorded-for-this-base"
       }
     ]
-  },
-  "images": {
-    "count": 2,
-    "pinnedByDigest": 0,
-    "namedByTag": 2,
-    "references": [
-      {
-        "reference": "nvcr.io/nvidia/gpu-operator:v26.3.3",
-        "pinned": false
-      },
-      {
-        "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.18.3",
-        "pinned": false
-      }
-    ],
-    "readFrom": "recipes/nvidia/gpu-operator/v26.3.3/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml",
-    "record": "data/catalog-images/images.json",
-    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
-    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
   },
   "variants": {
     "base": "preinstalled-driver-and-toolkit",
