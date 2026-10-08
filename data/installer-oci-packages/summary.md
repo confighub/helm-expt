@@ -38,7 +38,7 @@ does not return the requested manifest.
 | Count | Value |
 | --- | ---: |
 | Installer packages | 180 |
-| Public catalog packages | 115 |
+| Public catalog packages | 122 |
 | Package refs with publication receipts | 180 |
 | Assigned refs without publication receipts yet | 0 |
 | Published manifests with signature receipts | 180 |
@@ -59,7 +59,7 @@ does not return the requested manifest.
 | aws-controllers-k8s/ec2-chart@1.18.4 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4@sha256:40806df17d8ff6732613c13d151c5eff9c1e9551389718a9f3d3dac68d9f3721` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4@sha256:40806df17d8ff6732613c13d151c5eff9c1e9551389718a9f3d3dac68d9f3721 --base default --work-dir ./aws-controllers-k8s-ec2-chart-1-18-4-default --non-interactive --namespace ack-system` |
 | aws-controllers-k8s/eks-chart@1.16.3 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:eb94b9abf66765bdab5f22a07d826f4ef60de76ce241e052d633fc9a512775a4` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:eb94b9abf66765bdab5f22a07d826f4ef60de76ce241e052d633fc9a512775a4 --base default --work-dir ./aws-controllers-k8s-eks-chart-1-16-3-default --non-interactive --namespace ack-system` |
 | aws-controllers-k8s/iam-chart@1.7.3 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac --base default --work-dir ./aws-controllers-k8s-iam-chart-1-7-3-default --non-interactive --namespace ack-system` |
-| aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0 --base default --work-dir ./aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --non-interactive --namespace default` |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0@sha256:f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0@sha256:f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd --base default --work-dir ./aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default --non-interactive --namespace kube-system` |
 
 ## Files
 
