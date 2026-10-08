@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/nvidia/gpu-operator/v26.7.1",
+        "confighub.com/package-sha256": "3a3722f1ad3ceaa7280c765c22b2f57ce7f2cd08f9911f283474a35238aa10bd"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

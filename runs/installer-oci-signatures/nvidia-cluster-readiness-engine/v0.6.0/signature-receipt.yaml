@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "nvidia-cluster-readiness-engine-v0.6.0"
+spec:
+  observedAt: "2026-10-08T05:45:55.916Z"
+  subject:
+    packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0"
+    publicationReceipt: "runs/installer-oci/nvidia-cluster-readiness-engine/v0.6.0/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0"
+    manifestDigest: "sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501"
+    packageSHA256: "e3068274eee9e154acce62bfeea4f2ddb523ac7099d41711fc8421d9b49c2d09"
+    layerDigest: "sha256:e3068274eee9e154acce62bfeea4f2ddb523ac7099d41711fc8421d9b49c2d09"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/nvidia-cluster-readiness-engine/v0.6.0/signature.sigstore.json"
+    bundleSHA256: "5b3bb78cf1fc443f29246e93ab95e47552947cb8b7a8d24b6625e62c0160b9d7"
+    payloadPath: "runs/installer-oci-signatures/nvidia-cluster-readiness-engine/v0.6.0/signature-payload.json"
+    payloadSHA256: "ee4d2819a639b99f21ef1195b6dd2fb1348056f3c9dbd39d1edb031fbe25ac72"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/nvidia/cluster-readiness-engine/v0.6.0 --annotations confighub.com/package-sha256=e3068274eee9e154acce62bfeea4f2ddb523ac7099d41711fc8421d9b49c2d09 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501"
+    outputPath: "runs/installer-oci-signatures/nvidia-cluster-readiness-engine/v0.6.0/verification.json"
+    outputSHA256: "2af34a645c579affd0a84c8f154ff472ea8e8170935c7e4c6c3a72c0abf18d3c"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/nvidia-cluster-readiness-engine/v0.6.0/signature.sigstore.json --digest 6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/nvidia-cluster-readiness-engine/v0.6.0/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/nvidia/cluster-readiness-engine/v0.6.0"
+    confighub.com/package-sha256: "e3068274eee9e154acce62bfeea4f2ddb523ac7099d41711fc8421d9b49c2d09"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

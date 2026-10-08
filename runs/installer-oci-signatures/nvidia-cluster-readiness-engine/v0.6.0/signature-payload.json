@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/nvidia/cluster-readiness-engine/v0.6.0",
+        "confighub.com/package-sha256": "e3068274eee9e154acce62bfeea4f2ddb523ac7099d41711fc8421d9b49c2d09"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: nvidia-nvsentinel-v1.25.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0
+  observedAt: "2026-10-08T05:43:04.900Z"
+  package:
+    path: packages/nvidia/nvsentinel/v1.25.0
+    sha256: a4d42c70b701a4e089cde752d8f10d5eabdeee1a67caf6de03a4b42c9400687c
+    sourceTreeSHA256: 4e4057c22da8bbab22cd20ca2d71cbc3d0e70b86936819706dac989a3d74dbdb
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/nvidia/nvsentinel/v1.25.0 -o <tmp>/nvidia-nvsentinel-v1.25.0.tgz"
+    push: "cub installer push <tmp>/nvidia-nvsentinel-v1.25.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0 --json"
+  outputs:
+    manifestDigest: sha256:5b6363f704e89c754c2901a85ade183312afca87a94d97aa22f55d2f4d23189e
+    layerDigest: sha256:a4d42c70b701a4e089cde752d8f10d5eabdeee1a67caf6de03a4b42c9400687c
+    package: |
+      Bundled nvidia-nvsentinel@
+        output: <tmp>
+        files:  11
+        size:   40020 bytes
+        digest: sha256:a4d42c70b701a4e089cde752d8f10d5eabdeee1a67caf6de03a4b42c9400687c
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0
+        manifest: sha256:5b6363f704e89c754c2901a85ade183312afca87a94d97aa22f55d2f4d23189e
+        layer:    sha256:a4d42c70b701a4e089cde752d8f10d5eabdeee1a67caf6de03a4b42c9400687c (40020 bytes, 11 files)
+    inspectJSONSHA256: c7b2ba2b7df75c2e3ae8ee9c440188c683aadb3e2d394e89390b3aa4c0ff601c
+    inspectJSONCanonicalSHA256: d35d44a10a9c4fe5fc1a71c5c4859f28abbb3c459e343f4d670abef098103436

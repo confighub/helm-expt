@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator@sha256:866ff5d529383dcdbeb5fd28e152f2a10ab50ce9b45acebf2b5ff2dc95f19767"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:866ff5d529383dcdbeb5fd28e152f2a10ab50ce9b45acebf2b5ff2dc95f19767"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/nvidia/gpu-operator/v26.3.2",
+      "confighub.com/package-sha256": "241c9b0f47bac7f0d4d82787105ad8b677794b5646e115e165f5314d6d158a5a"
+    }
+  }
+]
