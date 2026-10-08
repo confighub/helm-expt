@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: kai-scheduler-kai-scheduler-v0.16.9
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9
+  observedAt: "2026-10-08T20:38:13.015Z"
+  package:
+    path: packages/kai-scheduler/kai-scheduler/v0.16.9
+    sha256: 3cf5a5c7f75cd08a373e4d8ea934687744fa34a703e4338401f18ffff6ae93e6
+    sourceTreeSHA256: 4a16bcc7dcd379526f3da8675ce0c11a564f45418cba76f9b2b064145a3acfe9
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/kai-scheduler/kai-scheduler/v0.16.9 -o <tmp>/kai-scheduler-kai-scheduler-v0.16.9.tgz"
+    push: "cub installer push <tmp>/kai-scheduler-kai-scheduler-v0.16.9.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9 --json"
+  outputs:
+    manifestDigest: sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab
+    layerDigest: sha256:3cf5a5c7f75cd08a373e4d8ea934687744fa34a703e4338401f18ffff6ae93e6
+    package: |
+      Bundled kai-scheduler-kai-scheduler@
+        output: <tmp>
+        files:  17
+        size:   280768 bytes
+        digest: sha256:3cf5a5c7f75cd08a373e4d8ea934687744fa34a703e4338401f18ffff6ae93e6
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9
+        manifest: sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab
+        layer:    sha256:3cf5a5c7f75cd08a373e4d8ea934687744fa34a703e4338401f18ffff6ae93e6 (280768 bytes, 17 files)
+    inspectJSONSHA256: 39bdb4e6d1602abf209283405619e2dd12fff262ef35e21b220fc351017110bb
+    inspectJSONCanonicalSHA256: ea8d2af4ca67a40320b0c78d3171aa68ced6955a6a368e0b5e3e7ce17fba61b5

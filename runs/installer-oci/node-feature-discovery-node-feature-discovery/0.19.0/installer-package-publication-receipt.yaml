@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: node-feature-discovery-node-feature-discovery-0.19.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0
+  observedAt: "2026-10-08T20:38:35.739Z"
+  package:
+    path: packages/node-feature-discovery/node-feature-discovery/0.19.0
+    sha256: 9249260d7911a04453b39d2b6e088cada54e6b71f30b66982f82824becfc076e
+    sourceTreeSHA256: 2d3715eac9525f9e9d2b55f9567f831964dfec0fba45d2b662893992cdf936b8
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/node-feature-discovery/node-feature-discovery/0.19.0 -o <tmp>/node-feature-discovery-node-feature-discovery-0.19.0.tgz"
+    push: "cub installer push <tmp>/node-feature-discovery-node-feature-discovery-0.19.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0 --json"
+  outputs:
+    manifestDigest: sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63
+    layerDigest: sha256:9249260d7911a04453b39d2b6e088cada54e6b71f30b66982f82824becfc076e
+    package: |
+      Bundled node-feature-discovery-node-feature-discovery@
+        output: <tmp>
+        files:  18
+        size:   33477 bytes
+        digest: sha256:9249260d7911a04453b39d2b6e088cada54e6b71f30b66982f82824becfc076e
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0
+        manifest: sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63
+        layer:    sha256:9249260d7911a04453b39d2b6e088cada54e6b71f30b66982f82824becfc076e (33477 bytes, 18 files)
+    inspectJSONSHA256: e03e27a5172c3f6007c55d55eb913647cc0e12a25f8133c36552108ec4b75f83
+    inspectJSONCanonicalSHA256: f1ca6298f65adafe8405539e6519a2cd2e6bcfc17b1dfbef2c1de40b05a55d51

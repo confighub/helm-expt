@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: prometheus-community-prometheus-operator-crds-28.0.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1
+  observedAt: "2026-10-08T20:38:56.942Z"
+  package:
+    path: packages/prometheus-community/prometheus-operator-crds/28.0.1
+    sha256: 6a601a0b29e812364d8840b2f8ea22e0e3ea66ce56e73c1038af150288257481
+    sourceTreeSHA256: 83adda6801809ebb08190788e11e765f2d3212885317b42c5198270c17b7f017
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/prometheus-community/prometheus-operator-crds/28.0.1 -o <tmp>/prometheus-community-prometheus-operator-crds-28.0.1.tgz"
+    push: "cub installer push <tmp>/prometheus-community-prometheus-operator-crds-28.0.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1 --json"
+  outputs:
+    manifestDigest: sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea
+    layerDigest: sha256:6a601a0b29e812364d8840b2f8ea22e0e3ea66ce56e73c1038af150288257481
+    package: |
+      Bundled prometheus-community-prometheus-operator-crds@
+        output: <tmp>
+        files:  9
+        size:   1711085 bytes
+        digest: sha256:6a601a0b29e812364d8840b2f8ea22e0e3ea66ce56e73c1038af150288257481
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1
+        manifest: sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea
+        layer:    sha256:6a601a0b29e812364d8840b2f8ea22e0e3ea66ce56e73c1038af150288257481 (1711085 bytes, 9 files)
+    inspectJSONSHA256: cb7e51a6273d45d5b83ffc50dddc459c45b5d5f07239b5085f4ec5fea778a0ac
+    inspectJSONCanonicalSHA256: 5698c9b8342d05be17aa516217525ca92cf45dd19e6a15e5c73a1523d64b7be7

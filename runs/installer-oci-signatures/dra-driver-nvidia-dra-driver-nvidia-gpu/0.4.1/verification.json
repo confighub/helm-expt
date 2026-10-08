@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu@sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1",
+      "confighub.com/package-sha256": "1df90f46d618e37b6a72f7f6d4d7c3a1ac53b801e53cf989d19b81e752019414"
+    }
+  }
+]

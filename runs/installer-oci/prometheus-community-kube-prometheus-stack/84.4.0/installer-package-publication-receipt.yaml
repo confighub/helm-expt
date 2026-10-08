@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-84.4.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0
+  observedAt: "2026-10-08T20:38:52.004Z"
+  package:
+    path: packages/prometheus-community/kube-prometheus-stack/84.4.0
+    sha256: 1b53563ba1e4eda376ff8b49093d1fe49855d6f94c76b1c346636ad1abdaf2f4
+    sourceTreeSHA256: 7932e093f814ba299b7f70ba29c0b34c26aa16dc83d1d1ebb78048997263c056
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/prometheus-community/kube-prometheus-stack/84.4.0 -o <tmp>/prometheus-community-kube-prometheus-stack-84.4.0.tgz"
+    push: "cub installer push <tmp>/prometheus-community-kube-prometheus-stack-84.4.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0 --json"
+  outputs:
+    manifestDigest: sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8
+    layerDigest: sha256:1b53563ba1e4eda376ff8b49093d1fe49855d6f94c76b1c346636ad1abdaf2f4
+    package: |
+      Bundled kube-prometheus-stack-kube-prometheus-stack@
+        output: <tmp>
+        files:  24
+        size:   1852686 bytes
+        digest: sha256:1b53563ba1e4eda376ff8b49093d1fe49855d6f94c76b1c346636ad1abdaf2f4
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0
+        manifest: sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8
+        layer:    sha256:1b53563ba1e4eda376ff8b49093d1fe49855d6f94c76b1c346636ad1abdaf2f4 (1852686 bytes, 24 files)
+    inspectJSONSHA256: 305410fb48e5d52a43b169d1e2e57a560a99f360f693a6e4d7f97b42f3a0f686
+    inspectJSONCanonicalSHA256: 4356bce63453a2da1d897710998b055e2917d42bf1d4dfb2f897fe7ca41cadc4

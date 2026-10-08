@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1
+  observedAt: "2026-10-08T20:38:21.787Z"
+  package:
+    path: packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1
+    sha256: 1df90f46d618e37b6a72f7f6d4d7c3a1ac53b801e53cf989d19b81e752019414
+    sourceTreeSHA256: 4a8dc4b803f7bc96b4f476a2e5ad7120145f8abb76c0920a7411932cd80cbeab
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1 -o <tmp>/dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1.tgz"
+    push: "cub installer push <tmp>/dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1 --json"
+  outputs:
+    manifestDigest: sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613
+    layerDigest: sha256:1df90f46d618e37b6a72f7f6d4d7c3a1ac53b801e53cf989d19b81e752019414
+    package: |
+      Bundled dra-driver-nvidia-dra-driver-nvidia-gpu@
+        output: <tmp>
+        files:  12
+        size:   19915 bytes
+        digest: sha256:1df90f46d618e37b6a72f7f6d4d7c3a1ac53b801e53cf989d19b81e752019414
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1
+        manifest: sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613
+        layer:    sha256:1df90f46d618e37b6a72f7f6d4d7c3a1ac53b801e53cf989d19b81e752019414 (19915 bytes, 12 files)
+    inspectJSONSHA256: 4ab24530cf95f59828792a0f177afcdba3a839de7d67be6cfef84f604f2a3a45
+    inspectJSONCanonicalSHA256: 02213886581cfa22cf1a45361a9bea8a727f143a34e2a943b06839fdeec3605a

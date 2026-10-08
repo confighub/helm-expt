@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0",
+        "confighub.com/package-sha256": "ee8fa30fb080e2214afd4ffb3e6c997c4d34aa9c3a3bb0f0d2e15efd13ec9a92"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

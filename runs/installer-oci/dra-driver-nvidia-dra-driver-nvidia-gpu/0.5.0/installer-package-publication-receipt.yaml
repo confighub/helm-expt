@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0
+  observedAt: "2026-10-08T20:38:24.638Z"
+  package:
+    path: packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0
+    sha256: 3a5cd56f37e0408ef8856252c9c22911e0095249d9ee9216283ee9916159572e
+    sourceTreeSHA256: 75ef4305797f3cbe45f006f2fdf49ee6b9b0ff6325d3eb9dbb5da68d69492a95
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0 -o <tmp>/dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0.tgz"
+    push: "cub installer push <tmp>/dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0 --json"
+  outputs:
+    manifestDigest: sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e
+    layerDigest: sha256:3a5cd56f37e0408ef8856252c9c22911e0095249d9ee9216283ee9916159572e
+    package: |
+      Bundled dra-driver-nvidia-dra-driver-nvidia-gpu@
+        output: <tmp>
+        files:  12
+        size:   20191 bytes
+        digest: sha256:3a5cd56f37e0408ef8856252c9c22911e0095249d9ee9216283ee9916159572e
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0
+        manifest: sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e
+        layer:    sha256:3a5cd56f37e0408ef8856252c9c22911e0095249d9ee9216283ee9916159572e (20191 bytes, 12 files)
+    inspectJSONSHA256: 43c7e8cbb7ffacbf5f06ad4a2b73b7e8197d4af9ec69ae8eef4ae434b5fa9d0a
+    inspectJSONCanonicalSHA256: 122d6b3eff93d784d1367e037c83b92acf7417bf3dedb32f6dfe326bee4253c1

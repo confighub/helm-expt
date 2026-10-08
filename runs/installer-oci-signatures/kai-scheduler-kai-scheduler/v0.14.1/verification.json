@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler@sha256:5e7b31be9fa573c1d9eba1e990ac6ff678388be26754ab55b0fe0d4593f37510"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:5e7b31be9fa573c1d9eba1e990ac6ff678388be26754ab55b0fe0d4593f37510"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/kai-scheduler/kai-scheduler/v0.14.1",
+      "confighub.com/package-sha256": "b1c28a877952e907a8100b1bbbac0472faae9410da17660bad1d9939149bf268"
+    }
+  }
+]

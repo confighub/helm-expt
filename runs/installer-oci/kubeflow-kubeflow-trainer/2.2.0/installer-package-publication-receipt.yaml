@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: kubeflow-kubeflow-trainer-2.2.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0
+  observedAt: "2026-10-08T20:38:29.794Z"
+  package:
+    path: packages/kubeflow/kubeflow-trainer/2.2.0
+    sha256: 76bef1e49a819db1f630d7440c80db5f97c32cc6ee9de87c2f2a3d22a7f81c5c
+    sourceTreeSHA256: c60148bb5adfc7b84def5e17d83e8d43a19006834a7fb4e519f789c59fff4130
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/kubeflow/kubeflow-trainer/2.2.0 -o <tmp>/kubeflow-kubeflow-trainer-2.2.0.tgz"
+    push: "cub installer push <tmp>/kubeflow-kubeflow-trainer-2.2.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0 --json"
+  outputs:
+    manifestDigest: sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6
+    layerDigest: sha256:76bef1e49a819db1f630d7440c80db5f97c32cc6ee9de87c2f2a3d22a7f81c5c
+    package: |
+      Bundled kubeflow-kubeflow-trainer@
+        output: <tmp>
+        files:  12
+        size:   1838172 bytes
+        digest: sha256:76bef1e49a819db1f630d7440c80db5f97c32cc6ee9de87c2f2a3d22a7f81c5c
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0
+        manifest: sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6
+        layer:    sha256:76bef1e49a819db1f630d7440c80db5f97c32cc6ee9de87c2f2a3d22a7f81c5c (1838172 bytes, 12 files)
+    inspectJSONSHA256: 010431a7a39dbed66513de05c3f013ff9e4e3f2c04584d8ec3f1ca9c722d1366
+    inspectJSONCanonicalSHA256: 637d945291bdea87d4b3fa04fba6bd3fba42b69db8cf4f344c719e71b1aa6dd2

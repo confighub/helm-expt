@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: eks-aws-efa-k8s-device-plugin-v0.5.29
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29
+  observedAt: "2026-10-08T20:38:38.375Z"
+  package:
+    path: packages/eks/aws-efa-k8s-device-plugin/v0.5.29
+    sha256: a3dcd8fc7e1afda264126a18edb7d26176a4beeecdb280bb09bafef118860454
+    sourceTreeSHA256: 575b0c8f03cd2b84abe118f6b9ea5c0f721a9c1fd2d165239946dfeb7ca14383
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/eks/aws-efa-k8s-device-plugin/v0.5.29 -o <tmp>/eks-aws-efa-k8s-device-plugin-v0.5.29.tgz"
+    push: "cub installer push <tmp>/eks-aws-efa-k8s-device-plugin-v0.5.29.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29 --json"
+  outputs:
+    manifestDigest: sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c
+    layerDigest: sha256:a3dcd8fc7e1afda264126a18edb7d26176a4beeecdb280bb09bafef118860454
+    package: |
+      Bundled eks-aws-efa-k8s-device-plugin@
+        output: <tmp>
+        files:  6
+        size:   2541 bytes
+        digest: sha256:a3dcd8fc7e1afda264126a18edb7d26176a4beeecdb280bb09bafef118860454
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29
+        manifest: sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c
+        layer:    sha256:a3dcd8fc7e1afda264126a18edb7d26176a4beeecdb280bb09bafef118860454 (2541 bytes, 6 files)
+    inspectJSONSHA256: 523462f0ab95df92e4700b5cac437f4fa2c8508839f483530342508ecf5ff641
+    inspectJSONCanonicalSHA256: d5d20cfc32ba12ef0c170a79298cc57e4a0b66c730cf695402b24d517e8d832d

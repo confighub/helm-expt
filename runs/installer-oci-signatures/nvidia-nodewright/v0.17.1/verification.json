@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright@sha256:a087936fec519d6a0897726c585069849eaa58c35c34b2052c6afd3b50935cab"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:a087936fec519d6a0897726c585069849eaa58c35c34b2052c6afd3b50935cab"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/nvidia/nodewright/v0.17.1",
+      "confighub.com/package-sha256": "b4519204d2fe695cce42c2a26cd9c797e340710e397e68cecb62c25c05d4d859"
+    }
+  }
+]

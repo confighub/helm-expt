@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/node-feature-discovery/node-feature-discovery/0.19.0",
+      "confighub.com/package-sha256": "9249260d7911a04453b39d2b6e088cada54e6b71f30b66982f82824becfc076e"
+    }
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics@sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2",
+      "confighub.com/package-sha256": "70fe17878cfba5380dfa145c35f07eaf3f0a911213b45d1c4d7be39a9ff2bbfe"
+    }
+  }
+]

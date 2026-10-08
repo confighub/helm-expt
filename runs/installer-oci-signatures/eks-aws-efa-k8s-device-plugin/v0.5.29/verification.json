@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin@sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/eks/aws-efa-k8s-device-plugin/v0.5.29",
+      "confighub.com/package-sha256": "a3dcd8fc7e1afda264126a18edb7d26176a4beeecdb280bb09bafef118860454"
+    }
+  }
+]
