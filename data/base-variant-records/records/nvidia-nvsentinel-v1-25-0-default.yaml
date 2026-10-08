@@ -201,8 +201,22 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-25-0-default:r001@sha256:b82a55de98d9b14a8aa63f684ada15a86389aa607c4371843c55df87ff9d4368"
+      manifestDigest: "sha256:b82a55de98d9b14a8aa63f684ada15a86389aa607c4371843c55df87ff9d4368"
+      layerDigest: "sha256:f4b42b7487d117e4886f1e19ab1071e5f0a285361a336a5c969a577120f3145d"
+      objectSetSha256: "sha256:f12a375c7b63cdfe02ed6eda602a22c771d43216297ab2089f374ef913a86ec2"
+      receipt: "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-25-0-default/publication-receipt.yaml"
+      receiptSha256: "sha256:171ecdc2b4527caccd792af13b0bc04313a3fcb38e1bc18edb9c73893ae5b873"
+      plan: "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-25-0-default/literal-config-oci.yaml"
+      routes:
+        []
+      requirements:
+        -
+          path: "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-25-0-default/requirements/target-requirements.yaml"
+          sha256: "sha256:260cc773b959f18444b4188349188485025e3cd7351d881d4321a4ea87e62715"
+          role: "requirement: target"
+      note: "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

@@ -170,8 +170,22 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-9-0-no-pod-monitor:r001@sha256:5f59e321e37298ccd48a54af3eb15514e94ea0fa5df7b9aa369efd7d07b03a88"
+      manifestDigest: "sha256:5f59e321e37298ccd48a54af3eb15514e94ea0fa5df7b9aa369efd7d07b03a88"
+      layerDigest: "sha256:eec5390e538b81550e8e0e30286a4a676f20b7d697eb0ad6d98302559e447854"
+      objectSetSha256: "sha256:5319d654999e0575a5c43ab992c31af9a22a92f5d55f025e4f3ad539cb963810"
+      receipt: "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-9-0-no-pod-monitor/publication-receipt.yaml"
+      receiptSha256: "sha256:5d917d084de6c5dd3de2d8584e852e56050024fc84789e5ffd59fd283b028196"
+      plan: "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-9-0-no-pod-monitor/literal-config-oci.yaml"
+      routes:
+        []
+      requirements:
+        -
+          path: "data/nvidia-literal-bundles/nvidia-nvsentinel-v1-9-0-no-pod-monitor/requirements/target-requirements.yaml"
+          sha256: "sha256:5c3b246b4b3838bbf006bc1a4dd446cf300225cf7845aa81598bd559b0c05a1d"
+          role: "requirement: target"
+      note: "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

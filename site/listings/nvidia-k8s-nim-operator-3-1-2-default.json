@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b530fbf9e069a56a10340bf688cced4a494f941efb05e1f0228551bc5e0c1166",
+      "sha256": "sha256:933b5cdf1a1f0408d813aa473d89ad95763dea50d9fbf27e1b749547e5f12e21",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-k8s-nim-operator-3-1-2-default.yaml",
-      "sha256": "sha256:2776949883018e277ce62b65074a96abf089b43108bbe34f05676cc7bf0b4dc6",
+      "sha256": "sha256:0635d242e26fcab590f67036b679f63ec67ef11429ac7d1e3f60b619d610d1b0",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-k8s-nim-operator-3-1-2-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -115,12 +115,32 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-k8s-nim-operator-3-1-2-default:r001@sha256:4bc981f865b68c2a454b228cdef0bb205562aab69682d080e1ba6f23ccff07e3",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:725c3731639f77656fd8f9730cf47d8a9a345124c6f066e32f109bd441668275"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:5b0e956f4e98f9b7dbb72e4c8a2374d94d789fc63f99e550563f8392bfcdfa45"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:4bc981f865b68c2a454b228cdef0bb205562aab69682d080e1ba6f23ccff07e3"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:b152742ed9d6d23ffc731464407499cf534c2c155657052cb1f9425000f6830f"
+          }
+        ],
+        "receipt": "runs/catalog-literal-bundles/nvidia-k8s-nim-operator-3-1-2-default/publication-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-literal-bundles/nvidia-k8s-nim-operator-3-1-2-default/publication-receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
       },
       {
         "role": "confighub-upload",

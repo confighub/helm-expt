@@ -31,7 +31,7 @@
           },
           "objectCount": 43,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/rendered/release-objects.yaml",

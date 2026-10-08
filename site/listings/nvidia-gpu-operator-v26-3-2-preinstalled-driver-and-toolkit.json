@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b530fbf9e069a56a10340bf688cced4a494f941efb05e1f0228551bc5e0c1166",
+      "sha256": "sha256:933b5cdf1a1f0408d813aa473d89ad95763dea50d9fbf27e1b749547e5f12e21",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit.yaml",
-      "sha256": "sha256:a0e22a664688c2c4a2eb54db0c9de37eeaaedc1435b81cf18bcd51ca9dd3483d",
+      "sha256": "sha256:31a94199c7436ef20b299ed31c542e9655e3cfdc0d979a7c220cba5bbd5229dc",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -115,12 +115,32 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit:r001@sha256:784924eca3aab0bad0524234a1d2a8234c22d65e5f3be4199c66e4fce05cc799",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:0c3685dd2d7503e58f5395a112e6d2e49fc17f1992de0ed7043a73f3dbfd7d83"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:c0de95db469f97ace66cc1ca4ec37cbc04aff393cac6d5ae703d06a1d49eadab"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:784924eca3aab0bad0524234a1d2a8234c22d65e5f3be4199c66e4fce05cc799"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:2980e91c1280647c62edc7e95bd9e1145de261022fe8d6f3a6d2ed1425f57c22"
+          }
+        ],
+        "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit/publication-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit/publication-receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
       },
       {
         "role": "confighub-upload",
