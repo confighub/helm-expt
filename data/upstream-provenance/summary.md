@@ -11,12 +11,12 @@ offline against pinned trust material, bound to bytes this repository holds.
 The obvious next question is how far that can reach, and nobody had asked it.
 This asks once per retained chart.
 
-Surveyed **2026-09-30**. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.
+Surveyed **2026-10-08**. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.
 
 ## The answer
 
-**40 of 156 retained charts** publish a Helm provenance file, which is
-26% of the catalog. 83 publish none, and 33 could not be asked, mostly
+**40 of 167 retained charts** publish a Helm provenance file, which is
+24% of the catalog. 89 publish none, and 38 could not be asked, mostly
 because their charts are hosted in a way this convention does not cover.
 
 That number is the ceiling on any provenance claim the catalog could make by
@@ -26,7 +26,7 @@ never done it.
 
 ## By upstream repository
 
-9 of 59 upstream repositories sign at least one retained chart.
+9 of 61 upstream repositories sign at least one retained chart.
 
 | Repository | Retained charts | Signed | Verdict |
 | --- | --- | --- | --- |
@@ -51,6 +51,7 @@ never done it.
 | https://haproxytech.github.io/helm-charts | 1 | 0 | publishes none |
 | https://helm.elastic.co | 5 | 0 | publishes none |
 | https://helm.linkerd.io/stable | 1 | 0 | publishes none |
+| https://helm.ngc.nvidia.com/nvidia | 6 | 0 | publishes none |
 | https://helm.releases.hashicorp.com | 3 | 3 | signs every retained chart |
 | https://helm.runix.net | 1 | 0 | publishes none |
 | https://istio-release.storage.googleapis.com/charts | 2 | 0 | publishes none |
@@ -83,6 +84,7 @@ never done it.
 | https://valkey.io/valkey-helm | 1 | 0 | publishes none |
 | https://victoriametrics.github.io/helm-charts | 2 | 0 | publishes none |
 | https://vmware-tanzu.github.io/helm-charts | 2 | 0 | publishes none |
+| oci://ghcr.io/nvidia | 5 | 0 | OCI-hosted, no provenance convention |
 | oci://ghcr.io/traefik/helm | 2 | 0 | OCI-hosted, no provenance convention |
 | oci://public.ecr.aws/aws-controllers-k8s | 3 | 0 | OCI-hosted, no provenance convention |
 | oci://public.ecr.aws/karpenter | 1 | 0 | OCI-hosted, no provenance convention |
@@ -148,7 +150,7 @@ check at the point they pull the chart.
 ## Why the rest could not be asked
 
 - **21** are listed in an HTTP index that points at an OCI reference rather than a tarball, which is the migration that followed one publisher's repricing.
-- **9** sit in an OCI repository, which has no index and no provenance convention.
+- **14** sit in an OCI repository, which has no index and no provenance convention.
 - **2** answered with a refusal rather than an answer.
 - **1** sit in a repository whose index could not be read.
 

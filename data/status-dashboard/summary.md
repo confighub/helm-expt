@@ -17,10 +17,10 @@ Which detailed CSV should I open next?
 
 | Section | Metric | Value | Status | Source |
 | --- | --- | ---: | --- | --- |
-| outcome coverage | maintained chart rows with model support | 151/156 | good | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
+| outcome coverage | maintained chart rows with model support | 162/167 | good | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
 | top100 | catalog-supported charts | 20/111 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
 | top100 | proof-grade non-catalog charts | 91/111 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
-| outcome coverage | variant-rich maintained chart rows | 97/156 | partial | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
+| outcome coverage | variant-rich maintained chart rows | 106/167 | partial | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
 | chart use | public catalog answers | 20/111 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | chart use | proof-ready but not public catalog answers | 40/111 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | chart use | better base variant needed answers | 38/111 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
@@ -64,7 +64,7 @@ Which detailed CSV should I open next?
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
-| graph bridge | charts with recovered graph fragments | 20/156 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | charts with recovered graph fragments | 20/167 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | recovered graph edge rows | 118/118 | good | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | target-fact graph edges | 75/118 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | generated-fact graph edges | 1/118 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |

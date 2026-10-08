@@ -21,7 +21,7 @@
     },
     {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:d87b755aeb472bf0a515fc71c75a2a51bea153a42fd12852d7ecf848f52dd27b"
+      "sha256": "sha256:2effb5b0837b7646de2d98d95a2455fe3fbf06d4c07e70de139f297e369a22e8"
     },
     {
       "path": "schemas/base-variant-record.schema.json",
@@ -48,7 +48,7 @@
       "exitCode": 0,
       "signal": null,
       "spawnError": null,
-      "stdoutSha256": "sha256:be894006b0029a2393380997878f9c1f033a8f6bc2265b799d535aa08d2dd1a3",
+      "stdoutSha256": "sha256:e09fa58d885437806776258d36ed815ef786508224019ba297da994ed3a3d867",
       "stderrSha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "mismatch": {
@@ -62,7 +62,7 @@
       "exitCode": 4,
       "signal": null,
       "spawnError": null,
-      "stdoutSha256": "sha256:7454b4af90c73803eb101d0009fd68ad73b1626c997b7aeeb63045ddaf0c21b3",
+      "stdoutSha256": "sha256:ad0a850a9e7c63fee22120fbe3b5e1dfb6dc15c9a3d2cf3f27e893256dc5a7ec",
       "stderrSha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   }

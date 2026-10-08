@@ -21,6 +21,7 @@ cert-manager-csi-driver,v0.14.0,https://charts.jetstack.io,unsigned,no-provenanc
 cloudnative-pg,0.28.2,https://cloudnative-pg.github.io/charts,signed,provenance-file-published
 cloudnative-pg,0.29.0,https://cloudnative-pg.github.io/charts,signed,provenance-file-published
 cluster-autoscaler,9.57.0,https://kubernetes.github.io/autoscaler,unsigned,no-provenance-file
+cluster-readiness-engine,v0.6.0,oci://ghcr.io/nvidia,unknown,oci
 consul,2.0.0,https://helm.releases.hashicorp.com,signed,provenance-file-published
 contour,21.1.4,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 coredns,1.45.2,https://coredns.github.io/helm,unsigned,no-provenance-file
@@ -45,12 +46,18 @@ gatekeeper,3.22.2,https://open-policy-agent.github.io/gatekeeper/charts,unsigned
 gateway,1.30.0,https://istio-release.storage.googleapis.com/charts,unsigned,no-provenance-file
 gitlab-runner,0.89.0,https://charts.gitlab.io,signed,provenance-file-published
 goldilocks,10.3.0,https://charts.fairwinds.com/stable,unknown,status-403
+gpu-operator,v25.10.1,https://helm.ngc.nvidia.com/nvidia,unsigned,no-provenance-file
+gpu-operator,v26.3.2,https://helm.ngc.nvidia.com/nvidia,unsigned,no-provenance-file
+gpu-operator,v26.3.3,https://helm.ngc.nvidia.com/nvidia,unsigned,no-provenance-file
+gpu-operator,v26.7.1,https://helm.ngc.nvidia.com/nvidia,unsigned,no-provenance-file
 grafana,10.5.15,https://grafana.github.io/helm-charts,unsigned,no-provenance-file
 iam-chart,1.7.3,oci://public.ecr.aws/aws-controllers-k8s,unknown,oci
 ingress-nginx,4.15.1,https://kubernetes.github.io/ingress-nginx,unsigned,no-provenance-file
 istiod,1.30.0,https://istio-release.storage.googleapis.com/charts,unsigned,no-provenance-file
 jaeger,4.8.0,https://jaegertracing.github.io/helm-charts,unsigned,no-provenance-file
 jaeger-operator,2.57.0,https://jaegertracing.github.io/helm-charts,unsigned,no-provenance-file
+k8s-nim-operator,3.1.0,https://helm.ngc.nvidia.com/nvidia,unsigned,no-provenance-file
+k8s-nim-operator,3.1.2,https://helm.ngc.nvidia.com/nvidia,unsigned,no-provenance-file
 karpenter,1.14.0,oci://public.ecr.aws/karpenter,unknown,oci
 keda,2.19.0,https://kedacore.github.io/charts,unsigned,no-provenance-file
 kibana,8.5.1,https://helm.elastic.co,unsigned,no-provenance-file
@@ -94,6 +101,10 @@ nginx,24.0.2,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 nginx,24.0.4,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 nginx,25.0.0,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 nvidia-device-plugin,0.19.3,https://nvidia.github.io/k8s-device-plugin,unsigned,no-provenance-file
+nvsentinel,v1.20.0,oci://ghcr.io/nvidia,unknown,oci
+nvsentinel,v1.25.0,oci://ghcr.io/nvidia,unknown,oci
+nvsentinel,v1.26.0,oci://ghcr.io/nvidia,unknown,oci
+nvsentinel,v1.9.0,oci://ghcr.io/nvidia,unknown,oci
 oauth2-proxy,10.7.0,https://oauth2-proxy.github.io/manifests,unsigned,no-provenance-file
 opencost,2.5.21,https://opencost.github.io/opencost-helm-chart,unsigned,no-provenance-file
 opensearch,2.0.10,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart

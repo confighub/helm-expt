@@ -1,0 +1,230 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "nvidia-k8s-nim-operator-3.1.2"
+  chart: "nvidia/k8s-nim-operator"
+  version: "3.1.2"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "nvidia/k8s-nim-operator"
+    version: "3.1.2"
+    appVersion: "3.1.2"
+    sourceLock: "recipes/nvidia/k8s-nim-operator/3.1.2/source-lock.yaml"
+    dependencyLock: "recipes/nvidia/k8s-nim-operator/3.1.2/dependency-lock.yaml"
+    repository: "https://helm.ngc.nvidia.com/nvidia"
+    packageSHA256: "ebb31e27b4a62d22ac10a24083ff21a340e48030b1ac4c1e7b99b24318f8f92a"
+  recipe:
+    path: "recipes/nvidia/k8s-nim-operator/3.1.2/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/nvidia/k8s-nim-operator/3.1.2/helm-plan.yaml"
+    chartDossier: "recipes/nvidia/k8s-nim-operator/3.1.2/chart-dossier.yaml"
+    controlPoints: "recipes/nvidia/k8s-nim-operator/3.1.2/control-points.yaml"
+    valueModel: "recipes/nvidia/k8s-nim-operator/3.1.2/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/nvidia/k8s-nim-operator/3.1.2/helm-pain-report.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "catalog-coverage"
+      - "crd-lifecycle"
+      - "dependency-lock"
+      - "lifecycle-policy"
+      - "source-lock"
+      - "target-facts"
+  catalogStatus:
+    path: "recipes/nvidia/k8s-nim-operator/3.1.2/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: ""
+      inConfigHub: ""
+      localLive: ""
+      gitopsLive: ""
+      liveParity: ""
+    featureSummary: ""
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/nvidia/k8s-nim-operator/3.1.2"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2@sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2"
+    manifestDigest: "sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d"
+    layerDigest: "sha256:b9d16ed1c7f44ff81598337fe8935fdaf6ed550c3a0d8b5a00bf5e60c6e9ba5d"
+    publicationReceipt: "runs/installer-oci/nvidia-k8s-nim-operator/3.1.2/installer-package-publication-receipt.yaml"
+    installer: "packages/nvidia/k8s-nim-operator/3.1.2/installer.yaml"
+    receipt: "recipes/nvidia/k8s-nim-operator/3.1.2/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "b9d16ed1c7f44ff81598337fe8935fdaf6ed550c3a0d8b5a00bf5e60c6e9ba5d"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/nvidia/k8s-nim-operator/3.1.2/bases/default"
+        default: true
+        description: "k8s-nim-operator chart defaults variant rendered from nvidia/k8s-nim-operator@3.1.2"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/nvidia/k8s-nim-operator/3.1.2/variants/default/variant.yaml"
+      namespace: "nvidia-nim"
+      releaseName: "k8s-nim-operator"
+      valuesProfile: "recipes/nvidia/k8s-nim-operator/3.1.2/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nemocustomizers.apps.nvidia.com"
+            purpose: "CRD included in this base and applied before the operator that reconciles it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nemodatastores.apps.nvidia.com"
+            purpose: "CRD included in this base and applied before the operator that reconciles it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nemoentitystores.apps.nvidia.com"
+            purpose: "CRD included in this base and applied before the operator that reconciles it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nemoevaluators.apps.nvidia.com"
+            purpose: "CRD included in this base and applied before the operator that reconciles it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nemoguardrails.apps.nvidia.com"
+            purpose: "CRD included in this base and applied before the operator that reconciles it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nimbuilds.apps.nvidia.com"
+            purpose: "CRD included in this base and applied before the operator that reconciles it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nimcaches.apps.nvidia.com"
+            purpose: "CRD included in this base and applied before the operator that reconciles it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nimpipelines.apps.nvidia.com"
+            purpose: "CRD included in this base and applied before the operator that reconciles it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nimservices.apps.nvidia.com"
+            purpose: "CRD included in this base and applied before the operator that reconciles it"
+            sourceVariant: "default"
+      targetFactSummary: "required CRD nemocustomizers.apps.nvidia.com; required CRD nemodatastores.apps.nvidia.com; required CRD nemoentitystores.apps.nvidia.com; required CRD nemoevaluators.apps.nvidia.com; required CRD nemoguardrails.apps.nvidia.com; required CRD nimbuilds.apps.nvidia.com; required CRD nimcaches.apps.nvidia.com; required CRD nimpipelines.apps.nvidia.com; required CRD nimservices.apps.nvidia.com"
+      packageBase:
+        name: "default"
+        path: "packages/nvidia/k8s-nim-operator/3.1.2/bases/default"
+        default: true
+        description: "k8s-nim-operator chart defaults variant rendered from nvidia/k8s-nim-operator@3.1.2"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2@sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d --base default --work-dir <tmp> --non-interactive --namespace nvidia-nim"
+        helmReleaseObjectCount: 17
+        cubInstallObjectCountIncludingSupport: 18
+        semanticObjectMatches: "17/17"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||nvidia-nim"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/variant-revision.yaml"
+          digest: "cc53a3838fe9cb0a80a8a61d458d3190e20f64fb43ceb973dc8c39dba5f5f131"
+          renderedObjectSetSHA256: "b152742ed9d6d23ffc731464407499cf534c2c155657052cb1f9425000f6830f"
+          renderedObjects: "recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 17
+          helmObjectCount: 17
+          cubInstallObjectCountIncludingSupport: 18
+          semanticObjectMatches: "17/17"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "b152742ed9d6d23ffc731464407499cf534c2c155657052cb1f9425000f6830f"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "b152742ed9d6d23ffc731464407499cf534c2c155657052cb1f9425000f6830f"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "b152742ed9d6d23ffc731464407499cf534c2c155657052cb1f9425000f6830f"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "b152742ed9d6d23ffc731464407499cf534c2c155657052cb1f9425000f6830f"

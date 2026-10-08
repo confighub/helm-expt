@@ -1,0 +1,295 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "nvidia-nvsentinel-v1.20.0"
+  chart: "nvidia/nvsentinel"
+  version: "v1.20.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "nvidia/nvsentinel"
+    version: "v1.20.0"
+    appVersion: "v1.20.0"
+    sourceLock: "recipes/nvidia/nvsentinel/v1.20.0/source-lock.yaml"
+    dependencyLock: "recipes/nvidia/nvsentinel/v1.20.0/dependency-lock.yaml"
+    repository: "oci://ghcr.io/nvidia"
+    packageSHA256: "0e3c8836dfb2123e8cbf0e565ea51ed89bc2a913f90e20e23eb3032037c926e3"
+  recipe:
+    path: "recipes/nvidia/nvsentinel/v1.20.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/nvidia/nvsentinel/v1.20.0/helm-plan.yaml"
+    chartDossier: "recipes/nvidia/nvsentinel/v1.20.0/chart-dossier.yaml"
+    controlPoints: "recipes/nvidia/nvsentinel/v1.20.0/control-points.yaml"
+    valueModel: "recipes/nvidia/nvsentinel/v1.20.0/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/nvidia/nvsentinel/v1.20.0/helm-pain-report.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "catalog-coverage"
+      - "dependency-lock"
+      - "lifecycle-policy"
+      - "source-lock"
+      - "target-facts"
+  catalogStatus:
+    path: "recipes/nvidia/nvsentinel/v1.20.0/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "no-pod-monitor"
+      - "aicr-eks-training"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: ""
+      inConfigHub: ""
+      localLive: ""
+      gitopsLive: ""
+      liveParity: ""
+    featureSummary: ""
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/nvidia/nvsentinel/v1.20.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0@sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0"
+    manifestDigest: "sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4"
+    layerDigest: "sha256:26435988c6f62a7a84fc05ed4e97907489627a51469d638d0ed4c44fb9e0c277"
+    publicationReceipt: "runs/installer-oci/nvidia-nvsentinel/v1.20.0/installer-package-publication-receipt.yaml"
+    installer: "packages/nvidia/nvsentinel/v1.20.0/installer.yaml"
+    receipt: "recipes/nvidia/nvsentinel/v1.20.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "26435988c6f62a7a84fc05ed4e97907489627a51469d638d0ed4c44fb9e0c277"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/nvidia/nvsentinel/v1.20.0/bases/default"
+        default: true
+        description: "nvsentinel chart defaults variant rendered from nvidia/nvsentinel@v1.20.0"
+      -
+        name: "no-pod-monitor"
+        path: "packages/nvidia/nvsentinel/v1.20.0/bases/no-pod-monitor"
+        default: false
+        description: "nvsentinel no PodMonitor, for a cluster without the Prometheus Operator variant rendered from nvidia/nvsentinel@v1.20.0"
+      -
+        name: "aicr-eks-training"
+        path: "packages/nvidia/nvsentinel/v1.20.0/bases/aicr-eks-training"
+        default: false
+        description: "nvsentinel AICR EKS training values variant rendered from nvidia/nvsentinel@v1.20.0"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/nvidia/nvsentinel/v1.20.0/variants/default/variant.yaml"
+      namespace: "nvsentinel"
+      releaseName: "nvsentinel"
+      valuesProfile: "recipes/nvidia/nvsentinel/v1.20.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "podmonitors.monitoring.coreos.com"
+            purpose: "Prometheus Operator PodMonitor CRD required before Kubernetes accepts the rendered PodMonitor object; the chart does not ship it"
+            sourcePath: "../../../prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "prometheus-community/kube-prometheus-stack@88.6.3/default"
+      targetFactSummary: "required CRD podmonitors.monitoring.coreos.com"
+      packageBase:
+        name: "default"
+        path: "packages/nvidia/nvsentinel/v1.20.0/bases/default"
+        default: true
+        description: "nvsentinel chart defaults variant rendered from nvidia/nvsentinel@v1.20.0"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0@sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4 --base default --work-dir <tmp> --non-interactive --namespace nvsentinel"
+        helmReleaseObjectCount: 22
+        cubInstallObjectCountIncludingSupport: 23
+        semanticObjectMatches: "22/22"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||nvsentinel"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/variant-revision.yaml"
+          digest: "62844dd3cc0ac435895d443d10eb2277e6323de5064147f9ecb2af9ce9477d9c"
+          renderedObjectSetSHA256: "3344e2d68968a485305ba8280ebb1676457f5552cd665c8000faa38c42841377"
+          renderedObjects: "recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 22
+          helmObjectCount: 22
+          cubInstallObjectCountIncludingSupport: 23
+          semanticObjectMatches: "22/22"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "3344e2d68968a485305ba8280ebb1676457f5552cd665c8000faa38c42841377"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "3344e2d68968a485305ba8280ebb1676457f5552cd665c8000faa38c42841377"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "3344e2d68968a485305ba8280ebb1676457f5552cd665c8000faa38c42841377"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "3344e2d68968a485305ba8280ebb1676457f5552cd665c8000faa38c42841377"
+    -
+      name: "no-pod-monitor"
+      variant: "recipes/nvidia/nvsentinel/v1.20.0/variants/no-pod-monitor/variant.yaml"
+      namespace: "nvsentinel"
+      releaseName: "nvsentinel"
+      valuesProfile: "recipes/nvidia/nvsentinel/v1.20.0/effective-values-no-pod-monitor.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "no-pod-monitor"
+        path: "packages/nvidia/nvsentinel/v1.20.0/bases/no-pod-monitor"
+        default: false
+        description: "nvsentinel no PodMonitor, for a cluster without the Prometheus Operator variant rendered from nvidia/nvsentinel@v1.20.0"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0@sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4 --base no-pod-monitor --work-dir <tmp> --non-interactive --namespace nvsentinel"
+        helmReleaseObjectCount: 21
+        cubInstallObjectCountIncludingSupport: 22
+        semanticObjectMatches: "21/21"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||nvsentinel"
+      revisions:
+        -
+          name: "no-pod-monitor-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/variant-revision.yaml"
+          digest: "a46ed72336c25058dc402f3650755ca21aac76685afb42a020f62799bee56503"
+          renderedObjectSetSHA256: "90aeac70ec22badcd205ec6a6ee66b7490a8353eb3242cde61bedce08bd4c3eb"
+          renderedObjects: "recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/rendered/object-inventory.yaml"
+          objectCount: 21
+          helmObjectCount: 21
+          cubInstallObjectCountIncludingSupport: 22
+          semanticObjectMatches: "21/21"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "90aeac70ec22badcd205ec6a6ee66b7490a8353eb3242cde61bedce08bd4c3eb"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "90aeac70ec22badcd205ec6a6ee66b7490a8353eb3242cde61bedce08bd4c3eb"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "90aeac70ec22badcd205ec6a6ee66b7490a8353eb3242cde61bedce08bd4c3eb"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "90aeac70ec22badcd205ec6a6ee66b7490a8353eb3242cde61bedce08bd4c3eb"
+    -
+      name: "aicr-eks-training"
+      variant: "recipes/nvidia/nvsentinel/v1.20.0/variants/aicr-eks-training/variant.yaml"
+      namespace: "nvsentinel"
+      releaseName: "nvsentinel"
+      valuesProfile: "recipes/nvidia/nvsentinel/v1.20.0/effective-values-aicr-eks-training.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "podmonitors.monitoring.coreos.com"
+            purpose: "Prometheus Operator PodMonitor CRD required before Kubernetes accepts the rendered PodMonitor object; the chart does not ship it"
+            sourcePath: "../../../prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "prometheus-community/kube-prometheus-stack@88.6.3/default"
+      targetFactSummary: "required CRD podmonitors.monitoring.coreos.com"
+      packageBase:
+        name: "aicr-eks-training"
+        path: "packages/nvidia/nvsentinel/v1.20.0/bases/aicr-eks-training"
+        default: false
+        description: "nvsentinel AICR EKS training values variant rendered from nvidia/nvsentinel@v1.20.0"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0@sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace nvsentinel"
+        helmReleaseObjectCount: 21
+        cubInstallObjectCountIncludingSupport: 22
+        semanticObjectMatches: "21/21"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||nvsentinel"
+      revisions:
+        -
+          name: "aicr-eks-training-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/variant-revision.yaml"
+          digest: "5e71342cb8661285f7afebf808da90718855b440fdb73bc3f94aff001597dcc3"
+          renderedObjectSetSHA256: "28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee"
+          renderedObjects: "recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+          objectCount: 21
+          helmObjectCount: 21
+          cubInstallObjectCountIncludingSupport: 22
+          semanticObjectMatches: "21/21"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee"

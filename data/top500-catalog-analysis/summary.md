@@ -20,10 +20,10 @@ that chart.
 rows: 500
 source scanned: 495
 source failed: 5
-current proof recipes in repo: 113
-retained newer candidate proof versions: 43
+current proof recipes in repo: 117
+retained newer candidate proof versions: 50
 current proof recipes matched to retained source-scan rows: 97
-current proof recipes not represented in retained source-scan rows: 16
+current proof recipes not represented in retained source-scan rows: 20
 current recipe proofs: 97
 proof matched by exact chart ref: 67
 proof matched by chart name and version: 16
@@ -43,8 +43,8 @@ catalog-supported production-review-ready: 20
 
 - Helm complexity is normal, not exceptional. The high-rank rows include CRDs,
   hooks, generated facts, lookup, tpl, RBAC, webhooks, and stateful storage.
-- 113 current chart recipe/package/proof artifacts exist in this repo.
-- 43 newer candidate version artifact(s) are retained separately and are not counted as additional chart coverage.
+- 117 current chart recipe/package/proof artifacts exist in this repo.
+- 50 newer candidate version artifact(s) are retained separately and are not counted as additional chart coverage.
 - 97 of the top-500 source rows currently match those
   proof artifacts.
 - 20 matched rows are catalog-supported for the
@@ -66,7 +66,7 @@ catalog-supported production-review-ready: 20
 - **"Supported" means Level 2.** A chart is supported when every Helm quirk it uses is
   either modeled or explicitly disclosed (operator-decision / blocker) with zero silent
   gaps. Variant richness is an *enhancement* on top of that bar, not the bar itself — all
-  113 current proof recipes are Level-2 supported.
+  117 current proof recipes are Level-2 supported.
 - **A deterministic variant generator now promotes enhancement variants.**
   `scripts/generate-variant-proof.mjs` captures a `helm template` render as a package
   base, proves Helm-equivalence (`cub installer setup` re-emits it), and regenerates all

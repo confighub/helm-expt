@@ -1,6 +1,6 @@
 {
   "schemaVersion": "catalog-shared-check-index-v1",
-  "generatedAt": "2026-09-30T23:05:25Z",
+  "generatedAt": "2026-10-08T06:40:22Z",
   "scope": "Exact rendered Kubernetes objects for every maintained Helm base revision under recipes/.",
   "authority": "advisory-local-check",
   "scanner": {
@@ -13,31 +13,31 @@
     "catalogSHA256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
   },
   "summary": {
-    "configurations": 270,
-    "configurationsWithFindings": 259,
+    "configurations": 311,
+    "configurationsWithFindings": 300,
     "configurationsWithoutFindings": 11,
-    "findings": 2693,
+    "findings": 3325,
     "severityCounts": {
-      "critical": 679,
-      "warning": 1554,
-      "info": 460
+      "critical": 906,
+      "warning": 1878,
+      "info": 541
     },
-    "distinctControls": 45
+    "distinctControls": 47
   },
   "controlCounts": [
     {
       "id": "CCVE-2025-3746",
       "name": "Deployment does not disable automountServiceAccountToken",
       "severity": "warning",
-      "configurationCount": 176,
-      "findingCount": 329
+      "configurationCount": 217,
+      "findingCount": 410
     },
     {
       "id": "CCVE-2025-3740",
       "name": "Deployment explicitly sets replicas to 1",
       "severity": "info",
-      "configurationCount": 178,
-      "findingCount": 307
+      "configurationCount": 219,
+      "findingCount": 388
     },
     {
       "id": "CCVE-2025-3728",
@@ -57,8 +57,8 @@
       "id": "CCVE-2025-4078",
       "name": "ClusterRole grants secrets read permissions",
       "severity": "critical",
-      "configurationCount": 116,
-      "findingCount": 229
+      "configurationCount": 119,
+      "findingCount": 232
     },
     {
       "id": "CCVE-2025-3745",
@@ -71,29 +71,71 @@
       "id": "CCVE-2025-3735",
       "name": "Container does not enforce readOnlyRootFilesystem",
       "severity": "warning",
-      "configurationCount": 80,
-      "findingCount": 91
+      "configurationCount": 120,
+      "findingCount": 131
+    },
+    {
+      "id": "CCVE-2025-3758",
+      "name": "DaemonSet does not disable automountServiceAccountToken",
+      "severity": "warning",
+      "configurationCount": 58,
+      "findingCount": 119
     },
     {
       "id": "CCVE-2025-4005",
       "name": "Volume argocd-repo-server-tls references Secret argocd/argocd-repo-server-tls which is not present in scanned documents",
       "severity": "warning",
-      "configurationCount": 38,
-      "findingCount": 82
+      "configurationCount": 52,
+      "findingCount": 118
     },
     {
       "id": "CCVE-2025-3734",
       "name": "Container does not disable allowPrivilegeEscalation",
       "severity": "critical",
-      "configurationCount": 52,
-      "findingCount": 63
+      "configurationCount": 89,
+      "findingCount": 100
     },
     {
       "id": "CCVE-2025-3736",
       "name": "Container does not drop ALL capabilities",
       "severity": "warning",
-      "configurationCount": 51,
-      "findingCount": 63
+      "configurationCount": 88,
+      "findingCount": 100
+    },
+    {
+      "id": "CCVE-2025-3755",
+      "name": "DaemonSet container does not set runAsNonRoot",
+      "severity": "critical",
+      "configurationCount": 34,
+      "findingCount": 94
+    },
+    {
+      "id": "CCVE-2025-3733",
+      "name": "Container does not set runAsNonRoot",
+      "severity": "critical",
+      "configurationCount": 79,
+      "findingCount": 85
+    },
+    {
+      "id": "CCVE-2025-4075",
+      "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+      "severity": "critical",
+      "configurationCount": 58,
+      "findingCount": 74
+    },
+    {
+      "id": "CCVE-2025-3726",
+      "name": "Deployment omits pod and container securityContext baseline",
+      "severity": "warning",
+      "configurationCount": 70,
+      "findingCount": 70
+    },
+    {
+      "id": "CCVE-2025-4076",
+      "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+      "severity": "critical",
+      "configurationCount": 57,
+      "findingCount": 69
     },
     {
       "id": "CCVE-2025-4001",
@@ -115,27 +157,6 @@
       "severity": "warning",
       "configurationCount": 41,
       "findingCount": 51
-    },
-    {
-      "id": "CCVE-2025-3733",
-      "name": "Container does not set runAsNonRoot",
-      "severity": "critical",
-      "configurationCount": 42,
-      "findingCount": 48
-    },
-    {
-      "id": "CCVE-2025-4075",
-      "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
-      "severity": "critical",
-      "configurationCount": 32,
-      "findingCount": 48
-    },
-    {
-      "id": "CCVE-2025-4076",
-      "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
-      "severity": "critical",
-      "configurationCount": 31,
-      "findingCount": 43
     },
     {
       "id": "CCVE-2025-3756",
@@ -187,20 +208,6 @@
       "findingCount": 35
     },
     {
-      "id": "CCVE-2025-3726",
-      "name": "Deployment omits pod and container securityContext baseline",
-      "severity": "warning",
-      "configurationCount": 33,
-      "findingCount": 33
-    },
-    {
-      "id": "CCVE-2025-3758",
-      "name": "DaemonSet does not disable automountServiceAccountToken",
-      "severity": "warning",
-      "configurationCount": 27,
-      "findingCount": 33
-    },
-    {
       "id": "CCVE-2025-4080",
       "name": "ClusterRole grants CSR approval update permissions",
       "severity": "critical",
@@ -215,17 +222,17 @@
       "findingCount": 29
     },
     {
-      "id": "CCVE-2025-3755",
-      "name": "DaemonSet container does not set runAsNonRoot",
-      "severity": "critical",
-      "configurationCount": 23,
-      "findingCount": 28
-    },
-    {
       "id": "CCVE-2025-0043",
       "name": "Thanos sidecar not uploading blocks",
       "severity": "critical",
       "configurationCount": 13,
+      "findingCount": 26
+    },
+    {
+      "id": "CCVE-2025-2704",
+      "name": "ClusterPolicy with empty rules causes panic",
+      "severity": "critical",
+      "configurationCount": 26,
       "findingCount": 26
     },
     {
@@ -262,6 +269,20 @@
       "severity": "critical",
       "configurationCount": 8,
       "findingCount": 8
+    },
+    {
+      "id": "CCVE-2025-0518",
+      "name": "Prometheus PodMonitor not discovered",
+      "severity": "warning",
+      "configurationCount": 7,
+      "findingCount": 7
+    },
+    {
+      "id": "CCVE-2025-3737",
+      "name": "Deployment mounts hostPath volume",
+      "severity": "critical",
+      "configurationCount": 7,
+      "findingCount": 7
     },
     {
       "id": "CCVE-2025-3747",
@@ -325,13 +346,6 @@
       "severity": "warning",
       "configurationCount": 2,
       "findingCount": 2
-    },
-    {
-      "id": "CCVE-2025-3737",
-      "name": "Deployment mounts hostPath volume",
-      "severity": "critical",
-      "configurationCount": 1,
-      "findingCount": 1
     },
     {
       "id": "CCVE-2025-3766",
@@ -476,7 +490,8 @@
         "webhook-secret-cert-controller-policy",
         "admission-webhook-review",
         "lifecycle-policy",
-        "sync-secret-rotation-review"
+        "sync-secret-rotation-review",
+        "operator-managed-operands"
       ],
       "reason": "These checks depend on install order, controller behavior, target state, or observations. A static rendered-object scan cannot replace them."
     },
@@ -500,7 +515,8 @@
         "bundle-component-review",
         "storage-retention-review",
         "csi-driver-review",
-        "ui-ingress-policy"
+        "ui-ingress-policy",
+        "privileged-workload-review"
       ],
       "reason": "These are broader operating and ownership decisions. Shared field checks can inform the review but do not answer it."
     },
@@ -11888,6 +11904,2352 @@
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.json"
     },
     {
+      "id": "nvidia-cluster-readiness-engine-v0-6-0-default",
+      "chart": "nvidia/cluster-readiness-engine",
+      "version": "v0.6.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 2,
+      "severityCounts": {
+        "critical": 0,
+        "warning": 1,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 43,
+      "objectSetSHA256": "sha256:ae1517586e9d45009ebd77f16108e064ea16716c461f56fb5d02ba237258296a",
+      "renderFileSHA256": "sha256:3d7c5f88d97f8f74f84b7ced2ae32d75fceb9888aa4d2701124eb6beea713170",
+      "scanTime": "2026-10-08T06:40:15Z",
+      "renderPath": "recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-cluster-readiness-engine-v0-6-0-default.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-default",
+      "chart": "nvidia/gpu-operator",
+      "version": "v25.10.1",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 16,
+      "severityCounts": {
+        "critical": 6,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3737",
+          "name": "Deployment mounts hostPath volume",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:ed8868c74e14ccd2e6c6794060264743d8497c64303b759bc188ff494f6218e3",
+      "renderFileSHA256": "sha256:4a711392870e1063a56eaaf4ca40219d82f4acda7cae5c2ead234a9fa1384891",
+      "scanTime": "2026-10-08T06:40:16Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v25.10.1/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v25.10.1/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v25-10-1-default.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-driver-580-126-20",
+      "chart": "nvidia/gpu-operator",
+      "version": "v25.10.1",
+      "base": "driver-580.126.20",
+      "outcome": "findings",
+      "findingCount": 16,
+      "severityCounts": {
+        "critical": 6,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3737",
+          "name": "Deployment mounts hostPath volume",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:51d372732238b8755b7d22c6a2041463bd493a598aa73fd3e87b1014093890ba",
+      "renderFileSHA256": "sha256:ac011644664f8eadcbceeb44327d0525429d2710bfc9aef90ebe6d721d6090ee",
+      "scanTime": "2026-10-08T06:40:16Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v25.10.1/revisions/driver-580.126.20/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v25.10.1/revisions/driver-580.126.20/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v25-10-1-driver-580-126-20.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-driver-595-91-07",
+      "chart": "nvidia/gpu-operator",
+      "version": "v25.10.1",
+      "base": "driver-595.91.07",
+      "outcome": "findings",
+      "findingCount": 16,
+      "severityCounts": {
+        "critical": 6,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3737",
+          "name": "Deployment mounts hostPath volume",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:cab45b38392cb32f4bd8166149d8e8c3417813a23e40c760d07511f632329ae0",
+      "renderFileSHA256": "sha256:32714faffb818eaeda0f014bf562eab4942f8a1c8ce93d5a2c6613f087978cac",
+      "scanTime": "2026-10-08T06:40:16Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v25.10.1/revisions/driver-595.91.07/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v25.10.1/revisions/driver-595.91.07/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v25-10-1-driver-595-91-07.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-external-nfd",
+      "chart": "nvidia/gpu-operator",
+      "version": "v25.10.1",
+      "base": "external-nfd",
+      "outcome": "findings",
+      "findingCount": 9,
+      "severityCounts": {
+        "critical": 4,
+        "warning": 4,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3737",
+          "name": "Deployment mounts hostPath volume",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 9,
+      "objectSetSHA256": "sha256:40faf3df79d445b9c03368fdb47be134f0c9653045a46e5c4627ded3541024e1",
+      "renderFileSHA256": "sha256:8667cb754f68c927b3d9dee8e7c4e1cb7d5141e6947f788f3e44853883df665a",
+      "scanTime": "2026-10-08T06:40:16Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v25.10.1/revisions/external-nfd/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v25.10.1/revisions/external-nfd/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v25-10-1-external-nfd.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-preinstalled-driver",
+      "chart": "nvidia/gpu-operator",
+      "version": "v25.10.1",
+      "base": "preinstalled-driver",
+      "outcome": "findings",
+      "findingCount": 16,
+      "severityCounts": {
+        "critical": 6,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3737",
+          "name": "Deployment mounts hostPath volume",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:7d39d65b952f71fb62cb7e531717e48e49b2abbdd7e52d366c081f3e79eeb85a",
+      "renderFileSHA256": "sha256:4b03d8e2d14fb9cec1bc58aad65d50f18997e2f7cb6db661d279822ce7c8d9ea",
+      "scanTime": "2026-10-08T06:40:16Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v25.10.1/revisions/preinstalled-driver/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v25.10.1/revisions/preinstalled-driver/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v25-10-1-preinstalled-driver.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit",
+      "chart": "nvidia/gpu-operator",
+      "version": "v25.10.1",
+      "base": "preinstalled-driver-and-toolkit",
+      "outcome": "findings",
+      "findingCount": 16,
+      "severityCounts": {
+        "critical": 6,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3737",
+          "name": "Deployment mounts hostPath volume",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:284109ee18bedeb0017e672b457a9d1aa87a3a9dfbeb64f1c8f07b31861b701e",
+      "renderFileSHA256": "sha256:ec5537100284d75523d002dcd5d4754382bb372b4087d3564ad2c966103eaac8",
+      "scanTime": "2026-10-08T06:40:16Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v25.10.1/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v25.10.1/revisions/preinstalled-driver-and-toolkit/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-default",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.2",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 15,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:2427b5ea53b7af70f458dc26416d24f7846f957226369f33aa306cd071371ba5",
+      "renderFileSHA256": "sha256:51c7d8994a0ca9530254b46b3b6eae4fd38baeae4e0504c28f27933a4437950c",
+      "scanTime": "2026-10-08T06:40:17Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.3.2/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.3.2/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-3-2-default.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-driver-580-105-08",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.2",
+      "base": "driver-580.105.08",
+      "outcome": "findings",
+      "findingCount": 15,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:0ef8eec6afdbb1562f9193cda1db78da13bcc987e66a38ae7529d8742985d49d",
+      "renderFileSHA256": "sha256:70caf6e456b039cee29792410a0526c67a0f1ca6954f8b054bdd7c57b62243a0",
+      "scanTime": "2026-10-08T06:40:17Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.3.2/revisions/driver-580.105.08/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.3.2/revisions/driver-580.105.08/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-3-2-driver-580-105-08.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-driver-595-91-07",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.2",
+      "base": "driver-595.91.07",
+      "outcome": "findings",
+      "findingCount": 15,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:d7f3bee4f618b6d2d0ff1c48abda99c74e92d44a5549a9b289c65301a2c04b7d",
+      "renderFileSHA256": "sha256:523f9c0beb4eeab1b60bf8ce2438d03e85a7a4b564a80d546ad1d22932b06b9e",
+      "scanTime": "2026-10-08T06:40:17Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.3.2/revisions/driver-595.91.07/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.3.2/revisions/driver-595.91.07/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-3-2-driver-595-91-07.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-external-nfd",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.2",
+      "base": "external-nfd",
+      "outcome": "findings",
+      "findingCount": 8,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 4,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 9,
+      "objectSetSHA256": "sha256:3c5a2d001a1eff8d42516f2dc8f581bdc394be96c25f3c6e3052064808b1b018",
+      "renderFileSHA256": "sha256:30a949cc36999ed032f4aa18838e11f4bacc29c2840e6a2b3bce8712e9305b37",
+      "scanTime": "2026-10-08T06:40:17Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.3.2/revisions/external-nfd/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.3.2/revisions/external-nfd/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-3-2-external-nfd.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-preinstalled-driver",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.2",
+      "base": "preinstalled-driver",
+      "outcome": "findings",
+      "findingCount": 15,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:afd158de3e44e5c701eab12dc7c11945b9f456681be0b75e6f63db159bf3df6e",
+      "renderFileSHA256": "sha256:81722ed910b8ec297ef43e02fbbe13a124c3a78cc6ddc4ea7f07f7c1bec6e8ec",
+      "scanTime": "2026-10-08T06:40:17Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.3.2/revisions/preinstalled-driver/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.3.2/revisions/preinstalled-driver/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-3-2-preinstalled-driver.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.2",
+      "base": "preinstalled-driver-and-toolkit",
+      "outcome": "findings",
+      "findingCount": 15,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:339f3ae069610bc53ad9562f7673cfec985dbc422aca5e3ed361ff2e01bdb466",
+      "renderFileSHA256": "sha256:2980e91c1280647c62edc7e95bd9e1145de261022fe8d6f3a6d2ed1425f57c22",
+      "scanTime": "2026-10-08T06:40:17Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.3.2/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.3.2/revisions/preinstalled-driver-and-toolkit/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-aicr-eks-training",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.3",
+      "base": "aicr-eks-training",
+      "outcome": "findings",
+      "findingCount": 8,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 4,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 10,
+      "objectSetSHA256": "sha256:bb8f4463d4d8f20baaf39d881b326c807d390f7c366710dfa8659554a58d4f57",
+      "renderFileSHA256": "sha256:8f33a5021500891676062706330ec40b6f356e115a013df11d41943c65bf1be7",
+      "scanTime": "2026-10-08T06:40:17Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.3.3/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.3.3/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-3-3-aicr-eks-training.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-default",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.3",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 15,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:28a84c191250d8559da960f223b0be28b26a410fec0d5fc7f3031f08b4aa34e2",
+      "renderFileSHA256": "sha256:73ebb5f6de3d1f010330d266db11b99b508be84dfc92b9d5deb01a39b66fee7c",
+      "scanTime": "2026-10-08T06:40:18Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.3.3/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.3.3/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-3-3-default.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-driver-580-105-08",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.3",
+      "base": "driver-580.105.08",
+      "outcome": "findings",
+      "findingCount": 15,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:e1ee64ca607029d3b2c90f3f9a81668e647f3a5059de5f35b9d1d7bbf1192888",
+      "renderFileSHA256": "sha256:3e9b98ac2f1753e1e53801e271b071ee590da1c7b5ab5278e1b5dadba9f87528",
+      "scanTime": "2026-10-08T06:40:18Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.3.3/revisions/driver-580.105.08/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.3.3/revisions/driver-580.105.08/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-3-3-driver-580-105-08.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-driver-595-91-07",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.3",
+      "base": "driver-595.91.07",
+      "outcome": "findings",
+      "findingCount": 15,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:f219f9fde0bb6cc04660965c141ad78c3a43f95b35cbdcf3c57e48aabf497abc",
+      "renderFileSHA256": "sha256:d14f2965c55aab8f9b5503562949c16fa1f86c205af48afcc11f87bdf4606838",
+      "scanTime": "2026-10-08T06:40:18Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.3.3/revisions/driver-595.91.07/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.3.3/revisions/driver-595.91.07/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-3-3-driver-595-91-07.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-external-nfd",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.3",
+      "base": "external-nfd",
+      "outcome": "findings",
+      "findingCount": 8,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 4,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 9,
+      "objectSetSHA256": "sha256:cd536a3e5f9c82d0dfceb4f9bc8eae6d11ec4646c201c82d90abf401ef727a8c",
+      "renderFileSHA256": "sha256:cb21107fdf6b6e1efee9c20074ed1969f7780e81e27ac73e67eb2b3d751b241d",
+      "scanTime": "2026-10-08T06:40:18Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.3.3/revisions/external-nfd/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.3.3/revisions/external-nfd/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-3-3-external-nfd.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-preinstalled-driver",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.3",
+      "base": "preinstalled-driver",
+      "outcome": "findings",
+      "findingCount": 15,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:a89dda993f8e1361084fadab449070a26573bd09da26b325c6a7c2eada7f7cda",
+      "renderFileSHA256": "sha256:a683f3569297e0bec21311881018d80b25feacabc15939acef49b045b18fc627",
+      "scanTime": "2026-10-08T06:40:18Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.3.3/revisions/preinstalled-driver/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.3.3/revisions/preinstalled-driver/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-3-3-preinstalled-driver.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-preinstalled-driver-and-toolkit",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.3.3",
+      "base": "preinstalled-driver-and-toolkit",
+      "outcome": "findings",
+      "findingCount": 15,
+      "severityCounts": {
+        "critical": 5,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 24,
+      "objectSetSHA256": "sha256:494705d414aeec4add9fd5d33fb3a75aa9900657adc4685efce1131b0cd94cb6",
+      "renderFileSHA256": "sha256:f6db512d2f6196493b14208565922fb804bcb63c6570c960b85d4c97d7c39569",
+      "scanTime": "2026-10-08T06:40:18Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.3.3/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.3.3/revisions/preinstalled-driver-and-toolkit/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-3-3-preinstalled-driver-and-toolkit.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-aicr-eks-training",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.7.1",
+      "base": "aicr-eks-training",
+      "outcome": "findings",
+      "findingCount": 8,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 4,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 13,
+      "objectSetSHA256": "sha256:6acf2d2f633d3432ba15076dff6cdc838120ad1ca2d70d16af7f1a097c2498a7",
+      "renderFileSHA256": "sha256:4bd9d60ec2d64a15f28d175934c33d26efd49990a5a28d36b463182b807f9a9b",
+      "scanTime": "2026-10-08T06:40:18Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.7.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.7.1/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-7-1-aicr-eks-training.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-default",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.7.1",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 13,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 27,
+      "objectSetSHA256": "sha256:c2b7e5e4b97f4b3a1fd6bfe2dab1f8995422be6d52cb8faa587c48d431d166b6",
+      "renderFileSHA256": "sha256:a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd",
+      "scanTime": "2026-10-08T06:40:19Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-7-1-default.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-driver-580-105-08",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.7.1",
+      "base": "driver-580.105.08",
+      "outcome": "findings",
+      "findingCount": 13,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 27,
+      "objectSetSHA256": "sha256:91755f889ab242f8ae60faa2a12c351a467afc40198aead836de2abcfe631338",
+      "renderFileSHA256": "sha256:a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6",
+      "scanTime": "2026-10-08T06:40:19Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-7-1-driver-580-105-08.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-driver-580-126-20",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.7.1",
+      "base": "driver-580.126.20",
+      "outcome": "findings",
+      "findingCount": 13,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 27,
+      "objectSetSHA256": "sha256:afa04a089d9f8c6f9fda83309afe0f0b734a6a11e1310d8d14ccc5770080262b",
+      "renderFileSHA256": "sha256:07c886e36a064b51cc99954ae5f3e98f3ca07d3ba51e1721e7affbf6a01654aa",
+      "scanTime": "2026-10-08T06:40:19Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.126.20/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.126.20/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-7-1-driver-580-126-20.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-external-nfd",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.7.1",
+      "base": "external-nfd",
+      "outcome": "findings",
+      "findingCount": 8,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 4,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 12,
+      "objectSetSHA256": "sha256:6dd37419e39a6a45c91da6a838dc83cfa0b09b8b5c9dbbdd801f2bff3af4c03f",
+      "renderFileSHA256": "sha256:a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489",
+      "scanTime": "2026-10-08T06:40:19Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.7.1/revisions/external-nfd/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.7.1/revisions/external-nfd/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-7-1-external-nfd.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-preinstalled-driver",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.7.1",
+      "base": "preinstalled-driver",
+      "outcome": "findings",
+      "findingCount": 13,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 27,
+      "objectSetSHA256": "sha256:5a34659a268bbeb00b425778cd0ff676d2a1d9be2141aca40fcb913a38290142",
+      "renderFileSHA256": "sha256:98a886b6a43765364c65a2b93d489f430347f3fd8a02a35d5bc03015d675fe36",
+      "scanTime": "2026-10-08T06:40:19Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-7-1-preinstalled-driver.json"
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit",
+      "chart": "nvidia/gpu-operator",
+      "version": "v26.7.1",
+      "base": "preinstalled-driver-and-toolkit",
+      "outcome": "findings",
+      "findingCount": 13,
+      "severityCounts": {
+        "critical": 3,
+        "warning": 7,
+        "info": 3
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-2704",
+          "name": "ClusterPolicy with empty rules causes panic",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 3
+        }
+      ],
+      "objectCount": 27,
+      "objectSetSHA256": "sha256:76ec94ab5639b41156287f14153cd1bca8df6d3cec54f4ee074b1a5b2b179736",
+      "renderFileSHA256": "sha256:2b6cb805960b912ddebd8e5ead4b9bfe5a75ec8d6e28816ebcc9173bdf5da82b",
+      "scanTime": "2026-10-08T06:40:19Z",
+      "renderPath": "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver-and-toolkit/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/gpu-operator/v26.7.1/revisions/preinstalled-driver-and-toolkit/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit.json"
+    },
+    {
+      "id": "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference",
+      "chart": "nvidia/k8s-nim-operator",
+      "version": "3.1.0",
+      "base": "aicr-eks-inference",
+      "outcome": "findings",
+      "findingCount": 5,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 3,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount nvidia-nim/k8s-nim-operator is not present in scanned documents",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 21,
+      "objectSetSHA256": "sha256:a898f88d06b81ca0a222deb93e6ed5d828c88f98c80c4f5d68708690c0fe101d",
+      "renderFileSHA256": "sha256:ef6956d9cec1d29fa5955d22d5e5df9db12fa1a122613c7da358e0edcd19dbf8",
+      "scanTime": "2026-10-08T06:40:19Z",
+      "renderPath": "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.json"
+    },
+    {
+      "id": "nvidia-k8s-nim-operator-3-1-0-default",
+      "chart": "nvidia/k8s-nim-operator",
+      "version": "3.1.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 5,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 3,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount nvidia-nim/k8s-nim-operator is not present in scanned documents",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 17,
+      "objectSetSHA256": "sha256:5b8cd79e857f6cf468f1e011babcec657785668437b957ddfc9297d27b405778",
+      "renderFileSHA256": "sha256:226c148d867aff54fd40bdce6debeec6201ce90a726f09087bd438ea426e450f",
+      "scanTime": "2026-10-08T06:40:20Z",
+      "renderPath": "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/k8s-nim-operator/3.1.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-k8s-nim-operator-3-1-0-default.json"
+    },
+    {
+      "id": "nvidia-k8s-nim-operator-3-1-2-default",
+      "chart": "nvidia/k8s-nim-operator",
+      "version": "3.1.2",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 5,
+      "severityCounts": {
+        "critical": 1,
+        "warning": 3,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount nvidia-nim/k8s-nim-operator is not present in scanned documents",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 17,
+      "objectSetSHA256": "sha256:4333f146757746676eb87e6fa3e1aae8ce7505eb61c295cea8fc1b74c31daf3d",
+      "renderFileSHA256": "sha256:b152742ed9d6d23ffc731464407499cf534c2c155657052cb1f9425000f6830f",
+      "scanTime": "2026-10-08T06:40:20Z",
+      "renderPath": "recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-k8s-nim-operator-3-1-2-default.json"
+    },
+    {
       "id": "nvidia-nvidia-device-plugin-0-19-3-default",
       "chart": "nvidia/nvidia-device-plugin",
       "version": "0.19.3",
@@ -12048,6 +14410,1082 @@
       "renderPath": "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nvidia-device-plugin-0-19-3-nfd-enabled.json"
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-20-0-aicr-eks-training",
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.20.0",
+      "base": "aicr-eks-training",
+      "outcome": "findings",
+      "findingCount": 25,
+      "severityCounts": {
+        "critical": 10,
+        "warning": 14,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount nvsentinel/labeler is not present in scanned documents",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-0518",
+          "name": "Prometheus PodMonitor not discovered",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 21,
+      "objectSetSHA256": "sha256:d6dab3a55d2fc24a145413ecbe7327f4c7514748553090c5405eb4fca246ce91",
+      "renderFileSHA256": "sha256:28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee",
+      "scanTime": "2026-10-08T06:40:20Z",
+      "renderPath": "recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nvsentinel-v1-20-0-aicr-eks-training.json"
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-20-0-default",
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.20.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 25,
+      "severityCounts": {
+        "critical": 10,
+        "warning": 14,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount nvsentinel/labeler is not present in scanned documents",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-0518",
+          "name": "Prometheus PodMonitor not discovered",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 22,
+      "objectSetSHA256": "sha256:8fda0971b06aabc166e2c2ea16c496f2fa4152ecae0dcf69fafca7970dc42a67",
+      "renderFileSHA256": "sha256:3344e2d68968a485305ba8280ebb1676457f5552cd665c8000faa38c42841377",
+      "scanTime": "2026-10-08T06:40:20Z",
+      "renderPath": "recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nvsentinel-v1-20-0-default.json"
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-20-0-no-pod-monitor",
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.20.0",
+      "base": "no-pod-monitor",
+      "outcome": "findings",
+      "findingCount": 24,
+      "severityCounts": {
+        "critical": 10,
+        "warning": 13,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount nvsentinel/labeler is not present in scanned documents",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 21,
+      "objectSetSHA256": "sha256:ae7f839c6361fff02ea3a4389c5a03198a20a7e47159215ee4261bf2ffb2d0c1",
+      "renderFileSHA256": "sha256:90aeac70ec22badcd205ec6a6ee66b7490a8353eb3242cde61bedce08bd4c3eb",
+      "scanTime": "2026-10-08T06:40:21Z",
+      "renderPath": "recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nvsentinel-v1-20-0-no-pod-monitor.json"
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-25-0-aicr-eks-training",
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.25.0",
+      "base": "aicr-eks-training",
+      "outcome": "findings",
+      "findingCount": 25,
+      "severityCounts": {
+        "critical": 10,
+        "warning": 14,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount nvsentinel/labeler is not present in scanned documents",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-0518",
+          "name": "Prometheus PodMonitor not discovered",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 21,
+      "objectSetSHA256": "sha256:33af5d60c81166e4ba1e6400424ada8167f27a5865d33ed3e090ab510d7188af",
+      "renderFileSHA256": "sha256:a0a98f57755f4be60aedae1219efb32059025921a6c5eb15f57e87d5a7776b15",
+      "scanTime": "2026-10-08T06:40:21Z",
+      "renderPath": "recipes/nvidia/nvsentinel/v1.25.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nvsentinel/v1.25.0/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nvsentinel-v1-25-0-aicr-eks-training.json"
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-25-0-default",
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.25.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 25,
+      "severityCounts": {
+        "critical": 10,
+        "warning": 14,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount nvsentinel/labeler is not present in scanned documents",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-0518",
+          "name": "Prometheus PodMonitor not discovered",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 22,
+      "objectSetSHA256": "sha256:38b394e137bcc67d331cb721e40c276579a777b7132b162e1b1c0221a8fe6a72",
+      "renderFileSHA256": "sha256:f12a375c7b63cdfe02ed6eda602a22c771d43216297ab2089f374ef913a86ec2",
+      "scanTime": "2026-10-08T06:40:21Z",
+      "renderPath": "recipes/nvidia/nvsentinel/v1.25.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nvsentinel/v1.25.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nvsentinel-v1-25-0-default.json"
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-25-0-no-pod-monitor",
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.25.0",
+      "base": "no-pod-monitor",
+      "outcome": "findings",
+      "findingCount": 24,
+      "severityCounts": {
+        "critical": 10,
+        "warning": 13,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount nvsentinel/labeler is not present in scanned documents",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 21,
+      "objectSetSHA256": "sha256:79292154659b9ee3b59dbc3df9d9c1fa7d3c2a28e028a130b98f06929f393775",
+      "renderFileSHA256": "sha256:efeccf54131507abb5c6c4965ec661bcc48b5e89f609afdcdf9f299a8afbbd25",
+      "scanTime": "2026-10-08T06:40:21Z",
+      "renderPath": "recipes/nvidia/nvsentinel/v1.25.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nvsentinel/v1.25.0/revisions/no-pod-monitor/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nvsentinel-v1-25-0-no-pod-monitor.json"
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-26-0-default",
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.26.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 25,
+      "severityCounts": {
+        "critical": 10,
+        "warning": 14,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount nvsentinel/labeler is not present in scanned documents",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-0518",
+          "name": "Prometheus PodMonitor not discovered",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 22,
+      "objectSetSHA256": "sha256:d9ee7a586e0cade73ab887c90c151d5859eaf251dd16abd809942da2df8b1e75",
+      "renderFileSHA256": "sha256:24814ac18cb0a16ce47a9d02a6a4c01d86ad3b99c1382f47b5daf734c4bc70ae",
+      "scanTime": "2026-10-08T06:40:21Z",
+      "renderPath": "recipes/nvidia/nvsentinel/v1.26.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nvsentinel/v1.26.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nvsentinel-v1-26-0-default.json"
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-26-0-no-pod-monitor",
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.26.0",
+      "base": "no-pod-monitor",
+      "outcome": "findings",
+      "findingCount": 24,
+      "severityCounts": {
+        "critical": 10,
+        "warning": 13,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount nvsentinel/labeler is not present in scanned documents",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 21,
+      "objectSetSHA256": "sha256:2c4dae008a2a7cae9690fecf87a22ddac64d7b8892261c2ed344e9978516ee2d",
+      "renderFileSHA256": "sha256:46e1eea6fdb17a85b71a8e36978dc96364ed5d65ee7951b02b22cf7de8733c00",
+      "scanTime": "2026-10-08T06:40:21Z",
+      "renderPath": "recipes/nvidia/nvsentinel/v1.26.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nvsentinel/v1.26.0/revisions/no-pod-monitor/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nvsentinel-v1-26-0-no-pod-monitor.json"
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-9-0-aicr-eks-training",
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.9.0",
+      "base": "aicr-eks-training",
+      "outcome": "findings",
+      "findingCount": 25,
+      "severityCounts": {
+        "critical": 10,
+        "warning": 14,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount nvsentinel/labeler is not present in scanned documents",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-0518",
+          "name": "Prometheus PodMonitor not discovered",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 20,
+      "objectSetSHA256": "sha256:fb13ebd5b6e183d3c7e871a70d32b820b50ecc6bbb067eb90bf2b0ea1f1b0195",
+      "renderFileSHA256": "sha256:108838b8b474bf4a3e5bf541af136ef74fcacfdf74cb16ed18f7d999a44f365d",
+      "scanTime": "2026-10-08T06:40:22Z",
+      "renderPath": "recipes/nvidia/nvsentinel/v1.9.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nvsentinel/v1.9.0/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nvsentinel-v1-9-0-aicr-eks-training.json"
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-9-0-default",
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.9.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 25,
+      "severityCounts": {
+        "critical": 10,
+        "warning": 14,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount nvsentinel/labeler is not present in scanned documents",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-0518",
+          "name": "Prometheus PodMonitor not discovered",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 21,
+      "objectSetSHA256": "sha256:8927d7d05510ebc8ffae69b2df77e20273ab04a5cc4f02dac5f990fa112b4941",
+      "renderFileSHA256": "sha256:ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2",
+      "scanTime": "2026-10-08T06:40:22Z",
+      "renderPath": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nvsentinel/v1.9.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nvsentinel-v1-9-0-default.json"
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-9-0-no-pod-monitor",
+      "chart": "nvidia/nvsentinel",
+      "version": "v1.9.0",
+      "base": "no-pod-monitor",
+      "outcome": "findings",
+      "findingCount": 24,
+      "severityCounts": {
+        "critical": 10,
+        "warning": 13,
+        "info": 1
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-3755",
+          "name": "DaemonSet container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3733",
+          "name": "Container does not set runAsNonRoot",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3734",
+          "name": "Container does not disable allowPrivilegeEscalation",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3758",
+          "name": "DaemonSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "ClusterRoleBinding subject ServiceAccount nvsentinel/labeler is not present in scanned documents",
+          "severity": "warning",
+          "count": 3
+        },
+        {
+          "id": "CCVE-2025-3726",
+          "name": "Deployment omits pod and container securityContext baseline",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3735",
+          "name": "Container does not enforce readOnlyRootFilesystem",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3736",
+          "name": "Container does not drop ALL capabilities",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 1
+        }
+      ],
+      "objectCount": 20,
+      "objectSetSHA256": "sha256:efab5a43c558163108a946c5479f5acad966d9082e0f174dddfaaf4dc2b4a7bd",
+      "renderFileSHA256": "sha256:5319d654999e0575a5c43ab992c31af9a22a92f5d55f025e4f3ad539cb963810",
+      "scanTime": "2026-10-08T06:40:22Z",
+      "renderPath": "recipes/nvidia/nvsentinel/v1.9.0/revisions/no-pod-monitor/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/nvidia/nvsentinel/v1.9.0/revisions/no-pod-monitor/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/nvidia-nvsentinel-v1-9-0-no-pod-monitor.json"
     },
     {
       "id": "oauth2-proxy-oauth2-proxy-10-7-0-default",

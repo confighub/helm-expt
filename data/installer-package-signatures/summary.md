@@ -11,9 +11,9 @@ key is kept in this repository or on the package-building machine.
 
 | Measure | Count |
 | --- | ---: |
-| Published package manifests | 156 |
-| Manifests with a committed signature receipt | 156 |
-| Manifests with a signed payload, Sigstore bundle, and cosign verification output | 156 |
+| Published package manifests | 167 |
+| Manifests with a committed signature receipt | 167 |
+| Manifests with a signed payload, Sigstore bundle, and cosign verification output | 167 |
 
 ## Verify One Package
 

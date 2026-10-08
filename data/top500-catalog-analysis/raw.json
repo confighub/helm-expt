@@ -18,10 +18,10 @@
     "multiVariantProofs": 62,
     "productionBlockedSupported": 0,
     "productionReviewReadySupported": 20,
-    "currentProofsTotal": 113,
+    "currentProofsTotal": 117,
     "currentProofsMatched": 97,
-    "currentProofsUnmatchedToOldMatrix": 16,
-    "retainedCandidateProofVersions": 43
+    "currentProofsUnmatchedToOldMatrix": 20,
+    "retainedCandidateProofVersions": 50
   },
   "rows": [
     {

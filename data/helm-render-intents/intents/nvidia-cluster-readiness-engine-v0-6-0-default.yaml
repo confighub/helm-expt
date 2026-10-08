@@ -1,0 +1,420 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "nvidia-cluster-readiness-engine-v0-6-0-default"
+  labels:
+    component: "nvidia/cluster-readiness-engine"
+    chart: "nvidia/cluster-readiness-engine"
+    version: "v0.6.0"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "nvidia/cluster-readiness-engine"
+  chart:
+    name: "nvidia/cluster-readiness-engine"
+    version: "v0.6.0"
+    sourceRepository: "oci://ghcr.io/nvidia"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/nvidia/cluster-readiness-engine/v0.6.0"
+    variant: "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+    revision: "recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/nvidia/cluster-readiness-engine/v0.6.0/bases/default"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501"
+    sourceLock: "recipes/nvidia/cluster-readiness-engine/v0.6.0/source-lock.yaml"
+    namespace: "nvcre"
+    releaseName: "nvcre"
+    valuesProfile: "recipes/nvidia/cluster-readiness-engine/v0.6.0/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/nvidia/cluster-readiness-engine/v0.6.0/bases/default"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "bandwidthmeasurements.nvcre.nvidia.com"
+          purpose: "CRD included in this base and applied before the controller that reconciles it"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "certifications.nvcre.nvidia.com"
+          purpose: "CRD included in this base and applied before the controller that reconciles it"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "goodputmeasurements.nvcre.nvidia.com"
+          purpose: "CRD included in this base and applied before the controller that reconciles it"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "jobs.nvcre.nvidia.com"
+          purpose: "CRD included in this base and applied before the controller that reconciles it"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "logprofiles.nvcre.nvidia.com"
+          purpose: "CRD included in this base; it must be established before Kubernetes accepts the four rendered LogProfile objects"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "workflows.nvcre.nvidia.com"
+          purpose: "CRD included in this base and applied before the controller that reconciles it"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "workloadruns.nvcre.nvidia.com"
+          purpose: "CRD included in this base and applied before the controller that reconciles it"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "servicemonitors.monitoring.coreos.com"
+          purpose: "Prometheus Operator ServiceMonitor CRD required before Kubernetes accepts the rendered ServiceMonitor object; the chart does not ship it"
+          sourcePath: "../../../prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "prometheus-community/kube-prometheus-stack@88.6.3/default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+    requirements:
+      -
+        category: "crd"
+        name: "bandwidthmeasurements.nvcre.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+          - "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "certifications.nvcre.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+          - "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "goodputmeasurements.nvcre.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+          - "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "jobs.nvcre.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+          - "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "logprofiles.nvcre.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base; it must be established before Kubernetes accepts the four rendered LogProfile objects"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+          - "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "workflows.nvcre.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+          - "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "workloadruns.nvcre.nvidia.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CRD included in this base and applied before the controller that reconciles it"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+          - "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "servicemonitors.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Prometheus Operator ServiceMonitor CRD required before Kubernetes accepts the rendered ServiceMonitor object; the chart does not ship it"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+        sourceVariant: "prometheus-community/kube-prometheus-stack@88.6.3/default"
+        sourcePath: "../../../prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/rendered/release-objects.yaml"
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+          - "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "8 target prerequisites declared by this base."
+      declarationSource: "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/nvidia/cluster-readiness-engine/v0.6.0/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 8
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/nvidia/cluster-readiness-engine/v0.6.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/nvidia/cluster-readiness-engine/v0.6.0/bases/default"
+    fullModelPath:
+      - "chart/version: nvidia/cluster-readiness-engine@v0.6.0"
+      - "recipe: recipes/nvidia/cluster-readiness-engine/v0.6.0"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
+      - "rendered revision: recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/rendered/release-objects.yaml"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501"
+      - "package base: packages/nvidia/cluster-readiness-engine/v0.6.0/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

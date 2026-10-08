@@ -180,6 +180,457 @@
       "rationale": "The node DaemonSet advertises GPU resources; it supplies neither GPU hardware nor an inference service."
     },
     {
+      "id": "nvidia-gpu-operator-v25-10-1-default",
+      "configurationDigest": "4a711392870e1063a56eaaf4ca40219d82f4acda7cae5c2ead234a9fa1384891",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-driver-580-126-20",
+      "configurationDigest": "ac011644664f8eadcbceeb44327d0525429d2710bfc9aef90ebe6d721d6090ee",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-driver-595-91-07",
+      "configurationDigest": "32714faffb818eaeda0f014bf562eab4942f8a1c8ce93d5a2c6613f087978cac",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-preinstalled-driver",
+      "configurationDigest": "4b03d8e2d14fb9cec1bc58aad65d50f18997e2f7cb6db661d279822ce7c8d9ea",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-preinstalled-driver-and-toolkit",
+      "configurationDigest": "ec5537100284d75523d002dcd5d4754382bb372b4087d3564ad2c966103eaac8",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v25-10-1-external-nfd",
+      "configurationDigest": "8667cb754f68c927b3d9dee8e7c4e1cb7d5141e6947f788f3e44853883df665a",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-default",
+      "configurationDigest": "51c7d8994a0ca9530254b46b3b6eae4fd38baeae4e0504c28f27933a4437950c",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-driver-580-105-08",
+      "configurationDigest": "70caf6e456b039cee29792410a0526c67a0f1ca6954f8b054bdd7c57b62243a0",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-driver-595-91-07",
+      "configurationDigest": "523f9c0beb4eeab1b60bf8ce2438d03e85a7a4b564a80d546ad1d22932b06b9e",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-preinstalled-driver",
+      "configurationDigest": "81722ed910b8ec297ef43e02fbbe13a124c3a78cc6ddc4ea7f07f7c1bec6e8ec",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit",
+      "configurationDigest": "2980e91c1280647c62edc7e95bd9e1145de261022fe8d6f3a6d2ed1425f57c22",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-2-external-nfd",
+      "configurationDigest": "30a949cc36999ed032f4aa18838e11f4bacc29c2840e6a2b3bce8712e9305b37",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-default",
+      "configurationDigest": "73ebb5f6de3d1f010330d266db11b99b508be84dfc92b9d5deb01a39b66fee7c",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-driver-580-105-08",
+      "configurationDigest": "3e9b98ac2f1753e1e53801e271b071ee590da1c7b5ab5278e1b5dadba9f87528",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-driver-595-91-07",
+      "configurationDigest": "d14f2965c55aab8f9b5503562949c16fa1f86c205af48afcc11f87bdf4606838",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-preinstalled-driver",
+      "configurationDigest": "a683f3569297e0bec21311881018d80b25feacabc15939acef49b045b18fc627",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-preinstalled-driver-and-toolkit",
+      "configurationDigest": "f6db512d2f6196493b14208565922fb804bcb63c6570c960b85d4c97d7c39569",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-external-nfd",
+      "configurationDigest": "cb21107fdf6b6e1efee9c20074ed1969f7780e81e27ac73e67eb2b3d751b241d",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-3-3-aicr-eks-training",
+      "configurationDigest": "8f33a5021500891676062706330ec40b6f356e115a013df11d41943c65bf1be7",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-default",
+      "configurationDigest": "a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-driver-580-105-08",
+      "configurationDigest": "a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-driver-580-126-20",
+      "configurationDigest": "07c886e36a064b51cc99954ae5f3e98f3ca07d3ba51e1721e7affbf6a01654aa",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-preinstalled-driver",
+      "configurationDigest": "98a886b6a43765364c65a2b93d489f430347f3fd8a02a35d5bc03015d675fe36",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit",
+      "configurationDigest": "2b6cb805960b912ddebd8e5ead4b9bfe5a75ec8d6e28816ebcc9173bdf5da82b",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-external-nfd",
+      "configurationDigest": "a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-gpu-operator-v26-7-1-aicr-eks-training",
+      "configurationDigest": "4bd9d60ec2d64a15f28d175934c33d26efd49990a5a28d36b463182b807f9a9b",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the GPU Operator and a ClusterPolicy that tells it which driver, toolkit and device-plugin workloads to run on GPU nodes; it supplies no GPU hardware."
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-9-0-default",
+      "configurationDigest": "ff119d611ef65e379981eebab7975632ce560268a59300146e425c0468313fb2",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The node DaemonSets watch GPU and system-log health and report faults; as retained they quarantine or repair nothing, and they supply no GPU capacity."
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-9-0-no-pod-monitor",
+      "configurationDigest": "5319d654999e0575a5c43ab992c31af9a22a92f5d55f025e4f3ad539cb963810",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The node DaemonSets watch GPU and system-log health and report faults; as retained they quarantine or repair nothing, and they supply no GPU capacity."
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-9-0-aicr-eks-training",
+      "configurationDigest": "108838b8b474bf4a3e5bf541af136ef74fcacfdf74cb16ed18f7d999a44f365d",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The node DaemonSets watch GPU and system-log health and report faults; as retained they quarantine or repair nothing, and they supply no GPU capacity."
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-20-0-default",
+      "configurationDigest": "3344e2d68968a485305ba8280ebb1676457f5552cd665c8000faa38c42841377",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The node DaemonSets watch GPU and system-log health and report faults; as retained they quarantine or repair nothing, and they supply no GPU capacity."
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-20-0-no-pod-monitor",
+      "configurationDigest": "90aeac70ec22badcd205ec6a6ee66b7490a8353eb3242cde61bedce08bd4c3eb",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The node DaemonSets watch GPU and system-log health and report faults; as retained they quarantine or repair nothing, and they supply no GPU capacity."
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-20-0-aicr-eks-training",
+      "configurationDigest": "28e45494250a43f3f44a0a9b7918984e5aaf12f5bd235137e06e40a264be8aee",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The node DaemonSets watch GPU and system-log health and report faults; as retained they quarantine or repair nothing, and they supply no GPU capacity."
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-25-0-default",
+      "configurationDigest": "f12a375c7b63cdfe02ed6eda602a22c771d43216297ab2089f374ef913a86ec2",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The node DaemonSets watch GPU and system-log health and report faults; as retained they quarantine or repair nothing, and they supply no GPU capacity."
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-25-0-no-pod-monitor",
+      "configurationDigest": "efeccf54131507abb5c6c4965ec661bcc48b5e89f609afdcdf9f299a8afbbd25",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The node DaemonSets watch GPU and system-log health and report faults; as retained they quarantine or repair nothing, and they supply no GPU capacity."
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-25-0-aicr-eks-training",
+      "configurationDigest": "a0a98f57755f4be60aedae1219efb32059025921a6c5eb15f57e87d5a7776b15",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The node DaemonSets watch GPU and system-log health and report faults; as retained they quarantine or repair nothing, and they supply no GPU capacity."
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-26-0-default",
+      "configurationDigest": "24814ac18cb0a16ce47a9d02a6a4c01d86ad3b99c1382f47b5daf734c4bc70ae",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The node DaemonSets watch GPU and system-log health and report faults; as retained they quarantine or repair nothing, and they supply no GPU capacity."
+    },
+    {
+      "id": "nvidia-nvsentinel-v1-26-0-no-pod-monitor",
+      "configurationDigest": "46e1eea6fdb17a85b71a8e36978dc96364ed5d65ee7951b02b22cf7de8733c00",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "agent"
+        }
+      ],
+      "rationale": "The node DaemonSets watch GPU and system-log health and report faults; as retained they quarantine or repair nothing, and they supply no GPU capacity."
+    },
+    {
+      "id": "nvidia-cluster-readiness-engine-v0-6-0-default",
+      "configurationDigest": "3d7c5f88d97f8f74f84b7ced2ae32d75fceb9888aa4d2701124eb6beea713170",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs a controller that certifies GPU clusters from Certification custom resources; it certifies nothing until one is created on a cluster with GPU nodes."
+    },
+    {
+      "id": "nvidia-k8s-nim-operator-3-1-0-default",
+      "configurationDigest": "226c148d867aff54fd40bdce6debeec6201ce90a726f09087bd438ea426e450f",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the NIM Operator, which runs GPU inference microservices from NIMService and NIMCache custom resources; it deploys no model, and a model still needs GPU nodes and an NGC key."
+    },
+    {
+      "id": "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference",
+      "configurationDigest": "ef6956d9cec1d29fa5955d22d5e5df9db12fa1a122613c7da358e0edcd19dbf8",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the NIM Operator, which runs GPU inference microservices from NIMService and NIMCache custom resources; it deploys no model, and a model still needs GPU nodes and an NGC key."
+    },
+    {
+      "id": "nvidia-k8s-nim-operator-3-1-2-default",
+      "configurationDigest": "b152742ed9d6d23ffc731464407499cf534c2c155657052cb1f9425000f6830f",
+      "roles": [
+        {
+          "role": "gpu",
+          "componentType": "operator"
+        }
+      ],
+      "rationale": "The Deployment installs the NIM Operator, which runs GPU inference microservices from NIMService and NIMCache custom resources; it deploys no model, and a model still needs GPU nodes and an NGC key."
+    },
+    {
       "id": "prometheus-community-kube-prometheus-stack-87-19-2-default",
       "configurationDigest": "f93812ce23b92c73c0bcc223d5c4efd125e80430b846dc41aa874eee09f67d99",
       "roles": [

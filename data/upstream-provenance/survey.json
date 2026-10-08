@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-09-30T22:39:46.488Z",
+  "observedAt": "2026-10-08T05:55:00.947Z",
   "changesSinceLastSurvey": [],
   "method": "For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.",
-  "repositories": 59,
+  "repositories": 61,
   "charts": [
     {
       "lock": "recipes/aqua/trivy-operator/0.32.1/source-lock.yaml",
@@ -1315,6 +1315,88 @@
       "detail": ""
     },
     {
+      "lock": "recipes/nvidia/cluster-readiness-engine/v0.6.0/source-lock.yaml",
+      "repositoryURL": "oci://ghcr.io/nvidia",
+      "chart": "cluster-readiness-engine",
+      "version": "v0.6.0",
+      "sourceType": "HelmChart",
+      "provenance": "unknown",
+      "reason": "oci",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/nvidia/gpu-operator/v25.10.1/source-lock.yaml",
+      "repositoryURL": "https://helm.ngc.nvidia.com/nvidia",
+      "chart": "gpu-operator",
+      "version": "v25.10.1",
+      "sourceType": "HelmChart",
+      "tarball": "https://helm.ngc.nvidia.com/nvidia/\"charts/gpu-operator-v25.10.1.tgz\"",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/nvidia/gpu-operator/v26.3.2/source-lock.yaml",
+      "repositoryURL": "https://helm.ngc.nvidia.com/nvidia",
+      "chart": "gpu-operator",
+      "version": "v26.3.2",
+      "sourceType": "HelmChart",
+      "tarball": "https://helm.ngc.nvidia.com/nvidia/\"charts/gpu-operator-v26.3.2.tgz\"",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/nvidia/gpu-operator/v26.3.3/source-lock.yaml",
+      "repositoryURL": "https://helm.ngc.nvidia.com/nvidia",
+      "chart": "gpu-operator",
+      "version": "v26.3.3",
+      "sourceType": "HelmChart",
+      "tarball": "https://helm.ngc.nvidia.com/nvidia/\"charts/gpu-operator-v26.3.3.tgz\"",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/nvidia/gpu-operator/v26.7.1/source-lock.yaml",
+      "repositoryURL": "https://helm.ngc.nvidia.com/nvidia",
+      "chart": "gpu-operator",
+      "version": "v26.7.1",
+      "sourceType": "HelmChart",
+      "tarball": "https://helm.ngc.nvidia.com/nvidia/\"charts/gpu-operator-v26.7.1.tgz\"",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/nvidia/k8s-nim-operator/3.1.0/source-lock.yaml",
+      "repositoryURL": "https://helm.ngc.nvidia.com/nvidia",
+      "chart": "k8s-nim-operator",
+      "version": "3.1.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://helm.ngc.nvidia.com/nvidia/\"charts/k8s-nim-operator-3.1.0.tgz\"",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/nvidia/k8s-nim-operator/3.1.2/source-lock.yaml",
+      "repositoryURL": "https://helm.ngc.nvidia.com/nvidia",
+      "chart": "k8s-nim-operator",
+      "version": "3.1.2",
+      "sourceType": "HelmChart",
+      "tarball": "https://helm.ngc.nvidia.com/nvidia/\"charts/k8s-nim-operator-3.1.2.tgz\"",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
       "lock": "recipes/nvidia/nvidia-device-plugin/0.19.3/source-lock.yaml",
       "repositoryURL": "https://nvidia.github.io/k8s-device-plugin",
       "chart": "nvidia-device-plugin",
@@ -1324,6 +1406,46 @@
       "provStatus": 404,
       "provenance": "unsigned",
       "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/nvidia/nvsentinel/v1.20.0/source-lock.yaml",
+      "repositoryURL": "oci://ghcr.io/nvidia",
+      "chart": "nvsentinel",
+      "version": "v1.20.0",
+      "sourceType": "HelmChart",
+      "provenance": "unknown",
+      "reason": "oci",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/nvidia/nvsentinel/v1.25.0/source-lock.yaml",
+      "repositoryURL": "oci://ghcr.io/nvidia",
+      "chart": "nvsentinel",
+      "version": "v1.25.0",
+      "sourceType": "HelmChart",
+      "provenance": "unknown",
+      "reason": "oci",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/nvidia/nvsentinel/v1.26.0/source-lock.yaml",
+      "repositoryURL": "oci://ghcr.io/nvidia",
+      "chart": "nvsentinel",
+      "version": "v1.26.0",
+      "sourceType": "HelmChart",
+      "provenance": "unknown",
+      "reason": "oci",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/nvidia/nvsentinel/v1.9.0/source-lock.yaml",
+      "repositoryURL": "oci://ghcr.io/nvidia",
+      "chart": "nvsentinel",
+      "version": "v1.9.0",
+      "sourceType": "HelmChart",
+      "provenance": "unknown",
+      "reason": "oci",
       "detail": ""
     },
     {

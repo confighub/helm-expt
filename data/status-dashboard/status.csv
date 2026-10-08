@@ -1,8 +1,8 @@
 section,metric,value,total,status,source,note
-outcome coverage,maintained chart rows with model support,151,156,good,data/outcome-coverage/chart-outcomes.csv,The broader outcome-coverage table includes top-100 rows plus retained candidate/version rows; this count is not the top-100 corpus size.
+outcome coverage,maintained chart rows with model support,162,167,good,data/outcome-coverage/chart-outcomes.csv,The broader outcome-coverage table includes top-100 rows plus retained candidate/version rows; this count is not the top-100 corpus size.
 top100,catalog-supported charts,20,111,partial,data/top100-readiness/readiness.csv,These are the current public catalog entries; production support still depends on lane status.
 top100,proof-grade non-catalog charts,91,111,partial,data/top100-readiness/readiness.csv,These charts have proof artifacts but are not promoted catalog entries.
-outcome coverage,variant-rich maintained chart rows,97,156,partial,data/outcome-coverage/chart-outcomes.csv,"Maintained chart rows with more than one declared base variant, including retained candidate/version rows outside the top-100 corpus."
+outcome coverage,variant-rich maintained chart rows,106,167,partial,data/outcome-coverage/chart-outcomes.csv,"Maintained chart rows with more than one declared base variant, including retained candidate/version rows outside the top-100 corpus."
 chart use,public catalog answers,20,111,partial,data/chart-use-guide/chart-use-guide.csv,"Rows where a user can start from a public catalog entry, then choose a base and verify the lane they need."
 chart use,proof-ready but not public catalog answers,40,111,partial,data/chart-use-guide/chart-use-guide.csv,Rows with proof value and useful variants that still need catalog promotion review.
 chart use,better base variant needed answers,38,111,gap,data/chart-use-guide/chart-use-guide.csv,Rows where the current proof is too default-shaped to be a good user offer.
@@ -46,7 +46,7 @@ proof lanes,top20 bases needing unresolved prerequisite or runtime review,3,42,p
 derived variants,derived variant golden rows,10,10,good,data/variant-goldens/derived-expansion-wave/work-orders.csv,"Golden work orders that specify source base, downstream variant, current cub variant create command, and receipt targets."
 derived variants,derived variant live create receipts,10,10,good,runs/derived-variant-execution,Receipts from current cub variant create executions without hidden Helm rerender.
 derived variants,target-bound derived variant receipts,6,10,partial,runs/derived-variant-target-bound,"Derived variants that went further through target binding, ConfigHub OCI, Argo sync, and runtime observation."
-graph bridge,charts with recovered graph fragments,20,156,partial,data/edge-recovery/edges.csv,Catalog-supported recipe artifacts converted into desired-state graph fragments.
+graph bridge,charts with recovered graph fragments,20,167,partial,data/edge-recovery/edges.csv,Catalog-supported recipe artifacts converted into desired-state graph fragments.
 graph bridge,recovered graph edge rows,118,118,good,data/edge-recovery/edges.csv,"Recovered base, override, target-fact, generated-fact, and field-reachability rows."
 graph bridge,target-fact graph edges,75,118,partial,data/edge-recovery/edges.csv,"Edges from a variant to required target facts such as pre-existing Secrets, CRDs, or hook-produced material."
 graph bridge,generated-fact graph edges,1,118,partial,data/edge-recovery/edges.csv,Edges from generated facts to the rendered fields they affect where field reachability is available.

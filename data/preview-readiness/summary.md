@@ -37,9 +37,9 @@ Of 26 tracked Helm quirk axes: **19 shift-left** (config-resolvable, previewable
 
 ## Shift-left adoption across the catalog
 
-- **270/270** variants pin a `capabilityProfile` (capabilities shifted left)
-- **100** variants declare `targetFacts` (lookup / hook-minted state shifted left)
-- **71** `collector/target-facts.sh` scripts (read a fact from config or live, pre-deploy)
+- **311/311** variants pin a `capabilityProfile` (capabilities shifted left)
+- **137** variants declare `targetFacts` (lookup / hook-minted state shifted left)
+- **82** `collector/target-facts.sh` scripts (read a fact from config or live, pre-deploy)
 - **2** generated-fact receipts (generated values captured, not regenerated)
 
 ## Per-chart readiness (anchor charts)
