@@ -346,7 +346,7 @@ function exampleCommands(item) {
         dryRun: `cub variant upload --dry-run --component ${component} --variant ${variant} --space ${space} --unit-annotation ${annotation} ${workingObjects}`,
         execute: `cub variant upload --component ${component} --variant ${variant} --space ${space} --unit-annotation ${annotation} ${workingObjects}`,
         acceptedIdentity:
-          "The upload sets this annotation on every Unit it writes, so no separate binding command follows. That is read from the help of cub v0.8.7 and has not been re-run.",
+          "The upload sets this annotation on every Unit it writes, so no separate binding command follows. A live run on 2026-10-08 with cub v0.8.7 found the annotation on every Unit of another upload, recorded in docs/user/live-run-log-2026-10-08.md. The upload skips Secrets.",
       },
       vary: {
         status: helm ? "proved-existing-chain" : "command-contract-only",
