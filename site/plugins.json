@@ -230,7 +230,7 @@
     {
       "id": "flux",
       "name": "Flux",
-      "summary": "Onboards a Flux fleet into ConfigHub with one root per cluster reading its layers Space, reports each layer's release digest as live status, and proposes each cluster that joins.",
+      "summary": "Onboards a Flux fleet into ConfigHub with one root per cluster reading its layers Space, records each layer's live status on the release it applied, from a reporter that runs on the cluster, and proposes each cluster that joins.",
       "state": "released",
       "commands": [
         "cub flux"
@@ -239,16 +239,16 @@
       "address": "https://github.com/confighub/examples/tree/main/cub-flux",
       "release": {
         "date": "2026-10-09",
-        "tag": "cub-flux-v0.3.2"
+        "tag": "cub-flux-v0.4.0"
       },
-      "install": "cub plugin install confighub/examples@cub-flux-v0.3.2 --name flux",
-      "note": "Start with plan, which changes no cluster. Healthy is reported only for layers that check their workloads with wait or healthChecks; review bootstrap ownership before handover. cub flux status records live status on each release, which the Healthy gate reads. Needs cub v0.7.0 or newer; live status needs ConfigHub v0.8.2 or newer.",
+      "install": "cub plugin install confighub/examples@cub-flux-v0.4.0 --name flux",
+      "note": "Start with plan, which changes no cluster. Healthy is reported only for layers that check their workloads with wait or healthChecks; review bootstrap ownership before handover. fluxbot.sh runs the live-status reporter on the cluster, as one pod; cub flux status --watch is the same reporter run by hand. The Healthy gate reads what they record. Needs cub v0.7.0 or newer; live status needs ConfigHub v0.8.2 or newer.",
       "guide": {
         "address": "https://confighub.github.io/helm-expt/site/bring-flux-into-confighub.html",
         "title": "Bring your Flux fleet into ConfigHub"
       },
       "next": {
-        "command": "cub plugin install confighub/examples@cub-flux-v0.3.2 --name flux"
+        "command": "cub plugin install confighub/examples@cub-flux-v0.4.0 --name flux"
       }
     }
   ]
