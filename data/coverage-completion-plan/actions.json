@@ -13,19 +13,19 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 1429,
+  "nonGreenCellsCovered": 1433,
   "familyCount": 21,
   "byActionType": {
     "run-promotion": 604,
     "stage-prereq": 596,
-    "record-decision": 113,
+    "record-decision": 117,
     "refresh-image": 74,
     "fix-model": 25,
     "lifecycle-observe": 17
   },
   "byOwnerLane": {
     "Codex-live": 621,
-    "product-decision": 538,
+    "product-decision": 542,
     "upstream-implementation": 145,
     "Claude-non-live": 125
   },
@@ -69,7 +69,7 @@
       "action_id": "CCP-06",
       "action_type": "record-decision",
       "sub_group": "lifecycle-not-applicable",
-      "affected_cell_count": 46,
+      "affected_cell_count": 50,
       "owner_lane": "product-decision"
     },
     {
@@ -1492,7 +1492,7 @@
       "action_type": "record-decision",
       "sub_group": "lifecycle-not-applicable",
       "owner_lane": "product-decision",
-      "affected_cell_count": 46,
+      "affected_cell_count": 50,
       "lanes": [
         "lifecycle"
       ],
@@ -1538,12 +1538,16 @@
         "karpenter/karpenter@1.14.0/eks-inference [lifecycle]",
         "kedacore/keda@2.19.0/default [lifecycle]",
         "minio-operator/operator@7.1.1/default [lifecycle]",
+        "node-feature-discovery/node-feature-discovery@0.19.0/aicr-eks-training-v0-20-0 [lifecycle]",
+        "node-feature-discovery/node-feature-discovery@0.19.0/aicr-eks-training-v1-0-0 [lifecycle]",
+        "node-feature-discovery/node-feature-discovery@0.19.0/default [lifecycle]",
         "percona/pxc-operator@1.19.1/default [lifecycle]",
         "percona/pxc-operator@1.19.1/no-crds [lifecycle]",
         "prometheus-community/prometheus-adapter@5.3.0/apiservice-v1-capability [lifecycle]",
         "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [lifecycle]",
         "prometheus-community/prometheus-adapter@5.3.0/default [lifecycle]",
-        "prometheus-community/prometheus-operator-crds@29.0.0/default [lifecycle]",
+        "prometheus-community/prometheus-operator-crds@28.0.1/aicr-eks-training [lifecycle]",
+        "prometheus-community/prometheus-operator-crds@28.0.1/default [lifecycle]",
         "rook-release/rook-ceph@v1.19.5/default [lifecycle]",
         "strimzi/strimzi-kafka-operator@1.0.0/default [lifecycle]",
         "strimzi/strimzi-kafka-operator@1.0.0/no-crds [lifecycle]",
