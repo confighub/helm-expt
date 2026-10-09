@@ -703,7 +703,7 @@
 
   <section aria-labelledby="rollback">
     <h2 id="rollback">4. Roll back</h2>
-    <p>Roll back moves a Unit's head to a revision that already ran, so publishing again releases exactly those bytes.</p>
+    <p>Roll back moves a Unit's head to a revision that already ran, so publishing again releases exactly those bytes. It restores configuration only. It cannot undo a database migration or any other change outside those objects, so review data changes before you roll back.</p>
     <div class="card"><table>
         <thead><tr><th>Level</th><th>Do this</th><th>Command</th><th>What you get</th></tr></thead>
         <tbody><tr><td>Advanced</td><td>Roll back</td><td><code>cub unit update --space cart-demo-dev retail-deployment-cart --restore 2</code></td><td>The Unit's head moves to the recorded revision; publish again to release it.</td></tr></tbody>

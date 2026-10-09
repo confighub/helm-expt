@@ -744,21 +744,23 @@
 
 <span class="term-prompt">$</span> cub stack sandbox eks-inference
   [PASS] no resource conflicts across components (130 objects)
-  [WARN] 2 object(s) carried more than once inside one component with identical content; the last occurrence wins at apply:
+  [WARN] 2 object(s) carried more than once inside one component with identical content; kubectl apply keeps the last, but cub stack upload refuses the component:
       apiextensions.k8s.io/v1|CustomResourceDefinition||fieldexports.services.k8s.aws  x3  inside  ack-controllers
       apiextensions.k8s.io/v1|CustomResourceDefinition||iamroleselectors.services.k8s.aws  x3  inside  ack-controllers
   [PASS] CRD ordering: 46 CRDs are delivered before the 25 custom resources that need them
+  [PASS] served API versions: 25 custom resource(s) match their bundled CRD; target availability is not checked
   [PASS] no admission webhooks need a certificate
-  [PASS] namespaces: 4 created, 1 must already exist (kube-system)
+  [WARN] namespaces: 4 created, 1 must already exist (kube-system)
 <span class="term-catch">  =&gt; CHECKED</span>
   130 objects total
+  Rendered, but `cub stack upload` will refuse it: ack-controllers defines an object more than once (the WARN above).
 
 <span class="term-prompt">$</span> cub stack check metrics-double
   [FAIL] 9 resource conflict(s) - the same object is claimed by more than one component:
       rbac.authorization.k8s.io/v1|ClusterRoleBinding||metrics-server:system:auth-delegator  &lt;=  metrics-server + metrics-server-again
 <span class="term-catch">  =&gt; REFUSED</span></code></pre></div>
     </div>
-    <p class="caption">The check is a hard gate. A real conflict refuses the whole stack and exits non-zero, which is why <code>metrics-double</code> fails: two of its components claim the same nine objects. A warning is not a rejection. <code>eks-inference</code> still passes the check with a warning that identical CRDs appear more than once inside one component, because duplication within a single component is harmless, not a clash between components.</p>
+    <p class="caption">The check is a hard gate. A real conflict refuses the whole stack and exits non-zero, which is why <code>metrics-double</code> fails: two of its components claim the same nine objects. A warning is not a rejection. <code>eks-inference</code> still passes the check with a warning that identical CRDs appear more than once inside one component. That is not a clash between components, so the check passes. <code>cub stack upload</code> refuses that component until it is rebuilt, and the sandbox says so.</p>
   </header>
   <main>
     <section class="narrow-section" aria-labelledby="get-a-stack">
@@ -766,9 +768,9 @@
       <p><strong>You want a stack &mdash; a set of configs checked for conflicts before they render. Here is how you get one.</strong></p>
       <h3 id="ready-made">1. Want a ready-made one?</h3>
       <p><strong>First time here?</strong> Install the <a href="./plugins.html#workshop">Workshop plugin</a>, then run <code>cub stack sandbox eks-inference</code> in a scratch directory. Despite the name, this renders and checks local configuration; it does not create an EKS cluster or request a GPU. Read the check result and missing prerequisites before considering delivery.</p>
-      <p>Pick a shipped stack and check it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from eight certified bundles, each hash-verified against its receipt. Thirteen ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
+      <p>Pick a shipped stack and check it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from eight certified bundles, each hash-verified against its receipt. Fifteen ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
       <h3 id="compose-your-own">2. Composing your own?</h3>
-      <p>Write a manifest that names catalog parts by digest, or let an assistant draft one from images you have already checked. Each part is a bundle pinned by digest with a receipt, or a file of rendered objects the stack owns. Then run <code>cub stack check &lt;file&gt;</code>, read what it names wrong, fix it, and run again until it holds together. The check is the contract you build against; <a href="./d/docs/planning/stack-manifest-spec.html">read the manifest specification</a>.</p>
+      <p>Write a manifest that names catalog parts by digest, or let an assistant draft one from images you have already checked. Each part is a bundle pinned by digest with a receipt, or a file of rendered objects the stack owns. Then run <code>cub stack check &lt;file&gt;</code>, read what it names wrong, fix it, and run again until it passes. The check is the contract you build against; <a href="./d/docs/planning/stack-manifest-spec.html">read the manifest specification</a>.</p>
       <h3 id="from-kubara-platform">3. Already have a Kubara platform?</h3>
       <p>Turn a Kubara platform into a stack with <code>cub stack from-kubara .</code>. It renders with the values Kubara generated, so the check reads the platform you actually have. <a href="./bring-kubara-into-confighub.html">Build a platform</a> walks the whole Kubara journey, generate to deploy.</p>
       <h3 id="run-with-a-team">4. Ready to run it with a team?</h3>
@@ -816,7 +818,7 @@ CHECKED; two ConfigMaps; no cluster write
       <pre class="terminal-body"><code><span class="term-prompt">$</span> curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.57/components/frontend-config.yaml
 
 <span class="term-prompt">$</span> curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.57/components/backend-config.yaml</code></pre>
-      <p>Read both files. The first component owns the Namespace; the second reuses it, so two Argo Applications do not compete to manage the same Namespace object.</p>
+      <p>Read both files. Each holds one ConfigMap in the <code>web</code> namespace and no Namespace object. Step 3 creates the Namespace in the first component with <code>--create-namespace</code>, and the second component reuses it, so two Argo Applications do not compete to manage the same Namespace object.</p>
       <h3>3. Import, place, and release each component</h3>
       <pre class="terminal-body"><code><span class="term-prompt">$</span> cub variant upload --component first-stack-frontend --variant base --namespace web --create-namespace ./frontend-config.yaml
 
@@ -855,7 +857,7 @@ both rows must report Synced and Healthy
       <h3>Platform services on a cluster you already run</h3>
       <div class="card"><table>
         <thead><tr><th>Stack</th><th>Composed from</th><th>Result</th></tr></thead>
-        <tbody><tr><td>kubara-platform</td><td>the catalog's reviewed renders for a Kubara platform</td><td>CHECKED, 86 objects</td></tr><tr><td>kubara-shop-platform</td><td>the Kubara platform grown by external-secrets, with the app adapted to Traefik's class</td><td>CHECKED, 135 objects, every app need carried</td></tr><tr><td>web-platform</td><td>cert-manager, ingress-nginx, kube-prometheus-stack</td><td>CHECKED; carries what an app like shop-web depends on</td></tr><tr><td>observability-base</td><td>cert-manager, metrics-server, kube-prometheus-stack</td><td>CHECKED, 175 objects, 10 CRDs before 50 custom resources</td></tr><tr><td>gitops-secrets</td><td>cert-manager, external-secrets, argo-cd</td><td>CHECKED, 26 CRDs composed together</td></tr><tr><td>data-services</td><td>redis, postgresql, rabbitmq</td><td>CHECKED, 31 objects, no CRDs</td></tr><tr><td>app-platform</td><td>database, cache, ingress, certificates, and monitoring</td><td>CHECKED</td></tr><tr><td>redis-platform</td><td>redis, external-secrets, kube-prometheus-stack</td><td>CHECKED</td></tr><tr><td>web-tiny</td><td>two authored ConfigMaps, sized for a live upload</td><td>CHECKED</td></tr></tbody>
+        <tbody><tr><td>kubara-platform</td><td>the catalog's reviewed renders for a Kubara platform</td><td>CHECKED, 86 objects</td></tr><tr><td>kubara-shop-platform</td><td>the Kubara platform grown by external-secrets, with the app adapted to Traefik's class</td><td>CHECKED, 135 objects, every app need carried</td></tr><tr><td>web-platform</td><td>cert-manager, ingress-nginx, kube-prometheus-stack</td><td>CHECKED; carries what an app like shop-web depends on</td></tr><tr><td>shop-platform</td><td>cert-manager, ingress-nginx, kube-prometheus-stack, rabbitmq, and the shop app</td><td>CHECKED, 192 objects, every app need carried</td></tr><tr><td>kubara-gitops-shop</td><td>Kubara components with Argo CD and the adapted shop app</td><td>CHECKED, 184 objects; a static composition only</td></tr><tr><td>observability-base</td><td>cert-manager, metrics-server, kube-prometheus-stack</td><td>CHECKED, 175 objects, 10 CRDs before 50 custom resources</td></tr><tr><td>gitops-secrets</td><td>cert-manager, external-secrets, argo-cd</td><td>CHECKED, 26 CRDs composed together</td></tr><tr><td>data-services</td><td>redis, postgresql, rabbitmq</td><td>CHECKED, 31 objects, no CRDs</td></tr><tr><td>app-platform</td><td>database, cache, ingress, certificates, and monitoring</td><td>CHECKED</td></tr><tr><td>redis-platform</td><td>redis, external-secrets, kube-prometheus-stack</td><td>CHECKED</td></tr><tr><td>web-tiny</td><td>two authored ConfigMaps, sized for a live upload</td><td>CHECKED</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
