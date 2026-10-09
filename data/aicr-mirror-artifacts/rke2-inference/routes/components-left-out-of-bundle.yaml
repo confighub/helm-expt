@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "aicr-rke2-inference-v1-0-0-argocd-components-left-out-of-bundle"
+spec:
+  quirkClass: "omitted-component"
+  routeKind: "destination-decision"
+  discharges: "The recipe AICR selected names 1 component that the bundle does not deploy. No Application exists for it, so a destination that needs it has to decide that before delivery."
+  declaration:
+    components:
+      -
+        name: "dra-node-labeler"
+        reason: "AICR skipped it and logged the reason: DRA eviction is not opted in (--dra-eviction-node-label unset), so the eviction label it would apply is not selected on"
+        dependedOnBy:
+          - "nvidia-dra-driver-gpu"
+    inThisBundle: false
+  executedBy:
+    invokedBy: "the platform operator, before the first sync on a destination"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "The reasons are the ones AICR logged when it wrote the bundle. They were not checked against a cluster."
+    - "Including one of these components means regenerating the bundle with the input AICR names, which changes the bundle bytes and every digest of this entry."
+  provenance:
+    emittedBy: "scripts/generate-aicr-mirror-artifacts.mjs"
+    generatedFrom:
+      - "examples/aicr/rke2-inference/generation-receipt.yaml"
+      - "examples/aicr/rke2-inference/argocd-helm-bundle/recipe.yaml"

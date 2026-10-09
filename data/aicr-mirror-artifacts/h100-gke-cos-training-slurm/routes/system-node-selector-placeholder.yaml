@@ -1,0 +1,144 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "aicr-h100-gke-cos-training-slurm-v1-0-0-argocd-system-node-selector-placeholder"
+spec:
+  quirkClass: "placeholder-input"
+  routeKind: "generation-input"
+  discharges: "AICR refuses to write this bundle without a system node selector, so the bundle was generated with the placeholder nodeGroup=system-worker. A cluster whose system nodes carry another label leaves every component below unschedulable."
+  declaration:
+    input: "systemNodeSelector"
+    flag: "--system-node-selector"
+    value: "nodeGroup=system-worker"
+    valueStatus: "confirmed-placeholder"
+    confirmedOn: "2026-10-07"
+    changeTo: "the label on your own cluster's system node group"
+    changeEffect: "A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it."
+    container: "spec.source.helm.values"
+    applications: 13
+    fieldPaths: 29
+    appearsIn:
+      -
+        application: "cert-manager"
+        file: "cert-manager.yaml"
+        valuesPaths:
+          - "cainjector.nodeSelector"
+          - "nodeSelector"
+          - "startupapicheck.nodeSelector"
+          - "webhook.nodeSelector"
+      -
+        application: "gpu-operator"
+        file: "gpu-operator.yaml"
+        valuesPaths:
+          - "operator.nodeSelector"
+      -
+        application: "k8s-ephemeral-storage-metrics"
+        file: "k8s-ephemeral-storage-metrics.yaml"
+        valuesPaths:
+          - "nodeSelector"
+      -
+        application: "kai-scheduler"
+        file: "kai-scheduler.yaml"
+        valuesPaths:
+          - "global.nodeSelector"
+      -
+        application: "kube-prometheus-stack"
+        file: "kube-prometheus-stack.yaml"
+        valuesPaths:
+          - "alertmanager.alertmanagerSpec.nodeSelector"
+          - "grafana.nodeSelector"
+          - "kube-state-metrics.nodeSelector"
+          - "prometheus-node-exporter.nodeSelector"
+          - "prometheus.prometheusSpec.nodeSelector"
+          - "prometheusOperator.admissionWebhooks.patch.nodeSelector"
+          - "prometheusOperator.nodeSelector"
+          - "thanosRuler.thanosRulerSpec.nodeSelector"
+      -
+        application: "nfd"
+        file: "nfd.yaml"
+        valuesPaths:
+          - "gc.nodeSelector"
+          - "master.nodeSelector"
+      -
+        application: "nodewright-operator"
+        file: "nodewright-operator.yaml"
+        valuesPaths:
+          - "controllerManager.selectors"
+      -
+        application: "nvidia-dra-driver-gpu"
+        file: "nvidia-dra-driver-gpu.yaml"
+        valuesPaths:
+          - "controller.nodeSelector"
+      -
+        application: "nvsentinel"
+        file: "nvsentinel.yaml"
+        valuesPaths:
+          - "global.systemNodeSelector"
+      -
+        application: "prometheus-adapter"
+        file: "prometheus-adapter.yaml"
+        valuesPaths:
+          - "nodeSelector"
+      -
+        application: "slinky-slurm"
+        file: "slinky-slurm.yaml"
+        valuesPaths:
+          - "accounting.podSpec.nodeSelector"
+          - "controller.podSpec.nodeSelector"
+          - "loginsets.slinky.podSpec.nodeSelector"
+          - "restapi.podSpec.nodeSelector"
+      -
+        application: "slinky-slurm-operator"
+        file: "slinky-slurm-operator.yaml"
+        valuesPaths:
+          - "operator.nodeSelector"
+          - "webhook.nodeSelector"
+      -
+        application: "slinky-topograph"
+        file: "slinky-topograph.yaml"
+        valuesPaths:
+          - "nodeObserver.nodeSelector"
+          - "nodeSelector"
+    sourcePackageFiles:
+      - "argocd-helm-bundle/001-cert-manager/values.yaml"
+      - "argocd-helm-bundle/003-nfd/values.yaml"
+      - "argocd-helm-bundle/004-nodewright-operator/values.yaml"
+      - "argocd-helm-bundle/007-kube-prometheus-stack/values.yaml"
+      - "argocd-helm-bundle/008-gpu-operator-pre/values.yaml"
+      - "argocd-helm-bundle/009-gpu-operator/values.yaml"
+      - "argocd-helm-bundle/011-k8s-ephemeral-storage-metrics/values.yaml"
+      - "argocd-helm-bundle/012-kai-scheduler/values.yaml"
+      - "argocd-helm-bundle/013-nvidia-dra-driver-gpu/values.yaml"
+      - "argocd-helm-bundle/014-nvsentinel/values.yaml"
+      - "argocd-helm-bundle/015-prometheus-adapter/values.yaml"
+      - "argocd-helm-bundle/017-slinky-slurm-operator/values.yaml"
+      - "argocd-helm-bundle/018-slinky-slurm-pre/values.yaml"
+      - "argocd-helm-bundle/019-slinky-slurm/values.yaml"
+      - "argocd-helm-bundle/020-slinky-topograph/values.yaml"
+      - "argocd-helm-bundle/bundle-info.yaml"
+      - "argocd-helm-bundle/static/cert-manager.yaml"
+      - "argocd-helm-bundle/static/gpu-operator.yaml"
+      - "argocd-helm-bundle/static/k8s-ephemeral-storage-metrics.yaml"
+      - "argocd-helm-bundle/static/kai-scheduler.yaml"
+      - "argocd-helm-bundle/static/kube-prometheus-stack.yaml"
+      - "argocd-helm-bundle/static/nfd.yaml"
+      - "argocd-helm-bundle/static/nodewright-operator.yaml"
+      - "argocd-helm-bundle/static/nvidia-dra-driver-gpu.yaml"
+      - "argocd-helm-bundle/static/nvsentinel.yaml"
+      - "argocd-helm-bundle/static/prometheus-adapter.yaml"
+      - "argocd-helm-bundle/static/slinky-slurm-operator.yaml"
+      - "argocd-helm-bundle/static/slinky-slurm.yaml"
+      - "argocd-helm-bundle/static/slinky-topograph.yaml"
+  executedBy:
+    invokedBy: "the platform operator, before the bundle is delivered to a destination"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "The value is a placeholder and not a claim about any cluster. It is the value upstream's own EKS training demo uses for its reference clusters."
+    - "Editing the value in these Applications alone does not change the source package they point at, which carries the same placeholder in the files listed above. A destination needs a bundle regenerated with its own value, or a variant made from this entry."
+    - "No destination label has been observed, and no bundle with another value exists in the Catalog."
+  provenance:
+    emittedBy: "scripts/generate-aicr-mirror-artifacts.mjs"
+    generatedFrom:
+      - "examples/aicr/h100-gke-cos-training-slurm/generation-receipt.yaml"
+      - "examples/aicr/h100-gke-cos-training-slurm/argocd-rendered/templates"

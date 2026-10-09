@@ -1,0 +1,36 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-gb200-any-v1-0-0-argocd-source-package"
+spec:
+  catalogEntry: "aicr-gb200-any-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "gb200-any"
+    entry: "examples/aicr/gb200-any"
+    generationReceipt: "examples/aicr/gb200-any/generation-receipt.yaml"
+    platformDigest: "sha256:2687bef80c9b716e5e2abec3cfae5c1dcc2117cc765fe86034300814e275bc04"
+  artifact:
+    role: "source-package"
+    format: "helm-chart-oci"
+    artifactType: "application/vnd.cncf.helm.config.v1+json"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-any/aicr-bundle:1.0.0"
+    manifestDigest: "sha256:e5d987cb5cb390f7a446a83739baad530dd0cf6c96eee17945fec740319125cc"
+    layerDigest: "sha256:7fa7e38b46ed6ed2f18b594f4182a74eb5fba48719ca0686b78778629dbb3413"
+    layerBytes: 187425
+    layerMediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    fileCount: 42
+    files:
+      inventory: "examples/aicr/gb200-any/argocd-helm-bundle-checksums.txt"
+      inventorySha256: "c821e301c7a17dab10ce51894b30cb0e9ae08d9476e70882ccb0c7a746f76d97"
+    reproducible: true
+  contents:
+    statement: "The artifact is the Helm chart AICR generated for this overlay, file for file as the entry retains it. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/gb200-any/source-package-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

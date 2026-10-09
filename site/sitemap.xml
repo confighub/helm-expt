@@ -330,6 +330,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/a100-oke-ubuntu-training.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/aks-inference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/aks-training.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/aks-ubuntu.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/aks.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/b200-any.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/b200-gke-cos-inference-dynamo.html</loc></url>
@@ -348,6 +349,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-inference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-training.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-ubuntu.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/gb200-any.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/gb200-eks-inference.html</loc></url>
@@ -357,6 +359,11 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/gb200-eks-ubuntu-training-kubeflow.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/gb200-eks-ubuntu-training-slurm.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/gb200-eks-ubuntu-training.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/gb200-gke-cos-inference-dynamo.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/gb200-gke-cos-inference.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/gb200-gke-cos-training-kubeflow.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/gb200-gke-cos-training-slurm.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/gb200-gke-cos-training.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/gb200-oke-inference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/gb200-oke-training.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/gb200-oke-ubuntu-inference-dynamo.html</loc></url>
@@ -384,6 +391,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-aks-ubuntu-training.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-any.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-bcm-training.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-bcm-ubuntu-training-kubeflow.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-bcm-ubuntu-training.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-eks-inference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-eks-training.html</loc></url>
@@ -395,7 +403,6 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-eks-ubuntu-training.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-gke-cos-inference-dynamo.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-gke-cos-inference.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-gke-cos-training-kubeflow.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-gke-cos-training-slurm.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-gke-cos-training.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-kind-inference-dynamo.html</loc></url>
@@ -405,13 +412,18 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h100-kind-training.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h200-any.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h200-eks-inference.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h200-eks-training-kubeflow.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h200-eks-training.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/h200-k0s-ubuntu-training.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/k0s-training.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/k0s.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/kind-inference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/kind.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/kserve-nim-inference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/l40-any.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/l40s-any.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/l40s-oke-inference.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/l40s-oke-training-kubeflow.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/l40s-oke-training.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/lke-inference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/lke-training.html</loc></url>
@@ -438,10 +450,12 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/rtx-pro-6000-lke-inference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/rtx-pro-6000-lke-training.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/rtx-pro-6000-lke-ubuntu-inference.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/snapshot-diff.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/vr200-rke2-ubuntu-inference-dynamo.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/vr200-rke2-ubuntu-inference.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/vr200-rke2-ubuntu-training-kubeflow.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/vr200-rke2-ubuntu-training.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/apps/ai-change-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/apps/rbac-review.html</loc></url>
@@ -802,6 +816,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/a100-oke-ubuntu-training/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/aks-inference/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/aks-training/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/aks-ubuntu/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/aks/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/b200-any/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/b200-gke-cos-inference-dynamo/digest-index/README.html</loc></url>
@@ -820,6 +835,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow/flux-bundle/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-inference/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-training/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-ubuntu/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/gb200-any/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/gb200-eks-inference/digest-index/README.html</loc></url>
@@ -829,6 +845,11 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/gb200-eks-ubuntu-training-kubeflow/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/gb200-eks-ubuntu-training-slurm/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/gb200-eks-ubuntu-training/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/gb200-gke-cos-inference-dynamo/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/gb200-gke-cos-inference/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/gb200-gke-cos-training-kubeflow/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/gb200-gke-cos-training-slurm/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/gb200-gke-cos-training/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/gb200-oke-inference/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/gb200-oke-training/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/gb200-oke-ubuntu-inference-dynamo/digest-index/README.html</loc></url>
@@ -856,6 +877,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-aks-ubuntu-training/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-any/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-bcm-training/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-bcm-ubuntu-training-kubeflow/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-bcm-ubuntu-training/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-eks-inference/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-eks-training/digest-index/README.html</loc></url>
@@ -867,7 +889,6 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-eks-ubuntu-training/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-gke-cos-inference-dynamo/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-gke-cos-inference/digest-index/README.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-gke-cos-training-kubeflow/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-gke-cos-training-slurm/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-gke-cos-training/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-kind-inference-dynamo/digest-index/README.html</loc></url>
@@ -877,7 +898,11 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h100-kind-training/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h200-any/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h200-eks-inference/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h200-eks-training-kubeflow/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h200-eks-training/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/h200-k0s-ubuntu-training/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/k0s-training/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/k0s/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/kind-inference/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/kind/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/kserve-nim-inference/digest-index/README.html</loc></url>
@@ -885,6 +910,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/l40-any/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/l40s-any/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/l40s-oke-inference/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/l40s-oke-training-kubeflow/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/l40s-oke-training/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/lke-inference/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/lke-training/digest-index/README.html</loc></url>
@@ -910,9 +936,11 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/rtx-pro-6000-lke-inference/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/rtx-pro-6000-lke-training/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/rtx-pro-6000-lke-ubuntu-inference/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/rtx-pro-6000-lke-ubuntu-training/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/vr200-rke2-ubuntu-inference-dynamo/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/vr200-rke2-ubuntu-inference/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/vr200-rke2-ubuntu-training-kubeflow/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/vr200-rke2-ubuntu-training/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/inference/vllm-cpu-starter/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/kubara/current-platform/README.html</loc></url>

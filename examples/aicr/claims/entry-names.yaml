@@ -105,29 +105,9 @@ spec:
         - CPU starter
         - starter entry
 
-    - id: eks-inference
-      page: docs/demo/aicr/eks-inference.md
-      retainedVersion: v0.21.0
-      versionSource: >-
-        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
-        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
-      names:
-        - eks-inference entry
-        - AICR eks-inference mirror
-
-    - id: h100-eks-inference
-      page: docs/demo/aicr/h100-eks-inference.md
-      retainedVersion: v0.21.0
-      versionSource: >-
-        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
-        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
-      names:
-        - h100-eks-inference entry
-        - AICR h100-eks-inference mirror
-
     - id: a100-aks-training
       page: docs/demo/aicr/a100-aks-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -137,7 +117,7 @@ spec:
 
     - id: a100-aks-ubuntu-training
       page: docs/demo/aicr/a100-aks-ubuntu-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -147,7 +127,7 @@ spec:
 
     - id: a100-aks-ubuntu-training-kubeflow
       page: docs/demo/aicr/a100-aks-ubuntu-training-kubeflow.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -157,7 +137,7 @@ spec:
 
     - id: a100-any
       page: docs/demo/aicr/a100-any.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -167,7 +147,7 @@ spec:
 
     - id: a100-eks-training
       page: docs/demo/aicr/a100-eks-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -177,7 +157,7 @@ spec:
 
     - id: a100-eks-ubuntu-training
       page: docs/demo/aicr/a100-eks-ubuntu-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -187,7 +167,7 @@ spec:
 
     - id: a100-eks-ubuntu-training-kubeflow
       page: docs/demo/aicr/a100-eks-ubuntu-training-kubeflow.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -197,7 +177,7 @@ spec:
 
     - id: a100-gke-cos-training
       page: docs/demo/aicr/a100-gke-cos-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -207,7 +187,7 @@ spec:
 
     - id: a100-gke-cos-training-kubeflow
       page: docs/demo/aicr/a100-gke-cos-training-kubeflow.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -217,7 +197,7 @@ spec:
 
     - id: a100-oke-training
       page: docs/demo/aicr/a100-oke-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -227,7 +207,7 @@ spec:
 
     - id: a100-oke-ubuntu-training
       page: docs/demo/aicr/a100-oke-ubuntu-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -237,7 +217,7 @@ spec:
 
     - id: a100-oke-ubuntu-training-kubeflow
       page: docs/demo/aicr/a100-oke-ubuntu-training-kubeflow.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -247,7 +227,7 @@ spec:
 
     - id: aks
       page: docs/demo/aicr/aks.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -257,7 +237,7 @@ spec:
 
     - id: aks-inference
       page: docs/demo/aicr/aks-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -267,7 +247,7 @@ spec:
 
     - id: aks-training
       page: docs/demo/aicr/aks-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -275,9 +255,19 @@ spec:
         - aks-training entry
         - AICR aks-training mirror
 
+    - id: aks-ubuntu
+      page: docs/demo/aicr/aks-ubuntu.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - aks-ubuntu entry
+        - AICR aks-ubuntu mirror
+
     - id: b200-any
       page: docs/demo/aicr/b200-any.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -287,7 +277,7 @@ spec:
 
     - id: b200-gke-cos-inference
       page: docs/demo/aicr/b200-gke-cos-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -297,7 +287,7 @@ spec:
 
     - id: b200-gke-cos-inference-dynamo
       page: docs/demo/aicr/b200-gke-cos-inference-dynamo.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -307,7 +297,7 @@ spec:
 
     - id: b200-gke-cos-training
       page: docs/demo/aicr/b200-gke-cos-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -317,7 +307,7 @@ spec:
 
     - id: b200-gke-cos-training-kubeflow
       page: docs/demo/aicr/b200-gke-cos-training-kubeflow.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -327,7 +317,7 @@ spec:
 
     - id: bcm
       page: docs/demo/aicr/bcm.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -337,7 +327,7 @@ spec:
 
     - id: bcm-inference
       page: docs/demo/aicr/bcm-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -347,7 +337,7 @@ spec:
 
     - id: bcm-training
       page: docs/demo/aicr/bcm-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -357,7 +347,7 @@ spec:
 
     - id: eks
       page: docs/demo/aicr/eks.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -365,9 +355,19 @@ spec:
         - eks entry
         - AICR eks mirror
 
+    - id: eks-inference
+      page: docs/demo/aicr/eks-inference.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - eks-inference entry
+        - AICR eks-inference mirror
+
     - id: eks-training
       page: docs/demo/aicr/eks-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -375,9 +375,19 @@ spec:
         - eks-training entry
         - AICR eks-training mirror
 
+    - id: eks-ubuntu
+      page: docs/demo/aicr/eks-ubuntu.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - eks-ubuntu entry
+        - AICR eks-ubuntu mirror
+
     - id: gb200-any
       page: docs/demo/aicr/gb200-any.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -387,7 +397,7 @@ spec:
 
     - id: gb200-eks-inference
       page: docs/demo/aicr/gb200-eks-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -397,7 +407,7 @@ spec:
 
     - id: gb200-eks-training
       page: docs/demo/aicr/gb200-eks-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -407,7 +417,7 @@ spec:
 
     - id: gb200-eks-ubuntu-inference
       page: docs/demo/aicr/gb200-eks-ubuntu-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -417,7 +427,7 @@ spec:
 
     - id: gb200-eks-ubuntu-inference-dynamo
       page: docs/demo/aicr/gb200-eks-ubuntu-inference-dynamo.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -427,7 +437,7 @@ spec:
 
     - id: gb200-eks-ubuntu-training
       page: docs/demo/aicr/gb200-eks-ubuntu-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -437,7 +447,7 @@ spec:
 
     - id: gb200-eks-ubuntu-training-kubeflow
       page: docs/demo/aicr/gb200-eks-ubuntu-training-kubeflow.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -445,9 +455,69 @@ spec:
         - gb200-eks-ubuntu-training-kubeflow entry
         - AICR gb200-eks-ubuntu-training-kubeflow mirror
 
+    - id: gb200-eks-ubuntu-training-slurm
+      page: docs/demo/aicr/gb200-eks-ubuntu-training-slurm.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - gb200-eks-ubuntu-training-slurm entry
+        - AICR gb200-eks-ubuntu-training-slurm mirror
+
+    - id: gb200-gke-cos-inference
+      page: docs/demo/aicr/gb200-gke-cos-inference.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - gb200-gke-cos-inference entry
+        - AICR gb200-gke-cos-inference mirror
+
+    - id: gb200-gke-cos-inference-dynamo
+      page: docs/demo/aicr/gb200-gke-cos-inference-dynamo.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - gb200-gke-cos-inference-dynamo entry
+        - AICR gb200-gke-cos-inference-dynamo mirror
+
+    - id: gb200-gke-cos-training
+      page: docs/demo/aicr/gb200-gke-cos-training.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - gb200-gke-cos-training entry
+        - AICR gb200-gke-cos-training mirror
+
+    - id: gb200-gke-cos-training-kubeflow
+      page: docs/demo/aicr/gb200-gke-cos-training-kubeflow.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - gb200-gke-cos-training-kubeflow entry
+        - AICR gb200-gke-cos-training-kubeflow mirror
+
+    - id: gb200-gke-cos-training-slurm
+      page: docs/demo/aicr/gb200-gke-cos-training-slurm.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - gb200-gke-cos-training-slurm entry
+        - AICR gb200-gke-cos-training-slurm mirror
+
     - id: gb200-oke-inference
       page: docs/demo/aicr/gb200-oke-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -457,7 +527,7 @@ spec:
 
     - id: gb200-oke-training
       page: docs/demo/aicr/gb200-oke-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -467,7 +537,7 @@ spec:
 
     - id: gb200-oke-ubuntu-inference
       page: docs/demo/aicr/gb200-oke-ubuntu-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -477,7 +547,7 @@ spec:
 
     - id: gb200-oke-ubuntu-inference-dynamo
       page: docs/demo/aicr/gb200-oke-ubuntu-inference-dynamo.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -487,7 +557,7 @@ spec:
 
     - id: gb200-oke-ubuntu-training
       page: docs/demo/aicr/gb200-oke-ubuntu-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -497,7 +567,7 @@ spec:
 
     - id: gb200-oke-ubuntu-training-kubeflow
       page: docs/demo/aicr/gb200-oke-ubuntu-training-kubeflow.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -507,7 +577,7 @@ spec:
 
     - id: gb300-any
       page: docs/demo/aicr/gb300-any.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -517,7 +587,7 @@ spec:
 
     - id: gb300-eks-inference
       page: docs/demo/aicr/gb300-eks-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -527,7 +597,7 @@ spec:
 
     - id: gb300-eks-training
       page: docs/demo/aicr/gb300-eks-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -537,7 +607,7 @@ spec:
 
     - id: gb300-eks-ubuntu-inference
       page: docs/demo/aicr/gb300-eks-ubuntu-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -547,7 +617,7 @@ spec:
 
     - id: gb300-eks-ubuntu-inference-dynamo
       page: docs/demo/aicr/gb300-eks-ubuntu-inference-dynamo.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -557,7 +627,7 @@ spec:
 
     - id: gb300-eks-ubuntu-training
       page: docs/demo/aicr/gb300-eks-ubuntu-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -567,7 +637,7 @@ spec:
 
     - id: gb300-eks-ubuntu-training-kubeflow
       page: docs/demo/aicr/gb300-eks-ubuntu-training-kubeflow.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -575,9 +645,19 @@ spec:
         - gb300-eks-ubuntu-training-kubeflow entry
         - AICR gb300-eks-ubuntu-training-kubeflow mirror
 
+    - id: gb300-eks-ubuntu-training-slurm
+      page: docs/demo/aicr/gb300-eks-ubuntu-training-slurm.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - gb300-eks-ubuntu-training-slurm entry
+        - AICR gb300-eks-ubuntu-training-slurm mirror
+
     - id: gb300-generic-ubuntu-training
       page: docs/demo/aicr/gb300-generic-ubuntu-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -587,7 +667,7 @@ spec:
 
     - id: gke-cos
       page: docs/demo/aicr/gke-cos.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -597,7 +677,7 @@ spec:
 
     - id: gke-cos-inference
       page: docs/demo/aicr/gke-cos-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -607,7 +687,7 @@ spec:
 
     - id: gke-cos-training
       page: docs/demo/aicr/gke-cos-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -617,7 +697,7 @@ spec:
 
     - id: h100-aks-inference
       page: docs/demo/aicr/h100-aks-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -627,7 +707,7 @@ spec:
 
     - id: h100-aks-training
       page: docs/demo/aicr/h100-aks-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -637,7 +717,7 @@ spec:
 
     - id: h100-aks-ubuntu-inference
       page: docs/demo/aicr/h100-aks-ubuntu-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -647,7 +727,7 @@ spec:
 
     - id: h100-aks-ubuntu-inference-dynamo
       page: docs/demo/aicr/h100-aks-ubuntu-inference-dynamo.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -657,7 +737,7 @@ spec:
 
     - id: h100-aks-ubuntu-training
       page: docs/demo/aicr/h100-aks-ubuntu-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -667,7 +747,7 @@ spec:
 
     - id: h100-aks-ubuntu-training-kubeflow
       page: docs/demo/aicr/h100-aks-ubuntu-training-kubeflow.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -675,9 +755,19 @@ spec:
         - h100-aks-ubuntu-training-kubeflow entry
         - AICR h100-aks-ubuntu-training-kubeflow mirror
 
+    - id: h100-aks-ubuntu-training-slurm
+      page: docs/demo/aicr/h100-aks-ubuntu-training-slurm.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - h100-aks-ubuntu-training-slurm entry
+        - AICR h100-aks-ubuntu-training-slurm mirror
+
     - id: h100-any
       page: docs/demo/aicr/h100-any.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -687,7 +777,7 @@ spec:
 
     - id: h100-bcm-training
       page: docs/demo/aicr/h100-bcm-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -697,7 +787,7 @@ spec:
 
     - id: h100-bcm-ubuntu-training
       page: docs/demo/aicr/h100-bcm-ubuntu-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -705,9 +795,29 @@ spec:
         - h100-bcm-ubuntu-training entry
         - AICR h100-bcm-ubuntu-training mirror
 
+    - id: h100-bcm-ubuntu-training-kubeflow
+      page: docs/demo/aicr/h100-bcm-ubuntu-training-kubeflow.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - h100-bcm-ubuntu-training-kubeflow entry
+        - AICR h100-bcm-ubuntu-training-kubeflow mirror
+
+    - id: h100-eks-inference
+      page: docs/demo/aicr/h100-eks-inference.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - h100-eks-inference entry
+        - AICR h100-eks-inference mirror
+
     - id: h100-eks-training
       page: docs/demo/aicr/h100-eks-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -717,7 +827,7 @@ spec:
 
     - id: h100-eks-ubuntu-inference
       page: docs/demo/aicr/h100-eks-ubuntu-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -727,7 +837,7 @@ spec:
 
     - id: h100-eks-ubuntu-inference-dynamo
       page: docs/demo/aicr/h100-eks-ubuntu-inference-dynamo.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -737,7 +847,7 @@ spec:
 
     - id: h100-eks-ubuntu-inference-nim
       page: docs/demo/aicr/h100-eks-ubuntu-inference-nim.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -747,7 +857,7 @@ spec:
 
     - id: h100-eks-ubuntu-training
       page: docs/demo/aicr/h100-eks-ubuntu-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -757,7 +867,7 @@ spec:
 
     - id: h100-eks-ubuntu-training-kubeflow
       page: docs/demo/aicr/h100-eks-ubuntu-training-kubeflow.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -765,9 +875,19 @@ spec:
         - h100-eks-ubuntu-training-kubeflow entry
         - AICR h100-eks-ubuntu-training-kubeflow mirror
 
+    - id: h100-eks-ubuntu-training-slurm
+      page: docs/demo/aicr/h100-eks-ubuntu-training-slurm.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - h100-eks-ubuntu-training-slurm entry
+        - AICR h100-eks-ubuntu-training-slurm mirror
+
     - id: h100-gke-cos-inference
       page: docs/demo/aicr/h100-gke-cos-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -777,7 +897,7 @@ spec:
 
     - id: h100-gke-cos-inference-dynamo
       page: docs/demo/aicr/h100-gke-cos-inference-dynamo.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -787,7 +907,7 @@ spec:
 
     - id: h100-gke-cos-training
       page: docs/demo/aicr/h100-gke-cos-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -795,19 +915,19 @@ spec:
         - h100-gke-cos-training entry
         - AICR h100-gke-cos-training mirror
 
-    - id: h100-gke-cos-training-kubeflow
-      page: docs/demo/aicr/h100-gke-cos-training-kubeflow.md
-      retainedVersion: v0.21.0
+    - id: h100-gke-cos-training-slurm
+      page: docs/demo/aicr/h100-gke-cos-training-slurm.md
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
       names:
-        - h100-gke-cos-training-kubeflow entry
-        - AICR h100-gke-cos-training-kubeflow mirror
+        - h100-gke-cos-training-slurm entry
+        - AICR h100-gke-cos-training-slurm mirror
 
     - id: h100-kind-inference
       page: docs/demo/aicr/h100-kind-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -817,7 +937,7 @@ spec:
 
     - id: h100-kind-inference-dynamo
       page: docs/demo/aicr/h100-kind-inference-dynamo.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -827,7 +947,7 @@ spec:
 
     - id: h100-kind-training
       page: docs/demo/aicr/h100-kind-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -837,7 +957,7 @@ spec:
 
     - id: h100-kind-training-kubeflow
       page: docs/demo/aicr/h100-kind-training-kubeflow.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -847,7 +967,7 @@ spec:
 
     - id: h100-kind-training-slurm
       page: docs/demo/aicr/h100-kind-training-slurm.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -857,7 +977,7 @@ spec:
 
     - id: h200-any
       page: docs/demo/aicr/h200-any.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -867,7 +987,7 @@ spec:
 
     - id: h200-eks-inference
       page: docs/demo/aicr/h200-eks-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -877,7 +997,7 @@ spec:
 
     - id: h200-eks-training
       page: docs/demo/aicr/h200-eks-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -885,9 +1005,49 @@ spec:
         - h200-eks-training entry
         - AICR h200-eks-training mirror
 
+    - id: h200-eks-training-kubeflow
+      page: docs/demo/aicr/h200-eks-training-kubeflow.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - h200-eks-training-kubeflow entry
+        - AICR h200-eks-training-kubeflow mirror
+
+    - id: h200-k0s-ubuntu-training
+      page: docs/demo/aicr/h200-k0s-ubuntu-training.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - h200-k0s-ubuntu-training entry
+        - AICR h200-k0s-ubuntu-training mirror
+
+    - id: k0s
+      page: docs/demo/aicr/k0s.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - k0s entry
+        - AICR k0s mirror
+
+    - id: k0s-training
+      page: docs/demo/aicr/k0s-training.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - k0s-training entry
+        - AICR k0s-training mirror
+
     - id: kind
       page: docs/demo/aicr/kind.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -897,7 +1057,7 @@ spec:
 
     - id: kind-inference
       page: docs/demo/aicr/kind-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -907,7 +1067,7 @@ spec:
 
     - id: l40-any
       page: docs/demo/aicr/l40-any.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -917,7 +1077,7 @@ spec:
 
     - id: l40s-any
       page: docs/demo/aicr/l40s-any.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -927,7 +1087,7 @@ spec:
 
     - id: l40s-oke-inference
       page: docs/demo/aicr/l40s-oke-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -937,7 +1097,7 @@ spec:
 
     - id: l40s-oke-training
       page: docs/demo/aicr/l40s-oke-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -945,9 +1105,19 @@ spec:
         - l40s-oke-training entry
         - AICR l40s-oke-training mirror
 
+    - id: l40s-oke-training-kubeflow
+      page: docs/demo/aicr/l40s-oke-training-kubeflow.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - l40s-oke-training-kubeflow entry
+        - AICR l40s-oke-training-kubeflow mirror
+
     - id: lke
       page: docs/demo/aicr/lke.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -957,7 +1127,7 @@ spec:
 
     - id: lke-inference
       page: docs/demo/aicr/lke-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -967,7 +1137,7 @@ spec:
 
     - id: lke-training
       page: docs/demo/aicr/lke-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -977,7 +1147,7 @@ spec:
 
     - id: ocp
       page: docs/demo/aicr/ocp.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -987,7 +1157,7 @@ spec:
 
     - id: ocp-inference
       page: docs/demo/aicr/ocp-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -997,7 +1167,7 @@ spec:
 
     - id: ocp-inference-nim
       page: docs/demo/aicr/ocp-inference-nim.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1007,7 +1177,7 @@ spec:
 
     - id: ocp-training
       page: docs/demo/aicr/ocp-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1017,7 +1187,7 @@ spec:
 
     - id: oke-ol
       page: docs/demo/aicr/oke-ol.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1027,7 +1197,7 @@ spec:
 
     - id: oke-ol-inference
       page: docs/demo/aicr/oke-ol-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1037,7 +1207,7 @@ spec:
 
     - id: oke-ol-training
       page: docs/demo/aicr/oke-ol-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1047,7 +1217,7 @@ spec:
 
     - id: rke2
       page: docs/demo/aicr/rke2.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1057,7 +1227,7 @@ spec:
 
     - id: rke2-inference
       page: docs/demo/aicr/rke2-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1067,7 +1237,7 @@ spec:
 
     - id: rke2-training
       page: docs/demo/aicr/rke2-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1077,7 +1247,7 @@ spec:
 
     - id: rtx-pro-6000-any
       page: docs/demo/aicr/rtx-pro-6000-any.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1087,7 +1257,7 @@ spec:
 
     - id: rtx-pro-6000-eks-inference
       page: docs/demo/aicr/rtx-pro-6000-eks-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1097,7 +1267,7 @@ spec:
 
     - id: rtx-pro-6000-eks-training
       page: docs/demo/aicr/rtx-pro-6000-eks-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1107,7 +1277,7 @@ spec:
 
     - id: rtx-pro-6000-eks-ubuntu-inference
       page: docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1117,7 +1287,7 @@ spec:
 
     - id: rtx-pro-6000-eks-ubuntu-inference-dynamo
       page: docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1127,7 +1297,7 @@ spec:
 
     - id: rtx-pro-6000-eks-ubuntu-inference-nim
       page: docs/demo/aicr/rtx-pro-6000-eks-ubuntu-inference-nim.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1137,7 +1307,7 @@ spec:
 
     - id: rtx-pro-6000-eks-ubuntu-training
       page: docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1147,7 +1317,7 @@ spec:
 
     - id: rtx-pro-6000-eks-ubuntu-training-kubeflow
       page: docs/demo/aicr/rtx-pro-6000-eks-ubuntu-training-kubeflow.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1157,7 +1327,7 @@ spec:
 
     - id: rtx-pro-6000-lke-inference
       page: docs/demo/aicr/rtx-pro-6000-lke-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1167,7 +1337,7 @@ spec:
 
     - id: rtx-pro-6000-lke-training
       page: docs/demo/aicr/rtx-pro-6000-lke-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1177,7 +1347,7 @@ spec:
 
     - id: rtx-pro-6000-lke-ubuntu-inference
       page: docs/demo/aicr/rtx-pro-6000-lke-ubuntu-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1187,7 +1357,7 @@ spec:
 
     - id: rtx-pro-6000-lke-ubuntu-training
       page: docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1195,9 +1365,19 @@ spec:
         - rtx-pro-6000-lke-ubuntu-training entry
         - AICR rtx-pro-6000-lke-ubuntu-training mirror
 
+    - id: rtx-pro-6000-lke-ubuntu-training-kubeflow
+      page: docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
+        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
+      names:
+        - rtx-pro-6000-lke-ubuntu-training-kubeflow entry
+        - AICR rtx-pro-6000-lke-ubuntu-training-kubeflow mirror
+
     - id: vr200-rke2-ubuntu-inference
       page: docs/demo/aicr/vr200-rke2-ubuntu-inference.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1207,7 +1387,7 @@ spec:
 
     - id: vr200-rke2-ubuntu-inference-dynamo
       page: docs/demo/aicr/vr200-rke2-ubuntu-inference-dynamo.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1217,7 +1397,7 @@ spec:
 
     - id: vr200-rke2-ubuntu-training
       page: docs/demo/aicr/vr200-rke2-ubuntu-training.md
-      retainedVersion: v0.21.0
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
@@ -1225,55 +1405,15 @@ spec:
         - vr200-rke2-ubuntu-training entry
         - AICR vr200-rke2-ubuntu-training mirror
 
-    - id: gb200-eks-ubuntu-training-slurm
-      page: docs/demo/aicr/gb200-eks-ubuntu-training-slurm.md
-      retainedVersion: v0.21.0
+    - id: vr200-rke2-ubuntu-training-kubeflow
+      page: docs/demo/aicr/vr200-rke2-ubuntu-training-kubeflow.md
+      retainedVersion: v1.0.0
       versionSource: >-
         AICR's own release tag, recorded in this entry's generation receipt. Mirrored
         by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
       names:
-        - gb200-eks-ubuntu-training-slurm entry
-        - AICR gb200-eks-ubuntu-training-slurm mirror
-
-    - id: gb300-eks-ubuntu-training-slurm
-      page: docs/demo/aicr/gb300-eks-ubuntu-training-slurm.md
-      retainedVersion: v0.21.0
-      versionSource: >-
-        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
-        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
-      names:
-        - gb300-eks-ubuntu-training-slurm entry
-        - AICR gb300-eks-ubuntu-training-slurm mirror
-
-    - id: h100-aks-ubuntu-training-slurm
-      page: docs/demo/aicr/h100-aks-ubuntu-training-slurm.md
-      retainedVersion: v0.21.0
-      versionSource: >-
-        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
-        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
-      names:
-        - h100-aks-ubuntu-training-slurm entry
-        - AICR h100-aks-ubuntu-training-slurm mirror
-
-    - id: h100-eks-ubuntu-training-slurm
-      page: docs/demo/aicr/h100-eks-ubuntu-training-slurm.md
-      retainedVersion: v0.21.0
-      versionSource: >-
-        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
-        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
-      names:
-        - h100-eks-ubuntu-training-slurm entry
-        - AICR h100-eks-ubuntu-training-slurm mirror
-
-    - id: h100-gke-cos-training-slurm
-      page: docs/demo/aicr/h100-gke-cos-training-slurm.md
-      retainedVersion: v0.21.0
-      versionSource: >-
-        AICR's own release tag, recorded in this entry's generation receipt. Mirrored
-        by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.
-      names:
-        - h100-gke-cos-training-slurm entry
-        - AICR h100-gke-cos-training-slurm mirror
+        - vr200-rke2-ubuntu-training-kubeflow entry
+        - AICR vr200-rke2-ubuntu-training-kubeflow mirror
 
   # Pages that discuss the entries in general rather than any one of them.
   # They are still checked, because a page naming an entry has to name its

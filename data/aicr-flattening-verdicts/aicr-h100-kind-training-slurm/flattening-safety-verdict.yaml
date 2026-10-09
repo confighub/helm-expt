@@ -6,8 +6,8 @@ spec:
   subject:
     kind: "aicr-platform-shape"
     entry: "examples/aicr/h100-kind-training-slurm"
-    platformDigest: "sha256:7112acbf836a26924fff4c29527e72d2ec10b96e7a6b3761d67ce8ae976bb540"
-    upstreamVersion: "v0.21.0"
+    platformDigest: "sha256:a7e12e6e4177654f9290d8adb3e02bbcc991d9d65c48e83136ee4fba0b8f302e"
+    upstreamVersion: "v1.0.0"
     note: "The subject is a platform shape rather than a chart. It is the rendered Argo CD Application set produced from AICR's argocd-helm bundle chart for the h100-kind-training-slurm overlay. It is a leaf overlay. No other retained entry builds on it."
   dispositions:
     -
@@ -93,17 +93,16 @@ spec:
       - "sync-wave ordering across the platform components, recorded and not executed"
   boundedness:
     - "This verdict decides the wrapper, not the components. A component chart can be unsafe-to-flatten and still sit inside this shape, because this shape does not flatten it."
-    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 17 rendered Applications, which fall into 5 waves. The retained recipe deploys 16 components, and 21 of the 21 dependency edges between them hold in those waves."
-    - "4 further dependency edges in the recipe name a component the recipe does not deploy (mariadb-operator, mariadb-operator-crds, slurm-accounting-mariadb). No sync-wave exists for those components, so these edges are recorded and not checked."
-    - "1 of them is a deployed component depending on one that is not deployed: slinky-slurm on slurm-accounting-mariadb. That is an open question about the recipe, and this entry does not answer it."
+    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 17 rendered Applications, which fall into 5 waves. The recipe the bundle carries deploys 16 components, and 21 of the 21 dependency edges between them hold in those waves."
+    - "The selected recipe also names 4 components the bundle leaves out (dra-node-labeler, mariadb-operator, mariadb-operator-crds, slurm-accounting-mariadb), and the generation receipt records the reason AICR logged for each. The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler and slinky-slurm depend on slurm-accounting-mariadb. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it. That edge is recorded and not checked, and no route of this entry decides it, so the entry is flagged. The route that lists the omitted components records the decision a destination has to make."
     - "1 waved Application renders without appearing in the recipe's deployment order (slinky-slurm-pre). It is a companion of a component, and it is named here so the comparison does not drop it silently."
     - "Every Application carries an automated sync policy. That is a delivery decision a destination has to accept, not a flattening hazard."
-    - "2 of the 18 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package has not been published, and this entry does not retain it, so Argo CD could not resolve those sources today."
-    - "This entry is retained and rendered. It is not published and not deployed. No registry holds it, no ConfigHub Space holds it, and no cluster has synced it."
+    - "2 of the 18 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-h100-kind-training-slurm/aicr-bundle at 1.0.0. The entry retains that bundle at examples/aicr/h100-kind-training-slurm/argocd-helm-bundle, and the entry's Catalog record says whether the package is in the registry. Argo CD can resolve those sources only when it is."
+    - "This verdict says nothing about publication. The entry's Catalog record carries that state from tracked receipts. No ConfigHub Space holds the entry, and no cluster has synced it."
     - "No workload ran. This verdict is config-plane only and says nothing about any cloud, accelerator or model."
   provenance:
     emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
     generatedFrom:
       - "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates"
       - "examples/aicr/h100-kind-training-slurm/digest-index/platform-index.json"
-      - "examples/aicr/h100-kind-training-slurm/recipe.yaml"
+      - "examples/aicr/h100-kind-training-slurm/argocd-helm-bundle/recipe.yaml"

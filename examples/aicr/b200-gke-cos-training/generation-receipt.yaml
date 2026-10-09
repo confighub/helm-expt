@@ -1,19 +1,27 @@
 apiVersion: "catalog.confighub.com/v1alpha1"
 kind: "SourceGenerationReceipt"
 metadata:
-  name: "aicr-b200-gke-cos-training-v0-21-0"
+  name: "aicr-b200-gke-cos-training-v1-0-0"
 spec:
-  purpose: "The b200-gke-cos-training overlay from NVIDIA AICR's recipe catalog, mirrored into a first-class catalog entry by scripts/generate-aicr-from-overlay.mjs so it can be reviewed the same way a Helm variant is: pinned source, checked render, one digest."
+  purpose: "The b200-gke-cos-training overlay from NVIDIA AICR's recipe catalog, mirrored into a Catalog entry by scripts/generate-aicr-from-overlay.mjs so it can be reviewed the same way a Helm variant is: pinned source, retained bundle, checked render, one digest."
   source:
     name: "NVIDIA AICR"
-    version: "v0.21.0"
-    commit: "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe"
+    version: "v1.0.0"
+    commit: "82bccef69855c70e151f8b5e6ed9d04d70a30f81"
     repository: "https://github.com/NVIDIA/aicr"
     releaseAsset:
-      name: "aicr_0.21.0_darwin_arm64.tar.gz"
-      sha256: "5dbe88fc8c5b8c937ca87c624f8f01c29eaefbfb3ced8f556a0136c47ff6be63"
-    binarySha256: "1a4bea881a45480b1761f7e01670f02a61f5d02a4c0fdae3d93da65a47e51afb"
-    binaryVerifiedBeforeUse: "The release tarball and the binary it extracts to were both checked against the sha256 values pinned in scripts/generate-aicr-from-overlay.mjs before the binary ran."
+      name: "aicr_1.0.0_darwin_arm64.tar.gz"
+      sha256: "cb85cce54a82deb88e826c3e735c26e11a0863173b8aa5ff3ba4ebc2dc6af8b2"
+    binarySha256: "972da08e016b3ea779cc5f51eafa3a0024a4f052fbdfbc5ea55cd6524766b8fc"
+    binaryVerifiedBeforeUse: "The binary was checked against the sha256 pinned in scripts/generate-aicr-from-overlay.mjs before it ran. The pin is the binary NVIDIA's v1.0.0 attestation names, and runs/aicr-provenance-v1-0-0/receipt.yaml records the offline check of that attestation and of the release archive checksum."
+    provenance:
+      receipt: "runs/aicr-provenance-v1-0-0/receipt.yaml"
+      checksumList: "examples/aicr/upstream-signatures/v1.0.0/aicr_checksums.txt"
+      binaryAttestation: "examples/aicr/upstream-signatures/v1.0.0/aicr-attestation.sigstore.json"
+      recipeCatalogSignature: "examples/aicr/upstream-signatures/v1.0.0/recipe-catalog.sigstore.json"
+  overlay:
+    name: "b200-gke-cos-training"
+    leaf: false
   criteria:
     accelerator: "b200"
     intent: "training"
@@ -24,10 +32,108 @@ spec:
     storageClass: "gp3"
     acceleratedNodeSelector: "nvidia.com/gpu.present=true"
     workloadSelector: "app.kubernetes.io/part-of=training"
-    repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt"
+    systemNodeSelector: "nodeGroup=system-worker"
+    repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-training"
+  newRequiredInputs:
+    -
+      input: "systemNodeSelector"
+      flag: "--system-node-selector"
+      value: "nodeGroup=system-worker"
+      valueStatus: "confirmed-placeholder"
+      confirmedOn: "2026-10-07"
+      confirmation: "The maintainer confirmed on 2026-10-07 that the hand-retained v1.0.0 entry carries nodeGroup=system-worker as a placeholder, and chose on 2026-10-08 that every mirrored v1.0.0 entry whose bundle needs a system node selector carries the same placeholder. The entry does not claim that any destination labels its system nodes this way. The value is recorded, named and given a route, and it is resolved for the destination like any other install-time requirement."
+      observed: "With --storage-class gp3 and no system node selector, AICR v1.0.0 refuses to write this bundle. Its refusal reads: [INVALID_REQUEST] component \"kube-prometheus-stack\" requires --system-node-selector to be set (paths: prometheus.prometheusSpec.nodeSelector, alertmanager.alertmanagerSpec.nodeSelector, grafana.nodeSelector, prometheusOperator.nodeSelector, prometheusOperator.admissionWebhooks.patch.nodeSelector, kube-state-metrics.nodeSelector, prometheus-node-exporter.nodeSelector, thanosRuler.thanosRulerSpec.nodeSelector); pass a selector, opt this component's paths out with an explicit empty overlay override, or check whether a later --set-json/--set-file override cleared it"
+      valueOrigin: "It is the value upstream's own v1.0.0 EKS training demo uses for its reference clusters (demos/cuj1-training.md in NVIDIA/aicr at tag v1.0.0), and that demo says its selector values are examples to be updated to match the cluster. The demo file is not retained in this repository. The value was not chosen from a real cluster, and it is carried for every service this mirror covers because it is a placeholder and not a claim about any of them."
+      effect: "The value is written into the generated system-component node selectors, so a different value changes the bundle bytes and every digest derived from them."
+      placeholder:
+        meaning: "nodeGroup=system-worker stands in for the label that selects the destination cluster's system node group."
+        changeTo: "the label on your own cluster's system node group"
+        changeEffect: "A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it."
+        route: "system-node-selector-placeholder"
+        renderedIn: "examples/aicr/b200-gke-cos-training/argocd-rendered/templates"
+        container: "spec.source.helm.values"
+        applications: 10
+        fieldPaths: 21
+        appearsIn:
+          -
+            application: "cert-manager"
+            valuesPaths:
+              - "cainjector.nodeSelector"
+              - "nodeSelector"
+              - "startupapicheck.nodeSelector"
+              - "webhook.nodeSelector"
+          -
+            application: "gpu-operator"
+            valuesPaths:
+              - "operator.nodeSelector"
+          -
+            application: "k8s-ephemeral-storage-metrics"
+            valuesPaths:
+              - "nodeSelector"
+          -
+            application: "kai-scheduler"
+            valuesPaths:
+              - "global.nodeSelector"
+          -
+            application: "kube-prometheus-stack"
+            valuesPaths:
+              - "alertmanager.alertmanagerSpec.nodeSelector"
+              - "grafana.nodeSelector"
+              - "kube-state-metrics.nodeSelector"
+              - "prometheus-node-exporter.nodeSelector"
+              - "prometheus.prometheusSpec.nodeSelector"
+              - "prometheusOperator.admissionWebhooks.patch.nodeSelector"
+              - "prometheusOperator.nodeSelector"
+              - "thanosRuler.thanosRulerSpec.nodeSelector"
+          -
+            application: "nfd"
+            valuesPaths:
+              - "gc.nodeSelector"
+              - "master.nodeSelector"
+          -
+            application: "nodewright-operator"
+            valuesPaths:
+              - "controllerManager.selectors"
+          -
+            application: "nvidia-dra-driver-gpu"
+            valuesPaths:
+              - "controller.nodeSelector"
+          -
+            application: "nvsentinel"
+            valuesPaths:
+              - "global.systemNodeSelector"
+          -
+            application: "prometheus-adapter"
+            valuesPaths:
+              - "nodeSelector"
+        bundleFiles:
+          - "argocd-helm-bundle/001-cert-manager/values.yaml"
+          - "argocd-helm-bundle/003-nfd/values.yaml"
+          - "argocd-helm-bundle/004-nodewright-operator/values.yaml"
+          - "argocd-helm-bundle/007-kube-prometheus-stack/values.yaml"
+          - "argocd-helm-bundle/008-gpu-operator-pre/values.yaml"
+          - "argocd-helm-bundle/009-gpu-operator/values.yaml"
+          - "argocd-helm-bundle/010-k8s-ephemeral-storage-metrics/values.yaml"
+          - "argocd-helm-bundle/011-kai-scheduler/values.yaml"
+          - "argocd-helm-bundle/012-nvidia-dra-driver-gpu/values.yaml"
+          - "argocd-helm-bundle/013-nvsentinel/values.yaml"
+          - "argocd-helm-bundle/014-prometheus-adapter/values.yaml"
+          - "argocd-helm-bundle/bundle-info.yaml"
+          - "argocd-helm-bundle/static/cert-manager.yaml"
+          - "argocd-helm-bundle/static/gpu-operator.yaml"
+          - "argocd-helm-bundle/static/k8s-ephemeral-storage-metrics.yaml"
+          - "argocd-helm-bundle/static/kai-scheduler.yaml"
+          - "argocd-helm-bundle/static/kube-prometheus-stack.yaml"
+          - "argocd-helm-bundle/static/nfd.yaml"
+          - "argocd-helm-bundle/static/nodewright-operator.yaml"
+          - "argocd-helm-bundle/static/nvidia-dra-driver-gpu.yaml"
+          - "argocd-helm-bundle/static/nvsentinel.yaml"
+          - "argocd-helm-bundle/static/prometheus-adapter.yaml"
   commands:
     recipe:
+      - "aicr"
       - "recipe"
+      - "--criteria-strict"
       - "--service"
       - "gke"
       - "--accelerator"
@@ -37,40 +143,72 @@ spec:
       - "--intent"
       - "training"
       - "--output"
-      - "<tmp>"
+      - "recipe.yaml"
     bundle:
+      - "aicr"
       - "bundle"
       - "--recipe"
-      - "<tmp>"
+      - "recipe.yaml"
       - "--deployer"
       - "argocd-helm"
       - "--output"
-      - "<tmp>"
+      - "./argocd-helm-bundle"
       - "--storage-class"
       - "gp3"
       - "--accelerated-node-selector"
       - "nvidia.com/gpu.present=true"
       - "--workload-selector"
       - "app.kubernetes.io/part-of=training"
+      - "--system-node-selector"
+      - "nodeGroup=system-worker"
     render:
+      - "helm"
       - "template"
       - "aicr-argocd"
-      - "<tmp>"
+      - "./argocd-helm-bundle"
       - "--namespace"
       - "argocd"
       - "--set"
-      - "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt"
+      - "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-training"
       - "--output-dir"
-      - "<tmp>"
+      - "rendered"
+  toolchain:
+    helm: "v4.1.4+g05fa379"
   result:
-    componentCount: 13
+    recipeApiVersion: "aicr.run/v1beta2"
+    componentCount: 14
+    bundledComponentCount: 13
+    componentsLeftOutOfBundle:
+      -
+        name: "dra-node-labeler"
+        reason: "AICR skipped it and logged the reason: DRA eviction is not opted in (--dra-eviction-node-label unset), so the eviction label it would apply is not selected on"
     overlaysResolved: 6
     renderedApplications: 15
+    argocdBundleFiles: 54
+    recipeDigests:
+      selectedRecipe: "sha256:63215a0aeed0bf134385e38afec4f19642ec30ed0acac8758204a15ed60e07cc"
+      bundledRecipe: "sha256:4d29fdc5c935cf6aaab9bcde2e0d9abeadf1e8197b2fa4eb1ebb01f5494c0d82"
+      note: "The bundled recipe is the selected recipe without the components the bundle leaves out. bundle-info.yaml records its digest, and the rendered sync-waves are compared with it."
+    bundleNotes:
+      - "nodewright-operator requires manual steps when upgrading from <0.18.0; read UPGRADING.md before applying this bundle over an existing installation"
+      - "nvsentinel requires manual steps when upgrading from >=1.22.0 <1.25.0; read UPGRADING.md before applying this bundle over an existing installation"
+  retained:
+    recipe: "examples/aicr/b200-gke-cos-training/recipe.yaml"
+    sourceBundle: "examples/aicr/b200-gke-cos-training/argocd-helm-bundle"
+    sourceBundleInventory:
+      path: "examples/aicr/b200-gke-cos-training/argocd-helm-bundle-checksums.txt"
+      sha256: "5f246e56ff5fab4814132bdb12ef6cf4728f08838fa256f43f74291441720060"
+      files: 54
+    renderedApplications: "examples/aicr/b200-gke-cos-training/argocd-rendered"
+  plannedArtifacts:
+    sourcePackage:
+      role: "source-package"
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-b200-gke-cos-training/aicr-bundle:1.0.0"
+      statement: "The rendered Applications name this reference. It is the address a publication of the retained bundle uses."
+    publication: "This receipt records generation and retention. It does not say whether the source package or the literal configuration bundle of this entry is published. Each one counts as published only when a tracked receipt under runs/aicr-mirror-artifacts/b200-gke-cos-training/ records a push and an anonymous pull of the digest planned for it."
   boundary:
     configPlaneOnly: true
     gpuWorkloadsProven: false
-    published: false
-    publishedStatement: "This entry is generated, retained, and rendered. It has not been published to any registry, so it carries no public digest and no OCI transport receipts. The repoURL in its rendered Applications is the reference a publication would use, not a claim that one happened."
     ngcContacted: false
     imagesPulled: false
     statement: "Config-plane only. No GPU workload ran, no container started, and no model was fetched to produce or verify this entry."

@@ -1,0 +1,175 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "AICRPlatformDigestIndex",
+  "metadata": {
+    "name": "aicr-aks-ubuntu-v1-0-0-digest-index"
+  },
+  "spec": {
+    "platformDigest": "sha256:e7f40c5923d89d489e6198275c8a5abc10eaa49d01472d9fe185cb41b292d62c",
+    "source": {
+      "binarySha256": "972da08e016b3ea779cc5f51eafa3a0024a4f052fbdfbc5ea55cd6524766b8fc",
+      "binaryVerifiedBeforeUse": "The binary was checked against the sha256 pinned in scripts/generate-aicr-from-overlay.mjs before it ran. The pin is the binary NVIDIA's v1.0.0 attestation names, and runs/aicr-provenance-v1-0-0/receipt.yaml records the offline check of that attestation and of the release archive checksum.",
+      "commit": "82bccef69855c70e151f8b5e6ed9d04d70a30f81",
+      "name": "NVIDIA AICR",
+      "provenance": {
+        "binaryAttestation": "examples/aicr/upstream-signatures/v1.0.0/aicr-attestation.sigstore.json",
+        "checksumList": "examples/aicr/upstream-signatures/v1.0.0/aicr_checksums.txt",
+        "receipt": "runs/aicr-provenance-v1-0-0/receipt.yaml",
+        "recipeCatalogSignature": "examples/aicr/upstream-signatures/v1.0.0/recipe-catalog.sigstore.json"
+      },
+      "releaseAsset": {
+        "name": "aicr_1.0.0_darwin_arm64.tar.gz",
+        "sha256": "cb85cce54a82deb88e826c3e735c26e11a0863173b8aa5ff3ba4ebc2dc6af8b2"
+      },
+      "repository": "https://github.com/NVIDIA/aicr",
+      "version": "v1.0.0"
+    },
+    "criteria": {
+      "accelerator": "any",
+      "intent": "any",
+      "os": "ubuntu",
+      "platform": "any",
+      "service": "aks"
+    },
+    "transports": [],
+    "members": [
+      {
+        "component": "aicr-stack",
+        "role": "platform-root",
+        "syncWave": null,
+        "payloadSha256": "350d0b4533f6670a737b2b26f1a37b888658af611775a80a689e23bf425e82b0",
+        "payloadPath": "payloads/aicr-stack-350d0b4533f6670a737b2b26f1a37b888658af611775a80a689e23bf425e82b0.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/aicr-stack:payload-350d0b4533f6670a737b2b26f1a37b888658af611775a80a689e23bf425e82b0"
+      },
+      {
+        "component": "cert-manager",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00",
+        "payloadPath": "payloads/cert-manager-c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/cert-manager:payload-c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00"
+      },
+      {
+        "component": "gpu-operator-post",
+        "role": "component-application",
+        "syncWave": 10,
+        "payloadSha256": "39acd433eb8c4e69686d0a7479269cb1fac18c67d541b18752203b4fab189710",
+        "payloadPath": "payloads/gpu-operator-post-39acd433eb8c4e69686d0a7479269cb1fac18c67d541b18752203b4fab189710.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/gpu-operator-post:payload-39acd433eb8c4e69686d0a7479269cb1fac18c67d541b18752203b4fab189710"
+      },
+      {
+        "component": "gpu-operator",
+        "role": "component-application",
+        "syncWave": 9,
+        "payloadSha256": "ca9f386396f1890578631564c0ca717d4d45b7b9ef75604199bf705f6eb15344",
+        "payloadPath": "payloads/gpu-operator-ca9f386396f1890578631564c0ca717d4d45b7b9ef75604199bf705f6eb15344.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/gpu-operator:payload-ca9f386396f1890578631564c0ca717d4d45b7b9ef75604199bf705f6eb15344"
+      },
+      {
+        "component": "k8s-ephemeral-storage-metrics",
+        "role": "component-application",
+        "syncWave": 9,
+        "payloadSha256": "a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329",
+        "payloadPath": "payloads/k8s-ephemeral-storage-metrics-a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/k8s-ephemeral-storage-metrics:payload-a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329"
+      },
+      {
+        "component": "kai-scheduler",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc",
+        "payloadPath": "payloads/kai-scheduler-500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/kai-scheduler:payload-500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc"
+      },
+      {
+        "component": "kube-prometheus-stack",
+        "role": "component-application",
+        "syncWave": 5,
+        "payloadSha256": "73055723893131948c88e415f67620587790401d2863cef45bd244618aaf32c2",
+        "payloadPath": "payloads/kube-prometheus-stack-73055723893131948c88e415f67620587790401d2863cef45bd244618aaf32c2.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/kube-prometheus-stack:payload-73055723893131948c88e415f67620587790401d2863cef45bd244618aaf32c2"
+      },
+      {
+        "component": "network-operator-post",
+        "role": "component-application",
+        "syncWave": 6,
+        "payloadSha256": "8828fadb1f51486dbec91ef9be46aade03a3920100831170e232b9ed2632e63f",
+        "payloadPath": "payloads/network-operator-post-8828fadb1f51486dbec91ef9be46aade03a3920100831170e232b9ed2632e63f.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/network-operator-post:payload-8828fadb1f51486dbec91ef9be46aade03a3920100831170e232b9ed2632e63f"
+      },
+      {
+        "component": "network-operator",
+        "role": "component-application",
+        "syncWave": 5,
+        "payloadSha256": "d74e9e3ea1b9a4dfbdccd2a6368419dbc4358df9a6ad3136ea027d9550e29f53",
+        "payloadPath": "payloads/network-operator-d74e9e3ea1b9a4dfbdccd2a6368419dbc4358df9a6ad3136ea027d9550e29f53.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/network-operator:payload-d74e9e3ea1b9a4dfbdccd2a6368419dbc4358df9a6ad3136ea027d9550e29f53"
+      },
+      {
+        "component": "nfd",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "03020302efc923cd1b66c2b59e92872a354a94645c4cb6e5a285782ed6e33c54",
+        "payloadPath": "payloads/nfd-03020302efc923cd1b66c2b59e92872a354a94645c4cb6e5a285782ed6e33c54.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/nfd:payload-03020302efc923cd1b66c2b59e92872a354a94645c4cb6e5a285782ed6e33c54"
+      },
+      {
+        "component": "nodewright-operator",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "d3cabfad44a660bda516963a44d489f06bd2a7f332efdfe591b6dc2cf80568eb",
+        "payloadPath": "payloads/nodewright-operator-d3cabfad44a660bda516963a44d489f06bd2a7f332efdfe591b6dc2cf80568eb.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/nodewright-operator:payload-d3cabfad44a660bda516963a44d489f06bd2a7f332efdfe591b6dc2cf80568eb"
+      },
+      {
+        "component": "nvidia-dra-driver-gpu",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "a28396351fa30d3271d663c811d7e576f4765a810b7ada26328cb9706dcb3036",
+        "payloadPath": "payloads/nvidia-dra-driver-gpu-a28396351fa30d3271d663c811d7e576f4765a810b7ada26328cb9706dcb3036.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/nvidia-dra-driver-gpu:payload-a28396351fa30d3271d663c811d7e576f4765a810b7ada26328cb9706dcb3036"
+      },
+      {
+        "component": "nvsentinel",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "4004a35dc9dc7de0f78662cd57967cf4220a0ad915fe0cd9167cb698407ff5d6",
+        "payloadPath": "payloads/nvsentinel-4004a35dc9dc7de0f78662cd57967cf4220a0ad915fe0cd9167cb698407ff5d6.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/nvsentinel:payload-4004a35dc9dc7de0f78662cd57967cf4220a0ad915fe0cd9167cb698407ff5d6"
+      },
+      {
+        "component": "prometheus-adapter",
+        "role": "component-application",
+        "syncWave": 9,
+        "payloadSha256": "5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3",
+        "payloadPath": "payloads/prometheus-adapter-5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/prometheus-adapter:payload-5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3"
+      },
+      {
+        "component": "prometheus-operator-crds",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb",
+        "payloadPath": "payloads/prometheus-operator-crds-110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-components/prometheus-operator-crds:payload-110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb"
+      }
+    ],
+    "aggregate": {
+      "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-aks-ubuntu-digest-index:platform-e7f40c5923d89d489e6198275c8a5abc10eaa49d01472d9fe185cb41b292d62c",
+      "type": "target-neutral-index-published-only-after-member-manifest-digests-are-observed"
+    },
+    "boundary": {
+      "configPlaneOnly": true,
+      "publication": "not-recorded-in-this-index",
+      "publicationReceipts": "runs/aicr-mirror-artifacts/aks-ubuntu",
+      "gpuWorkloadsProven": false,
+      "secretValuesIncluded": false,
+      "liveRegistryPublicationClaimed": false,
+      "statement": "This index pins config-plane content by digest. No GPU workload ran to produce or verify it; workload-plane claims stay absent rather than implied."
+    }
+  },
+  "status": {
+    "result": "compiled-offline",
+    "liveRegistryPublicationClaimed": false
+  }
+}

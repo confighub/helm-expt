@@ -31,6 +31,22 @@ function readCatalogCounts() {
   };
 }
 
+// The Catalog flags an AICR entry for review when its record says so, and the
+// number moves with the retained AICR version. The flag sentence is required
+// on the Catalog index when at least one AICR listing is flagged, and refused
+// when none is, so the page cannot show a flag the data does not hold.
+const aicrEntriesFlaggedForReview = countFlaggedAicrListings();
+
+function countFlaggedAicrListings() {
+  const listingDir = path.join(root, "site/listings");
+  if (!fs.existsSync(listingDir)) return 0;
+  return fs.readdirSync(listingDir)
+    .filter((name) => name.startsWith("aicr-") && name.endsWith(".json"))
+    .map((name) => JSON.parse(fs.readFileSync(path.join(listingDir, name), "utf8")))
+    .filter((listing) => (listing.assessment?.stages ?? []).some((stage) => stage.id === "materialization" && stage.resultState === "watch"))
+    .length;
+}
+
 const checks = [
   { file: "site/ai-chaos-in-production.html", terms: ["six local kind clusters", "two to three hours", "after onboarding", "40Mi", "mutating check", "The parity gate works.", "Workshop has not rerun", "teardown.sh --confighub", "agent contract", "assets/ai-chaos/r2-gui-refused-order.jpg"] },
   ...["index", "guides", "ai", "plugins", "bring-sveltos-into-confighub"].map(page => ({ file: `site/${page}.html`, terms: ["ai-chaos-in-production.html"] })),
@@ -206,7 +222,7 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["flatten-with-routes, wrapper only, route recorded, not published", "<strong>This entry is flagged for review.</strong>", "It is not published and has not run.", "Listing JSON", "AICR entries", "An entry flagged for review reads <code>completed/watch</code>", "id=\"chart-filter\"", "Configs · ConfigHub Workshop", "<h1>Configs</h1>", "Search the catalog", "entries shown", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Base variants by version", "Flattens as plain YAML?", "No entry matches these filters", "Check your chart and values locally", "provider-curated source variant", "A difference is not automatically a fault"],
+    terms: ["flatten-with-routes, wrapper only, route recorded, not published", ...(aicrEntriesFlaggedForReview > 0 ? ["<strong>This entry is flagged for review.</strong>"] : []), "It is not published and has not run.", "Listing JSON", "AICR entries", "An entry flagged for review reads <code>completed/watch</code>", "id=\"chart-filter\"", "Configs · ConfigHub Workshop", "<h1>Configs</h1>", "Search the catalog", "entries shown", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Base variants by version", "Flattens as plain YAML?", "No entry matches these filters", "Check your chart and values locally", "provider-curated source variant", "A difference is not automatically a fault"],
   },
   // Site IA phase 4, step 3: the Catalog page's explanation moved to How
   // configuration works, its trust and verification to Why trust it, and its
@@ -412,6 +428,9 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages])];
 
 const failures = [];
+if (aicrEntriesFlaggedForReview === 0 && fs.readFileSync(path.join(root, "site/charts/index.html"), "utf8").includes("<strong>This entry is flagged for review.</strong>")) {
+  failures.push("site/charts/index.html: shows an entry flagged for review, and no AICR listing is flagged");
+}
 // The approved palette is light by default, even on a dark-mode device.
 for (const page of ["index", "guides", "ai", "plugins", "ai-chaos-in-production"]) {
   const html = fs.readFileSync(path.join(root, `site/${page}.html`), "utf8");

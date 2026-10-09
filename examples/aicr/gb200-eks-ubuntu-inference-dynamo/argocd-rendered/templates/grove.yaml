@@ -16,10 +16,12 @@ spec:
         chart: grove-charts
         helm:
             values: |-
+                nodeSelector:
+                  nodeGroup: system-worker
                 tolerations:
                 - operator: Exists
         repoURL: oci://ghcr.io/ai-dynamo/grove/grove-charts
-        targetRevision: v0.1.0-alpha.12
+        targetRevision: v0.1.0-alpha.13
     syncPolicy:
         automated:
             prune: true

@@ -6,8 +6,8 @@ spec:
   subject:
     kind: "aicr-platform-shape"
     entry: "examples/aicr/ocp-inference-nim"
-    platformDigest: "sha256:5128366e2a332f9f4928df15cb1a0b9b10af6fc1a6b698e51bc5731580526e35"
-    upstreamVersion: "v0.21.0"
+    platformDigest: "sha256:86f87ce335aba1e0f3a866e069bd4dce029a5defd803345bc05c759e27670826"
+    upstreamVersion: "v1.0.0"
     note: "The subject is a platform shape rather than a chart. It is the rendered Argo CD Application set produced from AICR's argocd-helm bundle chart for the ocp-inference-nim overlay. It is a leaf overlay. No other retained entry builds on it."
   dispositions:
     -
@@ -80,17 +80,16 @@ spec:
       - "sync-wave ordering across the platform components, recorded and not executed"
   boundedness:
     - "This verdict decides the wrapper, not the components. A component chart can be unsafe-to-flatten and still sit inside this shape, because this shape does not flatten it."
-    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 15 rendered Applications, which fall into 10 waves. The retained recipe deploys 11 components, and 11 of the 11 dependency edges between them hold in those waves."
-    - "12 further dependency edges in the recipe name a component the recipe does not deploy (cert-manager, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kube-prometheus-stack, nfd, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, prometheus-operator-crds). No sync-wave exists for those components, so these edges are recorded and not checked."
-    - "None of them has a deployed component on the depending side, so no deployed component waits on something absent."
+    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 15 rendered Applications, which fall into 10 waves. The recipe the bundle carries deploys 11 components, and 11 of the 11 dependency edges between them hold in those waves."
+    - "The selected recipe also names 12 components the bundle leaves out (cert-manager, dra-node-labeler, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kube-prometheus-stack, nfd, nodewright-operator, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, prometheus-operator-crds), and the generation receipt records the reason AICR logged for each. No component the bundle deploys depends on one of them in the selected recipe."
     - "4 waved Applications render without appearing in the recipe's deployment order (prometheus-adapter-ocp-pre, prometheus-adapter-ocp-post, nvidia-dra-driver-gpu-ocp-pre, k8s-nim-operator-ocp-post). They are companions of a component, and they are named here so the comparison does not drop them silently."
     - "Every Application carries an automated sync policy. That is a delivery decision a destination has to accept, not a flattening hazard."
-    - "13 of the 16 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package has not been published, and this entry does not retain it, so Argo CD could not resolve those sources today."
-    - "This entry is retained and rendered. It is not published and not deployed. No registry holds it, no ConfigHub Space holds it, and no cluster has synced it."
+    - "13 of the 16 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-nim/aicr-bundle at 1.0.0. The entry retains that bundle at examples/aicr/ocp-inference-nim/argocd-helm-bundle, and the entry's Catalog record says whether the package is in the registry. Argo CD can resolve those sources only when it is."
+    - "This verdict says nothing about publication. The entry's Catalog record carries that state from tracked receipts. No ConfigHub Space holds the entry, and no cluster has synced it."
     - "No workload ran. This verdict is config-plane only and says nothing about any cloud, accelerator or model."
   provenance:
     emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
     generatedFrom:
       - "examples/aicr/ocp-inference-nim/argocd-rendered/templates"
       - "examples/aicr/ocp-inference-nim/digest-index/platform-index.json"
-      - "examples/aicr/ocp-inference-nim/recipe.yaml"
+      - "examples/aicr/ocp-inference-nim/argocd-helm-bundle/recipe.yaml"

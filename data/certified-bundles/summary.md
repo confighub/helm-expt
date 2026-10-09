@@ -163,7 +163,7 @@ The OCI column states where the bundle is published, and says so plainly when it
 
 A provisional verdict states what current evidence supports and names its open questions in the receipt. The flattening-safety audit certifies lanes; a lane moves when its receipt changes, never by hand.
 
-118 further AICR recipe directories are retained and rendered and have no row here. Each has a platform-shape flattening verdict and a recorded sync-wave route under data/aicr-flattening-verdicts, covering the Application wrapper only. A row in this table is a certified image, and the ConfigHub-ready lane uploads every certified image into a ConfigHub organization. None of these 118 has been uploaded, so none has a receipt yet.
+132 further AICR recipe directories are retained and rendered and have no row here. Each has a platform-shape flattening verdict and a recorded sync-wave route under data/aicr-flattening-verdicts, covering the Application wrapper only. A row in this table is a certified image, and the ConfigHub-ready lane uploads every certified image into a ConfigHub organization. None of these 132 has been uploaded, so none has a receipt yet.
 
 The eight eks-inference receipts certify artifacts this repository did not build. Each witness records the pulled manifest and layer digests, and every extracted file hashed identically to the producer's committed render at the recorded commit. Their five literal components are born flattened; the three chart-sourced ones carry the lane their charts' verdicts decided, and where a component wraps several charts the strictest lane governs.
 

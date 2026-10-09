@@ -17,8 +17,8 @@ spec:
             values: |-
                 {}
         path: 005-gpu-operator-ocp-olm
-        repoURL: 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle'
-        targetRevision: '0.21.0'
+        repoURL: 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-nim/aicr-bundle'
+        targetRevision: '1.0.0'
     syncPolicy:
         automated:
             prune: true

@@ -19,13 +19,13 @@ spec:
                 gc:
                   enable: true
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 master:
                   enable: true
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 topologyUpdater:

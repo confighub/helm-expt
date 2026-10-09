@@ -18,6 +18,8 @@ spec:
             values: |-
                 dynamo-operator:
                   controllerManager:
+                    nodeSelector:
+                      nodeGroup: system-worker
                     tolerations:
                     - operator: Exists
                   discoveryBackend: kubernetes

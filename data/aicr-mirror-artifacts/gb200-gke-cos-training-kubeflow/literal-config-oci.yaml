@@ -1,0 +1,184 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-gb200-gke-cos-training-kubeflow-v1-0-0-argocd-literal-config"
+spec:
+  catalogEntry: "aicr-gb200-gke-cos-training-kubeflow-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "gb200-gke-cos-training-kubeflow"
+    entry: "examples/aicr/gb200-gke-cos-training-kubeflow"
+    generationReceipt: "examples/aicr/gb200-gke-cos-training-kubeflow/generation-receipt.yaml"
+    platformDigest: "sha256:4fe293325b9257e0032bb8b4fa11c8545504db23fa7072abf8530c8aabb20eed"
+  artifact:
+    role: "literal-config"
+    format: "config-bundle-oci"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-gke-cos-training-kubeflow-v1-0-0-argocd:v1.0.0"
+    manifestDigest: "sha256:ce82a447a6dea89d6f17d0b47913d00b541dcb536f7f3469bcd3b43a236f1c60"
+    layerDigest: "sha256:4bed1e4131e53460cfcf85289bf9870fc28c833f645cee44656eb820e3b525ef"
+    layerBytes: 81436
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    objectCount: 18
+    fileCount: 24
+    files:
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/aicr-stack.yaml"
+        stagedAs: "aicr-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "9df4f73795d49f016541c38acb30d37faf5d390b0f3cbbfcb521e85e0ccc811c"
+        bytes: 1127
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/cert-manager.yaml"
+        stagedAs: "cert-manager.yaml"
+        role: "argo-cd-application"
+        sha256: "f914e71520fa6035733258504500e2d5113ab598bec88223b16fadef07324e24"
+        bytes: 2210
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/gcp-driver-installer.yaml"
+        stagedAs: "gcp-driver-installer.yaml"
+        role: "argo-cd-application"
+        sha256: "6dd52d4b71c51517b0172193344493035f7798dd2710db4ee7866c526a5a342f"
+        bytes: 810
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/gke-gb200-rdma.yaml"
+        stagedAs: "gke-gb200-rdma.yaml"
+        role: "argo-cd-application"
+        sha256: "6b01b7326a53237f4ec25c20a9b8fa78f080f7370cfed00901e920df5c1d8542"
+        bytes: 792
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/gpu-operator-pre.yaml"
+        stagedAs: "gpu-operator-pre.yaml"
+        role: "argo-cd-application"
+        sha256: "4f73a7d14c0fa1d6db9284d29b0e3375da88b5f213767a93d9bbb04b5197813b"
+        bytes: 799
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/gpu-operator.yaml"
+        stagedAs: "gpu-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "61d602255541e86a02083bf202b47dc314747a039b6dc0856ed4115abc8c16d9"
+        bytes: 9169
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml"
+        stagedAs: "k8s-ephemeral-storage-metrics.yaml"
+        role: "argo-cd-application"
+        sha256: "cab5b4fa521c9717a2308e4514bf619b8b0e28e71835219c41e4fac0bbc1c444"
+        bytes: 1587
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/kai-scheduler.yaml"
+        stagedAs: "kai-scheduler.yaml"
+        role: "argo-cd-application"
+        sha256: "8ec1e2779f8d04bfc036c9bdee9d3804fc6ff1f73e4cb5dbbf19dc2c11b1c316"
+        bytes: 1110
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/kube-prometheus-stack.yaml"
+        stagedAs: "kube-prometheus-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "f172a2f871b5a5af81ed96526c70550532d6511154f7582b50f7cff509b425b5"
+        bytes: 3953
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/kubeflow-trainer-post.yaml"
+        stagedAs: "kubeflow-trainer-post.yaml"
+        role: "argo-cd-application"
+        sha256: "7c0ef0f6c6d76b499ee4ee7b7ad8a51c0aa22ff9aebe4bb65eb34e042a05a7b3"
+        bytes: 811
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/kubeflow-trainer.yaml"
+        stagedAs: "kubeflow-trainer.yaml"
+        role: "argo-cd-application"
+        sha256: "75fb206e91a3dbeb928c8fa5fe6ef00450e80dc1b8315cd2a5575a47a3dae6fe"
+        bytes: 2389
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/nfd.yaml"
+        stagedAs: "nfd.yaml"
+        role: "argo-cd-application"
+        sha256: "647155f8ee8ade656bc60fd824ab8189eb76b4fc51d10e1cb904ddda8cbe64e2"
+        bytes: 1630
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/nodewright-customizations.yaml"
+        stagedAs: "nodewright-customizations.yaml"
+        role: "argo-cd-application"
+        sha256: "5b570f19a535bde3d6e5dd9b5cdaa4d540454d7efb81466b1ed451c77b8c5a33"
+        bytes: 824
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/nodewright-operator.yaml"
+        stagedAs: "nodewright-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "2e52210442896eb3c1f34131e419fee82cb41934ae0c3918956991b0e55a21fb"
+        bytes: 1543
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml"
+        stagedAs: "nvidia-dra-driver-gpu.yaml"
+        role: "argo-cd-application"
+        sha256: "acb0d23afc8dac22ff1a3927254baa7f745a704a9af1e29a062310940de74c9d"
+        bytes: 1826
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/nvsentinel.yaml"
+        stagedAs: "nvsentinel.yaml"
+        role: "argo-cd-application"
+        sha256: "8968a6ae6eccb07e71d45f53566aa367c248bfeceb59d36281ac776dfe1e26d3"
+        bytes: 3550
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/prometheus-adapter.yaml"
+        stagedAs: "prometheus-adapter.yaml"
+        role: "argo-cd-application"
+        sha256: "9230caef29fd5778532a2f8bfc0e4a735d3202b6902236a64f376b14dc5f0fe9"
+        bytes: 4867
+      -
+        path: "examples/aicr/gb200-gke-cos-training-kubeflow/argocd-rendered/templates/prometheus-operator-crds.yaml"
+        stagedAs: "prometheus-operator-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+        bytes: 765
+      -
+        path: "data/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/routes/sync-wave-ordering.yaml"
+        stagedAs: "routes/sync-wave-ordering.yaml"
+        role: "route: sync-wave-ordering"
+        sha256: "61f94390f1870737c69db5bbfdc7af1267a1ab43dd2d3448505730826d42e727"
+        bytes: 3749
+      -
+        path: "data/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/routes/system-node-selector-placeholder.yaml"
+        stagedAs: "routes/system-node-selector-placeholder.yaml"
+        role: "route: system-node-selector-placeholder"
+        sha256: "854f829d465dd94248bbed66e3b04cae92000168f3cc97e747817f9c85675b39"
+        bytes: 5598
+      -
+        path: "data/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/routes/components-left-out-of-bundle.yaml"
+        stagedAs: "routes/components-left-out-of-bundle.yaml"
+        role: "route: components-left-out-of-bundle"
+        sha256: "7457862177e86bd3dcf0ccc0ade184a391fbe515ad9075401e82b4269e07a263"
+        bytes: 1455
+      -
+        path: "data/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "b3e9ccdb5b7f7e42348fbe0f44fc21b2c8af7f75e3ea33703367eaae538eabf0"
+        bytes: 1971
+      -
+        path: "data/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/requirements/target-requirements.yaml"
+        stagedAs: "requirements/target-requirements.yaml"
+        role: "requirement: target"
+        sha256: "686a17c00563ea4175f894ee4022aaefb58528592d674ac12aae91537e836271"
+        bytes: 5234
+      -
+        path: "data/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/space-guide.md"
+        stagedAs: "README.md"
+        role: "space-guide"
+        sha256: "28f85d21f2be199b259346850826768f3c85cb0bb6cb3d55296eb6362c5809b6"
+        bytes: 4577
+    reproducible: true
+  needs:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-gke-cos-training-kubeflow/aicr-bundle:1.0.0"
+      manifestDigest: "sha256:d962dc8e25157fc023e38523b63071b008c75b133cec595f67e31f38f9931b63"
+      plan: "data/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/source-package-oci.yaml"
+  contents:
+    statement: "The artifact holds the retained Argo CD Applications of one entry, its route files, its requirements file and its guide. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/literal-config-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

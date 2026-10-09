@@ -18,7 +18,7 @@ spec:
             values: |-
                 cainjector:
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   resources:
                     limits:
                       cpu: 50m
@@ -32,7 +32,7 @@ spec:
                   enabled: true
                 fullnameOverride: cert-manager
                 nodeSelector:
-                  nvidia.com/gpu.present: "true"
+                  nodeGroup: system-worker
                 prometheus:
                   servicemonitor:
                     enabled: false
@@ -46,14 +46,14 @@ spec:
                 startupapicheck:
                   enabled: true
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 tolerations:
                 - operator: Exists
                 webhook:
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   resources:
                     limits:
                       cpu: 50m

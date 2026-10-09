@@ -201,6 +201,7 @@ function compile(root) {
   let ociBase = "";
   let sourcePackageRepository = "";
   let expectedObjectCount = null;
+  let publicationRecordedBy = "";
   if (!hasOciReceipt) {
     const config = readYaml(join(root, "index-config.yaml"));
     ociBase = String(config.spec?.plannedOCIBase ?? "");
@@ -208,9 +209,17 @@ function compile(root) {
     expectedObjectCount = config.spec?.renderedApplications ?? null;
     check(ociBase.startsWith("oci://"), "index-config.yaml names no planned OCI base");
     check(sourcePackageRepository.startsWith("oci://"), "index-config.yaml names no source package repository");
+    // An index-config either says the entry was not published, or says that
+    // publication is recorded somewhere else. The second form is for the
+    // mirrored overlays: their publication state lives in tracked receipts, so
+    // their index says nothing about it and never has to be recompiled when a
+    // receipt lands.
+    publicationRecordedBy = String(config.spec?.publication?.recordedBy ?? "");
     check(
-      config.spec?.published === false,
-      "index-config.yaml is only for entries that were not published; a published entry needs its OCI receipt",
+      publicationRecordedBy
+        ? /^runs\/[a-z0-9-]+\/[a-z0-9-]+$/.test(publicationRecordedBy) && config.spec.published === undefined
+        : config.spec?.published === false,
+      "index-config.yaml must say published: false, or name the receipt directory that records publication and say nothing else about it; a published entry with its own transports needs its OCI receipt",
     );
   }
   const ociReceipt = hasOciReceipt ? readYaml(join(root, "argocd-oci-receipt.yaml")) : {};
@@ -374,7 +383,9 @@ function compile(root) {
       },
       boundary: {
         configPlaneOnly: true,
-        published: publiclyPublished,
+        ...(publicationRecordedBy
+          ? { publication: "not-recorded-in-this-index", publicationReceipts: publicationRecordedBy }
+          : { published: publiclyPublished }),
         gpuWorkloadsProven: false,
         secretValuesIncluded: false,
         liveRegistryPublicationClaimed: false,
@@ -395,7 +406,9 @@ function renderReadme(compiled) {
   const transportSentence = index.spec.transports.length > 0
     ? `the ${index.spec.transports.length} committed OCI transport manifests`
     : "the planned OCI member references";
-  const publicationSentence = index.spec.boundary.published
+  const publicationSentence = index.spec.boundary.publicationReceipts
+    ? `This index does not say whether the entry's OCI artifacts are published. A publication counts only when a tracked receipt under \`${index.spec.boundary.publicationReceipts}\` records it.`
+    : index.spec.boundary.published
     ? "The OCI receipts next to this directory record the publication that was observed."
     : index.spec.transports.length > 0
       ? "The OCI receipt records verified local layouts. Public publication has not run."

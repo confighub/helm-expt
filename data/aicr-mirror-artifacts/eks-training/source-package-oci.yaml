@@ -1,0 +1,36 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-eks-training-v1-0-0-argocd-source-package"
+spec:
+  catalogEntry: "aicr-eks-training-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "eks-training"
+    entry: "examples/aicr/eks-training"
+    generationReceipt: "examples/aicr/eks-training/generation-receipt.yaml"
+    platformDigest: "sha256:97ec1fa97d41e2527973146e4cad8bc13e611f9fc51e49604bb74713285719f8"
+  artifact:
+    role: "source-package"
+    format: "helm-chart-oci"
+    artifactType: "application/vnd.cncf.helm.config.v1+json"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-training/aicr-bundle:1.0.0"
+    manifestDigest: "sha256:c92987e24491cac47409eabb659d01efa6c6d4be84d502159aa6e5a061e45cc4"
+    layerDigest: "sha256:c72e74d7bfc5389a94e38edfc85b53081247a680edbdf1d5982526b678392e60"
+    layerBytes: 212006
+    layerMediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    fileCount: 48
+    files:
+      inventory: "examples/aicr/eks-training/argocd-helm-bundle-checksums.txt"
+      inventorySha256: "8d01a9fdcc58306c78c708292f063572bc619f1a4b2a2d1d5789354ac5b2c955"
+    reproducible: true
+  contents:
+    statement: "The artifact is the Helm chart AICR generated for this overlay, file for file as the entry retains it. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/eks-training/source-package-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

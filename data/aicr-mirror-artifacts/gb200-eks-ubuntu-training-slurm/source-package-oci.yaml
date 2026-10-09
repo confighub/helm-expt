@@ -1,0 +1,36 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-gb200-eks-ubuntu-training-slurm-v1-0-0-argocd-source-package"
+spec:
+  catalogEntry: "aicr-gb200-eks-ubuntu-training-slurm-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "gb200-eks-ubuntu-training-slurm"
+    entry: "examples/aicr/gb200-eks-ubuntu-training-slurm"
+    generationReceipt: "examples/aicr/gb200-eks-ubuntu-training-slurm/generation-receipt.yaml"
+    platformDigest: "sha256:317aab37f5996ca54fd6c1abf280b9043d46d6606bfb2ad6845bb71a587d925f"
+  artifact:
+    role: "source-package"
+    format: "helm-chart-oci"
+    artifactType: "application/vnd.cncf.helm.config.v1+json"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm/aicr-bundle:1.0.0"
+    manifestDigest: "sha256:bccf33d47e612ab8d486ebae8fe2790c736a5418df2b87ebc4b89e83e764924a"
+    layerDigest: "sha256:7e420cc02a9ed576c3f5cd585a224bea2681e4d185bb828d56148f2aee8975a0"
+    layerBytes: 302123
+    layerMediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    fileCount: 70
+    files:
+      inventory: "examples/aicr/gb200-eks-ubuntu-training-slurm/argocd-helm-bundle-checksums.txt"
+      inventorySha256: "b16b026325f1a87462981d50828b481ddf6508daf68cc1f3cc05d5dd8c239384"
+    reproducible: true
+  contents:
+    statement: "The artifact is the Helm chart AICR generated for this overlay, file for file as the entry retains it. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/gb200-eks-ubuntu-training-slurm/source-package-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

@@ -1,0 +1,172 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-gb200-eks-training-v1-0-0-argocd-literal-config"
+spec:
+  catalogEntry: "aicr-gb200-eks-training-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "gb200-eks-training"
+    entry: "examples/aicr/gb200-eks-training"
+    generationReceipt: "examples/aicr/gb200-eks-training/generation-receipt.yaml"
+    platformDigest: "sha256:8ddabfb70d919da366c5f06c340770efe190f312f83063336662bbd391cd4674"
+  artifact:
+    role: "literal-config"
+    format: "config-bundle-oci"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-eks-training-v1-0-0-argocd:v1.0.0"
+    manifestDigest: "sha256:d2af490b5cc0c284f0db366f7312c1dd0f1b23a4a4fdf0e84590582cae9e787a"
+    layerDigest: "sha256:da51cdfbb9da00710b3c55043167ce3b68911fa0e8976b46041162562bb80819"
+    layerBytes: 78876
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    objectCount: 16
+    fileCount: 22
+    files:
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/aicr-stack.yaml"
+        stagedAs: "aicr-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "378fc1cc11e256f734477ace765284b0069cffa6e3022ac899948ba115a4bde0"
+        bytes: 1101
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/aws-ebs-csi-driver.yaml"
+        stagedAs: "aws-ebs-csi-driver.yaml"
+        role: "argo-cd-application"
+        sha256: "e2f467b63c526cdd434f64e561bd3a33e5d7531feaddbb3508f4694ea40f5295"
+        bytes: 2902
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/aws-efa.yaml"
+        stagedAs: "aws-efa.yaml"
+        role: "argo-cd-application"
+        sha256: "28cae6cca3926cfcda3d5845673b5aa52167acc7c4a70f55b0b074f81656a688"
+        bytes: 1837
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/cert-manager.yaml"
+        stagedAs: "cert-manager.yaml"
+        role: "argo-cd-application"
+        sha256: "f914e71520fa6035733258504500e2d5113ab598bec88223b16fadef07324e24"
+        bytes: 2210
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/gpu-operator-pre.yaml"
+        stagedAs: "gpu-operator-pre.yaml"
+        role: "argo-cd-application"
+        sha256: "3e1f17391e4922356da61f239a61c5837513bddfa34cf6be24ae47d28210cee7"
+        bytes: 786
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/gpu-operator.yaml"
+        stagedAs: "gpu-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "f694229ce7f748139d9f9400b574bea143c1dafb18e75cb109fddb5b432eb420"
+        bytes: 9002
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml"
+        stagedAs: "k8s-ephemeral-storage-metrics.yaml"
+        role: "argo-cd-application"
+        sha256: "cab5b4fa521c9717a2308e4514bf619b8b0e28e71835219c41e4fac0bbc1c444"
+        bytes: 1587
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/kai-scheduler.yaml"
+        stagedAs: "kai-scheduler.yaml"
+        role: "argo-cd-application"
+        sha256: "8ec1e2779f8d04bfc036c9bdee9d3804fc6ff1f73e4cb5dbbf19dc2c11b1c316"
+        bytes: 1110
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/kube-prometheus-stack.yaml"
+        stagedAs: "kube-prometheus-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "f172a2f871b5a5af81ed96526c70550532d6511154f7582b50f7cff509b425b5"
+        bytes: 3953
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/nfd.yaml"
+        stagedAs: "nfd.yaml"
+        role: "argo-cd-application"
+        sha256: "647155f8ee8ade656bc60fd824ab8189eb76b4fc51d10e1cb904ddda8cbe64e2"
+        bytes: 1630
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/nodewright-customizations.yaml"
+        stagedAs: "nodewright-customizations.yaml"
+        role: "argo-cd-application"
+        sha256: "325f3d27c151da4f713dce267e728e0f0ba45ad1ea951d620962d8e6be2a3289"
+        bytes: 811
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/nodewright-operator.yaml"
+        stagedAs: "nodewright-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "b71910aec41ec6bce183dcaa602f8617683396600031b992c963be1bb22c2cc0"
+        bytes: 1421
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml"
+        stagedAs: "nvidia-dra-driver-gpu.yaml"
+        role: "argo-cd-application"
+        sha256: "e05caa4abbf313cfc2853c1c8fb1434ffcdcb4113958e1b088bcf5f75b7e163f"
+        bytes: 1817
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/nvsentinel.yaml"
+        stagedAs: "nvsentinel.yaml"
+        role: "argo-cd-application"
+        sha256: "512a45907869fa0a583c0b079c63ad42b8296c71112f461e83b4aba267548df4"
+        bytes: 3479
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/prometheus-adapter.yaml"
+        stagedAs: "prometheus-adapter.yaml"
+        role: "argo-cd-application"
+        sha256: "9230caef29fd5778532a2f8bfc0e4a735d3202b6902236a64f376b14dc5f0fe9"
+        bytes: 4867
+      -
+        path: "examples/aicr/gb200-eks-training/argocd-rendered/templates/prometheus-operator-crds.yaml"
+        stagedAs: "prometheus-operator-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+        bytes: 765
+      -
+        path: "data/aicr-mirror-artifacts/gb200-eks-training/routes/sync-wave-ordering.yaml"
+        stagedAs: "routes/sync-wave-ordering.yaml"
+        role: "route: sync-wave-ordering"
+        sha256: "9238b3233b40e88f1b84bd20b441c7df8f91f7a4ea7aeadf3a905bc00deab2be"
+        bytes: 3414
+      -
+        path: "data/aicr-mirror-artifacts/gb200-eks-training/routes/system-node-selector-placeholder.yaml"
+        stagedAs: "routes/system-node-selector-placeholder.yaml"
+        role: "route: system-node-selector-placeholder"
+        sha256: "eccac5dbefefc427f0ba66770182f975fcf6637897fcd7bac6aeafa218ce7b6f"
+        bytes: 5458
+      -
+        path: "data/aicr-mirror-artifacts/gb200-eks-training/routes/components-left-out-of-bundle.yaml"
+        stagedAs: "routes/components-left-out-of-bundle.yaml"
+        role: "route: components-left-out-of-bundle"
+        sha256: "2b1f80f260fcee12c247bc1bb378aafe996cb1ff589e138f3a7a1a162c491ded"
+        bytes: 1416
+      -
+        path: "data/aicr-mirror-artifacts/gb200-eks-training/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "1106846895586c58a0d90030cfe0f32c5c2dc27265cb139aea0ee89c45d4401d"
+        bytes: 1932
+      -
+        path: "data/aicr-mirror-artifacts/gb200-eks-training/requirements/target-requirements.yaml"
+        stagedAs: "requirements/target-requirements.yaml"
+        role: "requirement: target"
+        sha256: "a92cadab3ca6d5a55b5fcb9c96d421190ea4546dcf1b19d92cc43b9fea8b8c64"
+        bytes: 5205
+      -
+        path: "data/aicr-mirror-artifacts/gb200-eks-training/space-guide.md"
+        stagedAs: "README.md"
+        role: "space-guide"
+        sha256: "f8c0661e8c6a0e17e664450d6f568aa8ef4fd3c9f0399b4b84fac1d929c39a29"
+        bytes: 4295
+    reproducible: true
+  needs:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-training/aicr-bundle:1.0.0"
+      manifestDigest: "sha256:abd55352331a8aa29ec7884db94046f7e34f11e66351e0d9e04892dd535a0685"
+      plan: "data/aicr-mirror-artifacts/gb200-eks-training/source-package-oci.yaml"
+  contents:
+    statement: "The artifact holds the retained Argo CD Applications of one entry, its route files, its requirements file and its guide. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/gb200-eks-training/literal-config-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

@@ -1,0 +1,102 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "aicr-h200-k0s-ubuntu-training"
+spec:
+  subject:
+    kind: "aicr-platform-shape"
+    entry: "examples/aicr/h200-k0s-ubuntu-training"
+    platformDigest: "sha256:c6f8a745e10e10d7a5a4fba4b685d690d26551044b78daa541ef1d2c8b438d5d"
+    upstreamVersion: "v1.0.0"
+    note: "The subject is a platform shape rather than a chart. It is the rendered Argo CD Application set produced from AICR's argocd-helm bundle chart for the h200-k0s-ubuntu-training overlay. It is a leaf overlay. No other retained entry builds on it."
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the rendered Application set; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "11 Applications carry a sync-wave across 4 waves, and 12 recipe dependency edges between deployed components hold in them"
+      disposition: "route recorded beside this verdict at data/aicr-flattening-verdicts/aicr-h200-k0s-ubuntu-training/sync-wave-ordering.yaml; no runtime has executed it"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the rendered Application set"
+      disposition: "none required"
+  componentScope:
+    mode: "render-late-by-argo"
+    referencedCharts:
+      - "cert-manager"
+      - "dra-driver-nvidia-gpu"
+      - "gpu-operator"
+      - "k8s-ephemeral-storage-metrics"
+      - "kai-scheduler"
+      - "kube-prometheus-stack"
+      - "node-feature-discovery"
+      - "nodewright"
+      - "nvsentinel"
+      - "prometheus-adapter"
+      - "prometheus-operator-crds"
+    statement: "Each Application points at a source that Argo CD renders at sync time. 11 Applications name 11 upstream charts, and 1 takes a path inside the AICR bundle package. No chart is flattened by this shape, so no chart's flattening verdict is decided here. Those verdicts belong to the chart catalog and are read per chart."
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Flattened here means the Application wrapper only. The Application set is rendered output that carries an ordering declaration a delivery runtime would execute, and ordering declarations are what this lane covers. The nested charts are rendered by Argo CD at sync time and are outside this verdict."
+    routes:
+      - "sync-wave ordering across the platform components, recorded and not executed"
+  boundedness:
+    - "This verdict decides the wrapper, not the components. A component chart can be unsafe-to-flatten and still sit inside this shape, because this shape does not flatten it."
+    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 11 rendered Applications, which fall into 4 waves. The recipe the bundle carries deploys 11 components, and 12 of the 12 dependency edges between them hold in those waves."
+    - "The selected recipe also names 1 component the bundle leaves out (dra-node-labeler), and the generation receipt records the reason AICR logged for it. The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it. A route records the decision a destination has to make."
+    - "Every Application carries an automated sync policy. That is a delivery decision a destination has to accept, not a flattening hazard."
+    - "1 of the 12 Applications takes its source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-h200-k0s-ubuntu-training/aicr-bundle at 1.0.0. The entry retains that bundle at examples/aicr/h200-k0s-ubuntu-training/argocd-helm-bundle, and the entry's Catalog record says whether the package is in the registry. Argo CD can resolve that source only when it is."
+    - "This verdict says nothing about publication. The entry's Catalog record carries that state from tracked receipts. No ConfigHub Space holds the entry, and no cluster has synced it."
+    - "No workload ran. This verdict is config-plane only and says nothing about any cloud, accelerator or model."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "examples/aicr/h200-k0s-ubuntu-training/argocd-rendered/templates"
+      - "examples/aicr/h200-k0s-ubuntu-training/digest-index/platform-index.json"
+      - "examples/aicr/h200-k0s-ubuntu-training/argocd-helm-bundle/recipe.yaml"

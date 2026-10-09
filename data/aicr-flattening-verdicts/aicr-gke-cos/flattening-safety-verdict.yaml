@@ -6,9 +6,9 @@ spec:
   subject:
     kind: "aicr-platform-shape"
     entry: "examples/aicr/gke-cos"
-    platformDigest: "sha256:006da321a3a1f166b01b3d0c3ed5b8b81958638191917079617a7a9f2e4b7392"
-    upstreamVersion: "v0.21.0"
-    note: "The subject is a platform shape rather than a chart. It is the rendered Argo CD Application set produced from AICR's argocd-helm bundle chart for the gke-cos overlay. It is a base overlay, a shared substrate that 13 other retained entries build on."
+    platformDigest: "sha256:d7a7b92a51705ce5ad4d4e3bacce5376338d491e306d068bb6f7047a0f1e2da5"
+    upstreamVersion: "v1.0.0"
+    note: "The subject is a platform shape rather than a chart. It is the rendered Argo CD Application set produced from AICR's argocd-helm bundle chart for the gke-cos overlay. It is a base overlay, a shared substrate that 17 other retained entries build on."
   dispositions:
     -
       class: "helm-hooks"
@@ -88,15 +88,16 @@ spec:
       - "sync-wave ordering across the platform components, recorded and not executed"
   boundedness:
     - "This verdict decides the wrapper, not the components. A component chart can be unsafe-to-flatten and still sit inside this shape, because this shape does not flatten it."
-    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 13 rendered Applications, which fall into 5 waves. The retained recipe deploys 12 components, and 13 of the 13 dependency edges between them hold in those waves."
+    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 13 rendered Applications, which fall into 5 waves. The recipe the bundle carries deploys 12 components, and 13 of the 13 dependency edges between them hold in those waves."
+    - "The selected recipe also names 1 component the bundle leaves out (dra-node-labeler), and the generation receipt records the reason AICR logged for it. The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it. A route records the decision a destination has to make."
     - "1 waved Application renders without appearing in the recipe's deployment order (gpu-operator-pre). It is a companion of a component, and it is named here so the comparison does not drop it silently."
     - "Every Application carries an automated sync policy. That is a delivery decision a destination has to accept, not a flattening hazard."
-    - "3 of the 14 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package has not been published, and this entry does not retain it, so Argo CD could not resolve those sources today."
-    - "This entry is retained and rendered. It is not published and not deployed. No registry holds it, no ConfigHub Space holds it, and no cluster has synced it."
+    - "3 of the 14 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gke-cos/aicr-bundle at 1.0.0. The entry retains that bundle at examples/aicr/gke-cos/argocd-helm-bundle, and the entry's Catalog record says whether the package is in the registry. Argo CD can resolve those sources only when it is."
+    - "This verdict says nothing about publication. The entry's Catalog record carries that state from tracked receipts. No ConfigHub Space holds the entry, and no cluster has synced it."
     - "No workload ran. This verdict is config-plane only and says nothing about any cloud, accelerator or model."
   provenance:
     emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
     generatedFrom:
       - "examples/aicr/gke-cos/argocd-rendered/templates"
       - "examples/aicr/gke-cos/digest-index/platform-index.json"
-      - "examples/aicr/gke-cos/recipe.yaml"
+      - "examples/aicr/gke-cos/argocd-helm-bundle/recipe.yaml"

@@ -21,9 +21,13 @@ spec:
                 crds:
                   enabled: false
                 operator:
+                  nodeSelector:
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 webhook:
+                  nodeSelector:
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
         repoURL: oci://ghcr.io/slinkyproject/charts/slurm-operator

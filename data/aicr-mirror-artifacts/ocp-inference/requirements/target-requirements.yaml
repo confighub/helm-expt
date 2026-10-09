@@ -1,0 +1,80 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "aicr-ocp-inference-v1-0-0-argocd-target-requirements"
+spec:
+  subject:
+    catalogEntry: "aicr-ocp-inference-v1-0-0-argocd"
+    source: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "ocp-inference"
+    platformDigest: "sha256:03b1c58489636eef1ccf2f35a2ea1df31539b68368d0b23d5c111793a7650916"
+  deliveryRuntime:
+    name: "Argo CD"
+    api: "argoproj.io/v1alpha1 Application"
+    namespace: "argocd"
+    statement: "All 14 objects in this bundle are Argo CD Applications in the argocd namespace. Argo CD and its Application API must exist on the destination before they are applied."
+  sourcePackage:
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference/aicr-bundle:1.0.0"
+    manifestDigest: "sha256:a806e1b33a89fa7f8cebc14953c0d2f6b25d846896b9d108c597714d9ef5e072"
+    applications:
+      - "aicr-stack"
+      - "cert-manager-ocp-olm"
+      - "cert-manager-ocp"
+      - "gpu-operator-ocp-olm"
+      - "gpu-operator-ocp"
+      - "network-operator-ocp-olm"
+      - "network-operator-ocp"
+      - "nfd-ocp-olm"
+      - "nfd-ocp"
+      - "nvidia-dra-driver-gpu-ocp-pre"
+      - "prometheus-adapter-ocp-post"
+      - "prometheus-adapter-ocp-pre"
+    statement: "12 of the 14 Applications take their source from this Helm chart package. Argo CD must be able to pull it at that reference, and the bytes this bundle was built against have that manifest digest."
+  upstreamCharts:
+    -
+      application: "nvidia-dra-driver-gpu-ocp"
+      repoURL: "oci://registry.k8s.io/dra-driver-nvidia/charts/dra-driver-nvidia-gpu"
+      chart: "dra-driver-nvidia-gpu"
+      targetRevision: "0.5.0"
+    -
+      application: "prometheus-adapter-ocp"
+      repoURL: "https://prometheus-community.github.io/helm-charts"
+      chart: "prometheus-adapter"
+      targetRevision: "5.3.0"
+  recipeCriteria:
+    accelerator: "any"
+    intent: "inference"
+    os: "any"
+    platform: "any"
+    service: "ocp"
+  generationInputs:
+    acceleratedNodeSelector: "nvidia.com/gpu.present=true"
+    repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference"
+    storageClass: "gp3"
+    workloadSelector: "app.kubernetes.io/part-of=inference"
+  componentsLeftOutOfBundle:
+    names:
+      - "cert-manager"
+      - "dra-node-labeler"
+      - "gpu-operator"
+      - "k8s-ephemeral-storage-metrics"
+      - "kai-scheduler"
+      - "kube-prometheus-stack"
+      - "nfd"
+      - "nodewright-operator"
+      - "nvidia-dra-driver-gpu"
+      - "nvsentinel"
+      - "prometheus-adapter"
+      - "prometheus-operator-crds"
+    route: "routes/components-left-out-of-bundle.yaml"
+  automatedSync:
+    applications: 14
+    statement: "14 of the 14 Applications carry an automated sync policy with prune and self-heal. A destination has to accept that before they are applied."
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-aicr-mirror-artifacts.mjs"
+    generatedFrom:
+      - "examples/aicr/ocp-inference/generation-receipt.yaml"
+      - "examples/aicr/ocp-inference/argocd-rendered/templates"
+      - "examples/aicr/ocp-inference/digest-index/platform-index.json"

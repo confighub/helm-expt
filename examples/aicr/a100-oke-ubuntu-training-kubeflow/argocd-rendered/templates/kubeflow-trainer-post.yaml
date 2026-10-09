@@ -17,8 +17,8 @@ spec:
             values: |-
                 {}
         path: 010-kubeflow-trainer-post
-        repoURL: 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle'
-        targetRevision: '0.21.0'
+        repoURL: 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow/aicr-bundle'
+        targetRevision: '1.0.0'
     syncPolicy:
         automated:
             prune: true

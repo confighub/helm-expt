@@ -18,7 +18,7 @@ spec:
             values: |-
                 metricsRelistInterval: 30s
                 nodeSelector:
-                  nvidia.com/gpu.present: "true"
+                  nodeGroup: system-worker
                 prometheus:
                   port: 9090
                   url: http://kube-prometheus-prometheus

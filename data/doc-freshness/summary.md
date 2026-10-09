@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-08 (commit `e0a0b5bdcc`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-09 (commit `b4a17bce4c`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 466 |
-| Fresh (no linked source newer than the doc) | 64 |
-| **Review-due** | 96 |
-| No linked evidence sources (cannot auto-trigger) | 306 |
+| Authored docs tracked | 480 |
+| Fresh (no linked source newer than the doc) | 65 |
+| **Review-due** | 95 |
+| No linked evidence sources (cannot auto-trigger) | 320 |
 
 ## Review queue
 
@@ -39,11 +39,11 @@ most recently changed triggers.
 | [docs/user/why-this-does-not-collapse.md](../../docs/user/why-this-does-not-collapse.md) | user | 2026-06-10 | 121 | `data/quirk-coverage/summary.md (2026-10-08)`<br>`data/top100-coverage/summary.md (2026-10-08)`<br>`data/live-e2e/normalization-rules.md (2026-06-30)` |
 | [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 120 | `data/outcome-coverage/summary.md (2026-10-08)` |
 | [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 120 | `data/top100-user-readiness/summary.md (2026-10-08)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 120 | `data/README.md (2026-10-08)`<br>`data/csv-index.csv (2026-10-08)`<br>`CATALOG.md (2026-10-08)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 120 | `data/chart-use-guide/summary.md (2026-10-08)`<br>`data/outcome-coverage/base-outcomes.csv (2026-10-08)`<br>`data/outcome-coverage/feature-outcomes.csv (2026-10-08)` |
 | [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 120 | `data/outcome-coverage/summary.md (2026-10-08)`<br>`tests/npm-scripts.md (2026-10-07)` |
 | [docs/reference/quirk-coverage.md](../../docs/reference/quirk-coverage.md) | reference | 2026-06-11 | 119 | `data/quirk-coverage/coverage.csv (2026-10-08)`<br>`data/quirk-coverage/summary.md (2026-10-08)`<br>`data/extension-slots/summary.md (2026-10-01)` |
 | [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 119 | `data/chart-facts/chart-facts.csv (2026-10-08)`<br>`data/outcome-coverage/base-outcomes.csv (2026-10-08)`<br>`data/top100-coverage/summary.md (2026-10-08)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 119 | `data/README.md (2026-10-08)`<br>`data/csv-index.csv (2026-10-08)`<br>`CATALOG.md (2026-10-08)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 118 | `data/top100-readiness/summary.md (2026-10-08)`<br>`data/top100-user-readiness/summary.md (2026-10-08)`<br>`data/top20-base-readiness/start-here.md (2026-08-26)` |
 | [docs/reference/secret-lifecycle.md](../../docs/reference/secret-lifecycle.md) | reference | 2026-06-13 | 117 | `data/secret-lifecycle/summary.md (2026-10-08)`<br>`data/secret-lifecycle/variant-summary.csv (2026-10-08)`<br>`data/secret-lifecycle/secrets.csv (2026-10-01)` |
 | [docs/user/remote-images-and-supported-bases.md](../../docs/user/remote-images-and-supported-bases.md) | user | 2026-06-16 | 115 | `data/image-digest-workdown/summary.md (2026-10-08)`<br>`data/remote-image-runtime-workdown/summary.md (2026-06-24)` |
@@ -70,19 +70,22 @@ most recently changed triggers.
 | [docs/reference/matrix-completion-audit.md](../../docs/reference/matrix-completion-audit.md) | reference | 2026-08-02 | 67 | `data/disposition-frontier/summary.md (2026-10-08)`<br>`data/live-matrix-burndown/summary.md (2026-10-08)`<br>`data/live-run-blocks/summary.md (2026-10-08)` |
 | [docs/reference/variant-promotion-closeout.md](../../docs/reference/variant-promotion-closeout.md) | reference | 2026-08-02 | 67 | `data/variant-promotion-closeout/summary.md (2026-10-08)`<br>`data/variant-promotion/status.csv (2026-10-08)` |
 | [docs/user/day2-upgrade-story.md](../../docs/user/day2-upgrade-story.md) | user | 2026-08-07 | 63 | `data/flattening-safety/summary.md (2026-10-08)`<br>`data/redis-upgrade-app-proof/summary.md (2026-08-20)` |
-| [docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md) | demo | 2026-08-08 | 61 | `data/aicr-platform-evidence/summary.md (2026-10-07)`<br>`data/aicr-version-diff/summary.md (2026-09-10)`<br>`data/aicr-ordering-parity/summary.md (2026-08-22)` |
+| [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 62 | `data/aicr-claim-integrity/summary.md (2026-10-08)`<br>`data/aicr-entry-naming/summary.md (2026-10-08)` |
+| [docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md) | demo | 2026-08-08 | 62 | `data/aicr-platform-evidence/summary.md (2026-10-08)`<br>`data/aicr-version-diff/summary.md (2026-10-08)`<br>`data/aicr-ordering-parity/summary.md (2026-08-22)` |
+| [docs/planning/aicr-version-refresh-brief.md](../../docs/planning/aicr-version-refresh-brief.md) | planning | 2026-08-08 | 62 | `data/aicr-version-diff/summary.md (2026-10-08)` |
 | [docs/planning/dedicated-website-plan.md](../../docs/planning/dedicated-website-plan.md) | planning | 2026-06-22 | 61 | `tests/persona-ux-strategy.md (2026-08-21)` |
 | [docs/planning/persona-ux-rerun-2026-06-22.md](../../docs/planning/persona-ux-rerun-2026-06-22.md) | planning | 2026-06-22 | 61 | `tests/persona-ux-strategy.md (2026-08-21)` |
-| [docs/reference/certified-bundle-spec.md](../../docs/reference/certified-bundle-spec.md) | reference | 2026-08-09 | 60 | `data/certified-bundles/summary.md (2026-10-07)`<br>`tests/doctrine.md (2026-09-02)` |
+| [docs/reference/certified-bundle-spec.md](../../docs/reference/certified-bundle-spec.md) | reference | 2026-08-09 | 61 | `data/certified-bundles/summary.md (2026-10-08)`<br>`tests/doctrine.md (2026-09-02)` |
 | [docs/reference/residue-families.md](../../docs/reference/residue-families.md) | reference | 2026-08-02 | 60 | `data/lifecycle-route-actions/summary.md (2026-10-01)` |
 | [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) | user | 2026-08-02 | 60 | `data/lifecycle-route-actions/summary.md (2026-10-01)`<br>`data/kps-lifecycle-route-proof/summary.md (2026-08-25)`<br>`data/lifecycle-routes/summary.md (2026-08-25)` |
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-08-15 | 54 | `data/chart-use-guide/summary.md (2026-10-08)`<br>`data/master-catalog-matrix/matrix.html (2026-10-08)`<br>`data/outcome-evidence-contract/summary.md (2026-10-08)` |
+| [docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md) | demo | 2026-08-22 | 48 | `data/aicr-version-diff/summary.md (2026-10-08)`<br>`data/aicr-v0-19-0-nested-sources/summary.md (2026-10-08)` |
 | [docs/reference/proof-kit-migration.md](../../docs/reference/proof-kit-migration.md) | reference | 2026-06-11 | 48 | `data/live-helm-confighub-compare/summary.md (2026-07-29)` |
-| [docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md) | demo | 2026-08-22 | 47 | `data/aicr-v0-19-0-nested-sources/summary.md (2026-10-08)`<br>`data/aicr-version-diff/summary.md (2026-09-10)` |
 | [docs/user/production-support-decisions.md](../../docs/user/production-support-decisions.md) | user | 2026-06-11 | 47 | `data/production-disposition/summary.md (2026-07-28)`<br>`data/production-support-decisions/decisions.csv (2026-07-28)`<br>`data/production-support-decisions/summary.md (2026-07-28)` |
 | [docs/user/serious-charts.md](../../docs/user/serious-charts.md) | user | 2026-06-11 | 47 | `data/hard-chart-production-packets/summary.md (2026-07-28)`<br>`data/production-readiness-packets/cert-manager/packet.md (2026-06-23)`<br>`data/production-readiness-packets/external-secrets/packet.md (2026-06-23)` |
 | [docs/planning/helm-community-persona-plan.md](../../docs/planning/helm-community-persona-plan.md) | planning | 2026-06-13 | 46 | `data/live-helm-confighub-compare/summary.md (2026-07-29)`<br>`data/live-kind-parity/summary.md (2026-07-29)`<br>`data/live-parity-rerun-plan/summary.md (2026-07-29)` |
 | [docs/planning/next-execution-plan-2026-06-helm-proof.md](../../docs/planning/next-execution-plan-2026-06-helm-proof.md) | planning | 2026-08-24 | 46 | `data/outcome-coverage/summary.md (2026-10-08)`<br>`data/status-dashboard/summary.md (2026-10-08)`<br>`data/next-ten-waves/summary.md (2026-10-01)` |
+| [docs/demo/aicr/index.md](../../docs/demo/aicr/index.md) | demo | 2026-08-25 | 45 | `data/aicr-platform-evidence/summary.md (2026-10-08)`<br>`data/aicr-upstream-watch/summary.md (2026-10-08)`<br>`data/aicr-version-diff/summary.md (2026-10-08)` |
 | [docs/user/product-support-tiers.md](../../docs/user/product-support-tiers.md) | user | 2026-08-25 | 45 | `data/image-digest-workdown/summary.md (2026-10-08)` |
 | [docs/user/verification.md](../../docs/user/verification.md) | user | 2026-08-25 | 45 | `data/outcome-coverage/summary.md (2026-10-08)`<br>`data/status-dashboard/summary.md (2026-10-08)`<br>`tests/npm-scripts.md (2026-10-07)` |
 | [docs/user/README.md](../../docs/user/README.md) | user | 2026-08-26 | 44 | `data/app-readiness/summary.md (2026-10-08)`<br>`data/chart-use-guide/summary.md (2026-10-08)` |
@@ -90,20 +93,17 @@ most recently changed triggers.
 | [docs/user/installer-oci-packages.md](../../docs/user/installer-oci-packages.md) | user | 2026-08-26 | 44 | `data/installer-oci-packages/packages.csv (2026-10-08)`<br>`data/installer-oci-packages/packages.json (2026-10-08)`<br>`data/installer-oci-packages/summary.md (2026-10-08)` |
 | [docs/user/serverless-mode.md](../../docs/user/serverless-mode.md) | user | 2026-08-26 | 44 | `data/cub-adoption-caveats/summary.md (2026-10-08)`<br>`data/serverless-install-parity-proof/summary.md (2026-08-26)`<br>`data/serverless-oci-gitops-proof/summary.md (2026-08-26)` |
 | [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-08-26 | 44 | `data/master-catalog-matrix/summary.md (2026-10-08)` |
-| [docs/demo/aicr/index.md](../../docs/demo/aicr/index.md) | demo | 2026-08-25 | 43 | `data/aicr-platform-evidence/summary.md (2026-10-07)`<br>`data/aicr-upstream-watch/summary.md (2026-10-07)`<br>`data/aicr-version-diff/summary.md (2026-09-10)` |
 | [docs/user/target-prerequisites-before-rerun.md](../../docs/user/target-prerequisites-before-rerun.md) | user | 2026-06-16 | 43 | `data/model-gap-workdown/summary.md (2026-07-29)`<br>`data/target-prerequisite-actions/summary.md (2026-07-29)`<br>`data/target-prerequisite-workdown/summary.md (2026-07-29)` |
-| [docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md) | demo | 2026-09-03 | 36 | `data/aicr-v0-20-0-nested-sources/summary.md (2026-10-08)`<br>`data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml (2026-09-26)`<br>`data/aicr-version-diff/summary.md (2026-09-10)` |
+| [docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md) | demo | 2026-09-03 | 36 | `data/aicr-version-diff/summary.md (2026-10-08)`<br>`data/aicr-v0-20-0-nested-sources/summary.md (2026-10-08)`<br>`data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml (2026-09-26)` |
+| [docs/planning/eks-inf-replica-plan.md](../../docs/planning/eks-inf-replica-plan.md) | planning | 2026-09-03 | 36 | `data/certified-bundles/summary.md (2026-10-08)` |
 | [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-09-03 | 36 | `data/chart-use-guide/summary.md (2026-10-08)`<br>`data/master-catalog-matrix/matrix.html (2026-10-08)`<br>`data/outcome-evidence-contract/summary.md (2026-10-08)` |
 | [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) | reference | 2026-09-03 | 36 | `data/operational-class-examples/summary.md (2026-10-08)` |
 | [docs/reference/installer-package-signing.md](../../docs/reference/installer-package-signing.md) | reference | 2026-09-03 | 36 | `data/installer-package-signatures/summary.md (2026-10-08)` |
 | [docs/user/model-and-vocabulary.md](../../docs/user/model-and-vocabulary.md) | user | 2026-09-03 | 36 | `data/base-variant-records/summary.md (2026-10-08)` |
-| [docs/planning/eks-inf-replica-plan.md](../../docs/planning/eks-inf-replica-plan.md) | planning | 2026-09-03 | 35 | `data/certified-bundles/summary.md (2026-10-07)` |
-| [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 33 | `data/aicr-claim-integrity/summary.md (2026-09-09)`<br>`data/aicr-entry-naming/summary.md (2026-09-09)` |
-| [docs/planning/aicr-version-refresh-brief.md](../../docs/planning/aicr-version-refresh-brief.md) | planning | 2026-08-08 | 33 | `data/aicr-version-diff/summary.md (2026-09-10)` |
-| [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-09-07 | 32 | `data/receipt-aging/summary.md (2026-10-08)`<br>`data/upstream-provenance/summary.md (2026-10-08)`<br>`data/aicr-upstream-watch/summary.md (2026-10-07)` |
+| [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-09-07 | 32 | `data/aicr-upstream-watch/summary.md (2026-10-08)`<br>`data/receipt-aging/summary.md (2026-10-08)`<br>`data/upstream-provenance/summary.md (2026-10-08)` |
+| [docs/planning/aicr-track-conclusion.md](../../docs/planning/aicr-track-conclusion.md) | planning | 2026-09-07 | 32 | `data/aicr-platform-evidence/summary.md (2026-10-08)` |
 | [docs/planning/demand-to-verbs.md](../../docs/planning/demand-to-verbs.md) | planning | 2026-08-29 | 32 | `scripts/lib/configuration-questions.mjs (2026-09-30)`<br>`tests/doctrine.md (2026-09-02)` |
 | [docs/reference/aicr-evidence-and-our-receipts.md](../../docs/reference/aicr-evidence-and-our-receipts.md) | reference | 2026-09-07 | 32 | `data/chart-skills/summary.md (2026-10-08)` |
-| [docs/planning/aicr-track-conclusion.md](../../docs/planning/aicr-track-conclusion.md) | planning | 2026-09-07 | 31 | `data/aicr-platform-evidence/summary.md (2026-10-07)` |
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-08-02 | 31 | `tests/doctrine.md (2026-09-02)` |
 | [docs/planning/outside-user-test.md](../../docs/planning/outside-user-test.md) | planning | 2026-09-03 | 29 | `tests/README.md (2026-10-02)` |
 | [docs/reference/catalog-record-lookup.md](../../docs/reference/catalog-record-lookup.md) | reference | 2026-09-10 | 29 | `data/base-variant-records/records.json (2026-10-08)` |
@@ -114,11 +114,11 @@ most recently changed triggers.
 | [docs/reference/workshop-in-depth.md](../../docs/reference/workshop-in-depth.md) | reference | 2026-09-15 | 23 | `data/runtime-gitops/summary.md (2026-10-08)`<br>`data/status-dashboard/summary.md (2026-10-08)`<br>`data/extension-slots/summary.md (2026-10-01)` |
 | [docs/user/known-gaps-we-surface.md](../../docs/user/known-gaps-we-surface.md) | user | 2026-08-02 | 20 | `data/default-credential-check/summary.md (2026-08-21)` |
 | [README.md](../../README.md) | root | 2026-09-26 | 13 | `CATALOG.md (2026-10-08)` |
-| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-09-26 | 13 | `data/app-readiness/summary.md (2026-10-08)`<br>`data/base-variant-records/summary.md (2026-10-08)`<br>`data/helm-render-intents/summary.md (2026-10-08)` |
+| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-09-26 | 13 | `data/base-variant-records/summary.md (2026-10-08)`<br>`data/app-readiness/summary.md (2026-10-08)`<br>`data/helm-render-intents/summary.md (2026-10-08)` |
 | [docs/reference/flattening-alignment.md](../../docs/reference/flattening-alignment.md) | reference | 2026-09-28 | 10 | `data/flattening-safety/summary.md (2026-10-08)` |
 | [docs/user/helm-presets-and-values.md](../../docs/user/helm-presets-and-values.md) | user | 2026-09-29 | 10 | `data/confighub-example-guides/summary.md (2026-10-08)` |
 | [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-09-29 | 10 | `data/chart-use-guide/summary.md (2026-10-08)` |
-| [docs/planning/workshop-execution-plan.md](../../docs/planning/workshop-execution-plan.md) | planning | 2026-09-30 | 8 | `data/certified-bundles/summary.md (2026-10-07)` |
+| [docs/planning/workshop-execution-plan.md](../../docs/planning/workshop-execution-plan.md) | planning | 2026-09-30 | 9 | `data/certified-bundles/summary.md (2026-10-08)` |
 | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md) | user | 2026-07-30 | 3 | `data/literal-config-examples/summary.md (2026-08-02)` |
 | [docs/demo/aicr/cpu-starter.md](../../docs/demo/aicr/cpu-starter.md) | demo | 2026-08-21 | 2 | `data/aicr-ordering-parity/summary.md (2026-08-22)`<br>`data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/demo/hooks-crds/kube-prometheus-stack.md](../../docs/demo/hooks-crds/kube-prometheus-stack.md) | demo | 2026-08-24 | 2 | `data/kps-public-package-proof/summary.md (2026-08-26)`<br>`data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml (2026-08-25)`<br>`data/kps-lifecycle-route-proof/summary.md (2026-08-25)` |
@@ -130,7 +130,6 @@ most recently changed triggers.
 | [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md) | user | 2026-10-08 | 1 | `data/chart-use-guide/summary.md (2026-10-08)` |
 | [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-08-26 | 1 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 | [docs/user/variants-after-upload.md](../../docs/user/variants-after-upload.md) | user | 2026-10-08 | 1 | `data/master-catalog-matrix/summary.md (2026-10-08)` |
-| [docs/user/workshop-aicr-guide.md](../../docs/user/workshop-aicr-guide.md) | user | 2026-10-07 | 1 | `data/aicr-v0-20-0-nested-sources/summary.md (2026-10-08)` |
 
 ## Docs with no linked evidence sources
 
@@ -154,6 +153,7 @@ into this freshness model.
 - [docs/demo/aicr/a100-oke-ubuntu-training.md](../../docs/demo/aicr/a100-oke-ubuntu-training.md)
 - [docs/demo/aicr/aks-inference.md](../../docs/demo/aicr/aks-inference.md)
 - [docs/demo/aicr/aks-training.md](../../docs/demo/aicr/aks-training.md)
+- [docs/demo/aicr/aks-ubuntu.md](../../docs/demo/aicr/aks-ubuntu.md)
 - [docs/demo/aicr/aks.md](../../docs/demo/aicr/aks.md)
 - [docs/demo/aicr/b200-any.md](../../docs/demo/aicr/b200-any.md)
 - [docs/demo/aicr/b200-gke-cos-inference-dynamo.md](../../docs/demo/aicr/b200-gke-cos-inference-dynamo.md)
@@ -166,6 +166,7 @@ into this freshness model.
 - [docs/demo/aicr/eks-h100-inference-nim.md](../../docs/demo/aicr/eks-h100-inference-nim.md)
 - [docs/demo/aicr/eks-inference.md](../../docs/demo/aicr/eks-inference.md)
 - [docs/demo/aicr/eks-training.md](../../docs/demo/aicr/eks-training.md)
+- [docs/demo/aicr/eks-ubuntu.md](../../docs/demo/aicr/eks-ubuntu.md)
 - [docs/demo/aicr/eks.md](../../docs/demo/aicr/eks.md)
 - [docs/demo/aicr/gb200-any.md](../../docs/demo/aicr/gb200-any.md)
 - [docs/demo/aicr/gb200-eks-inference.md](../../docs/demo/aicr/gb200-eks-inference.md)
@@ -175,6 +176,11 @@ into this freshness model.
 - [docs/demo/aicr/gb200-eks-ubuntu-training-kubeflow.md](../../docs/demo/aicr/gb200-eks-ubuntu-training-kubeflow.md)
 - [docs/demo/aicr/gb200-eks-ubuntu-training-slurm.md](../../docs/demo/aicr/gb200-eks-ubuntu-training-slurm.md)
 - [docs/demo/aicr/gb200-eks-ubuntu-training.md](../../docs/demo/aicr/gb200-eks-ubuntu-training.md)
+- [docs/demo/aicr/gb200-gke-cos-inference-dynamo.md](../../docs/demo/aicr/gb200-gke-cos-inference-dynamo.md)
+- [docs/demo/aicr/gb200-gke-cos-inference.md](../../docs/demo/aicr/gb200-gke-cos-inference.md)
+- [docs/demo/aicr/gb200-gke-cos-training-kubeflow.md](../../docs/demo/aicr/gb200-gke-cos-training-kubeflow.md)
+- [docs/demo/aicr/gb200-gke-cos-training-slurm.md](../../docs/demo/aicr/gb200-gke-cos-training-slurm.md)
+- [docs/demo/aicr/gb200-gke-cos-training.md](../../docs/demo/aicr/gb200-gke-cos-training.md)
 - [docs/demo/aicr/gb200-oke-inference.md](../../docs/demo/aicr/gb200-oke-inference.md)
 - [docs/demo/aicr/gb200-oke-training.md](../../docs/demo/aicr/gb200-oke-training.md)
 - [docs/demo/aicr/gb200-oke-ubuntu-inference-dynamo.md](../../docs/demo/aicr/gb200-oke-ubuntu-inference-dynamo.md)
@@ -202,6 +208,7 @@ into this freshness model.
 - [docs/demo/aicr/h100-aks-ubuntu-training.md](../../docs/demo/aicr/h100-aks-ubuntu-training.md)
 - [docs/demo/aicr/h100-any.md](../../docs/demo/aicr/h100-any.md)
 - [docs/demo/aicr/h100-bcm-training.md](../../docs/demo/aicr/h100-bcm-training.md)
+- [docs/demo/aicr/h100-bcm-ubuntu-training-kubeflow.md](../../docs/demo/aicr/h100-bcm-ubuntu-training-kubeflow.md)
 - [docs/demo/aicr/h100-bcm-ubuntu-training.md](../../docs/demo/aicr/h100-bcm-ubuntu-training.md)
 - [docs/demo/aicr/h100-eks-inference.md](../../docs/demo/aicr/h100-eks-inference.md)
 - [docs/demo/aicr/h100-eks-training.md](../../docs/demo/aicr/h100-eks-training.md)
@@ -213,7 +220,6 @@ into this freshness model.
 - [docs/demo/aicr/h100-eks-ubuntu-training.md](../../docs/demo/aicr/h100-eks-ubuntu-training.md)
 - [docs/demo/aicr/h100-gke-cos-inference-dynamo.md](../../docs/demo/aicr/h100-gke-cos-inference-dynamo.md)
 - [docs/demo/aicr/h100-gke-cos-inference.md](../../docs/demo/aicr/h100-gke-cos-inference.md)
-- [docs/demo/aicr/h100-gke-cos-training-kubeflow.md](../../docs/demo/aicr/h100-gke-cos-training-kubeflow.md)
 - [docs/demo/aicr/h100-gke-cos-training-slurm.md](../../docs/demo/aicr/h100-gke-cos-training-slurm.md)
 - [docs/demo/aicr/h100-gke-cos-training.md](../../docs/demo/aicr/h100-gke-cos-training.md)
 - [docs/demo/aicr/h100-kind-inference-dynamo.md](../../docs/demo/aicr/h100-kind-inference-dynamo.md)
@@ -223,12 +229,17 @@ into this freshness model.
 - [docs/demo/aicr/h100-kind-training.md](../../docs/demo/aicr/h100-kind-training.md)
 - [docs/demo/aicr/h200-any.md](../../docs/demo/aicr/h200-any.md)
 - [docs/demo/aicr/h200-eks-inference.md](../../docs/demo/aicr/h200-eks-inference.md)
+- [docs/demo/aicr/h200-eks-training-kubeflow.md](../../docs/demo/aicr/h200-eks-training-kubeflow.md)
 - [docs/demo/aicr/h200-eks-training.md](../../docs/demo/aicr/h200-eks-training.md)
+- [docs/demo/aicr/h200-k0s-ubuntu-training.md](../../docs/demo/aicr/h200-k0s-ubuntu-training.md)
+- [docs/demo/aicr/k0s-training.md](../../docs/demo/aicr/k0s-training.md)
+- [docs/demo/aicr/k0s.md](../../docs/demo/aicr/k0s.md)
 - [docs/demo/aicr/kind-inference.md](../../docs/demo/aicr/kind-inference.md)
 - [docs/demo/aicr/kind.md](../../docs/demo/aicr/kind.md)
 - [docs/demo/aicr/l40-any.md](../../docs/demo/aicr/l40-any.md)
 - [docs/demo/aicr/l40s-any.md](../../docs/demo/aicr/l40s-any.md)
 - [docs/demo/aicr/l40s-oke-inference.md](../../docs/demo/aicr/l40s-oke-inference.md)
+- [docs/demo/aicr/l40s-oke-training-kubeflow.md](../../docs/demo/aicr/l40s-oke-training-kubeflow.md)
 - [docs/demo/aicr/l40s-oke-training.md](../../docs/demo/aicr/l40s-oke-training.md)
 - [docs/demo/aicr/lke-inference.md](../../docs/demo/aicr/lke-inference.md)
 - [docs/demo/aicr/lke-training.md](../../docs/demo/aicr/lke-training.md)
@@ -254,9 +265,11 @@ into this freshness model.
 - [docs/demo/aicr/rtx-pro-6000-lke-inference.md](../../docs/demo/aicr/rtx-pro-6000-lke-inference.md)
 - [docs/demo/aicr/rtx-pro-6000-lke-training.md](../../docs/demo/aicr/rtx-pro-6000-lke-training.md)
 - [docs/demo/aicr/rtx-pro-6000-lke-ubuntu-inference.md](../../docs/demo/aicr/rtx-pro-6000-lke-ubuntu-inference.md)
+- [docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow.md](../../docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow.md)
 - [docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training.md](../../docs/demo/aicr/rtx-pro-6000-lke-ubuntu-training.md)
 - [docs/demo/aicr/vr200-rke2-ubuntu-inference-dynamo.md](../../docs/demo/aicr/vr200-rke2-ubuntu-inference-dynamo.md)
 - [docs/demo/aicr/vr200-rke2-ubuntu-inference.md](../../docs/demo/aicr/vr200-rke2-ubuntu-inference.md)
+- [docs/demo/aicr/vr200-rke2-ubuntu-training-kubeflow.md](../../docs/demo/aicr/vr200-rke2-ubuntu-training-kubeflow.md)
 - [docs/demo/aicr/vr200-rke2-ubuntu-training.md](../../docs/demo/aicr/vr200-rke2-ubuntu-training.md)
 - [docs/demo/argo-cd/confighub-proof-transcript.md](../../docs/demo/argo-cd/confighub-proof-transcript.md)
 - [docs/demo/argo-cd/confighub-proof.md](../../docs/demo/argo-cd/confighub-proof.md)

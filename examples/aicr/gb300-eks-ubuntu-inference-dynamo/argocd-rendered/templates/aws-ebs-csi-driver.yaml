@@ -17,6 +17,8 @@ spec:
         helm:
             values: |-
                 controller:
+                  nodeSelector:
+                    nodeGroup: system-worker
                   replicaCount: 2
                   resources:
                     limits:

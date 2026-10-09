@@ -1,0 +1,66 @@
+# Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Nodewright GKE Container-Optimized OS (COS) GPU Customization
+# Minimal templating - only tolerations/nodeSelectors are dynamic for CLI flag support
+#
+# This customization configures GPU nodes on ContainerOptimized OS with:
+# - Sysctl kernel tuning parameters
+# NOTE: runtimeRequired is NOT used here because GKE COS is largely immutable and so
+# the optimizations that can be made are limited to those which are not disruptive.
+apiVersion: nodewright.nvidia.com/v1alpha1
+kind: NodeWright
+metadata:
+  annotations:
+    # No Helm hooks: this NodeWright CR is release-managed so that disabling
+    # tuning (tuningEnabled=false) actually retracts it. As a hook it would be
+    # orphaned under Flux on a true->false flip (before-hook-creation never
+    # fires once the CR leaves the render). Ordering after the NodeWright CRD
+    # is handled by the component dependency on nodewright-operator, not an
+    # intra-release hook; helm/argo already strip these hooks at bundle time.
+    aicr/skip-hook-validation: "true"
+  labels:
+    app.kubernetes.io/part-of: skyhook-operator
+    app.kubernetes.io/created-by: aicr
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: nodewright-customizations-0.1.0
+  name: tuning
+  namespace: nodewright
+spec:
+  # Default: true. Disable with --set nodewrightcustomizations:autoTaintNewNodes=false
+  autoTaintNewNodes: true
+  # Dynamic: Supports --accelerated-node-toleration CLI flag
+  additionalTolerations:
+    - operator: Exists
+  # Dynamic: Supports --accelerated-node-selector CLI flag
+  nodeSelectors:
+    matchLabels:
+      nvidia.com/gpu.present: "true"
+  # Dynamic: Supports --workload-selector CLI flag
+  podNonInterruptLabels:
+    matchLabels:
+      app.kubernetes.io/part-of: training
+  # Tuning
+  packages:
+    tuning:
+      image: ghcr.io/nvidia/nodewright-packages/nvidia-tuning-gke
+      version: "0.1.2"
+      containerSHA: sha256:6671d49f006afdbeefd8858f1fa1216f7748205bc42edab3340210a2cc459a81
+      interrupt:
+        type: service
+        services:
+          - systemd-sysctl
+      configMap:
+        intent: multiNodeTraining
+        accelerator: b200

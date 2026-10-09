@@ -28,7 +28,7 @@ spec:
                   ephemeral_storage_node_percentage: true
                   ephemeral_storage_pod_usage: true
                 nodeSelector:
-                  nvidia.com/gpu.present: "true"
+                  nodeGroup: system-worker
                 prometheus:
                   enable: true
                   release: kube-prometheus-stack

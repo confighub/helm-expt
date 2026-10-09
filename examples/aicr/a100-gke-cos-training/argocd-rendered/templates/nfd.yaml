@@ -18,10 +18,14 @@ spec:
             values: |-
                 gc:
                   enable: true
+                  nodeSelector:
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 master:
                   enable: true
+                  nodeSelector:
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 topologyUpdater:

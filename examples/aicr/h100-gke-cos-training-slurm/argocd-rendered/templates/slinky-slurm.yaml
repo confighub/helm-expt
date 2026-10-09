@@ -20,7 +20,7 @@ spec:
                   enabled: false
                   podSpec:
                     nodeSelector:
-                      nvidia.com/gpu.present: "true"
+                      nodeGroup: system-worker
                     tolerations:
                     - operator: Exists
                   storageConfig:
@@ -72,7 +72,7 @@ spec:
                     storageClassName: null
                   podSpec:
                     nodeSelector:
-                      nvidia.com/gpu.present: "true"
+                      nodeGroup: system-worker
                     tolerations:
                     - operator: Exists
                 enroot:
@@ -107,7 +107,7 @@ spec:
                         subPath: 99-aicr-defaults.env
                     podSpec:
                       nodeSelector:
-                        nvidia.com/gpu.present: "true"
+                        nodeGroup: system-worker
                       tolerations:
                       - operator: Exists
                       volumes:
@@ -163,7 +163,7 @@ spec:
                 restapi:
                   podSpec:
                     nodeSelector:
-                      nvidia.com/gpu.present: "true"
+                      nodeGroup: system-worker
                     tolerations:
                     - operator: Exists
                   replicas: 1

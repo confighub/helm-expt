@@ -8,8 +8,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle"
-    targetRevision: "0.21.0"
+    repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-h100-eks-ubuntu-training-slurm/aicr-bundle"
+    targetRevision: "1.0.0"
     path: "."
     helm:
       valuesObject:
@@ -18,7 +18,7 @@ spec:
           includeRootApp: true
           namePrefix: ""
           project: default
-        repoURL: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt
+        repoURL: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-h100-eks-ubuntu-training-slurm
         targetRevision: ""
   destination:
     server: https://kubernetes.default.svc

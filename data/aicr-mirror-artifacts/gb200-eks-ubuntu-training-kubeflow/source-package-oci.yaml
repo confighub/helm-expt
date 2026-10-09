@@ -1,0 +1,36 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-gb200-eks-ubuntu-training-kubeflow-v1-0-0-argocd-source-package"
+spec:
+  catalogEntry: "aicr-gb200-eks-ubuntu-training-kubeflow-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "gb200-eks-ubuntu-training-kubeflow"
+    entry: "examples/aicr/gb200-eks-ubuntu-training-kubeflow"
+    generationReceipt: "examples/aicr/gb200-eks-ubuntu-training-kubeflow/generation-receipt.yaml"
+    platformDigest: "sha256:adf8db981d9f9e347430bd39a4259428d1f748fda51cc6c93ba0a145154b1108"
+  artifact:
+    role: "source-package"
+    format: "helm-chart-oci"
+    artifactType: "application/vnd.cncf.helm.config.v1+json"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-kubeflow/aicr-bundle:1.0.0"
+    manifestDigest: "sha256:5c9a13d8cce9bbf844acb60b0ff8bdc21c2535c3caf43dfbfe4e1bfccfc9d721"
+    layerDigest: "sha256:b9b5542d90fd04d32fbe2a8ba3eafaabd367b86f553fd93cef923d2008176e8d"
+    layerBytes: 267819
+    layerMediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    fileCount: 63
+    files:
+      inventory: "examples/aicr/gb200-eks-ubuntu-training-kubeflow/argocd-helm-bundle-checksums.txt"
+      inventorySha256: "cf7943667b551714b9982181c3cd912efffe6aac97899e0d4378a8520ba497cd"
+    reproducible: true
+  contents:
+    statement: "The artifact is the Helm chart AICR generated for this overlay, file for file as the entry retains it. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/gb200-eks-ubuntu-training-kubeflow/source-package-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

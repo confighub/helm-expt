@@ -22,9 +22,9 @@
       "commit": "b8a6eadb2d6f7e5b62dcb93446874f383940de0f"
     },
     {
-      "entry": "h100-eks-ubuntu-training-kubeflow",
-      "version": "v0.21.0",
-      "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe"
+      "entry": "eks-h100-training-kubeflow-v1-0-0",
+      "version": "v1.0.0",
+      "commit": "82bccef69855c70e151f8b5e6ed9d04d70a30f81"
     }
   ],
   "from": {
@@ -424,19 +424,19 @@
       "commit": "b8a6eadb2d6f7e5b62dcb93446874f383940de0f"
     },
     "to": {
-      "entry": "h100-eks-ubuntu-training-kubeflow",
-      "version": "v0.21.0",
-      "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe"
+      "entry": "eks-h100-training-kubeflow-v1-0-0",
+      "version": "v1.0.0",
+      "commit": "82bccef69855c70e151f8b5e6ed9d04d70a30f81"
     },
     "recipe": {
       "apiVersionBefore": "aicr.run/v1alpha2",
-      "apiVersionAfter": "aicr.run/v1alpha2",
+      "apiVersionAfter": "aicr.run/v1",
       "sha256Before": "f7195375d052a1c4c169bfa7eb25e9999715cdae753dfab4b98da3b0aec49ea5",
-      "sha256After": "62d323381462eacb06a78805f697a17bc24665e8511d93d303493fa503811932",
+      "sha256After": "9acc3887ff83c6d3728eaa45cd7613bd1fbd8d7c73cf68215171d33f52d93f2f",
       "healthCheckComponentsBefore": 15,
-      "healthCheckComponentsAfter": 15,
+      "healthCheckComponentsAfter": 16,
       "healthCheckBytesBefore": 80081,
-      "healthCheckBytesAfter": 84594,
+      "healthCheckBytesAfter": 92012,
       "selectedProfileBefore": null,
       "selectedProfileAfter": null,
       "healthCheckChanges": [
@@ -456,6 +456,18 @@
             "assertTimeout": "5m",
             "daemonSetChecks": [
               "aws-efa-k8s-device-plugin"
+            ]
+          }
+        },
+        {
+          "component": "dra-node-labeler",
+          "from": null,
+          "to": {
+            "sha256": "59cedfa1947f7cc784405c415017f75f194d1d041c53cdd259b3e0d303bcb53f",
+            "bytes": 3881,
+            "assertTimeout": "5m",
+            "daemonSetChecks": [
+              "dra-node-labeler"
             ]
           }
         },
@@ -487,8 +499,23 @@
             "daemonSetChecks": []
           },
           "to": {
-            "sha256": "1bf9476b5af2391c2ebf902d3ac136a91281e2a17fb945795a250b29e625c0f9",
-            "bytes": 4098,
+            "sha256": "a10cac1b74bad6598ae6c6aad6f3c08a7629a4ef8200a5b914eb750e851d1b09",
+            "bytes": 5109,
+            "assertTimeout": "5m",
+            "daemonSetChecks": []
+          }
+        },
+        {
+          "component": "nodewright-operator",
+          "from": {
+            "sha256": "a6ca4d5a907d23a109a9592f148bdd5f23cd8c298dc7c46ab6f1d6bb16f8ea19",
+            "bytes": 4036,
+            "assertTimeout": "5m",
+            "daemonSetChecks": []
+          },
+          "to": {
+            "sha256": "a508c24a51e658149b8b641f913654d9050ad58f078242fee895273c6e5457ec",
+            "bytes": 5063,
             "assertTimeout": "5m",
             "daemonSetChecks": []
           }
@@ -524,12 +551,13 @@
             ]
           },
           "to": {
-            "sha256": "7e1adb50cba8e2a08f9bd3964e7307570a04054261de08ddef4f510783734719",
-            "bytes": 11946,
+            "sha256": "618afc13811722a49ce9a30751daa5e7bdc2d776087279fb0cf425a84a411873",
+            "bytes": 13445,
             "assertTimeout": "90s",
             "daemonSetChecks": [
               "metadata-collector",
-              "syslog-health-monitor-regular"
+              "syslog-health-monitor-regular",
+              "nic-health-monitor"
             ]
           }
         }
@@ -537,11 +565,11 @@
     },
     "shape": {
       "componentsBefore": 15,
-      "componentsAfter": 15,
-      "componentSetIdentical": true,
+      "componentsAfter": 16,
+      "componentSetIdentical": false,
       "applicationsBefore": 17,
       "applicationsAfter": 17,
-      "deploymentOrderIdentical": true,
+      "deploymentOrderIdentical": false,
       "distinctWavesBefore": 5,
       "distinctWavesAfter": 5
     },
@@ -556,7 +584,7 @@
             "wave": null
           },
           "to": {
-            "targetRevision": "0.21.0",
+            "targetRevision": "1.0.0",
             "wave": null
           }
         },
@@ -568,8 +596,20 @@
             "wave": 9
           },
           "to": {
-            "targetRevision": "26.7.0",
+            "targetRevision": "26.7.1",
             "wave": 9
+          }
+        },
+        {
+          "component": "kai-scheduler",
+          "change": "version",
+          "from": {
+            "targetRevision": "v0.14.1",
+            "wave": 13
+          },
+          "to": {
+            "targetRevision": "v0.16.9",
+            "wave": 13
           }
         },
         {
@@ -580,7 +620,7 @@
             "wave": 14
           },
           "to": {
-            "targetRevision": "0.21.0",
+            "targetRevision": "1.0.0",
             "wave": 14
           }
         },
@@ -592,8 +632,20 @@
             "wave": 5
           },
           "to": {
-            "targetRevision": "0.21.0",
+            "targetRevision": "1.0.0",
             "wave": 5
+          }
+        },
+        {
+          "component": "nodewright-operator",
+          "change": "version",
+          "from": {
+            "targetRevision": "v0.17.1",
+            "wave": 1
+          },
+          "to": {
+            "targetRevision": "v0.19.0",
+            "wave": 1
           }
         },
         {
@@ -607,6 +659,18 @@
             "targetRevision": "0.5.0",
             "wave": 13
           }
+        },
+        {
+          "component": "nvsentinel",
+          "change": "version",
+          "from": {
+            "targetRevision": "v1.20.0",
+            "wave": 13
+          },
+          "to": {
+            "targetRevision": "v1.25.0",
+            "wave": 13
+          }
         }
       ],
       "unchanged": [
@@ -614,12 +678,9 @@
         "aws-efa",
         "cert-manager",
         "k8s-ephemeral-storage-metrics",
-        "kai-scheduler",
         "kube-prometheus-stack",
         "kubeflow-trainer",
         "nfd",
-        "nodewright-operator",
-        "nvsentinel",
         "prometheus-adapter",
         "prometheus-operator-crds"
       ]
@@ -1255,19 +1316,19 @@
         "commit": "b8a6eadb2d6f7e5b62dcb93446874f383940de0f"
       },
       "to": {
-        "entry": "h100-eks-ubuntu-training-kubeflow",
-        "version": "v0.21.0",
-        "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe"
+        "entry": "eks-h100-training-kubeflow-v1-0-0",
+        "version": "v1.0.0",
+        "commit": "82bccef69855c70e151f8b5e6ed9d04d70a30f81"
       },
       "recipe": {
         "apiVersionBefore": "aicr.run/v1alpha2",
-        "apiVersionAfter": "aicr.run/v1alpha2",
+        "apiVersionAfter": "aicr.run/v1",
         "sha256Before": "f7195375d052a1c4c169bfa7eb25e9999715cdae753dfab4b98da3b0aec49ea5",
-        "sha256After": "62d323381462eacb06a78805f697a17bc24665e8511d93d303493fa503811932",
+        "sha256After": "9acc3887ff83c6d3728eaa45cd7613bd1fbd8d7c73cf68215171d33f52d93f2f",
         "healthCheckComponentsBefore": 15,
-        "healthCheckComponentsAfter": 15,
+        "healthCheckComponentsAfter": 16,
         "healthCheckBytesBefore": 80081,
-        "healthCheckBytesAfter": 84594,
+        "healthCheckBytesAfter": 92012,
         "selectedProfileBefore": null,
         "selectedProfileAfter": null,
         "healthCheckChanges": [
@@ -1287,6 +1348,18 @@
               "assertTimeout": "5m",
               "daemonSetChecks": [
                 "aws-efa-k8s-device-plugin"
+              ]
+            }
+          },
+          {
+            "component": "dra-node-labeler",
+            "from": null,
+            "to": {
+              "sha256": "59cedfa1947f7cc784405c415017f75f194d1d041c53cdd259b3e0d303bcb53f",
+              "bytes": 3881,
+              "assertTimeout": "5m",
+              "daemonSetChecks": [
+                "dra-node-labeler"
               ]
             }
           },
@@ -1318,8 +1391,23 @@
               "daemonSetChecks": []
             },
             "to": {
-              "sha256": "1bf9476b5af2391c2ebf902d3ac136a91281e2a17fb945795a250b29e625c0f9",
-              "bytes": 4098,
+              "sha256": "a10cac1b74bad6598ae6c6aad6f3c08a7629a4ef8200a5b914eb750e851d1b09",
+              "bytes": 5109,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            }
+          },
+          {
+            "component": "nodewright-operator",
+            "from": {
+              "sha256": "a6ca4d5a907d23a109a9592f148bdd5f23cd8c298dc7c46ab6f1d6bb16f8ea19",
+              "bytes": 4036,
+              "assertTimeout": "5m",
+              "daemonSetChecks": []
+            },
+            "to": {
+              "sha256": "a508c24a51e658149b8b641f913654d9050ad58f078242fee895273c6e5457ec",
+              "bytes": 5063,
               "assertTimeout": "5m",
               "daemonSetChecks": []
             }
@@ -1355,12 +1443,13 @@
               ]
             },
             "to": {
-              "sha256": "7e1adb50cba8e2a08f9bd3964e7307570a04054261de08ddef4f510783734719",
-              "bytes": 11946,
+              "sha256": "618afc13811722a49ce9a30751daa5e7bdc2d776087279fb0cf425a84a411873",
+              "bytes": 13445,
               "assertTimeout": "90s",
               "daemonSetChecks": [
                 "metadata-collector",
-                "syslog-health-monitor-regular"
+                "syslog-health-monitor-regular",
+                "nic-health-monitor"
               ]
             }
           }
@@ -1368,11 +1457,11 @@
       },
       "shape": {
         "componentsBefore": 15,
-        "componentsAfter": 15,
-        "componentSetIdentical": true,
+        "componentsAfter": 16,
+        "componentSetIdentical": false,
         "applicationsBefore": 17,
         "applicationsAfter": 17,
-        "deploymentOrderIdentical": true,
+        "deploymentOrderIdentical": false,
         "distinctWavesBefore": 5,
         "distinctWavesAfter": 5
       },
@@ -1387,7 +1476,7 @@
               "wave": null
             },
             "to": {
-              "targetRevision": "0.21.0",
+              "targetRevision": "1.0.0",
               "wave": null
             }
           },
@@ -1399,8 +1488,20 @@
               "wave": 9
             },
             "to": {
-              "targetRevision": "26.7.0",
+              "targetRevision": "26.7.1",
               "wave": 9
+            }
+          },
+          {
+            "component": "kai-scheduler",
+            "change": "version",
+            "from": {
+              "targetRevision": "v0.14.1",
+              "wave": 13
+            },
+            "to": {
+              "targetRevision": "v0.16.9",
+              "wave": 13
             }
           },
           {
@@ -1411,7 +1512,7 @@
               "wave": 14
             },
             "to": {
-              "targetRevision": "0.21.0",
+              "targetRevision": "1.0.0",
               "wave": 14
             }
           },
@@ -1423,8 +1524,20 @@
               "wave": 5
             },
             "to": {
-              "targetRevision": "0.21.0",
+              "targetRevision": "1.0.0",
               "wave": 5
+            }
+          },
+          {
+            "component": "nodewright-operator",
+            "change": "version",
+            "from": {
+              "targetRevision": "v0.17.1",
+              "wave": 1
+            },
+            "to": {
+              "targetRevision": "v0.19.0",
+              "wave": 1
             }
           },
           {
@@ -1438,6 +1551,18 @@
               "targetRevision": "0.5.0",
               "wave": 13
             }
+          },
+          {
+            "component": "nvsentinel",
+            "change": "version",
+            "from": {
+              "targetRevision": "v1.20.0",
+              "wave": 13
+            },
+            "to": {
+              "targetRevision": "v1.25.0",
+              "wave": 13
+            }
           }
         ],
         "unchanged": [
@@ -1445,12 +1570,9 @@
           "aws-efa",
           "cert-manager",
           "k8s-ephemeral-storage-metrics",
-          "kai-scheduler",
           "kube-prometheus-stack",
           "kubeflow-trainer",
           "nfd",
-          "nodewright-operator",
-          "nvsentinel",
           "prometheus-adapter",
           "prometheus-operator-crds"
         ]
@@ -1574,33 +1696,33 @@
         "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/prometheus-operator-crds.yaml": "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
       }
     },
-    "h100-eks-ubuntu-training-kubeflow": {
+    "eks-h100-training-kubeflow-v1-0-0": {
       "generationReceipt": {
-        "path": "examples/aicr/h100-eks-ubuntu-training-kubeflow/generation-receipt.yaml",
-        "sha256": "905c60ae898e0afec58096662bc62d2760e391d94d0f82cf4c716552973163fc"
+        "path": "examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml",
+        "sha256": "ec43cdb18962b29bfa22c9a604dac0a6498c56e13b1218c8f7f494e187efcfa4"
       },
       "recipe": {
-        "path": "examples/aicr/h100-eks-ubuntu-training-kubeflow/recipe.yaml",
-        "sha256": "62d323381462eacb06a78805f697a17bc24665e8511d93d303493fa503811932"
+        "path": "examples/aicr/eks-h100-training-kubeflow-v1-0-0/recipe.yaml",
+        "sha256": "9acc3887ff83c6d3728eaa45cd7613bd1fbd8d7c73cf68215171d33f52d93f2f"
       },
       "applications": {
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/aicr-stack.yaml": "64ba063fd7e70ca275cf914bf8d113811cd15a3b39f1e0ed6ad4fe74b2c0eae2",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/aws-ebs-csi-driver.yaml": "9d7634de9e5807385f7d2334239d173f51e2874ea4a140ed5278f633b1faa87d",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/aws-efa.yaml": "28cae6cca3926cfcda3d5845673b5aa52167acc7c4a70f55b0b074f81656a688",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/cert-manager.yaml": "985a091ec2292de53781a21b4457013cea2ffe8ae8661095e8673b3a2c05b37e",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/gpu-operator.yaml": "6f3bb73b1b58a2a24c71973989cc2d11e2c0a2c004f272e528393cd8aee2f982",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml": "8b0a5f0ca8b5d64e81597e9742cdb2e5c42abd34d790805c66864655cedd8dc6",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/kai-scheduler.yaml": "294dc9b6df008a36f2666a3e941cb51c44716fffbc615855f71899b3de96eb67",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/kube-prometheus-stack.yaml": "217e5d4ac6260b2961993021e2cc08cfb085479e0fe55fdfcfbeee12da345e96",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/kubeflow-trainer-post.yaml": "49449fd187566b163dc28fe93c9541e0459fbaaf29955fed67486f6362708a78",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/kubeflow-trainer.yaml": "39118902d4da8f4907dca821843816afe98645dcd6342e5c0f68865e562a806e",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/nfd.yaml": "edfe5940b9fa19f072dace90b771925371897817dde12a47b37b9351aa58b4f0",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/nodewright-customizations.yaml": "a1aed2777588af1d117f70d3832fd90e2c1a3f1812fec95758f6d4349aa2d678",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/nodewright-operator.yaml": "e6ede18ee94b6a292da49daf55daf1196da22adcab5686e63a88bf259ef580c4",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml": "39fc5e3c5555f2efa9b901b35b426582795f204acbca88f95e2b780ee11bd1ba",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/nvsentinel.yaml": "3e75727799a9de36db61ab02e43940fd637ca533f8897dfb1fbaada34db6450b",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/prometheus-adapter.yaml": "a91ffca0db02833bb16825e488c344c4a200391ff40a0751a867c27300a0239f",
-        "examples/aicr/h100-eks-ubuntu-training-kubeflow/argocd-rendered/templates/prometheus-operator-crds.yaml": "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/aicr-stack.yaml": "ce40e4152733ba07c030950bde1da2a88ac76a780b87d34929a6eeecdb843b73",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/aws-ebs-csi-driver.yaml": "e2f467b63c526cdd434f64e561bd3a33e5d7531feaddbb3508f4694ea40f5295",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/aws-efa.yaml": "28cae6cca3926cfcda3d5845673b5aa52167acc7c4a70f55b0b074f81656a688",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/cert-manager.yaml": "f914e71520fa6035733258504500e2d5113ab598bec88223b16fadef07324e24",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/gpu-operator.yaml": "65c2a6cd76b29809bf0baeb224ba1ca557588fa64ffbe1b3fbe2a44b365d9dd4",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml": "cab5b4fa521c9717a2308e4514bf619b8b0e28e71835219c41e4fac0bbc1c444",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/kai-scheduler.yaml": "8ec1e2779f8d04bfc036c9bdee9d3804fc6ff1f73e4cb5dbbf19dc2c11b1c316",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/kube-prometheus-stack.yaml": "f172a2f871b5a5af81ed96526c70550532d6511154f7582b50f7cff509b425b5",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/kubeflow-trainer-post.yaml": "5354c9d4fb6db9c75d93c9c3fb4aed3af4ad9a24a41f04078f7de31c636cd978",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/kubeflow-trainer.yaml": "75fb206e91a3dbeb928c8fa5fe6ef00450e80dc1b8315cd2a5575a47a3dae6fe",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/nfd.yaml": "647155f8ee8ade656bc60fd824ab8189eb76b4fc51d10e1cb904ddda8cbe64e2",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/nodewright-customizations.yaml": "e73f226513551de8ce21269d2941d0c36cc5c3e3c1f85b20348378030b4355cc",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/nodewright-operator.yaml": "b71910aec41ec6bce183dcaa602f8617683396600031b992c963be1bb22c2cc0",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml": "e05caa4abbf313cfc2853c1c8fb1434ffcdcb4113958e1b088bcf5f75b7e163f",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/nvsentinel.yaml": "512a45907869fa0a583c0b079c63ad42b8296c71112f461e83b4aba267548df4",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/prometheus-adapter.yaml": "9230caef29fd5778532a2f8bfc0e4a735d3202b6902236a64f376b14dc5f0fe9",
+        "examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates/prometheus-operator-crds.yaml": "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
       }
     }
   },
@@ -1738,8 +1860,8 @@
         }
       },
       "to": {
-        "entry": "h100-eks-ubuntu-training-kubeflow",
-        "version": "v0.21.0",
+        "entry": "eks-h100-training-kubeflow-v1-0-0",
+        "version": "v1.0.0",
         "criteria": {
           "accelerator": "h100",
           "intent": "training",
@@ -1749,8 +1871,9 @@
         },
         "generationInputs": {
           "acceleratedNodeSelector": "nvidia.com/gpu.present=true",
-          "repoURL": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt",
+          "repoURL": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow",
           "storageClass": "gp3",
+          "systemNodeSelector": "nodeGroup=system-worker",
           "workloadSelector": "app.kubernetes.io/part-of=training"
         }
       },
@@ -2772,8 +2895,8 @@
         "version": "v0.20.0"
       },
       "to": {
-        "entry": "h100-eks-ubuntu-training-kubeflow",
-        "version": "v0.21.0"
+        "entry": "eks-h100-training-kubeflow-v1-0-0",
+        "version": "v1.0.0"
       },
       "review": {
         "schemaVersion": "1",
@@ -2815,12 +2938,10 @@
             },
             "changeType": "changed",
             "changedPaths": [
-              "/spec/source/helm/valuesObject/repoURL",
-              "/spec/source/repoURL",
               "/spec/source/targetRevision"
             ],
             "beforeDigest": "sha256:ddb30d79113233ef472c98ae2b5b95a5f9c9a2b0c43284ee501a6f49587f6232",
-            "afterDigest": "sha256:74a5c82856ddfa0bc03e73e59b6406b7e46835a7914f2aba73a284cee9ed968e",
+            "afterDigest": "sha256:3310bf53960e60cebdeab9eb9e855e30cf7e7ae75c68a210db9cadddd1f55988",
             "rules": [
               {
                 "category": "unclassified",
@@ -2835,11 +2956,18 @@
               "namespace": "argocd",
               "name": "aws-ebs-csi-driver"
             },
-            "changeType": "unchanged",
-            "changedPaths": [],
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/values"
+            ],
             "beforeDigest": "sha256:ca63f0f5e9559721c44c5fd0d0baaf0b6de61b0510c8336f8f7d695be5dc2a00",
-            "afterDigest": "sha256:ca63f0f5e9559721c44c5fd0d0baaf0b6de61b0510c8336f8f7d695be5dc2a00",
-            "rules": []
+            "afterDigest": "sha256:2156e3a9194de7a97aa8b2218ecc4ce9a36c94c6caae0b9c81270827c02caa8b",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
           },
           {
             "identity": {
@@ -2861,11 +2989,18 @@
               "namespace": "argocd",
               "name": "cert-manager"
             },
-            "changeType": "unchanged",
-            "changedPaths": [],
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/values"
+            ],
             "beforeDigest": "sha256:4e4f64f57113a3cc0ee6d5e6bdd07ede0acde50ce3b2cee617114c9f3ead23cf",
-            "afterDigest": "sha256:4e4f64f57113a3cc0ee6d5e6bdd07ede0acde50ce3b2cee617114c9f3ead23cf",
-            "rules": []
+            "afterDigest": "sha256:318bf94e07bbc31bd26f9ffe5cf335b48b7aa689a5e6c58c3355a5056b3e9b2d",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
           },
           {
             "identity": {
@@ -2876,13 +3011,11 @@
             },
             "changeType": "changed",
             "changedPaths": [
-              "/spec/ignoreDifferences",
               "/spec/source/helm/values",
-              "/spec/source/targetRevision",
-              "/spec/syncPolicy/syncOptions/2"
+              "/spec/source/targetRevision"
             ],
             "beforeDigest": "sha256:68439f53b0af82d4c9865d1dbbfd9b3b3d1eefb8c41f20338a44e5e7a07c851c",
-            "afterDigest": "sha256:b57107b26d94aa086afe0486ee6a7934166181d436a902daa9faf94e21ef6c4f",
+            "afterDigest": "sha256:57d223a9dc77edca61c13a96aa7580f97ae78f8bf79a0bfdedef2d51cdcdcb8d",
             "rules": [
               {
                 "category": "unclassified",
@@ -2897,11 +3030,18 @@
               "namespace": "argocd",
               "name": "k8s-ephemeral-storage-metrics"
             },
-            "changeType": "unchanged",
-            "changedPaths": [],
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/values"
+            ],
             "beforeDigest": "sha256:119ade09b88f0a84c6ea2f38c68bfcfceed511fa312aa10474c76b79cb2efd4b",
-            "afterDigest": "sha256:119ade09b88f0a84c6ea2f38c68bfcfceed511fa312aa10474c76b79cb2efd4b",
-            "rules": []
+            "afterDigest": "sha256:88390b4696015446e4e078697d1de4f0f15870997112d1dd1a5f2ab77676d5f9",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
           },
           {
             "identity": {
@@ -2912,10 +3052,11 @@
             },
             "changeType": "changed",
             "changedPaths": [
-              "/spec/source/helm/values"
+              "/spec/source/helm/values",
+              "/spec/source/targetRevision"
             ],
             "beforeDigest": "sha256:7a691264b4e0b95fc6ca17065a1168c68100b9cdf11c4bb4cbd15106570da4ad",
-            "afterDigest": "sha256:155a2a4fb1c02e0ed7f1e3e3b041e01eadae99eabb6d9f7355a117afb9752846",
+            "afterDigest": "sha256:ef2f5e350d658415f3287e5c964f3964a0693c002f69da390d80950b428a7321",
             "rules": [
               {
                 "category": "unclassified",
@@ -2930,11 +3071,18 @@
               "namespace": "argocd",
               "name": "kube-prometheus-stack"
             },
-            "changeType": "unchanged",
-            "changedPaths": [],
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/values"
+            ],
             "beforeDigest": "sha256:b5ceaa4241f57df8fa143e2fe1864eebc5343cde0cf0cce3db2d5b2a18ed26ff",
-            "afterDigest": "sha256:b5ceaa4241f57df8fa143e2fe1864eebc5343cde0cf0cce3db2d5b2a18ed26ff",
-            "rules": []
+            "afterDigest": "sha256:6fd7f4870ea6a7bdc027c07efd0f042364a60edf00665c35122755f820cec2df",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
           },
           {
             "identity": {
@@ -2948,7 +3096,7 @@
               "/spec/source/helm/values"
             ],
             "beforeDigest": "sha256:56a733ef5f9b3e58d9e27ba6721991d0d5d1dcaee56c58164b8a9ac36d66b9ee",
-            "afterDigest": "sha256:fc8da7953dd64ad29d5db0e687c018309e20158a9eb79cae629a74d18759bc7e",
+            "afterDigest": "sha256:b63e28ddc2f39699dad7adc5edb85b6ca89000c7940915b9ee5799e34fd028d7",
             "rules": [
               {
                 "category": "unclassified",
@@ -2965,11 +3113,10 @@
             },
             "changeType": "changed",
             "changedPaths": [
-              "/spec/source/repoURL",
               "/spec/source/targetRevision"
             ],
             "beforeDigest": "sha256:121aae17f265b5862fcd7b4b77b72759c1912889b641b92c3198defbb06ba2e3",
-            "afterDigest": "sha256:0f6b99322f6bef8980b5e2e497765759ff6644ea38e147c35691bc5db5e22d31",
+            "afterDigest": "sha256:1e1831c90dd140da1ed9d49c9a6b0b896ea3bf73e8093b952bbf7f801a0d3c1d",
             "rules": [
               {
                 "category": "unclassified",
@@ -2984,11 +3131,18 @@
               "namespace": "argocd",
               "name": "nfd"
             },
-            "changeType": "unchanged",
-            "changedPaths": [],
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/values"
+            ],
             "beforeDigest": "sha256:79c7a76c596465c4bdeceec05a878245435c3d6ca16115e818514e26fcb54be9",
-            "afterDigest": "sha256:79c7a76c596465c4bdeceec05a878245435c3d6ca16115e818514e26fcb54be9",
-            "rules": []
+            "afterDigest": "sha256:46a8cd038a5c89722978660694a3d63953850dbc8ccb9c5a6e83248999f43cd4",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
           },
           {
             "identity": {
@@ -2999,11 +3153,11 @@
             },
             "changeType": "changed",
             "changedPaths": [
-              "/spec/source/repoURL",
+              "/spec/destination/namespace",
               "/spec/source/targetRevision"
             ],
             "beforeDigest": "sha256:7f1e37c9d35997cd7708bb6dd9fbecb5eea51a865f6aae13b230f981196fdd51",
-            "afterDigest": "sha256:f761cdcbef492846eb1f419d6c0f509ead9c9074ef6fb26518c776ffefe62b24",
+            "afterDigest": "sha256:40e7e4c3837152557fc3baa608286c917d819d64a203d7d5ebde604cd5ee0018",
             "rules": [
               {
                 "category": "unclassified",
@@ -3020,10 +3174,12 @@
             },
             "changeType": "changed",
             "changedPaths": [
-              "/spec/source/helm/values"
+              "/spec/destination/namespace",
+              "/spec/source/helm/values",
+              "/spec/source/targetRevision"
             ],
             "beforeDigest": "sha256:1cdbd2827e8c6cb1c1769504044af0040c9d62064c33046d809157e9e69a8b04",
-            "afterDigest": "sha256:5be6c2613b00f242a52fe46ceb38dee0f4d35c5112a02a30e465525a8adc66a3",
+            "afterDigest": "sha256:24ce921939e281c44ba207af56a9ed8e90755dcd52611a3b4f852b49890947ae",
             "rules": [
               {
                 "category": "unclassified",
@@ -3044,7 +3200,7 @@
               "/spec/source/targetRevision"
             ],
             "beforeDigest": "sha256:64009537ecceca1cea5c777b20cba9dd172f209c6012912cf182938fbde4954b",
-            "afterDigest": "sha256:80bad8c936ec9f65a794404973e4253d391cbf34c05996cda87adf9b335561da",
+            "afterDigest": "sha256:ddf6d9f3f722428f21069639bbde3b7bd3e70f72d62c76adbac3d77e79c79ac8",
             "rules": [
               {
                 "category": "unclassified",
@@ -3059,11 +3215,19 @@
               "namespace": "argocd",
               "name": "nvsentinel"
             },
-            "changeType": "unchanged",
-            "changedPaths": [],
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/values",
+              "/spec/source/targetRevision"
+            ],
             "beforeDigest": "sha256:f744da6c0d94cefdec239b5aa77dadc3c80b7c6934a7fe6f050bfdba982273f9",
-            "afterDigest": "sha256:f744da6c0d94cefdec239b5aa77dadc3c80b7c6934a7fe6f050bfdba982273f9",
-            "rules": []
+            "afterDigest": "sha256:ed56c1a685222e2ff39bfa57784a1214a46dc37ce9ec29999574c4a99f7564a4",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
           },
           {
             "identity": {
@@ -3072,11 +3236,18 @@
               "namespace": "argocd",
               "name": "prometheus-adapter"
             },
-            "changeType": "unchanged",
-            "changedPaths": [],
+            "changeType": "changed",
+            "changedPaths": [
+              "/spec/source/helm/values"
+            ],
             "beforeDigest": "sha256:c64118892eed5c186372a5a3095a439498bae8818919087cc4f3d71cd9b8d19c",
-            "afterDigest": "sha256:c64118892eed5c186372a5a3095a439498bae8818919087cc4f3d71cd9b8d19c",
-            "rules": []
+            "afterDigest": "sha256:5a0ff620765ce0bf2547b86eb41b5a00b3f5aa851207e6d6835d4151b7d50585",
+            "rules": [
+              {
+                "category": "unclassified",
+                "guidance": "The static classifier cannot determine the runtime effect of this change; review the exact object transition before applying it."
+              }
+            ]
           },
           {
             "identity": {

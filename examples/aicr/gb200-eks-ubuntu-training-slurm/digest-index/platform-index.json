@@ -2,21 +2,27 @@
   "apiVersion": "catalog.confighub.com/v1alpha1",
   "kind": "AICRPlatformDigestIndex",
   "metadata": {
-    "name": "aicr-gb200-eks-ubuntu-training-slurm-v0-21-0-digest-index"
+    "name": "aicr-gb200-eks-ubuntu-training-slurm-v1-0-0-digest-index"
   },
   "spec": {
-    "platformDigest": "sha256:0f66403e0f75d20004e16e42c67d54a4e4ee0a8d7ca20e568a26819cdc23a63b",
+    "platformDigest": "sha256:317aab37f5996ca54fd6c1abf280b9043d46d6606bfb2ad6845bb71a587d925f",
     "source": {
-      "binarySha256": "1a4bea881a45480b1761f7e01670f02a61f5d02a4c0fdae3d93da65a47e51afb",
-      "binaryVerifiedBeforeUse": "The release tarball and the binary it extracts to were both checked against the sha256 values pinned in scripts/generate-aicr-from-overlay.mjs before the binary ran.",
-      "commit": "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+      "binarySha256": "972da08e016b3ea779cc5f51eafa3a0024a4f052fbdfbc5ea55cd6524766b8fc",
+      "binaryVerifiedBeforeUse": "The binary was checked against the sha256 pinned in scripts/generate-aicr-from-overlay.mjs before it ran. The pin is the binary NVIDIA's v1.0.0 attestation names, and runs/aicr-provenance-v1-0-0/receipt.yaml records the offline check of that attestation and of the release archive checksum.",
+      "commit": "82bccef69855c70e151f8b5e6ed9d04d70a30f81",
       "name": "NVIDIA AICR",
+      "provenance": {
+        "binaryAttestation": "examples/aicr/upstream-signatures/v1.0.0/aicr-attestation.sigstore.json",
+        "checksumList": "examples/aicr/upstream-signatures/v1.0.0/aicr_checksums.txt",
+        "receipt": "runs/aicr-provenance-v1-0-0/receipt.yaml",
+        "recipeCatalogSignature": "examples/aicr/upstream-signatures/v1.0.0/recipe-catalog.sigstore.json"
+      },
       "releaseAsset": {
-        "name": "aicr_0.21.0_darwin_arm64.tar.gz",
-        "sha256": "5dbe88fc8c5b8c937ca87c624f8f01c29eaefbfb3ced8f556a0136c47ff6be63"
+        "name": "aicr_1.0.0_darwin_arm64.tar.gz",
+        "sha256": "cb85cce54a82deb88e826c3e735c26e11a0863173b8aa5ff3ba4ebc2dc6af8b2"
       },
       "repository": "https://github.com/NVIDIA/aicr",
-      "version": "v0.21.0"
+      "version": "v1.0.0"
     },
     "criteria": {
       "accelerator": "gb200",
@@ -31,170 +37,171 @@
         "component": "aicr-stack",
         "role": "platform-root",
         "syncWave": null,
-        "payloadSha256": "acf847a4ab090c909e42fb6b12ba6986670568bd0ebec1c4efcd1e86ba2d778d",
-        "payloadPath": "payloads/aicr-stack-acf847a4ab090c909e42fb6b12ba6986670568bd0ebec1c4efcd1e86ba2d778d.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/aicr-stack:payload-acf847a4ab090c909e42fb6b12ba6986670568bd0ebec1c4efcd1e86ba2d778d"
+        "payloadSha256": "69d26d43701971fc68a151fb1388ae103bc4123a914fb81fa069f1d898298e6a",
+        "payloadPath": "payloads/aicr-stack-69d26d43701971fc68a151fb1388ae103bc4123a914fb81fa069f1d898298e6a.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/aicr-stack:payload-69d26d43701971fc68a151fb1388ae103bc4123a914fb81fa069f1d898298e6a"
       },
       {
         "component": "aws-ebs-csi-driver",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "9ecfe992cd92bc2354ee08c7f139dc81458203769281475cc8f5e2209d7ae049",
-        "payloadPath": "payloads/aws-ebs-csi-driver-9ecfe992cd92bc2354ee08c7f139dc81458203769281475cc8f5e2209d7ae049.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/aws-ebs-csi-driver:payload-9ecfe992cd92bc2354ee08c7f139dc81458203769281475cc8f5e2209d7ae049"
+        "payloadSha256": "d37c6be17332dd37860b3f043778cc8dd933cc66b46d81fd680d6e1ffd84b37b",
+        "payloadPath": "payloads/aws-ebs-csi-driver-d37c6be17332dd37860b3f043778cc8dd933cc66b46d81fd680d6e1ffd84b37b.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/aws-ebs-csi-driver:payload-d37c6be17332dd37860b3f043778cc8dd933cc66b46d81fd680d6e1ffd84b37b"
       },
       {
         "component": "aws-efa",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "bc7b24c2538df49a07b32f5587b9c95e7b2ccff4c93b9d2b202c5ff037964c32",
-        "payloadPath": "payloads/aws-efa-bc7b24c2538df49a07b32f5587b9c95e7b2ccff4c93b9d2b202c5ff037964c32.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/aws-efa:payload-bc7b24c2538df49a07b32f5587b9c95e7b2ccff4c93b9d2b202c5ff037964c32"
+        "payloadSha256": "88080f38f6e3610f0585f0ef363a9e71777892bb28f8974d9452f0273614bb02",
+        "payloadPath": "payloads/aws-efa-88080f38f6e3610f0585f0ef363a9e71777892bb28f8974d9452f0273614bb02.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/aws-efa:payload-88080f38f6e3610f0585f0ef363a9e71777892bb28f8974d9452f0273614bb02"
       },
       {
         "component": "cert-manager",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "5fd2c95c91a1abd1de653cf89bb2823928c0d71871c11450cb5f26b1586815d5",
-        "payloadPath": "payloads/cert-manager-5fd2c95c91a1abd1de653cf89bb2823928c0d71871c11450cb5f26b1586815d5.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/cert-manager:payload-5fd2c95c91a1abd1de653cf89bb2823928c0d71871c11450cb5f26b1586815d5"
+        "payloadSha256": "c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00",
+        "payloadPath": "payloads/cert-manager-c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/cert-manager:payload-c75594610d836bf92b764370b7586e5d7758188213d5c40d5e60784ad68d3c00"
       },
       {
         "component": "gpu-operator-pre",
         "role": "component-application",
         "syncWave": 8,
-        "payloadSha256": "e02da1fc347dde7f8ed5b21773bb4ce048ad098f97fbf786307cfeea49302ed2",
-        "payloadPath": "payloads/gpu-operator-pre-e02da1fc347dde7f8ed5b21773bb4ce048ad098f97fbf786307cfeea49302ed2.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/gpu-operator-pre:payload-e02da1fc347dde7f8ed5b21773bb4ce048ad098f97fbf786307cfeea49302ed2"
+        "payloadSha256": "c4e8859e3ee70816eb2f541c3fde3c2c48169d23a77ef27fc0446abca40de682",
+        "payloadPath": "payloads/gpu-operator-pre-c4e8859e3ee70816eb2f541c3fde3c2c48169d23a77ef27fc0446abca40de682.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/gpu-operator-pre:payload-c4e8859e3ee70816eb2f541c3fde3c2c48169d23a77ef27fc0446abca40de682"
       },
       {
         "component": "gpu-operator",
         "role": "component-application",
         "syncWave": 9,
-        "payloadSha256": "15bc33c36f5f549b8ae2076bafe3f63d7add8787b4db737edaa64b33b6dce11e",
-        "payloadPath": "payloads/gpu-operator-15bc33c36f5f549b8ae2076bafe3f63d7add8787b4db737edaa64b33b6dce11e.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/gpu-operator:payload-15bc33c36f5f549b8ae2076bafe3f63d7add8787b4db737edaa64b33b6dce11e"
+        "payloadSha256": "9b43764186353e54351bfdc6e37996bfb4bf74e63777099fc2d754e6d2c790af",
+        "payloadPath": "payloads/gpu-operator-9b43764186353e54351bfdc6e37996bfb4bf74e63777099fc2d754e6d2c790af.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/gpu-operator:payload-9b43764186353e54351bfdc6e37996bfb4bf74e63777099fc2d754e6d2c790af"
       },
       {
         "component": "k8s-ephemeral-storage-metrics",
         "role": "component-application",
         "syncWave": 9,
-        "payloadSha256": "bd792ebde4b8190f2ed1bb024aec96ee4fad1d8769e46ea8e1d6931d1b53d49e",
-        "payloadPath": "payloads/k8s-ephemeral-storage-metrics-bd792ebde4b8190f2ed1bb024aec96ee4fad1d8769e46ea8e1d6931d1b53d49e.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/k8s-ephemeral-storage-metrics:payload-bd792ebde4b8190f2ed1bb024aec96ee4fad1d8769e46ea8e1d6931d1b53d49e"
+        "payloadSha256": "a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329",
+        "payloadPath": "payloads/k8s-ephemeral-storage-metrics-a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/k8s-ephemeral-storage-metrics:payload-a7f25c831d1e38c77f1677ce21fdd40f322692a1ff32fc1c1b222b9b2b48a329"
       },
       {
         "component": "kai-scheduler",
         "role": "component-application",
         "syncWave": 13,
-        "payloadSha256": "c95f2a85bf860cefa5218a3d88ed8e64418987edfd494892ea4d502c609e5278",
-        "payloadPath": "payloads/kai-scheduler-c95f2a85bf860cefa5218a3d88ed8e64418987edfd494892ea4d502c609e5278.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/kai-scheduler:payload-c95f2a85bf860cefa5218a3d88ed8e64418987edfd494892ea4d502c609e5278"
+        "payloadSha256": "500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc",
+        "payloadPath": "payloads/kai-scheduler-500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/kai-scheduler:payload-500eeeb83c04cc34250528afc954d5b6915881dfba07f5006cff594a4038bbdc"
       },
       {
         "component": "kube-prometheus-stack",
         "role": "component-application",
         "syncWave": 5,
-        "payloadSha256": "9be869bef526370c3f85d7c54141d8746ffcc19837223b12b900eed7f6804932",
-        "payloadPath": "payloads/kube-prometheus-stack-9be869bef526370c3f85d7c54141d8746ffcc19837223b12b900eed7f6804932.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/kube-prometheus-stack:payload-9be869bef526370c3f85d7c54141d8746ffcc19837223b12b900eed7f6804932"
+        "payloadSha256": "e37a6c96c9a67d0e8578070629a87d982741c5a9d63428125aea5cb79f1515cb",
+        "payloadPath": "payloads/kube-prometheus-stack-e37a6c96c9a67d0e8578070629a87d982741c5a9d63428125aea5cb79f1515cb.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/kube-prometheus-stack:payload-e37a6c96c9a67d0e8578070629a87d982741c5a9d63428125aea5cb79f1515cb"
       },
       {
         "component": "nfd",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "0acb377dae8b1064dac4b0d59f455194908f2617d73de9c31538bb7c4fc0fadf",
-        "payloadPath": "payloads/nfd-0acb377dae8b1064dac4b0d59f455194908f2617d73de9c31538bb7c4fc0fadf.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/nfd:payload-0acb377dae8b1064dac4b0d59f455194908f2617d73de9c31538bb7c4fc0fadf"
+        "payloadSha256": "a03aa7c43df5768513ddeefc281823832f745db837e6f48101ea97e20b5b17b4",
+        "payloadPath": "payloads/nfd-a03aa7c43df5768513ddeefc281823832f745db837e6f48101ea97e20b5b17b4.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/nfd:payload-a03aa7c43df5768513ddeefc281823832f745db837e6f48101ea97e20b5b17b4"
       },
       {
         "component": "nodewright-customizations",
         "role": "component-application",
         "syncWave": 5,
-        "payloadSha256": "3b478d1c7d7de7b9cc222647f4d0003e1a7520f1991acb386c002a58e0be4ef5",
-        "payloadPath": "payloads/nodewright-customizations-3b478d1c7d7de7b9cc222647f4d0003e1a7520f1991acb386c002a58e0be4ef5.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/nodewright-customizations:payload-3b478d1c7d7de7b9cc222647f4d0003e1a7520f1991acb386c002a58e0be4ef5"
+        "payloadSha256": "570c6243f956351f982d254946b2ee731196470649a93a3c05901b2d7a8b6b42",
+        "payloadPath": "payloads/nodewright-customizations-570c6243f956351f982d254946b2ee731196470649a93a3c05901b2d7a8b6b42.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/nodewright-customizations:payload-570c6243f956351f982d254946b2ee731196470649a93a3c05901b2d7a8b6b42"
       },
       {
         "component": "nodewright-operator",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "23e864f9f5fc34a0781c1d65938f2afeaaa42702843487983fc120a61c148388",
-        "payloadPath": "payloads/nodewright-operator-23e864f9f5fc34a0781c1d65938f2afeaaa42702843487983fc120a61c148388.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/nodewright-operator:payload-23e864f9f5fc34a0781c1d65938f2afeaaa42702843487983fc120a61c148388"
+        "payloadSha256": "d3cabfad44a660bda516963a44d489f06bd2a7f332efdfe591b6dc2cf80568eb",
+        "payloadPath": "payloads/nodewright-operator-d3cabfad44a660bda516963a44d489f06bd2a7f332efdfe591b6dc2cf80568eb.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/nodewright-operator:payload-d3cabfad44a660bda516963a44d489f06bd2a7f332efdfe591b6dc2cf80568eb"
       },
       {
         "component": "nvidia-dra-driver-gpu",
         "role": "component-application",
         "syncWave": 13,
-        "payloadSha256": "66dd6354bcd2ad865abf49fe6b63541b2035c01225a7600a2381deff231b6378",
-        "payloadPath": "payloads/nvidia-dra-driver-gpu-66dd6354bcd2ad865abf49fe6b63541b2035c01225a7600a2381deff231b6378.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/nvidia-dra-driver-gpu:payload-66dd6354bcd2ad865abf49fe6b63541b2035c01225a7600a2381deff231b6378"
+        "payloadSha256": "bdec3f0c1104120e1a8a30ae946949ef1f0fd33c143675bfdae66155afb9f6dd",
+        "payloadPath": "payloads/nvidia-dra-driver-gpu-bdec3f0c1104120e1a8a30ae946949ef1f0fd33c143675bfdae66155afb9f6dd.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/nvidia-dra-driver-gpu:payload-bdec3f0c1104120e1a8a30ae946949ef1f0fd33c143675bfdae66155afb9f6dd"
       },
       {
         "component": "nvsentinel",
         "role": "component-application",
         "syncWave": 13,
-        "payloadSha256": "1ad49084afee30bf838d8b069c8f9818ac1e81ceccb8464c7b4d954066b065a9",
-        "payloadPath": "payloads/nvsentinel-1ad49084afee30bf838d8b069c8f9818ac1e81ceccb8464c7b4d954066b065a9.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/nvsentinel:payload-1ad49084afee30bf838d8b069c8f9818ac1e81ceccb8464c7b4d954066b065a9"
+        "payloadSha256": "948c94d84adcce6680957a10e97d5913202e10beda2a68498e85040eb2d661b6",
+        "payloadPath": "payloads/nvsentinel-948c94d84adcce6680957a10e97d5913202e10beda2a68498e85040eb2d661b6.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/nvsentinel:payload-948c94d84adcce6680957a10e97d5913202e10beda2a68498e85040eb2d661b6"
       },
       {
         "component": "prometheus-adapter",
         "role": "component-application",
         "syncWave": 9,
-        "payloadSha256": "f076682feb860aea02fdfd8fa6ef0239fd20ab2cfe3d59a7dd1ba26893a38598",
-        "payloadPath": "payloads/prometheus-adapter-f076682feb860aea02fdfd8fa6ef0239fd20ab2cfe3d59a7dd1ba26893a38598.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/prometheus-adapter:payload-f076682feb860aea02fdfd8fa6ef0239fd20ab2cfe3d59a7dd1ba26893a38598"
+        "payloadSha256": "5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3",
+        "payloadPath": "payloads/prometheus-adapter-5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/prometheus-adapter:payload-5a994c6da9add7f958c10831b0beef84282a12de8de1aabe6efaf20aeb6d63e3"
       },
       {
         "component": "prometheus-operator-crds",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "8f9b2c296e5f7509c7a4ddf5f41d94b05f1a2d40318fa94846647af4105c941d",
-        "payloadPath": "payloads/prometheus-operator-crds-8f9b2c296e5f7509c7a4ddf5f41d94b05f1a2d40318fa94846647af4105c941d.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/prometheus-operator-crds:payload-8f9b2c296e5f7509c7a4ddf5f41d94b05f1a2d40318fa94846647af4105c941d"
+        "payloadSha256": "110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb",
+        "payloadPath": "payloads/prometheus-operator-crds-110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/prometheus-operator-crds:payload-110cd89a793de8c7b2ffb23a7c4c86b1197eef4e587cc88da11995e3a175bdbb"
       },
       {
         "component": "slinky-slurm-operator-crds",
         "role": "component-application",
         "syncWave": 1,
-        "payloadSha256": "c7067bea457bfeb589cf1a8aa15190e9722f5feb00f32ae8b9ba8f1ccdcccdd6",
-        "payloadPath": "payloads/slinky-slurm-operator-crds-c7067bea457bfeb589cf1a8aa15190e9722f5feb00f32ae8b9ba8f1ccdcccdd6.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/slinky-slurm-operator-crds:payload-c7067bea457bfeb589cf1a8aa15190e9722f5feb00f32ae8b9ba8f1ccdcccdd6"
+        "payloadSha256": "02c4fcdf8c0c1701d45093de89a1b87a2079a7199b1d3ac1969bb666a8af4d98",
+        "payloadPath": "payloads/slinky-slurm-operator-crds-02c4fcdf8c0c1701d45093de89a1b87a2079a7199b1d3ac1969bb666a8af4d98.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/slinky-slurm-operator-crds:payload-02c4fcdf8c0c1701d45093de89a1b87a2079a7199b1d3ac1969bb666a8af4d98"
       },
       {
         "component": "slinky-slurm-operator",
         "role": "component-application",
         "syncWave": 5,
-        "payloadSha256": "abcb6d9c1c99a11c993517e2e22de28f9102d202db4f80b426f125c4d7cf8a01",
-        "payloadPath": "payloads/slinky-slurm-operator-abcb6d9c1c99a11c993517e2e22de28f9102d202db4f80b426f125c4d7cf8a01.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/slinky-slurm-operator:payload-abcb6d9c1c99a11c993517e2e22de28f9102d202db4f80b426f125c4d7cf8a01"
+        "payloadSha256": "56900c9ac375edba19e2a86d9f7081a8743e6164b7b300f7e501d635c695df08",
+        "payloadPath": "payloads/slinky-slurm-operator-56900c9ac375edba19e2a86d9f7081a8743e6164b7b300f7e501d635c695df08.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/slinky-slurm-operator:payload-56900c9ac375edba19e2a86d9f7081a8743e6164b7b300f7e501d635c695df08"
       },
       {
         "component": "slinky-slurm-pre",
         "role": "component-application",
         "syncWave": 16,
-        "payloadSha256": "ee6e6dd805bb3e48a3b289180041a26ad8dd5a70e777ef7bfeaf4f7c1ff527c8",
-        "payloadPath": "payloads/slinky-slurm-pre-ee6e6dd805bb3e48a3b289180041a26ad8dd5a70e777ef7bfeaf4f7c1ff527c8.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/slinky-slurm-pre:payload-ee6e6dd805bb3e48a3b289180041a26ad8dd5a70e777ef7bfeaf4f7c1ff527c8"
+        "payloadSha256": "ed44b3eef025d10b2f9f55ad39d58b913ebe8529761f016b5feb2af621a13e0d",
+        "payloadPath": "payloads/slinky-slurm-pre-ed44b3eef025d10b2f9f55ad39d58b913ebe8529761f016b5feb2af621a13e0d.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/slinky-slurm-pre:payload-ed44b3eef025d10b2f9f55ad39d58b913ebe8529761f016b5feb2af621a13e0d"
       },
       {
         "component": "slinky-slurm",
         "role": "component-application",
         "syncWave": 17,
-        "payloadSha256": "34597411b2478d40f70c90b2fd11e0aa85c70584cff2b5fb776ec4727b77563b",
-        "payloadPath": "payloads/slinky-slurm-34597411b2478d40f70c90b2fd11e0aa85c70584cff2b5fb776ec4727b77563b.json",
-        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/slinky-slurm:payload-34597411b2478d40f70c90b2fd11e0aa85c70584cff2b5fb776ec4727b77563b"
+        "payloadSha256": "fe8b52aad1283f6ac272ee8e72c091ad1bf21bcade3ebd8a2fa8941782e71244",
+        "payloadPath": "payloads/slinky-slurm-fe8b52aad1283f6ac272ee8e72c091ad1bf21bcade3ebd8a2fa8941782e71244.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-components/slinky-slurm:payload-fe8b52aad1283f6ac272ee8e72c091ad1bf21bcade3ebd8a2fa8941782e71244"
       }
     ],
     "aggregate": {
-      "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-digest-index:platform-0f66403e0f75d20004e16e42c67d54a4e4ee0a8d7ca20e568a26819cdc23a63b",
+      "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-gb200-eks-ubuntu-training-slurm-digest-index:platform-317aab37f5996ca54fd6c1abf280b9043d46d6606bfb2ad6845bb71a587d925f",
       "type": "target-neutral-index-published-only-after-member-manifest-digests-are-observed"
     },
     "boundary": {
       "configPlaneOnly": true,
-      "published": false,
+      "publication": "not-recorded-in-this-index",
+      "publicationReceipts": "runs/aicr-mirror-artifacts/gb200-eks-ubuntu-training-slurm",
       "gpuWorkloadsProven": false,
       "secretValuesIncluded": false,
       "liveRegistryPublicationClaimed": false,

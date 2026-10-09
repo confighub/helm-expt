@@ -20,7 +20,7 @@ spec:
                 maintenance-operator-chart:
                   operator:
                     nodeSelector:
-                      nvidia.com/gpu.present: "true"
+                      nodeGroup: system-worker
                     tolerations:
                     - operator: Exists
                 nfd:
@@ -33,7 +33,7 @@ spec:
                 operator:
                   fullnameOverride: network-operator
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 secondaryNetwork:

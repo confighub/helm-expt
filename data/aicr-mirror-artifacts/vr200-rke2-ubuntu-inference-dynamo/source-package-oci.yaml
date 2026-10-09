@@ -1,0 +1,36 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-vr200-rke2-ubuntu-inference-dynamo-v1-0-0-argocd-source-package"
+spec:
+  catalogEntry: "aicr-vr200-rke2-ubuntu-inference-dynamo-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "vr200-rke2-ubuntu-inference-dynamo"
+    entry: "examples/aicr/vr200-rke2-ubuntu-inference-dynamo"
+    generationReceipt: "examples/aicr/vr200-rke2-ubuntu-inference-dynamo/generation-receipt.yaml"
+    platformDigest: "sha256:e7f0ae40f603793b277a52f83b6189c922e46d2869eb1a8311cd83df839ee115"
+  artifact:
+    role: "source-package"
+    format: "helm-chart-oci"
+    artifactType: "application/vnd.cncf.helm.config.v1+json"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-vr200-rke2-ubuntu-inference-dynamo/aicr-bundle:1.0.0"
+    manifestDigest: "sha256:392eee227abec725b051ea306276d465727cf3cd39d8c659d441fd4d538f7ea2"
+    layerDigest: "sha256:ce6a99e80fd55bad5bf5ceae014e9b10b7bc602d5f13c1ad201b40cb5241fcd7"
+    layerBytes: 1011298
+    layerMediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    fileCount: 72
+    files:
+      inventory: "examples/aicr/vr200-rke2-ubuntu-inference-dynamo/argocd-helm-bundle-checksums.txt"
+      inventorySha256: "e7dfa12cb7db73ecefda36f0f2c119bde3b8dd06e641517e244354ed7e2d9bab"
+    reproducible: true
+  contents:
+    statement: "The artifact is the Helm chart AICR generated for this overlay, file for file as the entry retains it. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/vr200-rke2-ubuntu-inference-dynamo/source-package-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"
