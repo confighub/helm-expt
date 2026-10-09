@@ -7,14 +7,17 @@ environment? Who approved the change? What was released? What can a person
 check afterwards?
 
 This Guide answers all four for one small app with a dev and a prod
-environment and one change, an image tag. Every command below was run on
-9 October 2026, and the [log of that run](./live-walk-change-review-2026-10-09.md)
-holds each command with the output it printed.
+environment and one change, an image tag. The app is `apptique`, a fictional web frontend, and each environment holds
+it as four Kubernetes objects. Every command
+below was run on 9 October 2026, and the
+[log of that run](./live-walk-change-review-2026-10-09.md) holds each command
+with the output it printed.
 
 ## What each part needs
 
 | Part | What you do | What it needs |
 | --- | --- | --- |
+| Read | [See the reviewed result](#see-the-reviewed-result-with-nothing-installed) as the run recorded it | Nothing. No install and no account. |
 | 1 | List the objects the change affects in each environment | `cub`, the Workshop plugin, `kustomize` and `git`. No account and no cluster. |
 | 2 | Put the app in ConfigHub, set a gate, propose the change, preview it and approve it | A ConfigHub account. No cluster. |
 | 3 | Release the approved change and read the result | The account, plus Docker and `kind` for a throwaway local cluster. |
@@ -34,6 +37,65 @@ them. Read it before you rely on this page. The two that matter most are that
 one account both wrote and approved the change, and that the app's pods never
 started.
 
+## See the reviewed result with nothing installed
+
+This section needs nothing. It shows what ConfigHub held after the run, so you
+can judge the result before you install a tool or open an account.
+
+This is the change's page in the ConfigHub web interface. It shows the one
+changed field at the source and the path the change took, from the base
+through dev to prod.
+
+![The rollout page for the change, with the changed field and the promotion path](../images/change-review/confighub-rollout-change.jpg)
+
+This is the prod stage of the same page. It shows the two gates on entry to
+prod and the one field the promotion wrote.
+
+![The prod stage, with its gates and the field the promotion wrote](../images/change-review/confighub-prod-gate.jpg)
+
+The pictures were taken after the release. At that point the page marks the
+approval gate "not evaluated" and still prints its rule. The page also lists
+who promoted and who published, with times. The pictures leave that list out
+because it names an account.
+
+This is the approval record, as `cub attestation get` printed it.
+
+```text
+ID                 b158b021-2bea-494e-b888-fe194eced1f8
+Type               Approval
+Result             Pass
+Change Order ID    2627e22b-094d-4a93-89c8-888537bdac13
+Note               Reviewed the change as it stands in dev. One field changes, the frontend image tag, from v1.3.0 to v1.4.0.
+User ID            <user-id>
+Created At         2026-10-09 10:37:42.055124 +0000 UTC
+Space              cwwalk-1009b-apptique-dev
+```
+
+The record names the approver by user id, and `cub user get <user-id>` gives
+the account behind it. The run printed this, with the account masked.
+
+```text
+{
+  "UserID": "<user-id>",
+  "Username": "user@example.com",
+  "DisplayName": "user@example.com"
+}
+```
+
+The real output names the signed-in account. In this run that account also
+wrote the change, so the record does not show a separate approver.
+
+These are prod's two Releases. Release 2 carries the change.
+
+```text
+NUM    TAG                                                                PUBLISHED    DIGEST          LIVE    CREATED
+2      cwwalk-1009b-apptique-base/cwwalk-1009b-tag-v1-4-0-third-co-end    true         0005a406ddc9            2026-10-09 10:45:47
+1      release-1                                                          true         c587031ffa93            2026-10-09 10:42:32
+```
+
+The run's objects were deleted afterwards, so there is no live page to open.
+The pictures and the log are the record.
+
 ## Part 1. List what the change affects
 
 This part needs no account and no cluster.
@@ -41,7 +103,8 @@ This part needs no account and no cluster.
 Install [the cub CLI](https://confighub.github.io/helm-expt/site/try.html#install-cub)
 and [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/).
 Then install the Workshop plugin release this part was checked with
-(version 0.6.58).
+(version 0.6.58). The recorded run had version 0.6.56 installed. Part 1 was
+run again from a fresh clone with 0.6.58 and printed the same output.
 
 ```sh
 cub plugin install confighub/cub-workshop@v0.6.58
@@ -107,6 +170,15 @@ say the change is safe.
 This part needs a ConfigHub account. It uses no cluster. Sign in with
 `cub auth login` first.
 
+Part 2 uses eight ConfigHub words. A Unit is one stored object, such as the
+Deployment. A Space is a folder of Units, and here each environment is one
+Space. A Component is the app, and it groups those Spaces. The base is the
+Space that holds the shared configuration, and a variant is a copy of the base
+for one environment. A change order is the record of one proposed change. A
+workflow sets the order of environments and what each one requires. An
+attestation is a recorded statement about a change by a signed-in account, and
+an approval is one kind.
+
 The commands below use three names of your choosing.
 
 ```sh
@@ -157,9 +229,10 @@ cub changeworkflow create --space $APP-base $WORKFLOW --stage dev --stage prod -
 cub component update --patch $APP --allowed-change-workflow $APP-base/$WORKFLOW --change-workflow-required
 ```
 
-Leave out `--attestation-prerequisite-allow-authors approved=true` when a
-second person will approve. Without that flag the server requires an approver
-who did not write the change. The run had one account, so it needed the flag.
+A separate approver is the default. Leave out
+`--attestation-prerequisite-allow-authors approved=true` when a second person
+will approve. Without that flag the server requires an approver who did not
+write the change. The run had one account, so it needed the flag.
 The run first tried without it. The server recorded the author's approval and
 did not count it, and it went on refusing the promotion with these words.
 
@@ -232,21 +305,8 @@ Recorded pass Approval attestation b158b021-2bea-494e-b888-fe194eced1f8 in cwwal
 ```
 
 Read the record with `cub attestation get`, giving the dev Space and the id
-that the approval printed.
-
-```text
-ID                 b158b021-2bea-494e-b888-fe194eced1f8
-Type               Approval
-Result             Pass
-Change Order ID    2627e22b-094d-4a93-89c8-888537bdac13
-Note               Reviewed the change as it stands in dev. One field changes, the frontend image tag, from v1.3.0 to v1.4.0.
-User ID            <user-id>
-Created At         2026-10-09 10:37:42.055124 +0000 UTC
-Space              cwwalk-1009b-apptique-dev
-```
-
-The record names the approver by user id. `cub user get <user-id>` gives the
-account behind the id.
+that the approval printed. The record and the lookup of the approver's account
+are printed in [the section near the top](#see-the-reviewed-result-with-nothing-installed).
 
 ### Take the approved change into prod
 
@@ -260,20 +320,9 @@ in ConfigHub with the repository's render of the one-line change, and
 
 ### See the same record in the ConfigHub web interface
 
-This is the change order's page after the run. It shows the one changed field
-at the source and the path the change took, from the base through dev to prod.
-
-![The rollout page for the change, with the changed field and the promotion path](../images/change-review/confighub-rollout-change.jpg)
-
-This is the prod stage of the same page. It shows the two gates on entry to
-prod and the one field the promotion wrote.
-
-![The prod stage, with its gates and the field the promotion wrote](../images/change-review/confighub-prod-gate.jpg)
-
-The picture was taken after the release. At that point the page marks the
-approval gate "not evaluated" and still prints its rule. The page also lists
-who promoted and who published, with times. The pictures here leave that list
-out because it names an account.
+The change order has a page in the web interface, with the changed field, the
+promotion path and the gates. Two pictures of it are in
+[the section near the top](#see-the-reviewed-result-with-nothing-installed).
 
 ## Part 3. Release the change and read the result
 
