@@ -454,6 +454,11 @@
     .entry-steps .status { font-weight: 400; white-space: nowrap; }
     .entry-steps details.entry-steps-base { border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; margin: 12px 0; }
     .entry-steps details.entry-steps-base > summary { cursor: pointer; overflow-wrap: anywhere; }
+    .entry-steps details.entry-inputs { border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; margin: 12px 0; }
+    .entry-steps details.entry-inputs > summary { cursor: pointer; font-weight: 640; }
+    .entry-steps .entry-inputs-list { padding-left: 1.2rem; overflow-wrap: anywhere; }
+    .entry-steps .entry-inputs-list li { margin: 4px 0; }
+    .entry-steps .entry-inputs-list em { color: var(--muted); }
     .entry-steps pre { max-width: 100%; }
     .entry-steps p, .entry-steps .agent-note, .entry-steps :not(pre) > code { overflow-wrap: anywhere; }
     .entry-steps .term-comment { color: #7f8b96; }
@@ -561,6 +566,14 @@
       <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
       <p>Steps 1 and 2 need no account.</p>
       <div data-entry-steps="timoni-flux-aio-2-9-4-0-default">
+        <details class="entry-inputs" data-entry-inputs="timoni-flux-aio-2-9-4-0-default" open>
+        <summary>What is fixed, and what you supply</summary>
+        <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
+        <ul class="entry-inputs-list"><li><code>module</code> is <code>oci://ghcr.io/stefanprodan/modules/flux-aio@sha256:2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a</code></li><li><code>moduleVersion</code> is <code>2.9.4-0</code></li><li><code>instance</code> is <code>flux</code></li><li><code>namespace</code> is <code>flux-system</code></li><li><code>values</code> is <code>examples/timoni/flux-aio-2-9-4-0/selected-values.cue</code></li><li><code>schema</code> is <code>examples/timoni/flux-aio-2-9-4-0/config-schema.cue</code></li><li><code>processor</code> is <code>timoni@0.34.0</code></li></ul>
+        <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li>1.21.0 <em>Required. Not checked in a live run.</em></li><li>source, kustomize, helm, notification, and watcher controllers <em>Required. Not checked in a live run.</em></li></ul>
+        
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 21 objects in one file.</p>
