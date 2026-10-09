@@ -36,7 +36,7 @@ for file in namespace.yaml configmap.yaml deployment.yaml service.yaml; do
   cat "examples/plain-yaml/acme-web/$file"
 done > acme-web.yaml
 
-cub plugin install confighub/cub-workshop@v0.6.57
+cub plugin install confighub/cub-workshop@v0.6.58
 cub config check ./acme-web.yaml
 ```
 
