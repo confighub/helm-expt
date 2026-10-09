@@ -447,6 +447,11 @@
     .entry-steps .status { font-weight: 400; white-space: nowrap; }
     .entry-steps details.entry-steps-base { border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; margin: 12px 0; }
     .entry-steps details.entry-steps-base > summary { cursor: pointer; overflow-wrap: anywhere; }
+    .entry-steps details.entry-inputs { border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; margin: 12px 0; }
+    .entry-steps details.entry-inputs > summary { cursor: pointer; font-weight: 640; }
+    .entry-steps .entry-inputs-list { padding-left: 1.2rem; overflow-wrap: anywhere; }
+    .entry-steps .entry-inputs-list li { margin: 4px 0; }
+    .entry-steps .entry-inputs-list em { color: var(--muted); }
     .entry-steps pre { max-width: 100%; }
     .entry-steps p, .entry-steps .agent-note, .entry-steps :not(pre) > code { overflow-wrap: anywhere; }
     .entry-steps .term-comment { color: #7f8b96; }
@@ -655,6 +660,12 @@ c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123  prometheus-com
       <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
       <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.58</code> adds. A <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">live walk on 2026-10-08</a> ran steps 3 to 5 for <code>bitnami-nginx-24-0-2-http-clusterip</code> and <code>nvidia-gpu-operator-v26-3-3-default</code>. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it. These are the steps for 29.0.0, the newest version, on its default base.</p>
       <div data-entry-steps="prometheus-community-prometheus-operator-crds-29-0-0-default">
+        <details class="entry-inputs" data-entry-inputs="prometheus-community-prometheus-operator-crds-29-0-0-default" open>
+        <summary>What is fixed, and what you supply</summary>
+        <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
+        <ul class="entry-inputs-list"><li><code>chart</code> is <code>prometheus-community/prometheus-operator-crds</code></li><li><code>version</code> is <code>29.0.0</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/prometheus-community/prometheus-operator-crds/29.0.0/effective-values.yaml</code></li><li><code>namespace</code> is <code>default</code></li><li><code>releaseName</code> is <code>prometheus-operator-crds</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
+        <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 10 objects in one file.</p>

@@ -447,6 +447,11 @@
     .entry-steps .status { font-weight: 400; white-space: nowrap; }
     .entry-steps details.entry-steps-base { border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; margin: 12px 0; }
     .entry-steps details.entry-steps-base > summary { cursor: pointer; overflow-wrap: anywhere; }
+    .entry-steps details.entry-inputs { border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; margin: 12px 0; }
+    .entry-steps details.entry-inputs > summary { cursor: pointer; font-weight: 640; }
+    .entry-steps .entry-inputs-list { padding-left: 1.2rem; overflow-wrap: anywhere; }
+    .entry-steps .entry-inputs-list li { margin: 4px 0; }
+    .entry-steps .entry-inputs-list em { color: var(--muted); }
     .entry-steps pre { max-width: 100%; }
     .entry-steps p, .entry-steps .agent-note, .entry-steps :not(pre) > code { overflow-wrap: anywhere; }
     .entry-steps .term-comment { color: #7f8b96; }
@@ -704,6 +709,14 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <details class="entry-steps-base" data-entry-steps="dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default" open>
         <summary>Helm chart, base <strong>default</strong>, version 0.5.0</summary>
         <p class="entry-steps-flag"><strong>This entry is flagged for review.</strong> The chart refuses to render its own defaults, so the default base sets resources.gpus.enabled false: is that the right meaning of default for this entry, or should the entry have no default base? The DeviceClass objects are rendered as resource.k8s.io/v1, which Kubernetes serves from 1.34, although the chart accepts 1.32: does the Catalog need bases for clusters that serve only v1beta1 or v1beta2?</p>
+        <details class="entry-inputs" data-entry-inputs="dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default" open>
+        <summary>What is fixed, and what you supply</summary>
+        <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
+        <ul class="entry-inputs-list"><li><code>chart</code> is <code>dra-driver-nvidia/dra-driver-nvidia-gpu</code></li><li><code>version</code> is <code>0.5.0</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/effective-values.yaml</code></li><li><code>namespace</code> is <code>nvidia-dra-driver</code></li><li><code>releaseName</code> is <code>nvidia-dra-driver-gpu</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.34.0&quot;}</code></li></ul>
+        <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li>CRD included in this base and applied before the controller that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the controller that reconciles it <em>Declared. Not checked on any destination.</em></li></ul>
+        
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 21 objects in one file.</p>
@@ -789,6 +802,14 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <details class="entry-steps-base" data-entry-steps="dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training">
         <summary>Helm chart, base <strong>aicr-eks-training</strong>, version 0.5.0</summary>
         <p class="entry-steps-flag"><strong>This entry is flagged for review.</strong> The DeviceClass objects are rendered as resource.k8s.io/v1, which Kubernetes serves from 1.34, although the chart accepts 1.32: does the Catalog need bases for clusters that serve only v1beta1 or v1beta2?</p>
+        <details class="entry-inputs" data-entry-inputs="dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training" open>
+        <summary>What is fixed, and what you supply</summary>
+        <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
+        <ul class="entry-inputs-list"><li><code>chart</code> is <code>dra-driver-nvidia/dra-driver-nvidia-gpu</code></li><li><code>version</code> is <code>0.5.0</code></li><li><code>base</code> is <code>aicr-eks-training</code></li><li><code>valuesProfile</code> is <code>recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/effective-values-aicr-eks-training.yaml</code></li><li><code>namespace</code> is <code>nvidia-dra-driver</code></li><li><code>releaseName</code> is <code>nvidia-dra-driver-gpu</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.34.0&quot;}</code></li></ul>
+        <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li>CRD included in this base and applied before the controller that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the controller that reconciles it <em>Declared. Not checked on any destination.</em></li></ul>
+        
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 21 objects in one file.</p>
@@ -874,6 +895,14 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <details class="entry-steps-base" data-entry-steps="dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources">
         <summary>Helm chart, base <strong>gpu-resources</strong>, version 0.5.0</summary>
         <p class="entry-steps-flag"><strong>This entry is flagged for review.</strong> The DeviceClass objects are rendered as resource.k8s.io/v1, which Kubernetes serves from 1.34, although the chart accepts 1.32: does the Catalog need bases for clusters that serve only v1beta1 or v1beta2?</p>
+        <details class="entry-inputs" data-entry-inputs="dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources" open>
+        <summary>What is fixed, and what you supply</summary>
+        <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
+        <ul class="entry-inputs-list"><li><code>chart</code> is <code>dra-driver-nvidia/dra-driver-nvidia-gpu</code></li><li><code>version</code> is <code>0.5.0</code></li><li><code>base</code> is <code>gpu-resources</code></li><li><code>valuesProfile</code> is <code>recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/effective-values-gpu-resources.yaml</code></li><li><code>namespace</code> is <code>nvidia-dra-driver</code></li><li><code>releaseName</code> is <code>nvidia-dra-driver-gpu</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.34.0&quot;}</code></li></ul>
+        <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li>CRD included in this base and applied before the controller that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the controller that reconciles it <em>Declared. Not checked on any destination.</em></li></ul>
+        
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 24 objects in one file.</p>
