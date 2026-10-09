@@ -650,7 +650,7 @@
     <section aria-labelledby="preview-setup">
       <h2 id="preview-setup">2. Preview the setup</h2>
       <p>Install <a href="./try.html#install-cub">the cub CLI</a> and this released plugin:</p>
-      <pre><code>cub plugin install confighub/examples@cub-flux-v0.3.2 --name flux</code></pre>
+      <pre><code>cub plugin install confighub/examples@cub-flux-v0.4.0 --name flux</code></pre>
       <p><strong>What you need:</strong> a local checkout of the Git repository this Flux installation reads, the <code>cub</code> CLI, and this plugin. Start in that repository's root; replace the directory placeholder below with its path. Planning reads the repository and needs no ConfigHub account or cluster.</p>
 <pre><code>cd &lt;your-flux-gitops-repository&gt;
 cub flux plan . --require Healthy</code></pre>
@@ -715,7 +715,7 @@ Next
   cub flux apply . --require Healthy --out ./flux-onboarding
   That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.</code></pre>
       </details>
-      <p><a href="https://github.com/confighub/examples/blob/cub-flux-v0.3.2/cub-flux/docs/onboard-your-flux-fleet.md#1-see-the-plan">Read the full Flux planning reference</a> for layouts and limits.</p>
+      <p><a href="https://github.com/confighub/examples/blob/cub-flux-v0.4.0/cub-flux/docs/onboard-your-flux-fleet.md#1-see-the-plan">Read the full Flux planning reference</a> for layouts and limits.</p>
       <h3 id="try-the-fixture">Try it on the fixture first</h3>
       <p>These commands print the output above. They need no repository of your own.</p>
 <pre><code>git clone https://github.com/confighub/examples.git
@@ -779,7 +779,7 @@ cub flux plan . --require Healthy</code></pre>
         <p>Flux runs handover one existing cluster at a time:</p>
 <pre><code>CONFIGHUB_OCI=oci.hub.confighub.com CLUSTER=&lt;cluster&gt; FLUX_CONTEXT=&lt;kubectl-context&gt; bash onboard/handover.sh</code></pre>
       </details>
-      <p><a href="https://github.com/confighub/examples/blob/cub-flux-v0.3.2/cub-flux/docs/onboard-your-flux-fleet.md#3-hand-one-cluster-over">Advanced handover and recovery reference</a>. Do not delete ConfigHub spaces as rollback: restore controller sources first, then use the script’s printed order.</p>
+      <p><a href="https://github.com/confighub/examples/blob/cub-flux-v0.4.0/cub-flux/docs/onboard-your-flux-fleet.md#3-hand-one-cluster-over">Advanced handover and recovery reference</a>. Do not delete ConfigHub spaces as rollback: restore controller sources first, then use the script’s printed order.</p>
     </section>
 
     <section aria-labelledby="change-approve-release">
@@ -792,7 +792,9 @@ cub flux plan . --require Healthy</code></pre>
       </details>
       <p>Live status is also a write. This sends the observed revision and health to ConfigHub.</p>
 <pre><code>cub flux status . --cluster &lt;cluster&gt; --kube-context &lt;kubectl-context&gt; --watch</code></pre>
-      <p><a href="https://github.com/confighub/examples/blob/cub-flux-v0.3.2/cub-flux/docs/onboard-your-flux-fleet.md#5-tell-confighub-what-the-cluster-is-running">Read the Flux status details</a>. A release, controller sync, and workload health are separate results; record the exact revision and target for each.</p>
+      <p>That reports for as long as you keep it running. <code>cub flux apply</code> also writes <code>fluxbot.sh</code>, which runs the same reporter on the cluster as one pod. It adds that pod to the Flux namespace and a permission in ConfigHub.</p>
+<pre><code>FLUX_CONTEXT=&lt;kubectl-context&gt; CLUSTER=&lt;cluster&gt; CONFIGHUB_URL=&lt;ConfigHub address&gt; bash onboard/fluxbot.sh</code></pre>
+      <p><a href="https://github.com/confighub/examples/blob/cub-flux-v0.4.0/cub-flux/docs/onboard-your-flux-fleet.md#5-tell-confighub-what-the-cluster-is-running">Read the Flux status details</a>. A release, controller sync, and workload health are separate results; record the exact revision and target for each.</p>
     </section>
     </details>  </main>
 </div>

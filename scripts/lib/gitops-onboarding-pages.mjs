@@ -310,7 +310,7 @@ ${commandBlock("cub variant approve --change-order <space>/<order> --stage <stag
         <p>The server refuses a later stage until the earlier release has been approved and published.</p>`}
       </details>
       <p>Live status is also a write. This sends the observed revision and health to ConfigHub.${kind === "argo" ? " Argo CD also gets a hard refresh." : ""}</p>
-${commandBlock(guide.status)}
+${commandBlock(guide.status)}${kind === "flux" ? '\n      <p>That reports for as long as you keep it running. <code>cub flux apply</code> also writes <code>fluxbot.sh</code>, which runs the same reporter on the cluster as one pod. It adds that pod to the Flux namespace and a permission in ConfigHub.</p>\n' + commandBlock("FLUX_CONTEXT=<kubectl-context> CLUSTER=<cluster> CONFIGHUB_URL=<ConfigHub address> bash onboard/fluxbot.sh") : ""}
       <p>${link(upstreamStatus, `Read the ${upper} status details`)}. A release, controller sync, and workload health are separate results; record the exact revision and target for each.</p>
     </section>
     </details>`,
