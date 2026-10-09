@@ -103,9 +103,9 @@ spec:
       summary: Onboards an Argo CD estate into ConfigHub and hands it over without recreating anything; each generated Application becomes a Unit reading its own Space, and argobot reports live status back.
       guide: {address: "https://confighub.github.io/helm-expt/site/bring-argo-into-confighub.html", title: "Bring your Argo CD apps into ConfigHub"}
       state: released
-      release: {tag: cub-argo-v0.3.0, date: "2026-10-02"}
-      install: cub plugin install confighub/examples@cub-argo-v0.3.0 --name argo
-      note: Start with plan, which needs no account and changes no cluster. Live status comes back through argobot, or through cub argo status --watch --hard-refresh where argobot is not running, which also makes each release land at once; argobot's own refresh of moved Applications needs confighub/argobot#14.
+      release: {tag: cub-argo-v0.3.2, date: "2026-10-09"}
+      install: cub plugin install confighub/examples@cub-argo-v0.3.2 --name argo
+      note: Start with plan, which needs no account and changes no cluster. Live status is recorded on each release by argobot (argobot.sh installs v0.1.9), or by cub argo status --watch --hard-refresh where argobot is not running; both make each release land at once. Needs cub v0.7.0 or newer; live status needs ConfigHub v0.8.2 or newer.
     - id: flux
       name: Flux
       commands: [cub flux]
@@ -114,6 +114,6 @@ spec:
       summary: Onboards a Flux fleet into ConfigHub with one root per cluster reading its layers Space, reports each layer's release digest as live status, and proposes each cluster that joins.
       guide: {address: "https://confighub.github.io/helm-expt/site/bring-flux-into-confighub.html", title: "Bring your Flux fleet into ConfigHub"}
       state: released
-      release: {tag: cub-flux-v0.3.0, date: "2026-10-02"}
-      install: cub plugin install confighub/examples@cub-flux-v0.3.0 --name flux
-      note: Start with plan, which changes no cluster. Healthy is reported only for layers that check their workloads with wait or healthChecks; review bootstrap ownership before handover.
+      release: {tag: cub-flux-v0.3.2, date: "2026-10-09"}
+      install: cub plugin install confighub/examples@cub-flux-v0.3.2 --name flux
+      note: Start with plan, which changes no cluster. Healthy is reported only for layers that check their workloads with wait or healthChecks; review bootstrap ownership before handover. cub flux status records live status on each release, which the Healthy gate reads. Needs cub v0.7.0 or newer; live status needs ConfigHub v0.8.2 or newer.
