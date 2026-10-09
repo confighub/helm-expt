@@ -311,6 +311,13 @@ spec:
       before moving the change.
     page: promote.html
     command: "cub config diff adapt-demo/before.yaml adapt-demo/after.yaml --json --out adapt-demo/diff.json"
+  - id: review-a-change
+    group: confighub
+    title: Review one change before it ships
+    summary: List the objects one change affects in each environment with no account, then propose it in
+      ConfigHub, see the gate refuse it, approve it, release it and read the record.
+    page: d/docs/user/workshop-review-a-change-guide.html
+    command: "cub config diff before-$env.yaml after-$env.yaml"
   - id: field-restore
     group: confighub
     title: Add one field and keep the original configuration

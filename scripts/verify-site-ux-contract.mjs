@@ -94,6 +94,13 @@ const checks = [
     file: "site/d/docs/user/workshop-gpu-operator-upgrade-guide.html",
     terms: ["See what a gpu-operator upgrade changes", "cub plugin install confighub/cub-workshop@v0.6.58", "https://helm.ngc.nvidia.com/nvidia", "cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary", "cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml --summary", "--set driver.version=580.126.20", "/spec/driver/version replace", "The Catalog holds this chart", "Hooks appear as ordinary objects", "--include-crds", "Exit 0 is not approval", "A task for an assistant", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html"],
   },
+  // The change-review Guide rests on one recorded run, so it must keep the
+  // part that needs no account, the approval command, and the two limits a
+  // reviewer has to know: one account wrote and approved, and the app never ran.
+  {
+    file: "site/d/docs/user/workshop-review-a-change-guide.html",
+    terms: ["Review one change before it ships", "No account and no cluster", "cub config diff before-$env.yaml after-$env.yaml", "cub variant approve --change-order", "One account wrote the change and approved it", "The app never ran", "A refused promotion leaves no record", "live-walk-change-review-2026-10-09.html", "A task for an assistant"],
+  },
   // The stack Guide composes public Catalog entries and nothing more, so it
   // must keep the pinned plugin, the three entry ids, the compose and check
   // commands, the swapped entry, and the limits of a static check.
