@@ -47,9 +47,9 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: ""
-    userStatus: ""
-    strongestEvidence: ""
+    adoptionBucket: "not-ready"
+    userStatus: "not-in-current-catalog-lane"
+    strongestEvidence: "render-parity"
     proofLanes:
       renderParity: "3/3"
       inConfigHub: "0/3"
@@ -57,8 +57,8 @@ spec:
       gitopsLive: "0/3"
       liveParity: "0/3"
     featureSummary: "none-recorded"
-    hardGap: ""
-    nextAction: ""
+    hardGap: "-"
+    nextAction: "review source/current-version drift and refresh recipe if needed"
   installerPackage:
     path: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0@sha256:f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd"

@@ -47,9 +47,9 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: ""
-    userStatus: ""
-    strongestEvidence: ""
+    adoptionBucket: "not-ready"
+    userStatus: "not-in-current-catalog-lane"
+    strongestEvidence: "render-parity"
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "0/2"
@@ -57,8 +57,8 @@ spec:
       gitopsLive: "0/2"
       liveParity: "0/2"
     featureSummary: "none-recorded"
-    hardGap: ""
-    nextAction: ""
+    hardGap: "-"
+    nextAction: "review source/current-version drift and refresh recipe if needed"
   installerPackage:
     path: "packages/prometheus-community/prometheus-operator-crds/28.0.1"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea"

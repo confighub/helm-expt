@@ -114,10 +114,10 @@
     "baseVariants": 42,
     "startHereBaseVariants": 26,
     "top20ChartsWithExtensionSlots": 13,
-    "top100ChartsWithExtensionSlots": 91,
+    "top100ChartsWithExtensionSlots": 90,
     "top100CoveragePromotionQueue": 40,
     "top100PromotionWaveRows": 32,
-    "top100CoverageUserVariantQueue": 39,
+    "top100CoverageUserVariantQueue": 37,
     "top100CoverageDecisionQueue": 7,
     "refreshCurrentRows": 13,
     "refreshUpdateCandidates": 7,
@@ -152,7 +152,7 @@
       "section": "top100",
       "metric": "catalog-supported charts",
       "value": "20",
-      "total": "115",
+      "total": "122",
       "status": "partial",
       "source": "data/top100-readiness/readiness.csv",
       "note": "These are the current public catalog entries; production support still depends on lane status."
@@ -160,8 +160,8 @@
     {
       "section": "top100",
       "metric": "proof-grade non-catalog charts",
-      "value": "95",
-      "total": "115",
+      "value": "102",
+      "total": "122",
       "status": "partial",
       "source": "data/top100-readiness/readiness.csv",
       "note": "These charts have proof artifacts but are not promoted catalog entries."
@@ -179,7 +179,7 @@
       "section": "chart use",
       "metric": "public catalog answers",
       "value": "20",
-      "total": "115",
+      "total": "122",
       "status": "partial",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows where a user can start from a public catalog entry, then choose a base and verify the lane they need."
@@ -188,7 +188,7 @@
       "section": "chart use",
       "metric": "proof-ready but not public catalog answers",
       "value": "40",
-      "total": "115",
+      "total": "122",
       "status": "partial",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows with proof value and useful variants that still need catalog promotion review."
@@ -196,8 +196,8 @@
     {
       "section": "chart use",
       "metric": "better base variant needed answers",
-      "value": "39",
-      "total": "115",
+      "value": "37",
+      "total": "122",
       "status": "gap",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows where the current proof is too default-shaped to be a good user offer."
@@ -206,7 +206,7 @@
       "section": "chart use",
       "metric": "limitation decision needed answers",
       "value": "7",
-      "total": "115",
+      "total": "122",
       "status": "gap",
       "source": "data/chart-use-guide/chart-use-guide.csv",
       "note": "Rows where a named capability gap must be supported, disclosed, deferred, or blocked before promotion."
@@ -215,7 +215,7 @@
       "section": "top100",
       "metric": "covered by top100 contract",
       "value": "20",
-      "total": "115",
+      "total": "122",
       "status": "partial",
       "source": "data/top100-coverage/coverage.csv",
       "note": "Rows satisfying all top100 coverage contract items, including disposition and live witness route."
@@ -223,8 +223,8 @@
     {
       "section": "top100",
       "metric": "partial by top100 contract",
-      "value": "95",
-      "total": "115",
+      "value": "102",
+      "total": "122",
       "status": "partial",
       "source": "data/top100-coverage/coverage.csv",
       "note": "Rows with at least one coverage contract item still todo."
@@ -232,7 +232,7 @@
     {
       "section": "top100",
       "metric": "average top100 coverage",
-      "value": "87",
+      "value": "85",
       "total": "100",
       "status": "partial",
       "source": "data/top100-coverage/coverage.csv",
@@ -242,7 +242,7 @@
       "section": "top100",
       "metric": "top100 promotion-review queue",
       "value": "40",
-      "total": "95",
+      "total": "102",
       "status": "partial",
       "source": "data/top100-coverage/work-queue.csv",
       "note": "Partial top100 rows ready for catalog promotion review under the strict coverage contract."
@@ -286,8 +286,8 @@
     {
       "section": "top100",
       "metric": "top100 user-shaped variant queue",
-      "value": "39",
-      "total": "95",
+      "value": "37",
+      "total": "102",
       "status": "partial",
       "source": "data/top100-coverage/work-queue.csv",
       "note": "Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer."
@@ -295,7 +295,7 @@
     {
       "section": "top100",
       "metric": "useful-base proposal rows",
-      "value": "49",
+      "value": "47",
       "total": "",
       "status": "partial",
       "source": "data/useful-base-design-queue/queue.csv",
@@ -305,7 +305,7 @@
       "section": "top100",
       "metric": "useful-base realized rows",
       "value": "10",
-      "total": "49",
+      "total": "47",
       "status": "partial",
       "source": "data/useful-base-realization-wave/wave.csv",
       "note": "Useful-base proposals that now have recipe variants and cub installer package bases. These still need ConfigHub proof, live evidence, and production disposition."
@@ -322,8 +322,8 @@
     {
       "section": "top100",
       "metric": "useful-base proposals not yet built",
-      "value": "39",
-      "total": "49",
+      "value": "37",
+      "total": "47",
       "status": "gap",
       "source": "data/useful-base-design-queue/queue.csv",
       "note": "Remaining design-queue rows where the proposed base shape still needs recipe/package artifacts and proof before catalog promotion."
@@ -332,7 +332,7 @@
       "section": "top100",
       "metric": "top100 limitation-decision queue",
       "value": "7",
-      "total": "95",
+      "total": "102",
       "status": "partial",
       "source": "data/top100-coverage/work-queue.csv",
       "note": "Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."
@@ -898,7 +898,7 @@
     {
       "section": "extension slots",
       "metric": "top100 charts with extension slots",
-      "value": "91",
+      "value": "90",
       "total": "100",
       "status": "partial",
       "source": "data/extension-slots/extension-slots.csv",
@@ -916,8 +916,8 @@
     {
       "section": "secrets",
       "metric": "top100 variants with explicit Secret disposition",
-      "value": "210",
-      "total": "210",
+      "value": "231",
+      "total": "231",
       "status": "good",
       "source": "data/secret-lifecycle/variant-summary.csv",
       "note": "Every surveyed top-100 variant has an explicit Secret stance: delivered, staged, observed, needs lane support, or not applicable."
@@ -925,8 +925,8 @@
     {
       "section": "secrets",
       "metric": "Secret rows needing lifecycle lane support",
-      "value": "8",
-      "total": "99",
+      "value": "14",
+      "total": "105",
       "status": "gap",
       "source": "data/secret-lifecycle/secrets.csv",
       "note": "Rendered Kubernetes lifecycle Secrets that need a staging receipt, controller observation, or explicit refusal before stronger live or production claims."
@@ -935,7 +935,7 @@
       "section": "secrets",
       "metric": "target-fact Secret rows",
       "value": "52",
-      "total": "99",
+      "total": "105",
       "status": "partial",
       "source": "data/secret-lifecycle/secrets.csv",
       "note": "Secrets that must be present or staged in the target before the selected lane applies the rendered objects."
@@ -5217,7 +5217,7 @@
       "source_features": "crds;cluster-rbac",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/node-feature-discovery/node-feature-discovery/0.19.0",
       "recipe_path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/recipe.yaml",
       "catalog_path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/CATALOG.md",
@@ -6077,7 +6077,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1",
       "recipe_path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/recipe.yaml",
       "catalog_path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/CATALOG.md",
@@ -6120,7 +6120,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/eks/aws-efa-k8s-device-plugin/v0.5.29",
       "recipe_path": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/recipe.yaml",
       "catalog_path": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/CATALOG.md",
@@ -6464,7 +6464,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2",
       "recipe_path": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/recipe.yaml",
       "catalog_path": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/CATALOG.md",
@@ -6507,7 +6507,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/kai-scheduler/kai-scheduler/v0.14.1",
       "recipe_path": "recipes/kai-scheduler/kai-scheduler/v0.14.1/recipe.yaml",
       "catalog_path": "recipes/kai-scheduler/kai-scheduler/v0.14.1/CATALOG.md",
@@ -6550,7 +6550,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/kubeflow/kubeflow-trainer/2.2.0",
       "recipe_path": "recipes/kubeflow/kubeflow-trainer/2.2.0/recipe.yaml",
       "catalog_path": "recipes/kubeflow/kubeflow-trainer/2.2.0/CATALOG.md",
@@ -6937,7 +6937,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/nodewright/v0.17.1",
       "recipe_path": "recipes/nvidia/nodewright/v0.17.1/recipe.yaml",
       "catalog_path": "recipes/nvidia/nodewright/v0.17.1/CATALOG.md",
@@ -8924,7 +8924,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1",
       "recipe_path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/recipe.yaml",
       "catalog_path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/CATALOG.md",
@@ -8967,7 +8967,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/eks/aws-efa-k8s-device-plugin/v0.5.29",
       "recipe_path": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/recipe.yaml",
       "catalog_path": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/CATALOG.md",
@@ -10472,7 +10472,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2",
       "recipe_path": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/recipe.yaml",
       "catalog_path": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/CATALOG.md",
@@ -10515,7 +10515,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/kai-scheduler/kai-scheduler/v0.14.1",
       "recipe_path": "recipes/kai-scheduler/kai-scheduler/v0.14.1/recipe.yaml",
       "catalog_path": "recipes/kai-scheduler/kai-scheduler/v0.14.1/CATALOG.md",
@@ -10644,7 +10644,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/kubeflow/kubeflow-trainer/2.2.0",
       "recipe_path": "recipes/kubeflow/kubeflow-trainer/2.2.0/recipe.yaml",
       "catalog_path": "recipes/kubeflow/kubeflow-trainer/2.2.0/CATALOG.md",
@@ -11245,7 +11245,7 @@
       "source_features": "crds;cluster-rbac",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/node-feature-discovery/node-feature-discovery/0.19.0",
       "recipe_path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/recipe.yaml",
       "catalog_path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/CATALOG.md",
@@ -11417,7 +11417,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/nodewright/v0.17.1",
       "recipe_path": "recipes/nvidia/nodewright/v0.17.1/recipe.yaml",
       "catalog_path": "recipes/nvidia/nodewright/v0.17.1/CATALOG.md",
@@ -14144,7 +14144,7 @@
       "source_features": "crds;cluster-rbac",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/node-feature-discovery/node-feature-discovery/0.19.0",
       "recipe_path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/recipe.yaml",
       "catalog_path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/CATALOG.md",
@@ -14684,7 +14684,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1",
       "recipe_path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/recipe.yaml",
       "catalog_path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/CATALOG.md",
@@ -14711,7 +14711,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/eks/aws-efa-k8s-device-plugin/v0.5.29",
       "recipe_path": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/recipe.yaml",
       "catalog_path": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/CATALOG.md",
@@ -14927,7 +14927,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2",
       "recipe_path": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/recipe.yaml",
       "catalog_path": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/CATALOG.md",
@@ -14954,7 +14954,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/kai-scheduler/kai-scheduler/v0.14.1",
       "recipe_path": "recipes/kai-scheduler/kai-scheduler/v0.14.1/recipe.yaml",
       "catalog_path": "recipes/kai-scheduler/kai-scheduler/v0.14.1/CATALOG.md",
@@ -14981,7 +14981,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/kubeflow/kubeflow-trainer/2.2.0",
       "recipe_path": "recipes/kubeflow/kubeflow-trainer/2.2.0/recipe.yaml",
       "catalog_path": "recipes/kubeflow/kubeflow-trainer/2.2.0/CATALOG.md",
@@ -15224,7 +15224,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/nodewright/v0.17.1",
       "recipe_path": "recipes/nvidia/nodewright/v0.17.1/recipe.yaml",
       "catalog_path": "recipes/nvidia/nodewright/v0.17.1/CATALOG.md",
@@ -21601,16 +21601,6 @@
       "evidence": "data/chart-facts/chart-facts.csv;recipes/aws-controllers-k8s/iam-chart/1.7.3/control-points.yaml;recipes/aws-controllers-k8s/iam-chart/1.7.3/helm-pain-report.yaml"
     },
     {
-      "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1",
-      "catalog_scope": "top100-proof",
-      "built_variants": "default",
-      "extension_slot_status": "yes - per-use review",
-      "control_point_status": "tpl-extension-slots:source-signal-recorded",
-      "surfaces": "tpl-powered values",
-      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
-      "evidence": "data/chart-facts/chart-facts.csv;recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/control-points.yaml;recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/helm-pain-report.yaml"
-    },
-    {
       "chart": "bitnami/apache@11.4.29",
       "catalog_scope": "top100-proof",
       "built_variants": "default+legacy",
@@ -23196,22 +23186,22 @@
     },
     {
       "proof_surface_rank": "49",
-      "chart": "prometheus-community/prometheus-operator-crds@29.0.0",
-      "answer": "not-yet-user-ready",
-      "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
-      "first_action": "Design at least one useful base variant before catalog promotion.",
+      "chart": "prometheus-community/prometheus-operator-crds@28.0.1",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
       "recommended_base_or_variant": "default",
-      "command_or_file": "recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.md",
-      "strongest_evidence": "live-helm-vs-confighub-parity",
-      "render_parity": "1/1",
-      "live_summary": "local:1/1 gitops:1/1 live-parity:1/1 two-cluster:1/1",
+      "command_or_file": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/CATALOG.md",
+      "strongest_evidence": "render-parity",
+      "render_parity": "2/2",
+      "live_summary": "local:0/2 gitops:0/2 live-parity:0/2 two-cluster:0/2",
       "first_promotion_wave": "no",
       "promotion_wave_first_step": "-",
       "promotion_wave_gaps": "-",
       "hard_gap": "-",
-      "production_note": "Render parity alone is useful evidence, not a production or catalog recommendation.",
-      "catalog_path": "recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.md",
-      "helm_pain_report": "recipes/prometheus-community/prometheus-operator-crds/29.0.0/helm-pain-report.yaml"
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/CATALOG.md",
+      "helm_pain_report": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/helm-pain-report.yaml"
     },
     {
       "proof_surface_rank": "50",
@@ -23614,6 +23604,25 @@
     },
     {
       "proof_surface_rank": "71",
+      "chart": "node-feature-discovery/node-feature-discovery@0.19.0",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/CATALOG.md",
+      "strongest_evidence": "render-parity",
+      "render_parity": "3/3",
+      "live_summary": "local:0/3 gitops:0/3 live-parity:0/3 two-cluster:0/3",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/CATALOG.md",
+      "helm_pain_report": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface_rank": "72",
       "chart": "bitnami/apache@11.4.29",
       "answer": "decision-needed-first",
       "plain_english": "A named capability gap affects the recommended path.",
@@ -23632,7 +23641,7 @@
       "helm_pain_report": "recipes/bitnami/apache/11.4.29/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "72",
+      "proof_surface_rank": "73",
       "chart": "grafana/pyroscope@2.0.2",
       "answer": "decision-needed-first",
       "plain_english": "A named capability gap affects the recommended path.",
@@ -23651,26 +23660,26 @@
       "helm_pain_report": "recipes/grafana/pyroscope/2.0.2/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "73",
-      "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1",
-      "answer": "not-yet-user-ready",
-      "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
-      "first_action": "Design at least one useful base variant before catalog promotion.",
+      "proof_surface_rank": "74",
+      "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
       "recommended_base_or_variant": "default",
-      "command_or_file": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/CATALOG.md",
-      "strongest_evidence": "in-confighub-proof",
-      "render_parity": "1/1",
-      "live_summary": "local:0/1 gitops:0/1 live-parity:0/1 two-cluster:0/1",
+      "command_or_file": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/CATALOG.md",
+      "strongest_evidence": "render-parity",
+      "render_parity": "3/3",
+      "live_summary": "local:0/3 gitops:0/3 live-parity:0/3 two-cluster:0/3",
       "first_promotion_wave": "no",
       "promotion_wave_first_step": "-",
       "promotion_wave_gaps": "-",
       "hard_gap": "-",
-      "production_note": "Render parity alone is useful evidence, not a production or catalog recommendation.",
-      "catalog_path": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/CATALOG.md",
-      "helm_pain_report": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/helm-pain-report.yaml"
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/CATALOG.md",
+      "helm_pain_report": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "74",
+      "proof_surface_rank": "75",
       "chart": "falcosecurity/falcosidekick@0.13.1",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -23689,7 +23698,7 @@
       "helm_pain_report": "recipes/falcosecurity/falcosidekick/0.13.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "75",
+      "proof_surface_rank": "76",
       "chart": "aqua/trivy-operator@0.32.1",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -23708,7 +23717,7 @@
       "helm_pain_report": "recipes/aqua/trivy-operator/0.32.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "76",
+      "proof_surface_rank": "77",
       "chart": "argo-cd/argo-events@2.4.21",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -23727,7 +23736,7 @@
       "helm_pain_report": "recipes/argo-cd/argo-events/2.4.21/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "77",
+      "proof_surface_rank": "78",
       "chart": "argo-cd/argo-rollouts@2.40.9",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -23746,7 +23755,7 @@
       "helm_pain_report": "recipes/argo-cd/argo-rollouts/2.40.9/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "78",
+      "proof_surface_rank": "79",
       "chart": "argo-cd/argo-workflows@1.0.14",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -23765,7 +23774,7 @@
       "helm_pain_report": "recipes/argo-cd/argo-workflows/1.0.14/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "79",
+      "proof_surface_rank": "80",
       "chart": "argo-cd/argocd-image-updater@1.2.2",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -23784,7 +23793,7 @@
       "helm_pain_report": "recipes/argo-cd/argocd-image-updater/1.2.2/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "80",
+      "proof_surface_rank": "81",
       "chart": "autoscaler/cluster-autoscaler@9.57.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -23803,7 +23812,7 @@
       "helm_pain_report": "recipes/autoscaler/cluster-autoscaler/9.57.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "81",
+      "proof_surface_rank": "82",
       "chart": "autoscaler/vertical-pod-autoscaler@0.9.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -23822,7 +23831,7 @@
       "helm_pain_report": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "82",
+      "proof_surface_rank": "83",
       "chart": "aws-controllers-k8s/ec2-chart@1.18.4",
       "answer": "review-needed",
       "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
@@ -23841,7 +23850,7 @@
       "helm_pain_report": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "83",
+      "proof_surface_rank": "84",
       "chart": "aws-controllers-k8s/eks-chart@1.16.3",
       "answer": "review-needed",
       "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
@@ -23860,7 +23869,7 @@
       "helm_pain_report": "recipes/aws-controllers-k8s/eks-chart/1.16.3/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "84",
+      "proof_surface_rank": "85",
       "chart": "aws-controllers-k8s/iam-chart@1.7.3",
       "answer": "review-needed",
       "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
@@ -23879,7 +23888,7 @@
       "helm_pain_report": "recipes/aws-controllers-k8s/iam-chart/1.7.3/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "85",
+      "proof_surface_rank": "86",
       "chart": "bitnami/opensearch@2.0.10",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -23898,7 +23907,7 @@
       "helm_pain_report": "recipes/bitnami/opensearch/2.0.10/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "86",
+      "proof_surface_rank": "87",
       "chart": "cloudpirates/nginx@0.16.1",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -23917,7 +23926,7 @@
       "helm_pain_report": "recipes/cloudpirates/nginx/0.16.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "87",
+      "proof_surface_rank": "88",
       "chart": "cloudpirates/rabbitmq@0.21.13",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -23936,7 +23945,7 @@
       "helm_pain_report": "recipes/cloudpirates/rabbitmq/0.21.13/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "88",
+      "proof_surface_rank": "89",
       "chart": "cloudpirates/redis@0.34.11",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -23955,7 +23964,7 @@
       "helm_pain_report": "recipes/cloudpirates/redis/0.34.11/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "89",
+      "proof_surface_rank": "90",
       "chart": "crossplane-stable/crossplane@2.3.1",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -23974,7 +23983,45 @@
       "helm_pain_report": "recipes/crossplane-stable/crossplane/2.3.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "90",
+      "proof_surface_rank": "91",
+      "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/CATALOG.md",
+      "strongest_evidence": "render-parity",
+      "render_parity": "3/3",
+      "live_summary": "local:0/3 gitops:0/3 live-parity:0/3 two-cluster:0/3",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/CATALOG.md",
+      "helm_pain_report": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface_rank": "92",
+      "chart": "eks/aws-efa-k8s-device-plugin@v0.5.29",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/CATALOG.md",
+      "strongest_evidence": "render-parity",
+      "render_parity": "2/2",
+      "live_summary": "local:0/2 gitops:0/2 live-parity:0/2 two-cluster:0/2",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/CATALOG.md",
+      "helm_pain_report": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface_rank": "93",
       "chart": "grafana/promtail@6.17.1",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -23993,7 +24040,7 @@
       "helm_pain_report": "recipes/grafana/promtail/6.17.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "91",
+      "proof_surface_rank": "94",
       "chart": "grafana/rollout-operator@0.49.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -24012,7 +24059,7 @@
       "helm_pain_report": "recipes/grafana/rollout-operator/0.49.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "92",
+      "proof_surface_rank": "95",
       "chart": "haproxytech/kubernetes-ingress@1.52.0",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -24031,7 +24078,7 @@
       "helm_pain_report": "recipes/haproxytech/kubernetes-ingress/1.52.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "93",
+      "proof_surface_rank": "96",
       "chart": "istio/gateway@1.30.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -24050,7 +24097,7 @@
       "helm_pain_report": "recipes/istio/gateway/1.30.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "94",
+      "proof_surface_rank": "97",
       "chart": "istio/istiod@1.30.0",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -24069,7 +24116,7 @@
       "helm_pain_report": "recipes/istio/istiod/1.30.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "95",
+      "proof_surface_rank": "98",
       "chart": "jetstack/cert-manager-csi-driver@v0.14.0",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -24088,7 +24135,7 @@
       "helm_pain_report": "recipes/jetstack/cert-manager-csi-driver/v0.14.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "96",
+      "proof_surface_rank": "99",
       "chart": "jetstack/trust-manager@v0.22.1",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -24107,7 +24154,64 @@
       "helm_pain_report": "recipes/jetstack/trust-manager/v0.22.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "97",
+      "proof_surface_rank": "100",
+      "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/CATALOG.md",
+      "strongest_evidence": "render-parity",
+      "render_parity": "3/3",
+      "live_summary": "local:0/3 gitops:0/3 live-parity:0/3 two-cluster:0/3",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/CATALOG.md",
+      "helm_pain_report": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface_rank": "101",
+      "chart": "kai-scheduler/kai-scheduler@v0.14.1",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/kai-scheduler/kai-scheduler/v0.14.1/CATALOG.md",
+      "strongest_evidence": "render-parity",
+      "render_parity": "2/2",
+      "live_summary": "local:0/2 gitops:0/2 live-parity:0/2 two-cluster:0/2",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/kai-scheduler/kai-scheduler/v0.14.1/CATALOG.md",
+      "helm_pain_report": "recipes/kai-scheduler/kai-scheduler/v0.14.1/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface_rank": "102",
+      "chart": "kubeflow/kubeflow-trainer@2.2.0",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/kubeflow/kubeflow-trainer/2.2.0/CATALOG.md",
+      "strongest_evidence": "render-parity",
+      "render_parity": "3/3",
+      "live_summary": "local:0/3 gitops:0/3 live-parity:0/3 two-cluster:0/3",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/kubeflow/kubeflow-trainer/2.2.0/CATALOG.md",
+      "helm_pain_report": "recipes/kubeflow/kubeflow-trainer/2.2.0/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface_rank": "103",
       "chart": "linkerd/linkerd-crds@1.8.0",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -24126,7 +24230,7 @@
       "helm_pain_report": "recipes/linkerd/linkerd-crds/1.8.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "98",
+      "proof_surface_rank": "104",
       "chart": "minio-operator/tenant@7.1.1",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -24145,7 +24249,7 @@
       "helm_pain_report": "recipes/minio-operator/tenant/7.1.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "99",
+      "proof_surface_rank": "105",
       "chart": "mysql/mysql-operator@2.3.0",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -24164,7 +24268,7 @@
       "helm_pain_report": "recipes/mysql/mysql-operator/2.3.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "100",
+      "proof_surface_rank": "106",
       "chart": "nats/nack@0.34.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -24183,7 +24287,7 @@
       "helm_pain_report": "recipes/nats/nack/0.34.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "101",
+      "proof_surface_rank": "107",
       "chart": "nats/surveyor@0.20.9",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -24202,7 +24306,7 @@
       "helm_pain_report": "recipes/nats/surveyor/0.20.9/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "102",
+      "proof_surface_rank": "108",
       "chart": "nvidia/cluster-readiness-engine@v0.6.0",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -24221,7 +24325,7 @@
       "helm_pain_report": "recipes/nvidia/cluster-readiness-engine/v0.6.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "103",
+      "proof_surface_rank": "109",
       "chart": "nvidia/gpu-operator@v25.10.1",
       "answer": "review-needed",
       "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
@@ -24240,7 +24344,7 @@
       "helm_pain_report": "recipes/nvidia/gpu-operator/v25.10.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "104",
+      "proof_surface_rank": "110",
       "chart": "nvidia/k8s-nim-operator@3.1.0",
       "answer": "review-needed",
       "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
@@ -24259,7 +24363,26 @@
       "helm_pain_report": "recipes/nvidia/k8s-nim-operator/3.1.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "105",
+      "proof_surface_rank": "111",
+      "chart": "nvidia/nodewright@v0.17.1",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/nvidia/nodewright/v0.17.1/CATALOG.md",
+      "strongest_evidence": "render-parity",
+      "render_parity": "2/2",
+      "live_summary": "local:0/2 gitops:0/2 live-parity:0/2 two-cluster:0/2",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/nvidia/nodewright/v0.17.1/CATALOG.md",
+      "helm_pain_report": "recipes/nvidia/nodewright/v0.17.1/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface_rank": "112",
       "chart": "nvidia/nvidia-device-plugin@0.19.3",
       "answer": "review-needed",
       "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
@@ -24278,7 +24401,7 @@
       "helm_pain_report": "recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "106",
+      "proof_surface_rank": "113",
       "chart": "nvidia/nvsentinel@v1.20.0",
       "answer": "review-needed",
       "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
@@ -24297,7 +24420,7 @@
       "helm_pain_report": "recipes/nvidia/nvsentinel/v1.20.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "107",
+      "proof_surface_rank": "114",
       "chart": "open-telemetry/opentelemetry-operator@0.114.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -24316,7 +24439,7 @@
       "helm_pain_report": "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "108",
+      "proof_surface_rank": "115",
       "chart": "percona/pg-operator@3.0.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -24335,7 +24458,7 @@
       "helm_pain_report": "recipes/percona/pg-operator/3.0.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "109",
+      "proof_surface_rank": "116",
       "chart": "percona/psmdb-operator@1.22.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -24354,7 +24477,7 @@
       "helm_pain_report": "recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "110",
+      "proof_surface_rank": "117",
       "chart": "rook-release/rook-ceph@v1.19.5",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -24373,7 +24496,7 @@
       "helm_pain_report": "recipes/rook-release/rook-ceph/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "111",
+      "proof_surface_rank": "118",
       "chart": "rook-release/rook-ceph-cluster@v1.19.5",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -24392,7 +24515,7 @@
       "helm_pain_report": "recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "112",
+      "proof_surface_rank": "119",
       "chart": "sealed-secrets/sealed-secrets@2.18.6",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -24411,7 +24534,7 @@
       "helm_pain_report": "recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "113",
+      "proof_surface_rank": "120",
       "chart": "velero/velero@12.0.1",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -24430,7 +24553,7 @@
       "helm_pain_report": "recipes/velero/velero/12.0.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "114",
+      "proof_surface_rank": "121",
       "chart": "vm/victoria-logs-single@0.12.5",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -24449,7 +24572,7 @@
       "helm_pain_report": "recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "115",
+      "proof_surface_rank": "122",
       "chart": "vm/victoria-metrics-single@0.39.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -29060,15 +29183,15 @@
     {
       "rank": "49",
       "chart": "prometheus-community/prometheus-operator-crds",
-      "version": "29.0.0",
-      "bucket": "needs-better-base-variant",
-      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)",
+      "version": "28.0.1",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)",
       "recommended_first_base": "default (unreviewed first guess)",
       "quirks": "crds;existing-secret;generated-facts",
-      "user_must_provide": "an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time; your wanted install shape, until a reviewed base exists",
+      "user_must_provide": "an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time",
       "confighub_absorbs": "exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts",
-      "next_action": "add at least one user-shaped variant before catalog promotion",
-      "pain_report": "recipes/prometheus-community/prometheus-operator-crds/29.0.0/helm-pain-report.yaml"
+      "next_action": "review source/current-version drift and refresh recipe if needed",
+      "pain_report": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/helm-pain-report.yaml"
     },
     {
       "rank": "50",
@@ -29345,6 +29468,19 @@
     },
     {
       "rank": "71",
+      "chart": "node-feature-discovery/node-feature-discovery",
+      "version": "0.19.0",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "crds;rbac",
+      "user_must_provide": "a CRD ownership choice (crds vs no-crds base)",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts; CRD handling split into explicit bases",
+      "next_action": "review source/current-version drift and refresh recipe if needed",
+      "pain_report": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/helm-pain-report.yaml"
+    },
+    {
+      "rank": "72",
       "chart": "bitnami/apache",
       "version": "11.4.29",
       "bucket": "not-ready-yet",
@@ -29357,7 +29493,7 @@
       "pain_report": "recipes/bitnami/apache/11.4.29/helm-pain-report.yaml"
     },
     {
-      "rank": "72",
+      "rank": "73",
       "chart": "grafana/pyroscope",
       "version": "2.0.2",
       "bucket": "not-ready-yet",
@@ -29370,20 +29506,20 @@
       "pain_report": "recipes/grafana/pyroscope/2.0.2/helm-pain-report.yaml"
     },
     {
-      "rank": "73",
+      "rank": "74",
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
-      "version": "2.60.1",
-      "bucket": "needs-better-base-variant",
-      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)",
+      "version": "2.59.0",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)",
       "recommended_first_base": "default (unreviewed first guess)",
-      "quirks": "extension-slots;required-values;tpl;capabilities;rbac",
-      "user_must_provide": "mandatory chart inputs; your wanted install shape, until a reviewed base exists",
-      "confighub_absorbs": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
-      "next_action": "add at least one user-shaped variant before catalog promotion",
-      "pain_report": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/helm-pain-report.yaml"
+      "quirks": "required-values;tpl;capabilities;rbac",
+      "user_must_provide": "mandatory chart inputs",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "review source/current-version drift and refresh recipe if needed",
+      "pain_report": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/helm-pain-report.yaml"
     },
     {
-      "rank": "74",
+      "rank": "75",
       "chart": "falcosecurity/falcosidekick",
       "version": "0.13.1",
       "bucket": "needs-better-base-variant",
@@ -29396,7 +29532,7 @@
       "pain_report": "recipes/falcosecurity/falcosidekick/0.13.1/helm-pain-report.yaml"
     },
     {
-      "rank": "75",
+      "rank": "76",
       "chart": "aqua/trivy-operator",
       "version": "0.32.1",
       "bucket": "works-with-target-prerequisites",
@@ -29409,7 +29545,7 @@
       "pain_report": "recipes/aqua/trivy-operator/0.32.1/helm-pain-report.yaml"
     },
     {
-      "rank": "76",
+      "rank": "77",
       "chart": "argo-cd/argo-events",
       "version": "2.4.21",
       "bucket": "works-with-operator-review",
@@ -29422,7 +29558,7 @@
       "pain_report": "recipes/argo-cd/argo-events/2.4.21/helm-pain-report.yaml"
     },
     {
-      "rank": "77",
+      "rank": "78",
       "chart": "argo-cd/argo-rollouts",
       "version": "2.40.9",
       "bucket": "works-with-operator-review",
@@ -29435,7 +29571,7 @@
       "pain_report": "recipes/argo-cd/argo-rollouts/2.40.9/helm-pain-report.yaml"
     },
     {
-      "rank": "78",
+      "rank": "79",
       "chart": "argo-cd/argo-workflows",
       "version": "1.0.14",
       "bucket": "works-with-operator-review",
@@ -29448,7 +29584,7 @@
       "pain_report": "recipes/argo-cd/argo-workflows/1.0.14/helm-pain-report.yaml"
     },
     {
-      "rank": "79",
+      "rank": "80",
       "chart": "argo-cd/argocd-image-updater",
       "version": "1.2.2",
       "bucket": "needs-better-base-variant",
@@ -29461,7 +29597,7 @@
       "pain_report": "recipes/argo-cd/argocd-image-updater/1.2.2/helm-pain-report.yaml"
     },
     {
-      "rank": "80",
+      "rank": "81",
       "chart": "autoscaler/cluster-autoscaler",
       "version": "9.57.0",
       "bucket": "works-with-operator-review",
@@ -29474,7 +29610,7 @@
       "pain_report": "recipes/autoscaler/cluster-autoscaler/9.57.0/helm-pain-report.yaml"
     },
     {
-      "rank": "81",
+      "rank": "82",
       "chart": "autoscaler/vertical-pod-autoscaler",
       "version": "0.9.0",
       "bucket": "works-with-target-prerequisites",
@@ -29487,7 +29623,7 @@
       "pain_report": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/helm-pain-report.yaml"
     },
     {
-      "rank": "82",
+      "rank": "83",
       "chart": "aws-controllers-k8s/ec2-chart",
       "version": "1.18.4",
       "bucket": "works-with-operator-review",
@@ -29500,7 +29636,7 @@
       "pain_report": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/helm-pain-report.yaml"
     },
     {
-      "rank": "83",
+      "rank": "84",
       "chart": "aws-controllers-k8s/eks-chart",
       "version": "1.16.3",
       "bucket": "works-with-operator-review",
@@ -29513,7 +29649,7 @@
       "pain_report": "recipes/aws-controllers-k8s/eks-chart/1.16.3/helm-pain-report.yaml"
     },
     {
-      "rank": "84",
+      "rank": "85",
       "chart": "aws-controllers-k8s/iam-chart",
       "version": "1.7.3",
       "bucket": "works-with-operator-review",
@@ -29526,7 +29662,7 @@
       "pain_report": "recipes/aws-controllers-k8s/iam-chart/1.7.3/helm-pain-report.yaml"
     },
     {
-      "rank": "85",
+      "rank": "86",
       "chart": "bitnami/opensearch",
       "version": "2.0.10",
       "bucket": "works-with-target-prerequisites",
@@ -29539,7 +29675,7 @@
       "pain_report": "recipes/bitnami/opensearch/2.0.10/helm-pain-report.yaml"
     },
     {
-      "rank": "86",
+      "rank": "87",
       "chart": "cloudpirates/nginx",
       "version": "0.16.1",
       "bucket": "needs-better-base-variant",
@@ -29552,7 +29688,7 @@
       "pain_report": "recipes/cloudpirates/nginx/0.16.1/helm-pain-report.yaml"
     },
     {
-      "rank": "87",
+      "rank": "88",
       "chart": "cloudpirates/rabbitmq",
       "version": "0.21.13",
       "bucket": "works-with-operator-review",
@@ -29565,7 +29701,7 @@
       "pain_report": "recipes/cloudpirates/rabbitmq/0.21.13/helm-pain-report.yaml"
     },
     {
-      "rank": "88",
+      "rank": "89",
       "chart": "cloudpirates/redis",
       "version": "0.34.11",
       "bucket": "works-with-operator-review",
@@ -29578,7 +29714,7 @@
       "pain_report": "recipes/cloudpirates/redis/0.34.11/helm-pain-report.yaml"
     },
     {
-      "rank": "89",
+      "rank": "90",
       "chart": "crossplane-stable/crossplane",
       "version": "2.3.1",
       "bucket": "needs-better-base-variant",
@@ -29591,7 +29727,33 @@
       "pain_report": "recipes/crossplane-stable/crossplane/2.3.1/helm-pain-report.yaml"
     },
     {
-      "rank": "90",
+      "rank": "91",
+      "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "version": "0.4.1",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "none-flagged",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate",
+      "pain_report": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/helm-pain-report.yaml"
+    },
+    {
+      "rank": "92",
+      "chart": "eks/aws-efa-k8s-device-plugin",
+      "version": "v0.5.29",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "none-flagged",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate",
+      "pain_report": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/helm-pain-report.yaml"
+    },
+    {
+      "rank": "93",
       "chart": "grafana/promtail",
       "version": "6.17.1",
       "bucket": "needs-better-base-variant",
@@ -29604,7 +29766,7 @@
       "pain_report": "recipes/grafana/promtail/6.17.1/helm-pain-report.yaml"
     },
     {
-      "rank": "91",
+      "rank": "94",
       "chart": "grafana/rollout-operator",
       "version": "0.49.0",
       "bucket": "works-with-operator-review",
@@ -29617,7 +29779,7 @@
       "pain_report": "recipes/grafana/rollout-operator/0.49.0/helm-pain-report.yaml"
     },
     {
-      "rank": "92",
+      "rank": "95",
       "chart": "haproxytech/kubernetes-ingress",
       "version": "1.52.0",
       "bucket": "needs-better-base-variant",
@@ -29630,7 +29792,7 @@
       "pain_report": "recipes/haproxytech/kubernetes-ingress/1.52.0/helm-pain-report.yaml"
     },
     {
-      "rank": "93",
+      "rank": "96",
       "chart": "istio/gateway",
       "version": "1.30.0",
       "bucket": "works-with-operator-review",
@@ -29643,7 +29805,7 @@
       "pain_report": "recipes/istio/gateway/1.30.0/helm-pain-report.yaml"
     },
     {
-      "rank": "94",
+      "rank": "97",
       "chart": "istio/istiod",
       "version": "1.30.0",
       "bucket": "needs-better-base-variant",
@@ -29656,7 +29818,7 @@
       "pain_report": "recipes/istio/istiod/1.30.0/helm-pain-report.yaml"
     },
     {
-      "rank": "95",
+      "rank": "98",
       "chart": "jetstack/cert-manager-csi-driver",
       "version": "v0.14.0",
       "bucket": "needs-better-base-variant",
@@ -29669,7 +29831,7 @@
       "pain_report": "recipes/jetstack/cert-manager-csi-driver/v0.14.0/helm-pain-report.yaml"
     },
     {
-      "rank": "96",
+      "rank": "99",
       "chart": "jetstack/trust-manager",
       "version": "v0.22.1",
       "bucket": "works-with-target-prerequisites",
@@ -29682,7 +29844,46 @@
       "pain_report": "recipes/jetstack/trust-manager/v0.22.1/helm-pain-report.yaml"
     },
     {
-      "rank": "97",
+      "rank": "100",
+      "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
+      "version": "1.19.2",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "none-flagged",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate",
+      "pain_report": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/helm-pain-report.yaml"
+    },
+    {
+      "rank": "101",
+      "chart": "kai-scheduler/kai-scheduler",
+      "version": "v0.14.1",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "none-flagged",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate",
+      "pain_report": "recipes/kai-scheduler/kai-scheduler/v0.14.1/helm-pain-report.yaml"
+    },
+    {
+      "rank": "102",
+      "chart": "kubeflow/kubeflow-trainer",
+      "version": "2.2.0",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "none-flagged",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate",
+      "pain_report": "recipes/kubeflow/kubeflow-trainer/2.2.0/helm-pain-report.yaml"
+    },
+    {
+      "rank": "103",
       "chart": "linkerd/linkerd-crds",
       "version": "1.8.0",
       "bucket": "needs-better-base-variant",
@@ -29695,7 +29896,7 @@
       "pain_report": "recipes/linkerd/linkerd-crds/1.8.0/helm-pain-report.yaml"
     },
     {
-      "rank": "98",
+      "rank": "104",
       "chart": "minio-operator/tenant",
       "version": "7.1.1",
       "bucket": "needs-better-base-variant",
@@ -29708,7 +29909,7 @@
       "pain_report": "recipes/minio-operator/tenant/7.1.1/helm-pain-report.yaml"
     },
     {
-      "rank": "99",
+      "rank": "105",
       "chart": "mysql/mysql-operator",
       "version": "2.3.0",
       "bucket": "needs-better-base-variant",
@@ -29721,7 +29922,7 @@
       "pain_report": "recipes/mysql/mysql-operator/2.3.0/helm-pain-report.yaml"
     },
     {
-      "rank": "100",
+      "rank": "106",
       "chart": "nats/nack",
       "version": "0.34.0",
       "bucket": "works-with-target-prerequisites",
@@ -29734,7 +29935,7 @@
       "pain_report": "recipes/nats/nack/0.34.0/helm-pain-report.yaml"
     },
     {
-      "rank": "101",
+      "rank": "107",
       "chart": "nats/surveyor",
       "version": "0.20.9",
       "bucket": "works-with-operator-review",
@@ -29747,7 +29948,7 @@
       "pain_report": "recipes/nats/surveyor/0.20.9/helm-pain-report.yaml"
     },
     {
-      "rank": "102",
+      "rank": "108",
       "chart": "nvidia/cluster-readiness-engine",
       "version": "v0.6.0",
       "bucket": "needs-better-base-variant",
@@ -29760,7 +29961,7 @@
       "pain_report": "recipes/nvidia/cluster-readiness-engine/v0.6.0/helm-pain-report.yaml"
     },
     {
-      "rank": "103",
+      "rank": "109",
       "chart": "nvidia/gpu-operator",
       "version": "v25.10.1",
       "bucket": "works-with-operator-review",
@@ -29773,7 +29974,7 @@
       "pain_report": "recipes/nvidia/gpu-operator/v25.10.1/helm-pain-report.yaml"
     },
     {
-      "rank": "104",
+      "rank": "110",
       "chart": "nvidia/k8s-nim-operator",
       "version": "3.1.0",
       "bucket": "works-with-operator-review",
@@ -29786,7 +29987,20 @@
       "pain_report": "recipes/nvidia/k8s-nim-operator/3.1.0/helm-pain-report.yaml"
     },
     {
-      "rank": "105",
+      "rank": "111",
+      "chart": "nvidia/nodewright",
+      "version": "v0.17.1",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "none-flagged",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate",
+      "pain_report": "recipes/nvidia/nodewright/v0.17.1/helm-pain-report.yaml"
+    },
+    {
+      "rank": "112",
       "chart": "nvidia/nvidia-device-plugin",
       "version": "0.19.3",
       "bucket": "works-with-operator-review",
@@ -29799,7 +30013,7 @@
       "pain_report": "recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml"
     },
     {
-      "rank": "106",
+      "rank": "113",
       "chart": "nvidia/nvsentinel",
       "version": "v1.20.0",
       "bucket": "works-with-operator-review",
@@ -29812,7 +30026,7 @@
       "pain_report": "recipes/nvidia/nvsentinel/v1.20.0/helm-pain-report.yaml"
     },
     {
-      "rank": "107",
+      "rank": "114",
       "chart": "open-telemetry/opentelemetry-operator",
       "version": "0.114.0",
       "bucket": "works-with-target-prerequisites",
@@ -29825,7 +30039,7 @@
       "pain_report": "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml"
     },
     {
-      "rank": "108",
+      "rank": "115",
       "chart": "percona/pg-operator",
       "version": "3.0.0",
       "bucket": "works-with-operator-review",
@@ -29838,7 +30052,7 @@
       "pain_report": "recipes/percona/pg-operator/3.0.0/helm-pain-report.yaml"
     },
     {
-      "rank": "109",
+      "rank": "116",
       "chart": "percona/psmdb-operator",
       "version": "1.22.0",
       "bucket": "works-with-operator-review",
@@ -29851,7 +30065,7 @@
       "pain_report": "recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml"
     },
     {
-      "rank": "110",
+      "rank": "117",
       "chart": "rook-release/rook-ceph",
       "version": "v1.19.5",
       "bucket": "needs-better-base-variant",
@@ -29864,7 +30078,7 @@
       "pain_report": "recipes/rook-release/rook-ceph/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "rank": "111",
+      "rank": "118",
       "chart": "rook-release/rook-ceph-cluster",
       "version": "v1.19.5",
       "bucket": "needs-better-base-variant",
@@ -29877,7 +30091,7 @@
       "pain_report": "recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "rank": "112",
+      "rank": "119",
       "chart": "sealed-secrets/sealed-secrets",
       "version": "2.18.6",
       "bucket": "works-with-target-prerequisites",
@@ -29890,7 +30104,7 @@
       "pain_report": "recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml"
     },
     {
-      "rank": "113",
+      "rank": "120",
       "chart": "velero/velero",
       "version": "12.0.1",
       "bucket": "works-with-target-prerequisites",
@@ -29903,7 +30117,7 @@
       "pain_report": "recipes/velero/velero/12.0.1/helm-pain-report.yaml"
     },
     {
-      "rank": "114",
+      "rank": "121",
       "chart": "vm/victoria-logs-single",
       "version": "0.12.5",
       "bucket": "needs-better-base-variant",
@@ -29916,7 +30130,7 @@
       "pain_report": "recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml"
     },
     {
-      "rank": "115",
+      "rank": "122",
       "chart": "vm/victoria-metrics-single",
       "version": "0.39.0",
       "bucket": "works-with-operator-review",
@@ -88553,8 +88767,8 @@
     "pass": 1141,
     "watch": 107,
     "blocked": 128,
-    "todo": 797,
-    "na": 2055,
+    "todo": 801,
+    "na": 2051,
     "blank": 0,
     "total": 4228
   },
@@ -92709,6 +92923,39 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
+      "rank": "49",
+      "chart": "prometheus-community/prometheus-operator-crds",
+      "version": "28.0.1",
+      "user_status": "works-with-operator-review",
+      "chart_use_answer": "review-needed",
+      "first_base": "default",
+      "catalog_path": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/CATALOG.md",
+      "current_proof": "not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)",
+      "proof_lane_rows": "aicr-eks-training;default",
+      "proof_lane_summary": "aicr-eks-training render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing; default render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing",
+      "variant_revisions": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/variant-revision.yaml;recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/prometheus-community/prometheus-operator-crds/28.0.1",
+      "package_paths": "packages/prometheus-community/prometheus-operator-crds/28.0.1",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/source-lock.yaml;recipes/prometheus-community/prometheus-operator-crds/28.0.1/CATALOG.md;recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/variant-revision.yaml;recipes/prometheus-community/prometheus-operator-crds/28.0.1/helm-pain-report.yaml;recipes/prometheus-community/prometheus-operator-crds/28.0.1/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/prometheus-community/prometheus-operator-crds/28.0.1/value-model.yaml;recipes/prometheus-community/prometheus-operator-crds/28.0.1/helm-plan.yaml;recipes/prometheus-community/prometheus-operator-crds/28.0.1/publication/installer-package-receipt.yaml;data/outcome-coverage/chart-outcomes.csv;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "crds;existing-secret;generated-facts",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "rank 133: catalog-candidate: proof:2 revision(s): not-reviewed-for-production: review source/current-version drift and refresh recipe if needed",
+      "user_must_provide": "an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts",
+      "next_action": "review source/current-version drift and refresh recipe if needed"
+    },
+    {
       "rank": "50",
       "chart": "bitnami/zookeeper",
       "version": "13.8.7",
@@ -93403,6 +93650,39 @@
     },
     {
       "rank": "71",
+      "chart": "node-feature-discovery/node-feature-discovery",
+      "version": "0.19.0",
+      "user_status": "works-with-operator-review",
+      "chart_use_answer": "review-needed",
+      "first_base": "default",
+      "catalog_path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/CATALOG.md",
+      "current_proof": "not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)",
+      "proof_lane_rows": "aicr-eks-training-v0-20-0;aicr-eks-training-v1-0-0;default",
+      "proof_lane_summary": "aicr-eks-training-v0-20-0 render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing; aicr-eks-training-v1-0-0 render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing; default render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing",
+      "variant_revisions": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml;recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml;recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/node-feature-discovery/node-feature-discovery/0.19.0",
+      "package_paths": "packages/node-feature-discovery/node-feature-discovery/0.19.0",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/source-lock.yaml;recipes/node-feature-discovery/node-feature-discovery/0.19.0/CATALOG.md;recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml;recipes/node-feature-discovery/node-feature-discovery/0.19.0/helm-pain-report.yaml;recipes/node-feature-discovery/node-feature-discovery/0.19.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/node-feature-discovery/node-feature-discovery/0.19.0/value-model.yaml;recipes/node-feature-discovery/node-feature-discovery/0.19.0/helm-plan.yaml;recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/installer-package-receipt.yaml;data/outcome-coverage/chart-outcomes.csv;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "crds;rbac",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "rank 343: catalog-candidate: proof:3 revision(s): not-reviewed-for-production: review source/current-version drift and refresh recipe if needed",
+      "user_must_provide": "a CRD ownership choice (crds vs no-crds base)",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; CRD handling split into explicit bases",
+      "next_action": "review source/current-version drift and refresh recipe if needed"
+    },
+    {
+      "rank": "72",
       "chart": "bitnami/apache",
       "version": "11.4.29",
       "user_status": "not-ready-yet",
@@ -93435,7 +93715,7 @@
       "next_action": "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
     },
     {
-      "rank": "72",
+      "rank": "73",
       "chart": "grafana/pyroscope",
       "version": "2.0.2",
       "user_status": "not-ready-yet",
@@ -93469,6 +93749,39 @@
     },
     {
       "rank": "74",
+      "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+      "version": "2.59.0",
+      "user_status": "works-with-operator-review",
+      "chart_use_answer": "review-needed",
+      "first_base": "default",
+      "catalog_path": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/CATALOG.md",
+      "current_proof": "not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)",
+      "proof_lane_rows": "aicr-eks-training-v0-20-0;aicr-eks-training-v1-0-0;default",
+      "proof_lane_summary": "aicr-eks-training-v0-20-0 render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing; aicr-eks-training-v1-0-0 render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing; default render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing",
+      "variant_revisions": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml;recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml;recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/default/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0",
+      "package_paths": "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/source-lock.yaml;recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/CATALOG.md;recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml;recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/helm-pain-report.yaml;recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/value-model.yaml;recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/helm-plan.yaml;recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/publication/installer-package-receipt.yaml;data/outcome-coverage/chart-outcomes.csv;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "required-values;tpl;capabilities;rbac",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "rank 452: catalog-candidate: proof:3 revision(s): not-reviewed-for-production: review source/current-version drift and refresh recipe if needed",
+      "user_must_provide": "mandatory chart inputs",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "review source/current-version drift and refresh recipe if needed"
+    },
+    {
+      "rank": "75",
       "chart": "falcosecurity/falcosidekick",
       "version": "0.13.1",
       "user_status": "needs-better-base-variant",
@@ -93501,7 +93814,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "75",
+      "rank": "76",
       "chart": "aqua/trivy-operator",
       "version": "0.32.1",
       "user_status": "works-with-target-prerequisites",
@@ -93534,7 +93847,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "76",
+      "rank": "77",
       "chart": "argo-cd/argo-events",
       "version": "2.4.21",
       "user_status": "works-with-operator-review",
@@ -93567,7 +93880,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "77",
+      "rank": "78",
       "chart": "argo-cd/argo-rollouts",
       "version": "2.40.9",
       "user_status": "works-with-operator-review",
@@ -93600,7 +93913,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "78",
+      "rank": "79",
       "chart": "argo-cd/argo-workflows",
       "version": "1.0.14",
       "user_status": "works-with-operator-review",
@@ -93633,7 +93946,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "79",
+      "rank": "80",
       "chart": "argo-cd/argocd-image-updater",
       "version": "1.2.2",
       "user_status": "needs-better-base-variant",
@@ -93666,7 +93979,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "80",
+      "rank": "81",
       "chart": "autoscaler/cluster-autoscaler",
       "version": "9.57.0",
       "user_status": "works-with-operator-review",
@@ -93699,7 +94012,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "81",
+      "rank": "82",
       "chart": "autoscaler/vertical-pod-autoscaler",
       "version": "0.9.0",
       "user_status": "works-with-target-prerequisites",
@@ -93732,7 +94045,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "82",
+      "rank": "83",
       "chart": "aws-controllers-k8s/ec2-chart",
       "version": "1.18.4",
       "user_status": "works-with-operator-review",
@@ -93765,7 +94078,7 @@
       "next_action": "review chart analysis and create a recipe candidate"
     },
     {
-      "rank": "83",
+      "rank": "84",
       "chart": "aws-controllers-k8s/eks-chart",
       "version": "1.16.3",
       "user_status": "works-with-operator-review",
@@ -93798,7 +94111,7 @@
       "next_action": "review chart analysis and create a recipe candidate"
     },
     {
-      "rank": "84",
+      "rank": "85",
       "chart": "aws-controllers-k8s/iam-chart",
       "version": "1.7.3",
       "user_status": "works-with-operator-review",
@@ -93831,7 +94144,7 @@
       "next_action": "review chart analysis and create a recipe candidate"
     },
     {
-      "rank": "85",
+      "rank": "86",
       "chart": "bitnami/opensearch",
       "version": "2.0.10",
       "user_status": "works-with-target-prerequisites",
@@ -93864,7 +94177,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "86",
+      "rank": "87",
       "chart": "cloudpirates/nginx",
       "version": "0.16.1",
       "user_status": "needs-better-base-variant",
@@ -93897,7 +94210,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "87",
+      "rank": "88",
       "chart": "cloudpirates/rabbitmq",
       "version": "0.21.13",
       "user_status": "works-with-operator-review",
@@ -93930,7 +94243,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "88",
+      "rank": "89",
       "chart": "cloudpirates/redis",
       "version": "0.34.11",
       "user_status": "works-with-operator-review",
@@ -93963,7 +94276,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "89",
+      "rank": "90",
       "chart": "crossplane-stable/crossplane",
       "version": "2.3.1",
       "user_status": "needs-better-base-variant",
@@ -93996,7 +94309,73 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "90",
+      "rank": "91",
+      "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "version": "0.4.1",
+      "user_status": "works-with-operator-review",
+      "chart_use_answer": "review-needed",
+      "first_base": "default",
+      "catalog_path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/CATALOG.md",
+      "current_proof": "not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)",
+      "proof_lane_rows": "aicr-eks-training;default;gpu-resources",
+      "proof_lane_summary": "aicr-eks-training render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing; default render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing; gpu-resources render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing",
+      "variant_revisions": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/variant-revision.yaml;recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/variant-revision.yaml;recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1",
+      "package_paths": "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/source-lock.yaml;recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/CATALOG.md;recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/variant-revision.yaml;recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/helm-pain-report.yaml;recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/value-model.yaml;recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/helm-plan.yaml;recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/publication/installer-package-receipt.yaml;data/outcome-coverage/chart-outcomes.csv;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "none-flagged",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate"
+    },
+    {
+      "rank": "92",
+      "chart": "eks/aws-efa-k8s-device-plugin",
+      "version": "v0.5.29",
+      "user_status": "works-with-operator-review",
+      "chart_use_answer": "review-needed",
+      "first_base": "default",
+      "catalog_path": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/CATALOG.md",
+      "current_proof": "not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)",
+      "proof_lane_rows": "aicr-eks-training;default",
+      "proof_lane_summary": "aicr-eks-training render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing; default render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing",
+      "variant_revisions": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/variant-revision.yaml;recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29",
+      "package_paths": "packages/eks/aws-efa-k8s-device-plugin/v0.5.29",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/source-lock.yaml;recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/CATALOG.md;recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/variant-revision.yaml;recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/helm-pain-report.yaml;recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/value-model.yaml;recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/helm-plan.yaml;recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/publication/installer-package-receipt.yaml;data/outcome-coverage/chart-outcomes.csv;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "none-flagged",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate"
+    },
+    {
+      "rank": "93",
       "chart": "grafana/promtail",
       "version": "6.17.1",
       "user_status": "needs-better-base-variant",
@@ -94029,7 +94408,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "91",
+      "rank": "94",
       "chart": "grafana/rollout-operator",
       "version": "0.49.0",
       "user_status": "works-with-operator-review",
@@ -94062,7 +94441,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "92",
+      "rank": "95",
       "chart": "haproxytech/kubernetes-ingress",
       "version": "1.52.0",
       "user_status": "needs-better-base-variant",
@@ -94095,7 +94474,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "93",
+      "rank": "96",
       "chart": "istio/gateway",
       "version": "1.30.0",
       "user_status": "works-with-operator-review",
@@ -94128,7 +94507,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "94",
+      "rank": "97",
       "chart": "istio/istiod",
       "version": "1.30.0",
       "user_status": "needs-better-base-variant",
@@ -94161,7 +94540,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "95",
+      "rank": "98",
       "chart": "jetstack/cert-manager-csi-driver",
       "version": "v0.14.0",
       "user_status": "needs-better-base-variant",
@@ -94194,7 +94573,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "96",
+      "rank": "99",
       "chart": "jetstack/trust-manager",
       "version": "v0.22.1",
       "user_status": "works-with-target-prerequisites",
@@ -94227,7 +94606,106 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "97",
+      "rank": "100",
+      "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
+      "version": "1.19.2",
+      "user_status": "works-with-operator-review",
+      "chart_use_answer": "review-needed",
+      "first_base": "default",
+      "catalog_path": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/CATALOG.md",
+      "current_proof": "not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)",
+      "proof_lane_rows": "aicr-eks-training-v0-20-0;aicr-eks-training-v1-0-0;default",
+      "proof_lane_summary": "aicr-eks-training-v0-20-0 render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing; aicr-eks-training-v1-0-0 render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing; default render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing",
+      "variant_revisions": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml;recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml;recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2",
+      "package_paths": "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/source-lock.yaml;recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/CATALOG.md;recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml;recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/helm-pain-report.yaml;recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/value-model.yaml;recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/helm-plan.yaml;recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/installer-package-receipt.yaml;data/outcome-coverage/chart-outcomes.csv;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "none-flagged",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate"
+    },
+    {
+      "rank": "101",
+      "chart": "kai-scheduler/kai-scheduler",
+      "version": "v0.14.1",
+      "user_status": "works-with-operator-review",
+      "chart_use_answer": "review-needed",
+      "first_base": "default",
+      "catalog_path": "recipes/kai-scheduler/kai-scheduler/v0.14.1/CATALOG.md",
+      "current_proof": "not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)",
+      "proof_lane_rows": "aicr-eks-training;default",
+      "proof_lane_summary": "aicr-eks-training render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing; default render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing",
+      "variant_revisions": "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/variant-revision.yaml;recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/kai-scheduler/kai-scheduler/v0.14.1",
+      "package_paths": "packages/kai-scheduler/kai-scheduler/v0.14.1",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/kai-scheduler/kai-scheduler/v0.14.1/source-lock.yaml;recipes/kai-scheduler/kai-scheduler/v0.14.1/CATALOG.md;recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/variant-revision.yaml;recipes/kai-scheduler/kai-scheduler/v0.14.1/helm-pain-report.yaml;recipes/kai-scheduler/kai-scheduler/v0.14.1/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/kai-scheduler/kai-scheduler/v0.14.1/value-model.yaml;recipes/kai-scheduler/kai-scheduler/v0.14.1/helm-plan.yaml;recipes/kai-scheduler/kai-scheduler/v0.14.1/publication/installer-package-receipt.yaml;data/outcome-coverage/chart-outcomes.csv;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "none-flagged",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate"
+    },
+    {
+      "rank": "102",
+      "chart": "kubeflow/kubeflow-trainer",
+      "version": "2.2.0",
+      "user_status": "works-with-operator-review",
+      "chart_use_answer": "review-needed",
+      "first_base": "default",
+      "catalog_path": "recipes/kubeflow/kubeflow-trainer/2.2.0/CATALOG.md",
+      "current_proof": "not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)",
+      "proof_lane_rows": "aicr-eks-training-v0-20-0;aicr-eks-training-v1-0-0;default",
+      "proof_lane_summary": "aicr-eks-training-v0-20-0 render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing; aicr-eks-training-v1-0-0 render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing; default render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing",
+      "variant_revisions": "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml;recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml;recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/kubeflow/kubeflow-trainer/2.2.0",
+      "package_paths": "packages/kubeflow/kubeflow-trainer/2.2.0",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/kubeflow/kubeflow-trainer/2.2.0/source-lock.yaml;recipes/kubeflow/kubeflow-trainer/2.2.0/CATALOG.md;recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml;recipes/kubeflow/kubeflow-trainer/2.2.0/helm-pain-report.yaml;recipes/kubeflow/kubeflow-trainer/2.2.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/kubeflow/kubeflow-trainer/2.2.0/value-model.yaml;recipes/kubeflow/kubeflow-trainer/2.2.0/helm-plan.yaml;recipes/kubeflow/kubeflow-trainer/2.2.0/publication/installer-package-receipt.yaml;data/outcome-coverage/chart-outcomes.csv;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "none-flagged",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate"
+    },
+    {
+      "rank": "103",
       "chart": "linkerd/linkerd-crds",
       "version": "1.8.0",
       "user_status": "needs-better-base-variant",
@@ -94260,7 +94738,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "98",
+      "rank": "104",
       "chart": "minio-operator/tenant",
       "version": "7.1.1",
       "user_status": "needs-better-base-variant",
@@ -94293,7 +94771,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "99",
+      "rank": "105",
       "chart": "mysql/mysql-operator",
       "version": "2.3.0",
       "user_status": "needs-better-base-variant",
@@ -94326,7 +94804,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "100",
+      "rank": "106",
       "chart": "nats/nack",
       "version": "0.34.0",
       "user_status": "works-with-target-prerequisites",
@@ -94359,7 +94837,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "101",
+      "rank": "107",
       "chart": "nats/surveyor",
       "version": "0.20.9",
       "user_status": "works-with-operator-review",
@@ -94392,7 +94870,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "102",
+      "rank": "108",
       "chart": "nvidia/cluster-readiness-engine",
       "version": "v0.6.0",
       "user_status": "needs-better-base-variant",
@@ -94425,7 +94903,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "103",
+      "rank": "109",
       "chart": "nvidia/gpu-operator",
       "version": "v25.10.1",
       "user_status": "works-with-operator-review",
@@ -94458,7 +94936,7 @@
       "next_action": "review chart analysis and create a recipe candidate"
     },
     {
-      "rank": "104",
+      "rank": "110",
       "chart": "nvidia/k8s-nim-operator",
       "version": "3.1.0",
       "user_status": "works-with-operator-review",
@@ -94491,7 +94969,40 @@
       "next_action": "review chart analysis and create a recipe candidate"
     },
     {
-      "rank": "105",
+      "rank": "111",
+      "chart": "nvidia/nodewright",
+      "version": "v0.17.1",
+      "user_status": "works-with-operator-review",
+      "chart_use_answer": "review-needed",
+      "first_base": "default",
+      "catalog_path": "recipes/nvidia/nodewright/v0.17.1/CATALOG.md",
+      "current_proof": "not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)",
+      "proof_lane_rows": "aicr-eks-training;default",
+      "proof_lane_summary": "aicr-eks-training render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing; default render=pass confighub=missing local=missing gitops=missing live-parity=missing two-cluster=missing",
+      "variant_revisions": "recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/variant-revision.yaml;recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/variant-revision.yaml",
+      "recipe_paths": "recipes/nvidia/nodewright/v0.17.1",
+      "package_paths": "packages/nvidia/nodewright/v0.17.1",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/nvidia/nodewright/v0.17.1/source-lock.yaml;recipes/nvidia/nodewright/v0.17.1/CATALOG.md;recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/variant-revision.yaml;recipes/nvidia/nodewright/v0.17.1/helm-pain-report.yaml;recipes/nvidia/nodewright/v0.17.1/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/nvidia/nodewright/v0.17.1/value-model.yaml;recipes/nvidia/nodewright/v0.17.1/helm-plan.yaml;recipes/nvidia/nodewright/v0.17.1/publication/installer-package-receipt.yaml;data/outcome-coverage/chart-outcomes.csv;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "none-flagged",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "",
+      "user_must_provide": "nothing beyond a cluster and namespace",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate"
+    },
+    {
+      "rank": "112",
       "chart": "nvidia/nvidia-device-plugin",
       "version": "0.19.3",
       "user_status": "works-with-operator-review",
@@ -94524,7 +95035,7 @@
       "next_action": "review chart analysis and create a recipe candidate"
     },
     {
-      "rank": "106",
+      "rank": "113",
       "chart": "nvidia/nvsentinel",
       "version": "v1.20.0",
       "user_status": "works-with-operator-review",
@@ -94557,7 +95068,7 @@
       "next_action": "review chart analysis and create a recipe candidate"
     },
     {
-      "rank": "107",
+      "rank": "114",
       "chart": "open-telemetry/opentelemetry-operator",
       "version": "0.114.0",
       "user_status": "works-with-target-prerequisites",
@@ -94590,7 +95101,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "108",
+      "rank": "115",
       "chart": "percona/pg-operator",
       "version": "3.0.0",
       "user_status": "works-with-operator-review",
@@ -94623,7 +95134,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "109",
+      "rank": "116",
       "chart": "percona/psmdb-operator",
       "version": "1.22.0",
       "user_status": "works-with-operator-review",
@@ -94656,7 +95167,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "110",
+      "rank": "117",
       "chart": "rook-release/rook-ceph",
       "version": "v1.19.5",
       "user_status": "needs-better-base-variant",
@@ -94689,7 +95200,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "111",
+      "rank": "118",
       "chart": "rook-release/rook-ceph-cluster",
       "version": "v1.19.5",
       "user_status": "needs-better-base-variant",
@@ -94722,7 +95233,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "112",
+      "rank": "119",
       "chart": "sealed-secrets/sealed-secrets",
       "version": "2.18.6",
       "user_status": "works-with-target-prerequisites",
@@ -94755,7 +95266,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "113",
+      "rank": "120",
       "chart": "velero/velero",
       "version": "12.0.1",
       "user_status": "works-with-target-prerequisites",
@@ -94788,7 +95299,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "114",
+      "rank": "121",
       "chart": "vm/victoria-logs-single",
       "version": "0.12.5",
       "user_status": "needs-better-base-variant",
@@ -94821,7 +95332,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "115",
+      "rank": "122",
       "chart": "vm/victoria-metrics-single",
       "version": "0.39.0",
       "user_status": "works-with-operator-review",
@@ -99377,9 +99888,9 @@
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
       "version": "2.59.0",
       "variant": "(source)",
-      "catalog_tier": "",
+      "catalog_tier": "next80-proof-grade",
       "adoption_bucket": "source-chart",
-      "quirk_features": "",
+      "quirk_features": "tpl;capabilities;cluster-rbac",
       "hard_gap": "",
       "strongest_evidence": "source-lock",
       "next_action": "choose or create an F2 base before rendering or deploying",
@@ -99462,12 +99973,12 @@
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
       "version": "2.59.0",
       "variant": "default",
-      "catalog_tier": "",
-      "adoption_bucket": "",
-      "quirk_features": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
+      "quirk_features": "tpl;capabilities;cluster-rbac",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review source/current-version drift and refresh recipe if needed",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -99547,12 +100058,12 @@
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
       "version": "2.59.0",
       "variant": "aicr-eks-training-v0-20-0",
-      "catalog_tier": "",
-      "adoption_bucket": "",
-      "quirk_features": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
+      "quirk_features": "tpl;capabilities;cluster-rbac",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review source/current-version drift and refresh recipe if needed",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -99632,12 +100143,12 @@
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
       "version": "2.59.0",
       "variant": "aicr-eks-training-v1-0-0",
-      "catalog_tier": "",
-      "adoption_bucket": "",
-      "quirk_features": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
+      "quirk_features": "tpl;capabilities;cluster-rbac",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review source/current-version drift and refresh recipe if needed",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -106177,7 +106688,7 @@
       "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
       "version": "0.4.1",
       "variant": "(source)",
-      "catalog_tier": "",
+      "catalog_tier": "next80-proof-grade",
       "adoption_bucket": "source-chart",
       "quirk_features": "",
       "hard_gap": "",
@@ -106262,12 +106773,12 @@
       "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
       "version": "0.4.1",
       "variant": "default",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -106347,12 +106858,12 @@
       "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
       "version": "0.4.1",
       "variant": "aicr-eks-training",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -106432,12 +106943,12 @@
       "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
       "version": "0.4.1",
       "variant": "gpu-resources",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -106517,7 +107028,7 @@
       "chart": "eks/aws-efa-k8s-device-plugin",
       "version": "v0.5.29",
       "variant": "(source)",
-      "catalog_tier": "",
+      "catalog_tier": "next80-proof-grade",
       "adoption_bucket": "source-chart",
       "quirk_features": "",
       "hard_gap": "",
@@ -106602,12 +107113,12 @@
       "chart": "eks/aws-efa-k8s-device-plugin",
       "version": "v0.5.29",
       "variant": "default",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -106687,12 +107198,12 @@
       "chart": "eks/aws-efa-k8s-device-plugin",
       "version": "v0.5.29",
       "variant": "aicr-eks-training",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -117822,7 +118333,7 @@
       "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
       "version": "1.19.2",
       "variant": "(source)",
-      "catalog_tier": "",
+      "catalog_tier": "next80-proof-grade",
       "adoption_bucket": "source-chart",
       "quirk_features": "",
       "hard_gap": "",
@@ -117907,12 +118418,12 @@
       "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
       "version": "1.19.2",
       "variant": "default",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -117992,12 +118503,12 @@
       "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
       "version": "1.19.2",
       "variant": "aicr-eks-training-v0-20-0",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -118077,12 +118588,12 @@
       "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
       "version": "1.19.2",
       "variant": "aicr-eks-training-v1-0-0",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -118162,7 +118673,7 @@
       "chart": "kai-scheduler/kai-scheduler",
       "version": "v0.14.1",
       "variant": "(source)",
-      "catalog_tier": "",
+      "catalog_tier": "next80-proof-grade",
       "adoption_bucket": "source-chart",
       "quirk_features": "",
       "hard_gap": "",
@@ -118247,12 +118758,12 @@
       "chart": "kai-scheduler/kai-scheduler",
       "version": "v0.14.1",
       "variant": "default",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -118332,12 +118843,12 @@
       "chart": "kai-scheduler/kai-scheduler",
       "version": "v0.14.1",
       "variant": "aicr-eks-training",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -119012,7 +119523,7 @@
       "chart": "kubeflow/kubeflow-trainer",
       "version": "2.2.0",
       "variant": "(source)",
-      "catalog_tier": "",
+      "catalog_tier": "next80-proof-grade",
       "adoption_bucket": "source-chart",
       "quirk_features": "",
       "hard_gap": "",
@@ -119097,12 +119608,12 @@
       "chart": "kubeflow/kubeflow-trainer",
       "version": "2.2.0",
       "variant": "default",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -119182,12 +119693,12 @@
       "chart": "kubeflow/kubeflow-trainer",
       "version": "2.2.0",
       "variant": "aicr-eks-training-v0-20-0",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -119267,12 +119778,12 @@
       "chart": "kubeflow/kubeflow-trainer",
       "version": "2.2.0",
       "variant": "aicr-eks-training-v1-0-0",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -122752,9 +123263,9 @@
       "chart": "node-feature-discovery/node-feature-discovery",
       "version": "0.19.0",
       "variant": "(source)",
-      "catalog_tier": "",
+      "catalog_tier": "next80-proof-grade",
       "adoption_bucket": "source-chart",
-      "quirk_features": "",
+      "quirk_features": "crds;cluster-rbac",
       "hard_gap": "",
       "strongest_evidence": "source-lock",
       "next_action": "choose or create an F2 base before rendering or deploying",
@@ -122837,12 +123348,12 @@
       "chart": "node-feature-discovery/node-feature-discovery",
       "version": "0.19.0",
       "variant": "default",
-      "catalog_tier": "",
-      "adoption_bucket": "",
-      "quirk_features": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
+      "quirk_features": "crds;cluster-rbac",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review source/current-version drift and refresh recipe if needed",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -122869,7 +123380,7 @@
       "lane_render_parity": "yes",
       "lane_confighub_scan_ops": "todo",
       "lane_local_kind": "todo",
-      "lane_lifecycle_observed": "n/a",
+      "lane_lifecycle_observed": "todo",
       "lane_gitops_oci_live": "todo",
       "lane_live_dual_parity": "todo",
       "lane_two_cluster_kind": "todo",
@@ -122922,12 +123433,12 @@
       "chart": "node-feature-discovery/node-feature-discovery",
       "version": "0.19.0",
       "variant": "aicr-eks-training-v0-20-0",
-      "catalog_tier": "",
-      "adoption_bucket": "",
-      "quirk_features": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
+      "quirk_features": "crds;cluster-rbac",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review source/current-version drift and refresh recipe if needed",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -122954,7 +123465,7 @@
       "lane_render_parity": "yes",
       "lane_confighub_scan_ops": "todo",
       "lane_local_kind": "todo",
-      "lane_lifecycle_observed": "n/a",
+      "lane_lifecycle_observed": "todo",
       "lane_gitops_oci_live": "todo",
       "lane_live_dual_parity": "todo",
       "lane_two_cluster_kind": "todo",
@@ -123007,12 +123518,12 @@
       "chart": "node-feature-discovery/node-feature-discovery",
       "version": "0.19.0",
       "variant": "aicr-eks-training-v1-0-0",
-      "catalog_tier": "",
-      "adoption_bucket": "",
-      "quirk_features": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
+      "quirk_features": "crds;cluster-rbac",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review source/current-version drift and refresh recipe if needed",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -123039,7 +123550,7 @@
       "lane_render_parity": "yes",
       "lane_confighub_scan_ops": "todo",
       "lane_local_kind": "todo",
-      "lane_lifecycle_observed": "n/a",
+      "lane_lifecycle_observed": "todo",
       "lane_gitops_oci_live": "todo",
       "lane_live_dual_parity": "todo",
       "lane_two_cluster_kind": "todo",
@@ -124112,7 +124623,7 @@
       "chart": "nvidia/nodewright",
       "version": "v0.17.1",
       "variant": "(source)",
-      "catalog_tier": "",
+      "catalog_tier": "next80-proof-grade",
       "adoption_bucket": "source-chart",
       "quirk_features": "",
       "hard_gap": "",
@@ -124197,12 +124708,12 @@
       "chart": "nvidia/nodewright",
       "version": "v0.17.1",
       "variant": "default",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -124282,12 +124793,12 @@
       "chart": "nvidia/nodewright",
       "version": "v0.17.1",
       "variant": "aicr-eks-training",
-      "catalog_tier": "",
-      "adoption_bucket": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
       "quirk_features": "",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review chart analysis and create a recipe candidate",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -129212,9 +129723,9 @@
       "chart": "prometheus-community/prometheus-operator-crds",
       "version": "28.0.1",
       "variant": "(source)",
-      "catalog_tier": "",
+      "catalog_tier": "next80-proof-grade",
       "adoption_bucket": "source-chart",
-      "quirk_features": "",
+      "quirk_features": "generated-facts;crds",
       "hard_gap": "",
       "strongest_evidence": "source-lock",
       "next_action": "choose or create an F2 base before rendering or deploying",
@@ -129297,12 +129808,12 @@
       "chart": "prometheus-community/prometheus-operator-crds",
       "version": "28.0.1",
       "variant": "default",
-      "catalog_tier": "",
-      "adoption_bucket": "",
-      "quirk_features": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
+      "quirk_features": "generated-facts;crds",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review source/current-version drift and refresh recipe if needed",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -129329,7 +129840,7 @@
       "lane_render_parity": "yes",
       "lane_confighub_scan_ops": "todo",
       "lane_local_kind": "todo",
-      "lane_lifecycle_observed": "n/a",
+      "lane_lifecycle_observed": "todo",
       "lane_gitops_oci_live": "todo",
       "lane_live_dual_parity": "todo",
       "lane_two_cluster_kind": "todo",
@@ -129382,12 +129893,12 @@
       "chart": "prometheus-community/prometheus-operator-crds",
       "version": "28.0.1",
       "variant": "aicr-eks-training",
-      "catalog_tier": "",
-      "adoption_bucket": "",
-      "quirk_features": "",
+      "catalog_tier": "next80-proof-grade",
+      "adoption_bucket": "not-ready",
+      "quirk_features": "generated-facts;crds",
       "hard_gap": "",
-      "strongest_evidence": "",
-      "next_action": "",
+      "strongest_evidence": "render-parity",
+      "next_action": "review source/current-version drift and refresh recipe if needed",
       "hook_count": "",
       "hook_disposition": "",
       "hook_evidence_version": "",
@@ -129414,7 +129925,7 @@
       "lane_render_parity": "yes",
       "lane_confighub_scan_ops": "todo",
       "lane_local_kind": "todo",
-      "lane_lifecycle_observed": "n/a",
+      "lane_lifecycle_observed": "todo",
       "lane_gitops_oci_live": "todo",
       "lane_live_dual_parity": "todo",
       "lane_two_cluster_kind": "todo",

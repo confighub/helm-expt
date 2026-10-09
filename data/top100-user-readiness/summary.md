@@ -13,8 +13,8 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | --- | --- | --- |
 | ready-to-try | 20 | Catalog-supported with live evidence; the recommended first base passes its lanes. Pull it and inspect the exact objects. |
 | works-with-target-prerequisites | 15 | Proof-grade and review-queued; the named gap is something your cluster or team must provide (existing Secret, storage, CRD ownership). |
-| works-with-operator-review | 34 | Proof-grade; render parity holds, but an operator should review the catalog shape (hooks, lifecycle, HA teaching, variant naming) before relying on it. |
-| needs-better-base-variant | 39 | The mechanism is proven, but the install shapes a real user wants are not built or reviewed yet. |
+| works-with-operator-review | 43 | Proof-grade; render parity holds, but an operator should review the catalog shape (hooks, lifecycle, HA teaching, variant naming) before relying on it. |
+| needs-better-base-variant | 37 | The mechanism is proven, but the install shapes a real user wants are not built or reviewed yet. |
 | not-ready-yet | 7 | A named limitation or target compatibility issue needs a support / disclose / defer / refuse decision before this chart can be promoted. |
 
 ## ready-to-try (20)
@@ -62,7 +62,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | sealed-secrets/sealed-secrets@2.18.6 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | velero/velero@12.0.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 
-## works-with-operator-review (34)
+## works-with-operator-review (43)
 
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
@@ -74,6 +74,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | prometheus-community/alertmanager@1.37.0 | default (unreviewed first guess) | a StorageClass / storage decision | run catalog promotion review |
 | elastic/logstash@8.5.1 | default (unreviewed first guess) | a StorageClass / storage decision | run catalog promotion review |
 | prometheus-community/prometheus-adapter@5.3.0 | apiservice-v1-capability (unreviewed first guess) | nothing beyond a cluster and namespace | Run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract for the maintained apiservice-v1-capability base before catalog promotion. |
+| prometheus-community/prometheus-operator-crds@28.0.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time | review source/current-version drift and refresh recipe if needed |
 | elastic/filebeat@8.5.1 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 | hashicorp/terraform@1.1.2 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); mandatory chart inputs | run catalog promotion review |
 | fairwinds-stable/vpa@4.11.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time | review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path |
@@ -81,6 +82,8 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | jaegertracing/jaeger-operator@2.57.0 | no-crds (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time | run catalog promotion review |
 | strimzi/strimzi-kafka-operator@1.0.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | percona/pxc-operator@1.19.1 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); target facts at variant time | run catalog promotion review |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | review source/current-version drift and refresh recipe if needed |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | default (unreviewed first guess) | mandatory chart inputs | review source/current-version drift and refresh recipe if needed |
 | argo-cd/argo-events@2.4.21 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | argo-cd/argo-rollouts@2.40.9 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | argo-cd/argo-workflows@1.0.14 | minimal-crds (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
@@ -90,18 +93,24 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | aws-controllers-k8s/iam-chart@1.7.3 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run) | review chart analysis and create a recipe candidate |
 | cloudpirates/rabbitmq@0.21.13 | default (unreviewed first guess) | an existing Secret for some bases (built) | run catalog promotion review |
 | cloudpirates/redis@0.34.11 | default (unreviewed first guess) | an existing Secret for some bases (built) | run catalog promotion review |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | default (unreviewed first guess) | nothing beyond a cluster and namespace | review chart analysis and create a recipe candidate |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default (unreviewed first guess) | nothing beyond a cluster and namespace | review chart analysis and create a recipe candidate |
 | grafana/rollout-operator@0.49.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | istio/gateway@1.30.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | default (unreviewed first guess) | nothing beyond a cluster and namespace | review chart analysis and create a recipe candidate |
+| kai-scheduler/kai-scheduler@v0.14.1 | default (unreviewed first guess) | nothing beyond a cluster and namespace | review chart analysis and create a recipe candidate |
+| kubeflow/kubeflow-trainer@2.2.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | review chart analysis and create a recipe candidate |
 | nats/surveyor@0.20.9 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 | nvidia/gpu-operator@v25.10.1 | default (unreviewed first guess) | nothing beyond a cluster and namespace | review chart analysis and create a recipe candidate |
 | nvidia/k8s-nim-operator@3.1.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | review chart analysis and create a recipe candidate |
+| nvidia/nodewright@v0.17.1 | default (unreviewed first guess) | nothing beyond a cluster and namespace | review chart analysis and create a recipe candidate |
 | nvidia/nvidia-device-plugin@0.19.3 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run) | review chart analysis and create a recipe candidate |
 | nvidia/nvsentinel@v1.20.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | review chart analysis and create a recipe candidate |
 | percona/pg-operator@3.0.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | percona/psmdb-operator@1.22.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | vm/victoria-metrics-single@0.39.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 
-## needs-better-base-variant (39)
+## needs-better-base-variant (37)
 
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
@@ -117,7 +126,6 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | falcosecurity/falco@9.0.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | projectcalico/tigera-operator@v3.32.0 | default (unreviewed first guess) | target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | fairwinds-stable/goldilocks@10.3.0 | default (unreviewed first guess) | an existing Secret for some bases (NOT built - chart ships no Secret toggle); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
-| prometheus-community/prometheus-operator-crds@29.0.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | coredns/coredns@1.45.2 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | prometheus-community/prometheus-pushgateway@3.6.0 | default (unreviewed first guess) | a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | fluent/fluentd@0.5.3 | default (unreviewed first guess) | a StorageClass / storage decision; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
@@ -128,7 +136,6 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | kyverno/kyverno-policies@3.8.0 | default (unreviewed first guess) | target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | elastic/metricbeat@8.5.1 | default (unreviewed first guess) | a StorageClass / storage decision; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | minio-operator/operator@7.1.1 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
-| aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default (unreviewed first guess) | mandatory chart inputs; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | falcosecurity/falcosidekick@0.13.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | argo-cd/argocd-image-updater@1.2.2 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |
 | cloudpirates/nginx@0.16.1 | default (unreviewed first guess) | your wanted install shape, until a reviewed base exists | add at least one user-shaped variant before catalog promotion |

@@ -13,7 +13,7 @@ never one without the other. Read-only projection over
 [chart-skills](../chart-skills/skills.csv). The browser board is
 [fact-sheets.html](fact-sheets.html).
 
-Covers **115 charts**. By support status: needs-better-base-variant 39 · works-with-operator-review 34 · ready-to-try 20 · works-with-target-prerequisites 15 · not-ready-yet 7.
+Covers **122 charts**. By support status: works-with-operator-review 43 · needs-better-base-variant 37 · ready-to-try 20 · works-with-target-prerequisites 15 · not-ready-yet 7.
 
 After any apply, the honest check is **cub-scout** — `object-set-matches`,
 `prerequisites-met`, `workloads-converged` — because "created" is not "working".
@@ -594,17 +594,17 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** add at least one user-shaped variant before catalog promotion
 
-## prometheus-community/prometheus-operator-crds@29.0.0
+## prometheus-community/prometheus-operator-crds@28.0.1
 
-- **Status:** Needs a better base (`needs-better-base-variant`)
-- **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
+- **Status:** works-with-operator-review (`works-with-operator-review`)
+- **Support (claim):** review-needed
+- **Evidence depth:** not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)
 - **Recommended base:** `default`
-- **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time; your wanted install shape, until a reviewed base exists
+- **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time
 - **Quirks & disposition:** crds;existing-secret;generated-facts — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts
-- **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md)
+- **Skill:** none ()
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
-- **Next action:** add at least one user-shaped variant before catalog promotion
+- **Next action:** review source/current-version drift and refresh recipe if needed
 
 ## bitnami/zookeeper@13.8.7
 
@@ -858,6 +858,18 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** run catalog promotion review
 
+## node-feature-discovery/node-feature-discovery@0.19.0
+
+- **Status:** works-with-operator-review (`works-with-operator-review`)
+- **Support (claim):** review-needed
+- **Evidence depth:** not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)
+- **Recommended base:** `default`
+- **You must provide/decide:** a CRD ownership choice (crds vs no-crds base)
+- **Quirks & disposition:** crds;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases
+- **Skill:** none ()
+- **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
+- **Next action:** review source/current-version drift and refresh recipe if needed
+
 ## bitnami/apache@11.4.29
 
 - **Status:** Not ready yet (`not-ready-yet`)
@@ -882,17 +894,17 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** review limitation before promotion: existing-secret (chart ships no Secret toggle)
 
-## aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1
+## aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0
 
-- **Status:** Needs a better base (`needs-better-base-variant`)
-- **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)
+- **Status:** works-with-operator-review (`works-with-operator-review`)
+- **Support (claim):** review-needed
+- **Evidence depth:** not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)
 - **Recommended base:** `default`
-- **You must provide/decide:** mandatory chart inputs; your wanted install shape, until a reviewed base exists
-- **Quirks & disposition:** extension-slots;required-values;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases
+- **You must provide/decide:** mandatory chart inputs
+- **Quirks & disposition:** required-values;tpl;capabilities;rbac — exact rendered objects with render parity and receipts
 - **Skill:** none ()
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
-- **Next action:** add at least one user-shaped variant before catalog promotion
+- **Next action:** review source/current-version drift and refresh recipe if needed
 
 ## falcosecurity/falcosidekick@0.13.1
 
@@ -1086,6 +1098,30 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** add at least one user-shaped variant before catalog promotion
 
+## dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1
+
+- **Status:** works-with-operator-review (`works-with-operator-review`)
+- **Support (claim):** review-needed
+- **Evidence depth:** not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)
+- **Recommended base:** `default`
+- **You must provide/decide:** nothing beyond a cluster and namespace
+- **Quirks & disposition:** none-flagged — exact rendered objects with render parity and receipts
+- **Skill:** none ()
+- **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
+- **Next action:** review chart analysis and create a recipe candidate
+
+## eks/aws-efa-k8s-device-plugin@v0.5.29
+
+- **Status:** works-with-operator-review (`works-with-operator-review`)
+- **Support (claim):** review-needed
+- **Evidence depth:** not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)
+- **Recommended base:** `default`
+- **You must provide/decide:** nothing beyond a cluster and namespace
+- **Quirks & disposition:** none-flagged — exact rendered objects with render parity and receipts
+- **Skill:** none ()
+- **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
+- **Next action:** review chart analysis and create a recipe candidate
+
 ## grafana/promtail@6.17.1
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
@@ -1169,6 +1205,42 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Skill:** live-parity (docs/skills/live-parity.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** run catalog promotion review
+
+## k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2
+
+- **Status:** works-with-operator-review (`works-with-operator-review`)
+- **Support (claim):** review-needed
+- **Evidence depth:** not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)
+- **Recommended base:** `default`
+- **You must provide/decide:** nothing beyond a cluster and namespace
+- **Quirks & disposition:** none-flagged — exact rendered objects with render parity and receipts
+- **Skill:** none ()
+- **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
+- **Next action:** review chart analysis and create a recipe candidate
+
+## kai-scheduler/kai-scheduler@v0.14.1
+
+- **Status:** works-with-operator-review (`works-with-operator-review`)
+- **Support (claim):** review-needed
+- **Evidence depth:** not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)
+- **Recommended base:** `default`
+- **You must provide/decide:** nothing beyond a cluster and namespace
+- **Quirks & disposition:** none-flagged — exact rendered objects with render parity and receipts
+- **Skill:** none ()
+- **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
+- **Next action:** review chart analysis and create a recipe candidate
+
+## kubeflow/kubeflow-trainer@2.2.0
+
+- **Status:** works-with-operator-review (`works-with-operator-review`)
+- **Support (claim):** review-needed
+- **Evidence depth:** not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)
+- **Recommended base:** `default`
+- **You must provide/decide:** nothing beyond a cluster and namespace
+- **Quirks & disposition:** none-flagged — exact rendered objects with render parity and receipts
+- **Skill:** none ()
+- **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
+- **Next action:** review chart analysis and create a recipe candidate
 
 ## linkerd/linkerd-crds@1.8.0
 
@@ -1255,6 +1327,18 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Next action:** review chart analysis and create a recipe candidate
 
 ## nvidia/k8s-nim-operator@3.1.0
+
+- **Status:** works-with-operator-review (`works-with-operator-review`)
+- **Support (claim):** review-needed
+- **Evidence depth:** not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)
+- **Recommended base:** `default`
+- **You must provide/decide:** nothing beyond a cluster and namespace
+- **Quirks & disposition:** none-flagged — exact rendered objects with render parity and receipts
+- **Skill:** none ()
+- **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
+- **Next action:** review chart analysis and create a recipe candidate
+
+## nvidia/nodewright@v0.17.1
 
 - **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** review-needed

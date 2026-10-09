@@ -20,8 +20,8 @@ tr.ok{background:rgba(46,160,67,.07)}tr.warn{background:rgba(210,153,34,.07)}tr.
 code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 </style></head><body>
 <h1>Can I use this chart, and how?</h1>
-<p class="sub">Per-chart fact sheets over 115 catalog charts — <b>support level</b> beside <b>evidence depth</b>, with prerequisites, quirks, the applicable skill, and the cub-scout post-apply check. Generated; do not hand-edit.</p>
-<p class="legend"><span><span class="dot ok"></span>ready to try (20)</span><span><span class="dot warn"></span>needs prerequisites / better base (54)</span><span><span class="dot block"></span>not ready yet (7)</span></p>
+<p class="sub">Per-chart fact sheets over 122 catalog charts — <b>support level</b> beside <b>evidence depth</b>, with prerequisites, quirks, the applicable skill, and the cub-scout post-apply check. Generated; do not hand-edit.</p>
+<p class="legend"><span><span class="dot ok"></span>ready to try (20)</span><span><span class="dot warn"></span>needs prerequisites / better base (52)</span><span><span class="dot block"></span>not ready yet (7)</span></p>
 <table>
 <thead><tr><th>Chart</th><th>Status</th><th>Support (claim)</th><th>Evidence depth</th><th>Base</th><th>You provide/decide</th><th>Quirks &amp; disposition</th><th>Skill</th><th>Post-apply check (cub-scout)</th></tr></thead>
 <tbody>
@@ -422,17 +422,6 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
 </tr>
 <tr class="warn">
-<td><b>aws-ebs-csi-driver/aws-ebs-csi-driver</b><br><span class="v">2.60.1</span></td>
-<td><span class="pill warn">Needs a better base</span></td>
-<td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)</td>
-<td><code>default</code></td>
-<td>mandatory chart inputs; your wanted install shape, until a reviewed base exists</td>
-<td>extension-slots;required-values;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
-<td>none ()</td>
-<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
-</tr>
-<tr class="warn">
 <td><b>bitnami/memcached</b><br><span class="v">8.5.5</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
@@ -763,17 +752,6 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
 </tr>
 <tr class="warn">
-<td><b>prometheus-community/prometheus-operator-crds</b><br><span class="v">29.0.0</span></td>
-<td><span class="pill warn">Needs a better base</span></td>
-<td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
-<td><code>default</code></td>
-<td>an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time; your wanted install shape, until a reviewed base exists</td>
-<td>crds;existing-secret;generated-facts — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts</td>
-<td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md)</td>
-<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
-</tr>
-<tr class="warn">
 <td><b>prometheus-community/prometheus-pushgateway</b><br><span class="v">3.6.0</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
@@ -994,6 +972,17 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
 </tr>
 <tr class="unknown">
+<td><b>aws-ebs-csi-driver/aws-ebs-csi-driver</b><br><span class="v">2.59.0</span></td>
+<td><span class="pill unknown">works-with-operator-review</span></td>
+<td>review-needed</td>
+<td class="ev">not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)</td>
+<td><code>default</code></td>
+<td>mandatory chart inputs</td>
+<td>required-values;tpl;capabilities;rbac — exact rendered objects with render parity and receipts</td>
+<td>none ()</td>
+<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
+</tr>
+<tr class="unknown">
 <td><b>cloudpirates/rabbitmq</b><br><span class="v">0.21.13</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
@@ -1012,6 +1001,28 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><code>default</code></td>
 <td>an existing Secret for some bases (built)</td>
 <td>existing-secret;extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
+<td>none ()</td>
+<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
+</tr>
+<tr class="unknown">
+<td><b>dra-driver-nvidia/dra-driver-nvidia-gpu</b><br><span class="v">0.4.1</span></td>
+<td><span class="pill unknown">works-with-operator-review</span></td>
+<td>review-needed</td>
+<td class="ev">not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)</td>
+<td><code>default</code></td>
+<td>nothing beyond a cluster and namespace</td>
+<td>none-flagged — exact rendered objects with render parity and receipts</td>
+<td>none ()</td>
+<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
+</tr>
+<tr class="unknown">
+<td><b>eks/aws-efa-k8s-device-plugin</b><br><span class="v">v0.5.29</span></td>
+<td><span class="pill unknown">works-with-operator-review</span></td>
+<td>review-needed</td>
+<td class="ev">not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)</td>
+<td><code>default</code></td>
+<td>nothing beyond a cluster and namespace</td>
+<td>none-flagged — exact rendered objects with render parity and receipts</td>
 <td>none ()</td>
 <td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
 </tr>
@@ -1093,6 +1104,28 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
 </tr>
 <tr class="unknown">
+<td><b>k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics</b><br><span class="v">1.19.2</span></td>
+<td><span class="pill unknown">works-with-operator-review</span></td>
+<td>review-needed</td>
+<td class="ev">not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)</td>
+<td><code>default</code></td>
+<td>nothing beyond a cluster and namespace</td>
+<td>none-flagged — exact rendered objects with render parity and receipts</td>
+<td>none ()</td>
+<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
+</tr>
+<tr class="unknown">
+<td><b>kai-scheduler/kai-scheduler</b><br><span class="v">v0.14.1</span></td>
+<td><span class="pill unknown">works-with-operator-review</span></td>
+<td>review-needed</td>
+<td class="ev">not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)</td>
+<td><code>default</code></td>
+<td>nothing beyond a cluster and namespace</td>
+<td>none-flagged — exact rendered objects with render parity and receipts</td>
+<td>none ()</td>
+<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
+</tr>
+<tr class="unknown">
 <td><b>karpenter/karpenter</b><br><span class="v">1.14.0</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>review-needed</td>
@@ -1112,6 +1145,17 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td>a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time</td>
 <td>crds;webhooks;extension-slots;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases</td>
 <td>serious-chart-playbooks (docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md)</td>
+<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
+</tr>
+<tr class="unknown">
+<td><b>kubeflow/kubeflow-trainer</b><br><span class="v">2.2.0</span></td>
+<td><span class="pill unknown">works-with-operator-review</span></td>
+<td>review-needed</td>
+<td class="ev">not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)</td>
+<td><code>default</code></td>
+<td>nothing beyond a cluster and namespace</td>
+<td>none-flagged — exact rendered objects with render parity and receipts</td>
+<td>none ()</td>
 <td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
 </tr>
 <tr class="unknown">
@@ -1137,6 +1181,17 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
 </tr>
 <tr class="unknown">
+<td><b>node-feature-discovery/node-feature-discovery</b><br><span class="v">0.19.0</span></td>
+<td><span class="pill unknown">works-with-operator-review</span></td>
+<td>review-needed</td>
+<td class="ev">not-in-current-catalog-lane (render parity 3/3, local live 0/3, live parity 0/3)</td>
+<td><code>default</code></td>
+<td>a CRD ownership choice (crds vs no-crds base)</td>
+<td>crds;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases</td>
+<td>none ()</td>
+<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
+</tr>
+<tr class="unknown">
 <td><b>nvidia/gpu-operator</b><br><span class="v">v25.10.1</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>review-needed</td>
@@ -1149,6 +1204,17 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 </tr>
 <tr class="unknown">
 <td><b>nvidia/k8s-nim-operator</b><br><span class="v">3.1.0</span></td>
+<td><span class="pill unknown">works-with-operator-review</span></td>
+<td>review-needed</td>
+<td class="ev">not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)</td>
+<td><code>default</code></td>
+<td>nothing beyond a cluster and namespace</td>
+<td>none-flagged — exact rendered objects with render parity and receipts</td>
+<td>none ()</td>
+<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
+</tr>
+<tr class="unknown">
+<td><b>nvidia/nodewright</b><br><span class="v">v0.17.1</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>review-needed</td>
 <td class="ev">not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)</td>
@@ -1244,6 +1310,17 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td>nothing beyond a cluster and namespace</td>
 <td>extension-slots;tpl;capabilities — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
 <td>live-parity (docs/skills/live-parity.md)</td>
+<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
+</tr>
+<tr class="unknown">
+<td><b>prometheus-community/prometheus-operator-crds</b><br><span class="v">28.0.1</span></td>
+<td><span class="pill unknown">works-with-operator-review</span></td>
+<td>review-needed</td>
+<td class="ev">not-in-current-catalog-lane (render parity 2/2, local live 0/2, live parity 0/2)</td>
+<td><code>default</code></td>
+<td>an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time</td>
+<td>crds;existing-secret;generated-facts — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts</td>
+<td>none ()</td>
 <td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
 </tr>
 <tr class="unknown">

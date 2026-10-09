@@ -28,13 +28,13 @@ for exact base-variant evidence.
 
 | Field | Value |
 | --- | --- |
-| Adoption bucket | - |
-| User status | - |
-| Strongest evidence | - |
+| Adoption bucket | not-ready |
+| User status | not-in-current-catalog-lane |
+| Strongest evidence | render-parity |
 | Proof lanes | render parity 2/2; ConfigHub 0/2; local live 0/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | none-recorded |
 | Hard gap | - |
-| Next action | - |
+| Next action | review chart analysis and create a recipe candidate |
 
 ## Artifact Chain
 

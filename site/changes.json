@@ -1103,8 +1103,15 @@
           ]
         },
         "chart_analysis": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
         },
         "render_parity": {
           "status": "checked",
@@ -3328,8 +3335,15 @@
           ]
         },
         "chart_analysis": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
         },
         "render_parity": {
           "status": "checked",
@@ -3447,8 +3461,15 @@
           ]
         },
         "chart_analysis": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
         },
         "render_parity": {
           "status": "checked",
@@ -6630,8 +6651,15 @@
           ]
         },
         "chart_analysis": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
         },
         "render_parity": {
           "status": "checked",
@@ -6693,8 +6721,15 @@
           ]
         },
         "chart_analysis": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
         },
         "render_parity": {
           "status": "checked",
@@ -6962,8 +6997,15 @@
           ]
         },
         "chart_analysis": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/kubeflow/kubeflow-trainer/2.2.0/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/kubeflow/kubeflow-trainer/2.2.0/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/kubeflow/kubeflow-trainer/2.2.0/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/kubeflow/kubeflow-trainer/2.2.0/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
         },
         "render_parity": {
           "status": "checked",
@@ -8430,8 +8472,15 @@
           ]
         },
         "chart_analysis": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
         },
         "render_parity": {
           "status": "checked",
@@ -8449,7 +8498,7 @@
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_applicable",
+          "status": "not_checked",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -8921,8 +8970,15 @@
           ]
         },
         "chart_analysis": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.17.1/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.17.1/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.17.1/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.17.1/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
         },
         "render_parity": {
           "status": "checked",
@@ -11053,8 +11109,15 @@
           ]
         },
         "chart_analysis": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "partial",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/source-lock.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/CATALOG.md",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/helm-pain-report.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/control-points.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
+          ]
         },
         "render_parity": {
           "status": "checked",
@@ -11070,7 +11133,7 @@
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_applicable",
+          "status": "not_checked",
           "evidence_urls": []
         },
         "local_kubernetes": {

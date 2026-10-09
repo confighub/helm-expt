@@ -17,12 +17,12 @@ receipts. It does not run live lanes.
 ## Summary
 
 ~~~text
-variants surveyed: 210
-secret rows: 99
-variant dispositions: not-applicable=141, staged=31, delivered=24, needs-lane-support=6, delivered-and-staged=4, observed=4
-secret dispositions: staged=52, delivered=34, needs-lane-support=8, observed=5
-secret roles: user-credential-material=59, kubernetes-lifecycle-state=25, secret-material-review=15
-lifecycle secrets still needing lane support: 8
+variants surveyed: 231
+secret rows: 105
+variant dispositions: not-applicable=159, staged=31, delivered=24, needs-lane-support=9, delivered-and-staged=4, observed=4
+secret dispositions: staged=52, delivered=34, needs-lane-support=14, observed=5
+secret roles: user-credential-material=59, kubernetes-lifecycle-state=31, secret-material-review=15
+lifecycle secrets still needing lane support: 14
 ~~~
 
 ## Reading Rule
@@ -50,6 +50,12 @@ lifecycle secrets still needing lane support: 8
 | `elastic/eck-operator@3.4.0` | `no-crds` | `default/elastic-operator-webhook-cert` | [recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/release-objects.yaml](../../recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/release-objects.yaml) |
 | `gatekeeper/gatekeeper@3.22.2` | `no-crds` | `default/gatekeeper-webhook-server-cert` | [recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml](../../recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml) |
 | `hashicorp/consul@2.0.0` | `secure-mesh-existing-secrets` | `consul/consul-consul-auth-method` | [recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml](../../recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml) |
+| `kubeflow/kubeflow-trainer@2.2.0` | `aicr-eks-training-v0-20-0` | `kubeflow/jobset-webhook-server-cert` | [recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml](../../recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml) |
+| `kubeflow/kubeflow-trainer@2.2.0` | `aicr-eks-training-v0-20-0` | `kubeflow/kubeflow-trainer-webhook-cert` | [recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml](../../recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml) |
+| `kubeflow/kubeflow-trainer@2.2.0` | `aicr-eks-training-v1-0-0` | `kubeflow/jobset-webhook-server-cert` | [recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml](../../recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml) |
+| `kubeflow/kubeflow-trainer@2.2.0` | `aicr-eks-training-v1-0-0` | `kubeflow/kubeflow-trainer-webhook-cert` | [recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml](../../recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml) |
+| `kubeflow/kubeflow-trainer@2.2.0` | `default` | `kubeflow/jobset-webhook-server-cert` | [recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/rendered/release-objects.yaml](../../recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/rendered/release-objects.yaml) |
+| `kubeflow/kubeflow-trainer@2.2.0` | `default` | `kubeflow/kubeflow-trainer-webhook-cert` | [recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/rendered/release-objects.yaml](../../recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/rendered/release-objects.yaml) |
 
 Machine-readable forms:
 

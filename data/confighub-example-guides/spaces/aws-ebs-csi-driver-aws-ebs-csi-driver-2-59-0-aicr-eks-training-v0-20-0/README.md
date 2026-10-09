@@ -100,6 +100,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 - Local kind evidence is todo for this preset config.
 - GitOps OCI live evidence is todo for this preset config.
+- No production claim.
 
 ## Source files
 

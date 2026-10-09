@@ -577,7 +577,7 @@
         <div class="metric"><strong>Review before use</strong><span>First-configuration status</span></div>
         <div class="metric"><strong>Not reviewed for production</strong><span>Production status</span></div>
       </div>
-      <p>Start with the recommended configuration. Before production, confirm that its tests cover your target.</p>
+      <p>The chart needs manual review before a user-facing recommendation is made.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
         <tbody><tr><td>Catalog readiness</td><td>Review before use</td></tr><tr><td>Chart version</td><td>28.0.1</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Publisher signature</td><td>publisher signature recorded and verified</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default;aicr-eks-training</td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>monitoring</td></tr></tbody>
@@ -890,12 +890,12 @@ c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123  prometheus-com
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-28-0-1-default.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>10 prerequisites are declared for this base. Each prerequisite says whether it must be checked before render or before apply.</dd>
-          <dt>Next</dt><dd>Run the ConfigHub tests first</dd>
+          <dt>Next</dt><dd>Review source/current version drift and refresh recipe if needed</dd>
           <dt>Reason</dt><dd>Promotion needs source and destination ConfigHub Spaces. It has not been tested for this configuration.</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for default">
-          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Saved in ConfigHub</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Local cluster</b><em>Not run</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup route</b><em>Not needed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>GitOps and OCI</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Live Helm comparison</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Two clusters</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Promotion</b><em>Not run</em></span>
-        </div><p class="small"><strong>Prerequisites still apply.</strong> &ldquo;Not needed&rdquo; under Setup route means there is no separate hook or setup runner for this configuration; it does not remove the prerequisite listed above.</p>
+          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Saved in ConfigHub</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Local cluster</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Setup route</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>GitOps and OCI</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Live Helm comparison</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Two clusters</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Promotion</b><em>Not run</em></span>
+        </div>
         <p class="row-links"><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/CATALOG.md">catalog</a> · <a href="../../recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/default/variant.yaml">variant</a> · <a href="../../recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-28-0-1-default.yaml" download="prometheus-community-prometheus-operator-crds-28-0-1-default.render-intent.yaml">render intent</a> · <a href="../../data/base-variant-records/records/prometheus-community-prometheus-operator-crds-28-0-1-default.yaml" download="prometheus-community-prometheus-operator-crds-28-0-1-default.base-record.yaml">base record</a> · <a href="../../packages/prometheus-community/prometheus-operator-crds/28.0.1/bases/default">package base</a> · <a href="https://prometheus-community.github.io/helm-charts" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
         <div class="matrix-row-head">
@@ -917,12 +917,12 @@ c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123  prometheus-com
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>10 prerequisites are declared for this base. Each prerequisite says whether it must be checked before render or before apply.</dd>
-          <dt>Next</dt><dd>Run the ConfigHub tests first</dd>
+          <dt>Next</dt><dd>Review source/current version drift and refresh recipe if needed</dd>
           <dt>Reason</dt><dd>Promotion needs source and destination ConfigHub Spaces. It has not been tested for this configuration.</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for aicr-eks-training">
-          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Saved in ConfigHub</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Local cluster</b><em>Not run</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup route</b><em>Not needed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>GitOps and OCI</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Live Helm comparison</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Two clusters</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Promotion</b><em>Not run</em></span>
-        </div><p class="small"><strong>Prerequisites still apply.</strong> &ldquo;Not needed&rdquo; under Setup route means there is no separate hook or setup runner for this configuration; it does not remove the prerequisite listed above.</p>
+          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Saved in ConfigHub</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Local cluster</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Setup route</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>GitOps and OCI</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Live Helm comparison</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Two clusters</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Promotion</b><em>Not run</em></span>
+        </div>
         <p class="row-links"><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/CATALOG.md">catalog</a> · <a href="../../recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml">variant</a> · <a href="../../recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.yaml" download="prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.render-intent.yaml">render intent</a> · <a href="../../data/base-variant-records/records/prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.yaml" download="prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.base-record.yaml">base record</a> · <a href="../../packages/prometheus-community/prometheus-operator-crds/28.0.1/bases/aicr-eks-training">package base</a> · <a href="https://prometheus-community.github.io/helm-charts" rel="noopener">source repo</a></p>
       </article></div>
     </section>
@@ -984,7 +984,7 @@ c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123  prometheus-com
       <p>No special operating guide is assigned for this chart. Use the configuration status and test results on this page.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
-        <tbody><tr><td>User status</td><td>Status not recorded</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea</td></tr><tr><td>Tests completed</td><td>See the test results</td></tr><tr><td>Coverage</td><td>See coverage evidence</td></tr><tr><td>You must provide</td><td>Check the target requirements and configuration status</td></tr><tr><td>What the tools record</td><td>Rendered objects, test records, and checks</td></tr><tr><td>Next action</td><td>review source/current-version drift and refresh recipe if needed</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>Works with operator review</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea</td></tr><tr><td>Tests completed</td><td>Not in current catalog test (render parity 2/2; Local live 0/2; Live parity 0/2)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts</td></tr><tr><td>Next action</td><td>review source/current-version drift and refresh recipe if needed</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -1006,8 +1006,8 @@ c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123  prometheus-com
           <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-prometheus-operator-crds/28.0.1/installer-package-publication-receipt.yaml">Package receipt</a></td>
         </tr><tr>
           <td data-label="Question">What does this chart contain?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
+          <td data-label="Status">Partly checked</td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/source-lock.yaml">Source lock</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/CATALOG.md">Chart guide</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/variant-revision.yaml">Render result</a> · <a href="../changes.json">All 6 evidence links</a></td>
         </tr><tr>
           <td data-label="Question">Does the recorded render match Helm?</td>
           <td data-label="Status">Checked</td>
@@ -1018,7 +1018,7 @@ c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123  prometheus-com
           <td data-label="Evidence">No linked result</td>
         </tr><tr>
           <td data-label="Question">Were hooks, CRDs, or setup steps checked?</td>
-          <td data-label="Status">Not applicable</td>
+          <td data-label="Status">Not checked</td>
           <td data-label="Evidence">No linked result</td>
         </tr><tr>
           <td data-label="Question">Did this version run on a local Kubernetes cluster?</td>
@@ -1083,10 +1083,10 @@ c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123  prometheus-com
 
     <section aria-labelledby="quirks">
       <h2 id="quirks">What You Must Provide</h2>
-      <p>ConfigHub records the rendered objects, test results, and current limits.</p>
+      <p>exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts</p>
       <div class="card"><table>
         <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Known quirks</td><td>Generated facts.; Crds</td></tr><tr><td>You must provide</td><td>Check the configuration status and target requirements</td></tr><tr><td>What ConfigHub records</td><td>Exact rendered objects, checks, test results, and catalog evidence</td></tr><tr><td>Optional chart inputs</td><td>None identified in the chart facts</td></tr><tr><td>How optional inputs are handled</td><td>No handling rule is recorded</td></tr></tbody>
+        <tbody><tr><td>Known quirks</td><td>Crds; Existing secret; Generated facts.</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time</td></tr><tr><td>What ConfigHub records</td><td>exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts</td></tr><tr><td>Optional chart inputs</td><td>None identified in the chart facts</td></tr><tr><td>How optional inputs are handled</td><td>No handling rule is recorded</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
