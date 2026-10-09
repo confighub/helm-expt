@@ -7,7 +7,7 @@
     "site/listings/index.json",
     "site/listings/<id>.json"
   ],
-  "count": 495,
+  "count": 528,
   "rows": [
     {
       "id": "aicr-a100-aks-training-v1-0-0-argocd",
@@ -3706,6 +3706,72 @@
       }
     },
     {
+      "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0",
+      "name": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+      "format": "helm",
+      "version": "2.59.0",
+      "base": "aicr-eks-training-v0-20-0",
+      "summary": "aws-ebs-csi-driver/aws-ebs-csi-driver 2.59.0, helm, base aicr-eks-training-v0-20-0: 19 objects, flattening verdict safe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 19,
+      "flatteningVerdict": "safe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:3add2198bacb315b41fe707fe68c0aa4d71551850e31dc4757fca2b750c7c6a8",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0.json"
+      }
+    },
+    {
+      "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0",
+      "name": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+      "format": "helm",
+      "version": "2.59.0",
+      "base": "aicr-eks-training-v1-0-0",
+      "summary": "aws-ebs-csi-driver/aws-ebs-csi-driver 2.59.0, helm, base aicr-eks-training-v1-0-0: 19 objects, flattening verdict safe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 19,
+      "flatteningVerdict": "safe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:d2e617adfa3bf225ed25b1ffff83ce69708b4c37129385ebaaddfa8154b52314",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0.json"
+      }
+    },
+    {
+      "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default",
+      "name": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+      "format": "helm",
+      "version": "2.59.0",
+      "base": "default",
+      "summary": "aws-ebs-csi-driver/aws-ebs-csi-driver 2.59.0, helm, base default: 19 objects, flattening verdict safe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 19,
+      "flatteningVerdict": "safe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:447a8575281561228f0967028733f1aece68c338afa487091e8baa3f1eeaaec1",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default.json"
+      }
+    },
+    {
       "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default",
       "name": "aws-ebs-csi-driver/aws-ebs-csi-driver",
       "format": "helm",
@@ -5045,6 +5111,182 @@
       "listing": "https://confighub.github.io/helm-expt/site/listings/dex-dex-0-24-0-default.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/listings/dex-dex-0-24-0-default.json"
+      }
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training",
+      "name": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "format": "helm",
+      "version": "0.4.1",
+      "base": "aicr-eks-training",
+      "summary": "dra-driver-nvidia/dra-driver-nvidia-gpu 0.4.1, helm, base aicr-eks-training: 21 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "classified",
+      "objectCount": 21,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training.json"
+      }
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default",
+      "name": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "format": "helm",
+      "version": "0.4.1",
+      "base": "default",
+      "summary": "dra-driver-nvidia/dra-driver-nvidia-gpu 0.4.1, helm, base default: 21 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "classified",
+      "objectCount": 21,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:00102cc2a1a5a1e73778e326dc7774090347379c52fe73c68551602d1b26f3df",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default.json"
+      }
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources",
+      "name": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "format": "helm",
+      "version": "0.4.1",
+      "base": "gpu-resources",
+      "summary": "dra-driver-nvidia/dra-driver-nvidia-gpu 0.4.1, helm, base gpu-resources: 24 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "classified",
+      "objectCount": 24,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:8a6d869284830a33e801c4b782c12f193a497b7563d84acaf2c370c8be8a0183",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources.json"
+      }
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training",
+      "name": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "format": "helm",
+      "version": "0.5.0",
+      "base": "aicr-eks-training",
+      "summary": "dra-driver-nvidia/dra-driver-nvidia-gpu 0.5.0, helm, base aicr-eks-training: 21 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "classified",
+      "objectCount": 21,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:282e9c2dd1946fe677c2b7a9ee7d1a8d65f109f2a302ab628e2ffe1bddc3c932",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.json"
+      }
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default",
+      "name": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "format": "helm",
+      "version": "0.5.0",
+      "base": "default",
+      "summary": "dra-driver-nvidia/dra-driver-nvidia-gpu 0.5.0, helm, base default: 21 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "classified",
+      "objectCount": 21,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.json"
+      }
+    },
+    {
+      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources",
+      "name": "dra-driver-nvidia/dra-driver-nvidia-gpu",
+      "format": "helm",
+      "version": "0.5.0",
+      "base": "gpu-resources",
+      "summary": "dra-driver-nvidia/dra-driver-nvidia-gpu 0.5.0, helm, base gpu-resources: 24 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "classified",
+      "objectCount": 24,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:29aaf2e6ba3dce216ef70bcb1cd14afcd8dbcbe4e30cec982c48f36befe6e93d",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources.json"
+      }
+    },
+    {
+      "id": "eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training",
+      "name": "eks/aws-efa-k8s-device-plugin",
+      "format": "helm",
+      "version": "v0.5.29",
+      "base": "aicr-eks-training",
+      "summary": "eks/aws-efa-k8s-device-plugin v0.5.29, helm, base aicr-eks-training: 1 objects, flattening verdict safe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 1,
+      "flatteningVerdict": "safe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training.json"
+      }
+    },
+    {
+      "id": "eks-aws-efa-k8s-device-plugin-v0-5-29-default",
+      "name": "eks/aws-efa-k8s-device-plugin",
+      "format": "helm",
+      "version": "v0.5.29",
+      "base": "default",
+      "summary": "eks/aws-efa-k8s-device-plugin v0.5.29, helm, base default: 1 objects, flattening verdict safe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 1,
+      "flatteningVerdict": "safe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:c1ef5b2dfd1b02b944714537189ff29d7fa937dedcb2ce32b40495bebdb5b8f8",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/eks-aws-efa-k8s-device-plugin-v0-5-29-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/eks-aws-efa-k8s-device-plugin-v0-5-29-default.json"
       }
     },
     {
@@ -6676,6 +6918,160 @@
       }
     },
     {
+      "id": "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0",
+      "name": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
+      "format": "helm",
+      "version": "1.19.2",
+      "base": "aicr-eks-training-v0-20-0",
+      "summary": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics 1.19.2, helm, base aicr-eks-training-v0-20-0: 6 objects, flattening verdict safe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "classified",
+      "objectCount": 6,
+      "flatteningVerdict": "safe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:6ff74d2f9205569c76a953a1bc1b09ddcf9341e9a9c72c8a53e5805c59f403bd",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0.json"
+      }
+    },
+    {
+      "id": "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0",
+      "name": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
+      "format": "helm",
+      "version": "1.19.2",
+      "base": "aicr-eks-training-v1-0-0",
+      "summary": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics 1.19.2, helm, base aicr-eks-training-v1-0-0: 6 objects, flattening verdict safe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "classified",
+      "objectCount": 6,
+      "flatteningVerdict": "safe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:9f9f4bda22ad0886fe05c25a16a747c6020fc98151906bdcbe116c2177622a92",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0.json"
+      }
+    },
+    {
+      "id": "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default",
+      "name": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
+      "format": "helm",
+      "version": "1.19.2",
+      "base": "default",
+      "summary": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics 1.19.2, helm, base default: 6 objects, flattening verdict safe-to-flatten. Stages with evidence: inspection, materialization.",
+      "state": "classified",
+      "objectCount": 6,
+      "flatteningVerdict": "safe-to-flatten",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:80ef333ecea7833761b828a1da0e0301efc0e1a399a8a03fd31fdbd4af638da8",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default.json"
+      }
+    },
+    {
+      "id": "kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training",
+      "name": "kai-scheduler/kai-scheduler",
+      "format": "helm",
+      "version": "v0.14.1",
+      "base": "aicr-eks-training",
+      "summary": "kai-scheduler/kai-scheduler v0.14.1, helm, base aicr-eks-training: 37 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 37,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:f5b5383ffa1072925cd6d639d4aa69cbdefa1b34ba4eaf75b33a698fd210a9c5",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.json"
+      }
+    },
+    {
+      "id": "kai-scheduler-kai-scheduler-v0-14-1-default",
+      "name": "kai-scheduler/kai-scheduler",
+      "format": "helm",
+      "version": "v0.14.1",
+      "base": "default",
+      "summary": "kai-scheduler/kai-scheduler v0.14.1, helm, base default: 37 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 37,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:a0cf177775ec0bf2532012da868de07c070a4fb6d6f792a9518089c5b0bc7b46",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-14-1-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-14-1-default.json"
+      }
+    },
+    {
+      "id": "kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training",
+      "name": "kai-scheduler/kai-scheduler",
+      "format": "helm",
+      "version": "v0.16.9",
+      "base": "aicr-eks-training",
+      "summary": "kai-scheduler/kai-scheduler v0.16.9, helm, base aicr-eks-training: 37 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 37,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.json"
+      }
+    },
+    {
+      "id": "kai-scheduler-kai-scheduler-v0-16-9-default",
+      "name": "kai-scheduler/kai-scheduler",
+      "format": "helm",
+      "version": "v0.16.9",
+      "base": "default",
+      "summary": "kai-scheduler/kai-scheduler v0.16.9, helm, base default: 37 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 37,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-16-9-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-16-9-default.json"
+      }
+    },
+    {
       "id": "karpenter-karpenter-1-14-0-crds-managed",
       "name": "karpenter/karpenter",
       "format": "helm",
@@ -6805,6 +7201,72 @@
       "listing": "https://confighub.github.io/helm-expt/site/listings/kubara-local-platform-v0-12-0-base.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/listings/kubara-local-platform-v0-12-0-base.json"
+      }
+    },
+    {
+      "id": "kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v0-20-0",
+      "name": "kubeflow/kubeflow-trainer",
+      "format": "helm",
+      "version": "2.2.0",
+      "base": "aicr-eks-training-v0-20-0",
+      "summary": "kubeflow/kubeflow-trainer 2.2.0, helm, base aicr-eks-training-v0-20-0: 28 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 28,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:9dd7efd3ae87560f2a396d4ed3a13db830d8a5b0856da5992e377026a92f2fcc",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v0-20-0.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v0-20-0.json"
+      }
+    },
+    {
+      "id": "kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0",
+      "name": "kubeflow/kubeflow-trainer",
+      "format": "helm",
+      "version": "2.2.0",
+      "base": "aicr-eks-training-v1-0-0",
+      "summary": "kubeflow/kubeflow-trainer 2.2.0, helm, base aicr-eks-training-v1-0-0: 28 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 28,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:6d3b2103eec83a3ae10f1ced2dc4b30178068013ee0b688527581d2abe5619aa",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.json"
+      }
+    },
+    {
+      "id": "kubeflow-kubeflow-trainer-2-2-0-default",
+      "name": "kubeflow/kubeflow-trainer",
+      "format": "helm",
+      "version": "2.2.0",
+      "base": "default",
+      "summary": "kubeflow/kubeflow-trainer 2.2.0, helm, base default: 28 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 28,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:517fb09d2f16a0a4c83b9859ec82b4fddc8ce4c74eb552608c1789df0252b616",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/kubeflow-kubeflow-trainer-2-2-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/kubeflow-kubeflow-trainer-2-2-0-default.json"
       }
     },
     {
@@ -8304,6 +8766,72 @@
       }
     },
     {
+      "id": "node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0",
+      "name": "node-feature-discovery/node-feature-discovery",
+      "format": "helm",
+      "version": "0.19.0",
+      "base": "aicr-eks-training-v0-20-0",
+      "summary": "node-feature-discovery/node-feature-discovery 0.19.0, helm, base aicr-eks-training-v0-20-0: 23 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 23,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:371a599fbb959c71f232f4cfbe5a37aedfb70a17fe9205793440c73b2d7c3b93",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.json"
+      }
+    },
+    {
+      "id": "node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0",
+      "name": "node-feature-discovery/node-feature-discovery",
+      "format": "helm",
+      "version": "0.19.0",
+      "base": "aicr-eks-training-v1-0-0",
+      "summary": "node-feature-discovery/node-feature-discovery 0.19.0, helm, base aicr-eks-training-v1-0-0: 23 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 23,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:2329b2fca9e54b4e5b5ba90308c4769c1e919eebffcaa4b756266d63a64de0ff",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0.json"
+      }
+    },
+    {
+      "id": "node-feature-discovery-node-feature-discovery-0-19-0-default",
+      "name": "node-feature-discovery/node-feature-discovery",
+      "format": "helm",
+      "version": "0.19.0",
+      "base": "default",
+      "summary": "node-feature-discovery/node-feature-discovery 0.19.0, helm, base default: 17 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 17,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-default.json"
+      }
+    },
+    {
       "id": "nvidia-cluster-readiness-engine-v0-6-0-default",
       "name": "nvidia/cluster-readiness-engine",
       "format": "helm",
@@ -8961,6 +9489,94 @@
       "listing": "https://confighub.github.io/helm-expt/site/listings/nvidia-k8s-nim-operator-3-1-2-default.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/listings/nvidia-k8s-nim-operator-3-1-2-default.json"
+      }
+    },
+    {
+      "id": "nvidia-nodewright-v0-17-1-aicr-eks-training",
+      "name": "nvidia/nodewright",
+      "format": "helm",
+      "version": "v0.17.1",
+      "base": "aicr-eks-training",
+      "summary": "nvidia/nodewright v0.17.1, helm, base aicr-eks-training: 18 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 18,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:6b25ebafd5569b97caf3dab889873641f69ec5595fa7d2ff5262042d8927b3ed",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-17-1-aicr-eks-training.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-17-1-aicr-eks-training.json"
+      }
+    },
+    {
+      "id": "nvidia-nodewright-v0-17-1-default",
+      "name": "nvidia/nodewright",
+      "format": "helm",
+      "version": "v0.17.1",
+      "base": "default",
+      "summary": "nvidia/nodewright v0.17.1, helm, base default: 18 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 18,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:95a732cc71f8c56371fe119f8727c2c4053891dbb59d6cbbc5fbcbc378412210",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-17-1-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-17-1-default.json"
+      }
+    },
+    {
+      "id": "nvidia-nodewright-v0-19-0-aicr-eks-training",
+      "name": "nvidia/nodewright",
+      "format": "helm",
+      "version": "v0.19.0",
+      "base": "aicr-eks-training",
+      "summary": "nvidia/nodewright v0.19.0, helm, base aicr-eks-training: 20 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 20,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-19-0-aicr-eks-training.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-19-0-aicr-eks-training.json"
+      }
+    },
+    {
+      "id": "nvidia-nodewright-v0-19-0-default",
+      "name": "nvidia/nodewright",
+      "format": "helm",
+      "version": "v0.19.0",
+      "base": "default",
+      "summary": "nvidia/nodewright v0.19.0, helm, base default: 20 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 20,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:4d5e785228886b5681a54f46eb442bb8983d6b908d95e625c0c9ceb045b39430",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-19-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-19-0-default.json"
       }
     },
     {
@@ -9624,6 +10240,72 @@
       }
     },
     {
+      "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0",
+      "name": "prometheus-community/kube-prometheus-stack",
+      "format": "helm",
+      "version": "84.4.0",
+      "base": "aicr-eks-training-v0-20-0",
+      "summary": "prometheus-community/kube-prometheus-stack 84.4.0, helm, base aicr-eks-training-v0-20-0: 116 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "classified",
+      "objectCount": 116,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.json"
+      }
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0",
+      "name": "prometheus-community/kube-prometheus-stack",
+      "format": "helm",
+      "version": "84.4.0",
+      "base": "aicr-eks-training-v1-0-0",
+      "summary": "prometheus-community/kube-prometheus-stack 84.4.0, helm, base aicr-eks-training-v1-0-0: 116 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "classified",
+      "objectCount": 116,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:55c31cf72066a59e0c7f1e67c453e9487160ab7683b7320ce4ea280b00cd194a",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0.json"
+      }
+    },
+    {
+      "id": "prometheus-community-kube-prometheus-stack-84-4-0-default",
+      "name": "prometheus-community/kube-prometheus-stack",
+      "format": "helm",
+      "version": "84.4.0",
+      "base": "default",
+      "summary": "prometheus-community/kube-prometheus-stack 84.4.0, helm, base default: 126 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "classified",
+      "objectCount": 126,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/watch",
+        "destination": "pending/pending",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:c5dc2d69b5f9d0163166cd07485ee067e96702856fbdb5e0af3de88df0a348db",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-default.json"
+      }
+    },
+    {
       "id": "prometheus-community-kube-prometheus-stack-85-3-3-default",
       "name": "prometheus-community/kube-prometheus-stack",
       "format": "helm",
@@ -10259,6 +10941,50 @@
       "listing": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-node-exporter-4-55-0-default.json",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-node-exporter-4-55-0-default.json"
+      }
+    },
+    {
+      "id": "prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training",
+      "name": "prometheus-community/prometheus-operator-crds",
+      "format": "helm",
+      "version": "28.0.1",
+      "base": "aicr-eks-training",
+      "summary": "prometheus-community/prometheus-operator-crds 28.0.1, helm, base aicr-eks-training: 10 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 10,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.json"
+      }
+    },
+    {
+      "id": "prometheus-community-prometheus-operator-crds-28-0-1-default",
+      "name": "prometheus-community/prometheus-operator-crds",
+      "format": "helm",
+      "version": "28.0.1",
+      "base": "default",
+      "summary": "prometheus-community/prometheus-operator-crds 28.0.1, helm, base default: 10 objects, flattening verdict flatten-with-routes. Stages with evidence: inspection, materialization.",
+      "state": "not-classified",
+      "objectCount": 10,
+      "flatteningVerdict": "flatten-with-routes",
+      "checks": {
+        "inspection": "completed/available",
+        "materialization": "completed/pass",
+        "destination": "not-run/not-run",
+        "post-deployment": "not-run/not-run"
+      },
+      "digest": "sha256:c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123",
+      "listing": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-operator-crds-28-0-1-default.json",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-operator-crds-28-0-1-default.json"
       }
     },
     {

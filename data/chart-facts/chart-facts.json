@@ -132,7 +132,7 @@
     "dependency_refresh_survival": "—"
   },
   "aws-ebs-csi-driver/aws-ebs-csi-driver": {
-    "version": "2.59.0",
+    "version": "2.60.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "—",
     "dependency_lock": "empty closure; no dependency provenance",
@@ -312,9 +312,9 @@
     "dependency_refresh_survival": "—"
   },
   "cloudnative-pg/cloudnative-pg": {
-    "version": "0.28.2",
+    "version": "0.29.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run); no-crds (buildable — not yet run)",
     "dependency_lock": "locked 1 deps; Chart.lock digest",
     "hook_status": "—",
     "hook_route_evidence": "—",
@@ -408,7 +408,7 @@
     "dependency_refresh_survival": "—"
   },
   "dra-driver-nvidia/dra-driver-nvidia-gpu": {
-    "version": "0.4.1",
+    "version": "0.5.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "no-crds (buildable — not yet run)",
     "dependency_lock": "empty closure; no dependency provenance",
@@ -852,7 +852,7 @@
     "dependency_refresh_survival": "—"
   },
   "kai-scheduler/kai-scheduler": {
-    "version": "v0.14.1",
+    "version": "v0.16.9",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "no-crds (buildable — not yet run)",
     "dependency_lock": "empty closure; no dependency provenance",
@@ -900,7 +900,7 @@
     "dependency_refresh_survival": "—"
   },
   "kyverno/kyverno-policies": {
-    "version": "3.8.0",
+    "version": "3.9.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "—",
     "dependency_lock": "empty closure; no dependency provenance",
@@ -912,9 +912,9 @@
     "dependency_refresh_survival": "—"
   },
   "kyverno/kyverno": {
-    "version": "3.8.1",
+    "version": "3.9.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—",
+    "buildable_not_yet_run": "no-crds (buildable — not yet run)",
     "dependency_lock": "locked 5 deps; Chart.lock digest",
     "hook_status": "observed: lifecycle-observed",
     "hook_route_evidence": "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
@@ -1068,7 +1068,7 @@
     "dependency_refresh_survival": "—"
   },
   "nvidia/gpu-operator": {
-    "version": "v25.10.1",
+    "version": "v26.7.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "no-crds (buildable — not yet run)",
     "dependency_lock": "locked 1 deps; Chart.lock digest",
@@ -1080,7 +1080,7 @@
     "dependency_refresh_survival": "—"
   },
   "nvidia/k8s-nim-operator": {
-    "version": "3.1.0",
+    "version": "3.1.2",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "no-crds (buildable — not yet run)",
     "dependency_lock": "locked 2 deps; Chart.lock digest",
@@ -1092,7 +1092,7 @@
     "dependency_refresh_survival": "—"
   },
   "nvidia/nodewright": {
-    "version": "v0.17.1",
+    "version": "v0.19.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "no-crds (buildable — not yet run)",
     "dependency_lock": "empty closure; no dependency provenance",
@@ -1116,7 +1116,7 @@
     "dependency_refresh_survival": "—"
   },
   "nvidia/nvsentinel": {
-    "version": "v1.20.0",
+    "version": "v1.26.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "—",
     "dependency_lock": "locked 16 deps; Chart.lock digest",
@@ -1164,9 +1164,9 @@
     "dependency_refresh_survival": "—"
   },
   "percona/psmdb-operator": {
-    "version": "1.22.0",
+    "version": "1.23.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—",
+    "buildable_not_yet_run": "no-crds (buildable — not yet run)",
     "dependency_lock": "empty closure; no dependency provenance",
     "hook_status": "—",
     "hook_route_evidence": "—",
@@ -1260,7 +1260,7 @@
     "dependency_refresh_survival": "—"
   },
   "prometheus-community/prometheus-blackbox-exporter": {
-    "version": "11.10.0",
+    "version": "11.18.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "—",
     "dependency_lock": "empty closure; no dependency provenance",
@@ -1284,10 +1284,10 @@
     "dependency_refresh_survival": "—"
   },
   "prometheus-community/prometheus-operator-crds": {
-    "version": "28.0.1",
+    "version": "29.0.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
-    "dependency_lock": "locked 1 deps; Chart.lock digest",
+    "dependency_lock": "locked 1 deps; no dependency provenance",
     "hook_status": "—",
     "hook_route_evidence": "—",
     "hook_route_next_action": "—",
@@ -1380,7 +1380,7 @@
     "dependency_refresh_survival": "—"
   },
   "stakater/reloader": {
-    "version": "2.2.12",
+    "version": "2.2.16",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "—",
     "dependency_lock": "empty closure; no dependency provenance",
@@ -1404,9 +1404,9 @@
     "dependency_refresh_survival": "—"
   },
   "traefik/traefik": {
-    "version": "40.2.0",
+    "version": "41.4.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—",
+    "buildable_not_yet_run": "no-crds (buildable — not yet run)",
     "dependency_lock": "empty closure; no dependency provenance",
     "hook_status": "—",
     "hook_route_evidence": "—",

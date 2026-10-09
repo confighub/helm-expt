@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:fe5fd946797f6286736a4f59ae4e775482574d89aa4fa8454841146b272f074a",
+      "sha256": "sha256:7d25442fb9b86c65e0d230cbf35060a9150881f75fb050e52cda5a1dde0ece84",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -1018,15 +1018,36 @@
           "command": "cub config diff prometheus-community-kube-prometheus-stack-85-3-3-default.yaml prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml --summary"
         },
         {
-          "comment": "fetch the default base at version 86.1.0",
-          "command": "curl -fsSL -o prometheus-community-kube-prometheus-stack-86-1-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/release-objects.yaml"
+          "comment": "fetch the default base at version 84.4.0",
+          "command": "curl -fsSL -o prometheus-community-kube-prometheus-stack-84-4-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/default/r001/rendered/release-objects.yaml"
         },
         {
-          "comment": "list what changes from 85.3.3 to 86.1.0",
-          "command": "cub config diff prometheus-community-kube-prometheus-stack-85-3-3-default.yaml prometheus-community-kube-prometheus-stack-86-1-0-default.yaml --summary"
+          "comment": "list what changed from 84.4.0 to 85.3.3",
+          "command": "cub config diff prometheus-community-kube-prometheus-stack-84-4-0-default.yaml prometheus-community-kube-prometheus-stack-85-3-3-default.yaml --summary"
         }
       ],
       "siblings": [
+        {
+          "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.json",
+          "version": "84.4.0",
+          "base": "aicr-eks-training-v0-20-0",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0.json",
+          "version": "84.4.0",
+          "base": "aicr-eks-training-v1-0-0",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-84-4-0-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-default.json",
+          "version": "84.4.0",
+          "base": "default",
+          "relation": "other-version"
+        },
         {
           "id": "prometheus-community-kube-prometheus-stack-85-3-3-no-crds",
           "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.json",

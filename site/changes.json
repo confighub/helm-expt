@@ -1103,33 +1103,19 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_applicable",
+          "status": "not_checked",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -1177,15 +1163,18 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -1205,8 +1194,10 @@
           "evidence_urls": []
         },
         "promotion": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/aws-ebs-csi-driver-default-confighub-proof/latest/variant-promotion-receipt.yaml"
+          ]
         },
         "upstream_republish": {
           "status": "not_checked",
@@ -2701,24 +2692,12 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
@@ -2729,36 +2708,24 @@
           "evidence_urls": []
         },
         "local_kubernetes": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "gitops_oci": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "live_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/receipt.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/receipt.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "two_cluster": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "promotion": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/cloudnative-pg-default-confighub-proof/latest/variant-promotion-receipt.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/runs/cloudnative-pg-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "upstream_republish": {
           "status": "not_checked",
@@ -2785,15 +2752,18 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -3335,33 +3305,19 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_applicable",
+          "status": "not_checked",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -3409,15 +3365,22 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -6721,31 +6684,19 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-14-1-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_applicable",
+          "status": "not_checked",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -6793,15 +6744,20 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -7067,66 +7023,40 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/summary.md"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "local_kubernetes": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "gitops_oci": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "live_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/live-helm-confighub-compare/kyverno-kyverno-default/receipt.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/runs/live-helm-confighub-compare/kyverno-kyverno-no-crds/receipt.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "two_cluster": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "promotion": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/kyverno-default-confighub-proof/latest/variant-promotion-receipt.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/runs/kyverno-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "upstream_republish": {
           "status": "not_checked",
@@ -7209,8 +7139,11 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.9.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-9-0-default.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
@@ -7261,36 +7194,24 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno-policies/3.8.0/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno-policies/3.8.0/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno-policies/3.8.0/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno-policies/3.8.0/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-policies-3-8-0-default.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_applicable",
+          "status": "not_checked",
           "evidence_urls": []
         },
         "local_kubernetes": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-policies-3-8-0.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "gitops_oci": {
           "status": "not_checked",
@@ -7305,10 +7226,8 @@
           "evidence_urls": []
         },
         "promotion": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/kyverno-policies-default-confighub-proof/latest/variant-promotion-receipt.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "upstream_republish": {
           "status": "not_checked",
@@ -7391,15 +7310,18 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno-policies/3.9.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-policies-3-9-0-default.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -8608,33 +8530,19 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/revisions/driver-580.126.20/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-driver-580-126-20.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v25.10.1/revisions/driver-595.91.07/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v25-10-1-driver-595-91-07.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_applicable",
+          "status": "not_checked",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -8794,15 +8702,22 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-default.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v26.7.1/revisions/aicr-eks-training/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-aicr-eks-training.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/gpu-operator/v26.7.1/revisions/driver-580.105.08/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-driver-580-105-08.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -8846,31 +8761,19 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.0/revisions/aicr-eks-inference/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_applicable",
+          "status": "not_checked",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -8918,15 +8821,18 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/k8s-nim-operator/3.1.2/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -8970,31 +8876,19 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.17.1/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.17.1/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.17.1/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.17.1/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nodewright-v0-17-1-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nodewright-v0-17-1-aicr-eks-training.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_applicable",
+          "status": "not_checked",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -9042,15 +8936,20 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.19.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-default.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -9164,33 +9063,19 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/revisions/aicr-eks-training/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.20.0/revisions/no-pod-monitor/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-no-pod-monitor.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_applicable",
+          "status": "not_checked",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -9294,15 +9179,20 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.26.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-default.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvsentinel/v1.26.0/revisions/no-pod-monitor/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvsentinel-v1-26-0-no-pod-monitor.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -9684,64 +9574,40 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.22.0/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.22.0/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.22.0/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-psmdb-operator-1-22-0-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-psmdb-operator-1-22-0-no-crds.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_applicable",
+          "status": "not_checked",
           "evidence_urls": []
         },
         "local_kubernetes": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-22-0.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "gitops_oci": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-22-0.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "live_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/live-helm-confighub-compare/percona-psmdb-operator-default/receipt.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/runs/live-helm-confighub-compare/percona-psmdb-operator-no-crds/receipt.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "two_cluster": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-22-0.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "promotion": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/psmdb-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/runs/psmdb-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "upstream_republish": {
           "status": "not_checked",
@@ -9768,15 +9634,18 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-psmdb-operator-1-23-0-default.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -10837,64 +10706,40 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-blackbox-exporter-11-10-0-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_applicable",
+          "status": "not_checked",
           "evidence_urls": []
         },
         "local_kubernetes": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-10-0.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "gitops_oci": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-10-0.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "live_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/live-helm-confighub-compare/prometheus-community-prometheus-blackbox-exporter-cluster-metrics-readonly/receipt.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/runs/live-helm-confighub-compare/prometheus-community-prometheus-blackbox-exporter-default/receipt.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "two_cluster": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-10-0.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "promotion": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/prometheus-blackbox-exporter-default-confighub-proof/latest/variant-promotion-receipt.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/runs/prometheus-blackbox-exporter-cluster-metrics-readonly-confighub-proof/latest/variant-promotion-receipt.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "upstream_republish": {
           "status": "not_checked",
@@ -10977,15 +10822,18 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.18.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-blackbox-exporter-11-18-0-default.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -11109,24 +10957,12 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-28-0-1-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
@@ -11181,36 +11017,49 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html#proof"
+          ]
         },
         "gitops_oci": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html#proof"
+          ]
         },
         "live_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html#proof"
+          ]
         },
         "two_cluster": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html#proof"
+          ]
         },
         "promotion": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/runs/cl-prometheus-operator-crds-29-0-0-default-confighub-proof/latest/variant-promotion-receipt.yaml"
+          ]
         },
         "upstream_republish": {
           "status": "not_checked",
@@ -11691,64 +11540,40 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/stakater-reloader-2-2-12-controller-default-reviewed.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_applicable",
+          "status": "not_checked",
           "evidence_urls": []
         },
         "local_kubernetes": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "gitops_oci": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "live_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/live-helm-confighub-compare/stakater-reloader-controller-default-reviewed/receipt.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/runs/live-helm-confighub-compare/stakater-reloader-default/receipt.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "two_cluster": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "promotion": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/reloader-default-confighub-proof/latest/variant-promotion-receipt.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/runs/reloader-controller-default-reviewed-confighub-proof/latest/variant-promotion-receipt.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "upstream_republish": {
           "status": "not_checked",
@@ -11831,15 +11656,18 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.16/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/stakater-reloader-2-2-16-default.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {
@@ -11963,24 +11791,12 @@
           ]
         },
         "chart_analysis": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/40.2.0/source-lock.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/40.2.0/CATALOG.md",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/40.2.0/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/40.2.0/helm-pain-report.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/40.2.0/control-points.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/outcome-coverage/feature-outcomes.csv"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "render_parity": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/40.2.0/revisions/default/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/traefik-traefik-40-2-0-default.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/variant-revision.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/traefik-traefik-40-2-0-no-crds.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "values_diagnostics": {
           "status": "not_checked",
@@ -11991,36 +11807,24 @@
           "evidence_urls": []
         },
         "local_kubernetes": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "gitops_oci": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "live_parity": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/live-helm-confighub-compare/traefik-traefik-default/receipt.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/runs/live-helm-confighub-compare/traefik-traefik-no-crds/receipt.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "two_cluster": {
-          "status": "partial",
-          "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html#proof"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "promotion": {
-          "status": "checked",
-          "evidence_urls": [
-            "https://github.com/confighub/helm-expt/blob/main/runs/traefik-default-confighub-proof/latest/variant-promotion-receipt.yaml",
-            "https://github.com/confighub/helm-expt/blob/main/runs/traefik-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml"
-          ]
+          "status": "not_checked",
+          "evidence_urls": []
         },
         "upstream_republish": {
           "status": "not_checked",
@@ -12103,15 +11907,18 @@
           "evidence_urls": []
         },
         "render_parity": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/41.4.0/revisions/default/r001/variant-revision.yaml",
+            "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/traefik-traefik-41-4-0-default.yaml"
+          ]
         },
         "values_diagnostics": {
           "status": "not_checked",
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
+          "status": "not_applicable",
           "evidence_urls": []
         },
         "local_kubernetes": {

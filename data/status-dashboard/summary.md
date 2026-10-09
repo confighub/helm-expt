@@ -385,18 +385,18 @@ top-100 chart and the next command or file to open.
 
 | Adoption bucket | Charts |
 | --- | ---: |
-| promote-after-review | 40 |
-| needs-useful-variant | 37 |
+| needs-useful-variant | 46 |
+| promote-after-review | 34 |
 | try-from-public-catalog | 20 |
-| not-ready | 18 |
+| not-ready | 15 |
 | limitation-decision-first | 7 |
 
 | Strongest evidence | Charts |
 | --- | ---: |
-| live-helm-vs-confighub-parity | 72 |
-| render-parity | 25 |
-| in-confighub-proof | 12 |
-| local-kubernetes-live | 8 |
+| live-helm-vs-confighub-parity | 67 |
+| render-parity | 30 |
+| in-confighub-proof | 13 |
+| local-kubernetes-live | 7 |
 | two-cluster-kind-parity | 5 |
 
 The top100 is model-supported, but not uniformly live-proven. Use

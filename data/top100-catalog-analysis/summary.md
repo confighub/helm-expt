@@ -20,9 +20,9 @@ top-20 catalog-supported entries: 20
 next-80 proof-grade entries: 102
 retained newer candidate versions: 38
 catalog-supported: 20
-proof-grade: 85
-multi-variant entries: 85
-default-only entries: 37
+proof-grade: 88
+multi-variant entries: 76
+default-only entries: 46
 top-20 current with latest upstream: 13
 top-20 update candidates: 7
 production-disposition-needed entries: 0
@@ -55,8 +55,8 @@ claim.
 | Recipe/package proof exists | 122 | The chart has a maintained recipe and executable `cub installer` package with proof artifacts. |
 | Catalog-supported for local-test | 20 | The chart is in the public top-20 lane with local kind live/e2e and ConfigHub proof receipts. |
 | Proof-grade, not catalog-supported | 102 | The chart has deterministic proof artifacts but still needs user-shaped variants and promotion review. |
-| Variant-rich | 85 | The chart has more than one base variant. |
-| Default-only | 37 | The chart has a proof path, but not enough variants for common user choices. |
+| Variant-rich | 76 | The chart has more than one base variant. |
+| Default-only | 46 | The chart has a proof path, but not enough variants for common user choices. |
 | No hard gap in chart-facts | 100 | Recommended capabilities are built, not applicable, or have a known path. |
 | Hard gap for a recommended capability | 22 | The core recipe may still work, but at least one useful capability is not yet enabled. See `data/chart-facts/summary.md`. |
 
@@ -87,8 +87,8 @@ lacking an `existing-secret`, `no-crds`, or HA path for a specific variant.
 | Can the repo prove a maintained recipe/package path exists? | 122 | Yes. Every top-100 entry has recipe/package proof artifacts. |
 | Can a user try it through the public local-test catalog lane today? | 20 | Yes, for the top-20 declared local-test scope. |
 | Does it still need catalog promotion review before support is claimed? | 102 | Yes. These entries are proof-grade, not catalog-supported. |
-| Does it already have more than one base variant? | 85 | Yes. These entries cover more than the default shape. |
-| Is it still default-only? | 37 | Yes. These entries need user-shaped variants before a strong catalog recommendation. |
+| Does it already have more than one base variant? | 76 | Yes. These entries cover more than the default shape. |
+| Is it still default-only? | 46 | Yes. These entries need user-shaped variants before a strong catalog recommendation. |
 | Does it have a named hard gap for at least one recommended capability? | 22 | Yes. The core recipe may work, but one useful variant or capability is missing or blocked. |
 | Is a supported top-20 chart behind the latest upstream version? | 7 | Yes. These need promotion proof before the catalog points at the newer chart. |
 
@@ -111,11 +111,11 @@ catalog reconnaissance. They need real variants before catalog support.
 
 | Proof rank | Top-500 rank | Chart | Version | Source features |
 | ---: | ---: | --- | --- | --- |
-| 21 | 8 | `traefik/traefik` | `40.2.0` | lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage |
+| 21 | 8 | `traefik/traefik` | `41.4.0` | lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage |
 | 22 | 18 | `external-dns/external-dns` | `1.21.1` | tpl;crds;cluster-rbac |
 | 23 | 21 | `gitlab/gitlab-runner` | `0.89.0` | generated-facts;tpl;capabilities |
-| 24 | 38 | `kyverno/kyverno` | `3.8.1` | lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage |
-| 25 | 41 | `cloudnative-pg/cloudnative-pg` | `0.28.2` | generated-facts;tpl;crds;cluster-rbac;webhooks |
+| 24 | 38 | `kyverno/kyverno` | `3.9.0` | lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage |
+| 25 | 41 | `cloudnative-pg/cloudnative-pg` | `0.29.0` | generated-facts;tpl;crds;cluster-rbac;webhooks |
 | 26 | 42 | `fluent/fluent-bit` | `0.57.6` | tpl;capabilities;hooks;cluster-rbac |
 | 27 | 45 | `runix/pgadmin4` | `1.62.0` | tpl;capabilities;stateful-storage |
 
