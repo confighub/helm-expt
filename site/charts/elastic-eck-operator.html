@@ -566,7 +566,7 @@
     <h1>Find, compare and use elastic/eck-operator</h1>
     <p class="lead">The Catalog holds one version of the Helm chart elastic/eck-operator, with 3 bases. That version is 3.4.0.</p>
     <p data-chart-what>The Catalog files this chart under Databases and messaging. Its listings do not yet describe what it does, so read the objects before you rely on the name.</p>
-    <p data-chart-run-state>The Catalog rendered all 3 bases and retains the exact objects of each. The listings record an upload as a variant for 3 bases and a promoted change for 3 bases. They record no deployment for any base.</p>
+    <p data-chart-run-state>The Catalog rendered all 3 bases and retains the exact objects of each. The listings record an upload as a variant for 3 bases. They record no deployment for any base. A promoted change is partly recorded for 3 bases.</p>
     <p class="entry-steps-link"><a href="#use-in-confighub">Use this entry in ConfigHub</a> in five steps, from fetching its exact objects to promoting a change.</p>
     <p><a href="#versions">Pick a version</a> · <a href="#see-what-changes">See what changes</a> · <a href="./index.html">Back to the Catalog</a></p>
   </header>
@@ -695,9 +695,9 @@
 <span class="term-comment"># publish again without it</span>
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
-        <div class="entry-step" data-step="promote" data-state="run-for-this-entry">
-          <h3>5. Promote a change <span class="status good">Run for this entry</span></h3>
-          <p>A promotion ran for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/elastic-eck-operator-3-4-0-default.yaml">Read the record that states this</a>.</p>
+        <div class="entry-step" data-step="promote" data-state="partly-run-for-this-entry">
+          <h3>5. Promote a change <span class="status warn">Partly run for this entry</span></h3>
+          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/elastic-eck-operator-3-4-0-default.yaml">Read the record that states this</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
           <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>

@@ -129,6 +129,14 @@ export function deliveryRanOtherCommands(listing) {
   return uploadPath(listing).kind !== "none" && (listing.oci?.runtimes ?? []).some((runtime) => runtime.state === "pass");
 }
 
+// True when the promote step shows commands that no recorded promotion ran.
+// Every recorded promotion ran the preview and the promote. For an installer
+// package the step also deletes the installer record and publishes a Release,
+// which the live walk added and no per-entry receipt holds.
+export function promotionRanFewerCommands(listing) {
+  return uploadPath(listing).kind === "installer-package";
+}
+
 // CRDs the base itself carries are not inputs the destination supplies. The
 // listing records both under installTimeInputs, so the detail text decides.
 function splitInstallInputs(listing) {
@@ -186,7 +194,7 @@ export function deriveStepState(listing, stepId, { hasObjects, siblingCount, com
   if (stepId === "promote") {
     const state = listing.lifecycle?.promotion?.state ?? "not-recorded";
     const basis = ["lifecycle.promotion"];
-    if (state === "pass" || state === "proven") return { state: "run-for-this-entry", basis };
+    if (state === "pass" || state === "proven") return { state: promotionRanFewerCommands(listing) ? "partly-run-for-this-entry" : "run-for-this-entry", basis };
     if (state === "partial") return { state: "partly-run-for-this-entry", basis };
     if (state === "blocked") return { state: "blocked-for-this-entry", basis };
     return { state: path.kind === "none" ? "not-available" : "not-run-for-this-entry", basis };
@@ -516,10 +524,14 @@ export function buildNextSteps(listing, { plan, related = [] }) {
       return { summary: "The Catalog's promotion run for this entry is blocked, so no promotion command is given. Read the record before you try one.", ...receiptOf(promotion) };
     }
     const route = promotion.path ? ` It followed ${String(promotion.path).replaceAll(" -> ", " to ")}.` : "";
+    const proven = ["pass", "proven"].includes(promotion.state);
+    const unrecorded = installer ? " It ran the preview and the promote. The delete and the publish below have no recorded run for this entry." : "";
     const lead = state === "run-for-this-entry"
       ? `A promotion ran for this entry.${route}`
       : state === "partly-run-for-this-entry"
-        ? "A promotion ran for this entry and left a limit to review."
+        ? proven
+          ? `A promotion ran for this entry.${route}${unrecorded}`
+          : `A promotion ran for this entry and left a limit to review.${unrecorded}`
         : "No promotion is recorded for this entry.";
     return { summary: lead, commands, ...promoteNotes, ...receiptOf(promotion) };
   }));
