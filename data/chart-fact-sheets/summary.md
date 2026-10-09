@@ -602,7 +602,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time
 - **Quirks & disposition:** crds;existing-secret;generated-facts — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts
-- **Skill:** none ()
+- **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** review source/current-version drift and refresh recipe if needed
 
@@ -866,7 +866,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Recommended base:** `default`
 - **You must provide/decide:** a CRD ownership choice (crds vs no-crds base)
 - **Quirks & disposition:** crds;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases
-- **Skill:** none ()
+- **Skill:** target-facts-and-lifecycle (docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** review source/current-version drift and refresh recipe if needed
 
