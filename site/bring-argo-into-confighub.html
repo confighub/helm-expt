@@ -645,6 +645,7 @@
         </tbody>
       </table></div>
       <p>The handover is the step that moves the source of truth. Until <code>handover.sh</code> runs, ConfigHub holds a copy that nothing reads. The Argo CD install, AppProject permissions, sync windows and cluster credentials stay where they are.</p>
+      <p>Some teams on Flux? <a href="./bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a> follows the same steps.</p>
     </section>
 
     <section aria-labelledby="preview-setup">
@@ -705,7 +706,7 @@ cd gitops/argo/beginner-app-of-apps
 cub argo plan .</code></pre>
       <p>Run the plan inside a Git checkout. In a copy with no <code>.git</code> directory the plan reports source paths as missing, and <code>--repo-root &lt;checkout&gt;</code> tells it where the repository starts.</p>
       <h3 id="what-it-becomes">What one Application becomes</h3>
-      <p><code>cub argo apply . --out onboard</code> writes files only. For each Application it writes the copy Argo CD has today under <code>onboard/control/</code>, and the copy it would have after the handover under <code>onboard/repointed/</code>. On the fixture, the two copies of <code>apptique-dev</code> differ in three lines.</p>
+      <p><code>cub argo apply . --out onboard</code> writes files only. For each Application it writes the copy Argo CD has today under <code>onboard/control/</code>, and the copy it would have after the handover under <code>onboard/repointed/</code>. Each copy sits in a folder named for the Space that holds it, which is <code>argo-apptique-apps-children</code> on the fixture. The two copies of <code>apptique-dev</code> differ in three lines.</p>
       <pre><code> kind: Application
  metadata:
    name: apptique-dev
