@@ -385,7 +385,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Configuration catalog for Agents and Kubernetes", "ConfigHub Workshop lets an AI get Kubernetes configuration right on your behalf. It gives agents, and the people working with them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.", "Start with your own chart or app", "Local checks need no account", "ConfigHub adds version history, approvals and releases", "Argo CD or Flux still delivers it using your existing setup."],
+    headerTerms: ["Configuration catalog for Agents and Kubernetes", "ConfigHub Workshop gives agents, and the people working with them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.", "Start with your own chart or app", "Local checks need no account", "ConfigHub adds version history, approvals and releases", "Argo CD or Flux still delivers it using your existing setup."],
   },
   {
     file: "site/ask.html",
