@@ -1297,6 +1297,17 @@ function runNextStepSelfTest(loaded) {
   check(published.nextSteps[1].commands.some(({ command }) => command === "cub config diff example-0-9-0-default.yaml example-1-0-0-default.yaml --summary"), "self-test: the compare step must name a real sibling, older version first");
   check(published.nextSteps[0].commands.some(({ command }) => command.includes(`--pull ${pinned} --base default`)), "self-test: the render command must pull the pinned package");
 
+  // A proven promotion ran the preview and the promote, and nothing else. An
+  // installer-package entry also shows a delete and a publish, so its step may
+  // not read as run. A literal-bundle entry shows only what the promotion ran.
+  const provenInstaller = built({ ociRef: pinned, scanOps: "checked", promotion: "proven" }, withSibling);
+  check(provenInstaller.nextSteps[4].state === "partly-run-for-this-entry", "self-test: a proven promotion must read as partly run where the step shows a delete and a publish");
+  check(/no recorded run for this entry/.test(provenInstaller.nextSteps[4].summary), "self-test: a partly run promotion must say which commands have no recorded run");
+  const overclaimed = structuredClone(provenInstaller);
+  overclaimed.nextSteps[4].state = "run-for-this-entry";
+  check(refuses(overclaimed, withSibling, "its record supports partly-run-for-this-entry"), "self-test: a proven promotion must not read as run for commands it did not run");
+  check(deriveStepState(fixture({ promotion: "proven", literal: "published" }), "promote", { hasObjects: true, siblingCount: 0, comparableCount: 0 }).state === "run-for-this-entry", "self-test: a proven promotion of a literal bundle must read as run");
+
   // Tamper 6: a watch-grade promotion may not read as a pass, and a delivery
   // nobody ran may not read as run.
   const rounded = structuredClone(published);
