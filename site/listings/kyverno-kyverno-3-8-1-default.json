@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:5e82fbcc0de72c9202f0faef1098cda70049d387600a51ea460a6d617869efc2",
+      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/kyverno-kyverno-3-8-1-default.yaml",
-      "sha256": "sha256:17d9bd488053bad2a84f31ec950269c3257a898c88dc7d3594f0fbe01e58e6fc",
+      "sha256": "sha256:1ea57e002ba64912402c3418e839b8a72588ca7726b7a867da69818ce133f3e3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/kyverno-kyverno-3-8-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -435,8 +435,8 @@
         "declared": "yes"
       },
       "lifecycle_observation": {
-        "status": "checked",
-        "declared": "yes"
+        "status": "not_checked",
+        "declared": "todo"
       },
       "gitops_oci_live": {
         "status": "checked",

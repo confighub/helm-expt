@@ -481,7 +481,7 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | aicr-eks-training-v0-20-0 | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | aicr-eks-training-v1-0-0 | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `kyverno/kyverno@3.8.1` | F1 | source | (source) | - | - | 8 observed ✅ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+|  | F2a | base | default | - | - | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | run | live-parity | ⬜ |
 |  | F2b | base | no-crds | - | - | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | run | live-parity | ⬜ |
 |  | F2c | candidate review | default-admission | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 |  | F2c | candidate review | external-crds | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |

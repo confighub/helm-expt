@@ -8,7 +8,7 @@ are the next rows to work, not the whole corpus.
 
 ```text
 gap-review first rows:             9
-strict promotion-review rows:      32
+strict promotion-review rows:      26
 latest-version promotion rows:     7
 variant-build rows:                5
 production-disposition first rows: 5
@@ -54,7 +54,6 @@ receipts before the follow-up runtime/GitOps and image-digest lanes run.
 | 2 | argo-cd/argo-workflows@1.0.14 | default;controller-default-reviewed;minimal-crds | 0 | 22 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | autoscaler/cluster-autoscaler@9.57.0 | default;controller-default-reviewed | 1 | 4 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | autoscaler/vertical-pod-autoscaler@0.9.0 | default;no-crds | 0 | 25 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
-| 2 | cloudnative-pg/cloudnative-pg@0.28.2 | default;no-crds | 0 | 16 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | elastic/eck-operator@3.4.0 | default;ha;no-crds | 0 | 18 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | elastic/logstash@8.5.1 | default;ha | 0 | 0 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | external-dns/external-dns@1.21.1 | default;no-crds;dry-run-txt-registry | 0 | 3 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
@@ -64,21 +63,16 @@ receipts before the follow-up runtime/GitOps and image-digest lanes run.
 | 2 | jaegertracing/jaeger-operator@2.57.0 | default;no-crds | 0 | 3 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | jetstack/trust-manager@v0.22.1 | default;no-crds | 0 | 4 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | kedacore/keda@2.19.0 | default;no-crds | 0 | 17 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
-| 2 | kyverno/kyverno@3.8.1 | default;no-crds | 0 | 45 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | nats/nack@0.34.0 | default;no-crds | 0 | 8 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | nats/nats@2.14.0 | default;ha | 0 | 1 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | open-telemetry/opentelemetry-operator@0.114.0 | default;no-crds | 0 | 9 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | percona/pg-operator@3.0.0 | default;no-crds | 0 | 8 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
-| 2 | percona/psmdb-operator@1.22.0 | default;no-crds | 0 | 3 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | percona/pxc-operator@1.19.1 | default;no-crds | 0 | 3 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | prometheus-community/alertmanager@1.37.0 | default;ha | 0 | 0 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | prometheus-community/kube-state-metrics@7.4.0 | default;cluster-metrics-readonly | 0 | 4 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
-| 2 | prometheus-community/prometheus-blackbox-exporter@11.10.0 | default;cluster-metrics-readonly | 0 | 0 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | prometheus-community/prometheus-node-exporter@4.55.0 | default;cluster-metrics-readonly | 0 | 2 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | sealed-secrets/sealed-secrets@2.18.6 | default;no-crds | 0 | 3 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
-| 2 | stakater/reloader@2.2.12 | default;controller-default-reviewed | 0 | 4 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | strimzi/strimzi-kafka-operator@1.0.0 | default;no-crds | 0 | 20 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
-| 2 | traefik/traefik@40.2.0 | default;no-crds | 0 | 27 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | 2 | vm/victoria-metrics-single@0.39.0 | default;default-reviewed | 0 | 0 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 
 ## Latest-Version Promotion Wave

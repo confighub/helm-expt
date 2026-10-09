@@ -319,7 +319,7 @@ spec:
     renderParity: "yes"
     confighubScanOps: "yes"
     localKind: "yes"
-    lifecycleObserved: "yes"
+    lifecycleObserved: "todo"
     gitopsOciLive: "yes"
     liveDualParity: "yes"
     twoClusterKind: "yes"
