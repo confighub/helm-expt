@@ -64,6 +64,12 @@ spec:
     summary: See recorded repairs, approvals and prevention on a disposable Sveltos fleet. Read the story
       without setup, inspect the evidence, or plan the full two-to-three-hour demonstration.
     page: ai-chaos-in-production.html
+  - id: deploy-one-thing
+    group: start-here
+    title: Deploy one thing, and look before you do
+    summary: Pick one Catalog entry, read the exact objects it installs, then save it in ConfigHub and
+      release it to a local cluster. One dated run shows the end state.
+    page: deploy-one-thing.html
   - id: redis-intro
     group: start-here
     title: Walk the whole model once, with Redis

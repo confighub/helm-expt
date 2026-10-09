@@ -5,7 +5,7 @@ metadata:
 spec:
   description: "The shipped stacks in cub-workshop's stacks/ directory at a pinned commit, written by scripts/generate-workshop-sections.mjs --sync-stacks. Stacks whose role is refusal or fixture belong to Guides and stay out of site/stacks.json."
   repository: "confighub/cub-workshop"
-  commit: "e70d630904a31fb2b094ee671b249d28b6944ddc"
+  commit: "1685b605d08aa616ca3c1912c766c235bd459253"
   stacks:
     -
       id: "app-platform"
@@ -62,6 +62,16 @@ spec:
         - "cert-manager"
         - "external-secrets"
         - "argo-cd"
+      receipts: 3
+    -
+      id: "gpu-node"
+      path: "stacks/gpu-node.yaml"
+      role: "platform"
+      description: "A static composition of NVIDIA's GPU Operator, NVSentinel, and cluster-readiness-engine from the catalog's published bundles, where nothing runs on a GPU and the chart hooks are recorded as declared and not run."
+      components:
+        - "gpu-operator"
+        - "nvsentinel"
+        - "cluster-readiness-engine"
       receipts: 3
     -
       id: "kubara-gitops-shop"

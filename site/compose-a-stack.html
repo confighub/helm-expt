@@ -740,7 +740,7 @@
           <a class="button secondary" href="#run-and-govern">Run and govern it</a>
         </div>
       </div>
-      <div class="terminal-card" aria-label="One install, three commands"><div class="terminal-title">one install, three commands</div><pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.57
+      <div class="terminal-card" aria-label="One install, three commands"><div class="terminal-title">one install, three commands</div><pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.58
 
 <span class="term-prompt">$</span> cub stack sandbox eks-inference
   [PASS] no resource conflicts across components (130 objects)
@@ -768,7 +768,7 @@
       <p><strong>You want a stack &mdash; a set of configs checked for conflicts before they render. Here is how you get one.</strong></p>
       <h3 id="ready-made">1. Want a ready-made one?</h3>
       <p><strong>First time here?</strong> Install the <a href="./plugins.html#workshop">Workshop plugin</a>, then run <code>cub stack sandbox eks-inference</code> in a scratch directory. Despite the name, this renders and checks local configuration; it does not create an EKS cluster or request a GPU. Read the check result and missing prerequisites before considering delivery.</p>
-      <p>Pick a shipped stack and check it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from eight certified bundles, each hash-verified against its receipt. Fifteen ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
+      <p>Pick a shipped stack and check it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from eight certified bundles, each hash-verified against its receipt. Sixteen ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
       <h3 id="compose-your-own">2. Composing your own?</h3>
       <p>Write a manifest that names catalog parts by digest, or let an assistant draft one from images you have already checked. Each part is a bundle pinned by digest with a receipt, or a file of rendered objects the stack owns. Then run <code>cub stack check &lt;file&gt;</code>, read what it names wrong, fix it, and run again until it passes. The check is the contract you build against; <a href="./d/docs/planning/stack-manifest-spec.html">read the manifest specification</a>.</p>
       <h3 id="from-kubara-platform">3. Already have a Kubara platform?</h3>
@@ -804,7 +804,7 @@ cub stack check my-platform/stack.yaml</code></pre>
       <h2 id="first-stack-live">Deploy a tiny first stack</h2>
       <p><code>web-tiny</code> is the bounded teaching path: two components, each holding one ConfigMap in the <code>web</code> namespace. The steps below continue beyond upload into two ConfigHub Bases, two target-bound dev variants, two Releases, two Argo CD Applications, and two object checks. They are a runnable path, not a retained live receipt, and they do not claim that every arbitrary stack is safe to deploy this way.</p>
       <h3>1. Check the composition and create a target</h3>
-      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.57
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.58
 
 <span class="term-prompt">$</span> cub stack check web-tiny
 CHECKED; two ConfigMaps; no cluster write
@@ -815,9 +815,9 @@ CHECKED; two ConfigMaps; no cluster write
 
 <span class="term-prompt">$</span> source ~/.confighub/clusters/workshop.env</code></pre>
       <h3>2. Download the same two component files</h3>
-      <pre class="terminal-body"><code><span class="term-prompt">$</span> curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.57/components/frontend-config.yaml
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.58/components/frontend-config.yaml
 
-<span class="term-prompt">$</span> curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.57/components/backend-config.yaml</code></pre>
+<span class="term-prompt">$</span> curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.58/components/backend-config.yaml</code></pre>
       <p>Read both files. Each holds one ConfigMap in the <code>web</code> namespace and no Namespace object. Step 3 creates the Namespace in the first component with <code>--create-namespace</code>, and the second component reuses it, so two Argo Applications do not compete to manage the same Namespace object.</p>
       <h3>3. Import, place, and release each component</h3>
       <pre class="terminal-body"><code><span class="term-prompt">$</span> cub variant upload --component first-stack-frontend --variant base --namespace web --create-namespace ./frontend-config.yaml
@@ -857,7 +857,7 @@ both rows must report Synced and Healthy
       <h3>Platform services on a cluster you already run</h3>
       <div class="card"><table>
         <thead><tr><th>Stack</th><th>Composed from</th><th>Result</th></tr></thead>
-        <tbody><tr><td>kubara-platform</td><td>the catalog's reviewed renders for a Kubara platform</td><td>CHECKED, 86 objects</td></tr><tr><td>kubara-shop-platform</td><td>the Kubara platform grown by external-secrets, with the app adapted to Traefik's class</td><td>CHECKED, 135 objects, every app need carried</td></tr><tr><td>web-platform</td><td>cert-manager, ingress-nginx, kube-prometheus-stack</td><td>CHECKED; carries what an app like shop-web depends on</td></tr><tr><td>shop-platform</td><td>cert-manager, ingress-nginx, kube-prometheus-stack, rabbitmq, and the shop app</td><td>CHECKED, 192 objects, every app need carried</td></tr><tr><td>kubara-gitops-shop</td><td>Kubara components with Argo CD and the adapted shop app</td><td>CHECKED, 184 objects; a static composition only</td></tr><tr><td>observability-base</td><td>cert-manager, metrics-server, kube-prometheus-stack</td><td>CHECKED, 175 objects, 10 CRDs before 50 custom resources</td></tr><tr><td>gitops-secrets</td><td>cert-manager, external-secrets, argo-cd</td><td>CHECKED, 26 CRDs composed together</td></tr><tr><td>data-services</td><td>redis, postgresql, rabbitmq</td><td>CHECKED, 31 objects, no CRDs</td></tr><tr><td>app-platform</td><td>database, cache, ingress, certificates, and monitoring</td><td>CHECKED</td></tr><tr><td>redis-platform</td><td>redis, external-secrets, kube-prometheus-stack</td><td>CHECKED</td></tr><tr><td>web-tiny</td><td>two authored ConfigMaps, sized for a live upload</td><td>CHECKED</td></tr></tbody>
+        <tbody><tr><td>kubara-platform</td><td>the catalog's reviewed renders for a Kubara platform</td><td>CHECKED, 86 objects</td></tr><tr><td>kubara-shop-platform</td><td>the Kubara platform grown by external-secrets, with the app adapted to Traefik's class</td><td>CHECKED, 135 objects, every app need carried</td></tr><tr><td>web-platform</td><td>cert-manager, ingress-nginx, kube-prometheus-stack</td><td>CHECKED; carries what an app like shop-web depends on</td></tr><tr><td>shop-platform</td><td>cert-manager, ingress-nginx, kube-prometheus-stack, rabbitmq, and the shop app</td><td>CHECKED, 192 objects, every app need carried</td></tr><tr><td>kubara-gitops-shop</td><td>Kubara components with Argo CD and the adapted shop app</td><td>CHECKED, 184 objects; a static composition only</td></tr><tr><td>gpu-node</td><td>NVIDIA's GPU Operator, NVSentinel and cluster-readiness-engine, from the Catalog's published bundles</td><td>CHECKED, 89 objects; a static composition only, and nothing runs on a GPU</td></tr><tr><td>observability-base</td><td>cert-manager, metrics-server, kube-prometheus-stack</td><td>CHECKED, 175 objects, 10 CRDs before 50 custom resources</td></tr><tr><td>gitops-secrets</td><td>cert-manager, external-secrets, argo-cd</td><td>CHECKED, 26 CRDs composed together</td></tr><tr><td>data-services</td><td>redis, postgresql, rabbitmq</td><td>CHECKED, 31 objects, no CRDs</td></tr><tr><td>app-platform</td><td>database, cache, ingress, certificates, and monitoring</td><td>CHECKED</td></tr><tr><td>redis-platform</td><td>redis, external-secrets, kube-prometheus-stack</td><td>CHECKED</td></tr><tr><td>web-tiny</td><td>two authored ConfigMaps, sized for a live upload</td><td>CHECKED</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -932,7 +932,7 @@ both rows must report Synced and Healthy
     <section class="narrow-section" aria-labelledby="run-it-stacks">
       <h2 id="run-it-stacks">Run it</h2>
       <p>These four run here. <a href="./demo.html">The ten-minute demo</a> walks all of them end to end, from one chart to a governed fleet.</p>
-      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.57
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.58
 
 <span class="term-comment"># CHECKED, 130 objects, no cluster</span>
 <span class="term-prompt">$</span> cub stack sandbox eks-inference

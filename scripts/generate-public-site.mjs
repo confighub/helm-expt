@@ -21,6 +21,7 @@ import { scoutUiGuide, configUiGuide } from "./lib/config-ui-guides.mjs";
 import { aiChaosGuide, AI_CHAOS_IMAGES, AI_CHAOS_SOURCE } from "./lib/ai-chaos-guide.mjs";
 import { appLearningPathsHtml } from "./lib/app-learning-paths.mjs";
 import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
+import { deployOneThingGuide, DEPLOY_ONE_ENTRY, DEPLOY_ONE_WALK_PATH } from "./lib/deploy-one-thing-page.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
 import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEPS_HEADING, NEXT_STEPS_TARGET, NEXT_STEP_STATES } from "./lib/entry-next-steps.mjs";
 import { chartCompareCommands, chartDiffSummaryLine, chartPageSlug, compareChartVersions } from "./lib/catalog-chart-pages.mjs";
@@ -66,7 +67,7 @@ const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
 // The Workshop plugin release the journey pages were checked with. Pages pin an
 // exact release tag, so a reader installs the version the page was checked with.
-const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.57";
+const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.58";
 const KUBARA_GUIDE_URL = "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md";
 const securityPath = join(siteRoot, "security.html");
 const testingPath = join(siteRoot, "testing.html");
@@ -640,7 +641,7 @@ const STACK_FROM_CATALOG_GUIDE_LINK = '<a href="./d/docs/user/workshop-stack-fro
 // Every chart page links the stack Guide, because any published entry can go
 // into a stack.
 const CHART_GUIDES = new Map([
-  ["nvidia/gpu-operator", [{ href: "../d/docs/user/workshop-gpu-operator-upgrade-guide.html", text: "See what a gpu-operator upgrade changes", after: ", from one version to the next and for a driver change alone, and which changed fields can restart pods on GPU nodes" }]],
+  ["nvidia/gpu-operator", [{ href: "../d/docs/user/workshop-gpu-operator-upgrade-guide.html", text: "See what a gpu-operator upgrade changes", after: ", from one version to the next and for a driver change alone. It says which changed fields can restart pods on GPU nodes, and how a version step moves through dev and QA" }]],
 ]);
 
 // The website renders only user-facing documentation: the guides and reference
@@ -798,6 +799,7 @@ const SPLIT_PAGES = [
   { key: "agentsMaintainCatalogHtml", file: "agents-maintain-the-catalog.html", title: "How agents help maintain the Catalog", description: "What agents do for the Catalog, and the record each task needs before it appears on the site.", build: (catalog) => agentsMaintainCatalogHtml(catalog), doc: true, reference: true },
   { key: "publicQuestionsHtml", file: "public-questions.html", title: "What happens to a public question", description: "How a question sent in public becomes a checked answer, a named refusal, or a documented limit.", build: (catalog) => publicQuestionsHtml(catalog), doc: true, reference: true },
   { key: "chooseToolGuideHtml", file: "choose-a-tool.html", title: "Choose a tool and start", description: "Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.", build: () => chooseToolGuideHtml() },
+  { key: "deployOneThingHtml", file: "deploy-one-thing.html", title: "Deploy one thing, and look before you do", description: "Pick one Catalog entry, read the exact objects it installs, then save it in ConfigHub and release it to a local cluster.", build: () => deployOneThingHtml() },
 ];
 const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, title: sectionRows("guides").find((row) => row.id === journey.id)?.title ?? journey.title, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
 
@@ -2328,6 +2330,7 @@ function buildLlmsTxt() {
 - [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
 - [Official ConfigHub tutorial](${CONFIGHUB_TUTORIAL_URL}): the canonical product journey from one component through release, change, production, and promotion.
 - [Try Redis](${SITE_BASE_URL}try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
+- [Deploy one thing, and look before you do](${SITE_BASE_URL}deploy-one-thing.html): follow one Catalog entry, ${DEPLOY_ONE_ENTRY}, from its exact objects to a release on a local kind cluster with Argo CD. The commands are that entry's nextSteps, at ${SITE_BASE_URL}listings/${DEPLOY_ONE_ENTRY}.json. The end state shown is one dated run of 2026-10-08, which is a log and no receipt.
 - [Try AICR](${SITE_BASE_URL}try-aicr.html): anonymously pull one retained AICR configuration, verify the seven-file CPU-starter selection, and write a local OCI without a cluster or GPU.
 - [Timoni Redis source entry](${SITE_BASE_URL}d/examples/timoni/redis-8-10-1/README.html): one immutable module, its typed options, seven exact objects, master-first lifecycle work, and current test limits.
 - [Check my config](${SITE_BASE_URL}ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.
@@ -3837,6 +3840,7 @@ ${homeJourneyLinks()}
         <a href="./stack.html">How do I run a pre-tested stack?</a>
         <a href="./bring-argo-into-confighub.html">How do I bring in my Argo CD apps?</a>
         <a href="./bring-flux-into-confighub.html">How do I bring in my Flux fleet?</a>
+        <a href="./deploy-one-thing.html">How do I deploy one thing?</a>
         <a href="./confighub.html#start-managing">How do I deploy and promote my app?</a>
         <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">What does a GPU Operator upgrade change?</a>
         <a href="./promote.html">How do I review a change before it ships?</a>
@@ -4713,6 +4717,15 @@ aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code><
       ["Retained base variant", "The exact generated objects, digest, requirements, and evidence kept by the Catalog or ConfigHub."],
       ["Derived ConfigHub variant", "A later environment or policy change linked to that retained base."],
     ])}
+    <h3 id="which-aicr-configuration">Which AICR configuration is which</h3>
+    <p>The Catalog holds the same NVIDIA AICR recipe at several versions, and this page runs a smaller selection from one of them. Choose by what you want to do.</p>
+    ${markdownLikeTable([
+      ["You want to", "Use", "What it is"],
+      ["Run something now with no GPU, cluster or account", `<a href="#run-aicr">The CPU starter on this page</a>`, `Seven of the 17 Applications from NVIDIA AICR v0.14.0, selected by the Workshop because they need no GPU. It is not an upstream NVIDIA recipe. <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a>.`],
+      ["Inspect the whole recipe and take it into ConfigHub", `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html#use-in-confighub">The v0.20.0 entry</a>`, "All 17 Applications of the EKS H100 training recipe with Kubeflow, with the charts inside them rendered and the five ConfigHub steps. It is the most fully recorded version."],
+      ["See the newest NVIDIA release", `<a href="./d/docs/demo/aicr/h100-eks-ubuntu-training-kubeflow.html">The v1.0.0 entry</a>`, "The same recipe at NVIDIA AICR v1.0.0, as 17 Applications. It is not published as OCI, and the charts inside its Applications are not rendered here."],
+    ], { rawSecondColumn: true, rawThirdColumn: true })}
+    <p>None of the three has run on a GPU. Each entry page says what was and was not run for it.</p>
   </section>
 
 
@@ -5475,6 +5488,7 @@ function composeStackGuideHtml() {
     ["web-platform", "cert-manager, ingress-nginx, kube-prometheus-stack", "CHECKED; carries what an app like shop-web depends on"],
     ["shop-platform", "cert-manager, ingress-nginx, kube-prometheus-stack, rabbitmq, and the shop app", "CHECKED, 192 objects, every app need carried"],
     ["kubara-gitops-shop", "Kubara components with Argo CD and the adapted shop app", "CHECKED, 184 objects; a static composition only"],
+    ["gpu-node", "NVIDIA's GPU Operator, NVSentinel and cluster-readiness-engine, from the Catalog's published bundles", "CHECKED, 89 objects; a static composition only, and nothing runs on a GPU"],
     ["observability-base", "cert-manager, metrics-server, kube-prometheus-stack", "CHECKED, 175 objects, 10 CRDs before 50 custom resources"],
     ["gitops-secrets", "cert-manager, external-secrets, argo-cd", "CHECKED, 26 CRDs composed together"],
     ["data-services", "redis, postgresql, rabbitmq", "CHECKED, 31 objects, no CRDs"],
@@ -5586,8 +5600,8 @@ cub stack check my-platform/stack.yaml</code></pre>
       ])}
       <h3>2. Download the same two component files</h3>
       ${commandBlock([
-        { cmd: "curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.57/components/frontend-config.yaml" },
-        { cmd: "curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.57/components/backend-config.yaml" },
+        { cmd: "curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.58/components/frontend-config.yaml" },
+        { cmd: "curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.58/components/backend-config.yaml" },
       ])}
       <p>Read both files. Each holds one ConfigMap in the <code>web</code> namespace and no Namespace object. Step 3 creates the Namespace in the first component with <code>--create-namespace</code>, and the second component reuses it, so two Argo Applications do not compete to manage the same Namespace object.</p>
       <h3>3. Import, place, and release each component</h3>
@@ -6900,7 +6914,7 @@ cub config diff candidate.yaml candidate-next.yaml`;
         heading: "Check your own chart",
         html: `<p><a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin. The install script fetches cub from the <a href="https://github.com/confighub/sdk/releases">confighub/sdk releases</a>, and you can download it from there yourself instead.</p>
       <pre><code>${WORKSHOP_PLUGIN_INSTALL}</code></pre>
-      <p>The command installs the plugin release this page was checked with, version 0.6.57. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
+      <p>The command installs the plugin release this page was checked with, version 0.6.58. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
       <pre><code>${escapeHtml(check)}</code></pre>
       <p>The plugin renders the chart with your values, then once more for each value with that value taken out. A key the chart has no place for comes back IGNORED. A key the chart reads but another setting switches off comes back NO EFFECT. A key that changed the objects comes back APPLIED, with the objects it changed. Exit code 1 means at least one value did nothing, and exit code 2 means the check could not finish. No value is printed.</p>
       <p>APPLIED means the rendered objects changed. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside it still changes the objects. The check names a misspelled container resource field as INVALID, such as <code>resources.limit</code> where Kubernetes expects <code>limits</code>, and exits 1. It checks only container resource fields, so read any other changed field in the candidate yourself. When a key is IGNORED, the check names chart-declared candidates, such as <code>controller.replicaCount</code> for a top-level <code>replicaCount</code>. Review them before you change your values. If none fits, search the chart's defaults for what you meant, for example <code>helm show values &lt;chart&gt; | grep -n -i replica</code>.</p>
@@ -7839,7 +7853,21 @@ function gitopsOnboardingHtml(kind) {
   return splitGuideHtml({ ...gitopsOnboardingGuide(kind, { install: plugin.install, referenceUrl }), compactAgent: true });
 }
 
-function splitGuideHtml({ title, lead, ask = "", body, css = "", eyebrow = "A Guide", compactAgent = true }) {
+// The Guide that follows one Catalog entry from its exact objects to a release.
+// Its commands come from the entry's listing and from the dated walk log.
+function deployOneThingHtml() {
+  return splitGuideHtml(deployOneThingGuide({
+    listing: readListingFile(DEPLOY_ONE_ENTRY),
+    walkLog: readFileSync(join(repoRoot, DEPLOY_ONE_WALK_PATH), "utf8"),
+    check,
+    commandBlock,
+    markdownLikeTable,
+    agentNote,
+  }));
+}
+
+// opening is a block of labelled lines that sits in the header under the lead.
+function splitGuideHtml({ title, lead, opening = "", ask = "", body, css = "", eyebrow = "A Guide", compactAgent = true }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -7854,7 +7882,7 @@ ${topNav(".")}
     <p class="eyebrow">${escapeHtml(eyebrow)}</p>
     <h1>${escapeHtml(title)}</h1>
     <p class="lead">${lead}</p>
-${ask ? (compactAgent ? `<details><summary>Prefer to do this with your AI agent?</summary>${agentNote(ask, "Give this to your agent")}</details>` : `    ${agentNote(ask, "Give this to your agent")}`) : ""}
+${opening}${ask ? (compactAgent ? `<details><summary>Prefer to do this with your AI agent?</summary>${agentNote(ask, "Give this to your agent")}</details>` : `    ${agentNote(ask, "Give this to your agent")}`) : ""}
   </header>
   <main>
 ${renumberSections(body)}  </main>

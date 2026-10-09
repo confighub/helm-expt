@@ -760,6 +760,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/live-parity.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/live-run-log-2026-10-08.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/live-walk-entry-steps-2026-10-08.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/maintenance-sla.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/model-and-vocabulary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/nginx-configuration-files.html</loc></url>
@@ -976,6 +977,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/timoni/redis-8-10-1/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/workshop-catalog-inspection/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/demo.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/deploy-one-thing.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/deploy-with-flux-or-argo.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/did-this-chart-version-change.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/did-your-bitnami-chart-stop-pulling.html</loc></url>

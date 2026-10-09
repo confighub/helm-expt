@@ -686,7 +686,7 @@ When I ask about a chart, a values file, an upgrade, a rollback, a digest or sup
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-    <p><strong>How to read the estimates.</strong> They are rough planning ranges for one focused turn, not quotas, provider bills, or guarantees. They include the likely Guide, one relevant record, task files, and useful command output; an agent host may add system instructions, tool transcripts, retries, and uncached context. The planning heuristic is about one token per four characters. At the current site size, <code>llms.txt</code> is about 4.3k tokens and the core <code>SKILL.md</code> is about 5.1k before references or task files. Use your provider's token meter for the actual count. To estimate money, multiply input and output tokens by that model's current per-million-token rates; caching and tool billing vary by provider.</p>
+    <p><strong>How to read the estimates.</strong> They are rough planning ranges for one focused turn, not quotas, provider bills, or guarantees. They include the likely Guide, one relevant record, task files, and useful command output; an agent host may add system instructions, tool transcripts, retries, and uncached context. The planning heuristic is about one token per four characters. At the current site size, <code>llms.txt</code> is about 4.4k tokens and the core <code>SKILL.md</code> is about 5.1k before references or task files. Use your provider's token meter for the actual count. To estimate money, multiply input and output tokens by that model's current per-million-token rates; caching and tool billing vary by provider.</p>
     <h4 id="ai-token-optimal">Five rules for a token-optimal run</h4>
     <ol>
       <li>Prefer a zero-AI-token browser or CLI check when the answer is deterministic.</li>
@@ -818,7 +818,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
     <section aria-labelledby="confighub-review">
       <h2 id="confighub-review">6. Keep your fixes and reviewed results in ConfigHub</h2>
       <p>An assistant asked for one change often writes the whole file again, and hand fixes can quietly revert. Compare the rewrite with the committed file before you accept it. The diff names each field that moved, however the keys were reordered.</p>
-      <pre><code>cub plugin install confighub/cub-workshop@v0.6.57
+      <pre><code>cub plugin install confighub/cub-workshop@v0.6.58
 git show HEAD:k8s/deploy.yaml &gt; committed.yaml
 cub config diff committed.yaml k8s/deploy.yaml</code></pre>
       <p>A diff catches the next rewrite; it does not prevent it. ConfigHub keeps the assistant's file, exactly as it wrote it, in one Unit and your fixed file in a second Unit cloned from it. Record your fixed file with <code>--protect</code>, so the fields you changed become protected local overrides on your copy. Put each new rewrite into the assistant's Unit, and <code>cub unit update --upgrade</code> brings it into your copy with those overrides kept.</p>

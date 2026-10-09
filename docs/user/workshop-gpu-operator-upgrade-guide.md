@@ -25,10 +25,10 @@ after step 4.
 
 Install [the cub CLI](https://confighub.github.io/helm-expt/site/try.html#install-cub)
 and [Helm](https://helm.sh/docs/intro/install/). Then install the Workshop
-plugin release this Guide was checked with (version 0.6.57).
+plugin release this Guide was checked with (version 0.6.58).
 
 ```sh
-cub plugin install confighub/cub-workshop@v0.6.57
+cub plugin install confighub/cub-workshop@v0.6.58
 ```
 
 The commands below were checked with cub 0.8.7 and Helm `v4.1.4`.
@@ -499,6 +499,66 @@ Unit.
 
 The run deleted its Spaces and its Component afterwards, and the log shows
 those commands. This step deploys nothing.
+
+### Promote a version step through dev and QA
+
+The steps above keep each version as its own variant. A second way keeps one
+base and moves it. An upload moves the base to the next version, and a
+promotion then moves each environment in turn.
+
+A walk on 2026-10-09 ran this for v26.3.2 to v26.3.3 in a hosted ConfigHub
+organization. The
+[walk log](./live-walk-gpu-operator-dev-qa-2026-10-09.md) holds every command
+and its output. The walk used no cluster, no Target and no Release, so it
+shows how the configuration moves and nothing about a deployment.
+
+These are the walk's commands with its names replaced by placeholders. Each
+long reference is the published literal configuration bundle of one Catalog
+entry.
+
+```sh
+cub variant upload --component <your-component> --variant base --namespace gpu-operator --change-desc 'Seed the base at v26.3.2 default' oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-default:r001@sha256:0f6f399365cb045906854c9b568afa8dcb960d7898db5e5b47a317a3eed10484
+cub variant create dev <your-component>-base --environment Dev --change-desc 'Clone the base as dev'
+cub variant create qa <your-component>-dev --environment QA --change-desc 'Clone dev as qa'
+cub variant upload --yes --component <your-component> --variant base --namespace gpu-operator --change-desc 'Move the base to v26.3.3 default' oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-default:r001@sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e
+cub variant promote <your-component>-dev --dry-run -o mutations
+cub variant promote <your-component>-dev --change-desc 'Take v26.3.3 from the base'
+cub variant promote <your-component>-qa --dry-run -o mutations
+cub variant promote <your-component>-qa --change-desc 'Take v26.3.3 from dev'
+cub unit diff --space <your-component>-dev cluster-policy-clusterpolicy --with-unit <your-component>-qa/cluster-policy-clusterpolicy -o mutations
+```
+
+The first upload makes the base Space, named `<your-component>-base`. The
+second line clones it as dev. The third clones dev as QA, so QA takes its
+changes from dev and not from the base.
+
+Read these five things from the walk before you rely on the commands.
+
+| What the walk saw | What it means for you |
+| --- | --- |
+| The preview for dev read "Would upgrade 10 unit(s) behind their upstream", with three of them emptied and three added. | Seven Units are the chart's objects from step 3. The other six are companion documents that each bundle carries, named after the entry. |
+| The preview with `-o mutations` listed each changed field, such as `spec.devicePlugin.version` moving from `v0.19.2` to `v0.19.3`. | This is the diff to review before each promotion. |
+| Promoting QA before dev printed "Upgraded 0 unit(s) behind their upstream" and exited 0. | QA cannot get ahead of dev. The command does not warn that dev is itself behind, so promote dev first. |
+| The second upload needed `--yes`. Without it the command asked for confirmation and stopped. | An upload that replaces companion documents asks first. |
+| After both promotions the last command printed "No changes". | Dev and QA held the same ClusterPolicy. |
+
+The walk's Spaces had no approval rule, so no promotion waited for one. The
+walk did not run `cub variant approve`.
+
+The walk then moved one driver version the same way, by uploading the
+`driver-595.91.07` base of v26.3.3 onto the same base Space. The preview for
+dev showed one changed field on the ClusterPolicy.
+
+```text
+Changes to unit cluster-policy-clusterpolicy from promote:
+Resource: nvidia.com/v1/ClusterPolicy /cluster-policy
+  ~ [Update] spec.driver.version
+      580.126.20 → 595.91.07
+```
+
+Step 5 says what the operator does on a GPU node when that field changes. The
+walk did not test a rollback, a variant with a local edit, or an approval
+gate.
 
 ## A task for an assistant
 

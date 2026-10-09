@@ -92,14 +92,14 @@ const checks = [
   // limits of a file comparison beside the commands.
   {
     file: "site/d/docs/user/workshop-gpu-operator-upgrade-guide.html",
-    terms: ["See what a gpu-operator upgrade changes", "cub plugin install confighub/cub-workshop@v0.6.57", "https://helm.ngc.nvidia.com/nvidia", "cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary", "cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml --summary", "--set driver.version=580.126.20", "/spec/driver/version replace", "The Catalog holds this chart", "Hooks appear as ordinary objects", "--include-crds", "Exit 0 is not approval", "A task for an assistant", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html"],
+    terms: ["See what a gpu-operator upgrade changes", "cub plugin install confighub/cub-workshop@v0.6.58", "https://helm.ngc.nvidia.com/nvidia", "cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary", "cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml --summary", "--set driver.version=580.126.20", "/spec/driver/version replace", "The Catalog holds this chart", "Hooks appear as ordinary objects", "--include-crds", "Exit 0 is not approval", "A task for an assistant", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html"],
   },
   // The stack Guide composes public Catalog entries and nothing more, so it
   // must keep the pinned plugin, the three entry ids, the compose and check
   // commands, the swapped entry, and the limits of a static check.
   {
     file: "site/d/docs/user/workshop-stack-from-catalog-guide.html",
-    terms: ["Make a stack from Catalog entries", "cub plugin install confighub/cub-workshop@v0.6.57", "cub config list --role gpu", "nvidia-gpu-operator-v26-3-3-default", "nvidia-nvsentinel-v1-25-0-default", "nvidia-cluster-readiness-engine-v0-6-0-default", "cub stack compose --entry", "cub stack check ./gpu-node/stack.yaml", "nvidia-nvsentinel-v1-25-0-no-pod-monitor", "A passing composition is not runtime compatibility", "Routes are recorded and not executed", "The stack is not in ConfigHub", "The stack of three has not been deployed", "live-walk-entry-steps-2026-10-08.html", "A task for an assistant", "workshop-compose-guide.html", "compose-a-stack.html"],
+    terms: ["Make a stack from Catalog entries", "cub plugin install confighub/cub-workshop@v0.6.58", "cub config list --role gpu", "nvidia-gpu-operator-v26-3-3-default", "nvidia-nvsentinel-v1-25-0-default", "nvidia-cluster-readiness-engine-v0-6-0-default", "cub stack compose --entry", "cub stack check ./gpu-node/stack.yaml", "nvidia-nvsentinel-v1-25-0-no-pod-monitor", "A passing composition is not runtime compatibility", "Routes are recorded and not executed", "The stack is not in ConfigHub", "The stack of three has not been deployed", "live-walk-entry-steps-2026-10-08.html", "A task for an assistant", "workshop-compose-guide.html", "compose-a-stack.html"],
   },
   {
     file: "site/index.html",
@@ -180,7 +180,7 @@ const checks = [
   // Site IA phase 4, step 4: the Stacks how-to moved to its Guide.
   {
     file: "site/compose-a-stack.html",
-    terms: ["Check your own app on a shipped platform", "cub stack sandbox web-platform --workspace my-platform", "cub plugin install confighub/cub-workshop@v0.6.57", "cub stack sandbox eks-inference", "=&gt; CHECKED", "=&gt; REFUSED", "Get a stack", "Want a ready-made one?", "What a stack is", "placed across many clusters as data", "An app, in turn, is", "cub stack from-kubara", "Checking your stack", "What each app needs", "Deploy a tiny first stack", "cub stack check web-tiny", "cub variant create dev first-stack-frontend-base --target workshop/target --namespace web", "cub release publish first-stack-backend-dev", "kubectl get applications -n argocd first-stack-frontend-dev first-stack-backend-dev", "The stacks that ship, by altitude", "Run and govern it", "What you can do with the workshop plugin", "cub fleet status demo-platform", "Fleet operations live here too", "cub changeorder create traefik-wave", "cub stack publish"],
+    terms: ["Check your own app on a shipped platform", "cub stack sandbox web-platform --workspace my-platform", "cub plugin install confighub/cub-workshop@v0.6.58", "cub stack sandbox eks-inference", "=&gt; CHECKED", "=&gt; REFUSED", "Get a stack", "Want a ready-made one?", "What a stack is", "placed across many clusters as data", "An app, in turn, is", "cub stack from-kubara", "Checking your stack", "What each app needs", "Deploy a tiny first stack", "cub stack check web-tiny", "cub variant create dev first-stack-frontend-base --target workshop/target --namespace web", "cub release publish first-stack-backend-dev", "kubectl get applications -n argocd first-stack-frontend-dev first-stack-backend-dev", "The stacks that ship, by altitude", "Run and govern it", "What you can do with the workshop plugin", "cub fleet status demo-platform", "Fleet operations live here too", "cub changeorder create traefik-wave", "cub stack publish"],
   },
   {
     file: "site/proof.html",
@@ -278,6 +278,13 @@ const checks = [
     file: "site/choose-a-tool.html",
     terms: ["Choose a tool and start", "1. Choose a tool and start", "Why this is more than a fast render command", "Three public jobs", "A graduation path, not a day-one choice", "When your chart is not in the catalog"],
   },
+  // The landing Guide for one deployment. Its commands are the nginx entry's
+  // nextSteps and the walk log's, so the terms here are its sections, the
+  // placeholder names, the known defect and the limits of the dated run.
+  {
+    file: "site/deploy-one-thing.html",
+    terms: ["Deploy one thing, and look before you do", "1. Choose what to deploy", "2. Look first at what it installs and what it needs", "3. Save it and release it", "4. See what success looked like", "5. Know what this run did not cover", "6. Go back", "bitnami-nginx-24-0-2-http-clusterip", "--space &lt;your-space&gt; --component &lt;your-component&gt;", "cub unit delete --space &lt;your-space&gt;-dev installer-record", "work around a known defect", "Argo CD v3.5.4 cannot read it", "cub v0.8.7 and server v0.8.9", "Read the Sync column, because Healthy alone is not a pass", "it is not a receipt for the entry", "It created no staging variant and no production variant", "Deleting the ConfigHub side did not remove the workload", "./journey-preserve-my-fixes.html", "./charts/bitnami-nginx-24-0-2.html#use-in-confighub", "./listings/bitnami-nginx-24-0-2-http-clusterip.json"],
+  },
   // Site IA phase 4, step 8: explanation sections became agent docs.
   {
     file: "site/kubara-and-confighub.html",
@@ -328,7 +335,7 @@ const checks = [
   },
   {
     file: "site/ai.html",
-    terms: ["Use Claude or Codex for Kubernetes configuration", "1. Install the ConfigHub Workshop skill", "2. Ask for one result", "composed a five-component stack and had it certified", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "Check the proof and limits", "6. Keep your fixes and reviewed results in ConfigHub", "Review an AI rewrite", "git show HEAD:k8s/deploy.yaml", "A diff catches the next rewrite; it does not prevent it", "cub unit update --space \"$SPACE\" app --upgrade", "expected/step-7.txt", "invoice-preservation/receipt.json", "kept all six", "app k8s/deploy.yaml --protect --change-desc", "@v0.6.57\ngit show HEAD:k8s/deploy.yaml", "protected local overrides", "invoice-protection/receipt.json", "it is not a general merge", "Missing coverage means the claim is unchecked", "Plan token cost before you start", "0 / 0 AI tokens", "6k–15k / 0.5k–2k", "8k–25k / 1k–3k", "15k–50k / 2k–6k", "20k–80k+ / 2k–8k", "Five rules for a token-optimal run", "do not load whole indexes or the whole catalog into context", "Expected:</strong> one rendered candidate", "Not proven:</strong> cluster admission, delivery, or workload health", "Expected first:</strong> a read-only inventory", "From discovery to verified use: nine checkpoints", "7. Delivery request", "8. Verified live", "9. Expand or return"],
+    terms: ["Use Claude or Codex for Kubernetes configuration", "1. Install the ConfigHub Workshop skill", "2. Ask for one result", "composed a five-component stack and had it certified", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "Check the proof and limits", "6. Keep your fixes and reviewed results in ConfigHub", "Review an AI rewrite", "git show HEAD:k8s/deploy.yaml", "A diff catches the next rewrite; it does not prevent it", "cub unit update --space \"$SPACE\" app --upgrade", "expected/step-7.txt", "invoice-preservation/receipt.json", "kept all six", "app k8s/deploy.yaml --protect --change-desc", "@v0.6.58\ngit show HEAD:k8s/deploy.yaml", "protected local overrides", "invoice-protection/receipt.json", "it is not a general merge", "Missing coverage means the claim is unchecked", "Plan token cost before you start", "0 / 0 AI tokens", "6k–15k / 0.5k–2k", "8k–25k / 1k–3k", "15k–50k / 2k–6k", "20k–80k+ / 2k–8k", "Five rules for a token-optimal run", "do not load whole indexes or the whole catalog into context", "Expected:</strong> one rendered candidate", "Not proven:</strong> cluster admission, delivery, or workload health", "Expected first:</strong> a read-only inventory", "From discovery to verified use: nine checkpoints", "7. Delivery request", "8. Verified live", "9. Expand or return"],
   },
   {
     file: "site/testing.html",
@@ -356,6 +363,7 @@ const menuGuidePages = [
 ];
 
 const humanSplitPages = [
+  "site/deploy-one-thing.html",
   "site/bring-sveltos-into-confighub.html",
   "site/bring-argo-into-confighub.html",
   "site/bring-flux-into-confighub.html",
@@ -418,6 +426,10 @@ const guideOpeningChecks = [
   {
     file: "site/deploy-with-flux-or-argo.html",
     headerTerms: ["Keep the reconciler you have", "nothing on this page needs an account", "into a registry you control"],
+  },
+  {
+    file: "site/deploy-one-thing.html",
+    headerTerms: ["Deploy one thing, and look before you do", "Who this is for.", "What you get.", "What each part needs.", "Where you can stop.", "it needs no account and no cluster", "Saving needs a ConfigHub account", "Docker, kind and kubectl"],
   },
   {
     file: "site/ai.html",
