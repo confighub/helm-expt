@@ -32,7 +32,7 @@ for exact base-variant evidence.
 | User status | not-in-current-catalog-lane |
 | Strongest evidence | render-parity |
 | Proof lanes | render parity 2/2; ConfigHub 0/2; local live 0/2; GitOps live 0/2; live parity 0/2 |
-| Feature summary | none-recorded |
+| Feature summary | crds |
 | Hard gap | - |
 | Next action | review source/current-version drift and refresh recipe if needed |
 

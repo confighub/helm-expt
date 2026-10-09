@@ -232,7 +232,7 @@
     {
       "section": "top100",
       "metric": "average top100 coverage",
-      "value": "85",
+      "value": "86",
       "total": "100",
       "status": "partial",
       "source": "data/top100-coverage/coverage.csv",

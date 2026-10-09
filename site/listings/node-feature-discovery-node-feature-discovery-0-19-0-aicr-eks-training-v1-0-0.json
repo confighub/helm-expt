@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:32ecfa8e0766e6c69cc244f2218d5d417c7d305dede9ddcae4396abb32534b10",
+      "sha256": "sha256:5c37976fb7db17db6d2a4db87bbd4d9248cfe29c1670205069120baa69bf43b8",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0.yaml",
-      "sha256": "sha256:ad66b3f71bd7b744abe7bb3527d7c943338f588129982fcaf689990b71ae2292",
+      "sha256": "sha256:f3140c9ed035ef05753f9b17d457792d29d633a42769a08d90a5fc703ece367b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -308,8 +308,8 @@
         "declared": "todo"
       },
       "lifecycle_observation": {
-        "status": "not_applicable",
-        "declared": "n/a"
+        "status": "not_checked",
+        "declared": "todo"
       },
       "gitops_oci_live": {
         "status": "not_checked",

@@ -57,7 +57,7 @@ spec:
       localLive: "0/3"
       gitopsLive: "0/3"
       liveParity: "0/3"
-    featureSummary: "none-recorded"
+    featureSummary: "crds"
     hardGap: "-"
     nextAction: "review source/current-version drift and refresh recipe if needed"
   installerPackage:
