@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-oke-training-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:64114d0fcd3b7912c5572fb9dd3bd3a3ab50276f48c49971a87a70fa77d3a8b3"
-    layerDigest: "sha256:b4be0b7e35c0417589b251f01b9a9e7d0d9eca92264d567caf05bee919026447"
-    layerBytes: 72732
+    manifestDigest: "sha256:2bd0ef04633b253bb0e1895286e1696ac501e1a09aeca726e6c8033c9daee318"
+    layerDigest: "sha256:139efbf302d459796393d7c06388d95910bc32919aa16bd90e3866b177179868"
+    layerBytes: 75804
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 15
-    fileCount: 20
+    fileCount: 21
     files:
       -
         path: "examples/aicr/gb200-oke-training/argocd-rendered/templates/aicr-stack.yaml"
@@ -118,8 +118,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb200-oke-training/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "f5ed27998d2cacc71828eb416126ae8a95fee91c8d2f42021145f60bd3fb2c82"
-        bytes: 3737
+        sha256: "e071d86634e41a4935002d5b488625df301f7391e460b6888d3f96fe45967c0b"
+        bytes: 3598
       -
         path: "data/aicr-mirror-artifacts/gb200-oke-training/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -133,6 +133,12 @@ spec:
         sha256: "23c17a62dbbcfc6cfb92ba61918dee12973dfd4c64ef64d2ec13cf7344ac049d"
         bytes: 1416
       -
+        path: "data/aicr-mirror-artifacts/gb200-oke-training/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "9dad6be8abd80db09480e83687fc27dbc525df15b165d7668312488bbf2a9ffc"
+        bytes: 1932
+      -
         path: "data/aicr-mirror-artifacts/gb200-oke-training/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -142,8 +148,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb200-oke-training/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "947a4a440aeb836d02aa3ee22be7a8167b74ca69a8df4c30b2ab516007c66c80"
-        bytes: 3907
+        sha256: "3e786ee35a02190d07400dc646292bba7e2d85412d95b80fa70f9abfc023a5d4"
+        bytes: 4195
     reproducible: true
   needs:
     sourcePackage:

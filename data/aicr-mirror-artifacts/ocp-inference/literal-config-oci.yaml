@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-ocp-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:3174d88f1b538d6b99473c8053c89a65034a53ec8ba438e5458d61f4703b6651"
-    layerDigest: "sha256:777f002763f0c0af821e880f2310ca404cfd2f44127d9c8879c6227f992b7820"
-    layerBytes: 47127
+    manifestDigest: "sha256:24d1860f3f9749337f88c9c0c440371348f2756bdaec4c118fdbfa95fdbef4c0"
+    layerDigest: "sha256:ac082770a51cd04ec769c7de75643487e90aea86c4a5f39b7ad562e6a58c8612"
+    layerBytes: 49687
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 14
-    fileCount: 18
+    fileCount: 19
     files:
       -
         path: "examples/aicr/ocp-inference/argocd-rendered/templates/aicr-stack.yaml"
@@ -121,6 +121,12 @@ spec:
         sha256: "28f5940cb23615faf4ed63a99eaac2d661a72b44e3aa9060c2d7df4b26988b10"
         bytes: 3182
       -
+        path: "data/aicr-mirror-artifacts/ocp-inference/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "93eeca9eb5a109298a7521c266b7c2846b1242f90e4a9ddf1b0417d71d369a32"
+        bytes: 1838
+      -
         path: "data/aicr-mirror-artifacts/ocp-inference/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -130,8 +136,8 @@ spec:
         path: "data/aicr-mirror-artifacts/ocp-inference/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "8619c000b8f981df3bfaa1c1907abfb9879f3e93a9c979728d511a44b7539732"
-        bytes: 3628
+        sha256: "336190e21e531519fe4f292432836dd381961f6c4ba003a54351a33dedb44dc4"
+        bytes: 3916
     reproducible: true
   needs:
     sourcePackage:

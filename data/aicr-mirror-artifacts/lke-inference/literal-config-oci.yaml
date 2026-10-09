@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-lke-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:e77ce4057e089a4b8bbef662252cb202f39d2801952c54e2bb134e2dba023ecc"
-    layerDigest: "sha256:1c029b80b460dc972df94d7def922da9a8ac3b6d067cbf0970ef0e78bec0c794"
-    layerBytes: 73756
+    manifestDigest: "sha256:d79d9275cf84cbf6e3b4e42f9d81a129f2a47945433f9898206bc02c58f21b93"
+    layerDigest: "sha256:c5af5a2541b08b9bfcac6971843d7cb579b11f19b9caf8988b5a3966996142e5"
+    layerBytes: 76828
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 16
-    fileCount: 21
+    fileCount: 22
     files:
       -
         path: "examples/aicr/lke-inference/argocd-rendered/templates/agentgateway-crds-post.yaml"
@@ -124,8 +124,8 @@ spec:
         path: "data/aicr-mirror-artifacts/lke-inference/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "b822d5d67ee66874fd6f684fe73386a8d9e846b3acd03ab8de57e170c644011b"
-        bytes: 3756
+        sha256: "bf7f0be2b31475092af0ac367e740fb8873c8af99d1fea0096feddad53992c08"
+        bytes: 3617
       -
         path: "data/aicr-mirror-artifacts/lke-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -139,6 +139,12 @@ spec:
         sha256: "3c9e0986932d0bc0de1bbb7aafd362f59ce6dbbfb9ae54e9c2fd94f4e34ac856"
         bytes: 1401
       -
+        path: "data/aicr-mirror-artifacts/lke-inference/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "8830fe4779aab68a75fcc643de934c2b27c3dfef1df24317f20b9925f49a7d7c"
+        bytes: 1917
+      -
         path: "data/aicr-mirror-artifacts/lke-inference/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -148,8 +154,8 @@ spec:
         path: "data/aicr-mirror-artifacts/lke-inference/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "0a766b0eed6da42ec4495b3f6b4a5ddaaa8263d3235b097b37acb64af1b9f61a"
-        bytes: 3995
+        sha256: "7f79d6bfb2e9a6d4334c9ff6aaf143960c58c127033cf6b58725f6bbfe5645d6"
+        bytes: 4283
     reproducible: true
   needs:
     sourcePackage:

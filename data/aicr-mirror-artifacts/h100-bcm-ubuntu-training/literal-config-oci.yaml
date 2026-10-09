@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-bcm-ubuntu-training-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:df11446e845415d1b2dc24a0178b980dcd7692f4f22aae95cfd3b642ecb49523"
-    layerDigest: "sha256:3e4ecb7cd8ce00392bf353b6a0b047daa16f4a37e877cfffdc72b49264a3f589"
-    layerBytes: 68124
+    manifestDigest: "sha256:cd1030253eec672a5ddf5189421726f0a23bbb5846cc0a7ccb0b22196cf214f6"
+    layerDigest: "sha256:ae2dbb0876994961d9259b1aced95800b2e61c38b9b744b128f7695fe06c589f"
+    layerBytes: 70172
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 13
-    fileCount: 18
+    fileCount: 19
     files:
       -
         path: "examples/aicr/h100-bcm-ubuntu-training/argocd-rendered/templates/aicr-stack.yaml"
@@ -106,8 +106,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-bcm-ubuntu-training/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "034dad9d2e6a686364760226a61b766f59d6e11eb814c4ef0faff1fceda797c7"
-        bytes: 3088
+        sha256: "bed71ef1bda618ffa2b3f3ec87663f6a2eaa37eae3ff3e601a00cce850ada857"
+        bytes: 2949
       -
         path: "data/aicr-mirror-artifacts/h100-bcm-ubuntu-training/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -121,6 +121,12 @@ spec:
         sha256: "98977e41e8320c9b8003baa6fe6d33893643b29c9b318490449d4fa62385b8be"
         bytes: 1434
       -
+        path: "data/aicr-mirror-artifacts/h100-bcm-ubuntu-training/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "7bcf67107ed23cb40ffaf7aff0b712c8d547f8916964b95ab9ae88d5d1b45a7d"
+        bytes: 1950
+      -
         path: "data/aicr-mirror-artifacts/h100-bcm-ubuntu-training/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -130,8 +136,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-bcm-ubuntu-training/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "6c4e9c293cf15582c39affae80b27ac1f2ef45b27e5e66542f05ea9c963c8c3c"
-        bytes: 3726
+        sha256: "b9a0e97012bd102c8d51ce01350cdf776d51b8be424163e69f430c30ca946e41"
+        bytes: 4014
     reproducible: true
   needs:
     sourcePackage:

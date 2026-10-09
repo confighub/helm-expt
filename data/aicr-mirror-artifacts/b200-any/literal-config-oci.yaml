@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-b200-any-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:cdf27bbc621e742550f9e450d5dee6f5c3fcdbcf83857b1036066a5e402cf4dc"
-    layerDigest: "sha256:db9ed749e5edb8623056f7c2310353f15ae20fc2718c500d3c4a75e79ea563ba"
-    layerBytes: 64535
+    manifestDigest: "sha256:d8f6c992c2aca9e31bd2d7e049d29ded1b92acdf3a4a2eff7ba564f761ba8c3c"
+    layerDigest: "sha256:a2aca1e33f980cd095c183303c4676d1087b0964d4146eb390ae4918fe711ad3"
+    layerBytes: 67612
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 12
-    fileCount: 17
+    fileCount: 18
     files:
       -
         path: "examples/aicr/b200-any/argocd-rendered/templates/aicr-stack.yaml"
@@ -100,8 +100,8 @@ spec:
         path: "data/aicr-mirror-artifacts/b200-any/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "0868734c2da4b8bb037365b5ec8a6a01b50a62941b919e2fbad4506b0424f2d9"
-        bytes: 2998
+        sha256: "7aa79ab182494be8146635dea521a7466cb9482063ae66033af56c8c03d2c05e"
+        bytes: 2859
       -
         path: "data/aicr-mirror-artifacts/b200-any/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -115,6 +115,12 @@ spec:
         sha256: "28de6d79e67e595ce6008e9e7fd8154b7a6d9ad3b341da62eee6208faa89aa98"
         bytes: 1386
       -
+        path: "data/aicr-mirror-artifacts/b200-any/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "920d827bbf2f4f2cede9901adcba4555043bd29a1ac7f0db293da1b80f80dd1c"
+        bytes: 1902
+      -
         path: "data/aicr-mirror-artifacts/b200-any/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -124,8 +130,8 @@ spec:
         path: "data/aicr-mirror-artifacts/b200-any/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "c3366618bb8218af66e0a96ced5bc9491cbeb243c92fb312a9a99c35ef8c6e68"
-        bytes: 3545
+        sha256: "7f8a812e9872b4610fbb0c516bf48fa06ba3e6143e192d3ebd7185caf54024b0"
+        bytes: 3833
     reproducible: true
   needs:
     sourcePackage:

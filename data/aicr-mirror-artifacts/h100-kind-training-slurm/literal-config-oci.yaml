@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-kind-training-slurm-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:cda008976d263149fd910a06830f955fcdd2e8808e0cc57f518bd6ede85052c9"
-    layerDigest: "sha256:a8952c028211db7f884dd16ac191b7f998f55c84afd56031a1e0ddbbf0422ffb"
-    layerBytes: 82972
+    manifestDigest: "sha256:07851374e45313885172cde77e789090b153d58d172eb0e00a8c44e03e042097"
+    layerDigest: "sha256:bac05da7990389198352891584cba1a62409c56efdcc4647f8004d8c0d5ee7fc"
+    layerBytes: 86044
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 18
-    fileCount: 23
+    fileCount: 24
     files:
       -
         path: "examples/aicr/h100-kind-training-slurm/argocd-rendered/templates/aicr-stack.yaml"
@@ -136,8 +136,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-kind-training-slurm/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "9eaa6037c980b903840201434b46e7feda3352efdc9939c6a0a3cc05e234e83b"
-        bytes: 3778
+        sha256: "da04a8f8e82612cc723a97bc87ee615328a9b1d1d9a002ed6dc7f75ea8e74929"
+        bytes: 3768
       -
         path: "data/aicr-mirror-artifacts/h100-kind-training-slurm/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -151,6 +151,12 @@ spec:
         sha256: "39b58f4319d4b4349ae7363fefb9ca71fcd93c1cb675ec36d277b57863ed73af"
         bytes: 1954
       -
+        path: "data/aicr-mirror-artifacts/h100-kind-training-slurm/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "a646143e7703b5be2e8bad10bb83a58ea30f8d9506662d2fa4986714e8b9d377"
+        bytes: 1950
+      -
         path: "data/aicr-mirror-artifacts/h100-kind-training-slurm/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -160,8 +166,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-kind-training-slurm/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "02aa8b4dc0a5fa57efb8b324cffce4e208366f127c4c781a985a82db898aeec5"
-        bytes: 4324
+        sha256: "214efaf56b83ae050a74c3631040eb67da5db0272dfbd38e28ace363e7792711"
+        bytes: 4612
     reproducible: true
   needs:
     sourcePackage:

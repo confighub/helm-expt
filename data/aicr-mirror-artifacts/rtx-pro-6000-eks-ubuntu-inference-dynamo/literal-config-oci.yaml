@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-eks-ubuntu-inference-dynamo-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:082c2b3d65b20ac9e905b3e6a024944cec03fa6c22ca1f215d6c91f96ea2d4fe"
-    layerDigest: "sha256:6abe2e319fd3455e504b0d8c5c5046b73cecd1805fb7af53a7f43c7e03dc0958"
-    layerBytes: 87580
+    manifestDigest: "sha256:09f7215870dd1d4ada9cc18a5252fb0ba0f0b24a21cfd4465fc9162723765a5d"
+    layerDigest: "sha256:168d33acce2836fc262e5587470d648143bb8250c6b46bd69b422646589f1a09"
+    layerBytes: 90140
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 21
-    fileCount: 26
+    fileCount: 27
     files:
       -
         path: "examples/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo/argocd-rendered/templates/agentgateway-crds-post.yaml"
@@ -154,8 +154,8 @@ spec:
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-dynamo/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "baa19e878f67151c408c5c5128d28970eb67d6ac98087261760988edf5ae2249"
-        bytes: 4178
+        sha256: "8ce39335635ad1bddcc877e329bf54f8fbc132032e8709d5e21075abda492460"
+        bytes: 4039
       -
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-dynamo/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -169,6 +169,12 @@ spec:
         sha256: "1408bdf1e70ae8e4e9e7c0d56f50c2457b82bf9488276e585a110d8ec6a7958c"
         bytes: 1482
       -
+        path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-dynamo/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "437779dff12d19d916a234c34180b5385141df7126afdafa8fa78da2bd586fbf"
+        bytes: 1998
+      -
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-dynamo/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -178,8 +184,8 @@ spec:
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-dynamo/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "3b4dca6aec493788c922af1de22f1b6832d68894618fde5d75000cf20b9f6e23"
-        bytes: 4596
+        sha256: "dec6b4a4ab613aa2323483f520aa3aa0f71f4f08739ac574cd974eca4aed000f"
+        bytes: 4884
     reproducible: true
   needs:
     sourcePackage:

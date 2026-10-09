@@ -28,6 +28,7 @@ This bundle holds the 15 Argo CD Applications that Helm rendered from the bundle
 | `routes/sync-wave-ordering.yaml` | The order to apply the Applications in. |
 | `routes/system-node-selector-placeholder.yaml` | The placeholder system node selector, and every place it lands. |
 | `routes/components-left-out-of-bundle.yaml` | The components the recipe names and the bundle does not deploy. |
+| `routes/dra-plugin-eviction.yaml` | The choice not to opt in to DRA eviction, and what to supply to choose otherwise. |
 | `requirements/target-requirements.yaml` | What the destination must already have. |
 
 ## Before you apply it
@@ -37,6 +38,7 @@ This bundle holds the 15 Argo CD Applications that Helm rendered from the bundle
 - The destination must match the criteria AICR generated this recipe for, which are accelerator=h100, intent=training, os=ubuntu, platform=any, service=eks.
 - The Applications carry the placeholder `nodeGroup=system-worker` in 22 field paths. Change it to the label on your own cluster's system node group. `routes/system-node-selector-placeholder.yaml` lists every place.
 - The recipe names dra-node-labeler, and the bundle does not deploy it. `routes/components-left-out-of-bundle.yaml` records why.
+- The bundle was generated with no DRA eviction node label, so dra-node-labeler is not deployed. `routes/dra-plugin-eviction.yaml` says what to supply to include it.
 - `kube-prometheus-stack.yaml` sets `adminPassword` to the literal `admin`. Replace it for any destination that matters.
 - Apply the Applications in the order `routes/sync-wave-ordering.yaml` declares. Argo CD does that itself when the sync-wave annotations are kept.
 

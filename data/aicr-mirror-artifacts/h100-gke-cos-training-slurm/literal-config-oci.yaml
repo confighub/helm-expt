@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-gke-cos-training-slurm-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:5331d4b7d5fbbb0bda32624fe5ea8cd716b0f0cad7c0801faff35073cd6102f4"
-    layerDigest: "sha256:178c46a8414e19cb852af2cdedead3d51906a9aaa149d88238f404f8ed9ff27e"
-    layerBytes: 93724
+    manifestDigest: "sha256:cfd322e4e4db216fe36826390c7b0be0e4f72b29e402ab81d65e8743cb961a7f"
+    layerDigest: "sha256:89268edcab823417a7beed1ec2084175febe88aa3c98cac5805e7ba6f17a3c06"
+    layerBytes: 96284
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 21
-    fileCount: 26
+    fileCount: 27
     files:
       -
         path: "examples/aicr/h100-gke-cos-training-slurm/argocd-rendered/templates/aicr-stack.yaml"
@@ -154,8 +154,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-gke-cos-training-slurm/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "47f064b6e75b7f24f7cacb63a2f06ef08162c66c5789de76213a2d2768381db7"
-        bytes: 3922
+        sha256: "32a11ad5e4d017428a17c0e2351ff2e6602aac666f8b030ea6b394da3470611f"
+        bytes: 3912
       -
         path: "data/aicr-mirror-artifacts/h100-gke-cos-training-slurm/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -169,6 +169,12 @@ spec:
         sha256: "530906ced7e7a996b7a8a8f8d80331836b16df6d352a9fc1eba75d74b2ea89fd"
         bytes: 1963
       -
+        path: "data/aicr-mirror-artifacts/h100-gke-cos-training-slurm/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "a72b2e6ba90590cffacc9807fcfffed660ba7187048d98aab7aabce743836610"
+        bytes: 1959
+      -
         path: "data/aicr-mirror-artifacts/h100-gke-cos-training-slurm/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -178,8 +184,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-gke-cos-training-slurm/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "6eae2dbb9545b89c6c396c2086eff9afe8a775c610ebf1c29857941d826a69fc"
-        bytes: 4669
+        sha256: "2937ebf2e6d89e2db1c65f236e7b6f3c4d1927a540638270d5c41bdf0bb1e261"
+        bytes: 4957
     reproducible: true
   needs:
     sourcePackage:

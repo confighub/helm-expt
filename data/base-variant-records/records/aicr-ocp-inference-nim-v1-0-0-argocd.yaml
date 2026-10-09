@@ -166,6 +166,11 @@ spec:
           type: "lifecycle-action"
           detail: "Decide whether the destination needs cert-manager, dra-node-labeler, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kube-prometheus-stack, nfd, nodewright-operator, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, prometheus-operator-crds, which the selected recipe names and the bundle does not deploy. Including one means regenerating the bundle with the input AICR names for it."
         -
+          id: "dra-plugin-eviction"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts. The bundle was generated with no DRA eviction node label, so dra-node-labeler is not deployed. Including it means regenerating the bundle with --dra-eviction-node-label set."
+        -
           id: "argo-cd-application-api"
           origin: "base"
           type: "target-fact"
@@ -237,6 +242,24 @@ spec:
             - "data/aicr-mirror-artifacts/ocp-inference-nim/routes/components-left-out-of-bundle.yaml"
             - "examples/aicr/ocp-inference-nim/generation-receipt.yaml"
           orderHint: 3
+        -
+          id: "dra-plugin-eviction"
+          requirementRefs:
+            - "dra-plugin-eviction"
+          phase: "destination-resolution"
+          proposedActor: "platform operator"
+          proposedMechanism: "Decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts. The bundle was generated with no DRA eviction node label, so dra-node-labeler is not deployed. Including it means regenerating the bundle with --dra-eviction-node-label set."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            - "A chosen DRA eviction node label and a regenerated bundle with its new digests, or a recorded decision to leave it off."
+          evidence:
+            - "data/aicr-mirror-artifacts/ocp-inference-nim/routes/dra-plugin-eviction.yaml"
+            - "examples/aicr/ocp-inference-nim/generation-receipt.yaml"
+          orderHint: 4
       records:
         - "data/aicr-flattening-verdicts/aicr-ocp-inference-nim/sync-wave-ordering.yaml"
     targetFacts:
@@ -289,7 +312,7 @@ spec:
     literalConfigOci:
       status: "not-published"
       plannedRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-ocp-inference-nim-v1-0-0-argocd:v1.0.0"
-      plannedDigest: "sha256:6fa9624bc16700fb1ad1251d1fac629595287960c01e35a9d1e3fd7fb6c85ec8"
+      plannedDigest: "sha256:c3faf17bd571b8b2f5f7ca576371187b0b42b3d27a6095eee573da0a5afec4fb"
       plan: "data/aicr-mirror-artifacts/ocp-inference-nim/literal-config-oci.yaml"
       note: "The rendered Applications and their companion files build this digest. Nothing has been pushed."
     configHubUpload:

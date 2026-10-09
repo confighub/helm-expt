@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:bc1d25a5758bb94e58577f038f7918d207984a395b5e66f18ea048d496d9d37d",
+      "sha256": "sha256:fe5fd946797f6286736a4f59ae4e775482574d89aa4fa8454841146b272f074a",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aicr-ocp-inference-v1-0-0-argocd.yaml",
-      "sha256": "sha256:3be474276a7c388d3e594ab8c405593794a11796baaa0209f4422fa2c7b4eb0a",
+      "sha256": "sha256:a1d3f0b08a70f9016bfc287aec97fcae8daf67975c8b319bf2bc69e9fc5ac206",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-ocp-inference-v1-0-0-argocd.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -219,6 +219,12 @@
         "detail": "Decide whether the destination needs cert-manager, dra-node-labeler, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kube-prometheus-stack, nfd, nodewright-operator, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, prometheus-operator-crds, which the selected recipe names and the bundle does not deploy. Including one means regenerating the bundle with the input AICR names for it."
       },
       {
+        "id": "dra-plugin-eviction",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts. The bundle was generated with no DRA eviction node label, so dra-node-labeler is not deployed. Including it means regenerating the bundle with --dra-eviction-node-label set."
+      },
+      {
         "id": "argo-cd-application-api",
         "type": "target-fact",
         "origin": "base",
@@ -302,6 +308,27 @@
           "examples/aicr/ocp-inference/generation-receipt.yaml"
         ],
         "orderHint": 3
+      },
+      {
+        "id": "dra-plugin-eviction",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "platform operator",
+        "mechanism": "Decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts. The bundle was generated with no DRA eviction node label, so dra-node-labeler is not deployed. Including it means regenerating the bundle with --dra-eviction-node-label set.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "dra-plugin-eviction"
+        ],
+        "checks": [
+          "A chosen DRA eviction node label and a regenerated bundle with its new digests, or a recorded decision to leave it off."
+        ],
+        "evidence": [
+          "data/aicr-mirror-artifacts/ocp-inference/routes/dra-plugin-eviction.yaml",
+          "examples/aicr/ocp-inference/generation-receipt.yaml"
+        ],
+        "orderHint": 4
       }
     ],
     "records": [

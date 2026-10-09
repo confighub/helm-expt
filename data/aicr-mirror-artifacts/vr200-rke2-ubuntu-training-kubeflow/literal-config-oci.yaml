@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-vr200-rke2-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:7197031f0d0cd60cc1fe9c34dc9be4f00ced285ad460382dc071b4f1b4b6255b"
-    layerDigest: "sha256:6c7eb8410dac6b6504e3e2387b2de43d02e432ab4feeb3b68cdaff0c2861befe"
-    layerBytes: 75804
+    manifestDigest: "sha256:f1c37e8b2a93220ae1e392f336178765f6029ff4d334184b73096b91d15c71ea"
+    layerDigest: "sha256:64b1f4c64154f6c2f24fc44ba05e0dbba60e54718b6d065fab5ef1a0a6ec7151"
+    layerBytes: 78364
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 16
-    fileCount: 21
+    fileCount: 22
     files:
       -
         path: "examples/aicr/vr200-rke2-ubuntu-training-kubeflow/argocd-rendered/templates/aicr-stack.yaml"
@@ -124,8 +124,8 @@ spec:
         path: "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-training-kubeflow/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "3e50449ffce732d96b4975e95b49f738bffb06035add3298fe7dcd491c654b81"
-        bytes: 3613
+        sha256: "b4c848379c95a43e619984e37839a98f7042fffa0312859b842310b52ebccdc6"
+        bytes: 3474
       -
         path: "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-training-kubeflow/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -139,6 +139,12 @@ spec:
         sha256: "c41f7e1bd2d16977926b94dc051af8461a9294b250dcbcbcbc6af4d33fd3bbbf"
         bytes: 1467
       -
+        path: "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-training-kubeflow/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "783163e51cefc316a14688ca68d11043392ca437bd9acb5824527c36b48bbf2e"
+        bytes: 1983
+      -
         path: "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-training-kubeflow/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -148,8 +154,8 @@ spec:
         path: "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-training-kubeflow/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "f03f0bc8c68471f01cebb91744e3f0a07d279c6d72945c66797eaa21ddabab54"
-        bytes: 4071
+        sha256: "8995a7f3e92708a03df133331879b225f70371a1ff6b03d971f82782e3b63a6b"
+        bytes: 4359
     reproducible: true
   needs:
     sourcePackage:

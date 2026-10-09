@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-vr200-rke2-ubuntu-training-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:e19fe995590c56d249987ae7d3acea27baccd6cb833a7621f289acc2548f5637"
-    layerDigest: "sha256:6e54a7f69ad89963d0fc2c3948df187462db7e1435018deecf75c2fcdee5a681"
-    layerBytes: 70172
+    manifestDigest: "sha256:200f4e01e1071d7753c3a3f5ec4bf33d54b07104b87b1a26a27e24efa784fab7"
+    layerDigest: "sha256:f5a8544ba3520e160a6a3abbd8c3997144516512055a80232ac4c5ab98fd83c6"
+    layerBytes: 72732
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 14
-    fileCount: 19
+    fileCount: 20
     files:
       -
         path: "examples/aicr/vr200-rke2-ubuntu-training/argocd-rendered/templates/aicr-stack.yaml"
@@ -112,8 +112,8 @@ spec:
         path: "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-training/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "da06cc4d8dfd373b065fc60ac4260ca04b2d5532d6a5162f4a6b462967476378"
-        bytes: 3117
+        sha256: "6f18dccc1bb0b69b3a32429586fffc2f40b55b2a7055d967e7b91a876a7769d2"
+        bytes: 2978
       -
         path: "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-training/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -127,6 +127,12 @@ spec:
         sha256: "d14be712ca19a9033d927752c2b304a6575c633e460ca1f6d486dfa6bf196924"
         bytes: 1440
       -
+        path: "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-training/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "8ca79af7a960d70da49778919bfe9db2ab42e8cadf1b169a0f29160dcb75eb18"
+        bytes: 1956
+      -
         path: "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-training/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -136,8 +142,8 @@ spec:
         path: "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-training/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "4a648f639a27e52d4710c9f5a908ac1f83304ff3cc36b656eaa06b58712e6477"
-        bytes: 3819
+        sha256: "96a5ee68bec973390aae060c4fbdadb814a72492231ca7bd38eeb2f9897eef3a"
+        bytes: 4107
     reproducible: true
   needs:
     sourcePackage:

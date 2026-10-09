@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-kind-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:d31dd0c98ecb065803b3f9856af830bcc6eda71bf42a77a5c4fbfbf95a5c0efe"
-    layerDigest: "sha256:0b587059dc62d6838bc4031a54a53ff9ed284e7249d3de838a9c373b5af27feb"
-    layerBytes: 71708
+    manifestDigest: "sha256:2860c21498d7345fcac1c1a838bfed744dc1e4a3cd5137b381242760d653ed0a"
+    layerDigest: "sha256:e90636f3de4e2a60cdcd14c6fca16e85fcfe56ed7aeea35abf2bf4dcdb231d73"
+    layerBytes: 74268
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 17
-    fileCount: 22
+    fileCount: 23
     files:
       -
         path: "examples/aicr/kind-inference/argocd-rendered/templates/agentgateway-crds-post.yaml"
@@ -130,8 +130,8 @@ spec:
         path: "data/aicr-mirror-artifacts/kind-inference/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "37a1c0f267117238c24c735de30df05223d6d2d54a40a99ee6642009f2791020"
-        bytes: 3792
+        sha256: "5a86bffde05f812c86134407876bd6f03b303b7ec9d8aa0cdca2c40d1e63a2a5"
+        bytes: 3653
       -
         path: "data/aicr-mirror-artifacts/kind-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -145,6 +145,12 @@ spec:
         sha256: "01caf837a7a194efbf099287159a4baf1344246ba8daaf1944ecf8e8b2f2456e"
         bytes: 1404
       -
+        path: "data/aicr-mirror-artifacts/kind-inference/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "3b848e80e98144ca949308a2a521445361d3730c8f796f8e6221b2e10cf305ba"
+        bytes: 1920
+      -
         path: "data/aicr-mirror-artifacts/kind-inference/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -154,8 +160,8 @@ spec:
         path: "data/aicr-mirror-artifacts/kind-inference/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "c7e7f3d3c9e394cb3e82231023fe6f496367b7c81794a9b675d11852e5a43676"
-        bytes: 4104
+        sha256: "7c55b6ee63604b96c71dcef5760c561a2c817a8d8e0b01b857d1dbd5a8386618"
+        bytes: 4392
     reproducible: true
   needs:
     sourcePackage:

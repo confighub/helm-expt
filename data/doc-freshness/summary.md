@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-08 (commit `0d29ebd8b5`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-09 (commit `b4a17bce4c`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 479 |
-| Fresh (no linked source newer than the doc) | 64 |
-| **Review-due** | 96 |
-| No linked evidence sources (cannot auto-trigger) | 319 |
+| Authored docs tracked | 480 |
+| Fresh (no linked source newer than the doc) | 65 |
+| **Review-due** | 95 |
+| No linked evidence sources (cannot auto-trigger) | 320 |
 
 ## Review queue
 
@@ -130,7 +130,6 @@ most recently changed triggers.
 | [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md) | user | 2026-10-08 | 1 | `data/chart-use-guide/summary.md (2026-10-08)` |
 | [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-08-26 | 1 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 | [docs/user/variants-after-upload.md](../../docs/user/variants-after-upload.md) | user | 2026-10-08 | 1 | `data/master-catalog-matrix/summary.md (2026-10-08)` |
-| [docs/user/workshop-aicr-guide.md](../../docs/user/workshop-aicr-guide.md) | user | 2026-10-07 | 1 | `data/aicr-version-diff/summary.md (2026-10-08)`<br>`data/aicr-v0-20-0-nested-sources/summary.md (2026-10-08)` |
 
 ## Docs with no linked evidence sources
 
@@ -455,6 +454,7 @@ into this freshness model.
 - [docs/user/workshop-gpu-operator-upgrade-guide.md](../../docs/user/workshop-gpu-operator-upgrade-guide.md)
 - [docs/user/workshop-lifecycle-guide.md](../../docs/user/workshop-lifecycle-guide.md)
 - [docs/user/workshop-match-guide.md](../../docs/user/workshop-match-guide.md)
+- [docs/user/workshop-stack-from-catalog-guide.md](../../docs/user/workshop-stack-from-catalog-guide.md)
 - [docs/user/workshop-upgrade-guide.md](../../docs/user/workshop-upgrade-guide.md)
 - [docs/user/workshop-values-guide.md](../../docs/user/workshop-values-guide.md)
 

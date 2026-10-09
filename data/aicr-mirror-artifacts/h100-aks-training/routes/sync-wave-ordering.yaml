@@ -91,7 +91,7 @@ spec:
     evidenceState: "not-run"
   boundedness:
     - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 15 rendered Applications, which fall into 6 waves. The recipe the bundle carries deploys 13 components, and 17 of the 17 dependency edges between them hold in those waves."
-    - "The selected recipe also names 1 component the bundle leaves out (dra-node-labeler), and the generation receipt records the reason AICR logged for it. The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it. That edge is recorded and not checked, and no route of this entry decides it, so the entry is flagged. The route that lists the omitted components records the decision a destination has to make."
+    - "The selected recipe also names 1 component the bundle leaves out (dra-node-labeler), and the generation receipt records the reason AICR logged for it. The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it. A route records the decision a destination has to make."
     - "2 waved Applications render without appearing in the recipe's deployment order (network-operator-post, gpu-operator-post). They are companions of a component, and they are named here so the comparison does not drop them silently."
     - "No runtime has executed this route. Nothing in the Catalog has synced this Application set on any cluster."
   provenance:

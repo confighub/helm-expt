@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-eks-ubuntu-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:97478521be5158212dc822fe525a4d99eb8ed1c1b981ac879f26035b41e3d775"
-    layerDigest: "sha256:25c44800e6e17ddefeb95ae892e8b8088563815cbd5b704c2c730b1249adaee4"
-    layerBytes: 85020
+    manifestDigest: "sha256:5e3f54c0442e940fe69e44e2486d014c5d7c980df1fe4735e617b5222feb883e"
+    layerDigest: "sha256:f970304389a291d874f79bec11e08f8f69ed6b4287023888d35b788b903c573b"
+    layerBytes: 87580
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 20
-    fileCount: 25
+    fileCount: 26
     files:
       -
         path: "examples/aicr/gb200-eks-ubuntu-inference/argocd-rendered/templates/agentgateway-crds-post.yaml"
@@ -148,8 +148,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-inference/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "4a125528f2d9d6f3e9af4cd8301d6e94d51803f70948b5b37f29fff90d9b58b0"
-        bytes: 4131
+        sha256: "5ecd7ac80b05ebd8afb96b0d2f9d2fd11109e5e5aa7e9e48f0717a9203fceee2"
+        bytes: 3992
       -
         path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -163,6 +163,12 @@ spec:
         sha256: "a4ec85af75455da4e77922d43dca2fbb981f41e0e3f67173c5ce864b98fcb71e"
         bytes: 1440
       -
+        path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-inference/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "ef02aca63880d522fd263718bbd3b9fe2ced4f20e29bfc99cd7ccefd23355692"
+        bytes: 1956
+      -
         path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-inference/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -172,8 +178,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-inference/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "cdeedcb294277c3afbd3dc971bc88300872cf6461aa19ee4cad8779ffca86ea9"
-        bytes: 4463
+        sha256: "c1ccdffea6c5f9dc671310047a03535d665d4d00f0945f19f163b7e4ea126bea"
+        bytes: 4751
     reproducible: true
   needs:
     sourcePackage:

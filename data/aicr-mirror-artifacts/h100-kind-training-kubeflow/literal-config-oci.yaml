@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-kind-training-kubeflow-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:f61c107934f651b9d4bba336c3fd7e52788f8a3357aec869386d0c3bc173b2de"
-    layerDigest: "sha256:be7d22a90d9bbbb3cf2ffa43315e9a20d1418c4463d34964c96c1267f585ff32"
-    layerBytes: 68636
+    manifestDigest: "sha256:ebb41ab6d89ec3b68274e8d420971f5efb396667d5be2483af8024ef64ec6e49"
+    layerDigest: "sha256:9f688a48c79cc0e387505c21f18548218dc9e133d3f62917eae21308fde13fe5"
+    layerBytes: 71708
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 15
-    fileCount: 20
+    fileCount: 21
     files:
       -
         path: "examples/aicr/h100-kind-training-kubeflow/argocd-rendered/templates/aicr-stack.yaml"
@@ -118,8 +118,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-kind-training-kubeflow/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "bc3431150e633634ce010bf688e137ae0ffc828521f442f22d398b0c1368d4ba"
-        bytes: 3557
+        sha256: "67308350bfded850d7abbf233a248281d07167c8d25045a7fe304b5033dbdcd9"
+        bytes: 3418
       -
         path: "data/aicr-mirror-artifacts/h100-kind-training-kubeflow/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -133,6 +133,12 @@ spec:
         sha256: "58a8c327faa683488e9b5996afa6bf9f973cb3108291bec483a9fda82f3006dd"
         bytes: 1443
       -
+        path: "data/aicr-mirror-artifacts/h100-kind-training-kubeflow/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "4f512d1f6e61fb25542495406803d19fc0d0ed2a4cede38595d0210b37ec3950"
+        bytes: 1959
+      -
         path: "data/aicr-mirror-artifacts/h100-kind-training-kubeflow/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -142,8 +148,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-kind-training-kubeflow/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "0e6755bc97521c7e6bcec0f5cb6fa1011977c84296945a4eae13c4b60fe04aeb"
-        bytes: 3940
+        sha256: "b13aec4911d90c18d302104844a6c05a3c09b334e843550ff0c2f49f94dd0382"
+        bytes: 4228
     reproducible: true
   needs:
     sourcePackage:

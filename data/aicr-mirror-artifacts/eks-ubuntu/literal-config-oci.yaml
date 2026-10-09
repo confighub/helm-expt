@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-eks-ubuntu-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:29c295f014b35d0578ab1ff2d41bf07dc627619147356cea016d67a344d0b915"
-    layerDigest: "sha256:d6f591c5cfe0a63a423a9aa491203e305bc07a6bb52b2d0f87737a62d85babc0"
-    layerBytes: 71708
+    manifestDigest: "sha256:e2d7276170b41b35effe539b62bd775248cd2fc6e8beab1d9b77a7ea85c20be9"
+    layerDigest: "sha256:66815b4935b6406446ca9a516996e478fea93ee9b3d6260ca1e990eeddb61adf"
+    layerBytes: 74268
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 14
-    fileCount: 19
+    fileCount: 20
     files:
       -
         path: "examples/aicr/eks-ubuntu/argocd-rendered/templates/aicr-stack.yaml"
@@ -112,8 +112,8 @@ spec:
         path: "data/aicr-mirror-artifacts/eks-ubuntu/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "75410c7d32af10293b94d48dd863c39abf5479ad5f40e4bece91dec42be3c954"
-        bytes: 3063
+        sha256: "928061ceb68e274d2aae8208d71a465092d1242655dbb3752d0b8cf2a5458bd6"
+        bytes: 2924
       -
         path: "data/aicr-mirror-artifacts/eks-ubuntu/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -127,6 +127,12 @@ spec:
         sha256: "3235c22fa1592ed073882275d01bbf25a33735d478b342f81f0f5ecff68ae956"
         bytes: 1392
       -
+        path: "data/aicr-mirror-artifacts/eks-ubuntu/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "88342210497f12f22f1a29c699120cba14468c8b35becd000a953dd5f9714694"
+        bytes: 1908
+      -
         path: "data/aicr-mirror-artifacts/eks-ubuntu/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -136,8 +142,8 @@ spec:
         path: "data/aicr-mirror-artifacts/eks-ubuntu/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "43588990188a88885f62932ac3077927f063ac2f93a5f826f53afa56db8daddd"
-        bytes: 3749
+        sha256: "5dbdd7841c3ace476ed5f5eeb4f29ef63a1069dc404e66737e485fb00d9d6179"
+        bytes: 4037
     reproducible: true
   needs:
     sourcePackage:

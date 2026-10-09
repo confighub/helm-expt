@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-gke-cos-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:8dc2bec86b27cca7085833b0e7fe7fc0b374164987bd4f50a2af2f46d349cbf8"
-    layerDigest: "sha256:cf71bf1530f1e1b0eb2b43080ea22f5e8ab31d9db7cfdfdada33891a9b8ec188"
-    layerBytes: 81436
+    manifestDigest: "sha256:36745b74414a3a5d27a27ab0b4e7db8c3f79ec7632e6538905db82b8cec886aa"
+    layerDigest: "sha256:3d2c00c33fd06d3b88067a6ee0567e91a18de76b0392246010f76a126a0a8c95"
+    layerBytes: 83996
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 20
-    fileCount: 25
+    fileCount: 26
     files:
       -
         path: "examples/aicr/gb200-gke-cos-inference/argocd-rendered/templates/agentgateway-crds-post.yaml"
@@ -148,8 +148,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb200-gke-cos-inference/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "f18636a7130c3736857f9116f14d733c37eddfffd6461924480ead8cebcbf5f5"
-        bytes: 4131
+        sha256: "29f0e3985643547bb2c243ce27318eedc470a583d40a0e814bfdb5f96bbeed15"
+        bytes: 3992
       -
         path: "data/aicr-mirror-artifacts/gb200-gke-cos-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -163,6 +163,12 @@ spec:
         sha256: "02b32a7aef5859d7934e68ba723998075157fc433ae41fff3ece35f3d490ca7b"
         bytes: 1431
       -
+        path: "data/aicr-mirror-artifacts/gb200-gke-cos-inference/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "d004dd8f44f02d3bbdf4898aa8ec4134af7cae0b7afff60dc54964faaab65629"
+        bytes: 1947
+      -
         path: "data/aicr-mirror-artifacts/gb200-gke-cos-inference/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -172,8 +178,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb200-gke-cos-inference/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "67336b6fe122253432b553165a1410da46f3d716538966519559f0e57257ab00"
-        bytes: 4469
+        sha256: "2e2c41b852cc0b807529251a574356305653880b94547ff82a881c78444cff03"
+        bytes: 4757
     reproducible: true
   needs:
     sourcePackage:

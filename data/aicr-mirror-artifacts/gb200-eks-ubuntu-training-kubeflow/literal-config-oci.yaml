@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-eks-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:e7afb78653e72fd02d299838f772af66ae08fc63592db6836d6d70cedbfdb26c"
-    layerDigest: "sha256:41947f44237ce7e1c94eadf5b98531de60eb7969027d2f7b9a8dfaff5336d01d"
-    layerBytes: 81948
+    manifestDigest: "sha256:f02dea672b00102fefb207ddd76dbde91c7ff660e59e6a2eaa59ce16845da410"
+    layerDigest: "sha256:aa0378c6e7c2d14a1e563f021bb86e6cc3bb8961b3d50fcca0a8222a9bf034a3"
+    layerBytes: 84508
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 18
-    fileCount: 23
+    fileCount: 24
     files:
       -
         path: "examples/aicr/gb200-eks-ubuntu-training-kubeflow/argocd-rendered/templates/aicr-stack.yaml"
@@ -136,8 +136,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-training-kubeflow/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "2abd601e3e251b0fca244ed24f8f3166bdb3af45edd81f0638f4fec506d079bd"
-        bytes: 3888
+        sha256: "be3febc8eaa31e44367d1dcb9832c8c19456345cc172a4af7893ba5c883e0724"
+        bytes: 3749
       -
         path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-training-kubeflow/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -151,6 +151,12 @@ spec:
         sha256: "01ffb254c6df8888409f6e56285b8fbdea16e616c919267b54a572ed4be563aa"
         bytes: 1464
       -
+        path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-training-kubeflow/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "446cb8fdcebe4e8a875d41ab21b7f296ddc6163d568cc9cff6f266e0c044f4f6"
+        bytes: 1980
+      -
         path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-training-kubeflow/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -160,8 +166,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb200-eks-ubuntu-training-kubeflow/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "5978557d1d0fea64e965bc127cb2942703523596b664089509ff24ee0944baeb"
-        bytes: 4283
+        sha256: "867c702748a97c6d68f290a30b3c826ba154b654162fb797ae59453dd0a03324"
+        bytes: 4571
     reproducible: true
   needs:
     sourcePackage:

@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-bcm-training-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:1a4009ae19d7fccd0da54b80a1d9d4f58c50577703def0fb44a22dacfb4ebedf"
-    layerDigest: "sha256:409203c93f9e0fcf925cd15f4ac1b38300805f9378a5d1868f9a56bd35b9118d"
-    layerBytes: 67100
+    manifestDigest: "sha256:8f1e64a8300a0ed56ec8eebacb9ac7ba1bc57e7a295c1c592f81e7130bb966be"
+    layerDigest: "sha256:4d28592461dfbd84102b397c59dadb9b5fb84d1dad24f53adec175c3084feea2"
+    layerBytes: 69660
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 13
-    fileCount: 18
+    fileCount: 19
     files:
       -
         path: "examples/aicr/bcm-training/argocd-rendered/templates/aicr-stack.yaml"
@@ -106,8 +106,8 @@ spec:
         path: "data/aicr-mirror-artifacts/bcm-training/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "427fb0e274575010b8121638d65c16af3257f7b1cb92062898e92a78e4b0fead"
-        bytes: 3052
+        sha256: "5a9579a08763c976c0a1569b9bf46a9d109eedba6ca3b1c6102f239389d68d52"
+        bytes: 2913
       -
         path: "data/aicr-mirror-artifacts/bcm-training/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -121,6 +121,12 @@ spec:
         sha256: "eaaee9923abb015abe63c1663a1b22f821cb0a85235a37a6edc35c53b276b213"
         bytes: 1398
       -
+        path: "data/aicr-mirror-artifacts/bcm-training/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "eb9bf7dace1b0b73db819190448a95e116c0795c9057dc5d00ff06f4b1afa6a8"
+        bytes: 1914
+      -
         path: "data/aicr-mirror-artifacts/bcm-training/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -130,8 +136,8 @@ spec:
         path: "data/aicr-mirror-artifacts/bcm-training/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "c29be032dcc4c6eb1445b5ee7a2bcd79b0ea67896184d66a7b36292b3fb440fb"
-        bytes: 3686
+        sha256: "3362ab36a3c97999b36775bcbd018b1f4a61badf4dfac074cc08a70fb2cee68c"
+        bytes: 3974
     reproducible: true
   needs:
     sourcePackage:

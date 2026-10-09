@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb300-generic-ubuntu-training-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:f052d0d90d3952227039f5f9bcbc182e3976a3ca8ac221a5164b23cea204c848"
-    layerDigest: "sha256:9e15273b53329bf28c55aa9a438c262b562f0595e18d76b5fd7288b4f67145a4"
-    layerBytes: 72732
+    manifestDigest: "sha256:c308b115a363dcb74ed2ec9b41517d20b4b42dd10c3966584ae01a00114eddee"
+    layerDigest: "sha256:299b4bd3eb88d3e78d2d5b6cdaaf9c5e79bc59e3c10ca03bc083b5281b9fb08f"
+    layerBytes: 75804
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 15
-    fileCount: 20
+    fileCount: 21
     files:
       -
         path: "examples/aicr/gb300-generic-ubuntu-training/argocd-rendered/templates/aicr-stack.yaml"
@@ -118,8 +118,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb300-generic-ubuntu-training/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "c8437cefe6201c4b15e37fe0be33a84ba96e8a69de7a28d2465d0a59d7b82373"
-        bytes: 3570
+        sha256: "f38ba1b0d0d9400b26bd5402ddb56d5dc48ab00d7b8a04327cbe7e7f9cb3bea3"
+        bytes: 3431
       -
         path: "data/aicr-mirror-artifacts/gb300-generic-ubuntu-training/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -133,6 +133,12 @@ spec:
         sha256: "2f4a7c96c06c5cfe632dc5333205cb3fa22e3ebd75c7500c3326b203d6750e48"
         bytes: 1449
       -
+        path: "data/aicr-mirror-artifacts/gb300-generic-ubuntu-training/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "8af0c0f26f8d2195e9d0a5deadf7596e7f92487d1492acdf127f15dc6fe473b5"
+        bytes: 1965
+      -
         path: "data/aicr-mirror-artifacts/gb300-generic-ubuntu-training/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -142,8 +148,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb300-generic-ubuntu-training/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "ce0724694ddaf3fbf28428ee68d5f2587d8ec788a3078e846d030fc32c0150ec"
-        bytes: 3966
+        sha256: "56b94f64dc2cf8b3684d13957b2682c65c77cf67a239483f7b2c466adb9af95d"
+        bytes: 4254
     reproducible: true
   needs:
     sourcePackage:

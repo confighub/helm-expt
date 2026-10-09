@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-aks-ubuntu-training-slurm-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:19accf536e39e331cd63f5fa938d4dfad3961a30db91b7c7901bf2b8ba69b568"
-    layerDigest: "sha256:8987cc6cafa3c6368fb4e1984b6301fd871418d93753130c7e943733245d8411"
-    layerBytes: 93212
+    manifestDigest: "sha256:1eaa3f2fcd15a70a2c05cbe9242a4fc7adea64f145ddcbf669f1f173b63b61cb"
+    layerDigest: "sha256:23c0b27cf2913d9679c3df1b2b44975d1fdee84db5024a0fd025322959171ff8"
+    layerBytes: 95772
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 20
-    fileCount: 25
+    fileCount: 26
     files:
       -
         path: "examples/aicr/h100-aks-ubuntu-training-slurm/argocd-rendered/templates/aicr-stack.yaml"
@@ -148,8 +148,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-training-slurm/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "d2d6179ab80ff4a1d8b79f26c42a7699153edd379e7b1656980cbf5fc6941080"
-        bytes: 4296
+        sha256: "5dae6c4e8a994857a83a8e62a31b7f204977ba518e1b88e0b98642e9a9bb544a"
+        bytes: 4286
       -
         path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-training-slurm/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -163,6 +163,12 @@ spec:
         sha256: "db52b31a8ca0c4aba0a1a8918e639f8701c142759d892bf2b1ebfb79b3045697"
         bytes: 1972
       -
+        path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-training-slurm/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "ab534a2e78e929d123a12a46d7b6c478826177075d37b3bd1c07189a9e0d2581"
+        bytes: 1968
+      -
         path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-training-slurm/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -172,8 +178,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-training-slurm/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "5e0da40de6e87dc16d0e100786a6a7c955018c08e1886b250623e41692643a35"
-        bytes: 4746
+        sha256: "760ef41b085ddda24264be7d6eb11753727cc47aa608095e7d453dcbeb8c41a8"
+        bytes: 5034
     reproducible: true
   needs:
     sourcePackage:

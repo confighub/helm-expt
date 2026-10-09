@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-gke-cos-inference-dynamo-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:7cace1ddf201e3091efc10e7a9a50962b19a5dc442d53b0882e9c8ca12a3e26c"
-    layerDigest: "sha256:e890a6c2410826a9eec20237b6f29cd17ea2fd1c63c8c8c73e5afb1b118061d0"
-    layerBytes: 89628
+    manifestDigest: "sha256:ccc0475128c20e49d49768a07d10a5b29997ff073e9c17f0e2f2bf425245643b"
+    layerDigest: "sha256:8a2d0f65139ef5febb9f80f46d567d9ff5158d6e4bf6edb26cd72229a1793025"
+    layerBytes: 91676
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 23
-    fileCount: 28
+    fileCount: 29
     files:
       -
         path: "examples/aicr/gb200-gke-cos-inference-dynamo/argocd-rendered/templates/agentgateway-crds-post.yaml"
@@ -166,8 +166,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb200-gke-cos-inference-dynamo/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "e3a9b33d7b3fe47407d12f24d53e3b073b350b9111032df332b105b55fa7fd5a"
-        bytes: 4651
+        sha256: "a45081870189eb840c9a7923daa0eb72af311a7e223983a2a5c82566c63048fd"
+        bytes: 4512
       -
         path: "data/aicr-mirror-artifacts/gb200-gke-cos-inference-dynamo/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -181,6 +181,12 @@ spec:
         sha256: "3365abac2fce01dcfda116cdf51aa31aafc1c8f7b432ae6e6756df9a819d988c"
         bytes: 1612
       -
+        path: "data/aicr-mirror-artifacts/gb200-gke-cos-inference-dynamo/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "4a96a3723d379e659cdcf8c5958209e8b1bf6e4f9597cbdb96b749df8a7b1073"
+        bytes: 1968
+      -
         path: "data/aicr-mirror-artifacts/gb200-gke-cos-inference-dynamo/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -190,8 +196,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb200-gke-cos-inference-dynamo/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "2fb998e17f6b85ed96dfa5c4bd3d26af5b12794bd8cf82cacde913a64993e194"
-        bytes: 4805
+        sha256: "2779f9880909b8463fdc170d90f913a9268b6aa5ae885c2461cb9cd09a2bee66"
+        bytes: 5093
     reproducible: true
   needs:
     sourcePackage:

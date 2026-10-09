@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb300-eks-ubuntu-training-slurm-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:a8781baede8da3dd7dcd036446356207d29d76e843e9451e3e1f57dd5f64c257"
-    layerDigest: "sha256:96d40d3701b8a38130e9b5cf4a5afe9de5569a3c9916408ed84a6e8a6ef4cf12"
-    layerBytes: 93212
+    manifestDigest: "sha256:209cb1bbcd012ead03946fbd9c9de3b29648d695f66b037946079885858c6454"
+    layerDigest: "sha256:220b23d080b003b0899185c2790e17c8751bf027dfe5582b7f6e29920499e5e3"
+    layerBytes: 96284
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 20
-    fileCount: 25
+    fileCount: 26
     files:
       -
         path: "examples/aicr/gb300-eks-ubuntu-training-slurm/argocd-rendered/templates/aicr-stack.yaml"
@@ -148,8 +148,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-slurm/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "a3cde5023552cff50972dc7b34252ee9f24f2726d6428c79cea2269c33819aa5"
-        bytes: 4264
+        sha256: "d12db71d1da283f8a13d8745baf0ae93701ad394437c6ddbb77b9dc0afccf4fc"
+        bytes: 4254
       -
         path: "data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-slurm/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -163,6 +163,12 @@ spec:
         sha256: "753aa9e227242bd6e4b3d9a5dcb2248826baeb33c86d23a115234e845c8916f8"
         bytes: 1975
       -
+        path: "data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-slurm/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "2fafbbfae570d5f9a5e26d7819d4adfa78bfdfa8b2288b2fe31fd6ed1b79b333"
+        bytes: 1971
+      -
         path: "data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-slurm/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -172,8 +178,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-slurm/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "15012c0e8c384238e2dce0cd9996a9aa53a9e302f969b4564b8cebd428efb9c4"
-        bytes: 4562
+        sha256: "0a45277519e25580179f6e92210dabfcc777174b607dc9ed8bdcc4bc0d2066eb"
+        bytes: 4850
     reproducible: true
   needs:
     sourcePackage:

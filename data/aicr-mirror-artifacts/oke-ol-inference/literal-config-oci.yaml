@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-oke-ol-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:47f3e23c2fcee0375281720e7bcc5f8ca21f807ee29d02d6ad1536162cc33874"
-    layerDigest: "sha256:f43e9fa1dacbf352f3b6f42fb566785d80d19896ff2989213de90296c2dd8d94"
-    layerBytes: 74268
+    manifestDigest: "sha256:6db7865fba2298e38d98e58ad18cd82f5fed80825afe392c30d858c7a7b0e5e5"
+    layerDigest: "sha256:b1745ca7b9f0b3105643ae7daa7bd9888251aa92ddda1874b04749599e7df94a"
+    layerBytes: 77340
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 16
-    fileCount: 21
+    fileCount: 22
     files:
       -
         path: "examples/aicr/oke-ol-inference/argocd-rendered/templates/agentgateway-crds-post.yaml"
@@ -124,8 +124,8 @@ spec:
         path: "data/aicr-mirror-artifacts/oke-ol-inference/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "7827dbfdc235f590e114f5e6ba2c434ec2aec073763d7d7ed93b035c1df361cb"
-        bytes: 3765
+        sha256: "f8eaeedabd3a53c5bfacc5458eef8ff8ed4c23579672235f4ff1a5cfb2064378"
+        bytes: 3626
       -
         path: "data/aicr-mirror-artifacts/oke-ol-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -139,6 +139,12 @@ spec:
         sha256: "fc0bb64d121cd442ebbc811212444ad6fe2fe7abeb63a7ce5ba3bd30f0917fd6"
         bytes: 1410
       -
+        path: "data/aicr-mirror-artifacts/oke-ol-inference/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "3ffe71c139b4cdded62255b807a98ed4518cac31c512b2ddf8e209cff23a9a17"
+        bytes: 1926
+      -
         path: "data/aicr-mirror-artifacts/oke-ol-inference/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -148,8 +154,8 @@ spec:
         path: "data/aicr-mirror-artifacts/oke-ol-inference/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "3fd2d2eb50994c1152bd91347647cdecb5b379eed5910c0c586fd3f2155fc331"
-        bytes: 4003
+        sha256: "ea7fb2dc7781991d52e80feb3e4b3d015f1489c6dcee499e8fba69e97fa58406"
+        bytes: 4291
     reproducible: true
   needs:
     sourcePackage:

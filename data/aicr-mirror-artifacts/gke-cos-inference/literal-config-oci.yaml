@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gke-cos-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:f4fd986478a325146390744f5fcc9e714c0e3ded900003dc1ef819fe1af39c6c"
-    layerDigest: "sha256:2ccde6c5ca9353d18ab358613b5e48285ffb3ab0ece3a6cdd05dc20bb0724f4f"
-    layerBytes: 77852
+    manifestDigest: "sha256:3174a2010be964453da9aaab1b7166abb0d91aa6194c6378a0749dab70fce525"
+    layerDigest: "sha256:99417d8137c971d89ddee9bcc16b47eaa1b13e66bc27a05b5bc3bcf6c4a4bfb2"
+    layerBytes: 80412
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 18
-    fileCount: 23
+    fileCount: 24
     files:
       -
         path: "examples/aicr/gke-cos-inference/argocd-rendered/templates/agentgateway-crds-post.yaml"
@@ -136,8 +136,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gke-cos-inference/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "d76f594635864a9cb5d472994030769beb7a2759029c08a0b422a0dc4f85e12b"
-        bytes: 4040
+        sha256: "39473ae3586dae7070aee40be24b84b983f85df1e19e9530e21384ddb83718d8"
+        bytes: 3901
       -
         path: "data/aicr-mirror-artifacts/gke-cos-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -151,6 +151,12 @@ spec:
         sha256: "2d5280d8e3219337067c3bd9a2472bb34460fa8e9d1723ee3827c3cf2cf9fb09"
         bytes: 1413
       -
+        path: "data/aicr-mirror-artifacts/gke-cos-inference/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "71b09b9b205e9a9f5172c526cdca9a2233357c1630ea5fd1f07890728fb93b89"
+        bytes: 1929
+      -
         path: "data/aicr-mirror-artifacts/gke-cos-inference/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -160,8 +166,8 @@ spec:
         path: "data/aicr-mirror-artifacts/gke-cos-inference/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "4f8a8d459afafc1575c1bd1fd17e9283daacf5ffe7b8d68699bdd1028633e89b"
-        bytes: 4225
+        sha256: "4e5903ef4e11abc4a63713c5d30361f5aac9be8b559a05a4f7027ae5172b7bd3"
+        bytes: 4513
     reproducible: true
   needs:
     sourcePackage:

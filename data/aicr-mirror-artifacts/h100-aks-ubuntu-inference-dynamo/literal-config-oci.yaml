@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-aks-ubuntu-inference-dynamo-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:7715eb19d024a9af64111e2393100e8a0118900b1971f6ffe94ee6a51712f992"
-    layerDigest: "sha256:5705c7b813f924e7b14883e3f1873e8270978c3f6313729f40341b28ed9b5271"
-    layerBytes: 89116
+    manifestDigest: "sha256:a3e005f908a971737e6f2cb93065c0800059f2b01de3c19d031605b99926a9fb"
+    layerDigest: "sha256:f827b5c3af5093119c5521cadaee3b0c77c6a54af761d917859a5e8b15745d7a"
+    layerBytes: 92188
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 22
-    fileCount: 27
+    fileCount: 28
     files:
       -
         path: "examples/aicr/h100-aks-ubuntu-inference-dynamo/argocd-rendered/templates/agentgateway-crds-post.yaml"
@@ -160,8 +160,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-inference-dynamo/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "9ffc0f540feb945d0a1b886b9d5bc3aec5c80ae81669afa28420278148d3de2f"
-        bytes: 4428
+        sha256: "3c2db55f479b48bbdbb119589d99c9ef2107b9cf4ecbd893202559c5832c824c"
+        bytes: 4289
       -
         path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-inference-dynamo/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -175,6 +175,12 @@ spec:
         sha256: "c3653440403fd7c72f0f89198889a3a4693978941fbf0b4f5d3e291b35f9da9b"
         bytes: 1458
       -
+        path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-inference-dynamo/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "ca8c9e3522e6d7bc1dbb50263775b894340c460f55276149bf0e2e86d4b80919"
+        bytes: 1974
+      -
         path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-inference-dynamo/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -184,8 +190,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-inference-dynamo/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "26a1994474540df5dca0e54a51e6f90b3f874250f0bb307f0922bc6edf5d8326"
-        bytes: 4857
+        sha256: "f512e9486427f3056edfac74144b0f4b2d6cd9256863af9f6c77eb63e89d6fa1"
+        bytes: 5145
     reproducible: true
   needs:
     sourcePackage:

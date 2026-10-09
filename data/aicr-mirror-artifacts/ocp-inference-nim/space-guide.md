@@ -28,6 +28,7 @@ This bundle holds the 16 Argo CD Applications that Helm rendered from the bundle
 | `prometheus-adapter-ocp.yaml` | The Application prometheus-adapter-ocp, byte for byte as the Catalog retains it. |
 | `routes/sync-wave-ordering.yaml` | The order to apply the Applications in. |
 | `routes/components-left-out-of-bundle.yaml` | The components the recipe names and the bundle does not deploy. |
+| `routes/dra-plugin-eviction.yaml` | The choice not to opt in to DRA eviction, and what to supply to choose otherwise. |
 | `requirements/target-requirements.yaml` | What the destination must already have. |
 
 ## Before you apply it
@@ -36,6 +37,7 @@ This bundle holds the 16 Argo CD Applications that Helm rendered from the bundle
 - 13 Applications take their source from the Helm chart package at `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp-inference-nim/aicr-bundle:1.0.0`. Argo CD must be able to pull that package. `requirements/target-requirements.yaml` names its digest.
 - The destination must match the criteria AICR generated this recipe for, which are accelerator=any, intent=inference, os=any, platform=nim, service=ocp.
 - The recipe names cert-manager, dra-node-labeler, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kube-prometheus-stack, nfd, nodewright-operator, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, prometheus-operator-crds, and the bundle does not deploy them. `routes/components-left-out-of-bundle.yaml` records why.
+- The bundle was generated with no DRA eviction node label, so dra-node-labeler is not deployed. `routes/dra-plugin-eviction.yaml` says what to supply to include it.
 - Apply the Applications in the order `routes/sync-wave-ordering.yaml` declares. Argo CD does that itself when the sync-wave annotations are kept.
 
 ## What has not been done

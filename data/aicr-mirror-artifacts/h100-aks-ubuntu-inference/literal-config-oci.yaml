@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-aks-ubuntu-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:a6d88120df2831ec85c510a174b389c121a2572e8a0f8c69639b94e08cc9a300"
-    layerDigest: "sha256:b40d4750d03977b88e776698b0c2afa0b8f86f68b33d8bdeea0913cd3a9ce21d"
-    layerBytes: 84508
+    manifestDigest: "sha256:d01b30d2c37a38a065239866fcb80b9ae208b49af6413a0552d9bdbdfa9050cc"
+    layerDigest: "sha256:96df5af21ad57f5c4596afa82e839ec5ca82128e02fbc650a0865fef96da4ecf"
+    layerBytes: 86556
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 20
-    fileCount: 25
+    fileCount: 26
     files:
       -
         path: "examples/aicr/h100-aks-ubuntu-inference/argocd-rendered/templates/agentgateway-crds-post.yaml"
@@ -148,8 +148,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-inference/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "5939ee1534a778cea14561954a2977d35341ca15718cecceddc306e04aba069a"
-        bytes: 4167
+        sha256: "b78a93419a0328f325e3e18a56e0061aa108b73f9e93a578d22cb57f52413868"
+        bytes: 4028
       -
         path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -163,6 +163,12 @@ spec:
         sha256: "399269dbb04964bf8523409fe93792654d67ae388a44274765b0680643c4ab3c"
         bytes: 1437
       -
+        path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-inference/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "824b16fbb4448ebaba4446543ece9af8c6f81536db26c9675b76de64c825c742"
+        bytes: 1953
+      -
         path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-inference/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -172,8 +178,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-aks-ubuntu-inference/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "574ab77b7791809de06ce7db277369e1d3699b1dc2dcce5375818e7c646f134a"
-        bytes: 4647
+        sha256: "7264697a795a090e582b504d1024908d1d6063baabca658a0de545aea0005cf5"
+        bytes: 4935
     reproducible: true
   needs:
     sourcePackage:

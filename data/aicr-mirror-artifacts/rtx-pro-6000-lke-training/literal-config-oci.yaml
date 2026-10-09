@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-lke-training-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:cdd59c80bebc5f04a5dc5f87f22855a422d75902a7d9361a55eaea5e142d1b17"
-    layerDigest: "sha256:8020aa02169a461c6f72e62ce05825b7eed93d99c021c4f433e993d69f4adf77"
-    layerBytes: 65564
+    manifestDigest: "sha256:ae5318fc50d6c78d4b0a7e449fd8e6c5547a92f9f6f8f897e9486a3df7f7e2f4"
+    layerDigest: "sha256:e52c42f10a51a5b93c49e0f4ffca36dfacdc79635d5df866b09a72f5fe085089"
+    layerBytes: 68124
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 12
-    fileCount: 17
+    fileCount: 18
     files:
       -
         path: "examples/aicr/rtx-pro-6000-lke-training/argocd-rendered/templates/aicr-stack.yaml"
@@ -100,8 +100,8 @@ spec:
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-training/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "20c6d0b226fa7cbc7f68f280fd3113ff85e61c4e49be28f18a55d5780529c06b"
-        bytes: 3049
+        sha256: "5a0158c524be7b5971f27b17a4b2d2bcafae37305bf6355b156af0b5ca0cff23"
+        bytes: 2910
       -
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-training/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -115,6 +115,12 @@ spec:
         sha256: "c4316c4c044d4fa21296288e0bd8fb2c659da8293d8bf2624da9c9bcf56af9c0"
         bytes: 1437
       -
+        path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-training/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "cbb4699a333454eb823e1291f2fda0689a85d22cf567b8cc369f2ad4c5e5453a"
+        bytes: 1953
+      -
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-training/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -124,8 +130,8 @@ spec:
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-training/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "9e233cfd1336de4694495a5d776863e8ccda8bb5fe46252afef0da0494574ed7"
-        bytes: 3609
+        sha256: "66d73415ed2ede324bb19dc098188218173c5bc787a33d385ddb9f9dce00cee7"
+        bytes: 3897
     reproducible: true
   needs:
     sourcePackage:

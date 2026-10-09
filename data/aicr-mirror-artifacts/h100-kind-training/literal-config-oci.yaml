@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-kind-training-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:470ba9ebe595292b117c004eeb2caf3d1b8ab77aeb92cc35a59165181ecf23a7"
-    layerDigest: "sha256:bab0fd5c6d6225d00997e8f3a9e8ee3b4e585b1da5248d0875c95f3befc6a9bd"
-    layerBytes: 62487
+    manifestDigest: "sha256:cfa2d1221053036cdca62bb73a2e1958e2a9fda28513175afd7fe31f25f2ac8f"
+    layerDigest: "sha256:ba62d3227323fd66810ae0689d04f7f601eedb1c7955b6e2d3274beaa6cf5abc"
+    layerBytes: 65047
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 13
-    fileCount: 18
+    fileCount: 19
     files:
       -
         path: "examples/aicr/h100-kind-training/argocd-rendered/templates/aicr-stack.yaml"
@@ -106,8 +106,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-kind-training/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "7370db11dd12cf0f58c6fda8509efd849bc594f7b23fc60d76a7c0bad8ea7ab9"
-        bytes: 3061
+        sha256: "cda0bc40b469bafda208fc7379dac5d81132b0dd8424df009d7f2d1717527152"
+        bytes: 2922
       -
         path: "data/aicr-mirror-artifacts/h100-kind-training/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -121,6 +121,12 @@ spec:
         sha256: "301b9c6457de5147d38be62b47a1c723df91f6f7ce2bd6c08f0dad2745441789"
         bytes: 1416
       -
+        path: "data/aicr-mirror-artifacts/h100-kind-training/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "4ebc77a3f045ec849dc74b2ed33b9e4b1fcc3b18c9d3797cb84b4c61d64e1af7"
+        bytes: 1932
+      -
         path: "data/aicr-mirror-artifacts/h100-kind-training/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -130,8 +136,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-kind-training/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "05b241209c7472a9021af72e54de8122a5199af82c3de01d5e5ed6c39cbecc73"
-        bytes: 3686
+        sha256: "08b840bba2bf8e3485583a3a3e43057b00a8a6e5b4804c5138841096789d9d20"
+        bytes: 3974
     reproducible: true
   needs:
     sourcePackage:

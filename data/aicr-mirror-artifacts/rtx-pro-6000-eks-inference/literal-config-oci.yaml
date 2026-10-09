@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:c2be8ce771a752eb09d731eefb0d58d39afe7246658ce0c3258ccf0d9da73ea4"
-    layerDigest: "sha256:70fbe17a55bce2b946347880ef1c05e36cfa6376ca2b6c597c87de5aca591c2b"
-    layerBytes: 82972
+    manifestDigest: "sha256:74f68eeade7f4e74840e8a04bf774c012aa067de185a4782b108b0a0284c0055"
+    layerDigest: "sha256:1996edca2f3e6af8e8c3abea8bf23a833870398a946069efe1af29391ef94366"
+    layerBytes: 86044
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 19
-    fileCount: 24
+    fileCount: 25
     files:
       -
         path: "examples/aicr/rtx-pro-6000-eks-inference/argocd-rendered/templates/agentgateway-crds-post.yaml"
@@ -142,8 +142,8 @@ spec:
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-inference/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "7767b11869d87c76379dad42c72d8114cbf96969edc64096a5dad034404b538d"
-        bytes: 3896
+        sha256: "2e94a6ade863323a07ac799133eb513f60f0e74a803cbd9ee7e613a200a1c7d5"
+        bytes: 3757
       -
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -157,6 +157,12 @@ spec:
         sha256: "65bef5c488036df21a5ed05908e7b4c8aec6bec9ca21c142f421ba1354b87763"
         bytes: 1440
       -
+        path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-inference/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "06a8dadf52ccd48833514029a6d94ea7ff42805576fec40ffe563c46425bf787"
+        bytes: 1956
+      -
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-inference/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -166,8 +172,8 @@ spec:
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-inference/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "87ffc8c3edc2a8939fa408855a4bf459f0b8d67e09df90165e3c279427c20bf7"
-        bytes: 4362
+        sha256: "b1a2be3456c55d92856d8dc142cbcbf155939b0e625dd6a63f516a519d9b7af0"
+        bytes: 4650
     reproducible: true
   needs:
     sourcePackage:

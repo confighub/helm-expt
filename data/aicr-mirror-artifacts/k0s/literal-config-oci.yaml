@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-k0s-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:0f7c2c08f3ae5dfffb3042f78ddba1c37814ed40449388c599f63894477c85c5"
-    layerDigest: "sha256:e50b0c5d203c19771a2de82922ffce1b87c2f7899ba3ddc9a8cffb6f2292c0aa"
-    layerBytes: 64535
+    manifestDigest: "sha256:5853d964fc7b1ce2c2972a091f3e56fb1bf9448c8566ca69fba0d0e3ea96ae4e"
+    layerDigest: "sha256:b720f99c1d24fbe9db21d6026b642d69e3014dc9ae765999c09112fda5a14f16"
+    layerBytes: 67612
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 12
-    fileCount: 17
+    fileCount: 18
     files:
       -
         path: "examples/aicr/k0s/argocd-rendered/templates/aicr-stack.yaml"
@@ -100,8 +100,8 @@ spec:
         path: "data/aicr-mirror-artifacts/k0s/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "e50633751f70d061d5e22f6daeabeea4ede12cbeaa4f865bfb81729c6e0143fa"
-        bytes: 2983
+        sha256: "81391f11b7cff656c6796d1f853df8842a0cad1e8cdd549014c7e05ed0aa4937"
+        bytes: 2844
       -
         path: "data/aicr-mirror-artifacts/k0s/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -115,6 +115,12 @@ spec:
         sha256: "8539ba52beef08000bfd2a9b2788b7151967697c6faa9c72a826d58b32f5e6e5"
         bytes: 1371
       -
+        path: "data/aicr-mirror-artifacts/k0s/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "b2a5af9f4a5b12664abc8ae9ba8fa86434b70de895db38a56543b01406f3075a"
+        bytes: 1887
+      -
         path: "data/aicr-mirror-artifacts/k0s/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -124,8 +130,8 @@ spec:
         path: "data/aicr-mirror-artifacts/k0s/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "19aa9a1744cf04cf02f9819c899e2532e8f9d1fc415001e8dbfda23c9e785246"
-        bytes: 3529
+        sha256: "e9ce7d3581e94808f6c05ed0384d4364e24669813fe490d1d39fb497ffe452f0"
+        bytes: 3817
     reproducible: true
   needs:
     sourcePackage:

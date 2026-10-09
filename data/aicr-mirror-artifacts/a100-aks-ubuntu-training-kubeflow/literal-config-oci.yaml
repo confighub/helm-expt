@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-aks-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:0fcfd36986949ac7f49d03ff521c5e83a1594a54260a9abadb88d457924cc891"
-    layerDigest: "sha256:0bf5b5283187f1a2093dfe23a8291ad0fa52475b1daf0358cfb3a5a0373854b8"
-    layerBytes: 81948
+    manifestDigest: "sha256:903fb99e59de1a8611b3f3b6236d151bc9ec4215ba577fe400c2e69adb1a8fb0"
+    layerDigest: "sha256:4c784a7d71eec7ffb11c5dd8a4639884263437b2dd047892ee54b37f738b9ffc"
+    layerBytes: 84508
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 18
-    fileCount: 23
+    fileCount: 24
     files:
       -
         path: "examples/aicr/a100-aks-ubuntu-training-kubeflow/argocd-rendered/templates/aicr-stack.yaml"
@@ -136,8 +136,8 @@ spec:
         path: "data/aicr-mirror-artifacts/a100-aks-ubuntu-training-kubeflow/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "c27ab3ed9dc9fbc09c1ec112ee210ca1a34435090305cba3a222d4f7ddde9762"
-        bytes: 4108
+        sha256: "9006639346696fe477022046262e47b2df4ae31e552cd4f1b8e81f9ba9825e26"
+        bytes: 3969
       -
         path: "data/aicr-mirror-artifacts/a100-aks-ubuntu-training-kubeflow/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -151,6 +151,12 @@ spec:
         sha256: "75a40ff4da30d685b2fbf2f6909e0599f75ec632868a7b7cd47299bd9c23ab52"
         bytes: 1461
       -
+        path: "data/aicr-mirror-artifacts/a100-aks-ubuntu-training-kubeflow/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "36fa7b8f08a976c15c39cd1359fb2a0bc3d622c3558ae9475b854a1a875f5af5"
+        bytes: 1977
+      -
         path: "data/aicr-mirror-artifacts/a100-aks-ubuntu-training-kubeflow/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -160,8 +166,8 @@ spec:
         path: "data/aicr-mirror-artifacts/a100-aks-ubuntu-training-kubeflow/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "238efbe0259abfbe53467a7f6ff8660e9e1f76717f6facb60a5cf7f080df936c"
-        bytes: 4467
+        sha256: "beb7d0acdd7a328c14678755e17c6207b24533f95702fd0f291e01f52fb9533e"
+        bytes: 4755
     reproducible: true
   needs:
     sourcePackage:

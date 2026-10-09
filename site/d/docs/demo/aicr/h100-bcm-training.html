@@ -581,7 +581,6 @@ helm template aicr-argocd ./argocd-helm-bundle --namespace argocd \
       <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
       <p>Steps 1 and 2 need no account.</p>
       <div data-entry-steps="aicr-h100-bcm-training-v1-0-0-argocd">
-        <p class="entry-steps-flag"><strong>This entry is flagged for review.</strong> The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler and the bundle does not deploy it, and nothing here shows who provides it.</p>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 13 Argo CD Applications as files that one inventory lists.</p>

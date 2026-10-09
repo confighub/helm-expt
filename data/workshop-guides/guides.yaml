@@ -245,6 +245,13 @@ spec:
       does not fit.
     page: d/docs/user/workshop-compose-guide.html
     command: "cub stack sandbox ../stacks/kubara-gitops-shop.yaml --workspace ./platform"
+  - id: stack-from-catalog
+    group: stacks-and-platforms
+    title: Make a stack from Catalog entries
+    summary: Compose NVIDIA's gpu-operator, nvsentinel and cluster-readiness-engine entries into one
+      local stack, check them together, then swap one entry and check again.
+    page: d/docs/user/workshop-stack-from-catalog-guide.html
+    command: "cub stack compose --entry nvidia-gpu-operator-v26-3-3-default --entry nvidia-nvsentinel-v1-25-0-default --entry nvidia-cluster-readiness-engine-v0-6-0-default --name gpu-node --out ./gpu-node"
   - id: lifecycle
     group: stacks-and-platforms
     title: Find the hook and CRD work before delivery

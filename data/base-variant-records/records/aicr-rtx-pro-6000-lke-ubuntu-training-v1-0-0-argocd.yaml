@@ -73,7 +73,7 @@ spec:
       -
         id: "materialization"
         question: "What will it produce?"
-        answer: "The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler and the bundle does not deploy it, and nothing here shows who provides it."
+        answer: "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration."
         requiredInputs:
           - "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
         catalogMatchRequired: false
@@ -81,11 +81,11 @@ spec:
         destinationAccessRequired: false
         deploymentRequired: false
         evidenceState: "completed"
-        resultState: "watch"
+        resultState: "pass"
         records:
           - "examples/aicr/rtx-pro-6000-lke-ubuntu-training/generation-receipt.yaml"
           - "examples/aicr/rtx-pro-6000-lke-ubuntu-training/argocd-rendered/checksums.txt"
-        nextAction: "Review the exact object set and its digest, and settle the open question before relying on the recorded order."
+        nextAction: "Review the exact object set and its digest."
       -
         id: "destination"
         question: "Can this destination accept it?"
@@ -233,6 +233,11 @@ spec:
           type: "lifecycle-action"
           detail: "Decide whether the destination needs dra-node-labeler, which the selected recipe names and the bundle does not deploy. Including one means regenerating the bundle with the input AICR names for it."
         -
+          id: "dra-plugin-eviction"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts. The bundle was generated with no DRA eviction node label, so dra-node-labeler is not deployed. Including it means regenerating the bundle with --dra-eviction-node-label set."
+        -
           id: "argo-cd-application-api"
           origin: "base"
           type: "target-fact"
@@ -322,6 +327,24 @@ spec:
             - "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training/routes/components-left-out-of-bundle.yaml"
             - "examples/aicr/rtx-pro-6000-lke-ubuntu-training/generation-receipt.yaml"
           orderHint: 4
+        -
+          id: "dra-plugin-eviction"
+          requirementRefs:
+            - "dra-plugin-eviction"
+          phase: "destination-resolution"
+          proposedActor: "platform operator"
+          proposedMechanism: "Decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts. The bundle was generated with no DRA eviction node label, so dra-node-labeler is not deployed. Including it means regenerating the bundle with --dra-eviction-node-label set."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            - "A chosen DRA eviction node label and a regenerated bundle with its new digests, or a recorded decision to leave it off."
+          evidence:
+            - "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training/routes/dra-plugin-eviction.yaml"
+            - "examples/aicr/rtx-pro-6000-lke-ubuntu-training/generation-receipt.yaml"
+          orderHint: 5
       records:
         - "data/aicr-flattening-verdicts/aicr-rtx-pro-6000-lke-ubuntu-training/sync-wave-ordering.yaml"
     targetFacts:
@@ -374,7 +397,7 @@ spec:
     literalConfigOci:
       status: "not-published"
       plannedRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-lke-ubuntu-training-v1-0-0-argocd:v1.0.0"
-      plannedDigest: "sha256:4e66aa48c1ccfae89dd5ad400460e2542cfee0945ad9f17273a482cf176f8570"
+      plannedDigest: "sha256:ee73493536eaa78b9ee1e550f9da6ae6742b5ad7df2a934c2331033e5be00484"
       plan: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training/literal-config-oci.yaml"
       note: "The rendered Applications and their companion files build this digest. Nothing has been pushed."
     configHubUpload:
@@ -420,5 +443,5 @@ status:
     - "Nothing was uploaded to ConfigHub, and no variant, promotion or release exists for this entry."
     - "The sync-wave order is recorded as a route. No Argo CD instance has executed it."
     - "The generation input systemNodeSelector=nodeGroup=system-worker is a placeholder, confirmed as one on 2026-10-07. It is the value upstream's own v1.0.0 EKS training demo uses for its reference clusters (demos/cuj1-training.md in NVIDIA/aicr at tag v1.0.0), and that demo says its selector values are examples to be updated to match the cluster. The demo file is not retained in this repository. The value was not chosen from a real cluster, and it is carried for every service this mirror covers because it is a placeholder and not a claim about any of them. Change it to the label on your own cluster's system node group. A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it."
-    - "The selected recipe also names 1 component the bundle leaves out (dra-node-labeler), and the generation receipt records the reason AICR logged for it. The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it. That edge is recorded and not checked, and no route of this entry decides it, so the entry is flagged. The route that lists the omitted components records the decision a destination has to make."
+    - "The selected recipe also names 1 component the bundle leaves out (dra-node-labeler), and the generation receipt records the reason AICR logged for it. The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it. A route records the decision a destination has to make."
     - "The recipe criteria are accelerator=rtx-pro-6000, intent=training, os=ubuntu, platform=any, service=lke. No cluster, cloud service, accelerator, model or workload was contacted or run for this entry."

@@ -320,7 +320,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-aks-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:e8f47e998792a68d872874b4f94d6783d1283d9b3cf64a53e429a3ac1e1996d5",
+            "manifestDigest": "sha256:a240f3fe9666190d69f011593ae9527b4c4af328156f462df3a14c76730aebce",
             "plan": "data/aicr-mirror-artifacts/a100-aks-training/literal-config-oci.yaml"
           }
         },
@@ -364,7 +364,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-aks-ubuntu-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:10b3784ad5f3653796aa23a9b50b10f953707ff1ac0e18a8518eabfebbb71345",
+            "manifestDigest": "sha256:b0ca335f3de7237e813da2586a23a37d00c3273cab2a1701dc71869b4ec74c5d",
             "plan": "data/aicr-mirror-artifacts/a100-aks-ubuntu-training/literal-config-oci.yaml"
           }
         },
@@ -408,7 +408,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-aks-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:0fcfd36986949ac7f49d03ff521c5e83a1594a54260a9abadb88d457924cc891",
+            "manifestDigest": "sha256:903fb99e59de1a8611b3f3b6236d151bc9ec4215ba577fe400c2e69adb1a8fb0",
             "plan": "data/aicr-mirror-artifacts/a100-aks-ubuntu-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -452,7 +452,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-any-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:007f48649faaf0c855b614a951f7821cdda47c4d83dfb411cb7e7bb19f78f329",
+            "manifestDigest": "sha256:7c7db8df135e3bf6d94b72587b0c88e78ecc9ad6e03c5fd7b402544b4fce259c",
             "plan": "data/aicr-mirror-artifacts/a100-any/literal-config-oci.yaml"
           }
         },
@@ -496,7 +496,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-eks-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:fc0f45217a63e364c763614395a3ea2122623c1ba0b1d9e5a6d1df4652131e9b",
+            "manifestDigest": "sha256:bd3b02813ab6ce6e9e376262dbf42cab98e07051c44f4a8e55e025c78f55b26a",
             "plan": "data/aicr-mirror-artifacts/a100-eks-training/literal-config-oci.yaml"
           }
         },
@@ -540,7 +540,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-eks-ubuntu-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:b831d861e29778135850a3040f6839810c436f0e2b71c3841678cdc4cd391982",
+            "manifestDigest": "sha256:92247fb9dbbc3ae25b58d8aa4eaa62a336fd10572e130231b66a572d5a27025e",
             "plan": "data/aicr-mirror-artifacts/a100-eks-ubuntu-training/literal-config-oci.yaml"
           }
         },
@@ -584,7 +584,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-eks-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:cb7119ba68e2f60b10a2e4f1a0e601dc6ffb51c51552a94409f7558d40163baa",
+            "manifestDigest": "sha256:d67b9548296536f7ce777b1753cf6b3897d6ccf020b4d0c76ffafd0fd997e52f",
             "plan": "data/aicr-mirror-artifacts/a100-eks-ubuntu-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -628,7 +628,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-gke-cos-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:d63315a5823c15ab565b67d804a5a57f28ceea7b7881391fd83496b53f2ef35f",
+            "manifestDigest": "sha256:a17845ef14ae1dbe2a8f05bfa4e1d85c3f642cf4875fc8acafd755bf939bef5a",
             "plan": "data/aicr-mirror-artifacts/a100-gke-cos-training/literal-config-oci.yaml"
           }
         },
@@ -672,7 +672,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-gke-cos-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:67839680a9230bf7499dc36aede48609fcfd8640b93733cdc739aa83d32c2db3",
+            "manifestDigest": "sha256:f68fa5d5833b931b8e01d100300559ee89dd22b5ec219d4ac2e53434c6d4b177",
             "plan": "data/aicr-mirror-artifacts/a100-gke-cos-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -716,7 +716,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-oke-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:a54a0072ee3ac832c3d075122203a1247881c8121367241ad8545f441aa39ca5",
+            "manifestDigest": "sha256:cbd3fafa897a913f170947844f89e8ec841757fd2c8268901836f1c3f416aa96",
             "plan": "data/aicr-mirror-artifacts/a100-oke-training/literal-config-oci.yaml"
           }
         },
@@ -760,7 +760,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-oke-ubuntu-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:aca755299bd629ca9495a1c59f2a1f0ef670598574aa842f773935baf61a100e",
+            "manifestDigest": "sha256:b5803399a879bd3983804295c3d7f1e78b69742eb0181c739aa53c91bd77e4bd",
             "plan": "data/aicr-mirror-artifacts/a100-oke-ubuntu-training/literal-config-oci.yaml"
           }
         },
@@ -804,7 +804,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-oke-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:15b25a8e6387169c3d744c317e581759b3c0a0bfac6d37aeebbc44dbe69a4714",
+            "manifestDigest": "sha256:d390dd7eb4ecbcd12fd81cfc0ed53338c916b4b7ad3d29fcf87954759be6cff9",
             "plan": "data/aicr-mirror-artifacts/a100-oke-ubuntu-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -848,7 +848,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-aks-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:7eff141ede2d334c03b21c2186a465b15e07d6b10428214318db47a26ef0c499",
+            "manifestDigest": "sha256:675314d042564232f8d6cd2ee0afcbda916a2cef1db462a120018b263d6d557c",
             "plan": "data/aicr-mirror-artifacts/aks/literal-config-oci.yaml"
           }
         },
@@ -892,7 +892,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-aks-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:b0ad1c02a339120f9963a30f53d787637d91b6f4932fa21c287d4f25fd657901",
+            "manifestDigest": "sha256:9f0b5ce2962c09a33ce338a55a12b9e5f0cfcf9086776ae0a35ee4c0f8394191",
             "plan": "data/aicr-mirror-artifacts/aks-inference/literal-config-oci.yaml"
           }
         },
@@ -936,7 +936,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-aks-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:c9281dc9a8dd224b7f559e3bf4bd99fce829d009cc96aba3246b6c8e4ab77112",
+            "manifestDigest": "sha256:baab464360f77ac571a0d5d4ab025d2e6120cc701454b9e41101e0a3b4c4db76",
             "plan": "data/aicr-mirror-artifacts/aks-training/literal-config-oci.yaml"
           }
         },
@@ -980,7 +980,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-aks-ubuntu-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:8e2f5ad762a5a8da48bd6a21e4df54ab5feb028074c78cf8bbc638dcd0db705d",
+            "manifestDigest": "sha256:f9b9493addb40da123bf5e58f0a505cdacd8f1fffd086289ed01799212a58519",
             "plan": "data/aicr-mirror-artifacts/aks-ubuntu/literal-config-oci.yaml"
           }
         },
@@ -1024,7 +1024,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-b200-any-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:cdf27bbc621e742550f9e450d5dee6f5c3fcdbcf83857b1036066a5e402cf4dc",
+            "manifestDigest": "sha256:d8f6c992c2aca9e31bd2d7e049d29ded1b92acdf3a4a2eff7ba564f761ba8c3c",
             "plan": "data/aicr-mirror-artifacts/b200-any/literal-config-oci.yaml"
           }
         },
@@ -1068,7 +1068,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-b200-gke-cos-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:69565845df2b75dfa27e273d878355416fa86fc787dbcf9ecb056fbf0f16b939",
+            "manifestDigest": "sha256:0fbb3592a04fe52450ea466e17901b3ab7284b7c26e7ef7efcc656b5ac6924e2",
             "plan": "data/aicr-mirror-artifacts/b200-gke-cos-inference/literal-config-oci.yaml"
           }
         },
@@ -1112,7 +1112,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-b200-gke-cos-inference-dynamo-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:957441fc02f3ea695dc80f69e6b58dc2734c2d84b3362e794db033690b31b676",
+            "manifestDigest": "sha256:5c0e96f6b43d94fc23f91f731fa4597a02bb2d864dbad2acb9c9f3f2582bcd1d",
             "plan": "data/aicr-mirror-artifacts/b200-gke-cos-inference-dynamo/literal-config-oci.yaml"
           }
         },
@@ -1156,7 +1156,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-b200-gke-cos-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:24e278337e455ce2050c21cb711b35e7930bfa00f8f207e51b6f362e0d635497",
+            "manifestDigest": "sha256:3bbf5e4226bb5bd1ceb1ad5b3c3bfb4eee2c04719cbce418a44d06aa552319a0",
             "plan": "data/aicr-mirror-artifacts/b200-gke-cos-training/literal-config-oci.yaml"
           }
         },
@@ -1200,7 +1200,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-b200-gke-cos-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:f7f15082c8f125dc4be8c94b5ce449806c3f3fc4077d6f195efa133933e401d5",
+            "manifestDigest": "sha256:d43b14f05b3f006d6c1656e74b215d3658c471e9252d283e0e01870c397701aa",
             "plan": "data/aicr-mirror-artifacts/b200-gke-cos-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -1244,7 +1244,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-bcm-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:71a7f9351372b26ebba381850aeffc6b4990ce01cef5031fbc05b3f78fb92c51",
+            "manifestDigest": "sha256:178e8872d6298fc7a13d6f99d907e8986db99097653a78d777a03367990f3288",
             "plan": "data/aicr-mirror-artifacts/bcm/literal-config-oci.yaml"
           }
         },
@@ -1288,7 +1288,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-bcm-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:fc9bc4fa19ff03d9cfaae5967116274a9e11c65ca4581a831811f9b653dfda5a",
+            "manifestDigest": "sha256:20fba73206988426035fbbb7ae549025f489ca7502f8dfc565e6583c6000c81f",
             "plan": "data/aicr-mirror-artifacts/bcm-inference/literal-config-oci.yaml"
           }
         },
@@ -1332,7 +1332,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-bcm-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:1a4009ae19d7fccd0da54b80a1d9d4f58c50577703def0fb44a22dacfb4ebedf",
+            "manifestDigest": "sha256:8f1e64a8300a0ed56ec8eebacb9ac7ba1bc57e7a295c1c592f81e7130bb966be",
             "plan": "data/aicr-mirror-artifacts/bcm-training/literal-config-oci.yaml"
           }
         },
@@ -1376,7 +1376,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-eks-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:9ff049e81703f4526bf63a459b99ad2f7879f607dfb54538c12885328cd09dd7",
+            "manifestDigest": "sha256:e80a2d71eb5a310a01f043cff53044214237cf409d5483c1024deafc8438d1b3",
             "plan": "data/aicr-mirror-artifacts/eks/literal-config-oci.yaml"
           }
         },
@@ -1420,7 +1420,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-eks-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:e2cf5118426290ddf842c67425f56c32f4d8e5f31e8581e8431a6d6a79db2f5f",
+            "manifestDigest": "sha256:75ba1c8a65d2f26055dd94a2cead29916060a917a07428a274df8083ed9b2316",
             "plan": "data/aicr-mirror-artifacts/eks-inference/literal-config-oci.yaml"
           }
         },
@@ -1464,7 +1464,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-eks-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:5007089e415a1592cc427b3561031b92073cd74fa03ec730af3b58dc454601bf",
+            "manifestDigest": "sha256:a2bfaee06bb31cd9384fe332a0afb1521b413ef73b27d6413461bb0f4f7d36a6",
             "plan": "data/aicr-mirror-artifacts/eks-training/literal-config-oci.yaml"
           }
         },
@@ -1508,7 +1508,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-eks-ubuntu-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:29c295f014b35d0578ab1ff2d41bf07dc627619147356cea016d67a344d0b915",
+            "manifestDigest": "sha256:e2d7276170b41b35effe539b62bd775248cd2fc6e8beab1d9b77a7ea85c20be9",
             "plan": "data/aicr-mirror-artifacts/eks-ubuntu/literal-config-oci.yaml"
           }
         },
@@ -1552,7 +1552,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-any-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:95a826c573935f5c8df871848a14deff6e0ba55491814eac22a5f52089a4263d",
+            "manifestDigest": "sha256:5cd352b2eae29bdae2e76c205ebb8466ea01bdf371eeadcff17010218ab63bf2",
             "plan": "data/aicr-mirror-artifacts/gb200-any/literal-config-oci.yaml"
           }
         },
@@ -1596,7 +1596,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-eks-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:86982bbbabf1bdb06328a4969b14121169b00ab62915be1c6e9dc24e31f9e4bd",
+            "manifestDigest": "sha256:a2175c485e2f18911e5d7197078e6697b89e03033f0e135ceb339d4f1cbb5077",
             "plan": "data/aicr-mirror-artifacts/gb200-eks-inference/literal-config-oci.yaml"
           }
         },
@@ -1640,7 +1640,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-eks-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:fc07731a56e86b27cb044a8066fdac2f1c6254cdbbda7bb3b61a592e0c4d5ee9",
+            "manifestDigest": "sha256:d2af490b5cc0c284f0db366f7312c1dd0f1b23a4a4fdf0e84590582cae9e787a",
             "plan": "data/aicr-mirror-artifacts/gb200-eks-training/literal-config-oci.yaml"
           }
         },
@@ -1684,7 +1684,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-eks-ubuntu-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:97478521be5158212dc822fe525a4d99eb8ed1c1b981ac879f26035b41e3d775",
+            "manifestDigest": "sha256:5e3f54c0442e940fe69e44e2486d014c5d7c980df1fe4735e617b5222feb883e",
             "plan": "data/aicr-mirror-artifacts/gb200-eks-ubuntu-inference/literal-config-oci.yaml"
           }
         },
@@ -1728,7 +1728,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-eks-ubuntu-inference-dynamo-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:8c744c1ead844cf405fecf7457434803ee04c689e5a3413f91f779fb3bd5bff0",
+            "manifestDigest": "sha256:e5c01180aa5c406feb96ff828601231757a22b32e6556a421a18e0744c9e257b",
             "plan": "data/aicr-mirror-artifacts/gb200-eks-ubuntu-inference-dynamo/literal-config-oci.yaml"
           }
         },
@@ -1772,7 +1772,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-eks-ubuntu-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:81aa7ba3df05a63e93ce83600be7705891445e9f0ebbfc5ad984da6cdff2b4bb",
+            "manifestDigest": "sha256:5bc36ecc9af25a817a26c4c6c6f32bfc1b4bf97663df9a7a05b70d934c689d79",
             "plan": "data/aicr-mirror-artifacts/gb200-eks-ubuntu-training/literal-config-oci.yaml"
           }
         },
@@ -1816,7 +1816,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-eks-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:e7afb78653e72fd02d299838f772af66ae08fc63592db6836d6d70cedbfdb26c",
+            "manifestDigest": "sha256:f02dea672b00102fefb207ddd76dbde91c7ff660e59e6a2eaa59ce16845da410",
             "plan": "data/aicr-mirror-artifacts/gb200-eks-ubuntu-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -1860,7 +1860,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-eks-ubuntu-training-slurm-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:9c8f59caa1669c83d42d760e0741c7e1cf666576c2c7ab7b7eba3f1fbe2c0f32",
+            "manifestDigest": "sha256:7c4adfbe9a61331f611f4703f6798ff66a522433c95fa970702346fcd908499b",
             "plan": "data/aicr-mirror-artifacts/gb200-eks-ubuntu-training-slurm/literal-config-oci.yaml"
           }
         },
@@ -1904,7 +1904,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-gke-cos-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:8dc2bec86b27cca7085833b0e7fe7fc0b374164987bd4f50a2af2f46d349cbf8",
+            "manifestDigest": "sha256:36745b74414a3a5d27a27ab0b4e7db8c3f79ec7632e6538905db82b8cec886aa",
             "plan": "data/aicr-mirror-artifacts/gb200-gke-cos-inference/literal-config-oci.yaml"
           }
         },
@@ -1948,7 +1948,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-gke-cos-inference-dynamo-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:7cace1ddf201e3091efc10e7a9a50962b19a5dc442d53b0882e9c8ca12a3e26c",
+            "manifestDigest": "sha256:ccc0475128c20e49d49768a07d10a5b29997ff073e9c17f0e2f2bf425245643b",
             "plan": "data/aicr-mirror-artifacts/gb200-gke-cos-inference-dynamo/literal-config-oci.yaml"
           }
         },
@@ -1992,7 +1992,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-gke-cos-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:b9d79f1b5806e22b1583ea580f0f7c61d5ce15efe86f77f1631ddb95a8ef95aa",
+            "manifestDigest": "sha256:abbe53850cb4447ab00fecbf449f64af618232d83845189fea4ca93f4e43d3d7",
             "plan": "data/aicr-mirror-artifacts/gb200-gke-cos-training/literal-config-oci.yaml"
           }
         },
@@ -2036,7 +2036,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-gke-cos-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:1bf86150d0fda3d7887d9d5424b0593d6115eacb93772bca3089b624d0c144ed",
+            "manifestDigest": "sha256:ce82a447a6dea89d6f17d0b47913d00b541dcb536f7f3469bcd3b43a236f1c60",
             "plan": "data/aicr-mirror-artifacts/gb200-gke-cos-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -2080,7 +2080,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-gke-cos-training-slurm-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:326df0370a4d0f6a8d58d2c24d6f3cd44d611eebe255e5874e9d954a9bf46ffa",
+            "manifestDigest": "sha256:38bb3b9f74478da6baf8c34f727c5434c9f9459796229d12f1a186962b552a4a",
             "plan": "data/aicr-mirror-artifacts/gb200-gke-cos-training-slurm/literal-config-oci.yaml"
           }
         },
@@ -2124,7 +2124,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-oke-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:0367205e5cab931c20831baed0b773dc74e178591e1acbb6260568d5a842ecba",
+            "manifestDigest": "sha256:6b1c9b4cab2a469e757e017d08b19ae457b36c2c410de046e4f74740763da679",
             "plan": "data/aicr-mirror-artifacts/gb200-oke-inference/literal-config-oci.yaml"
           }
         },
@@ -2168,7 +2168,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-oke-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:64114d0fcd3b7912c5572fb9dd3bd3a3ab50276f48c49971a87a70fa77d3a8b3",
+            "manifestDigest": "sha256:2bd0ef04633b253bb0e1895286e1696ac501e1a09aeca726e6c8033c9daee318",
             "plan": "data/aicr-mirror-artifacts/gb200-oke-training/literal-config-oci.yaml"
           }
         },
@@ -2212,7 +2212,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-oke-ubuntu-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:325066c771cbeed502a4d6dfc219442684f4b21d328d756a10312c6384a0e681",
+            "manifestDigest": "sha256:3a25d8d71da3b70c846e2fdbfd4b4c68abb6605ed548c2f3bdd228e1df31874e",
             "plan": "data/aicr-mirror-artifacts/gb200-oke-ubuntu-inference/literal-config-oci.yaml"
           }
         },
@@ -2256,7 +2256,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-oke-ubuntu-inference-dynamo-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:9d095b10bb3a018d2285e5556931b497cc44ac184f52f2207079e8f7b5b7111e",
+            "manifestDigest": "sha256:d447dff499b563c30459ad22a01d20f6a2824710c592fff5e7a29c2795f80256",
             "plan": "data/aicr-mirror-artifacts/gb200-oke-ubuntu-inference-dynamo/literal-config-oci.yaml"
           }
         },
@@ -2300,7 +2300,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-oke-ubuntu-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:c68e93a433b3e5a7294ce0c89fc30bda8bc71b0f848696454f7d634853ba8361",
+            "manifestDigest": "sha256:7308297502c00154c61e8d6a4e22d8bfc78f1697e75717be25acbaee862a28de",
             "plan": "data/aicr-mirror-artifacts/gb200-oke-ubuntu-training/literal-config-oci.yaml"
           }
         },
@@ -2344,7 +2344,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb200-oke-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:42fe67f75588043439086b0caf59c83b50e01623018665796ae0beb4157d5265",
+            "manifestDigest": "sha256:032dca418591639025f418be998436fffa6f67ecad73b108c12d27376f6e3e92",
             "plan": "data/aicr-mirror-artifacts/gb200-oke-ubuntu-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -2388,7 +2388,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb300-any-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:95447326c0f0a745f73eca1dc337ff66d25bf973d8427a3ed81c0c270368704d",
+            "manifestDigest": "sha256:ae11df75f2684f778dd5b834553b34978179348304425d4414b3fcfe96a20ed0",
             "plan": "data/aicr-mirror-artifacts/gb300-any/literal-config-oci.yaml"
           }
         },
@@ -2432,7 +2432,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb300-eks-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:111a5128993155fcae3c32c69171ccd9df7ff3da057acafa24f7d48c61f7d158",
+            "manifestDigest": "sha256:c3c8ee5e6ec856622aecae1fc51b77ca01000a0cbd7f6ac2f4acdffa3b0bd7b4",
             "plan": "data/aicr-mirror-artifacts/gb300-eks-inference/literal-config-oci.yaml"
           }
         },
@@ -2476,7 +2476,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb300-eks-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:0759c134132429ee9b5346a2fa4fb7a7e4a9443b4413542b340efc03105fa4c2",
+            "manifestDigest": "sha256:0a5716c11d7413e6b1b1711b442915a2099241c37ff782b762a36f2b0afd145f",
             "plan": "data/aicr-mirror-artifacts/gb300-eks-training/literal-config-oci.yaml"
           }
         },
@@ -2520,7 +2520,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb300-eks-ubuntu-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:09b726521b2d62072d7ff236b4a3c0405a549ec5f1fa4c2db576f4dd4f375eb6",
+            "manifestDigest": "sha256:55de86b85a4da06f3e69dbbd949fe80b386083b5ea4177c9ce0172a02699d104",
             "plan": "data/aicr-mirror-artifacts/gb300-eks-ubuntu-inference/literal-config-oci.yaml"
           }
         },
@@ -2564,7 +2564,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb300-eks-ubuntu-inference-dynamo-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:18e6413aa6b6acc8aaa8c3783c2474716807a48f5ff7ebf9aef18ce8cc8df35b",
+            "manifestDigest": "sha256:c37c48f6fbf1de4d31ab3835a4aa826bc01603a96f31d2ce288edbf171765480",
             "plan": "data/aicr-mirror-artifacts/gb300-eks-ubuntu-inference-dynamo/literal-config-oci.yaml"
           }
         },
@@ -2608,7 +2608,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb300-eks-ubuntu-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:facc3a17c04eb7eb8ca31a9d900f8b153be60d78fd5766e80fb7a32d1ec55325",
+            "manifestDigest": "sha256:b80528ebedc07a73bb7fd402f5caa8353f5a7dbc09722e60f054978ac1ccf38f",
             "plan": "data/aicr-mirror-artifacts/gb300-eks-ubuntu-training/literal-config-oci.yaml"
           }
         },
@@ -2652,7 +2652,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb300-eks-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:1ca3ac9319a24572fe7511d096a2eded5a5d3c21284458e93ea47faae0b3b3b8",
+            "manifestDigest": "sha256:8ffd6bed9dd8b0d404448a17cac790a8cdde891613d1db4979b3c13d076a27e6",
             "plan": "data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -2696,7 +2696,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb300-eks-ubuntu-training-slurm-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:a8781baede8da3dd7dcd036446356207d29d76e843e9451e3e1f57dd5f64c257",
+            "manifestDigest": "sha256:209cb1bbcd012ead03946fbd9c9de3b29648d695f66b037946079885858c6454",
             "plan": "data/aicr-mirror-artifacts/gb300-eks-ubuntu-training-slurm/literal-config-oci.yaml"
           }
         },
@@ -2740,7 +2740,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gb300-generic-ubuntu-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:f052d0d90d3952227039f5f9bcbc182e3976a3ca8ac221a5164b23cea204c848",
+            "manifestDigest": "sha256:c308b115a363dcb74ed2ec9b41517d20b4b42dd10c3966584ae01a00114eddee",
             "plan": "data/aicr-mirror-artifacts/gb300-generic-ubuntu-training/literal-config-oci.yaml"
           }
         },
@@ -2784,7 +2784,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gke-cos-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:64ddacd59270cd721c2d591e00ca90c92208238bbedea569d2a72857bce3e855",
+            "manifestDigest": "sha256:7642d246da50bc28142b5e823c1decc503a57d4b8eb6dd04f4e7c54772dca9de",
             "plan": "data/aicr-mirror-artifacts/gke-cos/literal-config-oci.yaml"
           }
         },
@@ -2828,7 +2828,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gke-cos-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:f4fd986478a325146390744f5fcc9e714c0e3ded900003dc1ef819fe1af39c6c",
+            "manifestDigest": "sha256:3174a2010be964453da9aaab1b7166abb0d91aa6194c6378a0749dab70fce525",
             "plan": "data/aicr-mirror-artifacts/gke-cos-inference/literal-config-oci.yaml"
           }
         },
@@ -2872,7 +2872,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-gke-cos-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:4cde23fa023980350065778f53602a5b4aead5c9ce1b5bd332402dcd6ff6982e",
+            "manifestDigest": "sha256:a3c446c8198d2865abc49b47086c9e6dbedf30bf31dfd7a96adaafd04f43fe51",
             "plan": "data/aicr-mirror-artifacts/gke-cos-training/literal-config-oci.yaml"
           }
         },
@@ -2916,7 +2916,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-aks-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:54f8dc0dbca4deb28434019d7d489d7b764f9af43b2e4f907f9eca98e1f32fed",
+            "manifestDigest": "sha256:8adac8ab909311190ccec8bc0ce254cff0e7c24cc1a808f0b929dc2899827eec",
             "plan": "data/aicr-mirror-artifacts/h100-aks-inference/literal-config-oci.yaml"
           }
         },
@@ -2960,7 +2960,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-aks-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:4f4445f2b1ac9516c13fad3591fbba5ae30ee7207fb28ff94da74d0146dbec9d",
+            "manifestDigest": "sha256:c64923cf0b0605a9cf56eeb774293e2d0cceef75c57c882199be2117e61f142a",
             "plan": "data/aicr-mirror-artifacts/h100-aks-training/literal-config-oci.yaml"
           }
         },
@@ -3004,7 +3004,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-aks-ubuntu-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:a6d88120df2831ec85c510a174b389c121a2572e8a0f8c69639b94e08cc9a300",
+            "manifestDigest": "sha256:d01b30d2c37a38a065239866fcb80b9ae208b49af6413a0552d9bdbdfa9050cc",
             "plan": "data/aicr-mirror-artifacts/h100-aks-ubuntu-inference/literal-config-oci.yaml"
           }
         },
@@ -3048,7 +3048,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-aks-ubuntu-inference-dynamo-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:7715eb19d024a9af64111e2393100e8a0118900b1971f6ffe94ee6a51712f992",
+            "manifestDigest": "sha256:a3e005f908a971737e6f2cb93065c0800059f2b01de3c19d031605b99926a9fb",
             "plan": "data/aicr-mirror-artifacts/h100-aks-ubuntu-inference-dynamo/literal-config-oci.yaml"
           }
         },
@@ -3092,7 +3092,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-aks-ubuntu-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:999ee3edc0243e9c1bdb1c3479be6f1f1f2ab35dd61d49731f7d689f9fb4a08d",
+            "manifestDigest": "sha256:ff3b80e93417541bfd623c56176564c07c940cda858c8c268c0b52137770f60e",
             "plan": "data/aicr-mirror-artifacts/h100-aks-ubuntu-training/literal-config-oci.yaml"
           }
         },
@@ -3136,7 +3136,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-aks-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:a3564e711891dc5d9790ca5d20c742ff303bbede98b98320e3e8dbc6cead3ea5",
+            "manifestDigest": "sha256:e984e0fc1915a1c46178ea17ab8ee02fa2939957c7035e6e601bef8138c05093",
             "plan": "data/aicr-mirror-artifacts/h100-aks-ubuntu-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -3180,7 +3180,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-aks-ubuntu-training-slurm-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:19accf536e39e331cd63f5fa938d4dfad3961a30db91b7c7901bf2b8ba69b568",
+            "manifestDigest": "sha256:1eaa3f2fcd15a70a2c05cbe9242a4fc7adea64f145ddcbf669f1f173b63b61cb",
             "plan": "data/aicr-mirror-artifacts/h100-aks-ubuntu-training-slurm/literal-config-oci.yaml"
           }
         },
@@ -3224,7 +3224,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-any-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:c81c1ef2cf7f3344f38722567c84e8a566052ffa929381ae4caca6ac2b079532",
+            "manifestDigest": "sha256:f95408ae921db098d2cc38864ea950d6a23d676709df5a03000a7178652a6865",
             "plan": "data/aicr-mirror-artifacts/h100-any/literal-config-oci.yaml"
           }
         },
@@ -3268,7 +3268,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-bcm-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:9e2c1fc941d4ff51daaad854cb185de624632edf69dad59d9c2a2bf826f835a6",
+            "manifestDigest": "sha256:298bbe5db9f203c9c97241ef23c4fc0782b28b23d92089219233db70cff0550e",
             "plan": "data/aicr-mirror-artifacts/h100-bcm-training/literal-config-oci.yaml"
           }
         },
@@ -3312,7 +3312,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-bcm-ubuntu-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:df11446e845415d1b2dc24a0178b980dcd7692f4f22aae95cfd3b642ecb49523",
+            "manifestDigest": "sha256:cd1030253eec672a5ddf5189421726f0a23bbb5846cc0a7ccb0b22196cf214f6",
             "plan": "data/aicr-mirror-artifacts/h100-bcm-ubuntu-training/literal-config-oci.yaml"
           }
         },
@@ -3356,7 +3356,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-bcm-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:5552138684c4f34f76767fb9bb7e43153a64ebaa7e5ea0fa69005814fd17dd9b",
+            "manifestDigest": "sha256:df23386e2233bf865295592ff6f73195997fb0247b8497bc442057c16d1f8d00",
             "plan": "data/aicr-mirror-artifacts/h100-bcm-ubuntu-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -3400,7 +3400,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-eks-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:f86fc09660704f6b4db2ef98e4e97caa966cb6e6f7355765378a828970b8f175",
+            "manifestDigest": "sha256:4e5976a0ddc38ded3f06d3a46f14b3863757e6ccd0522b77f1687a9bfbb8fa8a",
             "plan": "data/aicr-mirror-artifacts/h100-eks-inference/literal-config-oci.yaml"
           }
         },
@@ -3444,7 +3444,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-eks-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:3f56b06fe539340f72b50b1b12bf42c20dbc526a529be7940d1c77a49878823d",
+            "manifestDigest": "sha256:f47c3a7dfd4b3a1faf44e33ef37f907bd7b42a55f002ccfd1f0df7d1b8f3654c",
             "plan": "data/aicr-mirror-artifacts/h100-eks-training/literal-config-oci.yaml"
           }
         },
@@ -3488,7 +3488,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-eks-ubuntu-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:292311568cfce12bd4bfe8ca3af9fb683e4a40b23f248cf55590db957ccd05cb",
+            "manifestDigest": "sha256:3124780d7eba8f3a31b2745924d996f242721ed58c7f652d28f75f98f0ac34ed",
             "plan": "data/aicr-mirror-artifacts/h100-eks-ubuntu-inference/literal-config-oci.yaml"
           }
         },
@@ -3532,7 +3532,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-eks-ubuntu-inference-dynamo-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:d99ec969bcb931cb9bf027a62cb46e9674566bc70915078363c072959f275f7b",
+            "manifestDigest": "sha256:c9810a519b70b29a937068463a5624cd6d1220c6ddaf8c6176fa140fe4ca00e0",
             "plan": "data/aicr-mirror-artifacts/h100-eks-ubuntu-inference-dynamo/literal-config-oci.yaml"
           }
         },
@@ -3576,7 +3576,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-eks-ubuntu-inference-nim-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:603d6552a2a0992c6b9ca3ba9670fecf02c03db0abc2121b3613f92ae34de66e",
+            "manifestDigest": "sha256:6ac6fa3933883b9de0b8f7600900aa5d98a60c8db25faf982f0e715d861237fc",
             "plan": "data/aicr-mirror-artifacts/h100-eks-ubuntu-inference-nim/literal-config-oci.yaml"
           }
         },
@@ -3620,7 +3620,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-eks-ubuntu-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:35df44727738c1a02b075b55e492cf8bca1ad7080f27ace59825868149e633ee",
+            "manifestDigest": "sha256:0c3a273ed22993ada711ed3bb2e0fe72ae2b9c5111ec41be7a71b7360926b9bd",
             "plan": "data/aicr-mirror-artifacts/h100-eks-ubuntu-training/literal-config-oci.yaml"
           }
         },
@@ -3664,7 +3664,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-eks-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:4578c4713bbc0588e6dfc8172d1a4d7228151bec953c5cb9c0ad793d3ceea152",
+            "manifestDigest": "sha256:4bb480bb5379899e33bca4882996d64668de533a1c122709224d22845e02fef3",
             "plan": "data/aicr-mirror-artifacts/h100-eks-ubuntu-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -3708,7 +3708,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-eks-ubuntu-training-slurm-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:6bc4eebfb9fa59a6f60259f7247829f76fda323bec2bfa76c6bf5d89d4ccc916",
+            "manifestDigest": "sha256:0f192dc0c7059b40bb24e98512baeeb7258e59a168dff837473f6af4ef82b5f7",
             "plan": "data/aicr-mirror-artifacts/h100-eks-ubuntu-training-slurm/literal-config-oci.yaml"
           }
         },
@@ -3752,7 +3752,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-gke-cos-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:7a23fe28b2f9aa58e4235f0e84cd5001313c6e4685919d16c51fe171b361f399",
+            "manifestDigest": "sha256:75ce826bb139e946346c204578cee70a8ad360dfea3f2093e5a4e89d73f74c84",
             "plan": "data/aicr-mirror-artifacts/h100-gke-cos-inference/literal-config-oci.yaml"
           }
         },
@@ -3796,7 +3796,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-gke-cos-inference-dynamo-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:b29af748e36ab6692b11469a668bf68c45b59ca396e07a8953c0ba14d6f8716e",
+            "manifestDigest": "sha256:e30622f297d33dfd617129583a60f15e5722ddd13de493be89a4433b732f2a2a",
             "plan": "data/aicr-mirror-artifacts/h100-gke-cos-inference-dynamo/literal-config-oci.yaml"
           }
         },
@@ -3840,7 +3840,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-gke-cos-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:621e6251787cfcf823d8d81e4c65ca17d1a138975b3f392f84be8532a4b49a2d",
+            "manifestDigest": "sha256:2037c5b71a9da01e71b092b5be5582b9323ffa717850a763fa12e7fda764747b",
             "plan": "data/aicr-mirror-artifacts/h100-gke-cos-training/literal-config-oci.yaml"
           }
         },
@@ -3884,7 +3884,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-gke-cos-training-slurm-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:5331d4b7d5fbbb0bda32624fe5ea8cd716b0f0cad7c0801faff35073cd6102f4",
+            "manifestDigest": "sha256:cfd322e4e4db216fe36826390c7b0be0e4f72b29e402ab81d65e8743cb961a7f",
             "plan": "data/aicr-mirror-artifacts/h100-gke-cos-training-slurm/literal-config-oci.yaml"
           }
         },
@@ -3928,7 +3928,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-kind-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:40f0dd813e045669db9cd812c034aee5e52559afca5bf9a7ddc9c657f3691c56",
+            "manifestDigest": "sha256:409e6880f30f650530a2e949b622bcbe1cb359ab6249f6f7909b6472e445f9cf",
             "plan": "data/aicr-mirror-artifacts/h100-kind-inference/literal-config-oci.yaml"
           }
         },
@@ -3972,7 +3972,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-kind-inference-dynamo-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:e944021e321f952d753065dd2224ceb5a27ebef99005db9e64165ebf081cad0d",
+            "manifestDigest": "sha256:7ae48cb5ecfe2cb1cad55c3aa6c68b691a71c3e783fc1fd261fb38c69f25c596",
             "plan": "data/aicr-mirror-artifacts/h100-kind-inference-dynamo/literal-config-oci.yaml"
           }
         },
@@ -4016,7 +4016,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-kind-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:470ba9ebe595292b117c004eeb2caf3d1b8ab77aeb92cc35a59165181ecf23a7",
+            "manifestDigest": "sha256:cfa2d1221053036cdca62bb73a2e1958e2a9fda28513175afd7fe31f25f2ac8f",
             "plan": "data/aicr-mirror-artifacts/h100-kind-training/literal-config-oci.yaml"
           }
         },
@@ -4060,7 +4060,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-kind-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:f61c107934f651b9d4bba336c3fd7e52788f8a3357aec869386d0c3bc173b2de",
+            "manifestDigest": "sha256:ebb41ab6d89ec3b68274e8d420971f5efb396667d5be2483af8024ef64ec6e49",
             "plan": "data/aicr-mirror-artifacts/h100-kind-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -4104,7 +4104,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-kind-training-slurm-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:cda008976d263149fd910a06830f955fcdd2e8808e0cc57f518bd6ede85052c9",
+            "manifestDigest": "sha256:07851374e45313885172cde77e789090b153d58d172eb0e00a8c44e03e042097",
             "plan": "data/aicr-mirror-artifacts/h100-kind-training-slurm/literal-config-oci.yaml"
           }
         },
@@ -4148,7 +4148,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h200-any-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:609d42585ccbc6bbfcd6c217290857b54924c4cb0e3be23cd2c9ccbec4df2f4b",
+            "manifestDigest": "sha256:35e4539cfec557e6499fa91b78d1519c7510e08edf91033f36b90d9ad77b1a97",
             "plan": "data/aicr-mirror-artifacts/h200-any/literal-config-oci.yaml"
           }
         },
@@ -4192,7 +4192,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h200-eks-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:c16477bf374f8fb0078e40ae9b9230ee2dad49503e942fa42dc177c9e0fa937d",
+            "manifestDigest": "sha256:bb83b3494f2977915124050693635bbb7f9dfc438b04430ad33e44fc3ba48c1c",
             "plan": "data/aicr-mirror-artifacts/h200-eks-inference/literal-config-oci.yaml"
           }
         },
@@ -4236,7 +4236,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h200-eks-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:24914761fa5faf380d1c3e8cb551bea8c39c9d7a321cdb0425a538cbd5071060",
+            "manifestDigest": "sha256:ef61d1b8fce9087540621823857c3a1fa8f41c124c796e546fd62032a05314aa",
             "plan": "data/aicr-mirror-artifacts/h200-eks-training/literal-config-oci.yaml"
           }
         },
@@ -4280,7 +4280,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h200-eks-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:7e7ad9ccacecb167b5d60f5009e5c50983cc95d147145580fafb1c3d5f1892c6",
+            "manifestDigest": "sha256:25aee8efe4df89484322c84537302a8bd3c3146e58e1dd680bef5e68ef8324e4",
             "plan": "data/aicr-mirror-artifacts/h200-eks-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -4324,7 +4324,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h200-k0s-ubuntu-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:d0b070cf7d2026a954690a6e318bac9d2eb51349245f6da3c5cc35447be0a723",
+            "manifestDigest": "sha256:dfe4d75b28dee7062258d8814ec09b70d76dd95d52c3e077d590866566162f48",
             "plan": "data/aicr-mirror-artifacts/h200-k0s-ubuntu-training/literal-config-oci.yaml"
           }
         },
@@ -4368,7 +4368,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-k0s-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:0f7c2c08f3ae5dfffb3042f78ddba1c37814ed40449388c599f63894477c85c5",
+            "manifestDigest": "sha256:5853d964fc7b1ce2c2972a091f3e56fb1bf9448c8566ca69fba0d0e3ea96ae4e",
             "plan": "data/aicr-mirror-artifacts/k0s/literal-config-oci.yaml"
           }
         },
@@ -4412,7 +4412,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-k0s-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:3badd7aed92a380bba3b5963bea88869fdcb26b9729595d1514649dd2a5544a4",
+            "manifestDigest": "sha256:c035679ecf1036ed519da567f71d75ba28e5ccb7a7cc790be1e4b305959219bc",
             "plan": "data/aicr-mirror-artifacts/k0s-training/literal-config-oci.yaml"
           }
         },
@@ -4456,7 +4456,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-kind-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:7cc370ec0a81b968ed76e1c5269b386781d1914dfcd5deb7fb6da7bed8ae2ee2",
+            "manifestDigest": "sha256:716f6f92f8ec39ab14b3eb28a08d0e41a3fd95bbef5acdaa2955b44e672aa045",
             "plan": "data/aicr-mirror-artifacts/kind/literal-config-oci.yaml"
           }
         },
@@ -4500,7 +4500,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-kind-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:d31dd0c98ecb065803b3f9856af830bcc6eda71bf42a77a5c4fbfbf95a5c0efe",
+            "manifestDigest": "sha256:2860c21498d7345fcac1c1a838bfed744dc1e4a3cd5137b381242760d653ed0a",
             "plan": "data/aicr-mirror-artifacts/kind-inference/literal-config-oci.yaml"
           }
         },
@@ -4544,7 +4544,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-l40-any-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:47dc0b44af8919c2a2ac00811180fb560dd374108498ca6ab65519e5d0b420f4",
+            "manifestDigest": "sha256:13f921193334ff02a5e24116ed0b1001a69330ba8e5801a37d1f6cbe09292e99",
             "plan": "data/aicr-mirror-artifacts/l40-any/literal-config-oci.yaml"
           }
         },
@@ -4588,7 +4588,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-l40s-any-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:2bee800a952a3f66215a9a7d89b02cc6a8bfb1a8e35387a4ac704a1066a7692a",
+            "manifestDigest": "sha256:6c4dc9830cb9cc1424aceb95c4f358ed46fe17efbb672b079d7652928166661d",
             "plan": "data/aicr-mirror-artifacts/l40s-any/literal-config-oci.yaml"
           }
         },
@@ -4632,7 +4632,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-l40s-oke-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:0697b1a06f537f5059845b2c011538fc6a52a3ce1e917bb1ea318da2b63e722e",
+            "manifestDigest": "sha256:23af0e28d09f47558263bbc5bfd32ebc7ca74c2e5df174f25f7f303d56d868d5",
             "plan": "data/aicr-mirror-artifacts/l40s-oke-inference/literal-config-oci.yaml"
           }
         },
@@ -4676,7 +4676,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-l40s-oke-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:07486656f0b3b4c128b2047238c9ccc8f1b6b10a294274c7fb557411796a48be",
+            "manifestDigest": "sha256:aa5bc61410558b9ee60805a9e2182faa0741f6414b2ee07358beed6dece84485",
             "plan": "data/aicr-mirror-artifacts/l40s-oke-training/literal-config-oci.yaml"
           }
         },
@@ -4720,7 +4720,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-l40s-oke-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:4bd8514b7e67bbfd652f09862ffd50d4738d04aacee11d5f89c5193abc45df96",
+            "manifestDigest": "sha256:b3d01ca03e522e23428f8c93de94bd8def2e33112d7e3887504e0c504e3afb26",
             "plan": "data/aicr-mirror-artifacts/l40s-oke-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -4764,7 +4764,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-lke-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:af80276e50da82a0bd4c87478bde59641d22a1474181cd78f52ea4041fff8ffc",
+            "manifestDigest": "sha256:c26213ff20b5f7e463e2acc719e80f948c9f353e414d6cc61943f492d67f36bc",
             "plan": "data/aicr-mirror-artifacts/lke/literal-config-oci.yaml"
           }
         },
@@ -4808,7 +4808,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-lke-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:e77ce4057e089a4b8bbef662252cb202f39d2801952c54e2bb134e2dba023ecc",
+            "manifestDigest": "sha256:d79d9275cf84cbf6e3b4e42f9d81a129f2a47945433f9898206bc02c58f21b93",
             "plan": "data/aicr-mirror-artifacts/lke-inference/literal-config-oci.yaml"
           }
         },
@@ -4852,7 +4852,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-lke-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:12c4be122754cac16be1d21e396bdc2f82ff20203340267621186e205769ff10",
+            "manifestDigest": "sha256:e85183d4383def6ae2c9af335d5d82fe2819b9feb48cd8476bf32a227326b81d",
             "plan": "data/aicr-mirror-artifacts/lke-training/literal-config-oci.yaml"
           }
         },
@@ -4896,7 +4896,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-ocp-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:7adbbdf251dfc6357cae8e39c50bfa7f9cf1d7a2a546ea96a43c536b62de8d41",
+            "manifestDigest": "sha256:5e43e993b487f4e35c596c416f695cacd61f17b58c6d443ffcc2c6bdd5f1c2a9",
             "plan": "data/aicr-mirror-artifacts/ocp/literal-config-oci.yaml"
           }
         },
@@ -4940,7 +4940,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-ocp-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:3174d88f1b538d6b99473c8053c89a65034a53ec8ba438e5458d61f4703b6651",
+            "manifestDigest": "sha256:24d1860f3f9749337f88c9c0c440371348f2756bdaec4c118fdbfa95fdbef4c0",
             "plan": "data/aicr-mirror-artifacts/ocp-inference/literal-config-oci.yaml"
           }
         },
@@ -4984,7 +4984,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-ocp-inference-nim-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:6fa9624bc16700fb1ad1251d1fac629595287960c01e35a9d1e3fd7fb6c85ec8",
+            "manifestDigest": "sha256:c3faf17bd571b8b2f5f7ca576371187b0b42b3d27a6095eee573da0a5afec4fb",
             "plan": "data/aicr-mirror-artifacts/ocp-inference-nim/literal-config-oci.yaml"
           }
         },
@@ -5028,7 +5028,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-ocp-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:8d1da230bfac586506fa608e92b0a0968f9551b14eb36aad305eb3c7288295e6",
+            "manifestDigest": "sha256:97f0fc8797e6b577f61352f5daafec3bcca93af2226a526ffcd5f8b98e108d0f",
             "plan": "data/aicr-mirror-artifacts/ocp-training/literal-config-oci.yaml"
           }
         },
@@ -5072,7 +5072,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-oke-ol-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:54508ce656ccd808cc8d386acab3f561dc7494e601164c3ec1104d1e03a620c2",
+            "manifestDigest": "sha256:0f775553f6c292aae94aa4585fe99898fb71db205b5c8f563dcd11dee54b9ab4",
             "plan": "data/aicr-mirror-artifacts/oke-ol/literal-config-oci.yaml"
           }
         },
@@ -5116,7 +5116,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-oke-ol-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:47f3e23c2fcee0375281720e7bcc5f8ca21f807ee29d02d6ad1536162cc33874",
+            "manifestDigest": "sha256:6db7865fba2298e38d98e58ad18cd82f5fed80825afe392c30d858c7a7b0e5e5",
             "plan": "data/aicr-mirror-artifacts/oke-ol-inference/literal-config-oci.yaml"
           }
         },
@@ -5160,7 +5160,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-oke-ol-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:256b16e32ac568cee45829fecb6879ffce8091a5396a32dd0731258e37240c7b",
+            "manifestDigest": "sha256:81dd6b06b400168cac0037ae2f8d4c4f83020610efbfe3d39aea601dd12cba73",
             "plan": "data/aicr-mirror-artifacts/oke-ol-training/literal-config-oci.yaml"
           }
         },
@@ -5204,7 +5204,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rke2-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:f7fe93ec85edf7d3fd3e51fe5290775c94c6e2ce13f9e5b05e94d98399b82cc3",
+            "manifestDigest": "sha256:6e858b4873cd1a3b7a8207f202a8e150478463a48ecbc824032f9a216988c016",
             "plan": "data/aicr-mirror-artifacts/rke2/literal-config-oci.yaml"
           }
         },
@@ -5248,7 +5248,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rke2-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:5f4c3fe96e7e65a951eb2fc103838bfec8720074eb8f66bbc5897290c0916d56",
+            "manifestDigest": "sha256:f2491e69941c909a1b3f9e4a78bb0377dd99e5df721d70fe7103d54985bdce78",
             "plan": "data/aicr-mirror-artifacts/rke2-inference/literal-config-oci.yaml"
           }
         },
@@ -5292,7 +5292,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rke2-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:fb5d93f630f07ae8d7201a4ccda193853410301950a660465fb08074057d63cd",
+            "manifestDigest": "sha256:f96d543fe57eba5256636002fa64810db56f60a0355e844e670d5b2aaefe7418",
             "plan": "data/aicr-mirror-artifacts/rke2-training/literal-config-oci.yaml"
           }
         },
@@ -5336,7 +5336,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-any-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:c6a42b4fc3877af9691180bd159bd1cac7db6f73911765739f2732c19dd687ae",
+            "manifestDigest": "sha256:be3ca33b280916cfb03c46991548224f0b8cd1c1d0ce67e16d43ea219a31ec7a",
             "plan": "data/aicr-mirror-artifacts/rtx-pro-6000-any/literal-config-oci.yaml"
           }
         },
@@ -5380,7 +5380,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:c2be8ce771a752eb09d731eefb0d58d39afe7246658ce0c3258ccf0d9da73ea4",
+            "manifestDigest": "sha256:74f68eeade7f4e74840e8a04bf774c012aa067de185a4782b108b0a0284c0055",
             "plan": "data/aicr-mirror-artifacts/rtx-pro-6000-eks-inference/literal-config-oci.yaml"
           }
         },
@@ -5424,7 +5424,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-eks-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:5ec0422707e013196178f75fb3bca8d18881588f7aff2bccb356c1906aec1e3e",
+            "manifestDigest": "sha256:8a7b3e6f1c4f47f3005012601ff596312d4a631cd6b5e402b2904195d1581e0b",
             "plan": "data/aicr-mirror-artifacts/rtx-pro-6000-eks-training/literal-config-oci.yaml"
           }
         },
@@ -5468,7 +5468,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-eks-ubuntu-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:763a104ed41d45e434222e9e8ded6e2bc45cedc6ebb085e76643515dd489916e",
+            "manifestDigest": "sha256:49d1494126123d477a8acd0a563ed56ebdddb5390d1af121404d2327aea6b731",
             "plan": "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference/literal-config-oci.yaml"
           }
         },
@@ -5512,7 +5512,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-eks-ubuntu-inference-dynamo-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:082c2b3d65b20ac9e905b3e6a024944cec03fa6c22ca1f215d6c91f96ea2d4fe",
+            "manifestDigest": "sha256:09f7215870dd1d4ada9cc18a5252fb0ba0f0b24a21cfd4465fc9162723765a5d",
             "plan": "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-dynamo/literal-config-oci.yaml"
           }
         },
@@ -5556,7 +5556,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-eks-ubuntu-inference-nim-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:45d32f88ff9874684fa3b935913678897e3a7c59c9c48fd6ac92b55a7e0237fa",
+            "manifestDigest": "sha256:cf327efacfb8e9761a409f068719bd92bf3b1879b9d8e0713c9d192eb67ec858",
             "plan": "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-nim/literal-config-oci.yaml"
           }
         },
@@ -5600,7 +5600,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-eks-ubuntu-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:f02ffd01f133f80a2c2967ebe1eed0080bfc42951394eb71243b9c9089b68034",
+            "manifestDigest": "sha256:d7ddc6cd9cfb4af51f8c34e1a01c5740669b2c519bf9a6bf3c9d152db3faf395",
             "plan": "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-training/literal-config-oci.yaml"
           }
         },
@@ -5644,7 +5644,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-eks-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:f2448fbddf86b4638e303f72f6a1762cf657536152f030d12df871b272d2d50a",
+            "manifestDigest": "sha256:137623a9ae68d99be9b8a6c42e415899665b624f26efde7d30929901b7622fe5",
             "plan": "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -5688,7 +5688,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-lke-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:847610a219d44c94924e929a475e600f339843b88e1a368464132e48a33a91a5",
+            "manifestDigest": "sha256:97ad5c89ccb62f40803d6f0eff065b83375a21a22eca0332cf0830c390fa0e70",
             "plan": "data/aicr-mirror-artifacts/rtx-pro-6000-lke-inference/literal-config-oci.yaml"
           }
         },
@@ -5732,7 +5732,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-lke-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:cdd59c80bebc5f04a5dc5f87f22855a422d75902a7d9361a55eaea5e142d1b17",
+            "manifestDigest": "sha256:ae5318fc50d6c78d4b0a7e449fd8e6c5547a92f9f6f8f897e9486a3df7f7e2f4",
             "plan": "data/aicr-mirror-artifacts/rtx-pro-6000-lke-training/literal-config-oci.yaml"
           }
         },
@@ -5776,7 +5776,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-lke-ubuntu-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:c9518ea769af0a00c351d215704de7d5c8e91a92dd7c807e2a20a3577cb5e8bb",
+            "manifestDigest": "sha256:9ad569182cc56732e629ce6dbae7e5b97ea4634759ed09438b0c1f563fc4a0a8",
             "plan": "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-inference/literal-config-oci.yaml"
           }
         },
@@ -5820,7 +5820,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-lke-ubuntu-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:4e66aa48c1ccfae89dd5ad400460e2542cfee0945ad9f17273a482cf176f8570",
+            "manifestDigest": "sha256:ee73493536eaa78b9ee1e550f9da6ae6742b5ad7df2a934c2331033e5be00484",
             "plan": "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training/literal-config-oci.yaml"
           }
         },
@@ -5864,7 +5864,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-lke-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:19144733b499f351c661075c606274c4a3eccb790544f96b7d4bfb6f60958581",
+            "manifestDigest": "sha256:bb5df0f00561c5bc8197ba439164599a336664224b27d5fd12ad79c118514c5f",
             "plan": "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training-kubeflow/literal-config-oci.yaml"
           }
         },
@@ -5908,7 +5908,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-vr200-rke2-ubuntu-inference-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:d770bd3edcdfdcefcce04075809d6d28588a67c02be56e7ef2889d705c8b7e17",
+            "manifestDigest": "sha256:7159bafa090e5ff454d3817fb9614e6c4f86c527df2ec1b5c160ba24701b0c2f",
             "plan": "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-inference/literal-config-oci.yaml"
           }
         },
@@ -5952,7 +5952,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-vr200-rke2-ubuntu-inference-dynamo-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:fee988c913e19c01f96aaacbbdb203507994a342bd0a793e95f73defa773e65e",
+            "manifestDigest": "sha256:a92db07da57c9032606345d4f5bfbffca62d3fe5c875e0f060a360331f2fa59e",
             "plan": "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-inference-dynamo/literal-config-oci.yaml"
           }
         },
@@ -5996,7 +5996,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-vr200-rke2-ubuntu-training-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:e19fe995590c56d249987ae7d3acea27baccd6cb833a7621f289acc2548f5637",
+            "manifestDigest": "sha256:200f4e01e1071d7753c3a3f5ec4bf33d54b07104b87b1a26a27e24efa784fab7",
             "plan": "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-training/literal-config-oci.yaml"
           }
         },
@@ -6040,7 +6040,7 @@
           "literalConfig": {
             "status": "not-published",
             "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-vr200-rke2-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0",
-            "manifestDigest": "sha256:7197031f0d0cd60cc1fe9c34dc9be4f00ced285ad460382dc071b4f1b4b6255b",
+            "manifestDigest": "sha256:f1c37e8b2a93220ae1e392f336178765f6029ff4d334184b73096b91d15c71ea",
             "plan": "data/aicr-mirror-artifacts/vr200-rke2-ubuntu-training-kubeflow/literal-config-oci.yaml"
           }
         },

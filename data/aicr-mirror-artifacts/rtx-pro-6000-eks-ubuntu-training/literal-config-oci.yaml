@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-eks-ubuntu-training-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:f02ffd01f133f80a2c2967ebe1eed0080bfc42951394eb71243b9c9089b68034"
-    layerDigest: "sha256:4186df163ffcd0a1135525e2239c924a863cfc6282265ce57f8b0ac7c097f0f5"
-    layerBytes: 74268
+    manifestDigest: "sha256:d7ddc6cd9cfb4af51f8c34e1a01c5740669b2c519bf9a6bf3c9d152db3faf395"
+    layerDigest: "sha256:1ea9e5cfc38f2093e52a4631ac6e517943b0dd02e0900a10a7825692af541d59"
+    layerBytes: 76828
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 15
-    fileCount: 20
+    fileCount: 21
     files:
       -
         path: "examples/aicr/rtx-pro-6000-eks-ubuntu-training/argocd-rendered/templates/aicr-stack.yaml"
@@ -118,8 +118,8 @@ spec:
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-training/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "90ae951aaa81480c3cb8d9813501d4915d55bc0c271345b66e77e162b180b75e"
-        bytes: 3171
+        sha256: "d3f7edaa847d68f1983bb1223c4dd96f0d88e6d211c753c4fec43a90f482eb2f"
+        bytes: 3032
       -
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-training/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -133,6 +133,12 @@ spec:
         sha256: "6c5ffd827c0078cbd58ef780aa9d6ed9cc3360d5d1549e8f3ddf7421599b6300"
         bytes: 1458
       -
+        path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-training/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "f7bf01769543d4bcd4db3250f8a5e56c31b1668e88d25bd154ccbec44c41f2d4"
+        bytes: 1974
+      -
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-training/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -142,8 +148,8 @@ spec:
         path: "data/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-training/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "f2a74c5e2cda07f1671fa545cff14c9eb829947bc96ae75b243afab7665af897"
-        bytes: 3954
+        sha256: "99c62731ab6787eefecb6b151fd9dbd50f71b18270a6246f9b79eaf114bb3228"
+        bytes: 4242
     reproducible: true
   needs:
     sourcePackage:

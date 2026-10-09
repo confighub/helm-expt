@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-h100-kind-inference-dynamo-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:e944021e321f952d753065dd2224ceb5a27ebef99005db9e64165ebf081cad0d"
-    layerDigest: "sha256:2d06753a4415fafb277a82a4a579f8743b8c6daf8942408f5e09714d8345ba55"
-    layerBytes: 76316
+    manifestDigest: "sha256:7ae48cb5ecfe2cb1cad55c3aa6c68b691a71c3e783fc1fd261fb38c69f25c596"
+    layerDigest: "sha256:e84a8a6a8de1839cb128515dc57d255c89c96e541e6dea878abebe2d662401ec"
+    layerBytes: 79388
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 19
-    fileCount: 24
+    fileCount: 25
     files:
       -
         path: "examples/aicr/h100-kind-inference-dynamo/argocd-rendered/templates/agentgateway-crds-post.yaml"
@@ -142,8 +142,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-kind-inference-dynamo/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "ec2aafeab6125f95de899b89fb066b5af959b39f982041399ca1b12c7fdccd71"
-        bytes: 4068
+        sha256: "df8e1fbca9d8a2bbbcf26d1ed9541bc6d37d3f7c5c87369e726539c84394d31b"
+        bytes: 3929
       -
         path: "data/aicr-mirror-artifacts/h100-kind-inference-dynamo/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -157,6 +157,12 @@ spec:
         sha256: "3f39dc59d6eebbc26ea243327b6401687b8e7b4cd787aaf0ea13cf34c88ade3c"
         bytes: 1440
       -
+        path: "data/aicr-mirror-artifacts/h100-kind-inference-dynamo/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "718f8d74dd950aa9d99e50ee74f98828276b3b808965551a929bf074f371235d"
+        bytes: 1956
+      -
         path: "data/aicr-mirror-artifacts/h100-kind-inference-dynamo/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -166,8 +172,8 @@ spec:
         path: "data/aicr-mirror-artifacts/h100-kind-inference-dynamo/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "d3da86dfb632dc5d6ed5b5f5f9c3854978b3ac70b7093e36676a027bce91d113"
-        bytes: 4330
+        sha256: "3a1553dc7f1b4308d5d0b41789a33417c36c894fa0a75d772d7b9dbbaf9d3bf9"
+        bytes: 4618
     reproducible: true
   needs:
     sourcePackage:

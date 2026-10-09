@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-eks-inference-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:e2cf5118426290ddf842c67425f56c32f4d8e5f31e8581e8431a6d6a79db2f5f"
-    layerDigest: "sha256:dc290fcf5cdb8c173e2d0095d40273c9bf556883ab7b56ad0d25218c3cab327b"
-    layerBytes: 80924
+    manifestDigest: "sha256:75ba1c8a65d2f26055dd94a2cead29916060a917a07428a274df8083ed9b2316"
+    layerDigest: "sha256:8f44ed20c4b69183ba3246b2a2df85b92a3249fa36e930aab9eea33f6ceb6428"
+    layerBytes: 83484
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 18
-    fileCount: 23
+    fileCount: 24
     files:
       -
         path: "examples/aicr/eks-inference/argocd-rendered/templates/agentgateway-crds-post.yaml"
@@ -136,8 +136,8 @@ spec:
         path: "data/aicr-mirror-artifacts/eks-inference/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "930107c104274a7f6641a49e4c34f17273abef91ac28df3cf7064c965a8c08ea"
-        bytes: 3815
+        sha256: "894b035b9d2c6939a75fdd6e8ca16e3f00f75f548083118a8a96b711303aac02"
+        bytes: 3676
       -
         path: "data/aicr-mirror-artifacts/eks-inference/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -151,6 +151,12 @@ spec:
         sha256: "b73796f4543712581721fa0299b6445730c870d5c582e990ae9bf21344ba4765"
         bytes: 1401
       -
+        path: "data/aicr-mirror-artifacts/eks-inference/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "41798eb6de24164cdb337b9e795a32cd3940decb858cd02cbe65da421753b6e1"
+        bytes: 1917
+      -
         path: "data/aicr-mirror-artifacts/eks-inference/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -160,8 +166,8 @@ spec:
         path: "data/aicr-mirror-artifacts/eks-inference/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "03e7bc940197ab02f5abc2bd888704b158fd7e803cadd4246b904de8577d8b6c"
-        bytes: 4191
+        sha256: "6f7214c52193bb915750839780707e200a23c6bef558d90d8ec9fc2d610ff325"
+        bytes: 4479
     reproducible: true
   needs:
     sourcePackage:

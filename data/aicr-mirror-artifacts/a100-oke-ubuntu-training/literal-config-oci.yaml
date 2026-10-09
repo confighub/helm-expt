@@ -17,12 +17,12 @@ spec:
     format: "config-bundle-oci"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-a100-oke-ubuntu-training-v1-0-0-argocd:v1.0.0"
-    manifestDigest: "sha256:aca755299bd629ca9495a1c59f2a1f0ef670598574aa842f773935baf61a100e"
-    layerDigest: "sha256:7cdc9ab668728acb2f1918883a493623a0e01c63e93cf8191deb51dda01ae845"
-    layerBytes: 66076
+    manifestDigest: "sha256:b5803399a879bd3983804295c3d7f1e78b69742eb0181c739aa53c91bd77e4bd"
+    layerDigest: "sha256:5736c426c2a81d96ed1a041d3cb78534d29ba151e78c4654419307316d79f78c"
+    layerBytes: 68636
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
     objectCount: 12
-    fileCount: 17
+    fileCount: 18
     files:
       -
         path: "examples/aicr/a100-oke-ubuntu-training/argocd-rendered/templates/aicr-stack.yaml"
@@ -100,8 +100,8 @@ spec:
         path: "data/aicr-mirror-artifacts/a100-oke-ubuntu-training/routes/sync-wave-ordering.yaml"
         stagedAs: "routes/sync-wave-ordering.yaml"
         role: "route: sync-wave-ordering"
-        sha256: "6939ee2465d692f77093ed88d0c4d45f5dbea2c6ea5a103db041a6b018dde5a3"
-        bytes: 3046
+        sha256: "c121de6168b793cc99d3d5a817ce9260c4f138d128c6970c51af47997f701548"
+        bytes: 2907
       -
         path: "data/aicr-mirror-artifacts/a100-oke-ubuntu-training/routes/system-node-selector-placeholder.yaml"
         stagedAs: "routes/system-node-selector-placeholder.yaml"
@@ -115,6 +115,12 @@ spec:
         sha256: "79b222f4b97b92e90b3b54af4a3ffdfed700c818b508fa8e6da6680c901ab701"
         bytes: 1434
       -
+        path: "data/aicr-mirror-artifacts/a100-oke-ubuntu-training/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "2e4b9a8a82f2c6adda985183dad2b2d28ec1cb0780f39f5435bfc3d2bb311349"
+        bytes: 1950
+      -
         path: "data/aicr-mirror-artifacts/a100-oke-ubuntu-training/requirements/target-requirements.yaml"
         stagedAs: "requirements/target-requirements.yaml"
         role: "requirement: target"
@@ -124,8 +130,8 @@ spec:
         path: "data/aicr-mirror-artifacts/a100-oke-ubuntu-training/space-guide.md"
         stagedAs: "README.md"
         role: "space-guide"
-        sha256: "78d98fc96977823d8eb2f790edce8a58c9bebc95a66ccedb714e6d27b967f383"
-        bytes: 3601
+        sha256: "de6d0d85ac174e076585fde8264042c9397171d7d1dbff586d2a51426c82aced"
+        bytes: 3889
     reproducible: true
   needs:
     sourcePackage:
