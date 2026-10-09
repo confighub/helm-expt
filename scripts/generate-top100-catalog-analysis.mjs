@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 
 import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 import { catalogDerivedPath } from "./lib/catalog-derived-views.mjs";
+import { compareChartVersions } from "./lib/catalog-chart-pages.mjs";
 
 const outputRoot = join(repoRoot, "data", "top100-catalog-analysis");
 const rawPath = join(outputRoot, "raw.json");
@@ -45,10 +46,13 @@ if (mode === "--generate") {
     check(existsSync(join(repoRoot, output)), `top100 catalog analysis summary advertises missing output: ${output}`);
   }
   console.log("verified top100 catalog analysis outputs");
+} else if (mode === "--self-test") {
+  selfTest();
 } else {
   console.log(`Usage:
   node scripts/generate-top100-catalog-analysis.mjs --generate
-  node scripts/generate-top100-catalog-analysis.mjs --verify`);
+  node scripts/generate-top100-catalog-analysis.mjs --verify
+  node scripts/generate-top100-catalog-analysis.mjs --self-test`);
 }
 
 function buildReport() {
@@ -85,12 +89,37 @@ function primaryChartEntries(entries) {
   }
   return [...byChart.values()]
     .map((items) => {
-      const supported = items.find((entry) => entry.catalog_status === "catalog-supported");
-      if (supported) return supported;
-      return items.sort((left, right) => sortKey(left).localeCompare(sortKey(right)))[0];
+      return primaryOf(items);
     })
     .sort((left, right) => sortKey(left).localeCompare(sortKey(right)))
     .map((entry, index) => ({ ...entry, proof_surface_rank: index + 1 }));
+}
+
+// The one retained version of a chart that stands for it in this view. A
+// catalog-supported version wins. Among versions of equal standing the newest
+// wins, compared as versions (1.20.0 is newer than 1.9.0, a leading v is
+// ignored), so adding an older version later never takes the place of a newer
+// one. The order of the recipe paths decides nothing: it is a string order.
+function primaryOf(items) {
+  const newestFirst = (left, right) => compareChartVersions(right.version, left.version);
+  const supported = items.filter((entry) => entry.catalog_status === "catalog-supported").sort(newestFirst);
+  if (supported.length) return supported[0];
+  return [...items].sort((left, right) => sortKey(left).localeCompare(sortKey(right)) || newestFirst(left, right))[0];
+}
+
+function selfTest() {
+  const entry = (version, catalog_status = "proof-grade") => ({ chart: "example/chart", version, catalog_status });
+  const pick = (...items) => primaryOf(items).version;
+  check(pick(entry("2.59.0"), entry("2.60.1")) === "2.60.1", "an older version listed first displaced the newer one");
+  check(pick(entry("2.60.1"), entry("2.59.0")) === "2.60.1", "the order the versions are listed in changed the primary");
+  check(pick(entry("1.9.0"), entry("1.20.0")) === "1.20.0", "versions were compared as strings: 1.9.0 beat 1.20.0");
+  check(pick(entry("v0.14.1"), entry("v0.16.9")) === "v0.16.9", "a leading v changed the order");
+  check(pick(entry("v0.17.1"), entry("0.19.0")) === "0.19.0", "a version with a v and one without were not compared as versions");
+  check(pick(entry("29.0.0"), entry("28.0.1", "catalog-candidate")) === "29.0.0", "an older version added later with a different status displaced the newer one");
+  check(pick(entry("9.5.15", "catalog-supported"), entry("10.7.0", "catalog-candidate")) === "9.5.15", "a catalog-supported version stopped winning");
+  check(pick(entry("9.5.15", "catalog-supported"), entry("10.7.0", "catalog-supported")) === "10.7.0", "the newer of two catalog-supported versions did not win");
+  check(pick(entry("1.0.0-rc.1"), entry("1.0.0")) === "1.0.0", "a pre-release beat its release");
+  console.log("verified the top100 primary version rule: the newest version of equal standing wins");
 }
 
 function artifactEntries({ top500ByChart, productionByChart, latestByChart }) {
