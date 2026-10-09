@@ -1975,7 +1975,6 @@ runs/installer-oci/prometheus-community-prometheus-blackbox-exporter/11.18.0/ins
 runs/installer-oci/stakater-reloader/2.2.16/installer-package-publication-receipt.yaml,installer-oci,observedAt,2026-09-30T21:56:18.889Z,8
 runs/installer-oci/traefik-traefik/41.4.0/installer-package-publication-receipt.yaml,installer-oci,observedAt,2026-09-30T21:56:11.730Z,8
 runs/aicr-provenance-v1-0-0/receipt.yaml,aicr-provenance-v1-0-0,observedAt,2026-10-07T14:58:00.615Z,1
-runs/installer-oci-index-signature/signature-receipt.yaml,installer-oci-index-signature,observedAt,2026-10-08T05:46:28.052Z,1
 runs/installer-oci-signatures/nvidia-cluster-readiness-engine/v0.6.0/signature-receipt.yaml,installer-oci-signatures,observedAt,2026-10-08T05:45:55.916Z,1
 runs/installer-oci-signatures/nvidia-gpu-operator/v25.10.1/signature-receipt.yaml,installer-oci-signatures,observedAt,2026-10-08T05:43:44.683Z,1
 runs/installer-oci-signatures/nvidia-gpu-operator/v26.3.2/signature-receipt.yaml,installer-oci-signatures,observedAt,2026-10-08T05:43:58.928Z,1
@@ -2076,6 +2075,7 @@ runs/catalog-literal-bundles/nvidia-nvsentinel-v1-26-0-no-pod-monitor/publicatio
 runs/catalog-literal-bundles/nvidia-nvsentinel-v1-9-0-aicr-eks-training/publication-receipt.yaml,catalog-literal-bundles,observedAt,2026-10-08T17:55:54.872Z,0
 runs/catalog-literal-bundles/nvidia-nvsentinel-v1-9-0-default/publication-receipt.yaml,catalog-literal-bundles,observedAt,2026-10-08T17:55:58.029Z,0
 runs/catalog-literal-bundles/nvidia-nvsentinel-v1-9-0-no-pod-monitor/publication-receipt.yaml,catalog-literal-bundles,observedAt,2026-10-08T17:56:02.131Z,0
+runs/installer-oci-index-signature/signature-receipt.yaml,installer-oci-index-signature,observedAt,2026-10-08T20:42:14.152Z,0
 runs/installer-oci-signatures/aws-ebs-csi-driver-aws-ebs-csi-driver/2.59.0/signature-receipt.yaml,installer-oci-signatures,observedAt,2026-10-08T20:41:44.283Z,0
 runs/installer-oci-signatures/dra-driver-nvidia-dra-driver-nvidia-gpu/0.4.1/signature-receipt.yaml,installer-oci-signatures,observedAt,2026-10-08T20:40:16.997Z,0
 runs/installer-oci-signatures/dra-driver-nvidia-dra-driver-nvidia-gpu/0.5.0/signature-receipt.yaml,installer-oci-signatures,observedAt,2026-10-08T20:40:31.815Z,0
