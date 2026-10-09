@@ -39,11 +39,11 @@
       ],
       "repository": "confighub/kubara-confighub",
       "release": {
-        "date": "2026-10-02",
-        "tag": "v0.3.0"
+        "date": "2026-10-09",
+        "tag": "v0.4.0"
       },
       "install": "cub plugin install confighub/kubara-confighub",
-      "note": "Tested on kind only. For a few minutes after a release, the Healthy gate can read the previous release's status. argobot cannot refresh Kubara's Applications (confighub/argobot#13).",
+      "note": "Tested on kind only. Handover needs cub and ConfigHub v0.8.2 or newer, where argobot records live status on each release. The grant argobot gets also covers a release's labels, annotations and withdrawal.",
       "guide": {
         "address": "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md",
         "title": "Run a Kubara platform through ConfigHub"
@@ -62,8 +62,8 @@
       ],
       "repository": "confighub/sveltos-confighub",
       "release": {
-        "date": "2026-10-03",
-        "tag": "v0.13.0"
+        "date": "2026-10-09",
+        "tag": "v0.14.0"
       },
       "install": "cub plugin install confighub/sveltos-confighub",
       "note": "Handover rollback and chart-rendered Secret handling remain open upstream work; review those limits before importing a fleet.",
