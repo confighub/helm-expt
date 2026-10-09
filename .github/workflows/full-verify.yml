@@ -91,7 +91,11 @@ jobs:
   cli-gates:
     name: gates needing a command-line tool
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # This job verifies every installer package with the real cub and
+    # installer, so its time grows with the package count. At 180 packages it
+    # ran past 30 minutes on its last package and was cancelled with every
+    # gate before it green.
+    timeout-minutes: 50
 
     steps:
       - name: Check out helm-expt
