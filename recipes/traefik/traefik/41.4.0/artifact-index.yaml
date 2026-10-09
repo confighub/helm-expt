@@ -44,9 +44,9 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: ""
-    userStatus: ""
-    strongestEvidence: ""
+    adoptionBucket: "needs-useful-variant"
+    userStatus: "proof-grade-needs-user-shaped-variant"
+    strongestEvidence: "render-parity"
     proofLanes:
       renderParity: "1/1"
       inConfigHub: "0/1"
@@ -54,8 +54,8 @@ spec:
       gitopsLive: "0/1"
       liveParity: "0/1"
     featureSummary: "none-recorded"
-    hardGap: ""
-    nextAction: ""
+    hardGap: "-"
+    nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/traefik/traefik/41.4.0"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.4.0@sha256:90bc2edf8dbea78d770b7917c7bc80c796cfcd603a02e90f3d9969a219377272"

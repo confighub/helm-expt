@@ -47,9 +47,9 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "needs-useful-variant"
-    userStatus: "proof-grade-needs-user-shaped-variant"
-    strongestEvidence: "local-kubernetes-live"
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
     proofLanes:
       renderParity: "1/1"
       inConfigHub: "1/1"
@@ -57,8 +57,8 @@ spec:
       gitopsLive: "0/1"
       liveParity: "0/1"
     featureSummary: "required-values;extension-slots"
-    hardGap: "-"
-    nextAction: "add at least one user-shaped variant before catalog promotion"
+    hardGap: "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)"
+    nextAction: ""
   installerPackage:
     path: "packages/kyverno/kyverno-policies/3.8.0"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0@sha256:0c781c6839fbfa001648593f415386716ce425483b491593b2338196c93988b4"

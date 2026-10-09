@@ -49,9 +49,9 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "promote-after-review"
-    userStatus: "proof-grade-ready-for-promotion-review"
-    strongestEvidence: "live-helm-vs-confighub-parity"
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "2/2"
@@ -59,8 +59,8 @@ spec:
       gitopsLive: "2/2"
       liveParity: "2/2"
     featureSummary: "values-schema;extension-slots"
-    hardGap: "-"
-    nextAction: "run catalog promotion review"
+    hardGap: "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)"
+    nextAction: ""
   installerPackage:
     path: "packages/stakater/reloader/2.2.12"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb"

@@ -47,9 +47,9 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "not-ready"
-    userStatus: "not-in-current-catalog-lane"
-    strongestEvidence: "render-parity"
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "0/2"
@@ -57,8 +57,8 @@ spec:
       gitopsLive: "0/2"
       liveParity: "0/2"
     featureSummary: "none-recorded"
-    hardGap: "-"
-    nextAction: "review chart analysis and create a recipe candidate"
+    hardGap: "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)"
+    nextAction: ""
   installerPackage:
     path: "packages/nvidia/nodewright/v0.17.1"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.17.1@sha256:a087936fec519d6a0897726c585069849eaa58c35c34b2052c6afd3b50935cab"

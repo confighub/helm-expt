@@ -577,7 +577,7 @@
         <div class="metric"><strong>Review before use</strong><span>First-configuration status</span></div>
         <div class="metric"><strong>Not reviewed for production</strong><span>Production status</span></div>
       </div>
-      <p>Start with the recommended configuration. Before production, confirm that its tests cover your target.</p>
+      <p>The basic checks pass, but the catalog still needs a useful starting configuration for this chart.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
         <tbody><tr><td>Catalog readiness</td><td>Review before use</td></tr><tr><td>Chart version</td><td>29.0.0</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Publisher signature</td><td>publisher signature recorded and verified</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default</td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
@@ -840,16 +840,16 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42 --base default --work-dir ./prometheus-community-prometheus-operator-crds-29-0-0-default --non-interactive --namespace default</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/prometheus-community-prometheus-operator-crds-29-0-0/default/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/prometheus-community-prometheus-operator-crds-29-0-0/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
-          <dt>Evidence</dt><dd>Live Helm-vs-ConfigHub comparison receipt</dd>
+          <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.</dd>
-          <dt>Next</dt><dd>Refresh the receipt when the upstream base changes.</dd>
+          <dt>Next</dt><dd>Add at least one useful reviewed configuration before catalog promotion</dd>
           <dt>Reason</dt><dd>Promotion was tested and recorded in ConfigHub.</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for default">
-          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Saved in ConfigHub</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Local cluster</b><em>Passed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup route</b><em>Not needed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>GitOps and OCI</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Live Helm comparison</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Two clusters</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Promotion</b><em>Passed</em></span>
+          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Saved in ConfigHub</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Local cluster</b><em>Passed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Setup route</b><em>Not run</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>GitOps and OCI</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Live Helm comparison</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Two clusters</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Promotion</b><em>Passed</em></span>
         </div>
         <p class="row-links"><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.md">catalog</a> · <a href="../../recipes/prometheus-community/prometheus-operator-crds/29.0.0/variants/default/variant.yaml">variant</a> · <a href="../../recipes/prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml" download="prometheus-community-prometheus-operator-crds-29-0-0-default.render-intent.yaml">render intent</a> · <a href="../../data/base-variant-records/records/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml" download="prometheus-community-prometheus-operator-crds-29-0-0-default.base-record.yaml">base record</a> · <a href="../../packages/prometheus-community/prometheus-operator-crds/29.0.0/bases/default">package base</a> · <a href="../../runs/cl-prometheus-operator-crds-29-0-0-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://prometheus-community.github.io/helm-charts" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
@@ -933,7 +933,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>Use this section to see which chart-specific guides apply, what you must provide, and what work remains.</p>
       <div class="card"><table>
         <thead><tr><th>Playbook</th><th>Why it applies</th></tr></thead>
-        <tbody><tr><td><a href="../d/docs/skills/live-parity.html">Live Parity</a></td><td>has live, GitOps/OCI, or two-cluster parity work</td></tr></tbody>
+        <tbody><tr><td><a href="../d/docs/skills/hook-and-secret-lifecycle.html">Hook And Secret Lifecycle</a></td><td>uses Helm hooks, generated Secret material, or webhook certificates</td></tr><tr><td><a href="../d/docs/skills/target-facts-and-lifecycle.html">Target Facts And Lifecycle</a></td><td>needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply</td></tr><tr><td><a href="../d/docs/skills/large-app-evidence-funnel.html">Large App Evidence Funnel</a></td><td>renders many Units, so a single pass/fail can hide where an operation is stuck</td></tr><tr><td><a href="../d/docs/skills/live-parity.html">Live Parity</a></td><td>has live, GitOps/OCI, or two-cluster parity work</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -943,7 +943,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
-        <tbody><tr><td>User status</td><td>Status not recorded</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42</td></tr><tr><td>Tests completed</td><td>See the test results</td></tr><tr><td>Coverage</td><td>See coverage evidence</td></tr><tr><td>You must provide</td><td>Check the target requirements and configuration status</td></tr><tr><td>What the tools record</td><td>Rendered objects, test records, and checks</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>Needs better base variant</td></tr><tr><td>Can I use it?</td><td>The current configuration is too close to the chart default; design a more useful starting configuration first.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42</td></tr><tr><td>Tests completed</td><td>The basic checks passed, but this chart still needs a useful reviewed configuration (render parity 1/1; Local live 1/1; Live parity 1/1)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time; the chart settings you need, until a reviewed base exists</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -965,8 +965,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/prometheus-community-prometheus-operator-crds/29.0.0/installer-package-publication-receipt.yaml">Package receipt</a></td>
         </tr><tr>
           <td data-label="Question">What does this chart contain?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
+          <td data-label="Status">Partly checked</td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/29.0.0/source-lock.yaml">Source lock</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.md">Chart guide</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/variant-revision.yaml">Render result</a> · <a href="../changes.json">All 6 evidence links</a></td>
         </tr><tr>
           <td data-label="Question">Does the recorded render match Helm?</td>
           <td data-label="Status">Checked</td>
@@ -977,7 +977,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <td data-label="Evidence">No linked result</td>
         </tr><tr>
           <td data-label="Question">Were hooks, CRDs, or setup steps checked?</td>
-          <td data-label="Status">Not applicable</td>
+          <td data-label="Status">Not checked</td>
           <td data-label="Evidence">No linked result</td>
         </tr><tr>
           <td data-label="Question">Did this version run on a local Kubernetes cluster?</td>
@@ -990,7 +990,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         </tr><tr>
           <td data-label="Question">Did Helm and ConfigHub reach the same live result?</td>
           <td data-label="Status">Checked</td>
-          <td data-label="Evidence"><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html#proof">Version results below</a></td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/receipt.yaml">Live comparison</a></td>
         </tr><tr>
           <td data-label="Question">Was the result compared on separate clusters?</td>
           <td data-label="Status">Checked</td>
@@ -1042,10 +1042,10 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
     <section aria-labelledby="quirks">
       <h2 id="quirks">What You Must Provide</h2>
-      <p>ConfigHub records the rendered objects, test results, and current limits.</p>
+      <p>exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts</p>
       <div class="card"><table>
         <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Known quirks</td><td>Generated facts.; Crds</td></tr><tr><td>You must provide</td><td>Check the configuration status and target requirements</td></tr><tr><td>What ConfigHub records</td><td>Exact rendered objects, checks, test results, and catalog evidence</td></tr><tr><td>Optional chart inputs</td><td>None identified in the chart facts</td></tr><tr><td>How optional inputs are handled</td><td>No handling rule is recorded</td></tr></tbody>
+        <tbody><tr><td>Known quirks</td><td>Crds; Existing secret; Generated facts.</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time; the chart settings you need, until a reviewed base exists</td></tr><tr><td>What ConfigHub records</td><td>exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts</td></tr><tr><td>Optional chart inputs</td><td>None identified in the chart facts</td></tr><tr><td>How optional inputs are handled</td><td>No handling rule is recorded</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

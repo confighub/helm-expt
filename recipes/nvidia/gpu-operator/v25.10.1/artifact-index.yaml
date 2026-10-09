@@ -52,9 +52,9 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "not-ready"
-    userStatus: "not-in-current-catalog-lane"
-    strongestEvidence: "render-parity"
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
     proofLanes:
       renderParity: "6/6"
       inConfigHub: "0/6"
@@ -62,8 +62,8 @@ spec:
       gitopsLive: "0/6"
       liveParity: "0/6"
     featureSummary: "none-recorded"
-    hardGap: "-"
-    nextAction: "review chart analysis and create a recipe candidate"
+    hardGap: "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)"
+    nextAction: ""
   installerPackage:
     path: "packages/nvidia/gpu-operator/v25.10.1"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v25.10.1@sha256:35774151264bf1b5998330ca4290ae306e89470c7eb05a4e4c8fc18401c9e155"

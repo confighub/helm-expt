@@ -43,9 +43,9 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: ""
-    userStatus: ""
-    strongestEvidence: ""
+    adoptionBucket: "needs-useful-variant"
+    userStatus: "proof-grade-needs-user-shaped-variant"
+    strongestEvidence: "render-parity"
     proofLanes:
       renderParity: "1/1"
       inConfigHub: "0/1"
@@ -53,8 +53,8 @@ spec:
       gitopsLive: "0/1"
       liveParity: "0/1"
     featureSummary: "none-recorded"
-    hardGap: ""
-    nextAction: ""
+    hardGap: "-"
+    nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/prometheus-community/prometheus-blackbox-exporter/11.18.0"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.18.0@sha256:0d53ebcff8bbbe1b51c3f26503dff990e89a0bb7f28f34f7edc1b423551ee972"

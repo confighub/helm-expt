@@ -28,13 +28,13 @@ for exact base-variant evidence.
 
 | Field | Value |
 | --- | --- |
-| Adoption bucket | promote-after-review |
-| User status | proof-grade-ready-for-promotion-review |
-| Strongest evidence | live-helm-vs-confighub-parity |
+| Adoption bucket | - |
+| User status | - |
+| Strongest evidence | - |
 | Proof lanes | render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 |
 | Feature summary | values-schema;extension-slots |
-| Hard gap | - |
-| Next action | run catalog promotion review |
+| Hard gap | - (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2) |
+| Next action | - |
 
 ## Artifact Chain
 

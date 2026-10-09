@@ -6,7 +6,7 @@
 
 The path to **100% verified disposition** of the master matrix — *not* 100% green.
 A correct `watch` / `blocked` / `refused` / `n-a` with evidence and a named next
-action is a valid product answer. This collapses the 1433 non-green cells from the
+action is a valid product answer. This collapses the 1430 non-green cells from the
 [matrix-completion-audit](../matrix-completion-audit/summary.md) into
 **21 action families**, ranked by cells-cleared-per-action, so a large
 matrix becomes a short punch-list.
@@ -23,7 +23,7 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 | CCP-03 | stage-prereq | local-kind-apply-harness | 145 | upstream-implementation | local-kind kubectl-apply harness fix |
 | CCP-04 | refresh-image | remote-image-refresh | 74 | Claude-non-live | a pullable image or retained digest |
 | CCP-05 | record-decision | verified-watch | 67 | product-decision | — |
-| CCP-06 | record-decision | lifecycle-not-applicable | 50 | product-decision | — |
+| CCP-06 | record-decision | lifecycle-not-applicable | 47 | product-decision | — |
 | CCP-07 | stage-prereq | operator-review | 20 | product-decision | runtime review or target-specific support decision |
 | CCP-08 | lifecycle-observe | lifecycle-route | 17 | Codex-live | data/lifecycle-route-actions (route/action packets) |
 | CCP-09 | stage-prereq | stage-secret | 10 | Claude-non-live | required Secret/ConfigMap/mount target fact |
@@ -35,7 +35,7 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 | --- | ---: |
 | `run-promotion` | 604 |
 | `stage-prereq` | 596 |
-| `record-decision` | 117 |
+| `record-decision` | 114 |
 | `refresh-image` | 74 |
 | `fix-model` | 25 |
 | `lifecycle-observe` | 17 |
@@ -45,7 +45,7 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 | Owner lane | Cells |
 | --- | ---: |
 | `Codex-live` | 621 |
-| `product-decision` | 542 |
+| `product-decision` | 539 |
 | `upstream-implementation` | 145 |
 | `Claude-non-live` | 125 |
 
@@ -63,7 +63,7 @@ The promotion (V) lane is the loudest hole: **179 proven / 17 watch / 146 todo /
 | CCP-03 | stage-prereq | local-kind-apply-harness | 145 | L | upstream-implementation | pass after the local-kind apply harness is fixed (prediction) | outcome-coverage/base-outcomes | #248; #753 |
 | CCP-04 | refresh-image | remote-image-refresh | 74 | G/K/L/P | Claude-non-live | pass after the image is pullable (refresh tag / pin digest / mirror) (prediction) | remote-image-runtime-workdown | #753 |
 | CCP-05 | record-decision | verified-watch | 67 | G/K/P | product-decision | watch (verified disposition; recorded with evidence) | (already recorded) | #753 |
-| CCP-06 | record-decision | lifecycle-not-applicable | 50 | lifecycle | product-decision | n/a (no routed lifecycle to observe) | master-catalog-matrix | #753 |
+| CCP-06 | record-decision | lifecycle-not-applicable | 47 | lifecycle | product-decision | n/a (no routed lifecycle to observe) | master-catalog-matrix | #753 |
 | CCP-07 | stage-prereq | operator-review | 20 | K/L | product-decision | pass after the runtime residue is reviewed or a better base is selected (prediction) | local-live-triage; target-prerequisite-workdown | #248; #753 |
 | CCP-08 | lifecycle-observe | lifecycle-route | 17 | L/lifecycle | Codex-live | observed (prediction) | lifecycle-route-actions; local-live-triage | #248; #753 |
 | CCP-09 | stage-prereq | stage-secret | 10 | K/L | Claude-non-live | pass after the prerequisite is staged (prediction) | local-live-triage; target-prerequisite-workdown | #248; #753 |

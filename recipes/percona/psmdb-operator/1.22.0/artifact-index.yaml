@@ -57,9 +57,9 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "promote-after-review"
-    userStatus: "proof-grade-ready-for-promotion-review"
-    strongestEvidence: "live-helm-vs-confighub-parity"
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "2/2"
@@ -67,8 +67,8 @@ spec:
       gitopsLive: "2/2"
       liveParity: "2/2"
     featureSummary: "crds"
-    hardGap: "-"
-    nextAction: "run catalog promotion review"
+    hardGap: "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)"
+    nextAction: ""
   installerPackage:
     path: "packages/percona/psmdb-operator/1.22.0"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30"

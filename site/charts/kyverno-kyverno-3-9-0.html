@@ -577,7 +577,7 @@
         <div class="metric"><strong>Review before use</strong><span>First-configuration status</span></div>
         <div class="metric"><strong>Not reviewed for production</strong><span>Production status</span></div>
       </div>
-      <p>Start with the recommended configuration. Before production, confirm that its tests cover your target.</p>
+      <p>The basic checks pass, but the catalog still needs a useful starting configuration for this chart.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
         <tbody><tr><td>Catalog readiness</td><td>Review before use</td></tr><tr><td>Chart version</td><td>3.9.0</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.9.0@sha256:d776bb0614033308ed60af0b15af522ba857f255ad92b3247773f8c4cd63874f</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Publisher signature</td><td>publisher signature recorded and verified</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default</td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>kyverno</td></tr></tbody>
@@ -845,7 +845,7 @@ ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a  kyverno-kyvern
           <dt>Who runs actions?</dt><dd>Kubernetes or the delivery controller (3), You or your delivery pipeline (3); the full record shows which delivery paths have receipts</dd>
           <dt>Lifecycle record</dt><dd>5 lifecycle route mappings are attached, but 5 still use evidence from 3.8.1 instead of 3.9.0. Run the lifecycle checks for this chart version before treating the routes as current proof. <a href="../../data/helm-render-intents/intents/kyverno-kyverno-3-9-0-default.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.</dd>
-          <dt>Next</dt><dd>Run the ConfigHub tests first</dd>
+          <dt>Next</dt><dd>Add at least one useful reviewed configuration before catalog promotion</dd>
           <dt>Reason</dt><dd>Promotion needs source and destination ConfigHub Spaces. It has not been tested for this configuration.</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for default">
@@ -911,7 +911,7 @@ ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a  kyverno-kyvern
       <p>Use this section to see which chart-specific guides apply, what you must provide, and what work remains.</p>
       <div class="card"><table>
         <thead><tr><th>Playbook</th><th>Why it applies</th></tr></thead>
-        <tbody><tr><td><a href="../d/docs/skills/hook-and-secret-lifecycle.html">Hook And Secret Lifecycle</a></td><td>uses Helm hooks, generated Secret material, or webhook certificates</td></tr></tbody>
+        <tbody><tr><td><a href="../d/docs/skills/hook-and-secret-lifecycle.html">Hook And Secret Lifecycle</a></td><td>uses Helm hooks, generated Secret material, or webhook certificates</td></tr><tr><td><a href="../d/docs/skills/target-facts-and-lifecycle.html">Target Facts And Lifecycle</a></td><td>needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply</td></tr><tr><td><a href="../d/docs/skills/large-app-evidence-funnel.html">Large App Evidence Funnel</a></td><td>renders many Units, so a single pass/fail can hide where an operation is stuck</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -921,7 +921,7 @@ ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a  kyverno-kyvern
       </style>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
-        <tbody><tr><td>User status</td><td>Status not recorded</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.9.0@sha256:d776bb0614033308ed60af0b15af522ba857f255ad92b3247773f8c4cd63874f</td></tr><tr><td>Tests completed</td><td>See the test results</td></tr><tr><td>Coverage</td><td>See coverage evidence</td></tr><tr><td>You must provide</td><td>Check the target requirements and configuration status</td></tr><tr><td>What the tools record</td><td>Rendered objects, test records, and checks</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>Needs better base variant</td></tr><tr><td>Can I use it?</td><td>The current configuration is too close to the chart default; design a more useful starting configuration first.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.9.0@sha256:d776bb0614033308ed60af0b15af522ba857f255ad92b3247773f8c4cd63874f</td></tr><tr><td>Tests completed</td><td>The basic checks passed, but this chart still needs a useful reviewed configuration (render parity 1/1; Local live 0/1; Live parity 0/1)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); target facts at variant time; mandatory chart inputs; the chart settings you need, until a reviewed base exists</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; hooks classified and routed (not silently executed); install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -943,8 +943,8 @@ ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a  kyverno-kyvern
           <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/kyverno-kyverno/3.9.0/installer-package-publication-receipt.yaml">Package receipt</a></td>
         </tr><tr>
           <td data-label="Question">What does this chart contain?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
+          <td data-label="Status">Partly checked</td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.9.0/source-lock.yaml">Source lock</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.9.0/CATALOG.md">Chart guide</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.9.0/revisions/default/r001/variant-revision.yaml">Render result</a> · <a href="../changes.json">All 6 evidence links</a></td>
         </tr><tr>
           <td data-label="Question">Does the recorded render match Helm?</td>
           <td data-label="Status">Checked</td>
@@ -1020,10 +1020,10 @@ ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a  kyverno-kyvern
 
     <section aria-labelledby="quirks">
       <h2 id="quirks">What You Must Provide</h2>
-      <p>ConfigHub records the rendered objects, test results, and current limits.</p>
+      <p>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; hooks classified and routed (not silently executed); install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</p>
       <div class="card"><table>
         <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Known quirks</td><td>Lookup; Generated facts.; Tpl; Capabilities; Hooks; Crds; Cluster RBAC.; Stateful storage.</td></tr><tr><td>You must provide</td><td>Check the configuration status and target requirements</td></tr><tr><td>What ConfigHub records</td><td>Exact rendered objects, checks, test results, and catalog evidence</td></tr><tr><td>Optional chart inputs</td><td>None identified in the chart facts</td></tr><tr><td>How optional inputs are handled</td><td>No handling rule is recorded</td></tr></tbody>
+        <tbody><tr><td>Known quirks</td><td>Hooks; Crds; Generated secrets; Install vs upgrade divergence; Required values; Lookup; Generated facts.; Tpl; Capabilities; Rbac; Storage</td></tr><tr><td>You must provide</td><td>a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); target facts at variant time; mandatory chart inputs; the chart settings you need, until a reviewed base exists</td></tr><tr><td>What ConfigHub records</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; hooks classified and routed (not silently executed); install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Optional chart inputs</td><td>None identified in the chart facts</td></tr><tr><td>How optional inputs are handled</td><td>No handling rule is recorded</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

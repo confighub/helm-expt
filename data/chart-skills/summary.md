@@ -16,7 +16,7 @@ Two forms: [skills.csv](./skills.csv) (spreadsheet) and
 
 ## Coverage
 
-121 of 180 charts have at least one applicable skill. A chart
+123 of 180 charts have at least one applicable skill. A chart
 with none is a plain chart that needs no special playbook.
 
 | Skill | Charts |
@@ -77,8 +77,8 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | bitnami/redis@27.0.0 | 1 | live-parity | live |
 | bitnami/spark@10.0.3 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/zookeeper@13.8.7 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
-| cloudnative-pg/cloudnative-pg@0.28.2 | 5 | serious-chart-playbooks | crds+webhooks; generated-facts; webhooks; crds; live |
-| cloudnative-pg/cloudnative-pg@0.29.0 | 0 | none | — |
+| cloudnative-pg/cloudnative-pg@0.28.2 | 1 | live-parity | live |
+| cloudnative-pg/cloudnative-pg@0.29.0 | 4 | serious-chart-playbooks | crds+webhooks; generated-facts; webhooks; crds |
 | cloudpirates/nginx@0.16.1 | 0 | none | — |
 | cloudpirates/rabbitmq@0.21.13 | 0 | none | — |
 | cloudpirates/redis@0.34.11 | 0 | none | — |
@@ -138,12 +138,12 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | karpenter/karpenter@1.14.0 | 4 | serious-chart-playbooks | crds+webhooks; webhooks; crds |
 | kedacore/keda@2.19.0 | 5 | serious-chart-playbooks | crds+webhooks; hooks:1; webhooks; crds; live |
 | kubeflow/kubeflow-trainer@2.2.0 | 0 | none | — |
-| kyverno/kyverno-policies@3.8.0 | 2 | target-facts-and-lifecycle | lookup; live |
+| kyverno/kyverno-policies@3.8.0 | 1 | live-parity | live |
 | kyverno/kyverno-policies@3.8.2 | 0 | none | — |
-| kyverno/kyverno-policies@3.9.0 | 0 | none | — |
-| kyverno/kyverno@3.8.1 | 4 | hook-and-secret-lifecycle | hooks:8; generated-facts; crds; lookup; stateful-storage; live |
+| kyverno/kyverno-policies@3.9.0 | 1 | target-facts-and-lifecycle | lookup |
+| kyverno/kyverno@3.8.1 | 2 | hook-and-secret-lifecycle | hooks:8; live |
 | kyverno/kyverno@3.8.2 | 1 | hook-and-secret-lifecycle | hooks:8 |
-| kyverno/kyverno@3.9.0 | 1 | hook-and-secret-lifecycle | hooks:8 |
+| kyverno/kyverno@3.9.0 | 3 | hook-and-secret-lifecycle | hooks:8; generated-facts; crds; lookup; stateful-storage |
 | linkerd/linkerd-crds@1.8.0 | 1 | live-parity | live |
 | longhorn/longhorn@1.11.2 | 3 | hook-and-secret-lifecycle | generated-facts; live |
 | longhorn/longhorn@1.12.0 | 0 | none | — |
@@ -197,8 +197,8 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | prometheus-community/prometheus-blackbox-exporter@11.15.1 | 0 | none | — |
 | prometheus-community/prometheus-blackbox-exporter@11.18.0 | 0 | none | — |
 | prometheus-community/prometheus-node-exporter@4.55.0 | 3 | hook-and-secret-lifecycle | generated-facts; live |
-| prometheus-community/prometheus-operator-crds@28.0.1 | 3 | hook-and-secret-lifecycle | generated-facts; crds |
-| prometheus-community/prometheus-operator-crds@29.0.0 | 1 | live-parity | live |
+| prometheus-community/prometheus-operator-crds@28.0.1 | 0 | none | — |
+| prometheus-community/prometheus-operator-crds@29.0.0 | 4 | hook-and-secret-lifecycle | generated-facts; crds; live |
 | prometheus-community/prometheus-pushgateway@3.6.0 | 2 | target-facts-and-lifecycle | stateful-storage; live |
 | prometheus-community/prometheus@29.8.0 | 3 | hook-and-secret-lifecycle | generated-facts; stateful-storage; live |
 | prometheus-community/prometheus@29.9.0 | 1 | live-parity | live |
@@ -211,9 +211,9 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | stakater/reloader@2.2.14 | 0 | none | — |
 | stakater/reloader@2.2.16 | 0 | none | — |
 | strimzi/strimzi-kafka-operator@1.0.0 | 3 | target-facts-and-lifecycle | crds; live |
-| traefik/traefik@40.2.0 | 5 | serious-chart-playbooks | crds+webhooks; generated-facts; webhooks; crds; lookup; stateful-storage; live |
+| traefik/traefik@40.2.0 | 1 | live-parity | live |
 | traefik/traefik@41.0.2 | 0 | none | — |
-| traefik/traefik@41.4.0 | 0 | none | — |
+| traefik/traefik@41.4.0 | 4 | serious-chart-playbooks | crds+webhooks; generated-facts; webhooks; crds; lookup; stateful-storage |
 | valkey/valkey@0.11.0 | 1 | target-facts-and-lifecycle | stateful-storage |
 | velero/velero@12.0.1 | 0 | none | — |
 | velero/velero@12.1.0 | 0 | none | — |
