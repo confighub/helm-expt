@@ -735,10 +735,10 @@
     </section>
     <section aria-labelledby="trust">
       <h2 id="trust">7. Check why you can trust an entry</h2>
-      <p>Every entry is an image of the exact objects, with a receipt of what was checked. Three words say how far each one is proven.</p>
+      <p>Every published entry is an image of the exact objects, with a receipt of what was checked. Three words say how far each one is proven.</p>
       <ul>
         <li><strong>Verified.</strong> The render matches Helm's own output for the recorded inputs, so a base variant is proven rather than asserted.</li>
-        <li><strong>Certified.</strong> A whole composition passes its checks, so every part holds together, before anything renders. <a href="./stack.html">See how a stack is certified</a>.</li>
+        <li><strong>Certified.</strong> A whole composition passes its checks before anything renders. The checks find conflicts between parts and declared needs that no part meets, and they do not show that the platform runs. <a href="./stack.html">See how a stack is certified</a>.</li>
         <li><strong>Signed.</strong> A signature records who published the image. <code>cub config verify</code> confirms the image is exactly what its receipt says and refuses one with none. The receipt says what was checked, not that the configuration will run on your cluster.</li>
       </ul>
       <p><a href="./check-a-claim-yourself.html#verify">Verify a signed image yourself</a>, or <a href="./check-a-claim-yourself.html#not-claimed">see what this catalog does not claim</a>.</p>

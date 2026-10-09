@@ -340,6 +340,8 @@
         <a href="./bring-argo-into-confighub.html">How do I bring in my Argo CD apps?</a>
         <a href="./bring-flux-into-confighub.html">How do I bring in my Flux fleet?</a>
         <a href="./confighub.html#start-managing">How do I deploy and promote my app?</a>
+        <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">What does a GPU Operator upgrade change?</a>
+        <a href="./promote.html">How do I review a change before it ships?</a>
         <a href="./guides.html">Which Guide solves my problem?</a>
         <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>
       </nav>
@@ -347,7 +349,7 @@
         <div class="hero-head">
           <span class="eyebrow">Helm, AICR, OCI, YAML, Argo, Flux, Sveltos and more</span>
           <h1>Configuration catalog for Agents and Kubernetes</h1>
-          <p class="lead">ConfigHub Workshop lets an AI get Kubernetes configuration right on your behalf. It gives agents, and the people working with them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.</p>
+          <p class="lead">ConfigHub Workshop gives agents, and the people working with them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.</p>
           <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Find a chart, such as gpu-operator"><button class="btn primary" type="submit">Search the Catalog</button></form>
         </div>
         <div class="hero">
@@ -390,7 +392,7 @@
           <span class="eyebrow">For your agent</span>
           <h2>Prompt Claude or Codex to get started</h2>
           <p class="intro">Paste this into Claude Code, Codex, or any agent that can run a shell.</p>
-          <p class="agent-prompt"><code>Use the ConfigHub Workshop catalog for Kubernetes config work. It holds known-good configurations across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, search only enough of the relevant section or listings index to identify one entry, then read that entry's listing and one relevant Guide. Do not load whole indexes or the whole catalog into model context. Do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack check` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code></p>
+          <p class="agent-prompt"><code>Use the ConfigHub Workshop catalog for Kubernetes config work. It holds configurations rendered to exact objects, each with a record of what was checked and what was not, across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, search only enough of the relevant section or listings index to identify one entry, then read that entry's listing and one relevant Guide. Do not load whole indexes or the whole catalog into model context. Do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack check` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code></p>
           <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt.</p>
           <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.</aside>
           <pre class="home-cmd"><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>

@@ -726,9 +726,9 @@
   <header class="hero human-hero">
     
     <h1>Run it with Flux, Argo CD, or kubectl</h1>
-    <p class="lead">Keep the reconciler you have. Every result here can leave as an image your controller pulls by digest, with its receipt attached, and nothing on this page needs an account.</p>
+    <p class="lead">Keep the reconciler you have. Each result on this page can leave as an image your controller pulls by digest, with its receipt attached, and nothing on this page needs an account.</p>
     <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Check &lt;chart&gt; before Argo CD or Flux takes it over. Render it twice, compare the renders, and show me what would change on every sync.”</aside>
-    <p><strong>Two reviewed components already reconcile from a public URL with no account. Any other catalog chart renders the same way, into a registry you control.</strong></p>
+    <p><strong>Two reviewed components already reconcile from a public URL with no account. A catalog chart whose verdict allows flattening renders the same way, into a registry you control.</strong></p>
     <p>An OCI package works with your registry and reconciler. Publish the reviewed files as a rendered OCI, and Argo CD or Flux pulls the same objects you inspected.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="#handover">Check a release before handover</a> · <a href="#reconcile">Reconcile a published component</a> · <a href="#verify">Verify before you reconcile</a> · <a href="#kubectl">Apply with kubectl</a> · <a href="#evidence">Check the record</a></p>
   </header>
@@ -738,7 +738,7 @@
       <p>A chart that has run for months under <code>helm upgrade</code> can behave differently once a controller renders it. Some charts read a value back from the cluster with Helm's <code>lookup</code>, most often to keep a generated password. Argo CD and any pre-rendered path render without the cluster, so that value changes on every render. A Flux HelmRelease runs Helm in the cluster, so <code>lookup</code> works there.</p>
       <p>Run the values check on the chart, version and values you use today. It renders the chart more than once and names every field that changes between renders of the same input. For a chart in a registry, pass its <code>oci://</code> address in place of the name and leave out <code>--repo</code>.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub plugin install confighub/cub-workshop@v0.6.56
+  <pre><code>cub plugin install confighub/cub-workshop@v0.6.57
 cub config values grafana --repo https://grafana.github.io/helm-charts --version 10.5.15 \
   --values my-values.yaml</code></pre>
       <p>For Grafana 10.5.15 with no admin password in the values, it reports that <code>admin-password</code> in the Secret and the <code>checksum/secret</code> annotation on the Deployment change on every render. Under Argo CD, each sync that applies a new render sets a new admin password and restarts the pod.</p>
@@ -797,7 +797,7 @@ flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=
     <section aria-labelledby="verify">
       <h2 id="verify">3. Verify before you reconcile</h2>
       <p>A certified bundle carries its receipt as an attached record. Pull it by digest, verify it, then hand it to the reconciler. The workshop plugin does this for its shipped renders today, and any registry you control works, including a local one.</p>
-      <pre><code>cub plugin install confighub/cub-workshop@v0.6.56
+      <pre><code>cub plugin install confighub/cub-workshop@v0.6.57
 cub config check redis --out oci://YOUR-REGISTRY/redis:v1
 cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line above&gt;</code></pre>
       <p><code>cub config verify</code> refuses an image that has no receipt, and it names any file whose bytes differ from what the receipt lists. <a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a> says what a receipt covers and what it does not.</p>

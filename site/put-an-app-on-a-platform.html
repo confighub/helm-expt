@@ -634,7 +634,7 @@
       <h2 id="try">Try it now</h2>
       <p>Install the workshop plugin, then ask an app what it needs and whether it fits a platform. Nothing here touches a cluster, and no account is needed.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.56
+  <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.57
 
 <span class="term-comment"># what does this app need?</span>
 <span class="term-prompt">$</span> cub app check shop-web
@@ -658,10 +658,10 @@
       <h2 id="demo">Follow the demo, step by step</h2>
       <p>The demo puts an app on a platform whose ingress controller does not match, so the check has something real to catch. Each step is a command you can run yourself.</p>
       <ol>
-        <li><strong>Check the app.</strong> <code>cub app check shop-web</code> reads its objects and reports what it needs from the platform under it, such as an ingress controller, cert-manager, and external-secrets.</li>
-        <li><strong>Check it on the platform.</strong> The app's Ingress asks for the nginx class while the platform runs Traefik, and one need has no provider, so the check refuses the composition and names both reasons.</li>
-        <li><strong>Adapt both sides.</strong> Change the app's ingress class to match the platform, and grow the platform by the one service the catalog already carries. The app shapes the platform, and the platform shapes the app.</li>
-        <li><strong>Check again.</strong> <code>cub stack sandbox shop-platform</code> now reports the composition CHECKED. Changing the app's ingress class and adding one service was enough.</li>
+        <li><strong>Check the app.</strong> <code>cub app check shop-web</code> reads its objects and reports what it needs from the platform under it. It names an ingress controller, cert-manager, and a Prometheus operator.</li>
+        <li><strong>Check it on a platform that does not fit.</strong> <code>cub stack check kubara-shop-first-try</code> places the app on the Kubara platform. The app's Ingress asks for the nginx class while that platform runs Traefik, and its ServiceMonitor needs a Prometheus operator the platform does not carry. The check reports REFUSED and names both needs.</li>
+        <li><strong>Adapt both sides.</strong> <code>cub app check shop-web-kubara</code> shows the adapted app. Its Ingress uses Traefik's class, and it reads its secret through external-secrets, so the platform grows by that one service. The app shapes the platform, and the platform shapes the app.</li>
+        <li><strong>Check again.</strong> <code>cub stack sandbox kubara-shop-platform</code> reports CHECKED with 135 objects. <code>cub stack sandbox shop-platform</code> shows the other answer, a platform that carried nginx and the Prometheus stack from the start.</li>
       </ol>
       <p>Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/shop-platform.yaml">shop-platform manifest</a>, the <a href="https://github.com/confighub/cub-workshop/tree/main/apps">shipped apps</a>, and the <a href="https://github.com/confighub/cub-workshop/blob/main/proofs/assistant-composition-2026-09-02/journal.md">recorded composition</a>, where an assistant chose the parts and the check read them. <a href="./stack.html">Stacks</a> explains the manifest.</p>
     </section>
@@ -670,7 +670,7 @@
       <p>This path uses one Namespace, ConfigMap, Deployment, and Service. It is deliberately small enough that you can relate the four source objects to the ConfigHub Base and dev variant, the immutable Release, the Argo CD Application, and the live workload.</p>
       <p><strong>What you need:</strong> <code>cub</code>, Docker, kind, kubectl, and a ConfigHub Cloud account. The first check is local. The cluster and ConfigHub writes begin only when the commands say so.</p>
       <h3>1. Download and check the exact input</h3>
-      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.56
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.57
 
 <span class="term-prompt">$</span> curl -fsSLo acme-web.yaml https://confighub.github.io/helm-expt/site/examples/acme-web.yaml
 

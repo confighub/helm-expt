@@ -623,7 +623,7 @@
   <header class="hero human-hero">
     
     <h1>From one chart to a governed fleet in ten minutes</h1>
-    <p class="lead">You can see what a Helm chart installs before you install it, and check whether a whole platform holds together before any of it runs.</p>
+    <p class="lead">You can see what a Helm chart installs before you install it, and check a whole platform for conflicts and unmet needs before any of it runs.</p>
     <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Run the ten-minute demo with me one step at a time, from one chart to a fleet, and tell me before any step that needs an account.”</aside>
     <p style="margin-top:14px;font-size:.9rem"><a href="#try">Try it now</a> · <a href="#config">1. Check one chart</a> · <a href="#app">2. Check one workload</a> · <a href="#stack">3. Check a stack</a> · <a href="#fleet">4. Govern a fleet</a></p>
   </header>
@@ -657,7 +657,7 @@
       <h2 id="try">Try it now</h2>
       <p>Install the plugin, then check a chart. It costs nothing and touches no cluster.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub plugin install confighub/cub-workshop@v0.6.56
+  <pre><code>cub plugin install confighub/cub-workshop@v0.6.57
 cub config check redis</code></pre>
       <p><code>cub config check redis</code> reports the fourteen objects it installs, the namespaces that must already exist, and the lifecycle work it hides. Nothing is applied.</p>
       <div class="card"><table>
@@ -743,7 +743,7 @@ cub fleet status meridian</code></pre>
 
     <section aria-labelledby="takeaway">
       <h2 id="takeaway">What to take away</h2>
-      <p>You went from checking one chart to running a governed fleet, and the first three steps cost nothing. The plugin gives you the checks; releasing, promoting, and gating are ConfigHub's own.</p>
+      <p>You went from checking one chart to a fleet governed in ConfigHub, and the first three steps cost nothing. The plugin gives you the checks; releasing, promoting, and gating are ConfigHub's own.</p>
       <div class="card"><table>
         <thead><tr><th>Receipt</th><th>What it records</th><th>Open</th></tr></thead>
         <tbody><tr><td>eks-inference sandbox</td><td>The eight bundles checked and rendered to 130 objects.</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/eks-inf-replica/stack-sandbox/summary.md">Open eks-inference sandbox</a></td></tr><tr><td>Composition verdict</td><td>The eight-check judgment behind the stack check.</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/eks-inf-replica/composition-verdict.md">Open Composition verdict</a></td></tr><tr><td>Assistant composition</td><td>An assistant composed a stack from the site alone, and the check read it.</td><td><a href="https://github.com/confighub/cub-workshop/blob/main/proofs/assistant-composition-2026-09-02/journal.md">Open Assistant composition</a></td></tr><tr><td>The plugin</td><td>The four nouns, the shipped manifests, and this walkthrough.</td><td><a href="https://github.com/confighub/cub-workshop">Open The plugin</a></td></tr></tbody>
@@ -754,7 +754,7 @@ cub fleet status meridian</code></pre>
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>These four commands sit on top of ConfigHub's released verbs, and they will keep changing as we do. The inference platform was proven on simulated GPU capacity, not a real GPU.</p>
+      <p>These four commands sit on top of ConfigHub's released verbs, and they will keep changing as we do. The inference platform was checked on simulated GPU capacity. It has not run on a real GPU.</p>
     </section>
   </main>
   <footer>Every free step runs on your laptop and touches no cluster. The governed fleet loads into ConfigHub and runs nowhere until a reconciler pulls it.</footer>

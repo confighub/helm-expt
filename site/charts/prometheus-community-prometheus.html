@@ -566,9 +566,10 @@
     <h1>Find, compare and use prometheus-community/prometheus</h1>
     <p class="lead">The Catalog holds two versions of the Helm chart prometheus-community/prometheus, with 4 bases across them. The newest is 29.9.0.</p>
     <p data-chart-what>The Catalog files this chart under Monitoring and logs. Its newest listing records the role metrics service. <span data-chart-rationale>The retained prometheus-server Deployment provides metrics storage and querying; retention and persistence depend on the base.</span></p>
-    <p data-chart-run-state>The Catalog rendered all 4 bases and retains the exact objects of each. The listings record an upload as a variant for 4 bases and a promoted change for 4 bases. They record no deployment for any base.</p>
+    <p data-chart-run-state>The Catalog rendered all 4 bases and retains the exact objects of each. The listings record an upload as a variant for 4 bases. They record no deployment for any base. A promoted change is partly recorded for 4 bases.</p>
     <p class="entry-steps-link"><a href="#use-in-confighub">Use this entry in ConfigHub</a> in five steps, from fetching its exact objects to promoting a change.</p>
     <p><a href="#versions">Pick a version</a> · <a href="#see-what-changes">See what changes</a> · <a href="./index.html">Back to the Catalog</a></p>
+    <p class="chart-guide-links"><strong>Guides.</strong> <a href="../d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a> shows how to combine this chart with others and check them together.</p>
   </header>
   <main>
     <section aria-labelledby="versions">
@@ -623,7 +624,7 @@
       <noscript><p>The compare control needs JavaScript. With JavaScript off, the commands below produce the same diff with <code>cub config diff</code>.</p></noscript>
       <div class="chart-compare-result" data-compare-result aria-live="polite" hidden></div>
       <h3 id="compare-command">Run the same diff yourself</h3>
-      <p>These commands fetch the same two files and compare them on your machine, with no account. They follow the pair you choose above. <code>cub plugin install confighub/cub-workshop@v0.6.56</code> adds <code>cub config diff</code>.</p>
+      <p>These commands fetch the same two files and compare them on your machine, with no account. They follow the pair you choose above. <code>cub plugin install confighub/cub-workshop@v0.6.57</code> adds <code>cub config diff</code>.</p>
       <div data-compare-command><pre class="terminal-body"><code><span class="term-comment"># fetch the first retained file</span>
 <span class="term-prompt">$</span> curl -fsSL -o prometheus-community-prometheus-29-8-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml
 
@@ -652,7 +653,7 @@ c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b  prometheus-com
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
-      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.56</code> adds. A <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">live walk on 2026-10-08</a> ran steps 3 to 5 for <code>bitnami-nginx-24-0-2-http-clusterip</code> and <code>nvidia-gpu-operator-v26-3-3-default</code>. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it. These are the steps for 29.9.0, the newest version, on its default base.</p>
+      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.57</code> adds. A <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">live walk on 2026-10-08</a> ran steps 3 to 5 for <code>bitnami-nginx-24-0-2-http-clusterip</code> and <code>nvidia-gpu-operator-v26-3-3-default</code>. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it. These are the steps for 29.9.0, the newest version, on its default base.</p>
       <div data-entry-steps="prometheus-community-prometheus-29-9-0-default">
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
@@ -719,9 +720,9 @@ c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b  prometheus-com
 <span class="term-comment"># publish again without it</span>
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
-        <div class="entry-step" data-step="promote" data-state="run-for-this-entry">
-          <h3>5. Promote a change <span class="status good">Run for this entry</span></h3>
-          <p>A promotion ran for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-29-9-0-default.yaml">Read the record that states this</a>.</p>
+        <div class="entry-step" data-step="promote" data-state="partly-run-for-this-entry">
+          <h3>5. Promote a change <span class="status warn">Partly run for this entry</span></h3>
+          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-29-9-0-default.yaml">Read the record that states this</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
           <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>

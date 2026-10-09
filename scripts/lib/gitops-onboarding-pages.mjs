@@ -32,6 +32,25 @@ const guides = {
     setup: "Argo CD keeps reading Git while you review the generated setup.",
     connect: "The handover repoints the root and related app-of-apps layers in their required order. Generated Applications are moved later, stage by stage; this is an estate operation, not a one-app shortcut.",
     secret: "Exporting cluster registration data for planning must remove credentials. Keep workload Secrets and OCI pull credentials out of the repository and out of ConfigHub review data.",
+    fixturePath: "gitops/argo/beginner-app-of-apps",
+    object: "Application",
+    sync: "syncs each Application",
+    becomesIntro: "<code>cub argo apply . --out onboard</code> writes files only. For each Application it writes the copy Argo CD has today under <code>onboard/control/</code>, and the copy it would have after the handover under <code>onboard/repointed/</code>. On the fixture, the two copies of <code>apptique-dev</code> differ in three lines.",
+    becomesDiff: ` kind: Application
+ metadata:
+   name: apptique-dev
+ spec:
+   source:
+-    repoURL: https://github.com/confighub/examples.git
+-    targetRevision: main
+-    path: gitops/argo/beginner-app-of-apps/manifests/apptique/dev
++    repoURL: oci://<gateway>/space/argo-apptique-dev-in-cluster
++    path: .
++    targetRevision: latest`,
+    becomesAfter: "The Application keeps its name, project, destination and sync policy. It reads the Space the plan names as its variant, <code>argo-apptique-dev-in-cluster</code>.",
+    becomesHelm: "An Application with <code>helm</code> or <code>kustomize</code> settings under <code>source</code> loses those settings in the repointed copy, because what Argo CD reads afterwards is already rendered. The fixture has no such Application, so this page shows none.",
+    outside: "The Argo CD install, AppProject permissions, sync windows and cluster credentials stay where they are.",
+    backAfterHandover: "Put each Application's source back to Git first, leaves before parents. The script records each source before it changes it and prints the commands. Do not delete the ConfigHub Spaces first. Never delete the Applications, because their finalizer deletes what they deployed.",
   },
   flux: {
     title: "Bring your Flux fleet into ConfigHub",
@@ -45,6 +64,26 @@ const guides = {
     setup: "Flux keeps reading Git while you review the generated setup.",
     connect: "The handover installs one small bootstrap root, then moves the layers it manages. Use the separate join script only for a new Flux cluster that has none of those layers already.",
     secret: "Keep SOPS-encrypted workload Secrets and registry credentials outside review output. The generated bootstrap pull Secret is delivery access, not an application Secret.",
+    fixturePath: "gitops/flux/beginner",
+    object: "Kustomization",
+    sync: "reconciles each layer",
+    becomesIntro: "<code>cub flux apply . --require Healthy --out onboard</code> writes files only. For each cluster and layer it writes what Flux would run after the handover under <code>onboard/layers/</code>. On the fixture, <code>onboard/layers/dev/apps.yaml</code> holds the <code>apps</code> Kustomization from <code>clusters/dev/apps.yaml</code> with two fields changed, and one new OCIRepository beside it.",
+    becomesDiff: ` kind: Kustomization
+ metadata:
+   name: apps
+   namespace: flux-system
+ spec:
+-  path: ./gitops/flux/beginner/apps/dev
++  path: ./
+   sourceRef:
+-    kind: GitRepository
+-    name: apptique-examples
++    kind: OCIRepository
++    name: apps`,
+    becomesAfter: "The Kustomization keeps its name, so Flux keeps its record of what it applied. The new OCIRepository reads the Space the plan names as the variant, <code>flux-apps-dev</code>. The generated file holds placeholders for the gateway address, and the scripts fill them in.",
+    becomesHelm: "A HelmRelease is stored as it is, and helm-controller goes on resolving it. The plugin does not render Helm charts. The fixture has no HelmRelease, so this page shows none.",
+    outside: "The <code>flux-system</code> bootstrap and the Flux controllers stay outside ConfigHub, and the plan lists them.",
+    backAfterHandover: "Stop the root pruning, restore both fields on each layer as the script recorded them, then remove the root. The script prints the commands in that order. Do not delete the ConfigHub Spaces first.",
   },
 };
 
@@ -53,6 +92,104 @@ const guides = {
  * install and referenceUrl are supplied from the current plugin registry so a
  * page cannot silently retain an older plugin version.
  */
+// The whole output of the plan command on each public beginner fixture, at the
+// commit the page links, with the plugin release the page installs. The page
+// calls it actual output, so it is the output and not an excerpt. Run the
+// command on the fixture again when the commit or the plugin release moves.
+const ARGO_FIXTURE_PLAN = `Argo CD estate: 1 cluster, Argo CD's own (in-cluster), 2 components, 2 variants
+Read 9 objects
+
+Control tree (stays as it is: this is the management record)
+  Application apptique-apps                  wave   0  root, applied by hand
+    Application apptique-dev                 wave   0  deploys workloads; planned below
+    Application apptique-prod                wave   0  deploys workloads; planned below
+
+One stage, fleet (pass --stage-label and --stages to roll out in waves)
+
+apptique-dev  (Application, project default, wave 0)
+  base     argo-apptique-dev-base  reaches no cluster: its destination is empty
+  each variant differs from the base in spec.destination
+  stage fleet
+    in-cluster  variant argo-apptique-dev-in-cluster  ->  Target argo-targets/in-cluster
+                Application apptique-dev, namespace apptique-dev
+                gitops/argo/beginner-app-of-apps/manifests/apptique/dev
+  note     a plain directory of manifests, read as Argo CD reads it: every .yaml, .yml and .json file at the top level
+
+apptique-prod  (Application, project default, wave 0)
+  base     argo-apptique-prod-base  reaches no cluster: its destination is empty
+  each variant differs from the base in spec.destination
+  stage fleet
+    in-cluster  variant argo-apptique-prod-in-cluster  ->  Target argo-targets/in-cluster
+                Application apptique-prod, namespace apptique-prod
+                gitops/argo/beginner-app-of-apps/manifests/apptique/prod
+  note     a plain directory of manifests, read as Argo CD reads it: every .yaml, .yml and .json file at the top level
+
+Handover, when this estate is live (apply will write it as handover.sh; plan runs nothing)
+  1. check Argo CD is v3.1 or newer, which is where an oci:// source is read natively; an older one cannot do this at all
+  2. repoint Application apptique-apps at argo-apptique-apps-children, which would hold Application apptique-dev, Application apptique-prod. Publish that Space first: a parent left syncing an empty source prunes its children. Nothing above it syncs it, so patch its spec.source in the cluster.
+  3. never delete apptique-apps, apptique-dev, apptique-prod: resources-finalizer.argocd.argoproj.io deletes everything it deployed. Every step above is a patch for exactly this reason
+
+Next
+  cub argo apply . --out ./argo-onboarding
+  That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.`;
+
+const FLUX_FIXTURE_PLAN = `Flux fleet: 2 clusters, 2 layers, 4 variants
+Read 16 objects
+
+Clusters, one stage each, in order: dev (clusters/dev), prod (clusters/prod)
+Reconcile order (dependsOn): infrastructure -> apps
+
+infrastructure
+  base     flux-infrastructure-base  from gitops/flux/beginner/infrastructure/base
+  stage dev
+    dev         variant flux-infrastructure-dev  ->  Target flux-targets/dev
+                Kustomization flux-system/infrastructure, path gitops/flux/beginner/infrastructure/dev
+  stage prod
+    prod        variant flux-infrastructure-prod  ->  Target flux-targets/prod
+                Kustomization flux-system/infrastructure, path gitops/flux/beginner/infrastructure/prod
+
+apps  (after infrastructure)
+  base     flux-apps-base  from gitops/flux/beginner/apps/base
+  stage dev
+    dev         variant flux-apps-dev  ->  Target flux-targets/dev
+                Kustomization flux-system/apps, path gitops/flux/beginner/apps/dev
+                  adds namespace.yaml
+                  namespace apptique-dev
+                  label environment=dev
+                  Deployment/frontend replace /spec/replicas = 1
+                  Flux spec.healthChecks[0].namespace = apptique-dev
+                  Flux spec.targetNamespace = apptique-dev
+  stage prod
+    prod        variant flux-apps-prod  ->  Target flux-targets/prod
+                Kustomization flux-system/apps, path gitops/flux/beginner/apps/prod
+                  adds namespace.yaml
+                  namespace apptique-prod
+                  label environment=prod
+                  Deployment/frontend replace /spec/replicas = 3
+                  Deployment/frontend replace /spec/template/spec/containers/0/resources/requests/cpu = 200m
+                  Deployment/frontend replace /spec/template/spec/containers/0/resources/requests/memory = 128Mi
+                  Deployment/frontend replace /spec/template/spec/containers/0/resources/limits/cpu = 400m
+                  Deployment/frontend replace /spec/template/spec/containers/0/resources/limits/memory = 256Mi
+                  Flux spec.healthChecks[0].namespace = apptique-prod
+                  Flux spec.targetNamespace = apptique-prod
+
+Sources
+  - GitRepository apptique-examples  https://github.com/confighub/examples  (gitops/flux/beginner/infrastructure/base/sources/apptique-examples.yaml)
+      branch: dev main, prod main
+
+Bootstrap (stays outside ConfigHub)
+  - gitops/flux/beginner/clusters/dev/flux-system
+  - gitops/flux/beginner/clusters/prod/flux-system
+
+Handover (apply will write it as handover.sh; plan runs nothing)
+  1. keep each layer's Flux Kustomization under its own name and switch its sourceRef to an OCIRepository on the ConfigHub gateway, so Flux keeps its inventory and nothing is reinstalled
+  2. first prove each variant renders exactly what Git renders today: infrastructure, apps prune, so anything the release lacks is deleted
+  3. leave flux-system alone: flux bootstrap owns it, like the Sveltos management record
+
+Next
+  cub flux apply . --require Healthy --out ./flux-onboarding
+  That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.`;
+
 export function gitopsOnboardingGuide(kind, { install, referenceUrl } = {}) {
   const guide = guides[kind];
   if (!guide) throw new Error(`gitops onboarding kind must be argo or flux, not ${kind}`);
@@ -67,8 +204,8 @@ ${guide.plan}`);
   const upstreamHandover = `${referenceUrl}${guide.handoverAnchor}`;
   const upstreamStatus = `${referenceUrl}${guide.statusAnchor}`;
   const fixture = kind === "argo"
-    ? { url: "https://github.com/confighub/examples/tree/7f1b8f2fc849bb6488bc2c58f1469172018fc9dd/gitops/argo/beginner-app-of-apps", output: "Argo CD estate: 1 cluster, Argo CD's own (in-cluster), 2 components, 2 variants\nRead 9 objects\n\nControl tree (stays as it is: this is the management record)\n  Application apptique-apps  wave 0  root, applied by hand" }
-    : { url: "https://github.com/confighub/examples/tree/7f1b8f2fc849bb6488bc2c58f1469172018fc9dd/gitops/flux/beginner", output: "Flux fleet: 2 clusters, 2 layers, 4 variants\nRead 16 objects\n\nClusters, one stage each, in order: dev (clusters/dev), prod (clusters/prod)\nReconcile order (dependsOn): infrastructure -> apps" };
+    ? { url: "https://github.com/confighub/examples/tree/7f1b8f2fc849bb6488bc2c58f1469172018fc9dd/gitops/argo/beginner-app-of-apps", output: ARGO_FIXTURE_PLAN }
+    : { url: "https://github.com/confighub/examples/tree/7f1b8f2fc849bb6488bc2c58f1469172018fc9dd/gitops/flux/beginner", output: FLUX_FIXTURE_PLAN };
 
   return {
     title: guide.title,
@@ -79,6 +216,17 @@ ${guide.plan}`);
       <p>${upper} stays the delivery controller. Preview has no account or cluster mutation; import makes a parallel ConfigHub copy while Git still delivers; handover then moves sources to reviewed releases. Handover has checks and recovery steps, not zero risk.</p>
 ${kind === "argo" ? '      <p>For an app-of-apps estate, ConfigHub keeps the root management structure and its parent-to-child relationships visible. Argo CD still renders charts and reconciles the descendants. The plan inventories descendant Applications and their rendered objects so you can inspect what the root governs; controller-generated or live objects remain evidence unless you deliberately choose them as desired configuration.</p>\n' : ""}
       <p>Start with a small disposable estate. Roots, generators, and pruning can make production migration an ordered fleet operation.</p>
+      <h3 id="who-does-what">Who does what, before and after</h3>
+      <div class="card"><table>
+        <thead><tr><th></th><th>Before the handover</th><th>After the handover</th></tr></thead>
+        <tbody>
+          <tr><td>Source of truth</td><td>Git</td><td>ConfigHub</td></tr>
+          <tr><td>${upper}</td><td>${guide.sync} from Git</td><td>still ${guide.sync}, from the release ConfigHub published</td></tr>
+          <tr><td>A change</td><td>is a commit to the Git path</td><td>is an edit in ConfigHub, released after the approvals its stage asks for</td></tr>
+          <tr><td>A commit to the old Git path</td><td>reaches the cluster</td><td>no longer reaches the cluster</td></tr>
+        </tbody>
+      </table></div>
+      <p>The handover is the step that moves the source of truth. Until <code>handover.sh</code> runs, ConfigHub holds a copy that nothing reads. ${guide.outside}</p>
     </section>
 
     <section aria-labelledby="preview-setup">
@@ -94,6 +242,32 @@ ${kind === "flux" ? '<p><code>--require Healthy</code> makes later promotions wa
         <pre><code>${escapeHtml(fixture.output)}</code></pre>
       </details>
       <p>${link(upstreamPlan, `Read the full ${upper} planning reference`)} for layouts and limits.</p>
+      <h3 id="try-the-fixture">Try it on the fixture first</h3>
+      <p>These commands print the output above. They need no repository of your own.</p>
+${commandBlock(`git clone https://github.com/confighub/examples.git
+cd examples
+git checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
+cd ${guide.fixturePath}
+${guide.plan}`)}
+      <p>Run the plan inside a Git checkout. In a copy with no <code>.git</code> directory the plan reports source paths as missing, and <code>--repo-root &lt;checkout&gt;</code> tells it where the repository starts.</p>
+      <h3 id="what-it-becomes">What one ${guide.object} becomes</h3>
+      <p>${guide.becomesIntro}</p>
+      <pre><code>${escapeHtml(guide.becomesDiff)}</code></pre>
+      <p>${guide.becomesAfter}</p>
+      <p>${guide.becomesHelm}</p>
+    </section>
+
+    <section aria-labelledby="go-back">
+      <h2 id="go-back">How to go back</h2>
+      <div class="card"><table>
+        <thead><tr><th>After this step</th><th>Go back by</th></tr></thead>
+        <tbody>
+          <tr><td><code>${escapeHtml(guide.plan)}</code></td><td>Nothing to undo.</td></tr>
+          <tr><td><code>${escapeHtml(guide.apply)}</code></td><td>Delete <code>onboard/</code>.</td></tr>
+          <tr><td><code>bash onboard/apply.sh</code></td><td>Run <code>bash onboard/cleanup.sh</code>. It removes what the script made in ConfigHub. ${upper} still reads Git.</td></tr>
+          <tr><td><code>bash onboard/handover.sh</code></td><td>${guide.backAfterHandover}</td></tr>
+        </tbody>
+      </table></div>
     </section>
 
     <p><strong>You can stop here.</strong> The plan is read-only. To generate local scripts, connect delivery, or make a reviewed change, open the advanced steps below.</p>

@@ -536,8 +536,8 @@
 <p>The example uses the Catalog's <code>argo-cd</code> 10.2.1 chart and one set of assumptions. Your team signs in through Okta, every signed-in user can read, and developers may sync staging but not production. If your team signs in with GitHub instead, keep Dex on and give it a GitHub connector under <code>configs.cm.dex.config</code>, as the chart's own defaults show; everything else in this Guide stays the same. Another set of assumptions gives a sibling variant, and <a href="#keep-it-as-a-variant-in-confighub">the last section</a> shows where those live.</p>
 <p>Every step before the last runs on your machine with no ConfigHub account and no cluster. The last step needs an account or a server you run yourself.</p>
 <h2 id="set-up-the-tools">Set up the tools</h2>
-<p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://helm.sh/docs/intro/install/">Helm</a>. Then install the Workshop plugin release this Guide was checked with (version 0.6.56).</p>
-<pre><code>cub plugin install confighub/cub-workshop@v0.6.56</code></pre>
+<p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://helm.sh/docs/intro/install/">Helm</a>. Then install the Workshop plugin release this Guide was checked with (version 0.6.57).</p>
+<pre><code>cub plugin install confighub/cub-workshop@v0.6.57</code></pre>
 <h2 id="1-start-from-the-catalog-base">1. Start from the Catalog base</h2>
 <p>Open the <a href="https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-2-1.html">argo-cd 10.2.1 chart page</a>. Its <code>default</code> configuration uses the chart's own defaults, and the page lists what a static scan of those objects found, including ClusterRoles that can read Secrets. Hardening the settings does not change those roles, so read that list before you rely on the result.</p>
 <p>Render the base the same way you will render your variant, so the comparison in step 4 shows only your changes. The Catalog records no values for the <code>default</code> configuration, so the base values file is empty.</p>

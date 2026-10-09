@@ -611,12 +611,12 @@
 <a class="cw-skip" href="#cw-content">Skip to content</a>
 <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
 <div class="cw-layout no-toc cw-guide">
-<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./bring-argo-into-confighub.html#migration-shape">1. What changes, and what does not</a></li><li><a href="./bring-argo-into-confighub.html#preview-setup">2. Preview the setup</a></li><li><a href="./bring-argo-into-confighub.html#save-confighub">3. Save the reviewed setup in ConfigHub</a></li><li><a href="./bring-argo-into-confighub.html#connect-deployment">4. Connect deployment</a></li><li><a href="./bring-argo-into-confighub.html#change-approve-release">5. Change, approve, and release</a></li></ul>
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./bring-argo-into-confighub.html#migration-shape">1. What changes, and what does not</a></li><li><a href="./bring-argo-into-confighub.html#preview-setup">2. Preview the setup</a></li><li><a href="./bring-argo-into-confighub.html#go-back">How to go back</a></li><li><a href="./bring-argo-into-confighub.html#save-confighub">3. Save the reviewed setup in ConfigHub</a></li><li><a href="./bring-argo-into-confighub.html#connect-deployment">4. Connect deployment</a></li><li><a href="./bring-argo-into-confighub.html#change-approve-release">5. Change, approve, and release</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
 </nav>
 <div class="cw-content" id="cw-content" tabindex="-1">
-<details class="cw-mobile-nav"><summary>In this Guide</summary><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./bring-argo-into-confighub.html#migration-shape">1. What changes, and what does not</a></li><li><a href="./bring-argo-into-confighub.html#preview-setup">2. Preview the setup</a></li><li><a href="./bring-argo-into-confighub.html#save-confighub">3. Save the reviewed setup in ConfigHub</a></li><li><a href="./bring-argo-into-confighub.html#connect-deployment">4. Connect deployment</a></li><li><a href="./bring-argo-into-confighub.html#change-approve-release">5. Change, approve, and release</a></li></ul>
+<details class="cw-mobile-nav"><summary>In this Guide</summary><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./bring-argo-into-confighub.html#migration-shape">1. What changes, and what does not</a></li><li><a href="./bring-argo-into-confighub.html#preview-setup">2. Preview the setup</a></li><li><a href="./bring-argo-into-confighub.html#go-back">How to go back</a></li><li><a href="./bring-argo-into-confighub.html#save-confighub">3. Save the reviewed setup in ConfigHub</a></li><li><a href="./bring-argo-into-confighub.html#connect-deployment">4. Connect deployment</a></li><li><a href="./bring-argo-into-confighub.html#change-approve-release">5. Change, approve, and release</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
 </details>
@@ -634,6 +634,17 @@
       <p>For an app-of-apps estate, ConfigHub keeps the root management structure and its parent-to-child relationships visible. Argo CD still renders charts and reconciles the descendants. The plan inventories descendant Applications and their rendered objects so you can inspect what the root governs; controller-generated or live objects remain evidence unless you deliberately choose them as desired configuration.</p>
 
       <p>Start with a small disposable estate. Roots, generators, and pruning can make production migration an ordered fleet operation.</p>
+      <h3 id="who-does-what">Who does what, before and after</h3>
+      <div class="card"><table>
+        <thead><tr><th></th><th>Before the handover</th><th>After the handover</th></tr></thead>
+        <tbody>
+          <tr><td>Source of truth</td><td>Git</td><td>ConfigHub</td></tr>
+          <tr><td>Argo CD</td><td>syncs each Application from Git</td><td>still syncs each Application, from the release ConfigHub published</td></tr>
+          <tr><td>A change</td><td>is a commit to the Git path</td><td>is an edit in ConfigHub, released after the approvals its stage asks for</td></tr>
+          <tr><td>A commit to the old Git path</td><td>reaches the cluster</td><td>no longer reaches the cluster</td></tr>
+        </tbody>
+      </table></div>
+      <p>The handover is the step that moves the source of truth. Until <code>handover.sh</code> runs, ConfigHub holds a copy that nothing reads. The Argo CD install, AppProject permissions, sync windows and cluster credentials stay where they are.</p>
     </section>
 
     <section aria-labelledby="preview-setup">
@@ -651,9 +662,76 @@ cub argo plan .</code></pre>
 Read 9 objects
 
 Control tree (stays as it is: this is the management record)
-  Application apptique-apps  wave 0  root, applied by hand</code></pre>
+  Application apptique-apps                  wave   0  root, applied by hand
+    Application apptique-dev                 wave   0  deploys workloads; planned below
+    Application apptique-prod                wave   0  deploys workloads; planned below
+
+One stage, fleet (pass --stage-label and --stages to roll out in waves)
+
+apptique-dev  (Application, project default, wave 0)
+  base     argo-apptique-dev-base  reaches no cluster: its destination is empty
+  each variant differs from the base in spec.destination
+  stage fleet
+    in-cluster  variant argo-apptique-dev-in-cluster  -&gt;  Target argo-targets/in-cluster
+                Application apptique-dev, namespace apptique-dev
+                gitops/argo/beginner-app-of-apps/manifests/apptique/dev
+  note     a plain directory of manifests, read as Argo CD reads it: every .yaml, .yml and .json file at the top level
+
+apptique-prod  (Application, project default, wave 0)
+  base     argo-apptique-prod-base  reaches no cluster: its destination is empty
+  each variant differs from the base in spec.destination
+  stage fleet
+    in-cluster  variant argo-apptique-prod-in-cluster  -&gt;  Target argo-targets/in-cluster
+                Application apptique-prod, namespace apptique-prod
+                gitops/argo/beginner-app-of-apps/manifests/apptique/prod
+  note     a plain directory of manifests, read as Argo CD reads it: every .yaml, .yml and .json file at the top level
+
+Handover, when this estate is live (apply will write it as handover.sh; plan runs nothing)
+  1. check Argo CD is v3.1 or newer, which is where an oci:// source is read natively; an older one cannot do this at all
+  2. repoint Application apptique-apps at argo-apptique-apps-children, which would hold Application apptique-dev, Application apptique-prod. Publish that Space first: a parent left syncing an empty source prunes its children. Nothing above it syncs it, so patch its spec.source in the cluster.
+  3. never delete apptique-apps, apptique-dev, apptique-prod: resources-finalizer.argocd.argoproj.io deletes everything it deployed. Every step above is a patch for exactly this reason
+
+Next
+  cub argo apply . --out ./argo-onboarding
+  That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.</code></pre>
       </details>
       <p><a href="https://github.com/confighub/examples/blob/cub-argo-v0.3.0/cub-argo/docs/onboard-your-argo-estate.md#1-see-the-plan">Read the full Argo CD planning reference</a> for layouts and limits.</p>
+      <h3 id="try-the-fixture">Try it on the fixture first</h3>
+      <p>These commands print the output above. They need no repository of your own.</p>
+<pre><code>git clone https://github.com/confighub/examples.git
+cd examples
+git checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
+cd gitops/argo/beginner-app-of-apps
+cub argo plan .</code></pre>
+      <p>Run the plan inside a Git checkout. In a copy with no <code>.git</code> directory the plan reports source paths as missing, and <code>--repo-root &lt;checkout&gt;</code> tells it where the repository starts.</p>
+      <h3 id="what-it-becomes">What one Application becomes</h3>
+      <p><code>cub argo apply . --out onboard</code> writes files only. For each Application it writes the copy Argo CD has today under <code>onboard/control/</code>, and the copy it would have after the handover under <code>onboard/repointed/</code>. On the fixture, the two copies of <code>apptique-dev</code> differ in three lines.</p>
+      <pre><code> kind: Application
+ metadata:
+   name: apptique-dev
+ spec:
+   source:
+-    repoURL: https://github.com/confighub/examples.git
+-    targetRevision: main
+-    path: gitops/argo/beginner-app-of-apps/manifests/apptique/dev
++    repoURL: oci://&lt;gateway&gt;/space/argo-apptique-dev-in-cluster
++    path: .
++    targetRevision: latest</code></pre>
+      <p>The Application keeps its name, project, destination and sync policy. It reads the Space the plan names as its variant, <code>argo-apptique-dev-in-cluster</code>.</p>
+      <p>An Application with <code>helm</code> or <code>kustomize</code> settings under <code>source</code> loses those settings in the repointed copy, because what Argo CD reads afterwards is already rendered. The fixture has no such Application, so this page shows none.</p>
+    </section>
+
+    <section aria-labelledby="go-back">
+      <h2 id="go-back">How to go back</h2>
+      <div class="card"><table>
+        <thead><tr><th>After this step</th><th>Go back by</th></tr></thead>
+        <tbody>
+          <tr><td><code>cub argo plan .</code></td><td>Nothing to undo.</td></tr>
+          <tr><td><code>cub argo apply . --out onboard</code></td><td>Delete <code>onboard/</code>.</td></tr>
+          <tr><td><code>bash onboard/apply.sh</code></td><td>Run <code>bash onboard/cleanup.sh</code>. It removes what the script made in ConfigHub. Argo CD still reads Git.</td></tr>
+          <tr><td><code>bash onboard/handover.sh</code></td><td>Put each Application's source back to Git first, leaves before parents. The script records each source before it changes it and prints the commands. Do not delete the ConfigHub Spaces first. Never delete the Applications, because their finalizer deletes what they deployed.</td></tr>
+        </tbody>
+      </table></div>
     </section>
 
     <p><strong>You can stop here.</strong> The plan is read-only. To generate local scripts, connect delivery, or make a reviewed change, open the advanced steps below.</p>

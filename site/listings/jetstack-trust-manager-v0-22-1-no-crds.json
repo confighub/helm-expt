@@ -655,8 +655,8 @@
     {
       "id": "promote",
       "label": "Promote a change",
-      "state": "run-for-this-entry",
-      "summary": "A promotion ran for this entry.",
+      "state": "partly-run-for-this-entry",
+      "summary": "A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry.",
       "basis": [
         "lifecycle.promotion"
       ],
