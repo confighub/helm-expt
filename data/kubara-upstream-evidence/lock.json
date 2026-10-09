@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "repository": "confighub/kubara-confighub",
-  "commit": "62afd6a7ef95e854b5d1cbb3834843c0a2911d67",
+  "commit": "bd57184d6841d253703fc2a0511432ca99545677",
   "files": [
     {
       "path": "examples/kubara/current-platform/catalog-parity-receipt.yaml",
