@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:7d25442fb9b86c65e0d230cbf35060a9150881f75fb050e52cda5a1dde0ece84",
+      "sha256": "sha256:5e82fbcc0de72c9202f0faef1098cda70049d387600a51ea460a6d617869efc2",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/prometheus-community-prometheus-operator-crds-28-0-1-default.yaml",
-      "sha256": "sha256:0ebd844051eae49065403d72d6b117062d0286694b5a149977a85965669d2ea4",
+      "sha256": "sha256:5a9c88598e4872acd5f605fff8eff10ecca8b73df959467a71c8994c7de3573d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-operator-crds-28-0-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -368,8 +368,8 @@
         "declared": "todo"
       },
       "lifecycle_observation": {
-        "status": "not_checked",
-        "declared": "todo"
+        "status": "not_applicable",
+        "declared": "n/a"
       },
       "gitops_oci_live": {
         "status": "not_checked",

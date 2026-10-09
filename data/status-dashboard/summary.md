@@ -27,7 +27,7 @@ Which detailed CSV should I open next?
 | chart use | limitation decision needed answers | 7/122 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | top100 | covered by top100 contract | 20/122 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | partial by top100 contract | 102/122 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
-| top100 | average top100 coverage | 84/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
+| top100 | average top100 coverage | 85/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | top100 promotion-review queue | 34/102 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
 | top100 | first strict top100 promotion wave | 32/34 | partial | [data/top100-promotion-wave/wave.csv](../../data/top100-promotion-wave/wave.csv) |
 | top100 | fast-track top100 promotion candidates | 0/32 | partial | [data/top100-promotion-wave/fast-track.csv](../../data/top100-promotion-wave/fast-track.csv) |

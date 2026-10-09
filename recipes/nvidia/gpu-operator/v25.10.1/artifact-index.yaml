@@ -62,7 +62,7 @@ spec:
       gitopsLive: "0/6"
       liveParity: "0/6"
     featureSummary: "none-recorded"
-    hardGap: "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)"
+    hardGap: ""
     nextAction: ""
   installerPackage:
     path: "packages/nvidia/gpu-operator/v25.10.1"

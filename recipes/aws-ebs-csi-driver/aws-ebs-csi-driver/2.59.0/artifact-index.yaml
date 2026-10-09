@@ -56,8 +56,8 @@ spec:
       localLive: "0/3"
       gitopsLive: "0/3"
       liveParity: "0/3"
-    featureSummary: "required-values;values-schema"
-    hardGap: "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)"
+    featureSummary: "none-recorded"
+    hardGap: ""
     nextAction: ""
   installerPackage:
     path: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0"

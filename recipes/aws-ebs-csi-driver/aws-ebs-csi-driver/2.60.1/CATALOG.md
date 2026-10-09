@@ -32,7 +32,7 @@ for exact base-variant evidence.
 | User status | proof-grade-needs-user-shaped-variant |
 | Strongest evidence | in-confighub-proof |
 | Proof lanes | render parity 1/1; ConfigHub 1/1; local live 0/1; GitOps live 0/1; live parity 0/1 |
-| Feature summary | none-recorded |
+| Feature summary | required-values;values-schema;extension-slots |
 | Hard gap | - |
 | Next action | add at least one user-shaped variant before catalog promotion |
 

@@ -10,7 +10,7 @@ required.
 charts: 122
 covered: 20
 partial: 102
-average coverage: 84%
+average coverage: 85%
 ~~~
 
 ## Coverage By Item
@@ -20,7 +20,7 @@ average coverage: 84%
 | a | pinned chart version | 122 | 0 | 0 |
 | b | reviewed named base variant | 122 | 0 | 0 |
 | c | render parity receipt | 122 | 0 | 0 |
-| d | pain report and quirk axes | 107 | 15 | 0 |
+| d | pain report and quirk axes | 122 | 0 | 0 |
 | e | facts declared | 122 | 0 | 0 |
 | f | scan and production disposition | 20 | 102 | 0 |
 | g | live witness or routed reason | 79 | 43 | 0 |
@@ -40,21 +40,21 @@ average coverage: 84%
 
 | Chart | Coverage | Bucket | Next action |
 | --- | ---: | --- | --- |
-| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | 63% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `cloudnative-pg/cloudnative-pg@0.29.0` | 63% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0` | 63% | `not-ready` | review chart analysis and create a recipe candidate |
-| `kai-scheduler/kai-scheduler@v0.16.9` | 63% | `not-ready` | review chart analysis and create a recipe candidate |
-| `kyverno/kyverno-policies@3.9.0` | 63% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `kyverno/kyverno@3.9.0` | 63% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `nvidia/gpu-operator@v26.7.1` | 63% | `not-ready` | review chart analysis and create a recipe candidate |
-| `nvidia/k8s-nim-operator@3.1.2` | 63% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `nvidia/nodewright@v0.19.0` | 63% | `not-ready` | review chart analysis and create a recipe candidate |
-| `nvidia/nvsentinel@v1.26.0` | 63% | `not-ready` | review chart analysis and create a recipe candidate |
-| `percona/psmdb-operator@1.23.0` | 63% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `prometheus-community/prometheus-blackbox-exporter@11.18.0` | 63% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `stakater/reloader@2.2.16` | 63% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `traefik/traefik@41.4.0` | 63% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `aws-controllers-k8s/ec2-chart@1.18.4` | 75% | `not-ready` | review chart analysis and create a recipe candidate |
+| `aws-controllers-k8s/eks-chart@1.16.3` | 75% | `not-ready` | review chart analysis and create a recipe candidate |
+| `aws-controllers-k8s/iam-chart@1.7.3` | 75% | `not-ready` | review chart analysis and create a recipe candidate |
+| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `cloudnative-pg/cloudnative-pg@0.29.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `cloudpirates/nginx@0.16.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `cloudpirates/rabbitmq@0.21.13` | 75% | `promote-after-review` | run catalog promotion review |
+| `cloudpirates/redis@0.34.11` | 75% | `promote-after-review` | run catalog promotion review |
+| `dex/dex@0.24.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0` | 75% | `not-ready` | review chart analysis and create a recipe candidate |
+| `eks/aws-efa-k8s-device-plugin@v0.5.29` | 75% | `not-ready` | review chart analysis and create a recipe candidate |
+| `elastic/filebeat@8.5.1` | 75% | `promote-after-review` | run catalog promotion review |
+| `elastic/kibana@8.5.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `elastic/metricbeat@8.5.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `gitlab/gitlab-runner@0.89.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 
 ## Files
 

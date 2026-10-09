@@ -58,8 +58,8 @@ spec:
       localLive: "2/2"
       gitopsLive: "2/2"
       liveParity: "2/2"
-    featureSummary: "values-schema;extension-slots"
-    hardGap: "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)"
+    featureSummary: "none-recorded"
+    hardGap: ""
     nextAction: ""
   installerPackage:
     path: "packages/stakater/reloader/2.2.12"

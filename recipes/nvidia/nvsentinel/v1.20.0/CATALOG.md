@@ -33,7 +33,7 @@ for exact base-variant evidence.
 | Strongest evidence | - |
 | Proof lanes | render parity 3/3; ConfigHub 0/3; local live 0/3; GitOps live 0/3; live parity 0/3 |
 | Feature summary | none-recorded |
-| Hard gap | - (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2) |
+| Hard gap | - |
 | Next action | - |
 
 ## Artifact Chain

@@ -57,7 +57,7 @@ spec:
       gitopsLive: "0/3"
       liveParity: "0/3"
     featureSummary: "none-recorded"
-    hardGap: "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)"
+    hardGap: ""
     nextAction: ""
   installerPackage:
     path: "packages/nvidia/nvsentinel/v1.20.0"

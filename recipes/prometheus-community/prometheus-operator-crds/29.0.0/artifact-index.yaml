@@ -57,7 +57,7 @@ spec:
       localLive: "1/1"
       gitopsLive: "1/1"
       liveParity: "1/1"
-    featureSummary: "none-recorded"
+    featureSummary: "crds"
     hardGap: "-"
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:

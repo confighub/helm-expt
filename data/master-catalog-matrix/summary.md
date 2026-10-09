@@ -56,7 +56,7 @@ from a different chart version's disposition row.
 | Render-intent prerequisite records (attached / gap / none explicitly required) | 165 / 167 / 12 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
 | Rows currently in the active proof queue | 74 |
-| Cells with deferred accepted disposition | 117 |
+| Cells with deferred accepted disposition | 114 |
 
 Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): `argo-cd/argo-cd@10.1.3`, `argo-cd/argo-cd@10.2.1`, `argo-cd/argo-cd@10.7.0`, `argo-cd/argo-cd@9.5.17`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0`, `bitnami/mongodb@19.0.9`, `bitnami/mongodb@19.1.0`, `bitnami/nginx@24.0.4`, `bitnami/nginx@25.0.0`, `bitnami/postgresql@18.6.10`, `bitnami/postgresql@18.7.0`, `bitnami/redis@27.0.0`, `cloudnative-pg/cloudnative-pg@0.28.2`, `dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1`, `external-secrets/external-secrets@2.10.0`, `external-secrets/external-secrets@2.7.0`, `external-secrets/external-secrets@2.8.0`, `grafana/alloy@1.11.0`, `grafana/alloy@1.8.2`, `grafana/loki@7.1.0`, `grafana/loki@7.3.0`, `jetstack/cert-manager@v1.21.0`, `jetstack/cert-manager@v1.21.1`, `kai-scheduler/kai-scheduler@v0.14.1`, `kyverno/kyverno-policies@3.8.0`, `kyverno/kyverno-policies@3.8.2`, `kyverno/kyverno@3.8.1`, `kyverno/kyverno@3.8.2`, `longhorn/longhorn@1.12.0`, `longhorn/longhorn@1.12.1`, `metallb/metallb@0.16.1`, `metrics-server/metrics-server@3.13.1`, `metrics-server/metrics-server@3.14.0`, `nvidia/gpu-operator@v25.10.1`, `nvidia/gpu-operator@v26.3.2`, `nvidia/gpu-operator@v26.3.3`, `nvidia/k8s-nim-operator@3.1.0`, `nvidia/nodewright@v0.17.1`, `nvidia/nvsentinel@v1.20.0`, `nvidia/nvsentinel@v1.25.0`, `nvidia/nvsentinel@v1.9.0`, `oauth2-proxy/oauth2-proxy@10.7.0`, `percona/psmdb-operator@1.22.0`, `policy-reporter/policy-reporter@3.9.1`, `prometheus-community/kube-prometheus-stack@84.4.0`, `prometheus-community/kube-prometheus-stack@86.1.0`, `prometheus-community/kube-prometheus-stack@87.15.1`, `prometheus-community/kube-prometheus-stack@87.19.2`, `prometheus-community/kube-prometheus-stack@88.6.3`, `prometheus-community/prometheus-blackbox-exporter@11.10.0`, `prometheus-community/prometheus-blackbox-exporter@11.15.1`, `prometheus-community/prometheus-operator-crds@28.0.1`, `prometheus-community/prometheus@29.9.0`, `stakater/reloader@2.2.12`, `stakater/reloader@2.2.14`, `traefik/traefik@40.2.0`, `traefik/traefik@41.0.2`, `velero/velero@12.1.0`.
 
@@ -270,7 +270,7 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | image | in-confighub | ⬜ |
 |  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ❌ | ✅ | image | local-live | ⬜ |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
+|  | F2a | base | default | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | no-crds | - | - | - | - | ✅ | ✅ | ❌ | - | ✅ | ✅ | ✅ | ✅ | stage | live-parity | ⬜ |
 | `cloudnative-pg/cloudnative-pg@0.29.0` | F1 | source | (source) | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
@@ -691,7 +691,7 @@ when you want the user/product view with those columns visible.
 |  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `prometheus-community/prometheus-operator-crds@29.0.0` | F1 | source | (source) | next80 | `generated-facts;crds` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | `generated-facts;crds` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+|  | F2a | base | default | next80 | `generated-facts;crds` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2c | candidate review | cluster-metrics-readonly | candidate | `generated-facts;crds` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `prometheus-community/prometheus-pushgateway@3.6.0` | F1 | source | (source) | next80 | `tpl;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |

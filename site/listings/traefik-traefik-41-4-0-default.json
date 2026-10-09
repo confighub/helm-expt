@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:7d25442fb9b86c65e0d230cbf35060a9150881f75fb050e52cda5a1dde0ece84",
+      "sha256": "sha256:5e82fbcc0de72c9202f0faef1098cda70049d387600a51ea460a6d617869efc2",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/traefik-traefik-41-4-0-default.yaml",
-      "sha256": "sha256:046244fe3700f916ea3cefdd860e0a2a5748425603b65ec2dcde2935c4d6866e",
+      "sha256": "sha256:e737f955faf4bf6228a58ecb099960d64fa5df107b4b02eed9913e5d234954a0",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/traefik-traefik-41-4-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -244,8 +244,8 @@
         "declared": "todo"
       },
       "lifecycle_observation": {
-        "status": "not_applicable",
-        "declared": "n/a"
+        "status": "not_checked",
+        "declared": "todo"
       },
       "gitops_oci_live": {
         "status": "not_checked",

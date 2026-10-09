@@ -232,7 +232,7 @@
     {
       "section": "top100",
       "metric": "average top100 coverage",
-      "value": "84",
+      "value": "85",
       "total": "100",
       "status": "partial",
       "source": "data/top100-coverage/coverage.csv",
@@ -107232,10 +107232,10 @@
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.29.0/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/cloudnative-pg/cloudnative-pg/0.29.0/bases/default",
       "completion_action": "stage",
-      "completion_action_summary": "run:1; stage:3",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
-      "completion_deferred_cells": "0",
-      "completion_owner_lanes": "Codex-live:1; product-decision:2; upstream-implementation:1"
+      "completion_action_summary": "deferred:1; run:1; stage:3",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness; CCP-06:lifecycle-not-applicable",
+      "completion_deferred_cells": "1",
+      "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
     },
     {
       "row_kind": "source",
@@ -131541,11 +131541,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/prometheus-operator-crds/29.0.0",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-operator-crds/29.0.0/bases/default",
-      "completion_action": "-",
-      "completion_action_summary": "",
-      "completion_action_families": "",
-      "completion_deferred_cells": "0",
-      "completion_owner_lanes": ""
+      "completion_action": "deferred",
+      "completion_action_summary": "deferred:1",
+      "completion_action_families": "CCP-06:lifecycle-not-applicable",
+      "completion_deferred_cells": "1",
+      "completion_owner_lanes": "product-decision:1"
     },
     {
       "row_kind": "candidate",
@@ -133667,10 +133667,10 @@
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/41.4.0/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/traefik/traefik/41.4.0/bases/default",
       "completion_action": "stage",
-      "completion_action_summary": "run:1; stage:4",
-      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness",
-      "completion_deferred_cells": "0",
-      "completion_owner_lanes": "Codex-live:1; product-decision:3; upstream-implementation:1"
+      "completion_action_summary": "deferred:1; run:1; stage:4",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix; CCP-02:stage-prereq-other; CCP-03:local-kind-apply-harness; CCP-06:lifecycle-not-applicable",
+      "completion_deferred_cells": "1",
+      "completion_owner_lanes": "Codex-live:1; product-decision:4; upstream-implementation:1"
     },
     {
       "row_kind": "source",
