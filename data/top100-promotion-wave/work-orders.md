@@ -12,8 +12,8 @@ routed deferral.
 ## Summary
 
 ~~~text
-charts: 32
-work orders: 185
+charts: 26
+work orders: 142
 ~~~
 
 ## Work Orders By Chart
@@ -101,25 +101,6 @@ Current state: support=machine-proof-only; production=not-reviewed-for-productio
 | 2 | scan-and-gate-disposition | security reviewer | Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support. |
 | 3 | selected-live-evidence | operator reviewer | The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale. |
 | 4 | target-scoped-support-decision | catalog owner | A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome. |
-
-### cloudnative-pg/cloudnative-pg@0.28.2
-
-Variants: `default;no-crds`<br>
-Evidence: `live-helm-vs-confighub-parity`<br>
-Feature focus: `generated-facts;tpl;crds;cluster-rbac;webhooks`<br>
-Current state: support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade
-
-| Order | Work type | Reviewer | Done when |
-| ---: | --- | --- | --- |
-| 1 | variant-selection | catalog reviewer | A selected variant is named from default;no-crds and the non-selected variants have a written promote/defer reason. |
-| 2 | scan-and-gate-disposition | security reviewer | Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support. |
-| 3 | crd-lifecycle | platform reviewer | CRD install, upgrade, ownership, and no-CRDs behavior are recorded or explicitly deferred for the selected base. |
-| 4 | webhook-readiness | platform reviewer | Webhook readiness, CA/material injection, failure policy, and observation path are recorded or explicitly deferred. |
-| 5 | generated-fact-policy | catalog reviewer | Generated facts are persisted, replaced by target facts, or explicitly scoped out of the promoted base. |
-| 6 | rbac-scope | security reviewer | Cluster permissions are accepted for the support scope or a narrower base is selected. |
-| 7 | template-and-capability-boundary | catalog reviewer | The supported values, capability profile, and extension-slot policy are catalog-readable for the selected base. |
-| 8 | selected-live-evidence | operator reviewer | The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale. |
-| 9 | target-scoped-support-decision | catalog owner | A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome. |
 
 ### elastic/eck-operator@3.4.0
 
@@ -270,25 +251,6 @@ Current state: support=machine-proof-only; production=not-reviewed-for-productio
 | 7 | selected-live-evidence | operator reviewer | The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale. |
 | 8 | target-scoped-support-decision | catalog owner | A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome. |
 
-### kyverno/kyverno@3.8.1
-
-Variants: `default;no-crds`<br>
-Evidence: `live-helm-vs-confighub-parity`<br>
-Feature focus: `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage`<br>
-Current state: support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade
-
-| Order | Work type | Reviewer | Done when |
-| ---: | --- | --- | --- |
-| 1 | variant-selection | catalog reviewer | A selected variant is named from default;no-crds and the non-selected variants have a written promote/defer reason. |
-| 2 | scan-and-gate-disposition | security reviewer | Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support. |
-| 3 | crd-lifecycle | platform reviewer | CRD install, upgrade, ownership, and no-CRDs behavior are recorded or explicitly deferred for the selected base. |
-| 4 | storage-and-rollback-policy | operator reviewer | Storage class assumptions, PVC behavior, backup/rollback boundary, and destructive-change policy are written for the selected base. |
-| 5 | generated-fact-policy | catalog reviewer | Generated facts are persisted, replaced by target facts, or explicitly scoped out of the promoted base. |
-| 6 | rbac-scope | security reviewer | Cluster permissions are accepted for the support scope or a narrower base is selected. |
-| 7 | template-and-capability-boundary | catalog reviewer | The supported values, capability profile, and extension-slot policy are catalog-readable for the selected base. |
-| 8 | selected-live-evidence | operator reviewer | The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale. |
-| 9 | target-scoped-support-decision | catalog owner | A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome. |
-
 ### nats/nack@0.34.0
 
 Variants: `default;no-crds`<br>
@@ -333,20 +295,6 @@ Current state: support=machine-proof-only; production=not-reviewed-for-productio
 | 4 | target-scoped-support-decision | catalog owner | A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome. |
 
 ### percona/pg-operator@3.0.0
-
-Variants: `default;no-crds`<br>
-Evidence: `live-helm-vs-confighub-parity`<br>
-Feature focus: `-`<br>
-Current state: support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade
-
-| Order | Work type | Reviewer | Done when |
-| ---: | --- | --- | --- |
-| 1 | variant-selection | catalog reviewer | A selected variant is named from default;no-crds and the non-selected variants have a written promote/defer reason. |
-| 2 | scan-and-gate-disposition | security reviewer | Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support. |
-| 3 | selected-live-evidence | operator reviewer | The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale. |
-| 4 | target-scoped-support-decision | catalog owner | A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome. |
-
-### percona/psmdb-operator@1.22.0
 
 Variants: `default;no-crds`<br>
 Evidence: `live-helm-vs-confighub-parity`<br>
@@ -410,21 +358,6 @@ Current state: support=machine-proof-only; production=not-reviewed-for-productio
 | 7 | selected-live-evidence | operator reviewer | The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale. |
 | 8 | target-scoped-support-decision | catalog owner | A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome. |
 
-### prometheus-community/prometheus-blackbox-exporter@11.10.0
-
-Variants: `default;cluster-metrics-readonly`<br>
-Evidence: `live-helm-vs-confighub-parity`<br>
-Feature focus: `tpl;capabilities`<br>
-Current state: support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade
-
-| Order | Work type | Reviewer | Done when |
-| ---: | --- | --- | --- |
-| 1 | variant-selection | catalog reviewer | A selected variant is named from default;cluster-metrics-readonly and the non-selected variants have a written promote/defer reason. |
-| 2 | scan-and-gate-disposition | security reviewer | Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support. |
-| 3 | template-and-capability-boundary | catalog reviewer | The supported values, capability profile, and extension-slot policy are catalog-readable for the selected base. |
-| 4 | selected-live-evidence | operator reviewer | The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale. |
-| 5 | target-scoped-support-decision | catalog owner | A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome. |
-
 ### prometheus-community/prometheus-node-exporter@4.55.0
 
 Variants: `default;cluster-metrics-readonly`<br>
@@ -456,22 +389,6 @@ Current state: support=machine-proof-only; production=not-reviewed-for-productio
 | 3 | selected-live-evidence | operator reviewer | The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale. |
 | 4 | target-scoped-support-decision | catalog owner | A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome. |
 
-### stakater/reloader@2.2.12
-
-Variants: `default;controller-default-reviewed`<br>
-Evidence: `live-helm-vs-confighub-parity`<br>
-Feature focus: `tpl;capabilities;cluster-rbac`<br>
-Current state: support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade
-
-| Order | Work type | Reviewer | Done when |
-| ---: | --- | --- | --- |
-| 1 | variant-selection | catalog reviewer | A selected variant is named from default;controller-default-reviewed and the non-selected variants have a written promote/defer reason. |
-| 2 | scan-and-gate-disposition | security reviewer | Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support. |
-| 3 | rbac-scope | security reviewer | Cluster permissions are accepted for the support scope or a narrower base is selected. |
-| 4 | template-and-capability-boundary | catalog reviewer | The supported values, capability profile, and extension-slot policy are catalog-readable for the selected base. |
-| 5 | selected-live-evidence | operator reviewer | The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale. |
-| 6 | target-scoped-support-decision | catalog owner | A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome. |
-
 ### strimzi/strimzi-kafka-operator@1.0.0
 
 Variants: `default;no-crds`<br>
@@ -488,26 +405,6 @@ Current state: support=machine-proof-only; production=not-reviewed-for-productio
 | 5 | template-and-capability-boundary | catalog reviewer | The supported values, capability profile, and extension-slot policy are catalog-readable for the selected base. |
 | 6 | selected-live-evidence | operator reviewer | The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale. |
 | 7 | target-scoped-support-decision | catalog owner | A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome. |
-
-### traefik/traefik@40.2.0
-
-Variants: `default;no-crds`<br>
-Evidence: `live-helm-vs-confighub-parity`<br>
-Feature focus: `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage`<br>
-Current state: support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade
-
-| Order | Work type | Reviewer | Done when |
-| ---: | --- | --- | --- |
-| 1 | variant-selection | catalog reviewer | A selected variant is named from default;no-crds and the non-selected variants have a written promote/defer reason. |
-| 2 | scan-and-gate-disposition | security reviewer | Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support. |
-| 3 | crd-lifecycle | platform reviewer | CRD install, upgrade, ownership, and no-CRDs behavior are recorded or explicitly deferred for the selected base. |
-| 4 | webhook-readiness | platform reviewer | Webhook readiness, CA/material injection, failure policy, and observation path are recorded or explicitly deferred. |
-| 5 | storage-and-rollback-policy | operator reviewer | Storage class assumptions, PVC behavior, backup/rollback boundary, and destructive-change policy are written for the selected base. |
-| 6 | generated-fact-policy | catalog reviewer | Generated facts are persisted, replaced by target facts, or explicitly scoped out of the promoted base. |
-| 7 | rbac-scope | security reviewer | Cluster permissions are accepted for the support scope or a narrower base is selected. |
-| 8 | template-and-capability-boundary | catalog reviewer | The supported values, capability profile, and extension-slot policy are catalog-readable for the selected base. |
-| 9 | selected-live-evidence | operator reviewer | The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale. |
-| 10 | target-scoped-support-decision | catalog owner | A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome. |
 
 ### vm/victoria-metrics-single@0.39.0
 
