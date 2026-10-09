@@ -3838,6 +3838,8 @@ ${homeJourneyLinks()}
         <a href="./bring-argo-into-confighub.html">How do I bring in my Argo CD apps?</a>
         <a href="./bring-flux-into-confighub.html">How do I bring in my Flux fleet?</a>
         <a href="./confighub.html#start-managing">How do I deploy and promote my app?</a>
+        <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">What does a GPU Operator upgrade change?</a>
+        <a href="./promote.html">How do I review a change before it ships?</a>
         <a href="./guides.html">Which Guide solves my problem?</a>
         <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>
       </nav>

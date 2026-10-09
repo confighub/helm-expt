@@ -611,12 +611,12 @@
 <a class="cw-skip" href="#cw-content">Skip to content</a>
 <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
 <div class="cw-layout no-toc cw-guide">
-<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./bring-flux-into-confighub.html#migration-shape">1. What changes, and what does not</a></li><li><a href="./bring-flux-into-confighub.html#preview-setup">2. Preview the setup</a></li><li><a href="./bring-flux-into-confighub.html#save-confighub">3. Save the reviewed setup in ConfigHub</a></li><li><a href="./bring-flux-into-confighub.html#connect-deployment">4. Connect deployment</a></li><li><a href="./bring-flux-into-confighub.html#change-approve-release">5. Change, approve, and release</a></li></ul>
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./bring-flux-into-confighub.html#migration-shape">1. What changes, and what does not</a></li><li><a href="./bring-flux-into-confighub.html#preview-setup">2. Preview the setup</a></li><li><a href="./bring-flux-into-confighub.html#go-back">How to go back</a></li><li><a href="./bring-flux-into-confighub.html#save-confighub">3. Save the reviewed setup in ConfigHub</a></li><li><a href="./bring-flux-into-confighub.html#connect-deployment">4. Connect deployment</a></li><li><a href="./bring-flux-into-confighub.html#change-approve-release">5. Change, approve, and release</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
 </nav>
 <div class="cw-content" id="cw-content" tabindex="-1">
-<details class="cw-mobile-nav"><summary>In this Guide</summary><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./bring-flux-into-confighub.html#migration-shape">1. What changes, and what does not</a></li><li><a href="./bring-flux-into-confighub.html#preview-setup">2. Preview the setup</a></li><li><a href="./bring-flux-into-confighub.html#save-confighub">3. Save the reviewed setup in ConfigHub</a></li><li><a href="./bring-flux-into-confighub.html#connect-deployment">4. Connect deployment</a></li><li><a href="./bring-flux-into-confighub.html#change-approve-release">5. Change, approve, and release</a></li></ul>
+<details class="cw-mobile-nav"><summary>In this Guide</summary><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./bring-flux-into-confighub.html#migration-shape">1. What changes, and what does not</a></li><li><a href="./bring-flux-into-confighub.html#preview-setup">2. Preview the setup</a></li><li><a href="./bring-flux-into-confighub.html#go-back">How to go back</a></li><li><a href="./bring-flux-into-confighub.html#save-confighub">3. Save the reviewed setup in ConfigHub</a></li><li><a href="./bring-flux-into-confighub.html#connect-deployment">4. Connect deployment</a></li><li><a href="./bring-flux-into-confighub.html#change-approve-release">5. Change, approve, and release</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
 </details>
@@ -633,6 +633,17 @@
       <p>Flux stays the delivery controller. Preview has no account or cluster mutation; import makes a parallel ConfigHub copy while Git still delivers; handover then moves sources to reviewed releases. Handover has checks and recovery steps, not zero risk.</p>
 
       <p>Start with a small disposable estate. Roots, generators, and pruning can make production migration an ordered fleet operation.</p>
+      <h3 id="who-does-what">Who does what, before and after</h3>
+      <div class="card"><table>
+        <thead><tr><th></th><th>Before the handover</th><th>After the handover</th></tr></thead>
+        <tbody>
+          <tr><td>Source of truth</td><td>Git</td><td>ConfigHub</td></tr>
+          <tr><td>Flux</td><td>reconciles each layer from Git</td><td>still reconciles each layer, from the release ConfigHub published</td></tr>
+          <tr><td>A change</td><td>is a commit to the Git path</td><td>is an edit in ConfigHub, released after the approvals its stage asks for</td></tr>
+          <tr><td>A commit to the old Git path</td><td>reaches the cluster</td><td>no longer reaches the cluster</td></tr>
+        </tbody>
+      </table></div>
+      <p>The handover is the step that moves the source of truth. Until <code>handover.sh</code> runs, ConfigHub holds a copy that nothing reads. The <code>flux-system</code> bootstrap and the Flux controllers stay outside ConfigHub, and the plan lists them.</p>
     </section>
 
     <section aria-labelledby="preview-setup">
@@ -704,6 +715,43 @@ Next
   That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.</code></pre>
       </details>
       <p><a href="https://github.com/confighub/examples/blob/cub-flux-v0.3.0/cub-flux/docs/onboard-your-flux-fleet.md#1-see-the-plan">Read the full Flux planning reference</a> for layouts and limits.</p>
+      <h3 id="try-the-fixture">Try it on the fixture first</h3>
+      <p>These commands print the output above. They need no repository of your own.</p>
+<pre><code>git clone https://github.com/confighub/examples.git
+cd examples
+git checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
+cd gitops/flux/beginner
+cub flux plan . --require Healthy</code></pre>
+      <p>Run the plan inside a Git checkout. In a copy with no <code>.git</code> directory the plan reports source paths as missing, and <code>--repo-root &lt;checkout&gt;</code> tells it where the repository starts.</p>
+      <h3 id="what-it-becomes">What one Kustomization becomes</h3>
+      <p><code>cub flux apply . --require Healthy --out onboard</code> writes files only. For each cluster and layer it writes what Flux would run after the handover under <code>onboard/layers/</code>. On the fixture, <code>onboard/layers/dev/apps.yaml</code> holds the <code>apps</code> Kustomization from <code>clusters/dev/apps.yaml</code> with two fields changed, and one new OCIRepository beside it.</p>
+      <pre><code> kind: Kustomization
+ metadata:
+   name: apps
+   namespace: flux-system
+ spec:
+-  path: ./gitops/flux/beginner/apps/dev
++  path: ./
+   sourceRef:
+-    kind: GitRepository
+-    name: apptique-examples
++    kind: OCIRepository
++    name: apps</code></pre>
+      <p>The Kustomization keeps its name, so Flux keeps its record of what it applied. The new OCIRepository reads the Space the plan names as the variant, <code>flux-apps-dev</code>. The generated file holds placeholders for the gateway address, and the scripts fill them in.</p>
+      <p>A HelmRelease is stored as it is, and helm-controller goes on resolving it. The plugin does not render Helm charts. The fixture has no HelmRelease, so this page shows none.</p>
+    </section>
+
+    <section aria-labelledby="go-back">
+      <h2 id="go-back">How to go back</h2>
+      <div class="card"><table>
+        <thead><tr><th>After this step</th><th>Go back by</th></tr></thead>
+        <tbody>
+          <tr><td><code>cub flux plan . --require Healthy</code></td><td>Nothing to undo.</td></tr>
+          <tr><td><code>cub flux apply . --require Healthy --out onboard</code></td><td>Delete <code>onboard/</code>.</td></tr>
+          <tr><td><code>bash onboard/apply.sh</code></td><td>Run <code>bash onboard/cleanup.sh</code>. It removes what the script made in ConfigHub. Flux still reads Git.</td></tr>
+          <tr><td><code>bash onboard/handover.sh</code></td><td>Stop the root pruning, restore both fields on each layer as the script recorded them, then remove the root. The script prints the commands in that order. Do not delete the ConfigHub Spaces first.</td></tr>
+        </tbody>
+      </table></div>
     </section>
 
     <p><strong>You can stop here.</strong> The plan is read-only. To generate local scripts, connect delivery, or make a reviewed change, open the advanced steps below.</p>
