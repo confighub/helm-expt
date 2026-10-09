@@ -22,7 +22,7 @@ import { aiChaosGuide, AI_CHAOS_IMAGES, AI_CHAOS_SOURCE } from "./lib/ai-chaos-g
 import { appLearningPathsHtml } from "./lib/app-learning-paths.mjs";
 import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
-import { NEXT_STEPS, NEXT_STEPS_HEADING, NEXT_STEPS_TARGET, NEXT_STEP_STATES } from "./lib/entry-next-steps.mjs";
+import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEPS_HEADING, NEXT_STEPS_TARGET, NEXT_STEP_STATES } from "./lib/entry-next-steps.mjs";
 import { chartCompareCommands, chartDiffSummaryLine, chartPageSlug, compareChartVersions } from "./lib/catalog-chart-pages.mjs";
 import { LIVE_EXAMPLES_PATH, liveExampleSectionHtml, validateLiveExamples } from "./lib/catalog-live-examples.mjs";
 import { VENDORED_DIFF_SOURCE, diffConfigFiles, vendoredDiffRecord } from "./lib/vendored-config-diff.mjs";
@@ -2342,6 +2342,7 @@ function buildLlmsTxt() {
 - [Did this chart version change?](${SITE_BASE_URL}did-this-chart-version-change.html): compare current package bytes with retained digests.
 - [Did your Bitnami chart stop pulling?](${SITE_BASE_URL}did-your-bitnami-chart-stop-pulling.html): find a tested, verified successor for a Bitnami chart that no longer pulls anonymously.
 - [See what a gpu-operator upgrade changes](${SITE_BASE_URL}d/docs/user/workshop-gpu-operator-upgrade-guide.html): render two versions of NVIDIA's public gpu-operator chart with \`helm template\` and compare them with \`cub config diff\`, for a version upgrade, a patch upgrade and a driver version change. The Catalog holds this chart, and [its chart page](${SITE_BASE_URL}charts/nvidia-gpu-operator.html) compares the retained versions.
+- [Make a stack from Catalog entries](${SITE_BASE_URL}d/docs/user/workshop-stack-from-catalog-guide.html): compose NVIDIA's gpu-operator, nvsentinel and cluster-readiness-engine entries into one local stack with \`cub stack compose\`, check them together with \`cub stack check\`, and swap one entry. Nothing is applied or uploaded.
 - [Harden Argo CD before production](${SITE_BASE_URL}d/docs/user/workshop-argocd-hardening-guide.html): turn security advice into a checked values variant of the Catalog's argo-cd base with \`cub config values\`, compare it with \`cub config diff\`, and keep it as a variant with a staging and production path.
 - [Deploy with Flux or Argo CD](${SITE_BASE_URL}deploy-with-flux-or-argo.html): render any catalog chart to a controller-native OCI with one command and no account.
 - [Why do development and production differ?](${SITE_BASE_URL}why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
@@ -7545,6 +7546,7 @@ function workshopGuideLinksHtml() {
       <article class="card"><p><strong><a href="${GITHUB_BLOB_BASE_URL}examples/workshop-catalog-inspection/README.md">Inspect and keep an exact record</a></strong></p><p><a href="./records/bitnami-redis-25-5-3-default.json" download="record.json">Download record.json</a> with the full Redis default record and its Catalog and record hashes. No setup needed. The linked draft exercise reproduces the lookup and a refusal locally with Node and a checkout.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-helm-questions-guide.html">Answer the ten Helm questions</a></strong></p><p>Walk the ten questions a Helm user asks, with the pain beneath each one and a check you run on your agent's answer.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-compose-guide.html">Compose a platform with an app</a></strong></p><p>Save a Kubara and Argo CD selection, move it, edit the app and retain a refusal when an API does not fit.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a></strong></p><p>Compose three NVIDIA GPU entries into one local stack, check them together, then swap one entry and check again.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-adapt-guide.html">Adapt a configuration and review the edit</a></strong></p><p>Change one replica count, inspect the exact diff and spot an unexpected second edit.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-match-guide.html">Match a GPU workload to supplied facts</a></strong></p><p>Keep candidate, mismatch and unknown results separately, with the input hashes behind each answer.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-values-guide.html">Find why a Helm value did nothing</a></strong></p><p>Compare a typo with the correct key in controlled renders, including a value the template transforms.</p></article>
@@ -15440,7 +15442,17 @@ function entryStepSiblingSentences(step) {
   ].filter(Boolean).join(" ");
 }
 
-function entryStepHtml(step, index, listing) {
+// A note is plain text in the listing. A pair of backticks marks code.
+function entryNoteHtml(text) {
+  return escapeHtml(text).replace(/`([^`]+)`/g, "<code>$1</code>");
+}
+
+// The rendered page of the live walk log, relative to the page that links it.
+function entryWalkHref(siteHref) {
+  return `${siteHref}/d/${ENTRY_STEPS_WALK.path.replace(/\.md$/, ".html")}`;
+}
+
+function entryStepHtml(step, index, listing, siteHref) {
   const stateLabel = NEXT_STEP_STATES.get(step.state);
   check(stateLabel, `${listing.identity.id}: step ${step.id} carries an unknown state ${step.state}`);
   const commands = step.commands ?? [];
@@ -15455,6 +15467,10 @@ function entryStepHtml(step, index, listing) {
     if (needs.length && commands.length) {
       sentences.push(`The listing records ${needs.length === 1 ? "one input" : `${needs.length} inputs`} that the destination must supply, so read ${needs.length === 1 ? "it" : "them"} before you deploy.`);
     }
+    const carries = step.carries ?? [];
+    if (carries.length && commands.length) {
+      sentences.push(`The base carries ${carries.length === 1 ? "one CRD" : `${carries.length} CRDs`} it needs, so the destination does not supply ${carries.length === 1 ? "it" : "them"}.`);
+    }
     if (step.alsoRecorded) sentences.push(escapeHtml(step.alsoRecorded));
   }
   if (step.id === "promote" && commands.length) {
@@ -15462,6 +15478,7 @@ function entryStepHtml(step, index, listing) {
   }
   const links = [];
   if (step.link) links.push(`<a href="${escapeHtml(step.link)}">Open the retained files</a>`);
+  if (step.liveWalk) links.push(`<a href="${escapeHtml(entryWalkHref(siteHref))}">Read the log of the live walk on ${escapeHtml(step.liveWalk.date)}</a>`);
   if (step.receiptUrl) links.push(`<a href="${escapeHtml(step.receiptUrl)}">Read the receipt</a>`);
   else if (["run-for-this-entry", "partly-run-for-this-entry", "blocked-for-this-entry"].includes(step.state) && step.id !== "get-objects") {
     links.push(`<a href="${escapeHtml(listing.generatedFrom.record.url)}">Read the record that states this</a>`);
@@ -15475,14 +15492,15 @@ function entryStepHtml(step, index, listing) {
     : "";
   return `<div class="entry-step" data-step="${escapeHtml(step.id)}" data-state="${escapeHtml(step.state)}">
           <h3>${index + 1}. ${escapeHtml(step.label)} <span class="status ${ENTRY_STEP_STATE_CLASS.get(step.state)}">${escapeHtml(stateLabel)}</span></h3>
-          <p>${sentences.filter(Boolean).join(" ")}${links.length ? ` ${links.join(" · ")}.` : ""}</p>${block ? `
+          <p>${sentences.filter(Boolean).join(" ")}${links.length ? ` ${links.join(" · ")}.` : ""}</p>${(step.notes ?? []).map((note) => `
+          <p>${entryNoteHtml(note)}</p>`).join("")}${block ? `
           ${block}` : ""}
         </div>`;
 }
 
 // The block for one listing: its open question when it is flagged, then the
 // five steps in order.
-function entryStepsListingHtml(listing) {
+function entryStepsListingHtml(listing, siteHref) {
   const steps = listing.nextSteps ?? [];
   check(
     JSON.stringify(steps.map((step) => [step.id, step.label])) === JSON.stringify(NEXT_STEPS.map((step) => [step.id, step.label])),
@@ -15493,7 +15511,7 @@ function entryStepsListingHtml(listing) {
     ? `<p class="entry-steps-flag"><strong>This entry is flagged for review.</strong> ${escapeHtml(materialization.answer ?? "")}</p>
         `
     : "";
-  return `${flag}${steps.map((step, index) => entryStepHtml(step, index, listing)).join("\n        ")}`;
+  return `${flag}${steps.map((step, index) => entryStepHtml(step, index, listing, siteHref)).join("\n        ")}`;
 }
 
 // listings: the listing files for every entry this page covers, first one open.
@@ -15504,11 +15522,11 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
   const label = (listing) => `${escapeHtml(listing.identity.formatLabel)}, base <strong>${escapeHtml(listing.identity.base)}</strong>, version ${escapeHtml(displayVersion(listing.identity.version))}`;
   const body = listings.length === 1
     ? `<div data-entry-steps="${escapeHtml(listings[0].identity.id)}">
-        ${entryStepsListingHtml(listings[0])}
+        ${entryStepsListingHtml(listings[0], siteHref)}
       </div>`
     : listings.map((listing, index) => `<details class="entry-steps-base" data-entry-steps="${escapeHtml(listing.identity.id)}"${index === 0 ? " open" : ""}>
         <summary>${label(listing)}</summary>
-        ${entryStepsListingHtml(listing)}
+        ${entryStepsListingHtml(listing, siteHref)}
       </details>`).join("\n      ");
   const allCommands = listings.flatMap((listing) => (listing.nextSteps ?? []).flatMap((step) => step.commands ?? []));
   const usesCub = allCommands.some(({ command }) => /^cub /.test(command));
@@ -15516,6 +15534,9 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
   // The dated log shows these command forms run once on other content. It is
   // evidence for the forms only, so the sentence says it is no run for the entry.
   const usesVariant = allCommands.some(({ command }) => /^cub variant /.test(command));
+  // The walk of steps 3 to 5 is a log and no receipt. A page whose steps link
+  // it says so, and the older sentence about other configuration then drops.
+  const walked = listings.some((listing) => (listing.nextSteps ?? []).some((step) => step.liveWalk));
   const listingLinks = listings
     .map((listing) => `<a href="${listingsHref}/${escapeHtml(listing.identity.id)}.json">${escapeHtml(listing.identity.id)}.json</a>`)
     .join(", ");
@@ -15527,11 +15548,11 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
         usesCub ? `<a href="${siteHref}/try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command.` : "",
         compares ? `Step 2 uses <code>cub config diff</code>, which <code>${escapeHtml(WORKSHOP_PLUGIN_INSTALL)}</code> adds.` : "",
         listings.length > 1 ? `This page covers ${listings.length} entries, so open the one you want.` : "",
-        usesVariant ? `A <a href="${siteHref}/d/docs/user/${ENTRY_STEPS_RUN_LOG}">live run on 2026-10-08</a> used these <code>cub variant</code> commands on other configuration, with no Target. It is not a run for this entry.` : "",
+        walked ? `A <a href="${entryWalkHref(siteHref)}">live walk on ${escapeHtml(ENTRY_STEPS_WALK.date)}</a> ran steps 3 to 5 for ${ENTRY_STEPS_WALK.entries.map((entry) => `<code>${escapeHtml(entry)}</code>`).join(" and ")}. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it.` : usesVariant ? `A <a href="${siteHref}/d/docs/user/${ENTRY_STEPS_RUN_LOG}">live run on 2026-10-08</a> used these <code>cub variant</code> commands on other configuration, with no Target. It is not a run for this entry.` : "",
         note,
       ].filter(Boolean).join(" ")}</p>
       ${body}
-      ${agentNote(`These steps are the <code>nextSteps</code> array of ${listingLinks}. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub.`)}
+      ${agentNote(`These steps are the <code>nextSteps</code> array of ${listingLinks}. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.`)}
     </section>`;
 }
 

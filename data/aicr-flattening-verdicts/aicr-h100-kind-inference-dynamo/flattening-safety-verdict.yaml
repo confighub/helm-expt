@@ -6,8 +6,8 @@ spec:
   subject:
     kind: "aicr-platform-shape"
     entry: "examples/aicr/h100-kind-inference-dynamo"
-    platformDigest: "sha256:b5e2f8910c00052362b84781fcda501613c5d83fde0ae015f549afd8538d2828"
-    upstreamVersion: "v0.21.0"
+    platformDigest: "sha256:e6408f698f8d77737daeb97b3208165eedd30d2413fd12d8c928f2de4e154eb7"
+    upstreamVersion: "v1.0.0"
     note: "The subject is a platform shape rather than a chart. It is the rendered Argo CD Application set produced from AICR's argocd-helm bundle chart for the h100-kind-inference-dynamo overlay. It is a leaf overlay. No other retained entry builds on it."
   dispositions:
     -
@@ -93,15 +93,16 @@ spec:
       - "sync-wave ordering across the platform components, recorded and not executed"
   boundedness:
     - "This verdict decides the wrapper, not the components. A component chart can be unsafe-to-flatten and still sit inside this shape, because this shape does not flatten it."
-    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 18 rendered Applications, which fall into 7 waves. The retained recipe deploys 16 components, and 20 of the 20 dependency edges between them hold in those waves."
+    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 18 rendered Applications, which fall into 7 waves. The recipe the bundle carries deploys 16 components, and 20 of the 20 dependency edges between them hold in those waves."
+    - "The selected recipe also names 1 component the bundle leaves out (dra-node-labeler), and the generation receipt records the reason AICR logged for it. The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it. A route records the decision a destination has to make."
     - "2 waved Applications render without appearing in the recipe's deployment order (agentgateway-crds-post, agentgateway-post). They are companions of a component, and they are named here so the comparison does not drop them silently."
     - "Every Application carries an automated sync policy. That is a delivery decision a destination has to accept, not a flattening hazard."
-    - "3 of the 19 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package has not been published, and this entry does not retain it, so Argo CD could not resolve those sources today."
-    - "This entry is retained and rendered. It is not published and not deployed. No registry holds it, no ConfigHub Space holds it, and no cluster has synced it."
+    - "3 of the 19 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-h100-kind-inference-dynamo/aicr-bundle at 1.0.0. The entry retains that bundle at examples/aicr/h100-kind-inference-dynamo/argocd-helm-bundle, and the entry's Catalog record says whether the package is in the registry. Argo CD can resolve those sources only when it is."
+    - "This verdict says nothing about publication. The entry's Catalog record carries that state from tracked receipts. No ConfigHub Space holds the entry, and no cluster has synced it."
     - "No workload ran. This verdict is config-plane only and says nothing about any cloud, accelerator or model."
   provenance:
     emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
     generatedFrom:
       - "examples/aicr/h100-kind-inference-dynamo/argocd-rendered/templates"
       - "examples/aicr/h100-kind-inference-dynamo/digest-index/platform-index.json"
-      - "examples/aicr/h100-kind-inference-dynamo/recipe.yaml"
+      - "examples/aicr/h100-kind-inference-dynamo/argocd-helm-bundle/recipe.yaml"

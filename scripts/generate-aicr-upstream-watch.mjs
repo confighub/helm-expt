@@ -20,7 +20,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, relativeRepo, repoRoot, trackedExists, write } from "./lib/proof-common.mjs";
 
 const RELEASES_URL = "https://api.github.com/repos/NVIDIA/aicr/releases?per_page=30";
 const snapshotPath = join(repoRoot, "data", "aicr-upstream-watch", "releases.json");
@@ -59,7 +59,7 @@ if (mode === "--run") {
     `${relativeRepo(summaryPath)} is stale; run npm run aicr-upstream-watch:generate`,
   );
   console.log(
-    `verified the upstream watch: ${report.retained.length} retained version(s) against ${report.releases.length} upstream release(s), ${report.releasesBehind} behind as of ${report.observedAt}`,
+    `verified the upstream watch: ${report.retained.length} retained version(s) against ${report.releases.length} upstream release(s), ${report.releasesBehind} behind as of ${report.observedAt}${report.newerThanSnapshot.size > 0 ? `; ${[...report.newerThanSnapshot.keys()].join(", ")} is newer than the snapshot and is not measured` : ""}`,
   );
 }
 
@@ -123,7 +123,26 @@ function analyse(snapshot) {
 
   // A retained version upstream no longer lists is worth catching. It means a
   // release was pulled, and every receipt naming it deserves a second look.
-  const missing = retained.filter((row) => !byTag.has(row.version));
+  //
+  // One case is different. A version released after the snapshot was taken
+  // cannot be in it. That is accepted only when the repository holds a passing
+  // provenance receipt for that exact version, observed after the snapshot.
+  // The summary then says the snapshot is older than those entries and that
+  // their gap is not measured. It does not invent a release date for them.
+  const newerThanSnapshot = new Map();
+  for (const version of new Set(retained.filter((row) => !byTag.has(row.version)).map((row) => row.version))) {
+    const receiptRel = `runs/aicr-provenance-${version.replaceAll(".", "-")}/receipt.yaml`;
+    const receiptPath = join(repoRoot, receiptRel);
+    const receipt = existsSync(receiptPath) && trackedExists(receiptPath) ? readYaml(receiptPath) : null;
+    if (
+      receipt?.status?.result === "pass"
+      && receipt.spec?.upstream?.version === version
+      && Date.parse(receipt.spec?.observedAt ?? "") > Date.parse(snapshot.observedAt)
+    ) {
+      newerThanSnapshot.set(version, { receipt: receiptRel, observedAt: receipt.spec.observedAt });
+    }
+  }
+  const missing = retained.filter((row) => !byTag.has(row.version) && !newerThanSnapshot.has(row.version));
   check(
     missing.length === 0,
     `these retained versions are not in the upstream release list: ${missing.map((row) => `${row.entry} at ${row.version}`).join(", ")}`,
@@ -131,6 +150,7 @@ function analyse(snapshot) {
 
   const retainedTags = new Set(retained.map((row) => row.version));
   const newestRetained = releases.find((release) => retainedTags.has(release.tag));
+  check(newestRetained, "no retained version is in the upstream release snapshot, so there is nothing to measure");
   const latest = releases[0];
   const newer = releases.filter((release) => release.publishedAt > newestRetained.publishedAt);
 
@@ -159,6 +179,7 @@ function analyse(snapshot) {
     cadenceDays: median,
     cadenceSample: gaps.length,
     minorReleases: minors.length,
+    newerThanSnapshot,
   };
 }
 
@@ -166,6 +187,7 @@ function renderSummary(report) {
   const retainedRows = report.retained
     .map((row) => {
       const release = report.releases.find((entry) => entry.tag === row.version);
+      if (!release) return `| \`${row.entry}\` | ${row.provenance} | ${row.version} | after this snapshot | not measured |`;
       const behind = report.releases.filter((entry) => entry.publishedAt > release.publishedAt).length;
       return `| \`${row.entry}\` | ${row.provenance} | ${row.version} | ${release.publishedAt.slice(0, 10)} | ${behind} |`;
     })
@@ -182,9 +204,18 @@ function renderSummary(report) {
   const fortnightly = Math.abs(report.cadenceDays - 14) <= 2;
   const cadenceLine = `The median gap between minor releases is **${report.cadenceDays} days**, over ${report.cadenceSample} intervals across ${report.minorReleases} minor releases in this snapshot. The pages have been saying AICR ships roughly every two weeks, which ${fortnightly ? "the measurement supports" : "the measurement does not support"}. It was read off a release page by hand once and repeated since. It is derived now, so it can be wrong out loud rather than quietly.`;
 
-  const headline = report.releasesBehind === 0
-    ? `The newest version in this watch is upstream's newest release. There is no gap to report today, which is a fact with a date on it rather than a permanent state.`
-    : `The newest version in this watch is ${report.releasesBehind} release(s) and ${report.daysBehind} days behind upstream's newest.`;
+  const measured = report.releasesBehind === 0
+    ? `The newest version this snapshot lists in the watch is upstream's newest release in the snapshot. There is no gap to report for it, which is a fact with a date on it rather than a permanent state.`
+    : `The newest version this snapshot lists in the watch is ${report.newestRetained.tag}, which is ${report.releasesBehind} release(s) and ${report.daysBehind} days behind the newest release in the snapshot.`;
+  const unlisted = [...report.newerThanSnapshot.entries()];
+  const unlistedCount = (version) => report.retained.filter((row) => row.version === version).length;
+  const headline = unlisted.length === 0
+    ? (report.releasesBehind === 0
+        ? `The newest version in this watch is upstream's newest release. There is no gap to report today, which is a fact with a date on it rather than a permanent state.`
+        : `The newest version in this watch is ${report.releasesBehind} release(s) and ${report.daysBehind} days behind upstream's newest.`)
+    : `${unlisted.map(([version, proof]) => `${unlistedCount(version)} watched entries are at ${version}, which was released after this snapshot was taken. The snapshot lists ${report.latest.tag} as upstream's newest, so it is older than those entries, and their gap is not measured here. [${proof.receipt}](../../${proof.receipt}) records the offline check of the ${version} release signatures on ${proof.observedAt.slice(0, 10)}.`).join(" ")} A new snapshot from \`npm run aicr-upstream-watch:run\` is needed before this page can say how far behind they are.
+
+${measured}`;
 
   return `# How far behind upstream the watched AICR entries are
 

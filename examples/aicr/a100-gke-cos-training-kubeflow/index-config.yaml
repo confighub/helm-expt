@@ -3,8 +3,9 @@ kind: "DigestIndexConfig"
 metadata:
   name: "aicr-a100-gke-cos-training-kubeflow"
 spec:
-  description: "This entry was generated and retained but never published, so it has no OCI transport receipts. The references below are the ones a publication would use, and the compiled index records published as false."
-  published: false
+  description: "This entry carries no OCI transport receipt of its own. The references below are the ones a publication uses, and the compiled index does not say whether one has happened."
+  publication:
+    recordedBy: "runs/aicr-mirror-artifacts/a100-gke-cos-training-kubeflow"
   plannedOCIBase: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt"
-  sourcePackageRepository: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle"
+  sourcePackageRepository: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-gke-cos-training-kubeflow/aicr-bundle"
   renderedApplications: 17

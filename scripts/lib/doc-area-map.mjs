@@ -51,6 +51,7 @@ const DOC_AREA = {
   // docs/user/ -----------------------------------------------------------
   "docs/user/README.md": "docs",
   "docs/user/workshop-compose-guide.md": "stacks",
+  "docs/user/workshop-stack-from-catalog-guide.md": "stacks",
   "docs/user/workshop-adapt-guide.md": "config",
   "docs/user/workshop-values-guide.md": "config",
   "docs/user/workshop-argocd-hardening-guide.md": "config",
@@ -115,6 +116,7 @@ const DOC_AREA = {
   "docs/user/known-gaps-we-surface.md": "catalog",
   "docs/user/large-config-operations.md": "operate",
   "docs/user/live-run-log-2026-10-08.md": "operate",
+  "docs/user/live-walk-entry-steps-2026-10-08.md": "operate",
   "docs/user/live-parity.md": "catalog",
   "docs/user/maintenance-sla.md": "catalog",
   "docs/user/model-and-vocabulary.md": "config",

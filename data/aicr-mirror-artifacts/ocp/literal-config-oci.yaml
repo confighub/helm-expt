@@ -1,0 +1,154 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-ocp-v1-0-0-argocd-literal-config"
+spec:
+  catalogEntry: "aicr-ocp-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "ocp"
+    entry: "examples/aicr/ocp"
+    generationReceipt: "examples/aicr/ocp/generation-receipt.yaml"
+    platformDigest: "sha256:34571d30ef58e8a1d0916a2ebaba3c2094ca222d161576ca48f1e1e78f6bc238"
+  artifact:
+    role: "literal-config"
+    format: "config-bundle-oci"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-ocp-v1-0-0-argocd:v1.0.0"
+    manifestDigest: "sha256:5e43e993b487f4e35c596c416f695cacd61f17b58c6d443ffcc2c6bdd5f1c2a9"
+    layerDigest: "sha256:c63c5c293cbbfc84971f492a71ea2123e1e491dde393bc92df7c669f03acdb81"
+    layerBytes: 49687
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    objectCount: 14
+    fileCount: 19
+    files:
+      -
+        path: "examples/aicr/ocp/argocd-rendered/templates/aicr-stack.yaml"
+        stagedAs: "aicr-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "7b1cb06466ec3823ac7b5bffb9d9e7bdff3d8808d119f1ca25ab120a1bc95179"
+        bytes: 1071
+      -
+        path: "examples/aicr/ocp/argocd-rendered/templates/cert-manager-ocp-olm.yaml"
+        stagedAs: "cert-manager-ocp-olm.yaml"
+        role: "argo-cd-application"
+        sha256: "caeefbb73ce666fec7a9e8d7cd030b5a752a2246c55651c37f6dc027f83292df"
+        bytes: 792
+      -
+        path: "examples/aicr/ocp/argocd-rendered/templates/cert-manager-ocp.yaml"
+        stagedAs: "cert-manager-ocp.yaml"
+        role: "argo-cd-application"
+        sha256: "6044583f473ce0b76826bdd8fa07c821c6c7e22a01288077dba3b591f68f7b6b"
+        bytes: 781
+      -
+        path: "examples/aicr/ocp/argocd-rendered/templates/gpu-operator-ocp-olm.yaml"
+        stagedAs: "gpu-operator-ocp-olm.yaml"
+        role: "argo-cd-application"
+        sha256: "e6673909077c4a542e79309324dc1178e90d6f79a285c16b88e4f6bef7641d17"
+        bytes: 783
+      -
+        path: "examples/aicr/ocp/argocd-rendered/templates/gpu-operator-ocp.yaml"
+        stagedAs: "gpu-operator-ocp.yaml"
+        role: "argo-cd-application"
+        sha256: "589c5a566617d28ca4562947bd5375b47eabf177dc4893e1693489e89e7b8d70"
+        bytes: 772
+      -
+        path: "examples/aicr/ocp/argocd-rendered/templates/network-operator-ocp-olm.yaml"
+        stagedAs: "network-operator-ocp-olm.yaml"
+        role: "argo-cd-application"
+        sha256: "99724c37cd3cad0ec0e38aee857b8f02d9d51470f9d98a80e90f0854ce49e08a"
+        bytes: 806
+      -
+        path: "examples/aicr/ocp/argocd-rendered/templates/network-operator-ocp.yaml"
+        stagedAs: "network-operator-ocp.yaml"
+        role: "argo-cd-application"
+        sha256: "429bf6f74411e6a262a0fb0787ebf2c53259c96bb9bd8ff61e229bbf21a35b56"
+        bytes: 795
+      -
+        path: "examples/aicr/ocp/argocd-rendered/templates/nfd-ocp-olm.yaml"
+        stagedAs: "nfd-ocp-olm.yaml"
+        role: "argo-cd-application"
+        sha256: "702a229b53eb7868e1905831246c19fe6a562e32cf1643d0738eb9d9c158d70f"
+        bytes: 757
+      -
+        path: "examples/aicr/ocp/argocd-rendered/templates/nfd-ocp.yaml"
+        stagedAs: "nfd-ocp.yaml"
+        role: "argo-cd-application"
+        sha256: "606759fab9c1cfd19f7de24eecab58bca2355002be4a2a9bce8c67fbe78ee816"
+        bytes: 745
+      -
+        path: "examples/aicr/ocp/argocd-rendered/templates/nvidia-dra-driver-gpu-ocp-pre.yaml"
+        stagedAs: "nvidia-dra-driver-gpu-ocp-pre.yaml"
+        role: "argo-cd-application"
+        sha256: "d529915411b11d92904f48e8a4c52605e22b5b2ad68241ba100807afc1a899cc"
+        bytes: 816
+      -
+        path: "examples/aicr/ocp/argocd-rendered/templates/nvidia-dra-driver-gpu-ocp.yaml"
+        stagedAs: "nvidia-dra-driver-gpu-ocp.yaml"
+        role: "argo-cd-application"
+        sha256: "44f16daec467b58a6e2e2b9a01bccbfd35ed5af1ef95d03cc7952ed520655491"
+        bytes: 1677
+      -
+        path: "examples/aicr/ocp/argocd-rendered/templates/prometheus-adapter-ocp-post.yaml"
+        stagedAs: "prometheus-adapter-ocp-post.yaml"
+        role: "argo-cd-application"
+        sha256: "80abc96498a0e996a2751c4f780718f9170bcc0ebfe8631926bb4d9e327a473d"
+        bytes: 802
+      -
+        path: "examples/aicr/ocp/argocd-rendered/templates/prometheus-adapter-ocp-pre.yaml"
+        stagedAs: "prometheus-adapter-ocp-pre.yaml"
+        role: "argo-cd-application"
+        sha256: "4b4ae09d3168b20b9679d557ea5bd4191133a23d41d31b77409a10937834c0ac"
+        bytes: 799
+      -
+        path: "examples/aicr/ocp/argocd-rendered/templates/prometheus-adapter-ocp.yaml"
+        stagedAs: "prometheus-adapter-ocp.yaml"
+        role: "argo-cd-application"
+        sha256: "5b44d7d4cd525c41665fd19af41b19758e5ce746abf44f7b30c94c18bc895caa"
+        bytes: 5700
+      -
+        path: "data/aicr-mirror-artifacts/ocp/routes/sync-wave-ordering.yaml"
+        stagedAs: "routes/sync-wave-ordering.yaml"
+        role: "route: sync-wave-ordering"
+        sha256: "d2857f33d90d8ce7b9fd25d72a60238109dd9a7b0017d5269e599a8215876abe"
+        bytes: 4231
+      -
+        path: "data/aicr-mirror-artifacts/ocp/routes/components-left-out-of-bundle.yaml"
+        stagedAs: "routes/components-left-out-of-bundle.yaml"
+        role: "route: components-left-out-of-bundle"
+        sha256: "10c5f15298c3f018c14bc44465fadc6c80ca57318805dfbef3845fbfb679a8a9"
+        bytes: 3152
+      -
+        path: "data/aicr-mirror-artifacts/ocp/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "8b22389879d52662f82aaaf96e4d7e9c54cc7e8a9e1c3ca80c1528b0dfd1cdf8"
+        bytes: 1808
+      -
+        path: "data/aicr-mirror-artifacts/ocp/requirements/target-requirements.yaml"
+        stagedAs: "requirements/target-requirements.yaml"
+        role: "requirement: target"
+        sha256: "2bda5b0d9e12f25277d46d707dc7f0ef0331f8492c31762f51a4c205febcd9e6"
+        bytes: 3123
+      -
+        path: "data/aicr-mirror-artifacts/ocp/space-guide.md"
+        stagedAs: "README.md"
+        role: "space-guide"
+        sha256: "683c78658f2cefc57c80a71fa5b4a18c627a7e810e4af49d9db07aa74f3bc054"
+        bytes: 3880
+    reproducible: true
+  needs:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-ocp/aicr-bundle:1.0.0"
+      manifestDigest: "sha256:edb6527a35c2757363deebda2a377e54f6b4756b5aad0189a6ff07641b9ef4b2"
+      plan: "data/aicr-mirror-artifacts/ocp/source-package-oci.yaml"
+  contents:
+    statement: "The artifact holds the retained Argo CD Applications of one entry, its route files, its requirements file and its guide. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/ocp/literal-config-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

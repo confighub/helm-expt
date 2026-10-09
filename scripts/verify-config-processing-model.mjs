@@ -5,6 +5,12 @@ import { join } from "node:path";
 
 import { readYaml } from "./lib/proof-common.mjs";
 import {
+  aicrMirrorDeliveryProblem,
+  LITERAL_CONFIG,
+  loadAicrMirrorEntries,
+  SOURCE_PACKAGE,
+} from "./lib/aicr-mirror-artifacts.mjs";
+import {
   ATTENTION_STATE,
   listAicrRecipeDirectories,
   loadAicrOrderingEvidence,
@@ -406,6 +412,7 @@ for (const record of records) {
 // generator that skips a directory. A skipped directory used to read as
 // not-assessed, and nothing refused it.
 const aicrRecipeEntries = loadAicrRecipeEntries({ root });
+const aicrMirrorEntries = new Map(loadAicrMirrorEntries({ root }).map((entry) => [entry.id, entry]));
 requireCondition(aicrRecipeEntries.length > 0, "no retained AICR recipe directory was discovered");
 let aicrRecipeEntriesWithRecord = 0;
 for (const entry of aicrRecipeEntries) {
@@ -439,20 +446,37 @@ for (const entry of aicrRecipeEntries) {
   // name the lane's receipt.
   const temporaryUpload = delivery.configHubUpload?.status === "temporary-pass"
     && delivery.configHubUpload.receipt === "data/confighub-ready/receipt.yaml";
-  const publishedRoles = ["sourcePackageOci", "literalConfigOci", "configHubUpload", "configHubReleaseOci"]
+  // A mirrored overlay plans two OCI artifacts, and its record carries exactly
+  // what the tracked receipts for those artifacts allow, in either direction.
+  // Any other retained directory plans none and may claim none.
+  const mirror = entry.origin === "mirrored-overlay" ? aicrMirrorEntries.get(entry.id) : null;
+  requireCondition(
+    entry.origin !== "mirrored-overlay" || Boolean(mirror),
+    `${name}: the mirrored overlay ${entry.id} has no planned source package and literal bundle`,
+  );
+  const artifactRoles = mirror ? [] : ["sourcePackageOci", "literalConfigOci"];
+  const publishedRoles = [...artifactRoles, "configHubUpload", "configHubReleaseOci"]
     .filter((role) => !["not-published", "not-run"].includes(delivery[role]?.status))
     .filter((role) => !(role === "configHubUpload" && temporaryUpload));
   requireCondition(
-    publishedRoles.length === 0 && (spec.source?.packageOciRef ?? "") === "",
+    publishedRoles.length === 0 && (mirror || (spec.source?.packageOciRef ?? "") === ""),
     `${name}: ${entry.receiptRel} says the entry was never published, and the record claims ${publishedRoles.join(", ") || "a source package reference"}`,
   );
+  if (mirror) {
+    const problem = aicrMirrorDeliveryProblem(name, record, mirror);
+    requireCondition(problem === "", problem);
+  }
+  const artifactPublished = {
+    "source-package": mirror?.publications[SOURCE_PACKAGE].published === true,
+    "literal-config": mirror?.publications[LITERAL_CONFIG].published === true,
+  };
   requireCondition(
     delivery.argoCd === "not-run" && delivery.direct === "not-run" && !/pass|live|reconciled|uploaded/.test(String(delivery.flux)),
     `${name}: ${entry.receiptRel} says the entry was never delivered, and the record claims a delivery result`,
   );
   requireCondition(
     !spec.promotion && record.status?.level === "partial"
-      && String(record.status?.claim ?? "").includes("not published")
+      && (mirror || String(record.status?.claim ?? "").includes("not published"))
       && String(record.status?.claim ?? "").includes("not deployed"),
     `${name}: the record must stay partial and say the entry is not published and not deployed`,
   );
@@ -470,11 +494,15 @@ for (const entry of aicrRecipeEntries) {
     (listing.oci?.bundles ?? []).length === 4
       && listing.oci.bundles.every(
         (bundle) =>
-          (bundle.state === "not-published" || (bundle.role === "confighub-upload" && temporaryUpload && bundle.state === "local"))
-          && bundle.referenceState !== "published",
+          artifactPublished[bundle.role]
+            ? bundle.state === "published" && bundle.referenceState === "published"
+            : (bundle.state === "not-published" || (bundle.role === "confighub-upload" && temporaryUpload && bundle.state === "local"))
+              && bundle.referenceState !== "published",
       )
       && (listing.oci?.runtimes ?? []).every((runtime) => ["not-run", "not-applicable"].includes(runtime.state)),
-    `${name}: the listing reads as published or delivered for an entry that is neither`,
+    mirror
+      ? `${name}: the listing does not carry the publication state the entry's receipts allow, or reads as delivered`
+      : `${name}: the listing reads as published or delivered for an entry that is neither`,
   );
   requireCondition(
     (listing.variants?.known ?? []).length === 1 && listing.variants.known[0].self === true,
@@ -549,6 +577,14 @@ for (const evidence of loadAicrOrderingEvidence({ root }).values()) {
     ? stageOf(JSON.parse(readFileSync(listingPath, "utf8")).assessment?.stages)
     : {};
   const unchecked = uncheckedOrderingEdges(evidence.ordering);
+  // An omission counts as decided only while the record carries the route that
+  // decides it, so a record cannot lose the route and keep the unflagged state.
+  for (const edge of evidence.ordering.edgesToAnOmittedComponentDecidedByARoute ?? []) {
+    requireCondition(
+      (record.spec?.lifecycle?.routeIntent?.routes ?? []).some((route) => route.id === edge.decidedBy),
+      `${name}: ${edge.component} depends on ${edge.dependsOn}, which the bundle leaves out, and the record carries no ${edge.decidedBy} route that decides it`,
+    );
+  }
   if (unchecked === 0) {
     requireCondition(
       recordStage.resultState !== ATTENTION_STATE && listingStage.resultState !== ATTENTION_STATE,

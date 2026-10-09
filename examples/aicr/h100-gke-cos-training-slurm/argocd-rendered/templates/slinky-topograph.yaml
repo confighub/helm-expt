@@ -36,7 +36,7 @@ spec:
                   - operator: Exists
                 nodeObserver:
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                   topograph:
@@ -47,7 +47,7 @@ spec:
                         matchLabels:
                           app.kubernetes.io/name: slurmd
                 nodeSelector:
-                  nvidia.com/gpu.present: "true"
+                  nodeGroup: system-worker
                 provider:
                   name: gcp
                 service:
@@ -58,7 +58,7 @@ spec:
                   name: slinky-topograph
                 tolerations:
                 - operator: Exists
-        repoURL: https://nvidia.github.io/topograph
+        repoURL: https://dsx-ai-factory.github.io/topograph
         targetRevision: 1.0.0
     syncPolicy:
         automated:

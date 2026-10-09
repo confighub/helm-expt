@@ -162,15 +162,15 @@ function runProof() {
     check(promotionReview.spec.candidate.objectSetSha256 === candidateHash, "promotion review and candidate result differ");
 
     writeFileSync(uploadPath, readFileSync(baseCandidatePath));
+    throw new Error("This lane was written for the minimal Unit layout of cub variant upload --granularity, which cub v0.8.7 no longer has: the server now makes one Unit per resource. Re-observe on the current CLI the slug of the Unit that holds the NGINX workload (workshop-contract-nginx).");
     cub([
       "variant", "upload",
       "--component", "workshop-contract-nginx",
       "--variant", "base",
       "--space", baseSpace,
-      "--granularity", "minimal",
       "--environment", "Development",
       "--stage", "Development",
-      "--annotation", `${annotationKey}=${baseHash}`,
+      "--unit-annotation", `${annotationKey}=${baseHash}`,
       "--change-desc", "Retain the reviewed three-replica NGINX result",
       uploadPath,
     ]);
@@ -191,15 +191,15 @@ function runProof() {
     check(storedObjectIdentity(stagingSpace).sha256 === baseHash, "staging did not start from the reviewed base");
 
     writeFileSync(uploadPath, readFileSync(candidatePath));
+    throw new Error("This lane was written for the minimal Unit layout of cub variant upload --granularity, which cub v0.8.7 no longer has: the server now makes one Unit per resource. Re-observe on the current CLI the slug of the Unit that holds the NGINX workload (workshop-contract-nginx).");
     cub([
       "variant", "upload",
       "--component", "workshop-contract-nginx",
       "--variant", "base",
       "--space", baseSpace,
-      "--granularity", "minimal",
       "--environment", "Development",
       "--stage", "Development",
-      "--annotation", `${annotationKey}=${candidateHash}`,
+      "--unit-annotation", `${annotationKey}=${candidateHash}`,
       "--change-desc", "Accept four replicas and bound temporary storage",
       uploadPath,
     ]);

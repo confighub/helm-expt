@@ -7,3 +7,6 @@ data/kubara-catalog-adapter/exports/** whitespace=-blank-at-eol,-blank-at-eof,-s
 data/kubara-effective-renders/** whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab
 examples/kubara/current-platform/generated/** whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab
 examples/kubara/current-platform/effective-renders/** whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab
+
+# Mirrored AICR Applications are retained byte for byte as Helm rendered them.
+examples/aicr/*/argocd-rendered/templates/** whitespace=-blank-at-eol

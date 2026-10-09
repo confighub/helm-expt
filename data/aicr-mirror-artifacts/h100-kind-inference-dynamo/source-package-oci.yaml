@@ -1,0 +1,36 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-h100-kind-inference-dynamo-v1-0-0-argocd-source-package"
+spec:
+  catalogEntry: "aicr-h100-kind-inference-dynamo-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "h100-kind-inference-dynamo"
+    entry: "examples/aicr/h100-kind-inference-dynamo"
+    generationReceipt: "examples/aicr/h100-kind-inference-dynamo/generation-receipt.yaml"
+    platformDigest: "sha256:e6408f698f8d77737daeb97b3208165eedd30d2413fd12d8c928f2de4e154eb7"
+  artifact:
+    role: "source-package"
+    format: "helm-chart-oci"
+    artifactType: "application/vnd.cncf.helm.config.v1+json"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-h100-kind-inference-dynamo/aicr-bundle:1.0.0"
+    manifestDigest: "sha256:3db913665b0576e574b184338a471b31ddbe3b2442c81a4c00726b6c637bcf1c"
+    layerDigest: "sha256:0ab5bc6e80c18a67c2ba0a699d220ba58c6e13324bc92d3e84bb4a606e20abb7"
+    layerBytes: 929885
+    layerMediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    fileCount: 66
+    files:
+      inventory: "examples/aicr/h100-kind-inference-dynamo/argocd-helm-bundle-checksums.txt"
+      inventorySha256: "a0a92e4aaf0f10ee9657c82960b5727532bf4f4a766d21e4be764f10468e9a09"
+    reproducible: true
+  contents:
+    statement: "The artifact is the Helm chart AICR generated for this overlay, file for file as the entry retains it. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/h100-kind-inference-dynamo/source-package-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

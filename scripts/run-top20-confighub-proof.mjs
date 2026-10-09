@@ -694,22 +694,7 @@ function runSafeOps({ chart, representative, selector, space, proofLabel, logRoo
   const reviewedAfter = oneUnit(space, representative.slug, logRoot, "22-unit-after-approval");
   check(reviewedAfter.id === reviewedUnit.id, `${chart.slug} Unit identity changed during approval`);
   check(reviewedAfter.headRevisionNum === reviewedRevision, `${chart.slug} Unit head changed during approval`);
-  const applyDryRun = run(
-    "cub",
-    [
-      "unit",
-      "apply",
-      "--space",
-      space,
-      "--where",
-      selector,
-      "--dry-run",
-      "--wait",
-      "--timeout",
-      "2m",
-    ],
-    { logRoot, name: "23-unit-apply-dry-run", allowFailure: true },
-  );
+  const applyDryRun = applyBoundaryMoved();
   const cancelRun = run("cub", ["unit", "cancel", "--space", space, "--where", selector], {
     logRoot,
     name: "24-unit-cancel",
@@ -744,6 +729,7 @@ function runSafeOps({ chart, representative, selector, space, proofLabel, logRoo
       output: shortSummary(approveRun.stdout || approveRun.stderr),
     },
     applyDryRun: {
+      // cub-surface-ignore: the command text a committed safe-ops receipt records
       command: `cub unit apply --space ${space} --where "${selector}" --dry-run --wait --timeout 2m`,
       result: blockedNoTarget ? "blocked-no-target" : applyDryRun.status === 0 ? "pass" : "fail",
       expected: blockedNoTarget,
@@ -1142,6 +1128,16 @@ function unitList(space, where, logRoot, name) {
   });
 }
 
+// This step ran cub unit apply --dry-run. The current cub has no such command,
+// and an unknown subcommand prints help and exits 0, so the step could pass or
+// fail for the wrong reason. Stop instead.
+function applyBoundaryMoved() {
+  check(
+    false,
+    "the safe-ops proof used cub unit apply, which the current cub no longer has: the apply step moved to cub release publish <space> with a release Target, and this step has not been re-observed there",
+  );
+}
+
 function oneUnit(space, slug, logRoot, name) {
   const rows = unitList(space, `Slug = '${slug}'`, logRoot, name);
   check(rows.length === 1, `${space} expected one Unit ${slug}, found ${rows.length}`);
@@ -1252,6 +1248,8 @@ function shortSummary(text) {
 }
 
 function writeDemoDocs({ chart, bases, defaultBase, receipt, functionReceipt, safeOpsReceipt, demoRoot }) {
+  // cub-surface-ignore: the committed README of each proof lists this step
+  const legacyApplyStep = `cub unit apply --space ${receipt.spec.upload.space} --where "Labels.Proof = '${chart.slug}-confighub-proof'" --dry-run`;
   mkdirSync(demoRoot, { recursive: true });
   const receiptDir = relative(
     demoRoot,
@@ -1335,7 +1333,7 @@ cub installer plan --work-dir .tmp/confighub-proof/${chart.slug}-${defaultBase}
 ${receipt.spec.serverSideVariant.command}
 cub unit list --space ${receipt.spec.upload.space} --where "Labels.Proof = '${chart.slug}-confighub-proof'"
 cub function vet vet-format --space ${receipt.spec.upload.space} --where "Labels.Proof = '${chart.slug}-confighub-proof'"
-cub unit apply --space ${receipt.spec.upload.space} --where "Labels.Proof = '${chart.slug}-confighub-proof'" --dry-run
+${legacyApplyStep}
 \`\`\`
 
 ## Result
@@ -1381,6 +1379,7 @@ function verifyProofReceipts(chart, { current }) {
     check(approval.workflowEnforcement === "not-configured", `${chart.slug} current approval workflow scope changed`);
   } else {
     check(safeOpsReceipt.spec.approvalModel === undefined, `${chart.slug} legacy verifier refuses a current approval receipt`);
+    // cub-surface-ignore: a committed legacy receipt records this command
     check(typeof approval.command === "string" && approval.command.startsWith("cub unit approve "), `${chart.slug} retained legacy approval command is missing`);
   }
 }

@@ -1,0 +1,97 @@
+apiVersion: aicr.run/v1
+build:
+  deployer: argocd-helm
+  recipe:
+    digest: sha256:ba3e7970e913a6a1931c18d22501dee853d8dcd35f5cf77a632a25c1eae75aad
+    path: recipe.yaml
+    version: 1.0.0
+  settings:
+    appName: aicr-stack
+    attested: false
+    checksums: true
+    nodeScheduling:
+      accelerated:
+        selector:
+          nvidia.com/gpu.present: "true"
+        tolerations:
+          - operator: Exists
+      system:
+        selector:
+          nodeGroup: system-worker
+        tolerations:
+          - operator: Exists
+    readinessHooks: false
+    serial: false
+    storageClass: gp3
+    vendorCharts: false
+kind: BundleInfo
+layout:
+  entrypoint: Chart.yaml
+  releases:
+    - component: aws-ebs-csi-driver
+      manifest: templates/aws-ebs-csi-driver.yaml
+      name: aws-ebs-csi-driver
+      namespace: kube-system
+      path: 001-aws-ebs-csi-driver
+    - component: aws-efa
+      manifest: templates/aws-efa.yaml
+      name: aws-efa
+      namespace: kube-system
+      path: 002-aws-efa
+    - component: cert-manager
+      manifest: templates/cert-manager.yaml
+      name: cert-manager
+      namespace: cert-manager
+      path: 003-cert-manager
+    - component: nfd
+      manifest: templates/nfd.yaml
+      name: nfd
+      namespace: node-feature-discovery
+      path: 004-nfd
+    - component: nodewright-operator
+      manifest: templates/nodewright-operator.yaml
+      name: nodewright-operator
+      namespace: nodewright
+      path: 005-nodewright-operator
+    - component: prometheus-operator-crds
+      manifest: templates/prometheus-operator-crds.yaml
+      name: prometheus-operator-crds
+      namespace: monitoring
+      path: 006-prometheus-operator-crds
+    - component: kube-prometheus-stack
+      manifest: templates/kube-prometheus-stack.yaml
+      name: kube-prometheus-stack
+      namespace: monitoring
+      path: 007-kube-prometheus-stack
+    - component: gpu-operator
+      manifest: templates/gpu-operator.yaml
+      name: gpu-operator
+      namespace: gpu-operator
+      path: 008-gpu-operator
+    - component: k8s-ephemeral-storage-metrics
+      manifest: templates/k8s-ephemeral-storage-metrics.yaml
+      name: k8s-ephemeral-storage-metrics
+      namespace: monitoring
+      path: 009-k8s-ephemeral-storage-metrics
+    - component: kai-scheduler
+      manifest: templates/kai-scheduler.yaml
+      name: kai-scheduler
+      namespace: kai-scheduler
+      path: 010-kai-scheduler
+    - component: nvidia-dra-driver-gpu
+      manifest: templates/nvidia-dra-driver-gpu.yaml
+      name: nvidia-dra-driver-gpu
+      namespace: nvidia-dra-driver
+      path: 011-nvidia-dra-driver-gpu
+    - component: nvsentinel
+      manifest: templates/nvsentinel.yaml
+      name: nvsentinel
+      namespace: nvsentinel
+      path: 012-nvsentinel
+    - component: prometheus-adapter
+      manifest: templates/prometheus-adapter.yaml
+      name: prometheus-adapter
+      namespace: monitoring
+      path: 013-prometheus-adapter
+metadata:
+  version: 1.0.0

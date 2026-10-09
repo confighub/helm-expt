@@ -19,8 +19,10 @@ spec:
                 controller:
                   affinity:
                     nodeAffinity: null
+                  nodeSelector:
+                    nodeGroup: system-worker
                   podAnnotations:
-                    aicr.run/gpu-operator-chart-version: v26.7.0
+                    aicr.run/gpu-operator-chart-version: v26.7.1
                   priorityClassName: ""
                   tolerations:
                   - operator: Exists
@@ -30,7 +32,7 @@ spec:
                   nodeSelector:
                     nvidia.com/gpu.present: "true"
                   podAnnotations:
-                    aicr.run/gpu-operator-chart-version: v26.7.0
+                    aicr.run/gpu-operator-chart-version: v26.7.1
                   priorityClassName: ""
                   tolerations:
                   - operator: Exists

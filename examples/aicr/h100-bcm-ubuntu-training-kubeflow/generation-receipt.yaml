@@ -1,0 +1,227 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "SourceGenerationReceipt"
+metadata:
+  name: "aicr-h100-bcm-ubuntu-training-kubeflow-v1-0-0"
+spec:
+  purpose: "The h100-bcm-ubuntu-training-kubeflow overlay from NVIDIA AICR's recipe catalog, mirrored into a Catalog entry by scripts/generate-aicr-from-overlay.mjs so it can be reviewed the same way a Helm variant is: pinned source, retained bundle, checked render, one digest."
+  source:
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    commit: "82bccef69855c70e151f8b5e6ed9d04d70a30f81"
+    repository: "https://github.com/NVIDIA/aicr"
+    releaseAsset:
+      name: "aicr_1.0.0_darwin_arm64.tar.gz"
+      sha256: "cb85cce54a82deb88e826c3e735c26e11a0863173b8aa5ff3ba4ebc2dc6af8b2"
+    binarySha256: "972da08e016b3ea779cc5f51eafa3a0024a4f052fbdfbc5ea55cd6524766b8fc"
+    binaryVerifiedBeforeUse: "The binary was checked against the sha256 pinned in scripts/generate-aicr-from-overlay.mjs before it ran. The pin is the binary NVIDIA's v1.0.0 attestation names, and runs/aicr-provenance-v1-0-0/receipt.yaml records the offline check of that attestation and of the release archive checksum."
+    provenance:
+      receipt: "runs/aicr-provenance-v1-0-0/receipt.yaml"
+      checksumList: "examples/aicr/upstream-signatures/v1.0.0/aicr_checksums.txt"
+      binaryAttestation: "examples/aicr/upstream-signatures/v1.0.0/aicr-attestation.sigstore.json"
+      recipeCatalogSignature: "examples/aicr/upstream-signatures/v1.0.0/recipe-catalog.sigstore.json"
+  overlay:
+    name: "h100-bcm-ubuntu-training-kubeflow"
+    leaf: true
+  criteria:
+    accelerator: "h100"
+    intent: "training"
+    os: "ubuntu"
+    platform: "kubeflow"
+    service: "bcm"
+  generationInputs:
+    storageClass: "gp3"
+    acceleratedNodeSelector: "nvidia.com/gpu.present=true"
+    workloadSelector: "app.kubernetes.io/part-of=training"
+    systemNodeSelector: "nodeGroup=system-worker"
+    repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-h100-bcm-ubuntu-training-kubeflow"
+  newRequiredInputs:
+    -
+      input: "systemNodeSelector"
+      flag: "--system-node-selector"
+      value: "nodeGroup=system-worker"
+      valueStatus: "confirmed-placeholder"
+      confirmedOn: "2026-10-07"
+      confirmation: "The maintainer confirmed on 2026-10-07 that the hand-retained v1.0.0 entry carries nodeGroup=system-worker as a placeholder, and chose on 2026-10-08 that every mirrored v1.0.0 entry whose bundle needs a system node selector carries the same placeholder. The entry does not claim that any destination labels its system nodes this way. The value is recorded, named and given a route, and it is resolved for the destination like any other install-time requirement."
+      observed: "With --storage-class gp3 and no system node selector, AICR v1.0.0 refuses to write this bundle. Its refusal reads: [INVALID_REQUEST] component \"kube-prometheus-stack\" requires --system-node-selector to be set (paths: prometheus.prometheusSpec.nodeSelector, alertmanager.alertmanagerSpec.nodeSelector, grafana.nodeSelector, prometheusOperator.nodeSelector, prometheusOperator.admissionWebhooks.patch.nodeSelector, kube-state-metrics.nodeSelector, prometheus-node-exporter.nodeSelector, thanosRuler.thanosRulerSpec.nodeSelector); pass a selector, opt this component's paths out with an explicit empty overlay override, or check whether a later --set-json/--set-file override cleared it"
+      valueOrigin: "It is the value upstream's own v1.0.0 EKS training demo uses for its reference clusters (demos/cuj1-training.md in NVIDIA/aicr at tag v1.0.0), and that demo says its selector values are examples to be updated to match the cluster. The demo file is not retained in this repository. The value was not chosen from a real cluster, and it is carried for every service this mirror covers because it is a placeholder and not a claim about any of them."
+      effect: "The value is written into the generated system-component node selectors, so a different value changes the bundle bytes and every digest derived from them."
+      placeholder:
+        meaning: "nodeGroup=system-worker stands in for the label that selects the destination cluster's system node group."
+        changeTo: "the label on your own cluster's system node group"
+        changeEffect: "A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it."
+        route: "system-node-selector-placeholder"
+        renderedIn: "examples/aicr/h100-bcm-ubuntu-training-kubeflow/argocd-rendered/templates"
+        container: "spec.source.helm.values"
+        applications: 11
+        fieldPaths: 23
+        appearsIn:
+          -
+            application: "cert-manager"
+            valuesPaths:
+              - "cainjector.nodeSelector"
+              - "nodeSelector"
+              - "startupapicheck.nodeSelector"
+              - "webhook.nodeSelector"
+          -
+            application: "gpu-operator"
+            valuesPaths:
+              - "operator.nodeSelector"
+          -
+            application: "k8s-ephemeral-storage-metrics"
+            valuesPaths:
+              - "nodeSelector"
+          -
+            application: "kai-scheduler"
+            valuesPaths:
+              - "global.nodeSelector"
+          -
+            application: "kube-prometheus-stack"
+            valuesPaths:
+              - "alertmanager.alertmanagerSpec.nodeSelector"
+              - "grafana.nodeSelector"
+              - "kube-state-metrics.nodeSelector"
+              - "prometheus-node-exporter.nodeSelector"
+              - "prometheus.prometheusSpec.nodeSelector"
+              - "prometheusOperator.admissionWebhooks.patch.nodeSelector"
+              - "prometheusOperator.nodeSelector"
+              - "thanosRuler.thanosRulerSpec.nodeSelector"
+          -
+            application: "kubeflow-trainer"
+            valuesPaths:
+              - "jobset.controller.nodeSelector"
+              - "manager.nodeSelector"
+          -
+            application: "nfd"
+            valuesPaths:
+              - "gc.nodeSelector"
+              - "master.nodeSelector"
+          -
+            application: "nodewright-operator"
+            valuesPaths:
+              - "controllerManager.selectors"
+          -
+            application: "nvidia-dra-driver-gpu"
+            valuesPaths:
+              - "controller.nodeSelector"
+          -
+            application: "nvsentinel"
+            valuesPaths:
+              - "global.systemNodeSelector"
+          -
+            application: "prometheus-adapter"
+            valuesPaths:
+              - "nodeSelector"
+        bundleFiles:
+          - "argocd-helm-bundle/001-cert-manager/values.yaml"
+          - "argocd-helm-bundle/002-nfd/values.yaml"
+          - "argocd-helm-bundle/003-nodewright-operator/values.yaml"
+          - "argocd-helm-bundle/006-kube-prometheus-stack/values.yaml"
+          - "argocd-helm-bundle/007-gpu-operator/values.yaml"
+          - "argocd-helm-bundle/008-k8s-ephemeral-storage-metrics/values.yaml"
+          - "argocd-helm-bundle/009-kai-scheduler/values.yaml"
+          - "argocd-helm-bundle/010-kubeflow-trainer/values.yaml"
+          - "argocd-helm-bundle/011-kubeflow-trainer-post/values.yaml"
+          - "argocd-helm-bundle/012-nvidia-dra-driver-gpu/values.yaml"
+          - "argocd-helm-bundle/013-nvsentinel/values.yaml"
+          - "argocd-helm-bundle/014-prometheus-adapter/values.yaml"
+          - "argocd-helm-bundle/bundle-info.yaml"
+          - "argocd-helm-bundle/static/cert-manager.yaml"
+          - "argocd-helm-bundle/static/gpu-operator.yaml"
+          - "argocd-helm-bundle/static/k8s-ephemeral-storage-metrics.yaml"
+          - "argocd-helm-bundle/static/kai-scheduler.yaml"
+          - "argocd-helm-bundle/static/kube-prometheus-stack.yaml"
+          - "argocd-helm-bundle/static/kubeflow-trainer.yaml"
+          - "argocd-helm-bundle/static/nfd.yaml"
+          - "argocd-helm-bundle/static/nodewright-operator.yaml"
+          - "argocd-helm-bundle/static/nvidia-dra-driver-gpu.yaml"
+          - "argocd-helm-bundle/static/nvsentinel.yaml"
+          - "argocd-helm-bundle/static/prometheus-adapter.yaml"
+  commands:
+    recipe:
+      - "aicr"
+      - "recipe"
+      - "--criteria-strict"
+      - "--service"
+      - "bcm"
+      - "--accelerator"
+      - "h100"
+      - "--os"
+      - "ubuntu"
+      - "--intent"
+      - "training"
+      - "--platform"
+      - "kubeflow"
+      - "--output"
+      - "recipe.yaml"
+    bundle:
+      - "aicr"
+      - "bundle"
+      - "--recipe"
+      - "recipe.yaml"
+      - "--deployer"
+      - "argocd-helm"
+      - "--output"
+      - "./argocd-helm-bundle"
+      - "--storage-class"
+      - "gp3"
+      - "--accelerated-node-selector"
+      - "nvidia.com/gpu.present=true"
+      - "--workload-selector"
+      - "app.kubernetes.io/part-of=training"
+      - "--system-node-selector"
+      - "nodeGroup=system-worker"
+    render:
+      - "helm"
+      - "template"
+      - "aicr-argocd"
+      - "./argocd-helm-bundle"
+      - "--namespace"
+      - "argocd"
+      - "--set"
+      - "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-h100-bcm-ubuntu-training-kubeflow"
+      - "--output-dir"
+      - "rendered"
+  toolchain:
+    helm: "v4.1.4+g05fa379"
+  result:
+    recipeApiVersion: "aicr.run/v1"
+    componentCount: 14
+    bundledComponentCount: 13
+    componentsLeftOutOfBundle:
+      -
+        name: "dra-node-labeler"
+        reason: "AICR skipped it and logged the reason: DRA eviction is not opted in (--dra-eviction-node-label unset), so the eviction label it would apply is not selected on"
+    overlaysResolved: 8
+    renderedApplications: 15
+    argocdBundleFiles: 53
+    recipeDigests:
+      selectedRecipe: "sha256:60f5a3c52f778855fb22cb6e18ecbf1a5053005a98b3ed2d6bf194a2f5363fb0"
+      bundledRecipe: "sha256:48c7f1b4e6ccf4effca37e28be953ce921175aab9286947d9e053e99b16acfcb"
+      note: "The bundled recipe is the selected recipe without the components the bundle leaves out. bundle-info.yaml records its digest, and the rendered sync-waves are compared with it."
+    bundleNotes:
+      - "nodewright-operator requires manual steps when upgrading from <0.18.0; read UPGRADING.md before applying this bundle over an existing installation"
+      - "nvsentinel requires manual steps when upgrading from >=1.22.0 <1.25.0; read UPGRADING.md before applying this bundle over an existing installation"
+      - "Warning: AICR did not configure automatic eviction for nvidia-dra-driver-gpu: no DRA eviction node label is set, so the kubelet plugin is not descheduled before a GPU driver container restart. The plugin runs on every accelerated node and needs no extra node label. On a driver upgrade the module unload can fail with \"failed to uninstall nvidia driver components\"; on an unchanged-config restart the stale driver rootfs is unmounted underneath the running plugin, which upstream documents as leaving NodePrepareResources unable to build CDI specs for full-GPU allocation, with no error at restart time. Set --dra-eviction-node-label (or scheduling.draEvictionNodeLabel) to opt in; the bundle then carries dra-node-labeler, which applies the label from GFD's nvidia.com/gpu.present, so no node-pool labeling is needed (pass --set dra-node-labeler:enabled=false to provision it yourself)"
+  retained:
+    recipe: "examples/aicr/h100-bcm-ubuntu-training-kubeflow/recipe.yaml"
+    sourceBundle: "examples/aicr/h100-bcm-ubuntu-training-kubeflow/argocd-helm-bundle"
+    sourceBundleInventory:
+      path: "examples/aicr/h100-bcm-ubuntu-training-kubeflow/argocd-helm-bundle-checksums.txt"
+      sha256: "81647e56012c005942d61c3143e51cc225ef1bd95c77169ab8383088b8e74c0d"
+      files: 53
+    renderedApplications: "examples/aicr/h100-bcm-ubuntu-training-kubeflow/argocd-rendered"
+  plannedArtifacts:
+    sourcePackage:
+      role: "source-package"
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-h100-bcm-ubuntu-training-kubeflow/aicr-bundle:1.0.0"
+      statement: "The rendered Applications name this reference. It is the address a publication of the retained bundle uses."
+    publication: "This receipt records generation and retention. It does not say whether the source package or the literal configuration bundle of this entry is published. Each one counts as published only when a tracked receipt under runs/aicr-mirror-artifacts/h100-bcm-ubuntu-training-kubeflow/ records a push and an anonymous pull of the digest planned for it."
+  boundary:
+    configPlaneOnly: true
+    gpuWorkloadsProven: false
+    ngcContacted: false
+    imagesPulled: false
+    statement: "Config-plane only. No GPU workload ran, no container started, and no model was fetched to produce or verify this entry."
+status:
+  result: "retained-offline"
+  liveRegistryPublicationClaimed: false

@@ -1,0 +1,36 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-rtx-pro-6000-eks-ubuntu-inference-dynamo-v1-0-0-argocd-source-package"
+spec:
+  catalogEntry: "aicr-rtx-pro-6000-eks-ubuntu-inference-dynamo-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "rtx-pro-6000-eks-ubuntu-inference-dynamo"
+    entry: "examples/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo"
+    generationReceipt: "examples/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo/generation-receipt.yaml"
+    platformDigest: "sha256:426efb064c1cce94899fe4725702d432efa3908c216f7195f094f16024da99a0"
+  artifact:
+    role: "source-package"
+    format: "helm-chart-oci"
+    artifactType: "application/vnd.cncf.helm.config.v1+json"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-rtx-pro-6000-eks-ubuntu-inference-dynamo/aicr-bundle:1.0.0"
+    manifestDigest: "sha256:f3bf7b6cb477dafc535d755105fc4c446b93f279153dd1ea2ceb7281765f49f7"
+    layerDigest: "sha256:65c0b985c641418d23509216dc243d0eb98f3302d934f4e42e54b774f88ddaa4"
+    layerBytes: 968797
+    layerMediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    fileCount: 73
+    files:
+      inventory: "examples/aicr/rtx-pro-6000-eks-ubuntu-inference-dynamo/argocd-helm-bundle-checksums.txt"
+      inventorySha256: "04d5c3a797b66a230d4b4f4c298b94f88e07c7b466b442804017c328d2ff9522"
+    reproducible: true
+  contents:
+    statement: "The artifact is the Helm chart AICR generated for this overlay, file for file as the entry retains it. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/rtx-pro-6000-eks-ubuntu-inference-dynamo/source-package-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

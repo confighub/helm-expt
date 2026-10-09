@@ -19,7 +19,7 @@ spec:
                 alertmanager:
                   alertmanagerSpec:
                     nodeSelector:
-                      nvidia.com/gpu.present: "true"
+                      nodeGroup: system-worker
                     resources:
                       limits:
                         cpu: 500m
@@ -38,7 +38,7 @@ spec:
                   enabled: true
                   fullnameOverride: grafana
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   resources:
                     limits:
                       cpu: 500m
@@ -51,7 +51,7 @@ spec:
                 kube-state-metrics:
                   fullnameOverride: kube-state-metrics
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 nodeExporter:
@@ -59,7 +59,7 @@ spec:
                 prometheus:
                   prometheusSpec:
                     nodeSelector:
-                      nvidia.com/gpu.present: "true"
+                      nodeGroup: system-worker
                     resources:
                       limits:
                         cpu: 2
@@ -84,24 +84,24 @@ spec:
                 prometheus-node-exporter:
                   fullnameOverride: prometheus-node-exporter
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 prometheusOperator:
                   admissionWebhooks:
                     patch:
                       nodeSelector:
-                        nvidia.com/gpu.present: "true"
+                        nodeGroup: system-worker
                       tolerations:
                       - operator: Exists
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 thanosRuler:
                   thanosRulerSpec:
                     nodeSelector:
-                      nvidia.com/gpu.present: "true"
+                      nodeGroup: system-worker
                     tolerations:
                     - operator: Exists
         repoURL: https://prometheus-community.github.io/helm-charts

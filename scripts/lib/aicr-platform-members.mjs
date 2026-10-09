@@ -66,7 +66,7 @@ const KSERVE_PROFILE_PATH = join(AICR_DIR, KSERVE_ENTRY, "profile", "model-profi
 const NIM_HOME_PLATFORM = "eks-h100-inference-nim";
 const NIM_AUTHORED_FILE = join(AICR_DIR, NIM_HOME_PLATFORM, "authored", "nimservice-llama-3-1-8b.yaml");
 
-// The ten platform=dynamo inference platforms, each carrying a fixed
+// The eleven platform=dynamo inference platforms, each carrying a fixed
 // criteria.accelerator token read from its own recipe.yaml. Hand-named here
 // (not only discovered) so a future recipe.yaml edit that changed, added,
 // or removed one of these platforms fails buildReport() outright instead of
@@ -74,6 +74,7 @@ const NIM_AUTHORED_FILE = join(AICR_DIR, NIM_HOME_PLATFORM, "authored", "nimserv
 const DYNAMO_PLATFORM_ACCELERATORS = {
   "b200-gke-cos-inference-dynamo": "b200",
   "gb200-eks-ubuntu-inference-dynamo": "gb200",
+  "gb200-gke-cos-inference-dynamo": "gb200",
   "gb200-oke-ubuntu-inference-dynamo": "gb200",
   "gb300-eks-ubuntu-inference-dynamo": "gb300",
   "h100-aks-ubuntu-inference-dynamo": "h100",
@@ -187,12 +188,12 @@ function discoverPlatforms(root) {
     platforms.push({ platformId: name, delivery, accelerator });
   }
   check(
-    platforms.length === 43,
-    `expected 43 examples/aicr/*/recipe.yaml entries with criteria.intent: inference, found ${platforms.length}`,
+    platforms.length === 45,
+    `expected 45 examples/aicr/*/recipe.yaml entries with criteria.intent: inference, found ${platforms.length}`,
   );
 
   platforms.push({ platformId: KSERVE_ENTRY, delivery: "kserve", accelerator: "any" });
-  check(platforms.length === 44, `expected 44 inference platforms after adding ${KSERVE_ENTRY}, found ${platforms.length}`);
+  check(platforms.length === 46, `expected 46 inference platforms after adding ${KSERVE_ENTRY}, found ${platforms.length}`);
 
   const seen = new Set();
   for (const platform of platforms) {
@@ -633,7 +634,7 @@ export function buildReport(root = repoRoot) {
   check(nimPlatforms.length === 4, `expected 4 platform=nim inference platforms, found ${nimPlatforms.length}`);
 
   const dynamoPlatforms = sortedPlatforms.filter((platform) => platform.delivery === "dynamo");
-  check(dynamoPlatforms.length === 10, `expected 10 platform=dynamo inference platforms, found ${dynamoPlatforms.length}`);
+  check(dynamoPlatforms.length === 11, `expected 11 platform=dynamo inference platforms, found ${dynamoPlatforms.length}`);
   check(
     Object.keys(DYNAMO_PLATFORM_ACCELERATORS).length === dynamoPlatforms.length,
     `DYNAMO_PLATFORM_ACCELERATORS names ${Object.keys(DYNAMO_PLATFORM_ACCELERATORS).length} platform id(s) but discovery found ${dynamoPlatforms.length}`,
@@ -651,7 +652,7 @@ export function buildReport(root = repoRoot) {
   const authoredNimMember = buildNimServiceMember(root, nimHomePlatform);
   const retainedNimMembers = buildRetainedNimServiceMembers(root, nimPlatforms);
   const dynamoMembers = buildDynamoMembers(root, dynamoPlatforms);
-  check(dynamoMembers.length === 656, `expected 656 total Dynamo member rows, found ${dynamoMembers.length}`);
+  check(dynamoMembers.length === 733, `expected 733 total Dynamo member rows, found ${dynamoMembers.length}`);
 
   const allRows = [...kserveMembers, authoredNimMember, ...retainedNimMembers, ...dynamoMembers];
   assertJoinRule(allRows);
@@ -702,7 +703,7 @@ export function buildReport(root = repoRoot) {
   }
 
   const csvRows = sortedPlatforms.flatMap((platform) => membersByPlatform.get(platform.platformId) ?? []);
-  check(csvRows.length === 825, `expected 825 total member rows, found ${csvRows.length}`);
+  check(csvRows.length === 902, `expected 902 total member rows, found ${csvRows.length}`);
 
   const populatedPlatforms = sortedPlatforms.filter((platform) => (membersByPlatform.get(platform.platformId) ?? []).length > 0).length;
   const counts = {
@@ -711,8 +712,8 @@ export function buildReport(root = repoRoot) {
     emptyPlatforms: sortedPlatforms.length - populatedPlatforms,
     totalMemberRows: csvRows.length,
   };
-  check(counts.populatedPlatforms === 15, `expected 15 populated platforms, found ${counts.populatedPlatforms}`);
-  check(counts.emptyPlatforms === 29, `expected 29 empty platforms, found ${counts.emptyPlatforms}`);
+  check(counts.populatedPlatforms === 16, `expected 16 populated platforms, found ${counts.populatedPlatforms}`);
+  check(counts.emptyPlatforms === 30, `expected 30 empty platforms, found ${counts.emptyPlatforms}`);
 
   const emptyByDelivery = Object.fromEntries(
     DELIVERY_ORDER.map((delivery) => [

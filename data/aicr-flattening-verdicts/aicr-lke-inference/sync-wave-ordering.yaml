@@ -85,13 +85,14 @@ spec:
         proven: false
     automatic: false
   boundedness:
-    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 15 rendered Applications, which fall into 6 waves. The retained recipe deploys 13 components, and 14 of the 14 dependency edges between them hold in those waves."
+    - "The order is AICR's and not this project's. It is read from the sync-wave annotations on 15 rendered Applications, which fall into 6 waves. The recipe the bundle carries deploys 13 components, and 14 of the 14 dependency edges between them hold in those waves."
+    - "The selected recipe also names 1 component the bundle leaves out (dra-node-labeler), and the generation receipt records the reason AICR logged for it. The selected recipe makes nvidia-dra-driver-gpu depend on dra-node-labeler. The recipe the bundle carries declares no such edge, so no sync-wave was asked to hold it. A route records the decision a destination has to make."
     - "2 waved Applications render without appearing in the recipe's deployment order (agentgateway-crds-post, agentgateway-post). They are companions of a component, and they are named here so the comparison does not drop them silently."
     - "The ordering-parity lane in data/aicr-ordering-parity/summary.md covers four hand-retained entries and does not cover this one. The comparison above applies the same dependency-edge rule to this entry's own recipe."
     - "No runtime has executed this route. Nothing in this repository has synced this Application set on any cluster."
-    - "3 of the 16 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.21.0. That package has not been published, and this entry does not retain it, so Argo CD could not resolve those sources today."
+    - "3 of the 16 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-lke-inference/aicr-bundle at 1.0.0. The entry retains that bundle at examples/aicr/lke-inference/argocd-helm-bundle, and the entry's Catalog record says whether the package is in the registry. Argo CD can resolve those sources only when it is."
   provenance:
     emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
     generatedFrom:
       - "examples/aicr/lke-inference/argocd-rendered/templates"
-      - "examples/aicr/lke-inference/recipe.yaml"
+      - "examples/aicr/lke-inference/argocd-helm-bundle/recipe.yaml"

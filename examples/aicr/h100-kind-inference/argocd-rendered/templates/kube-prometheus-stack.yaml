@@ -18,6 +18,8 @@ spec:
             values: |-
                 alertmanager:
                   alertmanagerSpec:
+                    nodeSelector:
+                      nodeGroup: system-worker
                     resources:
                       limits:
                         cpu: 250m
@@ -37,6 +39,8 @@ spec:
                   adminPassword: admin
                   enabled: false
                   fullnameOverride: grafana
+                  nodeSelector:
+                    nodeGroup: system-worker
                   resources:
                     limits:
                       cpu: 500m
@@ -48,12 +52,16 @@ spec:
                   - operator: Exists
                 kube-state-metrics:
                   fullnameOverride: kube-state-metrics
+                  nodeSelector:
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 nodeExporter:
                   enabled: true
                 prometheus:
                   prometheusSpec:
+                    nodeSelector:
+                      nodeGroup: system-worker
                     resources:
                       limits:
                         cpu: 1
@@ -75,11 +83,15 @@ spec:
                     - operator: Exists
                 prometheus-node-exporter:
                   fullnameOverride: prometheus-node-exporter
+                  nodeSelector:
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 prometheusOperator:
                   admissionWebhooks:
                     patch:
+                      nodeSelector:
+                        nodeGroup: system-worker
                       tolerations:
                       - operator: Exists
                   alertmanagerConfigNamespaces:
@@ -89,6 +101,8 @@ spec:
                   livenessProbe:
                     failureThreshold: 10
                     timeoutSeconds: 10
+                  nodeSelector:
+                    nodeGroup: system-worker
                   prometheusInstanceNamespaces:
                   - monitoring
                   readinessProbe:
@@ -107,6 +121,8 @@ spec:
                   - operator: Exists
                 thanosRuler:
                   thanosRulerSpec:
+                    nodeSelector:
+                      nodeGroup: system-worker
                     tolerations:
                     - operator: Exists
         repoURL: https://prometheus-community.github.io/helm-charts

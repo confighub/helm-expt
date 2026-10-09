@@ -19,6 +19,8 @@ spec:
                 deployCR: false
                 maintenance-operator-chart:
                   operator:
+                    nodeSelector:
+                      nodeGroup: system-worker
                     tolerations:
                     - operator: Exists
                 nfd:
@@ -30,6 +32,8 @@ spec:
                   enabled: false
                 operator:
                   fullnameOverride: network-operator
+                  nodeSelector:
+                    nodeGroup: system-worker
                   resources:
                     limits:
                       cpu: "1"

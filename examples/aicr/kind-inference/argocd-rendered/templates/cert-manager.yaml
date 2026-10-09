@@ -17,6 +17,8 @@ spec:
         helm:
             values: |-
                 cainjector:
+                  nodeSelector:
+                    nodeGroup: system-worker
                   resources:
                     limits:
                       cpu: 50m
@@ -29,6 +31,8 @@ spec:
                 crds:
                   enabled: true
                 fullnameOverride: cert-manager
+                nodeSelector:
+                  nodeGroup: system-worker
                 prometheus:
                   servicemonitor:
                     enabled: false
@@ -41,11 +45,15 @@ spec:
                     memory: 90Mi
                 startupapicheck:
                   enabled: true
+                  nodeSelector:
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 tolerations:
                 - operator: Exists
                 webhook:
+                  nodeSelector:
+                    nodeGroup: system-worker
                   resources:
                     limits:
                       cpu: 50m

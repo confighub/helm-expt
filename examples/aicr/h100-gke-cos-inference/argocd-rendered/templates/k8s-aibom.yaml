@@ -26,10 +26,11 @@ spec:
                     level: info
                   sinks: []
                 image:
-                  digest: sha256:f8e48d4edc44e6ee8e40a2ac6c5f60b190aa18d411a75702dc5798a77a039e8d
+                  digest: sha256:7b02731563a5ec524ed3396a07a524b02e3f51e17c976e02e65fc680b51e8164
                   repository: ghcr.io/googlecloudplatform/k8s-aibom
                   tag: ""
-                nodeSelector: {}
+                nodeSelector:
+                  nodeGroup: system-worker
                 podSecurityContext:
                   fsGroup: 2000
                   runAsNonRoot: true
@@ -57,7 +58,7 @@ spec:
                 tolerations:
                 - operator: Exists
         repoURL: oci://ghcr.io/googlecloudplatform/charts/k8s-aibom
-        targetRevision: 1.3.0
+        targetRevision: 1.5.1
     syncPolicy:
         automated:
             prune: true

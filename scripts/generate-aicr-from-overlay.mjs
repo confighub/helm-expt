@@ -1,72 +1,60 @@
 #!/usr/bin/env node
 
-// Mirror one overlay from NVIDIA's AICR recipe catalog into a first-class
-// ConfigHub catalog entry under examples/aicr/<id>/, at the same quality bar
-// as the hand-built eks-h100-inference-nim entry it is modeled on: source
-// pinned by digest, render checked, one digest pinning the whole rendered
-// shape, a generation receipt, and a page.
+// Mirror overlays from NVIDIA's AICR recipe catalog into Catalog entries under
+// examples/aicr/<id>/. One pinned AICR release backs every mirrored entry, so
+// moving the pin replaces the whole mirror in place.
 //
 // Usage:
 //   node scripts/generate-aicr-from-overlay.mjs <overlay-name> [--id <id>]
+//   node scripts/generate-aicr-from-overlay.mjs --all
+//   Either form takes --binary <path>, or AICR_MIRROR_BINARY=<path>, to use an
+//   AICR binary already on disk. The binary is checked against the pinned
+//   SHA-256 before it runs, wherever it came from.
 //
-// <overlay-name> is a name from `aicr recipe list` (e.g. eks-inference,
-// a100-aks-ubuntu-training-kubeflow). --id lets the entry directory and
-// register id differ from the overlay name; it defaults to the overlay name,
-// which is already catalog-safe kebab-case.
+// <overlay-name> is a name from `aicr recipe list`. --id lets the entry
+// directory and register id differ from the overlay name. --all mirrors every
+// overlay in the list, removes a mirrored directory whose overlay is gone or
+// can no longer be generated, rewrites the registers, the pages and the doc
+// map rows for the mirror, and writes data/aicr-overlay-mirror/.
 //
-// What it does, in order:
-//   1. Verifies (or downloads and verifies) the pinned AICR CLI release
-//      binary. Nothing runs an unverified binary: the release tarball and the
-//      extracted binary are both checked against sha256 values pinned in this
-//      file before anything is executed.
-//   2. Resolves the overlay's criteria from `aicr recipe list --format json`
-//      and runs the proven offline pipeline: `aicr recipe` -> `aicr bundle
-//      --deployer argocd-helm` -> `helm template`, exactly as
-//      examples/aicr/eks-h100-inference-nim/generation-receipt.yaml records.
-//   3. Writes examples/aicr/<id>/{recipe.yaml, generation-receipt.yaml,
-//      index-config.yaml, argocd-rendered/{templates,checksums.txt}}. This
-//      step fully replaces any existing examples/aicr/<id>/ directory: that
-//      directory is owned exclusively by this entry, so regenerating it is
-//      idempotent rather than destructive.
-//   4. Compiles examples/aicr/<id>/digest-index/ by shelling out to the
-//      existing, generic `scripts/generate-aicr-digest-index.mjs --example
-//      <id>` compiler. That compiler already serves any AICR entry shaped
-//      this way (it was generalized from the training entry to serve
-//      eks-h100-inference-nim); this script does not reimplement it.
-//   5. Appends (never rewrites) one entry to the shared
-//      examples/aicr/claims/entry-names.yaml register, one set of quantities
-//      and claims to the shared examples/aicr/claims/numeric-claims.yaml
-//      register, and one row to the shared docs/README.md worked-examples
-//      table -- each guarded by an existence check, so a second run for the
-//      same id changes nothing and two agents mirroring different overlays
-//      can both append without clobbering each other's block. They can still
-//      produce a git merge conflict if their branches both touch the same
-//      shared file; that is an ordinary merge, not a generator bug.
-//   6. Writes docs/demo/aicr/<id>.md, a page in the same voice and shape as
-//      the existing AICR entry pages.
+// What one entry goes through, in order:
+//   1. A verified AICR binary. Nothing runs an unverified binary.
+//   2. `aicr recipe --criteria-strict` with the overlay's own criteria.
+//   3. `aicr bundle --deployer argocd-helm`. AICR v1.0.0 refuses a bundle that
+//      lacks an input it needs, and says which. Two refusals are answered
+//      here, each with a value that is recorded with the refusal that asked
+//      for it. A missing system node selector takes the placeholder
+//      nodeGroup=system-worker. A wildcard toleration that AKS cannot accept
+//      takes the keyed toleration AICR's own message names. Any other refusal
+//      stops the entry.
+//   4. `helm template` of the bundle, against the entry's own planned source
+//      package reference.
+//   5. examples/aicr/<id>/ is replaced with the recipe, the generation
+//      receipt, the retained bundle with a checksum of every file in it, the
+//      rendered Applications, and the digest index compiled by
+//      scripts/generate-aicr-digest-index.mjs.
+//   6. The entry's blocks in examples/aicr/claims/entry-names.yaml and
+//      numeric-claims.yaml, its row in docs/README.md, and its page under
+//      docs/demo/aicr/.
 //
-// What it deliberately does not do: it does not add a
-// data/base-variant-records/records.json entry. The entry this script is
-// modeled on, eks-h100-inference-nim, has none either -- only the flagship,
-// actually-published training entries carry one -- so a bare mirrored entry
-// at the same tier stays consistent with that precedent rather than inventing
-// a heavier one.
-//
-// After running this script, still run the gates by hand: `npm run
-// aicr-example:verify`, `npm run aicr-entry-naming:generate` then `:verify`,
-// `npm run aicr-claims:generate` then `:verify`, `npm run config-model:verify`,
-// `npm run docs:verify`, `npm run doc-freshness` then `:verify`, and `npm run
-// verify:no-personal-names`. In particular: `git add` the new files BEFORE
-// `npm run doc-freshness` (or its snapshot omits them), and regenerate the
-// site with the pinned HELM_EXPT_SITE_GENERATED_AT timestamp
-// (`HELM_EXPT_SITE_GENERATED_AT=<value> npm run site:generate`) before `npm
-// run docs:verify` / `npm run site:verify` / `npm run site:ux:verify`.
+// An entry directory says what was generated and retained. It does not say
+// whether the entry's two OCI artifacts are published. That state is read
+// from tracked receipts by scripts/lib/aicr-mirror-artifacts.mjs, so a
+// publication never needs this generator or the AICR binary to run again.
 //
 // Boundary, stated once and carried into every generated entry: config-plane
-// only. No cluster, no GPU workload, and no NGC surface is contacted by this
-// script or by anything it generates.
+// only. No cluster, no GPU workload, no registry and no NGC surface is
+// contacted by this script or by anything it generates. The one network use
+// this script can make is the pinned release download in step 1, and only
+// when no verified binary is given or cached.
+//
+// Whether the AICR commands themselves use the network was not observed for
+// v0.21.0. It was observed for v1.0.0, and NETWORK_OBSERVATION below records
+// what was seen. To repeat it on macOS, run this script under
+// `sandbox-exec -f <profile>` with a profile of `(version 1)`,
+// `(allow default)` and `(deny network*)`, and pass --binary.
 
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import {
   chmodSync,
   existsSync,
@@ -75,11 +63,30 @@ import {
   readdirSync,
   readFileSync,
   rmSync,
+  statSync,
 } from "node:fs";
 import { arch as osArch, homedir, platform as osPlatform, tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, relative } from "node:path";
 
-import { check, normalizeTempPaths, readYaml, relativeRepo, repoRoot, sha256, sha256File, write, writeYaml } from "./lib/proof-common.mjs";
+import {
+  INPUT_PLACEHOLDER,
+  PLACEHOLDER_CONTAINER,
+  landingCounts,
+  placeholderLandings,
+} from "./lib/aicr-required-inputs.mjs";
+import {
+  check,
+  listFiles,
+  normalizeTempPaths,
+  readYaml,
+  readYamlTexts,
+  relativeRepo,
+  repoRoot,
+  sha256,
+  sha256File,
+  write,
+  writeYaml,
+} from "./lib/proof-common.mjs";
 
 // ---------------------------------------------------------------------------
 // Pinned upstream release provenance. One CLI release backs every entry this
@@ -88,29 +95,88 @@ import { check, normalizeTempPaths, readYaml, relativeRepo, repoRoot, sha256, sh
 // ---------------------------------------------------------------------------
 const AICR_RELEASE = {
   name: "NVIDIA AICR",
-  version: "v0.21.0",
-  commit: "36f52ec9346b8ce4b6dcdb08f1d82f92c963bebe",
+  version: "v1.0.0",
+  commit: "82bccef69855c70e151f8b5e6ed9d04d70a30f81",
   repository: "https://github.com/NVIDIA/aicr",
 };
 
+// Where this repository already holds the release's signatures and the
+// receipt of their offline verification. The generator reads the receipt and
+// refuses to run when it names another binary than the pin below.
+const AICR_PROVENANCE = {
+  receipt: "runs/aicr-provenance-v1-0-0/receipt.yaml",
+  checksumList: "examples/aicr/upstream-signatures/v1.0.0/aicr_checksums.txt",
+  binaryAttestation: "examples/aicr/upstream-signatures/v1.0.0/aicr-attestation.sigstore.json",
+  recipeCatalogSignature: "examples/aicr/upstream-signatures/v1.0.0/recipe-catalog.sigstore.json",
+};
+
 // One row per `${os.platform()}-${os.arch()}` this generator has actually
-// verified. Extend it by downloading the matching
-// aicr_<version>_<os>_<arch>.tar.gz release asset, recording its sha256 (from
+// verified. Extend it by recording the matching release asset's sha256 (from
 // the release's aicr_checksums.txt) and the sha256 of the "aicr" binary it
-// extracts to, then adding a row here. The generator refuses to run on an
-// unpinned platform rather than trust an unverified download.
+// extracts to. The generator refuses to run on an unpinned platform rather
+// than trust an unverified download.
 const PLATFORM_PINS = {
   "darwin-arm64": {
-    assetName: "aicr_0.21.0_darwin_arm64.tar.gz",
-    assetSha256: "5dbe88fc8c5b8c937ca87c624f8f01c29eaefbfb3ced8f556a0136c47ff6be63",
-    binarySha256: "1a4bea881a45480b1761f7e01670f02a61f5d02a4c0fdae3d93da65a47e51afb",
+    assetName: "aicr_1.0.0_darwin_arm64.tar.gz",
+    assetSha256: "cb85cce54a82deb88e826c3e735c26e11a0863173b8aa5ff3ba4ebc2dc6af8b2",
+    binarySha256: "972da08e016b3ea779cc5f51eafa3a0024a4f052fbdfbc5ea55cd6524766b8fc",
   },
 };
 
+// What was seen when the pinned release was run with the network denied. It is
+// a dated observation of one platform, and it is written into the mirror's
+// summary so the claim travels with the data.
+const NETWORK_OBSERVATION =
+  "On 2026-10-08, on darwin-arm64, the whole mirror was generated three times with all network access denied to the generator, the AICR binary and Helm. `aicr recipe list`, `aicr recipe`, `aicr bundle --deployer argocd-helm` and `helm template` completed for every mirrored overlay, and the runs produced the same bytes. No AICR command needed the network. Other platforms and other AICR commands were not observed.";
+
 const PLANNED_OCI_BASE = "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt";
+const BUNDLE_CHART_NAME = "aicr-bundle";
+const BUNDLE_DIR = "argocd-helm-bundle";
+const BUNDLE_INVENTORY = "argocd-helm-bundle-checksums.txt";
 const ENTRY_NAMES_PATH = join(repoRoot, "examples/aicr/claims/entry-names.yaml");
 const NUMERIC_CLAIMS_PATH = join(repoRoot, "examples/aicr/claims/numeric-claims.yaml");
 const DOC_MAP_PATH = join(repoRoot, "docs/README.md");
+const MIRROR_DATA_ROOT = "data/aicr-overlay-mirror";
+const MIRROR_ARTIFACT_RECEIPT_ROOT = "runs/aicr-mirror-artifacts";
+const GENERATOR = "scripts/generate-aicr-from-overlay.mjs";
+
+// The system node selector every mirrored bundle carries when AICR asks for
+// one. It is a placeholder, confirmed as one, and each entry records every
+// place it lands. The wording follows the hand-retained v1.0.0 entry.
+const SYSTEM_NODE_SELECTOR = {
+  input: "systemNodeSelector",
+  flag: "--system-node-selector",
+  value: "nodeGroup=system-worker",
+  // The maintainer confirmed the placeholder on 2026-10-07. The hand-retained
+  // v1.0.0 entry records the same date. The later choice to carry it in every
+  // mirrored entry is dated inside the confirmation text, not here.
+  confirmedOn: "2026-10-07",
+  route: "system-node-selector-placeholder",
+  refusal: /requires --system-node-selector to be set/,
+};
+
+// AKS admission rejects the wildcard toleration AICR writes by default, and
+// AICR's refusal names the keyed toleration to pass instead. The v0.21.0
+// mirror carried the same value for the same overlays.
+const KEYED_TOLERATION = {
+  input: "acceleratedNodeToleration",
+  flag: "--accelerated-node-toleration",
+  value: "nvidia.com/gpu:NoSchedule",
+  refusal: /Pass keyed tolerations instead, e\.g\. --accelerated-node-toleration nvidia\.com\/gpu:NoSchedule/,
+};
+
+// A recipe refusal that names an input only a real cluster can supply. The
+// overlay is left out of the mirror and the refusal is recorded. Nothing here
+// invents a value for it.
+const CLUSTER_SPECIFIC_RECIPE_REFUSALS = [
+  {
+    pattern: /requires configuration\.gke\.tcpxoInterfaces/,
+    reason:
+      "AICR v1.0.0 refuses to generate this recipe without --gke-tcpxo-interfaces, the mapping of eight GPU network interfaces to the destination cluster's own network names. AICR documents that mapping as cluster-specific and fails closed without it. No value has been confirmed for this Catalog, so the overlay is not mirrored at this version.",
+  },
+];
+
+const RECIPE_API_VERSIONS = ["aicr.run/v1", "aicr.run/v1beta2"];
 
 const NUMBER_WORDS = [
   "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
@@ -120,56 +186,94 @@ const NUMBER_WORDS = [
 
 function usage() {
   console.error(`Usage:
-  node scripts/generate-aicr-from-overlay.mjs <overlay-name> [--id <id>] \\
-    [--extra-bundle-arg <token>]...
+  node scripts/generate-aicr-from-overlay.mjs <overlay-name> [--id <id>] [--binary <path>]
+  node scripts/generate-aicr-from-overlay.mjs --all [--binary <path>]
+  node scripts/generate-aicr-from-overlay.mjs --redate-placeholder-confirmation
 
 <overlay-name> must be a name from \`aicr recipe list\`. --id overrides the
 entry id (directory name and register id); it defaults to <overlay-name>.
---extra-bundle-arg passes one extra token through to \`aicr bundle\` and can
-repeat; use it for the handful of overlays that refuse the generator's
-defaults with a specific, actionable error, e.g. AKS overlays that need a
-keyed accelerated-node toleration instead of the wildcard one:
-  --extra-bundle-arg --accelerated-node-toleration --extra-bundle-arg nvidia.com/gpu:NoSchedule`);
+--all mirrors every overlay and removes mirrored directories that no longer
+have one. --binary, or AICR_MIRROR_BINARY, names an AICR binary already on
+disk. It is checked against the pinned SHA-256 before it runs.
+--redate-placeholder-confirmation runs no AICR command and needs no binary. It
+rewrites only the confirmedOn line of the system-node-selector placeholder in
+each mirrored entry's generation receipt, to the date in SYSTEM_NODE_SELECTOR.`);
 }
 
-function collectRepeatedFlag(argv, flag) {
-  const values = [];
-  for (let index = argv.indexOf(flag); index !== -1; index = argv.indexOf(flag, index + 1)) {
-    check(index + 1 < argv.length, `${flag} needs a value`);
-    values.push(argv[index + 1]);
+// One-off, non-rendering correction. The first v1.0.0 mirror recorded the
+// placeholder's confirmation as 2026-10-08, the day it was chosen for every
+// entry, while the maintainer confirmed it on 2026-10-07. Moving the constant
+// changes what a full run writes. This mode brings the retained receipts to the
+// same date without running AICR or Helm, so the bundles and Applications keep
+// their bytes. It touches the one line, and refuses a receipt where that line
+// is not exactly one match. Rerun the digest index and mirror artifacts
+// generators afterwards, because both read the receipt.
+function redatePlaceholderConfirmation() {
+  const wanted = SYSTEM_NODE_SELECTOR.confirmedOn;
+  let rewritten = 0;
+  let unchanged = 0;
+  for (const id of mirroredDirectories()) {
+    const path = join(repoRoot, "examples", "aicr", id, "generation-receipt.yaml");
+    const text = readFileSync(path, "utf8");
+    const pattern = /^(\s*)confirmedOn: "(\d{4}-\d{2}-\d{2})"$/gm;
+    const matches = [...text.matchAll(pattern)];
+    if (!text.includes('valueStatus: "confirmed-placeholder"')) {
+      check(matches.length === 0, `${relativeRepo(path)} has a confirmedOn line but no confirmed placeholder`);
+      continue;
+    }
+    check(matches.length === 1, `${relativeRepo(path)} must have exactly one confirmedOn line, found ${matches.length}`);
+    if (matches[0][2] === wanted) {
+      unchanged += 1;
+      continue;
+    }
+    write(path, text.replace(pattern, `$1confirmedOn: "${wanted}"`));
+    rewritten += 1;
   }
-  return values;
+  console.log(`placeholder confirmation is ${wanted}: ${rewritten} receipts rewritten, ${unchanged} already carried it`);
+}
+
+function flagValue(argv, flag) {
+  const index = argv.indexOf(flag);
+  if (index === -1) return "";
+  check(index + 1 < argv.length, `${flag} needs a value`);
+  return argv[index + 1];
 }
 
 function main() {
-  const overlayName = process.argv[2];
-  if (!overlayName || overlayName.startsWith("--")) {
+  const argv = process.argv.slice(2);
+  if (argv.includes("--redate-placeholder-confirmation")) {
+    redatePlaceholderConfirmation();
+    return;
+  }
+  const all = argv.includes("--all");
+  const overlayName = all ? "" : argv[0];
+  if (!all && (!overlayName || overlayName.startsWith("--"))) {
     usage();
     process.exit(2);
   }
-  const idFlagIndex = process.argv.indexOf("--id");
-  const entryId = idFlagIndex === -1 ? overlayName : process.argv[idFlagIndex + 1];
-  check(/^[a-z0-9][a-z0-9-]*$/.test(entryId), `entry id ${JSON.stringify(entryId)} must be lowercase kebab-case`);
-  const extraBundleArgs = collectRepeatedFlag(process.argv, "--extra-bundle-arg");
+  const binary = ensureVerifiedBinary(flagValue(argv, "--binary") || process.env.AICR_MIRROR_BINARY || "");
+  const listing = JSON.parse(execFileSync(binary.path, ["recipe", "list", "--format", "json"], { encoding: "utf8" }));
+  const toolchain = { helm: execFileSync("helm", ["version", "--short"], { encoding: "utf8" }).trim() };
 
-  const binary = ensureVerifiedBinary();
-  const overlay = resolveOverlay(binary.path, overlayName);
-
-  const work = mkdtempSync(join(tmpdir(), `aicr-mirror-${entryId}-`));
-  try {
-    const generated = runPipeline(binary.path, overlay, work, extraBundleArgs);
-    const entryRoot = writeEntry({ entryId, overlay, binary, generated });
-    compileDigestIndex(entryId);
-    const registerEntry = updateEntryNamesRegister({ entryId, overlay, generated });
-    updateNumericClaims({ entryId, generated });
-    writeDocsPage({ entryId, overlay, generated, registerEntry });
-    updateDocMap({ entryId, generated });
-    console.log(
-      `generated ${relativeRepo(entryRoot)}: ${generated.componentCount} components from ${generated.overlaysResolved} overlays -> ${generated.renderedApplications} rendered Applications`,
-    );
-  } finally {
-    rmSync(work, { recursive: true, force: true });
+  if (all) {
+    mirrorAll({ binary, listing, toolchain });
+    return;
   }
+  const entryId = flagValue(argv, "--id") || overlayName;
+  check(/^[a-z0-9][a-z0-9-]*$/.test(entryId), `entry id ${JSON.stringify(entryId)} must be lowercase kebab-case`);
+  const overlay = listing.find((row) => row.name === overlayName);
+  check(
+    overlay,
+    `${overlayName} is not a name in \`aicr recipe list\`; run it yourself to see the ${listing.length} available overlay names`,
+  );
+  const outcome = mirrorOverlay({ binary, overlay, entryId, toolchain });
+  check(outcome.mirrored, `${overlayName} was not mirrored: ${outcome.reason} ${outcome.observed}`);
+  writeRegistersAndPages([outcome.generated], { replaceIds: [entryId] });
+  console.log(describe(outcome.generated));
+}
+
+function describe(generated) {
+  return `generated examples/aicr/${generated.entryId}: ${generated.componentCount} components from ${generated.overlaysResolved} overlays -> ${generated.renderedApplications} rendered Applications, ${generated.bundleFiles.length} bundle files retained`;
 }
 
 // ---------------------------------------------------------------------------
@@ -184,19 +288,29 @@ function platformKey() {
   return platformName && archName ? `${platformName}-${archName}` : null;
 }
 
-function ensureVerifiedBinary() {
+function ensureVerifiedBinary(givenPath) {
   const key = platformKey();
   const pin = key ? PLATFORM_PINS[key] : undefined;
   check(
     pin,
     `no pinned AICR ${AICR_RELEASE.version} release checksum for platform ${key ?? `${osPlatform()}-${osArch()}`}; ` +
-      "add one to PLATFORM_PINS in this script (download the matching release asset, record its sha256 " +
+      "add one to PLATFORM_PINS in this script (record the matching release asset's sha256 " +
       "from the release's aicr_checksums.txt, and the sha256 of the extracted binary) before running it here",
   );
+  assertPinMatchesCommittedProvenance(pin);
+
+  if (givenPath) {
+    check(existsSync(givenPath), `${givenPath} does not exist`);
+    const given = sha256File(givenPath);
+    check(
+      given === pin.binarySha256,
+      `the binary at ${givenPath} has sha256 ${given}, expected ${pin.binarySha256}; refusing to run it`,
+    );
+    return provenanceFor(pin, givenPath);
+  }
 
   const cacheDir = join(homedir(), ".cache", "aicr-mirror", AICR_RELEASE.version, key);
   const binaryPath = join(cacheDir, "aicr");
-
   if (existsSync(binaryPath) && sha256File(binaryPath) === pin.binarySha256) {
     return provenanceFor(pin, binaryPath);
   }
@@ -235,13 +349,38 @@ function ensureVerifiedBinary() {
   }
 }
 
-// The receipt records what was verified, not whether this particular run hit
-// a local cache: that circumstance is a property of the machine that ran the
-// generator, not of the entry, and would otherwise make two equally valid
-// generations of the same overlay disagree in a committed file.
+// The pin is only as good as what it was copied from. The repository holds
+// NVIDIA's checksum list for this release and the receipt of an offline
+// attestation check, and both have to name the pinned bytes.
+function assertPinMatchesCommittedProvenance(pin) {
+  const checksumList = readFileSync(join(repoRoot, AICR_PROVENANCE.checksumList), "utf8");
+  check(
+    checksumList.split("\n").some((line) => line.trim() === `${pin.assetSha256}  ${pin.assetName}`),
+    `${AICR_PROVENANCE.checksumList} does not list ${pin.assetName} with sha256 ${pin.assetSha256}`,
+  );
+  const provenance = readYaml(join(repoRoot, AICR_PROVENANCE.receipt));
+  check(
+    provenance.status?.result === "pass"
+      && provenance.spec?.upstream?.version === AICR_RELEASE.version
+      && provenance.spec?.upstream?.commit === AICR_RELEASE.commit,
+    `${AICR_PROVENANCE.receipt} is not a passing provenance receipt for ${AICR_RELEASE.version} at ${AICR_RELEASE.commit}`,
+  );
+  if (provenance.spec.upstream.archive === pin.assetName) {
+    check(
+      provenance.spec.upstream.archiveSha256 === pin.assetSha256
+        && provenance.spec.binary?.attestedSha256 === pin.binarySha256,
+      `${AICR_PROVENANCE.receipt} names another archive or binary than the pin for ${pin.assetName}`,
+    );
+  }
+}
+
+// The receipt records what was verified, not how this run found the binary.
+// A cached copy, a fresh download and a copy named with --binary are all held
+// to the same pinned SHA-256, and two equally valid generations of one overlay
+// must agree in every committed byte.
 function provenanceFor(pin, binaryPath) {
   const binaryVerifiedBeforeUse =
-    "The release tarball and the binary it extracts to were both checked against the sha256 values pinned in scripts/generate-aicr-from-overlay.mjs before the binary ran.";
+    `The binary was checked against the sha256 pinned in ${GENERATOR} before it ran. The pin is the binary NVIDIA's ${AICR_RELEASE.version} attestation names, and ${AICR_PROVENANCE.receipt} records the offline check of that attestation and of the release archive checksum.`;
   const reported = execFileSync(binaryPath, ["--version"], { encoding: "utf8" });
   check(
     reported.includes(AICR_RELEASE.version.replace(/^v/, "")) && reported.includes(AICR_RELEASE.commit),
@@ -257,107 +396,191 @@ function provenanceFor(pin, binaryPath) {
       releaseAsset: { name: pin.assetName, sha256: pin.assetSha256 },
       binarySha256: pin.binarySha256,
       binaryVerifiedBeforeUse,
+      provenance: { ...AICR_PROVENANCE },
     },
   };
 }
 
 // ---------------------------------------------------------------------------
-// Step 2: resolve the overlay's criteria and run the proven pipeline
+// Steps 2 to 4: recipe, bundle, render
 // ---------------------------------------------------------------------------
 
-function resolveOverlay(binaryPath, overlayName) {
-  const listing = JSON.parse(execFileSync(binaryPath, ["recipe", "list", "--format", "json"], { encoding: "utf8" }));
-  const overlay = listing.find((row) => row.name === overlayName);
-  check(
-    overlay,
-    `${overlayName} is not a name in \`aicr recipe list\`; run it yourself to see the ${listing.length} available overlay names`,
-  );
-  return overlay;
+function runAicr(binaryPath, args, cwd) {
+  const result = spawnSync(binaryPath, args, { cwd, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
+  return { status: result.status, stdout: result.stdout ?? "", stderr: result.stderr ?? "" };
 }
 
-function runPipeline(binaryPath, overlay, work, extraBundleArgs = []) {
-  const criteria = overlay.criteria ?? {};
-  const recipeArgs = ["recipe"];
-  const criteriaFlags = [
-    ["--service", criteria.Service],
-    ["--accelerator", criteria.Accelerator],
-    ["--os", criteria.OS],
-    ["--intent", criteria.Intent],
-    ["--platform", criteria.Platform],
-  ];
-  for (const [flag, value] of criteriaFlags) {
-    if (value) recipeArgs.push(flag, value);
-  }
-  check(recipeArgs.length > 1, `overlay ${overlay.name} resolved no non-wildcard criteria to pass to \`aicr recipe\``);
-  if (criteria.Nodes) recipeArgs.push("--nodes", String(criteria.Nodes));
-  const recipePath = join(work, "recipe.yaml");
-  recipeArgs.push("--output", recipePath);
-  execFileSync(binaryPath, recipeArgs, { cwd: work, stdio: ["ignore", "inherit", "inherit"] });
+// The one line AICR prints when it refuses, without the log prefix and the
+// exit code, so the recorded text is the refusal itself.
+function refusalText(result) {
+  const line = `${result.stderr}\n${result.stdout}`.split("\n").find((row) => row.includes("command failed: error="));
+  return normalizeTempPaths(
+    String(line ?? `${result.stderr}${result.stdout}`.trim().split("\n").at(-1) ?? "")
+      .replace(/^.*command failed: error=/, "")
+      .replace(/\s+exitCode=\d+\s*$/, "")
+      .trim(),
+  );
+}
 
+function criteriaFlags(criteria) {
+  const flags = [];
+  for (const [flag, key] of [["--service", "service"], ["--accelerator", "accelerator"], ["--os", "os"], ["--intent", "intent"], ["--platform", "platform"]]) {
+    const value = criteria[key];
+    if (value && value !== "any") flags.push(flag, String(value));
+  }
+  return flags;
+}
+
+function runPipeline(binaryPath, overlay, entryId, work) {
+  const criteria = overlay.criteria ?? {};
+  const flags = criteriaFlags(criteria);
+  if (flags.length === 0) {
+    return {
+      mirrored: false,
+      stage: "recipe",
+      reason: "The overlay declares no criterion that selects it, so `aicr recipe` cannot be asked for it by criteria. It reaches the mirror only through the entries that apply it.",
+      observed: "",
+    };
+  }
+  const recipeArgs = ["recipe", "--criteria-strict", ...flags, "--output", "recipe.yaml"];
+  const recipeRun = runAicr(binaryPath, recipeArgs, work);
+  if (recipeRun.status !== 0) {
+    const observed = refusalText(recipeRun);
+    const known = CLUSTER_SPECIFIC_RECIPE_REFUSALS.find((row) => row.pattern.test(observed));
+    check(known, `${overlay.name}: aicr recipe refused with an error this generator does not know: ${observed}`);
+    return { mirrored: false, stage: "recipe", reason: known.reason, observed };
+  }
+  const recipePath = join(work, "recipe.yaml");
   const recipe = readYaml(recipePath);
+  // AICR v1.0.0 writes aicr.run/v1 for most recipes and aicr.run/v1beta2 for
+  // the ones that use a feature it still calls beta, such as a profile. Both
+  // are recorded. Anything else means the release changed under the pin.
+  check(
+    RECIPE_API_VERSIONS.includes(recipe.apiVersion),
+    `${overlay.name}: the recipe apiVersion is ${recipe.apiVersion}, not one of ${RECIPE_API_VERSIONS.join(", ")}`,
+  );
   check(Array.isArray(recipe.deploymentOrder) && recipe.deploymentOrder.length > 0, `${overlay.name}: recipe declares no deployment order`);
+  check(
+    recipe.metadata?.appliedOverlays?.at(-1) === overlay.name,
+    `${overlay.name}: the criteria selected ${recipe.metadata?.appliedOverlays?.at(-1)}, which is another overlay`,
+  );
 
   // nodewright-customizations needs a workload selector when it is present at
   // all; the catalog's existing entries set it for both training and
-  // inference intents, so this mirrors that rather than the CLI help text's
-  // narrower "training only" wording.
-  const workloadSelector = ["training", "inference"].includes(criteria.Intent)
-    ? `app.kubernetes.io/part-of=${criteria.Intent}`
+  // inference intents.
+  const workloadSelector = ["training", "inference"].includes(criteria.intent)
+    ? `app.kubernetes.io/part-of=${criteria.intent}`
     : null;
-  const bundleDir = join(work, "argocd-helm-bundle");
-  const bundleArgs = [
+  const baseArgs = [
     "bundle",
     "--recipe",
-    recipePath,
+    "recipe.yaml",
     "--deployer",
     "argocd-helm",
     "--output",
-    bundleDir,
+    `./${BUNDLE_DIR}`,
     "--storage-class",
     "gp3",
     "--accelerated-node-selector",
     "nvidia.com/gpu.present=true",
     ...(workloadSelector ? ["--workload-selector", workloadSelector] : []),
-    ...extraBundleArgs,
   ];
-  execFileSync(binaryPath, bundleArgs, { cwd: work, stdio: ["ignore", "inherit", "inherit"] });
-
-  const renderDir = join(work, "rendered");
-  const renderArgs = [
-    "template",
-    "aicr-argocd",
-    bundleDir,
-    "--namespace",
-    "argocd",
-    "--set",
-    `repoURL=${PLANNED_OCI_BASE}`,
-    "--output-dir",
-    renderDir,
-  ];
-  try {
-    execFileSync("helm", renderArgs, { cwd: work, stdio: ["ignore", "inherit", "inherit"] });
-  } catch (error) {
-    throw new Error(`helm template failed; is helm installed and on PATH? (${error.message})`);
+  // Ask with the defaults first, and answer only a refusal AICR itself makes.
+  // Each answer is recorded with the refusal, so the receipt shows why the
+  // entry carries the input.
+  const bundleDir = join(work, BUNDLE_DIR);
+  const answers = [];
+  let bundleArgs = baseArgs;
+  let bundleRun = null;
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    rmSync(bundleDir, { recursive: true, force: true });
+    bundleRun = runAicr(binaryPath, bundleArgs, work);
+    if (bundleRun.status === 0) break;
+    const observed = refusalText(bundleRun);
+    const answer = [SYSTEM_NODE_SELECTOR, KEYED_TOLERATION].find(
+      (candidate) => candidate.refusal.test(observed) && !answers.some((given) => given.input === candidate.input),
+    );
+    check(answer, `${overlay.name}: aicr bundle refused with an error this generator does not answer: ${observed}`);
+    answers.push({ input: answer.input, flag: answer.flag, value: answer.value, observed });
+    bundleArgs = [...bundleArgs, answer.flag, answer.value];
   }
+  check(bundleRun.status === 0, `${overlay.name}: aicr bundle still refuses after ${answers.length} answered refusals`);
 
+  const repoURL = `${PLANNED_OCI_BASE}/aicr-${entryId}`;
+  const renderDir = join(work, "rendered");
+  const renderArgs = ["template", "aicr-argocd", `./${BUNDLE_DIR}`, "--namespace", "argocd", "--set", `repoURL=${repoURL}`, "--output-dir", "rendered"];
+  try {
+    execFileSync("helm", renderArgs, { cwd: work, stdio: ["ignore", "ignore", "pipe"] });
+  } catch (error) {
+    throw new Error(`${overlay.name}: helm template failed; is helm installed and on PATH? (${error.message})`);
+  }
   const templatesDir = findTemplatesDir(renderDir);
   const templateFiles = readdirSync(templatesDir).filter((name) => name.endsWith(".yaml")).sort();
   check(templateFiles.length > 0, `${overlay.name}: helm template produced no rendered Application templates`);
 
+  const bundleFiles = listFiles(bundleDir).map((path) => relative(bundleDir, path).replaceAll("\\", "/")).sort();
+  const bundledRecipe = readYaml(join(bundleDir, "recipe.yaml"));
+  const bundleInfo = readYaml(join(bundleDir, "bundle-info.yaml"));
+  const chart = readYaml(join(bundleDir, "Chart.yaml"));
+  check(
+    chart.name === BUNDLE_CHART_NAME && `v${chart.version}` === AICR_RELEASE.version,
+    `${overlay.name}: the bundle chart is ${chart.name} ${chart.version}, not ${BUNDLE_CHART_NAME} ${AICR_RELEASE.version.slice(1)}`,
+  );
+  const bundledRecipeDigest = `sha256:${sha256File(join(bundleDir, "recipe.yaml"))}`;
+  check(
+    bundleInfo.build?.recipe?.digest === bundledRecipeDigest,
+    `${overlay.name}: bundle-info.yaml records another recipe digest than the recipe the bundle carries`,
+  );
+
+  // A component the selected recipe names and the bundle leaves out, with the
+  // reason AICR logged for it.
+  const selectedNames = (recipe.componentRefs ?? []).map((component) => component.name);
+  const bundledNames = new Set((bundledRecipe.componentRefs ?? []).map((component) => component.name));
+  const loggedReasons = new Map();
+  for (const line of bundleRun.stderr.split("\n")) {
+    const disabled = /skipping disabled component: component=(\S+)/.exec(line);
+    if (disabled) loggedReasons.set(disabled[1], "AICR logged this component as disabled in the recipe and skipped it.");
+    const skipped = /skipping component: component=(\S+) reason=(.+)$/.exec(line);
+    if (skipped) loggedReasons.set(skipped[1], `AICR skipped it and logged the reason: ${normalizeTempPaths(skipped[2].trim())}`);
+  }
+  const leftOut = selectedNames
+    .filter((name) => !bundledNames.has(name))
+    .sort()
+    .map((name) => ({ name, reason: loggedReasons.get(name) ?? "AICR left it out of the bundle and logged no reason." }));
+  const notes = bundleRun.stdout
+    .split("\n")
+    .map((line) => /^\s*⚠\s*(.+)$/.exec(line)?.[1])
+    .filter(Boolean)
+    .map((line) => normalizeTempPaths(line.trim()));
+
   return {
-    overlay,
-    criteria,
-    recipePath,
-    recipe,
-    recipeArgs,
-    bundleArgs,
-    renderArgs,
-    templatesDir,
-    templateFiles,
-    componentCount: recipe.deploymentOrder.length,
-    overlaysResolved: (recipe.metadata?.appliedOverlays ?? []).length,
-    renderedApplications: templateFiles.length,
-    workloadSelector,
+    mirrored: true,
+    generated: {
+      entryId,
+      overlay,
+      criteria,
+      work,
+      recipe,
+      bundledRecipe,
+      recipeArgs,
+      bundleArgs,
+      renderArgs,
+      repoURL,
+      answers,
+      workloadSelector,
+      templatesDir,
+      templateFiles,
+      bundleDir,
+      bundleFiles,
+      bundledRecipeDigest,
+      selectedRecipeDigest: `sha256:${sha256File(recipePath)}`,
+      leftOut,
+      notes,
+      componentCount: recipe.deploymentOrder.length,
+      bundledComponentCount: bundledNames.size,
+      overlaysResolved: (recipe.metadata?.appliedOverlays ?? []).length,
+      renderedApplications: templateFiles.length,
+    },
   };
 }
 
@@ -370,23 +593,91 @@ function findTemplatesDir(renderDir) {
 }
 
 // ---------------------------------------------------------------------------
-// Step 3-4: write the entry directory and compile its digest index
+// Step 5: write the entry directory and compile its digest index
 // ---------------------------------------------------------------------------
 
-function writeEntry({ entryId, overlay, binary, generated }) {
-  const entryRoot = join(repoRoot, "examples", "aicr", entryId);
+function systemNodeSelectorInput(generated, answer, applications) {
+  const entryRel = `examples/aicr/${generated.entryId}`;
+  const landings = placeholderLandings(applications, answer.value);
+  const counts = landingCounts(landings);
+  check(counts.fieldPaths > 0, `${entryRel}: the placeholder ${answer.value} lands in no rendered Application`);
+  const token = answer.value.split("=")[1];
+  const bundleFiles = generated.bundleFiles
+    .filter((file) => readFileSync(join(generated.bundleDir, file), "utf8").includes(token))
+    .map((file) => `${BUNDLE_DIR}/${file}`);
+  return {
+    input: answer.input,
+    flag: answer.flag,
+    value: answer.value,
+    valueStatus: INPUT_PLACEHOLDER,
+    confirmedOn: SYSTEM_NODE_SELECTOR.confirmedOn,
+    confirmation:
+      "The maintainer confirmed on 2026-10-07 that the hand-retained v1.0.0 entry carries nodeGroup=system-worker as a placeholder, and chose on 2026-10-08 that every mirrored v1.0.0 entry whose bundle needs a system node selector carries the same placeholder. The entry does not claim that any destination labels its system nodes this way. The value is recorded, named and given a route, and it is resolved for the destination like any other install-time requirement.",
+    observed: `With --storage-class gp3 and no system node selector, AICR ${AICR_RELEASE.version} refuses to write this bundle. Its refusal reads: ${answer.observed}`,
+    valueOrigin:
+      "It is the value upstream's own v1.0.0 EKS training demo uses for its reference clusters (demos/cuj1-training.md in NVIDIA/aicr at tag v1.0.0), and that demo says its selector values are examples to be updated to match the cluster. The demo file is not retained in this repository. The value was not chosen from a real cluster, and it is carried for every service this mirror covers because it is a placeholder and not a claim about any of them.",
+    effect:
+      "The value is written into the generated system-component node selectors, so a different value changes the bundle bytes and every digest derived from them.",
+    placeholder: {
+      meaning: `${answer.value} stands in for the label that selects the destination cluster's system node group.`,
+      changeTo: "the label on your own cluster's system node group",
+      changeEffect:
+        "A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be made from it.",
+      route: SYSTEM_NODE_SELECTOR.route,
+      renderedIn: `${entryRel}/argocd-rendered/templates`,
+      container: PLACEHOLDER_CONTAINER,
+      applications: counts.applications,
+      fieldPaths: counts.fieldPaths,
+      appearsIn: landings,
+      bundleFiles,
+    },
+  };
+}
+
+function writeEntry({ binary, generated, toolchain }) {
+  const { entryId, overlay } = generated;
+  const entryRel = `examples/aicr/${entryId}`;
+  const entryRoot = join(repoRoot, entryRel);
   // This directory is owned exclusively by this entry id, so a full rewrite
   // on every run is idempotent rather than destructive.
   if (existsSync(entryRoot)) rmSync(entryRoot, { recursive: true });
 
   const checksumRows = [];
+  const templateTexts = [];
   for (const file of generated.templateFiles) {
     const bytes = readFileSync(join(generated.templatesDir, file));
     write(join(entryRoot, "argocd-rendered", "templates", file), bytes);
     checksumRows.push(`${sha256(bytes)}  templates/${file}`);
+    templateTexts.push(bytes.toString("utf8"));
   }
+  const applications = readYamlTexts(templateTexts);
+  applications.forEach((doc, index) => {
+    check(
+      doc && !Array.isArray(doc) && doc.kind === "Application",
+      `${entryRel}/argocd-rendered/templates/${generated.templateFiles[index]}: expected exactly one Argo CD Application`,
+    );
+  });
   write(join(entryRoot, "argocd-rendered", "checksums.txt"), `${checksumRows.sort().join("\n")}\n`);
-  write(join(entryRoot, "recipe.yaml"), readFileSync(generated.recipePath));
+  write(join(entryRoot, "recipe.yaml"), readFileSync(join(generated.work, "recipe.yaml")));
+
+  // The bundle is retained byte for byte, and every file in it is listed with
+  // its SHA-256, so the source package can be rebuilt and checked later
+  // without the AICR binary.
+  const inventoryRows = [];
+  for (const file of generated.bundleFiles) {
+    const bytes = readFileSync(join(generated.bundleDir, file));
+    write(join(entryRoot, BUNDLE_DIR, file), bytes);
+    inventoryRows.push(`${sha256(bytes)}  ${file}`);
+  }
+  const inventoryText = `${inventoryRows.join("\n")}\n`;
+  write(join(entryRoot, BUNDLE_INVENTORY), inventoryText);
+
+  const selectorAnswer = generated.answers.find((answer) => answer.input === SYSTEM_NODE_SELECTOR.input);
+  const tolerationAnswer = generated.answers.find((answer) => answer.input === KEYED_TOLERATION.input);
+  const newRequiredInputs = selectorAnswer ? [systemNodeSelectorInput(generated, selectorAnswer, applications)] : [];
+  const sourcePackageRepository = `${generated.repoURL}/${BUNDLE_CHART_NAME}`;
+  const sourcePackageTag = AICR_RELEASE.version.slice(1);
+  generated.newRequiredInputs = newRequiredInputs;
 
   const versionSlug = AICR_RELEASE.version.replace(/^v/, "").replaceAll(".", "-");
   const receipt = {
@@ -395,36 +686,75 @@ function writeEntry({ entryId, overlay, binary, generated }) {
     metadata: { name: `aicr-${entryId}-v${versionSlug}` },
     spec: {
       purpose:
-        `The ${overlay.name} overlay from NVIDIA AICR's recipe catalog, mirrored into a first-class ` +
-        "catalog entry by scripts/generate-aicr-from-overlay.mjs so it can be reviewed the same way a Helm variant is: pinned source, checked render, one digest.",
+        `The ${overlay.name} overlay from NVIDIA AICR's recipe catalog, mirrored into a Catalog entry by ${GENERATOR} so it can be reviewed the same way a Helm variant is: pinned source, retained bundle, checked render, one digest.`,
       source: binary.source,
+      overlay: { name: overlay.name, leaf: overlay.is_leaf === true },
       criteria: generated.recipe.criteria ?? {},
       generationInputs: {
         storageClass: "gp3",
         acceleratedNodeSelector: "nvidia.com/gpu.present=true",
         ...(generated.workloadSelector ? { workloadSelector: generated.workloadSelector } : {}),
-        repoURL: PLANNED_OCI_BASE,
+        ...(selectorAnswer ? { [selectorAnswer.input]: selectorAnswer.value } : {}),
+        ...(tolerationAnswer ? { [tolerationAnswer.input]: tolerationAnswer.value } : {}),
+        repoURL: generated.repoURL,
       },
+      ...(newRequiredInputs.length > 0 ? { newRequiredInputs } : {}),
+      ...(tolerationAnswer
+        ? {
+            answeredRefusals: [
+              {
+                input: tolerationAnswer.input,
+                flag: tolerationAnswer.flag,
+                value: tolerationAnswer.value,
+                observed: tolerationAnswer.observed,
+                valueOrigin:
+                  "The value is the keyed toleration AICR's own refusal names. It matches a GPU node taint of nvidia.com/gpu with effect NoSchedule, and a destination whose GPU nodes carry another taint needs another value.",
+              },
+            ],
+          }
+        : {}),
       // A generated record must be a function of the repository, not of the
-      // machine that produced it: mkdtemp scratch paths churn on every run
-      // and would otherwise make this receipt (and the digest that pins its
-      // shape) differ between two runs over identical inputs.
+      // machine that produced it. The commands are recorded with the relative
+      // paths they ran with, inside a scratch directory that is not recorded.
       commands: {
-        recipe: generated.recipeArgs.map(normalizeTempPaths),
-        bundle: generated.bundleArgs.map(normalizeTempPaths),
-        render: generated.renderArgs.map(normalizeTempPaths),
+        recipe: ["aicr", ...generated.recipeArgs],
+        bundle: ["aicr", ...generated.bundleArgs],
+        render: ["helm", ...generated.renderArgs],
       },
+      toolchain,
       result: {
+        recipeApiVersion: generated.recipe.apiVersion,
         componentCount: generated.componentCount,
+        bundledComponentCount: generated.bundledComponentCount,
+        componentsLeftOutOfBundle: generated.leftOut,
         overlaysResolved: generated.overlaysResolved,
         renderedApplications: generated.renderedApplications,
+        argocdBundleFiles: generated.bundleFiles.length,
+        recipeDigests: {
+          selectedRecipe: generated.selectedRecipeDigest,
+          bundledRecipe: generated.bundledRecipeDigest,
+          note: "The bundled recipe is the selected recipe without the components the bundle leaves out. bundle-info.yaml records its digest, and the rendered sync-waves are compared with it.",
+        },
+        bundleNotes: generated.notes,
+      },
+      retained: {
+        recipe: `${entryRel}/recipe.yaml`,
+        sourceBundle: `${entryRel}/${BUNDLE_DIR}`,
+        sourceBundleInventory: { path: `${entryRel}/${BUNDLE_INVENTORY}`, sha256: sha256(inventoryText), files: generated.bundleFiles.length },
+        renderedApplications: `${entryRel}/argocd-rendered`,
+      },
+      plannedArtifacts: {
+        sourcePackage: {
+          role: "source-package",
+          reference: `${sourcePackageRepository}:${sourcePackageTag}`,
+          statement: "The rendered Applications name this reference. It is the address a publication of the retained bundle uses.",
+        },
+        publication:
+          `This receipt records generation and retention. It does not say whether the source package or the literal configuration bundle of this entry is published. Each one counts as published only when a tracked receipt under ${MIRROR_ARTIFACT_RECEIPT_ROOT}/${entryId}/ records a push and an anonymous pull of the digest planned for it.`,
       },
       boundary: {
         configPlaneOnly: true,
         gpuWorkloadsProven: false,
-        published: false,
-        publishedStatement:
-          "This entry is generated, retained, and rendered. It has not been published to any registry, so it carries no public digest and no OCI transport receipts. The repoURL in its rendered Applications is the reference a publication would use, not a claim that one happened.",
         ngcContacted: false,
         imagesPulled: false,
         statement: "Config-plane only. No GPU workload ran, no container started, and no model was fetched to produce or verify this entry.",
@@ -440,74 +770,204 @@ function writeEntry({ entryId, overlay, binary, generated }) {
     metadata: { name: `aicr-${entryId}` },
     spec: {
       description:
-        "This entry was generated and retained but never published, so it has no OCI transport receipts. The references below are the ones a publication would use, and the compiled index records published as false.",
-      published: false,
+        "This entry carries no OCI transport receipt of its own. The references below are the ones a publication uses, and the compiled index does not say whether one has happened.",
+      publication: { recordedBy: `${MIRROR_ARTIFACT_RECEIPT_ROOT}/${entryId}` },
       plannedOCIBase: PLANNED_OCI_BASE,
-      sourcePackageRepository: `${PLANNED_OCI_BASE}/aicr-bundle`,
+      sourcePackageRepository,
       renderedApplications: generated.renderedApplications,
     },
   };
   writeYaml(join(entryRoot, "index-config.yaml"), indexConfig);
-
+  execFileSync("node", ["scripts/generate-aicr-digest-index.mjs", "--generate", "--example", entryId], {
+    cwd: repoRoot,
+    stdio: ["ignore", "ignore", "inherit"],
+  });
+  generated.sourcePackageReference = `${sourcePackageRepository}:${sourcePackageTag}`;
   return entryRoot;
 }
 
-function compileDigestIndex(entryId) {
-  execFileSync("node", ["scripts/generate-aicr-digest-index.mjs", "--generate", "--example", entryId], {
-    cwd: repoRoot,
-    stdio: "inherit",
-  });
+function mirrorOverlay({ binary, overlay, entryId, toolchain }) {
+  const work = mkdtempSync(join(tmpdir(), `aicr-mirror-${entryId}-`));
+  try {
+    const outcome = runPipeline(binary.path, overlay, entryId, work);
+    if (!outcome.mirrored) return { ...outcome, overlay };
+    writeEntry({ binary, generated: outcome.generated, toolchain });
+    return { mirrored: true, overlay, generated: outcome.generated };
+  } finally {
+    rmSync(work, { recursive: true, force: true });
+  }
 }
 
 // ---------------------------------------------------------------------------
-// Step 5: append to the shared registers, idempotently
+// --all: the whole mirror, replaced in place
 // ---------------------------------------------------------------------------
 
-function updateEntryNamesRegister({ entryId, overlay, generated }) {
-  const text = readFileSync(ENTRY_NAMES_PATH, "utf8");
-  const marker = `    - id: ${entryId}\n`;
-  if (text.includes(marker)) {
-    const existing = readYaml(ENTRY_NAMES_PATH).spec.entries.find((entry) => entry.id === entryId);
-    check(existing, `${relativeRepo(ENTRY_NAMES_PATH)} contains the id ${entryId} but it did not parse back out`);
-    return existing;
+// A directory belongs to the mirror when its receipt names this generator.
+// Everything else under examples/aicr is retained by hand and is never touched.
+function mirroredDirectories() {
+  const examples = join(repoRoot, "examples", "aicr");
+  return readdirSync(examples)
+    .filter((name) => statSync(join(examples, name)).isDirectory())
+    .filter((name) => {
+      const receiptPath = join(examples, name, "generation-receipt.yaml");
+      return existsSync(receiptPath) && readFileSync(receiptPath, "utf8").includes("generate-aicr-from-overlay.mjs");
+    })
+    .sort();
+}
+
+function mirrorAll({ binary, listing, toolchain }) {
+  const before = mirroredDirectories();
+  const overlays = [...listing].sort((left, right) => (left.name < right.name ? -1 : 1));
+  const outcomes = [];
+  for (const overlay of overlays) {
+    const outcome = mirrorOverlay({ binary, overlay, entryId: overlay.name, toolchain });
+    outcomes.push(outcome);
+    console.log(outcome.mirrored ? describe(outcome.generated) : `not mirrored ${overlay.name}: ${outcome.observed || outcome.reason}`);
   }
+  const mirrored = outcomes.filter((outcome) => outcome.mirrored).map((outcome) => outcome.generated);
+  const mirroredIds = new Set(mirrored.map((generated) => generated.entryId));
+  const removed = before.filter((id) => !mirroredIds.has(id));
+  for (const id of removed) {
+    rmSync(join(repoRoot, "examples", "aicr", id), { recursive: true, force: true });
+    rmSync(join(repoRoot, "docs", "demo", "aicr", `${id}.md`), { force: true });
+  }
+  writeRegistersAndPages(mirrored, { replaceIds: [...new Set([...before, ...mirroredIds])] });
+  writeMirrorInventory({ outcomes, listing });
+  // What this run changed is a fact about the run, so it is printed and not
+  // written to a committed file. A second run over the same pin changes nothing.
+  const added = [...mirroredIds].filter((id) => !before.includes(id)).sort();
+  console.log(
+    `mirrored ${mirrored.length} of ${overlays.length} overlays at AICR ${AICR_RELEASE.version}; ${mirrored.length - added.length} directories kept their name, ${added.length} new (${added.join(", ") || "none"}), ${removed.length} removed (${removed.join(", ") || "none"})`,
+  );
+}
 
-  const page = `docs/demo/aicr/${entryId}.md`;
-  const entry = {
-    id: entryId,
-    page,
-    retainedVersion: AICR_RELEASE.version,
-    versionSource:
-      "AICR's own release tag, recorded in this entry's generation receipt. Mirrored by scripts/generate-aicr-from-overlay.mjs from the pinned AICR CLI release.",
-    names: [`${overlay.name} entry`, `AICR ${overlay.name} mirror`],
+function writeMirrorInventory({ outcomes, listing }) {
+  const rows = outcomes.map((outcome) => {
+    const name = outcome.overlay.name;
+    const generated = outcome.generated;
+    return {
+      overlay: name,
+      leaf: outcome.overlay.is_leaf === true,
+      mirrored: outcome.mirrored,
+      entry: outcome.mirrored ? `examples/aicr/${generated.entryId}` : "",
+      components: outcome.mirrored ? generated.componentCount : "",
+      bundledComponents: outcome.mirrored ? generated.bundledComponentCount : "",
+      applications: outcome.mirrored ? generated.renderedApplications : "",
+      bundleFiles: outcome.mirrored ? generated.bundleFiles.length : "",
+      systemNodeSelectorPlaceholder: outcome.mirrored ? generated.answers.some((answer) => answer.input === SYSTEM_NODE_SELECTOR.input) : "",
+      keyedToleration: outcome.mirrored ? generated.answers.some((answer) => answer.input === KEYED_TOLERATION.input) : "",
+      sourcePackage: outcome.mirrored ? generated.sourcePackageReference : "",
+      notMirroredStage: outcome.mirrored ? "" : outcome.stage,
+      notMirroredReason: outcome.mirrored ? "" : outcome.reason,
+      observedRefusal: outcome.mirrored ? "" : outcome.observed,
+    };
+  });
+  const header = Object.keys(rows[0]);
+  const cell = (value) => {
+    const text = String(value);
+    return /[",\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
   };
-  const block = [
-    `    - id: ${entry.id}`,
-    `      page: ${entry.page}`,
-    `      retainedVersion: ${entry.retainedVersion}`,
-    "      versionSource: >-",
-    ...wrapProse(entry.versionSource, 8),
-    "      names:",
-    ...entry.names.map((name) => `        - ${name}`),
-    "",
-  ].join("\n");
+  write(
+    join(repoRoot, MIRROR_DATA_ROOT, "overlays.csv"),
+    `${[header, ...rows.map((row) => header.map((key) => row[key]))].map((row) => row.map(cell).join(",")).join("\n")}\n`,
+  );
+  const mirrored = rows.filter((row) => row.mirrored);
+  const notMirrored = rows.filter((row) => !row.mirrored);
+  const placeholders = mirrored.filter((row) => row.systemNodeSelectorPlaceholder === true).length;
+  const tolerations = mirrored.filter((row) => row.keyedToleration === true).length;
+  write(
+    join(repoRoot, MIRROR_DATA_ROOT, "summary.md"),
+    [
+      "# The AICR overlay mirror",
+      "",
+      "**UNOFFICIAL/EXPERIMENTAL**",
+      "",
+      `<!-- Generated by ${GENERATOR} --all. Do not edit by hand. -->`,
+      "",
+      `The mirror is generated from AICR ${AICR_RELEASE.version}, commit \`${AICR_RELEASE.commit}\`. \`aicr recipe list\` names ${listing.length} overlays at that release, and ${mirrored.length} of them are mirrored as Catalog entries under \`examples/aicr/\`. Each entry retains the recipe, the argocd-helm bundle with a checksum of every file, and the rendered Argo CD Applications.`,
+      "",
+      `${placeholders} entries carry the placeholder system node selector \`${SYSTEM_NODE_SELECTOR.value}\`, because AICR refuses their bundle without a system node selector. Each of those entries records the refusal and every place the placeholder lands. ${tolerations} entries carry the keyed toleration \`${KEYED_TOLERATION.value}\`, which AICR's own refusal names for AKS.`,
+      "",
+      "This page does not say whether any entry is published. [overlays.csv](./overlays.csv) lists every overlay with its counts and its planned source package reference.",
+      "",
+      NETWORK_OBSERVATION,
+      "",
+      "## Overlays that are not mirrored",
+      "",
+      ...(notMirrored.length === 0
+        ? ["Every overlay is mirrored.", ""]
+        : [
+            "| Overlay | Stage | Why | What AICR said |",
+            "| --- | --- | --- | --- |",
+            ...notMirrored.map((row) => `| ${row.overlay} | ${row.notMirroredStage} | ${row.notMirroredReason} | ${row.observedRefusal ? `\`${row.observedRefusal.replaceAll("|", "\\|")}\`` : "nothing, because no command could be formed"} |`),
+            "",
+          ]),
+    ].join("\n"),
+  );
+}
 
+// ---------------------------------------------------------------------------
+// Step 6: registers, the doc map and the pages
+// ---------------------------------------------------------------------------
+
+function escapeRegExp(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function writeRegistersAndPages(mirrored, { replaceIds }) {
+  const sorted = [...mirrored].sort((left, right) => (left.entryId < right.entryId ? -1 : 1));
+  updateEntryNamesRegister(sorted, replaceIds);
+  updateNumericClaims(sorted, replaceIds);
+  updateDocMap(sorted, replaceIds);
+  for (const generated of sorted) writeDocsPage(generated);
+}
+
+function updateEntryNamesRegister(mirrored, replaceIds) {
+  let text = readFileSync(ENTRY_NAMES_PATH, "utf8");
+  for (const id of replaceIds) {
+    const block = new RegExp(
+      `    - id: ${escapeRegExp(id)}\\n      page: docs/demo/aicr/${escapeRegExp(id)}\\.md\\n      retainedVersion: \\S+\\n      versionSource: >-\\n(?:        .*\\n)+      names:\\n(?:        - .*\\n)+\\n`,
+    );
+    text = text.replace(block, "");
+  }
   const anchor = "  # Pages that discuss the entries in general rather than any one of them.";
   check(text.includes(anchor), `${relativeRepo(ENTRY_NAMES_PATH)}: expected anchor comment is missing; the file shape changed`);
-  write(ENTRY_NAMES_PATH, text.replace(anchor, `${block}\n${anchor}`));
-  return entry;
+  const versionSource =
+    `AICR's own release tag, recorded in this entry's generation receipt. Mirrored by ${GENERATOR} from the pinned AICR CLI release.`;
+  const blocks = mirrored.map((generated) => {
+    check(
+      !text.includes(`    - id: ${generated.entryId}\n`),
+      `${relativeRepo(ENTRY_NAMES_PATH)}: ${generated.entryId} is registered by hand, so the mirror cannot take that id`,
+    );
+    return [
+      `    - id: ${generated.entryId}`,
+      `      page: docs/demo/aicr/${generated.entryId}.md`,
+      `      retainedVersion: ${AICR_RELEASE.version}`,
+      "      versionSource: >-",
+      ...wrapProse(versionSource, 8),
+      "      names:",
+      `        - ${generated.overlay.name} entry`,
+      `        - AICR ${generated.overlay.name} mirror`,
+      "",
+    ].join("\n");
+  });
+  write(ENTRY_NAMES_PATH, text.replace(anchor, `${blocks.map((block) => `${block}\n`).join("")}${anchor}`));
 }
 
-function updateNumericClaims({ entryId, generated }) {
-  const text = readFileSync(NUMERIC_CLAIMS_PATH, "utf8");
-  const marker = `    - id: ${entryId}-applications\n`;
-  if (text.includes(marker)) return;
-
-  const applicationsPhrase = `${generated.renderedApplications} Applications`;
-  const componentsPhrase = `${generated.componentCount} components`;
-  const overlaysPhrase = `${numberWord(generated.overlaysResolved)} overlays`;
-
-  const quantityBlock = [
+function updateNumericClaims(mirrored, replaceIds) {
+  let text = readFileSync(NUMERIC_CLAIMS_PATH, "utf8");
+  for (const id of replaceIds) {
+    const safe = escapeRegExp(id);
+    text = text
+      .replace(new RegExp(`    - id: ${safe}-(?:applications|components|overlays)\\n      description: .*\\n      compute: .*\\n`, "g"), "")
+      .replace(new RegExp(`    - id: ${safe}-(?:renders-applications|declares-components|resolves-overlays)\\n      quantity: .*\\n      page: .*\\n      phrases: .*\\n`, "g"), "");
+  }
+  // Removing a block can leave the blank line that separated it from the next
+  // one. Runs of blank lines are collapsed so a second run changes nothing.
+  text = text.replace(/\n{3,}/g, "\n\n").replace(/\n+$/, "\n");
+  const claimsAnchor = "\n  claims:\n";
+  check(text.includes(claimsAnchor), `${relativeRepo(NUMERIC_CLAIMS_PATH)}: expected "claims:" key is missing; the file shape changed`);
+  const quantityBlocks = mirrored.map(({ entryId }) => [
     `    - id: ${entryId}-applications`,
     `      description: The Argo CD Applications the ${entryId} entry renders.`,
     `      compute: { kind: files, dir: examples/aicr/${entryId}/argocd-rendered/templates, suffix: .yaml }`,
@@ -517,39 +977,42 @@ function updateNumericClaims({ entryId, generated }) {
     `    - id: ${entryId}-overlays`,
     `      description: The overlays AICR resolved to produce the ${entryId} recipe.`,
     `      compute: { kind: number, file: examples/aicr/${entryId}/generation-receipt.yaml, path: spec.result.overlaysResolved }`,
-  ].join("\n");
-
-  const claimsAnchor = "  claims:\n";
-  check(text.includes(claimsAnchor), `${relativeRepo(NUMERIC_CLAIMS_PATH)}: expected "claims:" key is missing; the file shape changed`);
-  let updated = text.replace(claimsAnchor, `${quantityBlock}\n\n${claimsAnchor}`);
-
-  const claimBlock = [
-    "",
-    `    - id: ${entryId}-renders-applications`,
-    `      quantity: ${entryId}-applications`,
-    `      page: ${entryId}.md`,
-    `      phrases: ["${applicationsPhrase}"]`,
-    `    - id: ${entryId}-declares-components`,
-    `      quantity: ${entryId}-components`,
-    `      page: ${entryId}.md`,
-    `      phrases: ["${componentsPhrase}"]`,
-    `    - id: ${entryId}-resolves-overlays`,
-    `      quantity: ${entryId}-overlays`,
-    `      page: ${entryId}.md`,
-    `      phrases: ["${overlaysPhrase}"]`,
-  ].join("\n");
-  check(updated.endsWith("\n"), `${relativeRepo(NUMERIC_CLAIMS_PATH)}: expected the file to end with a newline`);
-  updated = `${updated.slice(0, -1)}${claimBlock}\n`;
-  write(NUMERIC_CLAIMS_PATH, updated);
+  ].join("\n"));
+  const claimBlocks = mirrored.map((generated) => [
+    `    - id: ${generated.entryId}-renders-applications`,
+    `      quantity: ${generated.entryId}-applications`,
+    `      page: ${generated.entryId}.md`,
+    `      phrases: ["${generated.renderedApplications} Applications"]`,
+    `    - id: ${generated.entryId}-declares-components`,
+    `      quantity: ${generated.entryId}-components`,
+    `      page: ${generated.entryId}.md`,
+    `      phrases: ["${generated.componentCount} components"]`,
+    `    - id: ${generated.entryId}-resolves-overlays`,
+    `      quantity: ${generated.entryId}-overlays`,
+    `      page: ${generated.entryId}.md`,
+    `      phrases: ["${numberWord(generated.overlaysResolved)} overlays"]`,
+  ].join("\n"));
+  const anchorAt = text.indexOf(claimsAnchor);
+  const head = text.slice(0, anchorAt).replace(/\n+$/, "\n");
+  const tail = text.slice(anchorAt + 1).replace(/\n+$/, "\n");
+  write(
+    NUMERIC_CLAIMS_PATH,
+    `${head}${quantityBlocks.length > 0 ? `\n${quantityBlocks.join("\n\n")}\n` : ""}\n${tail}${claimBlocks.length > 0 ? `\n${claimBlocks.join("\n")}\n` : ""}`,
+  );
 }
 
 function numberWord(value) {
   return NUMBER_WORDS[value] ?? String(value);
 }
 
+// Wrap prose to a width. A Markdown link is kept on one line, because a link
+// broken across lines is easy for a link checker to miss.
 function wrapProse(text, indent, width = 78) {
   const pad = " ".repeat(indent);
-  const words = text.split(/\s+/);
+  const words = text
+    .replace(/\[[^\]]+\]\([^)]+\)/g, (link) => link.replaceAll(" ", "\u0000"))
+    .split(/\s+/)
+    .map((word) => word.replaceAll("\u0000", " "));
   const lines = [];
   let line = "";
   for (const word of words) {
@@ -564,39 +1027,85 @@ function wrapProse(text, indent, width = 78) {
   return lines;
 }
 
-// ---------------------------------------------------------------------------
-// Step 6: the entry's page
-// ---------------------------------------------------------------------------
+function updateDocMap(mirrored, replaceIds) {
+  let text = readFileSync(DOC_MAP_PATH, "utf8");
+  for (const id of replaceIds) {
+    const row = new RegExp(`\\| \\[AICR ${escapeRegExp(id)} example\\]\\(\\./demo/aicr/${escapeRegExp(id)}\\.md\\) \\| Mirrored from NVIDIA AICR's recipe catalog: .*\\n`);
+    text = text.replace(row, "");
+  }
+  const anchor = "| [AICR-native NIM inference example](./demo/aicr/eks-h100-inference-nim.md)";
+  const anchorLineEnd = text.indexOf("\n", text.indexOf(anchor));
+  check(text.includes(anchor) && anchorLineEnd !== -1, `${relativeRepo(DOC_MAP_PATH)}: expected AICR worked-examples row is missing; the file shape changed`);
+  const rows = mirrored.map((generated) =>
+    `| [AICR ${generated.entryId} example](./demo/aicr/${generated.entryId}.md) | Mirrored from NVIDIA AICR's recipe catalog: ${generated.componentCount} components resolved into ${generated.renderedApplications} rendered Argo CD Applications, with the bundle retained and the shape digest-pinned, generated by \`${GENERATOR}\`. |\n`);
+  write(DOC_MAP_PATH, `${text.slice(0, anchorLineEnd + 1)}${rows.join("")}${text.slice(anchorLineEnd + 1)}`);
+}
 
-function writeDocsPage({ entryId, overlay, generated, registerEntry }) {
+// The page states what holds for the retained bytes. It is rewritten on every
+// run, because it is generated text and its numbers follow the entry. It does
+// not say whether the entry is published, because that state lives in tracked
+// receipts and reaches the reader through the entry's Catalog record.
+function writeDocsPage(generated) {
+  const { entryId, overlay } = generated;
   const pagePath = join(repoRoot, "docs", "demo", "aicr", `${entryId}.md`);
-  if (existsSync(pagePath)) return; // idempotent: never overwrite a page a reviewer may have edited by hand.
-
-  const criteriaLine = generated.recipeArgs
-    .slice(1)
-    .reduce((parts, token, index, all) => {
-      if (index % 2 === 0 && token.startsWith("--") && token !== "--output") parts.push(`${token} ${all[index + 1]}`);
-      return parts;
-    }, [])
-    .join(" ");
+  const entryLink = `../../../examples/aicr/${entryId}`;
+  const criteriaLine = criteriaFlags(generated.criteria).reduce(
+    (parts, token, index, all) => (index % 2 === 0 ? [...parts, `${token} ${all[index + 1]}`] : parts),
+    [],
+  ).join(" ");
+  const bundleTail = generated.bundleArgs.slice(generated.bundleArgs.indexOf("--storage-class"));
+  const bundleLines = [];
+  for (let index = 0; index < bundleTail.length; index += 2) bundleLines.push(`  ${bundleTail[index]} ${bundleTail[index + 1]}`);
   const commandLines = [
-    `aicr ${generated.recipeArgs.filter((token) => token !== generated.recipePath && token !== "--output").join(" ")} --output recipe.yaml`,
-    "aicr bundle --recipe recipe.yaml --deployer argocd-helm --output ./argocd-helm-bundle \\",
-    `  --storage-class gp3 --accelerated-node-selector nvidia.com/gpu.present=true${generated.workloadSelector ? ` \\\n  --workload-selector ${generated.workloadSelector}` : ""}`,
-    `helm template aicr-argocd ./argocd-helm-bundle --namespace argocd \\`,
-    `  --set repoURL=${PLANNED_OCI_BASE} --output-dir rendered`,
+    `aicr ${generated.recipeArgs.join(" ")}`,
+    `aicr bundle --recipe recipe.yaml --deployer argocd-helm --output ./${BUNDLE_DIR} \\`,
+    bundleLines.join(" \\\n"),
+    `helm template aicr-argocd ./${BUNDLE_DIR} --namespace argocd \\`,
+    `  --set repoURL=${generated.repoURL} --output-dir rendered`,
   ];
+  const leftOut = generated.leftOut.map((row) => row.name);
+  const leftOutSentence = wrapProse(
+    leftOut.length === 0
+      ? "The bundle carries everything the recipe selects."
+      : `The bundle leaves out ${leftOut.join(", ")}, which the recipe selects, and the generation receipt records the reason AICR logged for ${leftOut.length === 1 ? "it" : "each of them"}.`,
+    0,
+  ).join("\n");
+  const selector = (generated.newRequiredInputs ?? []).find((input) => input.input === SYSTEM_NODE_SELECTOR.input);
+  const toleration = generated.answers.find((answer) => answer.input === KEYED_TOLERATION.input);
+  const inputSection = [];
+  if (selector || toleration) {
+    inputSection.push("## Inputs you have to check", "");
+    if (selector) {
+      inputSection.push(
+        ...wrapProse(
+          `AICR ${AICR_RELEASE.version} refuses to write this bundle without a system node selector. The entry carries \`${selector.value}\` as a placeholder. It stands in for the label on your own cluster's system node group, and it is not a claim about any cluster. The [generation receipt](${entryLink}/generation-receipt.yaml) lists every place it lands in the rendered Applications and in the bundle. A different value changes the bundle bytes and every digest in this entry, so the entry has to be regenerated with your value, or a variant has to be made from it.`,
+          0,
+        ),
+        "",
+      );
+    }
+    if (toleration) {
+      inputSection.push(
+        ...wrapProse(
+          `AICR also refuses the default wildcard toleration for this overlay, because AKS admission cannot accept it. The entry carries the keyed toleration \`${toleration.value}\`, which is the value AICR's own refusal names. A cluster whose GPU nodes carry another taint needs another value.`,
+          0,
+        ),
+        "",
+      );
+    }
+    inputSection.push("");
+  }
 
   const page = `# The ${overlay.name} overlay, mirrored as a catalog entry
 
 UNOFFICIAL/EXPERIMENTAL. This entry belongs to
 [the AICR catalog overview](./index.md). It was produced by
-\`scripts/generate-aicr-from-overlay.mjs ${overlay.name}\`, which mirrors an
+\`${GENERATOR} ${overlay.name}\`, which mirrors an
 overlay from NVIDIA's AICR recipe catalog into a Catalog entry. Its source is
-pinned by digest, its render is checked, and one digest covers the whole
-rendered shape. That shape is the Argo CD wrapper only. The charts its
-Applications point at are not rendered or assessed here, the entry is not
-published, and it has never run on a cluster.
+pinned by digest, its bundle is retained, its render is checked, and one
+digest covers the whole rendered shape. That shape is the Argo CD wrapper
+only. The charts its Applications point at are not rendered or assessed here,
+and the entry has never run on a cluster.
 
 ## What it is
 
@@ -605,14 +1114,25 @@ and the Argo CD bundle renders into ${generated.renderedApplications} Applicatio
 Application per rendered component, and some components render more than one
 Application for their own pre- or post-install step).
 
+${leftOutSentence}
+
 \`\`\`bash
 ${commandLines.join("\n")}
 \`\`\`
 
-The [generation receipt](../../../examples/aicr/${entryId}/generation-receipt.yaml)
+The [generation receipt](${entryLink}/generation-receipt.yaml)
 records the exact commands, the criteria, and the release binary this entry
-was built with: AICR ${AICR_RELEASE.version}, verified against the checksum published
-in that release before it ran.
+was built with. That binary is AICR ${AICR_RELEASE.version}, and it was checked against a
+pinned SHA-256 before it ran.
+
+${inputSection.join("\n")}## What the entry retains
+
+The [retained bundle](${entryLink}/${BUNDLE_DIR}) is the
+Helm chart AICR generated, byte for byte, and
+[its checksum list](${entryLink}/${BUNDLE_INVENTORY})
+names every file in it. The rendered Applications take their source from
+\`${generated.sourcePackageReference}\`,
+which is the address a publication of that bundle uses.
 
 ## One digest pins this entry too
 
@@ -620,36 +1140,25 @@ in that release before it ran.
 node scripts/generate-aicr-digest-index.mjs --verify --example ${entryId}
 \`\`\`
 
-The [digest index](../../../examples/aicr/${entryId}/digest-index/README.md)
+The [digest index](${entryLink}/digest-index/README.md)
 pins the upstream source, the recipe criteria, and all ${generated.renderedApplications} Applications
 under one platform digest. The compiler is a generic one shared by every
 entry in this catalog, not something built new for this one.
 
 ## What is proven and what is not
 
-Proven: the entry was generated by a binary verified against a checksum
-pinned before it ran, the recipe and every rendered Application are retained
+The entry was generated by a binary checked against a pinned SHA-256 before
+it ran. The recipe, the bundle and every rendered Application are retained
 byte for byte, and one digest pins the shape.
 
-Not proven, and stated rather than implied: this entry was never published,
-so it carries no public digest and no OCI transport receipts, and the
-repository reference in its Applications is what a publication would use
-rather than a record that one happened. No ConfigHub import or promotion
-exists for it, no cluster ever ran it, and no NGC surface was contacted.
+This page does not say whether the entry's source package or its literal
+configuration bundle is published. Each counts as published only when a
+tracked receipt records a push and an anonymous pull of the planned digest,
+and the entry's Catalog record carries that state. No ConfigHub import or
+promotion exists for this entry, no cluster ever ran it, and no NGC surface
+was contacted.
 `;
   write(pagePath, page);
-}
-
-function updateDocMap({ entryId, generated }) {
-  const text = readFileSync(DOC_MAP_PATH, "utf8");
-  const target = `./demo/aicr/${entryId}.md`;
-  if (text.includes(target)) return;
-
-  const anchor = "| [AICR-native NIM inference example](./demo/aicr/eks-h100-inference-nim.md)";
-  const anchorLineEnd = text.indexOf("\n", text.indexOf(anchor));
-  check(anchorLineEnd !== -1, `${relativeRepo(DOC_MAP_PATH)}: expected AICR worked-examples row is missing; the file shape changed`);
-  const row = `| [AICR ${entryId} example](./demo/aicr/${entryId}.md) | Mirrored from NVIDIA AICR's recipe catalog: ${generated.componentCount} components resolved into ${generated.renderedApplications} rendered Argo CD Applications, retained and digest-pinned, generated by \`scripts/generate-aicr-from-overlay.mjs\`. |`;
-  write(DOC_MAP_PATH, `${text.slice(0, anchorLineEnd + 1)}${row}\n${text.slice(anchorLineEnd + 1)}`);
 }
 
 main();

@@ -9,7 +9,7 @@ metadata:
     namespace: argocd
 spec:
     destination:
-        namespace: skyhook
+        namespace: nodewright
         server: 'https://kubernetes.default.svc'
     project: 'default'
     source:
@@ -25,6 +25,8 @@ spec:
                       requests:
                         cpu: 250m
                         memory: 512Mi
+                  selectors:
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 fullnameOverride: skyhook-operator
@@ -35,10 +37,8 @@ spec:
                   defaultRequest:
                     cpu: 500m
                     memory: 512Mi
-                webhook:
-                  removalImage: docker.io/alpine/kubectl
         repoURL: oci://ghcr.io/nvidia/nodewright/charts/nodewright
-        targetRevision: v0.17.1
+        targetRevision: v0.19.0
     syncPolicy:
         automated:
             prune: true

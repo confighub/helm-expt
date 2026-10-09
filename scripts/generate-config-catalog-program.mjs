@@ -37,9 +37,22 @@ import {
   testHelmOpenQuestions,
 } from "./lib/helm-open-questions.mjs";
 import {
+  aicrMirrorDelivery,
+  aicrMirrorDeliveryProblem,
+  AICR_MIRROR_STATES,
+  LITERAL_CONFIG,
+  loadAicrMirrorEntries,
+  SOURCE_PACKAGE,
+} from "./lib/aicr-mirror-artifacts.mjs";
+import {
   assertOrderingSupportsRoute,
+  AICR_BUNDLE_PATH_SOURCE,
   AICR_MEMBERS_CSV,
   ATTENTION_STATE,
+  DRA_EVICTION_FLAG,
+  DRA_EVICTION_ROUTE,
+  DRA_LABELER,
+  draEvictionPremise,
   loadAicrOrderingEvidence,
   loadAicrRecipeEntries,
   orderingEvidenceFor,
@@ -200,6 +213,17 @@ function configHubReadyOutcome(bundleName) {
     configHubReadyOutcomes = new Map((receipt?.spec?.bundles ?? []).map((row) => [row.name, row]));
   }
   return configHubReadyOutcomes.get(bundleName) ?? null;
+}
+// The mirrored overlays plan two OCI artifacts each, and a tracked receipt
+// says when one is published. The self-test reads no receipt, so its fixtures
+// start unpublished whatever lands later.
+let aicrMirrorReceiptMode = "tracked";
+function aicrMirrorEntryFor(entry) {
+  if (entry.origin !== "mirrored-overlay") return null;
+  const found = loadAicrMirrorEntries({ receipts: aicrMirrorReceiptMode, verdictRoot: aicrVerdictRoot })
+    .find((candidate) => candidate.id === entry.id);
+  check(found, `${entry.entryRel}: the mirrored overlay has no planned source package and literal bundle`);
+  return found;
 }
 // The records built from retained-and-rendered AICR recipe directories, keyed
 // by record name. flatteningRecord and validateRecords both hold these records
@@ -1280,9 +1304,22 @@ function buildAicrRecipeRecord(entry) {
   const criteria = entry.receipt.criteria;
   const criteriaText = Object.entries(criteria).map(([key, value]) => `${key}=${value}`).join(", ");
   const bundlePathApplications = entry.nestedSources.filter(
-    (row) => row.kind === "path-in-unpublished-aicr-bundle",
+    (row) => row.kind === AICR_BUNDLE_PATH_SOURCE,
   ).length;
   const chartCount = new Set(entry.nestedSources.map((row) => row.chart).filter(Boolean)).size;
+  // A mirrored overlay plans two OCI artifacts, and what the record says about
+  // them is written from the tracked receipts. The two older directories plan
+  // none and keep saying so.
+  const mirror = aicrMirrorEntryFor(entry);
+  const mirrorDelivery = mirror ? aicrMirrorDelivery(mirror) : null;
+  const requiredInputs = entry.receipt.newRequiredInputs ?? [];
+  check(
+    requiredInputs.every((input) => input.valueStatus === INPUT_PLACEHOLDER),
+    `${name}: ${entry.receiptRel} records a required generation input that is not a confirmed placeholder, and this builder only describes those`,
+  );
+  const placeholderByName = new Map(requiredInputs.map((input) => [input.input, input]));
+  const answeredRefusals = entry.receipt.answeredRefusals ?? [];
+  const mirrorCompanion = (suffix) => mirror?.generated.find((file) => file.source.endsWith(suffix))?.source;
   const applicationNamespaces = [...new Set(applications.map((application) => application.namespace))];
   check(
     applicationNamespaces.length === 1 && applicationNamespaces[0],
@@ -1302,7 +1339,9 @@ function buildAicrRecipeRecord(entry) {
     {
       category: "source-package-oci",
       name: "aicr-bundle-source-package",
-      purpose: `${bundlePathApplications} of the ${applications.length} Applications ${bundlePathApplications === 1 ? "takes its" : "take their"} source from ${entry.sourcePackageRepository} at ${entry.sourcePackageRevision}. That package is not published, so a destination needs a reachable copy before Argo CD can resolve ${bundlePathApplications === 1 ? "it" : "them"}.`,
+      purpose: mirrorDelivery
+        ? mirrorDelivery.sourcePackageRequirement
+        : `${bundlePathApplications} of the ${applications.length} Applications ${bundlePathApplications === 1 ? "takes its" : "take their"} source from ${entry.sourcePackageRepository} at ${entry.sourcePackageRevision}. That package is not published, so a destination needs a reachable copy before Argo CD can resolve ${bundlePathApplications === 1 ? "it" : "them"}.`,
     },
     {
       category: "target-fact",
@@ -1337,7 +1376,75 @@ function buildAicrRecipeRecord(entry) {
       order: 2,
       evidence: [verdictRel],
     },
+    // A confirmed placeholder is carried the way a hook is: named among the
+    // install-time requirements with every place it lands, given a route, and
+    // left for the destination to resolve.
+    ...requiredInputs.map((input, index) => ({
+      routeName: input.placeholder.route,
+      lifecyclePhase: "destination-resolution",
+      actionKind: "resolve-lifecycle-work",
+      executionMode: "destination-specific",
+      automatic: false,
+      owner: "platform operator",
+      operatingDetails: `Replace the placeholder ${input.input} ${input.value} with ${input.placeholder.changeTo}, before the bundle is delivered to a destination. That means regenerating the bundle with the new value or making a variant from this entry.`,
+      disposition: "recorded-not-run",
+      evidenceRequired: "The label observed on the destination's system node group, and either a bundle regenerated with that value or a variant made from this entry, with its new digests.",
+      order: 3 + index,
+      evidence: [entry.receiptRel, mirrorCompanion(`routes/${input.placeholder.route}.yaml`)].filter(Boolean),
+    })),
+    ...(entry.leftOutOfBundle.length > 0
+      ? [{
+          routeName: "components-left-out-of-bundle",
+          lifecyclePhase: "destination-resolution",
+          actionKind: "resolve-lifecycle-work",
+          executionMode: "destination-specific",
+          automatic: false,
+          owner: "platform operator",
+          operatingDetails: `Decide whether the destination needs ${entry.leftOutOfBundle.map((row) => row.name).join(", ")}, which the selected recipe names and the bundle does not deploy. Including one means regenerating the bundle with the input AICR names for it.`,
+          disposition: "recorded-not-run",
+          evidenceRequired: "A recorded decision for each component, and a regenerated bundle with its new digests when one is included.",
+          order: 3 + requiredInputs.length,
+          evidence: [entry.receiptRel, mirrorCompanion("routes/components-left-out-of-bundle.yaml")].filter(Boolean),
+        }]
+      : []),
+    // The generation chose not to opt in to DRA eviction. The route is carried
+    // only where the entry's own bytes show that choice, and the mirror
+    // generator writes its file under the same condition.
+    ...(entry.draEvictionPremise?.holds
+      ? [{
+          routeName: DRA_EVICTION_ROUTE,
+          lifecyclePhase: "destination-resolution",
+          actionKind: "resolve-lifecycle-work",
+          executionMode: "destination-specific",
+          automatic: false,
+          owner: "platform operator",
+          operatingDetails: `Decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts. The bundle was generated with no DRA eviction node label, so ${DRA_LABELER} is not deployed. Including it means regenerating the bundle with ${DRA_EVICTION_FLAG} set.`,
+          disposition: "recorded-not-run",
+          evidenceRequired: "A chosen DRA eviction node label and a regenerated bundle with its new digests, or a recorded decision to leave it off.",
+          order: 4 + requiredInputs.length,
+          evidence: [entry.receiptRel, mirrorCompanion(`routes/${DRA_EVICTION_ROUTE}.yaml`)].filter(Boolean),
+        }]
+      : []),
   ];
+  const placeholderRequirements = requiredInputs.map((input) => ({
+    category: "generation-input",
+    name: input.input,
+    purpose: placeholderSentences(input).purpose,
+    status: INPUT_PLACEHOLDER,
+    confirmedOn: input.confirmedOn,
+    changeTo: input.placeholder.changeTo,
+    route: input.placeholder.route,
+    container: input.placeholder.container,
+    appearsIn: input.placeholder.appearsIn.map((row) => ({
+      application: row.application,
+      valuesPaths: [...row.valuesPaths],
+    })),
+  }));
+  const answeredRequirements = answeredRefusals.map((answer) => ({
+    category: "generation-input",
+    name: answer.input,
+    purpose: `The bundle was generated with ${answer.input}=${answer.value}, because AICR refuses this overlay's default. ${String(answer.valueOrigin).trim()}`,
+  }));
 
   const record = {
     apiVersion: "catalog.confighub.com/v1alpha1",
@@ -1358,7 +1465,7 @@ function buildAicrRecipeRecord(entry) {
         version: entry.version,
         record: entry.receiptRel,
         sourceVariant: entry.selectedOverlay,
-        packageOciRef: "",
+        packageOciRef: mirrorDelivery?.packageOciRef ?? "",
       },
       baseVariant: {
         name: "argocd",
@@ -1376,13 +1483,16 @@ function buildAicrRecipeRecord(entry) {
       inputs: {
         fixedAtBuildTime: [
           ...Object.entries(criteria).map(([key, value]) => `${key}=${value}`),
-          ...Object.entries(entry.receipt.generationInputs).map(([key, value]) => `${key}=${value}`),
+          ...Object.entries(entry.receipt.generationInputs).map(([key, value]) =>
+            placeholderByName.has(key) ? `${key}=${value} (${PLACEHOLDER_INPUT_MARK})` : `${key}=${value}`),
           "deployer=argocd-helm",
           `selectedOverlay=${entry.selectedOverlay}`,
           `appliedOverlays=${entry.recipe.appliedOverlays.join(">")}`,
         ],
-        installTime: targetRequirements,
-        installTimeStatus: "destination-facts-recorded-not-run",
+        installTime: [...targetRequirements, ...placeholderRequirements, ...answeredRequirements],
+        installTimeStatus: requiredInputs.length > 0
+          ? "destination-facts-recorded-not-run-placeholder-input-recorded"
+          : "destination-facts-recorded-not-run",
       },
       routing: {
         routes,
@@ -1398,15 +1508,19 @@ function buildAicrRecipeRecord(entry) {
         sourceRecord: routeRel,
       },
       delivery: {
-        sourcePackageOci: {
-          status: "not-published",
-          plannedRef: `${entry.sourcePackageRepository}:${entry.sourcePackageRevision}`,
-          note: "The reference the rendered Applications name. Nothing has been pushed to it.",
-        },
-        literalConfigOci: {
-          status: "not-published",
-          note: "The rendered Application set has not been packaged or pushed as a literal configuration OCI.",
-        },
+        sourcePackageOci: mirrorDelivery
+          ? mirrorDelivery.sourcePackageOci
+          : {
+              status: "not-published",
+              plannedRef: `${entry.sourcePackageRepository}:${entry.sourcePackageRevision}`,
+              note: "The reference the rendered Applications name. Nothing has been pushed to it.",
+            },
+        literalConfigOci: mirrorDelivery
+          ? mirrorDelivery.literalConfigOci
+          : {
+              status: "not-published",
+              note: "The rendered Application set has not been packaged or pushed as a literal configuration OCI.",
+            },
         configHubUpload: temporaryUpload
           ? {
               status: "temporary-pass",
@@ -1433,7 +1547,17 @@ function buildAicrRecipeRecord(entry) {
         orderingRoute: routeRel,
         ...(existsRepo(bundleReceiptRel) ? { certifiedBundleReceipt: bundleReceiptRel } : {}),
         ...(entry.page && existsRepo(entry.page) ? { entryPage: entry.page } : {}),
-        retention: "retained-and-rendered-not-published-not-deployed",
+        ...(mirror
+          ? {
+              sourceBundle: entry.bundleRel,
+              sourceBundleInventory: mirror.bundleInventory.inventoryRel,
+              sourcePackagePlan: mirror.artifacts[SOURCE_PACKAGE].planRel,
+              literalConfigPlan: mirror.artifacts[LITERAL_CONFIG].planRel,
+              ...(mirror.publications[SOURCE_PACKAGE].published ? { sourcePackageReceipt: mirror.publications[SOURCE_PACKAGE].receiptRel } : {}),
+              ...(mirror.publications[LITERAL_CONFIG].published ? { literalConfigReceipt: mirror.publications[LITERAL_CONFIG].receiptRel } : {}),
+            }
+          : {}),
+        retention: mirrorDelivery?.retention ?? AICR_MIRROR_STATES.neither,
         overlayRole: entry.overlayRole,
         appliedOverlays: entry.recipe.appliedOverlays.join(" > "),
         // Related entries, named so a listing can link them. They are other
@@ -1463,14 +1587,27 @@ function buildAicrRecipeRecord(entry) {
     },
     status: {
       level: "partial",
-      claim: `AICR ${entry.version} generated the ${entry.selectedOverlay} overlay as ${applications.length} Argo CD Applications. They are retained and rendered, not published, not deployed. ${overlaySentence}`,
+      claim: mirrorDelivery
+        ? `AICR ${entry.version} generated the ${entry.selectedOverlay} overlay as ${applications.length} Argo CD Applications. ${overlaySentence} ${mirrorDelivery.claim}`
+        : `AICR ${entry.version} generated the ${entry.selectedOverlay} overlay as ${applications.length} Argo CD Applications. They are retained and rendered, not published, not deployed. ${overlaySentence}`,
       limits: [
         "Flattened covers the Application wrapper only. Argo CD renders the nested charts at sync time, and their flattening verdicts are outside this record.",
-        `${bundlePathApplications} of the ${applications.length} Applications name${bundlePathApplications === 1 ? "s" : ""} the AICR bundle package at ${entry.sourcePackageRepository}, which is not published. This entry cannot be delivered until that package is.`,
-        temporaryUpload
-          ? `No OCI artifact is published for this entry. The ConfigHub-ready lane uploaded it once as a temporary base variant of ${temporaryUpload.units} Units and deleted the Space, so no Space, variant, promotion or release exists for it.`
-          : "No OCI artifact is published for this entry, nothing was uploaded to ConfigHub, and no variant, promotion or release exists for it.",
+        ...(mirrorDelivery
+          ? [
+              ...mirrorDelivery.limits,
+              temporaryUpload
+                ? `The ConfigHub-ready lane uploaded this entry once as a temporary base variant of ${temporaryUpload.units} Units and deleted the Space, so no Space, variant, promotion or release exists for it.`
+                : "Nothing was uploaded to ConfigHub, and no variant, promotion or release exists for this entry.",
+            ]
+          : [
+              `${bundlePathApplications} of the ${applications.length} Applications name${bundlePathApplications === 1 ? "s" : ""} the AICR bundle package at ${entry.sourcePackageRepository}, which is not published. This entry cannot be delivered until that package is.`,
+              temporaryUpload
+                ? `No OCI artifact is published for this entry. The ConfigHub-ready lane uploaded it once as a temporary base variant of ${temporaryUpload.units} Units and deleted the Space, so no Space, variant, promotion or release exists for it.`
+                : "No OCI artifact is published for this entry, nothing was uploaded to ConfigHub, and no variant, promotion or release exists for it.",
+            ]),
         "The sync-wave order is recorded as a route. No Argo CD instance has executed it.",
+        ...requiredInputs.map((input) => placeholderSentences(input).limit),
+        ...answeredRefusals.map((answer) => `The bundle was generated with ${answer.input}=${answer.value}, the value AICR's own refusal names for this overlay. A destination whose GPU nodes carry another taint needs another value, which means regenerating the bundle.`),
         ...orderingSentences(entry).slice(1),
         `The recipe criteria are ${criteriaText}. No cluster, cloud service, accelerator, model or workload was contacted or run for this entry.`,
         ...(entry.memberRows > 0
@@ -4580,6 +4717,9 @@ function runHelmOpenQuestionSelfTest() {
 }
 
 function runAicrRecipeEntrySelfTest() {
+  // The fixtures start unpublished whatever receipts are tracked, and the
+  // published cases below build their own publications in memory.
+  aicrMirrorReceiptMode = "none";
   const receipt = (status) => ({ kind: "SourceGenerationReceipt", status });
   check(
     receiptSaysRetainedOffline(receipt({ result: "retained-offline", liveRegistryPublicationClaimed: false })),
@@ -4665,6 +4805,52 @@ function runAicrRecipeEntrySelfTest() {
     "self-test: an edge to a component the recipe does not deploy must be recorded, not dropped and not failed",
   );
 
+  // A selected recipe can hold an edge from a deployed component to one the
+  // bundle leaves out. It raises the flag unless the entry names a route of its
+  // own for that component. The generic list of omitted components never counts.
+  const omittedShape = (namedRoutes) => orderingEvidenceFor({
+    applications: [["root", null], ["alpha", "1"], ["beta", "5"]].map(([name, syncWave]) => ({ name, syncWave })),
+    recipe: { deploymentOrder: ["alpha", "beta"], components: [["alpha", []], ["beta", ["alpha"]]].map(([name, dependencyRefs]) => ({ name, dependencyRefs })) },
+    selectedComponents: [["alpha", ["omitted-one"]], ["beta", ["alpha"]], ["omitted-one", []]].map(([name, dependencyRefs]) => ({ name, dependencyRefs })),
+    namedRoutes,
+  });
+  const undecidedOmission = omittedShape([{ id: "unrelated-route", text: "replace the placeholder node selector" }]);
+  check(
+    uncheckedOrderingEdges(undecidedOmission) === 1
+      && undecidedOmission.edgesToAnOmittedComponent[0].dependsOn === "omitted-one"
+      && /nothing here shows who provides it\.$/.test(orderingOpenQuestion(undecidedOmission)),
+    "self-test: an edge from a deployed component to one the bundle leaves out was not flagged",
+  );
+  const decidedOmission = omittedShape([{ id: "omitted-one-decision", text: "decide whether omitted-one is wanted" }]);
+  check(
+    uncheckedOrderingEdges(decidedOmission) === 0
+      && decidedOmission.edgesToAnOmittedComponentDecidedByARoute[0].decidedBy === "omitted-one-decision"
+      && orderingOpenQuestion(decidedOmission) === "",
+    "self-test: an omission that a route of the entry decides was flagged",
+  );
+  check(
+    uncheckedOrderingEdges(omittedShape([{ id: "other", text: "decide whether omitted-one-extra is wanted" }])) === 1,
+    "self-test: a route that names a different component decided the omission",
+  );
+
+  // The DRA route is recorded only where the entry's own bytes show the choice.
+  const draReceipt = (overrides = {}) => ({
+    source: { binaryVerifiedBeforeUse: "checked before use by scripts/generate-aicr-from-overlay.mjs" },
+    generationInputs: { storageClass: "gp3" },
+    result: { componentsLeftOutOfBundle: [{ name: DRA_LABELER, reason: `AICR skipped it: DRA eviction is not opted in (${DRA_EVICTION_FLAG} unset)` }] },
+    ...overrides,
+  });
+  const draNames = { selectedNames: ["alpha", DRA_LABELER], bundledNames: ["alpha"] };
+  check(draEvictionPremise({ receipt: draReceipt(), ...draNames }).holds, "self-test: the DRA premise was refused for an entry that shows it");
+  for (const [label, input] of [
+    ["an eviction label among the generation inputs", { receipt: draReceipt({ generationInputs: { draEvictionNodeLabel: "x=y" } }), ...draNames }],
+    ["a bundle that still carries the labeler", { receipt: draReceipt(), selectedNames: draNames.selectedNames, bundledNames: draNames.selectedNames }],
+    ["a logged reason that does not name the unset flag", { receipt: draReceipt({ result: { componentsLeftOutOfBundle: [{ name: DRA_LABELER, reason: "disabled in the recipe" }] } }), ...draNames }],
+    ["a hand-retained receipt", { receipt: draReceipt({ source: {} }), ...draNames }],
+  ]) {
+    check(!draEvictionPremise(input).holds, `self-test: the DRA premise held for ${label}`);
+  }
+
   const subject = {
     entry: "examples/aicr/self-test",
     upstreamVersion: "v9.9.9",
@@ -4716,13 +4902,19 @@ function runAicrRecipeEntrySelfTest() {
     new Set(entries.map((entry) => entry.recordName)).size === entries.length,
     "self-test: two retained AICR recipe directories share one record name",
   );
-  const entry = entries[0];
-  const build = () => alignRecordWithProcessingModel(buildAicrRecipeRecord(entry), undefined, undefined);
-  validateAicrRecipeRecord(build(), entry);
-  const tampered = (change) => {
-    const record = build();
+  // Two kinds of directory reach this builder. A hand-retained one plans no
+  // artifact and may carry nothing published. A mirrored one plans two, and
+  // carries exactly what its receipts allow.
+  const handRetained = entries.find((candidate) => candidate.origin === "hand-retained");
+  const mirroredEntry = entries.find((candidate) => candidate.origin === "mirrored-overlay" && (candidate.receipt.newRequiredInputs ?? []).length > 0 && candidate.leftOutOfBundle.length > 0);
+  check(handRetained && mirroredEntry, "self-test: the record fixtures need one hand-retained directory and one mirrored overlay with a placeholder and a left-out component");
+  const buildFor = (subject) => alignRecordWithProcessingModel(buildAicrRecipeRecord(subject), undefined, undefined);
+  validateAicrRecipeRecord(buildFor(handRetained), handRetained);
+  validateAicrRecipeRecord(buildFor(mirroredEntry), mirroredEntry);
+  const tamperedFor = (subject) => (change) => {
+    const record = buildFor(subject);
     change(record);
-    return () => validateAicrRecipeRecord(record, entry);
+    return () => validateAicrRecipeRecord(record, subject);
   };
   for (const [label, change, pattern] of [
     [
@@ -4745,10 +4937,124 @@ function runAicrRecipeEntrySelfTest() {
       (record) => { record.spec.source.packageOciRef = "oci://registry.example.invalid/aicr-bundle:0.0.0"; },
       /claims a published source package/,
     ],
+  ]) {
+    expectRefusal(tamperedFor(handRetained)(change), pattern, `self-test: a hand-retained AICR recipe record carrying ${label} was accepted`);
+  }
+
+  // The mirrored record in each publication state, and in both directions. A
+  // publication here is a fixture in memory. Nothing was pushed.
+  const mirrorSubject = aicrMirrorEntryFor(mirroredEntry);
+  const fixturePublication = (role) => ({
+    published: true,
+    artifact: mirrorSubject.artifacts[role],
+    receiptRel: mirrorSubject.artifacts[role].receiptRel,
+    receiptSha256: `sha256:${"d".repeat(64)}`,
+    observedReference: `oci://${mirrorSubject.artifacts[role].reference}@${mirrorSubject.artifacts[role].manifestDigest}`,
+  });
+  const unpublishedState = { ...mirrorSubject.publications };
+  const withMirrorState = (sourcePublished, literalPublished, run) => {
+    mirrorSubject.publications = {
+      [SOURCE_PACKAGE]: sourcePublished ? fixturePublication(SOURCE_PACKAGE) : unpublishedState[SOURCE_PACKAGE],
+      [LITERAL_CONFIG]: literalPublished ? fixturePublication(LITERAL_CONFIG) : unpublishedState[LITERAL_CONFIG],
+    };
+    try {
+      return run();
+    } finally {
+      mirrorSubject.publications = unpublishedState;
+    }
+  };
+  const mirrorStates = { neither: [false, false], sourceOnly: [true, false], literalOnly: [false, true], both: [true, true] };
+  const builtInState = Object.fromEntries(Object.entries(mirrorStates).map(([state, flags]) => [state, withMirrorState(...flags, () => buildFor(mirroredEntry))]));
+  for (const [state, flags] of Object.entries(mirrorStates)) {
+    check(
+      builtInState[state].spec.evidence.retention === AICR_MIRROR_STATES[state] && builtInState[state].status.level === "partial",
+      `self-test: a mirrored record built in the ${state} state reads as ${builtInState[state].spec.evidence.retention}`,
+    );
+    withMirrorState(...flags, () => validateAicrRecipeRecord(structuredClone(builtInState[state]), mirroredEntry));
+    for (const other of Object.keys(mirrorStates).filter((candidate) => candidate !== state)) {
+      expectRefusal(
+        () => withMirrorState(...flags, () => validateAicrRecipeRecord(structuredClone(builtInState[other]), mirroredEntry)),
+        /no tracked publication receipt for sha256:[0-9a-f]{64} exists|does not carry exactly that reference|evidence\.retention says/,
+        `self-test: a mirrored record written for the ${other} state was accepted in the ${state} state`,
+      );
+    }
+  }
+  check(
+    builtInState.neither.spec.source.packageOciRef === ""
+      && builtInState.neither.spec.delivery.sourcePackageOci.status === "not-published"
+      && builtInState.neither.spec.delivery.literalConfigOci.status === "not-published"
+      && builtInState.neither.status.claim.includes("not published"),
+    "self-test: a mirrored record with no receipt reads as published",
+  );
+  check(
+    builtInState.literalOnly.spec.delivery.literalConfigOci.sourcePackage === "missing"
+      && builtInState.literalOnly.status.claim.includes("cannot be delivered")
+      && builtInState.literalOnly.status.limits.some((limit) => limit.includes("The source package is missing")),
+    "self-test: a mirrored record with a published literal bundle and no source package does not say it cannot be delivered",
+  );
+  check(
+    builtInState.both.spec.delivery.literalConfigOci.sourcePackage === "published-with-receipt"
+      && builtInState.both.spec.source.packageOciRef.startsWith("oci://")
+      && builtInState.both.status.limits.some((limit) => limit.includes("does not prove that any Argo CD instance")),
+    "self-test: a mirrored record with both artifacts published does not say so within its limits",
+  );
+  for (const [label, change, pattern] of [
+    [
+      "a published source package OCI with no receipt",
+      (record) => { record.spec.delivery.sourcePackageOci.status = "published-with-receipt"; },
+      /delivery\.sourcePackageOci says published-with-receipt, and no tracked publication receipt for sha256:[0-9a-f]{64} exists/,
+    ],
+    [
+      "a published literal configuration OCI with no receipt",
+      (record) => { record.spec.delivery.literalConfigOci = { ...record.spec.delivery.literalConfigOci, status: "published-with-receipt", manifestDigest: `sha256:${"c".repeat(64)}` }; },
+      /delivery\.literalConfigOci says published-with-receipt with sha256:c+, and no tracked publication receipt/,
+    ],
+    [
+      "a source package reference with no receipt",
+      (record) => { record.spec.source.packageOciRef = "oci://registry.example.invalid/aicr-bundle:0.0.0"; },
+      /source\.packageOciRef is oci:\/\/registry\.example\.invalid\/aicr-bundle:0\.0\.0, and the receipts allow none/,
+    ],
+    [
+      "a placeholder input presented as settled",
+      (record) => { record.spec.inputs.fixedAtBuildTime = record.spec.inputs.fixedAtBuildTime.map((line) => line.replace(` (${PLACEHOLDER_INPUT_MARK})`, "")); },
+      /is a placeholder, and the record's build-time inputs do not mark it as one/,
+    ],
+    [
+      "no named install-time requirement for the placeholder",
+      (record) => { record.spec.inputs.installTime = record.spec.inputs.installTime.filter((item) => item.status !== INPUT_PLACEHOLDER); },
+      /is not a named install-time requirement that says it is a placeholder/,
+    ],
+    [
+      "a placeholder that drops one landing",
+      (record) => { record.spec.inputs.installTime.find((item) => item.status === INPUT_PLACEHOLDER).appearsIn.pop(); },
+      /does not record every Application and field path the generation receipt lists/,
+    ],
+    [
+      "no route for the placeholder",
+      (record) => { record.spec.lifecycle.routeIntent.routes = record.spec.lifecycle.routeIntent.routes.filter((route) => route.id !== "system-node-selector-placeholder"); },
+      /has no system-node-selector-placeholder route that still requires destination resolution/,
+    ],
+    [
+      "no limit about the placeholder",
+      (record) => { record.status.limits = record.status.limits.filter((limit) => !limit.includes("is a placeholder")); },
+      /the limits do not say that systemNodeSelector=\S+ is a placeholder/,
+    ],
+    [
+      "no route for the components the bundle leaves out",
+      (record) => { record.spec.lifecycle.routeIntent.routes = record.spec.lifecycle.routeIntent.routes.filter((route) => route.id !== "components-left-out-of-bundle"); },
+      /the bundle leaves out \d+ selected component\(s\), and the record carries no route for them/,
+    ],
+  ]) {
+    expectRefusal(tamperedFor(mirroredEntry)(change), pattern, `self-test: a mirrored AICR recipe record carrying ${label} was accepted`);
+  }
+
+  for (const entry of [handRetained, mirroredEntry]) {
+    const tampered = tamperedFor(entry);
+    for (const [label, change, pattern] of [
     [
       "a ConfigHub upload",
       (record) => { record.spec.delivery.configHubUpload.status = "pass"; },
-      /delivery\.configHubUpload says pass, and data\/confighub-ready\/receipt\.yaml records no upload for/,
+      /delivery\.configHubUpload says pass, and data\/confighub-ready\/receipt\.yaml records (no upload|one temporary upload) for/,
     ],
     [
       "an Argo CD delivery result",
@@ -4763,12 +5069,12 @@ function runAicrRecipeEntrySelfTest() {
     [
       "an available status",
       (record) => { record.status.level = "available"; },
-      /the status must stay partial and say the entry is not published and not deployed/,
+      /the status must stay partial and (say the entry is not published and not deployed|end with the sentence its receipts allow)/,
     ],
     [
       "a claim that drops the boundary",
       (record) => { record.status.claim = "AICR generated these Applications and they are ready to use."; },
-      /the status must stay partial and say the entry is not published and not deployed/,
+      /the status must stay partial and (say the entry is not published and not deployed|end with the sentence its receipts allow)/,
     ],
     [
       "a not-assessed flattening verdict",
@@ -4789,17 +5095,39 @@ function runAicrRecipeEntrySelfTest() {
       },
       /the post-deployment stage says completed\/pass for an entry no destination has seen/,
     ],
-  ]) {
-    expectRefusal(tampered(change), pattern, `self-test: a retained AICR recipe record carrying ${label} was accepted`);
+    ]) {
+      expectRefusal(tampered(change), pattern, `self-test: a retained AICR recipe record (${entry.origin}) carrying ${label} was accepted`);
+    }
   }
 
   // The flag follows the ordering evidence in both directions. An entry with
   // an unchecked edge must be flagged, and an entry without one must not be.
   const alignedRecipe = (subject) => alignRecordWithProcessingModel(buildAicrRecipeRecord(subject), undefined, undefined);
   const materializationOf = (record) => record.spec.assessment.stages.find((candidate) => candidate.id === "materialization");
-  const questioned = entries.find((candidate) => uncheckedOrderingEdges(candidate.ordering) > 0);
+  let restoreOrderingEvidence = () => {};
+  let questioned = entries.find((candidate) => uncheckedOrderingEdges(candidate.ordering) > 0);
   const settled = entries.find((candidate) => uncheckedOrderingEdges(candidate.ordering) === 0);
-  check(questioned && settled, "self-test: the flag fixtures need one entry with an unchecked edge and one without");
+  check(settled, "self-test: the flag fixtures need one entry with every dependency edge checked");
+  if (!questioned) {
+    // No retained directory carries an unchecked edge at the mirrored AICR
+    // version, because the bundled recipe declares no edge to a component the
+    // bundle leaves out. The flagged fixture is then a second settled entry
+    // whose ordering evidence gains, in memory, one dependency on a component
+    // the recipe does not deploy.
+    const base = entries.find((candidate) => candidate.id !== settled.id && uncheckedOrderingEdges(candidate.ordering) === 0);
+    check(base, "self-test: the flag fixtures need two retained AICR recipe directories");
+    aicrOrderingEvidenceFor(buildFor(base));
+    const known = aicrOrderingEvidenceByRendered.get(base.renderedRel);
+    const dependent = known.ordering.declaredComponents > 0 ? base.applications.find((application) => application.syncWave !== null && application.syncWave !== undefined).name : "";
+    const ordering = {
+      ...known.ordering,
+      edgesNamingAnUndeployedComponent: [{ component: dependent, dependsOn: "self-test-absent-component", notDeployed: ["self-test-absent-component"] }],
+      deployedDependsOnUndeployed: [{ component: dependent, dependsOn: "self-test-absent-component", notDeployed: ["self-test-absent-component"] }],
+    };
+    aicrOrderingEvidenceByRendered.set(base.renderedRel, { ...known, ordering, openQuestion: orderingOpenQuestion(ordering) });
+    questioned = { ...base, ordering };
+    restoreOrderingEvidence = () => aicrOrderingEvidenceByRendered.set(base.renderedRel, known);
+  }
   const flagged = alignedRecipe(questioned);
   validateAicrOrderingFlag(flagged);
   check(
@@ -4841,6 +5169,7 @@ function runAicrRecipeEntrySelfTest() {
     change(record);
     expectRefusal(() => validateAicrOrderingFlag(record), pattern, `self-test: a retained AICR recipe record with ${label} was accepted`);
   }
+  restoreOrderingEvidence();
   aicrRecipeRecordEntries.clear();
 
   // The v1.0.0 training entry is retained by hand and unpublished. Its record
@@ -6166,16 +6495,34 @@ function validateAicrRecipeRecord(record, entry) {
     spec.lifecycle.resolution.status === "awaits-variant-and-target",
     `${name}: no destination has resolved these routes, and the record says ${spec.lifecycle.resolution.status}`,
   );
-  check(
-    spec.source.packageOciRef === "",
-    `${name}: claims a published source package (${spec.source.packageOciRef}) for an entry that was never published`,
-  );
+  // A mirrored overlay carries exactly what its tracked receipts allow, in
+  // either direction. The two older directories plan no artifact, so nothing
+  // of theirs may read as published.
+  const mirror = aicrMirrorEntryFor(entry);
   const delivery = spec.delivery;
-  for (const role of ["sourcePackageOci", "literalConfigOci"]) {
+  if (mirror) {
+    const problem = aicrMirrorDeliveryProblem(name, record, mirror, { claim: false });
+    check(problem === "", problem);
+    for (const input of entry.receipt.newRequiredInputs ?? []) validatePlaceholderInput(record, input);
     check(
-      delivery[role]?.status === "not-published",
-      `${name}: delivery.${role} says ${delivery[role]?.status ?? "nothing"}, and this entry has published no OCI image`,
+      Boolean(entry.draEvictionPremise?.holds) === spec.lifecycle.routeIntent.routes.some((route) => route.id === DRA_EVICTION_ROUTE),
+      `${name}: the generation ${entry.draEvictionPremise?.holds ? "chose not to opt in to DRA eviction and the record carries no route for it" : "shows no such choice and the record carries a route for it"}`,
     );
+    check(
+      (entry.leftOutOfBundle.length > 0) === spec.lifecycle.routeIntent.routes.some((route) => route.id === "components-left-out-of-bundle"),
+      `${name}: the bundle leaves out ${entry.leftOutOfBundle.length} selected component(s), and the record ${entry.leftOutOfBundle.length > 0 ? "carries no route for them" : "carries a route for none"}`,
+    );
+  } else {
+    check(
+      spec.source.packageOciRef === "",
+      `${name}: claims a published source package (${spec.source.packageOciRef}) for an entry that was never published`,
+    );
+    for (const role of ["sourcePackageOci", "literalConfigOci"]) {
+      check(
+        delivery[role]?.status === "not-published",
+        `${name}: delivery.${role} says ${delivery[role]?.status ?? "nothing"}, and this entry has published no OCI image`,
+      );
+    }
   }
   // The one upload a retained entry may carry is the temporary one the
   // ConfigHub-ready lane recorded for it, and only while that receipt says so.
@@ -6190,7 +6537,7 @@ function validateAicrRecipeRecord(record, entry) {
     delivery.configHubReleaseOci?.status === "not-run",
     `${name}: delivery.configHubReleaseOci says ${delivery.configHubReleaseOci?.status ?? "nothing"}, and nothing was released from ConfigHub for this entry`,
   );
-  for (const role of ["sourcePackageOci", "literalConfigOci", "configHubUpload", "configHubReleaseOci"]) {
+  for (const role of mirror ? ["configHubUpload", "configHubReleaseOci"] : ["sourcePackageOci", "literalConfigOci", "configHubUpload", "configHubReleaseOci"]) {
     const allowed = role === "configHubUpload" && temporaryUpload
       ? ["status", "note", "receipt"]
       : ["status", "plannedRef", "note"];
@@ -6215,11 +6562,14 @@ function validateAicrRecipeRecord(record, entry) {
       `${name}: the ${id} stage says ${stage.evidenceState}/${stage.resultState} for an entry no destination has seen`,
     );
   }
+  const allowedClaim = mirror ? aicrMirrorDelivery(mirror).claim : "";
   check(
     record.status.level === "partial"
-      && record.status.claim.includes("not published")
+      && (mirror ? record.status.claim.endsWith(allowedClaim) : record.status.claim.includes("not published"))
       && record.status.claim.includes("not deployed"),
-    `${name}: the status must stay partial and say the entry is not published and not deployed`,
+    mirror
+      ? `${name}: the status must stay partial and end with the sentence its receipts allow, which is "${allowedClaim}"`
+      : `${name}: the status must stay partial and say the entry is not published and not deployed`,
   );
   check(
     spec.baseVariant.digest === entry.platformDigest.replace(/^sha256:/, "")

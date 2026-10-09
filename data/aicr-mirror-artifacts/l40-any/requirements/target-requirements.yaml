@@ -1,0 +1,116 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "aicr-l40-any-v1-0-0-argocd-target-requirements"
+spec:
+  subject:
+    catalogEntry: "aicr-l40-any-v1-0-0-argocd"
+    source: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "l40-any"
+    platformDigest: "sha256:ac92f798bdc02ca5da1dac895867ef39adf2defcb44571bc6737912a0e789607"
+  deliveryRuntime:
+    name: "Argo CD"
+    api: "argoproj.io/v1alpha1 Application"
+    namespace: "argocd"
+    statement: "All 12 objects in this bundle are Argo CD Applications in the argocd namespace. Argo CD and its Application API must exist on the destination before they are applied."
+  sourcePackage:
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-l40-any/aicr-bundle:1.0.0"
+    manifestDigest: "sha256:e686dab45c371ece91daf2bb331a8c020e9042db449adb942d5912c51363c345"
+    applications:
+      - "aicr-stack"
+    statement: "1 of the 12 Applications takes its source from this Helm chart package. Argo CD must be able to pull it at that reference, and the bytes this bundle was built against have that manifest digest."
+  upstreamCharts:
+    -
+      application: "cert-manager"
+      repoURL: "https://charts.jetstack.io"
+      chart: "cert-manager"
+      targetRevision: "1.20.2"
+    -
+      application: "gpu-operator"
+      repoURL: "https://helm.ngc.nvidia.com/nvidia"
+      chart: "gpu-operator"
+      targetRevision: "26.7.1"
+    -
+      application: "k8s-ephemeral-storage-metrics"
+      repoURL: "https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart"
+      chart: "k8s-ephemeral-storage-metrics"
+      targetRevision: "1.19.2"
+    -
+      application: "kai-scheduler"
+      repoURL: "oci://ghcr.io/kai-scheduler/kai-scheduler/kai-scheduler"
+      chart: "kai-scheduler"
+      targetRevision: "v0.16.9"
+    -
+      application: "kube-prometheus-stack"
+      repoURL: "https://prometheus-community.github.io/helm-charts"
+      chart: "kube-prometheus-stack"
+      targetRevision: "84.4.0"
+    -
+      application: "nfd"
+      repoURL: "https://kubernetes-sigs.github.io/node-feature-discovery/charts"
+      chart: "node-feature-discovery"
+      targetRevision: "0.19.0"
+    -
+      application: "nodewright-operator"
+      repoURL: "oci://ghcr.io/nvidia/nodewright/charts/nodewright"
+      chart: "nodewright"
+      targetRevision: "v0.19.0"
+    -
+      application: "nvidia-dra-driver-gpu"
+      repoURL: "oci://registry.k8s.io/dra-driver-nvidia/charts/dra-driver-nvidia-gpu"
+      chart: "dra-driver-nvidia-gpu"
+      targetRevision: "0.5.0"
+    -
+      application: "nvsentinel"
+      repoURL: "oci://ghcr.io/nvidia/nvsentinel"
+      chart: "nvsentinel"
+      targetRevision: "v1.25.0"
+    -
+      application: "prometheus-adapter"
+      repoURL: "https://prometheus-community.github.io/helm-charts"
+      chart: "prometheus-adapter"
+      targetRevision: "5.3.0"
+    -
+      application: "prometheus-operator-crds"
+      repoURL: "https://prometheus-community.github.io/helm-charts"
+      chart: "prometheus-operator-crds"
+      targetRevision: "28.0.1"
+  recipeCriteria:
+    accelerator: "l40"
+    intent: "any"
+    os: "any"
+    platform: "any"
+    service: "any"
+  generationInputs:
+    acceleratedNodeSelector: "nvidia.com/gpu.present=true"
+    repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-l40-any"
+    storageClass: "gp3"
+    systemNodeSelector: "nodeGroup=system-worker"
+  placeholders:
+    -
+      input: "systemNodeSelector"
+      value: "nodeGroup=system-worker"
+      changeTo: "the label on your own cluster's system node group"
+      route: "routes/system-node-selector-placeholder.yaml"
+  componentsLeftOutOfBundle:
+    names:
+      - "dra-node-labeler"
+    route: "routes/components-left-out-of-bundle.yaml"
+  literalCredentials:
+    -
+      application: "kube-prometheus-stack"
+      file: "kube-prometheus-stack.yaml"
+      key: "adminPassword"
+      value: "admin"
+      statement: "kube-prometheus-stack.yaml sets adminPassword to the literal admin in its chart values. Replace it for any destination that matters."
+  automatedSync:
+    applications: 12
+    statement: "12 of the 12 Applications carry an automated sync policy with prune and self-heal. A destination has to accept that before they are applied."
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-aicr-mirror-artifacts.mjs"
+    generatedFrom:
+      - "examples/aicr/l40-any/generation-receipt.yaml"
+      - "examples/aicr/l40-any/argocd-rendered/templates"
+      - "examples/aicr/l40-any/digest-index/platform-index.json"

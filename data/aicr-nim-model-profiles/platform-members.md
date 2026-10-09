@@ -2,7 +2,7 @@
 
 This is a delivery-scoped join between every inference platform in the AICR
 catalog and its retained model configurations. This catalog names
-44 inference platforms, and 15 of them carry a member
+46 inference platforms, and 16 of them carry a member
 today: the KServe reference entry with its sixteen retained model shapes,
 all four NIM platforms, which together carry one authored NIMService plus
 the retained k8s-nim-operator sample corpus (accelerator-generic in this
@@ -26,7 +26,7 @@ capacity. This join does not check scheduling, GPU product or memory suitability
 registry access, model entitlement, controller readiness or inference responses.
 Consult each member's source and its scoped receipts before selecting a target.
 
-The remaining 29 platforms carry no member yet, and each one states why.
+The remaining 30 platforms carry no member yet, and each one states why.
 They are all base substrate with no serving layer
 bound at all.
 
@@ -228,7 +228,7 @@ bound at all.
 | `standard-nim-service-model-free` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/standard-nim-service-model-free.yaml` |
 | `standard-nim-service-multi-llm` | 1 | any | retained-nimservice | `data/aicr-nim-operator-models/profiles/standard-nim-service-multi-llm.yaml` |
 
-## Dynamo delivery (10 platforms)
+## Dynamo delivery (11 platforms)
 
 `b200-gke-cos-inference-dynamo` (accelerator b200) carries 89 members.
 
@@ -325,6 +325,88 @@ bound at all.
 | `qwen3-vl-32b-fp8-qwen3-vl-32b-fp8-vllm-disagg` | 0 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-vl-32b-fp8-qwen3-vl-32b-fp8-vllm-disagg.yaml` |
 
 `gb200-eks-ubuntu-inference-dynamo` (accelerator gb200) carries 77 members.
+
+| Model slug | GPU count | Accelerator | Member source | Source file |
+| --- | --- | --- | --- | --- |
+| `deepseek-r1-sgl-dsr1-16gpu` | 16 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/deepseek-r1-sgl-dsr1-16gpu.yaml` |
+| `deepseek-r1-sgl-dsr1-8gpu` | 16 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/deepseek-r1-sgl-dsr1-8gpu.yaml` |
+| `deepseek-r1-trtllm-disagg-multinode` | 0 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/deepseek-r1-trtllm-disagg-multinode.yaml` |
+| `deepseek-r1-vllm-dsr1` | 16 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/deepseek-r1-vllm-dsr1.yaml` |
+| `deepseek-v4-dsv4-flash-agg-deepseek-v4-flash-vllm-agg-b200-deploy` | 4 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/deepseek-v4-dsv4-flash-agg-deepseek-v4-flash-vllm-agg-b200-deploy.yaml` |
+| `deepseek-v4-dsv4-flash-agg-deepseek-v4-flash-vllm-agg-gb200-deploy` | 4 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/deepseek-v4-dsv4-flash-agg-deepseek-v4-flash-vllm-agg-gb200-deploy.yaml` |
+| `deepseek-v4-dsv4-pro-0813-agg-gb200-agentic` | 4 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/deepseek-v4-dsv4-pro-0813-agg-gb200-agentic.yaml` |
+| `deepseek-v4-dsv4-pro-0813-disagg-gb200-agentic` | 8 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/deepseek-v4-dsv4-pro-0813-disagg-gb200-agentic.yaml` |
+| `deepseek-v4-dsv4-pro-agg-deepseek-v4-pro-vllm-agg-b200-deploy` | 8 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/deepseek-v4-dsv4-pro-agg-deepseek-v4-pro-vllm-agg-b200-deploy.yaml` |
+| `deepseek-v4-dsv4-pro-agg-deepseek-v4-pro-vllm-agg-gb200-deploy` | 4 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/deepseek-v4-dsv4-pro-agg-deepseek-v4-pro-vllm-agg-gb200-deploy.yaml` |
+| `deepseek-v4-dsv4-pro-disagg-deepseek-v4-pro-sglang-disagg-gb200-deploy` | 8 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/deepseek-v4-dsv4-pro-disagg-deepseek-v4-pro-sglang-disagg-gb200-deploy.yaml` |
+| `deepseek-v4-dsv4-pro-disagg-deepseek-v4-pro-vllm-disagg-gb200-deploy` | 8 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/deepseek-v4-dsv4-pro-disagg-deepseek-v4-pro-vllm-disagg-gb200-deploy.yaml` |
+| `deepseek-v4-sglang-dsv4-flash-deepseek-v4-flash-sglang-agg-gb200-deploy` | 4 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/deepseek-v4-sglang-dsv4-flash-deepseek-v4-flash-sglang-agg-gb200-deploy.yaml` |
+| `deepseek-v4-sglang-dsv4-pro-agg` | 4 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/deepseek-v4-sglang-dsv4-pro-agg.yaml` |
+| `gemma4-31b-gemma4-31b-agg-gb200-agentic` | 8 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/gemma4-31b-gemma4-31b-agg-gb200-agentic.yaml` |
+| `glm-5-3-flash-glm53-flash-agg-gb200-agentic` | 4 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/glm-5-3-flash-glm53-flash-agg-gb200-agentic.yaml` |
+| `glm-5-3-flash-glm53-flash-disagg-gb200` | 8 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/glm-5-3-flash-glm53-flash-disagg-gb200.yaml` |
+| `glm-5-nvfp4-glm5-sglang` | 8 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/glm-5-nvfp4-glm5-sglang.yaml` |
+| `glm-5-nvfp4-glm5-sglang-efa` | 8 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/glm-5-nvfp4-glm5-sglang-efa.yaml` |
+| `gpt-oss-120b-gpt-oss-agg` | 4 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/gpt-oss-120b-gpt-oss-agg.yaml` |
+| `gpt-oss-120b-gpt-oss-disagg` | 5 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/gpt-oss-120b-gpt-oss-disagg.yaml` |
+| `kimi-k2-5-kimi-k25-agg-kv-eagle` | 12 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/kimi-k2-5-kimi-k25-agg-kv-eagle.yaml` |
+| `kimi-k2-5-kimi-k25-agg-rr` | 12 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/kimi-k2-5-kimi-k25-agg-rr.yaml` |
+| `kimi-k2-5-kimi-k25-agg-rr-eagle` | 12 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/kimi-k2-5-kimi-k25-agg-rr-eagle.yaml` |
+| `kimi-k2-5-kimi-k25-disagg-kv-eagle` | 24 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/kimi-k2-5-kimi-k25-disagg-kv-eagle.yaml` |
+| `kimi-k3-kimi-k3-sglang-gb200-agg-agentic` | 8 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/kimi-k3-kimi-k3-sglang-gb200-agg-agentic.yaml` |
+| `kimi-k3-kimi-k3-sglang-gb200-disagg-agentic` | 12 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/kimi-k3-kimi-k3-sglang-gb200-disagg-agentic.yaml` |
+| `kimi-k3-kimi-k3-sglang-gb300-agg-agentic` | 12 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/kimi-k3-kimi-k3-sglang-gb300-agg-agentic.yaml` |
+| `kimi-k3-kimi-k3-sglang-gb300-disagg-agentic` | 8 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/kimi-k3-kimi-k3-sglang-gb300-disagg-agentic.yaml` |
+| `kimi-k3-kimi-k3-vllm-gb200-agg-agentic` | 4 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/kimi-k3-kimi-k3-vllm-gb200-agg-agentic.yaml` |
+| `kimi-k3-kimi-k3-vllm-gb300-agg-agentic` | 4 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/kimi-k3-kimi-k3-vllm-gb300-agg-agentic.yaml` |
+| `kimi-k3-kimi-k3-vllm-gb300-disagg-agentic` | 8 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/kimi-k3-kimi-k3-vllm-gb300-disagg-agentic.yaml` |
+| `kimi-k3-kimi-k3-vllm-h200-agg-agentic` | 8 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/kimi-k3-kimi-k3-vllm-h200-agg-agentic.yaml` |
+| `nemotron-3-5-lightning-trtllm-agg-gb200-bf16` | 1 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-5-lightning-trtllm-agg-gb200-bf16.yaml` |
+| `nemotron-3-5-lightning-trtllm-agg-gb200-mtp-bf16` | 1 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-5-lightning-trtllm-agg-gb200-mtp-bf16.yaml` |
+| `nemotron-3-5-lightning-vllm-agg-gb200-dspark-bf16` | 1 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-5-lightning-vllm-agg-gb200-dspark-bf16.yaml` |
+| `nemotron-3-5-lightning-vllm-agg-gb200-mtp-bf16` | 1 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-5-lightning-vllm-agg-gb200-mtp-bf16.yaml` |
+| `nemotron-3-5-lightning-vllm-disagg-gb200-dflash-bf16` | 2 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-5-lightning-vllm-disagg-gb200-dflash-bf16.yaml` |
+| `nemotron-3-5-lightning-vllm-disagg-gb200-dspark-bf16` | 2 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-5-lightning-vllm-disagg-gb200-dspark-bf16.yaml` |
+| `nemotron-3-nano-omni-nemotron-omni-vllm-agg` | 1 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-nano-omni-nemotron-omni-vllm-agg.yaml` |
+| `nemotron-3-super-fp8-nemotron-super-fp8-sglang-agg` | 4 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-super-fp8-nemotron-super-fp8-sglang-agg.yaml` |
+| `nemotron-3-super-fp8-nemotron-super-fp8-sglang-disagg` | 4 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-super-fp8-nemotron-super-fp8-sglang-disagg.yaml` |
+| `nemotron-3-super-fp8-nemotron-super-fp8-trtllm-disagg` | 4 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-super-fp8-nemotron-super-fp8-trtllm-disagg.yaml` |
+| `nemotron-3-super-fp8-nemotron-super-fp8-vllm-agg` | 4 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-super-fp8-nemotron-super-fp8-vllm-agg.yaml` |
+| `nemotron-3-ultra-ultra-agg-gb200-1m-kv-router` | 8 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-ultra-ultra-agg-gb200-1m-kv-router.yaml` |
+| `nemotron-3-ultra-ultra-agg-gb200-256k-kv-router` | 8 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-ultra-ultra-agg-gb200-256k-kv-router.yaml` |
+| `nemotron-3-ultra-ultra-disagg-gb200-1m` | 8 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-ultra-ultra-disagg-gb200-1m.yaml` |
+| `nemotron-3-ultra-ultra-disagg-gb200-256k` | 12 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/nemotron-3-ultra-ultra-disagg-gb200-256k.yaml` |
+| `qwen3-0-6b-qwen3-0-6b-agg` | 2 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-0-6b-qwen3-0-6b-agg.yaml` |
+| `qwen3-235b-a22b-fp8-qwen3-235b-a22b-agg-trtllm-agg-blackwell-deploy` | 16 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-235b-a22b-fp8-qwen3-235b-a22b-agg-trtllm-agg-blackwell-deploy.yaml` |
+| `qwen3-235b-a22b-fp8-qwen3-235b-a22b-agg-trtllm-agg-hopper-deploy` | 16 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-235b-a22b-fp8-qwen3-235b-a22b-agg-trtllm-agg-hopper-deploy.yaml` |
+| `qwen3-235b-a22b-fp8-qwen3-235b-a22b-disagg-trtllm-disagg-blackwell-deploy-aws-p6-b200-48xlarge` | 16 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-235b-a22b-fp8-qwen3-235b-a22b-disagg-trtllm-disagg-blackwell-deploy-aws-p6-b200-48xlarge.yaml` |
+| `qwen3-235b-a22b-fp8-qwen3-235b-a22b-disagg-trtllm-disagg-blackwell-deploy-gcp-roce` | 16 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-235b-a22b-fp8-qwen3-235b-a22b-disagg-trtllm-disagg-blackwell-deploy-gcp-roce.yaml` |
+| `qwen3-235b-a22b-fp8-qwen3-235b-a22b-disagg-trtllm-disagg-blackwell-deploy-generic` | 16 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-235b-a22b-fp8-qwen3-235b-a22b-disagg-trtllm-disagg-blackwell-deploy-generic.yaml` |
+| `qwen3-235b-a22b-fp8-qwen3-235b-a22b-disagg-trtllm-disagg-blackwell-deploy-nscale-ib` | 16 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-235b-a22b-fp8-qwen3-235b-a22b-disagg-trtllm-disagg-blackwell-deploy-nscale-ib.yaml` |
+| `qwen3-235b-a22b-fp8-qwen3-235b-a22b-disagg-trtllm-disagg-hopper-deploy` | 16 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-235b-a22b-fp8-qwen3-235b-a22b-disagg-trtllm-disagg-hopper-deploy.yaml` |
+| `qwen3-32b-agg-8xtp2` | 16 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-32b-agg-8xtp2.yaml` |
+| `qwen3-32b-agg-kvbm-qwen3-32b` | 1 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-32b-agg-kvbm-qwen3-32b.yaml` |
+| `qwen3-32b-disagg-router-6p-2d` | 16 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-32b-disagg-router-6p-2d.yaml` |
+| `qwen3-32b-fp8-qwen3-32b-fp8-agg` | 2 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-32b-fp8-qwen3-32b-fp8-agg.yaml` |
+| `qwen3-32b-fp8-qwen3-32b-fp8-disagg` | 8 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-32b-fp8-qwen3-32b-fp8-disagg.yaml` |
+| `qwen3-32b-fp8-qwen3-32b-fp8-vllm-disagg` | 8 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-32b-fp8-qwen3-32b-fp8-vllm-disagg.yaml` |
+| `qwen3-32b-q32b-1p1d-cloud-provider-vllm-cloud-providers-deploy-aks-ib` | 8 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-32b-q32b-1p1d-cloud-provider-vllm-cloud-providers-deploy-aks-ib.yaml` |
+| `qwen3-32b-q32b-1p1d-cloud-provider-vllm-cloud-providers-deploy-aws-p5-48xlarge` | 8 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-32b-q32b-1p1d-cloud-provider-vllm-cloud-providers-deploy-aws-p5-48xlarge.yaml` |
+| `qwen3-32b-q32b-1p1d-cloud-provider-vllm-cloud-providers-deploy-gke-roce` | 8 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-32b-q32b-1p1d-cloud-provider-vllm-cloud-providers-deploy-gke-roce.yaml` |
+| `qwen3-32b-q32b-1p1d-cloud-provider-vllm-cloud-providers-deploy-nebius-ib` | 8 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-32b-q32b-1p1d-cloud-provider-vllm-cloud-providers-deploy-nebius-ib.yaml` |
+| `qwen3-32b-q32b-1p1d-cloud-provider-vllm-cloud-providers-deploy-nscale-ib` | 8 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-32b-q32b-1p1d-cloud-provider-vllm-cloud-providers-deploy-nscale-ib.yaml` |
+| `qwen3-6-35b-a3b-qwen36-35b-a3b-sglang-gb200-agg-agentic` | 1 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-6-35b-a3b-qwen36-35b-a3b-sglang-gb200-agg-agentic.yaml` |
+| `qwen3-6-35b-qwen36-dynamo-fd` | 1 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-6-35b-qwen36-dynamo-fd.yaml` |
+| `qwen3-6-35b-qwen36-dynamo-fd-ec` | 1 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-6-35b-qwen36-dynamo-fd-ec.yaml` |
+| `qwen3-8-2-4t-a95b-fp8-qwen38max-agg` | 4 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-8-2-4t-a95b-fp8-qwen38max-agg.yaml` |
+| `qwen3-8-2-4t-a95b-fp8-qwen38max-agg-agentic-vllm-agg-gb200-agentic-deploy` | 4 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-8-2-4t-a95b-fp8-qwen38max-agg-agentic-vllm-agg-gb200-agentic-deploy.yaml` |
+| `qwen3-8-2-4t-a95b-fp8-qwen38max-sgl-agg` | 4 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-8-2-4t-a95b-fp8-qwen38max-sgl-agg.yaml` |
+| `qwen3-8-2-4t-a95b-fp8-qwen38max-sgl-disagg` | 12 | gb200 | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-8-2-4t-a95b-fp8-qwen38max-sgl-disagg.yaml` |
+| `qwen3-vl-30b-qwen3-vl-agg` | 1 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-vl-30b-qwen3-vl-agg.yaml` |
+| `qwen3-vl-32b-fp8-qwen3-vl-32b-fp8-vllm-agg` | 1 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-vl-32b-fp8-qwen3-vl-32b-fp8-vllm-agg.yaml` |
+| `qwen3-vl-32b-fp8-qwen3-vl-32b-fp8-vllm-disagg` | 0 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-vl-32b-fp8-qwen3-vl-32b-fp8-vllm-disagg.yaml` |
+
+`gb200-gke-cos-inference-dynamo` (accelerator gb200) carries 77 members.
 
 | Model slug | GPU count | Accelerator | Member source | Source file |
 | --- | --- | --- | --- | --- |
@@ -936,9 +1018,9 @@ bound at all.
 | `qwen3-vl-32b-fp8-qwen3-vl-32b-fp8-vllm-agg` | 1 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-vl-32b-fp8-qwen3-vl-32b-fp8-vllm-agg.yaml` |
 | `qwen3-vl-32b-fp8-qwen3-vl-32b-fp8-vllm-disagg` | 0 | generic | retained-dynamographdeployment | `data/aicr-dynamo-models/profiles/qwen3-vl-32b-fp8-qwen3-vl-32b-fp8-vllm-disagg.yaml` |
 
-## Any delivery (29 platforms)
+## Any delivery (30 platforms)
 
-None of the 29 delivery-agnostic platforms carry a member yet.
+None of the 30 delivery-agnostic platforms carry a member yet.
 
 | Platform | Accelerator | Reason |
 | --- | --- | --- |
@@ -948,6 +1030,7 @@ None of the 29 delivery-agnostic platforms carry a member yet.
 | `eks-inference` | any | base substrate, no serving layer bound |
 | `gb200-eks-inference` | gb200 | base substrate, no serving layer bound |
 | `gb200-eks-ubuntu-inference` | gb200 | base substrate, no serving layer bound |
+| `gb200-gke-cos-inference` | gb200 | base substrate, no serving layer bound |
 | `gb200-oke-inference` | gb200 | base substrate, no serving layer bound |
 | `gb200-oke-ubuntu-inference` | gb200 | base substrate, no serving layer bound |
 | `gb300-eks-inference` | gb300 | base substrate, no serving layer bound |

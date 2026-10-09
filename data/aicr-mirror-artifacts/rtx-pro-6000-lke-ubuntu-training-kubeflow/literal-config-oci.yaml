@@ -1,0 +1,160 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-rtx-pro-6000-lke-ubuntu-training-kubeflow-v1-0-0-argocd-literal-config"
+spec:
+  catalogEntry: "aicr-rtx-pro-6000-lke-ubuntu-training-kubeflow-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "rtx-pro-6000-lke-ubuntu-training-kubeflow"
+    entry: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow"
+    generationReceipt: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/generation-receipt.yaml"
+    platformDigest: "sha256:339197cb206a936564e1d14642556b0b8491f62dbd93b10441b53f34af47ec54"
+  artifact:
+    role: "literal-config"
+    format: "config-bundle-oci"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-rtx-pro-6000-lke-ubuntu-training-kubeflow-v1-0-0-argocd:v1.0.0"
+    manifestDigest: "sha256:bb5df0f00561c5bc8197ba439164599a336664224b27d5fd12ad79c118514c5f"
+    layerDigest: "sha256:ad25889fafca1f7f68315ed9bd95a45270b67960f9aa7db9d44c315a7bd255e8"
+    layerBytes: 74268
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    objectCount: 14
+    fileCount: 20
+    files:
+      -
+        path: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates/aicr-stack.yaml"
+        stagedAs: "aicr-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "746170a301daf257fd5e62c95ae3f10bbe31643d46bf22b50ecd459d3ccdb83d"
+        bytes: 1147
+      -
+        path: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates/cert-manager.yaml"
+        stagedAs: "cert-manager.yaml"
+        role: "argo-cd-application"
+        sha256: "f914e71520fa6035733258504500e2d5113ab598bec88223b16fadef07324e24"
+        bytes: 2210
+      -
+        path: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates/gpu-operator.yaml"
+        stagedAs: "gpu-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "5c21f3e1b6e43c17452e5744a5b278743830e16d8872f0d7051df5afa0fe1755"
+        bytes: 8824
+      -
+        path: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml"
+        stagedAs: "k8s-ephemeral-storage-metrics.yaml"
+        role: "argo-cd-application"
+        sha256: "cab5b4fa521c9717a2308e4514bf619b8b0e28e71835219c41e4fac0bbc1c444"
+        bytes: 1587
+      -
+        path: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates/kai-scheduler.yaml"
+        stagedAs: "kai-scheduler.yaml"
+        role: "argo-cd-application"
+        sha256: "8ec1e2779f8d04bfc036c9bdee9d3804fc6ff1f73e4cb5dbbf19dc2c11b1c316"
+        bytes: 1110
+      -
+        path: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates/kube-prometheus-stack.yaml"
+        stagedAs: "kube-prometheus-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "2544f7bc5cbbd6e102ed1db6eb700a9d3cf597d3f01b3222ef229b11cea9ffa5"
+        bytes: 3860
+      -
+        path: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates/kubeflow-trainer-post.yaml"
+        stagedAs: "kubeflow-trainer-post.yaml"
+        role: "argo-cd-application"
+        sha256: "8736b5466d3c2741ab1f1f68ea703232b0c2e5d22177db30551da924d3357cff"
+        bytes: 821
+      -
+        path: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates/kubeflow-trainer.yaml"
+        stagedAs: "kubeflow-trainer.yaml"
+        role: "argo-cd-application"
+        sha256: "75fb206e91a3dbeb928c8fa5fe6ef00450e80dc1b8315cd2a5575a47a3dae6fe"
+        bytes: 2389
+      -
+        path: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates/nfd.yaml"
+        stagedAs: "nfd.yaml"
+        role: "argo-cd-application"
+        sha256: "647155f8ee8ade656bc60fd824ab8189eb76b4fc51d10e1cb904ddda8cbe64e2"
+        bytes: 1630
+      -
+        path: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates/nodewright-operator.yaml"
+        stagedAs: "nodewright-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "b71910aec41ec6bce183dcaa602f8617683396600031b992c963be1bb22c2cc0"
+        bytes: 1421
+      -
+        path: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml"
+        stagedAs: "nvidia-dra-driver-gpu.yaml"
+        role: "argo-cd-application"
+        sha256: "d2febca6f6860080398011877e8eb5f269211e84f795af61c0970e37420303fd"
+        bytes: 1750
+      -
+        path: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates/nvsentinel.yaml"
+        stagedAs: "nvsentinel.yaml"
+        role: "argo-cd-application"
+        sha256: "512a45907869fa0a583c0b079c63ad42b8296c71112f461e83b4aba267548df4"
+        bytes: 3479
+      -
+        path: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates/prometheus-adapter.yaml"
+        stagedAs: "prometheus-adapter.yaml"
+        role: "argo-cd-application"
+        sha256: "9230caef29fd5778532a2f8bfc0e4a735d3202b6902236a64f376b14dc5f0fe9"
+        bytes: 4867
+      -
+        path: "examples/aicr/rtx-pro-6000-lke-ubuntu-training-kubeflow/argocd-rendered/templates/prometheus-operator-crds.yaml"
+        stagedAs: "prometheus-operator-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+        bytes: 765
+      -
+        path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training-kubeflow/routes/sync-wave-ordering.yaml"
+        stagedAs: "routes/sync-wave-ordering.yaml"
+        role: "route: sync-wave-ordering"
+        sha256: "1af94bd186c7770d8bd33d0b93890e0b01f3a99121fd1da135399eac9beb0b4b"
+        bytes: 3427
+      -
+        path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training-kubeflow/routes/system-node-selector-placeholder.yaml"
+        stagedAs: "routes/system-node-selector-placeholder.yaml"
+        role: "route: system-node-selector-placeholder"
+        sha256: "3f8d69abbabb32123e9589f742ea0fd2d3c13befd5ae3dce9a5fd92a70105484"
+        bytes: 5566
+      -
+        path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training-kubeflow/routes/components-left-out-of-bundle.yaml"
+        stagedAs: "routes/components-left-out-of-bundle.yaml"
+        role: "route: components-left-out-of-bundle"
+        sha256: "4c28c74c4922ffdb136d80ebac831288142a40f267d60dd02538ce6124a24845"
+        bytes: 1485
+      -
+        path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training-kubeflow/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "080f2228bc9d1147e221b4adfb3699b0d29fdfe03c3d98a7983c09d818dc0be2"
+        bytes: 2001
+      -
+        path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training-kubeflow/requirements/target-requirements.yaml"
+        stagedAs: "requirements/target-requirements.yaml"
+        role: "requirement: target"
+        sha256: "31ffad001b376c2b1ebbb53a203eec677008f070243cb0712b8451585b1e8980"
+        bytes: 5205
+      -
+        path: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training-kubeflow/space-guide.md"
+        stagedAs: "README.md"
+        role: "space-guide"
+        sha256: "b54e037bd62b7530951278d295899c0a20d4a69f6657573291c5e051af824142"
+        bytes: 4175
+    reproducible: true
+  needs:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-rtx-pro-6000-lke-ubuntu-training-kubeflow/aicr-bundle:1.0.0"
+      manifestDigest: "sha256:8c98e5c98cb5129570d89d2f5a335f8466f3985a2f88863715537037d9be17eb"
+      plan: "data/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training-kubeflow/source-package-oci.yaml"
+  contents:
+    statement: "The artifact holds the retained Argo CD Applications of one entry, its route files, its requirements file and its guide. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/rtx-pro-6000-lke-ubuntu-training-kubeflow/literal-config-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

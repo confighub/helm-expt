@@ -142,10 +142,9 @@ async function runProof() {
       "--component", "nginx-candidate",
       "--variant", "base",
       "--space", spaces.base,
-      "--granularity", "per-resource",
       "--owner", "ConfigHub",
       "--layer", "App",
-      "--label", "Example=measured-promotion",
+      "--unit-label", "Example=measured-promotion",
       "--change-desc", "Record the current one-replica configuration",
       currentPath,
     ], { timeout: 420_000 });
@@ -164,10 +163,9 @@ async function runProof() {
       "--component", "nginx-candidate",
       "--variant", "base",
       "--space", spaces.base,
-      "--granularity", "per-resource",
       "--owner", "ConfigHub",
       "--layer", "App",
-      "--label", "Example=measured-promotion",
+      "--unit-label", "Example=measured-promotion",
       "--change-desc", `Accept ${selected.id} after the fixed target test`,
       selected.path,
     ], { timeout: 420_000 });

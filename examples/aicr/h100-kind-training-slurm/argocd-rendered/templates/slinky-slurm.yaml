@@ -47,12 +47,13 @@ spec:
                     include /usr/share/pyxis/*
                   topology.conf: |
                     # Managed by NVIDIA Topograph (engine: slinky). Pre-sync placeholder.
-                    SwitchName=aicr-preseed Nodes=aicr-preseed-node
+                    BlockName=aicr-preseed Nodes=aicr-preseed-node
+                    BlockSizes=1
                 controller:
                   extraConfMap:
                     ScronParameters: enable
                     SelectType: select/cons_tres
-                    TopologyPlugin: topology/tree
+                    TopologyPlugin: topology/block
                   inplaceReconfigure: true
                   logfile:
                     image:

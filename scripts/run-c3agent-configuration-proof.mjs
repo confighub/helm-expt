@@ -125,6 +125,7 @@ function run() {
     check(target?.ProviderType === "OCI", `${cluster}/target is not an OCI target`);
     const targetRef = `${cluster}/target`;
 
+    throw new Error("This lane was written for the minimal Unit layout of cub variant upload --granularity, which cub v0.8.7 no longer has: the server now makes one Unit per resource. Re-observe on the current CLI the Unit slugs c3agent-fleet, c3agent-fleet-configmaps and c3agent-fleet-namespaces.");
     cub(context, [
       "variant",
       "upload",
@@ -134,13 +135,11 @@ function run() {
       "base",
       "--space",
       spaces.base,
-      "--granularity",
-      "minimal",
       "--owner",
       "ConfigHub",
       "--layer",
       "App",
-      "--label",
+      "--unit-label",
       "Example=c3agent",
       "--change-desc",
       "Import the checked c3agent development configuration OCI",

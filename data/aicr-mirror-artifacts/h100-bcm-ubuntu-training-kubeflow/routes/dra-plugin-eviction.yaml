@@ -1,0 +1,33 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "aicr-h100-bcm-ubuntu-training-kubeflow-v1-0-0-argocd-dra-plugin-eviction"
+spec:
+  quirkClass: "omitted-component"
+  routeKind: "generation-input"
+  discharges: "No DRA eviction node label was given at bundle time, so AICR left dra-node-labeler out of this bundle. The selected recipe still lists it, and nvidia-dra-driver-gpu depends on it in that recipe. A destination that wants the labeler supplies an eviction node label at bundle time."
+  declaration:
+    lifecycleWork: "decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts"
+    component: "dra-node-labeler"
+    chosenAtGeneration: "no DRA eviction node label"
+    input:
+      flag: "--dra-eviction-node-label"
+      value: "unset"
+    aicrReason: "AICR skipped it and logged the reason: DRA eviction is not opted in (--dra-eviction-node-label unset), so the eviction label it would apply is not selected on"
+    dependedOnBy:
+      - "nvidia-dra-driver-gpu"
+    toIncludeTheComponent: "Regenerate the bundle with --dra-eviction-node-label set to the node label your cluster uses for DRA eviction. That changes the bundle bytes and every digest of this entry."
+    toLeaveItOut: "Record the decision to leave it off."
+    inThisBundle: false
+  executedBy:
+    invokedBy: "the platform operator, before the first GPU driver upgrade or restart"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "The reason is the one AICR logged when it wrote the bundle. It was not checked against a cluster."
+    - "No bundle with an eviction label exists in the Catalog, and no destination has been asked which choice it needs."
+  provenance:
+    emittedBy: "scripts/generate-aicr-mirror-artifacts.mjs"
+    generatedFrom:
+      - "examples/aicr/h100-bcm-ubuntu-training-kubeflow/generation-receipt.yaml"
+      - "examples/aicr/h100-bcm-ubuntu-training-kubeflow/argocd-helm-bundle/recipe.yaml"

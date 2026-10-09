@@ -1,0 +1,148 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "AicrMirrorArtifactPlan"
+metadata:
+  name: "aicr-lke-training-v1-0-0-argocd-literal-config"
+spec:
+  catalogEntry: "aicr-lke-training-v1-0-0-argocd"
+  source:
+    kind: "aicr-overlay"
+    name: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "lke-training"
+    entry: "examples/aicr/lke-training"
+    generationReceipt: "examples/aicr/lke-training/generation-receipt.yaml"
+    platformDigest: "sha256:340d6a7118297f3bdac3b93346ca77daeb847e1de4a292feb4a7bd46b4a931c1"
+  artifact:
+    role: "literal-config"
+    format: "config-bundle-oci"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aicr-lke-training-v1-0-0-argocd:v1.0.0"
+    manifestDigest: "sha256:e85183d4383def6ae2c9af335d5d82fe2819b9feb48cd8476bf32a227326b81d"
+    layerDigest: "sha256:b5ae0a87f2099578e83ddea6227e2b84bcfcd0743518a3c2b461e7d430efeba4"
+    layerBytes: 67612
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    objectCount: 12
+    fileCount: 18
+    files:
+      -
+        path: "examples/aicr/lke-training/argocd-rendered/templates/aicr-stack.yaml"
+        stagedAs: "aicr-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "778c5979757574535ec8c1b30c6b195fca40d6a1d8bdc0953b07efe961f3a136"
+        bytes: 1089
+      -
+        path: "examples/aicr/lke-training/argocd-rendered/templates/cert-manager.yaml"
+        stagedAs: "cert-manager.yaml"
+        role: "argo-cd-application"
+        sha256: "f914e71520fa6035733258504500e2d5113ab598bec88223b16fadef07324e24"
+        bytes: 2210
+      -
+        path: "examples/aicr/lke-training/argocd-rendered/templates/gpu-operator.yaml"
+        stagedAs: "gpu-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "5c21f3e1b6e43c17452e5744a5b278743830e16d8872f0d7051df5afa0fe1755"
+        bytes: 8824
+      -
+        path: "examples/aicr/lke-training/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml"
+        stagedAs: "k8s-ephemeral-storage-metrics.yaml"
+        role: "argo-cd-application"
+        sha256: "cab5b4fa521c9717a2308e4514bf619b8b0e28e71835219c41e4fac0bbc1c444"
+        bytes: 1587
+      -
+        path: "examples/aicr/lke-training/argocd-rendered/templates/kai-scheduler.yaml"
+        stagedAs: "kai-scheduler.yaml"
+        role: "argo-cd-application"
+        sha256: "8ec1e2779f8d04bfc036c9bdee9d3804fc6ff1f73e4cb5dbbf19dc2c11b1c316"
+        bytes: 1110
+      -
+        path: "examples/aicr/lke-training/argocd-rendered/templates/kube-prometheus-stack.yaml"
+        stagedAs: "kube-prometheus-stack.yaml"
+        role: "argo-cd-application"
+        sha256: "2544f7bc5cbbd6e102ed1db6eb700a9d3cf597d3f01b3222ef229b11cea9ffa5"
+        bytes: 3860
+      -
+        path: "examples/aicr/lke-training/argocd-rendered/templates/nfd.yaml"
+        stagedAs: "nfd.yaml"
+        role: "argo-cd-application"
+        sha256: "1a80a5ef3669bed2d015e622068d8096541d2bc0edb317aa20025853943b872f"
+        bytes: 1631
+      -
+        path: "examples/aicr/lke-training/argocd-rendered/templates/nodewright-operator.yaml"
+        stagedAs: "nodewright-operator.yaml"
+        role: "argo-cd-application"
+        sha256: "b71910aec41ec6bce183dcaa602f8617683396600031b992c963be1bb22c2cc0"
+        bytes: 1421
+      -
+        path: "examples/aicr/lke-training/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml"
+        stagedAs: "nvidia-dra-driver-gpu.yaml"
+        role: "argo-cd-application"
+        sha256: "d2febca6f6860080398011877e8eb5f269211e84f795af61c0970e37420303fd"
+        bytes: 1750
+      -
+        path: "examples/aicr/lke-training/argocd-rendered/templates/nvsentinel.yaml"
+        stagedAs: "nvsentinel.yaml"
+        role: "argo-cd-application"
+        sha256: "512a45907869fa0a583c0b079c63ad42b8296c71112f461e83b4aba267548df4"
+        bytes: 3479
+      -
+        path: "examples/aicr/lke-training/argocd-rendered/templates/prometheus-adapter.yaml"
+        stagedAs: "prometheus-adapter.yaml"
+        role: "argo-cd-application"
+        sha256: "9230caef29fd5778532a2f8bfc0e4a735d3202b6902236a64f376b14dc5f0fe9"
+        bytes: 4867
+      -
+        path: "examples/aicr/lke-training/argocd-rendered/templates/prometheus-operator-crds.yaml"
+        stagedAs: "prometheus-operator-crds.yaml"
+        role: "argo-cd-application"
+        sha256: "6af18219fe568259a3e26bec9558afe35e7cb9ef649ee9af57b48b234717fa94"
+        bytes: 765
+      -
+        path: "data/aicr-mirror-artifacts/lke-training/routes/sync-wave-ordering.yaml"
+        stagedAs: "routes/sync-wave-ordering.yaml"
+        role: "route: sync-wave-ordering"
+        sha256: "5e0825c5bab9f7aae179e001ca73380c88869c99f7f688a64d4059e54db6cea4"
+        bytes: 2871
+      -
+        path: "data/aicr-mirror-artifacts/lke-training/routes/system-node-selector-placeholder.yaml"
+        stagedAs: "routes/system-node-selector-placeholder.yaml"
+        role: "route: system-node-selector-placeholder"
+        sha256: "4a539f98e5e22cc41dfe43d5b94da1f09802544b0e9ef8fad612e930a8276bac"
+        bytes: 5105
+      -
+        path: "data/aicr-mirror-artifacts/lke-training/routes/components-left-out-of-bundle.yaml"
+        stagedAs: "routes/components-left-out-of-bundle.yaml"
+        role: "route: components-left-out-of-bundle"
+        sha256: "8d59c61eb595b21328e70a40814fb0820ca12d2ec3251705650804a78b9bf33f"
+        bytes: 1398
+      -
+        path: "data/aicr-mirror-artifacts/lke-training/routes/dra-plugin-eviction.yaml"
+        stagedAs: "routes/dra-plugin-eviction.yaml"
+        role: "route: dra-plugin-eviction"
+        sha256: "eb5d24e0c9881f1cfe3988558a809b3a44fedd14a73c76e1b5c4fc1b92139f92"
+        bytes: 1914
+      -
+        path: "data/aicr-mirror-artifacts/lke-training/requirements/target-requirements.yaml"
+        stagedAs: "requirements/target-requirements.yaml"
+        role: "requirement: target"
+        sha256: "57babd5c2f9be693bf92d5f211154682d2ff380c6ac7d13d206d57c97befbbda"
+        bytes: 4753
+      -
+        path: "data/aicr-mirror-artifacts/lke-training/space-guide.md"
+        stagedAs: "README.md"
+        role: "space-guide"
+        sha256: "9846eff6b0d4abd74cd68f7994a06b0d4ebe660a7b302378fb86ea06e4eea64e"
+        bytes: 3849
+    reproducible: true
+  needs:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-lke-training/aicr-bundle:1.0.0"
+      manifestDigest: "sha256:40d88df9af95e18ac977cedffab7f76587f03ecaf3ec5f5b406e3da3592fef37"
+      plan: "data/aicr-mirror-artifacts/lke-training/source-package-oci.yaml"
+  contents:
+    statement: "The artifact holds the retained Argo CD Applications of one entry, its route files, its requirements file and its guide. It holds no container image and no Secret object."
+    containerImages: false
+    secretObjects: 0
+  publication:
+    receipt: "runs/aicr-mirror-artifacts/lke-training/literal-config-receipt.yaml"
+    rule: "The artifact counts as present in the registry only when that receipt is tracked and its digests equal the ones in this file. This file does not say whether it is."
+    publisher: "scripts/publish-aicr-mirror-artifacts.mjs"

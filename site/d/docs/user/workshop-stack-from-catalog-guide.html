@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Make a stack from Catalog entries · ConfigHub Workshop</title>
+  <meta name="description" content="Make a stack from Catalog entries: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/workshop-stack-from-catalog-guide.html">
+  <meta property="og:title" content="Make a stack from Catalog entries · ConfigHub Workshop">
+  <meta property="og:description" content="Make a stack from Catalog entries: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/workshop-stack-from-catalog-guide.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .app-learning-cards { display: grid; gap: 20px; margin: 26px 0; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  :root { --cw-body: .9375rem; --cw-nav: .875rem; --cw-meta: .8125rem; --cw-lead: 1rem; }
+  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--sans, Inter, system-ui, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 700; }
+  h2, h3 { font-weight: 600; }
+  .cw-content h1 { font-size: clamp(1.75rem, 2.8vw, 2.25rem); line-height: 1.2; }
+  .cw-content h2 { font-size: 1.375rem; line-height: 1.35; }
+  .cw-content h3 { font-size: 1.0625rem; line-height: 1.4; }
+  .cw-content .lead, .cw-content .tagline { font-size: var(--cw-lead); line-height: 1.65; }
+  .cw-content { font-size: var(--cw-body); line-height: 1.65; }
+  .topbar { font-size: var(--cw-nav); }
+  .topbar .site-purpose { font-family: var(--sans); font-size: var(--cw-meta); text-transform: none; }
+  .topbar .brand, .navlinks a.nav-cta { border-color: transparent; background: transparent; }
+  .cw-nav-title a { color: var(--ink); text-decoration: none; }
+  .cw-nav-title a:hover { text-decoration: underline; }
+  .cw-content :is(.eyebrow, .kicker, .generated), .site-footer .sf-h { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; }
+  .cw-content :is(.button, .route-help > summary, details.deep > summary) { font-size: var(--cw-body); }
+  .cw-content :is(p, li, td) > code { border: 0; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  .cw-guide .cw-content { max-width: 880px; }
+  .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
+  .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
+  .cw-content pre { max-width: 100%; overflow-x: auto; }
+  .cw-content summary { cursor: pointer; padding: 10px 0; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cw-skip { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 6px; }
+  .cw-skip:focus { top: 12px; }
+  @media (max-width: 600px) {
+    .cw-layout { padding: 0 16px; }
+    .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 200px; }
+    .cw-guide .cw-content h1 { overflow-wrap: anywhere; }
+  }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: var(--cw-nav); }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; line-height: 1.5; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { min-height: 44px; cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<a class="cw-skip" href="#cw-content">Skip to content</a>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="../../../charts/index.html">Configs</a><a href="../../../stack.html">Stacks</a><a href="../../../apps.html">Apps</a><a href="../../../plugins.html">Plugins</a><a href="../../../guides.html">Guides</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout no-toc cw-guide">
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="../../../guides.html">All Guides</a></li><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#set-up-the-tools">Set up the tools</a></li><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#1-find-the-three-entries">1. Find the three entries</a></li><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#2-compose-them-into-a-workspace">2. Compose them into a workspace</a></li><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#3-check-them-together">3. Check them together</a></li><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#4-change-a-part-and-check-again">4. Change a part and check again</a></li><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#5-know-what-the-check-does-not-prove">5. Know what the check does not prove</a></li></ul>
+      <p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+      <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
+<details><summary>More in this Guide</summary><ul><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#a-task-for-an-assistant">A task for an assistant</a></li><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#where-the-next-step-belongs">Where the next step belongs</a></li></ul></details></nav>
+<div class="cw-content" id="cw-content" tabindex="-1">
+<details class="cw-mobile-nav"><summary>In this Guide</summary><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="../../../guides.html">All Guides</a></li><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#set-up-the-tools">Set up the tools</a></li><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#1-find-the-three-entries">1. Find the three entries</a></li><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#2-compose-them-into-a-workspace">2. Compose them into a workspace</a></li><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#3-check-them-together">3. Check them together</a></li><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#4-change-a-part-and-check-again">4. Change a part and check again</a></li><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#5-know-what-the-check-does-not-prove">5. Know what the check does not prove</a></li></ul>
+      <p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+      <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
+<details><summary>More in this Guide</summary><ul><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#a-task-for-an-assistant">A task for an assistant</a></li><li><a href="../../../d/docs/user/workshop-stack-from-catalog-guide.html#where-the-next-step-belongs">Where the next step belongs</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>Make a stack from Catalog entries</h1>
+    <p class="lead">Pick three Catalog entries for GPU nodes, compose them into one local stack, and check them together. The entries are NVIDIA's gpu-operator, nvsentinel and cluster-readiness-engine. Each is published in the Catalog as its own flattened bundle. This Guide changes one part and checks again, then says what the check leaves out. <a href="../../../../docs/user/workshop-stack-from-catalog-guide.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <article class="doc-body">
+
+<p>Every step runs on your machine with <code>cub</code>, with no account and no cluster. Compose reads the live Catalog index and pulls the three public bundles anonymously with <code>oras</code>. It writes files into a new directory and applies nothing. The check reads those files only.</p>
+<p>You can run the steps yourself or <a href="#a-task-for-an-assistant">give an assistant the task</a>.</p>
+<h2 id="set-up-the-tools">Set up the tools</h2>
+<p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://oras.land/docs/installation">ORAS</a>. Then install the Workshop plugin release this Guide was checked with (version 0.6.57).</p>
+<pre><code>cub plugin install confighub/cub-workshop@v0.6.57</code></pre>
+<p>Every command below was run with plugin v0.6.57. The previous release, v0.6.56, refuses these entries. It stops with <code>receiptUrl is not a supported GitHub receipt URL</code>.</p>
+<h2 id="1-find-the-three-entries">1. Find the three entries</h2>
+<p>List the entries that the Catalog files under the <code>gpu</code> role.</p>
+<pre><code>cub config list --role gpu | grep -E '^  nvidia-(cluster-readiness-engine-v0-6-0|nvsentinel-v1-25-0|gpu-operator-v26-3-3)-default '</code></pre>
+<pre><code>  nvidia-cluster-readiness-engine-v0-6-0-default (v0.6.0) - operator: https://confighub.github.io/helm-expt/site/listings/nvidia-cluster-readiness-engine-v0-6-0-default.json
+  nvidia-gpu-operator-v26-3-3-default (v26.3.3) - operator: https://confighub.github.io/helm-expt/site/listings/nvidia-gpu-operator-v26-3-3-default.json
+  nvidia-nvsentinel-v1-25-0-default (v1.25.0) - agent: https://confighub.github.io/helm-expt/site/listings/nvidia-nvsentinel-v1-25-0-default.json</code></pre>
+<p>The <code>grep</code> keeps three lines. The full list held 44 entries on the day of the run, and it grows with the Catalog.</p>
+<p>An entry id is the name of one base of one version. It reads <code>&lt;chart&gt;-&lt;version&gt;-&lt;base&gt;</code>, with the dots of the version written as dashes. The id <code>nvidia-gpu-operator-v26-3-3-default</code> names the <code>default</code> base of version v26.3.3 of the gpu-operator chart.</p>
+<p>Read the ids on the Catalog's chart pages. Open the chart page for <a href="https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator.html">gpu-operator</a>, <a href="https://confighub.github.io/helm-expt/site/charts/nvidia-nvsentinel.html">nvsentinel</a> or <a href="https://confighub.github.io/helm-expt/site/charts/nvidia-cluster-readiness-engine.html">cluster-readiness-engine</a> to see its versions. Open a version page to see its bases under Available Configurations. The page for each entry also holds the five steps under &quot;Use this entry in ConfigHub&quot;, and its id appears there.</p>
+<p>A role listing returns candidates for you to inspect. It does not choose one and says nothing about whether the three work together. Step 3 checks that.</p>
+<h2 id="2-compose-them-into-a-workspace">2. Compose them into a workspace</h2>
+<p>Name each entry with <code>--entry</code>, name the stack, and give a new directory.</p>
+<pre><code>cub stack compose --entry nvidia-gpu-operator-v26-3-3-default --entry nvidia-nvsentinel-v1-25-0-default --entry nvidia-cluster-readiness-engine-v0-6-0-default --name gpu-node --out ./gpu-node</code></pre>
+<pre><code>gpu-node: 3 retained catalog component(s) saved as an editable workspace. Files: &lt;your directory&gt;/gpu-node</code></pre>
+<p>The command exits <code>0</code>. The path at the end is the absolute path of your own directory. List what it wrote.</p>
+<pre><code>find gpu-node -type f | sort</code></pre>
+<pre><code>gpu-node/components/01-nvidia-cluster-readiness-engine-v0-6-0-default.yaml
+gpu-node/components/02-nvidia-gpu-operator-v26-3-3-default.yaml
+gpu-node/components/03-nvidia-nvsentinel-v1-25-0-default.yaml
+gpu-node/evidence/01-nvidia-cluster-readiness-engine-v0-6-0-default/companions/01-crd-ordering.yaml
+gpu-node/evidence/01-nvidia-cluster-readiness-engine-v0-6-0-default/metadata.json
+gpu-node/evidence/01-nvidia-cluster-readiness-engine-v0-6-0-default/receipt.yaml
+gpu-node/evidence/02-nvidia-gpu-operator-v26-3-3-default/companions/01-crd-ordering.yaml
+gpu-node/evidence/02-nvidia-gpu-operator-v26-3-3-default/companions/02-lifecycle-actions.yaml
+gpu-node/evidence/02-nvidia-gpu-operator-v26-3-3-default/metadata.json
+gpu-node/evidence/02-nvidia-gpu-operator-v26-3-3-default/receipt.yaml
+gpu-node/evidence/original-stack.yaml
+gpu-node/provenance.json
+gpu-node/rendered.yaml
+gpu-node/result.json
+gpu-node/stack.yaml</code></pre>
+<table><thead><tr><th>File</th><th>What it holds</th></tr></thead><tbody><tr><td><code>stack.yaml</code></td><td>The stack manifest. It lists the three components, each with the path of its file. Edit this file to change the stack.</td></tr>
+<tr><td><code>components/</code></td><td>One file of Kubernetes objects for each entry. Those are the objects the Catalog retains for that entry: 43, 24 and 22, which add up to 89.</td></tr>
+<tr><td><code>rendered.yaml</code></td><td>All 89 objects in one file, which is the input you would compare or hand to a tool.</td></tr>
+<tr><td><code>result.json</code></td><td>The check result that compose recorded, with the hash of each file in the workspace.</td></tr>
+<tr><td><code>provenance.json</code></td><td>The Catalog listing of each entry, as it was when you composed.</td></tr>
+<tr><td><code>evidence/</code></td><td>For each entry that carries routes, the publication receipt with its bundle digest and the routes. nvsentinel carries none, so it has no folder.</td></tr>
+<tr><td><code>evidence/original-stack.yaml</code></td><td>A copy of the manifest as compose wrote it.</td></tr></tbody></table>
+<p>The routes are the Catalog's notes on work a chart needs beyond its objects. For gpu-operator they name the CRD ordering and the <code>pre-upgrade</code> and <code>post-delete</code> hook Jobs. The workspace keeps them as files and runs none of them. Each carries the state <code>declared-unexecuted</code>.</p>
+<h2 id="3-check-them-together">3. Check them together</h2>
+<p>Check the stack manifest.</p>
+<pre><code>cub stack check ./gpu-node/stack.yaml</code></pre>
+<pre><code>Stack: gpu-node  -  Explicit catalog retained-object composition
+Resolving 3 components: nvidia-cluster-readiness-engine-v0-6-0-default, nvidia-gpu-operator-v26-3-3-default, nvidia-nvsentinel-v1-25-0-default
+
+Check
+  [PASS] no resource conflicts across components (89 objects)
+  [PASS] CRD ordering: 12 CRDs are delivered before the 5 custom resources that need them
+  [PASS] served API versions: 5 custom resource(s) match their bundled CRD; target availability is not checked
+  [WARN] 2 custom resource(s) rely on CRDs this stack does not deliver, which must already exist: monitoring.coreos.com (2)
+  [PASS] no admission webhooks need a certificate
+  [WARN] namespaces: 0 created, 2 must already exist (gpu-operator, nvcre)
+  [WARN] schema validation not run: the flux schema plugin is not installed; next: `flux plugin install schema` (Flux 2.9 or later)
+  =&gt; CHECKED</code></pre>
+<p>The command exits <code>0</code>. <code>CHECKED</code> means the check ran. It does not mean the stack is ready to apply. Read each line.</p>
+<table><thead><tr><th>Line</th><th>What it checked</th><th>What you do</th></tr></thead><tbody><tr><td>PASS, no resource conflicts</td><td>No object is claimed by two components, and none appears twice in one component with different content.</td><td>Nothing.</td></tr>
+<tr><td>PASS, CRD ordering</td><td>The stack carries 12 CRDs, and no custom resource sits in a component ahead of the one that ships its CRD. The five custom resources are the ClusterPolicy and four LogProfile objects.</td><td>Nothing. The check compares components, so it does not read the order of objects inside one file.</td></tr>
+<tr><td>PASS, served API versions</td><td>Each of the 5 custom resources uses an API version and kind that its bundled CRD serves.</td><td>Nothing. The line says target availability is not checked.</td></tr>
+<tr><td>WARN, <code>monitoring.coreos.com</code></td><td>A ServiceMonitor from cluster-readiness-engine and a PodMonitor from nvsentinel need CRDs that no entry in the stack ships.</td><td>Install the Prometheus Operator CRDs on the target first. Otherwise the apply fails for those two objects.</td></tr>
+<tr><td>PASS, no admission webhooks</td><td>No admission webhook object in the stack lacks a CA bundle.</td><td>Nothing.</td></tr>
+<tr><td>WARN, namespaces</td><td>The objects write the namespaces <code>gpu-operator</code> and <code>nvcre</code>, and nothing in the stack creates them.</td><td>Create both namespaces before you apply. The nvsentinel objects write no namespace, so none appears for that entry.</td></tr>
+<tr><td>WARN, schema validation</td><td>The check can validate the objects against their schemas, and the Flux schema plugin is not installed here.</td><td>Run the command the line prints, then check again. This Guide did not run it.</td></tr></tbody></table>
+<p>A WARN is not a failure and not a pass. It names a fact about the target that the stack cannot supply and the check cannot see.</p>
+<h2 id="4-change-a-part-and-check-again">4. Change a part and check again</h2>
+<p>Swap one <code>--entry</code> and compose into a new directory. Your first stack stays as it was. The first swap moves nvsentinel to its <code>no-pod-monitor</code> base.</p>
+<pre><code>cub stack compose --entry nvidia-gpu-operator-v26-3-3-default --entry nvidia-nvsentinel-v1-25-0-no-pod-monitor --entry nvidia-cluster-readiness-engine-v0-6-0-default --name gpu-node --out ./gpu-node-no-pod-monitor
+cub stack check ./gpu-node-no-pod-monitor/stack.yaml</code></pre>
+<pre><code>Stack: gpu-node  -  Explicit catalog retained-object composition
+Resolving 3 components: nvidia-cluster-readiness-engine-v0-6-0-default, nvidia-gpu-operator-v26-3-3-default, nvidia-nvsentinel-v1-25-0-no-pod-monitor
+
+Check
+  [PASS] no resource conflicts across components (88 objects)
+  [PASS] CRD ordering: 12 CRDs are delivered before the 5 custom resources that need them
+  [PASS] served API versions: 5 custom resource(s) match their bundled CRD; target availability is not checked
+  [WARN] 1 custom resource(s) rely on CRDs this stack does not deliver, which must already exist: monitoring.coreos.com (1)
+  [PASS] no admission webhooks need a certificate
+  [WARN] namespaces: 0 created, 2 must already exist (gpu-operator, nvcre)
+  [WARN] schema validation not run: the flux schema plugin is not installed; next: `flux plugin install schema` (Flux 2.9 or later)
+  =&gt; CHECKED</code></pre>
+<p>Two numbers moved. The stack holds 88 objects, and one custom resource relies on the monitoring CRDs. The remaining ServiceMonitor comes from cluster-readiness-engine, so that WARN stays. Compare the two stacks to see the whole change.</p>
+<pre><code>cub config diff gpu-node/rendered.yaml gpu-node-no-pod-monitor/rendered.yaml | head -2</code></pre>
+<pre><code>Configuration diff: 0 added, 1 removed, 0 changed, 88 unchanged
+  removed: monitoring.coreos.com/v1 PodMonitor (namespace unspecified)/nvsentinel</code></pre>
+<p>The only difference is the PodMonitor. The second swap moves gpu-operator back to v25.10.1, with the other two entries as they were.</p>
+<pre><code>cub stack compose --entry nvidia-gpu-operator-v25-10-1-default --entry nvidia-nvsentinel-v1-25-0-default --entry nvidia-cluster-readiness-engine-v0-6-0-default --name gpu-node --out ./gpu-node-v25
+cub stack check ./gpu-node-v25/stack.yaml
+cub config diff gpu-node/rendered.yaml gpu-node-v25/rendered.yaml | grep -E 'Configuration diff|driver/version|toolkit/version'</code></pre>
+<p>The check printed the same seven lines as step 3, with 89 objects. The diff printed three lines.</p>
+<pre><code>Configuration diff: 0 added, 0 removed, 21 changed, 68 unchanged
+    /spec/driver/version replace: &quot;580.126.20&quot; -&gt; &quot;580.105.08&quot;
+    /spec/toolkit/version replace: &quot;v1.19.1&quot; -&gt; &quot;v1.18.1&quot;</code></pre>
+<p>The check gave no sign that 21 objects changed. It reads one stack at a time and does not compare versions. Use <code>cub config diff</code> for that, as in the <a href="workshop-gpu-operator-upgrade-guide.html">gpu-operator upgrade Guide</a>. The check also does not say that one version suits your nodes better than the other.</p>
+<h2 id="5-know-what-the-check-does-not-prove">5. Know what the check does not prove</h2>
+<h3 id="nothing-was-applied">Nothing was applied</h3>
+<p>Compose wrote files and the check read them. No object reached a cluster, and no cluster was contacted. The check line says target availability is not checked, and <code>result.json</code> records application health as <code>not-checked</code>.</p>
+<h3 id="a-passing-composition-is-not-runtime-compatibility">A passing composition is not runtime compatibility</h3>
+<p>The check looks at names, kinds, ordering and references inside the files. It does not show that the three run next to each other. It does not show that the driver matches your hardware. Each entry carries its own publication proof, and the Catalog does not inherit runtime proof from it.</p>
+<h3 id="routes-are-recorded-and-not-executed">Routes are recorded and not executed</h3>
+<p>The workspace holds the CRD ordering routes and the gpu-operator hook routes as files. It runs no hook. Whoever delivers the stack must decide who applies the <code>pre-upgrade</code> Job, as the <a href="workshop-lifecycle-guide.html">hooks and CRDs Guide</a> explains.</p>
+<h3 id="the-stack-is-not-in-confighub">The stack is not in ConfigHub</h3>
+<p>The workspace is a local directory. Nothing was uploaded to ConfigHub, no Space or Unit exists for it, and nobody has approved it.</p>
+<h3 id="one-entry-was-delivered-and-the-stack-was-not">One entry was delivered, and the stack was not</h3>
+<p>On 2026-10-08 the default base of gpu-operator v26.3.3 alone was deployed through ConfigHub and Argo CD v3.5.4 to a kind cluster that had no GPUs. The <a href="live-walk-entry-steps-2026-10-08.html">walk log</a> holds every command and its output. Argo CD accepted all 25 objects in one sync, and the Application ended Synced and Healthy. The ClusterPolicy reported <code>ready</code> with the reason <code>NoGPUNodes</code>.</p>
+<p>That run covers one entry. It did not include nvsentinel or cluster-readiness-engine, and it did not run on a node with a GPU. The stack of three has not been deployed.</p>
+<h2 id="a-task-for-an-assistant">A task for an assistant</h2>
+<p>Start a fresh session in an empty directory with normal approvals.</p>
+<pre><code>Install the Workshop plugin with cub plugin install confighub/cub-workshop@v0.6.57.
+Run cub config list --role gpu and find the ids of the default bases of
+NVIDIA gpu-operator v26.3.3, nvsentinel v1.25.0 and cluster-readiness-engine
+v0.6.0. Compose them with cub stack compose, one --entry for each, --name
+gpu-node and --out ./gpu-node. List the files it wrote. Run cub stack check
+./gpu-node/stack.yaml and explain every PASS and WARN line in one sentence,
+including what I must do about each warning. Then compose a second stack in a
+new directory that swaps nvsentinel to its no-pod-monitor base, check it, and
+compare the two rendered.yaml files with cub config diff. Report the exit codes
+and counts you saw. Do not say the stack is compatible, ready or safe from a
+passing check. Do not log in, upload, publish or apply anything, and do not
+contact a cluster or ConfigHub.</code></pre>
+<h2 id="where-the-next-step-belongs">Where the next step belongs</h2>
+<p>You now hold a local stack, a check result and a comparison of two variants. Nothing has left your machine.</p>
+<p>To run a stack that ships with the plugin, follow <a href="https://confighub.github.io/helm-expt/site/compose-a-stack.html">Compose and check a stack</a>. To open a shipped stack as an editable workspace and review a change to it, follow the <a href="workshop-compose-guide.html">local stack Guide</a>.</p>
+<p>To bring a single entry into ConfigHub, open its page and follow the five steps under &quot;Use this entry in ConfigHub&quot;, for example <a href="https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-3-3.html">gpu-operator v26.3.3</a>. Those steps take one entry from its exact objects to a promoted change. This Guide does not take a stack of three that far.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/workshop-stack-from-catalog-guide.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+</div>
+</body>
+</html>

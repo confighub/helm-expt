@@ -1,0 +1,134 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "aicr-h200-eks-training-kubeflow-v1-0-0-argocd-target-requirements"
+spec:
+  subject:
+    catalogEntry: "aicr-h200-eks-training-kubeflow-v1-0-0-argocd"
+    source: "NVIDIA AICR"
+    version: "v1.0.0"
+    overlay: "h200-eks-training-kubeflow"
+    platformDigest: "sha256:bfde8f0886507f57d3fcb270d2857d1275b8b3d89e5885a67747cee660a71cab"
+  deliveryRuntime:
+    name: "Argo CD"
+    api: "argoproj.io/v1alpha1 Application"
+    namespace: "argocd"
+    statement: "All 17 objects in this bundle are Argo CD Applications in the argocd namespace. Argo CD and its Application API must exist on the destination before they are applied."
+  sourcePackage:
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-h200-eks-training-kubeflow/aicr-bundle:1.0.0"
+    manifestDigest: "sha256:3bb57a6ac1255a2f333f1d5b34aca0e9a818168c001e153f1b82ee7dbfa8171c"
+    applications:
+      - "aicr-stack"
+      - "kubeflow-trainer-post"
+      - "nodewright-customizations"
+    statement: "3 of the 17 Applications take their source from this Helm chart package. Argo CD must be able to pull it at that reference, and the bytes this bundle was built against have that manifest digest."
+  upstreamCharts:
+    -
+      application: "aws-ebs-csi-driver"
+      repoURL: "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
+      chart: "aws-ebs-csi-driver"
+      targetRevision: "2.59.0"
+    -
+      application: "aws-efa"
+      repoURL: "https://aws.github.io/eks-charts"
+      chart: "aws-efa-k8s-device-plugin"
+      targetRevision: "0.5.29"
+    -
+      application: "cert-manager"
+      repoURL: "https://charts.jetstack.io"
+      chart: "cert-manager"
+      targetRevision: "1.20.2"
+    -
+      application: "gpu-operator"
+      repoURL: "https://helm.ngc.nvidia.com/nvidia"
+      chart: "gpu-operator"
+      targetRevision: "26.7.1"
+    -
+      application: "k8s-ephemeral-storage-metrics"
+      repoURL: "https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart"
+      chart: "k8s-ephemeral-storage-metrics"
+      targetRevision: "1.19.2"
+    -
+      application: "kai-scheduler"
+      repoURL: "oci://ghcr.io/kai-scheduler/kai-scheduler/kai-scheduler"
+      chart: "kai-scheduler"
+      targetRevision: "v0.16.9"
+    -
+      application: "kube-prometheus-stack"
+      repoURL: "https://prometheus-community.github.io/helm-charts"
+      chart: "kube-prometheus-stack"
+      targetRevision: "84.4.0"
+    -
+      application: "kubeflow-trainer"
+      repoURL: "oci://ghcr.io/kubeflow/charts/kubeflow-trainer"
+      chart: "kubeflow-trainer"
+      targetRevision: "2.2.0"
+    -
+      application: "nfd"
+      repoURL: "https://kubernetes-sigs.github.io/node-feature-discovery/charts"
+      chart: "node-feature-discovery"
+      targetRevision: "0.19.0"
+    -
+      application: "nodewright-operator"
+      repoURL: "oci://ghcr.io/nvidia/nodewright/charts/nodewright"
+      chart: "nodewright"
+      targetRevision: "v0.19.0"
+    -
+      application: "nvidia-dra-driver-gpu"
+      repoURL: "oci://registry.k8s.io/dra-driver-nvidia/charts/dra-driver-nvidia-gpu"
+      chart: "dra-driver-nvidia-gpu"
+      targetRevision: "0.5.0"
+    -
+      application: "nvsentinel"
+      repoURL: "oci://ghcr.io/nvidia/nvsentinel"
+      chart: "nvsentinel"
+      targetRevision: "v1.25.0"
+    -
+      application: "prometheus-adapter"
+      repoURL: "https://prometheus-community.github.io/helm-charts"
+      chart: "prometheus-adapter"
+      targetRevision: "5.3.0"
+    -
+      application: "prometheus-operator-crds"
+      repoURL: "https://prometheus-community.github.io/helm-charts"
+      chart: "prometheus-operator-crds"
+      targetRevision: "28.0.1"
+  recipeCriteria:
+    accelerator: "h200"
+    intent: "training"
+    os: "any"
+    platform: "kubeflow"
+    service: "eks"
+  generationInputs:
+    acceleratedNodeSelector: "nvidia.com/gpu.present=true"
+    repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-h200-eks-training-kubeflow"
+    storageClass: "gp3"
+    systemNodeSelector: "nodeGroup=system-worker"
+    workloadSelector: "app.kubernetes.io/part-of=training"
+  placeholders:
+    -
+      input: "systemNodeSelector"
+      value: "nodeGroup=system-worker"
+      changeTo: "the label on your own cluster's system node group"
+      route: "routes/system-node-selector-placeholder.yaml"
+  componentsLeftOutOfBundle:
+    names:
+      - "dra-node-labeler"
+    route: "routes/components-left-out-of-bundle.yaml"
+  literalCredentials:
+    -
+      application: "kube-prometheus-stack"
+      file: "kube-prometheus-stack.yaml"
+      key: "adminPassword"
+      value: "admin"
+      statement: "kube-prometheus-stack.yaml sets adminPassword to the literal admin in its chart values. Replace it for any destination that matters."
+  automatedSync:
+    applications: 17
+    statement: "17 of the 17 Applications carry an automated sync policy with prune and self-heal. A destination has to accept that before they are applied."
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-aicr-mirror-artifacts.mjs"
+    generatedFrom:
+      - "examples/aicr/h200-eks-training-kubeflow/generation-receipt.yaml"
+      - "examples/aicr/h200-eks-training-kubeflow/argocd-rendered/templates"
+      - "examples/aicr/h200-eks-training-kubeflow/digest-index/platform-index.json"

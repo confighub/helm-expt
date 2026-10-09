@@ -16,21 +16,19 @@ spec:
         chart: kai-scheduler
         helm:
             values: |-
-                admission:
-                  gpuPodRuntimeClassName: ""
                 defaultQueue:
                   childName: default-queue
                   createDefaultQueue: true
                   parentName: default-parent-queue
                 global:
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 postCleanup:
                   enabled: false
         repoURL: oci://ghcr.io/kai-scheduler/kai-scheduler/kai-scheduler
-        targetRevision: v0.14.1
+        targetRevision: v0.16.9
     syncPolicy:
         automated:
             prune: true

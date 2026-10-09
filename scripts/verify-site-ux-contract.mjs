@@ -31,6 +31,22 @@ function readCatalogCounts() {
   };
 }
 
+// The Catalog flags an AICR entry for review when its record says so, and the
+// number moves with the retained AICR version. The flag sentence is required
+// on the Catalog index when at least one AICR listing is flagged, and refused
+// when none is, so the page cannot show a flag the data does not hold.
+const aicrEntriesFlaggedForReview = countFlaggedAicrListings();
+
+function countFlaggedAicrListings() {
+  const listingDir = path.join(root, "site/listings");
+  if (!fs.existsSync(listingDir)) return 0;
+  return fs.readdirSync(listingDir)
+    .filter((name) => name.startsWith("aicr-") && name.endsWith(".json"))
+    .map((name) => JSON.parse(fs.readFileSync(path.join(listingDir, name), "utf8")))
+    .filter((listing) => (listing.assessment?.stages ?? []).some((stage) => stage.id === "materialization" && stage.resultState === "watch"))
+    .length;
+}
+
 const checks = [
   { file: "site/ai-chaos-in-production.html", terms: ["six local kind clusters", "two to three hours", "after onboarding", "40Mi", "mutating check", "The parity gate works.", "Workshop has not rerun", "teardown.sh --confighub", "agent contract", "assets/ai-chaos/r2-gui-refused-order.jpg"] },
   ...["index", "guides", "ai", "plugins", "bring-sveltos-into-confighub"].map(page => ({ file: `site/${page}.html`, terms: ["ai-chaos-in-production.html"] })),
@@ -77,6 +93,13 @@ const checks = [
   {
     file: "site/d/docs/user/workshop-gpu-operator-upgrade-guide.html",
     terms: ["See what a gpu-operator upgrade changes", "cub plugin install confighub/cub-workshop@v0.6.56", "https://helm.ngc.nvidia.com/nvidia", "cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary", "cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml --summary", "--set driver.version=580.126.20", "/spec/driver/version replace", "The Catalog holds this chart", "Hooks appear as ordinary objects", "--include-crds", "Exit 0 is not approval", "A task for an assistant", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html"],
+  },
+  // The stack Guide composes public Catalog entries and nothing more, so it
+  // must keep the pinned plugin, the three entry ids, the compose and check
+  // commands, the swapped entry, and the limits of a static check.
+  {
+    file: "site/d/docs/user/workshop-stack-from-catalog-guide.html",
+    terms: ["Make a stack from Catalog entries", "cub plugin install confighub/cub-workshop@v0.6.57", "cub config list --role gpu", "nvidia-gpu-operator-v26-3-3-default", "nvidia-nvsentinel-v1-25-0-default", "nvidia-cluster-readiness-engine-v0-6-0-default", "cub stack compose --entry", "cub stack check ./gpu-node/stack.yaml", "nvidia-nvsentinel-v1-25-0-no-pod-monitor", "A passing composition is not runtime compatibility", "Routes are recorded and not executed", "The stack is not in ConfigHub", "The stack of three has not been deployed", "live-walk-entry-steps-2026-10-08.html", "A task for an assistant", "workshop-compose-guide.html", "compose-a-stack.html"],
   },
   {
     file: "site/index.html",
@@ -199,7 +222,7 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["flatten-with-routes, wrapper only, route recorded, not published", "<strong>This entry is flagged for review.</strong>", "It is not published and has not run.", "Listing JSON", "AICR entries", "An entry flagged for review reads <code>completed/watch</code>", "id=\"chart-filter\"", "Configs · ConfigHub Workshop", "<h1>Configs</h1>", "Search the catalog", "entries shown", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Base variants by version", "Flattens as plain YAML?", "No entry matches these filters", "Check your chart and values locally", "provider-curated source variant", "A difference is not automatically a fault"],
+    terms: ["flatten-with-routes, wrapper only, route recorded, not published", ...(aicrEntriesFlaggedForReview > 0 ? ["<strong>This entry is flagged for review.</strong>"] : []), "It is not published and has not run.", "Listing JSON", "AICR entries", "An entry flagged for review reads <code>completed/watch</code>", "id=\"chart-filter\"", "Configs · ConfigHub Workshop", "<h1>Configs</h1>", "Search the catalog", "entries shown", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Base variants by version", "Flattens as plain YAML?", "No entry matches these filters", "Check your chart and values locally", "provider-curated source variant", "A difference is not automatically a fault"],
   },
   // Site IA phase 4, step 3: the Catalog page's explanation moved to How
   // configuration works, its trust and verification to Why trust it, and its
@@ -405,6 +428,9 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages])];
 
 const failures = [];
+if (aicrEntriesFlaggedForReview === 0 && fs.readFileSync(path.join(root, "site/charts/index.html"), "utf8").includes("<strong>This entry is flagged for review.</strong>")) {
+  failures.push("site/charts/index.html: shows an entry flagged for review, and no AICR listing is flagged");
+}
 // The approved palette is light by default, even on a dark-mode device.
 for (const page of ["index", "guides", "ai", "plugins", "ai-chaos-in-production"]) {
   const html = fs.readFileSync(path.join(root, `site/${page}.html`), "utf8");
@@ -1560,6 +1586,30 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
         const commandLines = [...body.matchAll(/<span class="term-prompt">\$<\/span> /g)].length;
         if (commandLines !== (recorded.commands ?? []).length) {
           failures.push(`${file}: ${id} step ${stepId} shows ${commandLines} command(s), and its listing records ${(recorded.commands ?? []).length}`);
+        }
+        // The live walk of 2026-10-08 changed the installer-package commands:
+        // the reader names the Space and Component, the deploy and promote
+        // steps delete the cloned installer-record Unit before they publish,
+        // and a step links the log that ran them. The page must show each of
+        // those, and a delivery that ran other commands may not read as run.
+        const shown = decodeBasicHtml(body.replace(/<[^>]+>/g, ""));
+        const installerListing = (listing.nextSteps ?? []).some((other) => (other.commands ?? []).some(({ command }) => /^cub installer upload /.test(command)));
+        if (installerListing && stepId === "upload" && !/cub installer upload [^\n]*--space <your-space> --component <your-component>/.test(shown)) {
+          failures.push(`${file}: ${id} step upload does not show the Space and Component placeholders the reader replaces`);
+        }
+        if (installerListing && ["deploy", "promote"].includes(stepId) && (recorded.commands ?? []).length > 0) {
+          if (!/\$ cub unit delete --space <your-space>-dev installer-record\n[\s\S]*\$ cub release publish <your-space>-dev\s*$/.test(shown.replace(/\n\s*\n/g, "\n"))) {
+            failures.push(`${file}: ${id} step ${stepId} does not end with the installer-record delete and a publish`);
+          }
+        }
+        if (recorded.liveWalk && !body.includes(`d/${recorded.liveWalk.path.replace(/\.md$/, ".html")}`)) {
+          failures.push(`${file}: ${id} step ${stepId} records a live walk and does not link its log`);
+        }
+        for (const note of recorded.notes ?? []) {
+          if (!shown.includes(note.replaceAll("`", ""))) failures.push(`${file}: ${id} step ${stepId} does not show its note: ${JSON.stringify(note.slice(0, 60))}`);
+        }
+        if (stepId === "deploy" && state === "run-for-this-entry" && (recorded.commands ?? []).length > 0) {
+          failures.push(`${file}: ${id} step deploy reads Run for this entry, and the recorded delivery ran other commands than the ones it shows`);
         }
         if (["not-available", "blocked-for-this-entry"].includes(state) && body.includes("<pre")) {
           failures.push(`${file}: ${id} step ${stepId} is ${state} and still shows a command`);

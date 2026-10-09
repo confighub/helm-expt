@@ -315,21 +315,19 @@ function verifyPublicReceipt(receipt) {
 }
 
 function syncBaseVariant() {
+  throw new Error("This lane was written for the minimal Unit layout of cub variant upload --granularity, which cub v0.8.7 no longer has: the server now makes one Unit per resource. Re-observe on the current CLI the Unit list that the receipt records.");
   cub([
     "variant",
     "upload",
-    "--allow-exists",
     "--component",
     "byo-nginx-ai-values",
     "--variant",
     "reviewed",
     "--space",
     spaceSlug,
-    "--granularity",
-    "minimal",
-    "--label",
+    "--space-label",
     "SourceType=helm",
-    "--label",
+    "--space-label",
     "ResourceClass=user-workload",
     "--layer",
     "Application",
@@ -428,8 +426,6 @@ function collectHubReceipt() {
         "reviewed",
         "--space",
         spaceSlug,
-        "--granularity",
-        "minimal",
         publicReference,
       ],
       source: {

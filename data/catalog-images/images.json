@@ -5,149 +5,155 @@
   "method": "Read from each entry's committed rendered objects: every image key whose value is a registry reference, under containers, initContainers, ephemeralContainers or a custom resource.",
   "boundary": "What the objects name, not what a registry holds. A tag can answer to different bytes later, and this index resolves nothing; cub config check --images asks the registry.",
   "summary": {
-    "entries": 514,
-    "entriesRead": 389,
-    "entriesWithoutRetainedObjects": 125,
-    "imageReferences": 734,
-    "distinctImages": 309,
-    "pinnedByDigest": 50,
-    "namedByTag": 684
+    "entries": 495,
+    "entriesRead": 356,
+    "entriesWithoutRetainedObjects": 139,
+    "imageReferences": 665,
+    "distinctImages": 288,
+    "pinnedByDigest": 44,
+    "namedByTag": 621
   },
   "entries": [
     {
-      "id": "aicr-a100-aks-training-v0-21-0-argocd",
+      "id": "aicr-a100-aks-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-a100-aks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "id": "aicr-a100-aks-ubuntu-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-a100-aks-ubuntu-training-v0-21-0-argocd",
+      "id": "aicr-a100-aks-ubuntu-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-a100-any-v0-21-0-argocd",
+      "id": "aicr-a100-any-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-a100-eks-training-v0-21-0-argocd",
+      "id": "aicr-a100-eks-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-a100-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "id": "aicr-a100-eks-ubuntu-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-a100-eks-ubuntu-training-v0-21-0-argocd",
+      "id": "aicr-a100-eks-ubuntu-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-a100-gke-cos-training-kubeflow-v0-21-0-argocd",
+      "id": "aicr-a100-gke-cos-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-a100-gke-cos-training-v0-21-0-argocd",
+      "id": "aicr-a100-gke-cos-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-a100-oke-training-v0-21-0-argocd",
+      "id": "aicr-a100-oke-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-a100-oke-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "id": "aicr-a100-oke-ubuntu-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-a100-oke-ubuntu-training-v0-21-0-argocd",
+      "id": "aicr-a100-oke-ubuntu-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-aks-inference-v0-21-0-argocd",
+      "id": "aicr-aks-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-aks-training-v0-21-0-argocd",
+      "id": "aicr-aks-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-aks-v0-21-0-argocd",
+      "id": "aicr-aks-ubuntu-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-b200-any-v0-21-0-argocd",
+      "id": "aicr-aks-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-b200-gke-cos-inference-dynamo-v0-21-0-argocd",
+      "id": "aicr-b200-any-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-b200-gke-cos-inference-v0-21-0-argocd",
+      "id": "aicr-b200-gke-cos-inference-dynamo-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-b200-gke-cos-training-kubeflow-v0-21-0-argocd",
+      "id": "aicr-b200-gke-cos-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-b200-gke-cos-training-v0-21-0-argocd",
+      "id": "aicr-b200-gke-cos-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-bcm-inference-v0-21-0-argocd",
+      "id": "aicr-b200-gke-cos-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-bcm-training-v0-21-0-argocd",
+      "id": "aicr-bcm-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-bcm-v0-21-0-argocd",
+      "id": "aicr-bcm-training-v1-0-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-bcm-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
@@ -195,565 +201,643 @@
       "images": []
     },
     {
-      "id": "aicr-eks-inference-v0-21-0-argocd",
+      "id": "aicr-eks-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-eks-training-v0-21-0-argocd",
+      "id": "aicr-eks-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-eks-v0-21-0-argocd",
+      "id": "aicr-eks-ubuntu-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb200-any-v0-21-0-argocd",
+      "id": "aicr-eks-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb200-eks-inference-v0-21-0-argocd",
+      "id": "aicr-gb200-any-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb200-eks-training-v0-21-0-argocd",
+      "id": "aicr-gb200-eks-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb200-eks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "id": "aicr-gb200-eks-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb200-eks-ubuntu-inference-v0-21-0-argocd",
+      "id": "aicr-gb200-eks-ubuntu-inference-dynamo-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb200-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "id": "aicr-gb200-eks-ubuntu-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb200-eks-ubuntu-training-slurm-v0-21-0-argocd",
+      "id": "aicr-gb200-eks-ubuntu-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb200-eks-ubuntu-training-v0-21-0-argocd",
+      "id": "aicr-gb200-eks-ubuntu-training-slurm-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb200-oke-inference-v0-21-0-argocd",
+      "id": "aicr-gb200-eks-ubuntu-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb200-oke-training-v0-21-0-argocd",
+      "id": "aicr-gb200-gke-cos-inference-dynamo-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb200-oke-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "id": "aicr-gb200-gke-cos-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb200-oke-ubuntu-inference-v0-21-0-argocd",
+      "id": "aicr-gb200-gke-cos-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb200-oke-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "id": "aicr-gb200-gke-cos-training-slurm-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb200-oke-ubuntu-training-v0-21-0-argocd",
+      "id": "aicr-gb200-gke-cos-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb300-any-v0-21-0-argocd",
+      "id": "aicr-gb200-oke-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb300-eks-inference-v0-21-0-argocd",
+      "id": "aicr-gb200-oke-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb300-eks-training-v0-21-0-argocd",
+      "id": "aicr-gb200-oke-ubuntu-inference-dynamo-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb300-eks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "id": "aicr-gb200-oke-ubuntu-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb300-eks-ubuntu-inference-v0-21-0-argocd",
+      "id": "aicr-gb200-oke-ubuntu-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb300-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "id": "aicr-gb200-oke-ubuntu-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb300-eks-ubuntu-training-slurm-v0-21-0-argocd",
+      "id": "aicr-gb300-any-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb300-eks-ubuntu-training-v0-21-0-argocd",
+      "id": "aicr-gb300-eks-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gb300-generic-ubuntu-training-v0-21-0-argocd",
+      "id": "aicr-gb300-eks-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gke-cos-inference-v0-21-0-argocd",
+      "id": "aicr-gb300-eks-ubuntu-inference-dynamo-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gke-cos-training-v0-21-0-argocd",
+      "id": "aicr-gb300-eks-ubuntu-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-gke-cos-v0-21-0-argocd",
+      "id": "aicr-gb300-eks-ubuntu-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-aks-inference-v0-21-0-argocd",
+      "id": "aicr-gb300-eks-ubuntu-training-slurm-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-aks-training-v0-21-0-argocd",
+      "id": "aicr-gb300-eks-ubuntu-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-aks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "id": "aicr-gb300-generic-ubuntu-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-aks-ubuntu-inference-v0-21-0-argocd",
+      "id": "aicr-gke-cos-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-aks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "id": "aicr-gke-cos-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-aks-ubuntu-training-slurm-v0-21-0-argocd",
+      "id": "aicr-gke-cos-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-aks-ubuntu-training-v0-21-0-argocd",
+      "id": "aicr-h100-aks-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-any-v0-21-0-argocd",
+      "id": "aicr-h100-aks-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-bcm-training-v0-21-0-argocd",
+      "id": "aicr-h100-aks-ubuntu-inference-dynamo-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-bcm-ubuntu-training-v0-21-0-argocd",
+      "id": "aicr-h100-aks-ubuntu-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-eks-inference-v0-21-0-argocd",
+      "id": "aicr-h100-aks-ubuntu-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-eks-training-v0-21-0-argocd",
+      "id": "aicr-h100-aks-ubuntu-training-slurm-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-eks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "id": "aicr-h100-aks-ubuntu-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-eks-ubuntu-inference-nim-v0-21-0-argocd",
+      "id": "aicr-h100-any-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-eks-ubuntu-inference-v0-21-0-argocd",
+      "id": "aicr-h100-bcm-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "id": "aicr-h100-bcm-ubuntu-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-eks-ubuntu-training-slurm-v0-21-0-argocd",
+      "id": "aicr-h100-bcm-ubuntu-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-eks-ubuntu-training-v0-21-0-argocd",
+      "id": "aicr-h100-eks-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-gke-cos-inference-dynamo-v0-21-0-argocd",
+      "id": "aicr-h100-eks-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-gke-cos-inference-v0-21-0-argocd",
+      "id": "aicr-h100-eks-ubuntu-inference-dynamo-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-gke-cos-training-kubeflow-v0-21-0-argocd",
+      "id": "aicr-h100-eks-ubuntu-inference-nim-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-gke-cos-training-slurm-v0-21-0-argocd",
+      "id": "aicr-h100-eks-ubuntu-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-gke-cos-training-v0-21-0-argocd",
+      "id": "aicr-h100-eks-ubuntu-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-kind-inference-dynamo-v0-21-0-argocd",
+      "id": "aicr-h100-eks-ubuntu-training-slurm-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-kind-inference-v0-21-0-argocd",
+      "id": "aicr-h100-eks-ubuntu-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-kind-training-kubeflow-v0-21-0-argocd",
+      "id": "aicr-h100-gke-cos-inference-dynamo-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-kind-training-slurm-v0-21-0-argocd",
+      "id": "aicr-h100-gke-cos-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h100-kind-training-v0-21-0-argocd",
+      "id": "aicr-h100-gke-cos-training-slurm-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h200-any-v0-21-0-argocd",
+      "id": "aicr-h100-gke-cos-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h200-eks-inference-v0-21-0-argocd",
+      "id": "aicr-h100-kind-inference-dynamo-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-h200-eks-training-v0-21-0-argocd",
+      "id": "aicr-h100-kind-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-kind-inference-v0-21-0-argocd",
+      "id": "aicr-h100-kind-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-kind-v0-21-0-argocd",
+      "id": "aicr-h100-kind-training-slurm-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-l40-any-v0-21-0-argocd",
+      "id": "aicr-h100-kind-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-l40s-any-v0-21-0-argocd",
+      "id": "aicr-h200-any-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-l40s-oke-inference-v0-21-0-argocd",
+      "id": "aicr-h200-eks-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-l40s-oke-training-v0-21-0-argocd",
+      "id": "aicr-h200-eks-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-lke-inference-v0-21-0-argocd",
+      "id": "aicr-h200-eks-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-lke-training-v0-21-0-argocd",
+      "id": "aicr-h200-k0s-ubuntu-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-lke-v0-21-0-argocd",
+      "id": "aicr-k0s-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-ocp-inference-nim-v0-21-0-argocd",
+      "id": "aicr-k0s-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-ocp-inference-v0-21-0-argocd",
+      "id": "aicr-kind-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-ocp-training-v0-21-0-argocd",
+      "id": "aicr-kind-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-ocp-v0-21-0-argocd",
+      "id": "aicr-l40-any-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-oke-ol-inference-v0-21-0-argocd",
+      "id": "aicr-l40s-any-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-oke-ol-training-v0-21-0-argocd",
+      "id": "aicr-l40s-oke-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-oke-ol-v0-21-0-argocd",
+      "id": "aicr-l40s-oke-training-kubeflow-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rke2-inference-v0-21-0-argocd",
+      "id": "aicr-l40s-oke-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rke2-training-v0-21-0-argocd",
+      "id": "aicr-lke-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rke2-v0-21-0-argocd",
+      "id": "aicr-lke-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rtx-pro-6000-any-v0-21-0-argocd",
+      "id": "aicr-lke-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rtx-pro-6000-eks-inference-v0-21-0-argocd",
+      "id": "aicr-ocp-inference-nim-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rtx-pro-6000-eks-training-v0-21-0-argocd",
+      "id": "aicr-ocp-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rtx-pro-6000-eks-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "id": "aicr-ocp-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rtx-pro-6000-eks-ubuntu-inference-nim-v0-21-0-argocd",
+      "id": "aicr-ocp-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rtx-pro-6000-eks-ubuntu-inference-v0-21-0-argocd",
+      "id": "aicr-oke-ol-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rtx-pro-6000-eks-ubuntu-training-kubeflow-v0-21-0-argocd",
+      "id": "aicr-oke-ol-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rtx-pro-6000-eks-ubuntu-training-v0-21-0-argocd",
+      "id": "aicr-oke-ol-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rtx-pro-6000-lke-inference-v0-21-0-argocd",
+      "id": "aicr-rke2-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rtx-pro-6000-lke-training-v0-21-0-argocd",
+      "id": "aicr-rke2-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rtx-pro-6000-lke-ubuntu-inference-v0-21-0-argocd",
+      "id": "aicr-rke2-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-rtx-pro-6000-lke-ubuntu-training-v0-21-0-argocd",
+      "id": "aicr-rtx-pro-6000-any-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-vr200-rke2-ubuntu-inference-dynamo-v0-21-0-argocd",
+      "id": "aicr-rtx-pro-6000-eks-inference-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-vr200-rke2-ubuntu-inference-v0-21-0-argocd",
+      "id": "aicr-rtx-pro-6000-eks-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
     },
     {
-      "id": "aicr-vr200-rke2-ubuntu-training-v0-21-0-argocd",
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-inference-dynamo-v1-0-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-inference-nim-v1-0-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-inference-v1-0-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-training-kubeflow-v1-0-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-eks-ubuntu-training-v1-0-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-lke-inference-v1-0-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-lke-training-v1-0-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-lke-ubuntu-inference-v1-0-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-lke-ubuntu-training-kubeflow-v1-0-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-rtx-pro-6000-lke-ubuntu-training-v1-0-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-vr200-rke2-ubuntu-inference-dynamo-v1-0-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-vr200-rke2-ubuntu-inference-v1-0-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-vr200-rke2-ubuntu-training-kubeflow-v1-0-0-argocd",
+      "objects": null,
+      "read": false,
+      "images": []
+    },
+    {
+      "id": "aicr-vr200-rke2-ubuntu-training-v1-0-0-argocd",
       "objects": null,
       "read": false,
       "images": []
@@ -1187,99 +1271,6 @@
       "images": [
         {
           "reference": "public.ecr.aws/aws-controllers-k8s/iam-controller:1.7.3",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0",
-      "objects": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.4",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.4",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.3",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.4",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.4",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.59.0",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0",
-      "objects": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.4",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.4",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.3",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.4",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.4",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.59.0",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default",
-      "objects": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/default/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.4",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.4",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.3",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.4",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.4",
-          "pinned": false
-        },
-        {
-          "reference": "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.59.0",
           "pinned": false
         }
       ]
@@ -2015,94 +2006,6 @@
       "images": [
         {
           "reference": "ghcr.io/dexidp/dex:v2.44.0",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training",
-      "objects": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "registry.k8s.io/dra-driver-nvidia/dra-driver-nvidia-gpu:v0.4.1",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default",
-      "objects": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "registry.k8s.io/dra-driver-nvidia/dra-driver-nvidia-gpu:v0.4.1",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources",
-      "objects": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "registry.k8s.io/dra-driver-nvidia/dra-driver-nvidia-gpu:v0.4.1",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training",
-      "objects": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "registry.k8s.io/dra-driver-nvidia/dra-driver-nvidia-gpu:v0.5.0",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default",
-      "objects": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "registry.k8s.io/dra-driver-nvidia/dra-driver-nvidia-gpu:v0.5.0",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources",
-      "objects": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "registry.k8s.io/dra-driver-nvidia/dra-driver-nvidia-gpu:v0.5.0",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training",
-      "objects": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/aws-efa-k8s-device-plugin:v0.5.20",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "eks-aws-efa-k8s-device-plugin-v0-5-29-default",
-      "objects": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/aws-efa-k8s-device-plugin:v0.5.20",
           "pinned": false
         }
       ]
@@ -3152,83 +3055,6 @@
       ]
     },
     {
-      "id": "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0",
-      "objects": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "ghcr.io/jmcgrath207/k8s-ephemeral-storage-metrics:1.19.2",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0",
-      "objects": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "ghcr.io/jmcgrath207/k8s-ephemeral-storage-metrics:1.19.2",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default",
-      "objects": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "ghcr.io/jmcgrath207/k8s-ephemeral-storage-metrics:1.19.2",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training",
-      "objects": "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "ghcr.io/kai-scheduler/kai-scheduler/operator:v0.14.1",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "kai-scheduler-kai-scheduler-v0-14-1-default",
-      "objects": "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "ghcr.io/kai-scheduler/kai-scheduler/operator:v0.14.1",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training",
-      "objects": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "ghcr.io/kai-scheduler/kai-scheduler/operator:v0.16.9",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "kai-scheduler-kai-scheduler-v0-16-9-default",
-      "objects": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "ghcr.io/kai-scheduler/kai-scheduler/operator:v0.16.9",
-          "pinned": false
-        }
-      ]
-    },
-    {
       "id": "karpenter-karpenter-1-14-0-crds-managed",
       "objects": "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml",
       "read": true,
@@ -3314,51 +3140,6 @@
         },
         {
           "reference": "quay.io/argoproj/argocd:v3.4.5",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v0-20-0",
-      "objects": "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "ghcr.io/kubeflow/trainer/trainer-controller-manager:v2.2.0",
-          "pinned": false
-        },
-        {
-          "reference": "registry.k8s.io/jobset/jobset:v0.11.0",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0",
-      "objects": "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "ghcr.io/kubeflow/trainer/trainer-controller-manager:v2.2.0",
-          "pinned": false
-        },
-        {
-          "reference": "registry.k8s.io/jobset/jobset:v0.11.0",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "kubeflow-kubeflow-trainer-2-2-0-default",
-      "objects": "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "ghcr.io/kubeflow/trainer/trainer-controller-manager:v2.2.0",
-          "pinned": false
-        },
-        {
-          "reference": "registry.k8s.io/jobset/jobset:v0.11.0",
           "pinned": false
         }
       ]
@@ -4214,39 +3995,6 @@
       ]
     },
     {
-      "id": "node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0",
-      "objects": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.19.0",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0",
-      "objects": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.19.0",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "node-feature-discovery-node-feature-discovery-0-19-0-default",
-      "objects": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "registry.k8s.io/nfd/node-feature-discovery:v0.19.0",
-          "pinned": false
-        }
-      ]
-    },
-    {
       "id": "nvidia-cluster-readiness-engine-v0-6-0-default",
       "objects": "recipes/nvidia/cluster-readiness-engine/v0.6.0/revisions/default/r001/rendered/release-objects.yaml",
       "read": true,
@@ -4653,58 +4401,6 @@
         {
           "reference": "nvcr.io/nvidia/cloud-native/k8s-nim-operator:v3.1.2",
           "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "nvidia-nodewright-v0-17-1-aicr-eks-training",
-      "objects": "recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "ghcr.io/nvidia/nodewright/operator:v0.17.0@sha256:1511449bf51f2844b6bb3a03bde3d5590caf2ca283e3e39c0745a8016af2132f",
-          "pinned": true
-        },
-        {
-          "reference": "quay.io/brancz/kube-rbac-proxy:v0.15.0@sha256:2c7b120590cbe9f634f5099f2cbb91d0b668569023a81505ca124a5c437e7663",
-          "pinned": true
-        }
-      ]
-    },
-    {
-      "id": "nvidia-nodewright-v0-17-1-default",
-      "objects": "recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "ghcr.io/nvidia/nodewright/operator:v0.17.0@sha256:1511449bf51f2844b6bb3a03bde3d5590caf2ca283e3e39c0745a8016af2132f",
-          "pinned": true
-        },
-        {
-          "reference": "quay.io/brancz/kube-rbac-proxy:v0.15.0@sha256:2c7b120590cbe9f634f5099f2cbb91d0b668569023a81505ca124a5c437e7663",
-          "pinned": true
-        }
-      ]
-    },
-    {
-      "id": "nvidia-nodewright-v0-19-0-aicr-eks-training",
-      "objects": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "ghcr.io/nvidia/nodewright/operator:v0.19.0@sha256:38e9a79125633aa633f8e499306b2219c582c6f62a7bfe4083928212e70f74a7",
-          "pinned": true
-        }
-      ]
-    },
-    {
-      "id": "nvidia-nodewright-v0-19-0-default",
-      "objects": "recipes/nvidia/nodewright/v0.19.0/revisions/default/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "ghcr.io/nvidia/nodewright/operator:v0.19.0@sha256:38e9a79125633aa633f8e499306b2219c582c6f62a7bfe4083928212e70f74a7",
-          "pinned": true
         }
       ]
     },
@@ -5262,111 +4958,6 @@
       "images": [
         {
           "reference": "quay.io/prometheus/alertmanager:v0.32.1",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0",
-      "objects": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "docker.io/grafana/grafana:13.0.1",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/kiwigrid/k8s-sidecar:2.7.1",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/prometheus-operator/prometheus-operator:v0.90.1",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/prometheus/alertmanager:v0.32.0",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/prometheus/node-exporter:v1.11.1",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/prometheus/prometheus:v3.11.3",
-          "pinned": false
-        },
-        {
-          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.18.0",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0",
-      "objects": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "docker.io/grafana/grafana:13.0.1",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/kiwigrid/k8s-sidecar:2.7.1",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/prometheus-operator/prometheus-operator:v0.90.1",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/prometheus/alertmanager:v0.32.0",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/prometheus/node-exporter:v1.11.1",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/prometheus/prometheus:v3.11.3",
-          "pinned": false
-        },
-        {
-          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.18.0",
-          "pinned": false
-        }
-      ]
-    },
-    {
-      "id": "prometheus-community-kube-prometheus-stack-84-4-0-default",
-      "objects": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/default/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": [
-        {
-          "reference": "docker.io/grafana/grafana:13.0.1",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/kiwigrid/k8s-sidecar:2.7.1",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/prometheus-operator/prometheus-operator:v0.90.1",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/prometheus/alertmanager:v0.32.0",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/prometheus/node-exporter:v1.11.1",
-          "pinned": false
-        },
-        {
-          "reference": "quay.io/prometheus/prometheus:v3.11.3",
-          "pinned": false
-        },
-        {
-          "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.18.0",
           "pinned": false
         }
       ]
@@ -6053,18 +5644,6 @@
           "pinned": false
         }
       ]
-    },
-    {
-      "id": "prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training",
-      "objects": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": []
-    },
-    {
-      "id": "prometheus-community-prometheus-operator-crds-28-0-1-default",
-      "objects": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml",
-      "read": true,
-      "images": []
     },
     {
       "id": "prometheus-community-prometheus-operator-crds-29-0-0-default",

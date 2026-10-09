@@ -17,6 +17,8 @@ spec:
         helm:
             values: |-
                 metricsRelistInterval: 30s
+                nodeSelector:
+                  nodeGroup: system-worker
                 prometheus:
                   port: 9090
                   url: http://kube-prometheus-prometheus

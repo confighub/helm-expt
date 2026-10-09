@@ -217,8 +217,8 @@ if (mode === "--rebuild") {
   for (const component of manifest.components) {
     const row = registry.find((candidate) => candidate.name === component.name);
     cub("variant", "upload", "--component", component.name, "--variant", "base",
-      "--granularity", "per-file", "--owner", "EKS Inference",
-      "--label", "managed-by=eks-inference", `oci://${row.ref}@${row.digest}`);
+      "--owner", "EKS Inference",
+      "--unit-label", "managed-by=eks-inference", `oci://${row.ref}@${row.digest}`);
     console.log(`  ${component.name}-base uploaded`);
   }
 

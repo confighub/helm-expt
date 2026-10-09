@@ -22,12 +22,12 @@ spec:
                   enabled: false
                 operator:
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
                 webhook:
                   nodeSelector:
-                    nvidia.com/gpu.present: "true"
+                    nodeGroup: system-worker
                   tolerations:
                   - operator: Exists
         repoURL: oci://ghcr.io/slinkyproject/charts/slurm-operator

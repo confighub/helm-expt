@@ -211,6 +211,7 @@ function hasElapsedCheck(spec, needle) {
 
 function mentionsWorkloadPublish(spec) {
   const serialized = JSON.stringify(spec).toLowerCase();
+  // cub-surface-ignore: recognizes the step in a committed spec that names the removed command
   return serialized.includes("cub release publish") || serialized.includes("cub unit apply");
 }
 
