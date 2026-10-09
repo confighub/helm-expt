@@ -680,9 +680,9 @@ const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 // questions; the fuller one also says what is in the Catalog and when the
 // agent needs ConfigHub server. Defined up here, above the generate flow,
 // because aiHtml() runs during module evaluation.
-const AGENT_PROMPT_ONE_LINER = `Use the ConfigHub Workshop catalog for Kubernetes config work. It holds known-good configurations across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, search only enough of the relevant section or listings index to identify one entry, then read that entry's listing and one relevant Guide. Do not load whole indexes or the whole catalog into model context. Do the work with \`cub\` and the cub workshop plugin (https://github.com/confighub/cub-workshop): \`cub config\`, \`cub config values\` and \`cub config diff\`, \`cub stack check\` and \`cub stack sandbox\`, \`cub app match\`. Prefer exact versions and digests.`;
+const AGENT_PROMPT_ONE_LINER = `Use the ConfigHub Workshop catalog for Kubernetes config work. It holds configurations rendered to exact objects, each with a record of what was checked and what was not, across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, search only enough of the relevant section or listings index to identify one entry, then read that entry's listing and one relevant Guide. Do not load whole indexes or the whole catalog into model context. Do the work with \`cub\` and the cub workshop plugin (https://github.com/confighub/cub-workshop): \`cub config\`, \`cub config values\` and \`cub config diff\`, \`cub stack check\` and \`cub stack sandbox\`, \`cub app match\`. Prefer exact versions and digests.`;
 
-const AGENT_PROMPT_FULLER = `Use the ConfigHub Workshop when I ask about Kubernetes configuration. It is a public catalog of known-good configurations you can read as data, with no account, and it works with \`cub\` and the cub workshop plugin that you run from a shell.
+const AGENT_PROMPT_FULLER = `Use the ConfigHub Workshop when I ask about Kubernetes configuration. It is a public catalog of configurations rendered to exact objects, each with a record of what was checked and what was not. You can read it as data, with no account, and it works with \`cub\` and the cub workshop plugin that you run from a shell.
 
 What is in the catalog, so you know what to expect:
 
@@ -5067,7 +5067,7 @@ function howItWorksHtml() {
 
   <section aria-labelledby="rollback">
     <h2 id="rollback">4. Roll back</h2>
-    <p>Roll back moves a Unit's head to a revision that already ran, so publishing again releases exactly those bytes.</p>
+    <p>Roll back moves a Unit's head to a revision that already ran, so publishing again releases exactly those bytes. It restores configuration only. It cannot undo a database migration or any other change outside those objects, so review data changes before you roll back.</p>
     ${markdownLikeTable([
       ["Level", "Do this", "Command", "What you get"],
       ["Advanced", "Roll back", "<code>cub unit update --space cart-demo-dev retail-deployment-cart --restore 2</code>", "The Unit's head moves to the recorded revision; publish again to release it."],
@@ -5170,7 +5170,7 @@ function configHubHtml(catalog) {
     <p><a href="./config.html#confighub-role">Config</a> defines it: &ldquo;ConfigHub is where a reviewed base becomes shared, governed configuration.&rdquo; This page explains what that adds once you have an account.</p>
     <p>The account path has three steps. <strong>Upload</strong> brings the reviewed configuration into ConfigHub as a base, stored with its source and review record. <strong>Release</strong> publishes it so Argo CD or Flux pulls it. <strong>Promote</strong> moves a reviewed change from development to production, with the exact diff, the approval, and the history kept beside it.</p>
     <p><strong>Upload also chains public configuration into your private org.</strong> A base you upload can be public, pulled from a shared catalog, while your deployment stays private. When ConfigHub clones the public base into your deployment, links carry your private values into it, and protection keeps the values you chose. Later fixes to the public base, a patched image or a new version, flow down to everything you did not protect. That chaining is the value a plain registry cannot offer. If your CI already renders charts into YAML in git, <a href="./d/docs/user/ci-rendered-catalog-journey.html">the recorded journey</a> lands those exact files as governed data, receipted.</p>
-    <p><strong>Every certified image in the Catalog has been uploaded into a ConfigHub organization as a base variant</strong> and checked, so the whole catalog is known to flow in cleanly. <a href="./d/data/confighub-ready/summary.html">Read the lane</a> for the per-image record.</p>
+    <p><strong>Every certified image in the Catalog has been uploaded into a ConfigHub organization as a base variant</strong> and checked. An entry without a certified image has no such record. <a href="./d/data/confighub-ready/summary.html">Read the lane</a> for the per-image record.</p>
     <p>ConfigHub answers the four questions below separately, each on its own evidence, and never lets one stand for another. It links the source to its materialized objects, the destination check to one target, and the live result to one exact release. A retained object or a published OCI never counts as a destination or live pass.</p>
     ${markdownLikeTable([
       ["Question", "What ConfigHub retains"],
@@ -5471,6 +5471,8 @@ function composeStackGuideHtml() {
     ["kubara-platform", "the catalog's reviewed renders for a Kubara platform", "CHECKED, 86 objects"],
     ["kubara-shop-platform", "the Kubara platform grown by external-secrets, with the app adapted to Traefik's class", "CHECKED, 135 objects, every app need carried"],
     ["web-platform", "cert-manager, ingress-nginx, kube-prometheus-stack", "CHECKED; carries what an app like shop-web depends on"],
+    ["shop-platform", "cert-manager, ingress-nginx, kube-prometheus-stack, rabbitmq, and the shop app", "CHECKED, 192 objects, every app need carried"],
+    ["kubara-gitops-shop", "Kubara components with Argo CD and the adapted shop app", "CHECKED, 184 objects; a static composition only"],
     ["observability-base", "cert-manager, metrics-server, kube-prometheus-stack", "CHECKED, 175 objects, 10 CRDs before 50 custom resources"],
     ["gitops-secrets", "cert-manager, external-secrets, argo-cd", "CHECKED, 26 CRDs composed together"],
     ["data-services", "redis, postgresql, rabbitmq", "CHECKED, 31 objects, no CRDs"],
@@ -5512,14 +5514,16 @@ function composeStackGuideHtml() {
         { cmd: WORKSHOP_PLUGIN_INSTALL },
         { cmd: "cub stack sandbox eks-inference", out: [
           "  [PASS] no resource conflicts across components (130 objects)",
-          "  [WARN] 2 object(s) carried more than once inside one component with identical content; the last occurrence wins at apply:",
+          "  [WARN] 2 object(s) carried more than once inside one component with identical content; kubectl apply keeps the last, but cub stack upload refuses the component:",
           "      apiextensions.k8s.io/v1|CustomResourceDefinition||fieldexports.services.k8s.aws  x3  inside  ack-controllers",
           "      apiextensions.k8s.io/v1|CustomResourceDefinition||iamroleselectors.services.k8s.aws  x3  inside  ack-controllers",
           "  [PASS] CRD ordering: 46 CRDs are delivered before the 25 custom resources that need them",
+          "  [PASS] served API versions: 25 custom resource(s) match their bundled CRD; target availability is not checked",
           "  [PASS] no admission webhooks need a certificate",
-          "  [PASS] namespaces: 4 created, 1 must already exist (kube-system)",
+          "  [WARN] namespaces: 4 created, 1 must already exist (kube-system)",
           "  => CHECKED",
           "  130 objects total",
+          "  Rendered, but `cub stack upload` will refuse it: ack-controllers defines an object more than once (the WARN above).",
         ] },
         { cmd: "cub stack check metrics-double", out: [
           "  [FAIL] 9 resource conflict(s) — the same object is claimed by more than one component:",
@@ -5528,7 +5532,7 @@ function composeStackGuideHtml() {
         ] },
       ], { title: "one install, three commands", label: "One install, three commands" })}
     </div>
-    <p class="caption">The check is a hard gate. A real conflict refuses the whole stack and exits non-zero, which is why <code>metrics-double</code> fails: two of its components claim the same nine objects. A warning is not a rejection. <code>eks-inference</code> still passes the check with a warning that identical CRDs appear more than once inside one component, because duplication within a single component is harmless, not a clash between components.</p>
+    <p class="caption">The check is a hard gate. A real conflict refuses the whole stack and exits non-zero, which is why <code>metrics-double</code> fails: two of its components claim the same nine objects. A warning is not a rejection. <code>eks-inference</code> still passes the check with a warning that identical CRDs appear more than once inside one component. That is not a clash between components, so the check passes. <code>cub stack upload</code> refuses that component until it is rebuilt, and the sandbox says so.</p>
   </header>
   <main>
     <section class="narrow-section" aria-labelledby="get-a-stack">
@@ -5538,7 +5542,7 @@ function composeStackGuideHtml() {
       <p><strong>First time here?</strong> Install the <a href="./plugins.html#workshop">Workshop plugin</a>, then run <code>cub stack sandbox eks-inference</code> in a scratch directory. Despite the name, this renders and checks local configuration; it does not create an EKS cluster or request a GPU. Read the check result and missing prerequisites before considering delivery.</p>
       <p>Pick a shipped stack and check it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from ${spellSmallNumber(bundleFacts.eksInferenceBundleCount)} certified bundles, each hash-verified against its receipt. ${spellSmallNumber(shippedStackCount, { capitalize: true })} ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
       <h3 id="compose-your-own">2. Composing your own?</h3>
-      <p>Write a manifest that names catalog parts by digest, or let an assistant draft one from images you have already checked. Each part is a bundle pinned by digest with a receipt, or a file of rendered objects the stack owns. Then run <code>cub stack check &lt;file&gt;</code>, read what it names wrong, fix it, and run again until it holds together. The check is the contract you build against; <a href="./d/docs/planning/stack-manifest-spec.html">read the manifest specification</a>.</p>
+      <p>Write a manifest that names catalog parts by digest, or let an assistant draft one from images you have already checked. Each part is a bundle pinned by digest with a receipt, or a file of rendered objects the stack owns. Then run <code>cub stack check &lt;file&gt;</code>, read what it names wrong, fix it, and run again until it passes. The check is the contract you build against; <a href="./d/docs/planning/stack-manifest-spec.html">read the manifest specification</a>.</p>
       <h3 id="from-kubara-platform">3. Already have a Kubara platform?</h3>
       <p>Turn a Kubara platform into a stack with <code>cub stack from-kubara .</code>. It renders with the values Kubara generated, so the check reads the platform you actually have. <a href="./bring-kubara-into-confighub.html">Build a platform</a> walks the whole Kubara journey, generate to deploy.</p>
       <h3 id="run-with-a-team">4. Ready to run it with a team?</h3>
@@ -5583,7 +5587,7 @@ cub stack check my-platform/stack.yaml</code></pre>
         { cmd: "curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.57/components/frontend-config.yaml" },
         { cmd: "curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.57/components/backend-config.yaml" },
       ])}
-      <p>Read both files. The first component owns the Namespace; the second reuses it, so two Argo Applications do not compete to manage the same Namespace object.</p>
+      <p>Read both files. Each holds one ConfigMap in the <code>web</code> namespace and no Namespace object. Step 3 creates the Namespace in the first component with <code>--create-namespace</code>, and the second component reuses it, so two Argo Applications do not compete to manage the same Namespace object.</p>
       <h3>3. Import, place, and release each component</h3>
       ${commandBlock([
         { cmd: "cub variant upload --component first-stack-frontend --variant base --namespace web --create-namespace ./frontend-config.yaml" },
@@ -5717,7 +5721,7 @@ function demoHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>From one chart to a governed fleet in ten minutes</h1>
-    <p class="lead">You can see what a Helm chart installs before you install it, and check whether a whole platform holds together before any of it runs.</p>
+    <p class="lead">You can see what a Helm chart installs before you install it, and check a whole platform for conflicts and unmet needs before any of it runs.</p>
     ${humanLinks([["Try it now", "#try"], ["1. Check one chart", "#config"], ["2. Check one workload", "#app"], ["3. Check a stack", "#stack"], ["4. Govern a fleet", "#fleet"]])}
   </header>
   <main>
@@ -5795,12 +5799,12 @@ cub fleet status meridian</code></pre>
 
     <section aria-labelledby="takeaway">
       <h2 id="takeaway">What to take away</h2>
-      <p>You went from checking one chart to running a governed fleet, and the first three steps cost nothing. The plugin gives you the checks; releasing, promoting, and gating are ConfigHub's own.</p>
+      <p>You went from checking one chart to a fleet governed in ConfigHub, and the first three steps cost nothing. The plugin gives you the checks; releasing, promoting, and gating are ConfigHub's own.</p>
       ${markdownLikeTable([
         ["Receipt", "What it records", "Open"],
         ...receiptRows.map(([name, body, path]) => [name, body, `<a href="${path}">Open ${escapeHtml(name)}</a>`]),
       ], { rawThirdColumn: true })}
-      <p>These four commands sit on top of ConfigHub's released verbs, and they will keep changing as we do. The inference platform was proven on simulated GPU capacity, not a real GPU.</p>
+      <p>These four commands sit on top of ConfigHub's released verbs, and they will keep changing as we do. The inference platform was checked on simulated GPU capacity. It has not run on a real GPU.</p>
     </section>
   </main>
   <footer>Every free step runs on your laptop and touches no cluster. The governed fleet loads into ConfigHub and runs nowhere until a reconciler pulls it.</footer>
@@ -6946,8 +6950,8 @@ function fluxArgoHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Run it with Flux, Argo CD, or kubectl</h1>
-    <p class="lead">Keep the reconciler you have. Every result here can leave as an image your controller pulls by digest, with its receipt attached, and nothing on this page needs an account.</p>
-    <p><strong>Two reviewed components already reconcile from a public URL with no account. Any other catalog chart renders the same way, into a registry you control.</strong></p>
+    <p class="lead">Keep the reconciler you have. Each result on this page can leave as an image your controller pulls by digest, with its receipt attached, and nothing on this page needs an account.</p>
+    <p><strong>Two reviewed components already reconcile from a public URL with no account. A catalog chart whose verdict allows flattening renders the same way, into a registry you control.</strong></p>
     <p>An OCI package works with your registry and reconciler. Publish the reviewed files as a rendered OCI, and Argo CD or Flux pulls the same objects you inspected.</p>
     ${humanLinks([["Check a release before handover", "#handover"], ["Reconcile a published component", "#reconcile"], ["Verify before you reconcile", "#verify"], ["Apply with kubectl", "#kubectl"], ["Check the record", "#evidence"]])}
   </header>
@@ -8288,7 +8292,7 @@ function howConfigHubWorksHtml() {
     <div class="doors two">
       <div class="door">
         <h3>Four verbs, one reviewed configuration</h3>
-        <p>Release it by digest, promote it from development to production, gate a release on an approval, and roll back to exactly what ran.</p>
+        <p>Release it by digest, promote it from development to production, gate a release on an approval, and roll back the configuration to exactly what ran.</p>
       </div>
       <div class="door">
         <h3>Come here after the check</h3>
@@ -9547,7 +9551,7 @@ function ociHtml(catalog) {
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>Package and deliver it as OCI, and see what is signed</h1>
-  <p class="lead">Every result in this catalog can leave as an OCI artifact, and OCI covers several different shapes with different producers, consumers, and signatures. This page names each shape, shows which layout each consumer needs, and says which shapes carry a signature today.</p>
+  <p class="lead">A published result in this catalog leaves as an OCI artifact, and OCI covers several different shapes with different producers, consumers, and signatures. This page names each shape, shows which layout each consumer needs, and says which shapes carry a signature today.</p>
   <p>This page defines the OCI shapes and digests once. <a href="./config.html">Config</a> explains the lifecycle they carry. <a href="./variants.html">Variants</a> explains the base and derived variants a bundle becomes. <a href="./stack.html">Stacks and fleets</a> keeps the two stack OCI forms and links back here.</p>
 </header>
 <main>
@@ -9959,10 +9963,10 @@ function appGuideHtml(catalog) {
       <h2 id="demo">Follow the demo, step by step</h2>
       <p>The demo puts an app on a platform whose ingress controller does not match, so the check has something real to catch. Each step is a command you can run yourself.</p>
       <ol>
-        <li><strong>Check the app.</strong> <code>cub app check shop-web</code> reads its objects and reports what it needs from the platform under it, such as an ingress controller, cert-manager, and external-secrets.</li>
-        <li><strong>Check it on the platform.</strong> The app's Ingress asks for the nginx class while the platform runs Traefik, and one need has no provider, so the check refuses the composition and names both reasons.</li>
-        <li><strong>Adapt both sides.</strong> Change the app's ingress class to match the platform, and grow the platform by the one service the catalog already carries. The app shapes the platform, and the platform shapes the app.</li>
-        <li><strong>Check again.</strong> <code>cub stack sandbox shop-platform</code> now reports the composition CHECKED. Changing the app's ingress class and adding one service was enough.</li>
+        <li><strong>Check the app.</strong> <code>cub app check shop-web</code> reads its objects and reports what it needs from the platform under it. It names an ingress controller, cert-manager, and a Prometheus operator.</li>
+        <li><strong>Check it on a platform that does not fit.</strong> <code>cub stack check kubara-shop-first-try</code> places the app on the Kubara platform. The app's Ingress asks for the nginx class while that platform runs Traefik, and its ServiceMonitor needs a Prometheus operator the platform does not carry. The check reports REFUSED and names both needs.</li>
+        <li><strong>Adapt both sides.</strong> <code>cub app check shop-web-kubara</code> shows the adapted app. Its Ingress uses Traefik's class, and it reads its secret through external-secrets, so the platform grows by that one service. The app shapes the platform, and the platform shapes the app.</li>
+        <li><strong>Check again.</strong> <code>cub stack sandbox kubara-shop-platform</code> reports CHECKED with 135 objects. <code>cub stack sandbox shop-platform</code> shows the other answer, a platform that carried nginx and the Prometheus stack from the start.</li>
       </ol>
       <p>Read the <a href="https://github.com/confighub/cub-workshop/blob/main/stacks/shop-platform.yaml">shop-platform manifest</a>, the <a href="https://github.com/confighub/cub-workshop/tree/main/apps">shipped apps</a>, and the <a href="https://github.com/confighub/cub-workshop/blob/main/proofs/assistant-composition-2026-09-02/journal.md">recorded composition</a>, where an assistant chose the parts and the check read them. <a href="./stack.html">Stacks</a> explains the manifest.</p>
     </section>
@@ -10374,7 +10378,7 @@ function kubaraGuideHtml(catalog) {
   const steps = [
     ["1", "Choose components and wiring", "Keep Kubara catalogs, config.yaml, values overlays, and service definitions.", "../docs/demo/kubara/adoption-1-choose.md"],
     ["2", "Generate the platform and push it to Git", `Run <a href="../docs/demo/kubara/adoption-2-generate.md">Kubara</a> to generate the familiar platform, add-ons, ApplicationSets, overrides, and wiring. Then <a href="../docs/demo/kubara/adoption-3-git.md">prepare, scan, commit, and push</a> one exact portable revision.`, null],
-    ["3", "Check the platform as a stack", "Turn the pushed revision into a stack with <code>cub stack from-kubara</code>, then run <code>cub stack check</code> until the composition holds together.", "./compose-a-stack.html#from-kubara-platform"],
+    ["3", "Check the platform as a stack", "Turn the pushed revision into a stack with <code>cub stack from-kubara</code>, then run <code>cub stack check</code> until the composition passes.", "./compose-a-stack.html#from-kubara-platform"],
     ["4", "Import the Git revision and create OCI", "Publish immutable component/config packages plus a digest-bound platform index.", "../docs/demo/kubara/adoption-4-oci.md"],
     ["5", "Load the selected ConfigHub organization", "Materialize the recognizable topology, apply twice, and prove zero residue in the declared scope.", "../docs/demo/kubara/adoption-5-confighub-org.md"],
     ["6", "Deploy applications", "Promote, approve, release, and roll back; local Argo reconciles only the exact ConfigHub-authorized digest.", "../docs/demo/kubara/adoption-6-apps.md"],
@@ -11821,7 +11825,7 @@ ${nonHelmCatalogRowsHtml}
     ${topNav("..")}
     <h1>Configs</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-    <p class="lead">This catalog is the store of tested Kubernetes configurations and the case for trusting them. Every entry is an image of the exact objects, checked, with a receipt.</p>
+    <p class="lead">This catalog is the store of tested Kubernetes configurations and the case for trusting them. Every published entry is an image of the exact objects, checked, with a receipt. An entry that is not published says so.</p>
      ${commandBlock([
        { comment: "what it installs, and what it hides", cmd: "cub config check redis" },
        { comment: "push it as a verified image", cmd: "cub config check redis --out oci://registry/team/redis:v1" },
@@ -11831,7 +11835,7 @@ ${nonHelmCatalogRowsHtml}
 
      <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model. First see <a href="../proof.html#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
      <div class="support-panel" aria-label="Formats and patterns we support">
-       <p class="support-lead"><strong>Every format and pattern we support.</strong> Bring any format as certified config-as-data, or compose and deliver it with these patterns.</p>
+       <p class="support-lead"><strong>Every format and pattern we support.</strong> Bring one of these formats as config-as-data, or compose and deliver it with these patterns.</p>
        <p class="support-group">Bring any format</p>
        <div class="support-chips">
          <a href="index.html?format=helm-chart">Helm <b>${catalog.catalogComponents.length}</b></a>
@@ -11911,10 +11915,10 @@ function catalogMovedSections(catalog) {
   return {
     trust: `    <section aria-labelledby="trust">
       <h2 id="trust">8. Check why you can trust an entry</h2>
-      <p>Every entry is an image of the exact objects, with a receipt of what was checked. Three words say how far each one is proven.</p>
+      <p>Every published entry is an image of the exact objects, with a receipt of what was checked. Three words say how far each one is proven.</p>
       <ul>
         <li><strong>Verified.</strong> The render matches Helm's own output for the recorded inputs, so a base variant is proven rather than asserted.</li>
-        <li><strong>Certified.</strong> A whole composition passes its checks, so every part holds together, before anything renders. <a href="./stack.html">See how a stack is certified</a>.</li>
+        <li><strong>Certified.</strong> A whole composition passes its checks before anything renders. The checks find conflicts between parts and declared needs that no part meets, and they do not show that the platform runs. <a href="./stack.html">See how a stack is certified</a>.</li>
         <li><strong>Signed.</strong> A signature records who published the image. <code>cub config verify</code> confirms the image is exactly what its receipt says and refuses one with none. The receipt says what was checked, not that the configuration will run on your cluster.</li>
       </ul>
       <p><a href="./check-a-claim-yourself.html#verify">Verify a signed image yourself</a>, or <a href="./check-a-claim-yourself.html#not-claimed">see what this catalog does not claim</a>.</p>
@@ -11974,7 +11978,7 @@ function catalogMovedSections(catalog) {
     takeIt: `    <section aria-labelledby="take-it">
       <h2 id="take-it">5. Take an entry into a stack or into ConfigHub</h2>
       <p>Open the chart page and follow its first command. Inspect the generated objects and required setup before you decide where they should run.</p>
-      <p>Choosing several components for a platform? <a href="./bring-kubara-into-confighub.html"><strong>Build a small Kubara platform</strong></a> from tested Catalog entries, or <a href="./stack.html">compose a stack from certified parts</a>. Upload any entry into <a href="./confighub.html">ConfigHub</a> to release, promote, and govern it, or <a href="./deploy-with-flux-or-argo.html">deploy it directly with the reconciler you already run</a>.</p>
+      <p>Choosing several components for a platform? <a href="./bring-kubara-into-confighub.html"><strong>Build a small Kubara platform</strong></a> from tested Catalog entries, or <a href="./stack.html">compose a stack from certified parts</a>. Upload a published entry into <a href="./confighub.html">ConfigHub</a> to release, promote, and govern it, or <a href="./deploy-with-flux-or-argo.html">deploy it directly with the reconciler you already run</a>.</p>
       <p><a href="./ask.html">Is my configuration right?</a> · <a href="./try.html">Try it: Redis in ten minutes</a> · <a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> · <a href="./ai.html">Use with your AI</a> · <a href="./testing.html">Worked examples</a></p>
     </section>
 `,
