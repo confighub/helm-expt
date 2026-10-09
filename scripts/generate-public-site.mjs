@@ -15470,6 +15470,11 @@ function entryStepsCss() {
     .entry-steps .status { font-weight: 400; white-space: nowrap; }
     .entry-steps details.entry-steps-base { border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; margin: 12px 0; }
     .entry-steps details.entry-steps-base > summary { cursor: pointer; overflow-wrap: anywhere; }
+    .entry-steps details.entry-inputs { border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; margin: 12px 0; }
+    .entry-steps details.entry-inputs > summary { cursor: pointer; font-weight: 640; }
+    .entry-steps .entry-inputs-list { padding-left: 1.2rem; overflow-wrap: anywhere; }
+    .entry-steps .entry-inputs-list li { margin: 4px 0; }
+    .entry-steps .entry-inputs-list em { color: var(--muted); }
     .entry-steps pre { max-width: 100%; }
     .entry-steps p, .entry-steps .agent-note, .entry-steps :not(pre) > code { overflow-wrap: anywhere; }
     .entry-steps .term-comment { color: #7f8b96; }
@@ -15562,7 +15567,83 @@ function entryStepsListingHtml(listing, siteHref) {
     ? `<p class="entry-steps-flag"><strong>This entry is flagged for review.</strong> ${escapeHtml(materialization.answer ?? "")}</p>
         `
     : "";
-  return `${flag}${steps.map((step, index) => entryStepHtml(step, index, listing, siteHref)).join("\n        ")}`;
+  return `${flag}${entryInputsHtml(listing)}${steps.map((step, index) => entryStepHtml(step, index, listing, siteHref)).join("\n        ")}`;
+}
+
+// What the listing records as fixed when the entry was built, beside what the
+// destination must supply. Both lists were only in the listing JSON, so a
+// reader could not tell a value they must change from one they cannot.
+// A listing's description of an input can run to seventy words when it names
+// every field path. The page keeps each sentence within the block's limit: a
+// long sentence stops before its list of paths, and one closing sentence says
+// the listing gives the rest. A full commit is shortened as elsewhere.
+function shortInputDetail(detail) {
+  const words = (text) => text.trim().split(/\s+/).filter(Boolean).length;
+  let cut = false;
+  const sentences = String(detail)
+    .replace(/\b([0-9a-f]{12})[0-9a-f]{28}\b/g, "$1")
+    .split(/(?<=\.)\s+/)
+    .map((sentence) => {
+      if (words(sentence) <= 30) return sentence;
+      cut = true;
+      for (const mark of [", which are", ";", ":"]) {
+        const at = sentence.indexOf(mark);
+        if (at > 0 && words(sentence.slice(0, at)) <= 30) return `${sentence.slice(0, at)}.`;
+      }
+      return `${sentence.trim().split(/\s+/).slice(0, 28).join(" ")} and more.`;
+    });
+  return `${sentences.join(" ")}${cut ? " The listing gives the rest." : ""}`;
+}
+
+// The maps are built inside the function, because the generator runs at
+// module load and a constant declared here would not exist yet.
+function entryInputsHtml(listing) {
+  const INSTALL_INPUT_STATUS = new Map([
+    ["declared-not-checked", "Declared. Not checked on any destination."],
+    ["confirmed-placeholder", "A placeholder. Change it to match your cluster."],
+    ["required-not-live-checked", "Required. Not checked in a live run."],
+    ["live-pass", "Checked in a live run."],
+  ]);
+  const INSTALL_INPUT_LIMIT = 12;
+  const fixed = (listing.source?.fixedAtBuildTime ?? []).map((item) => {
+    const text = String(item);
+    const at = text.indexOf("=");
+    if (at <= 0) return [text, ""];
+    // A full commit is shortened, as it is everywhere else on the site. The
+    // listing keeps all forty characters.
+    const value = text.slice(at + 1);
+    return [text.slice(0, at), /^[0-9a-f]{40}$/.test(value) ? value.slice(0, 12) : value];
+  });
+  const supplied = listing.lifecycle?.installTimeInputs ?? [];
+  if (fixed.length === 0 && supplied.length === 0) return "";
+  for (const input of supplied) {
+    check(INSTALL_INPUT_STATUS.has(input.status), `site/listings/${listing.identity.id}.json has an install-time input with an unclassified status ${JSON.stringify(input.status)}`);
+  }
+  const fixedRows = fixed
+    .map(([name, value]) => `<li><code>${escapeHtml(name)}</code>${value ? ` is <code>${escapeHtml(value)}</code>` : ""}</li>`)
+    .join("");
+  const shown = supplied.slice(0, INSTALL_INPUT_LIMIT);
+  const suppliedRows = shown
+    .map((input) => `<li>${escapeHtml(shortInputDetail(input.detail || input.name || ""))} <em>${escapeHtml(INSTALL_INPUT_STATUS.get(input.status))}</em></li>`)
+    .join("");
+  const more = supplied.length > shown.length
+    ? `<p>The listing records ${supplied.length} of these. This list shows the first ${shown.length}.</p>`
+    : "";
+  const fixedHtml = fixed.length > 0
+    ? `<p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
+        <ul class="entry-inputs-list">${fixedRows}</ul>`
+    : "";
+  const suppliedHtml = supplied.length > 0
+    ? `<p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list">${suppliedRows}</ul>
+        ${more}`
+    : `<p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>`;
+  return `<details class="entry-inputs" data-entry-inputs="${escapeHtml(listing.identity.id)}" open>
+        <summary>What is fixed, and what you supply</summary>
+        ${fixedHtml}
+        ${suppliedHtml}
+      </details>
+        `;
 }
 
 // listings: the listing files for every entry this page covers, first one open.
