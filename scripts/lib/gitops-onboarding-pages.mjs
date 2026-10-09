@@ -35,7 +35,7 @@ const guides = {
     fixturePath: "gitops/argo/beginner-app-of-apps",
     object: "Application",
     sync: "syncs each Application",
-    becomesIntro: "<code>cub argo apply . --out onboard</code> writes files only. For each Application it writes the copy Argo CD has today under <code>onboard/control/</code>, and the copy it would have after the handover under <code>onboard/repointed/</code>. On the fixture, the two copies of <code>apptique-dev</code> differ in three lines.",
+    becomesIntro: "<code>cub argo apply . --out onboard</code> writes files only. For each Application it writes the copy Argo CD has today under <code>onboard/control/</code>, and the copy it would have after the handover under <code>onboard/repointed/</code>. Each copy sits in a folder named for the Space that holds it, which is <code>argo-apptique-apps-children</code> on the fixture. The two copies of <code>apptique-dev</code> differ in three lines.",
     becomesDiff: ` kind: Application
  metadata:
    name: apptique-dev
@@ -227,6 +227,7 @@ ${kind === "argo" ? '      <p>For an app-of-apps estate, ConfigHub keeps the roo
         </tbody>
       </table></div>
       <p>The handover is the step that moves the source of truth. Until <code>handover.sh</code> runs, ConfigHub holds a copy that nothing reads. ${guide.outside}</p>
+      <p>${kind === "argo" ? 'Some teams on Flux? <a href="./bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a> follows the same steps.' : 'Some teams on Argo CD? <a href="./bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a> follows the same steps.'}</p>
     </section>
 
     <section aria-labelledby="preview-setup">

@@ -500,6 +500,30 @@ Unit.
 The run deleted its Spaces and its Component afterwards, and the log shows
 those commands. This step deploys nothing.
 
+### See the same diffs in the ConfigHub web interface
+
+The web interface shows the same comparison without a command. Open the Unit,
+choose Revisions, select a revision and tick the one before it. The Diff panel
+lists each changed field with its old and new value.
+
+These two pictures are from a live example in a hosted ConfigHub organization.
+Its `gpu-operator-prod` Space took chart v26.3.2, then v26.3.3, then driver
+`595.91.07`, as three uploads. Both show the ClusterPolicy Unit.
+
+The first compares revision 2 with revision 3, the chart upgrade. It lists
+seven changes.
+
+![The ConfigHub Diff panel for the ClusterPolicy Unit, revision 2 to 3, with seven changed fields](../images/gpu-operator/confighub-upgrade-diff.jpg)
+
+The second compares revision 3 with revision 4, the driver change. It lists
+one change, `spec.driver.version` from `580.126.20` to `595.91.07`.
+
+![The ConfigHub Diff panel for the ClusterPolicy Unit, revision 3 to 4, with one changed field](../images/gpu-operator/confighub-driver-diff.jpg)
+
+Opening that example needs access to the organization. The
+[gpu-operator page](https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator.html)
+links it.
+
 ### Promote a version step through dev and QA
 
 The steps above keep each version as its own variant. A second way keeps one
@@ -594,3 +618,16 @@ decide who runs the `pre-upgrade` Job and the CRD changes.
 The Catalog holds this chart as an entry. Open
 [gpu-operator v26.3.3](https://confighub.github.io/helm-expt/site/charts/nvidia-gpu-operator-v26-3-3.html)
 for its retained objects, its driver bases and the five ConfigHub steps.
+
+To check the GPU Operator together with NVSentinel and the
+cluster-readiness-engine, use the shipped `gpu-node` stack. It needs Workshop
+plugin v0.6.58 or later, and no account.
+
+```sh
+cub stack sandbox gpu-node
+```
+
+It reports CHECKED with 89 objects. It is a static check, and nothing in it
+runs on a GPU.
+[Make a stack from Catalog entries](./workshop-stack-from-catalog-guide.md)
+shows how to compose the same three by hand, or a set of your own.
