@@ -1,0 +1,1371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live walk of a GPU Operator upgrade through dev and QA, 2026-10-09 · ConfigHub Workshop</title>
+  <meta name="description" content="Live walk of a GPU Operator upgrade through dev and QA, 2026-10-09: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.html">
+  <meta property="og:title" content="Live walk of a GPU Operator upgrade through dev and QA, 2026-10-09 · ConfigHub Workshop">
+  <meta property="og:description" content="Live walk of a GPU Operator upgrade through dev and QA, 2026-10-09: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .app-learning-cards { display: grid; gap: 20px; margin: 26px 0; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  :root { --cw-body: .9375rem; --cw-nav: .875rem; --cw-meta: .8125rem; --cw-lead: 1rem; }
+  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--sans, Inter, system-ui, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 700; }
+  h2, h3 { font-weight: 600; }
+  .cw-content h1 { font-size: clamp(1.75rem, 2.8vw, 2.25rem); line-height: 1.2; }
+  .cw-content h2 { font-size: 1.375rem; line-height: 1.35; }
+  .cw-content h3 { font-size: 1.0625rem; line-height: 1.4; }
+  .cw-content .lead, .cw-content .tagline { font-size: var(--cw-lead); line-height: 1.65; }
+  .cw-content { font-size: var(--cw-body); line-height: 1.65; }
+  .topbar { font-size: var(--cw-nav); }
+  .topbar .site-purpose { font-family: var(--sans); font-size: var(--cw-meta); text-transform: none; }
+  .topbar .brand, .navlinks a.nav-cta { border-color: transparent; background: transparent; }
+  .cw-nav-title a { color: var(--ink); text-decoration: none; }
+  .cw-nav-title a:hover { text-decoration: underline; }
+  .cw-content :is(.eyebrow, .kicker, .generated), .site-footer .sf-h { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; }
+  .cw-content :is(.button, .route-help > summary, details.deep > summary) { font-size: var(--cw-body); }
+  .cw-content :is(p, li, td) > code { border: 0; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  .cw-guide .cw-content { max-width: 880px; }
+  .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
+  .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
+  .cw-content pre { max-width: 100%; overflow-x: auto; }
+  .cw-content summary { cursor: pointer; padding: 10px 0; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cw-skip { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 6px; }
+  .cw-skip:focus { top: 12px; }
+  @media (max-width: 600px) {
+    .cw-layout { padding: 0 16px; }
+    .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 200px; }
+    .cw-guide .cw-content h1 { overflow-wrap: anywhere; }
+  }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: var(--cw-nav); }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; line-height: 1.5; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { min-height: 44px; cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<a class="cw-skip" href="#cw-content">Skip to content</a>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="../../../charts/index.html">Configs</a><a href="../../../stack.html">Stacks</a><a href="../../../apps.html">Apps</a><a href="../../../plugins.html">Plugins</a><a href="../../../guides.html">Guides</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Every stack</a></li><li><a href="../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="../../../apps.html">Every app</a></li><li><a href="../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="../../../plugins.html">Every cub plugin</a></li><li><a href="../../../bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="../../../guides.html">Every Guide</a></li><li><a href="../../../journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="../../../journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="../../../journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="../../../journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="../../../journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="../../../see-what-is-running.html">See what is running with cub scout</a></li><li><a href="../../../view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="../../../bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="../../../bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="../../../bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="../../../choose-a-tool.html">Choose a tool and start</a></li><li><a href="../../../deploy-one-thing.html">Deploy one thing, and look before you do</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></nav>
+<div class="cw-content" id="cw-content" tabindex="-1">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Every stack</a></li><li><a href="../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="../../../apps.html">Every app</a></li><li><a href="../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="../../../plugins.html">Every cub plugin</a></li><li><a href="../../../bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="../../../guides.html">Every Guide</a></li><li><a href="../../../journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="../../../journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="../../../journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="../../../journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="../../../journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="../../../see-what-is-running.html">See what is running with cub scout</a></li><li><a href="../../../view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="../../../bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="../../../bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="../../../bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="../../../choose-a-tool.html">Choose a tool and start</a></li><li><a href="../../../deploy-one-thing.html">Deploy one thing, and look before you do</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>Live walk of a GPU Operator upgrade through dev and QA, 2026-10-09</h1>
+    <p class="lead">This log records one serial session in a hosted ConfigHub organization. The session moved NVIDIA's GPU Operator from v26.3.2 to v26.3.3 on a base, then into a dev variant, then into a QA variant. It then moved one driver version the same way. Nothing left ConfigHub. No cluster ran, no Target existed and no Release was published. <a href="../../../../docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
+
+<p>This is a dated record of one run. It is not a Guide and it is not a receipt for any Catalog entry. Every line that starts with <code>$</code> is a command that was run, and the text under it is the output it printed. Times are local wall-clock times. The whole walk ran between 08:41 and 08:52.</p>
+<h2 id="versions-and-setting">Versions and setting</h2>
+<ul><li>The client is cub v0.8.7 (commit 072585f2, built 2026-10-07).</li><li>The server is v0.8.10 (commit 28e0fc84, built 2026-10-08).</li><li>The installer plugin is 0.1.0 and the workshop plugin is 0.6.56. Neither ran in this walk. Every command used is built into cub.</li><li>The inputs are three published literal configuration bundles. Each reference is the <code>reference</code> of the <code>literal-config</code> bundle in the entry's listing under <code>site/listings/</code>, read at commit 59de828d1a.</li><li>The organization is a hosted ConfigHub organization. It is written <code>&lt;org&gt;</code>, and the cub context is written <code>&lt;ctx&gt;</code>.</li><li>Every command ran as <code>cub --context &lt;ctx&gt; ...</code> with <code>CUB_CONTEXT=&lt;ctx&gt;</code> exported. The log leaves both out of the command lines.</li><li>Identifiers are written <code>&lt;id&gt;</code>, a server request identifier is written <code>&lt;request-id&gt;</code> and an account address is written <code>user@example.com</code>. The log holds no token and no secret.</li><li>Each block ends with a line such as <code>[exit 0 at 08:42:12]</code>. The recording wrapper wrote that line. It is the exit code and the time the command returned.</li><li>Long output is trimmed. Each cut is one line that starts with <code>...</code> and gives the number of lines removed. No kept line was edited beyond the substitutions above and the removal of trailing spaces.</li></ul>
+<h2 id="what-the-walk-set-out-to-do">What the walk set out to do</h2>
+<p>A visitor who runs the GPU Operator asked how an upgrade is promoted through dev and QA. The site prints commands for one <code>dev</code> variant and shows no second environment. The walk ran the missing part so that a page can print it.</p>
+<p>The walk had eight steps.</p>
+<ol><li>List the organization's GPU Operator Spaces before anything was written.</li><li>Upload the v26.3.2 default bundle as a base.</li><li>Create a dev variant and a QA variant, and find out which command makes QA take its changes from dev.</li><li>Upload the v26.3.3 default bundle onto the same base.</li><li>Preview and promote into dev, try QA before dev, then promote QA.</li><li>Diff base, dev and QA.</li><li>Repeat steps 4 to 6 for one driver version.</li><li>Delete everything the walk made and prove it.</li></ol>
+<h2 id="the-answer-in-brief">The answer in brief</h2>
+<p>A GPU Operator version step moves through dev and QA in ConfigHub with three kinds of command. An upload moves the base. A promotion moves each variant, one step at a time. A QA variant cloned from dev takes its changes from dev, so it cannot get ahead of dev.</p>
+<p>These are the walk's commands in the order they ran, with the walk's names and change descriptions replaced by placeholders. Each one ran and worked.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <pre><code>cub variant upload --component &lt;your-component&gt; --variant base --namespace gpu-operator --change-desc &quot;&lt;text&gt;&quot; &lt;v26.3.2 bundle reference&gt;
+cub variant create dev &lt;your-component&gt;-base --environment Dev --change-desc &quot;&lt;text&gt;&quot;
+cub variant create qa &lt;your-component&gt;-dev --environment QA --change-desc &quot;&lt;text&gt;&quot;
+cub variant upload --yes --component &lt;your-component&gt; --variant base --namespace gpu-operator --change-desc &quot;&lt;text&gt;&quot; &lt;v26.3.3 bundle reference&gt;
+cub variant diff &lt;your-component&gt;-base Before:ChangeSet:&lt;changeset&gt; ChangeSet:&lt;changeset&gt; -o mutations
+cub variant promote &lt;your-component&gt;-dev --dry-run -o mutations
+cub variant promote &lt;your-component&gt;-dev --change-desc &quot;&lt;text&gt;&quot;
+cub variant promote &lt;your-component&gt;-qa --dry-run -o mutations
+cub variant promote &lt;your-component&gt;-qa --change-desc &quot;&lt;text&gt;&quot;
+cub unit diff --space &lt;your-component&gt;-dev &lt;unit&gt; --with-unit &lt;your-component&gt;-qa/&lt;unit&gt; -o mutations</code></pre>
+<p>The upload prints the ChangeSet name that the diff command needs. The section on what went wrong lists the places where a reader could be surprised.</p>
+<h2 id="what-was-substituted-and-why">What was substituted, and why</h2>
+<p>The listings were the source for the commands. The walk departed from them in the places this table names.</p>
+<table><thead><tr><th>The listing says</th><th>This run used</th><th>Why</th></tr></thead><tbody><tr><td><code>cub auth login</code></td><td>not run</td><td>The session used an existing login. The rules of the run forbade a new one.</td></tr>
+<tr><td>plain <code>cub ...</code></td><td><code>cub --context &lt;ctx&gt; ...</code> with <code>CUB_CONTEXT=&lt;ctx&gt;</code> exported</td><td>The machine's default context is a different organization.</td></tr>
+<tr><td>The upload step in <code>nextSteps</code> prints <code>cub installer setup --pull &lt;package&gt;</code> and then <code>cub installer upload --work-dir ./&lt;entry&gt; --space &lt;your-space&gt; --component &lt;your-component&gt;</code></td><td><code>cub variant upload --component cwwalk-1009-gpu-operator --variant base --namespace gpu-operator &lt;literal bundle reference&gt;</code></td><td>The walk was asked to use each entry's published literal configuration bundle. The upload step prints no <code>cub variant upload</code> command. The nearest printed one is under <code>variants.howToMakeOne.commands</code>, and the next four rows compare with it.</td></tr>
+<tr><td><code>./rendered</code> as the input</td><td>the <code>oci://</code> reference from <code>oci.bundles[literal-config].reference</code></td><td>The bundle is public and pinned by digest. The server pulls it, so no local render was needed.</td></tr>
+<tr><td><code>--component nvidia-gpu-operator --variant default --space nvidia-gpu-operator-v26-3-3-default</code></td><td><code>--component cwwalk-1009-gpu-operator --variant base</code>, with no <code>--space</code></td><td>Every object had to carry the session prefix. The default Space name is <code>&lt;component&gt;-&lt;variant&gt;</code>, which gave <code>cwwalk-1009-gpu-operator-base</code>. One base had to carry three bundles in turn, so the Space could not be named after one entry.</td></tr>
+<tr><td><code>--unit-annotation workshop.confighub.com/object-set-sha256=&lt;hash&gt;</code></td><td>left out</td><td>The annotation names the object set of one entry, and this base held three. The walk did not test what a second upload does to that annotation.</td></tr>
+<tr><td>no <code>--namespace</code> flag</td><td><code>--namespace gpu-operator</code></td><td>The help says the flag has no default, and the listing's <code>cub installer setup</code> line uses <code>--namespace gpu-operator</code>. Finding 3 records a side effect.</td></tr>
+<tr><td><code>cub variant create staging &lt;space&gt; --space-pattern template:&lt;space&gt;-staging --environment Staging --unit-annotation ...</code></td><td><code>cub variant create dev cwwalk-1009-gpu-operator-base --environment Dev</code> and <code>cub variant create qa cwwalk-1009-gpu-operator-dev --environment QA</code></td><td>The question was about dev and QA. The default Space names already carried the prefix, so no <code>--space-pattern</code> was needed.</td></tr>
+<tr><td><code>cub variant create dev &lt;your-space&gt; --target workshop/target --space-pattern &quot;template:&lt;your-space&gt;-dev&quot;</code> in the deploy step</td><td>no <code>--target</code></td><td>The walk had no cluster and no Target.</td></tr>
+<tr><td><code>cub variant promote &lt;your-space&gt;-dev --dry-run -o mutations</code></td><td><code>cub variant promote cwwalk-1009-gpu-operator-dev --dry-run -o mutations</code></td><td>Only the name changed. The same holds for the promote line with <code>--change-desc</code>.</td></tr>
+<tr><td><code>cub unit delete --space &lt;your-space&gt;-dev installer-record</code> and <code>cub release publish &lt;your-space&gt;-dev</code></td><td>not run</td><td>A base made by <code>cub variant upload</code> has no <code>installer-record</code> Unit. The walk published no Release.</td></tr>
+<tr><td>no command for a second upload onto the same base</td><td>the first upload command again with the next bundle and <code>--yes</code></td><td>The listings print no upgrade-by-upload command. Finding 2 says why <code>--yes</code> was needed.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
+<p>The walk also made a third variant named <code>qa-direct</code>, cloned from the base, to compare with the QA variant cloned from dev. It was not promoted.</p>
+<h2 id="step-1-the-organization-before-the-walk">Step 1. The organization before the walk</h2>
+<pre><code>$ cub version
+Client Version:
+  Version:    v0.8.7
+  Commit:     072585f257783af26f03e70b338d9ea96ea28055
+  Build Date: 2026-10-07T02:31:58Z
+Server Version:
+  URL:        https://hub.confighub.com
+  Version:    v0.8.10
+  Commit:     28e0fc849f2db6dd5796408cdab15619c7ae4fba
+  Build Date: 2026-10-08T23:04:43Z
+  Client ID:  cub
+[exit 0 at 08:51:59]
+
+$ cub context list
+SELECTED                    NAME            SERVER                                   ORGANIZATION                            USER
+* --context, CUB_CONTEXT    &lt;ctx&gt;      https://hub.confighub.com                &lt;org&gt;                            user@example.com
+... (9 lines cut, one per other context on this machine)
+[exit 0 at 08:51:59]</code></pre>
+<p>The context row names the hosted organization and a signed-in user, so the walk went ahead. Both commands ran first, before any write, outside the recording wrapper. The transcript shown is a second run at the end of the walk, which printed the same rows.</p>
+<pre><code>$ cub space list --where &quot;Slug LIKE '%gpu-operator%'&quot;
+NAME                     COMPONENT       OWNER    VARIANT     STAGE    ENVIRONMENT    REGION    LAYER    #UNITS
+gpu-operator-v26-3-3     gpu-operator             v26-3-3                                                24
+gpu-operator-prod        gpu-operator             prod                                                   24
+gpu-operator-v25-10-1    gpu-operator             v25-10-1                                               24
+gpu-operator-v26-3-2     gpu-operator             v26-3-2                                                24
+[exit 0 at 08:41:35]
+
+$ cub space list --where &quot;Slug LIKE '%cwwalk%'&quot;
+NAME    COMPONENT    OWNER    VARIANT    STAGE    ENVIRONMENT    REGION    LAYER    #UNITS
+[exit 0 at 08:41:35]
+
+$ cub component list --where &quot;Slug LIKE '%gpu-operator%'&quot;
+NAME                WORKFLOW-REQUIRED    #ALLOWED-WORKFLOWS    OWNER    VARIANTS
+ch7-gpu-operator    false                0
+gpu-operator        false                0                              gpu-operator-prod, gpu-operator-v25-10-1, gpu-operator-v26-3-2, gpu-operator-v26-3-3
+[exit 0 at 08:41:36]
+
+$ cub component list --where &quot;Slug LIKE '%cwwalk%'&quot;
+NAME    WORKFLOW-REQUIRED    #ALLOWED-WORKFLOWS    OWNER    VARIANTS
+[exit 0 at 08:41:36]
+
+$ cub unit list --space '*' --where &quot;Space.Slug LIKE 'gpu-operator-%'&quot; --no-headers -o jq='.[] | [.Space.Slug, .Unit.Slug, (.Unit.HeadRevisionNum|tostring)] | join(&quot; &quot;)' | sort
+gpu-operator-prod cluster-policy-clusterpolicy 4
+gpu-operator-prod clusterpolicies.nvidia.com-crd 2
+gpu-operator-prod gpu-operator 3
+gpu-operator-prod gpu-operator-clusterrole 3
+... (92 more lines cut, one per Unit, 96 Units in all)
+[exit 0 at 08:41:44]</code></pre>
+<p>Four Spaces named <code>gpu-operator-*</code> belong to a live example, and the walk was not allowed to touch them. They held 96 Units between them. The last command recorded each Unit's head revision number so that the end of the walk could compare. No Space and no Component carried the walk's prefix.</p>
+<h2 id="step-2-upload-v2632-default-as-a-base">Step 2. Upload v26.3.2 default as a base</h2>
+<p>The preview came first.</p>
+<pre><code>$ cub variant upload --dry-run --component cwwalk-1009-gpu-operator --variant base --namespace gpu-operator oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-default:r001@sha256:0f6f399365cb045906854c9b568afa8dcb960d7898db5e5b47a317a3eed10484
+Pulled oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-default:r001@sha256:0f6f399365cb045906854c9b568afa8dcb960d7898db5e5b47a317a3eed10484 (sha256:0f6f399365cb045906854c9b568afa8dcb960d7898db5e5b47a317a3eed10484)
+Dry run: nothing was written.
+Space cwwalk-1009-gpu-operator-base (Create)
+  Create    nvidia-gpu-operator-v26-3-2-default-target-requirements-bundletargetrequirements
+  Create    nvidia-gpu-operator-v26-3-2-default-crd-ordering-bundleroute
+  Create    nvidia-gpu-operator-v26-3-2-default-lifecycle-actions-bundleroute
+  Create    clusterpolicies.nvidia.com-crd
+  Create    nvidiadrivers.nvidia.com-crd
+  Create    nodefeatures.nfd.k8s-sigs.io-crd
+  Create    nodefeaturegroups.nfd.k8s-sigs.io-crd
+  Create    nodefeaturerules.nfd.k8s-sigs.io-crd
+  Create    node-feature-discovery-serviceaccount
+  Create    gpu-operator-serviceaccount
+  Create    gpu-operator-node-feature-discovery-master-conf-configmap
+  Create    gpu-operator-node-feature-discovery-worker-conf-configmap
+  Create    gpu-operator-node-feature-discovery-clusterrole
+  Create    gpu-operator-node-feature-discovery-gc-clusterrole
+  Create    gpu-operator-clusterrole
+  Create    gpu-operator-node-feature-discovery-clusterrolebinding
+  Create    gpu-operator-node-feature-discovery-gc-clusterrolebinding
+  Create    gpu-operator-clusterrolebinding
+  Create    gpu-operator-node-feature-discovery-worker-role
+  Create    gpu-operator-role
+  Create    gpu-operator-node-feature-discovery-worker-rolebinding
+  Create    gpu-operator-rolebinding
+  Create    gpu-operator-node-feature-discovery-worker
+  Create    gpu-operator-node-feature-discovery-master
+  Create    gpu-operator-node-feature-discovery-gc
+  Create    gpu-operator
+  Create    cluster-policy-clusterpolicy
+... (17 lines cut, one per inferred link between two Units)
+
+Note: the following references didn't resolve to any uploaded Unit (expected when the
+target lives in the cluster, e.g. a Secret created out-of-band):
+... (20 lines cut, one per reference to an object outside the bundle)
+[exit 0 at 08:41:57]</code></pre>
+<p>The bundle holds 24 Kubernetes objects and three companion documents. The companions are a <code>BundleTargetRequirements</code> and two <code>BundleRoute</code> documents, and each one becomes a Unit named after the entry id. That makes 27 Units, where the listing counts 24 objects. Finding 2 follows from those three names.</p>
+<pre><code>$ cub variant upload --component cwwalk-1009-gpu-operator --variant base --namespace gpu-operator --change-desc 'Seed the base at v26.3.2 default' oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-default:r001@sha256:0f6f399365cb045906854c9b568afa8dcb960d7898db5e5b47a317a3eed10484
+Pulled oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-default:r001@sha256:0f6f399365cb045906854c9b568afa8dcb960d7898db5e5b47a317a3eed10484 (sha256:0f6f399365cb045906854c9b568afa8dcb960d7898db5e5b47a317a3eed10484)
+Space cwwalk-1009-gpu-operator-base (Create)
+  Create    nvidia-gpu-operator-v26-3-2-default-target-requirements-bundletargetrequirements
+  Create    nvidia-gpu-operator-v26-3-2-default-crd-ordering-bundleroute
+  Create    nvidia-gpu-operator-v26-3-2-default-lifecycle-actions-bundleroute
+  Create    clusterpolicies.nvidia.com-crd
+  Create    nvidiadrivers.nvidia.com-crd
+  Create    nodefeatures.nfd.k8s-sigs.io-crd
+  Create    nodefeaturegroups.nfd.k8s-sigs.io-crd
+  Create    nodefeaturerules.nfd.k8s-sigs.io-crd
+  Create    node-feature-discovery-serviceaccount
+  Create    gpu-operator-serviceaccount
+  Create    gpu-operator-node-feature-discovery-master-conf-configmap
+  Create    gpu-operator-node-feature-discovery-worker-conf-configmap
+  Create    gpu-operator-node-feature-discovery-clusterrole
+  Create    gpu-operator-node-feature-discovery-gc-clusterrole
+  Create    gpu-operator-clusterrole
+  Create    gpu-operator-node-feature-discovery-clusterrolebinding
+  Create    gpu-operator-node-feature-discovery-gc-clusterrolebinding
+  Create    gpu-operator-clusterrolebinding
+  Create    gpu-operator-node-feature-discovery-worker-role
+  Create    gpu-operator-role
+  Create    gpu-operator-node-feature-discovery-worker-rolebinding
+  Create    gpu-operator-rolebinding
+  Create    gpu-operator-node-feature-discovery-worker
+  Create    gpu-operator-node-feature-discovery-master
+  Create    gpu-operator-node-feature-discovery-gc
+  Create    gpu-operator
+  Create    cluster-policy-clusterpolicy
+... (17 lines cut, one per inferred link between two Units)
+
+Note: the following references didn't resolve to any uploaded Unit (expected when the
+target lives in the cluster, e.g. a Secret created out-of-band):
+... (20 lines cut, one per reference to an object outside the bundle)
+
+Revert this upload of cwwalk-1009-gpu-operator-base with:
+  cub unit update --patch --space cwwalk-1009-gpu-operator-base --restore Before:ChangeSet:upload-20261009-074209 --where &quot;Labels.UploadSource = 'cwwalk-1009-gpu-operator'&quot;
+[exit 0 at 08:42:12]
+
+$ cub space list --where &quot;Slug LIKE 'cwwalk-1009-%'&quot; -o wide
+NAME                             COMPONENT                   OWNER    VARIANT    STAGE    ENVIRONMENT    REGION    LAYER    #UNITS    #LINKS    #TAGS    #CHANGESETS    #CHANGEORDERS    #CHANGEWORKFLOWS    #FILTERS    #VIEWS    #INVOCATIONS    #TRIGGERS    #WORKERS    #TARGETS    #ATTRIBUTES
+cwwalk-1009-gpu-operator-base    cwwalk-1009-gpu-operator             base                                                  27        17        2        1              0                0                   0           0         0               0            0           0           0
+[exit 0 at 08:42:17]
+
+$ cub component list --where &quot;Slug LIKE 'cwwalk-1009-%'&quot;
+NAME                        WORKFLOW-REQUIRED    #ALLOWED-WORKFLOWS    OWNER    VARIANTS
+cwwalk-1009-gpu-operator    false                0                              cwwalk-1009-gpu-operator-base
+[exit 0 at 08:42:18]</code></pre>
+<p>The upload created the Component, the Space <code>cwwalk-1009-gpu-operator-base</code>, 27 Units and 17 Links. It recorded one ChangeSet and printed the command that reverts it.</p>
+<h2 id="step-3-a-dev-variant-and-two-qa-variants">Step 3. A dev variant and two QA variants</h2>
+<p><code>cub variant create &lt;variant&gt; &lt;upstream-space&gt;</code> clones a Space. The second argument decides where the new variant takes its changes from. The walk made dev from the base, then made <code>qa</code> from dev and <code>qa-direct</code> from the base.</p>
+<pre><code>$ cub variant create dev cwwalk-1009-gpu-operator-base --environment Dev --change-desc 'Clone the base as dev'
+Created variant space cwwalk-1009-gpu-operator-dev (ID: &lt;id&gt;)
+Awaiting triggers...
+
+Bulk create operation completed:
+  Success: 27 unit(s)
+[exit 0 at 08:42:36]
+
+$ cub variant create qa cwwalk-1009-gpu-operator-dev --environment QA --change-desc 'Clone dev as qa'
+Created variant space cwwalk-1009-gpu-operator-qa (ID: &lt;id&gt;)
+Awaiting triggers...
+
+Bulk create operation completed:
+  Success: 27 unit(s)
+[exit 0 at 08:42:48]
+
+$ cub variant create qa-direct cwwalk-1009-gpu-operator-base --environment QA --change-desc 'Clone the base as qa-direct'
+Created variant space cwwalk-1009-gpu-operator-qa-direct (ID: &lt;id&gt;)
+Awaiting triggers...
+
+Bulk create operation completed:
+  Success: 27 unit(s)
+[exit 0 at 08:42:56]
+
+$ cub space list --where &quot;Slug LIKE 'cwwalk-1009-%'&quot; -o wide
+NAME                                  COMPONENT                   OWNER    VARIANT      STAGE    ENVIRONMENT    REGION    LAYER    #UNITS    #LINKS    #TAGS    #CHANGESETS    #CHANGEORDERS    #CHANGEWORKFLOWS    #FILTERS    #VIEWS    #INVOCATIONS    #TRIGGERS    #WORKERS    #TARGETS    #ATTRIBUTES
+cwwalk-1009-gpu-operator-base         cwwalk-1009-gpu-operator             base                                                    27        17        2        1              0                0                   0           0         0               0            0           0           0
+cwwalk-1009-gpu-operator-qa-direct    cwwalk-1009-gpu-operator             qa-direct             QA                                27        44        0        0              0                0                   0           0         0               0            0           0           0
+cwwalk-1009-gpu-operator-qa           cwwalk-1009-gpu-operator             qa                    QA                                27        44        0        0              0                0                   0           0         0               0            0           0           0
+cwwalk-1009-gpu-operator-dev          cwwalk-1009-gpu-operator             dev                   Dev                               27        44        0        0              0                0                   0           0         0               0            0           0           0
+[exit 0 at 08:42:56]</code></pre>
+<p>All three commands worked. Each clone has 44 Links, which is the 17 copied Links plus one <code>UpgradeUnit</code> Link per Unit. The next commands show where those 27 Links point.</p>
+<pre><code>$ cub link list --space cwwalk-1009-gpu-operator-base --no-headers -o jq='.[] | [.Link.UpdateType, .Space.Slug, &quot;-&gt;&quot;, .ToSpace.Slug] | join(&quot; &quot;)' | sort | uniq -c
+  17 NeedsProvides cwwalk-1009-gpu-operator-base -&gt; cwwalk-1009-gpu-operator-base
+[exit 0 at 08:43:13]
+
+$ cub link list --space cwwalk-1009-gpu-operator-dev --no-headers -o jq='.[] | [.Link.UpdateType, .Space.Slug, &quot;-&gt;&quot;, .ToSpace.Slug] | join(&quot; &quot;)' | sort | uniq -c
+  17 NeedsProvides cwwalk-1009-gpu-operator-dev -&gt; cwwalk-1009-gpu-operator-dev
+  27 UpgradeUnit cwwalk-1009-gpu-operator-dev -&gt; cwwalk-1009-gpu-operator-base
+[exit 0 at 08:43:11]
+
+$ cub link list --space cwwalk-1009-gpu-operator-qa --no-headers -o jq='.[] | [.Link.UpdateType, .Space.Slug, &quot;-&gt;&quot;, .ToSpace.Slug] | join(&quot; &quot;)' | sort | uniq -c
+  17 NeedsProvides cwwalk-1009-gpu-operator-qa -&gt; cwwalk-1009-gpu-operator-qa
+  27 UpgradeUnit cwwalk-1009-gpu-operator-qa -&gt; cwwalk-1009-gpu-operator-dev
+[exit 0 at 08:43:12]
+
+$ cub link list --space cwwalk-1009-gpu-operator-qa-direct --no-headers -o jq='.[] | [.Link.UpdateType, .Space.Slug, &quot;-&gt;&quot;, .ToSpace.Slug] | join(&quot; &quot;)' | sort | uniq -c
+  17 NeedsProvides cwwalk-1009-gpu-operator-qa-direct -&gt; cwwalk-1009-gpu-operator-qa-direct
+  27 UpgradeUnit cwwalk-1009-gpu-operator-qa-direct -&gt; cwwalk-1009-gpu-operator-base
+[exit 0 at 08:43:13]</code></pre>
+<p>Both forms exist. <code>cub variant create qa &lt;the dev Space&gt;</code> gave a chain, because every <code>UpgradeUnit</code> Link in <code>qa</code> points at a Unit in dev. <code>cub variant create qa-direct &lt;the base Space&gt;</code> gave a variant that takes from the base, because its Links point at the base. The rest of the walk used the chain and kept <code>qa-direct</code> unpromoted as a contrast.</p>
+<h2 id="step-4-move-the-base-to-v2633">Step 4. Move the base to v26.3.3</h2>
+<p>The walk uploaded the v26.3.3 default bundle with the same Component and variant names. The preview came first.</p>
+<pre><code>$ cub variant upload --dry-run --component cwwalk-1009-gpu-operator --variant base --namespace gpu-operator oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-default:r001@sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e
+Pulled oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-default:r001@sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e (sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e)
+Dry run: nothing was written.
+Space cwwalk-1009-gpu-operator-base (Update)
+  Create    nvidia-gpu-operator-v26-3-3-default-target-requirements-bundletargetrequirements
+  Create    nvidia-gpu-operator-v26-3-3-default-crd-ordering-bundleroute
+  Create    nvidia-gpu-operator-v26-3-3-default-lifecycle-actions-bundleroute
+  Update    gpu-operator-serviceaccount
+  Update    gpu-operator-clusterrole
+  Update    gpu-operator-clusterrolebinding
+  Update    gpu-operator-role
+  Update    gpu-operator-rolebinding
+  Update    gpu-operator
+  Update    cluster-policy-clusterpolicy
+  Empty     nvidia-gpu-operator-v26-3-2-default-crd-ordering-bundleroute
+  Empty     nvidia-gpu-operator-v26-3-2-default-target-requirements-bundletargetrequirements
+  Empty     nvidia-gpu-operator-v26-3-2-default-lifecycle-actions-bundleroute
+  Unchanged 17 Unit(s)
+
+Note: the following references didn't resolve to any uploaded Unit (expected when the
+target lives in the cluster, e.g. a Secret created out-of-band):
+... (20 lines cut, one per reference to an object outside the bundle)
+[exit 0 at 08:43:29]</code></pre>
+<p>The preview lists three Units to empty. They are the v26.3.2 companion documents, whose names are not in the v26.3.3 bundle. The upload asks before it empties a Unit, so the command without <code>--yes</code> stopped in this shell, which has no terminal to answer from.</p>
+<pre><code>$ cub variant upload --component cwwalk-1009-gpu-operator --variant base --namespace gpu-operator --change-desc 'Move the base to v26.3.3 default' oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-default:r001@sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e &lt;/dev/null
+This upload empties 3 Unit(s) whose resources are no longer in the bundle:
+  - nvidia-gpu-operator-v26-3-2-default-target-requirements-bundletargetrequirements
+  - nvidia-gpu-operator-v26-3-2-default-crd-ordering-bundleroute
+  - nvidia-gpu-operator-v26-3-2-default-lifecycle-actions-bundleroute
+Their resources are withdrawn from the cluster by the next Release. Nothing is deleted.
+
+Continue? [y/N]: Failed: read confirmation: EOF
+[exit 1 at 08:43:38]
+
+$ cub variant upload --yes --component cwwalk-1009-gpu-operator --variant base --namespace gpu-operator --change-desc 'Move the base to v26.3.3 default' oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-default:r001@sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e
+Pulled oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-default:r001@sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e (sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e)
+Space cwwalk-1009-gpu-operator-base (Update)
+  Create    nvidia-gpu-operator-v26-3-3-default-target-requirements-bundletargetrequirements
+  Create    nvidia-gpu-operator-v26-3-3-default-crd-ordering-bundleroute
+  Create    nvidia-gpu-operator-v26-3-3-default-lifecycle-actions-bundleroute
+  Update    gpu-operator-serviceaccount
+  Update    gpu-operator-clusterrole
+  Update    gpu-operator-clusterrolebinding
+  Update    gpu-operator-role
+  Update    gpu-operator-rolebinding
+  Update    gpu-operator
+  Update    cluster-policy-clusterpolicy
+  Empty     nvidia-gpu-operator-v26-3-2-default-crd-ordering-bundleroute
+  Empty     nvidia-gpu-operator-v26-3-2-default-lifecycle-actions-bundleroute
+  Empty     nvidia-gpu-operator-v26-3-2-default-target-requirements-bundletargetrequirements
+  Unchanged 17 Unit(s)
+
+Note: the following references didn't resolve to any uploaded Unit (expected when the
+target lives in the cluster, e.g. a Secret created out-of-band):
+... (20 lines cut, one per reference to an object outside the bundle)
+
+Revert this upload of cwwalk-1009-gpu-operator-base with:
+  cub unit update --patch --space cwwalk-1009-gpu-operator-base --restore Before:ChangeSet:upload-20261009-074347 --where &quot;Labels.UploadSource = 'cwwalk-1009-gpu-operator'&quot;
+[exit 0 at 08:43:50]
+
+$ cub space list --where &quot;Slug LIKE 'cwwalk-1009-%'&quot; -o wide
+NAME                                  COMPONENT                   OWNER    VARIANT      STAGE    ENVIRONMENT    REGION    LAYER    #UNITS    #LINKS    #TAGS    #CHANGESETS    #CHANGEORDERS    #CHANGEWORKFLOWS    #FILTERS    #VIEWS    #INVOCATIONS    #TRIGGERS    #WORKERS    #TARGETS    #ATTRIBUTES
+cwwalk-1009-gpu-operator-base         cwwalk-1009-gpu-operator             base                                                    30        17        4        2              0                0                   0           0         0               0            0           0           0
+cwwalk-1009-gpu-operator-qa-direct    cwwalk-1009-gpu-operator             qa-direct             QA                                27        44        0        0              0                0                   0           0         0               0            0           0           0
+cwwalk-1009-gpu-operator-qa           cwwalk-1009-gpu-operator             qa                    QA                                27        44        0        0              0                0                   0           0         0               0            0           0           0
+cwwalk-1009-gpu-operator-dev          cwwalk-1009-gpu-operator             dev                   Dev                               27        44        0        0              0                0                   0           0         0               0            0           0           0
+[exit 0 at 08:43:50]</code></pre>
+<p>With <code>--yes</code> the upload worked. The base went from 27 Units to 30, because the three emptied Units stay and three new companion Units arrive. The dev and QA Spaces did not change.</p>
+<p><code>cub variant diff</code> across the upload's ChangeSet shows what changed in the base.</p>
+<pre><code>$ cub variant diff cwwalk-1009-gpu-operator-base Before:ChangeSet:upload-20261009-074347 ChangeSet:upload-20261009-074347 -o mutations
+=== cwwalk-1009-gpu-operator-base/cluster-policy-clusterpolicy/2 -&gt; cwwalk-1009-gpu-operator-base/cluster-policy-clusterpolicy/3
+Resource: nvidia.com/v1/ClusterPolicy /cluster-policy
+  ~ [Update] metadata.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] metadata.labels.app~1kubernetes~1io/version
+      v26.3.2 → v26.3.3
+  ~ [Update] spec.daemonsets.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] spec.validator.version
+      v26.3.2 → v26.3.3
+  ~ [Update] spec.devicePlugin.version
+      v0.19.2 → v0.19.3
+  ~ [Update] spec.gfd.version
+      v0.19.2 → v0.19.3
+  ~ [Update] spec.nodeStatusExporter.version
+      v26.3.2 → v26.3.3
+=== cwwalk-1009-gpu-operator-base/gpu-operator/2 -&gt; cwwalk-1009-gpu-operator-base/gpu-operator/3
+Resource: apps/v1/Deployment gpu-operator/gpu-operator
+  ~ [Update] metadata.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] metadata.labels.app~1kubernetes~1io/version
+      v26.3.2 → v26.3.3
+  ~ [Update] spec.template.metadata.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] spec.template.metadata.labels.app~1kubernetes~1io/version
+      v26.3.2 → v26.3.3
+  ~ [Update] spec.template.spec.containers.?name=gpu-operator.image
+      nvcr.io/nvidia/gpu-operator:v26.3.2 → nvcr.io/nvidia/gpu-operator:v26.3.3
+=== cwwalk-1009-gpu-operator-base/gpu-operator-clusterrole/2 -&gt; cwwalk-1009-gpu-operator-base/gpu-operator-clusterrole/3
+Resource: rbac.authorization.k8s.io/v1/ClusterRole /gpu-operator
+  ~ [Update] metadata.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] metadata.labels.app~1kubernetes~1io/version
+      v26.3.2 → v26.3.3
+=== cwwalk-1009-gpu-operator-base/gpu-operator-clusterrolebinding/2 -&gt; cwwalk-1009-gpu-operator-base/gpu-operator-clusterrolebinding/3
+Resource: rbac.authorization.k8s.io/v1/ClusterRoleBinding /gpu-operator
+  ~ [Update] metadata.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] metadata.labels.app~1kubernetes~1io/version
+      v26.3.2 → v26.3.3
+=== cwwalk-1009-gpu-operator-base/gpu-operator-role/2 -&gt; cwwalk-1009-gpu-operator-base/gpu-operator-role/3
+Resource: rbac.authorization.k8s.io/v1/Role gpu-operator/gpu-operator
+  ~ [Update] metadata.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] metadata.labels.app~1kubernetes~1io/version
+      v26.3.2 → v26.3.3
+=== cwwalk-1009-gpu-operator-base/gpu-operator-rolebinding/2 -&gt; cwwalk-1009-gpu-operator-base/gpu-operator-rolebinding/3
+Resource: rbac.authorization.k8s.io/v1/RoleBinding gpu-operator/gpu-operator
+  ~ [Update] metadata.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] metadata.labels.app~1kubernetes~1io/version
+      v26.3.2 → v26.3.3
+=== cwwalk-1009-gpu-operator-base/gpu-operator-serviceaccount/2 -&gt; cwwalk-1009-gpu-operator-base/gpu-operator-serviceaccount/3
+Resource: v1/ServiceAccount gpu-operator/gpu-operator
+  ~ [Update] metadata.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] metadata.labels.app~1kubernetes~1io/version
+      v26.3.2 → v26.3.3
+... (338 more lines cut, the full text of three deleted and three added companion documents)
+13 of 30 unit(s) changed between Before:ChangeSet:upload-20261009-074347 and ChangeSet:upload-20261009-074347 in cwwalk-1009-gpu-operator-base (0 unchanged, 17 at neither)
+[exit 0 at 08:43:58]</code></pre>
+<p>Seven Kubernetes Units changed, with 22 changed paths between them. The changes are the chart and version labels, the operator image, and four component versions in the ClusterPolicy. The 338 lines cut are the six companion documents. The last line counts 13 changed Units, which is the seven Kubernetes Units, the three emptied and the three added.</p>
+<h2 id="step-5-promote-into-dev-then-into-qa">Step 5. Promote into dev, then into QA</h2>
+<p>The preview for dev has a short form and a mutations form.</p>
+<pre><code>$ cub variant promote cwwalk-1009-gpu-operator-dev --dry-run
+Would upgrade 10 unit(s) behind their upstream
+  3 of them emptied, as their upstream units were
+Would add 3 unit(s) from upstream
+  + nvidia-gpu-operator-v26-3-3-default-crd-ordering-bundleroute
+  + nvidia-gpu-operator-v26-3-3-default-lifecycle-actions-bundleroute
+  + nvidia-gpu-operator-v26-3-3-default-target-requirements-bundletargetrequirements
+[exit 0 at 08:44:15]
+
+$ cub variant promote cwwalk-1009-gpu-operator-dev --dry-run -o mutations
+Changes to unit cluster-policy-clusterpolicy from promote:
+Resource: nvidia.com/v1/ClusterPolicy /cluster-policy
+  ~ [Update] metadata.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] metadata.labels.app~1kubernetes~1io/version
+      v26.3.2 → v26.3.3
+  ~ [Update] spec.daemonsets.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] spec.validator.version
+      v26.3.2 → v26.3.3
+  ~ [Update] spec.devicePlugin.version
+      v0.19.2 → v0.19.3
+  ~ [Update] spec.gfd.version
+      v0.19.2 → v0.19.3
+  ~ [Update] spec.nodeStatusExporter.version
+      v26.3.2 → v26.3.3
+
+Changes to unit gpu-operator from promote:
+Resource: apps/v1/Deployment gpu-operator/gpu-operator
+  ~ [Update] metadata.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] metadata.labels.app~1kubernetes~1io/version
+      v26.3.2 → v26.3.3
+  ~ [Update] spec.template.metadata.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] spec.template.metadata.labels.app~1kubernetes~1io/version
+      v26.3.2 → v26.3.3
+  ~ [Update] spec.template.spec.containers.?name=gpu-operator.image
+      nvcr.io/nvidia/gpu-operator:v26.3.2 → nvcr.io/nvidia/gpu-operator:v26.3.3
+
+... (381 more lines cut, five more Units with two label paths each, then the six companion documents)
+[exit 0 at 08:44:17]</code></pre>
+<p>Before dev took the change, the walk asked what QA would take. The chained <code>qa</code> had nothing to take. The walk then ran the promotion for real, to see whether ConfigHub refuses or warns.</p>
+<pre><code>$ cub variant promote cwwalk-1009-gpu-operator-qa --dry-run -o mutations
+No units behind their upstream
+[exit 0 at 08:44:27]
+
+$ cub variant promote cwwalk-1009-gpu-operator-qa --dry-run
+Would upgrade 0 unit(s) behind their upstream
+Would add 0 unit(s) from upstream
+[exit 0 at 08:44:28]
+
+$ cub variant promote cwwalk-1009-gpu-operator-qa --change-desc 'Try to take v26.3.3 before dev has it'
+Upgraded 0 unit(s) behind their upstream
+Adding 0 unit(s) from upstream
+[exit 0 at 08:44:37]
+
+$ cub variant promote cwwalk-1009-gpu-operator-qa-direct --dry-run
+Would upgrade 10 unit(s) behind their upstream
+  3 of them emptied, as their upstream units were
+Would add 3 unit(s) from upstream
+  + nvidia-gpu-operator-v26-3-3-default-crd-ordering-bundleroute
+  + nvidia-gpu-operator-v26-3-3-default-lifecycle-actions-bundleroute
+  + nvidia-gpu-operator-v26-3-3-default-target-requirements-bundletargetrequirements
+[exit 0 at 08:44:29]</code></pre>
+<p>The promotion of <code>qa</code> exited 0 and changed nothing. It did not say that dev was behind the base. A chained QA cannot pass dev, and ConfigHub does not report that as an error. <code>qa-direct</code> could have taken the change at once, because it reads from the base. The <code>qa-direct</code> preview ran at 08:44:29, before the <code>qa</code> promotion at 08:44:37. The log shows it last so that the two <code>qa</code> results sit together.</p>
+<p>Dev was promoted next.</p>
+<pre><code>$ cub variant promote cwwalk-1009-gpu-operator-dev --change-desc 'Take v26.3.3 from the base'
+Upgraded 10 unit(s) behind their upstream
+  3 of them emptied, as their upstream units were
+Adding 3 unit(s) from upstream
+  + nvidia-gpu-operator-v26-3-3-default-crd-ordering-bundleroute
+  + nvidia-gpu-operator-v26-3-3-default-lifecycle-actions-bundleroute
+  + nvidia-gpu-operator-v26-3-3-default-target-requirements-bundletargetrequirements
+[exit 0 at 08:44:41]
+
+$ cub variant promote cwwalk-1009-gpu-operator-dev --dry-run
+Would upgrade 0 unit(s) behind their upstream
+Would add 0 unit(s) from upstream
+[exit 0 at 08:44:42]</code></pre>
+<p>Then QA, which now had something to take from dev.</p>
+<pre><code>$ cub variant promote cwwalk-1009-gpu-operator-qa --dry-run
+Would upgrade 10 unit(s) behind their upstream
+  3 of them emptied, as their upstream units were
+Would add 3 unit(s) from upstream
+  + nvidia-gpu-operator-v26-3-3-default-crd-ordering-bundleroute
+  + nvidia-gpu-operator-v26-3-3-default-lifecycle-actions-bundleroute
+  + nvidia-gpu-operator-v26-3-3-default-target-requirements-bundletargetrequirements
+[exit 0 at 08:44:50]
+
+$ cub variant promote cwwalk-1009-gpu-operator-qa --dry-run -o mutations
+Changes to unit cluster-policy-clusterpolicy from promote:
+Resource: nvidia.com/v1/ClusterPolicy /cluster-policy
+  ~ [Update] metadata.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] metadata.labels.app~1kubernetes~1io/version
+      v26.3.2 → v26.3.3
+  ~ [Update] spec.daemonsets.labels.helm~1sh/chart
+      gpu-operator-v26.3.2 → gpu-operator-v26.3.3
+  ~ [Update] spec.validator.version
+      v26.3.2 → v26.3.3
+  ~ [Update] spec.devicePlugin.version
+      v0.19.2 → v0.19.3
+  ~ [Update] spec.gfd.version
+      v0.19.2 → v0.19.3
+  ~ [Update] spec.nodeStatusExporter.version
+      v26.3.2 → v26.3.3
+... (395 more lines cut, the same 22 paths and six companion documents that dev took)
+[exit 0 at 08:44:52]
+
+$ cub variant promote cwwalk-1009-gpu-operator-qa --change-desc 'Take v26.3.3 from dev'
+Upgraded 10 unit(s) behind their upstream
+  3 of them emptied, as their upstream units were
+Adding 3 unit(s) from upstream
+  + nvidia-gpu-operator-v26-3-3-default-crd-ordering-bundleroute
+  + nvidia-gpu-operator-v26-3-3-default-lifecycle-actions-bundleroute
+  + nvidia-gpu-operator-v26-3-3-default-target-requirements-bundletargetrequirements
+[exit 0 at 08:44:56]
+
+$ cub variant promote cwwalk-1009-gpu-operator-qa --dry-run
+Would upgrade 0 unit(s) behind their upstream
+Would add 0 unit(s) from upstream
+[exit 0 at 08:44:56]
+
+$ cub space list --where &quot;Slug LIKE 'cwwalk-1009-%'&quot; -o wide
+NAME                                  COMPONENT                   OWNER    VARIANT      STAGE    ENVIRONMENT    REGION    LAYER    #UNITS    #LINKS    #TAGS    #CHANGESETS    #CHANGEORDERS    #CHANGEWORKFLOWS    #FILTERS    #VIEWS    #INVOCATIONS    #TRIGGERS    #WORKERS    #TARGETS    #ATTRIBUTES
+cwwalk-1009-gpu-operator-base         cwwalk-1009-gpu-operator             base                                                    30        17        4        2              0                0                   0           0         0               0            0           0           0
+cwwalk-1009-gpu-operator-qa-direct    cwwalk-1009-gpu-operator             qa-direct             QA                                27        44        0        0              0                0                   0           0         0               0            0           0           0
+cwwalk-1009-gpu-operator-qa           cwwalk-1009-gpu-operator             qa                    QA                                30        47        0        0              0                0                   0           0         0               0            0           0           0
+cwwalk-1009-gpu-operator-dev          cwwalk-1009-gpu-operator             dev                   Dev                               30        47        0        0              0                0                   0           0         0               0            0           0           0
+[exit 0 at 08:44:57]</code></pre>
+<p>Every promotion worked on the first try. The server asked for no approval and refused nothing. The organization had no Trigger and no ChangeWorkflow on these Spaces, so no gate existed to meet. <code>cub variant approve</code> was not run.</p>
+<h2 id="step-6-what-base-dev-and-qa-hold-after-the-version-step">Step 6. What base, dev and QA hold after the version step</h2>
+<p><code>cub unit diff</code> compares one Unit in two Spaces. The walk has no command that compares two whole Spaces, so a small loop ran the diff for every Unit name. The loop is <code>bin/diffall.sh</code> in the scratch directory, and it prints <code>same</code> when the command printed <code>No changes</code>.</p>
+<pre><code>$ cub unit diff --space cwwalk-1009-gpu-operator-base cluster-policy-clusterpolicy --with-unit cwwalk-1009-gpu-operator-dev/cluster-policy-clusterpolicy -o mutations
+No changes
+[exit 0 at 08:45:11]
+
+$ cub unit diff --space cwwalk-1009-gpu-operator-dev cluster-policy-clusterpolicy --with-unit cwwalk-1009-gpu-operator-qa/cluster-policy-clusterpolicy -o mutations
+No changes
+[exit 0 at 08:45:13]
+
+$ cub unit diff --space cwwalk-1009-gpu-operator-base cluster-policy-clusterpolicy --with-unit cwwalk-1009-gpu-operator-qa-direct/cluster-policy-clusterpolicy -o mutations
+Resource: nvidia.com/v1/ClusterPolicy /cluster-policy
+  ~ [Update] metadata.labels.helm~1sh/chart
+      gpu-operator-v26.3.3 → gpu-operator-v26.3.2
+  ~ [Update] metadata.labels.app~1kubernetes~1io/version
+      v26.3.3 → v26.3.2
+  ~ [Update] spec.daemonsets.labels.helm~1sh/chart
+      gpu-operator-v26.3.3 → gpu-operator-v26.3.2
+  ~ [Update] spec.validator.version
+      v26.3.3 → v26.3.2
+  ~ [Update] spec.devicePlugin.version
+      v0.19.3 → v0.19.2
+  ~ [Update] spec.gfd.version
+      v0.19.3 → v0.19.2
+  ~ [Update] spec.nodeStatusExporter.version
+      v26.3.3 → v26.3.2
+[exit 0 at 08:45:14]
+
+$ for s in base dev qa qa-direct; do echo &quot;$s $(cub unit data --space cwwalk-1009-gpu-operator-$s gpu-operator | grep 'image: nvcr.io/nvidia/gpu-operator')&quot;; done
+base         image: nvcr.io/nvidia/gpu-operator:v26.3.3
+dev         image: nvcr.io/nvidia/gpu-operator:v26.3.3
+qa         image: nvcr.io/nvidia/gpu-operator:v26.3.3
+qa-direct         image: nvcr.io/nvidia/gpu-operator:v26.3.2
+[exit 0 at 08:47:09]</code></pre>
+<p>Base, dev and <code>qa</code> hold v26.3.3. <code>qa-direct</code> still holds v26.3.2, as expected.</p>
+<pre><code>$ bin/diffall.sh cwwalk-1009-gpu-operator-base cwwalk-1009-gpu-operator-dev
+... (27 lines cut, one per Unit that is the same in both Spaces)
+differs   nvidia-gpu-operator-v26-3-3-default-crd-ordering-bundleroute
+            Resource: evidence.confighub.com/v1alpha1/BundleRoute gpu-operator/nvidia-gpu-operator-v26-3-3-default-crd-ordering  (was evidence.confighub.com/v1alpha1/BundleRoute /nvidia-gpu-operator-v26-3-3-default-crd-ordering)
+              + [Add] metadata.namespace
+                  gpu-operator
+differs   nvidia-gpu-operator-v26-3-3-default-lifecycle-actions-bundleroute
+            Resource: evidence.confighub.com/v1alpha1/BundleRoute gpu-operator/nvidia-gpu-operator-v26-3-3-default-lifecycle-actions  (was evidence.confighub.com/v1alpha1/BundleRoute /nvidia-gpu-operator-v26-3-3-default-lifecycle-actions)
+              + [Add] metadata.namespace
+                  gpu-operator
+differs   nvidia-gpu-operator-v26-3-3-default-target-requirements-bundletargetrequirements
+            Resource: evidence.confighub.com/v1alpha1/BundleTargetRequirements gpu-operator/nvidia-gpu-operator-v26-3-3-default-target-requirements  (was evidence.confighub.com/v1alpha1/BundleTargetRequirements /nvidia-gpu-operator-v26-3-3-default-target-requirements)
+              + [Add] metadata.namespace
+                  gpu-operator
+[exit 0 at 08:46:11]
+
+$ bin/diffall.sh cwwalk-1009-gpu-operator-dev cwwalk-1009-gpu-operator-qa
+... (30 lines cut, one per Unit that is the same in both Spaces)
+[exit 0 at 08:47:06]
+
+$ cub space list --where &quot;Slug LIKE 'cwwalk-1009-%'&quot; --no-headers -o jq='.[] | [.Space.Slug, (.Space.Labels|tostring), (.Space.Annotations|keys|tostring)] | join(&quot; &quot;)'
+cwwalk-1009-gpu-operator-base {&quot;Namespace&quot;:&quot;gpu-operator&quot;,&quot;Variant&quot;:&quot;base&quot;} [&quot;ExternalSourceDigest&quot;,&quot;ExternalSourceRef&quot;]
+cwwalk-1009-gpu-operator-qa-direct {&quot;Environment&quot;:&quot;QA&quot;,&quot;Namespace&quot;:&quot;gpu-operator&quot;,&quot;Variant&quot;:&quot;qa-direct&quot;} [&quot;ExternalSourceDigest&quot;,&quot;ExternalSourceRef&quot;,&quot;UpstreamSpaceID&quot;]
+cwwalk-1009-gpu-operator-qa {&quot;Environment&quot;:&quot;QA&quot;,&quot;Namespace&quot;:&quot;gpu-operator&quot;,&quot;Variant&quot;:&quot;qa&quot;} [&quot;ExternalSourceDigest&quot;,&quot;ExternalSourceRef&quot;,&quot;UpstreamSpaceID&quot;]
+cwwalk-1009-gpu-operator-dev {&quot;Environment&quot;:&quot;Dev&quot;,&quot;Namespace&quot;:&quot;gpu-operator&quot;,&quot;Variant&quot;:&quot;dev&quot;} [&quot;ExternalSourceDigest&quot;,&quot;ExternalSourceRef&quot;,&quot;UpstreamSpaceID&quot;]
+[exit 0 at 08:45:24]</code></pre>
+<p>Dev and <code>qa</code> are the same in all 30 Units. Base and dev differ in three Units, and none of them is a Kubernetes object. The promotion wrote <code>metadata.namespace: gpu-operator</code> into the three companion documents it added. The upload had not. The last command shows the cause. The upload's <code>--namespace</code> flag left a <code>Namespace</code> label on the base Space, each variant inherited it, and a promotion runs <code>set-namespace</code> on the Units it adds to a Space with that label.</p>
+<h2 id="step-7-one-bounded-change-the-driver-version">Step 7. One bounded change, the driver version</h2>
+<p>The bundle for <code>nvidia-gpu-operator-v26-3-3-driver-595-91-07</code> differs from the default bundle in one field of one Kubernetes object.</p>
+<pre><code>$ cub variant upload --dry-run --component cwwalk-1009-gpu-operator --variant base --namespace gpu-operator oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-driver-595-91-07:r001@sha256:40d9e69207a27448d6c64616d19b079f5315659e971f01754a8319c370573ce3
+Pulled oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-driver-595-91-07:r001@sha256:40d9e69207a27448d6c64616d19b079f5315659e971f01754a8319c370573ce3 (sha256:40d9e69207a27448d6c64616d19b079f5315659e971f01754a8319c370573ce3)
+Dry run: nothing was written.
+Space cwwalk-1009-gpu-operator-base (Update)
+  Create    nvidia-gpu-operator-v26-3-3-driver-595-91-07-target-requirements-bundletargetrequirements
+  Create    nvidia-gpu-operator-v26-3-3-driver-595-91-07-crd-ordering-bundleroute
+  Create    nvidia-gpu-operator-v26-3-3-driver-595-91-07-lifecycle-actions-bundleroute
+  Update    cluster-policy-clusterpolicy
+  Empty     nvidia-gpu-operator-v26-3-3-default-crd-ordering-bundleroute
+  Empty     nvidia-gpu-operator-v26-3-3-default-lifecycle-actions-bundleroute
+  Empty     nvidia-gpu-operator-v26-3-3-default-target-requirements-bundletargetrequirements
+  Unchanged 26 Unit(s)
+
+Note: the following references didn't resolve to any uploaded Unit (expected when the
+target lives in the cluster, e.g. a Secret created out-of-band):
+... (20 lines cut, one per reference to an object outside the bundle)
+[exit 0 at 08:47:20]
+
+$ cub variant upload --yes --component cwwalk-1009-gpu-operator --variant base --namespace gpu-operator --change-desc 'Pin the driver to 595.91.07' oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-driver-595-91-07:r001@sha256:40d9e69207a27448d6c64616d19b079f5315659e971f01754a8319c370573ce3
+Pulled oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-driver-595-91-07:r001@sha256:40d9e69207a27448d6c64616d19b079f5315659e971f01754a8319c370573ce3 (sha256:40d9e69207a27448d6c64616d19b079f5315659e971f01754a8319c370573ce3)
+Space cwwalk-1009-gpu-operator-base (Update)
+  Create    nvidia-gpu-operator-v26-3-3-driver-595-91-07-target-requirements-bundletargetrequirements
+  Create    nvidia-gpu-operator-v26-3-3-driver-595-91-07-crd-ordering-bundleroute
+  Create    nvidia-gpu-operator-v26-3-3-driver-595-91-07-lifecycle-actions-bundleroute
+  Update    cluster-policy-clusterpolicy
+  Empty     nvidia-gpu-operator-v26-3-3-default-crd-ordering-bundleroute
+  Empty     nvidia-gpu-operator-v26-3-3-default-lifecycle-actions-bundleroute
+  Empty     nvidia-gpu-operator-v26-3-3-default-target-requirements-bundletargetrequirements
+  Unchanged 26 Unit(s)
+
+Note: the following references didn't resolve to any uploaded Unit (expected when the
+target lives in the cluster, e.g. a Secret created out-of-band):
+... (20 lines cut, one per reference to an object outside the bundle)
+
+Revert this upload of cwwalk-1009-gpu-operator-base with:
+  cub unit update --patch --space cwwalk-1009-gpu-operator-base --restore Before:ChangeSet:upload-20261009-074730 --where &quot;Labels.UploadSource = 'cwwalk-1009-gpu-operator'&quot;
+[exit 0 at 08:47:30]
+
+$ cub variant diff cwwalk-1009-gpu-operator-base Before:ChangeSet:upload-20261009-074730 ChangeSet:upload-20261009-074730 -o mutations --where &quot;Slug = 'cluster-policy-clusterpolicy'&quot;
+=== cwwalk-1009-gpu-operator-base/cluster-policy-clusterpolicy/3 -&gt; cwwalk-1009-gpu-operator-base/cluster-policy-clusterpolicy/4
+Resource: nvidia.com/v1/ClusterPolicy /cluster-policy
+  ~ [Update] spec.driver.version
+      580.126.20 → 595.91.07
+1 of 1 unit(s) changed between Before:ChangeSet:upload-20261009-074730 and ChangeSet:upload-20261009-074730 in cwwalk-1009-gpu-operator-base (0 unchanged, 0 at neither)
+[exit 0 at 08:47:40]</code></pre>
+<p>The one field is <code>spec.driver.version</code> in the ClusterPolicy, from 580.126.20 to 595.91.07. The upload also emptied the three v26.3.3 default companion Units and created three more, so the base reached 33 Units. The same diff without <code>--where</code> printed 343 lines, and four of them were about that one field.</p>
+<pre><code>$ cub variant promote cwwalk-1009-gpu-operator-dev --dry-run
+Would upgrade 4 unit(s) behind their upstream
+  3 of them emptied, as their upstream units were
+Would add 3 unit(s) from upstream
+  + nvidia-gpu-operator-v26-3-3-driver-595-91-07-crd-ordering-bundleroute
+  + nvidia-gpu-operator-v26-3-3-driver-595-91-07-lifecycle-actions-bundleroute
+  + nvidia-gpu-operator-v26-3-3-driver-595-91-07-target-requirements-bundletargetrequirements
+[exit 0 at 08:47:42]
+
+$ cub variant promote cwwalk-1009-gpu-operator-dev --dry-run -o mutations
+Changes to unit cluster-policy-clusterpolicy from promote:
+Resource: nvidia.com/v1/ClusterPolicy /cluster-policy
+  ~ [Update] spec.driver.version
+      580.126.20 → 595.91.07
+
+... (349 more lines cut, the six companion documents)
+[exit 0 at 08:47:43]
+
+$ cub variant promote cwwalk-1009-gpu-operator-qa --dry-run
+Would upgrade 0 unit(s) behind their upstream
+Would add 0 unit(s) from upstream
+[exit 0 at 08:47:43]
+
+$ cub variant promote cwwalk-1009-gpu-operator-dev --change-desc 'Take driver 595.91.07 from the base'
+Upgraded 4 unit(s) behind their upstream
+  3 of them emptied, as their upstream units were
+Adding 3 unit(s) from upstream
+  + nvidia-gpu-operator-v26-3-3-driver-595-91-07-crd-ordering-bundleroute
+  + nvidia-gpu-operator-v26-3-3-driver-595-91-07-lifecycle-actions-bundleroute
+  + nvidia-gpu-operator-v26-3-3-driver-595-91-07-target-requirements-bundletargetrequirements
+[exit 0 at 08:47:55]
+
+$ cub variant promote cwwalk-1009-gpu-operator-qa --dry-run
+Would upgrade 4 unit(s) behind their upstream
+  3 of them emptied, as their upstream units were
+Would add 3 unit(s) from upstream
+  + nvidia-gpu-operator-v26-3-3-driver-595-91-07-crd-ordering-bundleroute
+  + nvidia-gpu-operator-v26-3-3-driver-595-91-07-lifecycle-actions-bundleroute
+  + nvidia-gpu-operator-v26-3-3-driver-595-91-07-target-requirements-bundletargetrequirements
+[exit 0 at 08:47:56]
+
+$ cub variant promote cwwalk-1009-gpu-operator-qa --dry-run -o mutations
+Changes to unit cluster-policy-clusterpolicy from promote:
+Resource: nvidia.com/v1/ClusterPolicy /cluster-policy
+  ~ [Update] spec.driver.version
+      580.126.20 → 595.91.07
+
+... (349 more lines cut, the six companion documents)
+[exit 0 at 08:47:56]
+
+$ cub variant promote cwwalk-1009-gpu-operator-qa --change-desc 'Take driver 595.91.07 from dev'
+Upgraded 4 unit(s) behind their upstream
+  3 of them emptied, as their upstream units were
+Adding 3 unit(s) from upstream
+  + nvidia-gpu-operator-v26-3-3-driver-595-91-07-crd-ordering-bundleroute
+  + nvidia-gpu-operator-v26-3-3-driver-595-91-07-lifecycle-actions-bundleroute
+  + nvidia-gpu-operator-v26-3-3-driver-595-91-07-target-requirements-bundletargetrequirements
+[exit 0 at 08:47:58]</code></pre>
+<p>The field moved base to dev to QA in the same way as the version step. QA had nothing to take until dev had been promoted.</p>
+<pre><code>$ for s in base dev qa qa-direct; do echo &quot;$s&quot;; cub unit data --space cwwalk-1009-gpu-operator-$s cluster-policy-clusterpolicy | grep -A12 '^  driver:' | grep -E 'version|repository|image'; done
+base
+    repository: nvcr.io/nvidia
+    image: driver
+    version: &quot;595.91.07&quot;
+    imagePullPolicy: IfNotPresent
+dev
+    repository: nvcr.io/nvidia
+    image: driver
+    version: &quot;595.91.07&quot;
+    imagePullPolicy: IfNotPresent
+qa
+    repository: nvcr.io/nvidia
+    image: driver
+    version: &quot;595.91.07&quot;
+    imagePullPolicy: IfNotPresent
+qa-direct
+    repository: nvcr.io/nvidia
+    image: driver
+    version: &quot;580.126.20&quot;
+    imagePullPolicy: IfNotPresent
+[exit 0 at 08:48:01]
+
+$ cub revision list --space cwwalk-1009-gpu-operator-base cluster-policy-clusterpolicy --no-headers -o jq='.[] | [(.Revision.RevisionNum|tostring), .Revision.Source, .Revision.Description] | join(&quot; | &quot;)'
+4 | MergeExternal | MergeExternal; from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-driver-595-91-07:r001@sha256:40d9e69207a27448d6c64616d19b079f5315659e971f01754a8319c370573ce3
+3 | MergeExternal | MergeExternal; from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-default:r001@sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e
+2 | MergeExternal | Seed the base at v26.3.2 default
+1 | MergeExternal | Empty revision preceding the unit's first content, marking the start of ChangeSet upload-20261009-074209
+[exit 0 at 08:48:10]
+
+$ cub revision list --space cwwalk-1009-gpu-operator-qa cluster-policy-clusterpolicy --no-headers -o jq='.[] | [(.Revision.RevisionNum|tostring), .Revision.Source, .Revision.Description] | join(&quot; | &quot;)'
+4 | UpgradeUnit | Take driver 595.91.07 from dev
+3 | UpgradeUnit | Take v26.3.3 from dev
+2 | CloneUnit | Clone dev as qa
+1 | CloneUnit | Empty revision preceding the unit's first content
+[exit 0 at 08:48:11]
+
+$ bin/diffall.sh cwwalk-1009-gpu-operator-base cwwalk-1009-gpu-operator-dev
+... (30 lines cut, one per Unit that is the same in both Spaces)
+differs   nvidia-gpu-operator-v26-3-3-driver-595-91-07-crd-ordering-bundleroute
+            Resource: evidence.confighub.com/v1alpha1/BundleRoute gpu-operator/nvidia-gpu-operator-v26-3-3-driver-595-91-07-crd-ordering  (was evidence.confighub.com/v1alpha1/BundleRoute /nvidia-gpu-operator-v26-3-3-driver-595-91-07-crd-ordering)
+              + [Add] metadata.namespace
+                  gpu-operator
+differs   nvidia-gpu-operator-v26-3-3-driver-595-91-07-lifecycle-actions-bundleroute
+            Resource: evidence.confighub.com/v1alpha1/BundleRoute gpu-operator/nvidia-gpu-operator-v26-3-3-driver-595-91-07-lifecycle-actions  (was evidence.confighub.com/v1alpha1/BundleRoute /nvidia-gpu-operator-v26-3-3-driver-595-91-07-lifecycle-actions)
+              + [Add] metadata.namespace
+                  gpu-operator
+differs   nvidia-gpu-operator-v26-3-3-driver-595-91-07-target-requirements-bundletargetrequirements
+            Resource: evidence.confighub.com/v1alpha1/BundleTargetRequirements gpu-operator/nvidia-gpu-operator-v26-3-3-driver-595-91-07-target-requirements  (was evidence.confighub.com/v1alpha1/BundleTargetRequirements /nvidia-gpu-operator-v26-3-3-driver-595-91-07-target-requirements)
+              + [Add] metadata.namespace
+                  gpu-operator
+[exit 0 at 08:49:09]
+
+$ bin/diffall.sh cwwalk-1009-gpu-operator-dev cwwalk-1009-gpu-operator-qa
+... (33 lines cut, one per Unit that is the same in both Spaces)
+[exit 0 at 08:50:01]
+
+$ cub space list --where &quot;Slug LIKE 'cwwalk-1009-%'&quot; -o wide
+NAME                                  COMPONENT                   OWNER    VARIANT      STAGE    ENVIRONMENT    REGION    LAYER    #UNITS    #LINKS    #TAGS    #CHANGESETS    #CHANGEORDERS    #CHANGEWORKFLOWS    #FILTERS    #VIEWS    #INVOCATIONS    #TRIGGERS    #WORKERS    #TARGETS    #ATTRIBUTES
+cwwalk-1009-gpu-operator-base         cwwalk-1009-gpu-operator             base                                                    33        17        6        3              0                0                   0           0         0               0            0           0           0
+cwwalk-1009-gpu-operator-qa-direct    cwwalk-1009-gpu-operator             qa-direct             QA                                27        44        0        0              0                0                   0           0         0               0            0           0           0
+cwwalk-1009-gpu-operator-qa           cwwalk-1009-gpu-operator             qa                    QA                                33        50        0        0              0                0                   0           0         0               0            0           0           0
+cwwalk-1009-gpu-operator-dev          cwwalk-1009-gpu-operator             dev                   Dev                               33        50        0        0              0                0                   0           0         0               0            0           0           0
+[exit 0 at 08:50:01]</code></pre>
+<p>Base, dev and <code>qa</code> hold driver 595.91.07, and <code>qa-direct</code> still holds 580.126.20. Dev and <code>qa</code> are the same in all 33 Units. Base and dev differ only in the namespace line of the three newest companion Units.</p>
+<p>The revision lists show one more thing. The QA Unit's revisions carry the <code>--change-desc</code> text of each promotion. The base Unit's revisions 3 and 4 do not carry the <code>--change-desc</code> text of the uploads that made them.</p>
+<h2 id="what-went-wrong">What went wrong</h2>
+<ol><li><b>The listing's upload step does not print the command this walk was asked to follow.</b> The <code>nextSteps</code> upload step prints <code>cub installer upload --work-dir</code>. The walk was told it would find a <code>cub variant upload</code> command for the literal bundle there. The bundle reference is in <code>oci.bundles</code>, and a <code>cub variant upload</code> command for a local <code>./rendered</code> directory is in <code>variants.howToMakeOne.commands</code>. The walk combined the two.</li><li><b>An upgrade by upload empties three Units and adds three, every time.</b> Each bundle carries three companion documents named after the entry id. A second bundle has three different names, so the upload empties the old three and creates new ones. The base grew from 27 Units to 30 and then to 33, and each variant followed. The upload needs <code>--yes</code> for that. Without it, in a shell with no terminal, it printed <code>Continue? [y/N]: Failed: read confirmation: EOF</code> and exited 1. The same six documents fill the previews, where one changed field came with about 350 lines of companion text.</li><li><b>A promotion changes the companion documents that it adds.</b> <code>cub variant upload --namespace gpu-operator</code> leaves a <code>Namespace</code> label on the base Space. Each variant inherits the label, and <code>cub variant promote</code> then writes <code>metadata.namespace: gpu-operator</code> into every Unit it adds. The three added companion Units in dev and QA differ from the base by that line. The help for <code>cub variant promote</code> describes the rule. The upload did not apply the same rule to the same documents, so base and dev disagree.</li><li><b><code>--change-desc</code> on an upload is not recorded on a Unit that the upload updates.</b> The first upload recorded <code>Seed the base at v26.3.2 default</code> on the Units it created. The second and third uploads were given a description, and the updated ClusterPolicy Unit recorded <code>MergeExternal; from oci://...</code> instead. The walk looked at one Unit only.</li><li><b>Promoting a chained QA before dev is a silent no-op.</b> The command printed <code>Upgraded 0 unit(s) behind their upstream</code> and exited 0. It gave no sign that the upstream was itself behind its own upstream. The exit code is true to what happened, and a reader who expected a refusal gets none.</li><li><b>A base cannot be deleted while a variant still reads from it.</b> <code>cub space delete --recursive-force</code> on the base returned HTTP 409 and named the Links. Deleting the Spaces downstream first worked. The Component outlived its Spaces and needed <code>cub component delete</code>.</li><li><b>Four mistakes were the walker's own.</b> The first version and context check ran outside the recording wrapper, so step 1 shows a second run of those two commands. A shell line used <code>echo</code> with a bare <code>=====</code> and zsh stopped on it, with nothing written. A first query for each Unit's upstream guessed a field named <code>UpstreamSpace</code>, which the list output does not have, so it printed a fallback word and the log leaves that query out. The Links listing in step 3 is the evidence instead. A first list of base Units added a byte count from a field the list does not return, and the log leaves that out too.</li><li><b>Not every help page was read first.</b> The walk read the help for <code>variant upload</code>, <code>variant create</code>, <code>variant promote</code>, <code>variant diff</code>, <code>unit diff</code>, <code>space list</code>, <code>unit list</code>, <code>space delete</code>, <code>component delete</code> and <code>plugin list</code>, and the usage part of <code>revision list</code>. It used <code>link list</code>, <code>component list</code>, <code>unit data</code>, <code>context list</code> and <code>version</code> without reading their help. All five only read.</li></ol>
+<p>No command in this walk exited 0 after failing.</p>
+<h2 id="what-the-walk-did-not-cover">What the walk did not cover</h2>
+<ul><li>No cluster ran. No Target, Worker or Release existed, so nothing here shows that a promoted Space deploys.</li><li>No GPU was involved. The walk says nothing about whether v26.3.3 or driver 595.91.07 works on a node.</li><li>No approval workflow was met. The Spaces had no Trigger and no ChangeWorkflow, so the walk did not see a gate hold a promotion, and <code>cub variant approve</code> was not run.</li><li>No variant carried a local change. The walk did not see how a promotion merges with an edit made in dev or QA.</li><li>The <code>--change-order</code>, <code>--squash</code>, <code>--tag</code> and <code>--expected-plan</code> flags of <code>cub variant promote</code> were not used.</li><li>The walk did not test a rollback. The upload printed a revert command each time, and <code>cub variant demote</code> exists, and neither was run.</li><li>The walk did not test whether the emptied companion Units can be removed, or whether the upload can leave the companion documents out.</li><li><code>qa-direct</code> was created and previewed and never promoted.</li></ul>
+<h2 id="cleanup-proof">Cleanup proof</h2>
+<p>The live example's Spaces were compared with the start before anything was deleted.</p>
+<pre><code>$ cub space list --where &quot;Slug LIKE '%gpu-operator%'&quot;
+NAME                                  COMPONENT                   OWNER    VARIANT      STAGE    ENVIRONMENT    REGION    LAYER    #UNITS
+cwwalk-1009-gpu-operator-base         cwwalk-1009-gpu-operator             base                                                    33
+gpu-operator-v26-3-3                  gpu-operator                         v26-3-3                                                 24
+cwwalk-1009-gpu-operator-qa-direct    cwwalk-1009-gpu-operator             qa-direct             QA                                27
+cwwalk-1009-gpu-operator-qa           cwwalk-1009-gpu-operator             qa                    QA                                33
+gpu-operator-prod                     gpu-operator                         prod                                                    24
+cwwalk-1009-gpu-operator-dev          cwwalk-1009-gpu-operator             dev                   Dev                               33
+gpu-operator-v25-10-1                 gpu-operator                         v25-10-1                                                24
+gpu-operator-v26-3-2                  gpu-operator                         v26-3-2                                                 24
+[exit 0 at 08:50:27]</code></pre>
+<p>The Unit listing from step 1 was run again and the two results were compared with <code>diff</code>. They were identical, 96 lines each, with SHA-256 <code>7fc4b5eaaef386bbda0c0e1b52f10a3ec64630e5047d2473ed16a2700fe40a85</code>.</p>
+<p>The first delete tried the base and was refused.</p>
+<pre><code>$ cub space delete --recursive-force cwwalk-1009-gpu-operator-base
+Failed: HTTP 409 for req &lt;request-id&gt;: Cannot delete Space cwwalk-1009-gpu-operator-base: 20 Units it contains are still referenced by 60 Links. Remove those references first, or detach them as part of the delete.
+Details:
+  failed to delete entity
+Metadata:
+  Link cwwalk-1009-gpu-operator-dev/upgrade-clusterpolicies.nvidia.com-crd: ToUnitID references Unit cwwalk-1009-gpu-operator-base/clusterpolicies.nvidia.com-crd
+... (21 more lines cut, one per Link that still pointed at a base Unit, then the server's own line that says 40 more)
+[exit 1 at 08:50:35]
+
+$ cub space delete --recursive-force cwwalk-1009-gpu-operator-qa
+Successfully deleted space cwwalk-1009-gpu-operator-qa (&lt;id&gt;)
+[exit 0 at 08:50:44]
+
+$ cub space delete --recursive-force cwwalk-1009-gpu-operator-qa-direct
+Successfully deleted space cwwalk-1009-gpu-operator-qa-direct (&lt;id&gt;)
+[exit 0 at 08:50:46]
+
+$ cub space delete --recursive-force cwwalk-1009-gpu-operator-dev
+Successfully deleted space cwwalk-1009-gpu-operator-dev (&lt;id&gt;)
+[exit 0 at 08:50:48]
+
+$ cub space delete --recursive-force cwwalk-1009-gpu-operator-base
+Successfully deleted space cwwalk-1009-gpu-operator-base (&lt;id&gt;)
+[exit 0 at 08:50:49]
+
+$ cub component list --where &quot;Slug LIKE '%cwwalk%'&quot;
+NAME                        WORKFLOW-REQUIRED    #ALLOWED-WORKFLOWS    OWNER    VARIANTS
+cwwalk-1009-gpu-operator    false                0
+[exit 0 at 08:50:51]
+
+$ cub component delete cwwalk-1009-gpu-operator
+Successfully deleted component cwwalk-1009-gpu-operator (&lt;id&gt;)
+[exit 0 at 08:51:02]</code></pre>
+<p>Nothing with the walk's prefix remains.</p>
+<pre><code>$ cub space list --where &quot;Slug LIKE '%cwwalk%'&quot;
+NAME    COMPONENT    OWNER    VARIANT    STAGE    ENVIRONMENT    REGION    LAYER    #UNITS
+[exit 0 at 08:50:50]
+
+$ cub component list --where &quot;Slug LIKE '%cwwalk%'&quot;
+NAME    WORKFLOW-REQUIRED    #ALLOWED-WORKFLOWS    OWNER    VARIANTS
+[exit 0 at 08:51:03]
+
+$ cub unit list --space '*' --where &quot;Space.Slug LIKE '%cwwalk%'&quot;
+NAME    SPACE    CHANGESET    TARGET    UPGRADE-NEEDED    UNRELEASED-CHANGES    VALIDATION-ERRORS    LAST-CHANGE-DESCRIPTION
+[exit 0 at 08:51:03]
+
+$ cub space list --include-hidden --where &quot;Slug LIKE '%cwwalk%'&quot;
+NAME    COMPONENT    OWNER    VARIANT    STAGE    ENVIRONMENT    REGION    LAYER    #UNITS
+[exit 0 at 08:51:04]
+
+$ cub unit list --space '*' --include-hidden --contains cwwalk-1009
+NAME    SPACE    CHANGESET    TARGET    UPGRADE-NEEDED    UNRELEASED-CHANGES    VALIDATION-ERRORS    LAST-CHANGE-DESCRIPTION
+[exit 0 at 08:51:04]
+
+$ cub space list --where &quot;Slug LIKE '%gpu-operator%'&quot;
+NAME                     COMPONENT       OWNER    VARIANT     STAGE    ENVIRONMENT    REGION    LAYER    #UNITS
+gpu-operator-v26-3-3     gpu-operator             v26-3-3                                                24
+gpu-operator-prod        gpu-operator             prod                                                   24
+gpu-operator-v25-10-1    gpu-operator             v25-10-1                                               24
+gpu-operator-v26-3-2     gpu-operator             v26-3-2                                                24
+[exit 0 at 08:51:05]
+
+$ cub component list --where &quot;Slug LIKE '%gpu-operator%'&quot;
+NAME                WORKFLOW-REQUIRED    #ALLOWED-WORKFLOWS    OWNER    VARIANTS
+ch7-gpu-operator    false                0
+gpu-operator        false                0                              gpu-operator-prod, gpu-operator-v25-10-1, gpu-operator-v26-3-2, gpu-operator-v26-3-3
+[exit 0 at 08:51:05]</code></pre>
+<p>The four <code>gpu-operator-*</code> Spaces and the two Components are as they were in step 1. The Unit listing was run a third time after the deletes and matched the start again, with the same SHA-256.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions-and-setting">Versions and setting</a></li><li><a href="#what-the-walk-set-out-to-do">What the walk set out to do</a></li><li><a href="#the-answer-in-brief">The answer in brief</a></li><li><a href="#what-was-substituted-and-why">What was substituted, and why</a></li><li><a href="#step-1-the-organization-before-the-walk">Step 1. The organization before the walk</a></li><li><a href="#step-2-upload-v2632-default-as-a-base">Step 2. Upload v26.3.2 default as a base</a></li><li><a href="#step-3-a-dev-variant-and-two-qa-variants">Step 3. A dev variant and two QA variants</a></li><li><a href="#step-4-move-the-base-to-v2633">Step 4. Move the base to v26.3.3</a></li><li><a href="#step-5-promote-into-dev-then-into-qa">Step 5. Promote into dev, then into QA</a></li><li><a href="#step-6-what-base-dev-and-qa-hold-after-the-version-step">Step 6. What base, dev and QA hold after the version step</a></li><li><a href="#step-7-one-bounded-change-the-driver-version">Step 7. One bounded change, the driver version</a></li><li><a href="#what-went-wrong">What went wrong</a></li><li><a href="#what-the-walk-did-not-cover">What the walk did not cover</a></li><li><a href="#cleanup-proof">Cleanup proof</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+</div>
+</body>
+</html>
