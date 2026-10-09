@@ -43,6 +43,10 @@ import {
   AICR_BUNDLE_PATH_SOURCE,
   AICR_MEMBERS_CSV,
   ATTENTION_STATE,
+  DRA_EVICTION_FLAG,
+  DRA_EVICTION_ROUTE,
+  DRA_LABELER,
+  draEvictionPremise,
   loadAicrOrderingEvidence,
   loadAicrRecipeEntries,
   orderingEvidenceFor,
@@ -1392,6 +1396,24 @@ function buildAicrRecipeRecord(entry) {
           evidenceRequired: "A recorded decision for each component, and a regenerated bundle with its new digests when one is included.",
           order: 3 + requiredInputs.length,
           evidence: [entry.receiptRel, mirrorCompanion("routes/components-left-out-of-bundle.yaml")].filter(Boolean),
+        }]
+      : []),
+    // The generation chose not to opt in to DRA eviction. The route is carried
+    // only where the entry's own bytes show that choice, and the mirror
+    // generator writes its file under the same condition.
+    ...(entry.draEvictionPremise?.holds
+      ? [{
+          routeName: DRA_EVICTION_ROUTE,
+          lifecyclePhase: "destination-resolution",
+          actionKind: "resolve-lifecycle-work",
+          executionMode: "destination-specific",
+          automatic: false,
+          owner: "platform operator",
+          operatingDetails: `Decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts. The bundle was generated with no DRA eviction node label, so ${DRA_LABELER} is not deployed. Including it means regenerating the bundle with ${DRA_EVICTION_FLAG} set.`,
+          disposition: "recorded-not-run",
+          evidenceRequired: "A chosen DRA eviction node label and a regenerated bundle with its new digests, or a recorded decision to leave it off.",
+          order: 4 + requiredInputs.length,
+          evidence: [entry.receiptRel, mirrorCompanion(`routes/${DRA_EVICTION_ROUTE}.yaml`)].filter(Boolean),
         }]
       : []),
   ];
@@ -4732,6 +4754,24 @@ function runAicrRecipeEntrySelfTest() {
     "self-test: a route that names a different component decided the omission",
   );
 
+  // The DRA route is recorded only where the entry's own bytes show the choice.
+  const draReceipt = (overrides = {}) => ({
+    source: { binaryVerifiedBeforeUse: "checked before use by scripts/generate-aicr-from-overlay.mjs" },
+    generationInputs: { storageClass: "gp3" },
+    result: { componentsLeftOutOfBundle: [{ name: DRA_LABELER, reason: `AICR skipped it: DRA eviction is not opted in (${DRA_EVICTION_FLAG} unset)` }] },
+    ...overrides,
+  });
+  const draNames = { selectedNames: ["alpha", DRA_LABELER], bundledNames: ["alpha"] };
+  check(draEvictionPremise({ receipt: draReceipt(), ...draNames }).holds, "self-test: the DRA premise was refused for an entry that shows it");
+  for (const [label, input] of [
+    ["an eviction label among the generation inputs", { receipt: draReceipt({ generationInputs: { draEvictionNodeLabel: "x=y" } }), ...draNames }],
+    ["a bundle that still carries the labeler", { receipt: draReceipt(), selectedNames: draNames.selectedNames, bundledNames: draNames.selectedNames }],
+    ["a logged reason that does not name the unset flag", { receipt: draReceipt({ result: { componentsLeftOutOfBundle: [{ name: DRA_LABELER, reason: "disabled in the recipe" }] } }), ...draNames }],
+    ["a hand-retained receipt", { receipt: draReceipt({ source: {} }), ...draNames }],
+  ]) {
+    check(!draEvictionPremise(input).holds, `self-test: the DRA premise held for ${label}`);
+  }
+
   const subject = {
     entry: "examples/aicr/self-test",
     upstreamVersion: "v9.9.9",
@@ -6352,6 +6392,10 @@ function validateAicrRecipeRecord(record, entry) {
     const problem = aicrMirrorDeliveryProblem(name, record, mirror, { claim: false });
     check(problem === "", problem);
     for (const input of entry.receipt.newRequiredInputs ?? []) validatePlaceholderInput(record, input);
+    check(
+      Boolean(entry.draEvictionPremise?.holds) === spec.lifecycle.routeIntent.routes.some((route) => route.id === DRA_EVICTION_ROUTE),
+      `${name}: the generation ${entry.draEvictionPremise?.holds ? "chose not to opt in to DRA eviction and the record carries no route for it" : "shows no such choice and the record carries a route for it"}`,
+    );
     check(
       (entry.leftOutOfBundle.length > 0) === spec.lifecycle.routeIntent.routes.some((route) => route.id === "components-left-out-of-bundle"),
       `${name}: the bundle leaves out ${entry.leftOutOfBundle.length} selected component(s), and the record ${entry.leftOutOfBundle.length > 0 ? "carries no route for them" : "carries a route for none"}`,

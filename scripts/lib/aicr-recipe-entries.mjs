@@ -165,6 +165,50 @@ export function receiptSaysRetainedOffline(receipt) {
     && status.deliveryProof === "not-run";
 }
 
+// The generation chose, for every mirrored entry whose bundle leaves out
+// dra-node-labeler, not to opt in to DRA eviction: no eviction node label was
+// given at bundle time, so AICR logged the reason and left the labeler out.
+// That is the decision the hand-retained v1.0.0 entry records as the route
+// dra-plugin-eviction. A mirrored entry gets the same kind of route only when
+// its own bytes show the premise: the selected recipe lists the component, the
+// bundled recipe does not, AICR's logged reason names the unset flag, and the
+// generation inputs carry no eviction label. Where any part fails, no route is
+// recorded and the entry stays flagged.
+export const DRA_EVICTION_ROUTE = "dra-plugin-eviction";
+export const DRA_LABELER = "dra-node-labeler";
+export const DRA_EVICTION_FLAG = "--dra-eviction-node-label";
+
+export function draEvictionPremise({ receipt, selectedNames, bundledNames }) {
+  const mirrored = /generate-aicr-from-overlay\.mjs/.test(String(receipt?.source?.binaryVerifiedBeforeUse ?? ""));
+  const row = (receipt?.result?.componentsLeftOutOfBundle ?? []).find((candidate) => String(candidate.name) === DRA_LABELER);
+  const inputs = Object.entries(receipt?.generationInputs ?? {});
+  const holds = mirrored
+    && Boolean(bundledNames)
+    && selectedNames.includes(DRA_LABELER)
+    && !bundledNames.includes(DRA_LABELER)
+    && Boolean(row)
+    && String(row.reason ?? "").includes(`${DRA_EVICTION_FLAG} unset`)
+    && !inputs.some(([key, value]) => /evict/i.test(key) || String(value).includes(DRA_EVICTION_FLAG));
+  return { holds, reason: holds ? String(row.reason) : "" };
+}
+
+// What a route of the entry's own contributes to the ordering decision. A hand
+// route comes from route-intent.yaml. A mirrored entry's route is the one the
+// premise above lets the mirror generator write.
+function routesNamedFor(facts) {
+  const routes = [...(facts.namedRoutes ?? [])];
+  const bundledNames = facts.bundledRecipe ? facts.bundledRecipe.components.map((component) => component.name) : null;
+  const premise = draEvictionPremise({
+    receipt: facts.receipt,
+    selectedNames: facts.recipe.components.map((component) => component.name),
+    bundledNames,
+  });
+  if (premise.holds && !routes.some((route) => route.id === DRA_EVICTION_ROUTE)) {
+    routes.push({ id: DRA_EVICTION_ROUTE, text: DRA_LABELER });
+  }
+  return routes;
+}
+
 // The slug a version takes inside a record name: v0.21.0 becomes v0-21-0.
 export function versionSlug(version) {
   return String(version).replaceAll(".", "-");
@@ -510,7 +554,7 @@ export function loadAicrOrderingEvidence({ root = repoRoot, verdictRoot = "" } =
       applications: facts.applications,
       recipe: facts.bundledRecipe ?? facts.recipe,
       selectedComponents: facts.bundledRecipe ? facts.recipe.components : null,
-      namedRoutes: facts.namedRoutes,
+      namedRoutes: routesNamedFor(facts),
     });
     evidence.set(id, {
       id,
@@ -620,7 +664,7 @@ export function loadAicrRecipeEntries({ root = repoRoot, verdictRoot = "" } = {}
       applications: entry.applications,
       recipe: bundled ?? facts.recipe,
       selectedComponents: bundled ? facts.recipe.components : null,
-      namedRoutes: facts.namedRoutes,
+      namedRoutes: routesNamedFor(facts),
     });
     const bundledNames = new Set((bundled?.components ?? []).map((component) => component.name));
     const loggedReasons = new Map((facts.receipt.result?.componentsLeftOutOfBundle ?? []).map((row) => [String(row.name), String(row.reason ?? "")]));
@@ -642,6 +686,11 @@ export function loadAicrRecipeEntries({ root = repoRoot, verdictRoot = "" } = {}
             .filter((dependency) => !bundledNames.has(dependency))
             .map((dependency) => ({ component: component.name, dependsOn: dependency })))
       : [];
+    entry.draEvictionPremise = draEvictionPremise({
+      receipt: facts.receipt,
+      selectedNames: facts.recipe.components.map((component) => component.name),
+      bundledNames: bundled ? bundled.components.map((component) => component.name) : null,
+    });
     entry.nestedSources = nestedSourcesFor(entry, entry.sourcePackageRepository);
     entries.push(entry);
   }

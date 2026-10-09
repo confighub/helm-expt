@@ -576,6 +576,14 @@ for (const evidence of loadAicrOrderingEvidence({ root }).values()) {
     ? stageOf(JSON.parse(readFileSync(listingPath, "utf8")).assessment?.stages)
     : {};
   const unchecked = uncheckedOrderingEdges(evidence.ordering);
+  // An omission counts as decided only while the record carries the route that
+  // decides it, so a record cannot lose the route and keep the unflagged state.
+  for (const edge of evidence.ordering.edgesToAnOmittedComponentDecidedByARoute ?? []) {
+    requireCondition(
+      (record.spec?.lifecycle?.routeIntent?.routes ?? []).some((route) => route.id === edge.decidedBy),
+      `${name}: ${edge.component} depends on ${edge.dependsOn}, which the bundle leaves out, and the record carries no ${edge.decidedBy} route that decides it`,
+    );
+  }
   if (unchecked === 0) {
     requireCondition(
       recordStage.resultState !== ATTENTION_STATE && listingStage.resultState !== ATTENTION_STATE,

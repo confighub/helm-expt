@@ -32,6 +32,9 @@ import { join } from "node:path";
 
 import {
   AICR_BUNDLE_PATH_SOURCE,
+  DRA_EVICTION_FLAG,
+  DRA_EVICTION_ROUTE,
+  DRA_LABELER,
   loadAicrRecipeEntries,
   orderingSentences,
 } from "./aicr-recipe-entries.mjs";
@@ -84,6 +87,7 @@ const CHART_NAME = "aicr-bundle";
 const SYNC_WAVE_ROUTE = "routes/sync-wave-ordering.yaml";
 const PLACEHOLDER_ROUTE = "routes/system-node-selector-placeholder.yaml";
 const LEFT_OUT_ROUTE = "routes/components-left-out-of-bundle.yaml";
+const DRA_ROUTE = `routes/${DRA_EVICTION_ROUTE}.yaml`;
 const REQUIREMENTS_FILE = "requirements/target-requirements.yaml";
 
 // One spelling of a value whatever order its keys were written or read in. A
@@ -185,6 +189,7 @@ function buildEntry(recipeEntry, root) {
     answeredRefusals: recipeEntry.receipt.answeredRefusals ?? [],
     leftOutOfBundle: recipeEntry.leftOutOfBundle,
     leftOutEdges: recipeEntry.leftOutEdges,
+    draEviction: recipeEntry.draEvictionPremise,
     ordering: recipeEntry.ordering,
     orderingText: orderingSentences(recipeEntry),
     nestedSources: recipeEntry.nestedSources,
@@ -376,6 +381,43 @@ function leftOutRoute(entry) {
   };
 }
 
+// The generation chose not to opt in to DRA eviction. The route says what was
+// chosen, what AICR logged, what follows for the components, and what to
+// supply to choose otherwise. It is written only for an entry whose own bytes
+// show the premise, and every fact in it comes from this entry's receipt and
+// recipes.
+function draEvictionRoute(entry) {
+  const dependedOnBy = entry.leftOutEdges.filter((edge) => edge.dependsOn === DRA_LABELER).map((edge) => edge.component).sort();
+  return {
+    apiVersion: "evidence.confighub.com/v1alpha1",
+    kind: "BundleRoute",
+    metadata: { name: `${entry.recordName}-${DRA_EVICTION_ROUTE}` },
+    spec: {
+      quirkClass: "omitted-component",
+      routeKind: "generation-input",
+      discharges:
+        `No DRA eviction node label was given at bundle time, so AICR left ${DRA_LABELER} out of this bundle. The selected recipe still lists it${dependedOnBy.length > 0 ? `, and ${dependedOnBy.join(" and ")} depend${dependedOnBy.length === 1 ? "s" : ""} on it in that recipe` : ""}. A destination that wants the labeler supplies an eviction node label at bundle time.`,
+      declaration: {
+        lifecycleWork: "decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts",
+        component: DRA_LABELER,
+        chosenAtGeneration: "no DRA eviction node label",
+        input: { flag: DRA_EVICTION_FLAG, value: "unset" },
+        aicrReason: entry.draEviction.reason,
+        dependedOnBy,
+        toIncludeTheComponent: `Regenerate the bundle with ${DRA_EVICTION_FLAG} set to the node label your cluster uses for DRA eviction. That changes the bundle bytes and every digest of this entry.`,
+        toLeaveItOut: "Record the decision to leave it off.",
+        inThisBundle: false,
+      },
+      executedBy: { invokedBy: "the platform operator, before the first GPU driver upgrade or restart", automatic: false, evidenceState: "not-run" },
+      boundedness: [
+        "The reason is the one AICR logged when it wrote the bundle. It was not checked against a cluster.",
+        "No bundle with an eviction label exists in the Catalog, and no destination has been asked which choice it needs.",
+      ],
+      provenance: provenance([entry.receiptRel, entry.orderingRecipeRel]),
+    },
+  };
+}
+
 // Values the rendered Applications carry in the clear and a reader should know
 // about. They are found by pattern in the bytes, so the list names the file.
 function literalCredentials(entry, read) {
@@ -460,6 +502,9 @@ function spaceGuide(entry, listed, credentials) {
   if (entry.leftOutOfBundle.length > 0) {
     before.push(`The recipe names ${entry.leftOutOfBundle.map((row) => row.name).join(", ")}, and the bundle does not deploy ${entry.leftOutOfBundle.length === 1 ? "it" : "them"}. \`${LEFT_OUT_ROUTE}\` records why.`);
   }
+  if (entry.draEviction.holds) {
+    before.push(`The bundle was generated with no DRA eviction node label, so ${DRA_LABELER} is not deployed. \`${DRA_ROUTE}\` says what to supply to include it.`);
+  }
   for (const credential of credentials) {
     before.push(`\`${credential.file}\` sets \`${credential.key}\` to the literal \`${credential.value}\`. Replace it for any destination that matters.`);
   }
@@ -503,6 +548,9 @@ function generatedFiles(entry, sourcePackage, read) {
   }
   if (entry.leftOutOfBundle.length > 0) {
     add(LEFT_OUT_ROUTE, "route: components-left-out-of-bundle", "The components the recipe names and the bundle does not deploy.", leftOutRoute(entry));
+  }
+  if (entry.draEviction.holds) {
+    add(DRA_ROUTE, `route: ${DRA_EVICTION_ROUTE}`, "The choice not to opt in to DRA eviction, and what to supply to choose otherwise.", draEvictionRoute(entry));
   }
   add(REQUIREMENTS_FILE, "requirement: target", "What the destination must already have.", targetRequirements(entry, sourcePackage, credentials));
   const listed = [
@@ -960,6 +1008,7 @@ export function aicrMirrorOutputs(entries) {
   outputs.push({ rel: `${AICR_MIRROR_DATA_ROOT}/artifacts.csv`, text: `${[header, ...rows].map((row) => row.join(",")).join("\n")}\n` });
   const withPlaceholder = entries.filter((entry) => entry.placeholders.length > 0).length;
   const withLeftOut = entries.filter((entry) => entry.leftOutOfBundle.length > 0).length;
+  const withDraRoute = entries.filter((entry) => entry.draEviction.holds).length;
   const version = entries[0]?.version ?? "";
   outputs.push({
     rel: `${AICR_MIRROR_DATA_ROOT}/summary.md`,
@@ -974,7 +1023,7 @@ export function aicrMirrorOutputs(entries) {
       "",
       "The source package is the retained argocd-helm bundle as a Helm chart OCI artifact, at the reference the Applications name. The literal configuration bundle holds the rendered Applications, the route files, a requirements file and a guide.",
       "",
-      `${withPlaceholder} entries carry a route for the placeholder system node selector, and ${withLeftOut} carry a route for components the recipe names and the bundle does not deploy. Every entry carries the sync-wave ordering route.`,
+      `${withPlaceholder} entries carry a route for the placeholder system node selector, ${withLeftOut} carry a route for components the recipe names and the bundle does not deploy, and ${withDraRoute} carry a route for the choice not to opt in to DRA eviction. Every entry carries the sync-wave ordering route.`,
       "",
       "Each plan records the digest the committed bytes build. No OCI layout is committed, because both artifacts are rebuilt byte for byte from the retained files. This page and the plans do not say whether an artifact is in the registry. An artifact counts as present only when a tracked receipt under `runs/aicr-mirror-artifacts/` records a push and an anonymous pull of exactly that digest. Nothing here has been uploaded to ConfigHub or synced by Argo CD.",
       "",
