@@ -11,8 +11,8 @@ top100,covered by top100 contract,20,122,partial,data/top100-coverage/coverage.c
 top100,partial by top100 contract,102,122,partial,data/top100-coverage/coverage.csv,Rows with at least one coverage contract item still todo.
 top100,average top100 coverage,85,100,partial,data/top100-coverage/coverage.csv,Average of the generated per-chart coverage percentage.
 top100,top100 promotion-review queue,34,102,partial,data/top100-coverage/work-queue.csv,Partial top100 rows ready for catalog promotion review under the strict coverage contract.
-top100,first strict top100 promotion wave,32,34,partial,data/top100-promotion-wave/wave.csv,Promotion-review rows with two-cluster kind parity selected for the first strict top100 promotion wave.
-top100,fast-track top100 promotion candidates,0,32,partial,data/top100-promotion-wave/fast-track.csv,Low-residue promotion-review rows with clean scan/gate state and no hook/CRD/webhook lifecycle class.
+top100,first strict top100 promotion wave,26,34,partial,data/top100-promotion-wave/wave.csv,Promotion-review rows with two-cluster kind parity selected for the first strict top100 promotion wave.
+top100,fast-track top100 promotion candidates,0,26,partial,data/top100-promotion-wave/fast-track.csv,Low-residue promotion-review rows with clean scan/gate state and no hook/CRD/webhook lifecycle class.
 top100,fast-track promotion review packets,0,0,partial,data/top100-promotion-wave/fast-track-reviews/review-packets.csv,Review-input packets for low-residue candidates. These are not support decisions.
 top100,fast-track storage rollback reviews,0,0,partial,data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv,"Rendered storage-shape and rollback-boundary review inputs for low-residue candidates. These are not backup, restore, or support decisions."
 top100,top100 user-shaped variant queue,46,102,partial,data/top100-coverage/work-queue.csv,Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer.

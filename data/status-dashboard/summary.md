@@ -29,8 +29,8 @@ Which detailed CSV should I open next?
 | top100 | partial by top100 contract | 102/122 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | average top100 coverage | 85/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | top100 promotion-review queue | 34/102 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
-| top100 | first strict top100 promotion wave | 32/34 | partial | [data/top100-promotion-wave/wave.csv](../../data/top100-promotion-wave/wave.csv) |
-| top100 | fast-track top100 promotion candidates | 0/32 | partial | [data/top100-promotion-wave/fast-track.csv](../../data/top100-promotion-wave/fast-track.csv) |
+| top100 | first strict top100 promotion wave | 26/34 | partial | [data/top100-promotion-wave/wave.csv](../../data/top100-promotion-wave/wave.csv) |
+| top100 | fast-track top100 promotion candidates | 0/26 | partial | [data/top100-promotion-wave/fast-track.csv](../../data/top100-promotion-wave/fast-track.csv) |
 | top100 | fast-track promotion review packets | 0/0 | partial | [data/top100-promotion-wave/fast-track-reviews/review-packets.csv](../../data/top100-promotion-wave/fast-track-reviews/review-packets.csv) |
 | top100 | fast-track storage rollback reviews | 0/0 | partial | [data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv](../../data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv) |
 | top100 | top100 user-shaped variant queue | 46/102 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
@@ -766,7 +766,7 @@ NGINX-style extension-slot report.
 | Hook chart | Selected base | Current disposition | Next action |
 | --- | --- | --- | --- |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
-| kyverno/kyverno@3.8.1 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
+| kyverno/kyverno@3.9.0 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
 | fluent/fluent-bit@0.57.6 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
 | projectcalico/tigera-operator@v3.32.0 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
 | gatekeeper/gatekeeper@3.22.2 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |

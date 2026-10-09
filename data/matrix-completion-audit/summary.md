@@ -88,9 +88,9 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | karpenter/karpenter@1.14.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | karpenter/karpenter@1.14.0 | eks-inference | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | kedacore/keda@2.19.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
+| kyverno/kyverno@3.8.1 | default | lifecycle | todo | lifecycle route(s) defined (observed:5) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | kyverno/kyverno@3.8.1 | no-crds | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | kyverno/kyverno@3.8.2 | default | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | decide and record the lifecycle route, then observe it live |
-| kyverno/kyverno@3.9.0 | default | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | minio-operator/operator@7.1.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |

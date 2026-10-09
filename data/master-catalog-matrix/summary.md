@@ -481,15 +481,15 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | aicr-eks-training-v0-20-0 | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | aicr-eks-training-v1-0-0 | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `kyverno/kyverno@3.8.1` | F1 | source | (source) | - | - | 8 observed ✅ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+|  | F2a | base | default | - | - | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | no-crds | - | - | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | run | live-parity | ⬜ |
 |  | F2c | candidate review | default-admission | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 |  | F2c | candidate review | external-crds | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 |  | F2c | candidate review | ha-admission-reports | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `kyverno/kyverno@3.8.2` | F1 | source | (source) | - | - | 8 observed ✅ (from @3.8.1) | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | 8 observed ✅ (from @3.8.1) | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-| `kyverno/kyverno@3.9.0` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ (from @3.8.1) | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ (from @3.8.1) | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `kyverno/kyverno@3.9.0` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | stage | lifecycle-observed | ⬜ |
 | `kyverno/kyverno-policies@3.8.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ⚠️ | ✅ | deferred | local-live | ⬜ |
 | `kyverno/kyverno-policies@3.8.2` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |

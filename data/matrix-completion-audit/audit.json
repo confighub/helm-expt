@@ -10631,6 +10631,20 @@
       "chart": "kyverno/kyverno",
       "version": "3.8.1",
       "variant": "default",
+      "lane": "lifecycle",
+      "lane_label": "lifecycle-observed",
+      "state": "todo",
+      "reason": "lifecycle route(s) defined (observed:5) but not yet observed live",
+      "next_action": "observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)",
+      "support_artifact": "data/lifecycle-routes/summary.md",
+      "owner": "catalog",
+      "completion_class": "needs-run",
+      "command": ""
+    },
+    {
+      "chart": "kyverno/kyverno",
+      "version": "3.8.1",
+      "variant": "default",
       "lane": "promotion",
       "lane_label": "variant-promotion (proven)",
       "state": "proven",
@@ -10822,20 +10836,6 @@
       "owner": "tooling/target",
       "completion_class": "needs-target-or-prereq-fix",
       "command": "npm run live-parity:run -- --recipe recipes/kyverno/kyverno/3.9.0 --base default"
-    },
-    {
-      "chart": "kyverno/kyverno",
-      "version": "3.9.0",
-      "variant": "default",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "lifecycle route(s) defined (observed:6) but not yet observed live",
-      "next_action": "decide and record the lifecycle route, then observe it live",
-      "support_artifact": "data/lifecycle-routes/summary.md",
-      "owner": "catalog",
-      "completion_class": "needs-run",
-      "command": ""
     },
     {
       "chart": "kyverno/kyverno",

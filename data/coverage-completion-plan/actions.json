@@ -1609,9 +1609,9 @@
       "linked_issues": "#248; #753",
       "affected_rows": [
         "argo-cd/argo-workflows@1.0.14/controller-default-reviewed [lifecycle]",
+        "kyverno/kyverno@3.8.1/default [lifecycle]",
         "kyverno/kyverno@3.8.1/no-crds [lifecycle]",
         "kyverno/kyverno@3.8.2/default [lifecycle]",
-        "kyverno/kyverno@3.9.0/default [lifecycle]",
         "projectcalico/tigera-operator@v3.32.0/default [L]",
         "prometheus-community/kube-prometheus-stack@84.4.0/aicr-eks-training-v0-20-0 [lifecycle]",
         "prometheus-community/kube-prometheus-stack@84.4.0/aicr-eks-training-v1-0-0 [lifecycle]",

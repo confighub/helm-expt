@@ -7185,8 +7185,10 @@
           "evidence_urls": []
         },
         "lifecycle_observation": {
-          "status": "not_checked",
-          "evidence_urls": []
+          "status": "checked",
+          "evidence_urls": [
+            "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/summary.md"
+          ]
         },
         "local_kubernetes": {
           "status": "not_checked",

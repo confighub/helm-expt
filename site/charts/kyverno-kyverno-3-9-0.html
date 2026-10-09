@@ -570,7 +570,7 @@
 
     <section aria-labelledby="summary">
       <h2 id="summary">What To Use</h2>
-      <p class="stat-strip">default configuration: <strong>69</strong> rendered objects · <strong>6</strong> images · <strong>0</strong> target prerequisites · <strong>6</strong> hook or setup routes · <strong>1/1</strong> checks passing. These counts come from the linked test records.</p>
+      <p class="stat-strip">default configuration: <strong>69</strong> rendered objects · <strong>6</strong> images · <strong>0</strong> target prerequisites · <strong>6</strong> hook or setup routes · <strong>2/2</strong> checks passing. These counts come from the linked test records.</p>
       <div class="grid">
         <div class="metric"><strong>default</strong><span>First recorded base variant</span></div>
         <div class="metric"><strong>1</strong><span>Candidate base variants</span></div>
@@ -849,7 +849,7 @@ ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a  kyverno-kyvern
           <dt>Reason</dt><dd>Promotion needs source and destination ConfigHub Spaces. It has not been tested for this configuration.</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for default">
-          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Saved in ConfigHub</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Local cluster</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Setup route</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>GitOps and OCI</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Live Helm comparison</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Two clusters</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Promotion</b><em>Not run</em></span>
+          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Saved in ConfigHub</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Local cluster</b><em>Not run</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Setup route</b><em>Passed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>GitOps and OCI</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Live Helm comparison</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Two clusters</b><em>Not run</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Promotion</b><em>Not run</em></span>
         </div>
         <p class="row-links"><a href="https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.9.0/CATALOG.md">catalog</a> · <a href="../../recipes/kyverno/kyverno/3.9.0/variants/default/variant.yaml">variant</a> · <a href="../../recipes/kyverno/kyverno/3.9.0/revisions/default/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/kyverno-kyverno-3-9-0-default.yaml" download="kyverno-kyverno-3-9-0-default.render-intent.yaml">render intent</a> · <a href="../../data/base-variant-records/records/kyverno-kyverno-3-9-0-default.yaml" download="kyverno-kyverno-3-9-0-default.base-record.yaml">base record</a> · <a href="../../packages/kyverno/kyverno/3.9.0/bases/default">package base</a> · <a href="https://kyverno.github.io/kyverno" rel="noopener">source repo</a></p>
       </article></div>
@@ -955,8 +955,8 @@ ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a  kyverno-kyvern
           <td data-label="Evidence">No linked result</td>
         </tr><tr>
           <td data-label="Question">Were hooks, CRDs, or setup steps checked?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
+          <td data-label="Status">Checked</td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/summary.md">Evidence</a></td>
         </tr><tr>
           <td data-label="Question">Did this version run on a local Kubernetes cluster?</td>
           <td data-label="Status">Not checked</td>
