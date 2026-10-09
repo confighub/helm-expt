@@ -278,6 +278,13 @@ const checks = [
     file: "site/choose-a-tool.html",
     terms: ["Choose a tool and start", "1. Choose a tool and start", "Why this is more than a fast render command", "Three public jobs", "A graduation path, not a day-one choice", "When your chart is not in the catalog"],
   },
+  // The landing Guide for one deployment. Its commands are the nginx entry's
+  // nextSteps and the walk log's, so the terms here are its sections, the
+  // placeholder names, the known defect and the limits of the dated run.
+  {
+    file: "site/deploy-one-thing.html",
+    terms: ["Deploy one thing, and look before you do", "1. Choose what to deploy", "2. Look first at what it installs and what it needs", "3. Save it and release it", "4. See what success looked like", "5. Know what this run did not cover", "6. Go back", "bitnami-nginx-24-0-2-http-clusterip", "--space &lt;your-space&gt; --component &lt;your-component&gt;", "cub unit delete --space &lt;your-space&gt;-dev installer-record", "work around a known defect", "Argo CD v3.5.4 cannot read it", "cub v0.8.7 and server v0.8.9", "Read the Sync column, because Healthy alone is not a pass", "it is not a receipt for the entry", "It created no staging variant and no production variant", "Deleting the ConfigHub side did not remove the workload", "./journey-preserve-my-fixes.html", "./charts/bitnami-nginx-24-0-2.html#use-in-confighub", "./listings/bitnami-nginx-24-0-2-http-clusterip.json"],
+  },
   // Site IA phase 4, step 8: explanation sections became agent docs.
   {
     file: "site/kubara-and-confighub.html",
@@ -356,6 +363,7 @@ const menuGuidePages = [
 ];
 
 const humanSplitPages = [
+  "site/deploy-one-thing.html",
   "site/bring-sveltos-into-confighub.html",
   "site/bring-argo-into-confighub.html",
   "site/bring-flux-into-confighub.html",
@@ -418,6 +426,10 @@ const guideOpeningChecks = [
   {
     file: "site/deploy-with-flux-or-argo.html",
     headerTerms: ["Keep the reconciler you have", "nothing on this page needs an account", "into a registry you control"],
+  },
+  {
+    file: "site/deploy-one-thing.html",
+    headerTerms: ["Deploy one thing, and look before you do", "Who this is for.", "What you get.", "What each part needs.", "Where you can stop.", "it needs no account and no cluster", "Saving needs a ConfigHub account", "Docker, kind and kubectl"],
   },
   {
     file: "site/ai.html",

@@ -21,6 +21,7 @@ import { scoutUiGuide, configUiGuide } from "./lib/config-ui-guides.mjs";
 import { aiChaosGuide, AI_CHAOS_IMAGES, AI_CHAOS_SOURCE } from "./lib/ai-chaos-guide.mjs";
 import { appLearningPathsHtml } from "./lib/app-learning-paths.mjs";
 import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
+import { deployOneThingGuide, DEPLOY_ONE_ENTRY, DEPLOY_ONE_WALK_PATH } from "./lib/deploy-one-thing-page.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
 import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEPS_HEADING, NEXT_STEPS_TARGET, NEXT_STEP_STATES } from "./lib/entry-next-steps.mjs";
 import { chartCompareCommands, chartDiffSummaryLine, chartPageSlug, compareChartVersions } from "./lib/catalog-chart-pages.mjs";
@@ -798,6 +799,7 @@ const SPLIT_PAGES = [
   { key: "agentsMaintainCatalogHtml", file: "agents-maintain-the-catalog.html", title: "How agents help maintain the Catalog", description: "What agents do for the Catalog, and the record each task needs before it appears on the site.", build: (catalog) => agentsMaintainCatalogHtml(catalog), doc: true, reference: true },
   { key: "publicQuestionsHtml", file: "public-questions.html", title: "What happens to a public question", description: "How a question sent in public becomes a checked answer, a named refusal, or a documented limit.", build: (catalog) => publicQuestionsHtml(catalog), doc: true, reference: true },
   { key: "chooseToolGuideHtml", file: "choose-a-tool.html", title: "Choose a tool and start", description: "Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.", build: () => chooseToolGuideHtml() },
+  { key: "deployOneThingHtml", file: "deploy-one-thing.html", title: "Deploy one thing, and look before you do", description: "Pick one Catalog entry, read the exact objects it installs, then save it in ConfigHub and release it to a local cluster.", build: () => deployOneThingHtml() },
 ];
 const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, title: sectionRows("guides").find((row) => row.id === journey.id)?.title ?? journey.title, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
 
@@ -2328,6 +2330,7 @@ function buildLlmsTxt() {
 - [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
 - [Official ConfigHub tutorial](${CONFIGHUB_TUTORIAL_URL}): the canonical product journey from one component through release, change, production, and promotion.
 - [Try Redis](${SITE_BASE_URL}try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
+- [Deploy one thing, and look before you do](${SITE_BASE_URL}deploy-one-thing.html): follow one Catalog entry, ${DEPLOY_ONE_ENTRY}, from its exact objects to a release on a local kind cluster with Argo CD. The commands are that entry's nextSteps, at ${SITE_BASE_URL}listings/${DEPLOY_ONE_ENTRY}.json. The end state shown is one dated run of 2026-10-08, which is a log and no receipt.
 - [Try AICR](${SITE_BASE_URL}try-aicr.html): anonymously pull one retained AICR configuration, verify the seven-file CPU-starter selection, and write a local OCI without a cluster or GPU.
 - [Timoni Redis source entry](${SITE_BASE_URL}d/examples/timoni/redis-8-10-1/README.html): one immutable module, its typed options, seven exact objects, master-first lifecycle work, and current test limits.
 - [Check my config](${SITE_BASE_URL}ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.
@@ -7837,7 +7840,21 @@ function gitopsOnboardingHtml(kind) {
   return splitGuideHtml({ ...gitopsOnboardingGuide(kind, { install: plugin.install, referenceUrl }), compactAgent: true });
 }
 
-function splitGuideHtml({ title, lead, ask = "", body, css = "", eyebrow = "A Guide", compactAgent = true }) {
+// The Guide that follows one Catalog entry from its exact objects to a release.
+// Its commands come from the entry's listing and from the dated walk log.
+function deployOneThingHtml() {
+  return splitGuideHtml(deployOneThingGuide({
+    listing: readListingFile(DEPLOY_ONE_ENTRY),
+    walkLog: readFileSync(join(repoRoot, DEPLOY_ONE_WALK_PATH), "utf8"),
+    check,
+    commandBlock,
+    markdownLikeTable,
+    agentNote,
+  }));
+}
+
+// opening is a block of labelled lines that sits in the header under the lead.
+function splitGuideHtml({ title, lead, opening = "", ask = "", body, css = "", eyebrow = "A Guide", compactAgent = true }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -7852,7 +7869,7 @@ ${topNav(".")}
     <p class="eyebrow">${escapeHtml(eyebrow)}</p>
     <h1>${escapeHtml(title)}</h1>
     <p class="lead">${lead}</p>
-${ask ? (compactAgent ? `<details><summary>Prefer to do this with your AI agent?</summary>${agentNote(ask, "Give this to your agent")}</details>` : `    ${agentNote(ask, "Give this to your agent")}`) : ""}
+${opening}${ask ? (compactAgent ? `<details><summary>Prefer to do this with your AI agent?</summary>${agentNote(ask, "Give this to your agent")}</details>` : `    ${agentNote(ask, "Give this to your agent")}`) : ""}
   </header>
   <main>
 ${renumberSections(body)}  </main>
