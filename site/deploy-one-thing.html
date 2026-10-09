@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deploy one thing, and look before you do · ConfigHub Workshop</title>
+  <meta name="description" content="Pick one Catalog entry, read the exact objects it installs, then save it in ConfigHub and release it to a local cluster.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/deploy-one-thing.html">
+  <meta property="og:title" content="Deploy one thing, and look before you do · ConfigHub Workshop">
+  <meta property="og:description" content="Pick one Catalog entry, read the exact objects it installs, then save it in ConfigHub and release it to a local cluster.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/deploy-one-thing.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .app-learning-cards { display: grid; gap: 20px; margin: 26px 0; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
+    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .calm-page main section { padding-top: 8px; }
+    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
+      gap: 22px;
+      align-items: start;
+    }
+    .calm-page .card,
+    .calm-page .metric,
+    .calm-page .lane,
+    .calm-page .faq-card,
+    .calm-page .door,
+    .calm-page .tier,
+    .calm-page .matrix-row-card,
+    .calm-page .move-card,
+    .calm-page .node,
+    .calm-page .consumer,
+    .calm-page .app-step,
+    .calm-page .op,
+    .calm-page .route div,
+    .calm-page .callout-section {
+      border: 0;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 14px 0 0;
+    }
+    .calm-page .metric strong { font-size: 1.4rem; }
+    .calm-page .metric strong,
+    .calm-page .kicker,
+    .calm-page .eyebrow,
+    .calm-page .generated,
+    .calm-page .tier .stage,
+    .calm-page .chain a::before,
+    .calm-page .faq-status,
+    .calm-page .row-layer,
+    .calm-page .row-kind,
+    .calm-page .lane-pill b,
+    .calm-page .terminal-title {
+      font-family: inherit;
+    }
+    .calm-page p code,
+    .calm-page li code,
+    .calm-page td code,
+    .calm-page th code,
+    .calm-page dd code,
+    .calm-page .mono-line code {
+      font-family: inherit;
+      font-size: .92em;
+    }
+    .calm-page pre,
+    .calm-page pre code,
+    .calm-page .terminal-body,
+    .calm-page .terminal-body code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .calm-page .metric span,
+    .calm-page .card p,
+    .calm-page .lane p,
+    .calm-page .faq-card p,
+    .calm-page .op p {
+      max-width: none;
+    }
+    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
+    .calm-page .mini-visual,
+    .calm-page .proof-frame {
+      border-radius: 0;
+      background: transparent;
+      border-color: var(--line);
+    }
+    .calm-page .chain a,
+    .calm-page .button.secondary,
+    .calm-page .chips span {
+      border-radius: 6px;
+      background: transparent;
+    }
+    .calm-page .route,
+    .calm-page .app-flow,
+    .calm-page .move-spine {
+      gap: 22px;
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+    .site-footer { border-top: 1px solid var(--line); margin-top: 56px; background: var(--surface-2); }
+  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 28px 20px 36px; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 22px 30px; }
+  .site-footer .sf-group { display: flex; flex-direction: column; gap: 7px; }
+  .site-footer .sf-h { font-family: var(--mono, ui-monospace, monospace); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin-bottom: 2px; }
+  .site-footer a { text-decoration: none; color: var(--muted); font-size: .86rem; }
+  .site-footer a:hover { color: var(--accent-ink, var(--ink)); }
+  .site-footer .sf-cta a { color: var(--accent-ink, var(--ink)); font-weight: 600; }
+  @media (max-width: 720px) { .site-footer-inner { grid-template-columns: 1fr 1fr; } }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  :root { --cw-body: .9375rem; --cw-nav: .875rem; --cw-meta: .8125rem; --cw-lead: 1rem; }
+  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--sans, Inter, system-ui, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 700; }
+  h2, h3 { font-weight: 600; }
+  .cw-content h1 { font-size: clamp(1.75rem, 2.8vw, 2.25rem); line-height: 1.2; }
+  .cw-content h2 { font-size: 1.375rem; line-height: 1.35; }
+  .cw-content h3 { font-size: 1.0625rem; line-height: 1.4; }
+  .cw-content .lead, .cw-content .tagline { font-size: var(--cw-lead); line-height: 1.65; }
+  .cw-content { font-size: var(--cw-body); line-height: 1.65; }
+  .topbar { font-size: var(--cw-nav); }
+  .topbar .site-purpose { font-family: var(--sans); font-size: var(--cw-meta); text-transform: none; }
+  .topbar .brand, .navlinks a.nav-cta { border-color: transparent; background: transparent; }
+  .cw-nav-title a { color: var(--ink); text-decoration: none; }
+  .cw-nav-title a:hover { text-decoration: underline; }
+  .cw-content :is(.eyebrow, .kicker, .generated), .site-footer .sf-h { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; }
+  .cw-content :is(.button, .route-help > summary, details.deep > summary) { font-size: var(--cw-body); }
+  .cw-content :is(p, li, td) > code { border: 0; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  .cw-guide .cw-content { max-width: 880px; }
+  .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
+  .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
+  .cw-content pre { max-width: 100%; overflow-x: auto; }
+  .cw-content summary { cursor: pointer; padding: 10px 0; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cw-skip { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 6px; }
+  .cw-skip:focus { top: 12px; }
+  @media (max-width: 600px) {
+    .cw-layout { padding: 0 16px; }
+    .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 200px; }
+    .cw-guide .cw-content h1 { overflow-wrap: anywhere; }
+  }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: var(--cw-nav); }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; line-height: 1.5; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { min-height: 44px; cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body class="calm-page">
+<a class="cw-skip" href="#cw-content">Skip to content</a>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout no-toc cw-guide">
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./deploy-one-thing.html#choose">1. Choose what to deploy</a></li><li><a href="./deploy-one-thing.html#look-first">2. Look first at what it installs and what it needs</a></li><li><a href="./deploy-one-thing.html#save-and-release">3. Save it and release it</a></li><li><a href="./deploy-one-thing.html#success">4. See what success looked like</a></li><li><a href="./deploy-one-thing.html#not-covered">5. Know what this run did not cover</a></li><li><a href="./deploy-one-thing.html#go-back">6. Go back</a></li></ul>
+      <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
+      <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
+</nav>
+<div class="cw-content" id="cw-content" tabindex="-1">
+<details class="cw-mobile-nav"><summary>In this Guide</summary><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="./guides.html">All Guides</a></li><li><a href="./deploy-one-thing.html#choose">1. Choose what to deploy</a></li><li><a href="./deploy-one-thing.html#look-first">2. Look first at what it installs and what it needs</a></li><li><a href="./deploy-one-thing.html#save-and-release">3. Save it and release it</a></li><li><a href="./deploy-one-thing.html#success">4. See what success looked like</a></li><li><a href="./deploy-one-thing.html#not-covered">5. Know what this run did not cover</a></li><li><a href="./deploy-one-thing.html#go-back">6. Go back</a></li></ul>
+      <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
+      <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
+</details>
+  <header class="hero human-hero">
+
+    <p class="eyebrow">A Guide</p>
+    <h1>Deploy one thing, and look before you do</h1>
+    <p class="lead">Pick one Catalog entry and read the exact Kubernetes objects it installs. Then save it in ConfigHub, release it to a cluster, and compare your result with one dated run.</p>
+    <p><strong>Who this is for.</strong> You want to deploy one app or package, and you want to see what it installs before anything runs.</p>
+    <p><strong>What you get.</strong> You get the exact objects for one Catalog entry, the commands that saved and released it, and the end state that one dated run reached.</p>
+    <p><strong>What each part needs.</strong> Looking needs <code>curl</code>, <code>shasum</code>, <code>kustomize</code> and <code>cub</code> with the installer plugin, and it needs no account and no cluster. Comparing two bases also needs the workshop plugin. Saving needs a ConfigHub account. Releasing and promoting need that account, Docker, kind and kubectl. One command then creates a local kind cluster and installs Argo CD on it.</p>
+    <p><strong>Where you can stop.</strong> Stop after the look, and nothing is saved anywhere. Stop after the save, and the entry is in ConfigHub with nothing on a cluster.</p>
+
+  </header>
+  <main>
+    <section aria-labelledby="choose">
+      <h2 id="choose">1. Choose what to deploy</h2>
+      <p>Start from what you have. Each row leads to a page that is on this site today.</p>
+      <div class="card"><table>
+        <thead><tr><th>You start from</th><th>Go to</th><th>What you find there</th></tr></thead>
+        <tbody><tr><td>A Helm chart</td><td><a href="./charts/index.html">Configs</a></td><td>Search for the chart and its version. The chart page lists the tested starting configurations and carries the five steps this page follows.</td></tr><tr><td>An AICR recipe</td><td><a href="./charts/index.html">Configs</a>, then <a href="./try-aicr.html">Compare GPU nodes and pull an AICR config</a></td><td>Configs lists the AICR entries too, and each entry page carries the same five steps. The second page pulls one retained configuration to read, with no GPU.</td></tr><tr><td>A stack</td><td><a href="./stack.html">Stacks</a></td><td>Every shipped stack is listed with the check that looks for conflicts between its parts before anything renders.</td></tr><tr><td>An example app</td><td><a href="./apps.html">Apps</a>, then <a href="./put-an-app-on-a-platform.html">Put an app on a platform</a></td><td>Apps lists every worked example app. The Guide checks one app against the platform it would run on.</td></tr><tr><td>Your own YAML or OCI</td><td><a href="./ask.html">Is my configuration right?</a>, then <a href="./oci.html">OCI shapes</a></td><td>The first page checks your own chart and values, or YAML you have already rendered. The second names each OCI shape and the tool that reads it.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>The steps on this page come from the five steps that chart pages and AICR entry pages carry. Stacks and apps have their own checks, so this page does not describe one path for every kind.</p>
+      <p>Each entry page says what the Catalog has run for that entry. A step with a missing precondition gives no command there.</p>
+      <p>This page follows one entry, <code>bitnami-nginx-24-0-2-http-clusterip</code>, because a dated walk delivered it. It is the <code>http-clusterip</code> base of bitnami/nginx 24.0.2, and <a href="./charts/bitnami-nginx-24-0-2.html#use-in-confighub">its entry page</a> holds the full steps.</p>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Read the same steps as data at <a href="./listings/bitnami-nginx-24-0-2-http-clusterip.json">listings/bitnami-nginx-24-0-2-http-clusterip.json</a>, in the <code>nextSteps</code> array. A command marked <code>needsAccount</code> there contacts ConfigHub, and one marked <code>writes</code> changes it. The dated log is <code>docs/user/live-walk-entry-steps-2026-10-08.md</code>, and it is no receipt.</aside>
+    </section>
+    <section aria-labelledby="look-first">
+      <h2 id="look-first">2. Look first at what it installs and what it needs</h2>
+      <p>These commands need no account and no cluster. <a href="./try.html#install-cub">Install cub and the installer plugin</a> first, and that section also checks for <code>kustomize</code>.</p>
+      <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+  <pre class="terminal-body"><code><span class="term-comment"># fetch the exact objects the Catalog keeps for this entry</span>
+<span class="term-prompt">$</span> curl -fsSL -o bitnami-nginx-24-0-2-http-clusterip.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml
+
+<span class="term-comment"># check the bytes against the listing</span>
+<span class="term-prompt">$</span> shasum -a 256 bitnami-nginx-24-0-2-http-clusterip.yaml
+7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba  bitnami-nginx-24-0-2-http-clusterip.yaml
+
+<span class="term-comment"># render the same base from the signed package, into a directory you can upload later</span>
+<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 --base http-clusterip --work-dir ./bitnami-nginx-24-0-2-http-clusterip --non-interactive --namespace nginx</code></pre>
+      <p>The line under <code>shasum</code> is the value the listing expects. In the walk of 2026-10-08 the digest matched.</p>
+      <p>The file holds 5 objects. They are a Deployment, a NetworkPolicy, a PodDisruptionBudget, a Service and a ServiceAccount. In the walk the installer rendered 6 manifests, because it adds a Namespace.</p>
+      <p>The <a href="./charts/bitnami-nginx-24-0-2.html">entry page</a> records nothing that must exist before you apply this base. It lists 0 target prerequisites and 0 hook or setup routes.</p>
+      <p>The listing marks install-time inputs as not yet declared. The Catalog has therefore not ruled out a need on your own cluster.</p>
+      <h3 id="compare">Compare it with the other base</h3>
+      <p>This version has one other base in the Catalog, <code>existing-tls-ingress</code>. The comparison uses <code>cub config diff</code>, which the workshop plugin adds, and the entry page gives the install line.</p>
+      <pre class="terminal-body"><code><span class="term-comment"># fetch the other base of the same version</span>
+<span class="term-prompt">$</span> curl -fsSL -o bitnami-nginx-24-0-2-existing-tls-ingress.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml
+
+<span class="term-comment"># list what differs between the two bases</span>
+<span class="term-prompt">$</span> cub config diff bitnami-nginx-24-0-2-http-clusterip.yaml bitnami-nginx-24-0-2-existing-tls-ingress.yaml --summary
+Configuration diff: 1 added, 0 removed, 1 changed, 4 unchanged</code></pre>
+      <p>The line under the second command is what the walk of 2026-10-08 printed. The entry page also compares this version with a later one.</p>
+    </section>
+    <section aria-labelledby="save-and-release">
+      <h2 id="save-and-release">3. Save it and release it</h2>
+      <p>Every command in this section needs a ConfigHub account, because each one reads or writes your organization.</p>
+      <h3 id="save">Save it in ConfigHub, with an account</h3>
+      <p>A <strong>Space</strong> groups related Units, such as one base or one environment. A <strong>Unit</strong> is one versioned piece of configuration, and the upload makes one for each rendered object.</p>
+      <pre class="terminal-body"><code><span class="term-comment"># sign in to your ConfigHub organization</span>
+<span class="term-prompt">$</span> cub auth login
+
+<span class="term-comment"># upload the rendered directory as a Space of Units, under names you choose</span>
+<span class="term-prompt">$</span> cub installer upload --work-dir ./bitnami-nginx-24-0-2-http-clusterip --space &lt;your-space&gt; --component &lt;your-component&gt;
+
+<span class="term-comment"># list the Units the upload created</span>
+<span class="term-prompt">$</span> cub unit list --space &lt;your-space&gt;</code></pre>
+      <p>Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
+      <p>In the walk the upload created one Space with 7 Units. Six are the rendered objects, and the seventh is <code>installer-record</code>, which the upload adds.</p>
+      <p>You can stop here. The entry is saved in ConfigHub and nothing is on a cluster.</p>
+      <h3 id="cluster">Create a local cluster, with Docker and kind</h3>
+      <p>A <strong>Target</strong> defines where ConfigHub delivers the Units in a Space. This command creates a kind cluster, installs Argo CD on it, and creates the Target <code>workshop/target</code>.</p>
+      <pre class="terminal-body"><code><span class="term-comment"># create the cluster, its Argo CD and its Target</span>
+<span class="term-prompt">$</span> cub cluster up --name workshop --no-argobot</code></pre>
+      <p>The walk ran this command with a cluster name of its own and with <code>--no-argobot</code>. Without that flag the command also installs argobot, and the walk did not observe that path.</p>
+      <p>The command changes your machine and your organization. It creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.</p>
+      <p>It also prints the Argo CD admin password to the terminal.</p>
+      <h3 id="release">Release it to that cluster</h3>
+      <p>A <strong>Release</strong> is the published set of a Space's Units, and the cluster's Argo CD pulls it. The first command copies the base into a <code>dev</code> variant, which is a Space for one environment.</p>
+      <pre class="terminal-body"><code><span class="term-comment"># copy the base onto the Target as a dev variant</span>
+<span class="term-prompt">$</span> cub variant create dev &lt;your-space&gt; --target workshop/target --space-pattern &quot;template:&lt;your-space&gt;-dev&quot;
+
+<span class="term-comment"># publish the Release that the cluster's Argo CD pulls</span>
+<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev
+
+<span class="term-comment"># delete the installer record, which Argo CD cannot read</span>
+<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
+
+<span class="term-comment"># publish again without it</span>
+<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
+      <p>The delete and the second publish work around a known defect. The cloned <code>installer-record</code> Unit carries the Target, and Argo CD v3.5.4 cannot read it. The walk saw this on cub v0.8.7 and server v0.8.9.</p>
+      <p>Without the delete the walk deployed nothing, and every <code>cub</code> command still exited 0. The walk ran the four commands in this order and did not try them without the first publish.</p>
+      <h3 id="promote">Promote a change to dev</h3>
+      <p>Promotion carries a change in the base to the <code>dev</code> variant. In the walk the change was one replica to two on the Deployment Unit in the base, and <a href="./d/docs/user/live-walk-entry-steps-2026-10-08.html#entry-a-bitnami-nginx-24-0-2-http-clusterip">its log</a> holds that command.</p>
+      <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
+<span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --dry-run -o mutations
+
+<span class="term-comment"># promote once you have read the preview</span>
+<span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># delete the installer record that the promotion adds back</span>
+<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
+
+<span class="term-comment"># publish the Release that carries the change</span>
+<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
+      <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
+    </section>
+    <section aria-labelledby="success">
+      <h2 id="success">4. See what success looked like</h2>
+      <p>This is what the walk of 2026-10-08 printed after the second publish. Its names start with <code>cwwalk-1008-</code>, the prefix that session put on everything it created.</p>
+      <pre class="terminal-body"><code><span class="term-comment"># the Argo CD Application, with its sync and its health</span>
+<span class="term-prompt">$</span> kubectl -n argocd get applications.argoproj.io
+NAME                                                  SYNC STATUS   HEALTH STATUS
+cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev   Synced        Healthy
+cwwalk-1008-kind-argo-apps                            Synced        Healthy
+
+<span class="term-comment"># the workload on the cluster</span>
+<span class="term-prompt">$</span> kubectl -n nginx get deployment,service,pods,networkpolicy,pdb
+deployment.apps/nginx   1/1     1            1           38s
+service/nginx   ClusterIP   10.96.194.125   &lt;none&gt;        80/TCP,443/TCP   38s
+pod/nginx-d9699d4ff-ps556   1/1     Running   0          37s
+networkpolicy.networking.k8s.io/nginx   app.kubernetes.io/instance=nginx,app.kubernetes.io/name=nginx   38s
+poddisruptionbudget.policy/nginx   N/A             1                 1                     38s</code></pre>
+      <p>Read the Sync column, because Healthy alone is not a pass. Before the delete, the same command showed <code>Unknown</code> and <code>Healthy</code>, and nothing from the entry was on the cluster.</p>
+      <p>ConfigHub shows nothing when Argo CD fails to read a Release, so this command is the check. Argo CD took between 18 seconds and about 5 minutes to read a Release on that cluster.</p>
+      <p>After the promotion, the delete and one more publish, the walk ended with the Application <code>Synced</code> and <code>Healthy</code> and two of two replicas running.</p>
+      <p>This is a dated record of one run, on one disposable local kind cluster with Argo CD. <a href="./d/docs/user/live-walk-entry-steps-2026-10-08.html#entry-a-bitnami-nginx-24-0-2-http-clusterip">The log</a> says it is not a receipt for the entry, so no Catalog state rests on it.</p>
+    </section>
+    <section aria-labelledby="not-covered">
+      <h2 id="not-covered">5. Know what this run did not cover</h2>
+      <ul>
+        <li>The walk created the <code>dev</code> variant only. It created no staging variant and no production variant, so this page prints no command for either.</li>
+        <li>The walk did not run <code>cub auth login</code>, because the session used an existing login.</li>
+        <li>The walk did not try Flux or plain kubectl delivery.</li>
+        <li>The cluster ran without argobot, so the walk did not observe the result with argobot.</li>
+        <li>The Catalog's own delivery record for this entry ran other commands. The four release commands above have no recorded run, and they rest on the dated log alone.</li>
+      </ul>
+      <p>To see whether your change survives a refresh from upstream, follow <a href="./journey-preserve-my-fixes.html">AI overwrites my fixes</a>. For every step and every caution, open <a href="./charts/bitnami-nginx-24-0-2.html#use-in-confighub">the entry page</a>.</p>
+    </section>
+    <section aria-labelledby="go-back">
+      <h2 id="go-back">6. Go back</h2>
+      <p>The walk removed this entry from ConfigHub with the first four commands, and it removed the cluster with the fifth. They delete what the earlier commands created, so run them only on names you chose.</p>
+      <pre class="terminal-body"><code><span class="term-comment"># remove the Argo CD Application Unit from the cluster's apps Space</span>
+<span class="term-prompt">$</span> cub unit delete --space workshop-argo-apps &lt;your-space&gt;-dev
+
+<span class="term-comment"># publish the apps Space without it</span>
+<span class="term-prompt">$</span> cub release publish workshop-argo-apps
+
+<span class="term-comment"># delete the dev Space</span>
+<span class="term-prompt">$</span> cub space delete --recursive &lt;your-space&gt;-dev
+
+<span class="term-comment"># delete the base Space</span>
+<span class="term-prompt">$</span> cub space delete --recursive &lt;your-space&gt;
+
+<span class="term-comment"># delete the kind cluster and the two Spaces that came with it</span>
+<span class="term-prompt">$</span> cub cluster down --name workshop --delete-config</code></pre>
+      <p>The apps Space takes the cluster's name, so it is <code>workshop-argo-apps</code> here.</p>
+      <p>Deleting the ConfigHub side did not remove the workload. Fourteen minutes later the Application and its two pods were still on the cluster, because the root Application does not prune.</p>
+      <p>The walk recorded no command that removes the workload and keeps the cluster. It also recorded no clean-up for the files the look wrote on the machine.</p>
+    </section>
+  </main>
+</div>
+</div>
+<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./try-aicr.html">GPU nodes and AICR</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
+</body>
+</html>
