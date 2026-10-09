@@ -534,6 +534,7 @@
 
 <p>Steps 1 to 5 run on your machine with Helm and <code>cub</code>, with no account and no cluster. The comparison reads configuration only. The Catalog holds this chart at four versions, each with several bases. This Guide renders the chart itself, so you can pass your own values. It does not test the chart on a cluster or say an upgrade is safe. Step 6 is optional. It makes the same comparisons inside ConfigHub, and it needs an account.</p>
 <p>You can run the steps yourself or <a href="#a-task-for-an-assistant">give an assistant the task</a>.</p>
+<p>If your question is which of these changes can restart pods on GPU nodes or take a node out of service, read <a href="#what-a-changed-field-can-do-to-a-gpu-node">what a changed field can do to a GPU node</a> after step 4.</p>
 <h2 id="set-up-the-tools">Set up the tools</h2>
 <p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://helm.sh/docs/intro/install/">Helm</a>. Then install the Workshop plugin release this Guide was checked with (version 0.6.57).</p>
 <pre><code>cub plugin install confighub/cub-workshop@v0.6.57</code></pre>
@@ -604,11 +605,48 @@ cub config diff driver-before.yaml driver-after.yaml</code></pre>
   changed: nvidia.com/v1 ClusterPolicy (namespace unspecified)/cluster-policy
     /spec/driver/version replace: &quot;580.105.08&quot; -&gt; &quot;580.126.20&quot;
 Local comparison only. This does not merge, protect edits or inspect a live target.</code></pre>
-<p>One field changes on one object. The version string appears once in each render, on the ClusterPolicy. What the operator does on each node after that field changes is outside this diff.</p>
+<p>One field changes on one object. The version string appears once in each render, on the ClusterPolicy. What the operator does on each node after that field changes is outside this diff. NVIDIA documents it, and <a href="#what-a-changed-field-can-do-to-a-gpu-node">step 5 sets it out</a>.</p>
 <p>Keep the result as a file in the same way.</p>
 <pre><code>cub config diff driver-before.yaml driver-after.yaml --json --out driver.json</code></pre>
 <p>This Guide does not check that driver <code>580.126.20</code> exists for your operating system. It does not check that chart v25.10.1 supports that driver either. Check both in NVIDIA's documentation before you use the value.</p>
 <h2 id="5-know-what-the-diff-does-not-show">5. Know what the diff does not show</h2>
+<h3 id="what-a-changed-field-can-do-to-a-gpu-node">What a changed field can do to a GPU node</h3>
+<p>The diff names fields. It cannot show what the operator does when it reads them. This part maps the fields from steps 2 to 4 to what NVIDIA documents. The Catalog has observed none of it, because the one cluster it delivered to had no GPU.</p>
+<p>NVIDIA separates two cases. Its page <a href="https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/upgrade.html">Upgrading the NVIDIA GPU Operator</a> says most of the DaemonSets the operator manages update in place, and that the driver DaemonSet needs special care. Its page <a href="https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/gpu-driver-upgrades.html">GPU Driver Upgrades</a> describes that care.</p>
+<h4 id="a-driver-version-change-takes-gpu-workloads-off-each-node-in-turn">A driver version change takes GPU workloads off each node in turn</h4>
+<p>When the driver version changes, the operator's upgrade controller moves each GPU node through a fixed sequence. It cordons the node. It waits for the pods or jobs you told it to wait for. It deletes the pods that hold GPUs. It restarts the driver pod at the new version, validates the node and uncordons it. A workload that uses a GPU on that node stops when its pod is deleted. NVIDIA's page does not say whether those pods are rescheduled. That depends on what created them.</p>
+<p>The rendered ClusterPolicy carries the settings that govern the sequence, under <code>spec.driver.upgradePolicy</code>. All four chart versions in the Catalog render the same values on the default base.</p>
+<table><thead><tr><th>Field</th><th>Rendered value</th><th>What NVIDIA documents for it</th></tr></thead><tbody><tr><td><code>autoUpgrade</code></td><td><code>true</code></td><td>The upgrade controller acts on the affected nodes without a further step from you. Set it to <code>false</code> to pause automatic driver upgrades.</td></tr>
+<tr><td><code>maxParallelUpgrades</code></td><td><code>1</code></td><td>One node is upgraded at a time.</td></tr>
+<tr><td><code>maxUnavailable</code></td><td><code>25%</code></td><td>At most a quarter of the affected nodes are unavailable during the upgrade.</td></tr>
+<tr><td><code>drain.enable</code></td><td><code>false</code></td><td>The node is not drained. A drain is a fallback for when deleting the GPU pods fails, and it evicts every pod on the node.</td></tr>
+<tr><td><code>podDeletion.force</code></td><td><code>false</code></td><td>This group controls the deletion of pods that hold GPUs. NVIDIA's page says force must be on to evict GPU pods that no controller manages.</td></tr>
+<tr><td><code>waitForCompletion.timeoutSeconds</code></td><td><code>0</code></td><td>A value of <code>0</code> waits without limit for the pods or jobs you select. The render selects none.</td></tr></tbody></table>
+<p>Three more things from the same page are worth knowing before a driver change. A node labelled <code>nvidia.com/gpu-driver-upgrade.skip=true</code> is left out. A node whose upgrade fails is labelled <code>upgrade-failed</code>, and the page gives the label that starts it again. A note on the same page says GPU pods are evicted whenever the driver DaemonSet specification is updated, so the driver version may not be the only field that starts the sequence.</p>
+<p>Read your own values before you rely on this table. Check <code>spec.driver.upgradePolicy</code> in your render, because a values file can change every row.</p>
+<pre><code>grep -n -A 14 &quot;upgradePolicy:&quot; gpu-operator-26.3.3.yaml</code></pre>
+<h4 id="which-version-steps-change-the-driver">Which version steps change the driver</h4>
+<p>These are the versions the chart's default values render. A values file that pins <code>driver.version</code> keeps the driver where you pinned it.</p>
+<table><thead><tr><th>Step</th><th>Driver</th><th>Container toolkit</th><th>Device plugin and GPU feature discovery</th><th>Also changes</th></tr></thead><tbody><tr><td>v25.10.1 to v26.3.2</td><td><code>580.105.08</code> to <code>580.126.20</code></td><td><code>v1.18.1</code> to <code>v1.19.1</code></td><td><code>v0.18.1</code> to <code>v0.19.2</code></td><td>DCGM exporter, MIG manager, validator</td></tr>
+<tr><td>v26.3.2 to v26.3.3</td><td>no change</td><td>no change</td><td><code>v0.19.2</code> to <code>v0.19.3</code></td><td>validator</td></tr>
+<tr><td>v26.3.3 to v26.7.1</td><td><code>580.126.20</code> to <code>595.91.07</code></td><td><code>v1.19.1</code> to <code>v1.20.1</code></td><td><code>v0.19.3</code> to <code>v0.20.1</code></td><td>DCGM exporter, MIG manager, validator</td></tr></tbody></table>
+<p>So the patch step in step 3 does not change the driver, and the sequence above does not start on its account. The step from v25.10.1 to v26.3.3 in step 2 does change it, unless your values pin the driver.</p>
+<p>Check this for your own pair of renders. The command prints every changed field under <code>spec.driver</code>, and nothing when there is none.</p>
+<pre><code>cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml | grep &quot;/spec/driver/&quot;
+cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml | grep &quot;/spec/driver/&quot;</code></pre>
+<p>The first command prints nothing. The second prints two lines.</p>
+<pre><code>    /spec/driver/manager/version replace: &quot;v0.9.1&quot; -&gt; &quot;v0.11.0&quot;
+    /spec/driver/version replace: &quot;580.105.08&quot; -&gt; &quot;580.126.20&quot;</code></pre>
+<p>The second pair also changes the driver manager version, which sits under the same <code>spec.driver</code> settings.</p>
+<h4 id="the-other-version-fields-replace-pods-and-leave-the-node-in-service">The other version fields replace pods and leave the node in service</h4>
+<p>Each of the other version fields on the ClusterPolicy names the image of a DaemonSet the operator runs on GPU nodes. These are the container toolkit, the device plugin, GPU feature discovery, the DCGM exporter, the MIG manager and the validator. When a version changes, the operator updates that DaemonSet, and its pods are replaced. The render sets <code>spec.daemonsets.updateStrategy</code> to <code>RollingUpdate</code> with <code>maxUnavailable</code> of <code>1</code>, so the pods are replaced one node at a time.</p>
+<p>NVIDIA's upgrade page says most of these DaemonSets upgrade without special handling. It does not say what a running GPU workload sees while the device plugin or the container toolkit pod restarts on its node, and the Catalog has not measured it. Treat that as an open question for your own workloads.</p>
+<p>Two changed fields in step 3 replace nothing on a GPU node. <code>spec.nodeStatusExporter.version</code> changes, and the render sets <code>spec.nodeStatusExporter.enabled</code> to <code>false</code>, so the operator runs no such pods. The image of the <code>gpu-operator</code> Deployment changes, which restarts the operator's own pod.</p>
+<h4 id="four-questions-and-how-far-this-guide-answers-them">Four questions, and how far this Guide answers them</h4>
+<table><thead><tr><th>Question</th><th>What you have after this Guide</th></tr></thead><tbody><tr><td>Is this candidate safe to deploy to my clusters?</td><td>Not answered. The diff shows what changes. Whether the new driver supports your operating system, kernel and GPUs is in NVIDIA's documentation.</td></tr>
+<tr><td>Can it deploy without disruption?</td><td>Partly. The diff and the table above tell you whether the driver sequence starts and which settings govern it. Nothing here was observed on a GPU node.</td></tr>
+<tr><td>Would a rollback keep my workloads and their data?</td><td>Not answered. Moving the driver version back is another driver version change, and it runs the same sequence.</td></tr>
+<tr><td>Has the reversal been shown to work?</td><td>No. The Catalog has no run of an upgrade or a rollback of this chart.</td></tr></tbody></table>
 <h3 id="the-diff-compares-files-not-a-cluster">The diff compares files, not a cluster</h3>
 <p>Both inputs are files that Helm rendered from the chart's default values. Your cluster can hold other values, edits made in place and objects that exist only there. Neither file contains them.</p>
 <p>Each JSON file names four things the comparison did not check, under <code>notChecked</code>.</p>
